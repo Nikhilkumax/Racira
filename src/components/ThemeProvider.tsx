@@ -14,19 +14,25 @@ const ThemeContext = createContext<ThemeContextType>({ theme: "light", toggleThe
 export const useTheme = () => useContext(ThemeContext);
 
 export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
-  const [theme, setTheme] = useState<Theme>(() => {
-    if (typeof window !== "undefined") {
-      return (localStorage.getItem("rc-theme") as Theme) || "light";
-    }
-    return "light";
-  });
+  // Always start with "light" to match SSR — then apply stored preference after mount
+  const [theme, setTheme] = useState<Theme>("light");
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    const stored = localStorage.getItem("rc-theme") as Theme | null;
+    if (stored === "dark") {
+      setTheme("dark");
+    }
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
     const root = document.documentElement;
     root.classList.remove("light", "dark");
     root.classList.add(theme);
     localStorage.setItem("rc-theme", theme);
-  }, [theme]);
+  }, [theme, mounted]);
 
   const toggleTheme = () => setTheme((t) => (t === "light" ? "dark" : "light"));
 

@@ -1,9 +1,11 @@
 "use client";
 
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Breadcrumb from "@/components/Breadcrumb";
 import PopularCalculators from "@/components/PopularCalculators";
 import { getCalculatorBySlug } from "@/data/calculatorRegistry";
+import { ArrowLeft } from "lucide-react";
 
 const ComingSoonPage = () => {
   const pathname = usePathname();
@@ -30,9 +32,16 @@ const ComingSoonPage = () => {
         <div className="card-calculator text-center py-16 mb-8">
           <p className="text-4xl mb-4">🚧</p>
           <p className="text-lg font-semibold text-foreground mb-2">Coming Soon</p>
-          <p className="text-sm text-muted-foreground max-w-md mx-auto">
+          <p className="text-sm text-muted-foreground max-w-md mx-auto mb-6">
             We&apos;re building this calculator with the same professional-grade accuracy as our existing tools. Check back soon!
           </p>
+          <Link
+            href="/calculator"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary text-white text-sm font-semibold hover:opacity-90 transition-opacity"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Back to Calculators
+          </Link>
         </div>
 
         <PopularCalculators exclude={`/calculator/${slug}`} />

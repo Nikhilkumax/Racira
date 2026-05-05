@@ -38,9 +38,9 @@ const AmortizationTable = ({ rows, yearly = false }: { rows: AmortRow[]; yearly?
             {displayRows.map((r) => (
               <tr key={r.period} className="border-t border-border hover:bg-secondary/30 transition-colors">
                 <td className="px-3 py-2 text-muted-foreground">{r.period}</td>
-                <td className="px-3 py-2 text-right">{fmt(r.payment)}</td>
-                <td className="px-3 py-2 text-right text-accent">{fmt(r.principal)}</td>
-                <td className="px-3 py-2 text-right text-muted-foreground">{fmt(r.interest)}</td>
+                <td className="px-3 py-2 text-right text-foreground font-medium">{fmt(r.payment)}</td>
+                <td className="px-3 py-2 text-right text-[hsl(217,91%,40%)] dark:text-primary font-medium">{fmt(r.principal)}</td>
+                <td className="px-3 py-2 text-right text-foreground">{fmt(r.interest)}</td>
                 <td className="px-3 py-2 text-right font-medium">{fmt(Math.max(0, r.balance))}</td>
               </tr>
             ))}

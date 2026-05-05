@@ -86,6 +86,7 @@ const SearchCalculators = () => {
             <Link
               key={c.slug}
               href={`/calculator/${c.slug}`}
+              prefetch={true}
               onClick={() => { setQuery(""); setOpen(false); }}
               className="flex items-center gap-3 w-full px-4 py-2.5 text-left hover:bg-muted/60 transition-colors"
             >

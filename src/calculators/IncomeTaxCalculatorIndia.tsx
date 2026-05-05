@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
@@ -143,7 +143,7 @@ const IncomeTaxCalculatorIndia = () => {
 
                 <div className="p-4 rounded-lg bg-accent/10 border border-accent/30 mb-6 text-center">
                   <p className="text-sm text-muted-foreground">Better Regime</p>
-                  <p className="text-2xl font-bold text-accent">{result.betterRegime}</p>
+                  <p className="text-2xl font-bold text-[hsl(217,91%,40%)] dark:text-primary">{result.betterRegime}</p>
                   <p className="text-sm text-muted-foreground">You save ₹{result.savings.toLocaleString("en-IN")}</p>
                 </div>
 

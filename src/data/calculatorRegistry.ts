@@ -82,15 +82,15 @@ export const calculatorRegistry: CalculatorDef[] = [
   { slug: "nps-calculator", name: "NPS Calculator", description: "Plan National Pension System contributions and retirement corpus.", category: "Finance", subcategory: "Savings", icon: Target, isBuilt: true },
   { slug: "sukanya-samriddhi-calculator", name: "Sukanya Samriddhi Calculator", description: "Calculate Sukanya Samriddhi Yojana maturity amount for girl child.", category: "Finance", subcategory: "Savings", icon: Heart, isBuilt: true },
   { slug: "gratuity-calculator", name: "Gratuity Calculator", description: "Calculate gratuity amount based on salary and years of service.", category: "Finance", subcategory: "Employment", icon: Award, isBuilt: true },
-  { slug: "hra-calculator", name: "HRA Calculator", description: "Calculate HRA exemption under Section 10(13A) of Income Tax Act.", category: "Finance", subcategory: "Tax", icon: Home, isBuilt: true },
+  { slug: "hra-calculator", name: "HRA Calculator", description: "Calculate HRA exemption under Section 10(13A) of Income Tax Act.", category: "Finance", subcategory: "Income & Tax", icon: Home, isBuilt: true },
   { slug: "da-calculator", name: "DA Calculator", description: "Calculate Dearness Allowance based on latest CPI index.", category: "Finance", subcategory: "Employment", icon: TrendingUp, isBuilt: true },
   { slug: "leave-encashment-calculator", name: "Leave Encashment Calculator", description: "Calculate leave encashment amount with tax exemption.", category: "Finance", subcategory: "Employment", icon: Calendar, isBuilt: true },
-  { slug: "income-tax-calculator-india", name: "Income Tax Calculator (India)", description: "Compare old vs new tax regime and find optimal tax-saving strategy.", category: "Finance", subcategory: "Tax", icon: Receipt, isBuilt: true },
-  { slug: "gst-calculator", name: "GST Calculator", description: "GST/VAT calculator with CGST, SGST, and IGST split.", category: "Finance", subcategory: "Tax", icon: Globe, isBuilt: true },
-  { slug: "tds-calculator", name: "TDS Calculator", description: "Calculate Tax Deducted at Source for salary, FD, and other income.", category: "Finance", subcategory: "Tax", icon: Receipt, isBuilt: true },
-  { slug: "professional-tax-calculator", name: "Professional Tax Calculator", description: "Calculate state-wise professional tax deduction from salary.", category: "Finance", subcategory: "Tax", icon: Briefcase, isBuilt: true },
-  { slug: "stamp-duty-calculator", name: "Stamp Duty Calculator", description: "Calculate stamp duty and registration charges for property purchase.", category: "Finance", subcategory: "Tax", icon: Building, isBuilt: true },
-  { slug: "home-loan-emi-calculator-india", name: "Home Loan EMI Calculator (India)", description: "Calculate home loan EMI with Indian bank rates and tax benefits.", category: "Finance", subcategory: "Loans", icon: Home },
+  { slug: "income-tax-calculator-india", name: "Income Tax Calculator (India)", description: "Compare old vs new tax regime and find optimal tax-saving strategy.", category: "Finance", subcategory: "Income & Tax", icon: Receipt, isBuilt: true },
+  { slug: "gst-calculator", name: "GST Calculator", description: "GST/VAT calculator with CGST, SGST, and IGST split.", category: "Finance", subcategory: "Income & Tax", icon: Globe, isBuilt: true },
+  { slug: "tds-calculator", name: "TDS Calculator", description: "Calculate Tax Deducted at Source for salary, FD, and other income.", category: "Finance", subcategory: "Income & Tax", icon: Receipt, isBuilt: true },
+  { slug: "professional-tax-calculator", name: "Professional Tax Calculator", description: "Calculate state-wise professional tax deduction from salary.", category: "Finance", subcategory: "Income & Tax", icon: Briefcase, isBuilt: true },
+  { slug: "stamp-duty-calculator", name: "Stamp Duty Calculator", description: "Calculate stamp duty and registration charges for property purchase.", category: "Finance", subcategory: "Income & Tax", icon: Building, isBuilt: true },
+  { slug: "home-loan-emi-calculator-india", name: "Home Loan EMI Calculator (India)", description: "Calculate home loan EMI with Indian bank rates and tax benefits.", category: "Finance", subcategory: "Loans & Mortgages", icon: Home },
 
   // ══════════════════════════════════════════════
   // 📊 INVESTMENT & RETIREMENT

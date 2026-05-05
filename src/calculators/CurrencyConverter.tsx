@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
@@ -64,7 +64,7 @@ const CurrencyConverter = () => {
           <h2 className="text-lg font-semibold text-foreground mb-4">Result</h2>
           <div className="result-card">
             <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">{fromCur.label} → {toCur.label}</p>
-            <p className="text-2xl font-bold text-accent">{fromCur.symbol}{fmt(v)} = {toCur.symbol}{fmt(result)}</p>
+            <p className="text-2xl font-bold text-[hsl(217,91%,40%)] dark:text-primary">{fromCur.symbol}{fmt(v)} = {toCur.symbol}{fmt(result)}</p>
           </div>
           <p className="text-xs text-muted-foreground mt-2">Rate: 1 {from} = {fmt(fromCur.rateToUSD / toCur.rateToUSD)} {to}</p>
 

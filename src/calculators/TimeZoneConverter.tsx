@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
@@ -102,7 +102,7 @@ const TimeZoneConverter = () => {
             </div>
             <div className="result-card">
               <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Converted Time</p>
-              <p className="text-xl font-bold text-accent">{formatTime(resultH, resultM)}</p>
+              <p className="text-xl font-bold text-[hsl(217,91%,40%)] dark:text-primary">{formatTime(resultH, resultM)}</p>
               <p className="text-sm text-muted-foreground">{format24(resultH, resultM)} • {zones.find(z => z.key === toZone)?.label}</p>
             </div>
           </div>

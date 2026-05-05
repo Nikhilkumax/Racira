@@ -142,7 +142,6 @@ export default function CalculatorPage({ params }: Props) {
   }
 
   const CalculatorComponent = dynamic(importFn, {
-    ssr: false,
     loading: () => (
       <div className="flex min-h-[50vh] items-center justify-center text-muted-foreground">
         Loading Calculator...

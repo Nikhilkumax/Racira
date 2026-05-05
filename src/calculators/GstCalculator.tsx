@@ -120,28 +120,28 @@ const GSTCalculator = () => {
                     <tbody>
                       <tr className="border-t border-border">
                         <td className="px-4 py-3 text-muted-foreground">Taxable Amount</td>
-                        <td className="px-4 py-3 text-right">₹{result.netAmount.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                        <td className="px-4 py-3 text-right text-foreground font-medium">₹{result.netAmount.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
                       </tr>
                       {!isIGST ? (
                         <>
                           <tr className="border-t border-border">
                             <td className="px-4 py-3 text-muted-foreground">CGST @ {parseFloat(gstRate) / 2}%</td>
-                            <td className="px-4 py-3 text-right">₹{result.cgst.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                            <td className="px-4 py-3 text-right text-foreground font-medium">₹{result.cgst.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
                           </tr>
                           <tr className="border-t border-border">
                             <td className="px-4 py-3 text-muted-foreground">SGST @ {parseFloat(gstRate) / 2}%</td>
-                            <td className="px-4 py-3 text-right">₹{result.sgst.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                            <td className="px-4 py-3 text-right text-foreground font-medium">₹{result.sgst.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
                           </tr>
                         </>
                       ) : (
                         <tr className="border-t border-border">
                           <td className="px-4 py-3 text-muted-foreground">IGST @ {gstRate}%</td>
-                          <td className="px-4 py-3 text-right">₹{result.igst.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                          <td className="px-4 py-3 text-right text-foreground font-medium">₹{result.igst.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
                         </tr>
                       )}
                       <tr className="border-t border-border bg-secondary/30">
                         <td className="px-4 py-3 font-semibold text-foreground">Total</td>
-                        <td className="px-4 py-3 text-right font-bold text-accent">₹{result.totalAmount.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                        <td className="px-4 py-3 text-right font-bold text-[hsl(217,91%,40%)] dark:text-primary">₹{result.totalAmount.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
                       </tr>
                     </tbody>
                   </table>

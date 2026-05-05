@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
@@ -129,7 +129,7 @@ const MolarityCalculator = () => {
                   <div className="grid sm:grid-cols-2 gap-3 mt-4">
                     <div className="result-card">
                       <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Molarity</p>
-                      <p className="text-xl font-bold text-accent">{molRes.molarity.toFixed(4)} M</p>
+                      <p className="text-xl font-bold text-[hsl(217,91%,40%)] dark:text-primary">{molRes.molarity.toFixed(4)} M</p>
                     </div>
                     <div className="result-card">
                       <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Moles</p>
@@ -178,19 +178,19 @@ const MolarityCalculator = () => {
                   <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 mt-4">
                     <div className="result-card">
                       <p className="text-xs text-muted-foreground mb-1 uppercase">C₁</p>
-                      <p className={`text-xl font-bold ${dilRes.solved === "c1" ? "text-accent" : "text-foreground"}`}>{dilRes.c1.toFixed(4)} M</p>
+                      <p className={`text-xl font-bold ${dilRes.solved === "c1" ? "text-[hsl(217,91%,40%)] dark:text-primary" : "text-foreground"}`}>{dilRes.c1.toFixed(4)} M</p>
                     </div>
                     <div className="result-card">
                       <p className="text-xs text-muted-foreground mb-1 uppercase">V₁</p>
-                      <p className={`text-xl font-bold ${dilRes.solved === "v1" ? "text-accent" : "text-foreground"}`}>{dilRes.v1.toFixed(4)} L</p>
+                      <p className={`text-xl font-bold ${dilRes.solved === "v1" ? "text-[hsl(217,91%,40%)] dark:text-primary" : "text-foreground"}`}>{dilRes.v1.toFixed(4)} L</p>
                     </div>
                     <div className="result-card">
                       <p className="text-xs text-muted-foreground mb-1 uppercase">C₂</p>
-                      <p className={`text-xl font-bold ${dilRes.solved === "c2" ? "text-accent" : "text-foreground"}`}>{dilRes.c2.toFixed(4)} M</p>
+                      <p className={`text-xl font-bold ${dilRes.solved === "c2" ? "text-[hsl(217,91%,40%)] dark:text-primary" : "text-foreground"}`}>{dilRes.c2.toFixed(4)} M</p>
                     </div>
                     <div className="result-card">
                       <p className="text-xs text-muted-foreground mb-1 uppercase">V₂</p>
-                      <p className={`text-xl font-bold ${dilRes.solved === "v2" ? "text-accent" : "text-foreground"}`}>{dilRes.v2.toFixed(4)} L</p>
+                      <p className={`text-xl font-bold ${dilRes.solved === "v2" ? "text-[hsl(217,91%,40%)] dark:text-primary" : "text-foreground"}`}>{dilRes.v2.toFixed(4)} L</p>
                     </div>
                   </div>
                 )}

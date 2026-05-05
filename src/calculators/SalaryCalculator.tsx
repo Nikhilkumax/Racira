@@ -121,7 +121,7 @@ const SalaryCalculator = () => {
                       ].map(([label, val]) => (
                         <tr key={label as string} className="border-t border-border hover:bg-secondary/30">
                           <td className="px-4 py-3 font-medium text-foreground">{label}</td>
-                          <td className="px-4 py-3 text-right text-accent font-semibold">${(val as number).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                          <td className="px-4 py-3 text-right text-[hsl(217,91%,40%)] dark:text-primary font-semibold">${(val as number).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
                         </tr>
                       ))}
                     </tbody>

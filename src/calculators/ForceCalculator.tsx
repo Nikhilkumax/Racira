@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
@@ -93,15 +93,15 @@ const ForceCalculator = () => {
               <div className="grid sm:grid-cols-3 gap-3">
                 <div className="result-card">
                   <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Force</p>
-                  <p className={`text-xl font-bold ${solveFor === "force" ? "text-accent" : "text-foreground"}`}>{result.force.toFixed(4)} N</p>
+                  <p className={`text-xl font-bold ${solveFor === "force" ? "text-[hsl(217,91%,40%)] dark:text-primary" : "text-foreground"}`}>{result.force.toFixed(4)} N</p>
                 </div>
                 <div className="result-card">
                   <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Mass</p>
-                  <p className={`text-xl font-bold ${solveFor === "mass" ? "text-accent" : "text-foreground"}`}>{result.mass.toFixed(4)} kg</p>
+                  <p className={`text-xl font-bold ${solveFor === "mass" ? "text-[hsl(217,91%,40%)] dark:text-primary" : "text-foreground"}`}>{result.mass.toFixed(4)} kg</p>
                 </div>
                 <div className="result-card">
                   <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Acceleration</p>
-                  <p className={`text-xl font-bold ${solveFor === "acceleration" ? "text-accent" : "text-foreground"}`}>{result.acceleration.toFixed(4)} m/s²</p>
+                  <p className={`text-xl font-bold ${solveFor === "acceleration" ? "text-[hsl(217,91%,40%)] dark:text-primary" : "text-foreground"}`}>{result.acceleration.toFixed(4)} m/s²</p>
                 </div>
               </div>
               {weight !== null && (

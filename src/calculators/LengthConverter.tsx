@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
@@ -65,7 +65,7 @@ const LengthConverter = () => {
           <h2 className="text-lg font-semibold text-foreground mb-4">Result</h2>
           <div className="result-card">
             <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">{fromUnit.label} → {toUnit.label}</p>
-            <p className="text-2xl font-bold text-accent">{fmt(v)} → {fmt(result)}</p>
+            <p className="text-2xl font-bold text-[hsl(217,91%,40%)] dark:text-primary">{fmt(v)} → {fmt(result)}</p>
           </div>
           <h3 className="text-md font-semibold text-foreground mt-6 mb-3">All Conversions</h3>
           <div className="grid sm:grid-cols-3 gap-3">

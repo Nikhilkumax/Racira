@@ -47,8 +47,8 @@ export default function Home() {
       </section>
 
       {/* Category Grid */}
-      <div className="max-w-7xl mx-auto px-4 pb-8">
-        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4 justify-items-center">
+      <div className="max-w-7xl mx-auto px-4 pb-4 sm:pb-8">
+        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4 justify-items-center calculator-category-grid">
           {categoryOrder.map(cat => {
             const items = categories.get(cat) || [];
             const Icon = getCategoryIcon(cat);
@@ -56,7 +56,7 @@ export default function Home() {
               <Link
                 key={cat}
                 href={`#${cat.toLowerCase().replace(/\s+&\s+/g, "-").replace(/\s+/g, "-")}`}
-                className="category-nav-card group"
+                className="category-nav-card group calculator-category-card"
               >
                 <div className="tool-card-icon h-14 w-14 mb-5 rounded-2xl">
                   <Icon className="h-[30.6px] w-[30.6px] text-primary" />

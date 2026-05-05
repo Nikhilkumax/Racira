@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
@@ -96,17 +96,17 @@ const SpeedDistanceTimeCalculator = () => {
             <div className="grid sm:grid-cols-3 gap-3 mt-6">
               <div className="result-card">
                 <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Speed</p>
-                <p className={`text-xl font-bold ${solveFor === "speed" ? "text-accent" : "text-foreground"}`}>{result.speed.toFixed(2)} km/h</p>
+                <p className={`text-xl font-bold ${solveFor === "speed" ? "text-[hsl(217,91%,40%)] dark:text-primary" : "text-foreground"}`}>{result.speed.toFixed(2)} km/h</p>
                 <p className="text-xs text-muted-foreground mt-0.5">{(result.speed / 3.6).toFixed(2)} m/s</p>
               </div>
               <div className="result-card">
                 <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Distance</p>
-                <p className={`text-xl font-bold ${solveFor === "distance" ? "text-accent" : "text-foreground"}`}>{result.distance.toFixed(2)} km</p>
+                <p className={`text-xl font-bold ${solveFor === "distance" ? "text-[hsl(217,91%,40%)] dark:text-primary" : "text-foreground"}`}>{result.distance.toFixed(2)} km</p>
                 <p className="text-xs text-muted-foreground mt-0.5">{(result.distance * 1000).toFixed(0)} m</p>
               </div>
               <div className="result-card">
                 <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Time</p>
-                <p className={`text-xl font-bold ${solveFor === "time" ? "text-accent" : "text-foreground"}`}>{result.time.toFixed(4)} hours</p>
+                <p className={`text-xl font-bold ${solveFor === "time" ? "text-[hsl(217,91%,40%)] dark:text-primary" : "text-foreground"}`}>{result.time.toFixed(4)} hours</p>
                 <p className="text-xs text-muted-foreground mt-0.5">{formatTime(result.time)}</p>
               </div>
             </div>

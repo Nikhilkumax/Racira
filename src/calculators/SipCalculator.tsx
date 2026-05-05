@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
@@ -115,7 +115,7 @@ const SIPCalculator = () => {
                               <td className="py-2 px-3">{d.year}</td>
                               <td className="py-2 px-3 text-right">₹{d.invested.toLocaleString("en-IN", { maximumFractionDigits: 0 })}</td>
                               <td className="py-2 px-3 text-right font-medium">₹{d.value.toLocaleString("en-IN", { maximumFractionDigits: 0 })}</td>
-                              <td className="py-2 px-3 text-right text-accent">₹{(d.value - d.invested).toLocaleString("en-IN", { maximumFractionDigits: 0 })}</td>
+                              <td className="py-2 px-3 text-right text-[hsl(217,91%,40%)] dark:text-primary">₹{(d.value - d.invested).toLocaleString("en-IN", { maximumFractionDigits: 0 })}</td>
                             </tr>
                           ))}
                         </tbody>

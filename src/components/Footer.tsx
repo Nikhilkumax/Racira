@@ -35,10 +35,10 @@ const Footer = () => {
               Company
             </h3>
             <ul className="space-y-3 text-sm">
-              <li><a href="#about" className="text-foreground/80 hover:text-foreground">About</a></li>
-              <li><a href="#contact" className="text-foreground/80 hover:text-foreground">Contact</a></li>
-              <li><a href="#privacy" className="text-foreground/80 hover:text-foreground">Privacy</a></li>
-              <li><a href="#terms" className="text-foreground/80 hover:text-foreground">Terms</a></li>
+              <li><Link href="/about" className="text-foreground/80 hover:text-foreground">About</Link></li>
+              <li><Link href="/contact" className="text-foreground/80 hover:text-foreground">Contact</Link></li>
+              <li><Link href="/privacy-policy" className="text-foreground/80 hover:text-foreground">Privacy</Link></li>
+              <li><Link href="/terms-of-service" className="text-foreground/80 hover:text-foreground">Terms</Link></li>
             </ul>
           </div>
         </div>

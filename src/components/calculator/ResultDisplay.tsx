@@ -18,7 +18,7 @@ const ResultDisplay = ({ items, currency = "$" }: { items: ResultItem[]; currenc
     {items.map((item) => (
       <div key={item.label} className="result-card">
         <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">{item.label}</p>
-        <p className={`text-xl font-bold ${item.highlight ? "text-accent" : "text-foreground"}`}>
+        <p className={`text-xl font-bold ${item.highlight ? "text-[hsl(217,91%,40%)] dark:text-primary" : "text-foreground"}`}>
           {item.textValue || fmtCurrency(item.value, currency)}
         </p>
       </div>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
@@ -98,15 +98,15 @@ const DensityCalculator = () => {
             <div className="grid sm:grid-cols-3 gap-3 mt-6">
               <div className="result-card">
                 <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Density</p>
-                <p className={`text-xl font-bold ${solveFor === "density" ? "text-accent" : "text-foreground"}`}>{result.density.toFixed(4)} kg/m³</p>
+                <p className={`text-xl font-bold ${solveFor === "density" ? "text-[hsl(217,91%,40%)] dark:text-primary" : "text-foreground"}`}>{result.density.toFixed(4)} kg/m³</p>
               </div>
               <div className="result-card">
                 <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Mass</p>
-                <p className={`text-xl font-bold ${solveFor === "mass" ? "text-accent" : "text-foreground"}`}>{result.mass.toFixed(4)} kg</p>
+                <p className={`text-xl font-bold ${solveFor === "mass" ? "text-[hsl(217,91%,40%)] dark:text-primary" : "text-foreground"}`}>{result.mass.toFixed(4)} kg</p>
               </div>
               <div className="result-card">
                 <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Volume</p>
-                <p className={`text-xl font-bold ${solveFor === "volume" ? "text-accent" : "text-foreground"}`}>{result.volume.toFixed(4)} m³</p>
+                <p className={`text-xl font-bold ${solveFor === "volume" ? "text-[hsl(217,91%,40%)] dark:text-primary" : "text-foreground"}`}>{result.volume.toFixed(4)} m³</p>
               </div>
             </div>
           )}

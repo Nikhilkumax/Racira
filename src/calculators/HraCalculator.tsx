@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
@@ -96,15 +96,15 @@ const HRACalculator = () => {
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
                       <span className="text-muted-foreground">1. Actual HRA Received</span>
-                      <span className={`font-medium ${result.exempt === result.rule1 ? "text-accent" : ""}`}>₹{result.rule1.toLocaleString("en-IN")}</span>
+                      <span className={`font-medium ${result.exempt === result.rule1 ? "text-[hsl(217,91%,40%)] dark:text-primary" : ""}`}>₹{result.rule1.toLocaleString("en-IN")}</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-muted-foreground">2. {isMetro ? "50%" : "40%"} of Basic + DA</span>
-                      <span className={`font-medium ${result.exempt === result.rule2 ? "text-accent" : ""}`}>₹{result.rule2.toLocaleString("en-IN")}</span>
+                      <span className={`font-medium ${result.exempt === result.rule2 ? "text-[hsl(217,91%,40%)] dark:text-primary" : ""}`}>₹{result.rule2.toLocaleString("en-IN")}</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-muted-foreground">3. Rent - 10% of Basic + DA</span>
-                      <span className={`font-medium ${result.exempt === result.rule3 ? "text-accent" : ""}`}>₹{result.rule3.toLocaleString("en-IN")}</span>
+                      <span className={`font-medium ${result.exempt === result.rule3 ? "text-[hsl(217,91%,40%)] dark:text-primary" : ""}`}>₹{result.rule3.toLocaleString("en-IN")}</span>
                     </div>
                     <div className="border-t border-border pt-2 flex justify-between font-semibold">
                       <span>Exempt Amount (Minimum)</span>

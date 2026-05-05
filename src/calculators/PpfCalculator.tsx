@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
@@ -94,7 +94,7 @@ const PPFCalculator = () => {
                           <tr key={d.year} className="border-b border-border/50">
                             <td className="py-2 px-3">{d.year}</td>
                             <td className="py-2 px-3 text-right">₹{d.deposit.toLocaleString("en-IN")}</td>
-                            <td className="py-2 px-3 text-right text-accent">₹{d.interest.toLocaleString("en-IN", { maximumFractionDigits: 0 })}</td>
+                            <td className="py-2 px-3 text-right text-[hsl(217,91%,40%)] dark:text-primary">₹{d.interest.toLocaleString("en-IN", { maximumFractionDigits: 0 })}</td>
                             <td className="py-2 px-3 text-right font-medium">₹{d.balance.toLocaleString("en-IN", { maximumFractionDigits: 0 })}</td>
                           </tr>
                         ))}

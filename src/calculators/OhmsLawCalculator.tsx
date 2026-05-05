@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
@@ -108,19 +108,19 @@ const OhmsLawCalculator = () => {
             <div className="grid sm:grid-cols-2 gap-3 mt-6">
               <div className="result-card">
                 <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Voltage</p>
-                <p className={`text-xl font-bold ${solveFor === "voltage" ? "text-accent" : "text-foreground"}`}>{result.voltage.toFixed(4)} V</p>
+                <p className={`text-xl font-bold ${solveFor === "voltage" ? "text-[hsl(217,91%,40%)] dark:text-primary" : "text-foreground"}`}>{result.voltage.toFixed(4)} V</p>
               </div>
               <div className="result-card">
                 <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Current</p>
-                <p className={`text-xl font-bold ${solveFor === "current" ? "text-accent" : "text-foreground"}`}>{result.current.toFixed(4)} A</p>
+                <p className={`text-xl font-bold ${solveFor === "current" ? "text-[hsl(217,91%,40%)] dark:text-primary" : "text-foreground"}`}>{result.current.toFixed(4)} A</p>
               </div>
               <div className="result-card">
                 <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Resistance</p>
-                <p className={`text-xl font-bold ${solveFor === "resistance" ? "text-accent" : "text-foreground"}`}>{result.resistance.toFixed(4)} Ω</p>
+                <p className={`text-xl font-bold ${solveFor === "resistance" ? "text-[hsl(217,91%,40%)] dark:text-primary" : "text-foreground"}`}>{result.resistance.toFixed(4)} Ω</p>
               </div>
               <div className="result-card">
                 <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Power</p>
-                <p className={`text-xl font-bold ${solveFor === "power" ? "text-accent" : "text-foreground"}`}>{result.power.toFixed(4)} W</p>
+                <p className={`text-xl font-bold ${solveFor === "power" ? "text-[hsl(217,91%,40%)] dark:text-primary" : "text-foreground"}`}>{result.power.toFixed(4)} W</p>
               </div>
             </div>
           )}

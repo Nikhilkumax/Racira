@@ -81,14 +81,14 @@
     --secondary-foreground: 210 40% 98%;
     --muted: 217 33% 17%;
     --muted-foreground: 215 20% 65%;
-    --accent: 217 91% 60% / 0.15;
-    --accent-foreground: 213 94% 78%;
+    --accent: 217 91% 65%;
+    --accent-foreground: 0 0% 100%;
     --destructive: 0 63% 31%;
     --destructive-foreground: 210 40% 98%;
     --border: 217 25% 18%;
     --input: 217 25% 18%;
     --ring: 217 91% 60%;
-    --tool-icon-bg: 217 91% 60% / 0.15;
+    --tool-icon-bg: 217 33% 20%;
     --hero-text-gradient: linear-gradient(90deg, hsl(213 94% 68%), hsl(217 91% 75%));
     --gradient-hero: radial-gradient(1200px 600px at 50% -10%, hsl(217 33% 15%) 0%, transparent 70%),
                      linear-gradient(180deg, hsl(222 47% 7%) 0%, hsl(222 47% 8%) 100%);
@@ -192,6 +192,30 @@
   .prose-finance ul {
     @apply list-disc list-inside mb-4 space-y-1;
   }
+
+  /* Readable accent color for output values in light mode */
+  /* (bg-accent remains the light blue for button backgrounds) */
+  .text-accent-value {
+    color: hsl(224 76% 40%);
+  }
+  .dark .text-accent-value {
+    color: hsl(var(--primary));
+  }
+
+  /* Legacy aliases used by older calculator components */
+  .calculator-container {
+    @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8;
+  }
+  .calculator-title {
+    @apply text-3xl sm:text-4xl font-extrabold mb-2 text-foreground;
+  }
+  .calculator-subtitle {
+    @apply text-muted-foreground mb-8;
+  }
+  .calculator-card {
+    @apply bg-card rounded-xl p-6 sm:p-8 mb-8;
+    box-shadow: 0 10px 30px -10px hsl(222 47% 11% / 0.1);
+  }
 }
 
 @layer utilities {
@@ -213,5 +237,18 @@
   .hover-lift:hover {
     transform: translateY(-3px);
     box-shadow: 0 8px 24px hsl(var(--primary) / 0.12);
+  }
+}
+
+/* Mobile category card spacing fix */
+@media (max-width: 640px) {
+  .calculator-category-grid {
+    gap: 1rem !important;
+  }
+
+  .calculator-category-card {
+    width: 100% !important;
+    height: auto !important;
+    margin-bottom: 0 !important;
   }
 }
