@@ -156,12 +156,24 @@
   .container-page {
     @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
     width: 100%;
+    overflow-x: hidden;
+  }
+
+  /*
+   * FIX: CSS Grid items default to min-width:auto, which prevents them
+   * from shrinking below their content's intrinsic width. This causes
+   * wide elements (like amortization tables) to expand the grid item,
+   * which expands the page on mobile. Setting min-width:0 on all grid
+   * children inside container-page fixes this globally for every calculator.
+   */
+  .container-page .grid > * {
+    min-width: 0;
+    overflow-x: hidden;
   }
 
   .card-calculator {
     @apply bg-card rounded-xl p-6 sm:p-8;
     box-shadow: 0 10px 30px -10px hsl(222 47% 11% / 0.1);
-    /* Prevent children (like tables) from overflowing the card on mobile */
     min-width: 0;
     overflow: hidden;
   }

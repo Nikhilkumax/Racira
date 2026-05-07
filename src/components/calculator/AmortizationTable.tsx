@@ -24,7 +24,7 @@ const AmortizationTable = ({ rows, yearly = false }: { rows: AmortRow[]; yearly?
         {yearly ? "Yearly" : "Monthly"} Amortization Schedule
       </h3>
       <div className="w-full max-w-full overflow-x-auto rounded-lg border border-border">
-        <table className="min-w-[420px] w-full text-sm">
+        <table className="w-full text-sm">
           <thead>
             <tr className="bg-secondary text-foreground">
               <th className="px-3 py-2 text-left font-medium">{yearly ? "Year" : "Month"}</th>
