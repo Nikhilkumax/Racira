@@ -186,7 +186,7 @@ const CompoundInterestCalculator = () => {
                 <InputField id="months" label="Additional Months" value={months} onChange={setMonths} tooltip="Additional months beyond whole years." />
               </div>
 
-              <button type="button" onClick={() => setShowAdvanced(!showAdvanced)} className="flex items-center gap-2 text-sm font-medium text-accent hover:underline mb-4">
+              <button type="button" onClick={() => setShowAdvanced(!showAdvanced)} className="flex items-center gap-2 text-sm font-medium text-primary hover:underline mb-4">
                 Advanced Options
                 <ChevronDown className={`h-4 w-4 transition-transform ${showAdvanced ? "rotate-180" : ""}`} />
               </button>
@@ -211,7 +211,7 @@ const CompoundInterestCalculator = () => {
               <div className="card-calculator mb-8" ref={printRef}>
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="text-xl font-bold">Investment Growth Results</h2>
-                  <button onClick={handlePrint} className="flex items-center gap-1.5 text-sm text-accent hover:underline">
+                  <button onClick={handlePrint} className="flex items-center gap-1.5 text-sm text-primary hover:underline">
                     <Printer className="h-4 w-4" /> Print
                   </button>
                 </div>
@@ -264,7 +264,7 @@ const CompoundInterestCalculator = () => {
 
                 {/* Year table */}
                 <div className="mt-6">
-                  <button onClick={() => setShowTable(!showTable)} className="text-sm text-accent hover:underline">
+                  <button onClick={() => setShowTable(!showTable)} className="text-sm text-primary hover:underline">
                     {showTable ? "Hide" : "Show"} Annual Schedule
                   </button>
                   {showTable && (
@@ -285,7 +285,7 @@ const CompoundInterestCalculator = () => {
                               <td className="px-3 py-2 text-muted-foreground">{row.year}</td>
                               <td className="px-3 py-2 text-right font-medium">{fmt(row.balance)}</td>
                               <td className="px-3 py-2 text-right">{fmt(row.contributions)}</td>
-                              <td className="px-3 py-2 text-right text-accent">{fmt(row.interest)}</td>
+                              <td className="px-3 py-2 text-right text-primary">{fmt(row.interest)}</td>
                               <td className="px-3 py-2 text-right text-muted-foreground">{fmt(row.inflationAdjusted)}</td>
                             </tr>
                           ))}

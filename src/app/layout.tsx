@@ -8,6 +8,11 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Racira | All Your Essential Tools. One Platform.",
   description: "A unified platform for the everyday tools you actually use — fast, private, and built for the browser.",
+  icons: {
+    icon: '/racira-logo-icon.png',
+    shortcut: '/racira-logo-icon.png',
+    apple: '/racira-logo-icon.png',
+  },
 };
 
 export default function RootLayout({

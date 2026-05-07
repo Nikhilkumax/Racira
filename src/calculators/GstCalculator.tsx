@@ -88,7 +88,7 @@ const GSTCalculator = () => {
 
               <div className="flex flex-wrap gap-4 mb-6 text-sm">
                 <label className="flex items-center gap-2">
-                  <input type="checkbox" checked={isIGST} onChange={(e) => setIsIGST(e.target.checked)} className="h-4 w-4 rounded border-input text-accent" />
+                  <input type="checkbox" checked={isIGST} onChange={(e) => setIsIGST(e.target.checked)} className="h-4 w-4 rounded border-input text-primary" />
                   <span className="text-foreground">Inter-State (IGST)</span>
                 </label>
               </div>

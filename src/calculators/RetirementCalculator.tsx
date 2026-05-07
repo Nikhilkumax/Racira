@@ -243,7 +243,7 @@ const RetirementCalculator = () => {
               </div>
             )}
 
-            <button onClick={handlePrint} className="flex items-center gap-1.5 text-sm text-accent hover:underline mb-8">
+            <button onClick={handlePrint} className="flex items-center gap-1.5 text-sm text-primary hover:underline mb-8">
               <Printer className="h-4 w-4" /> Print Results
             </button>
 

@@ -245,7 +245,7 @@ const MortgageCalculator = () => {
               <button
                 type="button"
                 onClick={() => setShowAdvanced(!showAdvanced)}
-                className="flex items-center gap-2 text-sm font-medium text-accent hover:underline mb-4"
+                className="flex items-center gap-2 text-sm font-medium text-primary hover:underline mb-4"
               >
                 Advanced Options
                 <ChevronDown className={`h-4 w-4 transition-transform ${showAdvanced ? "rotate-180" : ""}`} />
@@ -277,7 +277,7 @@ const MortgageCalculator = () => {
               <div className="card-calculator mb-8" ref={printRef}>
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="text-xl font-bold">Your Results</h2>
-                  <button onClick={handlePrint} className="flex items-center gap-1.5 text-sm text-accent hover:underline">
+                  <button onClick={handlePrint} className="flex items-center gap-1.5 text-sm text-primary hover:underline">
                     <Printer className="h-4 w-4" /> Print
                   </button>
                 </div>

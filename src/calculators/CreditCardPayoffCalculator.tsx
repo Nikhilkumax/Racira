@@ -214,7 +214,7 @@ const CreditCardPayoffCalculator = () => {
                 ))}
               </div>
 
-              <button onClick={addCard} className="flex items-center gap-2 text-sm text-accent hover:underline mb-6">
+              <button onClick={addCard} className="flex items-center gap-2 text-sm text-primary hover:underline mb-6">
                 <Plus className="h-4 w-4" /> Add Another Card
               </button>
 
@@ -231,7 +231,7 @@ const CreditCardPayoffCalculator = () => {
               <div className="card-calculator mb-8" ref={printRef}>
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="text-xl font-bold">Payoff Results ({strategy === "avalanche" ? "Avalanche" : "Snowball"})</h2>
-                  <button onClick={handlePrint} className="flex items-center gap-1.5 text-sm text-accent hover:underline">
+                  <button onClick={handlePrint} className="flex items-center gap-1.5 text-sm text-primary hover:underline">
                     <Printer className="h-4 w-4" /> Print
                   </button>
                 </div>
@@ -262,19 +262,19 @@ const CreditCardPayoffCalculator = () => {
                             <td className="px-3 py-2 text-muted-foreground">Months</td>
                             <td className="px-3 py-2 text-right">{avalancheResult.months}</td>
                             <td className="px-3 py-2 text-right">{snowballResult.months}</td>
-                            <td className="px-3 py-2 text-right font-medium text-accent">{Math.abs(avalancheResult.months - snowballResult.months)}</td>
+                            <td className="px-3 py-2 text-right font-medium text-primary">{Math.abs(avalancheResult.months - snowballResult.months)}</td>
                           </tr>
                           <tr className="border-t border-border">
                             <td className="px-3 py-2 text-muted-foreground">Total Interest</td>
                             <td className="px-3 py-2 text-right">{fmt(avalancheResult.totalInterest)}</td>
                             <td className="px-3 py-2 text-right">{fmt(snowballResult.totalInterest)}</td>
-                            <td className="px-3 py-2 text-right font-medium text-accent">{fmt(Math.abs(avalancheResult.totalInterest - snowballResult.totalInterest))}</td>
+                            <td className="px-3 py-2 text-right font-medium text-primary">{fmt(Math.abs(avalancheResult.totalInterest - snowballResult.totalInterest))}</td>
                           </tr>
                           <tr className="border-t border-border">
                             <td className="px-3 py-2 text-muted-foreground">Total Paid</td>
                             <td className="px-3 py-2 text-right">{fmt(avalancheResult.totalPaid)}</td>
                             <td className="px-3 py-2 text-right">{fmt(snowballResult.totalPaid)}</td>
-                            <td className="px-3 py-2 text-right font-medium text-accent">{fmt(Math.abs(avalancheResult.totalPaid - snowballResult.totalPaid))}</td>
+                            <td className="px-3 py-2 text-right font-medium text-primary">{fmt(Math.abs(avalancheResult.totalPaid - snowballResult.totalPaid))}</td>
                           </tr>
                         </tbody>
                       </table>
@@ -295,7 +295,7 @@ const CreditCardPayoffCalculator = () => {
                 {/* Payment Schedule */}
                 {schedule.length > 0 && (
                   <div className="mt-6">
-                    <button onClick={() => setShowSchedule(!showSchedule)} className="text-sm text-accent hover:underline">
+                    <button onClick={() => setShowSchedule(!showSchedule)} className="text-sm text-primary hover:underline">
                       {showSchedule ? "Hide" : "Show"} Payment Schedule ({schedule.length} months)
                     </button>
                     {showSchedule && (

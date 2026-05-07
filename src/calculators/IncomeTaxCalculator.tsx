@@ -185,7 +185,7 @@ const IncomeTaxCalculator = () => {
                 <InputField id="state" label="State/Local Tax Rate" value={stateTax} onChange={setStateTax} suffix="%" />
               </div>
 
-              <button type="button" onClick={() => setShowAdvanced(!showAdvanced)} className="flex items-center gap-2 text-sm font-medium text-accent hover:underline mb-4">
+              <button type="button" onClick={() => setShowAdvanced(!showAdvanced)} className="flex items-center gap-2 text-sm font-medium text-primary hover:underline mb-4">
                 Additional Income <ChevronDown className={`h-4 w-4 transition-transform ${showAdvanced ? "rotate-180" : ""}`} />
               </button>
 

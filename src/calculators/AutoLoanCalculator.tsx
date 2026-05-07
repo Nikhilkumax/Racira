@@ -141,7 +141,7 @@ const AutoLoanCalculator = () => {
                 <InputField id="term" label="Loan Term (Months)" value={loanTerm} onChange={setLoanTerm} tooltip="Length of the loan in months. Common: 36, 48, 60, 72." />
               </div>
 
-              <button type="button" onClick={() => setShowAdvanced(!showAdvanced)} className="flex items-center gap-2 text-sm font-medium text-accent hover:underline mb-4">
+              <button type="button" onClick={() => setShowAdvanced(!showAdvanced)} className="flex items-center gap-2 text-sm font-medium text-primary hover:underline mb-4">
                 Advanced Options
                 <ChevronDown className={`h-4 w-4 transition-transform ${showAdvanced ? "rotate-180" : ""}`} />
               </button>
@@ -158,7 +158,7 @@ const AutoLoanCalculator = () => {
                       id="tax-in-loan"
                       checked={includeTaxInLoan}
                       onChange={(e) => setIncludeTaxInLoan(e.target.checked)}
-                      className="h-4 w-4 rounded border-input text-accent"
+                      className="h-4 w-4 rounded border-input text-primary"
                     />
                     <label htmlFor="tax-in-loan" className="text-sm text-foreground">Include sales tax in loan</label>
                   </div>
@@ -177,7 +177,7 @@ const AutoLoanCalculator = () => {
               <div className="card-calculator mb-8" ref={printRef}>
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="text-xl font-bold">Loan Results</h2>
-                  <button onClick={handlePrint} className="flex items-center gap-1.5 text-sm text-accent hover:underline">
+                  <button onClick={handlePrint} className="flex items-center gap-1.5 text-sm text-primary hover:underline">
                     <Printer className="h-4 w-4" /> Print
                   </button>
                 </div>

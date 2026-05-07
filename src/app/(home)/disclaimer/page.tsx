@@ -26,7 +26,7 @@ const Disclaimer = () => (
       <p>We reserve the right to update this disclaimer at any time without notice. Please review this page periodically for changes.</p>
 
       <h2>Contact</h2>
-      <p>If you have questions about this disclaimer, please visit our <a href="/contact" className="text-accent hover:underline">Contact page</a>.</p>
+      <p>If you have questions about this disclaimer, please visit our <a href="/contact" className="text-primary hover:underline">Contact page</a>.</p>
     </div>
   </>
 );

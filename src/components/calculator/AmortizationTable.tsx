@@ -50,7 +50,7 @@ const AmortizationTable = ({ rows, yearly = false }: { rows: AmortRow[]; yearly?
       {rows.length > 12 && (
         <button
           onClick={() => setExpanded(!expanded)}
-          className="mt-3 flex items-center gap-1 text-sm text-accent hover:underline mx-auto"
+          className="mt-3 flex items-center gap-1 text-sm text-primary hover:underline mx-auto"
         >
           {expanded ? "Show Less" : `Show All ${rows.length} ${yearly ? "Years" : "Months"}`}
           <ChevronDown className={`h-4 w-4 transition-transform ${expanded ? "rotate-180" : ""}`} />

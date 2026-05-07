@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
@@ -108,7 +108,7 @@ const HRACalculator = () => {
                     </div>
                     <div className="border-t border-border pt-2 flex justify-between font-semibold">
                       <span>Exempt Amount (Minimum)</span>
-                      <span className="text-accent">₹{result.exempt.toLocaleString("en-IN")}</span>
+                      <span className="text-primary">₹{result.exempt.toLocaleString("en-IN")}</span>
                     </div>
                   </div>
                 </div>

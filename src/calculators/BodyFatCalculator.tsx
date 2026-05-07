@@ -104,7 +104,7 @@ const BodyFatCalculator = () => {
                 <h2 className="text-xl font-bold mb-4">Your Body Composition</h2>
                 <div className="text-center mb-6">
                   <p className="text-5xl font-extrabold mb-1">{result.bodyFat}%</p>
-                  <p className="text-lg font-semibold text-accent">{result.category}</p>
+                  <p className="text-lg font-semibold text-primary">{result.category}</p>
                 </div>
                 <ResultDisplay items={[
                   { label: "Body Fat %", value: 0, textValue: `${result.bodyFat}%`, highlight: true },

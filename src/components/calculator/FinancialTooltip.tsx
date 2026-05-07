@@ -21,7 +21,7 @@ const FinancialTooltip = ({ text }: { text: string }) => {
       <button
         type="button"
         onClick={() => setOpen(!open)}
-        className="text-muted-foreground hover:text-accent transition-colors"
+        className="text-muted-foreground hover:text-primary transition-colors"
         aria-label="More info"
       >
         <HelpCircle className="h-3.5 w-3.5" />

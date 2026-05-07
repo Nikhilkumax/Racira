@@ -183,7 +183,7 @@ const LoanCalculator = () => {
               </div>
 
               {/* Advanced */}
-              <button type="button" onClick={() => setShowAdvanced(!showAdvanced)} className="flex items-center gap-2 text-sm font-medium text-accent hover:underline mb-4">
+              <button type="button" onClick={() => setShowAdvanced(!showAdvanced)} className="flex items-center gap-2 text-sm font-medium text-primary hover:underline mb-4">
                 Advanced Options
                 <ChevronDown className={`h-4 w-4 transition-transform ${showAdvanced ? "rotate-180" : ""}`} />
               </button>
@@ -218,7 +218,7 @@ const LoanCalculator = () => {
               <div className="card-calculator mb-8" ref={printRef}>
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="text-xl font-bold">EMI Results</h2>
-                  <button onClick={handlePrint} className="flex items-center gap-1.5 text-sm text-accent hover:underline">
+                  <button onClick={handlePrint} className="flex items-center gap-1.5 text-sm text-primary hover:underline">
                     <Printer className="h-4 w-4" /> Print
                   </button>
                 </div>
@@ -235,7 +235,7 @@ const LoanCalculator = () => {
                 ]} />
 
                 {results.timeSavedMonths > 0 && (
-                  <div className="mt-3 p-3 rounded-lg bg-accent/5 border border-accent/20 text-sm text-accent font-medium text-center">
+                  <div className="mt-3 p-3 rounded-lg bg-accent/5 border border-accent/20 text-sm text-primary font-medium text-center">
                     Prepayment saves {Math.floor(results.timeSavedMonths / 12)}y {results.timeSavedMonths % 12}m on your loan term
                   </div>
                 )}

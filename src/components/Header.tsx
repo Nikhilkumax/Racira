@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Menu, X, Sun, Moon } from "lucide-react";
@@ -27,9 +28,13 @@ const Header = () => {
     <header className="sticky top-0 z-50 w-full border-b border-border/60 bg-background/80 backdrop-blur-xl">
       <div className="container flex h-16 items-center justify-between">
         <Link href="/" className="flex items-center gap-2.5">
-          <span className="grid h-8 w-8 place-items-center rounded-lg bg-primary text-primary-foreground">
-            <span className="text-sm font-bold">R</span>
-          </span>
+          <Image 
+            src="/racira-logo-navbar.png" 
+            alt="Racira Logo" 
+            width={32} 
+            height={32} 
+            className="h-8 w-8 object-contain"
+          />
           <span className="text-lg font-bold tracking-tight">Racira</span>
         </Link>
 

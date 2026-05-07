@@ -29,7 +29,7 @@ const TermsOfService = () => (
       <p>We reserve the right to modify these terms at any time. Continued use of the website constitutes acceptance of updated terms.</p>
 
       <h2>Contact</h2>
-      <p>For questions regarding these terms, please visit our <a href="/contact" className="text-accent hover:underline">Contact page</a>.</p>
+      <p>For questions regarding these terms, please visit our <a href="/contact" className="text-primary hover:underline">Contact page</a>.</p>
     </div>
   </>
 );
