@@ -23,12 +23,14 @@ const CalorieCalculator = () => {
   const [weight, setWeight] = useState("70");
   const [heightCm, setHeightCm] = useState("170");
   const [activity, setActivity] = useState(1.55);
+  const [showResults, setShowResults] = useState(false);
   const [goal, setGoal] = useState<"lose" | "maintain" | "gain">("maintain");
   const [result, setResult] = useState<{
     bmr: number; tdee: number; targetCalories: number; protein: number; carbs: number; fat: number; weeksToGoal: string;
   } | null>(null);
 
-  const calculate = () => {
+  const handleCalculate = () => {
+    setShowResults(true);
     const w = parseFloat(weight) || 0;
     const h = parseFloat(heightCm) || 0;
     const a = parseFloat(age) || 0;
@@ -61,7 +63,8 @@ const CalorieCalculator = () => {
     setResult({ bmr: Math.round(bmr), tdee: Math.round(tdee), targetCalories: Math.round(target), protein, carbs, fat, weeksToGoal: weeks });
   };
 
-  const reset = () => { setGender("male"); setAge("30"); setWeight("70"); setHeightCm("170"); setActivity(1.55); setGoal("maintain"); setResult(null); };
+  const reset = () => {
+    setShowResults(false); setGender("male"); setAge("30"); setWeight("70"); setHeightCm("170"); setActivity(1.55); setGoal("maintain"); setResult(null); };
 
   const faqs = [
     { question: "How many calories should I eat to lose weight?", answer: "A safe caloric deficit is 300-500 calories below your TDEE. This produces roughly 0.3-0.5 kg of weight loss per week. Never eat below your BMR for extended periods." },
@@ -111,12 +114,11 @@ const CalorieCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={calculate} className="btn-calculate flex-1">Calculate Calories</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Calories</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
             </div>
 
-            {result && (
+            {showResults && result && (
               <div className="card-calculator mb-8">
                 <h2 className="text-xl font-bold mb-4">Daily Calorie Target</h2>
                 <div className="text-center mb-6">
@@ -179,4 +181,5 @@ const CalorieCalculator = () => {
 };
 
 export default CalorieCalculator;
+
 

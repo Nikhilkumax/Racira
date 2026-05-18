@@ -42,7 +42,8 @@ const IncomeTaxCalculatorIndia = () => {
   const [ded80D, setDed80D] = useState("25000");
   const [hra, setHra] = useState("0");
   const [otherDeductions, setOtherDeductions] = useState("0");
-  const [stdDeduction, setStdDeduction] = useState("75000"); // New regime 75K from FY24-25
+  const [stdDeduction, setStdDeduction] = useState("75000");
+  const [showResults, setShowResults] = useState(false); // New regime 75K from FY24-25
   const [age, setAge] = useState<"below60" | "60to80" | "above80">("below60");
   const [result, setResult] = useState<{
     oldTax: number; newTax: number; oldCess: number; newCess: number;
@@ -50,7 +51,8 @@ const IncomeTaxCalculatorIndia = () => {
     oldTaxableIncome: number; newTaxableIncome: number;
   } | null>(null);
 
-  const calculate = () => {
+  const handleCalculate = () => {
+    setShowResults(true);
     const gross = parseFloat(grossIncome) || 0;
     const d80c = Math.min(parseFloat(ded80C) || 0, 150000);
     const d80d = Math.min(parseFloat(ded80D) || 0, age === "above80" ? 100000 : age === "60to80" ? 50000 : 25000);
@@ -84,7 +86,8 @@ const IncomeTaxCalculatorIndia = () => {
     });
   };
 
-  const reset = () => { setGrossIncome("1200000"); setDed80C("150000"); setDed80D("25000"); setHra("0"); setOtherDeductions("0"); setStdDeduction("75000"); setAge("below60"); setResult(null); };
+  const reset = () => {
+    setShowResults(false); setGrossIncome("1200000"); setDed80C("150000"); setDed80D("25000"); setHra("0"); setOtherDeductions("0"); setStdDeduction("75000"); setAge("below60"); setResult(null); };
 
   const ageGroups = [
     { value: "below60", label: "Below 60" },
@@ -132,12 +135,11 @@ const IncomeTaxCalculatorIndia = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={calculate} className="btn-calculate flex-1">Compare Tax Regimes</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Compare Tax Regimes</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
             </div>
 
-            {result && (
+            {showResults && result && (
               <div className="card-calculator mb-8">
                 <h2 className="text-xl font-bold mb-4">Tax Comparison — FY 2024-25</h2>
 
@@ -221,4 +223,5 @@ const IncomeTaxCalculatorIndia = () => {
 };
 
 export default IncomeTaxCalculatorIndia;
+
 

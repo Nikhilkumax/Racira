@@ -26,7 +26,7 @@ const Footer = () => {
               <li><Link href="/calculator" className="text-foreground/80 hover:text-foreground">Calculator</Link></li>
               <li><Link href="/pdf-tools" className="text-foreground/80 hover:text-foreground">PDF</Link></li>
               <li><Link href="/image-tools" className="text-foreground/80 hover:text-foreground">Image</Link></li>
-              <li><Link href="/ai-tools" className="text-foreground/80 hover:text-foreground">Voice</Link></li>
+              <li><Link href="/voice" className="text-foreground/80 hover:text-foreground">Voice</Link></li>
             </ul>
           </div>
 

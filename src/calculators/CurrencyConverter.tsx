@@ -1,4 +1,5 @@
 "use client";
+import {  } from "lucide-react";
 
 import { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
@@ -24,6 +25,7 @@ const fmt = (n: number) => n.toLocaleString("en-US", { minimumFractionDigits: 2,
 
 const CurrencyConverter = () => {
   const [value, setValue] = useState("1000");
+  const [showResults, setShowResults] = useState(false);
   const [from, setFrom] = useState<CurrencyCode>("USD");
   const [to, setTo] = useState<CurrencyCode>("EUR");
 
@@ -84,4 +86,5 @@ const CurrencyConverter = () => {
 };
 
 export default CurrencyConverter;
+
 

@@ -1,4 +1,5 @@
 "use client";
+import {  } from "lucide-react";
 
 import { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
@@ -27,6 +28,7 @@ const fmt = (n: number) => n.toLocaleString("en-US", { minimumFractionDigits: 2,
 
 const TemperatureConverter = () => {
   const [value, setValue] = useState("100");
+  const [showResults, setShowResults] = useState(false);
   const [from, setFrom] = useState<TempUnit>("celsius");
   const [to, setTo] = useState<TempUnit>("fahrenheit");
 
@@ -93,4 +95,5 @@ const TemperatureConverter = () => {
 };
 
 export default TemperatureConverter;
+
 

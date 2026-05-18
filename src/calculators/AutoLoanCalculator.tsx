@@ -9,7 +9,7 @@ import InputField from "@/components/calculator/InputField";
 import ResultDisplay from "@/components/calculator/ResultDisplay";
 import PieChart from "@/components/calculator/PieChart";
 import AmortizationTable, { type AmortRow } from "@/components/calculator/AmortizationTable";
-import { ChevronDown, Printer, RotateCcw } from "lucide-react";
+import { ChevronDown, Printer, RotateCcw, Calculator } from "lucide-react";
 
 const AutoLoanCalculator = () => {
   const [vehiclePrice, setVehiclePrice] = useState("35000");
@@ -23,6 +23,7 @@ const AutoLoanCalculator = () => {
 
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [includeTaxInLoan, setIncludeTaxInLoan] = useState(true);
+  const [showResults, setShowResults] = useState(false);
 
   const [result, setResult] = useState<{
     monthlyPayment: number;
@@ -35,7 +36,8 @@ const AutoLoanCalculator = () => {
   const [viewMode, setViewMode] = useState<"monthly" | "yearly">("monthly");
   const printRef = useRef<HTMLDivElement>(null);
 
-  const calculate = () => {
+  const handleCalculate = () => {
+    setShowResults(true);
     const price = parseFloat(vehiclePrice) || 0;
     const dp = parseFloat(downPayment) || 0;
     const ti = parseFloat(tradeIn) || 0;
@@ -78,6 +80,7 @@ const AutoLoanCalculator = () => {
   };
 
   const reset = () => {
+    setShowResults(false);
     setVehiclePrice("35000"); setDownPayment("5000"); setTradeIn("0");
     setSalesTax("7"); setTitleFees("500"); setLoanTerm("60");
     setInterestRate("5.9"); setCashIncentives("0");
@@ -166,14 +169,13 @@ const AutoLoanCalculator = () => {
               )}
 
               <div className="flex gap-3">
-                <button onClick={calculate} className="btn-calculate flex-1">Calculate</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset">
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset">
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
             </div>
 
-            {result && (
+            {showResults && result && (
               <div className="card-calculator mb-8" ref={printRef}>
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="text-xl font-bold">Loan Results</h2>
@@ -263,4 +265,5 @@ const AutoLoanCalculator = () => {
 };
 
 export default AutoLoanCalculator;
+
 

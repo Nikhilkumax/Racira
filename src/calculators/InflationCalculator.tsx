@@ -18,10 +18,12 @@ const InflationCalculator = () => {
   const [amount, setAmount] = useState("1000");
   const [inflationRate, setInflationRate] = useState("3");
   const [years, setYears] = useState("10");
+  const [showResults, setShowResults] = useState(false);
 
   const [result, setResult] = useState<{ adjustedValue: number; purchasingPower: number } | null>(null);
 
-  const calculate = () => {
+  const handleCalculate = () => {
+    setShowResults(true);
     const a = parseFloat(amount) || 0;
     const r = (parseFloat(inflationRate) || 0) / 100;
     const y = parseFloat(years) || 0;
@@ -40,7 +42,8 @@ const InflationCalculator = () => {
     }
   };
 
-  const reset = () => { setAmount("1000"); setInflationRate("3"); setYears("10"); setResult(null); };
+  const reset = () => {
+    setShowResults(false); setAmount("1000"); setInflationRate("3"); setYears("10"); setResult(null); };
 
   const faqs = [
     { question: "What is inflation?", answer: "Inflation is the rate at which the general level of prices for goods and services rises over time, reducing purchasing power. A 3% inflation rate means something costing $100 today will cost about $103 next year." },
@@ -74,12 +77,11 @@ const InflationCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={calculate} className="btn-calculate flex-1">Calculate</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
             </div>
 
-            {result && (
+            {showResults && result && (
               <div className="card-calculator mb-8">
                 <h2 className="text-xl font-bold mb-4">Results</h2>
                 <ResultDisplay items={[
@@ -136,4 +138,5 @@ const InflationCalculator = () => {
 };
 
 export default InflationCalculator;
+
 

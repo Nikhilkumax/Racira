@@ -8,7 +8,7 @@ import FAQSection from "@/components/FAQSection";
 import InputField from "@/components/calculator/InputField";
 import ResultDisplay from "@/components/calculator/ResultDisplay";
 import PieChart from "@/components/calculator/PieChart";
-import { ChevronDown, Printer, RotateCcw } from "lucide-react";
+import { ChevronDown, Printer, RotateCcw, Calculator } from "lucide-react";
 
 const US_BRACKETS_2024 = {
   single: [
@@ -81,6 +81,7 @@ const IncomeTaxCalculator = () => {
   const [capitalGains, setCapitalGains] = useState("0");
   const [interestIncome, setInterestIncome] = useState("0");
   const [dividends, setDividends] = useState("0");
+  const [showResults, setShowResults] = useState(false);
 
   // India
   const [indiaRegime, setIndiaRegime] = useState<"new" | "old">("new");
@@ -94,7 +95,8 @@ const IncomeTaxCalculator = () => {
     monthlyTakeHome: number;
   } | null>(null);
 
-  const calculate = () => {
+  const handleCalculate = () => {
+    setShowResults(true);
     const gross = (parseFloat(salary) || 0) + (parseFloat(otherIncome) || 0) + (parseFloat(capitalGains) || 0) + (parseFloat(interestIncome) || 0) + (parseFloat(dividends) || 0);
     const ded = parseFloat(deductions) || 0;
     const ret = parseFloat(retirementContrib) || 0;
@@ -126,6 +128,7 @@ const IncomeTaxCalculator = () => {
   };
 
   const reset = () => {
+    setShowResults(false);
     setSalary("85000"); setOtherIncome("0"); setDeductions("14600");
     setRetirementContrib("0"); setStateTax("5"); setCapitalGains("0");
     setInterestIncome("0"); setDividends("0"); setResult(null);
@@ -199,12 +202,11 @@ const IncomeTaxCalculator = () => {
               )}
 
               <div className="flex gap-3">
-                <button onClick={calculate} className="btn-calculate flex-1">Calculate Tax</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Tax</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
             </div>
 
-            {result && (
+            {showResults && result && (
               <div className="card-calculator mb-8">
                 <h2 className="text-xl font-bold mb-4">Tax Summary</h2>
                 <ResultDisplay items={[
@@ -264,4 +266,5 @@ const IncomeTaxCalculator = () => {
 };
 
 export default IncomeTaxCalculator;
+
 

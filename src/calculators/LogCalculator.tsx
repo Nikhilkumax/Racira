@@ -13,9 +13,11 @@ const LogCalculator = () => {
   const [mode, setMode] = useState<"log" | "antilog">("log");
   const [value, setValue] = useState("100");
   const [base, setBase] = useState("10");
+  const [showResults, setShowResults] = useState(false);
   const [result, setResult] = useState<any>(null);
 
-  const calculate = () => {
+  const handleCalculate = () => {
+    setShowResults(true);
     const v = parseFloat(value) || 0;
     const b = parseFloat(base) || 10;
 
@@ -33,7 +35,8 @@ const LogCalculator = () => {
     }
   };
 
-  const reset = () => { setValue("100"); setBase("10"); setResult(null); };
+  const reset = () => {
+    setShowResults(false); setValue("100"); setBase("10"); setResult(null); };
 
   const faqs = [
     { question: "What is a logarithm?", answer: "A logarithm answers: to what exponent must the base be raised to get a number? log_b(x) = y means b^y = x." },
@@ -66,12 +69,11 @@ const LogCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={calculate} className="btn-calculate flex-1">Calculate</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
             </div>
 
-            {result && (
+            {showResults && result && (
               <div className="card-calculator mb-8">
                 <h2 className="text-xl font-bold mb-4">Result</h2>
                 {mode === "log" ? (
@@ -107,4 +109,5 @@ const LogCalculator = () => {
 };
 
 export default LogCalculator;
+
 

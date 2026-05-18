@@ -14,9 +14,11 @@ type Shape3D = "cube" | "sphere" | "cylinder" | "cone" | "rectangular";
 const VolumeCalculator = () => {
   const [shape, setShape] = useState<Shape3D>("cube");
   const [a, setA] = useState(""); const [b, setB] = useState(""); const [c, setC] = useState("");
+  const [showResults, setShowResults] = useState(false);
   const [result, setResult] = useState<{ volume: number; surfaceArea: number; formula: string } | null>(null);
 
-  const calculate = () => {
+  const handleCalculate = () => {
+    setShowResults(true);
     const x = parseFloat(a) || 0, y = parseFloat(b) || 0, z = parseFloat(c) || 0;
     let vol = 0, sa = 0, formula = "";
     if (shape === "cube") { vol = x ** 3; sa = 6 * x * x; formula = "V = s³"; }
@@ -27,7 +29,8 @@ const VolumeCalculator = () => {
     setResult({ volume: vol, surfaceArea: sa, formula });
   };
 
-  const reset = () => { setA(""); setB(""); setC(""); setResult(null); };
+  const reset = () => {
+    setShowResults(false); setA(""); setB(""); setC(""); setResult(null); };
 
   const shapes: { key: Shape3D; label: string }[] = [
     { key: "cube", label: "Cube" }, { key: "sphere", label: "Sphere" },
@@ -65,12 +68,11 @@ const VolumeCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={calculate} className="btn-calculate flex-1">Calculate</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
             </div>
 
-            {result && (
+            {showResults && result && (
               <div className="card-calculator mb-8">
                 <h2 className="text-xl font-bold mb-4">Result</h2>
                 <ResultDisplay items={[
@@ -94,4 +96,5 @@ const VolumeCalculator = () => {
 };
 
 export default VolumeCalculator;
+
 

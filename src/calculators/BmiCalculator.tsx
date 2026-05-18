@@ -7,7 +7,7 @@ import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
 import InputField from "@/components/calculator/InputField";
 import ResultDisplay from "@/components/calculator/ResultDisplay";
-import { RotateCcw } from "lucide-react";
+import { RotateCcw, Calculator } from "lucide-react";
 
 const getBMICategory = (bmi: number) => {
   if (bmi < 16) return { label: "Severe Thinness", color: "text-red-500" };
@@ -27,12 +27,14 @@ const BMICalculator = () => {
   const [heightFt, setHeightFt] = useState("5");
   const [heightIn, setHeightIn] = useState("7");
   const [weightLbs, setWeightLbs] = useState("154");
+  const [showResults, setShowResults] = useState(false);
   const [result, setResult] = useState<{
     bmi: number; category: string; categoryColor: string;
     healthyWeightMin: number; healthyWeightMax: number; weightUnit: string;
   } | null>(null);
 
-  const calculate = () => {
+  const handleCalculate = () => {
+    setShowResults(true);
     let heightM: number, w: number, wUnit: string;
     if (unit === "metric") {
       w = parseFloat(weight) || 0;
@@ -62,7 +64,9 @@ const BMICalculator = () => {
     });
   };
 
-  const reset = () => { setWeight("70"); setHeightCm("170"); setHeightFt("5"); setHeightIn("7"); setWeightLbs("154"); setResult(null); };
+  const reset = () => {
+    setShowResults(false); setWeight("70"); setHeightCm("170"); setHeightFt("5"); setHeightIn("7"); setWeightLbs("154"); setResult(null);
+  };
 
   const faqs = [
     { question: "What is BMI?", answer: "Body Mass Index (BMI) is a numerical value calculated from your weight and height. It's used as a screening tool to categorize individuals into underweight, normal, overweight, or obese categories." },
@@ -107,13 +111,13 @@ const BMICalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={calculate} className="btn-calculate flex-1">Calculate BMI</button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2"><Calculator className="h-5 w-5" /> Calculate</button>
                 <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
             </div>
 
-            {result && (
-              <div className="card-calculator mb-8">
+            {showResults && result && (
+              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
                 <h2 className="text-xl font-bold mb-4">Your BMI Result</h2>
                 <div className="text-center mb-6">
                   <p className="text-5xl font-extrabold mb-2">{result.bmi}</p>
@@ -142,6 +146,30 @@ const BMICalculator = () => {
             )}
 
             <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+
+            {/* SEO Content Sections */}
+            <div className="mt-4 space-y-8 mb-10">
+              <section>
+                <h2 className="text-2xl font-bold mb-4">How the BMI Calculator Works</h2>
+                <p className="text-muted-foreground mb-3">Our BMI Calculator uses your height and weight to determine your body mass index, a standard measure of body fat based on your physical dimensions. Simply enter your weight and height in either metric (kg/cm) or imperial (lbs/ft) units and click Calculate.</p>
+                <p className="text-muted-foreground mb-3">The tool applies the Quetelet index formula: BMI = weight ÷ height². For imperial measurements, a conversion factor of 703 is applied to ensure accuracy. The result is then mapped to World Health Organization (WHO) categories ranging from Underweight to Obese Class III.</p>
+                <p className="text-muted-foreground">In addition to your BMI, the calculator provides a healthy weight range tailored to your height, giving you a clear target for weight management goals.</p>
+              </section>
+
+              <section>
+                <h2 className="text-2xl font-bold mb-4">Understanding Your Results</h2>
+                <p className="text-muted-foreground mb-3">Your <strong>BMI value</strong> is a relative measure of your body composition. A BMI between 18.5 and 24.9 is generally considered the 'Normal' or 'Healthy' range for most adults.</p>
+                <p className="text-muted-foreground mb-3">The <strong>BMI Category</strong> tells you where you fall on the clinical spectrum. Underweight (&lt; 18.5) may indicate nutritional deficiencies, while Overweight (25–29.9) or Obese (30+) categories are associated with increased risks for cardiovascular disease, type 2 diabetes, and other health conditions.</p>
+                <p className="text-muted-foreground">The <strong>Healthy Weight Range</strong> shown in the results display provides the minimum and maximum weight your body should ideally maintain for your specific height to stay within the 18.5–24.9 BMI bracket.</p>
+              </section>
+
+              <section>
+                <h2 className="text-2xl font-bold mb-4">Common Use Cases</h2>
+                <p className="text-muted-foreground mb-3"><strong>Health screening:</strong> Doctors and nutritionists use BMI as a rapid initial assessment tool to identify individuals who may be at risk due to their weight-to-height ratio.</p>
+                <p className="text-muted-foreground mb-3"><strong>Fitness tracking:</strong> Individuals starting a weight loss or muscle-building journey use BMI to baseline their progress, though they often supplement it with body fat percentage for better accuracy.</p>
+                <p className="text-muted-foreground"><strong>Insurance and medical forms:</strong> BMI is a standard metric required for life insurance applications and general health checkup documentation to assess overall health risk levels.</p>
+              </section>
+            </div>
 
             <article className="prose-finance">
               <h2>What Is BMI?</h2>
@@ -186,4 +214,3 @@ const BMICalculator = () => {
 };
 
 export default BMICalculator;
-

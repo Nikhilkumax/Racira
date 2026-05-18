@@ -12,31 +12,45 @@ interface InputFieldProps {
   min?: string;
   step?: string;
   placeholder?: string;
+  disabled?: boolean;
 }
 
-const InputField = ({ id, label, value, onChange, type = "number", tooltip, prefix, suffix, min, step, placeholder }: InputFieldProps) => (
+const InputField = ({
+  id,
+  label,
+  value,
+  onChange,
+  type = "number",
+  tooltip,
+  prefix,
+  suffix,
+  min,
+  step,
+  placeholder,
+  disabled,
+}: InputFieldProps) => (
   <div>
     <label htmlFor={id} className="flex items-center text-sm font-medium text-foreground mb-1.5">
       {label}
       {tooltip && <FinancialTooltip text={tooltip} />}
     </label>
-    <div className="relative">
-      {prefix && <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm pointer-events-none">{prefix}</span>}
+    <div className={`calc-input-wrapper ${disabled ? "opacity-50 grayscale-[0.5] cursor-not-allowed" : ""}`}>
+      {prefix && <span className="calc-input-prefix">{prefix}</span>}
       <input
         id={id}
         type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className={`input-calc ${prefix ? "pl-8" : ""} ${suffix ? "pr-14" : ""}`}
+        className={`input-calc${prefix ? " has-prefix" : ""}${suffix ? " has-unit" : ""}`}
         min={min}
         step={step}
         placeholder={placeholder}
+        disabled={disabled}
         aria-label={label}
       />
-      {suffix && <span className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground text-sm pointer-events-none">{suffix}</span>}
+      {suffix && <span className="calc-input-unit">{suffix}</span>}
     </div>
   </div>
 );
 
 export default InputField;
-

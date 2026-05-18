@@ -17,9 +17,11 @@ const RatioCalculator = () => {
   const [b, setB] = useState("6");
   const [c, setC] = useState("3");
   const [d, setD] = useState("");
+  const [showResults, setShowResults] = useState(false);
   const [result, setResult] = useState<any>(null);
 
-  const calculate = () => {
+  const handleCalculate = () => {
+    setShowResults(true);
     const na = parseFloat(a) || 0;
     const nb = parseFloat(b) || 0;
 
@@ -40,7 +42,8 @@ const RatioCalculator = () => {
     }
   };
 
-  const reset = () => { setA("4"); setB("6"); setC("3"); setD(""); setResult(null); };
+  const reset = () => {
+    setShowResults(false); setA("4"); setB("6"); setC("3"); setD(""); setResult(null); };
 
   const faqs = [
     { question: "How do I simplify a ratio?", answer: "Divide both parts of the ratio by their greatest common divisor (GCD)." },
@@ -96,12 +99,11 @@ const RatioCalculator = () => {
               )}
 
               <div className="flex gap-3">
-                <button onClick={calculate} className="btn-calculate flex-1">Calculate</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
             </div>
 
-            {result && (
+            {showResults && result && (
               <div className="card-calculator mb-8">
                 <h2 className="text-xl font-bold mb-4">Result</h2>
                 {result.type === "simplify" && (
@@ -143,4 +145,5 @@ const RatioCalculator = () => {
 };
 
 export default RatioCalculator;
+
 

@@ -37,6 +37,7 @@ const RetirementCalculator = () => {
   const [sYears, setSYears] = useState("30");
   const [sCurrent, setSCurrent] = useState("10000");
   const [sReturn, setSReturn] = useState("8");
+  const [showResults, setShowResults] = useState(false);
 
   const [goalResult, setGoalResult] = useState<{ corpus: number; projected: number; shortfall: number; yearlyNeeded: number } | null>(null);
   const [withdrawResult, setWithdrawResult] = useState<{ yearsLast: number } | null>(null);
@@ -296,4 +297,5 @@ const RetirementCalculator = () => {
 };
 
 export default RetirementCalculator;
+
 

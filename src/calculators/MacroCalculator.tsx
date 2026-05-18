@@ -15,6 +15,7 @@ const MacroCalculator = () => {
   const [weight, setWeight] = useState("70");
   const [heightCm, setHeightCm] = useState("170");
   const [activity, setActivity] = useState(1.55);
+  const [showResults, setShowResults] = useState(false);
   const [goal, setGoal] = useState<"lose" | "maintain" | "gain">("maintain");
   const [split, setSplit] = useState<"balanced" | "lowcarb" | "highprotein" | "keto">("balanced");
   const [result, setResult] = useState<{
@@ -30,7 +31,8 @@ const MacroCalculator = () => {
     keto: { protein: 25, carbs: 5, fat: 70, label: "Keto (25/5/70)" },
   };
 
-  const calculate = () => {
+  const handleCalculate = () => {
+    setShowResults(true);
     const w = parseFloat(weight) || 0;
     const h = parseFloat(heightCm) || 0;
     const a = parseFloat(age) || 0;
@@ -60,7 +62,8 @@ const MacroCalculator = () => {
     });
   };
 
-  const reset = () => { setGender("male"); setAge("30"); setWeight("70"); setHeightCm("170"); setActivity(1.55); setGoal("maintain"); setSplit("balanced"); setResult(null); };
+  const reset = () => {
+    setShowResults(false); setGender("male"); setAge("30"); setWeight("70"); setHeightCm("170"); setActivity(1.55); setGoal("maintain"); setSplit("balanced"); setResult(null); };
 
   const faqs = [
     { question: "What are macros?", answer: "Macros (macronutrients) are the three main nutrients that provide energy: protein (4 cal/g), carbohydrates (4 cal/g), and fat (9 cal/g). Tracking macros helps optimize body composition beyond just counting calories." },
@@ -121,12 +124,11 @@ const MacroCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={calculate} className="btn-calculate flex-1">Calculate Macros</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Macros</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
             </div>
 
-            {result && (
+            {showResults && result && (
               <div className="card-calculator mb-8">
                 <h2 className="text-xl font-bold mb-4">Your Daily Macros</h2>
                 <div className="text-center mb-4">
@@ -202,4 +204,5 @@ const MacroCalculator = () => {
 };
 
 export default MacroCalculator;
+
 

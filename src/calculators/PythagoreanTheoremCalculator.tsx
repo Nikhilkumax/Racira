@@ -14,9 +14,11 @@ const PythagoreanTheoremCalculator = () => {
   const [a, setA] = useState("3");
   const [b, setB] = useState("4");
   const [c, setC] = useState("5");
+  const [showResults, setShowResults] = useState(false);
   const [result, setResult] = useState<any>(null);
 
-  const calculate = () => {
+  const handleCalculate = () => {
+    setShowResults(true);
     if (mode === "hypotenuse") {
       const na = parseFloat(a) || 0, nb = parseFloat(b) || 0;
       if (na <= 0 || nb <= 0) return;
@@ -39,7 +41,8 @@ const PythagoreanTheoremCalculator = () => {
     }
   };
 
-  const reset = () => { setA("3"); setB("4"); setC("5"); setResult(null); };
+  const reset = () => {
+    setShowResults(false); setA("3"); setB("4"); setC("5"); setResult(null); };
 
   const faqs = [
     { question: "What is the Pythagorean theorem?", answer: "a² + b² = c², where c is the hypotenuse (longest side) of a right triangle and a, b are the other two sides." },
@@ -79,12 +82,11 @@ const PythagoreanTheoremCalculator = () => {
               )}
 
               <div className="flex gap-3">
-                <button onClick={calculate} className="btn-calculate flex-1">Calculate</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
             </div>
 
-            {result && (
+            {showResults && result && (
               <div className="card-calculator mb-8">
                 <h2 className="text-xl font-bold mb-4">Result</h2>
                 <ResultDisplay items={[
@@ -116,4 +118,5 @@ const PythagoreanTheoremCalculator = () => {
 };
 
 export default PythagoreanTheoremCalculator;
+
 

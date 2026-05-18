@@ -14,12 +14,14 @@ const MarkupCalculator = () => {
   const [costPrice, setCostPrice] = useState("60");
   const [sellingPrice, setSellingPrice] = useState("100");
   const [markupPercent, setMarkupPercent] = useState("66.67");
+  const [showResults, setShowResults] = useState(false);
   const [result, setResult] = useState<{
     cost: number; selling: number; profit: number;
     markup: number; margin: number;
   } | null>(null);
 
-  const calculate = () => {
+  const handleCalculate = () => {
+    setShowResults(true);
     let cost: number, selling: number;
 
     if (mode === "cost_markup") {
@@ -48,7 +50,8 @@ const MarkupCalculator = () => {
     });
   };
 
-  const reset = () => { setCostPrice("60"); setSellingPrice("100"); setMarkupPercent("66.67"); setResult(null); };
+  const reset = () => {
+    setShowResults(false); setCostPrice("60"); setSellingPrice("100"); setMarkupPercent("66.67"); setResult(null); };
 
   const modes = [
     { value: "cost_markup", label: "Cost + Markup %" },
@@ -102,12 +105,11 @@ const MarkupCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={calculate} className="btn-calculate flex-1">Calculate</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
             </div>
 
-            {result && (
+            {showResults && result && (
               <div className="card-calculator mb-8">
                 <h2 className="text-xl font-bold mb-4">Markup & Margin</h2>
                 <ResultDisplay items={[
@@ -172,4 +174,5 @@ const MarkupCalculator = () => {
 };
 
 export default MarkupCalculator;
+
 

@@ -15,9 +15,11 @@ const SIPCalculator = () => {
   const [years, setYears] = useState("10");
   const [stepUp, setStepUp] = useState("10");
   const [useStepUp, setUseStepUp] = useState(false);
+  const [showResults, setShowResults] = useState(false);
   const [result, setResult] = useState<{ invested: number; returns: number; total: number; monthlyData: { year: number; invested: number; value: number }[] } | null>(null);
 
-  const calculate = () => {
+  const handleCalculate = () => {
+    setShowResults(true);
     const P = parseFloat(monthly) || 0;
     const r = (parseFloat(rate) || 0) / 100 / 12;
     const n = (parseFloat(years) || 0) * 12;
@@ -49,7 +51,8 @@ const SIPCalculator = () => {
     setResult({ invested: totalInvested, returns: totalValue - totalInvested, total: totalValue, monthlyData: data });
   };
 
-  const reset = () => { setMonthly("5000"); setRate("12"); setYears("10"); setStepUp("10"); setUseStepUp(false); setResult(null); };
+  const reset = () => {
+    setShowResults(false); setMonthly("5000"); setRate("12"); setYears("10"); setStepUp("10"); setUseStepUp(false); setResult(null); };
 
   const faqs = [
     { question: "What is SIP?", answer: "SIP (Systematic Investment Plan) is a method of investing a fixed amount regularly in mutual funds. It helps build wealth through disciplined investing and rupee cost averaging." },
@@ -84,12 +87,11 @@ const SIPCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={calculate} className="btn-calculate flex-1">Calculate</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
             </div>
 
-            {result && (
+            {showResults && result && (
               <div className="card-calculator mb-8">
                 <h2 className="text-xl font-bold mb-4">SIP Returns</h2>
                 <ResultDisplay currency="₹" items={[
@@ -168,4 +170,5 @@ const SIPCalculator = () => {
 };
 
 export default SIPCalculator;
+
 

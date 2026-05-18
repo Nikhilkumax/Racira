@@ -24,9 +24,11 @@ const LinearEquationCalculator = () => {
   const [d1, setD1] = useState("6");
   const [d2, setD2] = useState("14");
   const [d3, setD3] = useState("6");
+  const [showResults, setShowResults] = useState(false);
   const [result, setResult] = useState<any>(null);
 
-  const calculate = () => {
+  const handleCalculate = () => {
+    setShowResults(true);
     if (mode === "single") {
       const na = parseFloat(a1) || 0, nb = parseFloat(b1) || 0;
       if (na === 0) return;
@@ -53,6 +55,7 @@ const LinearEquationCalculator = () => {
   };
 
   const reset = () => {
+    setShowResults(false);
     setA1("2"); setB1("5"); setA2("3"); setB2("-1"); setC1("7"); setC2("4");
     setA3("1"); setB3("1"); setC3("1"); setD1("6"); setD2("14"); setD3("6");
     setResult(null);
@@ -134,12 +137,11 @@ const LinearEquationCalculator = () => {
               )}
 
               <div className="flex gap-3">
-                <button onClick={calculate} className="btn-calculate flex-1">Solve</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Solve</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
             </div>
 
-            {result && (
+            {showResults && result && (
               <div className="card-calculator mb-8">
                 <h2 className="text-xl font-bold mb-4">Solution</h2>
                 {result.type === "error" ? (
@@ -182,4 +184,5 @@ const LinearEquationCalculator = () => {
 };
 
 export default LinearEquationCalculator;
+
 

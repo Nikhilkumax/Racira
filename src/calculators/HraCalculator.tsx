@@ -15,9 +15,11 @@ const HRACalculator = () => {
   const [hraReceived, setHraReceived] = useState("20000");
   const [rentPaid, setRentPaid] = useState("15000");
   const [isMetro, setIsMetro] = useState(true);
+  const [showResults, setShowResults] = useState(false);
   const [result, setResult] = useState<{ exempt: number; taxable: number; rule1: number; rule2: number; rule3: number } | null>(null);
 
-  const calculate = () => {
+  const handleCalculate = () => {
+    setShowResults(true);
     const basic = parseFloat(basicSalary) || 0;
     const daVal = parseFloat(da) || 0;
     const hra = parseFloat(hraReceived) || 0;
@@ -42,7 +44,8 @@ const HRACalculator = () => {
     setResult({ exempt, taxable, rule1, rule2, rule3 });
   };
 
-  const reset = () => { setBasicSalary("40000"); setDa("5000"); setHraReceived("20000"); setRentPaid("15000"); setIsMetro(true); setResult(null); };
+  const reset = () => {
+    setShowResults(false); setBasicSalary("40000"); setDa("5000"); setHraReceived("20000"); setRentPaid("15000"); setIsMetro(true); setResult(null); };
 
   const faqs = [
     { question: "What is HRA exemption?", answer: "HRA (House Rent Allowance) exemption is a tax benefit under Section 10(13A) for salaried employees who pay rent. The exempt portion reduces your taxable income." },
@@ -77,12 +80,11 @@ const HRACalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={calculate} className="btn-calculate flex-1">Calculate HRA</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate HRA</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
             </div>
 
-            {result && (
+            {showResults && result && (
               <div className="card-calculator mb-8">
                 <h2 className="text-xl font-bold mb-4">HRA Exemption Breakdown</h2>
                 <ResultDisplay currency="₹" items={[
@@ -157,4 +159,5 @@ const HRACalculator = () => {
 };
 
 export default HRACalculator;
+
 

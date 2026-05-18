@@ -17,6 +17,7 @@ const GSTCalculator = () => {
   const [gstRate, setGstRate] = useState("18");
   const [showSplit, setShowSplit] = useState(false);
   const [isIGST, setIsIGST] = useState(false);
+  const [showResults, setShowResults] = useState(false);
 
   const [result, setResult] = useState<{
     gstAmount: number;
@@ -27,7 +28,8 @@ const GSTCalculator = () => {
     igst: number;
   } | null>(null);
 
-  const calculate = () => {
+  const handleCalculate = () => {
+    setShowResults(true);
     const amt = parseFloat(amount) || 0;
     const rate = (parseFloat(gstRate) || 0) / 100;
     if (amt <= 0) return;
@@ -54,7 +56,8 @@ const GSTCalculator = () => {
     });
   };
 
-  const reset = () => { setAmount("10000"); setGstRate("18"); setResult(null); };
+  const reset = () => {
+    setShowResults(false); setAmount("10000"); setGstRate("18"); setResult(null); };
 
   const faqs = [
     { question: "What is GST?", answer: "Goods and Services Tax (GST) is a comprehensive indirect tax levied on the manufacture, sale, and consumption of goods and services. India implemented GST in July 2017, replacing multiple cascading taxes with a unified system." },
@@ -94,12 +97,11 @@ const GSTCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={calculate} className="btn-calculate flex-1">Calculate GST</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate GST</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
             </div>
 
-            {result && (
+            {showResults && result && (
               <div className="card-calculator mb-8">
                 <h2 className="text-xl font-bold mb-4">GST Breakdown</h2>
                 <ResultDisplay currency="₹" items={[
@@ -191,4 +193,5 @@ const GSTCalculator = () => {
 };
 
 export default GSTCalculator;
+
 

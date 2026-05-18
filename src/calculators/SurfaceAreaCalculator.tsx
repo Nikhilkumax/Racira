@@ -16,9 +16,11 @@ const SurfaceAreaCalculator = () => {
   const [a, setA] = useState("5");
   const [b, setB] = useState("3");
   const [c, setC] = useState("4");
+  const [showResults, setShowResults] = useState(false);
   const [result, setResult] = useState<any>(null);
 
-  const calculate = () => {
+  const handleCalculate = () => {
+    setShowResults(true);
     const na = parseFloat(a) || 0, nb = parseFloat(b) || 0, nc = parseFloat(c) || 0;
     if (na <= 0) return;
     let sa = 0, lateral = 0, formula = "";
@@ -57,7 +59,8 @@ const SurfaceAreaCalculator = () => {
     setResult({ sa, lateral, formula, shape });
   };
 
-  const reset = () => { setA("5"); setB("3"); setC("4"); setResult(null); };
+  const reset = () => {
+    setShowResults(false); setA("5"); setB("3"); setC("4"); setResult(null); };
 
   const labels: Record<Shape, { a: string; b?: string; c?: string }> = {
     cube: { a: "Side Length" },
@@ -99,12 +102,11 @@ const SurfaceAreaCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={calculate} className="btn-calculate flex-1">Calculate</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
             </div>
 
-            {result && (
+            {showResults && result && (
               <div className="card-calculator mb-8">
                 <h2 className="text-xl font-bold mb-4">Result</h2>
                 <ResultDisplay items={[
@@ -133,4 +135,5 @@ const SurfaceAreaCalculator = () => {
 };
 
 export default SurfaceAreaCalculator;
+
 

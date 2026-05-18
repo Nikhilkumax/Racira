@@ -46,9 +46,11 @@ const PolynomialCalculator = () => {
   const [polyA, setPolyA] = useState("1 -3 2");
   const [polyB, setPolyB] = useState("1 1");
   const [xVal, setXVal] = useState("2");
+  const [showResults, setShowResults] = useState(false);
   const [result, setResult] = useState<any>(null);
 
-  const calculate = () => {
+  const handleCalculate = () => {
+    setShowResults(true);
     const a = parseCoeffs(polyA);
     if (!a.length) return;
 
@@ -69,7 +71,8 @@ const PolynomialCalculator = () => {
     setResult({ type: "op", label: mode === "add" ? "A + B" : mode === "subtract" ? "A − B" : "A × B", a: fmtPoly(a), b: fmtPoly(b), result: fmtPoly(res) });
   };
 
-  const reset = () => { setPolyA("1 -3 2"); setPolyB("1 1"); setXVal("2"); setResult(null); };
+  const reset = () => {
+    setShowResults(false); setPolyA("1 -3 2"); setPolyB("1 1"); setXVal("2"); setResult(null); };
 
   const faqs = [
     { question: "How do I enter a polynomial?", answer: "Enter coefficients from highest degree to lowest, separated by spaces. For x² − 3x + 2, enter '1 -3 2'." },
@@ -115,12 +118,11 @@ const PolynomialCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={calculate} className="btn-calculate flex-1">Calculate</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
             </div>
 
-            {result && (
+            {showResults && result && (
               <div className="card-calculator mb-8">
                 <h2 className="text-xl font-bold mb-4">Result</h2>
                 {result.type === "eval" ? (
@@ -156,4 +158,5 @@ const PolynomialCalculator = () => {
 };
 
 export default PolynomialCalculator;
+
 

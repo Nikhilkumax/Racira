@@ -23,11 +23,13 @@ const TDEECalculator = () => {
   const [weight, setWeight] = useState("70");
   const [heightCm, setHeightCm] = useState("170");
   const [activity, setActivity] = useState(1.55);
+  const [showResults, setShowResults] = useState(false);
   const [result, setResult] = useState<{
     bmr: number; tdee: number; cutCalories: number; bulkCalories: number;
   } | null>(null);
 
-  const calculate = () => {
+  const handleCalculate = () => {
+    setShowResults(true);
     const w = parseFloat(weight) || 0;
     const h = parseFloat(heightCm) || 0;
     const a = parseFloat(age) || 0;
@@ -47,7 +49,8 @@ const TDEECalculator = () => {
     });
   };
 
-  const reset = () => { setGender("male"); setAge("30"); setWeight("70"); setHeightCm("170"); setActivity(1.55); setResult(null); };
+  const reset = () => {
+    setShowResults(false); setGender("male"); setAge("30"); setWeight("70"); setHeightCm("170"); setActivity(1.55); setResult(null); };
 
   const faqs = [
     { question: "What is TDEE?", answer: "Total Daily Energy Expenditure (TDEE) is the total number of calories you burn per day, including BMR, physical activity, and the thermic effect of food. It's the most important number for managing weight." },
@@ -91,12 +94,11 @@ const TDEECalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={calculate} className="btn-calculate flex-1">Calculate TDEE</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate TDEE</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
             </div>
 
-            {result && (
+            {showResults && result && (
               <div className="card-calculator mb-8">
                 <h2 className="text-xl font-bold mb-4">Your TDEE</h2>
                 <div className="text-center mb-6">
@@ -162,4 +164,5 @@ const TDEECalculator = () => {
 };
 
 export default TDEECalculator;
+
 

@@ -14,12 +14,14 @@ const LeaveEncashmentCalculator = () => {
   const [da, setDa] = useState("25000");
   const [leavesAccumulated, setLeavesAccumulated] = useState("300");
   const [yearsOfService, setYearsOfService] = useState("20");
+  const [showResults, setShowResults] = useState(false);
   const [employeeType, setEmployeeType] = useState<"govt" | "private">("private");
   const [result, setResult] = useState<{
     encashmentAmount: number; taxExempt: number; taxableAmount: number; dailyRate: number;
   } | null>(null);
 
-  const calculate = () => {
+  const handleCalculate = () => {
+    setShowResults(true);
     const basic = parseFloat(basicPay) || 0;
     const daAmt = parseFloat(da) || 0;
     const leaves = parseInt(leavesAccumulated) || 0;
@@ -54,7 +56,8 @@ const LeaveEncashmentCalculator = () => {
     });
   };
 
-  const reset = () => { setBasicPay("50000"); setDa("25000"); setLeavesAccumulated("300"); setYearsOfService("20"); setEmployeeType("private"); setResult(null); };
+  const reset = () => {
+    setShowResults(false); setBasicPay("50000"); setDa("25000"); setLeavesAccumulated("300"); setYearsOfService("20"); setEmployeeType("private"); setResult(null); };
 
   const faqs = [
     { question: "What is leave encashment?", answer: "Leave encashment is the monetary compensation an employee receives for accumulated unused leaves at the time of retirement, resignation, or during service (in some organizations)." },
@@ -90,12 +93,11 @@ const LeaveEncashmentCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={calculate} className="btn-calculate flex-1">Calculate Encashment</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Encashment</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
             </div>
 
-            {result && (
+            {showResults && result && (
               <div className="card-calculator mb-8">
                 <h2 className="text-xl font-bold mb-4">Leave Encashment Calculation</h2>
                 <ResultDisplay currency="₹" items={[
@@ -158,4 +160,5 @@ const LeaveEncashmentCalculator = () => {
 };
 
 export default LeaveEncashmentCalculator;
+
 

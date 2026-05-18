@@ -86,10 +86,12 @@ const stateSlabs: Record<StateKey, { label: string; slabs: { min: number; max: n
 
 const ProfessionalTaxCalculator = () => {
   const [monthlySalary, setMonthlySalary] = useState("50000");
+  const [showResults, setShowResults] = useState(false);
   const [state, setState] = useState<StateKey>("maharashtra");
   const [result, setResult] = useState<{ monthlyTax: number; annualTax: number; effectiveRate: number } | null>(null);
 
-  const calculate = () => {
+  const handleCalculate = () => {
+    setShowResults(true);
     const salary = parseFloat(monthlySalary) || 0;
     if (salary <= 0) return;
 
@@ -107,7 +109,8 @@ const ProfessionalTaxCalculator = () => {
     setResult({ monthlyTax, annualTax, effectiveRate: (annualTax / (salary * 12)) * 100 });
   };
 
-  const reset = () => { setMonthlySalary("50000"); setState("maharashtra"); setResult(null); };
+  const reset = () => {
+    setShowResults(false); setMonthlySalary("50000"); setState("maharashtra"); setResult(null); };
 
   const faqs = [
     { question: "What is Professional Tax?", answer: "Professional Tax (PT) is a state-level tax levied on salaried individuals and professionals. It is deducted by the employer from salary and remitted to the state government. The maximum PT is capped at ₹2,500 per year by the Constitution." },
@@ -144,12 +147,11 @@ const ProfessionalTaxCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={calculate} className="btn-calculate flex-1">Calculate PT</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate PT</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
             </div>
 
-            {result && (
+            {showResults && result && (
               <div className="card-calculator mb-8">
                 <h2 className="text-xl font-bold mb-4">Professional Tax — {stateSlabs[state].label}</h2>
                 <ResultDisplay currency="₹" items={[
@@ -201,4 +203,5 @@ const ProfessionalTaxCalculator = () => {
 };
 
 export default ProfessionalTaxCalculator;
+
 

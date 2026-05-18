@@ -19,13 +19,15 @@ const WorkingCapitalCalculator = () => {
   const [payables, setPayables] = useState("120000");
   const [shortTermDebt, setShortTermDebt] = useState("100000");
   const [otherLiabilities, setOtherLiabilities] = useState("80000");
+  const [showResults, setShowResults] = useState(false);
   const [mode, setMode] = useState<"simple" | "detailed">("simple");
   const [result, setResult] = useState<{
     workingCapital: number; currentRatio: number; quickRatio: number;
     totalAssets: number; totalLiabilities: number;
   } | null>(null);
 
-  const calculate = () => {
+  const handleCalculate = () => {
+    setShowResults(true);
     let assets: number, liabilities: number, quickAssets: number;
 
     if (mode === "simple") {
@@ -59,6 +61,7 @@ const WorkingCapitalCalculator = () => {
   };
 
   const reset = () => {
+    setShowResults(false);
     setCurrentAssets("500000"); setCurrentLiabilities("300000");
     setCash("100000"); setReceivables("150000"); setInventory("200000"); setOtherAssets("50000");
     setPayables("120000"); setShortTermDebt("100000"); setOtherLiabilities("80000");
@@ -112,12 +115,11 @@ const WorkingCapitalCalculator = () => {
               )}
 
               <div className="flex gap-3">
-                <button onClick={calculate} className="btn-calculate flex-1">Calculate Working Capital</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Working Capital</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
             </div>
 
-            {result && (
+            {showResults && result && (
               <div className="card-calculator mb-8">
                 <h2 className="text-xl font-bold mb-4">Working Capital Analysis</h2>
                 <ResultDisplay items={[
@@ -180,4 +182,5 @@ const WorkingCapitalCalculator = () => {
 };
 
 export default WorkingCapitalCalculator;
+
 

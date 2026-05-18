@@ -13,9 +13,11 @@ const PPFCalculator = () => {
   const [yearly, setYearly] = useState("150000");
   const [rate, setRate] = useState("7.1");
   const [years, setYears] = useState("15");
+  const [showResults, setShowResults] = useState(false);
   const [result, setResult] = useState<{ invested: number; interest: number; maturity: number; yearData: { year: number; deposit: number; interest: number; balance: number }[] } | null>(null);
 
-  const calculate = () => {
+  const handleCalculate = () => {
+    setShowResults(true);
     const P = parseFloat(yearly) || 0;
     const r = (parseFloat(rate) || 0) / 100;
     const n = parseInt(years) || 15;
@@ -36,7 +38,8 @@ const PPFCalculator = () => {
     setResult({ invested: totalDeposit, interest: balance - totalDeposit, maturity: balance, yearData: data });
   };
 
-  const reset = () => { setYearly("150000"); setRate("7.1"); setYears("15"); setResult(null); };
+  const reset = () => {
+    setShowResults(false); setYearly("150000"); setRate("7.1"); setYears("15"); setResult(null); };
 
   const faqs = [
     { question: "What is PPF?", answer: "PPF (Public Provident Fund) is a government-backed long-term savings scheme in India offering guaranteed, tax-free returns. It has a 15-year lock-in period with extension options." },
@@ -65,12 +68,11 @@ const PPFCalculator = () => {
               <p className="text-xs text-muted-foreground mb-4">Max deposit: ₹1,50,000/year. Min tenure: 15 years.</p>
 
               <div className="flex gap-3">
-                <button onClick={calculate} className="btn-calculate flex-1">Calculate</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
             </div>
 
-            {result && (
+            {showResults && result && (
               <div className="card-calculator mb-8">
                 <h2 className="text-xl font-bold mb-4">PPF Maturity</h2>
                 <ResultDisplay currency="₹" items={[
@@ -141,4 +143,5 @@ const PPFCalculator = () => {
 };
 
 export default PPFCalculator;
+
 

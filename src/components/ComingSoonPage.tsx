@@ -1,16 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import Breadcrumb from "@/components/Breadcrumb";
 import PopularCalculators from "@/components/PopularCalculators";
 import { getCalculatorBySlug } from "@/data/calculatorRegistry";
 import { ArrowLeft } from "lucide-react";
 
-const ComingSoonPage = () => {
-  const pathname = usePathname();
-  // pathname is e.g. /calculator/mortgage-calculator — extract just the slug
-  const slug = (pathname || "").replace(/^\/calculator\//, "").replace(/^\//, "");
+interface ComingSoonPageProps {
+  slug: string;
+}
+
+const ComingSoonPage = ({ slug }: ComingSoonPageProps) => {
   const calc = getCalculatorBySlug(slug);
 
   const name = calc?.name || "Calculator";

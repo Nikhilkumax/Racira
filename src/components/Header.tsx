@@ -13,7 +13,7 @@ const nav = [
   { href: "/calculator", label: "Calculator" },
   { href: "/pdf-tools", label: "PDF" },
   { href: "/image-tools", label: "Image" },
-  { href: "/ai-tools", label: "Voice" },
+  { href: "/voice", label: "Voice" },
 ];
 
 const Header = () => {

@@ -24,13 +24,15 @@ const stateRates: Record<StateKey, { label: string; stampDutyMale: number; stamp
 
 const StampDutyCalculator = () => {
   const [propertyValue, setPropertyValue] = useState("5000000");
+  const [showResults, setShowResults] = useState(false);
   const [state, setState] = useState<StateKey>("maharashtra");
   const [gender, setGender] = useState<"male" | "female">("male");
   const [result, setResult] = useState<{
     stampDuty: number; registrationCharge: number; totalCharges: number; effectiveRate: number; stampDutyRate: number;
   } | null>(null);
 
-  const calculate = () => {
+  const handleCalculate = () => {
+    setShowResults(true);
     const value = parseFloat(propertyValue) || 0;
     if (value <= 0) return;
 
@@ -48,7 +50,8 @@ const StampDutyCalculator = () => {
     });
   };
 
-  const reset = () => { setPropertyValue("5000000"); setState("maharashtra"); setGender("male"); setResult(null); };
+  const reset = () => {
+    setShowResults(false); setPropertyValue("5000000"); setState("maharashtra"); setGender("male"); setResult(null); };
 
   const faqs = [
     { question: "What is Stamp Duty?", answer: "Stamp duty is a tax levied by state governments on property transactions. It is a legal requirement to register the property and serves as proof of ownership. Rates vary by state, property type, and buyer's gender." },
@@ -97,12 +100,11 @@ const StampDutyCalculator = () => {
               </p>
 
               <div className="flex gap-3">
-                <button onClick={calculate} className="btn-calculate flex-1">Calculate Charges</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Charges</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
             </div>
 
-            {result && (
+            {showResults && result && (
               <div className="card-calculator mb-8">
                 <h2 className="text-xl font-bold mb-4">Stamp Duty & Registration — {stateRates[state].label}</h2>
                 <ResultDisplay currency="₹" items={[
@@ -166,4 +168,5 @@ const StampDutyCalculator = () => {
 };
 
 export default StampDutyCalculator;
+
 

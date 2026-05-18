@@ -7,7 +7,7 @@ import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
 import InputField from "@/components/calculator/InputField";
 import ResultDisplay from "@/components/calculator/ResultDisplay";
-import { RotateCcw } from "lucide-react";
+import { RotateCcw, Calculator } from "lucide-react";
 
 const BMRCalculator = () => {
   const [gender, setGender] = useState<"male" | "female">("male");
@@ -16,9 +16,11 @@ const BMRCalculator = () => {
   const [heightCm, setHeightCm] = useState("170");
   const [formula, setFormula] = useState<"mifflin" | "harris" | "katch">("mifflin");
   const [bodyFat, setBodyFat] = useState("20");
+  const [showResults, setShowResults] = useState(false);
   const [result, setResult] = useState<{ bmr: number; formulaUsed: string } | null>(null);
 
-  const calculate = () => {
+  const handleCalculate = () => {
+    setShowResults(true);
     const w = parseFloat(weight) || 0;
     const h = parseFloat(heightCm) || 0;
     const a = parseFloat(age) || 0;
@@ -50,7 +52,9 @@ const BMRCalculator = () => {
     setResult({ bmr: Math.round(bmr), formulaUsed: formulaName });
   };
 
-  const reset = () => { setGender("male"); setAge("30"); setWeight("70"); setHeightCm("170"); setFormula("mifflin"); setBodyFat("20"); setResult(null); };
+  const reset = () => {
+    setShowResults(false); setGender("male"); setAge("30"); setWeight("70"); setHeightCm("170"); setFormula("mifflin"); setBodyFat("20"); setResult(null);
+  };
 
   const faqs = [
     { question: "What is BMR?", answer: "Basal Metabolic Rate (BMR) is the number of calories your body needs to perform basic life-sustaining functions like breathing, circulation, and cell production while completely at rest." },
@@ -92,12 +96,12 @@ const BMRCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={calculate} className="btn-calculate flex-1">Calculate BMR</button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2"><Calculator className="h-5 w-5" /> Calculate</button>
                 <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
             </div>
 
-            {result && (
+            {showResults && result && (
               <div className="card-calculator mb-8">
                 <h2 className="text-xl font-bold mb-4">Your BMR</h2>
                 <div className="text-center mb-6">
@@ -114,6 +118,30 @@ const BMRCalculator = () => {
             )}
 
             <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+
+            {/* SEO Content Sections */}
+            <div className="mt-4 space-y-8 mb-10">
+              <section>
+                <h2 className="text-2xl font-bold mb-4">How the BMR Calculator Works</h2>
+                <p className="text-muted-foreground mb-3">Our BMR Calculator uses scientifically validated equations to estimate the minimum calories your body needs while completely at rest. Simply enter your gender, age, weight, and height, choose a formula, and click Calculate to get your personal Basal Metabolic Rate in seconds.</p>
+                <p className="text-muted-foreground mb-3">The Mifflin-St Jeor formula (the default) is the gold standard recommended by most dietitians. If you know your body fat percentage, the Katch-McArdle formula offers even higher precision by working directly from lean body mass instead of total weight.</p>
+                <p className="text-muted-foreground">All three supported equations — Mifflin-St Jeor, Harris-Benedict (Revised), and Katch-McArdle — are explained in detail below so you can choose the one that best fits your situation.</p>
+              </section>
+
+              <section>
+                <h2 className="text-2xl font-bold mb-4">Understanding Your Results</h2>
+                <p className="text-muted-foreground mb-3">Your BMR result represents the calories burned per day doing absolutely nothing — just lying still while your heart beats, lungs breathe, and cells repair themselves. It is not the number of calories you should eat; it is the baseline before activity is factored in.</p>
+                <p className="text-muted-foreground mb-3">To find your Total Daily Energy Expenditure (TDEE), multiply your BMR by an activity factor: sedentary (×1.2), lightly active (×1.375), moderately active (×1.55), very active (×1.725), or extra active (×1.9). TDEE is the calorie target for weight maintenance.</p>
+                <p className="text-muted-foreground">To lose weight, aim for a deficit of 300–500 kcal below TDEE. To gain muscle, add 200–300 kcal above it. Never eat below your BMR without medical supervision — doing so can cause muscle loss, nutrient deficiencies, and metabolic slowdown.</p>
+              </section>
+
+              <section>
+                <h2 className="text-2xl font-bold mb-4">Common Use Cases</h2>
+                <p className="text-muted-foreground mb-3"><strong>Weight management:</strong> Athletes and dieters use BMR to set precise calorie targets rather than guessing. Knowing your baseline prevents under-eating (which slows metabolism) and over-eating (which causes fat gain).</p>
+                <p className="text-muted-foreground mb-3"><strong>Fitness programming:</strong> Personal trainers calculate client BMR to design nutrition plans that support training goals — whether cutting, bulking, or maintaining body composition.</p>
+                <p className="text-muted-foreground"><strong>Health monitoring:</strong> Tracking BMR over months reveals how lifestyle changes (strength training, improved sleep, hormonal treatment) affect your resting metabolism, making it a useful biometric alongside weight and body fat percentage.</p>
+              </section>
+            </div>
 
             <article className="prose-finance">
               <h2>What Is BMR?</h2>
@@ -159,4 +187,3 @@ const BMRCalculator = () => {
 };
 
 export default BMRCalculator;
-

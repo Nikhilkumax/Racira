@@ -12,11 +12,14 @@ export interface AmortRow {
   extraPayment?: number;
 }
 
-const fmt = (n: number) => "$" + n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-const AmortizationTable = ({ rows, yearly = false }: { rows: AmortRow[]; yearly?: boolean }) => {
+const AmortizationTable = ({ rows, yearly = false, currency = "$" }: { rows: AmortRow[]; yearly?: boolean; currency?: string }) => {
   const [expanded, setExpanded] = useState(false);
   const displayRows = expanded ? rows : rows.slice(0, 12);
+
+  const fmt = (n: number) => {
+    const formatted = n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    return `${currency}${formatted}`;
+  };
 
   return (
     <div className="mt-6">

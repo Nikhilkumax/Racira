@@ -13,12 +13,14 @@ const BreakEvenCalculator = () => {
   const [fixedCosts, setFixedCosts] = useState("50000");
   const [variableCostPerUnit, setVariableCostPerUnit] = useState("30");
   const [sellingPrice, setSellingPrice] = useState("50");
+  const [showResults, setShowResults] = useState(false);
   const [result, setResult] = useState<{
     breakEvenUnits: number; breakEvenRevenue: number;
     contributionMargin: number; contributionMarginRatio: number;
   } | null>(null);
 
-  const calculate = () => {
+  const handleCalculate = () => {
+    setShowResults(true);
     const fc = parseFloat(fixedCosts) || 0;
     const vc = parseFloat(variableCostPerUnit) || 0;
     const sp = parseFloat(sellingPrice) || 0;
@@ -32,7 +34,8 @@ const BreakEvenCalculator = () => {
     setResult({ breakEvenUnits, breakEvenRevenue, contributionMargin, contributionMarginRatio });
   };
 
-  const reset = () => { setFixedCosts("50000"); setVariableCostPerUnit("30"); setSellingPrice("50"); setResult(null); };
+  const reset = () => {
+    setShowResults(false); setFixedCosts("50000"); setVariableCostPerUnit("30"); setSellingPrice("50"); setResult(null); };
 
   const faqs = [
     { question: "What is the break-even point?", answer: "The break-even point is where total revenue equals total costs — you're neither making a profit nor a loss. Any sales beyond this point generate profit." },
@@ -59,12 +62,11 @@ const BreakEvenCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={calculate} className="btn-calculate flex-1">Calculate Break Even</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Break Even</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
             </div>
 
-            {result && (
+            {showResults && result && (
               <div className="card-calculator mb-8">
                 <h2 className="text-xl font-bold mb-4">Break-Even Analysis</h2>
                 <ResultDisplay items={[
@@ -121,4 +123,5 @@ const BreakEvenCalculator = () => {
 };
 
 export default BreakEvenCalculator;
+
 

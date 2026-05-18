@@ -14,9 +14,11 @@ const SWPCalculator = () => {
   const [withdrawal, setWithdrawal] = useState("10000");
   const [rate, setRate] = useState("8");
   const [years, setYears] = useState("10");
+  const [showResults, setShowResults] = useState(false);
   const [result, setResult] = useState<{ totalWithdrawn: number; remainingCorpus: number; totalReturns: number; yearData: { year: number; withdrawn: number; returns: number; balance: number }[] } | null>(null);
 
-  const calculate = () => {
+  const handleCalculate = () => {
+    setShowResults(true);
     const C = parseFloat(corpus) || 0;
     const W = parseFloat(withdrawal) || 0;
     const r = (parseFloat(rate) || 0) / 100 / 12;
@@ -52,7 +54,8 @@ const SWPCalculator = () => {
     setResult({ totalWithdrawn, remainingCorpus: balance, totalReturns, yearData: data });
   };
 
-  const reset = () => { setCorpus("1000000"); setWithdrawal("10000"); setRate("8"); setYears("10"); setResult(null); };
+  const reset = () => {
+    setShowResults(false); setCorpus("1000000"); setWithdrawal("10000"); setRate("8"); setYears("10"); setResult(null); };
 
   const faqs = [
     { question: "What is SWP?", answer: "SWP (Systematic Withdrawal Plan) allows you to withdraw a fixed amount from your mutual fund investment at regular intervals while the remaining corpus continues to earn returns." },
@@ -80,12 +83,11 @@ const SWPCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={calculate} className="btn-calculate flex-1">Calculate</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
             </div>
 
-            {result && (
+            {showResults && result && (
               <div className="card-calculator mb-8">
                 <h2 className="text-xl font-bold mb-4">SWP Summary</h2>
                 <ResultDisplay currency="₹" items={[
@@ -152,4 +154,5 @@ const SWPCalculator = () => {
 };
 
 export default SWPCalculator;
+
 

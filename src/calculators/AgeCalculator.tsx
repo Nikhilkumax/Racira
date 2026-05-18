@@ -1,12 +1,12 @@
 "use client";
+import { RotateCcw, CalendarDays, Calculator } from "lucide-react";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { format } from "date-fns";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import { RotateCcw, CalendarIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -14,15 +14,23 @@ import { cn } from "@/lib/utils";
 
 const AgeCalculator = () => {
   const [birthDate, setBirthDate] = useState<Date | undefined>();
-  const [toDate, setToDate] = useState<Date>(new Date());
+  const [toDate, setToDate] = useState<Date | undefined>();
+
+  // Avoid hydration mismatch by setting today's date client-side only
+  useEffect(() => {
+    if (!toDate) setToDate(new Date());
+  }, []);
   const [result, setResult] = useState<{
-    years: number; months: number; days: number;
+    years: number;
+    months: number; days: number;
     totalMonths: number; totalWeeks: number; totalDays: number; totalHours: number;
     nextBirthday: string; daysUntilBirthday: number;
   } | null>(null);
+  const [showResults, setShowResults] = useState(false);
 
-  const calculate = () => {
-    if (!birthDate) return;
+  const handleCalculate = () => {
+    setShowResults(true);
+    if (!birthDate || !toDate) return;
     const from = new Date(birthDate);
     const to = new Date(toDate);
     if (from >= to) return;
@@ -59,7 +67,7 @@ const AgeCalculator = () => {
     });
   };
 
-  const reset = () => { setBirthDate(undefined); setToDate(new Date()); setResult(null); };
+  const reset = () => { setBirthDate(undefined); setToDate(undefined); setResult(null); setTimeout(() => setToDate(new Date()), 0); };
 
   const faqs = [
     { question: "How is age calculated?", answer: "Age is calculated by finding the difference between your birth date and the current (or selected) date in years, months, and days, accounting for varying month lengths and leap years." },
@@ -74,7 +82,7 @@ const AgeCalculator = () => {
       <Popover>
         <PopoverTrigger asChild>
           <Button variant="outline" className={cn("w-full justify-start text-left font-normal h-12", !date && "text-muted-foreground")}>
-            <CalendarIcon className="mr-2 h-4 w-4" />
+            <CalendarDays className="mr-2 h-4 w-4" />
             {date ? format(date, "PPP") : <span>Pick a date</span>}
           </Button>
         </PopoverTrigger>
@@ -85,10 +93,9 @@ const AgeCalculator = () => {
             onSelect={onSelect}
             disabled={(d) => maxDate ? d > maxDate : false}
             initialFocus
-            className="p-3 pointer-events-auto"
-            captionLayout="dropdown-buttons"
+            className="pointer-events-auto"
             fromYear={1900}
-            toYear={new Date().getFullYear() + 10}
+            toYear={2040}
           />
         </PopoverContent>
       </Popover>
@@ -112,13 +119,13 @@ const AgeCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={calculate} className="btn-calculate flex-1">Calculate Age</button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2"><Calculator className="h-5 w-5" /> Calculate</button>
                 <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
             </div>
 
-            {result && (
-              <div className="card-calculator mb-8">
+            {showResults && result && (
+              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
                 <h2 className="text-xl font-bold mb-4">Your Age</h2>
                 <div className="text-center mb-6">
                   <p className="text-5xl font-extrabold mb-1">{result.years}<span className="text-2xl text-muted-foreground ml-1">years</span></p>
@@ -147,6 +154,30 @@ const AgeCalculator = () => {
 
             <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
 
+            {/* SEO Content Sections */}
+            <div className="mt-4 space-y-8 mb-10">
+              <section>
+                <h2 className="text-2xl font-bold mb-4">How the Age Calculator Works</h2>
+                <p className="text-muted-foreground mb-3">Simply pick your date of birth and the target date (usually today), then click Calculate. The tool computes the exact time span between the two dates using standard calendar logic that accounts for varying month lengths and leap years.</p>
+                <p className="text-muted-foreground mb-3">The calculation first determines the number of full years passed, then the remaining full months, and finally the leftover days. This hierarchical approach ensures you get a result that feels intuitive and accurate (e.g., '25 years, 4 months, 12 days').</p>
+                <p className="text-muted-foreground">Additionally, the calculator provides a 'total' breakdown in months, weeks, days, and hours, giving you multiple ways to visualize the time elapsed.</p>
+              </section>
+
+              <section>
+                <h2 className="text-2xl font-bold mb-4">Understanding Your Results</h2>
+                <p className="text-muted-foreground mb-3">The <strong>Primary Result</strong> shows your age in the most common format: years, months, and days. This is the age you'd typically give on a legal document or in conversation.</p>
+                <p className="text-muted-foreground mb-3">The <strong>Detailed Stats</strong> grid provides total counts for other units of time. For example, knowing your age in total weeks can be useful for fitness milestones, while total days is a common metric for 'day-old' age tracking for infants or animals.</p>
+                <p className="text-muted-foreground">The <strong>Next Birthday</strong> section identifies the exact day of the week your next birthday falls on and counts down the remaining days, making it a helpful planning tool for celebrations.</p>
+              </section>
+
+              <section>
+                <h2 className="text-2xl font-bold mb-4">Common Use Cases</h2>
+                <p className="text-muted-foreground mb-3"><strong>Legal and administrative:</strong> Verifying exact age for retirement eligibility, insurance applications, or legal documentation where months and days may matter.</p>
+                <p className="text-muted-foreground mb-3"><strong>Health and wellness:</strong> Pediatricians and veterinarians use exact age tracking to monitor growth milestones and schedule vaccinations correctly based on weeks or months of age.</p>
+                <p className="text-muted-foreground"><strong>Celebration planning:</strong> Finding out which day of the week your birthday (or a loved one's) falls on this year or next to plan parties and events in advance.</p>
+              </section>
+            </div>
+
             <article className="prose-finance">
               <h2>How Age Calculation Works</h2>
               <p>This calculator computes the exact difference between two dates by counting complete years, then remaining months, then remaining days. It properly handles varying month lengths (28–31 days) and leap years.</p>
@@ -174,4 +205,3 @@ const AgeCalculator = () => {
 };
 
 export default AgeCalculator;
-

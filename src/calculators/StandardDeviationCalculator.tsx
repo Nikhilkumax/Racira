@@ -10,13 +10,15 @@ import { RotateCcw } from "lucide-react";
 
 const StandardDeviationCalculator = () => {
   const [data, setData] = useState("4, 8, 6, 5, 3, 7, 2, 9");
+  const [showResults, setShowResults] = useState(false);
   const [type, setType] = useState<"population" | "sample">("population");
   const [result, setResult] = useState<{
     mean: number; variance: number; stdDev: number; count: number;
     sumSquaredDev: number; steps: string[];
   } | null>(null);
 
-  const calculate = () => {
+  const handleCalculate = () => {
+    setShowResults(true);
     const nums = data.split(/[,\s]+/).map(Number).filter(n => !isNaN(n));
     if (nums.length < 2) return;
     const n = nums.length;
@@ -38,7 +40,8 @@ const StandardDeviationCalculator = () => {
     setResult({ mean, variance, stdDev, count: n, sumSquaredDev, steps });
   };
 
-  const reset = () => { setData("4, 8, 6, 5, 3, 7, 2, 9"); setResult(null); };
+  const reset = () => {
+    setShowResults(false); setData("4, 8, 6, 5, 3, 7, 2, 9"); setResult(null); };
 
   const faqs = [
     { question: "When should I use population vs sample standard deviation?", answer: "Use population (σ) when your data includes every member of the group. Use sample (s) when your data is a subset — it uses N-1 (Bessel's correction) to give an unbiased estimate." },
@@ -68,12 +71,11 @@ const StandardDeviationCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={calculate} className="btn-calculate flex-1">Calculate</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
             </div>
 
-            {result && (
+            {showResults && result && (
               <div className="card-calculator mb-8">
                 <h2 className="text-xl font-bold mb-4">Result</h2>
                 <ResultDisplay items={[
@@ -111,4 +113,5 @@ const StandardDeviationCalculator = () => {
 };
 
 export default StandardDeviationCalculator;
+
 

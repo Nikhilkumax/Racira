@@ -10,12 +10,14 @@ import { RotateCcw } from "lucide-react";
 
 const StatisticsCalculator = () => {
   const [data, setData] = useState("10, 20, 30, 40, 50");
+  const [showResults, setShowResults] = useState(false);
   const [result, setResult] = useState<{
     count: number; sum: number; mean: number; median: number; mode: string;
     range: number; variance: number; stdDev: number; min: number; max: number;
   } | null>(null);
 
-  const calculate = () => {
+  const handleCalculate = () => {
+    setShowResults(true);
     const nums = data.split(/[,\s]+/).map(Number).filter(n => !isNaN(n));
     if (nums.length === 0) return;
     const sorted = [...nums].sort((a, b) => a - b);
@@ -37,7 +39,8 @@ const StatisticsCalculator = () => {
     setResult({ count, sum, mean, median, mode, range: sorted[count - 1] - sorted[0], variance, stdDev, min: sorted[0], max: sorted[count - 1] });
   };
 
-  const reset = () => { setData("10, 20, 30, 40, 50"); setResult(null); };
+  const reset = () => {
+    setShowResults(false); setData("10, 20, 30, 40, 50"); setResult(null); };
 
   const faqs = [
     { question: "What's the difference between population and sample standard deviation?", answer: "Population std dev divides by N; sample std dev divides by N-1 (Bessel's correction). This calculator uses population variance." },
@@ -62,12 +65,11 @@ const StatisticsCalculator = () => {
                 <p className="text-xs text-muted-foreground mt-1">Separate values with commas or spaces</p>
               </div>
               <div className="flex gap-3">
-                <button onClick={calculate} className="btn-calculate flex-1">Calculate</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
             </div>
 
-            {result && (
+            {showResults && result && (
               <div className="card-calculator mb-8">
                 <h2 className="text-xl font-bold mb-4">Result</h2>
                 <ResultDisplay items={[
@@ -101,4 +103,5 @@ const StatisticsCalculator = () => {
 };
 
 export default StatisticsCalculator;
+
 

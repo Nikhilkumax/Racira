@@ -12,13 +12,15 @@ import { RotateCcw } from "lucide-react";
 const DACalculator = () => {
   const [basicPay, setBasicPay] = useState("56100");
   const [daPercent, setDaPercent] = useState("50");
+  const [showResults, setShowResults] = useState(false);
   const [employeeType, setEmployeeType] = useState<"central" | "psu" | "custom">("central");
   const [result, setResult] = useState<{ daAmount: number; totalSalary: number; monthlyDA: number } | null>(null);
 
   // Recent DA rates for Central Govt employees (7th CPC)
   const presetRates: Record<string, number> = { central: 50, psu: 46 };
 
-  const calculate = () => {
+  const handleCalculate = () => {
+    setShowResults(true);
     const basic = parseFloat(basicPay) || 0;
     const rate = employeeType === "custom" ? (parseFloat(daPercent) || 0) : presetRates[employeeType];
     if (basic <= 0) return;
@@ -28,7 +30,8 @@ const DACalculator = () => {
     if (employeeType !== "custom") setDaPercent(String(rate));
   };
 
-  const reset = () => { setBasicPay("56100"); setDaPercent("50"); setEmployeeType("central"); setResult(null); };
+  const reset = () => {
+    setShowResults(false); setBasicPay("56100"); setDaPercent("50"); setEmployeeType("central"); setResult(null); };
 
   const faqs = [
     { question: "What is Dearness Allowance (DA)?", answer: "DA is a cost-of-living adjustment allowance paid by the government to its employees and pensioners to offset the impact of inflation. It is calculated as a percentage of the basic pay." },
@@ -73,12 +76,11 @@ const DACalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={calculate} className="btn-calculate flex-1">Calculate DA</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate DA</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
             </div>
 
-            {result && (
+            {showResults && result && (
               <div className="card-calculator mb-8">
                 <h2 className="text-xl font-bold mb-4">DA Calculation</h2>
                 <ResultDisplay currency="₹" items={[
@@ -137,4 +139,5 @@ const DACalculator = () => {
 };
 
 export default DACalculator;
+
 

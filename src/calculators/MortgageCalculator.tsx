@@ -9,7 +9,7 @@ import InputField from "@/components/calculator/InputField";
 import ResultDisplay from "@/components/calculator/ResultDisplay";
 import PieChart from "@/components/calculator/PieChart";
 import AmortizationTable, { type AmortRow } from "@/components/calculator/AmortizationTable";
-import { ChevronDown, Printer, RotateCcw } from "lucide-react";
+import { ChevronDown, Printer, RotateCcw, Calculator } from "lucide-react";
 
 interface MortgageResults {
   monthlyPI: number;
@@ -51,6 +51,7 @@ const MortgageCalculator = () => {
   const [paymentFreq, setPaymentFreq] = useState<"monthly" | "biweekly">("monthly");
 
   const [results, setResults] = useState<MortgageResults | null>(null);
+  const [showResults, setShowResults] = useState(false);
   const [viewMode, setViewMode] = useState<"monthly" | "yearly">("yearly");
   const printRef = useRef<HTMLDivElement>(null);
 
@@ -71,7 +72,8 @@ const MortgageCalculator = () => {
     }
   };
 
-  const calculate = () => {
+  const handleCalculate = () => {
+    setShowResults(true);
     const P = getLoanAmount();
     const annualRate = parseFloat(interestRate) || 0;
     const years = parseFloat(loanTerm) || 0;
@@ -162,6 +164,7 @@ const MortgageCalculator = () => {
   };
 
   const reset = () => {
+    setShowResults(false);
     setHomePrice("400000"); setDownPaymentAmt("80000"); setDownPaymentPct("20");
     setInterestRate("6.5"); setLoanTerm("30"); setPropertyTax("3600");
     setHomeInsurance("1200"); setPmi("0"); setHoaFee("0"); setOtherCosts("0");
@@ -210,9 +213,9 @@ const MortgageCalculator = () => {
                 <div>
                   <div className="flex items-center justify-between mb-1.5">
                     <label className="text-sm font-medium text-foreground">Down Payment</label>
-                    <div className="flex rounded-md border border-input overflow-hidden text-xs">
-                      <button type="button" onClick={() => setDpMode("percent")} className={`px-2 py-0.5 ${dpMode === "percent" ? "bg-accent text-accent-foreground" : "text-muted-foreground"}`}>%</button>
-                      <button type="button" onClick={() => setDpMode("amount")} className={`px-2 py-0.5 ${dpMode === "amount" ? "bg-accent text-accent-foreground" : "text-muted-foreground"}`}>$</button>
+                    <div className="calc-toggle-buttons">
+                      <button type="button" onClick={() => setDpMode("percent")} className={`calc-toggle-btn${dpMode === "percent" ? " active" : ""}`}>%</button>
+                      <button type="button" onClick={() => setDpMode("amount")} className={`calc-toggle-btn${dpMode === "amount" ? " active" : ""}`}>$</button>
                     </div>
                   </div>
                   <input
@@ -265,15 +268,14 @@ const MortgageCalculator = () => {
               )}
 
               <div className="flex gap-3">
-                <button onClick={calculate} className="btn-calculate flex-1">Calculate</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset">
+                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2"><Calculator className="h-5 w-5" /> Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset">
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
             </div>
 
             {/* Results */}
-            {results && (
+            {showResults && results && (
               <div className="card-calculator mb-8" ref={printRef}>
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="text-xl font-bold">Your Results</h2>
@@ -386,4 +388,5 @@ const MortgageCalculator = () => {
 };
 
 export default MortgageCalculator;
+
 

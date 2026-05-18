@@ -21,12 +21,14 @@ const EBITDACalculator = () => {
   const [netIncome, setNetIncome] = useState("200000");
   const [interest, setInterest] = useState("30000");
   const [taxes, setTaxes] = useState("60000");
+  const [showResults, setShowResults] = useState(false);
 
   const [result, setResult] = useState<{
     ebitda: number; ebitdaMargin: number; ebit: number; ebitMargin: number; revenue: number;
   } | null>(null);
 
-  const calculate = () => {
+  const handleCalculate = () => {
+    setShowResults(true);
     const dep = parseFloat(depreciation) || 0;
     const amort = parseFloat(amortization) || 0;
 
@@ -70,6 +72,7 @@ const EBITDACalculator = () => {
   };
 
   const reset = () => {
+    setShowResults(false);
     setRevenue("1000000"); setCogs("400000"); setOperatingExpenses("200000");
     setDepreciation("50000"); setAmortization("20000");
     setNetIncome("200000"); setInterest("30000"); setTaxes("60000");
@@ -118,12 +121,11 @@ const EBITDACalculator = () => {
               )}
 
               <div className="flex gap-3">
-                <button onClick={calculate} className="btn-calculate flex-1">Calculate EBITDA</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate EBITDA</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
             </div>
 
-            {result && (
+            {showResults && result && (
               <div className="card-calculator mb-8">
                 <h2 className="text-xl font-bold mb-4">EBITDA Analysis</h2>
                 <ResultDisplay items={[
@@ -191,4 +193,5 @@ const EBITDACalculator = () => {
 };
 
 export default EBITDACalculator;
+
 

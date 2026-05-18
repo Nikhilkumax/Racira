@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
-import { Card } from "@/components/ui/card";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import FAQSection from "@/components/FAQSection";
+import InputField from "@/components/calculator/InputField";
+import { RotateCcw, Zap } from "lucide-react";
 
 type SolveFor = "force" | "mass" | "acceleration";
 
@@ -12,6 +12,8 @@ const ForceCalculator = () => {
   const [solveFor, setSolveFor] = useState<SolveFor>("force");
   const [inputA, setInputA] = useState("");
   const [inputB, setInputB] = useState("");
+  const [showResults, setShowResults] = useState(false);
+  const [results, setResults] = useState<{ force: number; mass: number; acceleration: number; weight: number } | null>(null);
 
   const getLabels = () => {
     switch (solveFor) {
@@ -21,23 +23,29 @@ const ForceCalculator = () => {
     }
   };
 
-  const calculate = () => {
+  const handleCalculate = () => {
     const a = parseFloat(inputA);
     const b = parseFloat(inputB);
-    if (isNaN(a) || isNaN(b) || b === 0) return null;
+    if (isNaN(a) || isNaN(b) || b === 0) return;
 
+    setShowResults(true);
+    let f, m, acc;
     switch (solveFor) {
-      case "force": return { force: a * b, mass: a, acceleration: b };
-      case "mass": return { force: a, mass: a / b, acceleration: b };
-      case "acceleration": return { force: a, mass: b, acceleration: a / b };
+      case "force": f = a * b; m = a; acc = b; break;
+      case "mass": f = a; m = a / b; acc = b; break;
+      case "acceleration": f = a; acc = a / b; m = b; break;
     }
+    setResults({ force: f, mass: m, acceleration: acc, weight: m * 9.80665 });
+  };
+
+  const reset = () => {
+    setShowResults(false);
+    setInputA("");
+    setInputB("");
+    setResults(null);
   };
 
   const labels = getLabels();
-  const result = calculate();
-
-  // Additional derived quantities
-  const weight = result ? result.mass * 9.80665 : null;
 
   const faqs = [
     { question: "What is Newton's Second Law?", answer: "Newton's Second Law states that Force equals mass times acceleration (F = m × a). It describes how the motion of an object changes when a net force acts on it." },
@@ -47,78 +55,102 @@ const ForceCalculator = () => {
 
   return (
     <>
-<Breadcrumb items={[
-        { label: "Home", href: "/" },
-        { label: "Science & Engineering", href: "/calculator" },
-        { label: "Force Calculator" }
-      ]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Force Calculator" }]} />
 
-      <div className="calculator-container">
-        <h1 className="calculator-title">Force Calculator</h1>
-        <p className="calculator-subtitle">Calculate force, mass, or acceleration using Newton's Second Law (F = m × a).</p>
+      <div className="container-page py-8">
+        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
+          <div>
+            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Force Calculator</h1>
+            <p className="text-muted-foreground mb-8 text-lg">Calculate force, mass, or acceleration using Newton's Second Law (F = m × a).</p>
 
-        <Card className="calculator-card">
-          <div className="space-y-5">
-            <div>
-              <label className="text-sm font-medium text-foreground mb-1.5 block">Solve For</label>
-              <Select value={solveFor} onValueChange={(v) => { setSolveFor(v as SolveFor); setInputA(""); setInputB(""); }}>
-                <SelectTrigger><SelectValue /></SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="force">Force (F = m × a)</SelectItem>
-                  <SelectItem value="mass">Mass (m = F / a)</SelectItem>
-                  <SelectItem value="acceleration">Acceleration (a = F / m)</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
+            <div className="card-calculator mb-8">
+              <div className="space-y-6">
+                <div>
+                  <label className="text-sm font-bold text-muted-foreground uppercase tracking-wider mb-2 block text-[10px]">Solve For</label>
+                  <select 
+                    value={solveFor} 
+                    onChange={(e) => { setSolveFor(e.target.value as SolveFor); setInputA(""); setInputB(""); setShowResults(false); }}
+                    className="w-full bg-secondary/50 border border-border p-3 rounded-xl outline-none focus:border-primary transition-all font-medium"
+                  >
+                    <option value="force">Force (F = m × a)</option>
+                    <option value="mass">Mass (m = F / a)</option>
+                    <option value="acceleration">Acceleration (a = F / m)</option>
+                  </select>
+                </div>
 
-            <div>
-              <label htmlFor="inputA" className="text-sm font-medium text-foreground mb-1.5 block">{labels.a}</label>
-              <div className="relative">
-                <input id="inputA" type="number" value={inputA} onChange={e => setInputA(e.target.value)} className="input-calc pr-14" placeholder="0" />
-                <span className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">{labels.aUnit}</span>
+                <div className="grid sm:grid-cols-2 gap-6">
+                  <InputField id="inputA" label={labels.a} value={inputA} onChange={setInputA} suffix={labels.aUnit} type="number" />
+                  <InputField id="inputB" label={labels.b} value={inputB} onChange={setInputB} suffix={labels.bUnit} type="number" />
+                </div>
+
+                <div className="flex gap-3 items-center pt-4 border-t border-border">
+                  <button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground flex items-center gap-2 font-bold text-sm">
+                    <RotateCcw className="h-4 w-4" /> Reset
+                  </button>
+                </div>
               </div>
             </div>
 
-            <div>
-              <label htmlFor="inputB" className="text-sm font-medium text-foreground mb-1.5 block">{labels.b}</label>
-              <div className="relative">
-                <input id="inputB" type="number" value={inputB} onChange={e => setInputB(e.target.value)} className="input-calc pr-14" placeholder="0" />
-                <span className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">{labels.bUnit}</span>
+            {showResults && results && (
+              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
+                  <Zap className="h-5 w-5 text-primary" /> Physics Results
+                </h2>
+                <div className="grid sm:grid-cols-3 gap-4 mb-6">
+                  <div className={`p-6 rounded-2xl border text-center ${solveFor === "force" ? "bg-primary/5 border-primary/20" : "bg-secondary/30 border-border/50"}`}>
+                    <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1">Force</p>
+                    <p className={`text-xl font-black ${solveFor === "force" ? "text-primary" : "text-foreground"}`}>{results.force.toFixed(4)}</p>
+                    <p className="text-[10px] text-muted-foreground">Newtons (N)</p>
+                  </div>
+                  <div className={`p-6 rounded-2xl border text-center ${solveFor === "mass" ? "bg-primary/5 border-primary/20" : "bg-secondary/30 border-border/50"}`}>
+                    <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1">Mass</p>
+                    <p className={`text-xl font-black ${solveFor === "mass" ? "text-primary" : "text-foreground"}`}>{results.mass.toFixed(4)}</p>
+                    <p className="text-[10px] text-muted-foreground">Kilograms (kg)</p>
+                  </div>
+                  <div className={`p-6 rounded-2xl border text-center ${solveFor === "acceleration" ? "bg-primary/5 border-primary/20" : "bg-secondary/30 border-border/50"}`}>
+                    <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1">Acceleration</p>
+                    <p className={`text-xl font-black ${solveFor === "acceleration" ? "text-primary" : "text-foreground"}`}>{results.acceleration.toFixed(4)}</p>
+                    <p className="text-[10px] text-muted-foreground">m/s²</p>
+                  </div>
+                </div>
+                <div className="p-4 rounded-xl bg-secondary/50 border border-border text-center">
+                  <p className="text-xs text-muted-foreground font-medium uppercase tracking-wider mb-1">Equivalent Weight on Earth</p>
+                  <p className="text-lg font-bold text-foreground">{results.weight.toFixed(4)} N</p>
+                </div>
               </div>
-            </div>
+            )}
+
+            <article className="prose-finance">
+              <h2>Newton's Second Law of Motion</h2>
+              <p>Newton's Second Law is one of the most fundamental principles in classical mechanics. it describes the relationship between an object's mass and the amount of force needed to accelerate it.</p>
+              
+              <h3>The Formula</h3>
+              <div className="bg-secondary/50 p-4 rounded-xl text-center font-mono my-4">
+                Force (F) = Mass (m) × Acceleration (a)
+              </div>
+              
+              <h3>Key Definitions</h3>
+              <ul>
+                <li><strong>Force (N):</strong> A push or pull acting upon an object resulting from its interaction with another object. Measured in Newtons.</li>
+                <li><strong>Mass (kg):</strong> The amount of matter in an object. Unlike weight, mass does not change based on gravity.</li>
+                <li><strong>Acceleration (m/s²):</strong> The rate at which an object changes its velocity.</li>
+              </ul>
+            </article>
+
+            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/force-calculator" />
           </div>
-
-          {result && (
-            <div className="space-y-3 mt-6">
-              <div className="grid sm:grid-cols-3 gap-3">
-                <div className="result-card">
-                  <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Force</p>
-                  <p className={`text-xl font-bold ${solveFor === "force" ? "text-[hsl(217,91%,40%)] dark:text-primary" : "text-foreground"}`}>{result.force.toFixed(4)} N</p>
-                </div>
-                <div className="result-card">
-                  <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Mass</p>
-                  <p className={`text-xl font-bold ${solveFor === "mass" ? "text-[hsl(217,91%,40%)] dark:text-primary" : "text-foreground"}`}>{result.mass.toFixed(4)} kg</p>
-                </div>
-                <div className="result-card">
-                  <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Acceleration</p>
-                  <p className={`text-xl font-bold ${solveFor === "acceleration" ? "text-[hsl(217,91%,40%)] dark:text-primary" : "text-foreground"}`}>{result.acceleration.toFixed(4)} m/s²</p>
-                </div>
+          <aside className="hidden lg:block space-y-6">
+            <div className="sticky top-24 space-y-6">
+              <div className="p-6 rounded-2xl border border-primary/10 bg-primary/5">
+                <h3 className="font-bold text-primary mb-2 italic">Historical Fact</h3>
+                <p className="text-xs text-muted-foreground leading-relaxed italic">Isaac Newton first published these laws in his masterpiece 'Philosophiæ Naturalis Principia Mathematica' in 1687, which laid the foundation for modern physics.</p>
               </div>
-              {weight !== null && (
-                <div className="result-card">
-                  <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Weight on Earth (m × 9.81)</p>
-                  <p className="text-lg font-bold text-foreground">{weight.toFixed(4)} N</p>
-                </div>
-              )}
             </div>
-          )}
-        </Card>
-
-        <FAQSection faqs={faqs} pageUrl="https://raciracalculator.lovable.app/force-calculator" />
+          </aside>
+        </div>
       </div>
     </>
   );
 };
 
 export default ForceCalculator;
-

@@ -37,12 +37,14 @@ const IdealWeightCalculator = () => {
   const [gender, setGender] = useState<"male" | "female">("male");
   const [heightCm, setHeightCm] = useState("170");
   const [currentWeight, setCurrentWeight] = useState("75");
+  const [showResults, setShowResults] = useState(false);
   const [result, setResult] = useState<{
     devine: number; robinson: number; miller: number; hamwi: number; average: number;
     bmiHealthyMin: number; bmiHealthyMax: number; difference: number;
   } | null>(null);
 
-  const calculate = () => {
+  const handleCalculate = () => {
+    setShowResults(true);
     const h = parseFloat(heightCm) || 0;
     const cw = parseFloat(currentWeight) || 0;
     if (h <= 0) return;
@@ -60,7 +62,8 @@ const IdealWeightCalculator = () => {
     setResult({ devine: d, robinson: r, miller: m, hamwi: hw, average: avg, bmiHealthyMin: bmiMin, bmiHealthyMax: bmiMax, difference: cw > 0 ? Math.round((cw - avg) * 10) / 10 : 0 });
   };
 
-  const reset = () => { setGender("male"); setHeightCm("170"); setCurrentWeight("75"); setResult(null); };
+  const reset = () => {
+    setShowResults(false); setGender("male"); setHeightCm("170"); setCurrentWeight("75"); setResult(null); };
 
   const faqs = [
     { question: "What is ideal body weight?", answer: "Ideal body weight (IBW) is a weight range associated with optimal health outcomes based on your height and gender. It's estimated using validated medical formulas and is used in clinical settings for drug dosing and nutritional planning." },
@@ -91,12 +94,11 @@ const IdealWeightCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={calculate} className="btn-calculate flex-1">Calculate Ideal Weight</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Ideal Weight</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
             </div>
 
-            {result && (
+            {showResults && result && (
               <div className="card-calculator mb-8">
                 <h2 className="text-xl font-bold mb-4">Your Ideal Weight</h2>
                 <div className="text-center mb-6">
@@ -175,4 +177,5 @@ const IdealWeightCalculator = () => {
 };
 
 export default IdealWeightCalculator;
+
 

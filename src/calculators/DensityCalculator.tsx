@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
-import { Card } from "@/components/ui/card";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import FAQSection from "@/components/FAQSection";
+import InputField from "@/components/calculator/InputField";
+import { RotateCcw, Atom } from "lucide-react";
 
 type SolveFor = "density" | "mass" | "volume";
 
@@ -12,6 +12,8 @@ const DensityCalculator = () => {
   const [solveFor, setSolveFor] = useState<SolveFor>("density");
   const [inputA, setInputA] = useState("");
   const [inputB, setInputB] = useState("");
+  const [showResults, setShowResults] = useState(false);
+  const [results, setResults] = useState<{ density: number; mass: number; volume: number } | null>(null);
 
   const getLabels = () => {
     switch (solveFor) {
@@ -21,20 +23,27 @@ const DensityCalculator = () => {
     }
   };
 
-  const calculate = () => {
+  const handleCalculate = () => {
     const a = parseFloat(inputA);
     const b = parseFloat(inputB);
-    if (isNaN(a) || isNaN(b) || b === 0) return null;
+    if (isNaN(a) || isNaN(b) || b === 0) return;
 
+    setShowResults(true);
     switch (solveFor) {
-      case "density": return { density: a / b, mass: a, volume: b };
-      case "mass": return { density: a, mass: a * b, volume: b };
-      case "volume": return { density: b, mass: a, volume: a / b };
+      case "density": setResults({ density: a / b, mass: a, volume: b }); break;
+      case "mass": setResults({ density: a, mass: a * b, volume: b }); break;
+      case "volume": setResults({ density: b, mass: a, volume: a / b }); break;
     }
   };
 
+  const reset = () => {
+    setShowResults(false);
+    setInputA("");
+    setInputB("");
+    setResults(null);
+  };
+
   const labels = getLabels();
-  const result = calculate();
 
   const commonMaterials = [
     { name: "Water", density: "1,000 kg/m³" },
@@ -53,82 +62,111 @@ const DensityCalculator = () => {
 
   return (
     <>
-<Breadcrumb items={[
-        { label: "Home", href: "/" },
-        { label: "Science & Engineering", href: "/calculator" },
-        { label: "Density Calculator" }
-      ]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Density Calculator" }]} />
 
-      <div className="calculator-container">
-        <h1 className="calculator-title">Density Calculator</h1>
-        <p className="calculator-subtitle">Calculate density, mass, or volume using ρ = m / V.</p>
+      <div className="container-page py-8">
+        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
+          <div>
+            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Density Calculator</h1>
+            <p className="text-muted-foreground mb-8 text-lg">Calculate density, mass, or volume using the standard formula ρ = m / V.</p>
 
-        <Card className="calculator-card">
-          <div className="space-y-5">
-            <div>
-              <label className="text-sm font-medium text-foreground mb-1.5 block">Solve For</label>
-              <Select value={solveFor} onValueChange={(v) => { setSolveFor(v as SolveFor); setInputA(""); setInputB(""); }}>
-                <SelectTrigger><SelectValue /></SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="density">Density (ρ = m / V)</SelectItem>
-                  <SelectItem value="mass">Mass (m = ρ × V)</SelectItem>
-                  <SelectItem value="volume">Volume (V = m / ρ)</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
+            <div className="card-calculator mb-8">
+              <div className="space-y-6">
+                <div>
+                  <label className="text-sm font-bold text-muted-foreground uppercase tracking-wider mb-2 block text-[10px]">Solve For</label>
+                  <select 
+                    value={solveFor} 
+                    onChange={(e) => { setSolveFor(e.target.value as SolveFor); setInputA(""); setInputB(""); setShowResults(false); }}
+                    className="w-full bg-secondary/50 border border-border p-3 rounded-xl outline-none focus:border-primary transition-all font-medium"
+                  >
+                    <option value="density">Density (ρ = m / V)</option>
+                    <option value="mass">Mass (m = ρ × V)</option>
+                    <option value="volume">Volume (V = m / ρ)</option>
+                  </select>
+                </div>
 
-            <div>
-              <label htmlFor="inputA" className="text-sm font-medium text-foreground mb-1.5 block">{labels.a}</label>
-              <div className="relative">
-                <input id="inputA" type="number" value={inputA} onChange={e => setInputA(e.target.value)} className="input-calc pr-16" placeholder="0" />
-                <span className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">{labels.aUnit}</span>
+                <div className="grid sm:grid-cols-2 gap-6">
+                  <InputField id="inputA" label={labels.a} value={inputA} onChange={setInputA} suffix={labels.aUnit} type="number" />
+                  <InputField id="inputB" label={labels.b} value={inputB} onChange={setInputB} suffix={labels.bUnit} type="number" />
+                </div>
+
+                <div className="flex gap-3 items-center pt-4 border-t border-border">
+                  <button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground flex items-center gap-2 font-bold text-sm">
+                    <RotateCcw className="h-4 w-4" /> Reset
+                  </button>
+                </div>
               </div>
             </div>
 
-            <div>
-              <label htmlFor="inputB" className="text-sm font-medium text-foreground mb-1.5 block">{labels.b}</label>
-              <div className="relative">
-                <input id="inputB" type="number" value={inputB} onChange={e => setInputB(e.target.value)} className="input-calc pr-16" placeholder="0" />
-                <span className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">{labels.bUnit}</span>
+            {showResults && results && (
+              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
+                  <Atom className="h-5 w-5 text-primary" /> Calculation Results
+                </h2>
+                <div className="grid sm:grid-cols-3 gap-4">
+                  <div className={`p-6 rounded-2xl border text-center ${solveFor === "density" ? "bg-primary/5 border-primary/20" : "bg-secondary/30 border-border/50"}`}>
+                    <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1 text-xs">Density</p>
+                    <p className={`text-xl font-black ${solveFor === "density" ? "text-primary" : "text-foreground"}`}>{results.density.toFixed(4)}</p>
+                    <p className="text-[10px] text-muted-foreground">kg/m³</p>
+                  </div>
+                  <div className={`p-6 rounded-2xl border text-center ${solveFor === "mass" ? "bg-primary/5 border-primary/20" : "bg-secondary/30 border-border/50"}`}>
+                    <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1 text-xs">Mass</p>
+                    <p className={`text-xl font-black ${solveFor === "mass" ? "text-primary" : "text-foreground"}`}>{results.mass.toFixed(4)}</p>
+                    <p className="text-[10px] text-muted-foreground">kg</p>
+                  </div>
+                  <div className={`p-6 rounded-2xl border text-center ${solveFor === "volume" ? "bg-primary/5 border-primary/20" : "bg-secondary/30 border-border/50"}`}>
+                    <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1 text-xs">Volume</p>
+                    <p className={`text-xl font-black ${solveFor === "volume" ? "text-primary" : "text-foreground"}`}>{results.volume.toFixed(4)}</p>
+                    <p className="text-[10px] text-muted-foreground">m³</p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            <div className="card-calculator mb-8">
+              <h2 className="text-xl font-bold mb-6">Common Material Densities</h2>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                {commonMaterials.map(m => (
+                  <div key={m.name} className="flex justify-between items-center rounded-xl bg-secondary/50 border border-border p-3">
+                    <span className="text-sm font-bold text-foreground">{m.name}</span>
+                    <span className="text-xs font-medium text-muted-foreground">{m.density}</span>
+                  </div>
+                ))}
               </div>
             </div>
+
+            <article className="prose-finance">
+              <h2>About Density Calculation</h2>
+              <p>Density is a measure of how much mass is contained in a given unit of volume. It is a fundamental property of matter that describes how tightly atoms or molecules are packed together.</p>
+              
+              <h3>The Density Formula</h3>
+              <p>The standard formula for density is:</p>
+              <div className="bg-secondary/50 p-4 rounded-xl text-center font-mono my-4">
+                Density (ρ) = Mass (m) / Volume (V)
+              </div>
+              
+              <h3>Practical Applications</h3>
+              <ul>
+                <li><strong>Material Identification:</strong> Every pure substance has a unique density, helping scientists identify unknown materials.</li>
+                <li><strong>Buoyancy:</strong> Objects with a lower density than water will float, while those with a higher density will sink.</li>
+                <li><strong>Construction:</strong> Engineers calculate the density of concrete and steel to ensure buildings can support their own weight.</li>
+              </ul>
+            </article>
+
+            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/density-calculator" />
           </div>
-
-          {result && (
-            <div className="grid sm:grid-cols-3 gap-3 mt-6">
-              <div className="result-card">
-                <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Density</p>
-                <p className={`text-xl font-bold ${solveFor === "density" ? "text-[hsl(217,91%,40%)] dark:text-primary" : "text-foreground"}`}>{result.density.toFixed(4)} kg/m³</p>
-              </div>
-              <div className="result-card">
-                <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Mass</p>
-                <p className={`text-xl font-bold ${solveFor === "mass" ? "text-[hsl(217,91%,40%)] dark:text-primary" : "text-foreground"}`}>{result.mass.toFixed(4)} kg</p>
-              </div>
-              <div className="result-card">
-                <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Volume</p>
-                <p className={`text-xl font-bold ${solveFor === "volume" ? "text-[hsl(217,91%,40%)] dark:text-primary" : "text-foreground"}`}>{result.volume.toFixed(4)} m³</p>
+          <aside className="hidden lg:block space-y-6">
+            <div className="sticky top-24 space-y-6">
+              <div className="p-6 rounded-2xl border border-primary/10 bg-primary/5">
+                <h3 className="font-bold text-primary mb-2 italic">Pro Tip</h3>
+                <p className="text-xs text-muted-foreground leading-relaxed italic">Density changes with temperature and pressure, especially for gases. These calculations assume standard conditions unless otherwise specified.</p>
               </div>
             </div>
-          )}
-        </Card>
-
-        <Card className="calculator-card mt-6">
-          <h2 className="text-lg font-semibold text-foreground mb-3">Common Material Densities</h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2">
-            {commonMaterials.map(m => (
-              <div key={m.name} className="flex justify-between rounded-md bg-muted/50 px-3 py-2 text-sm">
-                <span className="text-foreground font-medium">{m.name}</span>
-                <span className="text-muted-foreground">{m.density}</span>
-              </div>
-            ))}
-          </div>
-        </Card>
-
-        <FAQSection faqs={faqs} pageUrl="https://raciracalculator.lovable.app/density-calculator" />
+          </aside>
+        </div>
       </div>
     </>
   );
 };
 
 export default DensityCalculator;
-

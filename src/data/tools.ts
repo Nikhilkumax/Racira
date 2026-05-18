@@ -10,7 +10,7 @@ export type CategorySlug =
   | "calculator"
   | "pdf-tools"
   | "image-tools"
-  | "ai-tools";
+  | "voice";
 
 export interface Category {
   slug: CategorySlug;
@@ -54,14 +54,14 @@ export const categories: Category[] = [
     highlights: ["Resize", "Compress", "Crop", "Format"],
   },
   {
-    slug: "ai-tools",
+    slug: "voice",
     title: "Voice Tools",
     tagline: "Audio, intelligent.",
     description:
-      "Transcription, voice synthesis, and audio utilities powered by modern AI models.",
+      "High-fidelity voice synthesis and text-to-speech powered by modern AI, directly in your browser.",
     icon: Mic,
-    status: "coming-soon",
-    highlights: ["Transcribe", "Synthesize", "Clean", "Convert"],
+    status: "active",
+    highlights: ["100+ Voices", "50+ Languages", "Unlimited", "Private"],
   },
 ];
 

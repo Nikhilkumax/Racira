@@ -13,6 +13,7 @@ const TDSCalculator = () => {
   const [incomeType, setIncomeType] = useState<"salary" | "fd" | "rent" | "professional" | "commission">("salary");
   const [amount, setAmount] = useState("500000");
   const [panAvailable, setPanAvailable] = useState(true);
+  const [showResults, setShowResults] = useState(false);
   const [result, setResult] = useState<{ tdsRate: number; tdsAmount: number; netAmount: number } | null>(null);
 
   const tdsRates: Record<string, { withPan: number; withoutPan: number; section: string; threshold: number }> = {
@@ -23,7 +24,8 @@ const TDSCalculator = () => {
     commission: { withPan: 5, withoutPan: 20, section: "194H", threshold: 15000 },
   };
 
-  const calculate = () => {
+  const handleCalculate = () => {
+    setShowResults(true);
     const amt = parseFloat(amount) || 0;
     if (amt <= 0) return;
 
@@ -40,7 +42,8 @@ const TDSCalculator = () => {
     setResult({ tdsRate: rate, tdsAmount: tds, netAmount: amt - tds });
   };
 
-  const reset = () => { setAmount("500000"); setIncomeType("salary"); setPanAvailable(true); setResult(null); };
+  const reset = () => {
+    setShowResults(false); setAmount("500000"); setIncomeType("salary"); setPanAvailable(true); setResult(null); };
 
   const incomeTypes = [
     { value: "salary", label: "Salary" },
@@ -96,12 +99,11 @@ const TDSCalculator = () => {
               </p>
 
               <div className="flex gap-3">
-                <button onClick={calculate} className="btn-calculate flex-1">Calculate TDS</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate TDS</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
             </div>
 
-            {result && (
+            {showResults && result && (
               <div className="card-calculator mb-8">
                 <h2 className="text-xl font-bold mb-4">TDS Calculation</h2>
                 <ResultDisplay currency="₹" items={[
@@ -151,4 +153,5 @@ const TDSCalculator = () => {
 };
 
 export default TDSCalculator;
+
 

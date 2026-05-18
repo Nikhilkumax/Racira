@@ -14,9 +14,11 @@ type Shape = "rectangle" | "circle" | "triangle" | "trapezoid" | "ellipse";
 const AreaCalculator = () => {
   const [shape, setShape] = useState<Shape>("rectangle");
   const [a, setA] = useState(""); const [b, setB] = useState(""); const [c, setC] = useState("");
+  const [showResults, setShowResults] = useState(false);
   const [result, setResult] = useState<{ area: number; perimeter: number; formula: string } | null>(null);
 
-  const calculate = () => {
+  const handleCalculate = () => {
+    setShowResults(true);
     const x = parseFloat(a) || 0, y = parseFloat(b) || 0, z = parseFloat(c) || 0;
     let area = 0, perimeter = 0, formula = "";
     if (shape === "rectangle") { area = x * y; perimeter = 2 * (x + y); formula = "A = l × w"; }
@@ -27,7 +29,8 @@ const AreaCalculator = () => {
     setResult({ area, perimeter, formula });
   };
 
-  const reset = () => { setA(""); setB(""); setC(""); setResult(null); };
+  const reset = () => {
+    setShowResults(false); setA(""); setB(""); setC(""); setResult(null); };
 
   const shapes: { key: Shape; label: string }[] = [
     { key: "rectangle", label: "Rectangle" }, { key: "circle", label: "Circle" },
@@ -65,12 +68,11 @@ const AreaCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={calculate} className="btn-calculate flex-1">Calculate</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
             </div>
 
-            {result && (
+            {showResults && result && (
               <div className="card-calculator mb-8">
                 <h2 className="text-xl font-bold mb-4">Result</h2>
                 <ResultDisplay items={[
@@ -94,4 +96,5 @@ const AreaCalculator = () => {
 };
 
 export default AreaCalculator;
+
 

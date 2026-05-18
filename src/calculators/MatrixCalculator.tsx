@@ -46,9 +46,11 @@ const MatrixCalculator = () => {
   const [size, setSize] = useState("2");
   const [matA, setMatA] = useState("1 2\n3 4");
   const [matB, setMatB] = useState("5 6\n7 8");
+  const [showResults, setShowResults] = useState(false);
   const [result, setResult] = useState<any>(null);
 
-  const calculate = () => {
+  const handleCalculate = () => {
+    setShowResults(true);
     const n = parseInt(size) || 2;
     const a = parse(matA, n, n);
 
@@ -68,7 +70,8 @@ const MatrixCalculator = () => {
     }
   };
 
-  const reset = () => { setMatA("1 2\n3 4"); setMatB("5 6\n7 8"); setResult(null); };
+  const reset = () => {
+    setShowResults(false); setMatA("1 2\n3 4"); setMatB("5 6\n7 8"); setResult(null); };
 
   const faqs = [
     { question: "How do I enter a matrix?", answer: "Enter each row on a new line, separating values with spaces or commas. For a 2×2 matrix: '1 2' on line 1 and '3 4' on line 2." },
@@ -117,12 +120,11 @@ const MatrixCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={calculate} className="btn-calculate flex-1">Calculate</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
             </div>
 
-            {result && (
+            {showResults && result && (
               <div className="card-calculator mb-8">
                 <h2 className="text-xl font-bold mb-4">Result</h2>
                 {result.type === "det" ? (
@@ -154,4 +156,5 @@ const MatrixCalculator = () => {
 };
 
 export default MatrixCalculator;
+
 

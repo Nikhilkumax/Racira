@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
-import { Card } from "@/components/ui/card";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import FAQSection from "@/components/FAQSection";
+import InputField from "@/components/calculator/InputField";
+import { RotateCcw, Zap } from "lucide-react";
 
 type SolveFor = "voltage" | "current" | "resistance" | "power";
 
@@ -12,6 +12,8 @@ const OhmsLawCalculator = () => {
   const [solveFor, setSolveFor] = useState<SolveFor>("voltage");
   const [inputA, setInputA] = useState("");
   const [inputB, setInputB] = useState("");
+  const [showResults, setShowResults] = useState(false);
+  const [results, setResults] = useState<{ voltage: number; current: number; resistance: number; power: number } | null>(null);
 
   const getLabels = (): { a: string; b: string; aUnit: string; bUnit: string } => {
     switch (solveFor) {
@@ -22,37 +24,38 @@ const OhmsLawCalculator = () => {
     }
   };
 
-  const calculate = () => {
+  const handleCalculate = () => {
     const a = parseFloat(inputA);
     const b = parseFloat(inputB);
-    if (isNaN(a) || isNaN(b) || b === 0) return null;
+    if (isNaN(a) || isNaN(b) || b === 0) return;
 
+    setShowResults(true);
+    let v, i, r, p;
     switch (solveFor) {
       case "voltage": {
-        const V = a * b;
-        const P = V * a;
-        return { voltage: V, current: a, resistance: b, power: P };
+        v = a * b; i = a; r = b; p = v * i; break;
       }
       case "current": {
-        const I = a / b;
-        const P = a * I;
-        return { voltage: a, current: I, resistance: b, power: P };
+        v = a; i = a / b; r = b; p = v * i; break;
       }
       case "resistance": {
-        const R = a / b;
-        const P = a * b;
-        return { voltage: a, current: b, resistance: R, power: P };
+        v = a; i = b; r = a / b; p = v * i; break;
       }
       case "power": {
-        const P = a * b;
-        const R = a / b;
-        return { voltage: a, current: b, resistance: R, power: P };
+        p = a * b; v = a; i = b; r = a / b; break;
       }
     }
+    setResults({ voltage: v, current: i, resistance: r, power: p });
+  };
+
+  const reset = () => {
+    setShowResults(false);
+    setInputA("");
+    setInputB("");
+    setResults(null);
   };
 
   const labels = getLabels();
-  const result = calculate();
 
   const faqs = [
     { question: "What is Ohm's Law?", answer: "Ohm's Law states that voltage (V) equals current (I) multiplied by resistance (R): V = I × R. It is the fundamental law governing electrical circuits." },
@@ -62,75 +65,101 @@ const OhmsLawCalculator = () => {
 
   return (
     <>
-<Breadcrumb items={[
-        { label: "Home", href: "/" },
-        { label: "Science & Engineering", href: "/calculator" },
-        { label: "Ohm's Law Calculator" }
-      ]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Ohm's Law Calculator" }]} />
 
-      <div className="calculator-container">
-        <h1 className="calculator-title">Ohm's Law Calculator</h1>
-        <p className="calculator-subtitle">Calculate voltage, current, resistance, and power for electrical circuits.</p>
+      <div className="container-page py-8">
+        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
+          <div>
+            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Ohm's Law Calculator</h1>
+            <p className="text-muted-foreground mb-8 text-lg">Calculate voltage, current, resistance, and power for any electrical circuit.</p>
 
-        <Card className="calculator-card">
-          <div className="space-y-5">
-            <div>
-              <label className="text-sm font-medium text-foreground mb-1.5 block">Solve For</label>
-              <Select value={solveFor} onValueChange={(v) => { setSolveFor(v as SolveFor); setInputA(""); setInputB(""); }}>
-                <SelectTrigger><SelectValue /></SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="voltage">Voltage (V = I × R)</SelectItem>
-                  <SelectItem value="current">Current (I = V / R)</SelectItem>
-                  <SelectItem value="resistance">Resistance (R = V / I)</SelectItem>
-                  <SelectItem value="power">Power (P = V × I)</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
+            <div className="card-calculator mb-8">
+              <div className="space-y-6">
+                <div>
+                  <label className="text-sm font-bold text-muted-foreground uppercase tracking-wider mb-2 block text-[10px]">Solve For</label>
+                  <select 
+                    value={solveFor} 
+                    onChange={(e) => { setSolveFor(e.target.value as SolveFor); setInputA(""); setInputB(""); setShowResults(false); }}
+                    className="w-full bg-secondary/50 border border-border p-3 rounded-xl outline-none focus:border-primary transition-all font-medium"
+                  >
+                    <option value="voltage">Voltage (V = I × R)</option>
+                    <option value="current">Current (I = V / R)</option>
+                    <option value="resistance">Resistance (R = V / I)</option>
+                    <option value="power">Power (P = V × I)</option>
+                  </select>
+                </div>
 
-            <div>
-              <label htmlFor="inputA" className="text-sm font-medium text-foreground mb-1.5 block">{labels.a}</label>
-              <div className="relative">
-                <input id="inputA" type="number" value={inputA} onChange={e => setInputA(e.target.value)} className="input-calc pr-14" placeholder="0" />
-                <span className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">{labels.aUnit}</span>
+                <div className="grid sm:grid-cols-2 gap-6">
+                  <InputField id="inputA" label={labels.a} value={inputA} onChange={setInputA} suffix={labels.aUnit} type="number" />
+                  <InputField id="inputB" label={labels.b} value={inputB} onChange={setInputB} suffix={labels.bUnit} type="number" />
+                </div>
+
+                <div className="flex gap-3 items-center pt-4 border-t border-border">
+                  <button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground flex items-center gap-2 font-bold text-sm">
+                    <RotateCcw className="h-4 w-4" /> Reset
+                  </button>
+                </div>
               </div>
             </div>
 
-            <div>
-              <label htmlFor="inputB" className="text-sm font-medium text-foreground mb-1.5 block">{labels.b}</label>
-              <div className="relative">
-                <input id="inputB" type="number" value={inputB} onChange={e => setInputB(e.target.value)} className="input-calc pr-14" placeholder="0" />
-                <span className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">{labels.bUnit}</span>
+            {showResults && results && (
+              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
+                  <Zap className="h-5 w-5 text-primary" /> Electrical Results
+                </h2>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                  <div className={`p-4 rounded-xl border text-center ${solveFor === "voltage" ? "bg-primary/5 border-primary/20" : "bg-secondary/30 border-border/50"}`}>
+                    <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1">Voltage</p>
+                    <p className={`text-lg font-black ${solveFor === "voltage" ? "text-primary" : "text-foreground"}`}>{results.voltage.toFixed(4)}V</p>
+                  </div>
+                  <div className={`p-4 rounded-xl border text-center ${solveFor === "current" ? "bg-primary/5 border-primary/20" : "bg-secondary/30 border-border/50"}`}>
+                    <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1">Current</p>
+                    <p className={`text-lg font-black ${solveFor === "current" ? "text-primary" : "text-foreground"}`}>{results.current.toFixed(4)}A</p>
+                  </div>
+                  <div className={`p-4 rounded-xl border text-center ${solveFor === "resistance" ? "bg-primary/5 border-primary/20" : "bg-secondary/30 border-border/50"}`}>
+                    <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1">Resistance</p>
+                    <p className={`text-lg font-black ${solveFor === "resistance" ? "text-primary" : "text-foreground"}`}>{results.resistance.toFixed(4)}Ω</p>
+                  </div>
+                  <div className={`p-4 rounded-xl border text-center ${solveFor === "power" ? "bg-primary/5 border-primary/20" : "bg-secondary/30 border-border/50"}`}>
+                    <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1">Power</p>
+                    <p className={`text-lg font-black ${solveFor === "power" ? "text-primary" : "text-foreground"}`}>{results.power.toFixed(4)}W</p>
+                  </div>
+                </div>
               </div>
-            </div>
+            )}
+
+            <article className="prose-finance">
+              <h2>Understanding Ohm's Law</h2>
+              <p>Ohm's Law is the most fundamental law in electronics. It defines the relationship between the three primary electrical quantities: voltage, current, and resistance.</p>
+              
+              <h3>The Core Relationship</h3>
+              <div className="bg-secondary/50 p-4 rounded-xl text-center font-mono my-4">
+                Voltage (V) = Current (I) × Resistance (R)
+              </div>
+              
+              <h3>Key Definitions</h3>
+              <ul>
+                <li><strong>Voltage (V):</strong> The electrical pressure or potential difference between two points, measured in Volts.</li>
+                <li><strong>Current (I):</strong> The flow of electrical charge through a conductor, measured in Amperes.</li>
+                <li><strong>Resistance (R):</strong> The opposition to the flow of current, measured in Ohms.</li>
+                <li><strong>Power (P):</strong> The rate at which electrical energy is transferred or consumed, measured in Watts.</li>
+              </ul>
+            </article>
+
+            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/ohms-law-calculator" />
           </div>
-
-          {result && (
-            <div className="grid sm:grid-cols-2 gap-3 mt-6">
-              <div className="result-card">
-                <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Voltage</p>
-                <p className={`text-xl font-bold ${solveFor === "voltage" ? "text-[hsl(217,91%,40%)] dark:text-primary" : "text-foreground"}`}>{result.voltage.toFixed(4)} V</p>
-              </div>
-              <div className="result-card">
-                <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Current</p>
-                <p className={`text-xl font-bold ${solveFor === "current" ? "text-[hsl(217,91%,40%)] dark:text-primary" : "text-foreground"}`}>{result.current.toFixed(4)} A</p>
-              </div>
-              <div className="result-card">
-                <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Resistance</p>
-                <p className={`text-xl font-bold ${solveFor === "resistance" ? "text-[hsl(217,91%,40%)] dark:text-primary" : "text-foreground"}`}>{result.resistance.toFixed(4)} Ω</p>
-              </div>
-              <div className="result-card">
-                <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Power</p>
-                <p className={`text-xl font-bold ${solveFor === "power" ? "text-[hsl(217,91%,40%)] dark:text-primary" : "text-foreground"}`}>{result.power.toFixed(4)} W</p>
+          <aside className="hidden lg:block space-y-6">
+            <div className="sticky top-24 space-y-6">
+              <div className="p-6 rounded-2xl border border-primary/10 bg-primary/5">
+                <h3 className="font-bold text-primary mb-2 italic">Pro Tip</h3>
+                <p className="text-xs text-muted-foreground leading-relaxed italic">When using this calculator, ensure all units are consistent. If you have milliamps (mA), convert them to Amps (A) by dividing by 1,000 first.</p>
               </div>
             </div>
-          )}
-        </Card>
-
-        <FAQSection faqs={faqs} pageUrl="https://raciracalculator.lovable.app/ohms-law-calculator" />
+          </aside>
+        </div>
       </div>
     </>
   );
 };
 
 export default OhmsLawCalculator;
-

@@ -1,4 +1,5 @@
 "use client";
+import {  } from "lucide-react";
 
 import { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
@@ -22,6 +23,7 @@ const MolarityCalculator = () => {
   const [v1, setV1] = useState("");
   const [c2, setC2] = useState("");
   const [v2, setV2] = useState("");
+  const [showResults, setShowResults] = useState(false);
 
   const molarityResult = () => {
     if (massG && molarMass && volumeL) {
@@ -206,4 +208,5 @@ const MolarityCalculator = () => {
 };
 
 export default MolarityCalculator;
+
 

@@ -13,9 +13,11 @@ const QuadraticFormulaCalculator = () => {
   const [a, setA] = useState("1");
   const [b, setB] = useState("-5");
   const [c, setC] = useState("6");
+  const [showResults, setShowResults] = useState(false);
   const [result, setResult] = useState<any>(null);
 
-  const calculate = () => {
+  const handleCalculate = () => {
+    setShowResults(true);
     const na = parseFloat(a) || 0;
     const nb = parseFloat(b) || 0;
     const nc = parseFloat(c) || 0;
@@ -37,7 +39,8 @@ const QuadraticFormulaCalculator = () => {
     }
   };
 
-  const reset = () => { setA("1"); setB("-5"); setC("6"); setResult(null); };
+  const reset = () => {
+    setShowResults(false); setA("1"); setB("-5"); setC("6"); setResult(null); };
 
   const faqs = [
     { question: "What is the quadratic formula?", answer: "x = (-b ± √(b²-4ac)) / 2a. It solves any quadratic equation ax² + bx + c = 0." },
@@ -64,12 +67,11 @@ const QuadraticFormulaCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={calculate} className="btn-calculate flex-1">Solve</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Solve</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
             </div>
 
-            {result && (
+            {showResults && result && (
               <div className="card-calculator mb-8">
                 <h2 className="text-xl font-bold mb-4">Solution</h2>
                 <ResultDisplay items={[
@@ -101,4 +103,5 @@ const QuadraticFormulaCalculator = () => {
 };
 
 export default QuadraticFormulaCalculator;
+
 

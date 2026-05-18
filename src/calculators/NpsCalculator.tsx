@@ -16,9 +16,11 @@ const NPSCalculator = () => {
   const [retirementAge, setRetirementAge] = useState("60");
   const [annuityPct, setAnnuityPct] = useState("40");
   const [annuityRate, setAnnuityRate] = useState("6");
+  const [showResults, setShowResults] = useState(false);
   const [result, setResult] = useState<{ totalInvested: number; totalCorpus: number; interest: number; lumpsum: number; annuityCorpus: number; monthlyPension: number } | null>(null);
 
-  const calculate = () => {
+  const handleCalculate = () => {
+    setShowResults(true);
     const P = parseFloat(monthly) || 0;
     const r = (parseFloat(rate) || 0) / 100 / 12;
     const age = parseInt(currentAge) || 25;
@@ -50,7 +52,8 @@ const NPSCalculator = () => {
     });
   };
 
-  const reset = () => { setMonthly("5000"); setRate("10"); setCurrentAge("25"); setRetirementAge("60"); setAnnuityPct("40"); setAnnuityRate("6"); setResult(null); };
+  const reset = () => {
+    setShowResults(false); setMonthly("5000"); setRate("10"); setCurrentAge("25"); setRetirementAge("60"); setAnnuityPct("40"); setAnnuityRate("6"); setResult(null); };
 
   const faqs = [
     { question: "What is NPS?", answer: "NPS (National Pension System) is a government-sponsored retirement savings scheme. It invests in a mix of equity, corporate bonds, and government securities based on your choice." },
@@ -81,12 +84,11 @@ const NPSCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={calculate} className="btn-calculate flex-1">Calculate</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
             </div>
 
-            {result && (
+            {showResults && result && (
               <div className="card-calculator mb-8">
                 <h2 className="text-xl font-bold mb-4">NPS Retirement Projection</h2>
                 <ResultDisplay currency="₹" items={[
@@ -143,4 +145,5 @@ const NPSCalculator = () => {
 };
 
 export default NPSCalculator;
+
 

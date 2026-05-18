@@ -39,11 +39,13 @@ const BodyFatCalculator = () => {
   const [waist, setWaist] = useState("80");
   const [neck, setNeck] = useState("37");
   const [hip, setHip] = useState("95");
+  const [showResults, setShowResults] = useState(false);
   const [result, setResult] = useState<{
     bodyFat: number; category: string; fatMass: number; leanMass: number;
   } | null>(null);
 
-  const calculate = () => {
+  const handleCalculate = () => {
+    setShowResults(true);
     const w = parseFloat(weight) || 0;
     const h = parseFloat(heightCm) || 0;
     const waistCm = parseFloat(waist) || 0;
@@ -60,7 +62,8 @@ const BodyFatCalculator = () => {
     setResult({ bodyFat, category: getCategory(bodyFat, gender), fatMass, leanMass });
   };
 
-  const reset = () => { setWeight("70"); setHeightCm("170"); setWaist("80"); setNeck("37"); setHip("95"); setResult(null); };
+  const reset = () => {
+    setShowResults(false); setWeight("70"); setHeightCm("170"); setWaist("80"); setNeck("37"); setHip("95"); setResult(null); };
 
   const faqs = [
     { question: "What is the US Navy body fat formula?", answer: "The US Navy method estimates body fat using circumference measurements. For men: neck and waist. For women: neck, waist, and hip. It correlates well with hydrostatic weighing (within 1-3% accuracy)." },
@@ -94,12 +97,11 @@ const BodyFatCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={calculate} className="btn-calculate flex-1">Calculate Body Fat</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Body Fat</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
             </div>
 
-            {result && (
+            {showResults && result && (
               <div className="card-calculator mb-8">
                 <h2 className="text-xl font-bold mb-4">Your Body Composition</h2>
                 <div className="text-center mb-6">
@@ -183,4 +185,5 @@ const BodyFatCalculator = () => {
 };
 
 export default BodyFatCalculator;
+
 

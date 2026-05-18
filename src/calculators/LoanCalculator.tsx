@@ -9,7 +9,7 @@ import InputField from "@/components/calculator/InputField";
 import ResultDisplay from "@/components/calculator/ResultDisplay";
 import PieChart from "@/components/calculator/PieChart";
 import AmortizationTable, { type AmortRow } from "@/components/calculator/AmortizationTable";
-import { ChevronDown, Printer, RotateCcw } from "lucide-react";
+import { ChevronDown, Printer, RotateCcw, Calculator } from "lucide-react";
 
 interface LoanResults {
   emi: number;
@@ -38,10 +38,12 @@ const LoanCalculator = () => {
   const [emiFreq, setEmiFreq] = useState<"monthly" | "quarterly">("monthly");
 
   const [results, setResults] = useState<LoanResults | null>(null);
+  const [showResults, setShowResults] = useState(false);
   const [viewMode, setViewMode] = useState<"monthly" | "yearly">("yearly");
   const printRef = useRef<HTMLDivElement>(null);
 
-  const calculate = () => {
+  const handleCalculate = () => {
+    setShowResults(true);
     const P = parseFloat(loanAmount) || 0;
     const annualRate = parseFloat(interestRate) || 0;
     const termVal = parseFloat(loanTerm) || 0;
@@ -121,6 +123,7 @@ const LoanCalculator = () => {
   };
 
   const reset = () => {
+    setShowResults(false);
     setLoanAmount("500000"); setInterestRate("8.5"); setLoanTerm("5");
     setProcessingFee("1"); setPrepaymentAmount("0"); setPrepaymentMonth("12");
     setResults(null);
@@ -206,15 +209,14 @@ const LoanCalculator = () => {
               )}
 
               <div className="flex gap-3">
-                <button onClick={calculate} className="btn-calculate flex-1">Calculate EMI</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset">
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate EMI</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset">
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
             </div>
 
             {/* Results */}
-            {results && (
+            {showResults && results && (
               <div className="card-calculator mb-8" ref={printRef}>
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="text-xl font-bold">EMI Results</h2>
@@ -311,4 +313,5 @@ const LoanCalculator = () => {
 };
 
 export default LoanCalculator;
+
 

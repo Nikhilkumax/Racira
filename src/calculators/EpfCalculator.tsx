@@ -18,9 +18,11 @@ const EPFCalculator = () => {
   const [retirementAge, setRetirementAge] = useState("58");
   const [currentBalance, setCurrentBalance] = useState("0");
   const [annualIncrement, setAnnualIncrement] = useState("5");
+  const [showResults, setShowResults] = useState(false);
   const [result, setResult] = useState<{ employeeTotal: number; employerTotal: number; interest: number; maturity: number; yearData: { year: number; salary: number; contribution: number; balance: number }[] } | null>(null);
 
-  const calculate = () => {
+  const handleCalculate = () => {
+    setShowResults(true);
     const salary = parseFloat(basicSalary) || 0;
     const empPct = (parseFloat(employeeContrib) || 0) / 100;
     const erPct = (parseFloat(employerContrib) || 0) / 100;
@@ -60,6 +62,7 @@ const EPFCalculator = () => {
   };
 
   const reset = () => {
+    setShowResults(false);
     setBasicSalary("25000"); setEmployeeContrib("12"); setEmployerContrib("3.67");
     setRate("8.25"); setCurrentAge("25"); setRetirementAge("58");
     setCurrentBalance("0"); setAnnualIncrement("5"); setResult(null);
@@ -96,12 +99,11 @@ const EPFCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={calculate} className="btn-calculate flex-1">Calculate</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
             </div>
 
-            {result && (
+            {showResults && result && (
               <div className="card-calculator mb-8">
                 <h2 className="text-xl font-bold mb-4">EPF Corpus at Retirement</h2>
                 <ResultDisplay currency="₹" items={[
@@ -174,4 +176,5 @@ const EPFCalculator = () => {
 };
 
 export default EPFCalculator;
+
 

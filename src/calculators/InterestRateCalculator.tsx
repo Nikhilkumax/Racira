@@ -13,10 +13,12 @@ const InterestRateCalculator = () => {
   const [loanAmount, setLoanAmount] = useState("25000");
   const [monthlyPayment, setMonthlyPayment] = useState("500");
   const [loanTerm, setLoanTerm] = useState("60");
+  const [showResults, setShowResults] = useState(false);
 
   const [result, setResult] = useState<{ rate: number; totalInterest: number; totalPaid: number } | null>(null);
 
-  const calculate = () => {
+  const handleCalculate = () => {
+    setShowResults(true);
     const P = parseFloat(loanAmount) || 0;
     const M = parseFloat(monthlyPayment) || 0;
     const n = parseFloat(loanTerm) || 0;
@@ -39,7 +41,8 @@ const InterestRateCalculator = () => {
     setResult({ rate: annualRate, totalInterest: totalPaid - P, totalPaid });
   };
 
-  const reset = () => { setLoanAmount("25000"); setMonthlyPayment("500"); setLoanTerm("60"); setResult(null); };
+  const reset = () => {
+    setShowResults(false); setLoanAmount("25000"); setMonthlyPayment("500"); setLoanTerm("60"); setResult(null); };
 
   const faqs = [
     { question: "How is the interest rate calculated from payments?", answer: "We use Newton's method (numerical iteration) to solve the amortization formula for the interest rate. Given the loan amount, monthly payment, and term, the calculator finds the rate that makes the equation balance." },
@@ -66,12 +69,11 @@ const InterestRateCalculator = () => {
                 <InputField id="term" label="Loan Term (Months)" value={loanTerm} onChange={setLoanTerm} />
               </div>
               <div className="flex gap-3">
-                <button onClick={calculate} className="btn-calculate flex-1">Find Rate</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Find Rate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
             </div>
 
-            {result && (
+            {showResults && result && (
               <div className="card-calculator mb-8">
                 <h2 className="text-xl font-bold mb-4">Results</h2>
                 <ResultDisplay items={[
@@ -121,4 +123,5 @@ const InterestRateCalculator = () => {
 };
 
 export default InterestRateCalculator;
+
 

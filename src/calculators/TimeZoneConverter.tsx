@@ -2,8 +2,12 @@
 
 import { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
+import AdPlaceholder from "@/components/AdPlaceholder";
+import PopularCalculators from "@/components/PopularCalculators";
+import FAQSection from "@/components/FAQSection";
 import InputField from "@/components/calculator/InputField";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { RotateCcw, Calculator } from "lucide-react";
 
 const zones = [
   { key: "UTC-12", label: "UTC−12 (Baker Island)", offset: -12 },
@@ -49,94 +53,204 @@ const format24 = (hours: number, minutes: number) => {
   return `${h.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}`;
 };
 
+interface ConversionResult {
+  sourceTime12: string;
+  sourceTime24: string;
+  sourceZoneLabel: string;
+  convertedTime12: string;
+  convertedTime24: string;
+  targetZoneLabel: string;
+  diff: number;
+  h: number;
+  m: number;
+}
+
 const TimeZoneConverter = () => {
   const [hour, setHour] = useState("12");
   const [minute, setMinute] = useState("0");
   const [fromZone, setFromZone] = useState("UTC-5");
   const [toZone, setToZone] = useState("UTC+5.5");
+  const [showResults, setShowResults] = useState(false);
+  const [result, setResult] = useState<ConversionResult | null>(null);
 
-  const h = parseInt(hour) || 0;
-  const m = parseInt(minute) || 0;
-  const fromOffset = zones.find(z => z.key === fromZone)?.offset ?? 0;
-  const toOffset = zones.find(z => z.key === toZone)?.offset ?? 0;
-  const diff = toOffset - fromOffset;
-  const totalMinutes = h * 60 + m + diff * 60;
-  const resultH = Math.floor(totalMinutes / 60);
-  const resultM = Math.round(totalMinutes % 60);
+  const handleCalculate = () => {
+    const h = parseInt(hour) || 0;
+    const m = parseInt(minute) || 0;
+    const fromOffset = zones.find(z => z.key === fromZone)?.offset ?? 0;
+    const toOffset = zones.find(z => z.key === toZone)?.offset ?? 0;
+    const diff = toOffset - fromOffset;
+    const totalMinutes = h * 60 + m + diff * 60;
+    const resultH = Math.floor(totalMinutes / 60);
+    const resultM = Math.round(totalMinutes % 60);
+
+    setResult({
+      sourceTime12: formatTime(h, m),
+      sourceTime24: format24(h, m),
+      sourceZoneLabel: zones.find(z => z.key === fromZone)?.label ?? fromZone,
+      convertedTime12: formatTime(resultH, resultM),
+      convertedTime24: format24(resultH, resultM),
+      targetZoneLabel: zones.find(z => z.key === toZone)?.label ?? toZone,
+      diff,
+      h,
+      m,
+    });
+    setShowResults(true);
+  };
+
+  const reset = () => {
+    setShowResults(false);
+    setHour("12");
+    setMinute("0");
+    setFromZone("UTC-5");
+    setToZone("UTC+5.5");
+    setResult(null);
+  };
+
+  const faqs = [
+    { question: "How does time zone conversion work?", answer: "Time zones are defined as offsets from Coordinated Universal Time (UTC). To convert between two zones, calculate the difference between their offsets and add it to the source time. For example, EST (UTC−5) to IST (UTC+5:30) is a +10.5 hour shift." },
+    { question: "What is UTC?", answer: "UTC (Coordinated Universal Time) is the global time standard from which all time zones are derived. It does not observe daylight saving time and serves as the zero reference point (UTC+0) for all other offsets." },
+    { question: "Does this tool account for daylight saving time?", answer: "This converter uses fixed UTC offsets rather than named time zones with DST rules. During daylight saving periods, you may need to adjust the offset manually (e.g., use UTC−4 instead of UTC−5 for EDT instead of EST)." },
+    { question: "What is the International Date Line?", answer: "The International Date Line runs roughly along the 180° meridian in the Pacific Ocean. When you cross it heading westward you skip forward a day; heading eastward you go back a day. Our converter handles this by showing '(next day)' or '(prev day)' labels." },
+    { question: "How many time zones are there?", answer: "There are 38 time zones in practice, ranging from UTC−12 to UTC+14. Most are whole-hour offsets, but India (UTC+5:30), Nepal (UTC+5:45), and several others use fractional-hour offsets." },
+  ];
 
   return (
     <>
-<Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Time Zone Converter" }]} />
-      <div className="container max-w-4xl mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold text-foreground mb-2">Time Zone Converter</h1>
-        <p className="text-muted-foreground mb-6">Convert times between different time zones worldwide.</p>
+<Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Time Zone Converter" }]} />
 
-        <div className="card-calc p-6 mb-6">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 items-end">
-            <InputField id="tz-hour" label="Hour (0-23)" value={hour} onChange={setHour} min="0" step="1" />
-            <InputField id="tz-minute" label="Minute" value={minute} onChange={setMinute} min="0" step="1" />
-            <div>
-              <label className="text-sm font-medium text-foreground mb-1.5 block">From Time Zone</label>
-              <Select value={fromZone} onValueChange={setFromZone}>
-                <SelectTrigger className="input-calc"><SelectValue /></SelectTrigger>
-                <SelectContent>{zones.map(z => <SelectItem key={z.key} value={z.key}>{z.label}</SelectItem>)}</SelectContent>
-              </Select>
-            </div>
-            <div>
-              <label className="text-sm font-medium text-foreground mb-1.5 block">To Time Zone</label>
-              <Select value={toZone} onValueChange={setToZone}>
-                <SelectTrigger className="input-calc"><SelectValue /></SelectTrigger>
-                <SelectContent>{zones.map(z => <SelectItem key={z.key} value={z.key}>{z.label}</SelectItem>)}</SelectContent>
-              </Select>
-            </div>
-          </div>
-        </div>
+      <div className="container-page py-8">
+        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
+          <div>
+            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Time Zone Converter</h1>
+            <p className="text-muted-foreground mb-8">Convert times between different time zones worldwide.</p>
 
-        <div className="card-calc p-6 mb-6">
-          <h2 className="text-lg font-semibold text-foreground mb-4">Result</h2>
-          <div className="grid sm:grid-cols-2 gap-3">
-            <div className="result-card">
-              <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Source Time</p>
-              <p className="text-xl font-bold text-foreground">{formatTime(h, m)}</p>
-              <p className="text-sm text-muted-foreground">{format24(h, m)} • {zones.find(z => z.key === fromZone)?.label}</p>
-            </div>
-            <div className="result-card">
-              <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Converted Time</p>
-              <p className="text-xl font-bold text-[hsl(217,91%,40%)] dark:text-primary">{formatTime(resultH, resultM)}</p>
-              <p className="text-sm text-muted-foreground">{format24(resultH, resultM)} • {zones.find(z => z.key === toZone)?.label}</p>
-            </div>
-          </div>
-          <div className="result-card mt-3">
-            <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Time Difference</p>
-            <p className="text-xl font-bold text-foreground">{diff >= 0 ? "+" : ""}{diff} hours</p>
-          </div>
-        </div>
-
-        <div className="card-calc p-6">
-          <h2 className="text-lg font-semibold text-foreground mb-3">Popular Conversions</h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-            {[
-              { from: "UTC-5", to: "UTC+0", label: "EST → GMT" },
-              { from: "UTC-8", to: "UTC+5.5", label: "PST → IST" },
-              { from: "UTC+0", to: "UTC+9", label: "GMT → JST" },
-              { from: "UTC-5", to: "UTC+1", label: "EST → CET" },
-              { from: "UTC+5.5", to: "UTC+8", label: "IST → SGT" },
-              { from: "UTC-8", to: "UTC+0", label: "PST → GMT" },
-            ].map(conv => {
-              const fOff = zones.find(z => z.key === conv.from)?.offset ?? 0;
-              const tOff = zones.find(z => z.key === conv.to)?.offset ?? 0;
-              const d = tOff - fOff;
-              const tMin = h * 60 + m + d * 60;
-              const tH = Math.floor(tMin / 60);
-              const tM = Math.round(tMin % 60);
-              return (
-                <div key={conv.label} className="result-card">
-                  <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">{conv.label}</p>
-                  <p className="text-lg font-bold text-foreground">{formatTime(h, m)} → {formatTime(tH, tM)}</p>
+            <div className="card-calculator mb-8">
+              <div className="grid sm:grid-cols-2 gap-5 mb-6">
+                <InputField id="tz-hour" label="Hour (0-23)" value={hour} onChange={setHour} min="0" step="1" />
+                <InputField id="tz-minute" label="Minute" value={minute} onChange={setMinute} min="0" step="1" />
+                <div>
+                  <label className="text-sm font-medium text-foreground mb-1.5 block">From Time Zone</label>
+                  <Select value={fromZone} onValueChange={setFromZone}>
+                    <SelectTrigger className="input-calc"><SelectValue /></SelectTrigger>
+                    <SelectContent>{zones.map(z => <SelectItem key={z.key} value={z.key}>{z.label}</SelectItem>)}</SelectContent>
+                  </Select>
                 </div>
-              );
-            })}
+                <div>
+                  <label className="text-sm font-medium text-foreground mb-1.5 block">To Time Zone</label>
+                  <Select value={toZone} onValueChange={setToZone}>
+                    <SelectTrigger className="input-calc"><SelectValue /></SelectTrigger>
+                    <SelectContent>{zones.map(z => <SelectItem key={z.key} value={z.key}>{z.label}</SelectItem>)}</SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              <div className="flex gap-3">
+                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2"><Calculator className="h-5 w-5" /> Calculate</button>
+                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+              </div>
+            </div>
+
+            {showResults && result && (
+              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <h2 className="text-xl font-bold mb-4">Result</h2>
+                <div className="grid sm:grid-cols-2 gap-3">
+                  <div className="result-card">
+                    <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Source Time</p>
+                    <p className="text-xl font-bold text-foreground">{result.sourceTime12}</p>
+                    <p className="text-sm text-muted-foreground">{result.sourceTime24} • {result.sourceZoneLabel}</p>
+                  </div>
+                  <div className="result-card">
+                    <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Converted Time</p>
+                    <p className="text-xl font-bold text-[hsl(217,91%,40%)] dark:text-primary">{result.convertedTime12}</p>
+                    <p className="text-sm text-muted-foreground">{result.convertedTime24} • {result.targetZoneLabel}</p>
+                  </div>
+                </div>
+                <div className="result-card mt-3">
+                  <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Time Difference</p>
+                  <p className="text-xl font-bold text-foreground">{result.diff >= 0 ? "+" : ""}{result.diff} hours</p>
+                </div>
+
+                {/* Popular Conversions */}
+                <div className="mt-6">
+                  <h3 className="text-lg font-semibold text-foreground mb-3">Popular Conversions</h3>
+                  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                    {[
+                      { from: "UTC-5", to: "UTC+0", label: "EST → GMT" },
+                      { from: "UTC-8", to: "UTC+5.5", label: "PST → IST" },
+                      { from: "UTC+0", to: "UTC+9", label: "GMT → JST" },
+                      { from: "UTC-5", to: "UTC+1", label: "EST → CET" },
+                      { from: "UTC+5.5", to: "UTC+8", label: "IST → SGT" },
+                      { from: "UTC-8", to: "UTC+0", label: "PST → GMT" },
+                    ].map(conv => {
+                      const fOff = zones.find(z => z.key === conv.from)?.offset ?? 0;
+                      const tOff = zones.find(z => z.key === conv.to)?.offset ?? 0;
+                      const d = tOff - fOff;
+                      const tMin = result.h * 60 + result.m + d * 60;
+                      const tH = Math.floor(tMin / 60);
+                      const tM = Math.round(tMin % 60);
+                      return (
+                        <div key={conv.label} className="result-card">
+                          <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">{conv.label}</p>
+                          <p className="text-lg font-bold text-foreground">{formatTime(result.h, result.m)} → {formatTime(tH, tM)}</p>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+
+            {/* SEO Content Sections */}
+            <div className="mt-4 space-y-8 mb-10">
+              <section>
+                <h2 className="text-2xl font-bold mb-4">How the Time Zone Converter Works</h2>
+                <p className="text-muted-foreground mb-3">Enter an hour (0–23) and minute, select a source time zone and a target time zone, then click Calculate. The tool computes the UTC offset difference between the two zones and applies it to your input time, displaying both 12-hour and 24-hour formats.</p>
+                <p className="text-muted-foreground mb-3">If the converted time crosses midnight, the result shows "(next day)" or "(prev day)" so you always know which calendar date applies. The popular conversions section automatically recalculates the six most common zone pairs using your entered time.</p>
+                <p className="text-muted-foreground">All offsets are based on standard time. During daylight saving periods, manually adjust the offset by one hour (e.g., select UTC−4 for Eastern Daylight Time instead of UTC−5 for Eastern Standard Time).</p>
+              </section>
+
+              <section>
+                <h2 className="text-2xl font-bold mb-4">Understanding Your Results</h2>
+                <p className="text-muted-foreground mb-3">The <strong>Source Time</strong> confirms the time you entered in both 12-hour (AM/PM) and 24-hour notation alongside the zone label, so you can verify your input at a glance.</p>
+                <p className="text-muted-foreground mb-3">The <strong>Converted Time</strong> is the equivalent moment in the target time zone. When scheduling international meetings, this is the time you'd share with participants in that zone.</p>
+                <p className="text-muted-foreground">The <strong>Time Difference</strong> shows the signed offset between the two zones in hours. A positive number means the target zone is ahead; negative means behind. Half-hour zones (like India, UTC+5:30) produce fractional differences.</p>
+              </section>
+
+              <section>
+                <h2 className="text-2xl font-bold mb-4">Common Use Cases</h2>
+                <p className="text-muted-foreground mb-3"><strong>Remote teams:</strong> Distributed teams use time zone converters daily to find overlapping work hours between offices in New York, London, and Bangalore without mental arithmetic errors.</p>
+                <p className="text-muted-foreground mb-3"><strong>Travel planning:</strong> Travelers convert departure and arrival times to understand how jet lag will affect their schedule and when to contact family back home.</p>
+                <p className="text-muted-foreground"><strong>Global events:</strong> Conference organizers, streamers, and sports fans convert event times to their local zone so they don't miss keynotes, live broadcasts, or kickoff times.</p>
+              </section>
+            </div>
+
+            <article className="prose-finance">
+              <h2>World Time Zones Explained</h2>
+              <p>The Earth is divided into 24 primary time zones, each roughly 15° of longitude wide — corresponding to one hour of Earth's rotation. In practice, political boundaries create 38 distinct zones ranging from UTC−12 (Baker Island) to UTC+14 (Line Islands, Kiribati).</p>
+              <p>Several zones use half-hour or 45-minute offsets. India (UTC+5:30), Iran (UTC+3:30), Nepal (UTC+5:45), and parts of Australia (UTC+9:30) are the most notable examples. Our converter supports all major offsets.</p>
+
+              <h2>Daylight Saving Time (DST)</h2>
+              <p>Approximately 70 countries observe daylight saving time, shifting clocks forward by one hour in spring and back in autumn. DST transitions typically occur at 2:00 AM local time. Because different countries transition on different dates, the offset between two cities can change multiple times per year.</p>
+              <p>For the most accurate conversion during DST transitions, verify which offset each location is currently observing and select the corresponding UTC offset manually.</p>
+
+              <h2>Tips for International Scheduling</h2>
+              <ul>
+                <li><strong>Use UTC as the anchor:</strong> When coordinating across 3+ time zones, express the meeting time in UTC first, then let each participant convert locally.</li>
+                <li><strong>Respect business hours:</strong> Avoid scheduling before 9 AM or after 6 PM in any participant's zone when possible.</li>
+                <li><strong>Rotate inconvenience:</strong> For recurring meetings spanning very different zones, alternate the meeting time so the same team doesn't always have an early or late call.</li>
+              </ul>
+            </article>
+
+            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/time-zone-converter" />
+            <PopularCalculators exclude="/calculator/time-zone-converter" />
           </div>
+
+          <aside className="hidden lg:block space-y-6">
+            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
+            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
+          </aside>
         </div>
       </div>
     </>
@@ -144,4 +258,3 @@ const TimeZoneConverter = () => {
 };
 
 export default TimeZoneConverter;
-

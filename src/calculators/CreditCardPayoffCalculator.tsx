@@ -8,7 +8,7 @@ import FAQSection from "@/components/FAQSection";
 import InputField from "@/components/calculator/InputField";
 import ResultDisplay from "@/components/calculator/ResultDisplay";
 import PieChart from "@/components/calculator/PieChart";
-import { Printer, RotateCcw, Plus, Trash2 } from "lucide-react";
+import { Printer, RotateCcw, Plus, Trash2, Calculator } from "lucide-react";
 
 interface Card {
   id: number;
@@ -39,6 +39,7 @@ const CreditCardPayoffCalculator = () => {
   const [snowballResult, setSnowballResult] = useState<PayoffResult | null>(null);
   const [schedule, setSchedule] = useState<{ month: number; payments: { name: string; payment: number; balance: number }[] }[]>([]);
   const [showSchedule, setShowSchedule] = useState(false);
+  const [showResults, setShowResults] = useState(false);
   const printRef = useRef<HTMLDivElement>(null);
 
   const addCard = () => {
@@ -126,7 +127,8 @@ const CreditCardPayoffCalculator = () => {
     };
   };
 
-  const calculate = () => {
+  const handleCalculate = () => {
+    setShowResults(true);
     const av = simulate("avalanche");
     const sb = simulate("snowball");
     setAvalancheResult(av.result);
@@ -135,6 +137,7 @@ const CreditCardPayoffCalculator = () => {
   };
 
   const reset = () => {
+    setShowResults(false);
     setCards([{ id: 1, name: "Card 1", balance: "5000", rate: "19.99", minPayment: "100", extraPayment: "50" }]);
     setAvalancheResult(null);
     setSnowballResult(null);
@@ -219,8 +222,7 @@ const CreditCardPayoffCalculator = () => {
               </button>
 
               <div className="flex gap-3">
-                <button onClick={calculate} className="btn-calculate flex-1">Calculate Payoff</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset">
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Payoff</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset">
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
@@ -375,4 +377,5 @@ const CreditCardPayoffCalculator = () => {
 };
 
 export default CreditCardPayoffCalculator;
+
 

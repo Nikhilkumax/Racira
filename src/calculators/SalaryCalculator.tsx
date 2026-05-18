@@ -15,13 +15,15 @@ const SalaryCalculator = () => {
   const [hoursPerWeek, setHoursPerWeek] = useState("40");
   const [holidays, setHolidays] = useState("10");
   const [vacationDays, setVacationDays] = useState("15");
+  const [showResults, setShowResults] = useState(false);
 
   const [result, setResult] = useState<{
     hourly: number; daily: number; weekly: number; biweekly: number; monthly: number; annually: number;
     adjustedAnnual: number; workDays: number;
   } | null>(null);
 
-  const calculate = () => {
+  const handleCalculate = () => {
+    setShowResults(true);
     const val = parseFloat(amount) || 0;
     const hpw = parseFloat(hoursPerWeek) || 40;
     const hol = parseFloat(holidays) || 0;
@@ -54,7 +56,8 @@ const SalaryCalculator = () => {
     });
   };
 
-  const reset = () => { setAmount("50000"); setFrequency("annually"); setHoursPerWeek("40"); setHolidays("10"); setVacationDays("15"); setResult(null); };
+  const reset = () => {
+    setShowResults(false); setAmount("50000"); setFrequency("annually"); setHoursPerWeek("40"); setHolidays("10"); setVacationDays("15"); setResult(null); };
 
   const faqs = [
     { question: "How do I convert hourly to annual salary?", answer: "Multiply your hourly rate by the number of hours you work per week, then multiply by 52 weeks. For example, $25/hour × 40 hours × 52 weeks = $52,000 annual salary." },
@@ -94,12 +97,11 @@ const SalaryCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={calculate} className="btn-calculate flex-1">Calculate</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
             </div>
 
-            {result && (
+            {showResults && result && (
               <div className="card-calculator mb-8">
                 <h2 className="text-xl font-bold mb-4">Salary Breakdown</h2>
                 <div className="overflow-x-auto rounded-lg border border-border">
@@ -172,4 +174,5 @@ const SalaryCalculator = () => {
 };
 
 export default SalaryCalculator;
+
 

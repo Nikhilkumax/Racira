@@ -6,7 +6,7 @@ import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import { RotateCcw, CalendarIcon } from "lucide-react";
+import { RotateCcw, Calculator, CalendarIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -90,8 +90,12 @@ const DayCounter = () => {
               </label>
 
               <div className="flex gap-3">
-                <button onClick={calculate} className="btn-calculate flex-1">Count Days</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={calculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">
+                  <Calculator className="h-4 w-4" /> Count Days
+                </button>
+                <button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground">
+                  <RotateCcw className="h-5 w-5" />
+                </button>
               </div>
             </div>
 

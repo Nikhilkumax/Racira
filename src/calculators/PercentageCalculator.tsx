@@ -13,9 +13,11 @@ const PercentageCalculator = () => {
   const [mode, setMode] = useState<"of" | "change" | "isWhat">("of");
   const [val1, setVal1] = useState("");
   const [val2, setVal2] = useState("");
+  const [showResults, setShowResults] = useState(false);
   const [result, setResult] = useState<{ label: string; value: string } | null>(null);
 
-  const calculate = () => {
+  const handleCalculate = () => {
+    setShowResults(true);
     const a = parseFloat(val1) || 0;
     const b = parseFloat(val2) || 0;
     if (mode === "of") {
@@ -30,7 +32,8 @@ const PercentageCalculator = () => {
     }
   };
 
-  const reset = () => { setVal1(""); setVal2(""); setResult(null); };
+  const reset = () => {
+    setShowResults(false); setVal1(""); setVal2(""); setResult(null); };
 
   const faqs = [
     { question: "How do I calculate a percentage of a number?", answer: "Divide the percentage by 100, then multiply by the number. For example, 25% of 200 = (25/100) × 200 = 50." },
@@ -61,12 +64,11 @@ const PercentageCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={calculate} className="btn-calculate flex-1">Calculate</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
             </div>
 
-            {result && (
+            {showResults && result && (
               <div className="card-calculator mb-8">
                 <h2 className="text-xl font-bold mb-4">Result</h2>
                 <ResultDisplay items={[{ label: result.label, value: 0, textValue: result.value }]} />
@@ -95,4 +97,5 @@ const PercentageCalculator = () => {
 };
 
 export default PercentageCalculator;
+
 

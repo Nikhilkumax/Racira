@@ -13,12 +13,14 @@ const SukanyaSamriddhiCalculator = () => {
   const [yearlyDeposit, setYearlyDeposit] = useState("150000");
   const [interestRate, setInterestRate] = useState("8.2");
   const [girlAge, setGirlAge] = useState("5");
+  const [showResults, setShowResults] = useState(false);
   const [result, setResult] = useState<{
     totalDeposited: number; totalInterest: number; maturityAmount: number; maturityYear: number;
   } | null>(null);
   const [yearlyBreakdown, setYearlyBreakdown] = useState<{ year: number; deposit: number; interest: number; balance: number }[]>([]);
 
-  const calculate = () => {
+  const handleCalculate = () => {
+    setShowResults(true);
     const deposit = parseFloat(yearlyDeposit) || 0;
     const rate = parseFloat(interestRate) || 0;
     const age = parseInt(girlAge) || 0;
@@ -49,7 +51,8 @@ const SukanyaSamriddhiCalculator = () => {
     setYearlyBreakdown(breakdown);
   };
 
-  const reset = () => { setYearlyDeposit("150000"); setInterestRate("8.2"); setGirlAge("5"); setResult(null); setYearlyBreakdown([]); };
+  const reset = () => {
+    setShowResults(false); setYearlyDeposit("150000"); setInterestRate("8.2"); setGirlAge("5"); setResult(null); setYearlyBreakdown([]); };
 
   const faqs = [
     { question: "What is Sukanya Samriddhi Yojana (SSY)?", answer: "SSY is a government-backed savings scheme for the girl child in India. It offers one of the highest interest rates among small savings schemes with tax benefits under Section 80C." },
@@ -77,12 +80,11 @@ const SukanyaSamriddhiCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={calculate} className="btn-calculate flex-1">Calculate Maturity</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Maturity</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
             </div>
 
-            {result && (
+            {showResults && result && (
               <>
                 <div className="card-calculator mb-8">
                   <h2 className="text-xl font-bold mb-4">SSY Maturity Summary</h2>
@@ -157,4 +159,5 @@ const SukanyaSamriddhiCalculator = () => {
 };
 
 export default SukanyaSamriddhiCalculator;
+
 

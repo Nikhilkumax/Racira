@@ -8,7 +8,7 @@ import FAQSection from "@/components/FAQSection";
 import InputField from "@/components/calculator/InputField";
 import ResultDisplay from "@/components/calculator/ResultDisplay";
 import PieChart from "@/components/calculator/PieChart";
-import { ChevronDown, Printer, RotateCcw } from "lucide-react";
+import { ChevronDown, Printer, RotateCcw, Calculator } from "lucide-react";
 
 interface YearRow {
   year: number;
@@ -42,9 +42,11 @@ const CompoundInterestCalculator = () => {
     yearlyRows: YearRow[];
   } | null>(null);
   const [showTable, setShowTable] = useState(false);
+  const [showResults, setShowResults] = useState(false);
   const printRef = useRef<HTMLDivElement>(null);
 
-  const calculate = () => {
+  const handleCalculate = () => {
+    setShowResults(true);
     const P = parseFloat(initial) || 0;
     const mc = parseFloat(monthlyContrib) || 0;
     const ac = parseFloat(annualContrib) || 0;
@@ -127,6 +129,7 @@ const CompoundInterestCalculator = () => {
   };
 
   const reset = () => {
+    setShowResults(false);
     setInitial("10000"); setMonthlyContrib("500"); setAnnualContrib("0");
     setReturnRate("8"); setYears("20"); setMonths("0");
     setInflation("3"); setTaxRate("0");
@@ -200,14 +203,13 @@ const CompoundInterestCalculator = () => {
               )}
 
               <div className="flex gap-3">
-                <button onClick={calculate} className="btn-calculate flex-1">Calculate Growth</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset">
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Growth</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset">
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
             </div>
 
-            {result && (
+            {showResults && result && (
               <div className="card-calculator mb-8" ref={printRef}>
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="text-xl font-bold">Investment Growth Results</h2>
@@ -339,4 +341,5 @@ const CompoundInterestCalculator = () => {
 };
 
 export default CompoundInterestCalculator;
+
 

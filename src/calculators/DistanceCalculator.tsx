@@ -17,9 +17,11 @@ const DistanceCalculator = () => {
   const [x2, setX2] = useState("4");
   const [y2, setY2] = useState("6");
   const [z2, setZ2] = useState("3");
+  const [showResults, setShowResults] = useState(false);
   const [result, setResult] = useState<any>(null);
 
-  const calculate = () => {
+  const handleCalculate = () => {
+    setShowResults(true);
     const nx1 = parseFloat(x1) || 0, ny1 = parseFloat(y1) || 0;
     const nx2 = parseFloat(x2) || 0, ny2 = parseFloat(y2) || 0;
 
@@ -37,7 +39,8 @@ const DistanceCalculator = () => {
     }
   };
 
-  const reset = () => { setX1("1"); setY1("2"); setZ1("0"); setX2("4"); setY2("6"); setZ2("3"); setResult(null); };
+  const reset = () => {
+    setShowResults(false); setX1("1"); setY1("2"); setZ1("0"); setX2("4"); setY2("6"); setZ2("3"); setResult(null); };
 
   const faqs = [
     { question: "What is the distance formula?", answer: "In 2D: d = √((x₂−x₁)² + (y₂−y₁)²). In 3D: d = √((x₂−x₁)² + (y₂−y₁)² + (z₂−z₁)²)." },
@@ -80,12 +83,11 @@ const DistanceCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={calculate} className="btn-calculate flex-1">Calculate</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
             </div>
 
-            {result && (
+            {showResults && result && (
               <div className="card-calculator mb-8">
                 <h2 className="text-xl font-bold mb-4">Result</h2>
                 <ResultDisplay items={[
@@ -114,4 +116,5 @@ const DistanceCalculator = () => {
 };
 
 export default DistanceCalculator;
+
 

@@ -13,10 +13,12 @@ const GratuityCalculator = () => {
   const [salary, setSalary] = useState("50000");
   const [years, setYears] = useState("10");
   const [months, setMonths] = useState("0");
+  const [showResults, setShowResults] = useState(false);
   const [type, setType] = useState<"act" | "non-act">("act");
   const [result, setResult] = useState<{ gratuity: number; taxExempt: number } | null>(null);
 
-  const calculate = () => {
+  const handleCalculate = () => {
+    setShowResults(true);
     const s = parseFloat(salary) || 0;
     const y = parseInt(years) || 0;
     const m = parseInt(months) || 0;
@@ -46,7 +48,8 @@ const GratuityCalculator = () => {
     setResult({ gratuity, taxExempt });
   };
 
-  const reset = () => { setSalary("50000"); setYears("10"); setMonths("0"); setType("act"); setResult(null); };
+  const reset = () => {
+    setShowResults(false); setSalary("50000"); setYears("10"); setMonths("0"); setType("act"); setResult(null); };
 
   const faqs = [
     { question: "Who is eligible for gratuity?", answer: "Any employee who has completed 5 or more years of continuous service is eligible for gratuity. For contract/seasonal workers, the period may differ." },
@@ -79,12 +82,11 @@ const GratuityCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={calculate} className="btn-calculate flex-1">Calculate Gratuity</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Gratuity</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
             </div>
 
-            {result && (
+            {showResults && result && (
               <div className="card-calculator mb-8">
                 <h2 className="text-xl font-bold mb-4">Gratuity Amount</h2>
                 <ResultDisplay currency="₹" items={[
@@ -132,4 +134,5 @@ const GratuityCalculator = () => {
 };
 
 export default GratuityCalculator;
+
 

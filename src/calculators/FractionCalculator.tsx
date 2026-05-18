@@ -16,10 +16,12 @@ const FractionCalculator = () => {
   const [d1, setD1] = useState("2");
   const [n2, setN2] = useState("1");
   const [d2, setD2] = useState("3");
+  const [showResults, setShowResults] = useState(false);
   const [op, setOp] = useState<"+" | "-" | "×" | "÷">("+");
   const [result, setResult] = useState<{ num: number; den: number; decimal: number } | null>(null);
 
-  const calculate = () => {
+  const handleCalculate = () => {
+    setShowResults(true);
     const a = parseInt(n1) || 0, b = parseInt(d1) || 1, c = parseInt(n2) || 0, d = parseInt(d2) || 1;
     if (b === 0 || d === 0) return;
     let rn: number, rd: number;
@@ -33,7 +35,8 @@ const FractionCalculator = () => {
     setResult({ num: rn, den: rd, decimal: rn / rd });
   };
 
-  const reset = () => { setN1("1"); setD1("2"); setN2("1"); setD2("3"); setResult(null); };
+  const reset = () => {
+    setShowResults(false); setN1("1"); setD1("2"); setN2("1"); setD2("3"); setResult(null); };
 
   const faqs = [
     { question: "How do I add fractions?", answer: "Find a common denominator, convert both fractions, add the numerators, then simplify." },
@@ -71,12 +74,11 @@ const FractionCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={calculate} className="btn-calculate flex-1">Calculate</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
             </div>
 
-            {result && (
+            {showResults && result && (
               <div className="card-calculator mb-8">
                 <h2 className="text-xl font-bold mb-4">Result</h2>
                 <div className="text-center mb-4">
@@ -109,4 +111,5 @@ const FractionCalculator = () => {
 };
 
 export default FractionCalculator;
+
 

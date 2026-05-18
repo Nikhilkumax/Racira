@@ -16,6 +16,7 @@ const ProfitMarginCalculator = () => {
   const [operatingExpenses, setOperatingExpenses] = useState("15000");
   const [otherExpenses, setOtherExpenses] = useState("5000");
   const [tax, setTax] = useState("5000");
+  const [showResults, setShowResults] = useState(false);
   const [result, setResult] = useState<{
     grossProfit: number; grossMargin: number;
     operatingProfit: number; operatingMargin: number;
@@ -23,7 +24,8 @@ const ProfitMarginCalculator = () => {
     markup: number;
   } | null>(null);
 
-  const calculate = () => {
+  const handleCalculate = () => {
+    setShowResults(true);
     const rev = parseFloat(revenue) || 0;
     const cost = parseFloat(cogs) || 0;
     const opex = parseFloat(operatingExpenses) || 0;
@@ -46,7 +48,8 @@ const ProfitMarginCalculator = () => {
     });
   };
 
-  const reset = () => { setRevenue("100000"); setCogs("60000"); setOperatingExpenses("15000"); setOtherExpenses("5000"); setTax("5000"); setResult(null); };
+  const reset = () => {
+    setShowResults(false); setRevenue("100000"); setCogs("60000"); setOperatingExpenses("15000"); setOtherExpenses("5000"); setTax("5000"); setResult(null); };
 
   const faqs = [
     { question: "What is profit margin?", answer: "Profit margin is the percentage of revenue that remains as profit after deducting costs. There are three types: gross margin (after COGS), operating margin (after operating expenses), and net margin (after all expenses including taxes)." },
@@ -75,12 +78,11 @@ const ProfitMarginCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={calculate} className="btn-calculate flex-1">Calculate Margins</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Margins</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
             </div>
 
-            {result && (
+            {showResults && result && (
               <div className="card-calculator mb-8">
                 <h2 className="text-xl font-bold mb-4">Profit Margins</h2>
                 <ResultDisplay items={[
@@ -151,4 +153,5 @@ const ProfitMarginCalculator = () => {
 };
 
 export default ProfitMarginCalculator;
+
 

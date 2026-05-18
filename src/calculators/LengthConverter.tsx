@@ -1,4 +1,5 @@
 "use client";
+import {  } from "lucide-react";
 
 import { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
@@ -25,6 +26,7 @@ const fmt = (n: number) => {
 
 const LengthConverter = () => {
   const [value, setValue] = useState("1");
+  const [showResults, setShowResults] = useState(false);
   const [from, setFrom] = useState<LengthUnit>("m");
   const [to, setTo] = useState<LengthUnit>("ft");
 
@@ -83,4 +85,5 @@ const LengthConverter = () => {
 };
 
 export default LengthConverter;
+
 
