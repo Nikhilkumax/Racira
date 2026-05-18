@@ -5,6 +5,31 @@ import { calculatorRegistry, getCalculatorBySlug } from "@/data/calculatorRegist
 import ComingSoonPage from "@/components/ComingSoonPage";
 import { Suspense } from "react";
 
+// Static imports of popular calculators for instant, zero-delay loads
+import MortgageCalculator from "@/calculators/MortgageCalculator";
+import AgeCalculator from "@/calculators/AgeCalculator";
+import BmiCalculator from "@/calculators/BmiCalculator";
+import BmrCalculator from "@/calculators/BmrCalculator";
+import GstCalculator from "@/calculators/GstCalculator";
+import WeightConverter from "@/calculators/WeightConverter";
+import TimeZoneConverter from "@/calculators/TimeZoneConverter";
+import PropertyAppreciationCalculator from "@/calculators/PropertyAppreciationCalculator";
+import SipCalculator from "@/calculators/SipCalculator";
+import IncomeTaxCalculator from "@/calculators/IncomeTaxCalculator";
+
+const staticCalculators: Record<string, React.ComponentType<any>> = {
+  "mortgage-calculator": MortgageCalculator,
+  "age-calculator": AgeCalculator,
+  "bmi-calculator": BmiCalculator,
+  "bmr-calculator": BmrCalculator,
+  "gst-calculator": GstCalculator,
+  "weight-converter": WeightConverter,
+  "time-zone-converter": TimeZoneConverter,
+  "property-appreciation-calculator": PropertyAppreciationCalculator,
+  "sip-calculator": SipCalculator,
+  "income-tax-calculator": IncomeTaxCalculator,
+};
+
 const calculatorComponents: Record<string, () => Promise<any>> = {
   "mortgage-calculator": () => import("@/calculators/MortgageCalculator"),
   "auto-loan-calculator": () => import("@/calculators/AutoLoanCalculator"),
@@ -400,6 +425,13 @@ export default function CalculatorPage({ params }: Props) {
     return <ComingSoonPage slug={slug} />;
   }
 
+  // 1. Check if this is a popular calculator statically imported for instant, zero-delay loads
+  const StaticComponent = staticCalculators[slug];
+  if (StaticComponent) {
+    return <StaticComponent />;
+  }
+
+  // 2. Otherwise, fall back to dynamically loading the chunk on-demand
   const importFn = calculatorComponents[slug];
 
   if (!importFn) {
