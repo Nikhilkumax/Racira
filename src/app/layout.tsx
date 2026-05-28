@@ -10,9 +10,9 @@ export const metadata: Metadata = {
   title: "Racira | All Your Essential Tools. One Platform.",
   description: "A unified platform for the everyday tools you actually use — fast, private, and built for the browser.",
   icons: {
-    icon: '/racira-logo-icon.png',
-    shortcut: '/racira-logo-icon.png',
-    apple: '/racira-logo-icon.png',
+    icon: '/icon.png',
+    shortcut: '/icon.png',
+    apple: '/icon.png',
   },
 };
 
