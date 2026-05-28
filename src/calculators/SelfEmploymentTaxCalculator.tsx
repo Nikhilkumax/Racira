@@ -68,14 +68,13 @@ const SelfEmploymentTaxCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Self-Employment Tax Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Self-Employment Tax Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Calculate your estimated Social Security and Medicare tax obligations as a freelancer or small business owner.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Self-Employment Tax Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate your estimated Social Security and Medicare tax obligations as a freelancer or small business owner.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-8">
                 <section className="space-y-6">
                   <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
                     <Briefcase className="h-5 w-5 text-primary" /> Earnings
@@ -110,10 +109,11 @@ const SelfEmploymentTaxCalculator = () => {
                   <RotateCcw className="h-4 w-4" /> Reset 
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 mb-8">
+              <>
                 <div className="grid sm:grid-cols-2 gap-4 mb-6">
                   <div className="card-calculator bg-indigo-500/5 border-indigo-500/20 text-center flex flex-col justify-center py-8">
                     <p className="text-xs font-bold text-indigo-600 uppercase tracking-widest mb-1">Social Security Tax</p>
@@ -127,7 +127,7 @@ const SelfEmploymentTaxCalculator = () => {
                   </div>
                 </div>
 
-                <div className="card-calculator mb-6">
+                <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
                   <h2 className="text-xl font-bold flex items-center gap-2 mb-6">
                     <Calculator className="h-5 w-5 text-primary" /> Detailed Calculation
                   </h2>
@@ -138,12 +138,14 @@ const SelfEmploymentTaxCalculator = () => {
                     { label: "Estimated Quarterly Payment", value: results.totalSeTax / 4 },
                   ]} />
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="my-8" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>The Freelancer's Guide to Self-Employment Tax</h2>
               <p>When you work as an employee, your employer pays half of your Social Security and Medicare taxes (FICA), and you pay the other half. When you are self-employed, you are both the employer and the employee, meaning you are responsible for the full 15.3% tax rate. This is known as the self-employment (SE) tax.</p>
 
@@ -177,13 +179,8 @@ const SelfEmploymentTaxCalculator = () => {
                 <li><strong>Consult a CPA:</strong> If your net income exceeds $50,000, a tax professional may suggest forming an S-Corp to reduce your self-employment tax liability.</li>
               </ol>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/self-employment-tax-calculator" />
-            <PopularCalculators exclude="/calculator/self-employment-tax-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/self-employment-tax-calculator" />
+          <PopularCalculators exclude="/calculator/self-employment-tax-calculator" />
         </div>
       </div>
     </>

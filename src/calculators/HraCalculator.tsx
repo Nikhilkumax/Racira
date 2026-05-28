@@ -57,16 +57,14 @@ const HRACalculator = () => {
 
   return (
     <>
-<Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "HRA Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "HRA Calculator" }]} />
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">HRA Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate HRA exemption under Section 10(13A) of the Income Tax Act. Find your taxable and exempt HRA.</p>
 
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">HRA Calculator</h1>
-            <p className="text-muted-foreground mb-8">Calculate HRA exemption under Section 10(13A) of the Income Tax Act. Find your taxable and exempt HRA.</p>
-
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-5 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-5 mb-6">
                 <InputField id="basic" label="Monthly Basic Salary" value={basicSalary} onChange={setBasicSalary} prefix="₹" />
                 <InputField id="da" label="Dearness Allowance (DA)" value={da} onChange={setDa} prefix="₹" />
                 <InputField id="hra" label="HRA Received (Monthly)" value={hraReceived} onChange={setHraReceived} prefix="₹" />
@@ -82,10 +80,11 @@ const HRACalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate HRA</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && result && (
-              <div className="card-calculator mb-8">
+              <>
                 <h2 className="text-xl font-bold mb-4">HRA Exemption Breakdown</h2>
                 <ResultDisplay currency="₹" items={[
                   { label: "HRA Exempt (Monthly)", value: result.exempt, highlight: true },
@@ -114,12 +113,14 @@ const HRACalculator = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>What Is an HRA Calculator?</h2>
               <p>An HRA (House Rent Allowance) calculator helps salaried employees determine how much of their HRA is exempt from income tax under Section 10(13A) of the Income Tax Act. The exempt portion depends on your salary, rent paid, and city of residence.</p>
 
@@ -144,14 +145,8 @@ const HRACalculator = () => {
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> This calculator provides estimates for tax planning purposes. Actual exemption depends on your specific employment terms and tax filing. Consult a tax advisor.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/hra-calculator" />
-            <PopularCalculators exclude="/hra-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/hra-calculator" />
+          <PopularCalculators exclude="/hra-calculator" />
         </div>
       </div>
     </>

@@ -81,14 +81,13 @@ const CarbonFootprintCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Carbon Footprint Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Carbon Footprint Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Estimate your annual CO2 emissions from home energy, transportation, and travel.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Carbon Footprint Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Estimate your annual CO2 emissions from home energy, transportation, and travel.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="space-y-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="space-y-8">
                 {/* Home Energy Section */}
                 <section>
                   <div className="flex items-center gap-2 mb-4 text-primary">
@@ -135,10 +134,11 @@ const CarbonFootprintCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Your Annual Impact</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -168,11 +168,14 @@ const CarbonFootprintCalculator = () => {
                     />
                   </div>
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>The Global Challenge</h2>
               <p>To avoid the worst effects of climate change, the average global carbon footprint per year needs to drop to under 2 tons by 2050. Currently, the global average is closer to 4 tons per person.</p>
               <h3>Why Small Changes Matter</h3>
@@ -180,12 +183,8 @@ const CarbonFootprintCalculator = () => {
               <h3>Understanding Emission Factors</h3>
               <p>Our calculator uses average emission factors. For instance, the CO2 impact of electricity depends heavily on your local grid's energy mix (coal vs. wind/solar). If you use 100% renewable energy, your Home Energy footprint would be significantly lower than shown here.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/carbon-footprint" />
-            <PopularCalculators exclude="/calculator/carbon-footprint-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/carbon-footprint" />
+          <PopularCalculators exclude="/calculator/carbon-footprint-calculator" />
         </div>
       </div>
     </>

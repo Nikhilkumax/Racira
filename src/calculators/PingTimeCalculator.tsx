@@ -66,14 +66,13 @@ const PingTimeCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Ping Time Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Ping Time Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Estimate network latency (ping) based on geographical distance and transmission medium.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Ping Time Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Estimate network latency (ping) based on geographical distance and transmission medium.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-6 mb-6">
                 <div className="space-y-4">
                   <InputField id="distance" label="One-Way Distance (km)" value={distance} onChange={setDistance} suffix="km" />
                   <div>
@@ -98,10 +97,11 @@ const PingTimeCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Latency Analysis</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -118,22 +118,21 @@ const PingTimeCalculator = () => {
                   { label: "Network Processing Delay", value: 0, textValue: results.hopDelay + " ms (est.)" },
                   { label: "Stability Category", value: 0, textValue: results.estimatedPing < 50 ? "Gaming Grade" : results.estimatedPing < 150 ? "Web / Streaming" : "High Latency" },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>What is Ping?</h2>
               <p>Ping is the time it takes for a small packet of data to travel from your device to a server and back again. It is also called Round Trip Time (RTT). While download speed tells you how much data you can move, ping tells you how fast that data starts moving.</p>
               <h3>Why Distance Matters</h3>
               <p>Even light has a speed limit. At 300,000 km/s, it takes about 133ms just to travel once around the Earth. When you add the refractive index of glass in fiber optics and the delay of processing data at every router (hop), physical distance becomes the primary bottleneck for low-latency applications like video calls and competitive gaming.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/ping-time" />
-            <PopularCalculators exclude="/calculator/ping-time-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/ping-time" />
+          <PopularCalculators exclude="/calculator/ping-time-calculator" />
         </div>
       </div>
     </>

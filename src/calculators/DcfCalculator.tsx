@@ -63,13 +63,13 @@ export default function DcfCalculator() {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "DCF Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Discounted Cash Flow (DCF) Calculator</h1>
-            <p className="text-muted-foreground mb-8">Value an investment by discounting projected future cash flows back to their present value to find an intrinsic value per share.</p>
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-5 mb-6">
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Discounted Cash Flow (DCF) Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Value an investment by discounting projected future cash flows back to their present value to find an intrinsic value per share.</p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-5 mb-6">
                 <InputField id="cash-flow" label="Current Annual Free Cash Flow ($)" value={cashFlow} onChange={setCashFlow} prefix="$" tooltip="The company's most recent annual free cash flow." />
                 <InputField id="growth-rate" label="Growth Rate (Years 1-5, %)" value={growthRate} onChange={setGrowthRate} suffix="%" tooltip="Expected annual growth in free cash flow over 5 years." />
                 <InputField id="terminal-growth" label="Terminal Growth Rate (%)" value={terminalGrowth} onChange={setTerminalGrowth} suffix="%" tooltip="Long-term perpetual growth rate (typically 2-4%, near GDP growth)." />
@@ -81,9 +81,11 @@ export default function DcfCalculator() {
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Intrinsic Value</button>
                 <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
+
+          <div className="flex flex-col gap-3">
             {showResults && (
-              <div className="card-calculator mb-8">
+              <>
                 <h2 className="text-xl font-bold mb-4">DCF Valuation Results</h2>
                 <ResultDisplay items={[
                   { label: "Intrinsic Value Per Share", value: results.intrinsicValue, highlight: true },
@@ -91,10 +93,14 @@ export default function DcfCalculator() {
                   { label: "Upside from Current Price", value: 0, textValue: `${results.upside.toFixed(1)}%` },
                   { label: "Margin of Safety", value: 0, textValue: `${results.marginOfSafety.toFixed(1)}%` },
                 ]} />
-              </div>
+              </>
             )}
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-            <article className="prose-finance">
+          </div>
+        </div>
+
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>What Is Discounted Cash Flow Analysis?</h2>
               <p>Discounted Cash Flow (DCF) analysis is a fundamental valuation method used by institutional investors, Warren Buffett, and corporate finance professionals worldwide. The core premise is simple but powerful: a dollar today is worth more than a dollar tomorrow. By projecting a company's future cash flows and discounting them back to today's dollars, we can determine what a business is intrinsically worth — independent of what the market currently prices it at.</p>
               <h2>How the DCF Model Works</h2>
@@ -108,13 +114,8 @@ export default function DcfCalculator() {
               <h2>Sensitivity Analysis</h2>
               <p>Given the impact of assumptions on DCF output, always run sensitivity analysis. Try varying the growth rate by ±5% and the discount rate by ±2%. If the stock still looks cheap across a range of scenarios (a "bull/base/bear" case), your conviction is much higher than if it only looks cheap in the most optimistic scenario.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/dcf-calculator" />
-            <PopularCalculators exclude="/calculator/dcf-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/dcf-calculator" />
+          <PopularCalculators exclude="/calculator/dcf-calculator" />
         </div>
       </div>
     </>

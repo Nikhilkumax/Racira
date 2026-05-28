@@ -1,6 +1,6 @@
-"use client";
+﻿"use client";
 
-import { useState, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import PopularCalculators from "@/components/PopularCalculators";
@@ -39,7 +39,6 @@ const CreditCardPayoffCalculator = () => {
   const [snowballResult, setSnowballResult] = useState<PayoffResult | null>(null);
   const [schedule, setSchedule] = useState<{ month: number; payments: { name: string; payment: number; balance: number }[] }[]>([]);
   const [showSchedule, setShowSchedule] = useState(false);
-  const [showResults, setShowResults] = useState(false);
   const printRef = useRef<HTMLDivElement>(null);
 
   const addCard = () => {
@@ -127,8 +126,9 @@ const CreditCardPayoffCalculator = () => {
     };
   };
 
+  useEffect(() => { handleCalculate(); }, []);
+
   const handleCalculate = () => {
-    setShowResults(true);
     const av = simulate("avalanche");
     const sb = simulate("snowball");
     setAvalancheResult(av.result);
@@ -137,7 +137,6 @@ const CreditCardPayoffCalculator = () => {
   };
 
   const reset = () => {
-    setShowResults(false);
     setCards([{ id: 1, name: "Card 1", balance: "5000", rate: "19.99", minPayment: "100", extraPayment: "50" }]);
     setAvalancheResult(null);
     setSnowballResult(null);
@@ -172,18 +171,15 @@ const CreditCardPayoffCalculator = () => {
 
   return (
     <>
-<Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Credit Card Payoff" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Credit Card Payoff" }]} />
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Credit Card Payoff Calculator</h1>
 
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Credit Card Payoff Calculator</h1>
-            <p className="text-muted-foreground mb-8">Enter your credit card details and compare avalanche vs snowball strategies to find the fastest path to becoming debt-free.</p>
-
-            <div className="card-calculator mb-8">
-              {/* Strategy Toggle */}
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            {/* Strategy Toggle */}
               <div className="mb-6">
-                <label className="block text-sm font-medium text-foreground mb-1.5">Payoff Strategy</label>
+                <label className="block text-sm font-medium text-foreground mb-1">Payoff Strategy</label>
                 <div className="flex rounded-lg border border-input overflow-hidden">
                   <button type="button" onClick={() => setStrategy("avalanche")} className={`flex-1 py-3 text-sm font-medium transition-colors ${strategy === "avalanche" ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:bg-secondary"}`}>Avalanche (Highest Rate)</button>
                   <button type="button" onClick={() => setStrategy("snowball")} className={`flex-1 py-3 text-sm font-medium transition-colors ${strategy === "snowball" ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:bg-secondary"}`}>Snowball (Lowest Balance)</button>
@@ -201,11 +197,13 @@ const CreditCardPayoffCalculator = () => {
                         onChange={(e) => updateCard(card.id, "name", e.target.value)}
                         className="text-sm font-semibold text-foreground bg-transparent border-none outline-none"
                       />
-                      {cards.length > 1 && (
+                      {cards.length > 1 && (<>
+
                         <button onClick={() => removeCard(card.id)} className="text-muted-foreground hover:text-destructive transition-colors" aria-label="Remove card">
                           <Trash2 className="h-4 w-4" />
                         </button>
-                      )}
+                      
+</>)}
                     </div>
                     <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
                       <InputField id={`bal-${card.id}`} label="Balance" value={card.balance} onChange={(v) => updateCard(card.id, "balance", v)} prefix="$" />
@@ -226,10 +224,11 @@ const CreditCardPayoffCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
-            {/* Results */}
-            {activeResult && (
+          <div className="flex flex-col gap-3">
+            {activeResult && (<>
+
               <div className="card-calculator mb-8" ref={printRef}>
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="text-xl font-bold">Payoff Results ({strategy === "avalanche" ? "Avalanche" : "Snowball"})</h2>
@@ -246,7 +245,8 @@ const CreditCardPayoffCalculator = () => {
                 ]} />
 
                 {/* Strategy Comparison */}
-                {avalancheResult && snowballResult && (
+                {avalancheResult && snowballResult && (<>
+
                   <div className="mt-6 p-4 rounded-lg bg-secondary/30 border border-border">
                     <h3 className="font-semibold text-foreground mb-3">Strategy Comparison</h3>
                     <div className="overflow-x-auto">
@@ -282,7 +282,8 @@ const CreditCardPayoffCalculator = () => {
                       </table>
                     </div>
                   </div>
-                )}
+                
+</>)}
 
                 <div className="mt-6 flex justify-center">
                   <PieChart
@@ -295,12 +296,14 @@ const CreditCardPayoffCalculator = () => {
                 </div>
 
                 {/* Payment Schedule */}
-                {schedule.length > 0 && (
+                {schedule.length > 0 && (<>
+
                   <div className="mt-6">
                     <button onClick={() => setShowSchedule(!showSchedule)} className="text-sm text-primary hover:underline">
                       {showSchedule ? "Hide" : "Show"} Payment Schedule ({schedule.length} months)
                     </button>
-                    {showSchedule && (
+                    {showSchedule && (<>
+
                       <div className="overflow-x-auto mt-3 rounded-lg border border-border">
                         <table className="w-full text-sm">
                           <thead>
@@ -323,15 +326,20 @@ const CreditCardPayoffCalculator = () => {
                           </tbody>
                         </table>
                       </div>
-                    )}
+                    
+</>)}
                   </div>
-                )}
+                
+</>)}
               </div>
-            )}
+            
+</>)}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>What Is a Credit Card Payoff Calculator?</h2>
               <p>A credit card payoff calculator helps you determine how long it will take to pay off your credit card debt and how much total interest you'll pay. By entering your balance, interest rate, and payment amounts, you get a clear picture of your debt repayment timeline.</p>
               <p>Our advanced calculator supports multiple credit cards simultaneously and compares two proven debt payoff strategies — the avalanche method and the snowball method — so you can choose the approach that works best for your financial situation and personality.</p>
@@ -361,15 +369,8 @@ const CreditCardPayoffCalculator = () => {
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> This calculator provides estimates for educational purposes only. Actual results may vary based on your specific card terms, payment timing, and any additional charges or fees. This is not financial advice.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/credit-card-payoff-calculator" />
-            <PopularCalculators exclude="/credit-card-payoff-calculator" />
-          </div>
-
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/credit-card-payoff-calculator" />
+          <PopularCalculators exclude="/credit-card-payoff-calculator" />
         </div>
       </div>
     </>
@@ -377,5 +378,6 @@ const CreditCardPayoffCalculator = () => {
 };
 
 export default CreditCardPayoffCalculator;
+
 
 

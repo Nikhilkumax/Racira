@@ -138,31 +138,14 @@ const RetirementCalculator = () => {
 
   return (
     <>
-<Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Retirement Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Retirement Calculator" }]} />
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Retirement Planning Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Plan your retirement with three powerful modules: estimate your required corpus, model withdrawals, and calculate monthly savings needed.</p>
 
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Retirement Planning Calculator</h1>
-            <p className="text-muted-foreground mb-8">Plan your retirement with three powerful modules: estimate your required corpus, model withdrawals, and calculate monthly savings needed.</p>
-
-            {/* Module tabs */}
-            <div className="flex rounded-lg border border-input overflow-hidden mb-8">
-              {([["goal", "Retirement Goal"], ["withdrawal", "Withdrawal"], ["savings", "Savings Planner"]] as [Module, string][]).map(([key, label]) => (
-                <button
-                  key={key}
-                  onClick={() => setActiveModule(key)}
-                  className={`flex-1 py-3 text-sm font-medium transition-colors ${activeModule === key ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:bg-secondary"}`}
-                >
-                  {label}
-                </button>
-              ))}
-            </div>
-
-            {/* Goal Module */}
-            {activeModule === "goal" && (
-              <div className="card-calculator mb-8">
-                <h2 className="text-lg font-bold mb-4">Retirement Goal Estimator</h2>
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <h2 className="text-lg font-bold mb-4">Retirement Goal Estimator</h2>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-6">
                   <InputField id="age" label="Current Age" value={currentAge} onChange={setCurrentAge} />
                   <InputField id="ret-age" label="Retirement Age" value={retirementAge} onChange={setRetirementAge} />
@@ -197,60 +180,22 @@ const RetirementCalculator = () => {
                     </div>
                   </div>
                 )}
-              </div>
-            )}
+          </div>
 
-            {/* Withdrawal Module */}
-            {activeModule === "withdrawal" && (
-              <div className="card-calculator mb-8">
-                <h2 className="text-lg font-bold mb-4">Withdrawal Calculator</h2>
-                <div className="grid sm:grid-cols-2 gap-5 mb-6">
-                  <InputField id="w-savings" label="Retirement Savings" value={wSavings} onChange={setWSavings} prefix="$" />
-                  <InputField id="w-withdraw" label="Monthly Withdrawal" value={wMonthlyWithdraw} onChange={setWMonthlyWithdraw} prefix="$" />
-                  <InputField id="w-return" label="Annual Return" value={wReturn} onChange={setWReturn} suffix="%" />
-                  <InputField id="w-inflation" label="Inflation Rate" value={wInflation} onChange={setWInflation} suffix="%" />
-                </div>
-                <button onClick={calculateWithdrawal} className="btn-calculate">Calculate</button>
-
-                {withdrawResult && (
-                  <div className="mt-6">
-                    <ResultDisplay items={[
+          <div className="flex flex-col gap-3">
+            {withdrawResult && (
+              <>
+                <ResultDisplay items={[
                       { label: "Money Will Last", value: 0, textValue: `${withdrawResult.yearsLast.toFixed(1)} years`, highlight: true },
                     ]} />
-                  </div>
-                )}
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            {/* Savings Module */}
-            {activeModule === "savings" && (
-              <div className="card-calculator mb-8">
-                <h2 className="text-lg font-bold mb-4">Savings Planner</h2>
-                <div className="grid sm:grid-cols-2 gap-5 mb-6">
-                  <InputField id="s-target" label="Target Amount" value={sTarget} onChange={setSTarget} prefix="$" />
-                  <InputField id="s-years" label="Years to Retirement" value={sYears} onChange={setSYears} />
-                  <InputField id="s-current" label="Current Savings" value={sCurrent} onChange={setSCurrent} prefix="$" />
-                  <InputField id="s-return" label="Expected Return" value={sReturn} onChange={setSReturn} suffix="%" />
-                </div>
-                <button onClick={calculateSavings} className="btn-calculate">Calculate</button>
-
-                {savingsResult && (
-                  <div className="mt-6">
-                    <ResultDisplay items={[
-                      { label: "Required Monthly Savings", value: savingsResult.monthlyNeeded, highlight: true },
-                    ]} />
-                  </div>
-                )}
-              </div>
-            )}
-
-            <button onClick={handlePrint} className="flex items-center gap-1.5 text-sm text-primary hover:underline mb-8">
-              <Printer className="h-4 w-4" /> Print Results
-            </button>
-
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>What Is a Retirement Calculator?</h2>
               <p>A retirement calculator is a financial planning tool that helps you estimate how much money you need to save for a comfortable retirement. Our comprehensive calculator includes three modules to address different aspects of retirement planning: estimating your required retirement corpus, modeling how long your savings will last during retirement, and calculating the monthly savings needed to reach your target.</p>
 
@@ -281,15 +226,8 @@ const RetirementCalculator = () => {
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> This calculator provides estimates for educational purposes only. Actual results depend on market conditions, tax situations, and personal circumstances. This is not financial advice. Consult a qualified financial advisor for personalized retirement planning.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/retirement-calculator" />
-            <PopularCalculators exclude="/retirement-calculator" />
-          </div>
-
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/retirement-calculator" />
+          <PopularCalculators exclude="/retirement-calculator" />
         </div>
       </div>
     </>

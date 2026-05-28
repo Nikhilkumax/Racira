@@ -65,16 +65,14 @@ const NPSCalculator = () => {
 
   return (
     <>
-<Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "NPS Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "NPS Calculator" }]} />
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">NPS Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Plan your National Pension System investment. Estimate retirement corpus, lump sum, and monthly pension.</p>
 
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">NPS Calculator</h1>
-            <p className="text-muted-foreground mb-8">Plan your National Pension System investment. Estimate retirement corpus, lump sum, and monthly pension.</p>
-
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-5 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-5 mb-6">
                 <InputField id="monthly" label="Monthly Contribution" value={monthly} onChange={setMonthly} prefix="₹" />
                 <InputField id="rate" label="Expected Return (p.a.)" value={rate} onChange={setRate} suffix="%" />
                 <InputField id="currentAge" label="Current Age" value={currentAge} onChange={setCurrentAge} suffix="Years" />
@@ -86,10 +84,11 @@ const NPSCalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && result && (
-              <div className="card-calculator mb-8">
+              <>
                 <h2 className="text-xl font-bold mb-4">NPS Retirement Projection</h2>
                 <ResultDisplay currency="₹" items={[
                   { label: "Total Invested", value: result.totalInvested },
@@ -103,12 +102,14 @@ const NPSCalculator = () => {
                     { label: "Est. Monthly Pension", value: result.monthlyPension, highlight: true },
                   ]} />
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>What Is an NPS Calculator?</h2>
               <p>An NPS calculator helps you estimate the retirement corpus from your National Pension System contributions. It projects your total accumulation, tax-free lump sum withdrawal, and estimated monthly pension from the annuity portion.</p>
 
@@ -130,14 +131,8 @@ const NPSCalculator = () => {
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> NPS returns are market-linked and not guaranteed. The pension estimate is simplified and actual annuity rates vary by provider. Consult PFRDA guidelines.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/nps-calculator" />
-            <PopularCalculators exclude="/nps-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/nps-calculator" />
+          <PopularCalculators exclude="/nps-calculator" />
         </div>
       </div>
     </>

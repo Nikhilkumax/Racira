@@ -104,14 +104,13 @@ const TaxBracketCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Tax Bracket Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Tax Bracket Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Determine your marginal tax bracket and see exactly how your income is distributed across the progressive tax system.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Tax Bracket Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Determine your marginal tax bracket and see exactly how your income is distributed across the progressive tax system.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-8">
                 <section className="space-y-6">
                   <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
                     <DollarSign className="h-5 w-5 text-primary" /> Your Income
@@ -151,10 +150,11 @@ const TaxBracketCalculator = () => {
                   <RotateCcw className="h-4 w-4" /> Reset 
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 mb-8">
+              <>
                 <div className="grid sm:grid-cols-2 gap-4 mb-6">
                   <div className="card-calculator bg-primary/5 border-solid border-primary/20 text-center flex flex-col justify-center py-8">
                     <p className="text-xs font-bold text-primary uppercase tracking-widest mb-1">Marginal Tax Bracket</p>
@@ -168,7 +168,7 @@ const TaxBracketCalculator = () => {
                   </div>
                 </div>
 
-                <div className="card-calculator mb-6">
+                <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
                   <h2 className="text-xl font-bold flex items-center gap-2 mb-6">
                     <BarChart3 className="h-5 w-5 text-primary" /> Progressive Breakdown
                   </h2>
@@ -200,12 +200,14 @@ const TaxBracketCalculator = () => {
                     { label: "Annual Take-Home (Federal Only)", value: parseFloat(income) - results.totalTax },
                   ]} />
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="my-8" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>How U.S. Tax Brackets Really Work</h2>
               <p>One of the most common misconceptions about personal finance is how tax brackets work. Many people believe that moving into a higher bracket means their entire income is suddenly taxed at that higher rate. This is false. The United States uses a <strong>progressive tax system</strong>, which means your income is divided into "buckets," and each bucket is taxed at its own specific rate.</p>
 
@@ -224,13 +226,8 @@ const TaxBracketCalculator = () => {
               <h2>Strategies for Tax Bracket Management</h2>
               <p>If you find yourself at the very bottom of a higher bracket (e.g., earning $105,000 when the 24% bracket starts at $100,525), you can use tax-deferred investments to drop your taxable income back into the 22% bracket. This is a common strategy for high-earners to maximize their long-term wealth.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/tax-bracket-calculator" />
-            <PopularCalculators exclude="/calculator/tax-bracket-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/tax-bracket-calculator" />
+          <PopularCalculators exclude="/calculator/tax-bracket-calculator" />
         </div>
       </div>
     </>

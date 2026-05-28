@@ -57,14 +57,13 @@ const JitterCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Jitter Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Jitter Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Analyze the stability of your network connection by calculating the variance in packet latency.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Jitter Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Analyze the stability of your network connection by calculating the variance in packet latency.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="mb-6">
                 <label className="block text-sm font-medium text-foreground mb-2">Latency Samples (ms)</label>
                 <textarea 
                   value={samples}
@@ -80,10 +79,11 @@ const JitterCalculator = () => {
                   <RotateCcw className="h-4 w-4" /> Reset
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Network Stability Analysis</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -100,11 +100,14 @@ const JitterCalculator = () => {
                   { label: "Max Variation (Spike)", value: 0, textValue: results.maxDiff.toFixed(1) + " ms" },
                   { label: "Samples Analyzed", value: 0, textValue: results.sampleCount.toString() },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Jitter: The Silent Connection Killer</h2>
               <p>You might have a fast connection, but if your jitter is high, your experience will be poor. Jitter represents the inconsistency in your connection. For example, if one packet takes 20ms and the next takes 100ms, the receiving device must wait for the slower packet, causing a glitch in the audio or video.</p>
               <h3>Impact of Jitter</h3>
@@ -114,12 +117,8 @@ const JitterCalculator = () => {
                 <li><strong>Streaming:</strong> Video may pause for buffering even if the average speed is high enough.</li>
               </ul>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/jitter" />
-            <PopularCalculators exclude="/calculator/jitter-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/jitter" />
+          <PopularCalculators exclude="/calculator/jitter-calculator" />
         </div>
       </div>
     </>

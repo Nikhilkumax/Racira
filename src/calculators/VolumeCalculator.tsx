@@ -44,16 +44,14 @@ const VolumeCalculator = () => {
 
   return (
     <>
-<Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Volume Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Volume Calculator" }]} />
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Volume Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate volume and surface area of 3D shapes.</p>
 
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Volume Calculator</h1>
-            <p className="text-muted-foreground mb-8">Calculate volume and surface area of 3D shapes.</p>
-
-            <div className="card-calculator mb-8">
-              <div className="flex flex-wrap gap-2 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="flex flex-wrap gap-2 mb-6">
                 {shapes.map(s => (
                   <button key={s.key} onClick={() => { setShape(s.key); reset(); }} className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${shape === s.key ? "bg-accent text-accent-foreground" : "bg-secondary text-muted-foreground"}`}>{s.label}</button>
                 ))}
@@ -70,25 +68,27 @@ const VolumeCalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && result && (
-              <div className="card-calculator mb-8">
+              <>
                 <h2 className="text-xl font-bold mb-4">Result</h2>
                 <ResultDisplay items={[
                   { label: "Volume", value: 0, textValue: result.volume.toFixed(4) + " cubic units" },
                   { label: "Surface Area", value: 0, textValue: result.surfaceArea.toFixed(4) + " sq units" },
                   { label: "Formula Used", value: 0, textValue: result.formula },
                 ]} />
-              </div>
+              </>
             )}
-
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-            <article className="prose-finance"><h2>Volume Formulas</h2><p><strong>Cube:</strong> V = s³ | <strong>Sphere:</strong> V = (4/3)πr³ | <strong>Cylinder:</strong> V = πr²h | <strong>Cone:</strong> V = (1/3)πr²h</p></article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/volume-calculator" />
-            <PopularCalculators exclude="/volume-calculator" />
           </div>
-          <aside className="hidden lg:block space-y-6"><AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" /></aside>
+        </div>
+
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance"><h2>Volume Formulas</h2><p><strong>Cube:</strong> V = s³ | <strong>Sphere:</strong> V = (4/3)πr³ | <strong>Cylinder:</strong> V = πr²h | <strong>Cone:</strong> V = (1/3)πr²h</p></article>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/volume-calculator" />
+          <PopularCalculators exclude="/volume-calculator" />
         </div>
       </div>
     </>

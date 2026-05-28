@@ -72,14 +72,13 @@ const LeaseVsBuyCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Lease vs Buy Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Lease vs Buy Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Compare the total costs of leasing versus buying a vehicle over the same time period.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Lease vs Buy Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Compare the total costs of leasing versus buying a vehicle over the same time period.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
                 <InputField id="carPrice" label="Vehicle Price" value={carPrice} onChange={setCarPrice} prefix="$" />
                 <InputField id="downPayment" label="Down Payment" value={downPayment} onChange={setDownPayment} prefix="$" />
                 <InputField id="leaseTerm" label="Term (Months)" value={leaseTerm} onChange={setLeaseTerm} />
@@ -95,10 +94,11 @@ const LeaseVsBuyCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Comparison Analysis</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className={`p-6 rounded-2xl border text-center flex flex-col justify-center ${results.betterOption === "Lease" ? "bg-primary/5 border-primary/10" : "bg-secondary/5 border-secondary/10"}`}>
@@ -116,11 +116,14 @@ const LeaseVsBuyCalculator = () => {
                   { label: "Financial Winner", value: 0, textValue: results.betterOption },
                   { label: "Total Savings", value: 0, textValue: "$" + results.difference.toLocaleString() },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Lease or Buy: Which is Right for You?</h2>
               <p>Choosing between leasing and buying a car is one of the most common financial dilemmas. While buying is often the "smarter" financial move in the long term, leasing offers flexibility and lower upfront costs.</p>
               <h3>When Leasing Makes Sense</h3>
@@ -128,12 +131,8 @@ const LeaseVsBuyCalculator = () => {
               <h3>The Benefits of Ownership</h3>
               <p>When you buy a car, you are building equity. Once the loan is paid off, you own an asset that you can sell or trade in later. There are no mileage restrictions, and you have the freedom to customize the vehicle however you like.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/lease-vs-buy" />
-            <PopularCalculators exclude="/calculator/lease-vs-buy-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/lease-vs-buy" />
+          <PopularCalculators exclude="/calculator/lease-vs-buy-calculator" />
         </div>
       </div>
     </>

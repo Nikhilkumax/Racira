@@ -66,14 +66,13 @@ const SavingsGoalCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Savings Goal" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Savings Goal Calculator</h1>
-            <p className="text-muted-foreground mb-8">Find out exactly how much you need to save each month to reach your financial milestones within your desired timeframe.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Savings Goal Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Find out exactly how much you need to save each month to reach your financial milestones within your desired timeframe.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-5 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-5 mb-6">
                 <InputField id="targetAmount" label="Savings Goal Amount" value={targetAmount} onChange={setTargetAmount} prefix="$" />
                 <InputField id="initialSavings" label="Current Savings" value={initialSavings} onChange={setInitialSavings} prefix="$" />
                 <InputField id="timeHorizon" label="Time to Reach Goal" value={timeHorizon} onChange={setTimeHorizon} suffix="Years" />
@@ -83,10 +82,11 @@ const SavingsGoalCalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Contribution</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8">
+              <>
                 {results.alreadyMet ? (
                   <div className="text-center p-6 bg-green-500/10 border border-green-500/20 rounded-xl">
                     <h2 className="text-xl font-bold text-green-600">Goal Already Met!</h2>
@@ -108,22 +108,21 @@ const SavingsGoalCalculator = () => {
                     ]} />
                   </>
                 )}
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Sidebar Ad" />
+          <article className="prose-finance">
               <h2>Planning Your Financial Future</h2>
               <p>Reaching a major savings goal requires more than just willpower; it requires a mathematical plan. Whether you're saving for a home down payment, a child's education, or a dream wedding, knowing the exact monthly number makes the goal manageable and less overwhelming.</p>
               <h3>The Importance of Starting Early</h3>
               <p>The "time value of money" is your best friend when saving. Because of compounding interest, the earlier you start saving for a goal, the less you have to contribute each month. Waiting even one or two years can significantly increase the monthly burden required to hit your target.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/savings-goal-calculator" />
-            <PopularCalculators exclude="/calculator/savings-goal-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder label="Sidebar Ad" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/savings-goal-calculator" />
+          <PopularCalculators exclude="/calculator/savings-goal-calculator" />
         </div>
       </div>
     </>

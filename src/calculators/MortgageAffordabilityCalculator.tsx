@@ -103,13 +103,13 @@ const MortgageAffordabilityCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Mortgage Affordability Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Mortgage Affordability Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Find out how much house you can afford based on your income, debts, and the 28/36 lending rule.</p>
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-6 mb-6">
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Mortgage Affordability Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Find out how much house you can afford based on your income, debts, and the 28/36 lending rule.</p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-6 mb-6">
                 <InputField id="income" label="Annual Gross Income ($)" value={annualIncome} onChange={setAnnualIncome} />
                 <InputField id="debts" label="Monthly Debts ($)" value={monthlyDebts} onChange={setMonthlyDebts} />
                 <InputField id="down" label="Down Payment ($)" value={downPayment} onChange={setDownPayment} />
@@ -127,41 +127,20 @@ const MortgageAffordabilityCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
-            
+          </div>
+
+          <div className="flex flex-col gap-3">
             {results && results.error && (
-              <div className="p-4 mb-8 rounded-lg bg-red-500/10 border border-red-500/20 text-red-600 font-semibold">
+              <>
                 {results.error}
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            {results && !results.error && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-                <h2 className="text-xl font-bold mb-6">Your Purchasing Power</h2>
-                <div className="grid sm:grid-cols-2 gap-6 mb-8">
-                  <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center flex flex-col justify-center">
-                    <p className="text-sm font-bold text-primary uppercase tracking-widest mb-1">Affordable Home Price</p>
-                    <p className="text-4xl font-black text-foreground">${results.homePrice.toLocaleString()}</p>
-                  </div>
-                  <div className="p-6 rounded-2xl bg-secondary/5 border border-secondary/10 text-center flex flex-col justify-center">
-                    <p className="text-sm font-bold text-muted-foreground uppercase tracking-widest mb-1">Max Loan Amount</p>
-                    <p className="text-3xl font-black text-foreground">${results.maxLoanAmount.toLocaleString()}</p>
-                    <p className="text-sm text-muted-foreground mt-1">After ${parseInt(downPayment).toLocaleString()} down payment</p>
-                  </div>
-                </div>
-
-                <h3 className="text-lg font-bold mb-4">Max Monthly Payment Breakdown (PITI)</h3>
-                <ResultDisplay items={[
-                  { label: "Total Monthly Payment Allowed", value: 0, textValue: `$${results.monthlyPayment.toLocaleString()}` },
-                  { label: "Principal & Interest", value: 0, textValue: `$${results.principalAndInterest.toLocaleString()}` },
-                  { label: "Property Taxes", value: 0, textValue: `$${results.taxes.toLocaleString()}` },
-                  { label: "Homeowners Insurance", value: 0, textValue: `$${results.insurance.toLocaleString()}` },
-                  { label: "HOA Fees", value: 0, textValue: `$${results.hoa.toLocaleString()}` },
-                ]} />
-              </div>
-            )}
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Being "House Poor"</h2>
               <p>Just because a bank approves you for a massive loan does not mean you should take it. Lenders look at your gross income (before taxes) when calculating your Debt-to-Income (DTI) ratio. They do not factor in your groceries, childcare, retirement savings, or lifestyle costs.</p>
               <h3>The 28/36 Rule</h3>
@@ -169,10 +148,8 @@ const MortgageAffordabilityCalculator = () => {
               <h3>Interest Rates Dictate Affordability</h3>
               <p>Your purchasing power is highly sensitive to interest rates. A 1% increase in mortgage rates can decrease your maximum affordable home price by tens of thousands of dollars, because more of your allowed monthly budget goes straight to interest.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/mortgage-affordability" />
-            <PopularCalculators exclude="/calculator/mortgage-affordability-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6"><AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" /></aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/mortgage-affordability" />
+          <PopularCalculators exclude="/calculator/mortgage-affordability-calculator" />
         </div>
       </div>
     </>

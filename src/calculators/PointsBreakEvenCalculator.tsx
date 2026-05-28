@@ -83,14 +83,13 @@ const PointsBreakEvenCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Mortgage Points Break-Even Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Mortgage Points Break-Even Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Determine if paying upfront points for a lower interest rate is a smart financial move for your mortgage.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Mortgage Points Break-Even Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Determine if paying upfront points for a lower interest rate is a smart financial move for your mortgage.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-8">
                 <section className="space-y-6">
                   <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
                     <DollarSign className="h-5 w-5 text-primary" /> Loan Details
@@ -114,10 +113,11 @@ const PointsBreakEvenCalculator = () => {
                   <RotateCcw className="h-4 w-4" /> Reset 
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 mb-8">
+              <>
                 {results.error ? (
                   <div className="bg-red-500/10 border border-red-500/20 text-red-700 p-6 rounded-2xl text-center font-bold">
                     {results.error}
@@ -136,7 +136,7 @@ const PointsBreakEvenCalculator = () => {
                       </div>
                     </div>
 
-                    <div className="card-calculator mb-6">
+                    <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
                       <h2 className="text-xl font-bold flex items-center gap-2 mb-6">
                         <Target className="h-5 w-5 text-primary" /> Savings Breakdown
                       </h2>
@@ -149,12 +149,14 @@ const PointsBreakEvenCalculator = () => {
                     </div>
                   </>
                 )}
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="my-8" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>What Are Mortgage Discount Points?</h2>
               <p>Mortgage discount points are essentially prepaid interest. By paying a lump sum at the closing of your home loan, you "buy down" the interest rate for the entire life of the mortgage. This is often referred to as "buying down the rate."</p>
 
@@ -186,13 +188,8 @@ const PointsBreakEvenCalculator = () => {
               <h3>Tax Considerations</h3>
               <p>Mortgage discount points are generally tax-deductible as home mortgage interest, provided you meet certain IRS requirements. This tax benefit can actually shorten your "effective" break-even period by reducing your overall tax liability for the year you buy the home.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/points-break-even-calculator" />
-            <PopularCalculators exclude="/calculator/points-break-even-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/points-break-even-calculator" />
+          <PopularCalculators exclude="/calculator/points-break-even-calculator" />
         </div>
       </div>
     </>

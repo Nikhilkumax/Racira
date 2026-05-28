@@ -46,16 +46,14 @@ const BreakEvenCalculator = () => {
 
   return (
     <>
-<Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Break Even Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Break Even Calculator" }]} />
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Break Even Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Find how many units you need to sell to cover all your costs.</p>
 
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Break Even Calculator</h1>
-            <p className="text-muted-foreground mb-8">Find how many units you need to sell to cover all your costs.</p>
-
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-3 gap-5 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-3 gap-5 mb-6">
                 <InputField id="fixedCosts" label="Fixed Costs" value={fixedCosts} onChange={setFixedCosts} prefix="$" tooltip="Rent, salaries, insurance — costs that don't change with volume" />
                 <InputField id="variableCostPerUnit" label="Variable Cost / Unit" value={variableCostPerUnit} onChange={setVariableCostPerUnit} prefix="$" tooltip="Materials, labor, shipping per unit" />
                 <InputField id="sellingPrice" label="Selling Price / Unit" value={sellingPrice} onChange={setSellingPrice} prefix="$" />
@@ -64,10 +62,11 @@ const BreakEvenCalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Break Even</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && result && (
-              <div className="card-calculator mb-8">
+              <>
                 <h2 className="text-xl font-bold mb-4">Break-Even Analysis</h2>
                 <ResultDisplay items={[
                   { label: "Break-Even Units", value: 0, textValue: `${result.breakEvenUnits.toLocaleString()} units`, highlight: true },
@@ -75,12 +74,14 @@ const BreakEvenCalculator = () => {
                   { label: "Contribution Margin / Unit", value: result.contributionMargin },
                   { label: "Contribution Margin Ratio", value: 0, textValue: `${result.contributionMarginRatio.toFixed(1)}%` },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>What Is Break-Even Analysis?</h2>
               <p>Break-even analysis determines the point at which a business's revenue exactly covers its total costs. Below this point, the business operates at a loss; above it, every additional sale generates profit. It's a fundamental tool for pricing decisions, business planning, and financial forecasting.</p>
 
@@ -108,14 +109,8 @@ const BreakEvenCalculator = () => {
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> Break-even analysis is a simplified model. Real-world costs and revenues may not be perfectly linear. Use alongside other financial planning tools.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/break-even-calculator" />
-            <PopularCalculators exclude="/break-even-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/break-even-calculator" />
+          <PopularCalculators exclude="/break-even-calculator" />
         </div>
       </div>
     </>

@@ -51,14 +51,13 @@ const LeanMassCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Lean Mass Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Lean Body Mass Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Calculate your lean body mass and body fat weight to better track your fitness and body composition goals.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Lean Body Mass Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate your lean body mass and body fat weight to better track your fitness and body composition goals.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-6 mb-6">
                 <div className="flex gap-2">
                   <div className="flex-1">
                     <InputField id="weight" label="Body Weight" value={weight} onChange={setWeight} />
@@ -80,10 +79,11 @@ const LeanMassCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Body Composition Analysis</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -100,11 +100,14 @@ const LeanMassCalculator = () => {
                   { label: "BMR Estimate", value: 0, textValue: Math.round(370 + (21.6 * (unit === "lb" ? results.leanMass / 2.20462 : results.leanMass))) + " kcal" },
                   { label: "Status", value: 0, textValue: parseFloat(bodyFat) < 15 ? "Athletic" : parseFloat(bodyFat) < 25 ? "Average" : "High Fat" },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Beyond the Scale</h2>
               <p>Your total body weight only tells part of the story. Two people can weigh 200 pounds, but one may be an elite athlete with 10% body fat, while the other may be sedentary with 35% body fat. Lean mass tracking helps you understand what your weight is actually composed of.</p>
               <h3>The Importance of Muscle</h3>
@@ -112,12 +115,8 @@ const LeanMassCalculator = () => {
               <h3>Tracking Progress</h3>
               <p>When you go on a diet, the scale might drop, but if you are losing muscle instead of fat, your metabolism will slow down. By calculating your lean mass regularly, you can ensure that your weight loss is coming from fat stores while your strength and health are preserved.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/lean-mass" />
-            <PopularCalculators exclude="/calculator/lean-mass-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/lean-mass" />
+          <PopularCalculators exclude="/calculator/lean-mass-calculator" />
         </div>
       </div>
     </>

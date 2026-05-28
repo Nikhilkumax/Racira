@@ -64,14 +64,13 @@ const StockCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Stock Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Stock Calculator</h1>
-            <p className="text-muted-foreground mb-8">Calculate your total profit, ROI, and tax liability from stock trades including buying and selling commissions.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Stock Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate your total profit, ROI, and tax liability from stock trades including buying and selling commissions.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-5 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-5 mb-6">
                 <InputField id="purchasePrice" label="Purchase Price" value={purchasePrice} onChange={setPurchasePrice} prefix="$" />
                 <InputField id="shares" label="Number of Shares" value={shares} onChange={setShares} />
                 <InputField id="sellingPrice" label="Selling Price" value={sellingPrice} onChange={setSellingPrice} prefix="$" />
@@ -83,10 +82,11 @@ const StockCalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Profit</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8">
+              <>
                 <div className="text-center mb-8">
                   <h2 className="text-sm font-bold text-primary uppercase tracking-wider mb-1">Net Profit</h2>
                   <p className={`text-5xl font-extrabold mb-2 ${results.netProfit >= 0 ? 'text-green-500' : 'text-red-500'}`}>
@@ -102,10 +102,14 @@ const StockCalculator = () => {
                   { label: "Tax Liability", value: results.taxAmount },
                   { label: "Final Net Return", value: results.netProfit, highlight: true },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Sidebar Ad" />
+          <article className="prose-finance">
               <h2>Understanding Your Investment Returns</h2>
               <p>Calculating the true profit of a stock trade involves more than just subtracting the purchase price from the selling price. Commissions and taxes can significantly eat into your returns, especially for high-frequency traders.</p>
               <h3>The Impact of Fees</h3>
@@ -113,13 +117,8 @@ const StockCalculator = () => {
               <h3>Taxes and the Long Game</h3>
               <p>The biggest "hidden" cost of stock trading is often taxes. By holding quality companies for more than 12 months, you move into the long-term capital gains category, which can save you 10-20% compared to short-term trading taxes.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/stock-calculator" />
-            <PopularCalculators exclude="/calculator/stock-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder label="Sidebar Ad" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/stock-calculator" />
+          <PopularCalculators exclude="/calculator/stock-calculator" />
         </div>
       </div>
     </>

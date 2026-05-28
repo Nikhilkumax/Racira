@@ -61,16 +61,14 @@ const TDEECalculator = () => {
 
   return (
     <>
-<Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "TDEE Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "TDEE Calculator" }]} />
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">TDEE Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate your Total Daily Energy Expenditure for weight management goals.</p>
 
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">TDEE Calculator</h1>
-            <p className="text-muted-foreground mb-8">Calculate your Total Daily Energy Expenditure for weight management goals.</p>
-
-            <div className="card-calculator mb-8">
-              <div className="mb-6 flex gap-2">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="mb-6 flex gap-2">
                 <button onClick={() => setGender("male")} className={`flex-1 py-3 rounded-lg text-sm font-medium transition-colors ${gender === "male" ? "bg-accent text-accent-foreground" : "bg-secondary text-muted-foreground"}`}>Male</button>
                 <button onClick={() => setGender("female")} className={`flex-1 py-3 rounded-lg text-sm font-medium transition-colors ${gender === "female" ? "bg-accent text-accent-foreground" : "bg-secondary text-muted-foreground"}`}>Female</button>
               </div>
@@ -96,10 +94,11 @@ const TDEECalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate TDEE</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && result && (
-              <div className="card-calculator mb-8">
+              <>
                 <h2 className="text-xl font-bold mb-4">Your TDEE</h2>
                 <div className="text-center mb-6">
                   <p className="text-5xl font-extrabold mb-1">{result.tdee.toLocaleString()}</p>
@@ -111,12 +110,14 @@ const TDEECalculator = () => {
                   { label: "Weight Loss (-500)", value: 0, textValue: `${result.cutCalories} kcal` },
                   { label: "Weight Gain (+500)", value: 0, textValue: `${result.bulkCalories} kcal` },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>What Is TDEE?</h2>
               <p>Total Daily Energy Expenditure (TDEE) is the total number of calories your body burns in a day. It combines your Basal Metabolic Rate (BMR) — calories burned at rest — with the energy used for physical activity, digestion, and non-exercise movement. TDEE is the cornerstone of any weight management plan.</p>
 
@@ -149,14 +150,8 @@ const TDEECalculator = () => {
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> TDEE is an estimate. Track your weight over 2-3 weeks and adjust calories accordingly. Consult a nutritionist for personalized plans.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/tdee-calculator" />
-            <PopularCalculators exclude="/tdee-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/tdee-calculator" />
+          <PopularCalculators exclude="/tdee-calculator" />
         </div>
       </div>
     </>

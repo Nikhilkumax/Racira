@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { Shield, Timer, Eye, EyeOff, ShieldCheck, ShieldAlert } from "lucide-react";
 
 import { useState, useEffect } from "react";
@@ -12,8 +12,6 @@ const PasswordEntropyCalculator = () => {
   const [entropy, setEntropy] = useState(0);
   const [crackTime, setCrackTime] = useState("");
   const [strength, setStrength] = useState({ label: "Very Weak", color: "text-red-500", bg: "bg-red-500" });
-  const [showResults, setShowResults] = useState(false);
-
   const calculateEntropy = (pwd: string) => {
     if (!pwd) return 0;
     let poolSize = 0;
@@ -61,14 +59,13 @@ const PasswordEntropyCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Password Strength Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Password Entropy Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Measure the cryptographic strength of your password and estimate how long it would take to crack.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Password Entropy Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Measure the cryptographic strength of your password and estimate how long it would take to crack.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="relative mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="relative mb-6">
                 <label className="block text-sm font-medium text-foreground mb-2">Test Your Password</label>
                 <div className="relative">
                   <input
@@ -110,10 +107,12 @@ const PasswordEntropyCalculator = () => {
                   </div>
                 </div>
               </div>
-            </div>
+          </div>
 
-            {password && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+          <div className="flex flex-col gap-3">
+            {password && (<>
+
+              <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
                 <h2 className="text-xl font-bold mb-6">Security Analysis</h2>
                 <div className="space-y-4">
                   <div className="flex items-center justify-between p-4 rounded-xl border border-border bg-secondary/20">
@@ -145,11 +144,16 @@ const PasswordEntropyCalculator = () => {
                      <span className="text-xs text-muted-foreground">{/[^a-zA-Z0-9]/.test(password) ? "Yes" : "No"}</span>
                   </div>
                 </div>
+              
               </div>
-            )}
+            
+</>)}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Password Strength vs. Entropy</h2>
               <p>Many websites use simple meters that check for specific characters. However, the true security of a password is its <strong>entropy</strong>, which measures the total number of guesses a computer must make to crack it via brute force.</p>
               
@@ -164,12 +168,8 @@ const PasswordEntropyCalculator = () => {
                 <li><strong>Enable MFA:</strong> Multi-Factor Authentication provides a second layer of security even if your password is stolen or cracked.</li>
               </ul>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/password-entropy" />
-            <PopularCalculators exclude="/calculator/password-entropy-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/password-entropy" />
+          <PopularCalculators exclude="/calculator/password-entropy-calculator" />
         </div>
       </div>
     </>
@@ -177,4 +177,5 @@ const PasswordEntropyCalculator = () => {
 };
 
 export default PasswordEntropyCalculator;
+
 

@@ -1,6 +1,6 @@
-"use client";
+﻿"use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import PopularCalculators from "@/components/PopularCalculators";
@@ -16,8 +16,6 @@ const SubscriptionCostCalculator = () => {
   ]);
 
   const [results, setResults] = useState<any>(null);
-  const [showResults, setShowResults] = useState(false);
-
   const addSub = () => {
     setSubs([...subs, { id: Date.now(), name: "New Sub", cost: "", interval: "monthly" }]);
   };
@@ -30,8 +28,9 @@ const SubscriptionCostCalculator = () => {
     setSubs(subs.map(s => s.id === id ? { ...s, [field]: value } : s));
   };
 
+  useEffect(() => { handleCalculate(); }, []);
+
   const handleCalculate = () => {
-    setShowResults(true);
     let annualTotal = 0;
     subs.forEach(s => {
       const cost = parseFloat(s.cost) || 0;
@@ -47,11 +46,11 @@ const SubscriptionCostCalculator = () => {
   };
 
   const reset = () => {
-    setShowResults(false);
     setSubs([
       { id: 1, name: "Netflix", cost: "15.99", interval: "monthly" },
     ]);
     setResults(null);
+    setTimeout(() => handleCalculate(), 0);
   };
 
   const faqs = [
@@ -63,14 +62,12 @@ const SubscriptionCostCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Subscription Cost" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Subscription Cost Calculator</h1>
-            <p className="text-muted-foreground mb-8">Reveal the true annual and long-term cost of your monthly subscriptions and find where you can save money.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Subscription Cost Calculator</h1>
 
-            <div className="card-calculator mb-8">
-              <div className="space-y-4 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="space-y-4 mb-6">
                 <div className="grid grid-cols-[2fr_1fr_1fr_40px] gap-3 px-1 text-sm font-bold text-muted-foreground uppercase tracking-wider">
                   <span>Service Name</span>
                   <span>Cost ($)</span>
@@ -116,10 +113,12 @@ const SubscriptionCostCalculator = () => {
                 <div className="flex-1" />
                 <button onClick={handleCalculate} className="btn-calculate px-8">Calculate Total</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
 
-            {showResults && results && (
-              <div className="card-calculator mb-8">
+          <div className="flex flex-col gap-3">
+            {results && (<>
+
+              <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
                 <div className="text-center mb-8">
                   <h2 className="text-sm font-bold text-primary uppercase tracking-wider mb-1">Total Annual Cost</h2>
                   <p className="text-5xl font-extrabold mb-2 text-red-500">${results.annualTotal.toFixed(2)}</p>
@@ -132,22 +131,23 @@ const SubscriptionCostCalculator = () => {
                   { label: "10-Year Projection", value: results.tenYearTotal },
                   { label: "Number of Services", value: 0, textValue: subs.length.toString() },
                 ]} />
+              
               </div>
-            )}
+            
+</>)}
+          </div>
+        </div>
 
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>The Hidden Cost of 'Small' Monthly Fees</h2>
               <p>In the digital economy, everything has moved to a subscription model. While $10 or $20 a month feels insignificant, these recurring costs act like a 'leak' in your bucket of wealth. Over 10 years, a simple $15/mo Netflix subscription costs you $1,800—and that's without considering what that money could have earned if invested.</p>
               <h3>Auditing Your Subscriptions</h3>
               <p>We recommend a 'Subscription Audit' every 6 months. Cancel anything you haven't used in the last 30 days. Most services allow you to restart your subscription instantly if you ever need it again, so there is no risk in pausing unused accounts.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/subscription-cost-calculator" />
-            <PopularCalculators exclude="/calculator/subscription-cost-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder label="Sidebar Ad" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/subscription-cost-calculator" />
+          <PopularCalculators exclude="/calculator/subscription-cost-calculator" />
         </div>
       </div>
     </>
@@ -155,4 +155,5 @@ const SubscriptionCostCalculator = () => {
 };
 
 export default SubscriptionCostCalculator;
+
 

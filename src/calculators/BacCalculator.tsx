@@ -68,13 +68,13 @@ const BacCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "BAC Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Blood Alcohol Content (BAC) Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Estimate your BAC and time to sobriety using the Widmark Formula based on standard drinks consumed.</p>
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-6 mb-6">
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Blood Alcohol Content (BAC) Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Estimate your BAC and time to sobriety using the Widmark Formula based on standard drinks consumed.</p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-6 mb-6">
                 <InputField id="wt" label="Weight (lbs)" value={weight} onChange={setWeight} />
                 <div>
                   <label className="block text-sm font-medium text-foreground mb-1.5">Gender</label>
@@ -89,9 +89,11 @@ const BacCalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2"><Wine className="h-5 w-5" /> Calculate BAC</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
+
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Intoxication Estimate</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -115,10 +117,14 @@ const BacCalculator = () => {
                 <div className="mt-6 p-4 bg-secondary/20 border border-border rounded-xl text-sm text-muted-foreground">
                   <strong>Disclaimer:</strong> This calculator provides an estimate based on averages. Actual BAC can vary wildly based on genetics, food intake, and liver health. Never rely on a calculator to determine if it is safe to drive.
                 </div>
-              </div>
+              </>
             )}
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+          </div>
+        </div>
+
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>How Alcohol is Metabolized</h2>
               <p>When you consume alcohol, it passes through the stomach and small intestine directly into your bloodstream. Because it is a toxin, your liver immediately begins producing enzymes (alcohol dehydrogenase) to break it down. However, the liver can only process a finite amount of alcohol per hour (roughly one standard drink).</p>
               <h3>The Danger of Binge Drinking</h3>
@@ -126,10 +132,8 @@ const BacCalculator = () => {
               <h3>Why Food Matters</h3>
               <p>Drinking on an empty stomach allows alcohol to pass immediately into the small intestine, where absorption is incredibly fast. Eating a large meal before drinking slows gastric emptying, significantly flattening the curve of your BAC spike.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/bac" />
-            <PopularCalculators exclude="/calculator/bac-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6"><AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" /></aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/bac" />
+          <PopularCalculators exclude="/calculator/bac-calculator" />
         </div>
       </div>
     </>

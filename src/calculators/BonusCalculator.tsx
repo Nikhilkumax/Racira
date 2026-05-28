@@ -73,15 +73,13 @@ const BonusCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Bonus Calculator" }]} />
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Bonus Pay Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Estimate your take-home bonus after federal, state, and payroll taxes.</p>
 
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Bonus Pay Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Estimate your take-home bonus after federal, state, and payroll taxes.</p>
-
-            <div className="card-calculator mb-8">
-                <div className="space-y-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="space-y-8">
                     <section>
                         <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
                             <Award className="h-5 w-5 text-primary" /> Bonus Amount
@@ -111,10 +109,11 @@ const BonusCalculator = () => {
                         <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Take-Home</button><button onClick={reset} className="p-4 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground"><RotateCcw className="h-5 w-5" /></button>
                     </div>
                 </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4">
+              <>
                 <h2 className="text-2xl font-bold mb-6">Net Bonus Breakdown</h2>
                 
                 <div className="bg-primary/5 rounded-3xl p-10 text-center border border-primary/10 mb-8">
@@ -141,12 +140,14 @@ const BonusCalculator = () => {
                         ]} size={180} />
                     </div>
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-10" />
-
-            <article className="prose-finance max-w-none">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance max-w-none">
               <h2>Understanding Bonus Taxes: Why Your Net is Lower Than Expected</h2>
               <p>Receiving a bonus is always exciting, but the excitement often turns to confusion when you see the final amount on your paycheck. It's a common observation: "My bonus was taxed at 40%!" In reality, while bonuses might be *withheld* at a higher rate, they are eventually taxed as regular income when you file your annual return. This guide explains how the withholding math works and how you can plan for it.</p>
               
@@ -174,15 +175,8 @@ const BonusCalculator = () => {
               <h2>Withholding vs. Actual Tax Liability</h2>
               <p>It is crucial to understand that **withholding is not the same as the final tax.** If your employer withholds 22% but your actual marginal tax rate is only 12%, you will get that extra 10% back as a tax refund when you file your return the following year. Conversely, if you are in the 37% tax bracket, you will owe the difference when you file. Using a bonus calculator helps you avoid surprises during tax season.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/bonus-calculator" />
-            <PopularCalculators exclude="/calculator/bonus-calculator" />
-          </div>
-
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Bonus Sidebar" />
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Bonus Ad" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/bonus-calculator" />
+          <PopularCalculators exclude="/calculator/bonus-calculator" />
         </div>
       </div>
     </>

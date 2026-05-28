@@ -99,13 +99,13 @@ const PregnancyWeightGainCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Pregnancy Weight Gain Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Pregnancy Weight Gain Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Track your pregnancy weight gain week by week according to ACOG and IOM clinical guidelines.</p>
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Pregnancy Weight Gain Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Track your pregnancy weight gain week by week according to ACOG and IOM clinical guidelines.</p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
                 <InputField id="prewt" label="Pre-Pregnancy Weight (lbs)" value={prePregnancyWeight} onChange={setPrePregnancyWeight} />
                 <InputField id="ht" label="Height (inches)" value={height} onChange={setHeight} />
                 <InputField id="curwt" label="Current Weight (lbs)" value={currentWeight} onChange={setCurrentWeight} />
@@ -121,9 +121,11 @@ const PregnancyWeightGainCalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2"><Activity className="h-5 w-5" /> Analyze Weight Gain</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
+
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Weight Gain Analysis</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center flex flex-col justify-center">
@@ -140,10 +142,14 @@ const PregnancyWeightGainCalculator = () => {
                   { label: "Pre-Pregnancy BMI", value: 0, textValue: results.bmi },
                   { label: "Total Recommended Gain (by Week 40)", value: 0, textValue: `${results.totalGainMin} – ${results.totalGainMax} lbs` },
                 ]} />
-              </div>
+              </>
             )}
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+          </div>
+        </div>
+
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Why Tracking Matters</h2>
               <p>Gaining the right amount of weight during pregnancy is crucial. Gaining too little can result in a low birth weight baby, while gaining too much increases the risk of gestational diabetes, high blood pressure, and complications during delivery.</p>
               <h3>Trimester Breakdown</h3>
@@ -151,10 +157,8 @@ const PregnancyWeightGainCalculator = () => {
               <h3>Don't Diet While Pregnant</h3>
               <p>If you are gaining weight faster than expected, do not try to lose weight or restrict calories drastically. Instead, focus on nutrient-dense foods (lean proteins, vegetables, whole grains) and consult your doctor or a prenatal dietitian.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/pregnancy-weight-gain" />
-            <PopularCalculators exclude="/calculator/pregnancy-weight-gain-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6"><AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" /></aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/pregnancy-weight-gain" />
+          <PopularCalculators exclude="/calculator/pregnancy-weight-gain-calculator" />
         </div>
       </div>
     </>

@@ -50,13 +50,13 @@ const FatIntakeCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Fat Intake Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Fat Intake Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Determine your optimal daily dietary fat target based on your total caloric intake and diet preferences.</p>
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-6 mb-6">
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Fat Intake Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Determine your optimal daily dietary fat target based on your total caloric intake and diet preferences.</p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-6 mb-6">
                 <InputField id="cals" label="Total Daily Calories" value={calories} onChange={setCalories} />
                 <div>
                   <label className="block text-sm font-medium text-foreground mb-1.5">Diet Type</label>
@@ -70,9 +70,11 @@ const FatIntakeCalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2"><Utensils className="h-5 w-5" /> Calculate Fats</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
+
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Daily Fat Target</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -89,10 +91,14 @@ const FatIntakeCalculator = () => {
                   { label: "Diet Percentage", value: 0, textValue: results.pct + "% of total calories" },
                   { label: "Saturated Fat Limit", value: 0, textValue: "< " + results.saturatedLimitGrams + "g (10% limit)" },
                 ]} />
-              </div>
+              </>
             )}
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+          </div>
+        </div>
+
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>The Importance of Dietary Fat</h2>
               <p>For decades, fat was demonized as the primary cause of weight gain and heart disease. Modern nutritional science has shown that dietary fat is essential for health, hormone production, and nutrient absorption.</p>
               <h3>Hormonal Balance and Fat</h3>
@@ -100,10 +106,8 @@ const FatIntakeCalculator = () => {
               <h3>The Ketogenic Diet</h3>
               <p>A ketogenic diet flips standard macros upside down, making fat the primary energy source (70-80% of calories). When carbohydrate intake is extremely low, the liver converts fats into ketones, which the brain and body use for fuel.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/fat-intake" />
-            <PopularCalculators exclude="/calculator/fat-intake-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6"><AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" /></aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/fat-intake" />
+          <PopularCalculators exclude="/calculator/fat-intake-calculator" />
         </div>
       </div>
     </>

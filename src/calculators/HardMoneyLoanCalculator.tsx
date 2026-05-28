@@ -84,14 +84,13 @@ const HardMoneyLoanCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Hard Money Loan Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Hard Money Loan Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Analyze fix-and-flip deals with hard money financing, including points, interest, and projected ROI.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Hard Money Loan Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Analyze fix-and-flip deals with hard money financing, including points, interest, and projected ROI.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-8">
                 <section className="space-y-6">
                   <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
                     <Hammer className="h-5 w-5 text-primary" /> Project Details
@@ -119,10 +118,11 @@ const HardMoneyLoanCalculator = () => {
                   <RotateCcw className="h-4 w-4" /> Reset 
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 mb-8">
+              <>
                 <div className="grid sm:grid-cols-2 gap-4 mb-6">
                   <div className="card-calculator bg-emerald-500/5 border-emerald-500/20 text-center flex flex-col justify-center py-8">
                     <p className="text-xs font-bold text-emerald-600 uppercase tracking-widest mb-1">Projected Net Profit</p>
@@ -136,7 +136,7 @@ const HardMoneyLoanCalculator = () => {
                   </div>
                 </div>
 
-                <div className="card-calculator mb-6">
+                <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
                   <h2 className="text-xl font-bold flex items-center gap-2 mb-6">
                     <TrendingUp className="h-5 w-5 text-primary" /> Deal Breakdown
                   </h2>
@@ -154,12 +154,14 @@ const HardMoneyLoanCalculator = () => {
                     <strong>Investor Tip:</strong> Hard money is expensive. Every extra month the project takes reduces your profit by <strong>${Math.round(results.monthlyInterest).toLocaleString()}</strong> in interest costs.
                   </p>
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="my-8" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Fix-and-Flip with Hard Money</h2>
               <p>Hard money loans are the lifeblood of real estate investors. Because these loans focus on the property's potential value rather than the borrower's credit score, they allow for rapid funding of distressed properties that traditional banks won't touch.</p>
 
@@ -188,13 +190,8 @@ const HardMoneyLoanCalculator = () => {
                 <li><strong>Speed:</strong> Have your contractors ready to go the day you close. Every day the house is empty is a day you are losing interest.</li>
               </ol>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/hard-money-loan-calculator" />
-            <PopularCalculators exclude="/calculator/hard-money-loan-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/hard-money-loan-calculator" />
+          <PopularCalculators exclude="/calculator/hard-money-loan-calculator" />
         </div>
       </div>
     </>

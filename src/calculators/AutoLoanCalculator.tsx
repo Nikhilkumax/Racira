@@ -1,6 +1,6 @@
-"use client";
+﻿"use client";
 
-import { useState, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import PopularCalculators from "@/components/PopularCalculators";
@@ -23,8 +23,6 @@ const AutoLoanCalculator = () => {
 
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [includeTaxInLoan, setIncludeTaxInLoan] = useState(true);
-  const [showResults, setShowResults] = useState(false);
-
   const [result, setResult] = useState<{
     monthlyPayment: number;
     totalLoan: number;
@@ -36,8 +34,9 @@ const AutoLoanCalculator = () => {
   const [viewMode, setViewMode] = useState<"monthly" | "yearly">("monthly");
   const printRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => { handleCalculate(); }, []);
+
   const handleCalculate = () => {
-    setShowResults(true);
     const price = parseFloat(vehiclePrice) || 0;
     const dp = parseFloat(downPayment) || 0;
     const ti = parseFloat(tradeIn) || 0;
@@ -80,11 +79,11 @@ const AutoLoanCalculator = () => {
   };
 
   const reset = () => {
-    setShowResults(false);
     setVehiclePrice("35000"); setDownPayment("5000"); setTradeIn("0");
     setSalesTax("7"); setTitleFees("500"); setLoanTerm("60");
     setInterestRate("5.9"); setCashIncentives("0");
     setResult(null);
+    setTimeout(() => handleCalculate(), 0);
   };
 
   const handlePrint = () => {
@@ -128,20 +127,17 @@ const AutoLoanCalculator = () => {
 
   return (
     <>
-<Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Auto Loan Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Auto Loan Calculator" }]} />
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Auto Loan Calculator</h1>
 
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Auto Loan Calculator</h1>
-            <p className="text-muted-foreground mb-8">Calculate your monthly car payment including trade-in value, sales tax, title fees, and view a complete amortization schedule.</p>
-
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-5 mb-6">
-                <InputField id="price" label="Vehicle Price" value={vehiclePrice} onChange={setVehiclePrice} prefix="$" tooltip="Total price of the vehicle before trade-in and incentives." />
-                <InputField id="down" label="Down Payment" value={downPayment} onChange={setDownPayment} prefix="$" tooltip="Cash paid upfront to reduce the loan amount." />
-                <InputField id="rate" label="Interest Rate (APR)" value={interestRate} onChange={setInterestRate} suffix="%" tooltip="Annual percentage rate from your lender." />
-                <InputField id="term" label="Loan Term (Months)" value={loanTerm} onChange={setLoanTerm} tooltip="Length of the loan in months. Common: 36, 48, 60, 72." />
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-3 mb-6">
+                <InputField id="price" label="Vehicle Price" value={vehiclePrice} onChange={setVehiclePrice} prefix="$" />
+                <InputField id="down" label="Down Payment" value={downPayment} onChange={setDownPayment} prefix="$" />
+                <InputField id="rate" label="Interest Rate (APR)" value={interestRate} onChange={setInterestRate} suffix="%" />
+                <InputField id="term" label="Loan Term (Months)" value={loanTerm} onChange={setLoanTerm} />
               </div>
 
               <button type="button" onClick={() => setShowAdvanced(!showAdvanced)} className="flex items-center gap-2 text-sm font-medium text-primary hover:underline mb-4">
@@ -149,12 +145,13 @@ const AutoLoanCalculator = () => {
                 <ChevronDown className={`h-4 w-4 transition-transform ${showAdvanced ? "rotate-180" : ""}`} />
               </button>
 
-              {showAdvanced && (
-                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-6 p-4 rounded-lg bg-secondary/30 border border-border">
-                  <InputField id="trade" label="Trade-in Value" value={tradeIn} onChange={setTradeIn} prefix="$" tooltip="Value of your current vehicle being traded in." />
-                  <InputField id="tax" label="Sales Tax Rate" value={salesTax} onChange={setSalesTax} suffix="%" tooltip="State/local sales tax rate applied to the purchase." />
-                  <InputField id="fees" label="Title & Registration" value={titleFees} onChange={setTitleFees} prefix="$" tooltip="Title, registration, and documentation fees." />
-                  <InputField id="incentives" label="Cash Incentives" value={cashIncentives} onChange={setCashIncentives} prefix="$" tooltip="Manufacturer rebates or dealer cash incentives." />
+              {showAdvanced && (<>
+
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-6 p-4 rounded-lg bg-secondary/30 border border-border">
+                  <InputField id="trade" label="Trade-in Value" value={tradeIn} onChange={setTradeIn} prefix="$" />
+                  <InputField id="tax" label="Sales Tax Rate" value={salesTax} onChange={setSalesTax} suffix="%" />
+                  <InputField id="fees" label="Title & Registration" value={titleFees} onChange={setTitleFees} prefix="$" />
+                  <InputField id="incentives" label="Cash Incentives" value={cashIncentives} onChange={setCashIncentives} prefix="$" />
                   <div className="flex items-center gap-2 sm:col-span-2">
                     <input
                       type="checkbox"
@@ -166,16 +163,19 @@ const AutoLoanCalculator = () => {
                     <label htmlFor="tax-in-loan" className="text-sm text-foreground">Include sales tax in loan</label>
                   </div>
                 </div>
-              )}
+              
+</>)}
 
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset">
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
-            {showResults && result && (
+          <div className="flex flex-col gap-3">
+            {result && (<>
+
               <div className="card-calculator mb-8" ref={printRef}>
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="text-xl font-bold">Loan Results</h2>
@@ -211,11 +211,14 @@ const AutoLoanCalculator = () => {
                   <AmortizationTable rows={viewMode === "yearly" ? yearlyRows : result.rows} yearly={viewMode === "yearly"} />
                 </div>
               </div>
-            )}
+            
+</>)}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>What Is an Auto Loan Calculator?</h2>
               <p>An auto loan calculator helps you estimate your monthly car payment based on the vehicle price, down payment, interest rate, and loan term. Our advanced calculator goes further by including trade-in value, sales tax, title and registration fees, and manufacturer incentives for the most accurate estimate possible.</p>
               <p>Whether you're buying a new or used vehicle, understanding the true cost of your auto loan is essential for making a smart financial decision. This calculator shows not just the monthly payment but the total cost of ownership including all interest paid over the life of the loan.</p>
@@ -249,15 +252,8 @@ const AutoLoanCalculator = () => {
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> This calculator provides estimates for educational purposes only. Actual payments may vary based on lender terms, credit qualifications, and specific fees. This is not financial advice.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/auto-loan-calculator" />
-            <PopularCalculators exclude="/auto-loan-calculator" />
-          </div>
-
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/auto-loan-calculator" />
+          <PopularCalculators exclude="/auto-loan-calculator" />
         </div>
       </div>
     </>
@@ -265,5 +261,6 @@ const AutoLoanCalculator = () => {
 };
 
 export default AutoLoanCalculator;
+
 
 

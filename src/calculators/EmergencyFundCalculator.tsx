@@ -61,14 +61,13 @@ const EmergencyFundCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Emergency Fund" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Emergency Fund Calculator</h1>
-            <p className="text-muted-foreground mb-8">Determine how much you need to save to protect yourself against unexpected job loss, medical bills, or major repairs.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Emergency Fund Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Determine how much you need to save to protect yourself against unexpected job loss, medical bills, or major repairs.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-5 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-5 mb-6">
                 <div className="space-y-4">
                   <h3 className="font-bold border-b pb-2">Monthly Essentials</h3>
                   <InputField id="housing" label="Rent / Mortgage" value={housing} onChange={setHousing} prefix="$" />
@@ -88,10 +87,12 @@ const EmergencyFundCalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Target</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8">
+              <>
+                <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
                 <div className="text-center mb-8">
                   <h2 className="text-sm font-bold text-primary uppercase tracking-wider mb-1">Target Emergency Fund</h2>
                   <p className="text-5xl font-extrabold mb-4">${Math.round(results.totalTarget).toLocaleString()}</p>
@@ -112,21 +113,21 @@ const EmergencyFundCalculator = () => {
                   { label: "Safety Cushion", value: 0, textValue: `${monthsTarget} Months` },
                 ]} />
               </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Sidebar Ad" />
+          <article className="prose-finance">
               <h2>The Foundation of Financial Peace</h2>
               <p>An emergency fund is not just a savings account; it's insurance for your life. It provides a financial buffer that allows you to weather unexpected storms without resorting to high-interest credit card debt or raiding your retirement accounts.</p>
               <h3>Why 3 to 6 Months?</h3>
               <p>The standard 3 to 6-month recommendation covers the average time it takes to find a new job or recover from a significant medical event. If you have a stable job and low expenses, 3 months might suffice. If you have a family and a mortgage, 6 months is the safer minimum.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/emergency-fund-calculator" />
-            <PopularCalculators exclude="/calculator/emergency-fund-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder label="Sidebar Ad" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/emergency-fund-calculator" />
+          <PopularCalculators exclude="/calculator/emergency-fund-calculator" />
         </div>
       </div>
     </>

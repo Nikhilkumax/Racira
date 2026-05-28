@@ -61,16 +61,14 @@ const GratuityCalculator = () => {
 
   return (
     <>
-<Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Gratuity Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Gratuity Calculator" }]} />
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Gratuity Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate your gratuity amount based on salary and years of service under the Payment of Gratuity Act.</p>
 
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Gratuity Calculator</h1>
-            <p className="text-muted-foreground mb-8">Calculate your gratuity amount based on salary and years of service under the Payment of Gratuity Act.</p>
-
-            <div className="card-calculator mb-8">
-              <div className="flex rounded-lg border border-input overflow-hidden mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="flex rounded-lg border border-input overflow-hidden mb-6">
                 <button onClick={() => { setType("act"); setResult(null); }} className={`flex-1 py-3 text-sm font-medium transition-colors ${type === "act" ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:bg-secondary"}`}>Gratuity Act (÷ 26)</button>
                 <button onClick={() => { setType("non-act"); setResult(null); }} className={`flex-1 py-3 text-sm font-medium transition-colors ${type === "non-act" ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:bg-secondary"}`}>Non-Act (÷ 30)</button>
               </div>
@@ -84,22 +82,25 @@ const GratuityCalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Gratuity</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && result && (
-              <div className="card-calculator mb-8">
+              <>
                 <h2 className="text-xl font-bold mb-4">Gratuity Amount</h2>
                 <ResultDisplay currency="₹" items={[
                   { label: "Gratuity Amount", value: result.gratuity, highlight: true },
                   { label: "Tax-Exempt Amount", value: result.taxExempt },
                   { label: "Taxable Gratuity", value: Math.max(0, result.gratuity - result.taxExempt) },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>What Is a Gratuity Calculator?</h2>
               <p>A gratuity calculator helps employees estimate the gratuity amount they are entitled to receive upon retirement, resignation, or completion of service. Gratuity is a lump sum payment made by employers as a gesture of gratitude for the employee's service.</p>
 
@@ -119,14 +120,8 @@ const GratuityCalculator = () => {
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> This is an estimate based on the standard formula. Actual gratuity may vary based on company policy and specific employment terms. Consult your HR department.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/gratuity-calculator" />
-            <PopularCalculators exclude="/gratuity-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/gratuity-calculator" />
+          <PopularCalculators exclude="/gratuity-calculator" />
         </div>
       </div>
     </>

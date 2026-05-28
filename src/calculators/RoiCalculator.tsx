@@ -52,16 +52,14 @@ const ROICalculator = () => {
 
   return (
     <>
-<Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "ROI Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "ROI Calculator" }]} />
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">ROI Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate Return on Investment, net profit, and annualized returns.</p>
 
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">ROI Calculator</h1>
-            <p className="text-muted-foreground mb-8">Calculate Return on Investment, net profit, and annualized returns.</p>
-
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-5 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-5 mb-6">
                 <InputField id="initialInvestment" label="Initial Investment" value={initialInvestment} onChange={setInitialInvestment} prefix="$" tooltip="Amount initially invested" />
                 <InputField id="finalValue" label="Final Value" value={finalValue} onChange={setFinalValue} prefix="$" tooltip="Current or exit value of investment" />
                 <InputField id="years" label="Investment Period" value={years} onChange={setYears} suffix="years" tooltip="How long the investment was held" />
@@ -71,10 +69,11 @@ const ROICalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate ROI</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && result && (
-              <div className="card-calculator mb-8">
+              <>
                 <h2 className="text-xl font-bold mb-4">Investment Returns</h2>
                 <ResultDisplay items={[
                   { label: "Total ROI", value: 0, textValue: `${result.roi}%`, highlight: true },
@@ -82,12 +81,14 @@ const ROICalculator = () => {
                   { label: "Net Profit", value: result.netProfit },
                   { label: "Total Return Multiple", value: 0, textValue: `${result.totalReturn}%` },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>What Is ROI?</h2>
               <p>Return on Investment (ROI) is one of the most widely used financial metrics for evaluating the profitability of an investment. It measures the percentage return generated relative to the amount invested, providing a simple way to compare different investment opportunities.</p>
 
@@ -121,14 +122,8 @@ const ROICalculator = () => {
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> ROI is a simplified metric. Past returns don't guarantee future performance. Consider risk-adjusted returns and consult a financial advisor for investment decisions.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/roi-calculator" />
-            <PopularCalculators exclude="/roi-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/roi-calculator" />
+          <PopularCalculators exclude="/roi-calculator" />
         </div>
       </div>
     </>

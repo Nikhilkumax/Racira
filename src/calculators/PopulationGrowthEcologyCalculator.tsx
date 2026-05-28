@@ -70,14 +70,13 @@ const PopulationGrowthEcologyCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Population Growth Ecology Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Population Growth Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Model biological population sizes over time using exponential or logistic mathematical models.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Population Growth Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Model biological population sizes over time using exponential or logistic mathematical models.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-8">
                 <section className="space-y-6">
                   <div className="flex items-center gap-2 text-primary font-bold text-sm uppercase tracking-wider mb-2">
                      <TrendingUp className="h-4 w-4" /> Parameters
@@ -134,10 +133,11 @@ const PopulationGrowthEcologyCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <div className="text-center mb-8">
                   <p className="text-sm font-bold text-primary uppercase tracking-widest mb-2">Final Population at Time t={timePeriods}</p>
                   <p className="text-5xl font-black text-foreground">{Math.round(results.finalPopulation).toLocaleString()}</p>
@@ -159,11 +159,14 @@ const PopulationGrowthEcologyCalculator = () => {
                      ))}
                   </div>
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Population Dynamics in Ecology</h2>
               <p>In population ecology, understanding how populations grow and what limits their growth is fundamental to managing wildlife, conserving endangered species, and understanding human impacts on ecosystems.</p>
               
@@ -173,12 +176,8 @@ const PopulationGrowthEcologyCalculator = () => {
               <h3>The Logistic Model</h3>
               <p>Because no environment has infinite resources, exponential growth cannot continue forever. The logistic growth model introduces the concept of carrying capacity (K). As the population size approaches K, the growth rate approaches zero. The resulting curve is S-shaped (sigmoidal).</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/population-growth-ecology" />
-            <PopularCalculators exclude="/calculator/population-growth-ecology-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/population-growth-ecology" />
+          <PopularCalculators exclude="/calculator/population-growth-ecology-calculator" />
         </div>
       </div>
     </>

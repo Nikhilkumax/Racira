@@ -71,14 +71,13 @@ const AspectRatioCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Aspect Ratio Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Aspect Ratio Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Determine the aspect ratio of a resolution or calculate new dimensions while maintaining the same proportions.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Aspect Ratio Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Determine the aspect ratio of a resolution or calculate new dimensions while maintaining the same proportions.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
                 <InputField id="width" label="Original Width" value={width} onChange={setWidth} />
                 <InputField id="height" label="Original Height" value={height} onChange={setHeight} />
                 <InputField id="newWidth" label="New Width (Optional)" value={newWidth} onChange={setNewWidth} placeholder="Calculate height..." />
@@ -91,10 +90,11 @@ const AspectRatioCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Ratio Analysis</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -130,11 +130,14 @@ const AspectRatioCalculator = () => {
                       </div>
                   </div>
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Common Aspect Ratios</h2>
               <p>Aspect ratios have evolved significantly over the history of cinema and television. Understanding which one to use is vital for content creators and web designers.</p>
               
@@ -150,12 +153,8 @@ const AspectRatioCalculator = () => {
               <h3>4:3 (Classic)</h3>
               <p>The standard for nearly all television and computer monitors before the mid-2000s. While rare now, it is still used in some photography formats and retro-gaming.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/aspect-ratio" />
-            <PopularCalculators exclude="/calculator/aspect-ratio-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/aspect-ratio" />
+          <PopularCalculators exclude="/calculator/aspect-ratio-calculator" />
         </div>
       </div>
     </>

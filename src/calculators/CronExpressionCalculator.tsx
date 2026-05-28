@@ -65,86 +65,86 @@ const CronExpressionCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Cron Expression Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Cron Expression Generator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Build, decode, and generate cron schedule expressions for server tasks and CI/CD pipelines.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Cron Expression Generator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Build, decode, and generate cron schedule expressions for server tasks and CI/CD pipelines.</p>
 
-            <div className="card-calculator mb-8">
-               <div className="bg-primary/5 border border-primary/20 rounded-2xl p-8 mb-8 text-center relative overflow-hidden">
-                  <p className="text-sm font-bold text-primary uppercase tracking-widest mb-4">Cron Expression</p>
-                  <div className="flex justify-center items-center gap-4 mb-4">
-                     <div className="text-5xl sm:text-6xl font-mono font-black text-foreground tracking-widest">{expression}</div>
-                     <button onClick={copyToClipboard} className="p-3 bg-primary/10 rounded-xl hover:bg-primary/20 text-primary transition-colors">
-                        {copied ? <Check className="h-6 w-6" /> : <Copy className="h-6 w-6" />}
-                     </button>
-                  </div>
-                  <p className="text-lg font-medium text-muted-foreground">"{readable}"</p>
-               </div>
-
-              <div className="grid sm:grid-cols-5 gap-4 mb-8">
-                <div>
-                  <label className="block text-xs font-bold text-muted-foreground uppercase mb-2 text-center">Minute</label>
-                  <input type="text" value={minute} onChange={(e) => setMinute(e.target.value)} className="input-calc text-center font-mono" placeholder="*" />
-                  <p className="text-[10px] text-center mt-1 text-muted-foreground">0-59, *, */n</p>
-                </div>
-                <div>
-                  <label className="block text-xs font-bold text-muted-foreground uppercase mb-2 text-center">Hour</label>
-                  <input type="text" value={hour} onChange={(e) => setHour(e.target.value)} className="input-calc text-center font-mono" placeholder="*" />
-                  <p className="text-[10px] text-center mt-1 text-muted-foreground">0-23, *, */n</p>
-                </div>
-                <div>
-                  <label className="block text-xs font-bold text-muted-foreground uppercase mb-2 text-center">Day (Month)</label>
-                  <input type="text" value={dayOfMonth} onChange={(e) => setDayOfMonth(e.target.value)} className="input-calc text-center font-mono" placeholder="*" />
-                  <p className="text-[10px] text-center mt-1 text-muted-foreground">1-31, *</p>
-                </div>
-                <div>
-                  <label className="block text-xs font-bold text-muted-foreground uppercase mb-2 text-center">Month</label>
-                  <input type="text" value={month} onChange={(e) => setMonth(e.target.value)} className="input-calc text-center font-mono" placeholder="*" />
-                  <p className="text-[10px] text-center mt-1 text-muted-foreground">1-12, *</p>
-                </div>
-                <div>
-                  <label className="block text-xs font-bold text-muted-foreground uppercase mb-2 text-center">Day (Week)</label>
-                  <input type="text" value={dayOfWeek} onChange={(e) => setDayOfWeek(e.target.value)} className="input-calc text-center font-mono" placeholder="*" />
-                  <p className="text-[10px] text-center mt-1 text-muted-foreground">0-6, *</p>
-                </div>
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          {/* Inputs */}
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-5 gap-4">
+              <div>
+                <label className="block text-xs font-bold text-muted-foreground uppercase mb-2 text-center">Minute</label>
+                <input type="text" value={minute} onChange={(e) => setMinute(e.target.value)} className="input-calc text-center font-mono" placeholder="*" />
+                <p className="text-[10px] text-center mt-1 text-muted-foreground">0-59, *, */n</p>
               </div>
-
-              <div className="border-t border-border pt-6">
-                 <h3 className="text-sm font-bold text-foreground mb-4 flex items-center gap-2">
-                    <Clock className="h-4 w-4 text-primary" /> Common Presets
-                 </h3>
-                 <div className="flex flex-wrap gap-2">
-                    <button onClick={() => preset("*", "*", "*", "*", "*")} className="px-3 py-1.5 rounded-lg border border-border bg-secondary/50 hover:bg-secondary text-xs font-medium transition-colors">Every Minute</button>
-                    <button onClick={() => preset("0", "*", "*", "*", "*")} className="px-3 py-1.5 rounded-lg border border-border bg-secondary/50 hover:bg-secondary text-xs font-medium transition-colors">Every Hour</button>
-                    <button onClick={() => preset("0", "0", "*", "*", "*")} className="px-3 py-1.5 rounded-lg border border-border bg-secondary/50 hover:bg-secondary text-xs font-medium transition-colors">Every Day at Midnight</button>
-                    <button onClick={() => preset("0", "12", "*", "*", "*")} className="px-3 py-1.5 rounded-lg border border-border bg-secondary/50 hover:bg-secondary text-xs font-medium transition-colors">Every Day at Noon</button>
-                    <button onClick={() => preset("0", "0", "*", "*", "1")} className="px-3 py-1.5 rounded-lg border border-border bg-secondary/50 hover:bg-secondary text-xs font-medium transition-colors">Every Monday</button>
-                    <button onClick={() => preset("0", "0", "1", "*", "*")} className="px-3 py-1.5 rounded-lg border border-border bg-secondary/50 hover:bg-secondary text-xs font-medium transition-colors">1st of Every Month</button>
-                 </div>
+              <div>
+                <label className="block text-xs font-bold text-muted-foreground uppercase mb-2 text-center">Hour</label>
+                <input type="text" value={hour} onChange={(e) => setHour(e.target.value)} className="input-calc text-center font-mono" placeholder="*" />
+                <p className="text-[10px] text-center mt-1 text-muted-foreground">0-23, *, */n</p>
+              </div>
+              <div>
+                <label className="block text-xs font-bold text-muted-foreground uppercase mb-2 text-center">Day (Mo)</label>
+                <input type="text" value={dayOfMonth} onChange={(e) => setDayOfMonth(e.target.value)} className="input-calc text-center font-mono" placeholder="*" />
+                <p className="text-[10px] text-center mt-1 text-muted-foreground">1-31, *</p>
+              </div>
+              <div>
+                <label className="block text-xs font-bold text-muted-foreground uppercase mb-2 text-center">Month</label>
+                <input type="text" value={month} onChange={(e) => setMonth(e.target.value)} className="input-calc text-center font-mono" placeholder="*" />
+                <p className="text-[10px] text-center mt-1 text-muted-foreground">1-12, *</p>
+              </div>
+              <div>
+                <label className="block text-xs font-bold text-muted-foreground uppercase mb-2 text-center">Day (We)</label>
+                <input type="text" value={dayOfWeek} onChange={(e) => setDayOfWeek(e.target.value)} className="input-calc text-center font-mono" placeholder="*" />
+                <p className="text-[10px] text-center mt-1 text-muted-foreground">0-6, *</p>
               </div>
             </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
-              <h2>What is Cron?</h2>
-              <p>Cron is a time-based job scheduler in Unix-like computer operating systems. Users who set up and maintain software environments use cron to schedule jobs (commands or shell scripts) to run periodically at fixed times, dates, or intervals. It typically automates system maintenance or administration.</p>
-              
-              <h3>Special Characters</h3>
-              <ul>
-                 <li><strong>* (Asterisk)</strong>: Specifies all legal values for a field. E.g., an asterisk in the month field means the command will run every month.</li>
-                 <li><strong>, (Comma)</strong>: Used to separate items in a list. E.g., `1,5,10` in the minutes field means at minutes 1, 5, and 10.</li>
-                 <li><strong>- (Hyphen)</strong>: Defines ranges. E.g., `1-5` in the day of week field means Monday to Friday.</li>
-                 <li><strong>/ (Slash)</strong>: Specifies step values. E.g., `*/5` in the minutes field means every 5 minutes.</li>
-              </ul>
-            </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/cron-expression" />
-            <PopularCalculators exclude="/calculator/cron-expression-calculator" />
+            <div className="border-t border-border pt-4">
+              <h3 className="text-sm font-bold text-foreground mb-3 flex items-center gap-2">
+                <Clock className="h-4 w-4 text-primary" /> Common Presets
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                <button onClick={() => preset("*", "*", "*", "*", "*")} className="px-3 py-1.5 rounded-lg border border-border bg-secondary/50 hover:bg-secondary text-xs font-medium transition-colors">Every Minute</button>
+                <button onClick={() => preset("0", "*", "*", "*", "*")} className="px-3 py-1.5 rounded-lg border border-border bg-secondary/50 hover:bg-secondary text-xs font-medium transition-colors">Every Hour</button>
+                <button onClick={() => preset("0", "0", "*", "*", "*")} className="px-3 py-1.5 rounded-lg border border-border bg-secondary/50 hover:bg-secondary text-xs font-medium transition-colors">Daily Midnight</button>
+                <button onClick={() => preset("0", "12", "*", "*", "*")} className="px-3 py-1.5 rounded-lg border border-border bg-secondary/50 hover:bg-secondary text-xs font-medium transition-colors">Daily Noon</button>
+                <button onClick={() => preset("0", "0", "*", "*", "1")} className="px-3 py-1.5 rounded-lg border border-border bg-secondary/50 hover:bg-secondary text-xs font-medium transition-colors">Every Monday</button>
+                <button onClick={() => preset("0", "0", "1", "*", "*")} className="px-3 py-1.5 rounded-lg border border-border bg-secondary/50 hover:bg-secondary text-xs font-medium transition-colors">1st of Month</button>
+              </div>
+            </div>
           </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+
+          {/* Live Expression Display */}
+          <div className="flex flex-col gap-3">
+            <div className="bg-primary/5 border border-primary/20 rounded-2xl p-8 text-center">
+              <p className="text-sm font-bold text-primary uppercase tracking-widest mb-4">Cron Expression</p>
+              <div className="flex justify-center items-center gap-4 mb-4">
+                <div className="text-5xl sm:text-6xl font-mono font-black text-foreground tracking-widest">{expression}</div>
+                <button onClick={copyToClipboard} className="p-3 bg-primary/10 rounded-xl hover:bg-primary/20 text-primary transition-colors">
+                  {copied ? <Check className="h-6 w-6" /> : <Copy className="h-6 w-6" />}
+                </button>
+              </div>
+              <p className="text-lg font-medium text-muted-foreground">"{readable}"</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
+            <h2>What is Cron?</h2>
+            <p>Cron is a time-based job scheduler in Unix-like computer operating systems. Users who set up and maintain software environments use cron to schedule jobs (commands or shell scripts) to run periodically at fixed times, dates, or intervals.</p>
+            <h3>Special Characters</h3>
+            <ul>
+              <li><strong>* (Asterisk)</strong>: Matches all values for the field.</li>
+              <li><strong>, (Comma)</strong>: Separates multiple values, e.g. `1,5,10`.</li>
+              <li><strong>- (Hyphen)</strong>: Defines a range, e.g. `1-5` for Mon–Fri.</li>
+              <li><strong>/ (Slash)</strong>: Specifies step values, e.g. `*/5` every 5 minutes.</li>
+            </ul>
+          </article>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/cron-expression" />
+          <PopularCalculators exclude="/calculator/cron-expression-calculator" />
         </div>
       </div>
     </>

@@ -66,14 +66,13 @@ const BloodPressureCategoryCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Blood Pressure" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Blood Pressure Category Calculator</h1>
-            <p className="text-muted-foreground mb-8">Enter your blood pressure readings to see which American Heart Association (AHA) category you fall into and understand the risks.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Blood Pressure Category Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Enter your blood pressure readings to see which American Heart Association (AHA) category you fall into and understand the risks.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-5 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-5 mb-6">
                 <InputField id="systolic" label="Systolic (Top Number)" value={systolic} onChange={setSystolic} suffix="mmHg" />
                 <InputField id="diastolic" label="Diastolic (Bottom Number)" value={diastolic} onChange={setDiastolic} suffix="mmHg" />
               </div>
@@ -83,10 +82,11 @@ const BloodPressureCategoryCalculator = () => {
                   <Heart className="h-5 w-5" /> Categorize Reading
                 </button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 text-center">
+              <>
                 <div className="mb-6">
                   <h2 className="text-sm font-bold text-primary uppercase tracking-wider mb-2">Reading Category</h2>
                   <p className={`text-4xl font-extrabold mb-2 ${results.color}`}>{results.category}</p>
@@ -103,22 +103,21 @@ const BloodPressureCategoryCalculator = () => {
                       <p className="text-2xl font-bold">{results.d}</p>
                    </div>
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Sidebar Ad" />
+          <article className="prose-finance">
               <h2>The 'Silent Killer': Why Monitoring Matters</h2>
               <p>High blood pressure (hypertension) often has no symptoms, earning it the nickname 'the silent killer.' Left untreated, it can lead to heart attacks, strokes, and kidney disease. Regular monitoring at home can help you and your doctor identify trends that might not be visible during an occasional office visit.</p>
               <h3>Understanding the AHA Guidelines</h3>
               <p>In 2017, the American Heart Association lowered the threshold for Hypertension Stage 1 from 140/90 to 130/80. This change was based on research showing that risks for cardiovascular complications double when blood pressure is in the 130-139 range compared to the normal range.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/blood-pressure-category-calculator" />
-            <PopularCalculators exclude="/calculator/blood-pressure-category-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder label="Sidebar Ad" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/blood-pressure-category-calculator" />
+          <PopularCalculators exclude="/calculator/blood-pressure-category-calculator" />
         </div>
       </div>
     </>

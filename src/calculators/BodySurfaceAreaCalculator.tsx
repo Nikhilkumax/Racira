@@ -50,13 +50,13 @@ const BodySurfaceAreaCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Body Surface Area Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Body Surface Area Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Calculate your BSA using Mosteller, DuBois, and other standard clinical formulas.</p>
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-3 gap-6 mb-6">
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Body Surface Area Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate your BSA using Mosteller, DuBois, and other standard clinical formulas.</p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-3 gap-6 mb-6">
                 <div>
                   <label className="block text-sm font-medium text-foreground mb-1.5">Unit System</label>
                   <select value={unitSystem} onChange={e => setUnitSystem(e.target.value)} className="input-calc">
@@ -70,9 +70,11 @@ const BodySurfaceAreaCalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2"><Ruler className="h-5 w-5" /> Calculate BSA</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
+
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">BSA Results (m²)</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -89,10 +91,14 @@ const BodySurfaceAreaCalculator = () => {
                   { label: "Gehan & George Formula", value: 0, textValue: results.gehan.toFixed(3) + " m²" },
                   { label: "Average Adult BSA", value: 0, textValue: "1.7 - 1.9 m²" },
                 ]} />
-              </div>
+              </>
             )}
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+          </div>
+        </div>
+
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>The Importance of Body Surface Area</h2>
               <p>While Body Mass Index (BMI) is useful for population-level health screening, Body Surface Area (BSA) is critical for precise medical dosing and physiological assessment.</p>
               <h3>Why Not Just Use Weight?</h3>
@@ -100,10 +106,8 @@ const BodySurfaceAreaCalculator = () => {
               <h3>Clinical Applications</h3>
               <p>BSA is routinely used to calculate doses for chemotherapy, glucocorticoids, and pediatric medications. It is also used to index cardiac output (Cardiac Index) and renal function (GFR) to a standardized body size.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/body-surface-area" />
-            <PopularCalculators exclude="/calculator/body-surface-area-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6"><AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" /></aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/body-surface-area" />
+          <PopularCalculators exclude="/calculator/body-surface-area-calculator" />
         </div>
       </div>
     </>

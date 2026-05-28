@@ -58,14 +58,13 @@ const HelocCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "HELOC Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">HELOC Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Estimate your monthly payments during both the draw and repayment periods of a Home Equity Line of Credit.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">HELOC Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Estimate your monthly payments during both the draw and repayment periods of a Home Equity Line of Credit.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
                 <InputField id="limit" label="Total Credit Limit ($)" value={limit} onChange={setLimit} />
                 <InputField id="balance" label="Current Balance Drawn ($)" value={balance} onChange={setBalance} />
                 <InputField id="rate" label="Interest Rate (%)" value={rate} onChange={setRate} />
@@ -81,10 +80,11 @@ const HelocCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Payment Analysis</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -101,11 +101,14 @@ const HelocCalculator = () => {
                   { label: "Credit Available", value: 0, textValue: "$" + (parseFloat(limit) - parseFloat(balance)).toLocaleString() },
                   { label: "Rate Type", value: 0, textValue: "Variable (Typical)" },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Flexibility with a HELOC</h2>
               <p>A Home Equity Line of Credit (HELOC) is one of the most flexible ways to tap into your home's equity. Unlike a loan, you don't receive the money all at once; instead, you have a line of credit that you can draw from as needed.</p>
               <h3>The Two Phases of a HELOC</h3>
@@ -117,12 +120,8 @@ const HelocCalculator = () => {
               <h3>Variable Interest Rates</h3>
               <p>Most HELOCs have variable interest rates tied to a benchmark like the Prime Rate. This means your monthly interest-only payment can change as market interest rates rise or fall. Some lenders offer 'fixed-rate lock' options for specific portions of your balance.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/heloc" />
-            <PopularCalculators exclude="/calculator/heloc-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/heloc" />
+          <PopularCalculators exclude="/calculator/heloc-calculator" />
         </div>
       </div>
     </>

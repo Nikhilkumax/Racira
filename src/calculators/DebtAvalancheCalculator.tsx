@@ -98,14 +98,13 @@ const DebtAvalancheCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Debt Avalanche Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Debt Avalanche Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Minimize total interest paid by tackling your highest-rate debt first with the Avalanche method.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Debt Avalanche Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Minimize total interest paid by tackling your highest-rate debt first with the Avalanche method.</p>
 
-            <div className="card-calculator mb-8">
-              <h3 className="font-semibold mb-4 text-foreground">Your Debts (Sorted High-to-Low APR)</h3>
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <h3 className="font-semibold mb-4 text-foreground">Your Debts (Sorted High-to-Low APR)</h3>
               <div className="space-y-4 mb-6">
                 {debts.map((d, i) => (
                   <div key={i} className="grid grid-cols-2 sm:grid-cols-4 gap-3 p-3 rounded-xl bg-secondary/5 border border-border">
@@ -124,10 +123,11 @@ const DebtAvalancheCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Avalanche Plan Results</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -145,11 +145,14 @@ const DebtAvalancheCalculator = () => {
                   { label: "Total Balance", value: 0, textValue: "$" + debts.reduce((s,d)=>s+parseFloat(d.balance),0).toLocaleString() },
                   { label: "Monthly Attack Amount", value: 0, textValue: "$" + (debts.reduce((s,d)=>s+parseFloat(d.minPayment),0) + parseFloat(extraPayment)).toLocaleString() },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>The Mathematically Optimal Debt Strategy</h2>
               <p>The Avalanche method is the most efficient debt payoff strategy from a pure mathematics perspective. By targeting the highest interest rate first, you minimize the total amount of interest that accumulates across all your debts.</p>
               <h3>How It Saves You Money</h3>
@@ -157,12 +160,8 @@ const DebtAvalancheCalculator = () => {
               <h3>Combining Strategies</h3>
               <p>Some people use a hybrid approach. They might use the Snowball method to quickly eliminate one or two small debts (for a psychological boost), then switch to the Avalanche for the remaining, larger balances where the interest savings are most significant.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/debt-avalanche" />
-            <PopularCalculators exclude="/calculator/debt-avalanche-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/debt-avalanche" />
+          <PopularCalculators exclude="/calculator/debt-avalanche-calculator" />
         </div>
       </div>
     </>

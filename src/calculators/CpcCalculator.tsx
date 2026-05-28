@@ -48,14 +48,13 @@ const CpcCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "CPC Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">CPC (Cost Per Click) Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Determine the cost of each visitor to your website from your paid advertising campaigns.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">CPC (Cost Per Click) Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Determine the cost of each visitor to your website from your paid advertising campaigns.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-6 mb-6">
                 <InputField id="cost" label="Total Ad Spend" value={cost} onChange={setCost} prefix="$" />
                 <InputField id="clicks" label="Total Clicks" value={clicks} onChange={setClicks} />
               </div>
@@ -67,10 +66,11 @@ const CpcCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <div className="text-center p-8 bg-primary/5 rounded-3xl border border-primary/10 mb-8">
                   <p className="text-sm font-bold text-primary uppercase tracking-widest mb-2">Cost Per Click</p>
                   <p className="text-7xl font-black text-foreground">${results.cpc.toFixed(2)}</p>
@@ -80,22 +80,21 @@ const CpcCalculator = () => {
                   { label: "Cost for 10,000 Clicks", value: 0, textValue: "$" + results.monthlyBudget10k.toLocaleString() },
                   { label: "Campaign Focus", value: 0, textValue: "Direct Response" },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Optimizing for CPC</h2>
               <p>CPC is the most popular metric for performance marketers. Unlike CPM, where you pay for eyeballs, CPC ensures you only pay when you actually get a visitor to your site.</p>
               <h3>Balancing CPC and Conversion</h3>
               <p>A low CPC is great, but only if those visitors are actually interested in your product. It is often better to pay a $2.00 CPC for a highly targeted visitor than a $0.20 CPC for someone who leaves your site immediately. Always track your 'Cost Per Acquisition' (CPA) alongside your CPC.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/cpc" />
-            <PopularCalculators exclude="/calculator/cpc-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/cpc" />
+          <PopularCalculators exclude="/calculator/cpc-calculator" />
         </div>
       </div>
     </>

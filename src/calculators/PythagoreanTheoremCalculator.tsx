@@ -52,16 +52,14 @@ const PythagoreanTheoremCalculator = () => {
 
   return (
     <>
-<Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Pythagorean Theorem Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Pythagorean Theorem Calculator" }]} />
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Pythagorean Theorem Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Find the missing side of a right triangle using a² + b² = c².</p>
 
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Pythagorean Theorem Calculator</h1>
-            <p className="text-muted-foreground mb-8">Find the missing side of a right triangle using a² + b² = c².</p>
-
-            <div className="card-calculator mb-8">
-              <div className="flex gap-2 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="flex gap-2 mb-6">
                 {(["hypotenuse", "leg"] as const).map(m => (
                   <button key={m} onClick={() => { setMode(m); setResult(null); }} className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${mode === m ? "bg-accent text-accent-foreground" : "bg-secondary text-muted-foreground"}`}>
                     {m === "hypotenuse" ? "Find Hypotenuse" : "Find Leg"}
@@ -84,10 +82,11 @@ const PythagoreanTheoremCalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && result && (
-              <div className="card-calculator mb-8">
+              <>
                 <h2 className="text-xl font-bold mb-4">Result</h2>
                 <ResultDisplay items={[
                   { label: "Side a", value: 0, textValue: result.a.toFixed(4) },
@@ -97,20 +96,19 @@ const PythagoreanTheoremCalculator = () => {
                   { label: "Perimeter", value: 0, textValue: result.perimeter.toFixed(4) },
                   { label: "Angle A (°)", value: 0, textValue: result.angleA.toFixed(2) },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>Understanding the Pythagorean Theorem</h2>
               <p>The Pythagorean theorem states that in a right triangle, the square of the hypotenuse equals the sum of the squares of the other two sides: a² + b² = c². This calculator also computes the area, perimeter, and interior angles of the right triangle.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/pythagorean-theorem-calculator" />
-            <PopularCalculators exclude="/pythagorean-theorem-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/pythagorean-theorem-calculator" />
+          <PopularCalculators exclude="/pythagorean-theorem-calculator" />
         </div>
       </div>
     </>

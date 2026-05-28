@@ -62,14 +62,13 @@ const BudgetCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Budget Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Budget Calculator</h1>
-            <p className="text-muted-foreground mb-8">Take control of your finances by tracking your income and expenses. See how your spending aligns with the 50/30/20 rule.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Budget Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Take control of your finances by tracking your income and expenses. See how your spending aligns with the 50/30/20 rule.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-8 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-8 mb-6">
                 <div className="space-y-4">
                   <h3 className="font-bold border-b pb-2">Income & Needs</h3>
                   <InputField id="monthlyIncome" label="Monthly Net Income" value={monthlyIncome} onChange={setMonthlyIncome} prefix="$" />
@@ -89,10 +88,11 @@ const BudgetCalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Generate Budget</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="grid md:grid-cols-2 gap-8 mb-8">
+              <>
                 <div className="card-calculator flex items-center justify-center">
                   <PieChart segments={[
                     { label: "Needs", value: results.needs, color: "#6366f1" },
@@ -110,22 +110,21 @@ const BudgetCalculator = () => {
                     { label: "Left Over", value: results.remaining, highlight: results.remaining >= 0 },
                   ]} />
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Sidebar Ad" />
+          <article className="prose-finance">
               <h2>Mastering Your Monthly Budget</h2>
               <p>Budgeting is the most fundamental skill in personal finance. It's not about restricting your spending, but rather about ensuring that your spending aligns with your values and long-term goals.</p>
               <h3>The 50/30/20 Framework</h3>
               <p>This simple framework helps you balance your current needs with your future security. By aiming to keep your fixed costs (Needs) under 50% of your income, you leave enough "breathing room" to enjoy your life (Wants) and build wealth (Savings).</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/budget-calculator" />
-            <PopularCalculators exclude="/calculator/budget-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder label="Sidebar Ad" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/budget-calculator" />
+          <PopularCalculators exclude="/calculator/budget-calculator" />
         </div>
       </div>
     </>

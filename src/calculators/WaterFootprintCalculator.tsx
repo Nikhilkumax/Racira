@@ -74,14 +74,13 @@ const WaterFootprintCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Water Footprint Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Water Footprint Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Estimate your total direct and indirect water consumption to understand your impact on global water resources.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Water Footprint Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Estimate your total direct and indirect water consumption to understand your impact on global water resources.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="space-y-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="space-y-8">
                 <section>
                   <div className="flex items-center gap-2 mb-4 text-primary">
                     <ShowerHead className="h-5 w-5" />
@@ -121,10 +120,11 @@ const WaterFootprintCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Your Water Profile</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -153,11 +153,14 @@ const WaterFootprintCalculator = () => {
                     />
                   </div>
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>The Three Colors of Water</h2>
               <p>Water footprints are divided into three categories to help understand the source and impact of consumption:</p>
               <ul>
@@ -170,12 +173,8 @@ const WaterFootprintCalculator = () => {
               <h3>Why Direct Use is Only the Tip of the Iceberg</h3>
               <p>While we might notice the water flowing from our faucets, direct household use typically accounts for less than 5% of our total water footprint. The other 95% is hidden in the food we eat, the clothes we wear, and the products we use every day.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/water-footprint" />
-            <PopularCalculators exclude="/calculator/water-footprint-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/water-footprint" />
+          <PopularCalculators exclude="/calculator/water-footprint-calculator" />
         </div>
       </div>
     </>

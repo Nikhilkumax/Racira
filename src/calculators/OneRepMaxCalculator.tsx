@@ -63,13 +63,13 @@ const OneRepMaxCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "One Rep Max Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">One Rep Max Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Calculate your estimated 1RM and percentage training zones for strength programming.</p>
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-3 gap-6 mb-6">
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">One Rep Max Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate your estimated 1RM and percentage training zones for strength programming.</p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-3 gap-6 mb-6">
                 <InputField id="wt" label={`Weight Lifted (${unit})`} value={weight} onChange={setWeight} />
                 <InputField id="reps" label="Repetitions Completed" value={reps} onChange={setReps} />
                 <div>
@@ -83,9 +83,11 @@ const OneRepMaxCalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2"><Dumbbell className="h-5 w-5" /> Calculate 1RM</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
+
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Estimated Max Strength</h2>
                 <div className="p-8 rounded-2xl bg-primary/5 border border-primary/10 text-center mb-8">
                   <p className="text-sm font-bold text-primary uppercase tracking-widest mb-2">Estimated 1RM</p>
@@ -106,10 +108,14 @@ const OneRepMaxCalculator = () => {
                   { label: "Epley Formula", value: 0, textValue: `${results.epley} ${unit}` },
                   { label: "Brzycki Formula", value: 0, textValue: `${results.brzycki} ${unit}` },
                 ]} />
-              </div>
+              </>
             )}
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+          </div>
+        </div>
+
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Using Your 1RM for Training</h2>
               <p>Almost all professional strength and hypertrophy programs base your daily working weights on a percentage of your One Rep Max. Instead of guessing how much weight to put on the bar, you use precise percentages to target different physiological adaptations.</p>
               <h3>Training Zones</h3>
@@ -121,10 +127,8 @@ const OneRepMaxCalculator = () => {
               <h3>When Calculations Fail</h3>
               <p>The higher the reps you input, the less accurate the formula becomes. A 1RM estimated from a 3-rep lift will be extremely accurate. A 1RM estimated from a 20-rep lift will likely heavily overestimate your true strength.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/one-rep-max" />
-            <PopularCalculators exclude="/calculator/one-rep-max-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6"><AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" /></aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/one-rep-max" />
+          <PopularCalculators exclude="/calculator/one-rep-max-calculator" />
         </div>
       </div>
     </>

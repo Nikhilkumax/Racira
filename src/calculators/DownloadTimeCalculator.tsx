@@ -66,14 +66,13 @@ const DownloadTimeCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Download Time Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Download Time Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Calculate how long it will take to download large files, games, or high-definition movies.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Download Time Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate how long it will take to download large files, games, or high-definition movies.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-6 mb-6">
                 <div className="space-y-4">
                   <div className="flex gap-2">
                     <div className="flex-1">
@@ -108,10 +107,11 @@ const DownloadTimeCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Download Estimate</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -128,11 +128,14 @@ const DownloadTimeCalculator = () => {
                   { label: "Total Data in GB", value: 0, textValue: results.sizeInGB.toFixed(2) + " GB" },
                   { label: "Recommended Speed for 4K", value: 0, textValue: "25+ Mbps" },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Speed Up Your Downloads</h2>
               <p>Download speed is the rate at which data is transferred from the internet to your local machine. It is the most common metric used by ISPs to market their services.</p>
               <h3>Practical Tips</h3>
@@ -142,12 +145,8 @@ const DownloadTimeCalculator = () => {
                 <li><strong>Background Apps:</strong> Close streaming services, cloud sync apps (like OneDrive or Dropbox), and browser tabs to free up bandwidth.</li>
               </ul>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/download-time" />
-            <PopularCalculators exclude="/calculator/download-time-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/download-time" />
+          <PopularCalculators exclude="/calculator/download-time-calculator" />
         </div>
       </div>
     </>

@@ -3,6 +3,8 @@
 import { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import FAQSection from "@/components/FAQSection";
+import AdPlaceholder from "@/components/AdPlaceholder";
+import PopularCalculators from "@/components/PopularCalculators";
 import InputField from "@/components/calculator/InputField";
 import { RotateCcw, Zap } from "lucide-react";
 
@@ -56,15 +58,13 @@ const ForceCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Force Calculator" }]} />
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Force Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate force, mass, or acceleration using Newton's Second Law (F = m × a).</p>
 
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Force Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Calculate force, mass, or acceleration using Newton's Second Law (F = m × a).</p>
-
-            <div className="card-calculator mb-8">
-              <div className="space-y-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="space-y-6">
                 <div>
                   <label className="text-sm font-bold text-muted-foreground uppercase tracking-wider mb-2 block text-[10px]">Solve For</label>
                   <select 
@@ -89,10 +89,11 @@ const ForceCalculator = () => {
                   </button>
                 </div>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
                   <Zap className="h-5 w-5 text-primary" /> Physics Results
                 </h2>
@@ -117,10 +118,14 @@ const ForceCalculator = () => {
                   <p className="text-xs text-muted-foreground font-medium uppercase tracking-wider mb-1">Equivalent Weight on Earth</p>
                   <p className="text-lg font-bold text-foreground">{results.weight.toFixed(4)} N</p>
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space" />
+          <article className="prose-finance">
               <h2>Newton's Second Law of Motion</h2>
               <p>Newton's Second Law is one of the most fundamental principles in classical mechanics. it describes the relationship between an object's mass and the amount of force needed to accelerate it.</p>
               
@@ -136,17 +141,8 @@ const ForceCalculator = () => {
                 <li><strong>Acceleration (m/s²):</strong> The rate at which an object changes its velocity.</li>
               </ul>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/force-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <div className="sticky top-24 space-y-6">
-              <div className="p-6 rounded-2xl border border-primary/10 bg-primary/5">
-                <h3 className="font-bold text-primary mb-2 italic">Historical Fact</h3>
-                <p className="text-xs text-muted-foreground leading-relaxed italic">Isaac Newton first published these laws in his masterpiece 'Philosophiæ Naturalis Principia Mathematica' in 1687, which laid the foundation for modern physics.</p>
-              </div>
-            </div>
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/force-calculator" />
+          <PopularCalculators exclude="/calculator/force-calculator" />
         </div>
       </div>
     </>

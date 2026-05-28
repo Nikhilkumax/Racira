@@ -61,113 +61,120 @@ const FontSizeConverter = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Font Size Converter" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Font Size Converter</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Convert typography units between Pixels, REM, EM, Points, and Percentages.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Font Size Converter</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Convert typography units between Pixels, REM, EM, Points, and Percentages instantly.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-[1fr_auto_1fr] gap-6 items-center">
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center px-1">
-                    <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Input Value</label>
-                    <span className="text-[10px] font-bold text-primary uppercase">{fromUnit}</span>
-                  </div>
-                  <input type="number" value={inputValue} onChange={(e) => setInputValue(e.target.value)} className="input-calc text-3xl font-black py-6 h-20" />
-                  <select value={fromUnit} onChange={(e) => setFromUnit(e.target.value)} className="input-calc font-bold">
-                    <option value="px">Pixels (px)</option>
-                    <option value="rem">Root EM (rem)</option>
-                    <option value="em">Element EM (em)</option>
-                    <option value="pt">Points (pt)</option>
-                    <option value="percent">Percentage (%)</option>
-                  </select>
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-[1fr_auto_1fr] gap-4 items-end">
+              <div className="space-y-3">
+                <div className="flex justify-between items-center px-1">
+                  <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Input Value</label>
+                  <span className="text-[10px] font-bold text-primary uppercase">{fromUnit}</span>
                 </div>
-
-                <button onClick={swapUnits} className="p-4 rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors mt-6">
-                  <ArrowRightLeft className="h-6 w-6" />
+                <input type="number" value={inputValue} onChange={(e) => setInputValue(e.target.value)} className="input-calc text-2xl font-black py-4" />
+                <select value={fromUnit} onChange={(e) => setFromUnit(e.target.value)} className="input-calc font-bold">
+                  <option value="px">Pixels (px)</option>
+                  <option value="rem">Root EM (rem)</option>
+                  <option value="em">Element EM (em)</option>
+                  <option value="pt">Points (pt)</option>
+                  <option value="percent">Percentage (%)</option>
+                </select>
+              </div>
+              <button onClick={swapUnits} className="p-3 rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors mb-2">
+                <ArrowRightLeft className="h-5 w-5" />
+              </button>
+              <div className="space-y-3">
+                <div className="flex justify-between items-center px-1">
+                  <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Converted</label>
+                  <span className="text-[10px] font-bold text-emerald-500 uppercase">{toUnit}</span>
+                </div>
+                <div className="input-calc text-2xl font-black py-4 flex items-center bg-secondary/20 border-emerald-500/30">
+                  {convertedValue.toFixed(convertedValue % 1 === 0 ? 0 : 3)}
+                </div>
+                <select value={toUnit} onChange={(e) => setToUnit(e.target.value)} className="input-calc font-bold">
+                  <option value="px">Pixels (px)</option>
+                  <option value="rem">Root EM (rem)</option>
+                  <option value="em">Element EM (em)</option>
+                  <option value="pt">Points (pt)</option>
+                  <option value="percent">Percentage (%)</option>
+                </select>
+              </div>
+            </div>
+            <div className="border-t border-border pt-4 grid sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-xs font-bold text-muted-foreground uppercase mb-2">Base Font Size (px)</label>
+                <div className="relative">
+                  <input type="number" value={baseSize} onChange={(e) => setBaseSize(e.target.value)} className="input-calc" />
+                  <span className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground font-medium">px</span>
+                </div>
+                <p className="text-[10px] text-muted-foreground mt-1">Browser default is 16px.</p>
+              </div>
+              <div className="flex flex-col justify-end gap-2">
+                <button onClick={handleCalculate} className="btn-calculate">Convert</button>
+                <button onClick={() => { setBaseSize("16"); setInputValue("1"); setFromUnit("rem"); setToUnit("px"); }} className="p-2 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground flex items-center justify-center gap-2 text-sm font-medium">
+                  <RotateCcw className="h-4 w-4" /> Reset
                 </button>
-
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center px-1">
-                    <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Converted</label>
-                    <span className="text-[10px] font-bold text-emerald-500 uppercase">{toUnit}</span>
-                  </div>
-                  <div className="input-calc text-3xl font-black py-6 h-20 flex items-center bg-secondary/20 border-emerald-500/30">
-                    {convertedValue.toFixed(convertedValue % 1 === 0 ? 0 : 3)}
-                  </div>
-                  <select value={toUnit} onChange={(e) => setToUnit(e.target.value)} className="input-calc font-bold">
-                    <option value="px">Pixels (px)</option>
-                    <option value="rem">Root EM (rem)</option>
-                    <option value="em">Element EM (em)</option>
-                    <option value="pt">Points (pt)</option>
-                    <option value="percent">Percentage (%)</option>
-                  </select>
-                </div>
-              </div>
-
-              <div className="mt-8 pt-8 border-t border-border grid sm:grid-cols-2 gap-8">
-                <div>
-                   <label className="block text-xs font-bold text-muted-foreground uppercase mb-2">Base Font Size (px)</label>
-                   <div className="relative">
-                      <input type="number" value={baseSize} onChange={(e) => setBaseSize(e.target.value)} className="input-calc" />
-                      <span className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground font-medium">px</span>
-                   </div>
-                   <p className="text-[10px] text-muted-foreground mt-2">Browser default is 16px. Used for REM and EM calculations.</p>
-                </div>
-                <div className="flex flex-col justify-center">
-                  <button onClick={() => { setBaseSize("16"); setInputValue("1"); setFromUnit("rem"); setToUnit("px"); }} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground flex items-center justify-center gap-2 font-bold text-sm">
-                    <RotateCcw className="h-4 w-4" /> Reset Default
-                  </button>
-                </div>
               </div>
             </div>
-
-            <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-               <h2 className="text-xl font-bold flex items-center gap-2 mb-6">
-                 <Table className="h-5 w-5 text-primary" /> Common Conversion Table
-               </h2>
-               <div className="overflow-x-auto">
-                 <table className="w-full text-sm text-left">
-                   <thead>
-                     <tr className="border-b border-border text-[10px] font-black text-muted-foreground uppercase tracking-widest">
-                       <th className="pb-4 px-2">Pixels</th>
-                       <th className="pb-4 px-2">REM (at {baseSize}px)</th>
-                       <th className="pb-4 px-2">Points</th>
-                       <th className="pb-4 px-2">Percent</th>
-                     </tr>
-                   </thead>
-                   <tbody className="font-mono">
-                     {conversionTable.map((row, i) => (
-                       <tr key={i} className="border-b border-border/50 hover:bg-secondary/30 transition-colors">
-                         <td className="py-3 px-2 font-black">{row.px}px</td>
-                         <td className="py-3 px-2">{row.rem.toFixed(3)}rem</td>
-                         <td className="py-3 px-2">{row.pt.toFixed(1)}pt</td>
-                         <td className="py-3 px-2">{row.pct.toFixed(0)}%</td>
-                       </tr>
-                     ))}
-                   </tbody>
-                 </table>
-               </div>
-            </div>
-
-            <AdPlaceholder className="my-8" />
-            <article className="prose-finance">
-              <h2>Modern Web Typography</h2>
-              <p>In modern web development, using absolute units like pixels (px) for font sizes is generally discouraged. Instead, responsive and accessible designs prioritize relative units like REM and EM.</p>
-              
-              <h3>The Power of REM</h3>
-              <p>The `rem` unit is relative to the root (HTML) element's font size. By using `rem`, you ensure that if a user has their browser font size set to "Large" (typically 20px instead of 16px), your entire website will scale up proportionally. This is a critical requirement for Web Content Accessibility Guidelines (WCAG).</p>
-
-              <h3>When to Use EM</h3>
-              <p>While `rem` is great for general layout and typography, `em` is useful for components that should scale relative to their own container's font size. For example, padding or icons inside a button might use `em` so they shrink or grow if you change only that button's font size.</p>
-            </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/font-size-converter" />
-            <PopularCalculators exclude="/calculator/font-size-converter" />
           </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+
+          <div className="flex flex-col gap-3">
+            {showResults && conversionTable.length > 0 && (
+              <>
+                <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+                  <p className="text-xs font-bold text-primary uppercase tracking-widest mb-1">Result</p>
+                  <p className="text-5xl font-black text-foreground">
+                    {convertedValue.toFixed(convertedValue % 1 === 0 ? 0 : 3)}
+                    <span className="text-2xl ml-2 text-muted-foreground">{toUnit}</span>
+                  </p>
+                  <p className="text-sm text-muted-foreground">{inputValue} {fromUnit} at base {baseSize}px</p>
+                </div>
+                <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+                  <h2 className="text-base font-bold flex items-center gap-2">
+                    <Table className="h-4 w-4 text-primary" /> Common Sizes (base {baseSize}px)
+                  </h2>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-sm text-left">
+                      <thead>
+                        <tr className="border-b border-border text-[10px] font-black text-muted-foreground uppercase tracking-widest">
+                          <th className="pb-3 px-2">px</th>
+                          <th className="pb-3 px-2">rem</th>
+                          <th className="pb-3 px-2">pt</th>
+                          <th className="pb-3 px-2">%</th>
+                        </tr>
+                      </thead>
+                      <tbody className="font-mono">
+                        {conversionTable.map((row, i) => (
+                          <tr key={i} className="border-b border-border/50 hover:bg-secondary/30 transition-colors">
+                            <td className="py-2 px-2 font-black">{row.px}</td>
+                            <td className="py-2 px-2">{row.rem.toFixed(3)}</td>
+                            <td className="py-2 px-2">{row.pt.toFixed(1)}</td>
+                            <td className="py-2 px-2">{row.pct.toFixed(0)}%</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
+            <h2>Modern Web Typography Units</h2>
+            <p>In modern web development, absolute units like pixels (px) are generally discouraged. Responsive, accessible designs prioritize relative units like REM and EM.</p>
+            <h3>The Power of REM</h3>
+            <p>The rem unit is relative to the root HTML element font size. If a user sets their browser default to 20px, your entire layout scales proportionally.</p>
+            <h3>When to Use EM</h3>
+            <p>While rem is great for global layout, em is useful for components that should scale relative to their own container.</p>
+          </article>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/font-size-converter" />
+          <PopularCalculators exclude="/calculator/font-size-converter" />
         </div>
       </div>
     </>
@@ -175,4 +182,3 @@ const FontSizeConverter = () => {
 };
 
 export default FontSizeConverter;
-

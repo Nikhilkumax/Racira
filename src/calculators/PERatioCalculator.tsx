@@ -46,13 +46,13 @@ export default function PERatioCalculator() {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "P/E Ratio Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">P/E Ratio Calculator</h1>
-            <p className="text-muted-foreground mb-8">Calculate the Price-to-Earnings ratio to evaluate stock valuation relative to earnings and industry averages.</p>
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-3 gap-5 mb-6">
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">P/E Ratio Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate the Price-to-Earnings ratio to evaluate stock valuation relative to earnings and industry averages.</p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-3 gap-5 mb-6">
                 <InputField id="stock-price" label="Stock Price" value={stockPrice} onChange={setStockPrice} prefix="$" tooltip="Current market price of one share." />
                 <InputField id="eps" label="Earnings Per Share (EPS)" value={eps} onChange={setEps} prefix="$" tooltip="Annual net earnings divided by shares outstanding." />
                 <InputField id="industry-avg" label="Industry Avg P/E" value={industryAvg} onChange={setIndustryAvg} tooltip="Average P/E for the company's industry sector." />
@@ -61,9 +61,11 @@ export default function PERatioCalculator() {
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate P/E Ratio</button>
                 <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
+
+          <div className="flex flex-col gap-3">
             {showResults && (
-              <div className="card-calculator mb-8">
+              <>
                 <h2 className="text-xl font-bold mb-4">Valuation Results</h2>
                 <ResultDisplay items={[
                   { label: "P/E Ratio", value: 0, textValue: results.peRatio.toFixed(2), highlight: true },
@@ -71,10 +73,14 @@ export default function PERatioCalculator() {
                   { label: "vs. Industry Average", value: 0, textValue: `${results.vsIndustry > 0 ? "+" : ""}${results.vsIndustry.toFixed(1)}%` },
                   { label: "Valuation Signal", value: 0, textValue: results.valuation },
                 ]} />
-              </div>
+              </>
             )}
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-            <article className="prose-finance">
+          </div>
+        </div>
+
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>Understanding the Price-to-Earnings (P/E) Ratio</h2>
               <p>The Price-to-Earnings (P/E) ratio is the most widely used valuation metric in stock market investing. It answers the fundamental question: "How much am I paying for each dollar of this company's earnings?" A P/E of 20 means investors pay $20 for every $1 of annual profit the company generates.</p>
               <h2>The P/E Ratio Formula</h2>
@@ -94,13 +100,8 @@ export default function PERatioCalculator() {
               <h2>Limitations of the P/E Ratio</h2>
               <p>The P/E ratio doesn't account for debt, cash flows, or accounting differences between companies. Always combine P/E analysis with Price-to-Book, EV/EBITDA, and Free Cash Flow yield for a complete valuation picture.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/pe-ratio-calculator" />
-            <PopularCalculators exclude="/calculator/pe-ratio-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/pe-ratio-calculator" />
+          <PopularCalculators exclude="/calculator/pe-ratio-calculator" />
         </div>
       </div>
     </>

@@ -73,14 +73,13 @@ const EstateTaxCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Estate Tax Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Estate Tax Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Estimate the potential federal estate tax liability on your assets and plan your legacy with confidence.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Estate Tax Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Estimate the potential federal estate tax liability on your assets and plan your legacy with confidence.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-8">
                 <section className="space-y-6">
                   <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
                     <Landmark className="h-5 w-5 text-primary" /> Assets & Debts
@@ -113,10 +112,11 @@ const EstateTaxCalculator = () => {
                   <RotateCcw className="h-4 w-4" /> Reset 
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 mb-8">
+              <>
                 <div className="grid sm:grid-cols-2 gap-4 mb-6">
                   <div className="card-calculator bg-red-500/5 border-red-500/20 text-center flex flex-col justify-center py-8">
                     <p className="text-xs font-bold text-red-600 uppercase tracking-widest mb-1">Estimated Federal Estate Tax</p>
@@ -129,7 +129,7 @@ const EstateTaxCalculator = () => {
                   </div>
                 </div>
 
-                <div className="card-calculator mb-6">
+                <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
                   <h2 className="text-xl font-bold flex items-center gap-2 mb-6">
                     <Calculator className="h-5 w-5 text-primary" /> Taxable Breakdown
                   </h2>
@@ -154,12 +154,14 @@ const EstateTaxCalculator = () => {
                     { label: "Marital Deduction", value: 0, textValue: "Unlimited (to Spouse)" },
                   ]} />
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="my-8" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Understanding the Federal Estate Tax</h2>
               <p>Commonly referred to by critics as the "Death Tax," the federal estate tax is a levy on the transfer of wealth from a deceased person to their heirs. While it is one of the most debated taxes in the United States, it currently affects only a tiny fraction of the wealthiest households due to historically high exemption limits.</p>
 
@@ -193,13 +195,8 @@ const EstateTaxCalculator = () => {
               <h2>State-Level Estate Taxes</h2>
               <p>Be aware that even if you don't owe federal estate tax, you might owe state estate tax. Several states (including Oregon, Washington, New York, and Massachusetts) have their own estate or inheritance taxes with much lower exemptions, sometimes starting at just $1 million.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/estate-tax-calculator" />
-            <PopularCalculators exclude="/calculator/estate-tax-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/estate-tax-calculator" />
+          <PopularCalculators exclude="/calculator/estate-tax-calculator" />
         </div>
       </div>
     </>

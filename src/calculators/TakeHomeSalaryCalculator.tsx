@@ -66,13 +66,13 @@ const TakeHomeSalaryCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Take-Home Salary Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Take-Home Salary Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Calculate your exact net pay after federal taxes, FICA, 401(k), and insurance deductions.</p>
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-6 mb-6">
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Take-Home Salary Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate your exact net pay after federal taxes, FICA, 401(k), and insurance deductions.</p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-6 mb-6">
                 <InputField id="gross" label="Annual Gross Salary ($)" value={grossSalary} onChange={setGrossSalary} />
                 <div>
                   <label className="block text-sm font-medium text-foreground mb-1.5">Filing Status</label>
@@ -87,9 +87,11 @@ const TakeHomeSalaryCalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2"><Wallet className="h-5 w-5" /> Calculate Take-Home</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
+
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Paycheck Breakdown</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -106,10 +108,14 @@ const TakeHomeSalaryCalculator = () => {
                   { label: "Social Security + Medicare", value: 0, textValue: "$" + (results.socialSecurity + results.medicare).toLocaleString(undefined, { maximumFractionDigits: 0 }) },
                   { label: "Bi-Weekly Paycheck", value: 0, textValue: "$" + results.netBiweekly.toLocaleString(undefined, { maximumFractionDigits: 0 }) },
                 ]} />
-              </div>
+              </>
             )}
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+          </div>
+        </div>
+
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Where Does Your Money Go?</h2>
               <p>Understanding your paycheck deductions is the foundation of personal finance. For most Americans, federal income taxes and FICA (Social Security and Medicare) are the two largest deductions.</p>
               <h3>Pre-Tax vs. Post-Tax Deductions</h3>
@@ -117,10 +123,8 @@ const TakeHomeSalaryCalculator = () => {
               <h3>Marginal vs. Effective Tax Rate</h3>
               <p>The US uses a progressive tax system. Your "marginal rate" is the rate on your last dollar of income. Your "effective rate" is your actual total tax as a percentage of gross income — always lower than the marginal rate.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/take-home-salary" />
-            <PopularCalculators exclude="/calculator/take-home-salary-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6"><AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" /></aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/take-home-salary" />
+          <PopularCalculators exclude="/calculator/take-home-salary-calculator" />
         </div>
       </div>
     </>

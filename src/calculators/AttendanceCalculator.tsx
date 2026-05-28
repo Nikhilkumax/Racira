@@ -76,14 +76,13 @@ const AttendanceCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Attendance Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Attendance Calculator</h1>
-            <p className="text-muted-foreground mb-8">Track your class attendance and find out exactly how many more classes you can skip or must attend to meet your goal.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Attendance Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Track your class attendance and find out exactly how many more classes you can skip or must attend to meet your goal.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-3 gap-5 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-3 gap-5 mb-6">
                 <InputField id="totalClasses" label="Total Classes" value={totalClasses} onChange={setTotalClasses} />
                 <InputField id="presentClasses" label="Classes Present" value={presentClasses} onChange={setPresentClasses} />
                 <InputField id="requiredPct" label="Required (%)" value={requiredPct} onChange={setRequiredPct} suffix="%" />
@@ -92,10 +91,11 @@ const AttendanceCalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Check Status</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 text-center">
+              <>
                 <div className="mb-6">
                   <h2 className="text-sm font-bold text-primary uppercase tracking-wider mb-2">Current Attendance</h2>
                   <p className="text-6xl font-extrabold">{results.currentPct.toFixed(1)}%</p>
@@ -104,22 +104,21 @@ const AttendanceCalculator = () => {
                 <div className="p-4 rounded-lg bg-secondary/50 border border-border">
                   <p className="text-foreground font-medium">{results.message}</p>
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Sidebar Ad" />
+          <article className="prose-finance">
               <h2>Managing Your Academic Attendance</h2>
               <p>Maintaining a minimum attendance percentage is a common hurdle for students worldwide. Whether due to illness, family emergencies, or extracurricular activities, it's easy to fall behind the required threshold.</p>
               <h3>Why 75%?</h3>
               <p>The 75% rule is widely used because it balances the need for classroom instruction with a reasonable margin for unavoidable absences. It ensures that students engage with at least three-quarters of the curriculum delivered in person.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/attendance-calculator" />
-            <PopularCalculators exclude="/calculator/attendance-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder label="Sidebar Ad" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/attendance-calculator" />
+          <PopularCalculators exclude="/calculator/attendance-calculator" />
         </div>
       </div>
     </>

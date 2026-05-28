@@ -45,13 +45,13 @@ const PropertyAppreciationCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Property Appreciation Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Property Appreciation Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Estimate the future value of your property and real inflation-adjusted returns over any time horizon.</p>
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-6 mb-6">
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Property Appreciation Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Estimate the future value of your property and real inflation-adjusted returns over any time horizon.</p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-6 mb-6">
                 <InputField id="val" label="Current Value ($)" value={currentValue} onChange={setCurrentValue} />
                 <InputField id="rate" label="Annual Appreciation (%)" value={appreciationRate} onChange={setAppreciationRate} />
                 <InputField id="yrs" label="Years" value={years} onChange={setYears} />
@@ -60,9 +60,11 @@ const PropertyAppreciationCalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2"><Calculator className="h-5 w-5" /> Calculate</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
+
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Appreciation Forecast</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -79,35 +81,14 @@ const PropertyAppreciationCalculator = () => {
                   { label: "Real Return Rate", value: 0, textValue: results.realReturnRate.toFixed(2) + "%/yr (after inflation)" },
                   { label: "Value Multiple", value: 0, textValue: (results.futureValue / parseFloat(currentValue)).toFixed(2) + "x" },
                 ]} />
-              </div>
+              </>
             )}
-            <AdPlaceholder className="mb-8" />
+          </div>
+        </div>
 
-            {/* SEO Content Sections */}
-            <div className="mt-4 space-y-8 mb-10">
-              <section>
-                <h2 className="text-2xl font-bold mb-4">How the Property Appreciation Calculator Works</h2>
-                <p className="text-muted-foreground mb-3">Enter your property's current value, an expected annual appreciation rate, your time horizon in years, and the prevailing inflation rate. Click Calculate and the tool instantly projects both the nominal (face-value) and real (inflation-adjusted) future value of your property.</p>
-                <p className="text-muted-foreground mb-3">The nominal future value uses standard compound growth: FV = PV × (1 + r)^n. The real return strips out inflation using the Fisher equation — Real Rate = ((1 + nominal) / (1 + inflation)) − 1 — to show how much purchasing power your property actually gains.</p>
-                <p className="text-muted-foreground">The value multiple tells you at a glance how many times larger your investment will be. A 2.19× multiple on a 10-year horizon means the property more than doubled in nominal terms.</p>
-              </section>
-
-              <section>
-                <h2 className="text-2xl font-bold mb-4">Understanding Your Results</h2>
-                <p className="text-muted-foreground mb-3">The <strong>Future Value (Nominal)</strong> is the raw projected price you could sell for, ignoring what money is worth at that time. This is the number most people quote when talking about appreciation.</p>
-                <p className="text-muted-foreground mb-3">The <strong>Real Value (Inflation-Adjusted)</strong> shows how much of that gain is genuine wealth creation versus simply keeping pace with rising prices. If your nominal return equals inflation, the real value equals today's value — you've broken even in purchasing power.</p>
-                <p className="text-muted-foreground">The <strong>Real Return Rate</strong> is the annualized growth rate above inflation. Even a modest 1–2% real annual return compounded over 20+ years produces substantial wealth — particularly when amplified by mortgage leverage on a leveraged investment.</p>
-              </section>
-
-              <section>
-                <h2 className="text-2xl font-bold mb-4">Common Use Cases</h2>
-                <p className="text-muted-foreground mb-3"><strong>Homebuyer planning:</strong> Prospective buyers use this tool to estimate whether a home purchase makes financial sense versus renting and investing the difference, comparing real estate returns with stock market benchmarks.</p>
-                <p className="text-muted-foreground mb-3"><strong>Real estate investors:</strong> Landlords project gross appreciation on rental properties to assess total return (appreciation + rent yield) and make buy/hold/sell decisions at various time horizons.</p>
-                <p className="text-muted-foreground"><strong>Retirement planning:</strong> Homeowners approaching retirement use the calculator to estimate how much equity they will have when they downsize, which directly informs how much they can allocate to other retirement income sources.</p>
-              </section>
-            </div>
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Real vs. Nominal Property Returns</h2>
               <p>Nominal appreciation is the headline number — the percentage your property grows each year. But real appreciation, adjusted for inflation, is the true measure of wealth creation.</p>
               <h3>The Leverage Effect</h3>
@@ -115,10 +96,8 @@ const PropertyAppreciationCalculator = () => {
               <h3>Location is Everything</h3>
               <p>National averages mask enormous local variation. Some zip codes have seen 8-10% annual appreciation for decades; others have barely matched inflation. Research population trends, job growth, and housing supply constraints in your specific market before making projections.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/property-appreciation" />
-            <PopularCalculators exclude="/calculator/property-appreciation-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6"><AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" /></aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/property-appreciation" />
+          <PopularCalculators exclude="/calculator/property-appreciation-calculator" />
         </div>
       </div>
     </>

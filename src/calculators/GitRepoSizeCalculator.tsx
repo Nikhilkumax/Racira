@@ -75,15 +75,13 @@ const GitRepoSizeCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Git Repository Size Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Git Repo Size Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Estimate the total clone size of a Git repository based on source code history and binary file inclusions.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Git Repo Size Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Estimate the total clone size of a Git repository based on source code history and binary file inclusions.</p>
 
-            <div className="grid md:grid-cols-2 gap-8 mb-8">
-              <div className="card-calculator h-fit">
-                <section className="space-y-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <section className="space-y-6">
                   <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
                     <GitBranch className="h-5 w-5 text-primary" /> Repository Data
                   </h2>
@@ -132,11 +130,12 @@ const GitRepoSizeCalculator = () => {
                     </button>
                   </div>
                 </section>
-              </div>
+          </div>
 
-              {showResults && results && (
-                <div className="card-calculator flex flex-col animate-in fade-in slide-in-from-bottom-4 duration-500">
-                  <h2 className="text-xl font-bold flex items-center gap-2 mb-6">
+          <div className="flex flex-col gap-3">
+            {showResults && results && (
+              <>
+                <h2 className="text-xl font-bold flex items-center gap-2 mb-6">
                      <HardDrive className="h-5 w-5 text-primary" /> Size Estimates
                   </h2>
                   
@@ -170,12 +169,14 @@ const GitRepoSizeCalculator = () => {
                         </div>
                      )}
                   </div>
-                </div>
-              )}
-            </div>
+              </>
+            )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>The Mechanics of Git Storage</h2>
               <p>Git is incredibly efficient at storing source code. Instead of saving a full copy of a file every time you make a commit, it uses compression and deltas. A delta only stores the lines of text that changed between commits. This allows a repository with thousands of commits to remain remarkably small.</p>
               
@@ -186,12 +187,8 @@ const GitRepoSizeCalculator = () => {
               <h3>The Solution: Git LFS</h3>
               <p>Git Large File Storage (LFS) solves this by replacing large files in your repository with tiny text pointers. The actual file contents are stored on a remote server. When you clone a repository, Git LFS only downloads the versions of the large files needed for your currently checked-out commit, rather than downloading the entire history of every large file.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/git-repo-size" />
-            <PopularCalculators exclude="/calculator/git-repo-size-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/git-repo-size" />
+          <PopularCalculators exclude="/calculator/git-repo-size-calculator" />
         </div>
       </div>
     </>

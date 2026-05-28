@@ -62,14 +62,13 @@ const SATScoreCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "SAT Score Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">SAT Score Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Estimate your total SAT score and section scores based on your raw correct answers.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">SAT Score Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Estimate your total SAT score and section scores based on your raw correct answers.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-8">
                 <section className="space-y-6">
                   <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
                     <BookOpen className="h-5 w-5 text-primary" /> Reading & Writing
@@ -111,10 +110,11 @@ const SATScoreCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 mb-8">
+              <>
                 <div className="card-calculator bg-primary/5 border-solid border-primary/20 text-center flex flex-col justify-center py-10 mb-6 relative overflow-hidden">
                     <p className="text-sm font-bold text-primary uppercase tracking-widest mb-2">Estimated Total SAT Score</p>
                     <p className="text-7xl font-black text-foreground">{results.totalScore}</p>
@@ -133,11 +133,14 @@ const SATScoreCalculator = () => {
                       <p className="text-3xl font-black text-foreground">{results.mathScore}</p>
                    </div>
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="my-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Understanding the SAT Curve</h2>
               <p>The SAT uses a process called "equating" to ensure that scores are consistent across different test dates, regardless of slight variations in difficulty. This means that missing two questions on a particularly hard test might result in the same scaled score as missing zero questions on an easier test.</p>
               
@@ -147,12 +150,8 @@ const SATScoreCalculator = () => {
               <h3>Section Weighting</h3>
               <p>The SAT is divided into two 800-point halves. The first is the Evidence-Based Reading and Writing section, which combines your performance on the Reading test and the Writing & Language test. The second is the Math section, which combines the calculator and non-calculator portions.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/sat-score" />
-            <PopularCalculators exclude="/calculator/sat-score-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/sat-score" />
+          <PopularCalculators exclude="/calculator/sat-score-calculator" />
         </div>
       </div>
     </>

@@ -68,16 +68,14 @@ const LeaveEncashmentCalculator = () => {
 
   return (
     <>
-<Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Leave Encashment Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Leave Encashment Calculator" }]} />
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Leave Encashment Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate leave encashment amount and tax exemption under Section 10(10AA) at retirement.</p>
 
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Leave Encashment Calculator</h1>
-            <p className="text-muted-foreground mb-8">Calculate leave encashment amount and tax exemption under Section 10(10AA) at retirement.</p>
-
-            <div className="card-calculator mb-8">
-              <div className="mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="mb-6">
                 <label className="block text-sm font-medium text-foreground mb-2">Employee Type</label>
                 <div className="flex gap-2">
                   <button onClick={() => { setEmployeeType("govt"); setResult(null); }} className={`flex-1 py-3 rounded-lg text-sm font-medium transition-colors ${employeeType === "govt" ? "bg-accent text-accent-foreground" : "bg-secondary text-muted-foreground"}`}>Government</button>
@@ -95,10 +93,11 @@ const LeaveEncashmentCalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Encashment</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && result && (
-              <div className="card-calculator mb-8">
+              <>
                 <h2 className="text-xl font-bold mb-4">Leave Encashment Calculation</h2>
                 <ResultDisplay currency="₹" items={[
                   { label: "Total Encashment", value: result.encashmentAmount, highlight: true },
@@ -106,12 +105,14 @@ const LeaveEncashmentCalculator = () => {
                   { label: "Taxable Amount", value: result.taxableAmount, highlight: true },
                   { label: "Daily Rate (Basic+DA)", value: result.dailyRate },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>What Is Leave Encashment?</h2>
               <p>Leave encashment is the process of converting unused (accumulated) leave into cash. This is typically done at the time of retirement, resignation, or superannuation. Some organizations also allow leave encashment during service, but the tax treatment differs.</p>
 
@@ -145,14 +146,8 @@ const LeaveEncashmentCalculator = () => {
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> Tax exemption limits and rules may change with annual budgets. Consult a CA or tax professional for personalized advice.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/leave-encashment-calculator" />
-            <PopularCalculators exclude="/leave-encashment-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/leave-encashment-calculator" />
+          <PopularCalculators exclude="/leave-encashment-calculator" />
         </div>
       </div>
     </>

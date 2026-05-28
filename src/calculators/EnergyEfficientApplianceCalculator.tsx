@@ -58,14 +58,13 @@ const EnergyEfficientApplianceCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Energy Efficiency ROI Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Energy Efficiency ROI Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Calculate the payback period and financial savings of upgrading to energy-efficient appliances.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Energy Efficiency ROI Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate the payback period and financial savings of upgrading to energy-efficient appliances.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid md:grid-cols-2 gap-8">
                 <div className="space-y-6">
                   <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
                     <Zap className="h-5 w-5 text-primary" /> Appliance Specs
@@ -115,10 +114,11 @@ const EnergyEfficientApplianceCalculator = () => {
                   </div>
                 </div>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {results && results.annualSavingsDollars > 0 && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Return on Investment</h2>
                 <div className="grid sm:grid-cols-3 gap-4 mb-8">
                   <div className="p-4 rounded-xl bg-primary/5 border border-primary/10 text-center">
@@ -149,11 +149,14 @@ const EnergyEfficientApplianceCalculator = () => {
                     { label: "10-Year Savings", value: 0, textValue: "$" + ((results.annualSavingsDollars * 10) - parseFloat(newApplianceCost)).toFixed(2) },
                   ]} />
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Understanding Appliance Energy Efficiency</h2>
               <p>Upgrading to energy-efficient appliances is one of the most effective ways to reduce your household's carbon footprint and save money on electricity bills. Modern appliances, especially those with the ENERGY STAR label, use significantly less energy than models built just a decade ago.</p>
               
@@ -163,12 +166,8 @@ const EnergyEfficientApplianceCalculator = () => {
               <h3>What is a Payback Period?</h3>
               <p>The payback period is the time it takes for the energy savings to equal the cost of the new appliance. For example, if a new washing machine costs $800 but saves you $100 a year in electricity and water, the payback period is 8 years. If the appliance lasts 12 years, you will enjoy 4 years of pure profit.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/energy-efficient-appliance" />
-            <PopularCalculators exclude="/calculator/energy-efficient-appliance-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/energy-efficient-appliance" />
+          <PopularCalculators exclude="/calculator/energy-efficient-appliance-calculator" />
         </div>
       </div>
     </>

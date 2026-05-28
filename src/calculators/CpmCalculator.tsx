@@ -48,14 +48,13 @@ const CpmCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "CPM Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">CPM Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Calculate your Cost Per Mille (CPM) to analyze the efficiency of your advertising campaigns.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">CPM Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate your Cost Per Mille (CPM) to analyze the efficiency of your advertising campaigns.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-6 mb-6">
                 <InputField id="cost" label="Total Campaign Cost" value={cost} onChange={setCost} prefix="$" />
                 <InputField id="impressions" label="Total Impressions" value={impressions} onChange={setImpressions} />
               </div>
@@ -67,10 +66,11 @@ const CpmCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <div className="text-center p-8 bg-primary/5 rounded-3xl border border-primary/10 mb-8">
                   <p className="text-sm font-bold text-primary uppercase tracking-widest mb-2">Campaign CPM</p>
                   <p className="text-7xl font-black text-foreground">${results.cpm.toFixed(2)}</p>
@@ -80,22 +80,21 @@ const CpmCalculator = () => {
                   { label: "Cost for 1M Impressions", value: 0, textValue: "$" + (results.cpm * 1000).toLocaleString() },
                   { label: "Efficiency Rating", value: 0, textValue: results.cpm < 5 ? "High Efficiency" : results.cpm < 15 ? "Average" : "Premium" },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Mastering CPM in Advertising</h2>
               <p>CPM is the standard metric for brand awareness campaigns. Whether you are running ads on Facebook, Google, or YouTube, understanding your CPM is the first step in optimizing your budget.</p>
               <h3>Why CPM Matters</h3>
               <p>CPM allows you to compare the cost of different advertising platforms on an even playing field. If one platform has a CPM of $5.00 and another has $15.00, you know exactly how many more people you can reach for the same investment on the first platform.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/cpm" />
-            <PopularCalculators exclude="/calculator/cpm-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/cpm" />
+          <PopularCalculators exclude="/calculator/cpm-calculator" />
         </div>
       </div>
     </>

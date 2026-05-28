@@ -76,14 +76,13 @@ const RepaymentCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Repayment Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Loan Repayment Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">See how extra monthly payments can shave years off your loan and save you thousands in interest.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Loan Repayment Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">See how extra monthly payments can shave years off your loan and save you thousands in interest.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
                 <InputField id="amount" label="Loan Balance ($)" value={amount} onChange={setAmount} />
                 <InputField id="rate" label="Interest Rate (%)" value={rate} onChange={setRate} />
                 <InputField id="term" label="Current Term (Years)" value={term} onChange={setTerm} />
@@ -97,10 +96,11 @@ const RepaymentCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Savings Summary</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -117,11 +117,14 @@ const RepaymentCalculator = () => {
                   { label: "Original Term", value: 0, textValue: (results.originalMonths / 12) + " Years" },
                   { label: "New Term", value: 0, textValue: (results.newMonths / 12).toFixed(1) + " Years" },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>The Power of Extra Payments</h2>
               <p>Amortized loans, like mortgages and car loans, are front-loaded with interest. This means that in the early years of your loan, most of your monthly payment goes toward interest rather than the principal balance.</p>
               <h3>How it Works</h3>
@@ -131,12 +134,8 @@ const RepaymentCalculator = () => {
               <h3>Is it Always the Best Move?</h3>
               <p>While saving interest is great, you should first ensure you have a healthy emergency fund and have paid off higher-interest debt (like credit cards). If your mortgage interest rate is very low (e.g. under 4%), you might find that investing that extra $200 in a retirement account yields a better long-term financial outcome.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/repayment" />
-            <PopularCalculators exclude="/calculator/repayment-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/repayment" />
+          <PopularCalculators exclude="/calculator/repayment-calculator" />
         </div>
       </div>
     </>

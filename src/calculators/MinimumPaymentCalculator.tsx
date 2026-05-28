@@ -97,14 +97,13 @@ const MinimumPaymentCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Minimum Payment Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Minimum Payment Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">See the true cost of credit card debt and how many years it will take to pay off if you only make the minimum payments.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Minimum Payment Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">See the true cost of credit card debt and how many years it will take to pay off if you only make the minimum payments.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-8">
                 <section className="space-y-6">
                   <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
                     <CreditCard className="h-5 w-5 text-primary" /> Credit Card Info
@@ -127,10 +126,11 @@ const MinimumPaymentCalculator = () => {
                   <RotateCcw className="h-4 w-4" /> Reset 
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 mb-8">
+              <>
                 {results.infinite ? (
                   <div className="bg-red-500/10 border border-red-500/20 text-red-700 p-8 rounded-2xl text-center">
                     <AlertTriangle className="h-12 w-12 mx-auto mb-4 text-red-500" />
@@ -152,7 +152,7 @@ const MinimumPaymentCalculator = () => {
                       </div>
                     </div>
 
-                    <div className="card-calculator mb-6">
+                    <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
                       <h2 className="text-xl font-bold flex items-center gap-2 mb-6">
                         <TrendingUp className="h-5 w-5 text-primary" /> Cost Summary
                       </h2>
@@ -181,12 +181,14 @@ const MinimumPaymentCalculator = () => {
                     </div>
                   </>
                 )}
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="my-8" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>The Danger of Minimum Payments</h2>
               <p>Minimum payments are one of the most effective ways for credit card companies to maximize their profits. While they allow you to avoid late fees and keep your account active, they are mathematically structured to keep you in debt for as long as possible—often decades.</p>
 
@@ -210,13 +212,8 @@ const MinimumPaymentCalculator = () => {
               <h3>A Rule of Thumb</h3>
               <p>Financial experts generally suggest that if your credit card debt exceeds 50% of your annual income and you can only afford minimum payments, you may need to seek professional help from a non-profit credit counseling agency to explore debt management plans.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/minimum-payment-calculator" />
-            <PopularCalculators exclude="/calculator/minimum-payment-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/minimum-payment-calculator" />
+          <PopularCalculators exclude="/calculator/minimum-payment-calculator" />
         </div>
       </div>
     </>

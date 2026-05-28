@@ -52,14 +52,13 @@ const GREScoreCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "GRE Score Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">GRE Score Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Estimate your GRE section scores and total score based on the new, shorter GRE format.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">GRE Score Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Estimate your GRE section scores and total score based on the new, shorter GRE format.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-8">
                 <section className="space-y-6">
                   <h2 className="text-lg font-bold flex items-center gap-2 text-primary">
                     <Brain className="h-5 w-5" /> Reasoning Sections
@@ -104,10 +103,11 @@ const GREScoreCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 mb-8">
+              <>
                 <div className="card-calculator bg-primary/5 border-solid border-primary/20 text-center flex flex-col justify-center py-10 mb-6 relative overflow-hidden">
                     <p className="text-sm font-bold text-primary uppercase tracking-widest mb-2">Estimated Total GRE Score</p>
                     <p className="text-7xl font-black text-foreground">{results.total}</p>
@@ -130,11 +130,14 @@ const GREScoreCalculator = () => {
                       <p className="text-3xl font-black text-amber-800">{results.writing.toFixed(1)}</p>
                    </div>
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="my-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>The New, Shorter GRE</h2>
               <p>In September 2023, ETS (Educational Testing Service) introduced a shorter version of the GRE General Test. The new test is under two hours long—nearly half the length of the previous version. While the format changed, the score scale of 130-170 remains the same.</p>
               
@@ -144,12 +147,8 @@ const GREScoreCalculator = () => {
               <h3>Adaptive Testing Logic</h3>
               <p>The GRE is "section-level adaptive." This means that the computer selects the difficulty of the second section based on your performance in the first. If you do very well on the first Quant section, the second Quant section will be harder, but your potential score range will be higher.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/gre-score" />
-            <PopularCalculators exclude="/calculator/gre-score-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/gre-score" />
+          <PopularCalculators exclude="/calculator/gre-score-calculator" />
         </div>
       </div>
     </>

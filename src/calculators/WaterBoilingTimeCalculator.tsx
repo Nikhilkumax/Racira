@@ -74,15 +74,13 @@ const WaterBoilingTimeCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Water Boiling Time Calculator" }]} />
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Water Boiling Time Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Estimate how long it will take to boil water based on your heat source, altitude, and water volume.</p>
 
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Water Boiling Time Calculator</h1>
-            <p className="text-muted-foreground mb-8">Estimate how long it will take to boil water based on your heat source, altitude, and water volume.</p>
-
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-6">
                 <InputField id="amount" label="Water Amount (Liters)" value={waterAmount} onChange={setWaterAmount} suffix="L" />
                 <InputField id="temp" label="Initial Temp (°C)" value={initialTemp} onChange={setInitialTemp} suffix="°C" />
                 <InputField id="power" label="Heating Power (Watts)" value={power} onChange={setPower} suffix="W" tooltip="Electric kettle: 1500W, Stove: ~2000W." />
@@ -97,10 +95,11 @@ const WaterBoilingTimeCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8">
+              <>
                 <h2 className="text-xl font-bold mb-6">Boiling Estimates</h2>
                 
                 <div className="grid sm:grid-cols-2 gap-8 mb-8">
@@ -121,12 +120,14 @@ const WaterBoilingTimeCalculator = () => {
                   { label: "Effective Power", value: 0, textValue: (parseFloat(power) * (parseFloat(efficiency)/100)).toFixed(0) + " W" },
                   { label: "Altitude Impact", value: 0, textValue: (100 - results.boilingPoint).toFixed(1) + "°C lower" },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>The Physics of Boiling</h2>
               <p>Boiling water seems simple, but it's a fascinating thermodynamic process. To boil water, you must first raise its temperature to the boiling point (sensible heat) and then provide enough energy to convert it from liquid to gas (latent heat of vaporization). This calculator focuses on the first stage: reaching the boiling point.</p>
               
@@ -143,15 +144,8 @@ const WaterBoilingTimeCalculator = () => {
                 <li><strong>Only Boil What You Need:</strong> Boiling two liters when you only need one cup wastes energy and doubles the wait time.</li>
               </ul>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/water-boiling" />
-            <PopularCalculators exclude="/calculator/water-boiling-time-calculator" />
-          </div>
-
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/water-boiling" />
+          <PopularCalculators exclude="/calculator/water-boiling-time-calculator" />
         </div>
       </div>
     </>

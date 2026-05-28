@@ -58,13 +58,13 @@ const FireCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "FIRE Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">FIRE Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Calculate your Financial Independence number and how many years until you can Retire Early.</p>
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">FIRE Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate your Financial Independence number and how many years until you can Retire Early.</p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
                 <InputField id="exp" label="Annual Expenses ($)" value={annualExpenses} onChange={setAnnualExpenses} />
                 <InputField id="sav" label="Current Savings ($)" value={currentSavings} onChange={setCurrentSavings} />
                 <InputField id="annsav" label="Annual Savings ($)" value={annualSavings} onChange={setAnnualSavings} />
@@ -74,9 +74,11 @@ const FireCalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2"><Target className="h-5 w-5" /> Calculate FIRE</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
+
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Your FIRE Plan</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -93,10 +95,14 @@ const FireCalculator = () => {
                   { label: "Annual Withdrawal at FIRE", value: 0, textValue: "$" + parseFloat(annualExpenses).toLocaleString() },
                   { label: "FIRE Year (est.)", value: 0, textValue: (new Date().getFullYear() + results.years).toString() },
                 ]} />
-              </div>
+              </>
             )}
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+          </div>
+        </div>
+
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>The Math of Financial Independence</h2>
               <p>The path to FIRE is straightforward mathematically: save a large portion of your income, invest it wisely, and eventually your portfolio will grow large enough to fund your lifestyle indefinitely.</p>
               <h3>Savings Rate is Everything</h3>
@@ -104,10 +110,8 @@ const FireCalculator = () => {
               <h3>The 4% Rule Foundation</h3>
               <p>The 4% rule comes from the Trinity Study (1998), which found that a 50/50 stock/bond portfolio survived 30-year retirement periods 95% of the time with a 4% initial withdrawal rate. Early retirees often use 3-3.5% for greater safety over 40-50 year horizons.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/fire" />
-            <PopularCalculators exclude="/calculator/fire-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6"><AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" /></aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/fire" />
+          <PopularCalculators exclude="/calculator/fire-calculator" />
         </div>
       </div>
     </>

@@ -57,14 +57,13 @@ const TwitchEarningsCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Twitch Earnings Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Twitch Earnings Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Estimate your monthly and yearly Twitch income from subscriptions, bits, and ad revenue.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Twitch Earnings Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Estimate your monthly and yearly Twitch income from subscriptions, bits, and ad revenue.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-6 mb-6">
                 <InputField id="subs" label="Monthly Subscriptions" value={subs} onChange={setSubs} tooltip="Total number of active Tier 1 subscribers." />
                 <div>
                   <label className="block text-sm font-medium text-foreground mb-1.5">Revenue Split (%)</label>
@@ -84,10 +83,11 @@ const TwitchEarningsCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Earnings Breakdown</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -104,11 +104,14 @@ const TwitchEarningsCalculator = () => {
                   { label: "Bits Income", value: 0, textValue: "$" + results.bitRevenue.toFixed(2) },
                   { label: "Ad Revenue", value: 0, textValue: "$" + results.adRevenue.toFixed(2) },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>How Twitch Streamers Make Money</h2>
               <p>Streaming on Twitch can be a lucrative career, but it requires building a loyal community. Unlike YouTube, where ad revenue is the primary driver, Twitch relies heavily on direct support from viewers.</p>
               <h3>The Three Pillars of Twitch Income</h3>
@@ -118,12 +121,8 @@ const TwitchEarningsCalculator = () => {
                 <li><strong>Ads:</strong> Pre-roll and mid-roll advertisements. Earnings depend on the number of viewers and the advertiser demand in your region.</li>
               </ul>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/twitch-earnings" />
-            <PopularCalculators exclude="/calculator/twitch-earnings-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/twitch-earnings" />
+          <PopularCalculators exclude="/calculator/twitch-earnings-calculator" />
         </div>
       </div>
     </>

@@ -134,15 +134,13 @@ const CanadianMortgageCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Canadian Mortgage Calculator" }]} />
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Canadian Mortgage Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate your monthly payments with Canadian-specific compounding and CMHC insurance rules.</p>
 
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Canadian Mortgage Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Calculate your monthly payments with Canadian-specific compounding and CMHC insurance rules.</p>
-
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-6">
                 <InputField id="price" label="Home Price" value={homePrice} onChange={setHomePrice} prefix="$" tooltip="Total purchase price of the property." />
                 <InputField id="down" label="Down Payment" value={downPayment} onChange={setDownPayment} prefix="$" tooltip="Your upfront cash payment (Min 5-20% depending on price)." />
                 <InputField id="rate" label="Interest Rate" value={interestRate} onChange={setInterestRate} suffix="%" tooltip="Quoted annual interest rate." />
@@ -176,10 +174,11 @@ const CanadianMortgageCalculator = () => {
               <div className="flex gap-3 mt-8">
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Payments</button><button onClick={reset} className="p-4 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4" ref={printRef}>
+              <>
                 <div className="flex items-center justify-between mb-6">
                   <h2 className="text-2xl font-bold">Mortgage Summary</h2>
                   <button onClick={() => window.print()} className="text-primary hover:underline flex items-center gap-2"><Printer className="h-4 w-4" /> Print</button>
@@ -224,12 +223,14 @@ const CanadianMortgageCalculator = () => {
                     </div>
                     <AmortizationTable rows={viewMode === "yearly" ? results.yearlyRows : results.monthlyRows} yearly={viewMode === "yearly"} />
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-10" />
-
-            <article className="prose-finance max-w-none">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance max-w-none">
               <h2>Understanding Canadian Mortgages</h2>
               <p>The Canadian mortgage landscape is unique, governed by specific regulations in the Interest Act and the Bank Act. Whether you are buying a trendy condo in Toronto, a family home in Calgary, or an investment property in Vancouver, understanding how interest is calculated and how insurance premiums work can save you thousands of dollars.</p>
               
@@ -271,15 +272,8 @@ const CanadianMortgageCalculator = () => {
                 <li><strong>PST on CMHC Premium:</strong> In provinces like Ontario, Quebec, and Saskatchewan, you must pay provincial sales tax on the insurance premium upfront, even if the premium itself is rolled into the loan.</li>
               </ul>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/canadian-mortgage-calculator" />
-            <PopularCalculators exclude="/calculator/canadian-mortgage-calculator" />
-          </div>
-
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Canada Sidebar Ad" />
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Canada Ad" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/canadian-mortgage-calculator" />
+          <PopularCalculators exclude="/calculator/canadian-mortgage-calculator" />
         </div>
       </div>
     </>

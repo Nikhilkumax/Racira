@@ -66,14 +66,13 @@ const SolarEnergySavingsCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Solar Energy Savings Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Solar Energy Savings Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Estimate the financial ROI and environmental impact of installing a solar panel system on your property.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Solar Energy Savings Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Estimate the financial ROI and environmental impact of installing a solar panel system on your property.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-6 mb-6">
                 <InputField id="size" label="System Size" value={systemSize} onChange={setSystemSize} suffix="kW" tooltip="Average residential systems are 5-8kW." />
                 <InputField id="cost" label="Total Install Cost" value={installCost} onChange={setInstallCost} prefix="$" />
                 <InputField id="rate" label="Electricity Rate" value={electricityRate} onChange={setElectricityRate} prefix="$" suffix="/kWh" />
@@ -87,10 +86,11 @@ const SolarEnergySavingsCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Financial & Solar Analysis</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -132,11 +132,14 @@ const SolarEnergySavingsCalculator = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Solar: An Investment in Independence</h2>
               <p>Installing solar panels is one of the few home improvements that actually pays for itself. Beyond the environmental benefits, it provides a hedge against rising electricity costs from traditional utility companies.</p>
               <h3>Understanding Net Metering</h3>
@@ -149,12 +152,8 @@ const SolarEnergySavingsCalculator = () => {
                 <li><strong>Energy Usage:</strong> The more electricity you use, the faster your system will pay for itself through avoided costs.</li>
               </ul>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/solar-energy-savings" />
-            <PopularCalculators exclude="/calculator/solar-energy-savings-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/solar-energy-savings" />
+          <PopularCalculators exclude="/calculator/solar-energy-savings-calculator" />
         </div>
       </div>
     </>

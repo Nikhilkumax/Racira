@@ -48,16 +48,14 @@ const SalesTaxCalculator = () => {
 
   return (
     <>
-<Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Sales Tax Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Sales Tax Calculator" }]} />
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Sales Tax Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate sales tax on any purchase, or find the pre-tax price from a total amount.</p>
 
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Sales Tax Calculator</h1>
-            <p className="text-muted-foreground mb-8">Calculate sales tax on any purchase, or find the pre-tax price from a total amount.</p>
-
-            <div className="card-calculator mb-8">
-              <div className="flex rounded-lg border border-input overflow-hidden mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="flex rounded-lg border border-input overflow-hidden mb-6">
                 <button onClick={() => { setMode("add"); setResult(null); }} className={`flex-1 py-3 text-sm font-medium transition-colors ${mode === "add" ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:bg-secondary"}`}>Add Tax to Price</button>
                 <button onClick={() => { setMode("reverse"); setResult(null); }} className={`flex-1 py-3 text-sm font-medium transition-colors ${mode === "reverse" ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:bg-secondary"}`}>Remove Tax from Total</button>
               </div>
@@ -70,22 +68,25 @@ const SalesTaxCalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && result && (
-              <div className="card-calculator mb-8">
+              <>
                 <h2 className="text-xl font-bold mb-4">Results</h2>
                 <ResultDisplay items={[
                   { label: "Before-Tax Price", value: result.beforeTax },
                   { label: "Sales Tax", value: result.taxAmount, highlight: true },
                   { label: "After-Tax Total", value: result.afterTax, highlight: true },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>What Is a Sales Tax Calculator?</h2>
               <p>A sales tax calculator helps you determine the amount of sales tax on a purchase, or reverse-calculate the pre-tax price from a total that includes tax. It's useful for budgeting, price comparisons across states, and verifying receipts.</p>
               <p>Our calculator offers two modes: forward calculation (add tax to a pre-tax price) and reverse calculation (extract tax from a total amount). Simply enter the price and your local tax rate to get instant results.</p>
@@ -108,14 +109,8 @@ const SalesTaxCalculator = () => {
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> This calculator provides estimates. Actual tax rates vary by location and product category. Verify rates with your local tax authority.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/sales-tax-calculator" />
-            <PopularCalculators exclude="/sales-tax-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/sales-tax-calculator" />
+          <PopularCalculators exclude="/sales-tax-calculator" />
         </div>
       </div>
     </>

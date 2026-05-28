@@ -82,14 +82,13 @@ const DataStorageConverter = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Data Storage Converter" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Data Storage Converter</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Convert file sizes and storage capacities between Bytes, KB, MB, GB, TB, and PB.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Data Storage Converter</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Convert file sizes and storage capacities between Bytes, KB, MB, GB, TB, and PB.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="max-w-3xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="max-w-3xl mx-auto">
                  <h2 className="text-xl font-bold flex items-center gap-2 mb-6 text-center justify-center">
                     <HardDrive className="h-6 w-6 text-primary" /> Storage Conversion
                  </h2>
@@ -116,10 +115,11 @@ const DataStorageConverter = () => {
                     </div>
                  </div>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {allConversions.length > 0 && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
                   <Cpu className="h-5 w-5 text-primary" /> Full Conversion Table
                 </h2>
@@ -140,21 +140,20 @@ const DataStorageConverter = () => {
                   ))}
                 </div>
                 <p className="text-[10px] text-muted-foreground mt-4 text-center">Note: This calculator uses Base-2 binary standard (1 KB = 1024 Bytes) commonly used by memory modules and Windows OS.</p>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Base-2 vs. Base-10</h2>
               <p>In the tech industry, there is an ongoing discrepancy regarding how storage is measured. The International System of Units (SI) defines the prefix 'Kilo' as exactly 1,000. Under this system, 1 Kilobyte is 1,000 Bytes.</p>
               <p>However, computer architecture is inherently binary (base-2). Therefore, memory sizes naturally scale by powers of 2. Under the traditional binary system, 1 Kilobyte is 1,024 Bytes (2^10). To resolve this confusion, new prefixes like 'Kibibyte (KiB)' were introduced for base-2, but the industry generally still uses the old KB/MB nomenclature for both.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/data-storage-converter" />
-            <PopularCalculators exclude="/calculator/data-storage-converter" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/data-storage-converter" />
+          <PopularCalculators exclude="/calculator/data-storage-converter" />
         </div>
       </div>
     </>

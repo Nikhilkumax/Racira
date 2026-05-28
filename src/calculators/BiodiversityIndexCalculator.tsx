@@ -88,15 +88,13 @@ const BiodiversityIndexCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Biodiversity Index Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Biodiversity Index Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Calculate Simpson's Diversity Index to measure the richness and evenness of a biological community.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Biodiversity Index Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate Simpson's Diversity Index to measure the richness and evenness of a biological community.</p>
 
-            <div className="grid md:grid-cols-2 gap-8 mb-8">
-              <div className="card-calculator">
-                <div className="flex justify-between items-center mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="flex justify-between items-center mb-6">
                    <h2 className="text-xl font-bold flex items-center gap-2">
                      <Trees className="h-5 w-5 text-primary" /> Species Data
                    </h2>
@@ -134,11 +132,12 @@ const BiodiversityIndexCalculator = () => {
                 <button onClick={reset} className="w-full p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground flex items-center justify-center gap-2 font-bold text-sm">
                   <RotateCcw className="h-4 w-4" /> Reset Data
                 </button>
-              </div>
+          </div>
 
-              {showResults && results && (
-                <div className="card-calculator animate-in fade-in slide-in-from-bottom-4 duration-500 flex flex-col">
-                  <h2 className="text-xl font-bold flex items-center gap-2 mb-6">
+          <div className="flex flex-col gap-3">
+            {showResults && results && (
+              <>
+                <h2 className="text-xl font-bold flex items-center gap-2 mb-6">
                      <PieChart className="h-5 w-5 text-primary" /> Analysis Results
                   </h2>
                   
@@ -166,12 +165,14 @@ const BiodiversityIndexCalculator = () => {
                         <p className="text-xl font-black">{results.reciprocalIndex.toFixed(4)}</p>
                      </div>
                   </div>
-                </div>
-              )}
-            </div>
+              </>
+            )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Understanding Biodiversity Indexes</h2>
               <p>In ecology, a diversity index is a quantitative measure that reflects how many different types (such as species) there are in a dataset, and simultaneously takes into account how evenly the basic entities (such as individuals) are distributed among those types.</p>
               
@@ -182,12 +183,8 @@ const BiodiversityIndexCalculator = () => {
               <h3>How Simpson's Index Works</h3>
               <p>Simpson's Index takes both richness and evenness into account. The formula calculates the probability that two individuals randomly selected from a sample will belong to the same species. A highly diverse ecosystem will have a low probability (a low D value), which is why we often use `1 - D` to represent the final score, where a higher score means higher diversity.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/biodiversity-index" />
-            <PopularCalculators exclude="/calculator/biodiversity-index-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/biodiversity-index" />
+          <PopularCalculators exclude="/calculator/biodiversity-index-calculator" />
         </div>
       </div>
     </>

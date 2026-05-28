@@ -58,14 +58,13 @@ const WasteDiversionCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Waste Diversion Rate Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Waste Diversion Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Calculate the percentage of your waste that avoids the landfill via recycling, composting, and reuse.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Waste Diversion Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate the percentage of your waste that avoids the landfill via recycling, composting, and reuse.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid md:grid-cols-[1fr_1fr] gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid md:grid-cols-[1fr_1fr] gap-8">
                 <section className="space-y-6">
                   <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
                     <Trash2 className="h-5 w-5 text-primary" /> Waste Data (lbs or kg)
@@ -109,10 +108,12 @@ const WasteDiversionCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
+                <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
                 {results.warning && (
                   <div className="bg-red-500/10 border border-red-500/20 text-red-600 p-4 rounded-xl mb-6 text-sm flex items-start gap-2">
                     <Info className="h-5 w-5 shrink-0" />
@@ -151,10 +152,14 @@ const WasteDiversionCalculator = () => {
                    <span>100% (Zero Waste)</span>
                 </div>
               </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>The Importance of Waste Diversion</h2>
               <p>Waste diversion is the process of redirecting waste from landfills and incinerators to more sustainable channels like recycling, composting, or reuse. It is a key metric for businesses, municipalities, and households aiming for environmental sustainability.</p>
               
@@ -164,12 +169,8 @@ const WasteDiversionCalculator = () => {
               <h3>The Road to "Zero Waste"</h3>
               <p>The internationally recognized standard for a "Zero Waste" organization is achieving a waste diversion rate of 90% or higher. The remaining 10% accounts for materials that currently have no viable recycling or composting infrastructure.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/waste-diversion" />
-            <PopularCalculators exclude="/calculator/waste-diversion-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/waste-diversion" />
+          <PopularCalculators exclude="/calculator/waste-diversion-calculator" />
         </div>
       </div>
     </>

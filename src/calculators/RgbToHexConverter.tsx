@@ -40,14 +40,13 @@ const RgbToHexConverter = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "RGB to HEX Converter" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">RGB to HEX Converter</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Convert RGB color values to hexadecimal codes and visualize your colors instantly.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">RGB to HEX Converter</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Convert RGB color values to hexadecimal codes and visualize your colors instantly.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid md:grid-cols-2 gap-12 items-center">
                 <div className="space-y-8">
                   {/* Red */}
                   <div className="space-y-3">
@@ -92,10 +91,10 @@ const RgbToHexConverter = () => {
                   </div>
                 </div>
               </div>
-            </div>
+          </div>
 
-            <div className="grid sm:grid-cols-2 gap-6 mb-8">
-               <div className="card-calculator py-6">
+          <div className="flex flex-col gap-3">
+            <div className="card-calculator py-6">
                   <h2 className="text-sm font-bold text-muted-foreground uppercase tracking-widest mb-4 flex items-center gap-2">
                      <Hash className="h-4 w-4" /> Hexadecimal
                   </h2>
@@ -117,10 +116,12 @@ const RgbToHexConverter = () => {
                      </button>
                   </div>
                </div>
-            </div>
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Color Models in Web Design</h2>
               <p>Computers create colors by mixing light. The primary colors of light are Red, Green, and Blue (RGB). By varying the intensity of these three lights, we can create millions of distinct colors.</p>
               
@@ -133,12 +134,8 @@ const RgbToHexConverter = () => {
               <h3>Understanding the Values</h3>
               <p>When all three values are the same, you get a shade of gray. Higher values result in lighter colors (FFF is white), while lower values result in darker colors (000 is black).</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/rgb-to-hex" />
-            <PopularCalculators exclude="/calculator/rgb-to-hex-converter" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/rgb-to-hex" />
+          <PopularCalculators exclude="/calculator/rgb-to-hex-converter" />
         </div>
       </div>
     </>

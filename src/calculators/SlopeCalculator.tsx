@@ -48,16 +48,14 @@ const SlopeCalculator = () => {
 
   return (
     <>
-<Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Slope Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Slope Calculator" }]} />
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Slope Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate slope, distance, midpoint, and line equation between two points.</p>
 
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Slope Calculator</h1>
-            <p className="text-muted-foreground mb-8">Calculate slope, distance, midpoint, and line equation between two points.</p>
-
-            <div className="card-calculator mb-8">
-              <p className="text-sm font-medium text-foreground mb-3">Point 1 (x₁, y₁)</p>
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <p className="text-sm font-medium text-foreground mb-3">Point 1 (x₁, y₁)</p>
               <div className="grid grid-cols-2 gap-4 mb-4">
                 <InputField id="x1" label="x₁" value={x1} onChange={setX1} />
                 <InputField id="y1" label="y₁" value={y1} onChange={setY1} />
@@ -71,10 +69,11 @@ const SlopeCalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && result && (
-              <div className="card-calculator mb-8">
+              <>
                 <h2 className="text-xl font-bold mb-4">Result</h2>
                 <ResultDisplay items={[
                   { label: "Slope (m)", value: 0, textValue: String(result.slope), highlight: true },
@@ -84,20 +83,19 @@ const SlopeCalculator = () => {
                   { label: "Line Equation", value: 0, textValue: result.equation },
                   { label: "Perpendicular Slope", value: 0, textValue: String(result.perpSlope) },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>How to Calculate Slope</h2>
               <p>The slope of a line through two points (x₁, y₁) and (x₂, y₂) is m = (y₂ - y₁) / (x₂ - x₁). This calculator also finds the distance (using the distance formula), the midpoint, the equation in slope-intercept form, and the perpendicular slope.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/slope-calculator" />
-            <PopularCalculators exclude="/slope-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/slope-calculator" />
+          <PopularCalculators exclude="/slope-calculator" />
         </div>
       </div>
     </>

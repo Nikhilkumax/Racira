@@ -79,14 +79,13 @@ const VpsPricingCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "VPS Pricing Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">VPS Pricing Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Estimate monthly cloud hosting costs based on CPU, RAM, and Storage requirements across major providers.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">VPS Pricing Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Estimate monthly cloud hosting costs based on CPU, RAM, and Storage requirements across major providers.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="flex flex-wrap gap-2 mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="flex flex-wrap gap-2 mb-8">
                  <button onClick={() => setPreset('basic')} className="px-4 py-2 rounded-full border border-border text-xs font-bold hover:bg-primary hover:text-white transition-colors uppercase tracking-widest">Basic</button>
                  <button onClick={() => setPreset('standard')} className="px-4 py-2 rounded-full border border-border text-xs font-bold hover:bg-primary hover:text-white transition-colors uppercase tracking-widest">Standard</button>
                  <button onClick={() => setPreset('high-performance')} className="px-4 py-2 rounded-full border border-border text-xs font-bold hover:bg-primary hover:text-white transition-colors uppercase tracking-widest">Enterprise</button>
@@ -142,10 +141,11 @@ const VpsPricingCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Cost Estimation</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -174,11 +174,14 @@ const VpsPricingCalculator = () => {
                     { label: "Egress Bandwidth", value: 0, textValue: results.breakdown.bandwidth > 0 ? "$" + results.breakdown.bandwidth.toFixed(2) : "Included (Free Tier)" },
                   ]} />
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>VPS Pricing Decoded</h2>
               <p>Virtual Private Server (VPS) pricing is generally more predictable than "serverless" or "managed" services because you are paying for reserved capacity. However, there are several factors that can influence your final bill.</p>
               
@@ -195,12 +198,8 @@ const VpsPricingCalculator = () => {
                 <li><strong>Block Storage:</strong> External drives that can be detached and attached to different servers, usually priced per GB/month.</li>
               </ul>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/vps-pricing" />
-            <PopularCalculators exclude="/calculator/vps-pricing-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/vps-pricing" />
+          <PopularCalculators exclude="/calculator/vps-pricing-calculator" />
         </div>
       </div>
     </>

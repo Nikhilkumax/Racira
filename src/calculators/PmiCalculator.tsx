@@ -102,14 +102,13 @@ const PmiCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "PMI Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">PMI Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Estimate your monthly Private Mortgage Insurance (PMI) costs and see when you can cancel it.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">PMI Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Estimate your monthly Private Mortgage Insurance (PMI) costs and see when you can cancel it.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-8">
                 <section className="space-y-6">
                   <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
                     <Home className="h-5 w-5 text-primary" /> Loan Basics
@@ -132,10 +131,11 @@ const PmiCalculator = () => {
                   <RotateCcw className="h-4 w-4" /> Reset 
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 mb-8">
+              <>
                 {!results.isRequired ? (
                   <div className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 p-8 rounded-2xl text-center">
                     <ShieldCheck className="h-12 w-12 mx-auto mb-4 text-emerald-500" />
@@ -155,7 +155,7 @@ const PmiCalculator = () => {
                       </div>
                     </div>
 
-                    <div className="card-calculator mb-6">
+                    <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
                       <h2 className="text-xl font-bold flex items-center gap-2 mb-6">
                         <TrendingDown className="h-5 w-5 text-primary" /> Cost Analysis
                       </h2>
@@ -168,12 +168,14 @@ const PmiCalculator = () => {
                     </div>
                   </>
                 )}
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="my-8" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>What Is Private Mortgage Insurance (PMI)?</h2>
               <p>Private Mortgage Insurance, commonly known as PMI, is a risk-management product that protects lenders in the event that a borrower defaults on their home loan. While it increases your monthly housing expense, it serves a critical purpose: it allows you to purchase a home with a down payment as low as 3% or 5%, rather than waiting until you've saved the traditional 20%.</p>
 
@@ -205,13 +207,8 @@ const PmiCalculator = () => {
                 <li><strong>New Appraisal:</strong> If your home's value has increased significantly due to market conditions or renovations, you can pay for a new appraisal to prove your LTV is now below 80%.</li>
               </ul>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/pmi-calculator" />
-            <PopularCalculators exclude="/calculator/pmi-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/pmi-calculator" />
+          <PopularCalculators exclude="/calculator/pmi-calculator" />
         </div>
       </div>
     </>

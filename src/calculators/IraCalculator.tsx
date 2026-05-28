@@ -72,14 +72,13 @@ const IraCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "IRA Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">IRA Calculator</h1>
-            <p className="text-muted-foreground mb-8">Estimate the future value of your Individual Retirement Account (IRA) and compare Traditional vs. Roth outcomes.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">IRA Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Estimate the future value of your Individual Retirement Account (IRA) and compare Traditional vs. Roth outcomes.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-5 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-5 mb-6">
                 <InputField id="currentBalance" label="Current IRA Balance" value={currentBalance} onChange={setCurrentBalance} prefix="$" />
                 <InputField id="annualContribution" label="Annual Contribution" value={annualContribution} onChange={setAnnualContribution} prefix="$" />
                 <InputField id="currentAge" label="Current Age" value={currentAge} onChange={setCurrentAge} />
@@ -91,10 +90,11 @@ const IraCalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Project Growth</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {results && !results.error && (
-              <div className="card-calculator mb-8">
+              <>
                 <div className="text-center mb-8">
                   <h2 className="text-sm font-bold text-primary uppercase tracking-wider mb-1">Estimated Value at Age {retirementAge}</h2>
                   <p className="text-5xl font-extrabold mb-2">${Math.round(results.totalFV).toLocaleString()}</p>
@@ -107,22 +107,21 @@ const IraCalculator = () => {
                   { label: "Tax Liability (Traditional)", value: results.taxImpact },
                   { label: "Final Roth Value", value: results.totalFV, highlight: true },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Sidebar Ad" />
+          <article className="prose-finance">
               <h2>Building Wealth with an IRA</h2>
               <p>An Individual Retirement Account (IRA) is one of the most powerful tools for building long-term wealth. Unlike a standard brokerage account, an IRA provides significant tax advantages that allow your investments to grow much faster over several decades.</p>
               <h3>The Power of Tax-Free Growth</h3>
               <p>In a Roth IRA, you never pay taxes on the growth of your investments. If you contribute $6,000 a year for 30 years and it grows to $500,000, you can withdraw every penny of that half-million dollars tax-free. In a taxable account, you would owe tens of thousands in capital gains taxes.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/ira-calculator" />
-            <PopularCalculators exclude="/calculator/ira-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder label="Sidebar Ad" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/ira-calculator" />
+          <PopularCalculators exclude="/calculator/ira-calculator" />
         </div>
       </div>
     </>

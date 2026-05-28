@@ -23,11 +23,11 @@ const AmortizationTable = ({ rows, yearly = false, currency = "$" }: { rows: Amo
 
   return (
     <div className="mt-6">
-      <h3 className="font-semibold text-foreground mb-3">
+      <h3 className="text-base font-semibold text-foreground mb-3">
         {yearly ? "Yearly" : "Monthly"} Amortization Schedule
       </h3>
       <div className="w-full max-w-full overflow-x-auto rounded-lg border border-border">
-        <table className="w-full text-sm">
+        <table className="w-full text-base">
           <thead>
             <tr className="bg-secondary text-foreground">
               <th className="px-3 py-2 text-left font-medium">{yearly ? "Year" : "Month"}</th>
@@ -53,7 +53,7 @@ const AmortizationTable = ({ rows, yearly = false, currency = "$" }: { rows: Amo
       {rows.length > 12 && (
         <button
           onClick={() => setExpanded(!expanded)}
-          className="mt-3 flex items-center gap-1 text-sm text-primary hover:underline mx-auto"
+          className="mt-3 flex items-center gap-1 text-base text-primary hover:underline mx-auto"
         >
           {expanded ? "Show Less" : `Show All ${rows.length} ${yearly ? "Years" : "Months"}`}
           <ChevronDown className={`h-4 w-4 transition-transform ${expanded ? "rotate-180" : ""}`} />

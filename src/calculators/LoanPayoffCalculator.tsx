@@ -80,14 +80,13 @@ const LoanPayoffCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Loan Payoff" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Loan Payoff Calculator</h1>
-            <p className="text-muted-foreground mb-8">See how much time and interest you can save by making extra payments on your personal, student, or auto loan.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Loan Payoff Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">See how much time and interest you can save by making extra payments on your personal, student, or auto loan.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-5 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-5 mb-6">
                 <InputField id="loanBalance" label="Remaining Balance" value={loanBalance} onChange={setLoanBalance} prefix="$" />
                 <InputField id="interestRate" label="Interest Rate" value={interestRate} onChange={setInterestRate} suffix="%" />
                 <InputField id="remainingTerm" label="Remaining Months" value={remainingTerm} onChange={setRemainingTerm} />
@@ -97,10 +96,11 @@ const LoanPayoffCalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Savings</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8">
+              <>
                 <h2 className="text-xl font-bold mb-4">Payoff Summary</h2>
                 <ResultDisplay items={[
                   { label: "New Payoff Date", value: 0, textValue: results.payoffDate, highlight: true },
@@ -109,22 +109,21 @@ const LoanPayoffCalculator = () => {
                   { label: "Required Monthly Payment", value: results.monthlyPayment },
                   { label: "Total Monthly Payment", value: results.totalPayment },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Sidebar Ad" />
+          <article className="prose-finance">
               <h2>The Power of Extra Payments</h2>
               <p>Making even small extra payments on a loan can have a dramatic impact on your financial health. Because interest is typically calculated on your remaining balance, reducing that balance faster means you pay less interest over the life of the loan.</p>
               <h3>Why Principal Payments Matter</h3>
               <p>In the early stages of a loan, most of your monthly payment goes toward interest. By adding an "extra" payment, 100% of that extra amount goes toward the principal. This "skips" future interest payments and can shave years off a 5 or 10-year loan.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/loan-payoff-calculator" />
-            <PopularCalculators exclude="/calculator/loan-payoff-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder label="Sidebar Ad" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/loan-payoff-calculator" />
+          <PopularCalculators exclude="/calculator/loan-payoff-calculator" />
         </div>
       </div>
     </>

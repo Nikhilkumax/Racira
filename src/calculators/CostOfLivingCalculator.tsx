@@ -52,14 +52,13 @@ const CostOfLivingCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Cost of Living" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Cost of Living Calculator</h1>
-            <p className="text-muted-foreground mb-8">Compare the purchasing power of your salary between different cities or regions to plan your next career move.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Cost of Living Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Compare the purchasing power of your salary between different cities or regions to plan your next career move.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-8 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-8 mb-6">
                 <div className="space-y-4">
                   <h3 className="font-bold border-b pb-2">Current Location</h3>
                   <InputField id="currentSalary" label="Current Annual Salary" value={currentSalary} onChange={setCurrentSalary} prefix="$" />
@@ -77,10 +76,11 @@ const CostOfLivingCalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Compare Salaries</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8">
+              <>
                 <div className="text-center mb-8">
                   <h2 className="text-sm font-bold text-primary uppercase tracking-wider mb-1">Equivalent Salary Needed</h2>
                   <p className="text-5xl font-extrabold mb-2">${Math.round(results.equivalentSalary).toLocaleString()}</p>
@@ -95,22 +95,21 @@ const CostOfLivingCalculator = () => {
                   { label: "Current Purchasing Power", value: parseFloat(currentSalary) },
                   { label: "Cost of Living Change", value: 0, textValue: `${results.percentage.toFixed(1)}%` },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Sidebar Ad" />
+          <article className="prose-finance">
               <h2>Calculating Your Real Income</h2>
               <p>Salary is a relative number. A $100,000 salary in San Francisco may provide a lower standard of living than a $60,000 salary in a smaller Midwest town. Understanding the cost of living index helps you compare "apples to apples" when evaluating job offers.</p>
               <h3>Why Housing Dominates</h3>
               <p>In most cost of living calculations, housing accounts for 30-40% of the total weight. While groceries and utilities may only vary by 10-15% between cities, housing costs can vary by 300% or more. This makes housing the primary driver of regional wealth differences.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/cost-of-living-calculator" />
-            <PopularCalculators exclude="/calculator/cost-of-living-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder label="Sidebar Ad" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/cost-of-living-calculator" />
+          <PopularCalculators exclude="/calculator/cost-of-living-calculator" />
         </div>
       </div>
     </>

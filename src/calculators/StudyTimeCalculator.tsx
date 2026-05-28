@@ -60,14 +60,13 @@ const StudyTimeCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Study Time Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Study Time Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Estimate the weekly study time needed to achieve your target grades based on course load and difficulty.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Study Time Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Estimate the weekly study time needed to achieve your target grades based on course load and difficulty.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-8 mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-8 mb-8">
                 <section className="space-y-6">
                   <div className="flex items-center gap-2 text-primary font-bold text-sm uppercase tracking-wider">
                      <GraduationCap className="h-4 w-4" /> Course Details
@@ -118,10 +117,11 @@ const StudyTimeCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Study Plan Summary</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -150,11 +150,14 @@ const StudyTimeCalculator = () => {
                     { label: "Workload Category", value: 0, textValue: results.weeklyStudyTime > 40 ? "Intense (Full-time job equivalent)" : results.weeklyStudyTime > 20 ? "Moderate" : "Light" },
                   ]} />
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Planning for Academic Success</h2>
               <p>Success in college is as much about time management as it is about intelligence. Most students underestimate the amount of time required to master complex subjects, leading to stress and lower grades.</p>
               
@@ -167,12 +170,8 @@ const StudyTimeCalculator = () => {
               <h3>Burnout Prevention</h3>
               <p>Research suggests that for most people, cognitive performance drops significantly after 4-5 hours of intense study in a single day. Instead of "marathon" study sessions, aim for consistent, daily progress using techniques like the Pomodoro method.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/study-time" />
-            <PopularCalculators exclude="/calculator/study-time-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/study-time" />
+          <PopularCalculators exclude="/calculator/study-time-calculator" />
         </div>
       </div>
     </>

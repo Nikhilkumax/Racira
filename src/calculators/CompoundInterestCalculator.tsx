@@ -1,345 +1,226 @@
 "use client";
-
-import { useState, useRef } from "react";
+import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import InputField from "@/components/calculator/InputField";
-import ResultDisplay from "@/components/calculator/ResultDisplay";
-import PieChart from "@/components/calculator/PieChart";
-import { ChevronDown, Printer, RotateCcw, Calculator } from "lucide-react";
-
-interface YearRow {
-  year: number;
-  balance: number;
-  contributions: number;
-  interest: number;
-  inflationAdjusted: number;
-}
-
-const fmt = (n: number) => "$" + n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+import PopularCalculators from "@/components/PopularCalculators";
+import { RotateCcw, Calculator } from "lucide-react";
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine } from "recharts";
 
 const CompoundInterestCalculator = () => {
-  const [initial, setInitial] = useState("10000");
-  const [monthlyContrib, setMonthlyContrib] = useState("500");
-  const [annualContrib, setAnnualContrib] = useState("0");
-  const [returnRate, setReturnRate] = useState("8");
-  const [compounding, setCompounding] = useState("monthly");
-  const [years, setYears] = useState("20");
-  const [months, setMonths] = useState("0");
+  const DEFAULTS = { principal: "10000", rate: "7", years: "20", frequency: "12", contribution: "200" };
+  const [principal, setPrincipal] = useState(DEFAULTS.principal);
+  const [rate, setRate] = useState(DEFAULTS.rate);
+  const [years, setYears] = useState(DEFAULTS.years);
+  const [frequency, setFrequency] = useState(DEFAULTS.frequency);
+  const [contribution, setContribution] = useState(DEFAULTS.contribution);
+  const [result, setResult] = useState<any>(null);
 
-  const [showAdvanced, setShowAdvanced] = useState(false);
-  const [inflation, setInflation] = useState("3");
-  const [taxRate, setTaxRate] = useState("0");
+  const calculate = (pV = principal, rV = rate, yV = years, fV = frequency, cV = contribution) => {
+    const P = parseFloat(pV), r = parseFloat(rV) / 100, y = parseFloat(yV);
+    const n = parseFloat(fV), c = parseFloat(cV);
+    if ([P, r, y, n, c].some(isNaN) || P <= 0 || y <= 0 || n <= 0) return;
 
-  const [result, setResult] = useState<{
-    futureValue: number;
-    totalContributions: number;
-    totalInterest: number;
-    inflationAdjusted: number;
-    afterTax: number;
-    yearlyRows: YearRow[];
-  } | null>(null);
-  const [showTable, setShowTable] = useState(false);
-  const [showResults, setShowResults] = useState(false);
-  const printRef = useRef<HTMLDivElement>(null);
+    const rN = r / n;
+    const periods = n * y;
+    const principalGrowth = P * Math.pow(1 + rN, periods);
+    const contribGrowth = c * ((Math.pow(1 + rN, periods) - 1) / rN);
+    const total = principalGrowth + contribGrowth;
+    const totalContrib = c * periods;
+    const totalInterest = total - P - totalContrib;
 
-  const handleCalculate = () => {
-    setShowResults(true);
-    const P = parseFloat(initial) || 0;
-    const mc = parseFloat(monthlyContrib) || 0;
-    const ac = parseFloat(annualContrib) || 0;
-    const r = (parseFloat(returnRate) || 0) / 100;
-    const inf = (parseFloat(inflation) || 0) / 100;
-    const tax = (parseFloat(taxRate) || 0) / 100;
-    const totalMonths = (parseFloat(years) || 0) * 12 + (parseFloat(months) || 0);
-
-    const compPeriods: Record<string, number> = { annually: 1, "semi-annually": 2, quarterly: 4, monthly: 12, daily: 365, continuous: 0 };
-    const n = compPeriods[compounding] ?? 12;
-
-    let balance = P;
-    let totalContrib = P;
-    const yearlyRows: YearRow[] = [];
-    let yearContrib = 0;
-    let yearInterest = 0;
-
-    for (let m = 1; m <= totalMonths; m++) {
-      // Monthly interest
-      let monthlyRate: number;
-      if (compounding === "continuous") {
-        monthlyRate = Math.exp(r / 12) - 1;
-      } else {
-        monthlyRate = Math.pow(1 + r / n, n / 12) - 1;
-      }
-
-      const interest = balance * monthlyRate;
-      balance += interest + mc;
-      yearInterest += interest;
-      yearContrib += mc;
-
-      // Annual contribution at year end
-      if (m % 12 === 0) {
-        balance += ac;
-        yearContrib += ac;
-        totalContrib += yearContrib;
-
-        const yr = m / 12;
-        const inflAdj = balance / Math.pow(1 + inf, yr);
-        yearlyRows.push({
-          year: yr,
-          balance,
-          contributions: totalContrib,
-          interest: balance - totalContrib,
-          inflationAdjusted: inflAdj,
-        });
-        yearContrib = 0;
-        yearInterest = 0;
-      }
-    }
-
-    // Handle remaining months
-    if (totalMonths % 12 !== 0) {
-      totalContrib += yearContrib;
-      const yr = totalMonths / 12;
-      const inflAdj = balance / Math.pow(1 + inf, yr);
-      yearlyRows.push({
-        year: Math.ceil(yr),
-        balance,
-        contributions: totalContrib,
-        interest: balance - totalContrib,
-        inflationAdjusted: inflAdj,
-      });
-    }
-
-    if (totalMonths % 12 === 0 && yearlyRows.length === 0) return;
-
-    const totalInterest = balance - totalContrib;
-    const inflAdj = balance / Math.pow(1 + inf, totalMonths / 12);
-    const afterTax = balance - totalInterest * tax;
+    const chartData = Array.from({ length: Math.min(Math.ceil(y) + 1, 21) }, (_, i) => {
+      const t = (y / Math.min(y, 20)) * i;
+      const pg = P * Math.pow(1 + rN, n * t);
+      const cg = c * ((Math.pow(1 + rN, n * t) - 1) / rN);
+      return {
+        name: `Yr ${Math.round(t)}`,
+        principal: parseFloat(P.toFixed(0)),
+        contributions: parseFloat((c * n * t).toFixed(0)),
+        interest: parseFloat((pg + cg - P - c * n * t).toFixed(0)),
+        total: parseFloat((pg + cg).toFixed(0)),
+      };
+    });
 
     setResult({
-      futureValue: balance,
-      totalContributions: totalContrib,
-      totalInterest,
-      inflationAdjusted: inflAdj,
-      afterTax,
-      yearlyRows,
+      primary: `$${total.toLocaleString(undefined, { maximumFractionDigits: 2 })}`,
+      subtitle: `After ${y} years at ${(r * 100).toFixed(1)}% compounded ${n === 12 ? "monthly" : n === 4 ? "quarterly" : n === 1 ? "annually" : `${n}×/yr`}`,
+      rows: [
+        { label: "Initial Principal", value: `$${P.toLocaleString()}` },
+        { label: "Monthly Contribution", value: `$${c.toLocaleString()}` },
+        { label: "Annual Interest Rate", value: `${(r * 100).toFixed(2)}%` },
+        { label: "Compound Frequency", value: `${n}× per year` },
+        { label: "Time Period", value: `${y} years` },
+        { label: "Total Contributions", value: `$${totalContrib.toLocaleString(undefined, { maximumFractionDigits: 2 })}` },
+        { label: "Total Interest Earned", value: `$${totalInterest.toLocaleString(undefined, { maximumFractionDigits: 2 })}` },
+        { label: "Final Balance", value: `$${total.toLocaleString(undefined, { maximumFractionDigits: 2 })}` },
+      ],
+      chartData,
+      summary: [
+        { label: "Principal invested", value: `$${P.toLocaleString()}` },
+        { label: "Contributions", value: `$${totalContrib.toLocaleString(undefined, { maximumFractionDigits: 2 })}` },
+        { label: "Interest earned", value: `$${totalInterest.toLocaleString(undefined, { maximumFractionDigits: 2 })}` },
+        { label: "Final balance", value: `$${total.toLocaleString(undefined, { maximumFractionDigits: 2 })}`, border: true, bold: true },
+      ],
     });
   };
 
+  useEffect(() => { calculate(); }, []);
   const reset = () => {
-    setShowResults(false);
-    setInitial("10000"); setMonthlyContrib("500"); setAnnualContrib("0");
-    setReturnRate("8"); setYears("20"); setMonths("0");
-    setInflation("3"); setTaxRate("0");
-    setResult(null);
+    setPrincipal(DEFAULTS.principal); setRate(DEFAULTS.rate); setYears(DEFAULTS.years);
+    setFrequency(DEFAULTS.frequency); setContribution(DEFAULTS.contribution);
+    calculate(DEFAULTS.principal, DEFAULTS.rate, DEFAULTS.years, DEFAULTS.frequency, DEFAULTS.contribution);
   };
 
-  const handlePrint = () => {
-    if (!printRef.current) return;
-    const w = window.open("", "_blank");
-    if (!w) return;
-    w.document.write(`<html><head><title>Investment Growth – RaciraCalculator</title>
-      <style>body{font-family:system-ui;padding:2rem}table{width:100%;border-collapse:collapse;font-size:13px}
-      th,td{border:1px solid #ddd;padding:6px 10px;text-align:right}th{background:#f5f5f5;text-align:left}
-      h2{margin-bottom:1rem}</style></head><body>`);
-    w.document.write(printRef.current.innerHTML);
-    w.document.write("</body></html>");
-    w.document.close();
-    w.print();
-  };
+  const freqOptions = [["1", "Annually"], ["4", "Quarterly"], ["12", "Monthly"], ["365", "Daily"]];
 
   const faqs = [
-    { question: "What is compound interest?", answer: "Compound interest is interest earned on both your initial principal and on previously earned interest. Unlike simple interest (calculated only on the principal), compound interest grows exponentially over time, making it one of the most powerful forces in wealth building." },
-    { question: "How does compounding frequency affect returns?", answer: "The more frequently interest compounds, the more you earn. Daily compounding earns slightly more than monthly, which earns more than annually. However, the difference between daily and monthly compounding is relatively small for most investments." },
-    { question: "What is the rule of 72?", answer: "The Rule of 72 is a quick way to estimate how long it takes to double your money. Divide 72 by your annual return rate. For example, at 8% return, your money doubles in approximately 72/8 = 9 years." },
-    { question: "How does inflation affect my returns?", answer: "Inflation reduces the purchasing power of your future money. If your investments grow at 8% but inflation is 3%, your real return is approximately 5%. Our calculator shows both nominal and inflation-adjusted values." },
-    { question: "What return rate should I use?", answer: "Historical average annual return for the S&P 500 is about 10% (7% after inflation). For bonds, use 4-5%. For a balanced portfolio, 6-8% is reasonable. Always use conservative estimates for planning." },
-    { question: "How are taxes handled?", answer: "Our calculator applies the tax rate to investment gains (not contributions) at the end of the period. In reality, tax treatment varies by account type (401k, IRA, taxable) and country. Consult a tax professional for specifics." },
+    { question: "What is the compound interest formula?", answer: "A = P(1 + r/n)^(nt) where P = principal, r = annual rate (decimal), n = compounds per year, t = years. With regular contributions: add C × [(1+r/n)^(nt)−1]/(r/n) where C is the contribution per period." },
+    { question: "How does compound frequency affect returns?", answer: "More frequent compounding = slightly higher returns. $10,000 at 7% for 20 years: annual compounding = $38,697; monthly = $40,064; daily = $40,136. The difference between monthly and daily is minimal." },
+    { question: "What is the Rule of 72?", answer: "Divide 72 by the annual interest rate to estimate years to double. At 7%: 72/7 ≈ 10.3 years. At 10%: 72/10 ≈ 7.2 years. This is a quick mental approximation." },
+    { question: "What does 'compounding' mean?", answer: "Compounding means interest is calculated on the accumulated interest from previous periods, not just the original principal. This creates exponential — rather than linear — growth." },
+    { question: "How much difference do regular contributions make?", answer: "Enormous. $10,000 at 7% for 20 years grows to ~$40,000. Adding just $200/month grows to over $150,000 — contributions account for more than the initial principal in long-term growth." },
+    { question: "What is the difference between APR and APY?", answer: "APR (Annual Percentage Rate) is the stated rate. APY (Annual Percentage Yield) accounts for compounding. APY = (1 + APR/n)^n − 1. Monthly compounding at 7% APR gives 7.229% APY." },
   ];
 
   return (
     <>
-<Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Compound Interest" }]} />
-
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Compound Interest & Investment Calculator</h1>
-            <p className="text-muted-foreground mb-8">Calculate how your investments grow over time with compound interest, regular contributions, and inflation adjustment.</p>
-
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-5 mb-6">
-                <InputField id="initial" label="Initial Investment" value={initial} onChange={setInitial} prefix="$" tooltip="The amount you're starting with today." />
-                <InputField id="monthly" label="Monthly Contribution" value={monthlyContrib} onChange={setMonthlyContrib} prefix="$" tooltip="Amount you'll add each month." />
-                <InputField id="return" label="Annual Return Rate" value={returnRate} onChange={setReturnRate} suffix="%" tooltip="Expected annual rate of return on your investments." />
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-1.5">Compounding Frequency</label>
-                  <select value={compounding} onChange={(e) => setCompounding(e.target.value)} className="input-calc">
-                    <option value="annually">Annually</option>
-                    <option value="semi-annually">Semi-Annually</option>
-                    <option value="quarterly">Quarterly</option>
-                    <option value="monthly">Monthly</option>
-                    <option value="daily">Daily</option>
-                    <option value="continuous">Continuous</option>
-                  </select>
-                </div>
-                <InputField id="years" label="Years" value={years} onChange={setYears} tooltip="Investment duration in years." />
-                <InputField id="months" label="Additional Months" value={months} onChange={setMonths} tooltip="Additional months beyond whole years." />
-              </div>
-
-              <button type="button" onClick={() => setShowAdvanced(!showAdvanced)} className="flex items-center gap-2 text-sm font-medium text-primary hover:underline mb-4">
-                Advanced Options
-                <ChevronDown className={`h-4 w-4 transition-transform ${showAdvanced ? "rotate-180" : ""}`} />
-              </button>
-
-              {showAdvanced && (
-                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-6 p-4 rounded-lg bg-secondary/30 border border-border">
-                  <InputField id="annual-contrib" label="Annual Contribution" value={annualContrib} onChange={setAnnualContrib} prefix="$" tooltip="Additional lump sum added once per year." />
-                  <InputField id="inflation" label="Inflation Rate" value={inflation} onChange={setInflation} suffix="%" tooltip="Expected annual inflation rate to calculate real returns." />
-                  <InputField id="tax" label="Tax Rate on Gains" value={taxRate} onChange={setTaxRate} suffix="%" tooltip="Estimated tax rate applied to investment gains." />
-                </div>
-              )}
-
-              <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Growth</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset">
-                  <RotateCcw className="h-5 w-5" />
-                </button>
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Finance", href: "/calculator#finance" }, { label: "Compound Interest Calculator" }]} />
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Compound Interest Calculator</h1>
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1200px] mx-auto">
+          <div className="card-calculator flex flex-col gap-5 !p-6 border border-border bg-card">
+            <div>
+              <label className="text-base font-medium block mb-1.5">Initial Principal</label>
+              <div className="relative">
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">$</span>
+                <input type="number" value={principal} onChange={e => setPrincipal(e.target.value)}
+                  className="h-10 w-full pl-7 pr-3 text-lg rounded-md border border-input bg-background focus:ring-2 focus:ring-primary/20 outline-none transition-all" placeholder="10000" min="0" step="any" />
               </div>
             </div>
-
-            {showResults && result && (
-              <div className="card-calculator mb-8" ref={printRef}>
-                <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-xl font-bold">Investment Growth Results</h2>
-                  <button onClick={handlePrint} className="flex items-center gap-1.5 text-sm text-primary hover:underline">
-                    <Printer className="h-4 w-4" /> Print
+            <div>
+              <label className="text-base font-medium block mb-1.5">Annual Interest Rate</label>
+              <div className="relative">
+                <input type="number" value={rate} onChange={e => setRate(e.target.value)}
+                  className="h-10 w-full pl-3 pr-8 text-lg rounded-md border border-input bg-background focus:ring-2 focus:ring-primary/20 outline-none transition-all" placeholder="7" min="0" step="0.1" />
+                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">%</span>
+              </div>
+            </div>
+            <div>
+              <label className="text-base font-medium block mb-1.5">Time Period</label>
+              <div className="relative">
+                <input type="number" value={years} onChange={e => setYears(e.target.value)}
+                  className="h-10 w-full pl-3 pr-16 text-lg rounded-md border border-input bg-background focus:ring-2 focus:ring-primary/20 outline-none transition-all" placeholder="20" min="1" step="1" />
+                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">years</span>
+              </div>
+            </div>
+            <div>
+              <label className="text-base font-medium block mb-1.5">Compound Frequency</label>
+              <div className="flex gap-2 flex-wrap">
+                {freqOptions.map(([val, label]) => (
+                  <button key={val} onClick={() => { setFrequency(val); calculate(principal, rate, years, val, contribution); }}
+                    className={`flex-1 h-10 rounded-md border text-sm font-medium transition-colors ${frequency === val ? "bg-primary text-primary-foreground border-primary" : "border-border hover:bg-secondary"}`}>
+                    {label}
                   </button>
+                ))}
+              </div>
+            </div>
+            <div>
+              <label className="text-base font-medium block mb-1.5">Monthly Contribution</label>
+              <div className="relative">
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">$</span>
+                <input type="number" value={contribution} onChange={e => setContribution(e.target.value)}
+                  className="h-10 w-full pl-7 pr-3 text-lg rounded-md border border-input bg-background focus:ring-2 focus:ring-primary/20 outline-none transition-all" placeholder="200" min="0" step="any" />
+              </div>
+            </div>
+            <div className="flex gap-3">
+              <button onClick={() => calculate()} className="flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors">
+                <Calculator className="w-4 h-4" /> Calculate
+              </button>
+              <button onClick={reset} className="h-10 w-10 border border-border rounded-md flex items-center justify-center hover:bg-secondary transition-colors">
+                <RotateCcw className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+          <div className="space-y-4">
+            {result && (<>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-4">
+                <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Final Balance</div>
+                <div className="text-4xl font-bold text-primary">{result.primary}</div>
+                <div className="text-sm text-muted-foreground mt-1">{result.subtitle}</div>
+              </div>
+              <div className="card-calculator !p-4 border border-border bg-card">
+                <h3 className="text-base font-semibold mb-3">Breakdown</h3>
+                <table className="w-full text-base"><tbody>
+                  {result.rows?.map((r: any, i: number) => (
+                    <tr key={i} className="border-b last:border-0">
+                      <td className="py-2 text-muted-foreground">{r.label}</td>
+                      <td className="text-right font-medium">{r.value}</td>
+                    </tr>
+                  ))}
+                </tbody></table>
+              </div>
+              {result.chartData && (
+                <div className="card-calculator !p-4 border border-border bg-card">
+                  <h3 className="text-base font-semibold mb-3">Balance Growth Over Time</h3>
+                  <ResponsiveContainer width="100%" height={260}>
+                    <AreaChart data={result.chartData}>
+                      <defs>
+                        <linearGradient id="totalGrad" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.3} />
+                          <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0.05} />
+                        </linearGradient>
+                      </defs>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="name" tick={{ fontSize: 10 }} interval={3} />
+                      <YAxis tick={{ fontSize: 10 }} tickFormatter={(v) => `$${(v / 1000).toFixed(0)}k`} />
+                      <Tooltip formatter={(v: any) => [`$${Number(v).toLocaleString()}`, ""]} />
+                      <ReferenceLine y={parseFloat(principal)} stroke="#f59e0b" strokeDasharray="4 4" />
+                      <Area type="monotone" dataKey="total" stroke="hsl(var(--primary))" fill="url(#totalGrad)" strokeWidth={2} name="Total Balance" />
+                    </AreaChart>
+                  </ResponsiveContainer>
                 </div>
-
-                <ResultDisplay items={[
-                  { label: "Future Value", value: result.futureValue, highlight: true },
-                  { label: "Total Contributions", value: result.totalContributions },
-                  { label: "Total Interest Earned", value: result.totalInterest, highlight: true },
-                  { label: "Inflation Adjusted", value: result.inflationAdjusted },
-                  ...(parseFloat(taxRate) > 0 ? [{ label: "After-Tax Value", value: result.afterTax }] : []),
-                ]} />
-
-                {/* CSS Bar Chart for growth */}
-                {result.yearlyRows.length > 0 && (
-                  <div className="mt-6">
-                    <h3 className="font-semibold text-foreground mb-3">Growth Over Time</h3>
-                    <div className="flex items-end gap-1 h-40">
-                      {result.yearlyRows.map((row) => {
-                        const maxBal = result.yearlyRows[result.yearlyRows.length - 1].balance;
-                        const contribH = (row.contributions / maxBal) * 100;
-                        const interestH = (row.interest / maxBal) * 100;
-                        return (
-                          <div key={row.year} className="flex-1 flex flex-col justify-end" title={`Year ${row.year}: ${fmt(row.balance)}`}>
-                            <div style={{ height: `${interestH}%` }} className="bg-accent/40 rounded-t-sm min-h-[1px]" />
-                            <div style={{ height: `${contribH}%` }} className="bg-accent min-h-[1px]" />
-                          </div>
-                        );
-                      })}
+              )}
+              <div className="bg-muted/30 rounded-lg p-6">
+                <h3 className="text-base font-semibold mb-4">Summary</h3>
+                <div className="space-y-3">
+                  {result.summary?.map((s: any, i: number) => (
+                    <div key={i} className={`flex justify-between text-base ${s.border ? "border-t pt-3" : ""}`}>
+                      <span className="text-muted-foreground">{s.label}</span>
+                      <span className={`font-medium ${s.bold ? "font-bold text-primary" : ""}`}>{s.value}</span>
                     </div>
-                    <div className="flex justify-between text-xs text-muted-foreground mt-1">
-                      <span>Year 1</span>
-                      <span>Year {result.yearlyRows.length}</span>
-                    </div>
-                    <div className="flex gap-4 justify-center mt-2 text-xs text-muted-foreground">
-                      <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-sm bg-accent inline-block" /> Contributions</span>
-                      <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-sm bg-accent/40 inline-block" /> Interest</span>
-                    </div>
-                  </div>
-                )}
-
-                <div className="mt-6 flex justify-center">
-                  <PieChart
-                    segments={[
-                      { label: "Contributions", value: result.totalContributions, color: "hsl(211, 100%, 50%)" },
-                      { label: "Interest", value: result.totalInterest, color: "hsl(220, 60%, 20%)" },
-                    ]}
-                    size={180}
-                  />
-                </div>
-
-                {/* Year table */}
-                <div className="mt-6">
-                  <button onClick={() => setShowTable(!showTable)} className="text-sm text-primary hover:underline">
-                    {showTable ? "Hide" : "Show"} Annual Schedule
-                  </button>
-                  {showTable && (
-                    <div className="overflow-x-auto mt-3 rounded-lg border border-border">
-                      <table className="w-full text-sm">
-                        <thead>
-                          <tr className="bg-secondary text-foreground">
-                            <th className="px-3 py-2 text-left font-medium">Year</th>
-                            <th className="px-3 py-2 text-right font-medium">Balance</th>
-                            <th className="px-3 py-2 text-right font-medium">Contributions</th>
-                            <th className="px-3 py-2 text-right font-medium">Interest</th>
-                            <th className="px-3 py-2 text-right font-medium">Inflation Adj.</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {result.yearlyRows.map((row) => (
-                            <tr key={row.year} className="border-t border-border hover:bg-secondary/30">
-                              <td className="px-3 py-2 text-muted-foreground">{row.year}</td>
-                              <td className="px-3 py-2 text-right font-medium">{fmt(row.balance)}</td>
-                              <td className="px-3 py-2 text-right">{fmt(row.contributions)}</td>
-                              <td className="px-3 py-2 text-right text-primary">{fmt(row.interest)}</td>
-                              <td className="px-3 py-2 text-right text-muted-foreground">{fmt(row.inflationAdjusted)}</td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                  )}
+                  ))}
                 </div>
               </div>
-            )}
-
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-
-            <article className="prose-finance">
-              <h2>What Is Compound Interest?</h2>
-              <p>Compound interest is the interest you earn on both your original investment and on the interest that has already accumulated. It's often called "interest on interest" and is one of the most powerful concepts in personal finance and investing.</p>
-              <p>Albert Einstein reportedly called compound interest the "eighth wonder of the world." Whether or not he actually said it, the mathematics behind compound interest truly are remarkable. A modest investment, given enough time and a reasonable return, can grow to impressive sums.</p>
-
-              <h2>How Compound Interest Works</h2>
-              <p>The compound interest formula is: A = P(1 + r/n)^(nt), where A is the final amount, P is the principal, r is the annual interest rate, n is the number of times interest compounds per year, and t is time in years.</p>
-              <p>For example, $10,000 invested at 8% annually compounded monthly for 20 years grows to approximately $49,268 — nearly 5 times the original investment. Add $500 monthly contributions and the result jumps to approximately $344,000, of which about $214,000 is pure investment growth.</p>
-
-              <h2>The Impact of Compounding Frequency</h2>
-              <p>Interest can compound annually, semi-annually, quarterly, monthly, daily, or even continuously. More frequent compounding means slightly higher returns because interest starts earning its own interest sooner.</p>
-              <p>The difference between annual and monthly compounding on $10,000 at 8% over 20 years is about $1,200. While not negligible, it shows that the return rate and time horizon matter far more than compounding frequency.</p>
-
-              <h2>Why Regular Contributions Matter</h2>
-              <p>The true power of compound interest is unlocked through regular contributions. By consistently adding money to your investment, each new dollar also begins compounding. Over decades, the effect is dramatic. Someone investing $500/month from age 25 to 65 at 8% would accumulate over $1.7 million — having contributed only $240,000 of their own money.</p>
-
-              <h2>Understanding Inflation's Impact</h2>
-              <p>Inflation erodes purchasing power over time. A dollar today buys more than a dollar will in 20 years. Our calculator shows inflation-adjusted values so you can see the real purchasing power of your future wealth. At 3% inflation, $1 million in 20 years has the purchasing power of roughly $554,000 in today's dollars.</p>
-
-              <h2>Tax Considerations</h2>
-              <p>Investment gains are subject to taxes, which can significantly impact your net returns. Tax-advantaged accounts like 401(k)s, IRAs, and Roth IRAs allow your investments to grow tax-deferred or tax-free, amplifying the compound effect. Our calculator's tax field gives you a rough estimate of the tax impact on your gains.</p>
-
-              <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> This calculator provides estimates for educational purposes only. Actual investment returns vary and past performance doesn't guarantee future results. This is not financial advice. Consult a qualified financial advisor.</p>
-            </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/compound-interest-calculator" />
-            <PopularCalculators exclude="/compound-interest-calculator" />
+            </>)}
           </div>
-
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+        </div>
+        <div className="max-w-[1200px] mx-auto mt-10">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
+            <h2>What Is a Compound Interest Calculator?</h2>
+            <p>A compound interest calculator computes how an investment grows when interest is earned on both the initial principal and the accumulated interest from previous periods. This "interest on interest" effect — compounding — is the most powerful force in personal finance. Pre-filled with $10,000 invested at 7% for 20 years with $200/month contributions, the calculator shows the final balance, the breakdown of principal vs contributions vs interest, and a growth chart showing how the balance accelerates over time.</p>
+            <p>Understanding compound interest is essential for retirement planning, savings goal-setting, loan comparison, and investment analysis. Albert Einstein allegedly called compound interest "the eighth wonder of the world" — whether or not the quote is authentic, the math is undeniably powerful.</p>
+            <h2>The Compound Interest Formula</h2>
+            <p><strong>Without contributions:</strong> A = P × (1 + r/n)^(n×t)</p>
+            <p><strong>With regular contributions:</strong> A = P(1 + r/n)^(nt) + C × [(1 + r/n)^(nt) − 1] / (r/n)</p>
+            <p>Where P = principal, r = annual rate (decimal), n = compounds per year, t = years, C = contribution per period. For the default: A = 10000(1 + 0.07/12)^240 + 200 × [(1.00583)^240 − 1] / 0.00583 ≈ $152,000+.</p>
+            <h2>The Rule of 72</h2>
+            <p>A quick mental math shortcut: divide 72 by your annual interest rate to estimate the years needed to double your money. At 7%: 72/7 ≈ 10.3 years. At 10%: 72/10 = 7.2 years. At 1% (savings account): 72/1 = 72 years. This approximation works because ln(2) ≈ 0.693, and at typical interest rates, the continuous compounding formula simplifies to this ratio.</p>
+            <h2>Compound Frequency Comparison</h2>
+            <p>More frequent compounding produces higher effective yields. $10,000 at 7% for 20 years: Annual (n=1): $38,697. Quarterly (n=4): $39,858. Monthly (n=12): $40,064. Daily (n=365): $40,136. The effective annual yield (APY) for 7% monthly compounded: (1 + 0.07/12)^12 − 1 = 7.229%. The difference between monthly and daily compounding is less than $75 over 20 years — frequency matters most when you compare annual vs monthly.</p>
+            <h2>The Power of Regular Contributions</h2>
+            <p>The contribution term in the formula grows explosively. With $10,000 at 7% for 20 years (no contributions): ~$40,000. Add $200/month: ~$152,000. The $48,000 in contributions ($200 × 240 months) generates over $60,000 in interest — more than the original $10,000 principal generated. Starting early matters even more: $200/month for 30 years at 7% grows to over $242,000.</p>
+            <h2>Real-World Applications</h2>
+            <p><strong>Retirement planning:</strong> A 25-year-old investing $500/month at 7% for 40 years accumulates over $1.3 million. A 35-year-old investing the same amount for 30 years accumulates only $567,000 — the 10-year head start more than doubles the outcome. <strong>Emergency fund:</strong> Keeping $10,000 in a 4.5% high-yield savings account for 5 years grows to about $12,462. <strong>Debt payoff:</strong> The same formula works in reverse for credit card debt at 20% APR. Pair with the <a href="/calculator/loan-calculator">loan calculator</a> for debt analysis.</p>
+            <h2>Tips for Using This Calculator</h2>
+            <p>Use the frequency toggle to compare compounding intervals. Adjust the contribution field to model different savings scenarios. The orange dashed line on the chart marks your initial principal, showing clearly when the compounding effect begins to dominate. For retirement-specific planning including employer match and tax-advantaged accounts, see the <a href="/calculator/retirement-calculator">retirement calculator</a>.</p>
+          </article>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/compound-interest-calculator" />
+          <PopularCalculators exclude="/calculator/compound-interest-calculator" />
         </div>
       </div>
     </>
   );
 };
-
 export default CompoundInterestCalculator;
-
-

@@ -53,22 +53,24 @@ const ConceptionCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Conception Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Conception Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Work backward from your due date to find out when you likely conceived and what your fertile window was.</p>
-            <div className="card-calculator mb-8">
-              <div className="mb-6">
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Conception Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Work backward from your due date to find out when you likely conceived and what your fertile window was.</p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="mb-6">
                 <label className="block text-sm font-medium text-foreground mb-1.5">Estimated Due Date</label>
                 <input type="date" value={dueDate} onChange={e => setDueDate(e.target.value)} className="input-calc w-full sm:w-1/2" />
               </div>
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2"><Heart className="h-5 w-5" /> Calculate Conception Date</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
+
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Conception Timeline</h2>
                 <div className="p-8 rounded-2xl bg-primary/5 border border-primary/10 text-center mb-8">
                   <p className="text-sm font-bold text-primary uppercase tracking-widest mb-2">Likely Date of Conception</p>
@@ -78,10 +80,14 @@ const ConceptionCalculator = () => {
                   { label: "Likely Fertile Window", value: 0, textValue: results.fertileWindow },
                   { label: "Estimated First Day of Last Period", value: 0, textValue: results.estLmp },
                 ]} />
-              </div>
+              </>
             )}
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+          </div>
+        </div>
+
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Understanding Conception Timing</h2>
               <p>Conception strictly occurs when a sperm fertilizes an egg. However, because sperm can survive in the reproductive tract for up to 5 days, the act that led to conception may have happened days prior to the actual conception date.</p>
               <h3>The 266-Day Rule</h3>
@@ -89,10 +95,8 @@ const ConceptionCalculator = () => {
               <h3>Determining Paternity</h3>
               <p>Because there is a 5-to-7 day window of fertility where intercourse can lead to pregnancy, and because due dates have a margin of error, calculating conception dates cannot be used to definitively determine paternity if multiple partners were involved during the fertile window. A DNA test is required for certainty.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/conception" />
-            <PopularCalculators exclude="/calculator/conception-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6"><AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" /></aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/conception" />
+          <PopularCalculators exclude="/calculator/conception-calculator" />
         </div>
       </div>
     </>

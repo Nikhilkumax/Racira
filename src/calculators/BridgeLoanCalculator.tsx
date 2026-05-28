@@ -83,14 +83,13 @@ const BridgeLoanCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Bridge Loan Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Bridge Loan Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Calculate the costs, interest, and payments for a short-term bridge loan to finance your next home purchase.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Bridge Loan Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate the costs, interest, and payments for a short-term bridge loan to finance your next home purchase.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-8">
                 <section className="space-y-6">
                   <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
                     <Home className="h-5 w-5 text-primary" /> Current Property
@@ -115,10 +114,11 @@ const BridgeLoanCalculator = () => {
                   <RotateCcw className="h-4 w-4" /> Reset 
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 mb-8">
+              <>
                 <div className="grid sm:grid-cols-2 gap-4 mb-6">
                   <div className="card-calculator bg-primary/5 border-solid border-primary/20 text-center flex flex-col justify-center py-8">
                     <p className="text-xs font-bold text-primary uppercase tracking-widest mb-1">Estimated Loan Amount</p>
@@ -141,12 +141,14 @@ const BridgeLoanCalculator = () => {
                     { label: "Bridge LTV Ratio", value: results.ltv, textValue: `${results.ltv.toFixed(1)}%` },
                   ]} />
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="my-8" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Understanding Bridge Loans</h2>
               <p>A bridge loan is a powerful financial tool for homeowners who need to buy a new house before selling their current one. It essentially 'bridges' the gap between the two transactions by providing immediate cash for a down payment or other closing costs on the new property.</p>
 
@@ -198,13 +200,8 @@ const BridgeLoanCalculator = () => {
                 <li><strong>Personal Loans:</strong> Unsecured loans that might cover a smaller down payment but usually have higher rates.</li>
               </ul>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/bridge-loan-calculator" />
-            <PopularCalculators exclude="/calculator/bridge-loan-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/bridge-loan-calculator" />
+          <PopularCalculators exclude="/calculator/bridge-loan-calculator" />
         </div>
       </div>
     </>

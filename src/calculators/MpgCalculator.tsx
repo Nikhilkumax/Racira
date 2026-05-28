@@ -57,14 +57,13 @@ const MpgCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "MPG Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">MPG (Fuel Economy) Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Calculate your vehicle's fuel efficiency and estimated travel costs per mile.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">MPG (Fuel Economy) Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate your vehicle's fuel efficiency and estimated travel costs per mile.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
                 <InputField id="dist" label="Distance Traveled" value={distance} onChange={setDistance} suffix="miles" />
                 <InputField id="fuel" label="Fuel Used" value={fuel} onChange={setFuel} suffix="gallons" />
                 <InputField id="price" label="Price per Gallon" value={pricePerUnit} onChange={setPricePerUnit} prefix="$" />
@@ -92,10 +91,11 @@ const MpgCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Efficiency Results</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -113,11 +113,14 @@ const MpgCalculator = () => {
                   { label: "Cost Per Mile", value: 0, textValue: "$" + results.costPerMile.toFixed(2) },
                   { label: "Estimated Range (15g Tank)", value: 0, textValue: Math.round(results.mpg * 15) + " miles" },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Understanding Fuel Economy</h2>
               <p>Fuel economy is a measure of how far a vehicle can travel with a specific amount of fuel. In the United States and the United Kingdom, this is expressed in Miles Per Gallon (MPG). In most other parts of the world, efficiency is measured as Liters per 100 Kilometers (L/100km).</p>
               <h3>Why MPG Matters</h3>
@@ -125,12 +128,8 @@ const MpgCalculator = () => {
               <h3>Factors Affecting Real-World MPG</h3>
               <p>The MPG figures reported by manufacturers are often achieved in lab settings. Your actual fuel economy will be lower due to factors like stop-and-go traffic, idling, aggressive driving, using air conditioning, and driving at high speeds on the highway, where aerodynamic drag increases significantly.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/mpg" />
-            <PopularCalculators exclude="/calculator/miles-per-gallon-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/mpg" />
+          <PopularCalculators exclude="/calculator/miles-per-gallon-calculator" />
         </div>
       </div>
     </>

@@ -55,14 +55,13 @@ const BmiClassificationCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "BMI Classification" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">BMI Classification Calculator</h1>
-            <p className="text-muted-foreground mb-8">Calculate your Body Mass Index (BMI) and see which international health category your result falls into.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">BMI Classification Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate your Body Mass Index (BMI) and see which international health category your result falls into.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="flex bg-secondary rounded-lg p-1 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="flex bg-secondary rounded-lg p-1 mb-6">
                 <button onClick={() => setUnit("metric")} className={`flex-1 py-2 rounded-md text-sm font-medium ${unit === "metric" ? "bg-background shadow-sm text-primary" : "text-muted-foreground"}`}>Metric (kg/cm)</button>
                 <button onClick={() => setUnit("imperial")} className={`flex-1 py-2 rounded-md text-sm font-medium ${unit === "imperial" ? "bg-background shadow-sm text-primary" : "text-muted-foreground"}`}>Imperial (lb/in)</button>
               </div>
@@ -75,10 +74,12 @@ const BmiClassificationCalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate BMI</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 text-center">
+              <>
+                <div className="card-calculator mb-8 text-center">
                 <h2 className="text-sm font-bold text-primary uppercase tracking-wider mb-2">Your BMI Result</h2>
                 <p className="text-6xl font-extrabold">{results.bmi.toFixed(1)}</p>
                 <p className={`text-xl font-bold mt-2 ${results.color}`}>Category: {results.category}</p>
@@ -97,21 +98,21 @@ const BmiClassificationCalculator = () => {
                   </div>
                 </div>
               </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Sidebar Ad" />
+          <article className="prose-finance">
               <h2>Understanding BMI in Context</h2>
               <p>While BMI is the standard tool used by the WHO and CDC to categorize body weight and health risks, it should not be the only metric you track. It does not measure body fat percentage directly or account for bone density or muscle mass.</p>
               <h3>Why Categories Matter</h3>
               <p>Falling into the Overweight or Obese categories is statistically associated with higher risks of chronic conditions like type 2 diabetes, hypertension, and cardiovascular diseases. However, a person with a 'Normal' BMI can still be unhealthy if they have high visceral fat or poor fitness levels.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/bmi-classification-calculator" />
-            <PopularCalculators exclude="/calculator/bmi-classification-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder label="Sidebar Ad" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/bmi-classification-calculator" />
+          <PopularCalculators exclude="/calculator/bmi-classification-calculator" />
         </div>
       </div>
     </>

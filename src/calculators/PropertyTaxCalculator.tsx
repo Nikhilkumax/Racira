@@ -54,14 +54,13 @@ const PropertyTaxCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Property Tax Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Property Tax Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Estimate your annual and monthly property tax obligations based on assessed home value and local tax rates.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Property Tax Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Estimate your annual and monthly property tax obligations based on assessed home value and local tax rates.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
                 <InputField id="value" label="Assessed Home Value" value={assessedValue} onChange={setAssessedValue} prefix="$" />
                 <div className="flex gap-2">
                   <div className="flex-1">
@@ -83,10 +82,11 @@ const PropertyTaxCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Tax Estimate</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -103,11 +103,14 @@ const PropertyTaxCalculator = () => {
                   { label: "Assessment Ratio", value: 0, textValue: "Varies by State" },
                   { label: "Next Assessment Date", value: 0, textValue: "Check Local Dept" },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>How Property Taxes Work</h2>
               <p>Property taxes are a major source of revenue for local governments, funding schools, roads, police, and fire departments. For many homeowners, these taxes are paid through an escrow account as part of their monthly mortgage payment.</p>
               <h3>Understanding the Assessment</h3>
@@ -115,12 +118,8 @@ const PropertyTaxCalculator = () => {
               <h3>Mill Rates vs. Percentages</h3>
               <p>While some areas describe tax as a simple percentage (e.g., 1.2%), many use "mills." A mill is one-thousandth of a dollar. If your city has a mill rate of 25, you pay $25 for every $1,000 of assessed value. Our calculator handles both formats to ensure you get an accurate estimate regardless of how your local government reports its rates.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/property-tax" />
-            <PopularCalculators exclude="/calculator/property-tax-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/property-tax" />
+          <PopularCalculators exclude="/calculator/property-tax-calculator" />
         </div>
       </div>
     </>

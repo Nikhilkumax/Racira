@@ -49,14 +49,13 @@ const RainBarrelCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Rain Barrel Sizing Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Rain Barrel Sizing Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Calculate the potential water collection from your roof during a rain event to size your storage correctly.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Rain Barrel Sizing Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate the potential water collection from your roof during a rain event to size your storage correctly.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
                 <InputField id="area" label="Roof Area" value={roofArea} onChange={setRoofArea} suffix="sq ft" />
                 <InputField id="rain" label="Rainfall Amount" value={rainfall} onChange={setRainfall} suffix="inches" />
                 <InputField id="coeff" label="Runoff Efficiency" value={runoffCoeff} onChange={setRunoffCoeff} tooltip="Asphalt: 0.9, Metal: 0.95, Tile: 0.85" />
@@ -70,10 +69,11 @@ const RainBarrelCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Collection Potential</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -101,11 +101,14 @@ const RainBarrelCalculator = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Rainwater Harvesting</h2>
               <p>Rainwater harvesting is an ancient practice that is seeing a modern resurgence. By catching water before it hits the ground, you reduce local runoff (which carries pollutants to streams) and decrease your reliance on treated municipal water for landscaping.</p>
               <h3>How to Measure Your Roof Area</h3>
@@ -118,12 +121,8 @@ const RainBarrelCalculator = () => {
                 <li><strong>Screen Tops:</strong> Always ensure your barrel is tightly screened to prevent mosquitoes from breeding.</li>
               </ul>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/rain-barrel" />
-            <PopularCalculators exclude="/calculator/rain-barrel-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/rain-barrel" />
+          <PopularCalculators exclude="/calculator/rain-barrel-calculator" />
         </div>
       </div>
     </>

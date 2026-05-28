@@ -78,14 +78,13 @@ const DtiCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Debt-to-Income Ratio Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Debt-to-Income (DTI) Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Calculate your DTI ratio to see how lenders view your financial health and loan eligibility.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Debt-to-Income (DTI) Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate your DTI ratio to see how lenders view your financial health and loan eligibility.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-8">
                 <section className="space-y-6">
                   <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
                     <Wallet className="h-5 w-5 text-primary" /> Monthly Income
@@ -114,10 +113,11 @@ const DtiCalculator = () => {
                   <RotateCcw className="h-4 w-4" /> Reset 
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 mb-8">
+              <>
                 <div className="grid sm:grid-cols-2 gap-4 mb-6">
                   <div className="card-calculator bg-primary/5 border-solid border-primary/20 text-center flex flex-col justify-center py-8">
                     <p className="text-xs font-bold text-primary uppercase tracking-widest mb-1">Back-End DTI Ratio</p>
@@ -133,7 +133,7 @@ const DtiCalculator = () => {
                   </div>
                 </div>
 
-                <div className="card-calculator mb-6">
+                <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
                   <h2 className="text-xl font-bold flex items-center gap-2 mb-6">
                     <PieChart className="h-5 w-5 text-primary" /> Ratio Breakdown
                   </h2>
@@ -162,12 +162,14 @@ const DtiCalculator = () => {
                     { label: "Ideal Debt Target (36%)", value: parseFloat(grossIncome) * 0.36 },
                   ]} />
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="my-8" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Understanding Your Debt-to-Income Ratio</h2>
               <p>Your Debt-to-Income (DTI) ratio is one of the most important numbers in personal finance, especially when you are applying for a mortgage or a large loan. It is a simple mathematical comparison between how much money you earn and how much money you owe each month.</p>
 
@@ -194,13 +196,8 @@ const DtiCalculator = () => {
               <h3>DTI vs. Disposable Income</h3>
               <p>It is important to remember that DTI only looks at pre-tax (gross) income and debt payments. It does not account for taxes, groceries, utilities, or entertainment. Even with a 'good' DTI, you should perform your own budget analysis to ensure you are comfortable with your monthly cash flow.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/dti-calculator" />
-            <PopularCalculators exclude="/calculator/dti-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/dti-calculator" />
+          <PopularCalculators exclude="/calculator/dti-calculator" />
         </div>
       </div>
     </>

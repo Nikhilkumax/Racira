@@ -68,14 +68,13 @@ const DebtPayoffCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Debt Payoff Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Debt Payoff Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Find your exact debt-free date and discover what payments you need to clear debt in 1, 2, or 3 years.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Debt Payoff Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Find your exact debt-free date and discover what payments you need to clear debt in 1, 2, or 3 years.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
                 <InputField id="balance" label="Current Balance ($)" value={balance} onChange={setBalance} />
                 <InputField id="rate" label="Interest Rate (APR %)" value={rate} onChange={setRate} />
                 <InputField id="payment" label="Monthly Payment ($)" value={payment} onChange={setPayment} />
@@ -87,10 +86,11 @@ const DebtPayoffCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {results && !results.impossible && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Payoff Analysis</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -109,18 +109,14 @@ const DebtPayoffCalculator = () => {
                   { label: "Payment to Clear in 2 Years", value: 0, textValue: "$" + results.payFor2yr.toLocaleString(undefined, { maximumFractionDigits: 0 }) + "/mo" },
                   { label: "Payment to Clear in 3 Years", value: 0, textValue: "$" + results.payFor3yr.toLocaleString(undefined, { maximumFractionDigits: 0 }) + "/mo" },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            {results?.impossible && (
-              <div className="card-calculator mb-8 p-6 border-red-500/30 bg-red-500/5">
-                <p className="text-red-600 font-bold text-lg">⚠️ Payment Too Low</p>
-                <p className="text-muted-foreground mt-2">Your monthly interest charge is <strong>${results.monthlyInterest.toLocaleString(undefined, { maximumFractionDigits: 2 })}</strong>. Your payment must exceed this amount to make progress. Increase your payment to at least ${Math.ceil(results.monthlyInterest + 1)} to start paying off this debt.</p>
-              </div>
-            )}
-
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Your Roadmap to Debt Freedom</h2>
               <p>Understanding exactly when your debt will be paid off is the first step to taking control. Many people are surprised to find that their current payment schedule has them in debt for far longer than they imagined.</p>
               <h3>The Minimum Payment Danger</h3>
@@ -128,12 +124,8 @@ const DebtPayoffCalculator = () => {
               <h3>Set a Date, Not Just a Payment</h3>
               <p>Instead of thinking "I'll pay as much as I can," commit to a specific payoff date. Work backwards to find the required monthly payment. This reverse-engineering approach is far more effective for creating a debt-free plan you'll stick to.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/debt-payoff" />
-            <PopularCalculators exclude="/calculator/debt-payoff-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/debt-payoff" />
+          <PopularCalculators exclude="/calculator/debt-payoff-calculator" />
         </div>
       </div>
     </>

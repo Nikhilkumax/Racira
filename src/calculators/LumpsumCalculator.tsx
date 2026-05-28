@@ -43,16 +43,14 @@ const LumpsumCalculator = () => {
 
   return (
     <>
-<Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Lumpsum Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Lumpsum Calculator" }]} />
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Lumpsum Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate returns on a one-time lump sum investment in mutual funds with compound interest growth.</p>
 
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Lumpsum Calculator</h1>
-            <p className="text-muted-foreground mb-8">Calculate returns on a one-time lump sum investment in mutual funds with compound interest growth.</p>
-
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-5 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-5 mb-6">
                 <InputField id="amount" label="Investment Amount" value={amount} onChange={setAmount} prefix="₹" />
                 <InputField id="rate" label="Expected Return (p.a.)" value={rate} onChange={setRate} suffix="%" />
                 <InputField id="years" label="Investment Period" value={years} onChange={setYears} suffix="Years" />
@@ -61,10 +59,11 @@ const LumpsumCalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && result && (
-              <div className="card-calculator mb-8">
+              <>
                 <h2 className="text-xl font-bold mb-4">Investment Returns</h2>
                 <ResultDisplay currency="₹" items={[
                   { label: "Amount Invested", value: result.invested },
@@ -93,12 +92,14 @@ const LumpsumCalculator = () => {
                     </table>
                   </div>
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>What Is a Lumpsum Calculator?</h2>
               <p>A lumpsum calculator estimates the future value of a one-time investment using compound interest. It helps you visualize how your money grows when invested in mutual funds, stocks, or other growth instruments over a period of time.</p>
 
@@ -115,14 +116,8 @@ const LumpsumCalculator = () => {
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> Returns are not guaranteed. Past performance does not indicate future results. Consult a financial advisor before investing.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/lumpsum-calculator" />
-            <PopularCalculators exclude="/lumpsum-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/lumpsum-calculator" />
+          <PopularCalculators exclude="/lumpsum-calculator" />
         </div>
       </div>
     </>

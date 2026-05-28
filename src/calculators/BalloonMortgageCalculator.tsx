@@ -110,14 +110,13 @@ const BalloonMortgageCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Balloon Mortgage Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Balloon Mortgage Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Estimate your monthly payments and the final lump-sum 'balloon' payment for your mortgage.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Balloon Mortgage Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Estimate your monthly payments and the final lump-sum 'balloon' payment for your mortgage.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-8">
                 <section className="space-y-6">
                   <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
                     <Home className="h-5 w-5 text-primary" /> Loan Basics
@@ -140,10 +139,11 @@ const BalloonMortgageCalculator = () => {
                   <RotateCcw className="h-4 w-4" /> Reset 
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 mb-8">
+              <>
                 <div className="grid sm:grid-cols-2 gap-4 mb-6">
                   <div className="card-calculator bg-primary/5 border-solid border-primary/20 text-center flex flex-col justify-center py-8">
                     <p className="text-xs font-bold text-primary uppercase tracking-widest mb-1">Monthly Payment</p>
@@ -156,7 +156,7 @@ const BalloonMortgageCalculator = () => {
                   </div>
                 </div>
 
-                <div className="card-calculator mb-6">
+                <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
                   <h2 className="text-xl font-bold flex items-center gap-2 mb-6">
                     <Info className="h-5 w-5 text-primary" /> Loan Summary
                   </h2>
@@ -169,12 +169,14 @@ const BalloonMortgageCalculator = () => {
                 </div>
 
                 <AmortizationTable rows={results.yearlyRows} yearly={true} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="my-8" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>What Is a Balloon Mortgage?</h2>
               <p>A balloon mortgage is a unique type of financing that offers the low monthly payments of a long-term mortgage (like a 30-year fixed) but requires the borrower to pay off the entire remaining balance in one large "balloon" payment at the end of a much shorter term (typically 5, 7, or 10 years).</p>
 
@@ -207,13 +209,8 @@ const BalloonMortgageCalculator = () => {
                 <li><strong>Aggressive Savings:</strong> Set aside extra funds each month to chip away at the principal or build a cash reserve for the final payment.</li>
               </ul>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/balloon-mortgage-calculator" />
-            <PopularCalculators exclude="/calculator/balloon-mortgage-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/balloon-mortgage-calculator" />
+          <PopularCalculators exclude="/calculator/balloon-mortgage-calculator" />
         </div>
       </div>
     </>

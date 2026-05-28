@@ -71,14 +71,13 @@ export default function TiktokEarningsCalculator() {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "TikTok Earnings Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">TikTok Earnings Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Estimate your potential TikTok income from the Creator Rewards Program and sponsored brand partnerships.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">TikTok Earnings Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Estimate your potential TikTok income from the Creator Rewards Program and sponsored brand partnerships.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-3 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-3 gap-6 mb-6">
                 <InputField id="views" label="Avg. Views per Video" value={views} onChange={setViews} tooltip="Average views you expect per video upload." />
                 <InputField id="followers" label="Total Followers" value={followers} onChange={setFollowers} tooltip="Your current total follower count." />
                 <InputField id="engagement" label="Engagement Rate (%)" value={engagement} onChange={setEngagement} suffix="%" tooltip="Average likes/comments as a percentage of your followers." />
@@ -92,10 +91,11 @@ export default function TiktokEarningsCalculator() {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Revenue Projections</h2>
                 <div className="grid sm:grid-cols-2 gap-4 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -117,12 +117,14 @@ export default function TiktokEarningsCalculator() {
                   { label: "Monetization Eligibility", value: 0, textValue: parseFloat(followers) >= 10000 ? "Qualified" : "Need 10k Followers" },
                   { label: "Engagement Benchmark", value: 0, textValue: parseFloat(engagement) > 4 ? "Above Average" : "Industry Standard" },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>The New Era of TikTok Monetization</h2>
               <p>TikTok has evolved from a lip-syncing app into one of the most powerful wealth-creation platforms for the creator economy. Unlike YouTube, which relies heavily on long-form ad revenue, TikTok offers a multi-faceted monetization ecosystem that rewards viral reach, niche community building, and direct social commerce. This TikTok Earnings Calculator helps you navigate these different income streams to understand your true market value.</p>
 
@@ -146,15 +148,8 @@ export default function TiktokEarningsCalculator() {
                 <li><strong>Diversify Immediately:</strong> Don't wait for the Rewards Program. Start using affiliate links and seeking small brand partnerships as soon as you hit 1,000 followers.</li>
               </ul>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/tiktok-earnings-calculator" />
-            <PopularCalculators exclude="/calculator/tiktok-earnings-calculator" />
-          </div>
-
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/tiktok-earnings-calculator" />
+          <PopularCalculators exclude="/calculator/tiktok-earnings-calculator" />
         </div>
       </div>
     </>

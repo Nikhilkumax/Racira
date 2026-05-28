@@ -52,14 +52,13 @@ const FinalGradeCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Final Grade Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Final Grade Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Find out exactly what score you need on your final exam to reach your target course grade.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Final Grade Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Find out exactly what score you need on your final exam to reach your target course grade.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="max-w-2xl mx-auto space-y-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="max-w-2xl mx-auto space-y-8">
                 <div className="grid sm:grid-cols-2 gap-8">
                    <div className="space-y-6">
                       <div>
@@ -98,12 +97,12 @@ const FinalGradeCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 mb-8">
-                <div className={`card-calculator text-center py-12 mb-6 border-solid ${results.isImpossible ? "bg-red-500/5 border-red-500/20" : results.isAlreadyAchieved ? "bg-emerald-500/5 border-emerald-500/20" : "bg-primary/5 border-primary/20"}`}>
-                    <p className="text-sm font-bold uppercase tracking-widest mb-2 opacity-70">Required Final Exam Score</p>
+              <>
+                <p className="text-sm font-bold uppercase tracking-widest mb-2 opacity-70">Required Final Exam Score</p>
                     <p className={`text-7xl font-black ${results.isImpossible ? "text-red-600" : results.isAlreadyAchieved ? "text-emerald-600" : "text-foreground"}`}>
                       {results.isAlreadyAchieved ? "0" : results.needed.toFixed(1)}<span className="text-3xl font-normal opacity-50">%</span>
                     </p>
@@ -123,12 +122,14 @@ const FinalGradeCalculator = () => {
                          </div>
                        )}
                     </div>
-                </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="my-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Planning for Your Final Exam</h2>
               <p>The "Final Grade" calculation is a rite of passage for students everywhere. As the semester ends, knowing exactly what score you need can help you prioritize your study time effectively.</p>
               
@@ -138,12 +139,8 @@ const FinalGradeCalculator = () => {
               <h3>Strategic Studying</h3>
               <p>If you find that you need a very low score (like 40%) to maintain your target grade, you might choose to dedicate more study time to a different class where the required score is higher. Conversely, if you need a high score (95%+), you know you need to focus intensely on that subject.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/final-grade" />
-            <PopularCalculators exclude="/calculator/final-grade-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/final-grade" />
+          <PopularCalculators exclude="/calculator/final-grade-calculator" />
         </div>
       </div>
     </>

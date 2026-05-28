@@ -1,6 +1,6 @@
-"use client";
+﻿"use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import PopularCalculators from "@/components/PopularCalculators";
@@ -16,10 +16,9 @@ const FlightEmissionsCalculator = () => {
   const [roundTrip, setRoundTrip] = useState(true);
 
   const [results, setResults] = useState<any>(null);
-  const [showResults, setShowResults] = useState(false);
+  useEffect(() => { handleCalculate(); }, []);
 
   const handleCalculate = () => {
-    setShowResults(true);
     const dist = parseFloat(distance) || 0;
     const pax = parseFloat(passengers) || 1;
     
@@ -53,9 +52,9 @@ const FlightEmissionsCalculator = () => {
   };
 
   const reset = () => {
-    setShowResults(false);
     setDistance("1000"); setPassengers("1"); setCabinClass("economy"); setRoundTrip(true);
     setResults(null);
+    setTimeout(() => handleCalculate(), 0);
   };
 
   const faqs = [
@@ -67,19 +66,18 @@ const FlightEmissionsCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Flight Emissions Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Flight Emissions Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Calculate the environmental impact of your air travel, including CO2 and non-CO2 high-altitude effects.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Flight Emissions Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate the environmental impact of your air travel, including CO2 and non-CO2 high-altitude effects.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-6 mb-6">
-                <InputField id="distance" label="Flight Distance (one-way)" value={distance} onChange={setDistance} suffix="miles" tooltip="Example: NYC to London is ~3,500 miles." />
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-6 mb-6">
+                <InputField id="distance" label="Flight Distance (one-way)" value={distance} onChange={setDistance} suffix="miles" />
                 <InputField id="passengers" label="Number of Passengers" value={passengers} onChange={setPassengers} />
                 
                 <div>
-                  <label className="block text-sm font-medium text-foreground mb-1.5">Cabin Class</label>
+                  <label className="block text-sm font-medium text-foreground mb-1">Cabin Class</label>
                   <select value={cabinClass} onChange={(e) => setCabinClass(e.target.value)} className="input-calc">
                     <option value="economy">Economy</option>
                     <option value="premium_economy">Premium Economy</option>
@@ -106,10 +104,12 @@ const FlightEmissionsCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
-            {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+          <div className="flex flex-col gap-3">
+            {results && (<>
+
+              <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
                 <h2 className="text-xl font-bold mb-6 text-center">Travel Impact Summary</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -138,11 +138,16 @@ const FlightEmissionsCalculator = () => {
                     </div>
                   </div>
                 </div>
+              
               </div>
-            )}
+            
+</>)}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Aviation and the Climate</h2>
               <p>Air travel is one of the most carbon-intensive activities an individual can perform. A single long-haul flight can produce more CO2 emissions than many people produce in an entire year through other activities.</p>
               <h3>The Radiative Forcing Index (RFI)</h3>
@@ -155,12 +160,8 @@ const FlightEmissionsCalculator = () => {
                 <li><strong>Newer Aircraft:</strong> Modern planes (like the A350 or 787) are significantly more fuel-efficient than older models.</li>
               </ul>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/flight-emissions" />
-            <PopularCalculators exclude="/calculator/flight-emissions-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/flight-emissions" />
+          <PopularCalculators exclude="/calculator/flight-emissions-calculator" />
         </div>
       </div>
     </>
@@ -168,4 +169,5 @@ const FlightEmissionsCalculator = () => {
 };
 
 export default FlightEmissionsCalculator;
+
 

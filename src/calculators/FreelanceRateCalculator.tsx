@@ -59,13 +59,13 @@ export default function FreelanceRateCalculator() {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Freelance Rate Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Freelance Rate Calculator</h1>
-            <p className="text-muted-foreground mb-8">Calculate your ideal hourly, daily, and monthly freelance rate based on your income goals, overhead, and billable hours.</p>
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-5 mb-6">
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Freelance Rate Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate your ideal hourly, daily, and monthly freelance rate based on your income goals, overhead, and billable hours.</p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-5 mb-6">
                 <InputField id="annual-income" label="Desired Annual Income ($)" value={annualIncome} onChange={setAnnualIncome} prefix="$" tooltip="Your target take-home income before business expenses." />
                 <InputField id="hours-week" label="Hours Worked Per Week" value={hoursPerWeek} onChange={setHoursPerWeek} tooltip="Total hours you plan to work per week, including non-billable tasks." />
                 <InputField id="vacation" label="Weeks Vacation / Year" value={weeksVacation} onChange={setWeeksVacation} tooltip="Number of weeks off per year (holidays, sick days, vacation)." />
@@ -77,9 +77,11 @@ export default function FreelanceRateCalculator() {
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate My Rate</button>
                 <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
+
+          <div className="flex flex-col gap-3">
             {showResults && (
-              <div className="card-calculator mb-8">
+              <>
                 <h2 className="text-xl font-bold mb-4">Your Recommended Rates</h2>
                 <ResultDisplay items={[
                   { label: "Minimum Hourly Rate (Break-Even)", value: results.breakEvenRate },
@@ -88,10 +90,14 @@ export default function FreelanceRateCalculator() {
                   { label: "Monthly Billing Target", value: results.monthlyRate },
                   { label: "Annual Overhead Costs", value: results.totalOverhead },
                 ]} />
-              </div>
+              </>
             )}
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-            <article className="prose-finance">
+          </div>
+        </div>
+
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>Setting Your Freelance Rate: A Complete Guide</h2>
               <p>Pricing your freelance services is one of the most important business decisions you'll make. Charge too little and you'll be overworked and underpaid. Charge too much without the portfolio to justify it and you'll struggle to win clients. The goal is to find a rate that covers all your costs, compensates for all the time you spend on non-billable activities, and provides a sustainable income for your lifestyle.</p>
               <h2>The Hidden Costs of Freelancing</h2>
@@ -105,13 +111,8 @@ export default function FreelanceRateCalculator() {
               <h2>Value-Based Pricing vs. Hourly Rates</h2>
               <p>As you gain experience, consider shifting from hourly billing to value-based pricing. Instead of charging for the time it takes you to complete a task, you charge based on the value delivered to the client. A logo that took you 5 hours to design might be worth $2,000 to a startup whose entire brand identity depends on it, far exceeding what an $150/hour rate would yield. Value-based pricing rewards your expertise and efficiency rather than penalizing you for getting faster at your craft.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/freelance-rate-calculator" />
-            <PopularCalculators exclude="/calculator/freelance-rate-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/freelance-rate-calculator" />
+          <PopularCalculators exclude="/calculator/freelance-rate-calculator" />
         </div>
       </div>
     </>

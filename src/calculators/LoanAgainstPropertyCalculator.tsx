@@ -57,14 +57,13 @@ const LoanAgainstPropertyCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Loan Against Property Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Loan Against Property Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Calculate monthly EMI and total interest for secured loans using your property as collateral.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Loan Against Property Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate monthly EMI and total interest for secured loans using your property as collateral.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
                 <InputField id="value" label="Property Market Value ($)" value={value} onChange={setValue} />
                 <InputField id="amount" label="Loan Amount Requested ($)" value={amount} onChange={setAmount} />
                 <InputField id="rate" label="Interest Rate (%)" value={rate} onChange={setRate} />
@@ -78,10 +77,11 @@ const LoanAgainstPropertyCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Loan Analysis</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -98,11 +98,14 @@ const LoanAgainstPropertyCalculator = () => {
                   { label: "Total Payback", value: 0, textValue: "$" + results.totalPayback.toLocaleString(undefined, { maximumFractionDigits: 0 }) },
                   { label: "Collateral Type", value: 0, textValue: "Residential/Commercial Property" },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Leveraging Your Real Estate</h2>
               <p>A Loan Against Property (LAP) is one of the most cost-effective ways to raise large amounts of capital. By using your property as security, you provide the lender with safety, which in turn leads to better borrowing terms for you.</p>
               <h3>LAP vs. Personal Loan</h3>
@@ -112,12 +115,8 @@ const LoanAgainstPropertyCalculator = () => {
               <h3>Property Valuation</h3>
               <p>Before approving the loan, the lender will send a professional appraiser to determine the current market value of your property. They will also verify the legal titles to ensure the property is free of disputes and can be legally used as collateral.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/loan-against-property" />
-            <PopularCalculators exclude="/calculator/loan-against-property-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/loan-against-property" />
+          <PopularCalculators exclude="/calculator/loan-against-property-calculator" />
         </div>
       </div>
     </>

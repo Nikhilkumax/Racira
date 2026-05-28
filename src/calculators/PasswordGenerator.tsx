@@ -37,7 +37,6 @@ const PasswordGenerator = () => {
     }
     setPassword(generated);
     setCopied(false);
-    setShowResults(true);
   };
 
   useEffect(() => {
@@ -83,14 +82,57 @@ const PasswordGenerator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Password Generator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Password Generator</h1>
-            <p className="text-muted-foreground mb-8">Create secure, random passwords instantly to protect your online accounts from hackers and unauthorized access.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Password Generator</h1>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          {/* Inputs Column */}
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="mb-6">
+              <div className="flex justify-between mb-2 text-sm font-medium">
+                <span>Password Length</span>
+                <span>{length}</span>
+              </div>
+              <input 
+                type="range" 
+                min="6" 
+                max="64" 
+                value={length} 
+                onChange={(e) => setLength(parseInt(e.target.value))}
+                className="w-full h-2 bg-secondary rounded-lg appearance-none cursor-pointer accent-primary"
+              />
+            </div>
 
-            <div className="card-calculator mb-8">
-              <div className="relative mb-8">
+            <div className="grid sm:grid-cols-2 gap-4 mb-6">
+              <label className="flex items-center gap-3 p-3 rounded-lg border border-border cursor-pointer hover:bg-secondary/30 transition-colors">
+                <input type="checkbox" checked={includeUpper} onChange={(e) => setIncludeUpper(e.target.checked)} className="h-5 w-5 rounded border-border text-primary focus:ring-primary/20" />
+                <span className="text-sm font-medium">Uppercase (A-Z)</span>
+              </label>
+              <label className="flex items-center gap-3 p-3 rounded-lg border border-border cursor-pointer hover:bg-secondary/30 transition-colors">
+                <input type="checkbox" checked={includeLower} onChange={(e) => setIncludeLower(e.target.checked)} className="h-5 w-5 rounded border-border text-primary focus:ring-primary/20" />
+                <span className="text-sm font-medium">Lowercase (a-z)</span>
+              </label>
+              <label className="flex items-center gap-3 p-3 rounded-lg border border-border cursor-pointer hover:bg-secondary/30 transition-colors">
+                <input type="checkbox" checked={includeNumbers} onChange={(e) => setIncludeNumbers(e.target.checked)} className="h-5 w-5 rounded border-border text-primary focus:ring-primary/20" />
+                <span className="text-sm font-medium">Numbers (0-9)</span>
+              </label>
+              <label className="flex items-center gap-3 p-3 rounded-lg border border-border cursor-pointer hover:bg-secondary/30 transition-colors">
+                <input type="checkbox" checked={includeSymbols} onChange={(e) => setIncludeSymbols(e.target.checked)} className="h-5 w-5 rounded border-border text-primary focus:ring-primary/20" />
+                <span className="text-sm font-medium">Symbols (!@#$)</span>
+              </label>
+            </div>
+
+            <div className="flex gap-3">
+              <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2"><Calculator className="h-5 w-5" /> Calculate</button>
+              <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+            </div>
+          </div>
+
+          {/* Results/Display Column */}
+          <div className="flex flex-col gap-3">
+            <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+              <h2 className="text-xl font-bold mb-2">Generated Password</h2>
+              <div className="relative mb-4">
                 <div className="w-full bg-secondary/50 rounded-xl border border-border p-6 pr-16 text-2xl font-mono break-all min-h-[80px] flex items-center text-foreground">
                   {password}
                 </div>
@@ -103,91 +145,53 @@ const PasswordGenerator = () => {
                 </button>
               </div>
 
-              <div className="mb-6">
-                <div className="flex justify-between mb-2 text-sm font-medium">
-                  <span>Password Length</span>
-                  <span>{length}</span>
-                </div>
-                <input 
-                  type="range" 
-                  min="6" 
-                  max="64" 
-                  value={length} 
-                  onChange={(e) => setLength(parseInt(e.target.value))}
-                  className="w-full h-2 bg-secondary rounded-lg appearance-none cursor-pointer accent-primary"
-                />
-              </div>
-
-              <div className="grid sm:grid-cols-2 gap-4 mb-8">
-                <label className="flex items-center gap-3 p-3 rounded-lg border border-border cursor-pointer hover:bg-secondary/30 transition-colors">
-                  <input type="checkbox" checked={includeUpper} onChange={(e) => setIncludeUpper(e.target.checked)} className="h-5 w-5 rounded border-border text-primary focus:ring-primary/20" />
-                  <span className="text-sm font-medium">Uppercase (A-Z)</span>
-                </label>
-                <label className="flex items-center gap-3 p-3 rounded-lg border border-border cursor-pointer hover:bg-secondary/30 transition-colors">
-                  <input type="checkbox" checked={includeLower} onChange={(e) => setIncludeLower(e.target.checked)} className="h-5 w-5 rounded border-border text-primary focus:ring-primary/20" />
-                  <span className="text-sm font-medium">Lowercase (a-z)</span>
-                </label>
-                <label className="flex items-center gap-3 p-3 rounded-lg border border-border cursor-pointer hover:bg-secondary/30 transition-colors">
-                  <input type="checkbox" checked={includeNumbers} onChange={(e) => setIncludeNumbers(e.target.checked)} className="h-5 w-5 rounded border-border text-primary focus:ring-primary/20" />
-                  <span className="text-sm font-medium">Numbers (0-9)</span>
-                </label>
-                <label className="flex items-center gap-3 p-3 rounded-lg border border-border cursor-pointer hover:bg-secondary/30 transition-colors">
-                  <input type="checkbox" checked={includeSymbols} onChange={(e) => setIncludeSymbols(e.target.checked)} className="h-5 w-5 rounded border-border text-primary focus:ring-primary/20" />
-                  <span className="text-sm font-medium">Symbols (!@#$)</span>
-                </label>
-              </div>
-
-              <div className="flex items-center gap-4 mb-8">
+              <div className="flex items-center gap-4">
                 <div className="text-sm font-bold uppercase tracking-wider text-muted-foreground">Strength:</div>
                 <div className="flex-1 h-3 bg-secondary rounded-full overflow-hidden">
                   <div className={`h-full transition-all duration-500 ${strength.color}`} style={{ width: strength.label === "Weak" ? "33%" : strength.label === "Medium" ? "66%" : "100%" }} />
                 </div>
                 <div className="text-sm font-bold">{strength.label}</div>
               </div>
-
-              <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2"><Calculator className="h-5 w-5" /> Calculate</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
-              </div>
             </div>
-
-            {/* SEO Content Sections */}
-            <div className="mt-4 space-y-8 mb-10">
-              <section>
-                <h2 className="text-2xl font-bold mb-4">How the Password Generator Works</h2>
-                <p className="text-muted-foreground mb-3">Our Password Generator uses a cryptographically secure randomization process to create truly unpredictable strings of characters. Simply select your desired length (from 6 to 64 characters) and toggle which character sets you want to include: uppercase, lowercase, numbers, or symbols.</p>
-                <p className="text-muted-foreground mb-3">When you click Calculate, the tool pulls randomly from your selected pools to assemble a unique password. The 'Strength' meter provides real-time feedback based on the length and variety of characters used, helping you ensure your new password meets modern security standards.</p>
-                <p className="text-muted-foreground">For maximum security, we recommend a minimum length of 16 characters including all four character types. You can easily copy your new password to your clipboard using the icon in the display box.</p>
-              </section>
-
-              <section>
-                <h2 className="text-2xl font-bold mb-4">Understanding Your Results</h2>
-                <p className="text-muted-foreground mb-3">The <strong>Generated Password</strong> is displayed in the large, monospace box at the top. This font ensures that ambiguous characters (like a lowercase 'l' and uppercase 'I') are easily distinguishable to prevent entry errors.</p>
-                <p className="text-muted-foreground mb-3">The <strong>Strength Meter</strong> categorizes your password as Weak, Medium, or Strong. This is calculated using 'entropy' logic—the more characters and variety you have, the higher the entropy, and the harder it is for automated 'brute-force' tools to guess your password.</p>
-                <p className="text-muted-foreground">If you see a 'Weak' rating, we strongly suggest increasing the length or adding more character types before using the password for sensitive accounts like banking or email.</p>
-              </section>
-
-              <section>
-                <h2 className="text-2xl font-bold mb-4">Common Use Cases</h2>
-                <p className="text-muted-foreground mb-3"><strong>New Account Creation:</strong> Use the generator whenever you sign up for a new service to ensure you aren't reusing old, potentially compromised passwords from other sites.</p>
-                <p className="text-muted-foreground mb-3"><strong>Regular Security Audits:</strong> Cybersecurity experts recommend changing passwords for sensitive accounts every 3–6 months. Our tool makes it easy to rotate in fresh, high-strength passwords regularly.</p>
-                <p className="text-muted-foreground"><strong>Internal Systems:</strong> Developers and IT administrators use random generators to create secure temporary passwords for users or default credentials for new server deployments.</p>
-              </section>
-            </div>
-
-            <article className="prose-finance">
-              <h2>Why Strong Passwords Matter</h2>
-              <p>In the age of frequent data breaches, your password is the first and sometimes only line of defense for your personal information. Reusing a simple password across multiple sites is the most common way accounts get compromised.</p>
-              <h3>Best Practices for Security</h3>
-              <p>We recommend using a password manager (like Bitwarden, 1Password, or Apple Keychain) to store these complex passwords. You should also enable Two-Factor Authentication (2FA) whenever possible, as it provides an additional layer of security even if your password is stolen.</p>
-            </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/password-generator" />
-            <PopularCalculators exclude="/calculator/password-generator" />
           </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder label="Sidebar Ad" />
-          </aside>
+        </div>
+
+        {/* Below fold components */}
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          
+          <div className="mt-4 space-y-8 mb-10">
+            <section>
+              <h2 className="text-2xl font-bold mb-4">How the Password Generator Works</h2>
+              <p className="text-muted-foreground mb-3">Our Password Generator uses a cryptographically secure randomization process to create truly unpredictable strings of characters. Simply select your desired length (from 6 to 64 characters) and toggle which character sets you want to include: uppercase, lowercase, numbers, or symbols.</p>
+              <p className="text-muted-foreground mb-3">When you click Calculate, the tool pulls randomly from your selected pools to assemble a unique password. The 'Strength' meter provides real-time feedback based on the length and variety of characters used, helping you ensure your new password meets modern security standards.</p>
+              <p className="text-muted-foreground">For maximum security, we recommend a minimum length of 16 characters including all four character types. You can easily copy your new password to your clipboard using the icon in the display box.</p>
+            </section>
+
+            <section>
+              <h2 className="text-2xl font-bold mb-4">Understanding Your Results</h2>
+              <p className="text-muted-foreground mb-3">The <strong>Generated Password</strong> is displayed in the large, monospace box at the top. This font ensures that ambiguous characters (like a lowercase 'l' and uppercase 'I') are easily distinguishable to prevent entry errors.</p>
+              <p className="text-muted-foreground mb-3">The <strong>Strength Meter</strong> categorizes your password as Weak, Medium, or Strong. This is calculated using 'entropy' logic—the more characters and variety you have, the higher the entropy, and the harder it is for automated 'brute-force' tools to guess your password.</p>
+              <p className="text-muted-foreground">If you see a 'Weak' rating, we strongly suggest increasing the length or adding more character types before using the password for sensitive accounts like banking or email.</p>
+            </section>
+
+            <section>
+              <h2 className="text-2xl font-bold mb-4">Common Use Cases</h2>
+              <p className="text-muted-foreground mb-3"><strong>New Account Creation:</strong> Use the generator whenever you sign up for a new service to ensure you aren't reusing old, potentially compromised passwords from other sites.</p>
+              <p className="text-muted-foreground mb-3"><strong>Regular Security Audits:</strong> Cybersecurity experts recommend changing passwords for sensitive accounts every 3–6 months. Our tool makes it easy to rotate in fresh, high-strength passwords regularly.</p>
+              <p className="text-muted-foreground"><strong>Internal Systems:</strong> Developers and IT administrators use random generators to create secure temporary passwords for users or default credentials for new server deployments.</p>
+            </section>
+          </div>
+
+          <article className="prose-finance">
+            <h2>Why Strong Passwords Matter</h2>
+            <p>In the age of frequent data breaches, your password is the first and sometimes only line of defense for your personal information. Reusing a simple password across multiple sites is the most common way accounts get compromised.</p>
+            <h3>Best Practices for Security</h3>
+            <p>We recommend using a password manager (like Bitwarden, 1Password, or Apple Keychain) to store these complex passwords. You should also enable Two-Factor Authentication (2FA) whenever possible, as it provides an additional layer of security even if your password is stolen.</p>
+          </article>
+
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/password-generator" />
+          <PopularCalculators exclude="/calculator/password-generator" />
         </div>
       </div>
     </>
@@ -195,3 +199,4 @@ const PasswordGenerator = () => {
 };
 
 export default PasswordGenerator;
+

@@ -97,14 +97,13 @@ const PayrollTaxCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Payroll Tax Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Payroll Tax Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Calculate federal payroll taxes for both employees and employers, including FICA, FUTA, and estimated income tax.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Payroll Tax Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate federal payroll taxes for both employees and employers, including FICA, FUTA, and estimated income tax.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-8">
                 <section className="space-y-6">
                   <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
                     <Wallet className="h-5 w-5 text-primary" /> Salary Info
@@ -144,10 +143,11 @@ const PayrollTaxCalculator = () => {
                   <RotateCcw className="h-4 w-4" /> Reset 
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 mb-8">
+              <>
                 <div className="grid sm:grid-cols-2 gap-4 mb-6">
                   <div className="card-calculator bg-emerald-500/5 border-emerald-500/20 text-center flex flex-col justify-center py-8">
                     <p className="text-xs font-bold text-emerald-600 uppercase tracking-widest mb-1">Employee Net Pay (Annual)</p>
@@ -186,12 +186,14 @@ const PayrollTaxCalculator = () => {
                     ]} />
                   </div>
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="my-8" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Understanding Payroll Taxes</h2>
               <p>Payroll taxes are taxes imposed on employers and employees and are usually calculated as a percentage of the salaries that employers pay their staff. These taxes fund essential social insurance programs, including Social Security and Medicare.</p>
 
@@ -214,13 +216,8 @@ const PayrollTaxCalculator = () => {
               <h2>Managing Payroll for Small Businesses</h2>
               <p>If you are a new employer, managing these taxes can be complex. We recommend using a professional payroll service (like Gusto, ADP, or Paychex) to ensure that all taxes are calculated correctly, withheld from paychecks, and paid to the appropriate government agencies on time. Missing a payroll tax deadline can lead to some of the most severe penalties issued by the IRS.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/payroll-tax-calculator" />
-            <PopularCalculators exclude="/calculator/payroll-tax-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/payroll-tax-calculator" />
+          <PopularCalculators exclude="/calculator/payroll-tax-calculator" />
         </div>
       </div>
     </>

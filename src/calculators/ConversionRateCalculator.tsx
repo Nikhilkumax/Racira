@@ -52,14 +52,13 @@ const ConversionRateCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Conversion Rate Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Conversion Rate Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Calculate your conversion percentage and Cost Per Acquisition (CPA) to measure marketing ROI.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Conversion Rate Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate your conversion percentage and Cost Per Acquisition (CPA) to measure marketing ROI.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
                 <InputField id="conversions" label="Total Conversions" value={conversions} onChange={setConversions} tooltip="Number of sales, leads, or signups." />
                 <InputField id="visitors" label="Total Visitors" value={visitors} onChange={setVisitors} />
                 <InputField id="spend" label="Total Ad Spend" value={spend} onChange={setSpend} prefix="$" />
@@ -72,10 +71,11 @@ const ConversionRateCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Marketing Performance</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -92,22 +92,21 @@ const ConversionRateCalculator = () => {
                   { label: "Proj. Sales at 5,000 Visitors", value: 0, textValue: Math.round(results.projectedSalesAt5k).toString() },
                   { label: "Efficiency Rating", value: 0, textValue: results.rate > 3 ? "High" : results.rate > 1 ? "Average" : "Optimization Needed" },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>The Most Important E-commerce Metric</h2>
               <p>While traffic is important, the Conversion Rate is what actually pays the bills. A small improvement in your conversion rate can have a massive impact on your bottom line without increasing your ad spend.</p>
               <h3>Mathematics of Conversion</h3>
               <p>If you have 10,000 visitors and a 1% conversion rate, you have 100 sales. If you improve that rate to just 2%, you have 200 sales. You have doubled your revenue with the exact same amount of traffic.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/conversion-rate" />
-            <PopularCalculators exclude="/calculator/conversion-rate-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/conversion-rate" />
+          <PopularCalculators exclude="/calculator/conversion-rate-calculator" />
         </div>
       </div>
     </>

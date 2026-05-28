@@ -85,14 +85,13 @@ const NetWorthCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Net Worth Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Net Worth Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">See your complete financial picture by tracking all your assets and liabilities in one place.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Net Worth Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">See your complete financial picture by tracking all your assets and liabilities in one place.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-8">
                 <section className="space-y-6">
                   <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
                     <Wallet className="h-5 w-5 text-emerald-500" /> Assets (What you Own)
@@ -121,10 +120,11 @@ const NetWorthCalculator = () => {
                   <RotateCcw className="h-4 w-4" /> Reset 
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 mb-8">
+              <>
                 <div className="card-calculator bg-primary/5 border-solid border-primary/20 text-center py-12 mb-8 relative overflow-hidden">
                   <div className="absolute top-0 right-0 p-4 opacity-5">
                     <TrendingUp className="h-48 w-48" />
@@ -176,12 +176,14 @@ const NetWorthCalculator = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="my-8" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Why Your Net Worth is the Most Important Number</h2>
               <p>In a world obsessed with monthly income and fancy salaries, it's easy to forget that true wealth isn't about how much you earn—it's about how much you keep. Your net worth is a snapshot of your financial life at a single point in time, providing a clear view of your progress toward financial independence.</p>
 
@@ -212,13 +214,8 @@ const NetWorthCalculator = () => {
               <h3>A Final Note on Mindset</h3>
               <p>Calculating your net worth for the first time can be intimidating, especially if the number is lower than you expected (or even negative). Remember that this is just a starting point. The goal isn't to have a perfect number today; it's to ensure that the number is higher next year than it is right now.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/net-worth-calculator" />
-            <PopularCalculators exclude="/calculator/net-worth-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/net-worth-calculator" />
+          <PopularCalculators exclude="/calculator/net-worth-calculator" />
         </div>
       </div>
     </>

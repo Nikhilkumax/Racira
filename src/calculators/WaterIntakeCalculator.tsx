@@ -59,13 +59,13 @@ const WaterIntakeCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Water Intake Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Water Intake Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Calculate your optimal daily hydration target based on your weight, exercise, and environment.</p>
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-6 mb-6">
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Water Intake Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate your optimal daily hydration target based on your weight, exercise, and environment.</p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-6 mb-6">
                 <div>
                   <label className="block text-sm font-medium text-foreground mb-1.5">Unit System</label>
                   <select value={unitSystem} onChange={e => setUnitSystem(e.target.value)} className="input-calc">
@@ -86,9 +86,11 @@ const WaterIntakeCalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2"><Droplets className="h-5 w-5" /> Calculate Intake</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
+
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Daily Hydration Goal</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -104,10 +106,14 @@ const WaterIntakeCalculator = () => {
                   { label: "Standard Cups (8 oz)", value: 0, textValue: results.cups + " cups" },
                   { label: "Standard Bottles (16.9 oz)", value: 0, textValue: (results.oz / 16.9).toFixed(1) + " bottles" },
                 ]} />
-              </div>
+              </>
             )}
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+          </div>
+        </div>
+
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Why Hydration is Essential</h2>
               <p>Water makes up about 60% of your body weight. It is vital for flushing toxins, lubricating joints, regulating body temperature, and transporting nutrients to cells. Even mild dehydration can impair energy levels and brain function.</p>
               <h3>Signs You Aren't Drinking Enough</h3>
@@ -115,10 +121,8 @@ const WaterIntakeCalculator = () => {
               <h3>Factors That Increase Your Needs</h3>
               <p>You need to drink more water if you are exercising heavily, spending time in hot or humid environments, experiencing a fever, or experiencing fluid loss through vomiting or diarrhea. Pregnant and breastfeeding women also have significantly higher hydration requirements.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/water-intake" />
-            <PopularCalculators exclude="/calculator/water-intake-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6"><AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" /></aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/water-intake" />
+          <PopularCalculators exclude="/calculator/water-intake-calculator" />
         </div>
       </div>
     </>

@@ -110,14 +110,13 @@ const TaxRefundCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Tax Refund Estimator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Tax Refund Estimator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Estimate whether you'll receive a tax refund or owe money to the IRS for the {taxYear} tax year.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Tax Refund Estimator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Estimate whether you'll receive a tax refund or owe money to the IRS for the {taxYear} tax year.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-8">
                 <section className="space-y-6">
                   <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
                     <Receipt className="h-5 w-5 text-primary" /> Income & Withholding
@@ -146,17 +145,18 @@ const TaxRefundCalculator = () => {
                   <RotateCcw className="h-4 w-4" /> Reset 
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 mb-8">
+              <>
                 <div className="card-calculator py-12 text-center relative overflow-hidden border-solid border-2 mb-8" style={{ backgroundColor: results.isRefund ? 'rgba(16, 185, 129, 0.05)' : 'rgba(239, 68, 68, 0.05)', borderColor: results.isRefund ? 'rgba(16, 185, 129, 0.2)' : 'rgba(239, 68, 68, 0.2)' }}>
                   <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-1">{results.isRefund ? 'Estimated Refund' : 'Estimated Tax Owed'}</p>
                   <p className={`text-8xl font-black mb-2 ${results.isRefund ? 'text-emerald-600' : 'text-red-600'}`}>${Math.round(results.refundAmount).toLocaleString()}</p>
                   <p className={`text-xl font-bold uppercase ${results.isRefund ? 'text-emerald-500' : 'text-red-500'}`}>{results.isRefund ? 'Money Back' : 'Balance Due'}</p>
                 </div>
 
-                <div className="card-calculator mb-6">
+                <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
                   <h2 className="text-xl font-bold flex items-center gap-2 mb-6">
                     <Calculator className="h-5 w-5 text-primary" /> Tax Summary
                   </h2>
@@ -168,12 +168,14 @@ const TaxRefundCalculator = () => {
                     { label: "Effective Tax Rate", value: 0, textValue: `${results.effectiveRate.toFixed(1)}%` },
                   ]} />
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="my-8" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>How to Estimate Your Tax Refund</h2>
               <p>Understanding how your tax refund is calculated can help you manage your finances better and avoid surprises in April. A tax refund is not "free money" from the government; it is simply the return of money that you overpaid throughout the year.</p>
 
@@ -207,13 +209,8 @@ const TaxRefundCalculator = () => {
               <h2>Preparing for Tax Season</h2>
               <p>To get the most accurate estimate, gather your most recent paystub, which will show your "Year-to-Date" (YTD) earnings and federal tax withheld. If you expect your income to remain stable for the rest of the year, this calculator will provide a very close approximation of your final tax situation.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/tax-refund-calculator" />
-            <PopularCalculators exclude="/calculator/tax-refund-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/tax-refund-calculator" />
+          <PopularCalculators exclude="/calculator/tax-refund-calculator" />
         </div>
       </div>
     </>

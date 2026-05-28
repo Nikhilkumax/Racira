@@ -82,16 +82,14 @@ const PolynomialCalculator = () => {
 
   return (
     <>
-<Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Polynomial Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Polynomial Calculator" }]} />
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Polynomial Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Add, subtract, multiply polynomials and evaluate at a point.</p>
 
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Polynomial Calculator</h1>
-            <p className="text-muted-foreground mb-8">Add, subtract, multiply polynomials and evaluate at a point.</p>
-
-            <div className="card-calculator mb-8">
-              <div className="flex flex-wrap gap-2 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="flex flex-wrap gap-2 mb-6">
                 {(["add", "subtract", "multiply", "evaluate"] as const).map(m => (
                   <button key={m} onClick={() => { setMode(m); setResult(null); }} className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${mode === m ? "bg-accent text-accent-foreground" : "bg-secondary text-muted-foreground"}`}>
                     {m === "add" ? "Add" : m === "subtract" ? "Subtract" : m === "multiply" ? "Multiply" : "Evaluate"}
@@ -120,10 +118,11 @@ const PolynomialCalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && result && (
-              <div className="card-calculator mb-8">
+              <>
                 <h2 className="text-xl font-bold mb-4">Result</h2>
                 {result.type === "eval" ? (
                   <ResultDisplay items={[
@@ -137,20 +136,19 @@ const PolynomialCalculator = () => {
                     { label: result.label, value: 0, textValue: result.result, highlight: true },
                   ]} />
                 )}
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>Polynomial Operations</h2>
               <p>A polynomial is an expression of variables and coefficients using only addition, subtraction, multiplication, and non-negative integer exponents. This calculator lets you perform arithmetic on polynomials by entering coefficients from highest degree to lowest.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/polynomial-calculator" />
-            <PopularCalculators exclude="/polynomial-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/polynomial-calculator" />
+          <PopularCalculators exclude="/polynomial-calculator" />
         </div>
       </div>
     </>

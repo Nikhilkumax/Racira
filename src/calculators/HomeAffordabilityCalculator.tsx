@@ -77,14 +77,13 @@ const HomeAffordabilityCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Home Affordability Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Home Affordability Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Estimate the maximum home price you can afford based on your income, debts, and down payment.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Home Affordability Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Estimate the maximum home price you can afford based on your income, debts, and down payment.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
                 <InputField id="annualIncome" label="Annual Gross Income" value={annualIncome} onChange={setAnnualIncome} prefix="$" />
                 <InputField id="monthlyDebts" label="Monthly Debt Payments" value={monthlyDebts} onChange={setMonthlyDebts} prefix="$" tooltip="Car loans, student loans, credit cards." />
                 <InputField id="downPayment" label="Down Payment" value={downPayment} onChange={setDownPayment} prefix="$" />
@@ -100,10 +99,11 @@ const HomeAffordabilityCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Affordability Summary</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -120,11 +120,14 @@ const HomeAffordabilityCalculator = () => {
                   { label: "Back-End DTI", value: 0, textValue: results.backRatio.toFixed(1) + "%" },
                   { label: "Monthly Gross Income", value: 0, textValue: "$" + Math.round(results.monthlyIncome).toLocaleString() },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Finding Your Budget</h2>
               <p>Buying a home is the largest purchase most people will ever make. Knowing exactly how much you can afford before you start house hunting is critical to avoiding financial stress.</p>
               <h3>The Role of Interest Rates</h3>
@@ -132,12 +135,8 @@ const HomeAffordabilityCalculator = () => {
               <h3>PITI: More Than a Mortgage</h3>
               <p>Your monthly housing cost consists of Principal, Interest, Taxes, and Insurance (PITI). When calculating affordability, it's vital to include property taxes and homeowners insurance, as these can easily add $300-$600 to your monthly bill.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/home-affordability" />
-            <PopularCalculators exclude="/calculator/home-affordability-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/home-affordability" />
+          <PopularCalculators exclude="/calculator/home-affordability-calculator" />
         </div>
       </div>
     </>

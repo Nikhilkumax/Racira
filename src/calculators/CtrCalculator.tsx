@@ -53,14 +53,13 @@ const CtrCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "CTR Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">CTR (Click-Through Rate) Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Calculate the effectiveness of your ad creative and targeting by measuring your click-through rate.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">CTR (Click-Through Rate) Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate the effectiveness of your ad creative and targeting by measuring your click-through rate.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-6 mb-6">
                 <InputField id="clicks" label="Total Clicks" value={clicks} onChange={setClicks} />
                 <InputField id="impressions" label="Total Impressions" value={impressions} onChange={setImpressions} />
               </div>
@@ -72,10 +71,11 @@ const CtrCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Engagement Analysis</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -92,22 +92,21 @@ const CtrCalculator = () => {
                   { label: "Impressions Needed for 1000 Clicks", value: 0, textValue: (1000 / (results.ctr / 100)).toLocaleString() },
                   { label: "Engagement Focus", value: 0, textValue: "Creative Quality" },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Why CTR is the Most Important Ad Metric</h2>
               <p>CTR is the ultimate 'BS detector' in advertising. It tells you exactly whether your message is resonating with your audience. If 1,000 people see your ad and no one clicks, you have a message-market mismatch.</p>
               <h3>Increasing Your CTR</h3>
               <p>The most common ways to increase CTR are: (1) Using high-contrast images or 'scroll-stopping' video hooks, (2) Writing a compelling headline that promises a benefit, and (3) Having a clear Call-to-Action (CTA) like 'Shop Now' or 'Learn More'.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/ctr" />
-            <PopularCalculators exclude="/calculator/ctr-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/ctr" />
+          <PopularCalculators exclude="/calculator/ctr-calculator" />
         </div>
       </div>
     </>

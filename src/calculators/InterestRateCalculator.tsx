@@ -54,16 +54,14 @@ const InterestRateCalculator = () => {
 
   return (
     <>
-<Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Interest Rate Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Interest Rate Calculator" }]} />
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Interest Rate Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Determine the interest rate on any loan from the payment amount, loan balance, and term.</p>
 
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Interest Rate Calculator</h1>
-            <p className="text-muted-foreground mb-8">Determine the interest rate on any loan from the payment amount, loan balance, and term.</p>
-
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-3 gap-5 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-3 gap-5 mb-6">
                 <InputField id="loan" label="Loan Amount" value={loanAmount} onChange={setLoanAmount} prefix="$" />
                 <InputField id="payment" label="Monthly Payment" value={monthlyPayment} onChange={setMonthlyPayment} prefix="$" />
                 <InputField id="term" label="Loan Term (Months)" value={loanTerm} onChange={setLoanTerm} />
@@ -71,22 +69,25 @@ const InterestRateCalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Find Rate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && result && (
-              <div className="card-calculator mb-8">
+              <>
                 <h2 className="text-xl font-bold mb-4">Results</h2>
                 <ResultDisplay items={[
                   { label: "Annual Interest Rate", value: 0, textValue: `${result.rate.toFixed(3)}%`, highlight: true },
                   { label: "Total Interest", value: result.totalInterest },
                   { label: "Total Paid", value: result.totalPaid },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>What Is an Interest Rate Calculator?</h2>
               <p>An interest rate calculator determines the annual interest rate (APR) on a loan when you know the loan amount, monthly payment, and term length. This is essentially the reverse of a standard loan calculator — instead of calculating the payment from the rate, it calculates the rate from the payment.</p>
               <p>This tool is invaluable when you receive a loan offer that quotes a monthly payment but not the interest rate, or when you want to verify the rate on an existing loan.</p>
@@ -108,14 +109,8 @@ const InterestRateCalculator = () => {
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> This calculator provides estimates for educational purposes only. The calculated rate is the nominal annual rate, which may differ from the APR if fees are involved. This is not financial advice.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/interest-rate-calculator" />
-            <PopularCalculators exclude="/interest-rate-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/interest-rate-calculator" />
+          <PopularCalculators exclude="/interest-rate-calculator" />
         </div>
       </div>
     </>

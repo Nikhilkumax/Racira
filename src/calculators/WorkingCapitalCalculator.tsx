@@ -77,16 +77,14 @@ const WorkingCapitalCalculator = () => {
 
   return (
     <>
-<Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Working Capital Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Working Capital Calculator" }]} />
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Working Capital Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate working capital, current ratio, and quick ratio to assess short-term financial health.</p>
 
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Working Capital Calculator</h1>
-            <p className="text-muted-foreground mb-8">Calculate working capital, current ratio, and quick ratio to assess short-term financial health.</p>
-
-            <div className="card-calculator mb-8">
-              <div className="mb-6 flex gap-2">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="mb-6 flex gap-2">
                 <button onClick={() => setMode("simple")} className={`flex-1 py-3 rounded-lg text-sm font-medium transition-colors ${mode === "simple" ? "bg-accent text-accent-foreground" : "bg-secondary text-muted-foreground"}`}>Simple</button>
                 <button onClick={() => setMode("detailed")} className={`flex-1 py-3 rounded-lg text-sm font-medium transition-colors ${mode === "detailed" ? "bg-accent text-accent-foreground" : "bg-secondary text-muted-foreground"}`}>Detailed</button>
               </div>
@@ -117,10 +115,11 @@ const WorkingCapitalCalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Working Capital</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && result && (
-              <div className="card-calculator mb-8">
+              <>
                 <h2 className="text-xl font-bold mb-4">Working Capital Analysis</h2>
                 <ResultDisplay items={[
                   { label: "Working Capital", value: result.workingCapital, highlight: true },
@@ -129,12 +128,14 @@ const WorkingCapitalCalculator = () => {
                   { label: "Total Current Assets", value: result.totalAssets },
                   { label: "Total Current Liabilities", value: result.totalLiabilities },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>What Is Working Capital?</h2>
               <p>Working capital is a measure of a company's short-term financial health and operational efficiency. It represents the difference between current assets (cash, receivables, inventory) and current liabilities (payables, short-term debt). Positive working capital means the company can fund its day-to-day operations and invest in growth.</p>
 
@@ -167,14 +168,8 @@ const WorkingCapitalCalculator = () => {
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> Working capital analysis is one part of financial assessment. Industry norms vary significantly. Consult an accountant for comprehensive financial analysis.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/working-capital-calculator" />
-            <PopularCalculators exclude="/working-capital-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/working-capital-calculator" />
+          <PopularCalculators exclude="/working-capital-calculator" />
         </div>
       </div>
     </>

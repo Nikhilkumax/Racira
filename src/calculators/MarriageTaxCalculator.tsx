@@ -108,14 +108,13 @@ const MarriageTaxCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Marriage Tax Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Marriage Tax Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Compare your tax liability for 'Married Filing Jointly' vs 'Married Filing Separately' to find your optimal strategy.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Marriage Tax Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Compare your tax liability for 'Married Filing Jointly' vs 'Married Filing Separately' to find your optimal strategy.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-8">
                 <section className="space-y-6">
                   <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
                     <Users className="h-5 w-5 text-primary" /> Spouses' Income
@@ -144,10 +143,11 @@ const MarriageTaxCalculator = () => {
                   <RotateCcw className="h-4 w-4" /> Reset 
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 mb-8">
+              <>
                 <div className="card-calculator border-solid border-2 py-12 text-center mb-8" style={{ borderColor: results.isJointBetter ? 'rgba(16, 185, 129, 0.2)' : 'rgba(239, 68, 68, 0.2)', backgroundColor: results.isJointBetter ? 'rgba(16, 185, 129, 0.05)' : 'rgba(239, 68, 68, 0.05)' }}>
                   <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-1">{results.isJointBetter ? 'Potential Marriage Bonus' : 'Potential Marriage Penalty'}</p>
                   <p className={`text-8xl font-black mb-2 ${results.isJointBetter ? 'text-emerald-600' : 'text-red-600'}`}>${Math.abs(Math.round(results.difference)).toLocaleString()}</p>
@@ -190,12 +190,14 @@ const MarriageTaxCalculator = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="my-8" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Marriage and the IRS: How Your Filing Status Affects Your Taxes</h2>
               <p>For most couples, getting married is a significant financial event. The "marriage bonus" or "marriage penalty" is the difference between what a couple pays in taxes as a married unit versus what they would have paid as two single individuals. Understanding how these calculations work can help you choose the best filing status every year.</p>
 
@@ -225,13 +227,8 @@ const MarriageTaxCalculator = () => {
               <h2>Planning Your Strategy</h2>
               <p>For the vast majority of taxpayers, the "Married Filing Jointly" status is the clear winner. This calculator provides a high-level estimate of the federal tax impact, but we recommend running your actual numbers through professional tax software before making a final decision, especially if you have significant deductions, credits, or state tax considerations.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/marriage-tax-calculator" />
-            <PopularCalculators exclude="/calculator/marriage-tax-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/marriage-tax-calculator" />
+          <PopularCalculators exclude="/calculator/marriage-tax-calculator" />
         </div>
       </div>
     </>

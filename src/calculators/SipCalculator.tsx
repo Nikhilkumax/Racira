@@ -64,16 +64,14 @@ const SIPCalculator = () => {
 
   return (
     <>
-<Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "SIP Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "SIP Calculator" }]} />
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">SIP Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate mutual fund SIP returns with optional step-up SIP and year-by-year growth projection.</p>
 
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">SIP Calculator</h1>
-            <p className="text-muted-foreground mb-8">Calculate mutual fund SIP returns with optional step-up SIP and year-by-year growth projection.</p>
-
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-5 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-5 mb-6">
                 <InputField id="monthly" label="Monthly SIP Amount" value={monthly} onChange={setMonthly} prefix="₹" />
                 <InputField id="rate" label="Expected Return Rate (p.a.)" value={rate} onChange={setRate} suffix="%" />
                 <InputField id="years" label="Investment Period" value={years} onChange={setYears} suffix="Years" />
@@ -89,10 +87,11 @@ const SIPCalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && result && (
-              <div className="card-calculator mb-8">
+              <>
                 <h2 className="text-xl font-bold mb-4">SIP Returns</h2>
                 <ResultDisplay currency="₹" items={[
                   { label: "Total Invested", value: result.invested },
@@ -125,12 +124,14 @@ const SIPCalculator = () => {
                     </div>
                   </div>
                 )}
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>What Is a SIP Calculator?</h2>
               <p>A SIP (Systematic Investment Plan) calculator helps you estimate the future value of your mutual fund investments made through regular monthly contributions. It uses the compound interest formula to project growth over your chosen investment period.</p>
 
@@ -155,14 +156,8 @@ const SIPCalculator = () => {
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> This calculator provides estimates based on assumed constant returns. Actual mutual fund returns vary and past performance does not guarantee future results. Consult a financial advisor.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/sip-calculator" />
-            <PopularCalculators exclude="/sip-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/sip-calculator" />
+          <PopularCalculators exclude="/sip-calculator" />
         </div>
       </div>
     </>

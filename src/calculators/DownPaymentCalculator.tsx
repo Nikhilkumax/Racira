@@ -46,13 +46,13 @@ const DownPaymentCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Down Payment Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Down Payment Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Calculate the total cash needed to buy a home — including down payment and closing costs — and your monthly savings target.</p>
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-6 mb-6">
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Down Payment Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate the total cash needed to buy a home — including down payment and closing costs — and your monthly savings target.</p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-6 mb-6">
                 <InputField id="price" label="Home Price ($)" value={homePrice} onChange={setHomePrice} />
                 <InputField id="pct" label="Down Payment (%)" value={downPct} onChange={setDownPct} />
                 <InputField id="close" label="Closing Costs (%)" value={closingCostPct} onChange={setClosingCostPct} />
@@ -61,9 +61,11 @@ const DownPaymentCalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2"><DollarSign className="h-5 w-5" /> Calculate Savings Plan</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
+
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Down Payment Plan</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -80,10 +82,14 @@ const DownPaymentCalculator = () => {
                   { label: "Estimated Closing Costs", value: 0, textValue: "$" + results.closingCosts.toLocaleString(undefined, { maximumFractionDigits: 0 }) },
                   { label: "PMI Required?", value: 0, textValue: results.pmiNeeded ? "Yes (< 20% down)" : "No ✓" },
                 ]} />
-              </div>
+              </>
             )}
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+          </div>
+        </div>
+
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Planning Your Home Purchase</h2>
               <p>One of the biggest barriers to homeownership is saving the necessary cash. Most buyers underestimate the total needed because they focus on the down payment and forget about closing costs, moving expenses, and initial repairs.</p>
               <h3>The 20% Threshold</h3>
@@ -91,10 +97,8 @@ const DownPaymentCalculator = () => {
               <h3>Low Down Payment Programs</h3>
               <p>If 20% feels out of reach, consider: FHA (3.5% down), Conventional 97 (3% down), or state first-time buyer programs that offer down payment assistance grants. Some employers also offer home buying assistance programs.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/down-payment" />
-            <PopularCalculators exclude="/calculator/down-payment-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6"><AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" /></aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/down-payment" />
+          <PopularCalculators exclude="/calculator/down-payment-calculator" />
         </div>
       </div>
     </>

@@ -55,14 +55,13 @@ const RentAffordabilityCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Rent Affordability Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Rent Affordability Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Find out how much you can realistically afford to pay in monthly rent based on your income.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Rent Affordability Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Find out how much you can realistically afford to pay in monthly rent based on your income.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-6 mb-6">
                 <InputField id="annualIncome" label="Annual Gross Income" value={annualIncome} onChange={setAnnualIncome} prefix="$" />
                 <InputField id="monthlyDebts" label="Other Monthly Debts" value={monthlyDebts} onChange={setMonthlyDebts} prefix="$" />
               </div>
@@ -74,10 +73,11 @@ const RentAffordabilityCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Affordability Analysis</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -96,11 +96,14 @@ const RentAffordabilityCalculator = () => {
                   { label: "Leftover (After Rent & Debt)", value: 0, textValue: "$" + Math.round(results.leftoverAfterRent).toLocaleString() },
                   { label: "Suggested Net Budget", value: 0, textValue: "25% of Take-Home" },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Renting Without Stress</h2>
               <p>Rent is often the single largest monthly expense. Overextending yourself on a "dream apartment" can lead to a cycle of debt and prevent you from reaching other financial goals like traveling or saving for a down payment.</p>
               <h3>Why the 30% Rule Exists</h3>
@@ -108,12 +111,8 @@ const RentAffordabilityCalculator = () => {
               <h3>Adjusting for High-Cost Areas</h3>
               <p>In cities like New York, London, or San Francisco, the 30% rule is often impossible to follow for many workers. In these cases, it's vital to look at your actual net income and subtract fixed costs (transportation, food, debt) to see what is truly leftover. Often, sacrificing space or location is better than living paycheck to paycheck.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/rent-affordability" />
-            <PopularCalculators exclude="/calculator/rent-affordability-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/rent-affordability" />
+          <PopularCalculators exclude="/calculator/rent-affordability-calculator" />
         </div>
       </div>
     </>

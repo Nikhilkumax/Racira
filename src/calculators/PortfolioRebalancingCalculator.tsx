@@ -75,13 +75,13 @@ export default function PortfolioRebalancingCalculator() {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Portfolio Rebalancing Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Portfolio Rebalancing Calculator</h1>
-            <p className="text-muted-foreground mb-8">Calculate exactly how much to buy or sell in each asset class to restore your target portfolio allocation.</p>
-            <div className="card-calculator mb-8">
-              <div className="space-y-3 mb-4">
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Portfolio Rebalancing Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate exactly how much to buy or sell in each asset class to restore your target portfolio allocation.</p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="space-y-3 mb-4">
                 <div className="grid grid-cols-[2fr_1fr_1fr_auto] gap-2 text-xs font-medium text-muted-foreground px-1">
                   <span>Asset Name</span><span>Current Value ($)</span><span>Target Alloc. (%)</span><span></span>
                 </div>
@@ -99,9 +99,11 @@ export default function PortfolioRebalancingCalculator() {
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Rebalancing Trades</button>
                 <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
+
+          <div className="flex flex-col gap-3">
             {showResults && (
-              <div className="card-calculator mb-8">
+              <>
                 <h2 className="text-xl font-bold mb-4">Rebalancing Plan</h2>
                 <p className="text-sm text-muted-foreground mb-4">Total Portfolio Value: <strong>${totalValue.toLocaleString()}</strong></p>
                 <div className="overflow-x-auto">
@@ -126,10 +128,14 @@ export default function PortfolioRebalancingCalculator() {
                     </tbody>
                   </table>
                 </div>
-              </div>
+              </>
             )}
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-            <article className="prose-finance">
+          </div>
+        </div>
+
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>Why Portfolio Rebalancing Matters</h2>
               <p>Portfolio rebalancing is one of the most important — yet most overlooked — aspects of disciplined investing. When you initially construct a portfolio, you assign target weights to different asset classes (e.g., 60% stocks, 30% bonds, 10% international) based on your risk tolerance and investment goals. Over time, as markets move, these weights drift. Stocks may surge, pushing your portfolio to 75% stocks without you making a single decision. This drift can expose you to far more risk than you intended.</p>
               <h2>The Mathematics of Drift</h2>
@@ -141,13 +147,8 @@ export default function PortfolioRebalancingCalculator() {
               <h2>Asset Allocation by Life Stage</h2>
               <p>Your target allocation should shift over time. Young investors can tolerate higher equity allocations (80-100% stocks) because they have decades to recover from bear markets. As retirement approaches, gradually shifting toward more bonds and stable assets reduces volatility and preserves capital for near-term income needs. Target-date funds automate this process but may not perfectly match your personal risk tolerance.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/portfolio-rebalancing-calculator" />
-            <PopularCalculators exclude="/calculator/portfolio-rebalancing-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/portfolio-rebalancing-calculator" />
+          <PopularCalculators exclude="/calculator/portfolio-rebalancing-calculator" />
         </div>
       </div>
     </>

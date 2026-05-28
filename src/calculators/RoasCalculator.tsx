@@ -50,14 +50,13 @@ const RoasCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "ROAS Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">ROAS (Return on Ad Spend) Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Calculate the profitability of your advertising campaigns by measuring revenue generated per dollar spent.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">ROAS (Return on Ad Spend) Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate the profitability of your advertising campaigns by measuring revenue generated per dollar spent.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-6 mb-6">
                 <InputField id="revenue" label="Total Ad Revenue" value={revenue} onChange={setRevenue} prefix="$" />
                 <InputField id="spend" label="Total Ad Spend" value={spend} onChange={setSpend} prefix="$" />
               </div>
@@ -67,10 +66,11 @@ const RoasCalculator = () => {
                   <RotateCcw className="h-4 w-4" /> Reset
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Campaign Profitability</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -87,22 +87,21 @@ const RoasCalculator = () => {
                   { label: "Gross Margin (from Ads)", value: 0, textValue: results.margin.toFixed(1) + "%" },
                   { label: "Scaling Potential", value: 0, textValue: results.roas > 4 ? "High" : results.roas > 2 ? "Moderate" : "Low" },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Scaling Your Business with ROAS</h2>
               <p>ROAS is the primary compass for e-commerce brands. If you know that every dollar you put into Facebook Ads returns five dollars in sales, you can scale your budget with confidence.</p>
               <h3>The Break-Even ROAS</h3>
               <p>It is vital to know your 'Break-Even ROAS'. This is the point where your ad revenue covers both the ad spend and the cost of the goods sold. For many businesses, a ROAS below 2.5x is a signal to stop or optimize the campaign.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/roas" />
-            <PopularCalculators exclude="/calculator/roas-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/roas" />
+          <PopularCalculators exclude="/calculator/roas-calculator" />
         </div>
       </div>
     </>

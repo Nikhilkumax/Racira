@@ -53,14 +53,13 @@ const HashCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Hash Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Hash Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Generate secure cryptographic hashes for text using industry-standard algorithms.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Hash Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Generate secure cryptographic hashes for text using industry-standard algorithms.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="space-y-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="space-y-6">
                 <div>
                   <label className="block text-sm font-medium text-foreground mb-2">Input Text</label>
                   <textarea
@@ -94,10 +93,11 @@ const HashCalculator = () => {
                   </div>
                 </div>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {hash && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="text-xl font-bold flex items-center gap-2">
                     <ShieldCheck className="h-5 w-5 text-primary" /> Generated Hash
@@ -138,11 +138,14 @@ const HashCalculator = () => {
                       </p>
                    </div>
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Understanding Cryptographic Hashes</h2>
               <p>A hash function takes an input of any size and produces a fixed-size string of characters. This output, known as a hash or checksum, is consistent: the same input will always produce the same hash.</p>
               
@@ -159,12 +162,8 @@ const HashCalculator = () => {
               <p><strong>SHA-512:</strong> Similar to SHA-256 but produces a 512-bit hash. It is even more secure but requires more computational power.</p>
               <p><strong>SHA-1:</strong> A legacy algorithm that is now considered vulnerable to collision attacks and should be avoided for security-critical applications.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/hash-calculator" />
-            <PopularCalculators exclude="/calculator/hash-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/hash-calculator" />
+          <PopularCalculators exclude="/calculator/hash-calculator" />
         </div>
       </div>
     </>

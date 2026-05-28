@@ -70,13 +70,13 @@ const ProteinIntakeCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Protein Intake Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Protein Intake Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Calculate your optimal daily protein target based on your weight, activity level, and fitness goals.</p>
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-6 mb-6">
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Protein Intake Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate your optimal daily protein target based on your weight, activity level, and fitness goals.</p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-6 mb-6">
                 <InputField id="wt" label={`Weight (${unit})`} value={weight} onChange={setWeight} />
                 <div>
                   <label className="block text-sm font-medium text-foreground mb-1.5">Unit</label>
@@ -105,9 +105,11 @@ const ProteinIntakeCalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2"><Utensils className="h-5 w-5" /> Calculate Target</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
+
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Daily Protein Targets</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -125,10 +127,14 @@ const ProteinIntakeCalculator = () => {
                   { label: "Optimal Ratio", value: 0, textValue: results.perLb + "g per lb of body weight" },
                   { label: "Calories from Protein", value: 0, textValue: results.calories + " kcal" },
                 ]} />
-              </div>
+              </>
             )}
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+          </div>
+        </div>
+
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Why Protein Matters</h2>
               <p>Protein is the building block of muscle, skin, enzymes, and hormones. Unlike fats and carbohydrates, the body does not store protein effectively, meaning you need a consistent daily intake.</p>
               <h3>Protein and Fat Loss</h3>
@@ -136,10 +142,8 @@ const ProteinIntakeCalculator = () => {
               <h3>Distribution Throughout the Day</h3>
               <p>For optimal muscle protein synthesis (MPS), it's best to distribute your protein intake evenly across 3-5 meals. The body can only utilize a certain amount of protein (typically 25-40g) per sitting for muscle building; the rest is used for energy.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/protein-intake" />
-            <PopularCalculators exclude="/calculator/protein-intake-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6"><AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" /></aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/protein-intake" />
+          <PopularCalculators exclude="/calculator/protein-intake-calculator" />
         </div>
       </div>
     </>

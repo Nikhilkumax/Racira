@@ -71,14 +71,13 @@ const ServerRackUnitsCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Server Rack Units Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Server Rack Units Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Plan your data center or home lab layout by calculating total rack unit (U) usage and remaining space.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Server Rack Units Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Plan your data center or home lab layout by calculating total rack unit (U) usage and remaining space.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="mb-8">
                 <InputField id="rackCapacity" label="Rack Total Capacity (U)" value={rackCapacity} onChange={setRackCapacity} suffix="U" />
               </div>
 
@@ -122,10 +121,11 @@ const ServerRackUnitsCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Rack Utilization Summary</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -144,11 +144,14 @@ const ServerRackUnitsCalculator = () => {
                   { label: "Metric Height", value: 0, textValue: results.occupiedHeightMm.toFixed(0) + " mm" },
                   { label: "Standard 19\" Rack", value: 0, textValue: "Confirmed" },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Data Center Capacity Planning</h2>
               <p>Effective rack management is about more than just physical space; it's about power distribution, weight limits, and airflow. However, everything starts with the Rack Unit (U).</p>
               <h3>Standard Equipment Sizes</h3>
@@ -159,12 +162,8 @@ const ServerRackUnitsCalculator = () => {
                 <li><strong>Patch Panels:</strong> Usually 1U or 2U.</li>
               </ul>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/server-rack-units" />
-            <PopularCalculators exclude="/calculator/server-rack-units-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/server-rack-units" />
+          <PopularCalculators exclude="/calculator/server-rack-units-calculator" />
         </div>
       </div>
     </>

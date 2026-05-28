@@ -73,13 +73,13 @@ const DueDateCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Due Date Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Due Date Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Calculate your exact pregnancy due date using your last period, conception date, or IVF transfer date.</p>
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-6 mb-6">
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Due Date Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate your exact pregnancy due date using your last period, conception date, or IVF transfer date.</p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-6 mb-6">
                 <div>
                   <label className="block text-sm font-medium text-foreground mb-1.5">Calculation Method</label>
                   <select value={calcMethod} onChange={e => { setCalcMethod(e.target.value); setResults(null); }} className="input-calc">
@@ -129,9 +129,11 @@ const DueDateCalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2"><Calendar className="h-5 w-5" /> Calculate Due Date</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
+
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Your Due Date</h2>
                 <div className="p-8 rounded-2xl bg-primary/5 border border-primary/10 text-center mb-8">
                   <p className="text-sm font-bold text-primary uppercase tracking-widest mb-2">Estimated Arrival</p>
@@ -142,10 +144,14 @@ const DueDateCalculator = () => {
                   { label: "Start of 2nd Trimester (Week 14)", value: 0, textValue: results.secondTrimester },
                   { label: "Start of 3rd Trimester (Week 28)", value: 0, textValue: results.thirdTrimester },
                 ]} />
-              </div>
+              </>
             )}
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+          </div>
+        </div>
+
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Multiple Ways to Calculate a Due Date</h2>
               <p>Depending on how your pregnancy occurred and what data you have, different calculation methods yield different levels of accuracy.</p>
               <h3>The LMP Method (Naegele's Rule)</h3>
@@ -153,10 +159,8 @@ const DueDateCalculator = () => {
               <h3>Conception and IVF Methods</h3>
               <p>If you tracked ovulation via temperature or hormone strips, or if you underwent IVF, you bypass the cycle-length guesswork entirely. These methods calculate directly from the age of the embryo, making them highly accurate baselines prior to an ultrasound.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/due-date" />
-            <PopularCalculators exclude="/calculator/due-date-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6"><AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" /></aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/due-date" />
+          <PopularCalculators exclude="/calculator/due-date-calculator" />
         </div>
       </div>
     </>

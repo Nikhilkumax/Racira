@@ -61,14 +61,13 @@ const PlasticFootprintCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Plastic Footprint Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Plastic Footprint Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Estimate the total amount of single-use plastic you consume annually and see its long-term environmental impact.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Plastic Footprint Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Estimate the total amount of single-use plastic you consume annually and see its long-term environmental impact.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="flex items-center gap-2 mb-6 text-primary">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="flex items-center gap-2 mb-6 text-primary">
                 <ShoppingBag className="h-5 w-5" />
                 <h2 className="font-bold uppercase tracking-wider text-sm">Weekly Consumption</h2>
               </div>
@@ -88,10 +87,11 @@ const PlasticFootprintCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Waste Analysis</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -118,11 +118,14 @@ const PlasticFootprintCalculator = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>The Plastic Problem</h2>
               <p>Plastic is a miracle material: it's cheap, durable, and lightweight. However, those same qualities make it a nightmare for the environment. Most single-use plastics are used for just a few minutes but persist in the environment for centuries.</p>
               <h3>Microplastics: The Invisible Threat</h3>
@@ -130,12 +133,8 @@ const PlasticFootprintCalculator = () => {
               <h3>Refuse, Reduce, Reuse, Recycle</h3>
               <p>While recycling is often promoted as the primary solution, it is actually the last resort. The most effective action is to <strong>refuse</strong> single-use items entirely. If you can't refuse, <strong>reduce</strong> the amount you use. If you must use it, <strong>reuse</strong> it as many times as possible. Only when an item is truly at the end of its life should you <strong>recycle</strong> it.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/plastic-footprint" />
-            <PopularCalculators exclude="/calculator/plastic-footprint-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/plastic-footprint" />
+          <PopularCalculators exclude="/calculator/plastic-footprint-calculator" />
         </div>
       </div>
     </>

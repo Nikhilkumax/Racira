@@ -46,14 +46,13 @@ const EdpiCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "eDPI Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">eDPI Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Quickly find your Effective Dots Per Inch to compare settings with other players.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">eDPI Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Quickly find your Effective Dots Per Inch to compare settings with other players.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-6 mb-6">
                 <InputField id="dpi" label="Mouse DPI" value={dpi} onChange={setDpi} suffix="DPI" />
                 <InputField id="sensitivity" label="Game Sensitivity" value={sensitivity} onChange={setSensitivity} />
               </div>
@@ -65,10 +64,11 @@ const EdpiCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <div className="text-center p-8 bg-primary/5 rounded-3xl border border-primary/10">
                   <p className="text-sm font-bold text-primary uppercase tracking-widest mb-2">Your Effective DPI</p>
                   <p className="text-7xl font-black text-foreground mb-4">{Math.round(results.edpi)}</p>
@@ -83,11 +83,14 @@ const EdpiCalculator = () => {
                     { label: "Raw Input Status", value: 0, textValue: "Recommended" },
                   ]} />
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Standardizing Your Sensitivity</h2>
               <p>eDPI is the most common way for gamers to share their settings. If a pro player uses 400 DPI and 2.0 sensitivity, their eDPI is 800. If you use 800 DPI and 1.0 sensitivity, your eDPI is also 800—meaning you both have the exact same in-game feel.</p>
               <h3>Common eDPI Ranges (CS2/Valorant)</h3>
@@ -97,12 +100,8 @@ const EdpiCalculator = () => {
                 <li><strong>High:</strong> 1000 - 1600 eDPI (Wrist-heavy movement)</li>
               </ul>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/edpi" />
-            <PopularCalculators exclude="/calculator/edpi-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/edpi" />
+          <PopularCalculators exclude="/calculator/edpi-calculator" />
         </div>
       </div>
     </>

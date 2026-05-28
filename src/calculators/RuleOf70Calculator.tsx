@@ -49,14 +49,13 @@ const RuleOf70Calculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Rule of 70 Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Rule of 70 Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Quickly estimate how long it will take for your money to double based on a steady growth rate.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Rule of 70 Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Quickly estimate how long it will take for your money to double based on a steady growth rate.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-6 mb-6">
                 <InputField id="growthRate" label="Annual Growth Rate" value={growthRate} onChange={setGrowthRate} suffix="%" />
                 <InputField id="initialInvestment" label="Initial Investment" value={initialInvestment} onChange={setInitialInvestment} prefix="$" />
               </div>
@@ -68,10 +67,11 @@ const RuleOf70Calculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Growth Projection</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -88,11 +88,14 @@ const RuleOf70Calculator = () => {
                   { label: "Value After 20 Years", value: 0, textValue: "$" + Math.round(results.valueAfter20Years).toLocaleString() },
                   { label: "Growth Factor (20y)", value: 0, textValue: (results.valueAfter20Years / parseFloat(initialInvestment)).toFixed(2) + "x" },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>The Power of Compounding</h2>
               <p>The Rule of 70 is a powerful mental shortcut used by economists and investors to understand exponential growth. It reveals why even a small difference in annual returns can lead to massive differences in wealth over long periods.</p>
               <h3>Why Time is Your Greatest Asset</h3>
@@ -100,12 +103,8 @@ const RuleOf70Calculator = () => {
               <h3>Rule of 70 vs. Rule of 72</h3>
               <p>While the Rule of 70 is common in economics and population growth studies, the 'Rule of 72' is more popular in finance for annual compounding. The Rule of 69 is technically the most accurate for continuous compounding, but the Rule of 70 remains the easiest for quick mental math.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/rule-of-70" />
-            <PopularCalculators exclude="/calculator/rule-of-70-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/rule-of-70" />
+          <PopularCalculators exclude="/calculator/rule-of-70-calculator" />
         </div>
       </div>
     </>

@@ -121,16 +121,14 @@ const ProfessionalTaxCalculator = () => {
 
   return (
     <>
-<Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Professional Tax Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Professional Tax Calculator" }]} />
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Professional Tax Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate state-wise Professional Tax deduction from your monthly salary.</p>
 
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Professional Tax Calculator</h1>
-            <p className="text-muted-foreground mb-8">Calculate state-wise Professional Tax deduction from your monthly salary.</p>
-
-            <div className="card-calculator mb-8">
-              <div className="mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="mb-6">
                 <label className="block text-sm font-medium text-foreground mb-2">State</label>
                 <div className="flex flex-wrap gap-2">
                   {(Object.keys(stateSlabs) as StateKey[]).map(k => (
@@ -149,22 +147,25 @@ const ProfessionalTaxCalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate PT</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && result && (
-              <div className="card-calculator mb-8">
+              <>
                 <h2 className="text-xl font-bold mb-4">Professional Tax — {stateSlabs[state].label}</h2>
                 <ResultDisplay currency="₹" items={[
                   { label: "Monthly PT", value: result.monthlyTax, highlight: true },
                   { label: "Annual PT", value: result.annualTax, highlight: true },
                   { label: "Effective Rate", value: 0, textValue: `${result.effectiveRate.toFixed(3)}%` },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>What Is Professional Tax?</h2>
               <p>Professional Tax (PT) is a direct tax levied by state governments on individuals earning income through employment, trade, or profession. It is one of the oldest forms of taxation in India and is governed by Article 276 of the Indian Constitution, which caps it at ₹2,500 per year.</p>
 
@@ -188,14 +189,8 @@ const ProfessionalTaxCalculator = () => {
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> PT rates vary by state and are subject to change. Some states have special rates for February. Verify with your employer or state government portal.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/professional-tax-calculator" />
-            <PopularCalculators exclude="/professional-tax-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/professional-tax-calculator" />
+          <PopularCalculators exclude="/professional-tax-calculator" />
         </div>
       </div>
     </>

@@ -48,15 +48,13 @@ const TeaSteepingCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Tea Steeping Calculator" }]} />
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Tea Steeping Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Get the perfect temperature and timing for any variety of tea to ensure the best possible flavor profile without bitterness.</p>
 
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Tea Steeping Calculator</h1>
-            <p className="text-muted-foreground mb-8">Get the perfect temperature and timing for any variety of tea to ensure the best possible flavor profile without bitterness.</p>
-
-            <div className="card-calculator mb-8">
-              <div className="mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="mb-6">
                 <label className="block text-sm font-medium text-foreground mb-1.5">Type of Tea</label>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                   {Object.keys(teaData).map((type) => (
@@ -78,10 +76,11 @@ const TeaSteepingCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Brewing Guide: {teaType.charAt(0).toUpperCase() + teaType.slice(1)} Tea</h2>
                 
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
@@ -107,12 +106,14 @@ const TeaSteepingCalculator = () => {
                   { label: "Optimal Temp (F)", value: 0, textValue: results.tempF },
                   { label: "Duration", value: 0, textValue: results.time },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>The Importance of Temperature</h2>
               <p>Not all tea leaves are created equal. Black teas are fully oxidized and can withstand (and often require) boiling water to extract their deep flavors. Green and white teas, however, are delicate. Using boiling water on green tea "cooks" the leaves, resulting in a bitter, grassy taste rather than the sweet, nutty profile intended.</p>
               
@@ -122,15 +123,8 @@ const TeaSteepingCalculator = () => {
               <h2>Water Quality</h2>
               <p>Since tea is 99% water, the quality of your water matters. Use filtered water if possible, and avoid re-boiling water, as this removes dissolved oxygen which helps release the tea's aromatics.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/tea-steeping" />
-            <PopularCalculators exclude="/calculator/tea-steeping-calculator" />
-          </div>
-
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/tea-steeping" />
+          <PopularCalculators exclude="/calculator/tea-steeping-calculator" />
         </div>
       </div>
     </>

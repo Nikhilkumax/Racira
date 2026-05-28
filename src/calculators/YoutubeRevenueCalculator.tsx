@@ -56,14 +56,13 @@ export default function YoutubeRevenueCalculator() {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "YouTube Revenue Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">YouTube Revenue Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Estimate your potential YouTube earnings based on daily views and your channel's specific RPM.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">YouTube Revenue Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Estimate your potential YouTube earnings based on daily views and your channel's specific RPM.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-6 mb-6">
                 <InputField id="daily-views" label="Average Daily Views" value={dailyViews} onChange={setDailyViews} tooltip="Total views your channel receives across all videos in a typical 24-hour period." />
                 <InputField id="rpm" label="Estimated RPM ($)" value={rpm} onChange={setRpm} prefix="$" tooltip="Revenue Per Mille: What you earn per 1,000 views after YouTube's cut." />
               </div>
@@ -76,10 +75,11 @@ export default function YoutubeRevenueCalculator() {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Earnings Forecast</h2>
                 <div className="grid sm:grid-cols-3 gap-4 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -100,12 +100,14 @@ export default function YoutubeRevenueCalculator() {
                   { label: "Estimated RPM", value: 0, textValue: `$${parseFloat(rpm).toFixed(2)}` },
                   { label: "Daily View Target", value: 0, textValue: dailyViews },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>Maximizing Your YouTube Revenue: The Definitive Guide</h2>
               <p>YouTube has transformed from a simple video-sharing site into a global economic engine, minting millionaires and providing sustainable careers for millions of creators. However, understanding the actual math behind YouTube payments is often confusing for new creators. This YouTube Revenue Calculator is designed to demystify those numbers and help you plan your content strategy for maximum profitability.</p>
 
@@ -142,15 +144,8 @@ export default function YoutubeRevenueCalculator() {
               <h3>Using This Calculator for Goal Setting</h3>
               <p>Don't just use this calculator to see what you're earning now — use it to set targets. If your goal is to earn $5,000 per month and your current RPM is $5.00, you know you need to reach 1,000,000 views per month. If that seems impossible, you have two choices: find a way to get more views, or find a way to increase your RPM (by shifting your niche or targeting a different audience).</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/youtube-revenue-calculator" />
-            <PopularCalculators exclude="/calculator/youtube-revenue-calculator" />
-          </div>
-
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/youtube-revenue-calculator" />
+          <PopularCalculators exclude="/calculator/youtube-revenue-calculator" />
         </div>
       </div>
     </>

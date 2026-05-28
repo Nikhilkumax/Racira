@@ -85,15 +85,13 @@ const CoffeeBrewingCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Coffee Brewing Calculator" }]} />
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Coffee Brewing Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate the perfect coffee-to-water ratio for any brewing method to ensure a consistent, delicious cup every morning.</p>
 
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Coffee Brewing Calculator</h1>
-            <p className="text-muted-foreground mb-8">Calculate the perfect coffee-to-water ratio for any brewing method to ensure a consistent, delicious cup every morning.</p>
-
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-5 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-5 mb-6">
                 <div>
                   <label className="block text-sm font-medium text-foreground mb-1.5">Brewing Method</label>
                   <select 
@@ -134,10 +132,11 @@ const CoffeeBrewingCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8">
+              <>
                 <h2 className="text-xl font-bold mb-6">Your Perfect Recipe</h2>
                 
                 <div className="grid sm:grid-cols-2 gap-8 mb-8">
@@ -157,12 +156,14 @@ const CoffeeBrewingCalculator = () => {
                   { label: "Coffee in Ounces", value: 0, textValue: (results.coffeeGrams * 0.035274).toFixed(2) + " oz" },
                   { label: "Water in Ounces", value: 0, textValue: (results.waterMl * 0.033814).toFixed(1) + " fl oz" },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>The Art of the Brew Ratio</h2>
               <p>Coffee brewing is a delicate science where the ratio of coffee to water is the most critical variable. By controlling this ratio, you control the strength and extraction of your coffee. A lower ratio (like 1:12) will result in a heavy, intense cup, while a higher ratio (like 1:18) will be lighter and more tea-like.</p>
               
@@ -180,15 +181,8 @@ const CoffeeBrewingCalculator = () => {
               <h2>Refining Your Brew</h2>
               <p>If your coffee tastes too bitter, try using a coarser grind or a slightly higher ratio (more water). If it tastes sour or thin, try a finer grind or a tighter ratio (less water). Remember, the best cup of coffee is the one that tastes best to you — use this calculator as a reliable starting point for your own experimentation.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/coffee-brewing" />
-            <PopularCalculators exclude="/calculator/coffee-brewing-calculator" />
-          </div>
-
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/coffee-brewing" />
+          <PopularCalculators exclude="/calculator/coffee-brewing-calculator" />
         </div>
       </div>
     </>

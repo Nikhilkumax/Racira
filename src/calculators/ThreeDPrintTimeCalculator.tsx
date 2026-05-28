@@ -74,14 +74,13 @@ const ThreeDPrintTimeCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "3D Print Time Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">3D Print Time Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Estimate FDM 3D printing duration based on volume, speed, and slicer settings.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">3D Print Time Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Estimate FDM 3D printing duration based on volume, speed, and slicer settings.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-8">
                 <section className="space-y-6">
                   <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
                     <Box className="h-5 w-5 text-primary" /> Model Info
@@ -129,10 +128,11 @@ const ThreeDPrintTimeCalculator = () => {
                   <RotateCcw className="h-4 w-4" /> Reset
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 mb-8">
+              <>
                 <div className="card-calculator bg-primary/5 border-solid border-primary/20 text-center flex flex-col justify-center py-10 mb-6">
                     <p className="text-sm font-bold text-primary uppercase tracking-widest mb-2">Estimated Print Time</p>
                     <p className="text-6xl font-black text-foreground">
@@ -151,11 +151,14 @@ const ThreeDPrintTimeCalculator = () => {
                     { label: "Est. Weight (PLA)", value: 0, textValue: ((results.totalVolToPrintMm3 / 1000) * 1.24).toFixed(1) + " g" },
                   ]} />
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="my-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Optimizing 3D Print Speed</h2>
               <p>FDM (Fused Deposition Modeling) 3D printing is a time-consuming process. Understanding the relationship between your slicer settings and the final print time is crucial for efficient production.</p>
               
@@ -165,12 +168,8 @@ const ThreeDPrintTimeCalculator = () => {
               <h3>Infill vs. Walls</h3>
               <p>Many beginners increase infill to 100% for strength, but this is rarely efficient. Most of a part's structural integrity comes from its "walls" or "shells." Increasing the wall count from 2 to 4 often makes a part stronger than increasing infill from 20% to 50%, while using less filament and taking less time.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/3d-print-time" />
-            <PopularCalculators exclude="/calculator/3d-print-time-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/3d-print-time" />
+          <PopularCalculators exclude="/calculator/3d-print-time-calculator" />
         </div>
       </div>
     </>

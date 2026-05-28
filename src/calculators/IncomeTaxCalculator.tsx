@@ -1,6 +1,6 @@
-"use client";
+﻿"use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import PopularCalculators from "@/components/PopularCalculators";
@@ -81,8 +81,6 @@ const IncomeTaxCalculator = () => {
   const [capitalGains, setCapitalGains] = useState("0");
   const [interestIncome, setInterestIncome] = useState("0");
   const [dividends, setDividends] = useState("0");
-  const [showResults, setShowResults] = useState(false);
-
   // India
   const [indiaRegime, setIndiaRegime] = useState<"new" | "old">("new");
 
@@ -95,8 +93,9 @@ const IncomeTaxCalculator = () => {
     monthlyTakeHome: number;
   } | null>(null);
 
+  useEffect(() => { handleCalculate(); }, []);
+
   const handleCalculate = () => {
-    setShowResults(true);
     const gross = (parseFloat(salary) || 0) + (parseFloat(otherIncome) || 0) + (parseFloat(capitalGains) || 0) + (parseFloat(interestIncome) || 0) + (parseFloat(dividends) || 0);
     const ded = parseFloat(deductions) || 0;
     const ret = parseFloat(retirementContrib) || 0;
@@ -128,10 +127,10 @@ const IncomeTaxCalculator = () => {
   };
 
   const reset = () => {
-    setShowResults(false);
     setSalary("85000"); setOtherIncome("0"); setDeductions("14600");
     setRetirementContrib("0"); setStateTax("5"); setCapitalGains("0");
     setInterestIncome("0"); setDividends("0"); setResult(null);
+    setTimeout(() => handleCalculate(), 0);
   };
 
   const faqs = [
@@ -147,25 +146,22 @@ const IncomeTaxCalculator = () => {
 
   return (
     <>
-<Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Income Tax Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Income Tax Calculator" }]} />
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Income Tax Calculator</h1>
 
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Income Tax Calculator</h1>
-            <p className="text-muted-foreground mb-8">Estimate your federal and state taxes, effective rate, and take-home pay.</p>
-
-            <div className="card-calculator mb-8">
-              {/* Regime toggle */}
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            {/* Regime toggle */}
               <div className="flex rounded-lg border border-input overflow-hidden mb-6">
                 <button onClick={() => { setRegime("us"); setResult(null); }} className={`flex-1 py-3 text-sm font-medium transition-colors ${regime === "us" ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:bg-secondary"}`}>🇺🇸 United States</button>
                 <button onClick={() => { setRegime("india"); setResult(null); }} className={`flex-1 py-3 text-sm font-medium transition-colors ${regime === "india" ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:bg-secondary"}`}>🇮🇳 India</button>
               </div>
 
-              <div className="grid sm:grid-cols-2 gap-5 mb-6">
+              <div className="grid sm:grid-cols-2 gap-3 mb-6">
                 {regime === "us" && (
                   <div>
-                    <label className="block text-sm font-medium text-foreground mb-1.5">Filing Status</label>
+                    <label className="block text-sm font-medium text-foreground mb-1">Filing Status</label>
                     <select value={filingStatus} onChange={(e) => setFilingStatus(e.target.value)} className="input-calc">
                       <option value="single">Single</option>
                       <option value="married">Married Filing Jointly</option>
@@ -175,7 +171,7 @@ const IncomeTaxCalculator = () => {
                 )}
                 {regime === "india" && (
                   <div>
-                    <label className="block text-sm font-medium text-foreground mb-1.5">Tax Regime</label>
+                    <label className="block text-sm font-medium text-foreground mb-1">Tax Regime</label>
                     <div className="flex rounded-lg border border-input overflow-hidden">
                       <button onClick={() => setIndiaRegime("new")} className={`flex-1 py-3 text-sm font-medium ${indiaRegime === "new" ? "bg-accent text-accent-foreground" : "text-muted-foreground"}`}>New Regime</button>
                       <button onClick={() => setIndiaRegime("old")} className={`flex-1 py-3 text-sm font-medium ${indiaRegime === "old" ? "bg-accent text-accent-foreground" : "text-muted-foreground"}`}>Old Regime</button>
@@ -183,8 +179,8 @@ const IncomeTaxCalculator = () => {
                   </div>
                 )}
                 <InputField id="salary" label="Annual Salary" value={salary} onChange={setSalary} prefix={currSymbol} />
-                <InputField id="deductions" label="Deductions" value={deductions} onChange={setDeductions} prefix={currSymbol} tooltip="Standard or itemized deductions." />
-                <InputField id="retirement" label="Retirement Contributions" value={retirementContrib} onChange={setRetirementContrib} prefix={currSymbol} tooltip="401(k), IRA, or similar tax-deductible contributions." />
+                <InputField id="deductions" label="Deductions" value={deductions} onChange={setDeductions} prefix={currSymbol} />
+                <InputField id="retirement" label="Retirement Contributions" value={retirementContrib} onChange={setRetirementContrib} prefix={currSymbol} />
                 <InputField id="state" label="State/Local Tax Rate" value={stateTax} onChange={setStateTax} suffix="%" />
               </div>
 
@@ -192,22 +188,26 @@ const IncomeTaxCalculator = () => {
                 Additional Income <ChevronDown className={`h-4 w-4 transition-transform ${showAdvanced ? "rotate-180" : ""}`} />
               </button>
 
-              {showAdvanced && (
-                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-6 p-4 rounded-lg bg-secondary/30 border border-border">
+              {showAdvanced && (<>
+
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-6 p-4 rounded-lg bg-secondary/30 border border-border">
                   <InputField id="other" label="Other Income" value={otherIncome} onChange={setOtherIncome} prefix={currSymbol} />
                   <InputField id="cap" label="Capital Gains" value={capitalGains} onChange={setCapitalGains} prefix={currSymbol} />
                   <InputField id="int" label="Interest Income" value={interestIncome} onChange={setInterestIncome} prefix={currSymbol} />
                   <InputField id="div" label="Dividends" value={dividends} onChange={setDividends} prefix={currSymbol} />
                 </div>
-              )}
+              
+</>)}
 
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Tax</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
 
-            {showResults && result && (
-              <div className="card-calculator mb-8">
+          <div className="flex flex-col gap-3">
+            {result && (<>
+
+              <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
                 <h2 className="text-xl font-bold mb-4">Tax Summary</h2>
                 <ResultDisplay items={[
                   { label: regime === "india" ? "Income Tax" : "Federal Tax", value: result.federalTax },
@@ -224,12 +224,16 @@ const IncomeTaxCalculator = () => {
                     { label: "State Tax", value: result.stateTaxAmt, color: "hsl(210, 30%, 75%)" },
                   ]} size={180} />
                 </div>
+              
               </div>
-            )}
+            
+</>)}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>What Is an Income Tax Calculator?</h2>
               <p>An income tax calculator estimates the amount of federal and state taxes you owe based on your income, filing status, deductions, and other factors. It helps you understand your tax liability and plan your finances by showing your effective tax rate and monthly take-home pay.</p>
               <p>Our calculator supports both US federal tax brackets (2024) and Indian tax regimes (New and Old), making it useful for taxpayers in both countries. It accounts for deductions, retirement contributions, and multiple income sources.</p>
@@ -251,14 +255,8 @@ const IncomeTaxCalculator = () => {
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> This calculator provides estimates for educational purposes only. Tax laws are complex and change frequently. Consult a qualified tax professional for accurate tax advice specific to your situation.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/income-tax-calculator" />
-            <PopularCalculators exclude="/income-tax-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/income-tax-calculator" />
+          <PopularCalculators exclude="/income-tax-calculator" />
         </div>
       </div>
     </>
@@ -266,5 +264,6 @@ const IncomeTaxCalculator = () => {
 };
 
 export default IncomeTaxCalculator;
+
 
 

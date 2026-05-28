@@ -43,13 +43,13 @@ export default function MoneyMarketCalculator() {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Money Market Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Money Market Account Calculator</h1>
-            <p className="text-muted-foreground mb-8">Calculate interest earned and final balance on a money market account with compound interest.</p>
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-3 gap-5 mb-6">
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Money Market Account Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate interest earned and final balance on a money market account with compound interest.</p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-3 gap-5 mb-6">
                 <InputField id="principal" label="Initial Deposit ($)" value={principal} onChange={setPrincipal} prefix="$" tooltip="Amount deposited into the money market account." />
                 <InputField id="apy" label="Annual Percentage Yield (APY)" value={apy} onChange={setApy} suffix="%" tooltip="Current APY offered by the money market account." />
                 <InputField id="months" label="Term (Months)" value={months} onChange={setMonths} tooltip="Number of months to project interest earnings." />
@@ -58,19 +58,25 @@ export default function MoneyMarketCalculator() {
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Interest</button>
                 <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
+
+          <div className="flex flex-col gap-3">
             {showResults && (
-              <div className="card-calculator mb-8">
+              <>
                 <h2 className="text-xl font-bold mb-4">Money Market Results</h2>
                 <ResultDisplay items={[
                   { label: "Final Account Balance", value: results.finalBalance, highlight: true },
                   { label: "Total Interest Earned", value: results.interestEarned, highlight: true },
                   { label: "Average Monthly Interest", value: results.monthlyInterest },
                 ]} />
-              </div>
+              </>
             )}
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-            <article className="prose-finance">
+          </div>
+        </div>
+
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>Understanding Money Market Accounts</h2>
               <p>Money market accounts (MMAs) occupy a unique position in the financial product landscape, combining features of both checking and savings accounts while typically offering higher interest rates than either. They are particularly well-suited for individuals who want their emergency fund or short-term savings to earn a competitive yield while maintaining easy access to their money through checks or debit card transactions.</p>
               <h2>How Money Market Account Interest Works</h2>
@@ -80,13 +86,8 @@ export default function MoneyMarketCalculator() {
               <h2>MMA vs. CD: When Each Makes Sense</h2>
               <p>MMAs offer liquidity — you can withdraw anytime without penalty. CDs (Certificates of Deposit) lock up your money for a fixed term but may offer higher rates as compensation for the illiquidity. If you know you won't need the money for 12-24 months and want a guaranteed rate, a CD may be preferable. If you want flexibility and still need the money accessible, an MMA is the better choice, especially in a falling rate environment where you can keep earning the current high rate until you need the funds.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/money-market-calculator" />
-            <PopularCalculators exclude="/calculator/money-market-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/money-market-calculator" />
+          <PopularCalculators exclude="/calculator/money-market-calculator" />
         </div>
       </div>
     </>

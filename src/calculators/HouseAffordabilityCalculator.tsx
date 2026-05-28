@@ -84,14 +84,13 @@ const HouseAffordabilityCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "House Affordability" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">House Affordability Calculator</h1>
-            <p className="text-muted-foreground mb-8">Determine your home buying budget based on your income, debts, and down payment according to standard lender guidelines.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">House Affordability Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Determine your home buying budget based on your income, debts, and down payment according to standard lender guidelines.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-5 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-5 mb-6">
                 <InputField id="annualIncome" label="Annual Gross Income" value={annualIncome} onChange={setAnnualIncome} prefix="$" />
                 <InputField id="monthlyDebt" label="Monthly Debt Payments" value={monthlyDebt} onChange={setMonthlyDebt} prefix="$" tooltip="Car loans, student loans, credit card minimums." />
                 <InputField id="downPayment" label="Down Payment Amount" value={downPayment} onChange={setDownPayment} prefix="$" />
@@ -102,10 +101,11 @@ const HouseAffordabilityCalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Budget</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {results && !results.error && (
-              <div className="card-calculator mb-8">
+              <>
                 <div className="text-center mb-6">
                   <h2 className="text-sm font-bold text-primary uppercase tracking-wider">Maximum Home Price</h2>
                   <p className="text-5xl font-extrabold">${Math.round(results.maxPrice).toLocaleString()}</p>
@@ -118,28 +118,21 @@ const HouseAffordabilityCalculator = () => {
                   { label: "Estimated Monthly Tax", value: results.monthlyTax },
                   { label: "Estimated Monthly Insurance", value: results.monthlyInsurance },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            {results?.error && (
-              <div className="p-4 rounded-lg bg-destructive/10 border border-destructive/20 text-destructive mb-8">
-                {results.error}
-              </div>
-            )}
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Sidebar Ad" />
+          <article className="prose-finance">
               <h2>How Lenders Determine Your Budget</h2>
               <p>When you apply for a mortgage, lenders don't just look at your credit score; they look at your "capacity" to pay. The primary metric they use is the Debt-to-Income (DTI) ratio.</p>
               <h3>Front-End vs. Back-End Ratio</h3>
               <p>The **front-end ratio** is the percentage of your gross income that goes toward housing costs. Lenders typically like this to be 28% or less. The **back-end ratio** is your total debt payments (including the new mortgage) divided by your gross income. Lenders typically look for 36% to 43% here.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/house-affordability-calculator" />
-            <PopularCalculators exclude="/calculator/house-affordability-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder label="Sidebar Ad" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/house-affordability-calculator" />
+          <PopularCalculators exclude="/calculator/house-affordability-calculator" />
         </div>
       </div>
     </>

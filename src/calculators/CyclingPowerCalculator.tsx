@@ -71,14 +71,13 @@ const CyclingPowerCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Cycling Power Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Cycling Power Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Estimate the power (Watts) required to ride at a certain speed based on weight and terrain gradient.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Cycling Power Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Estimate the power (Watts) required to ride at a certain speed based on weight and terrain gradient.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
                 <InputField id="speed" label={unit === "metric" ? "Speed (km/h)" : "Speed (mph)"} value={speed} onChange={setSpeed} />
                 <InputField id="weight" label={unit === "metric" ? "Total Weight (kg)" : "Total Weight (lb)"} value={weight} onChange={setWeight} tooltip="Rider + Bike + Gear" />
                 <InputField id="gradient" label="Gradient (%)" value={gradient} onChange={setGradient} suffix="%" />
@@ -106,10 +105,11 @@ const CyclingPowerCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Power Output</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -126,11 +126,14 @@ const CyclingPowerCalculator = () => {
                   { label: "Air Resistance", value: 0, textValue: results.airPct.toFixed(1) + "%" },
                   { label: "Drivetrain Loss", value: 0, textValue: "5% (Est.)" },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>The Physics of Cycling</h2>
               <p>When you ride a bike, you are constantly fighting against three main forces: air resistance (drag), rolling resistance, and gravity. Understanding how these forces interact can help you become a faster, more efficient cyclist.</p>
               <h3>Drafting and Drag</h3>
@@ -138,12 +141,8 @@ const CyclingPowerCalculator = () => {
               <h3>Climbing and Gravity</h3>
               <p>Once the road tilts upward, gravity becomes the primary enemy. On a 10% gradient, over 90% of your power goes into simply lifting your body and bike weight against gravity. This is why lighter riders (and lighter bikes) have a massive advantage on climbs, where power-to-weight ratio (W/kg) is the ultimate metric of performance.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/cycling-power" />
-            <PopularCalculators exclude="/calculator/cycling-power-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/cycling-power" />
+          <PopularCalculators exclude="/calculator/cycling-power-calculator" />
         </div>
       </div>
     </>

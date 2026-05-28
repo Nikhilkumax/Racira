@@ -88,16 +88,14 @@ const EBITDACalculator = () => {
 
   return (
     <>
-<Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "EBITDA Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "EBITDA Calculator" }]} />
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">EBITDA Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate EBITDA and EBIT from revenue or net income for business valuation.</p>
 
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">EBITDA Calculator</h1>
-            <p className="text-muted-foreground mb-8">Calculate EBITDA and EBIT from revenue or net income for business valuation.</p>
-
-            <div className="card-calculator mb-8">
-              <div className="mb-6 flex gap-2">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="mb-6 flex gap-2">
                 <button onClick={() => { setMode("revenue"); setResult(null); }} className={`flex-1 py-3 rounded-lg text-sm font-medium transition-colors ${mode === "revenue" ? "bg-accent text-accent-foreground" : "bg-secondary text-muted-foreground"}`}>From Revenue</button>
                 <button onClick={() => { setMode("income"); setResult(null); }} className={`flex-1 py-3 rounded-lg text-sm font-medium transition-colors ${mode === "income" ? "bg-accent text-accent-foreground" : "bg-secondary text-muted-foreground"}`}>From Net Income</button>
               </div>
@@ -123,10 +121,11 @@ const EBITDACalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate EBITDA</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && result && (
-              <div className="card-calculator mb-8">
+              <>
                 <h2 className="text-xl font-bold mb-4">EBITDA Analysis</h2>
                 <ResultDisplay items={[
                   { label: "EBITDA", value: result.ebitda, highlight: true },
@@ -135,12 +134,14 @@ const EBITDACalculator = () => {
                   ...(result.ebitMargin > 0 ? [{ label: "EBIT Margin", value: 0, textValue: `${result.ebitMargin.toFixed(1)}%` }] : []),
                   ...(result.revenue > 0 ? [{ label: "Revenue", value: result.revenue }] : []),
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>What Is EBITDA?</h2>
               <p>EBITDA (Earnings Before Interest, Taxes, Depreciation, and Amortization) is a widely used measure of core profitability. By excluding financing costs, tax rates, and non-cash accounting charges, EBITDA reveals a company's operational performance independent of its capital structure and accounting decisions.</p>
 
@@ -178,14 +179,8 @@ const EBITDACalculator = () => {
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> EBITDA is a non-GAAP metric and should be used alongside other financial measures. Consult a CPA or financial analyst for comprehensive business valuation.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/ebitda-calculator" />
-            <PopularCalculators exclude="/ebitda-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/ebitda-calculator" />
+          <PopularCalculators exclude="/ebitda-calculator" />
         </div>
       </div>
     </>

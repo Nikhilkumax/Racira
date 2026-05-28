@@ -60,14 +60,13 @@ const HomeLoanCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Home Loan Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Home Loan Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Estimate your monthly mortgage payments including taxes and insurance.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Home Loan Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Estimate your monthly mortgage payments including taxes and insurance.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
                 <InputField id="amount" label="Property Price ($)" value={loanAmount} onChange={setLoanAmount} />
                 <InputField id="down" label="Down Payment ($)" value={downPayment} onChange={setDownPayment} />
                 <InputField id="rate" label="Interest Rate (%)" value={interestRate} onChange={setInterestRate} />
@@ -84,10 +83,11 @@ const HomeLoanCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Payment Summary</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -104,11 +104,14 @@ const HomeLoanCalculator = () => {
                   { label: "Total Interest Paid", value: 0, textValue: "$" + results.totalInterest.toLocaleString(undefined, { maximumFractionDigits: 0 }) },
                   { label: "Total Cost of Loan", value: 0, textValue: "$" + results.totalPayment.toLocaleString(undefined, { maximumFractionDigits: 0 }) },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Understanding Your Home Loan</h2>
               <p>Buying a home is likely the largest financial commitment you will ever make. A home loan, or mortgage, allows you to spread the cost of the property over many years, making it accessible even if you don't have the full purchase price in cash.</p>
               <h3>Components of a Mortgage Payment</h3>
@@ -122,12 +125,8 @@ const HomeLoanCalculator = () => {
               <h3>How Interest Rates Affect You</h3>
               <p>Even a small difference in your interest rate can result in tens of thousands of dollars in savings or costs over the life of a 30-year loan. For example, on a $300,000 loan, the difference between a 6% and 7% interest rate is roughly $200 per month and over $70,000 in total interest.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/home-loan" />
-            <PopularCalculators exclude="/calculator/home-loan-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/home-loan" />
+          <PopularCalculators exclude="/calculator/home-loan-calculator" />
         </div>
       </div>
     </>

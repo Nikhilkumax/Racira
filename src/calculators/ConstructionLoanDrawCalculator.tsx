@@ -106,14 +106,13 @@ const ConstructionLoanDrawCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Construction Loan Draw Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Construction Loan Draw Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Track your draw schedule and calculate the interest-only payments throughout your building project.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Construction Loan Draw Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Track your draw schedule and calculate the interest-only payments throughout your building project.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-8 mb-10">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-8 mb-10">
                 <section className="space-y-6">
                   <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
                     <HardHat className="h-5 w-5 text-primary" /> Loan Basics
@@ -161,10 +160,11 @@ const ConstructionLoanDrawCalculator = () => {
                   <RotateCcw className="h-4 w-4" /> Reset 
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 mb-8">
+              <>
                 <div className="grid sm:grid-cols-2 gap-4 mb-6">
                   <div className="card-calculator bg-primary/5 border-solid border-primary/20 text-center flex flex-col justify-center py-8">
                     <p className="text-xs font-bold text-primary uppercase tracking-widest mb-1">Total Interest During Build</p>
@@ -176,7 +176,7 @@ const ConstructionLoanDrawCalculator = () => {
                   </div>
                 </div>
 
-                <div className="card-calculator mb-6">
+                <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
                   <h2 className="text-xl font-bold flex items-center gap-2 mb-6">
                     <TrendingUp className="h-5 w-5 text-primary" /> Loan Status
                   </h2>
@@ -204,12 +204,14 @@ const ConstructionLoanDrawCalculator = () => {
                     ))}
                   </div>
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="my-8" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>How Construction Loans Work</h2>
               <p>Building a home is different from buying one. Because the asset (the house) doesn't exist yet, lenders provide funds in stages rather than all at once. This is done through a 'draw' process, where money is released only after specific milestones are reached and verified by an inspector.</p>
 
@@ -232,13 +234,8 @@ const ConstructionLoanDrawCalculator = () => {
               <h3>Conversion to Permanent Financing</h3>
               <p>Once construction is finished and the local building department issues a 'Certificate of Occupancy', the construction loan period ends. In a 'one-close' loan, the balance automatically converts to a 15 or 30-year fixed-rate mortgage. In a 'two-close' scenario, you would have to apply for a brand new mortgage to pay off the construction loan.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/construction-loan-draw-calculator" />
-            <PopularCalculators exclude="/calculator/construction-loan-draw-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/construction-loan-draw-calculator" />
+          <PopularCalculators exclude="/calculator/construction-loan-draw-calculator" />
         </div>
       </div>
     </>

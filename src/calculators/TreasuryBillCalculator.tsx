@@ -45,13 +45,13 @@ export default function TreasuryBillCalculator() {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Treasury Bill Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Treasury Bill (T-Bill) Calculator</h1>
-            <p className="text-muted-foreground mb-8">Calculate the purchase price, discount amount, and annualized yield on U.S. Treasury Bills at any discount rate and maturity.</p>
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-3 gap-5 mb-6">
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Treasury Bill (T-Bill) Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate the purchase price, discount amount, and annualized yield on U.S. Treasury Bills at any discount rate and maturity.</p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-3 gap-5 mb-6">
                 <InputField id="face-value" label="Face Value ($)" value={faceValue} onChange={setFaceValue} prefix="$" tooltip="The par/maturity value of the T-Bill (minimum $100, typically $10,000)." />
                 <InputField id="discount-rate" label="Bank Discount Rate (%)" value={discountRate} onChange={setDiscountRate} suffix="%" tooltip="The discount rate quoted in T-Bill auctions (annualized, 360-day basis)." />
                 <InputField id="days" label="Days to Maturity" value={daysToMaturity} onChange={setDaysToMaturity} tooltip="Standard maturities: 28, 56, 91, 119, 182, or 364 days." />
@@ -60,9 +60,11 @@ export default function TreasuryBillCalculator() {
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate T-Bill Yield</button>
                 <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
+
+          <div className="flex flex-col gap-3">
             {showResults && (
-              <div className="card-calculator mb-8">
+              <>
                 <h2 className="text-xl font-bold mb-4">T-Bill Yield Results</h2>
                 <ResultDisplay items={[
                   { label: "Purchase Price", value: results.purchasePrice, highlight: true },
@@ -70,10 +72,14 @@ export default function TreasuryBillCalculator() {
                   { label: "Investment Yield (365-day basis)", value: 0, textValue: `${results.investmentYield.toFixed(4)}%` },
                   { label: "Annualized Compound Yield", value: 0, textValue: `${results.annualizedYield.toFixed(4)}%` },
                 ]} />
-              </div>
+              </>
             )}
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-            <article className="prose-finance">
+          </div>
+        </div>
+
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>What Are U.S. Treasury Bills?</h2>
               <p>U.S. Treasury Bills (T-Bills) are short-term debt instruments issued by the U.S. Department of the Treasury to finance the national debt. Unlike bonds, T-Bills do not pay periodic interest. Instead, they are sold at a discount from their face value, and the investor receives the full face value at maturity. The difference between the purchase price and the face value represents the investor's return.</p>
               <h2>How T-Bills Are Priced</h2>
@@ -85,13 +91,8 @@ export default function TreasuryBillCalculator() {
               <h2>T-Bills in a Portfolio Context</h2>
               <p>T-Bills serve important roles in investment portfolios: emergency fund reserve earning competitive yields, "dry powder" for opportunistic investing, cash sweep vehicles in brokerage accounts, and comparison benchmarks for the risk-free rate in financial models. In the post-2022 environment with interest rates above 5%, T-Bills have attracted enormous inflows from retail investors seeking safe, liquid alternatives to savings accounts offering far lower rates.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/treasury-bill-calculator" />
-            <PopularCalculators exclude="/calculator/treasury-bill-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/treasury-bill-calculator" />
+          <PopularCalculators exclude="/calculator/treasury-bill-calculator" />
         </div>
       </div>
     </>

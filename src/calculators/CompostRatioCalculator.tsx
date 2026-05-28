@@ -59,14 +59,13 @@ const CompostRatioCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Compost C:N Ratio Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Compost C:N Ratio Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Calculate the carbon-to-nitrogen ratio of your compost mix to ensure healthy and fast decomposition.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Compost C:N Ratio Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate the carbon-to-nitrogen ratio of your compost mix to ensure healthy and fast decomposition.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-8 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-8 mb-6">
                 <section>
                   <div className="flex items-center gap-2 mb-4 text-green-600">
                     <Sprout className="h-5 w-5" />
@@ -97,10 +96,11 @@ const CompostRatioCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6 text-center">Mix Analysis</h2>
                 <div className="max-w-md mx-auto text-center mb-8">
                   <p className="text-sm font-bold text-muted-foreground uppercase tracking-widest mb-2">Calculated Ratio</p>
@@ -123,11 +123,14 @@ const CompostRatioCalculator = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>The Science of Composting</h2>
               <p>Composting is a biological process where microorganisms convert organic material into a nutrient-rich soil amendment. The speed and quality of this process depend on four factors: Carbon, Nitrogen, Oxygen, and Water.</p>
               <h3>Why the Ratio Matters</h3>
@@ -142,12 +145,8 @@ const CompostRatioCalculator = () => {
                 <li><strong>Sawdust:</strong> 500:1</li>
               </ul>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/compost-ratio" />
-            <PopularCalculators exclude="/calculator/compost-ratio-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/compost-ratio" />
+          <PopularCalculators exclude="/calculator/compost-ratio-calculator" />
         </div>
       </div>
     </>

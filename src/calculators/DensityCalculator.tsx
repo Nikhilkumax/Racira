@@ -3,6 +3,8 @@
 import { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import FAQSection from "@/components/FAQSection";
+import AdPlaceholder from "@/components/AdPlaceholder";
+import PopularCalculators from "@/components/PopularCalculators";
 import InputField from "@/components/calculator/InputField";
 import { RotateCcw, Atom } from "lucide-react";
 
@@ -63,15 +65,13 @@ const DensityCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Density Calculator" }]} />
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Density Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate density, mass, or volume using the standard formula ρ = m / V.</p>
 
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Density Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Calculate density, mass, or volume using the standard formula ρ = m / V.</p>
-
-            <div className="card-calculator mb-8">
-              <div className="space-y-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="space-y-6">
                 <div>
                   <label className="text-sm font-bold text-muted-foreground uppercase tracking-wider mb-2 block text-[10px]">Solve For</label>
                   <select 
@@ -96,10 +96,11 @@ const DensityCalculator = () => {
                   </button>
                 </div>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
                   <Atom className="h-5 w-5 text-primary" /> Calculation Results
                 </h2>
@@ -120,22 +121,14 @@ const DensityCalculator = () => {
                     <p className="text-[10px] text-muted-foreground">m³</p>
                   </div>
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <div className="card-calculator mb-8">
-              <h2 className="text-xl font-bold mb-6">Common Material Densities</h2>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                {commonMaterials.map(m => (
-                  <div key={m.name} className="flex justify-between items-center rounded-xl bg-secondary/50 border border-border p-3">
-                    <span className="text-sm font-bold text-foreground">{m.name}</span>
-                    <span className="text-xs font-medium text-muted-foreground">{m.density}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space" />
+          <article className="prose-finance">
               <h2>About Density Calculation</h2>
               <p>Density is a measure of how much mass is contained in a given unit of volume. It is a fundamental property of matter that describes how tightly atoms or molecules are packed together.</p>
               
@@ -152,17 +145,8 @@ const DensityCalculator = () => {
                 <li><strong>Construction:</strong> Engineers calculate the density of concrete and steel to ensure buildings can support their own weight.</li>
               </ul>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/density-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <div className="sticky top-24 space-y-6">
-              <div className="p-6 rounded-2xl border border-primary/10 bg-primary/5">
-                <h3 className="font-bold text-primary mb-2 italic">Pro Tip</h3>
-                <p className="text-xs text-muted-foreground leading-relaxed italic">Density changes with temperature and pressure, especially for gases. These calculations assume standard conditions unless otherwise specified.</p>
-              </div>
-            </div>
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/density-calculator" />
+          <PopularCalculators exclude="/calculator/density-calculator" />
         </div>
       </div>
     </>

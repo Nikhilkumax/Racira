@@ -53,14 +53,13 @@ const HpToKwCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "HP to kW Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Horsepower to Kilowatts Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Convert between different standards of horsepower and kilowatts (kW) for engines and motors.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Horsepower to Kilowatts Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Convert between different standards of horsepower and kilowatts (kW) for engines and motors.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-6 mb-6">
                 <InputField id="hp" label="Horsepower (HP)" value={hp} onChange={setHp} />
                 <div>
                   <label className="block text-sm font-medium text-foreground mb-1.5">HP Standard</label>
@@ -79,10 +78,11 @@ const HpToKwCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Power Conversion</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -99,11 +99,14 @@ const HpToKwCalculator = () => {
                   { label: "Mechanical HP", value: 0, textValue: results.mechanical.toFixed(1) + " hp" },
                   { label: "Standard Used", value: 0, textValue: hpType.charAt(0).toUpperCase() + hpType.slice(1) },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>What is a Horsepower?</h2>
               <p>The term "horsepower" was coined by James Watt in the 18th century to compare the output of steam engines to the power of draft horses. Today, it remains the most popular unit for describing engine power in the automotive world.</p>
               <h3>Mechanical vs. Metric</h3>
@@ -111,12 +114,8 @@ const HpToKwCalculator = () => {
               <h3>The Shift to Watts</h3>
               <p>As the world moves toward electric vehicles, the Watt (and its multiple, the Kilowatt) is becoming the universal unit for power. Since electric motors are rated in Watts, using kW allows for a direct comparison between internal combustion engines and electric powertrains without the confusion of regional horsepower standards.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/hp-to-kw" />
-            <PopularCalculators exclude="/calculator/horsepower-to-kilowatts-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/hp-to-kw" />
+          <PopularCalculators exclude="/calculator/horsepower-to-kilowatts-calculator" />
         </div>
       </div>
     </>

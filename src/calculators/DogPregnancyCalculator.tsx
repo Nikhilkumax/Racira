@@ -88,14 +88,13 @@ const DogPregnancyCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Dog Pregnancy Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Dog Pregnancy Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Determine your dog's expected whelping date, milestone dates, and current pregnancy stage from the date of mating.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Dog Pregnancy Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Determine your dog's expected whelping date, milestone dates, and current pregnancy stage from the date of mating.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="mb-6">
                 <label className="block text-sm font-medium text-foreground mb-1.5">Date of Mating</label>
                 <input
                   type="date"
@@ -112,10 +111,11 @@ const DogPregnancyCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Pregnancy Milestones</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -134,11 +134,14 @@ const DogPregnancyCalculator = () => {
                   { label: "X-ray for Puppy Count (Day 45)", value: 0, textValue: results.xrayDate },
                   { label: "Prep Whelping Box (Day 58)", value: 0, textValue: results.prepDate },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Complete Guide to Dog Pregnancy (Canine Gestation)</h2>
               <p>Responsible breeding requires careful planning and attentive care throughout the entire gestation period. Here is everything you need to know about the 9 weeks of canine pregnancy.</p>
 
@@ -157,12 +160,8 @@ const DogPregnancyCalculator = () => {
               <h3>Warning Signs During Pregnancy</h3>
               <p>Contact your vet immediately if you notice: green or black discharge before the first puppy is delivered, more than 4 hours of active straining without a puppy being born, extreme lethargy, or signs of systemic illness. Emergency caesarean sections can save both the dam and her puppies.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/dog-pregnancy" />
-            <PopularCalculators exclude="/calculator/dog-pregnancy-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/dog-pregnancy" />
+          <PopularCalculators exclude="/calculator/dog-pregnancy-calculator" />
         </div>
       </div>
     </>

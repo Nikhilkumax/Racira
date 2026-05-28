@@ -64,16 +64,14 @@ const SukanyaSamriddhiCalculator = () => {
 
   return (
     <>
-<Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Sukanya Samriddhi Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Sukanya Samriddhi Calculator" }]} />
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Sukanya Samriddhi Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate SSY maturity amount with yearly deposits and compounding interest for your girl child's future.</p>
 
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Sukanya Samriddhi Calculator</h1>
-            <p className="text-muted-foreground mb-8">Calculate SSY maturity amount with yearly deposits and compounding interest for your girl child's future.</p>
-
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-3 gap-5 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-3 gap-5 mb-6">
                 <InputField id="yearlyDeposit" label="Yearly Deposit" value={yearlyDeposit} onChange={setYearlyDeposit} prefix="₹" tooltip="Annual deposit amount (₹250 to ₹1,50,000)" />
                 <InputField id="interestRate" label="Interest Rate" value={interestRate} onChange={setInterestRate} suffix="%" tooltip="Current SSY interest rate set by government" />
                 <InputField id="girlAge" label="Girl's Current Age" value={girlAge} onChange={setGirlAge} suffix="yrs" tooltip="Age of the girl child (0-10 years eligible)" min="0" />
@@ -82,11 +80,13 @@ const SukanyaSamriddhiCalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Maturity</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && result && (
               <>
-                <div className="card-calculator mb-8">
+                <>
+                <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
                   <h2 className="text-xl font-bold mb-4">SSY Maturity Summary</h2>
                   <ResultDisplay currency="₹" items={[
                     { label: "Total Deposited", value: result.totalDeposited },
@@ -97,7 +97,7 @@ const SukanyaSamriddhiCalculator = () => {
                 </div>
 
                 {yearlyBreakdown.length > 0 && (
-                  <div className="card-calculator mb-8 overflow-x-auto">
+                  <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
                     <h2 className="text-xl font-bold mb-4">Year-wise Breakdown</h2>
                     <table className="w-full text-sm">
                       <thead><tr className="border-b border-border text-left"><th className="pb-2 pr-4">Year</th><th className="pb-2 pr-4 text-right">Deposit</th><th className="pb-2 pr-4 text-right">Interest</th><th className="pb-2 text-right">Balance</th></tr></thead>
@@ -110,11 +110,14 @@ const SukanyaSamriddhiCalculator = () => {
                   </div>
                 )}
               </>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>What Is Sukanya Samriddhi Yojana?</h2>
               <p>Sukanya Samriddhi Yojana (SSY) is a government-backed savings scheme launched in 2015 under the Beti Bachao Beti Padhao campaign. It is designed to encourage parents to build a fund for their girl child's future education and marriage. The scheme offers one of the highest interest rates among small savings instruments and provides full tax benefits.</p>
 
@@ -144,14 +147,8 @@ const SukanyaSamriddhiCalculator = () => {
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> Interest rates are subject to quarterly revision by the government. This calculator provides estimates based on the rate you enter. Verify with post office or bank for current rates.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/sukanya-samriddhi-calculator" />
-            <PopularCalculators exclude="/sukanya-samriddhi-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/sukanya-samriddhi-calculator" />
+          <PopularCalculators exclude="/sukanya-samriddhi-calculator" />
         </div>
       </div>
     </>

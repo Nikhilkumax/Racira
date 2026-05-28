@@ -102,15 +102,13 @@ const TimeDurationCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Time Duration Calculator" }]} />
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Time Duration Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate the exact time between two dates and times.</p>
 
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Time Duration Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Calculate the exact time between two dates and times.</p>
-
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-6 mb-6">
                 <DatePicker label="Start Date" date={startDate} onSelect={setStartDate} />
                 <InputField id="startTime" label="Start Time" value={startTime} onChange={setStartTime} type="time" />
               </div>
@@ -123,10 +121,11 @@ const TimeDurationCalculator = () => {
                 <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2"><Calculator className="h-5 w-5" /> Calculate</button>
                 <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && result && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Duration Results</h2>
                 <div className="text-center mb-8 p-8 rounded-2xl bg-primary/5 border border-primary/10">
                   <p className="text-4xl font-black text-foreground">
@@ -149,36 +148,14 @@ const TimeDurationCalculator = () => {
                     </div>
                   ))}
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-
-            {/* SEO Content Sections */}
-            <div className="mt-4 space-y-8 mb-10">
-              <section>
-                <h2 className="text-2xl font-bold mb-4">How the Time Duration Calculator Works</h2>
-                <p className="text-muted-foreground mb-3">Our Time Duration Calculator determines the exact span between two specific moments. Select a start date and time, followed by an end date and time, then click Calculate. The tool uses standard calendar algorithms to provide a precise breakdown.</p>
-                <p className="text-muted-foreground mb-3">The calculation accounts for the varying number of days in each month and handles leap years automatically. It first calculates the total number of seconds elapsed and then breaks that down into a human-readable format of years, months, days, hours, and minutes.</p>
-                <p className="text-muted-foreground">Whether you're measuring a few minutes or several decades, the hierarchical display ensures you understand the magnitude of the time difference at a glance.</p>
-              </section>
-
-              <section>
-                <h2 className="text-2xl font-bold mb-4">Understanding Your Results</h2>
-                <p className="text-muted-foreground mb-3">The <strong>Exact Time Elapsed</strong> display provides the most intuitive breakdown. For example, '2 years 4 months 10 days' represents the chronological time passed between the two points without converting everything to a single unit.</p>
-                <p className="text-muted-foreground mb-3">The <strong>Detailed Stats</strong> grid underneath shows the total duration converted into specific units: Total Hours, Total Minutes, and Total Seconds. This is particularly useful for billing, payroll, or technical specifications where a single unit is required.</p>
-                <p className="text-muted-foreground">If the end time is earlier than the start time on the same day, the calculator will return a zero or empty result, as it only measures forward-moving time durations.</p>
-              </section>
-
-              <section>
-                <h2 className="text-2xl font-bold mb-4">Common Use Cases</h2>
-                <p className="text-muted-foreground mb-3"><strong>Workplace Productivity:</strong> Calculate the exact time spent on a shift or a specific project task to ensure accurate timesheet reporting and client billing.</p>
-                <p className="text-muted-foreground mb-3"><strong>Event Planning:</strong> Determine the precise age of an organization, the length of a marriage, or the time elapsed since a historic milestone for anniversary celebrations.</p>
-                <p className="text-muted-foreground"><strong>Technical Logistics:</strong> Engineers and developers use duration calculators to determine system uptime, process execution times, or the age of data sets across multiple calendar days.</p>
-              </section>
-            </div>
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>About Time Duration Calculator</h2>
               <p>This tool calculates the precise duration between any two dates and times. It accounts for varying month lengths, leap years, and provides results in multiple units.</p>
 
@@ -190,13 +167,8 @@ const TimeDurationCalculator = () => {
                 <li><strong>Legal:</strong> Determine precise time periods for contracts or statutes</li>
               </ul>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/time-duration-calculator" />
-            <PopularCalculators exclude="/time-duration-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/time-duration-calculator" />
+          <PopularCalculators exclude="/time-duration-calculator" />
         </div>
       </div>
     </>

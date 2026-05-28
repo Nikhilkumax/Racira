@@ -1,6 +1,6 @@
-"use client";
+﻿"use client";
 
-import { useState, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import PopularCalculators from "@/components/PopularCalculators";
@@ -42,11 +42,11 @@ const RefinanceCalculator = () => {
   const [otherCosts, setOtherCosts] = useState("0");
 
   const [results, setResults] = useState<RefinanceResults | null>(null);
-  const [showResults, setShowResults] = useState(false);
   const printRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => { handleCalculate(); }, []);
+
   const handleCalculate = () => {
-    setShowResults(true);
     const P_current = parseFloat(currentBalance) || 0;
     const r_current = (parseFloat(currentRate) || 0) / 100 / 12;
     const n_current = (parseFloat(remainingYears) || 0) * 12;
@@ -95,11 +95,11 @@ const RefinanceCalculator = () => {
   };
 
   const reset = () => {
-    setShowResults(false);
     setCurrentBalance("300000"); setCurrentRate("6.5"); setRemainingYears("25");
     setNewRate("5.5"); setNewTerm("30"); setClosingCosts("5000");
     setIncludeCosts(false); setShowAdvanced(false); setPoints("0"); setOtherCosts("0");
     setResults(null);
+    setTimeout(() => handleCalculate(), 0);
   };
 
   const handlePrint = () => {
@@ -127,25 +127,23 @@ const RefinanceCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Refinance Calculator" }]} />
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Mortgage Refinance Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Compare your current mortgage with a new loan to see how much you can save and find your break-even point.</p>
 
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Mortgage Refinance Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Compare your current mortgage with a new loan to see how much you can save and find your break-even point.</p>
-
-            <div className="card-calculator mb-8">
-              <div className="space-y-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="space-y-8">
                 {/* Current Loan Section */}
                 <div>
                   <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
                     <div className="w-1.5 h-6 bg-primary rounded-full"></div>
                     Current Loan Details
                   </h3>
-                  <div className="grid sm:grid-cols-3 gap-5">
-                    <InputField id="curr-balance" label="Current Balance" value={currentBalance} onChange={setCurrentBalance} prefix="$" tooltip="Your current remaining mortgage balance." />
-                    <InputField id="curr-rate" label="Interest Rate" value={currentRate} onChange={setCurrentRate} suffix="%" tooltip="Your current annual interest rate." />
-                    <InputField id="curr-years" label="Remaining Term" value={remainingYears} onChange={setRemainingYears} suffix="Years" tooltip="How many years are left on your current mortgage." />
+                  <div className="grid sm:grid-cols-3 gap-3">
+                    <InputField id="curr-balance" label="Current Balance" value={currentBalance} onChange={setCurrentBalance} prefix="$" />
+                    <InputField id="curr-rate" label="Interest Rate" value={currentRate} onChange={setCurrentRate} suffix="%" />
+                    <InputField id="curr-years" label="Remaining Term" value={remainingYears} onChange={setRemainingYears} suffix="Years" />
                   </div>
                 </div>
 
@@ -155,10 +153,10 @@ const RefinanceCalculator = () => {
                     <div className="w-1.5 h-6 bg-primary rounded-full"></div>
                     New Loan Details
                   </h3>
-                  <div className="grid sm:grid-cols-3 gap-5">
-                    <InputField id="new-rate" label="New Interest Rate" value={newRate} onChange={setNewRate} suffix="%" tooltip="The interest rate for the new mortgage." />
-                    <InputField id="new-term" label="New Loan Term" value={newTerm} onChange={setNewTerm} suffix="Years" tooltip="The length of the new mortgage (e.g., 15, 20, 30 years)." />
-                    <InputField id="costs" label="Closing Costs" value={closingCosts} onChange={setClosingCosts} prefix="$" tooltip="Estimated fees for the refinance (typically 2-5% of loan)." />
+                  <div className="grid sm:grid-cols-3 gap-3">
+                    <InputField id="new-rate" label="New Interest Rate" value={newRate} onChange={setNewRate} suffix="%" />
+                    <InputField id="new-term" label="New Loan Term" value={newTerm} onChange={setNewTerm} suffix="Years" />
+                    <InputField id="costs" label="Closing Costs" value={closingCosts} onChange={setClosingCosts} prefix="$" />
                   </div>
                   <div className="mt-4 flex items-center gap-2">
                     <input 
@@ -184,12 +182,14 @@ const RefinanceCalculator = () => {
                   <ChevronDown className={`h-4 w-4 transition-transform ${showAdvanced ? "rotate-180" : ""}`} />
                 </button>
 
-                {showAdvanced && (
-                  <div className="grid sm:grid-cols-2 gap-5 p-4 rounded-lg bg-secondary/30 border border-border animate-in fade-in slide-in-from-top-2">
-                    <InputField id="points" label="Points" value={points} onChange={setPoints} prefix="$" tooltip="Cost of discount points to lower your interest rate." />
-                    <InputField id="other" label="Other Fees" value={otherCosts} onChange={setOtherCosts} prefix="$" tooltip="Any other miscellaneous refinance expenses." />
+                {showAdvanced && (<>
+
+                  <div className="grid sm:grid-cols-2 gap-3 p-4 rounded-lg bg-secondary/30 border border-border animate-in fade-in slide-in-from-top-2">
+                    <InputField id="points" label="Points" value={points} onChange={setPoints} prefix="$" />
+                    <InputField id="other" label="Other Fees" value={otherCosts} onChange={setOtherCosts} prefix="$" />
                   </div>
-                )}
+                
+</>)}
 
                 <div className="flex gap-3 pt-4">
                   <button onClick={handleCalculate} className="btn-calculate flex-1">Compare Loans</button><button onClick={reset} className="rounded-xl border border-border px-5 py-4 text-muted-foreground hover:bg-secondary transition-all active:scale-95" aria-label="Reset">
@@ -197,9 +197,11 @@ const RefinanceCalculator = () => {
                   </button>
                 </div>
               </div>
-            </div>
+          </div>
 
-            {showResults && results && (
+          <div className="flex flex-col gap-3">
+            {results && (<>
+
               <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4" ref={printRef}>
                 <div className="flex items-center justify-between mb-6">
                   <h2 className="text-2xl font-bold">Refinance Analysis</h2>
@@ -262,11 +264,14 @@ const RefinanceCalculator = () => {
                   </div>
                 </div>
               </div>
-            )}
+            
+</>)}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-10" label="Ad Space – Refinance Content" />
-
-            <article className="prose-finance max-w-none">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – Refinance Content" />
+          <article className="prose-finance max-w-none">
               <h2>Mastering the Mortgage Refinance Process</h2>
               <p>Refinancing a mortgage involves replacing your current home loan with a new one, typically to secure a lower interest rate, change the loan term, or tap into home equity. While the prospect of lower monthly payments is enticing, refinancing is a significant financial transaction with substantial upfront costs. Understanding the math behind the transition is crucial for ensuring that the move actually improves your long-term financial health.</p>
               
@@ -306,15 +311,8 @@ const RefinanceCalculator = () => {
               <h2>Optimizing Your Refinance</h2>
               <p>To get the best possible deal, shop at least three different lenders, including your current bank, a credit union, and an online mortgage broker. Don't just compare the interest rate; compare the <strong>APR (Annual Percentage Rate)</strong>, which includes the impact of fees. Finally, ensure your credit report is accurate and your debt-to-income ratio is as low as possible before applying to secure the most favorable tiers.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/refinance-calculator" />
-            <PopularCalculators exclude="/calculator/refinance-calculator" />
-          </div>
-
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Ad" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/refinance-calculator" />
+          <PopularCalculators exclude="/calculator/refinance-calculator" />
         </div>
       </div>
     </>
@@ -322,4 +320,5 @@ const RefinanceCalculator = () => {
 };
 
 export default RefinanceCalculator;
+
 

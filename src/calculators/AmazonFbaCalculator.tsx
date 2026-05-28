@@ -77,14 +77,13 @@ export default function AmazonFbaCalculator() {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Amazon FBA Profit Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Amazon FBA Profit Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Calculate your net profit, margins, and ROI for selling products through the Fulfillment by Amazon (FBA) program.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Amazon FBA Profit Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate your net profit, margins, and ROI for selling products through the Fulfillment by Amazon (FBA) program.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
                 <InputField id="sale-price" label="Selling Price ($)" value={salePrice} onChange={setSalePrice} prefix="$" tooltip="The final price the customer pays on Amazon." />
                 <InputField id="product-cost" label="Product Cost ($)" value={productCost} onChange={setProductCost} prefix="$" tooltip="Your cost per unit from the manufacturer." />
                 <InputField id="shipping" label="Ship to Amazon ($)" value={shippingToAmazon} onChange={setShippingToAmazon} prefix="$" tooltip="Estimated cost per unit to ship from your supplier to Amazon's warehouse." />
@@ -101,10 +100,11 @@ export default function AmazonFbaCalculator() {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Financial Analysis</h2>
                 <div className="grid sm:grid-cols-3 gap-4 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -125,12 +125,14 @@ export default function AmazonFbaCalculator() {
                   { label: "Break-Even Price", value: 0, textValue: `$${results.breakEven.toFixed(2)}` },
                   { label: "Profit After 10% Ads (PPC)", value: 0, textValue: `$${(results.netProfit - (parseFloat(salePrice) * 0.1)).toFixed(2)}` },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>Mastering Amazon FBA Profitability</h2>
               <p>Selling on Amazon through the Fulfillment by Amazon (FBA) program is one of the most popular ways to build a scalable e-commerce business. However, it is also a business of 'thin margins' where Amazon takes a significant portion of every sale. To succeed, you must move beyond 'guessing' and have a crystal-clear understanding of your unit economics. This Amazon FBA Profit Calculator is designed to help you analyze every cent of your revenue and expenses.</p>
 
@@ -158,15 +160,8 @@ export default function AmazonFbaCalculator() {
                 <li><strong>Negotiate with Suppliers:</strong> As your volume grows, your manufacturing cost should decrease. Even a 5% reduction in COGS (Cost of Goods Sold) can lead to a 15-20% increase in Net Profit.</li>
               </ul>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/amazon-fba-profit-calculator" />
-            <PopularCalculators exclude="/calculator/amazon-fba-profit-calculator" />
-          </div>
-
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/amazon-fba-profit-calculator" />
+          <PopularCalculators exclude="/calculator/amazon-fba-profit-calculator" />
         </div>
       </div>
     </>

@@ -77,14 +77,13 @@ const CumulativeGPACalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Cumulative GPA Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Cumulative GPA Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Calculate your overall GPA by combining your current standing with new semester grades.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Cumulative GPA Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate your overall GPA by combining your current standing with new semester grades.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-8 mb-8 pb-8 border-b border-border">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-8 mb-8 pb-8 border-b border-border">
                 <section className="space-y-4">
                   <h2 className="text-lg font-bold flex items-center gap-2">
                     <GraduationCap className="h-5 w-5 text-primary" /> Current Standing
@@ -143,12 +142,12 @@ const CumulativeGPACalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 mb-8">
-                <div className="grid sm:grid-cols-2 gap-4 mb-6">
-                  <div className="card-calculator bg-primary/5 border-solid border-primary/20 text-center flex flex-col justify-center py-10">
+              <>
+                <div className="card-calculator bg-primary/5 border-solid border-primary/20 text-center flex flex-col justify-center py-10">
                     <p className="text-sm font-bold text-primary uppercase tracking-widest mb-2">New Cumulative GPA</p>
                     <p className="text-6xl font-black text-foreground">{results.finalGPA.toFixed(3)}</p>
                     <p className="text-xs text-muted-foreground mt-4">Across {results.totalCredits} total credits</p>
@@ -158,12 +157,14 @@ const CumulativeGPACalculator = () => {
                     <p className="text-6xl font-black text-foreground">{results.semesterGPA.toFixed(2)}</p>
                     <p className="text-xs text-muted-foreground mt-4">Current semester only</p>
                   </div>
-                </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="my-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Mastering Your GPA</h2>
               <p>Maintaining a strong GPA is often a requirement for scholarships, graduate school admissions, and even certain job opportunities. A cumulative GPA provides a birds-eye view of your entire academic performance, but it can be surprisingly difficult to move once you've accumulated a large number of credits.</p>
               
@@ -173,12 +174,8 @@ const CumulativeGPACalculator = () => {
               <h3>Strategic Grade Improvement</h3>
               <p>If you are trying to raise your GPA, focus your best efforts on courses with the highest credit values. A high grade in a 4 or 5-credit course will pull your average up significantly faster than the same grade in a 1 or 2-credit elective.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/cumulative-gpa" />
-            <PopularCalculators exclude="/calculator/cumulative-gpa-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/cumulative-gpa" />
+          <PopularCalculators exclude="/calculator/cumulative-gpa-calculator" />
         </div>
       </div>
     </>

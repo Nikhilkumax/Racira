@@ -56,14 +56,13 @@ const HydrationCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Hydration Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Daily Hydration Calculator</h1>
-            <p className="text-muted-foreground mb-8">Calculate exactly how much water you should drink each day based on your body weight, exercise habits, and local climate.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Daily Hydration Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate exactly how much water you should drink each day based on your body weight, exercise habits, and local climate.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-5 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-5 mb-6">
                 <InputField id="weight" label="Weight (kg)" value={weight} onChange={setWeight} />
                 <InputField id="activity" label="Daily Exercise (mins)" value={activityTime} onChange={setActivityTime} />
                 <div className="sm:col-span-2">
@@ -85,10 +84,11 @@ const HydrationCalculator = () => {
                   <Droplets className="h-5 w-5" /> Calculate Intake
                 </button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 text-center">
+              <>
                 <h2 className="text-sm font-bold text-primary uppercase tracking-wider mb-2">Recommended Daily Intake</h2>
                 <p className="text-6xl font-extrabold">{results.liters.toFixed(1)}L</p>
                 <p className="text-sm text-muted-foreground mt-2">Approximately {Math.round(results.ounces)} oz or {Math.round(results.glasses)} glasses</p>
@@ -111,22 +111,21 @@ const HydrationCalculator = () => {
                       <p className="text-lg font-bold">{Math.round(results.liters * 1000)}</p>
                    </div>
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Sidebar Ad" />
+          <article className="prose-finance">
               <h2>The Importance of Staying Hydrated</h2>
               <p>Water is the most essential nutrient for the human body. Every cell, tissue, and organ needs water to work properly. From regulating body temperature to lubricating joints and carrying nutrients to cells, staying hydrated is a cornerstone of metabolic health.</p>
               <h3>Factors That Increase Your Needs</h3>
               <p>While this calculator provides a baseline, you should increase your intake if you have a fever, are pregnant or breastfeeding, or are consuming high amounts of fiber or protein. Additionally, if you work outdoors or in a physically demanding job, your needs may be significantly higher than the average person.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/hydration-calculator" />
-            <PopularCalculators exclude="/calculator/hydration-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder label="Sidebar Ad" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/hydration-calculator" />
+          <PopularCalculators exclude="/calculator/hydration-calculator" />
         </div>
       </div>
     </>

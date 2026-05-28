@@ -67,14 +67,13 @@ const WeightedGradeCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Weighted Grade Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Weighted Grade Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Calculate your overall course grade based on assignment categories and their respective weights.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Weighted Grade Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate your overall course grade based on assignment categories and their respective weights.</p>
 
-            <div className="card-calculator mb-8">
-              <section className="space-y-4">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <section className="space-y-4">
                 <h2 className="text-lg font-bold flex items-center gap-2 mb-6">
                   <LayoutList className="h-5 w-5 text-primary" /> Grade Categories
                 </h2>
@@ -113,12 +112,12 @@ const WeightedGradeCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 mb-8">
-                <div className="card-calculator bg-primary/5 border-solid border-primary/20 text-center flex flex-col justify-center py-12 mb-6">
-                    <p className="text-sm font-bold text-primary uppercase tracking-widest mb-2">Overall Weighted Grade</p>
+              <>
+                <p className="text-sm font-bold text-primary uppercase tracking-widest mb-2">Overall Weighted Grade</p>
                     <p className="text-7xl font-black text-foreground">{results.finalGrade.toFixed(2)}<span className="text-3xl font-normal text-muted-foreground">%</span></p>
                     
                     {results.isWarning && (
@@ -126,12 +125,14 @@ const WeightedGradeCalculator = () => {
                         <PieChart className="h-3 w-3" /> Weights sum to {results.totalWeight}% (Normalized)
                       </div>
                     )}
-                </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="my-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Understanding Weighted Grading</h2>
               <p>Most college and high school courses use weighted grading systems to ensure that significant assessments, like midterms and finals, contribute more to your final mark than smaller assignments like daily homework or participation.</p>
               
@@ -141,12 +142,8 @@ const WeightedGradeCalculator = () => {
               <h3>What if I don't have 100% yet?</h3>
               <p>During the semester, your total weights will likely be less than 100% because you haven't taken the final exam yet. To find your *current* standing, you simply divide your current weighted points by the total weight of the categories you've completed. This calculator does that automatically by normalizing your inputs.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/weighted-grade-calculator" />
-            <PopularCalculators exclude="/calculator/weighted-grade-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/weighted-grade-calculator" />
+          <PopularCalculators exclude="/calculator/weighted-grade-calculator" />
         </div>
       </div>
     </>

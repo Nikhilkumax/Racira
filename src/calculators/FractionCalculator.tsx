@@ -46,16 +46,14 @@ const FractionCalculator = () => {
 
   return (
     <>
-<Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Fraction Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Fraction Calculator" }]} />
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Fraction Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Add, subtract, multiply, and divide fractions with simplified results.</p>
 
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Fraction Calculator</h1>
-            <p className="text-muted-foreground mb-8">Add, subtract, multiply, and divide fractions with simplified results.</p>
-
-            <div className="card-calculator mb-8">
-              <p className="text-sm font-medium text-foreground mb-3">Fraction 1</p>
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <p className="text-sm font-medium text-foreground mb-3">Fraction 1</p>
               <div className="grid grid-cols-2 gap-4 mb-4">
                 <InputField id="n1" label="Numerator" value={n1} onChange={setN1} />
                 <InputField id="d1" label="Denominator" value={d1} onChange={setD1} />
@@ -76,10 +74,11 @@ const FractionCalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && result && (
-              <div className="card-calculator mb-8">
+              <>
                 <h2 className="text-xl font-bold mb-4">Result</h2>
                 <div className="text-center mb-4">
                   <p className="text-4xl font-extrabold">{result.num}<span className="mx-2 text-muted-foreground">/</span>{result.den}</p>
@@ -90,20 +89,19 @@ const FractionCalculator = () => {
                   { label: "Decimal", value: 0, textValue: result.decimal.toFixed(6) },
                   { label: "Mixed Number", value: 0, textValue: Math.abs(result.num) >= result.den && result.den !== 1 ? `${Math.trunc(result.num / result.den)} ${Math.abs(result.num % result.den)}/${result.den}` : `${result.num}/${result.den}` },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>How to Work with Fractions</h2>
               <p>A fraction consists of a numerator (top) and denominator (bottom). To add or subtract fractions, first find a common denominator. To multiply, multiply numerators and denominators. To divide, multiply by the reciprocal.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/fraction-calculator" />
-            <PopularCalculators exclude="/fraction-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/fraction-calculator" />
+          <PopularCalculators exclude="/fraction-calculator" />
         </div>
       </div>
     </>

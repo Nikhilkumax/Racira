@@ -68,14 +68,13 @@ const PaceConverter = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Pace Converter" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Pace Converter</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Convert between running times, distances, paces, and speeds in both metric and imperial units.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Pace Converter</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Convert between running times, distances, paces, and speeds in both metric and imperial units.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-6 mb-6">
                 <div className="flex gap-2">
                   <div className="flex-1">
                     <InputField id="dist" label="Distance" value={distance} onChange={setDistance} />
@@ -99,10 +98,11 @@ const PaceConverter = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Conversion Results</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -122,11 +122,14 @@ const PaceConverter = () => {
                     <p className="text-3xl font-black text-foreground">{results.speedMph}</p>
                   </div>
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Mastering Your Pace</h2>
               <p>Pace is the primary language of runners. Unlike speed, which tells you how much distance you cover in a set time, pace tells you how long it will take to reach your destination. This makes it invaluable for race planning and training.</p>
               <h3>Training Zones</h3>
@@ -134,12 +137,8 @@ const PaceConverter = () => {
               <h3>Predicting Race Times</h3>
               <p>Once you know your steady training pace, you can use it to predict your time for longer distances. However, remember that as the distance increases, your pace will naturally slow down. A common rule is to add 15-20 seconds per mile when doubling the distance of a race (e.g., from 5K to 10K).</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/pace-converter" />
-            <PopularCalculators exclude="/calculator/pace-converter" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/pace-converter" />
+          <PopularCalculators exclude="/calculator/pace-converter" />
         </div>
       </div>
     </>

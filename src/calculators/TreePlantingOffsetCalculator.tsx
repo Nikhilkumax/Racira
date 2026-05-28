@@ -61,14 +61,13 @@ const TreePlantingOffsetCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Tree Planting Offset Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Tree Planting Offset Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Calculate how many trees you need to plant to compensate for your carbon emissions over time.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Tree Planting Offset Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate how many trees you need to plant to compensate for your carbon emissions over time.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
                 <InputField id="target" label="CO2 to Offset" value={targetCO2} onChange={setTargetCO2} suffix="kg" tooltip="Enter your annual emissions or a specific event's footprint." />
                 <div>
                   <label className="block text-sm font-medium text-foreground mb-1.5">Tree Category</label>
@@ -89,10 +88,11 @@ const TreePlantingOffsetCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Offset Strategy</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -120,11 +120,14 @@ const TreePlantingOffsetCalculator = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Nature's Solution</h2>
               <p>Reforestation is one of the most scalable and cost-effective ways to remove existing carbon dioxide from the atmosphere. Trees act as natural "carbon sinks," pulling CO2 from the air to build their trunks, branches, and roots.</p>
               <h3>The Time Factor</h3>
@@ -132,12 +135,8 @@ const TreePlantingOffsetCalculator = () => {
               <h3>Biodiversity and Ecosystems</h3>
               <p>Effective carbon offsetting isn't just about the number of trees; it's about planting the right species in the right places. Monoculture plantations (planting only one type of tree) are vulnerable to disease and support very little wildlife. Diverse, native forests are much more resilient and provide additional benefits like soil protection and water filtration.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/tree-planting-offset" />
-            <PopularCalculators exclude="/calculator/tree-planting-offset-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/tree-planting-offset" />
+          <PopularCalculators exclude="/calculator/tree-planting-offset-calculator" />
         </div>
       </div>
     </>

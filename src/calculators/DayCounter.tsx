@@ -70,16 +70,14 @@ const DayCounter = () => {
 
   return (
     <>
-<Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Day Counter" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Day Counter" }]} />
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Day Counter</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Count the number of days between any two dates.</p>
 
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Day Counter</h1>
-            <p className="text-muted-foreground mb-8">Count the number of days between any two dates.</p>
-
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-5 mb-5">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-5 mb-5">
                 <DatePicker label="Start Date" date={startDate} onSelect={setStartDate} />
                 <DatePicker label="End Date" date={endDate} onSelect={setEndDate} />
               </div>
@@ -97,10 +95,11 @@ const DayCounter = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {result && (
-              <div className="card-calculator mb-8">
+              <>
                 <h2 className="text-xl font-bold mb-4">Results</h2>
                 <div className="text-center mb-6">
                   <p className="text-5xl font-extrabold mb-1">{result.totalDays}</p>
@@ -121,12 +120,14 @@ const DayCounter = () => {
                     </div>
                   ))}
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>About the Day Counter</h2>
               <p>This tool calculates the exact number of days between two dates, along with breakdowns by weeks, months, weekdays, and weekend days.</p>
 
@@ -141,14 +142,8 @@ const DayCounter = () => {
               <h2>Weekday vs. Calendar Day Counting</h2>
               <p>Calendar days include every day. Weekdays exclude Saturday and Sunday. For business planning, weekday counts are typically more relevant. Note that this tool does not account for public holidays.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/day-counter" />
-            <PopularCalculators exclude="/day-counter" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/day-counter" />
+          <PopularCalculators exclude="/day-counter" />
         </div>
       </div>
     </>

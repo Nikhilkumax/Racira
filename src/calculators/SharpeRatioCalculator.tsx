@@ -48,13 +48,13 @@ export default function SharpeRatioCalculator() {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Sharpe Ratio Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Sharpe Ratio Calculator</h1>
-            <p className="text-muted-foreground mb-8">Measure the risk-adjusted return of your investment portfolio by calculating how much excess return you earn per unit of risk.</p>
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-3 gap-5 mb-6">
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Sharpe Ratio Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Measure the risk-adjusted return of your investment portfolio by calculating how much excess return you earn per unit of risk.</p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-3 gap-5 mb-6">
                 <InputField id="portfolio-return" label="Portfolio Return (%)" value={portfolioReturn} onChange={setPortfolioReturn} suffix="%" tooltip="The total annual return of your portfolio or investment." />
                 <InputField id="risk-free-rate" label="Risk-Free Rate (%)" value={riskFreeRate} onChange={setRiskFreeRate} suffix="%" tooltip="Typically the yield on 3-month T-bills or 10-year Treasury bonds." />
                 <InputField id="std-dev" label="Standard Deviation (%)" value={stdDev} onChange={setStdDev} suffix="%" tooltip="The annualized standard deviation of portfolio returns — a measure of volatility." />
@@ -63,19 +63,25 @@ export default function SharpeRatioCalculator() {
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Sharpe Ratio</button>
                 <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
+
+          <div className="flex flex-col gap-3">
             {showResults && (
-              <div className="card-calculator mb-8">
+              <>
                 <h2 className="text-xl font-bold mb-4">Risk-Adjusted Performance</h2>
                 <ResultDisplay items={[
                   { label: "Sharpe Ratio", value: 0, textValue: results.sharpe.toFixed(3), highlight: true },
                   { label: "Excess Return (Return – Risk-Free)", value: 0, textValue: `${results.excessReturn.toFixed(2)}%`, highlight: true },
                   { label: "Interpretation", value: 0, textValue: results.interpretation },
                 ]} />
-              </div>
+              </>
             )}
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-            <article className="prose-finance">
+          </div>
+        </div>
+
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>Understanding the Sharpe Ratio</h2>
               <p>The Sharpe Ratio, developed by Nobel laureate William F. Sharpe in 1966, is the most widely used metric for measuring risk-adjusted investment performance. Its central insight is that return alone is a meaningless number — what matters is return per unit of risk taken. A portfolio returning 15% with enormous volatility may be inferior to one returning 12% with much lower volatility, once risk is properly accounted for.</p>
               <h2>The Sharpe Ratio Formula</h2>
@@ -96,13 +102,8 @@ export default function SharpeRatioCalculator() {
               <h2>Sharpe vs. Sortino vs. Calmar Ratios</h2>
               <p>Several ratios build on the Sharpe Ratio concept. The <strong>Sortino Ratio</strong> only penalizes downside volatility, rewarding upside volatility. The <strong>Calmar Ratio</strong> uses maximum drawdown instead of standard deviation. The <strong>Information Ratio</strong> compares a portfolio to a benchmark rather than the risk-free rate. Each metric highlights different aspects of risk-adjusted performance.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/sharpe-ratio-calculator" />
-            <PopularCalculators exclude="/calculator/sharpe-ratio-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/sharpe-ratio-calculator" />
+          <PopularCalculators exclude="/calculator/sharpe-ratio-calculator" />
         </div>
       </div>
     </>

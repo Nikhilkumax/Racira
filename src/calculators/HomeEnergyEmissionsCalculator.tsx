@@ -58,14 +58,13 @@ const HomeEnergyEmissionsCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Home Energy Emissions Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Home Energy Emissions Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Calculate the annual greenhouse gas emissions from your household's utility usage.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Home Energy Emissions Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate the annual greenhouse gas emissions from your household's utility usage.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-6 mb-6">
                 <InputField id="elec" label="Monthly Electricity" value={electricity} onChange={setElectricity} suffix="kWh" />
                 <InputField id="gas" label="Monthly Natural Gas" value={naturalGas} onChange={setNaturalGas} suffix="therms" />
                 <InputField id="oil" label="Monthly Heating Oil" value={heatingOil} onChange={setHeatingOil} suffix="gal" />
@@ -80,10 +79,12 @@ const HomeEnergyEmissionsCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
+                <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
                 <h2 className="text-xl font-bold mb-6">Household Impact Report</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -120,10 +121,14 @@ const HomeEnergyEmissionsCalculator = () => {
                   </div>
                 </div>
               </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Heating, Cooling, and the Planet</h2>
               <p>For the average household, space heating and cooling account for more than half of total energy use. This is where the largest opportunities for emission reductions exist.</p>
               <h3>The Hidden Impact of Natural Gas</h3>
@@ -131,12 +136,8 @@ const HomeEnergyEmissionsCalculator = () => {
               <h3>The Efficiency First Rule</h3>
               <p>Before installing solar panels or switching fuels, the most cost-effective way to reduce emissions is efficiency. Sealing air leaks and adding attic insulation can reduce energy needs by up to 20%, permanently lowering your footprint regardless of the energy source.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/home-energy-emissions" />
-            <PopularCalculators exclude="/calculator/home-energy-emissions-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/home-energy-emissions" />
+          <PopularCalculators exclude="/calculator/home-energy-emissions-calculator" />
         </div>
       </div>
     </>

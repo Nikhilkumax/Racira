@@ -46,14 +46,13 @@ const PercentageToCgpaConverter = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Percentage/CGPA Converter" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Percentage to CGPA Converter</h1>
-            <p className="text-muted-foreground mb-8">Quickly convert your academic percentage to CGPA or vice-versa using the standard 9.5 multiplier formula.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Percentage to CGPA Converter</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Quickly convert your academic percentage to CGPA or vice-versa using the standard 9.5 multiplier formula.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="flex bg-secondary rounded-lg p-1 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="flex bg-secondary rounded-lg p-1 mb-6">
                 <button 
                   onClick={() => setMode("pctToCgpa")}
                   className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-all ${mode === "pctToCgpa" ? "bg-background shadow-sm text-primary" : "text-muted-foreground hover:text-foreground"}`}
@@ -79,28 +78,28 @@ const PercentageToCgpaConverter = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Convert Value</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 text-center py-10">
+              <>
                 <h2 className="text-sm font-bold text-primary uppercase tracking-wider mb-2">{results.label}</h2>
                 <p className="text-6xl font-extrabold">{results.value.toFixed(2)}{results.mode === "%" ? "%" : ""}</p>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Sidebar Ad" />
+          <article className="prose-finance">
               <h2>Academic Grading Conversions</h2>
               <p>Converting between percentage and Cumulative Grade Point Average (CGPA) is a common requirement for students applying to higher education or jobs. Different educational systems use different scales, but the 10-point scale is the most prevalent in modern systems.</p>
               <h3>The 9.5 Multiplier Rule</h3>
               <p>The multiplier 9.5 is derived from statistical analysis of board results. It is designed to ensure that the converted percentage reflects the student's relative performance accurately across different difficulty levels of exams.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/percentage-to-cgpa-converter" />
-            <PopularCalculators exclude="/calculator/percentage-to-cgpa-converter" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder label="Sidebar Ad" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/percentage-to-cgpa-converter" />
+          <PopularCalculators exclude="/calculator/percentage-to-cgpa-converter" />
         </div>
       </div>
     </>

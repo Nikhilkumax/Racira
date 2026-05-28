@@ -116,16 +116,14 @@ const TimeZoneConverter = () => {
 
   return (
     <>
-<Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Time Zone Converter" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Time Zone Converter" }]} />
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Time Zone Converter</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Convert times between different time zones worldwide.</p>
 
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Time Zone Converter</h1>
-            <p className="text-muted-foreground mb-8">Convert times between different time zones worldwide.</p>
-
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-5 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-5 mb-6">
                 <InputField id="tz-hour" label="Hour (0-23)" value={hour} onChange={setHour} min="0" step="1" />
                 <InputField id="tz-minute" label="Minute" value={minute} onChange={setMinute} min="0" step="1" />
                 <div>
@@ -148,10 +146,11 @@ const TimeZoneConverter = () => {
                 <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2"><Calculator className="h-5 w-5" /> Calculate</button>
                 <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && result && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-4">Result</h2>
                 <div className="grid sm:grid-cols-2 gap-3">
                   <div className="result-card">
@@ -197,36 +196,14 @@ const TimeZoneConverter = () => {
                     })}
                   </div>
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-
-            {/* SEO Content Sections */}
-            <div className="mt-4 space-y-8 mb-10">
-              <section>
-                <h2 className="text-2xl font-bold mb-4">How the Time Zone Converter Works</h2>
-                <p className="text-muted-foreground mb-3">Enter an hour (0–23) and minute, select a source time zone and a target time zone, then click Calculate. The tool computes the UTC offset difference between the two zones and applies it to your input time, displaying both 12-hour and 24-hour formats.</p>
-                <p className="text-muted-foreground mb-3">If the converted time crosses midnight, the result shows "(next day)" or "(prev day)" so you always know which calendar date applies. The popular conversions section automatically recalculates the six most common zone pairs using your entered time.</p>
-                <p className="text-muted-foreground">All offsets are based on standard time. During daylight saving periods, manually adjust the offset by one hour (e.g., select UTC−4 for Eastern Daylight Time instead of UTC−5 for Eastern Standard Time).</p>
-              </section>
-
-              <section>
-                <h2 className="text-2xl font-bold mb-4">Understanding Your Results</h2>
-                <p className="text-muted-foreground mb-3">The <strong>Source Time</strong> confirms the time you entered in both 12-hour (AM/PM) and 24-hour notation alongside the zone label, so you can verify your input at a glance.</p>
-                <p className="text-muted-foreground mb-3">The <strong>Converted Time</strong> is the equivalent moment in the target time zone. When scheduling international meetings, this is the time you'd share with participants in that zone.</p>
-                <p className="text-muted-foreground">The <strong>Time Difference</strong> shows the signed offset between the two zones in hours. A positive number means the target zone is ahead; negative means behind. Half-hour zones (like India, UTC+5:30) produce fractional differences.</p>
-              </section>
-
-              <section>
-                <h2 className="text-2xl font-bold mb-4">Common Use Cases</h2>
-                <p className="text-muted-foreground mb-3"><strong>Remote teams:</strong> Distributed teams use time zone converters daily to find overlapping work hours between offices in New York, London, and Bangalore without mental arithmetic errors.</p>
-                <p className="text-muted-foreground mb-3"><strong>Travel planning:</strong> Travelers convert departure and arrival times to understand how jet lag will affect their schedule and when to contact family back home.</p>
-                <p className="text-muted-foreground"><strong>Global events:</strong> Conference organizers, streamers, and sports fans convert event times to their local zone so they don't miss keynotes, live broadcasts, or kickoff times.</p>
-              </section>
-            </div>
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>World Time Zones Explained</h2>
               <p>The Earth is divided into 24 primary time zones, each roughly 15° of longitude wide — corresponding to one hour of Earth's rotation. In practice, political boundaries create 38 distinct zones ranging from UTC−12 (Baker Island) to UTC+14 (Line Islands, Kiribati).</p>
               <p>Several zones use half-hour or 45-minute offsets. India (UTC+5:30), Iran (UTC+3:30), Nepal (UTC+5:45), and parts of Australia (UTC+9:30) are the most notable examples. Our converter supports all major offsets.</p>
@@ -242,15 +219,8 @@ const TimeZoneConverter = () => {
                 <li><strong>Rotate inconvenience:</strong> For recurring meetings spanning very different zones, alternate the meeting time so the same team doesn't always have an early or late call.</li>
               </ul>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/time-zone-converter" />
-            <PopularCalculators exclude="/calculator/time-zone-converter" />
-          </div>
-
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/time-zone-converter" />
+          <PopularCalculators exclude="/calculator/time-zone-converter" />
         </div>
       </div>
     </>

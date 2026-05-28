@@ -59,14 +59,13 @@ const ContrastRatioCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Color Contrast Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Color Contrast Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Ensure your web designs are accessible and meet WCAG 2.1 compliance standards.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Color Contrast Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Ensure your web designs are accessible and meet WCAG 2.1 compliance standards.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid md:grid-cols-[1fr_auto_1fr] gap-6 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid md:grid-cols-[1fr_auto_1fr] gap-6 items-center">
                 <div className="space-y-4">
                   <label className="block text-sm font-bold text-muted-foreground uppercase tracking-widest">Foreground (Text)</label>
                   <div className="flex gap-3">
@@ -87,21 +86,10 @@ const ContrastRatioCalculator = () => {
                   </div>
                 </div>
               </div>
-            </div>
+          </div>
 
-            <div className="grid md:grid-cols-[1.5fr_1fr] gap-8 mb-8">
-              <div 
-                className="card-calculator flex flex-col justify-center min-h-[200px] rounded-3xl transition-all duration-300"
-                style={{ backgroundColor: bgColor, color: fgColor }}
-              >
-                <div className="p-8">
-                  <h3 className="text-2xl font-black mb-2">The quick brown fox jumps over the lazy dog.</h3>
-                  <p className="opacity-80 leading-relaxed mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                  <div className="inline-block px-4 py-2 rounded-lg font-bold border" style={{ borderColor: fgColor }}>Sample Button</div>
-                </div>
-              </div>
-
-              <div className="card-calculator flex flex-col items-center justify-center text-center">
+          <div className="flex flex-col gap-3">
+            <div className="card-calculator flex flex-col items-center justify-center text-center">
                 <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-2">Contrast Ratio</p>
                 <p className="text-6xl font-black mb-2">{ratio.toFixed(2)}</p>
                 <div className="flex items-center gap-1 text-xs text-muted-foreground">
@@ -110,7 +98,7 @@ const ContrastRatioCalculator = () => {
               </div>
             </div>
 
-            <div className="card-calculator mb-8">
+            <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
                <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
                   <Eye className="h-5 w-5 text-primary" /> WCAG Compliance Check
                </h2>
@@ -144,10 +132,12 @@ const ContrastRatioCalculator = () => {
                      </div>
                   </div>
                </div>
-            </div>
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Web Accessibility (a11y) and Color</h2>
               <p>Accessibility is not just a feature; it's a fundamental requirement of the modern web. The Web Content Accessibility Guidelines (WCAG) provide a technical standard for ensuring that web content is accessible to people with various disabilities.</p>
               
@@ -162,12 +152,8 @@ const ContrastRatioCalculator = () => {
                 <li><strong>Don't rely on color alone:</strong> Color contrast is only one part of the story. Use icons, underlines, and clear labels to convey meaning to users who may not be able to perceive color differences at all.</li>
               </ul>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/contrast-ratio" />
-            <PopularCalculators exclude="/calculator/contrast-ratio-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/contrast-ratio" />
+          <PopularCalculators exclude="/calculator/contrast-ratio-calculator" />
         </div>
       </div>
     </>

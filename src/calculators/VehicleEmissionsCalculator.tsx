@@ -66,14 +66,13 @@ const VehicleEmissionsCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Vehicle Emissions Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Vehicle Emissions Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Estimate your car's annual carbon footprint based on mileage and fuel efficiency.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Vehicle Emissions Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Estimate your car's annual carbon footprint based on mileage and fuel efficiency.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
                 <InputField id="miles" label="Annual Miles Driven" value={milesDriven} onChange={setMilesDriven} suffix="miles" />
                 <InputField id="efficiency" label="Fuel Efficiency (MPG)" value={fuelEfficiency} onChange={setFuelEfficiency} suffix="MPG" disabled={fuelType === 'electric'} />
                 
@@ -95,10 +94,11 @@ const VehicleEmissionsCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Environmental Summary</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -128,11 +128,14 @@ const VehicleEmissionsCalculator = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Transportation and CO2</h2>
               <p>The transportation sector is one of the largest contributors to greenhouse gas emissions worldwide. For many households, the personal vehicle is the single largest source of their carbon footprint.</p>
               <h3>MPG Matters</h3>
@@ -140,12 +143,8 @@ const VehicleEmissionsCalculator = () => {
               <h3>Why Electric is Better</h3>
               <p>Even when powered by a grid that includes natural gas or coal, electric motors are far more efficient (85-90%) than internal combustion engines (20-30%). This efficiency gap means that an EV will almost always produce fewer emissions per mile than a comparable gasoline car.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/vehicle-emissions" />
-            <PopularCalculators exclude="/calculator/vehicle-emissions-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/vehicle-emissions" />
+          <PopularCalculators exclude="/calculator/vehicle-emissions-calculator" />
         </div>
       </div>
     </>

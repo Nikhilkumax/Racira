@@ -66,14 +66,13 @@ const CreditCardMinimumPaymentCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Minimum Payment Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Credit Card Minimum Payment Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Discover how many years it will take — and how much you'll pay — by making only minimum payments.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Credit Card Minimum Payment Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Discover how many years it will take — and how much you'll pay — by making only minimum payments.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
                 <InputField id="balance" label="Credit Card Balance ($)" value={balance} onChange={setBalance} />
                 <InputField id="apr" label="Annual APR (%)" value={apr} onChange={setApr} />
                 <InputField id="minpct" label="Min Payment Rate (%)" value={minPct} onChange={setMinPct} tooltip="Usually 1-3% of balance." />
@@ -86,10 +85,11 @@ const CreditCardMinimumPaymentCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Minimum Payment Analysis</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-red-500/10 border border-red-500/20 text-center">
@@ -107,11 +107,14 @@ const CreditCardMinimumPaymentCalculator = () => {
                   { label: "Total Amount Paid", value: 0, textValue: "$" + results.totalPaid.toLocaleString(undefined, { maximumFractionDigits: 0 }) },
                   { label: "Interest vs Principal", value: 0, textValue: ((results.totalInterest / results.totalPaid) * 100).toFixed(0) + "% interest" },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>The Minimum Payment Trap</h2>
               <p>Credit card issuers design minimum payments to keep you in debt as long as possible. A $5,000 balance at 22.99% APR can take over 20 years to pay off with minimums alone, costing you thousands more than you borrowed.</p>
               <h3>How Minimums Are Calculated</h3>
@@ -119,12 +122,8 @@ const CreditCardMinimumPaymentCalculator = () => {
               <h3>Break the Cycle</h3>
               <p>The single most powerful step is to fix your payment. Instead of paying whatever the minimum is each month, pick a fixed number (say, $200) and stick to it. This alone can reduce a 20-year payoff to under 3 years.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/credit-card-minimum-payment" />
-            <PopularCalculators exclude="/calculator/credit-card-minimum-payment-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/credit-card-minimum-payment" />
+          <PopularCalculators exclude="/calculator/credit-card-minimum-payment-calculator" />
         </div>
       </div>
     </>

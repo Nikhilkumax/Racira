@@ -100,14 +100,13 @@ export default function DomainValuationCalculator() {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Domain Valuation Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Domain Name Valuation Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Estimate the market value of a domain name based on length, TLD, keywords, and traffic potential.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Domain Name Valuation Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Estimate the market value of a domain name based on length, TLD, keywords, and traffic potential.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-6 mb-6">
                 <InputField id="domain-name" label="Domain Name (Optional)" value={domainName} onChange={setDomainName} placeholder="e.g., racira.com" />
                 <div>
                   <label className="block text-sm font-medium text-foreground mb-1.5">Extension (TLD)</label>
@@ -147,10 +146,11 @@ export default function DomainValuationCalculator() {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Valuation Summary</h2>
                 <div className="p-8 rounded-3xl bg-primary/5 border border-primary/20 text-center mb-8">
                   <p className="text-xs font-bold text-primary uppercase tracking-widest mb-2">Estimated Market Value</p>
@@ -165,12 +165,14 @@ export default function DomainValuationCalculator() {
                   { label: "Length Scarcity Score", value: 0, textValue: results.lengthAdjustment > 5 ? "Rare" : "Common" },
                   { label: "Existing Traffic Value", value: results.trafficValue },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>What Makes a Domain Name Valuable?</h2>
               <p>In the digital age, a domain name is more than just a website address — it is virtual real estate. Just like physical property, some addresses are worth more than others because of their location (extension), accessibility (length), and development (traffic). This calculator uses professional appraisal methodologies to give you a realistic window into what your domain might be worth on the open market.</p>
 
@@ -193,15 +195,8 @@ export default function DomainValuationCalculator() {
               <h3>5. Scarcity and Liquid Assets</h3>
               <p>Certain domains are considered 'liquid,' meaning they have a known floor price and can be sold quickly to other investors. This includes 2-letter .coms, 3-letter .coms, and short numeric domains (like 88.com). These assets are often used as stores of value, similar to gold or fine art, because their supply is strictly limited by the architecture of the DNS system.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/domain-name-valuation-calculator" />
-            <PopularCalculators exclude="/calculator/domain-name-valuation-calculator" />
-          </div>
-
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/domain-name-valuation-calculator" />
+          <PopularCalculators exclude="/calculator/domain-name-valuation-calculator" />
         </div>
       </div>
     </>

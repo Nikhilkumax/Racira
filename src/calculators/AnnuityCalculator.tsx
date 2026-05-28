@@ -49,13 +49,13 @@ const AnnuityCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Annuity Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Annuity Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Calculate monthly annuity payouts from a lump sum or project the future value of regular deposits.</p>
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-3 gap-6 mb-6">
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Annuity Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate monthly annuity payouts from a lump sum or project the future value of regular deposits.</p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-3 gap-6 mb-6">
                 <InputField id="princ" label="Principal / Lump Sum ($)" value={principal} onChange={setPrincipal} />
                 <InputField id="rate" label="Annual Interest Rate (%)" value={rate} onChange={setRate} />
                 <InputField id="yrs" label="Period (Years)" value={years} onChange={setYears} />
@@ -63,9 +63,11 @@ const AnnuityCalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2"><Coins className="h-5 w-5" /> Calculate Annuity</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
+
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Annuity Analysis</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -82,10 +84,14 @@ const AnnuityCalculator = () => {
                   { label: "Annuity Period", value: 0, textValue: years + " years (" + parseFloat(years) * 12 + " payments)" },
                   { label: "Effective Monthly Yield", value: 0, textValue: (parseFloat(rate) / 12).toFixed(3) + "%" },
                 ]} />
-              </div>
+              </>
             )}
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+          </div>
+        </div>
+
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>How Annuities Work</h2>
               <p>An annuity converts a lump sum of money into a reliable income stream. Insurance companies use sophisticated mortality tables to calculate payouts, ensuring the income can last for your entire lifetime.</p>
               <h3>Immediate vs. Deferred Annuities</h3>
@@ -93,10 +99,8 @@ const AnnuityCalculator = () => {
               <h3>Fixed vs. Variable Annuities</h3>
               <p>Fixed annuities offer a guaranteed payout rate. Variable annuities tie payouts to investment performance, offering more growth potential but also more risk.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/annuity" />
-            <PopularCalculators exclude="/calculator/annuity-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6"><AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" /></aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/annuity" />
+          <PopularCalculators exclude="/calculator/annuity-calculator" />
         </div>
       </div>
     </>

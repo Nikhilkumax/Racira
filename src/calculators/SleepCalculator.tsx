@@ -69,13 +69,13 @@ const SleepCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Sleep Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Sleep Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Calculate your optimal bedtime or wake time based on 90-minute sleep cycles so you wake up feeling refreshed.</p>
-            <div className="card-calculator mb-8">
-              <div className="mb-6">
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Sleep Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate your optimal bedtime or wake time based on 90-minute sleep cycles so you wake up feeling refreshed.</p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="mb-6">
                 <label className="block text-sm font-medium text-foreground mb-1.5">What are you trying to figure out?</label>
                 <select value={mode} onChange={e => { setMode(e.target.value); setResults(null); }} className="input-calc w-full sm:w-1/2">
                   <option value="wake">I want to wake up at...</option>
@@ -102,9 +102,11 @@ const SleepCalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2"><Moon className="h-5 w-5" /> Calculate Cycles</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
+
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">{mode === 'wake' ? 'Suggested Bedtimes' : 'Suggested Wake Times'}</h2>
                 <p className="text-muted-foreground mb-6">These times factor in the {sleepLatency} minutes it takes you to fall asleep, aiming to wake you up between 90-minute sleep cycles.</p>
                 
@@ -122,10 +124,14 @@ const SleepCalculator = () => {
                     );
                   })}
                 </div>
-              </div>
+              </>
             )}
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+          </div>
+        </div>
+
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>The Science of Sleep Cycles</h2>
               <p>Sleep is not a uniform state. Throughout the night, your brain cycles through different stages of activity. Waking up during deep sleep (Stage 3) leads to grogginess and disorientation, whereas waking up at the end of a cycle (during light sleep or REM) leaves you feeling alert.</p>
               <h3>How Long Should You Sleep?</h3>
@@ -133,10 +139,8 @@ const SleepCalculator = () => {
               <h3>Improving Sleep Hygiene</h3>
               <p>Calculators help with timing, but quality matters just as much. To improve your sleep architecture, maintain a cool bedroom temperature (around 65°F), avoid blue light from screens an hour before bed, and try to go to sleep at the exact same time every night.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/sleep" />
-            <PopularCalculators exclude="/calculator/sleep-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6"><AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" /></aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/sleep" />
+          <PopularCalculators exclude="/calculator/sleep-calculator" />
         </div>
       </div>
     </>

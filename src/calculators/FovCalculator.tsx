@@ -59,14 +59,13 @@ const FovCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "FOV Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">FOV (Field of View) Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Convert FOV settings between different aspect ratios and calculate your true horizontal and vertical vision.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">FOV (Field of View) Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Convert FOV settings between different aspect ratios and calculate your true horizontal and vertical vision.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
                 <InputField id="baseFov" label="In-Game FOV Value" value={baseFov} onChange={setBaseFov} />
                 <div>
                   <label className="block text-sm font-medium text-foreground mb-1.5">Game FOV Basis</label>
@@ -95,10 +94,11 @@ const FovCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Field of View Results</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -116,11 +116,14 @@ const FovCalculator = () => {
                   { label: "Superwide (32:9) FOV", value: 0, textValue: results.hFov32_9.toFixed(1) + "°" },
                   { label: "Perception Change", value: 0, textValue: results.hFov > 110 ? "High Distortion" : "Natural" },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Why FOV Matters in Gaming</h2>
               <p>Field of View (FOV) determines how much of the game world you can see at once. While it seems simple, developers use different mathematical bases for their FOV sliders.</p>
               <h3>Source Engine Basis (4:3)</h3>
@@ -128,12 +131,8 @@ const FovCalculator = () => {
               <h3>Vertical FOV Basis</h3>
               <p>Some modern games (like Battlefield or R6 Siege) use Vertical FOV. In these games, your horizontal vision expands automatically as you use wider monitors, but your vertical vision stays the same. This is generally preferred for consistency across different screen shapes.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/fov" />
-            <PopularCalculators exclude="/calculator/fov-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/fov" />
+          <PopularCalculators exclude="/calculator/fov-calculator" />
         </div>
       </div>
     </>

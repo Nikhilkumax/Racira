@@ -74,16 +74,14 @@ const IdealWeightCalculator = () => {
 
   return (
     <>
-<Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Ideal Weight Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Ideal Weight Calculator" }]} />
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Ideal Weight Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Find your ideal body weight using four established medical formulas.</p>
 
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Ideal Weight Calculator</h1>
-            <p className="text-muted-foreground mb-8">Find your ideal body weight using four established medical formulas.</p>
-
-            <div className="card-calculator mb-8">
-              <div className="mb-6 flex gap-2">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="mb-6 flex gap-2">
                 <button onClick={() => setGender("male")} className={`flex-1 py-3 rounded-lg text-sm font-medium transition-colors ${gender === "male" ? "bg-accent text-accent-foreground" : "bg-secondary text-muted-foreground"}`}>Male</button>
                 <button onClick={() => setGender("female")} className={`flex-1 py-3 rounded-lg text-sm font-medium transition-colors ${gender === "female" ? "bg-accent text-accent-foreground" : "bg-secondary text-muted-foreground"}`}>Female</button>
               </div>
@@ -96,10 +94,11 @@ const IdealWeightCalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Ideal Weight</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && result && (
-              <div className="card-calculator mb-8">
+              <>
                 <h2 className="text-xl font-bold mb-4">Your Ideal Weight</h2>
                 <div className="text-center mb-6">
                   <p className="text-5xl font-extrabold mb-1">{result.average} kg</p>
@@ -121,12 +120,14 @@ const IdealWeightCalculator = () => {
                   { label: "Average", value: 0, textValue: `${result.average} kg`, highlight: true },
                   { label: "Healthy BMI Range", value: 0, textValue: `${result.bmiHealthyMin}–${result.bmiHealthyMax} kg` },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>What Is Ideal Body Weight?</h2>
               <p>Ideal body weight (IBW) is a clinical estimate of the weight at which a person of a given height is likely to be healthiest. It was originally developed for drug dosing calculations but is now widely used as a general health reference. This calculator uses four of the most established formulas in medicine.</p>
 
@@ -162,14 +163,8 @@ const IdealWeightCalculator = () => {
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> Ideal weight estimates are general guidelines based on population averages. They do not account for individual body composition. Consult a healthcare professional for personalized health advice.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/ideal-weight-calculator" />
-            <PopularCalculators exclude="/ideal-weight-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/ideal-weight-calculator" />
+          <PopularCalculators exclude="/ideal-weight-calculator" />
         </div>
       </div>
     </>

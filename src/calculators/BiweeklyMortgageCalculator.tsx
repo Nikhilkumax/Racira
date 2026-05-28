@@ -88,13 +88,13 @@ const BiWeeklyMortgageCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Bi-Weekly Mortgage Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Bi-Weekly Mortgage Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">See how much time and interest you can save by splitting your monthly payment into bi-weekly half-payments.</p>
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-3 gap-6 mb-6">
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Bi-Weekly Mortgage Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">See how much time and interest you can save by splitting your monthly payment into bi-weekly half-payments.</p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-3 gap-6 mb-6">
                 <InputField id="amount" label="Loan Amount ($)" value={loanAmount} onChange={setLoanAmount} />
                 <InputField id="rate" label="Interest Rate (%)" value={interestRate} onChange={setInterestRate} />
                 <InputField id="term" label="Loan Term (Years)" value={loanTerm} onChange={setLoanTerm} />
@@ -102,9 +102,11 @@ const BiWeeklyMortgageCalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2"><CalendarSync className="h-5 w-5" /> Calculate Savings</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
+
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Your Savings Breakdown</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-green-500/10 border border-green-500/20 text-center flex flex-col justify-center">
@@ -139,10 +141,14 @@ const BiWeeklyMortgageCalculator = () => {
                   { label: "Total Interest (Standard)", value: 0, textValue: `$${results.standardTotalInterest.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}` },
                   { label: "Total Interest (Bi-Weekly)", value: 0, textValue: `$${results.biWeeklyTotalInterest.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}` },
                 ]} />
-              </div>
+              </>
             )}
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+          </div>
+        </div>
+
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>The Math Behind Bi-Weekly Payments</h2>
               <p>When you switch to a bi-weekly payment schedule, you aren't just paying earlier in the month—you are actually making one extra full monthly payment per year without feeling the pinch.</p>
               <h3>Why It Works</h3>
@@ -150,10 +156,8 @@ const BiWeeklyMortgageCalculator = () => {
               <h3>The Compounding Effect</h3>
               <p>Because mortgage interest is calculated on the remaining balance, violently reducing the principal balance early in the loan's life causes a cascading effect. You owe less principal, so next month's interest charge is smaller, which means more of next month's standard payment goes to principal, reducing the balance even faster.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/bi-weekly-mortgage" />
-            <PopularCalculators exclude="/calculator/bi-weekly-mortgage-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6"><AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" /></aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/bi-weekly-mortgage" />
+          <PopularCalculators exclude="/calculator/bi-weekly-mortgage-calculator" />
         </div>
       </div>
     </>

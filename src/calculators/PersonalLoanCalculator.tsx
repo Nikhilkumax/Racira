@@ -62,14 +62,13 @@ const PersonalLoanCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Personal Loan Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Personal Loan Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Calculate monthly payments and total costs for unsecured personal loans.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Personal Loan Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate monthly payments and total costs for unsecured personal loans.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
                 <InputField id="amount" label="Loan Amount ($)" value={amount} onChange={setAmount} />
                 <InputField id="rate" label="Interest Rate (%)" value={rate} onChange={setRate} />
                 <InputField id="term" label="Loan Term (Months)" value={term} onChange={setTerm} />
@@ -83,10 +82,11 @@ const PersonalLoanCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Loan Analysis</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -103,11 +103,14 @@ const PersonalLoanCalculator = () => {
                   { label: "Total Payback", value: 0, textValue: "$" + results.totalRepayment.toLocaleString(undefined, { maximumFractionDigits: 0 }) },
                   { label: "Origination Fee", value: 0, textValue: "$" + parseFloat(fee).toLocaleString() },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Is a Personal Loan Right for You?</h2>
               <p>Personal loans provide a lump sum of cash that you pay back over a fixed term with a fixed interest rate. They are a popular alternative to high-interest credit cards for consolidating debt or funding large expenses.</p>
               <h3>Fixed vs. Variable Rates</h3>
@@ -115,12 +118,8 @@ const PersonalLoanCalculator = () => {
               <h3>The Impact of Fees</h3>
               <p>Many lenders charge an 'origination fee' — a one-time fee taken out of the loan proceeds. For example, if you take a $10,000 loan with a 3% fee ($300), you will only receive $9,700 in your bank account, but you will still owe the full $10,000 plus interest. This is why it's important to look at the APR (Annual Percentage Rate) rather than just the interest rate.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/personal-loan" />
-            <PopularCalculators exclude="/calculator/personal-loan-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/personal-loan" />
+          <PopularCalculators exclude="/calculator/personal-loan-calculator" />
         </div>
       </div>
     </>

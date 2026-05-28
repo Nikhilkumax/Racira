@@ -113,14 +113,13 @@ const InterestOnlyMortgageCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Interest-Only Mortgage Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Interest-Only Mortgage Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Calculate your initial interest-only payments and see how they jump once the amortization period begins.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Interest-Only Mortgage Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate your initial interest-only payments and see how they jump once the amortization period begins.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-8">
                 <section className="space-y-6">
                   <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
                     <Home className="h-5 w-5 text-primary" /> Loan Details
@@ -143,10 +142,11 @@ const InterestOnlyMortgageCalculator = () => {
                   <RotateCcw className="h-4 w-4" /> Reset 
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 mb-8">
+              <>
                 <div className="grid sm:grid-cols-2 gap-4 mb-6">
                   <div className="card-calculator bg-primary/5 border-solid border-primary/20 text-center flex flex-col justify-center py-8">
                     <p className="text-xs font-bold text-primary uppercase tracking-widest mb-1">Initial IO Payment</p>
@@ -160,7 +160,7 @@ const InterestOnlyMortgageCalculator = () => {
                   </div>
                 </div>
 
-                <div className="card-calculator mb-6">
+                <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
                   <h2 className="text-xl font-bold flex items-center gap-2 mb-6">
                     <Info className="h-5 w-5 text-primary" /> Payment Shock Analysis
                   </h2>
@@ -186,12 +186,14 @@ const InterestOnlyMortgageCalculator = () => {
                 </div>
 
                 <AmortizationTable rows={results.yearlyRows} yearly={true} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="my-8" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Understanding Interest-Only Mortgages</h2>
               <p>An interest-only (IO) mortgage is a specialized home loan that provides flexibility in the early years of homeownership. For a predetermined period, usually 5 to 10 years, you are not required to pay down any of the loan's principal. Instead, your monthly payments cover only the interest charges.</p>
 
@@ -235,13 +237,8 @@ const InterestOnlyMortgageCalculator = () => {
               <h3>Important Considerations</h3>
               <p>Before choosing an interest-only mortgage, it is vital to have a clear "exit strategy." This might include plans to sell the property, refinance into a traditional mortgage, or a guaranteed increase in household income to handle the future payment jump. Without a plan, the transition to the amortization phase can cause significant financial distress.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/interest-only-mortgage-calculator" />
-            <PopularCalculators exclude="/calculator/interest-only-mortgage-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/interest-only-mortgage-calculator" />
+          <PopularCalculators exclude="/calculator/interest-only-mortgage-calculator" />
         </div>
       </div>
     </>

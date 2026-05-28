@@ -74,16 +74,14 @@ const BodyFatCalculator = () => {
 
   return (
     <>
-<Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Body Fat Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Body Fat Calculator" }]} />
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Body Fat Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Estimate your body fat percentage using the US Navy circumference method.</p>
 
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Body Fat Calculator</h1>
-            <p className="text-muted-foreground mb-8">Estimate your body fat percentage using the US Navy circumference method.</p>
-
-            <div className="card-calculator mb-8">
-              <div className="mb-6 flex gap-2">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="mb-6 flex gap-2">
                 <button onClick={() => setGender("male")} className={`flex-1 py-3 rounded-lg text-sm font-medium transition-colors ${gender === "male" ? "bg-accent text-accent-foreground" : "bg-secondary text-muted-foreground"}`}>Male</button>
                 <button onClick={() => setGender("female")} className={`flex-1 py-3 rounded-lg text-sm font-medium transition-colors ${gender === "female" ? "bg-accent text-accent-foreground" : "bg-secondary text-muted-foreground"}`}>Female</button>
               </div>
@@ -99,10 +97,12 @@ const BodyFatCalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Body Fat</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && result && (
-              <div className="card-calculator mb-8">
+              <>
+                <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
                 <h2 className="text-xl font-bold mb-4">Your Body Composition</h2>
                 <div className="text-center mb-6">
                   <p className="text-5xl font-extrabold mb-1">{result.bodyFat}%</p>
@@ -134,11 +134,14 @@ const BodyFatCalculator = () => {
                   </div>
                 </div>
               </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>What Is Body Fat Percentage?</h2>
               <p>Body fat percentage is the proportion of your total body weight that is fat tissue. It's a better indicator of health and fitness than weight alone, as it distinguishes between fat mass and lean mass (muscle, bone, water, organs).</p>
 
@@ -170,14 +173,8 @@ const BodyFatCalculator = () => {
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> The US Navy method provides estimates. For precise measurements, consider DEXA scans, hydrostatic weighing, or Bod Pod testing. Consult a healthcare professional.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/body-fat-calculator" />
-            <PopularCalculators exclude="/body-fat-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/body-fat-calculator" />
+          <PopularCalculators exclude="/body-fat-calculator" />
         </div>
       </div>
     </>

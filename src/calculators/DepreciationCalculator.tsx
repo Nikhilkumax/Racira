@@ -70,13 +70,13 @@ const DepreciationCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Depreciation Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Depreciation Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Generate a full depreciation schedule using Straight-Line, Double Declining Balance, or Sum-of-Years-Digits methods.</p>
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-6 mb-6">
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Depreciation Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Generate a full depreciation schedule using Straight-Line, Double Declining Balance, or Sum-of-Years-Digits methods.</p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-6 mb-6">
                 <InputField id="cost" label="Asset Cost ($)" value={assetCost} onChange={setAssetCost} />
                 <InputField id="salvage" label="Salvage Value ($)" value={salvageValue} onChange={setSalvageValue} />
                 <InputField id="life" label="Useful Life (Years)" value={usefulLife} onChange={setUsefulLife} />
@@ -92,9 +92,11 @@ const DepreciationCalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2"><TrendingDown className="h-5 w-5" /> Generate Schedule</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
+
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-4">Depreciation Schedule</h2>
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
@@ -116,10 +118,14 @@ const DepreciationCalculator = () => {
                     </tbody>
                   </table>
                 </div>
-              </div>
+              </>
             )}
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+          </div>
+        </div>
+
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Choosing a Depreciation Method</h2>
               <p>The method you choose affects your financial statements and tax liability significantly. Each method is appropriate for different assets and goals.</p>
               <h3>Straight-Line: Simplicity and Consistency</h3>
@@ -129,10 +135,8 @@ const DepreciationCalculator = () => {
               <h3>Sum of Years Digits: Middle Ground</h3>
               <p>SYD is also accelerated but less aggressive than DDB. It's calculated by multiplying the depreciable base by a fraction where the numerator is the remaining life and the denominator is the sum of all years.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/depreciation" />
-            <PopularCalculators exclude="/calculator/depreciation-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6"><AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" /></aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/depreciation" />
+          <PopularCalculators exclude="/calculator/depreciation-calculator" />
         </div>
       </div>
     </>

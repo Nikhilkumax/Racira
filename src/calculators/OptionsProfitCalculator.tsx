@@ -66,14 +66,13 @@ export default function OptionsProfitCalculator() {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Options Profit Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Options Profit Calculator</h1>
-            <p className="text-muted-foreground mb-8">Calculate profit, loss, and break-even points for call and put options trades. Enter your contract details below.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Options Profit Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate profit, loss, and break-even points for call and put options trades. Enter your contract details below.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="mb-4">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="mb-4">
                 <label className="block text-sm font-medium text-foreground mb-1.5">Option Type</label>
                 <div className="flex rounded-lg border border-input overflow-hidden">
                   <button type="button" onClick={() => setOptionType("call")} className={`flex-1 py-3 text-sm font-medium transition-colors ${optionType === "call" ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:bg-secondary"}`}>Call (Bullish)</button>
@@ -90,10 +89,11 @@ export default function OptionsProfitCalculator() {
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate P&L</button>
                 <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && (
-              <div className="card-calculator mb-8">
+              <>
                 <h2 className="text-xl font-bold mb-4">Results</h2>
                 <ResultDisplay items={[
                   { label: "Break-Even Price", value: results.breakEven, highlight: true },
@@ -101,12 +101,14 @@ export default function OptionsProfitCalculator() {
                   { label: "Maximum Loss (Premium Paid)", value: results.maxLoss },
                   { label: "Current P&L at Stock Price", value: results.currentProfit, highlight: true },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>Understanding Options Profit and Loss</h2>
               <p>Options trading offers investors a powerful way to profit from price movements in stocks, ETFs, and other securities with a defined and limited risk. Unlike buying shares outright, purchasing an option grants you the right — but not the obligation — to buy or sell an underlying asset at a predetermined price (the strike price) before a specified expiration date. This Options Profit Calculator helps you visualize the exact profit, loss, and break-even points for your trade before you commit capital.</p>
 
@@ -141,15 +143,8 @@ export default function OptionsProfitCalculator() {
               <h2>Common Options Strategies Beyond Simple Calls and Puts</h2>
               <p>Once you master the basics, you can combine options contracts into complex strategies. A <strong>covered call</strong> involves owning 100 shares and selling a call against them to generate income. A <strong>protective put</strong> involves buying a put on shares you own to insure against downside. A <strong>bull call spread</strong> involves buying one call and selling another at a higher strike to reduce the cost of the trade, capping both your profit and loss.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/options-profit-calculator" />
-            <PopularCalculators exclude="/calculator/options-profit-calculator" />
-          </div>
-
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/options-profit-calculator" />
+          <PopularCalculators exclude="/calculator/options-profit-calculator" />
         </div>
       </div>
     </>

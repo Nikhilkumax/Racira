@@ -41,13 +41,13 @@ export default function ApyCalculator() {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "APY Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">APY Calculator</h1>
-            <p className="text-muted-foreground mb-8">Convert an annual interest rate (APR) to Annual Percentage Yield (APY) for any compounding frequency — daily, monthly, quarterly, or annually.</p>
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-5 mb-6">
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">APY Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Convert an annual interest rate (APR) to Annual Percentage Yield (APY) for any compounding frequency — daily, monthly, quarterly, or annually.</p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-5 mb-6">
                 <InputField id="nominal-rate" label="Nominal Annual Rate (APR, %)" value={nominalRate} onChange={setNominalRate} suffix="%" tooltip="The stated annual interest rate before compounding." />
                 <div>
                   <label className="block text-sm font-medium text-foreground mb-1.5">Compounding Frequency</label>
@@ -67,9 +67,11 @@ export default function ApyCalculator() {
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate APY</button>
                 <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
+
+          <div className="flex flex-col gap-3">
             {showResults && (
-              <div className="card-calculator mb-8">
+              <>
                 <h2 className="text-xl font-bold mb-4">APY Conversion Results</h2>
                 <ResultDisplay items={[
                   { label: "Effective APY", value: 0, textValue: `${results.apy.toFixed(6)}%`, highlight: true },
@@ -77,10 +79,14 @@ export default function ApyCalculator() {
                   { label: "Nominal Daily Rate", value: 0, textValue: `${results.dailyRate.toFixed(6)}%` },
                   { label: "Effective Daily Rate", value: 0, textValue: `${results.effectiveDailyRate.toFixed(6)}%` },
                 ]} />
-              </div>
+              </>
             )}
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-            <article className="prose-finance">
+          </div>
+        </div>
+
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>APY vs. APR: Understanding the Critical Difference</h2>
               <p>Annual Percentage Yield (APY) and Annual Percentage Rate (APR) are two closely related but distinctly different measures of interest that appear across virtually every financial product — from savings accounts and CDs to mortgages and credit cards. Understanding the difference is essential for making accurate comparisons between financial products and avoiding costly mistakes.</p>
               <h2>The APY Formula</h2>
@@ -92,13 +98,8 @@ export default function ApyCalculator() {
               <h2>Practical Implications for Savers</h2>
               <p>When comparing savings accounts, a bank offering 5.00% APR with daily compounding has an effective APY of 5.1267%. A bank offering 5.00% APY with monthly compounding has an APR of 4.8889%. The difference in actual returns is the APY figure, not the APR. Many consumers are confused by this distinction, which is why U.S. regulations (the Truth in Savings Act) require financial institutions to prominently disclose APY for deposit products.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/apy-calculator" />
-            <PopularCalculators exclude="/calculator/apy-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/apy-calculator" />
+          <PopularCalculators exclude="/calculator/apy-calculator" />
         </div>
       </div>
     </>

@@ -59,14 +59,13 @@ const FoodCarbonFootprintCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Food Carbon Footprint Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Food Carbon Footprint Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Estimate the annual environmental impact of your diet and compare different eating habits.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Food Carbon Footprint Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Estimate the annual environmental impact of your diet and compare different eating habits.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-6 mb-6">
                 <div>
                   <label className="block text-sm font-medium text-foreground mb-1.5">Dietary Habit</label>
                   <select value={dietType} onChange={(e) => setDietType(e.target.value)} className="input-calc">
@@ -93,10 +92,11 @@ const FoodCarbonFootprintCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Dietary Impact Summary</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -133,11 +133,14 @@ const FoodCarbonFootprintCalculator = () => {
                     <p>Great job! Your diet saves over <strong>{Math.floor(results.savingsVsAverage)}kg of CO2</strong> annually compared to the average diet.</p>
                   </div>
                 )}
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Food and the Environment</h2>
               <p>Food production is responsible for about one-quarter of the world's greenhouse gas emissions. This includes everything from the fertilizer used on crops to the fuel used for transportation.</p>
               <h3>The Hierarchy of Impacts</h3>
@@ -145,12 +148,8 @@ const FoodCarbonFootprintCalculator = () => {
               <h3>Beyond CO2: Water and Land</h3>
               <p>While this calculator focuses on carbon emissions, diet choice also affects water usage and land conservation. A plant-based diet typically requires 75% less agricultural land than one rich in animal products—land that could instead be used for forests to naturally sequester carbon.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/food-carbon-footprint" />
-            <PopularCalculators exclude="/calculator/food-carbon-footprint-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/food-carbon-footprint" />
+          <PopularCalculators exclude="/calculator/food-carbon-footprint-calculator" />
         </div>
       </div>
     </>

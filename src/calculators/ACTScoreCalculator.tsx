@@ -58,14 +58,13 @@ const ACTScoreCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "ACT Score Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">ACT Score Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Predict your ACT composite score by converting your raw scores into the standard 1-36 scale.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">ACT Score Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Predict your ACT composite score by converting your raw scores into the standard 1-36 scale.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-x-12 gap-y-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-x-12 gap-y-8">
                 <section className="space-y-6">
                   <h2 className="text-lg font-bold flex items-center gap-2 text-primary">
                     <Book className="h-5 w-5" /> Language & Reading
@@ -100,10 +99,11 @@ const ACTScoreCalculator = () => {
                   <RotateCcw className="h-4 w-4" /> Reset 
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 mb-8">
+              <>
                 <div className="card-calculator bg-primary/5 border-solid border-primary/20 text-center flex flex-col justify-center py-12 mb-6">
                     <p className="text-sm font-bold text-primary uppercase tracking-widest mb-2">Estimated Composite Score</p>
                     <p className="text-8xl font-black text-foreground">{results.composite}</p>
@@ -130,11 +130,14 @@ const ACTScoreCalculator = () => {
                       <p className="text-2xl font-black text-foreground">{results.sScaled}</p>
                    </div>
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="my-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>The ACT Scoring System</h2>
               <p>The ACT uses a unique scoring system that can be confusing for first-time test-takers. Unlike the SAT's 1600-point scale, the ACT focuses on a compact 1-36 range. Every question is worth the same amount of points, and there is no deduction for wrong answers.</p>
               
@@ -149,12 +152,8 @@ const ACTScoreCalculator = () => {
               <h3>How the Composite is Formed</h3>
               <p>The composite score is the average of the four sections. If the average ends in a decimal of .5 or higher, it is rounded up to the next whole number. For example, if your average is 28.25, your composite is 28. If your average is 28.5, your composite is 29.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/act-score" />
-            <PopularCalculators exclude="/calculator/act-score-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/act-score" />
+          <PopularCalculators exclude="/calculator/act-score-calculator" />
         </div>
       </div>
     </>

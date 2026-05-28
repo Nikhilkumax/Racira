@@ -78,15 +78,13 @@ const CAGRCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "CAGR Calculator" }]} />
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">CAGR Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate Compound Annual Growth Rate (CAGR) for investments, stocks, and business metrics. Find future value, required growth rate, or years to reach a target.</p>
 
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">CAGR Calculator</h1>
-            <p className="text-muted-foreground mb-8">Calculate Compound Annual Growth Rate (CAGR) for investments, stocks, and business metrics. Find future value, required growth rate, or years to reach a target.</p>
-
-            <div className="card-calculator mb-8">
-              <div className="mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="mb-6">
                 <label className="block text-sm font-medium text-foreground mb-1.5">Calculation Type</label>
                 <div className="flex rounded-lg border border-input overflow-hidden">
                   <button type="button" onClick={() => { setMode("cagr"); setResults(null); }} className={`flex-1 py-3 text-sm font-medium transition-colors ${mode === "cagr" ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:bg-secondary"}`}>Find CAGR</button>
@@ -113,10 +111,11 @@ const CAGRCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8">
+              <>
                 <h2 className="text-xl font-bold mb-4">Results</h2>
 
                 {results.mode === "cagr" && (
@@ -233,12 +232,14 @@ const CAGRCalculator = () => {
                     { label: "Required CAGR", value: 0, textValue: `${results.R}%` },
                   ]} />
                 )}
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>What Is CAGR?</h2>
               <p>CAGR, or Compound Annual Growth Rate, is one of the most important metrics in finance and investing. It represents the rate at which an investment would have grown if it grew at a steady rate each year over the specified period. CAGR is a smoothed-out growth rate that eliminates the volatility of year-to-year returns, making it ideal for comparing investments across different time horizons.</p>
               <p>Unlike simple average annual return, CAGR accounts for the compounding effect — meaning it reflects the actual end-to-end performance of an investment including the reinvestment of gains. This makes it the preferred metric for evaluating mutual funds, stocks, business revenue growth, and any metric that changes over time.</p>
@@ -260,15 +261,8 @@ const CAGRCalculator = () => {
               <h2>Tips for Interpreting CAGR</h2>
               <p>A higher CAGR doesn't always mean a better investment — consider risk and volatility too. Compare CAGR to a relevant benchmark (e.g., S&P 500 for equity funds). A fund with a 15% CAGR but extreme volatility may be riskier than one with a 12% CAGR and smooth growth. Also note that CAGR is backward-looking — past performance doesn't guarantee future results. Use CAGR alongside Sharpe ratio and maximum drawdown for a complete picture of investment quality.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/cagr-calculator" />
-            <PopularCalculators exclude="/calculator/cagr-calculator" />
-          </div>
-
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/cagr-calculator" />
+          <PopularCalculators exclude="/calculator/cagr-calculator" />
         </div>
       </div>
     </>

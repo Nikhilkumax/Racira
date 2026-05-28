@@ -60,14 +60,13 @@ export default function AdsenseRevenueCalculator() {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "AdSense Revenue Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">AdSense Revenue Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Estimate your potential Google AdSense earnings based on traffic volume, click-through rate, and cost-per-click.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">AdSense Revenue Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Estimate your potential Google AdSense earnings based on traffic volume, click-through rate, and cost-per-click.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-3 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-3 gap-6 mb-6">
                 <InputField id="views" label="Daily Page Views" value={dailyPageViews} onChange={setDailyPageViews} tooltip="Average number of pages viewed on your site per day." />
                 <InputField id="ctr" label="CTR (%)" value={ctr} onChange={setCtr} suffix="%" tooltip="Click-Through Rate: The percentage of visitors who click on an ad." />
                 <InputField id="cpc" label="Avg CPC ($)" value={cpc} onChange={setCpc} prefix="$" tooltip="Cost Per Click: The average amount you earn for each click." />
@@ -81,10 +80,11 @@ export default function AdsenseRevenueCalculator() {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Earnings Projections</h2>
                 <div className="grid sm:grid-cols-3 gap-4 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -105,12 +105,14 @@ export default function AdsenseRevenueCalculator() {
                   { label: "Annual Page Views", value: 0, textValue: (parseFloat(dailyPageViews) * 365).toLocaleString() },
                   { label: "Ad Impressions (Est.)", value: 0, textValue: (parseFloat(dailyPageViews) * 2).toLocaleString() },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>Mastering the Math of AdSense Revenue</h2>
               <p>Google AdSense remains the most accessible way for bloggers, news sites, and niche publishers to monetize their content. However, success with AdSense is a game of statistics. To build a sustainable income, you need to understand how the three pillars of revenue — Traffic, CTR, and CPC — interact to determine your final payout. This calculator is designed to help you run 'what-if' scenarios to find the most efficient path to your income goals.</p>
 
@@ -134,15 +136,8 @@ export default function AdsenseRevenueCalculator() {
                 <li><strong>Experiment with Ad Formats:</strong> Use Anchor ads, Vignette ads (which appear between page loads), and responsive display ads to find the combination that works best for your layout.</li>
               </ul>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/adsense-revenue-calculator" />
-            <PopularCalculators exclude="/calculator/adsense-revenue-calculator" />
-          </div>
-
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/adsense-revenue-calculator" />
+          <PopularCalculators exclude="/calculator/adsense-revenue-calculator" />
         </div>
       </div>
     </>

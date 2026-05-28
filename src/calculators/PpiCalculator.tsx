@@ -60,14 +60,13 @@ const PpiCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "PPI Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Pixel Density (PPI) Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Calculate the Pixels Per Inch (PPI) and pixel pitch of any display based on its resolution and physical size.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Pixel Density (PPI) Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate the Pixels Per Inch (PPI) and pixel pitch of any display based on its resolution and physical size.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-3 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-3 gap-6 mb-6">
                 <InputField id="width" label="Width (Pixels)" value={width} onChange={setWidth} />
                 <InputField id="height" label="Height (Pixels)" value={height} onChange={setHeight} />
                 <InputField id="diagonal" label="Diagonal Size (Inches)" value={diagonal} onChange={setDiagonal} />
@@ -80,10 +79,11 @@ const PpiCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Display Specifications</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -110,11 +110,14 @@ const PpiCalculator = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>PPI vs. Resolution</h2>
               <p>Many people confuse resolution with pixel density. Resolution is simply the total count of pixels (e.g., 1920x1080), while PPI describes how tightly those pixels are packed together on a physical surface. A 50-inch 4K TV and a 5-inch 4K smartphone have the same resolution, but vastly different PPIs.</p>
               <h3>Viewing Distance Matters</h3>
@@ -122,12 +125,8 @@ const PpiCalculator = () => {
               <h3>The Impact on Performance</h3>
               <p>Higher density displays require more processing power and battery life to drive the extra pixels. This is why some laptop and phone users choose to run their devices at a lower "logical" resolution than the native physical resolution of the screen.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/ppi" />
-            <PopularCalculators exclude="/calculator/pixel-density-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/ppi" />
+          <PopularCalculators exclude="/calculator/pixel-density-calculator" />
         </div>
       </div>
     </>

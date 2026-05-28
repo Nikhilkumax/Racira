@@ -60,14 +60,13 @@ const StudentLoanCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Student Loan Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Student Loan Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Compare standard repayment plans with income-driven options for your student debt.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Student Loan Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Compare standard repayment plans with income-driven options for your student debt.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
                 <InputField id="amount" label="Total Debt ($)" value={loanAmount} onChange={setLoanAmount} />
                 <InputField id="rate" label="Interest Rate (%)" value={interestRate} onChange={setInterestRate} />
                 <InputField id="term" label="Term (Years)" value={term} onChange={setTerm} />
@@ -81,10 +80,11 @@ const StudentLoanCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Repayment Comparison</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -101,11 +101,14 @@ const StudentLoanCalculator = () => {
                   { label: "Total Payback (Standard)", value: 0, textValue: "$" + results.totalPaybackStandard.toLocaleString(undefined, { maximumFractionDigits: 0 }) },
                   { label: "Discretionary Income", value: 0, textValue: "$" + (parseFloat(income) - 22000).toLocaleString() },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Managing Student Debt</h2>
               <p>Student loans are a common way to finance higher education, but they require careful management to ensure they don't become a long-term financial burden.</p>
               <h3>Standard vs. IDR Plans</h3>
@@ -113,12 +116,8 @@ const StudentLoanCalculator = () => {
               <h3>The Importance of Interest Rates</h3>
               <p>Unlike some other loans, student loan interest is often calculated daily. This means that interest begins to accrue as soon as the loan is disbursed. Over a 10 or 20-year term, even a 1% difference in interest rate can significantly change the total amount you repay.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/student-loan" />
-            <PopularCalculators exclude="/calculator/student-loan-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/student-loan" />
+          <PopularCalculators exclude="/calculator/student-loan-calculator" />
         </div>
       </div>
     </>

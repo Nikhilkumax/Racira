@@ -115,14 +115,13 @@ const W4WithholdingCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "W-4 Withholding Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">W-4 Withholding Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Optimize your tax withholding to maximize your monthly paycheck while avoiding a surprise tax bill.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">W-4 Withholding Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Optimize your tax withholding to maximize your monthly paycheck while avoiding a surprise tax bill.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-8">
                 <section className="space-y-6">
                   <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
                     <TrendingUp className="h-5 w-5 text-primary" /> Current Situation
@@ -161,11 +160,12 @@ const W4WithholdingCalculator = () => {
                   <RotateCcw className="h-4 w-4" /> Reset 
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 mb-8">
-                <div className="card-calculator mb-8 border-solid border-2 py-10 text-center" style={{ borderColor: results.isOverpaying ? 'rgba(59, 130, 246, 0.2)' : 'rgba(239, 68, 68, 0.2)', backgroundColor: results.isOverpaying ? 'rgba(59, 130, 246, 0.05)' : 'rgba(239, 68, 68, 0.05)' }}>
+              <>
+                <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card" style={{ borderColor: results.isOverpaying ? 'rgba(59, 130, 246, 0.2)' : 'rgba(239, 68, 68, 0.2)', backgroundColor: results.isOverpaying ? 'rgba(59, 130, 246, 0.05)' : 'rgba(239, 68, 68, 0.05)' }}>
                   <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-1">{results.isOverpaying ? 'Projected Over-Withholding' : 'Projected Under-Withholding'}</p>
                   <p className={`text-7xl font-black mb-4 ${results.isOverpaying ? 'text-blue-600' : 'text-red-600'}`}>${Math.round(results.difference).toLocaleString()}</p>
                   
@@ -199,12 +199,14 @@ const W4WithholdingCalculator = () => {
                       <p className="text-[10px] font-bold text-muted-foreground mt-2 uppercase text-center">Goal: 100% Alignment</p>
                    </div>
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="my-8" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>How to Use This W-4 Calculator</h2>
               <p>The goal of tax withholding is to pay exactly what you owe to the government—no more and no less. This calculator helps you see if your current paycheck withholding is on track to meet your annual tax liability or if you need to make an adjustment to avoid a surprise bill in April.</p>
 
@@ -236,13 +238,8 @@ const W4WithholdingCalculator = () => {
               <h2>Final Recommendation</h2>
               <p>Aim for a slight over-withholding (a refund of $100-$300). This provides a small safety margin for unexpected income while ensuring you keep the majority of your hard-earned money in your own pocket throughout the year.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/w4-withholding-calculator" />
-            <PopularCalculators exclude="/calculator/w4-withholding-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/w4-withholding-calculator" />
+          <PopularCalculators exclude="/calculator/w4-withholding-calculator" />
         </div>
       </div>
     </>

@@ -74,14 +74,13 @@ const InvestmentPropertyCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Investment Property Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Investment Property Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Analyze the profitability of a rental property by calculating cash flow, cap rate, and cash on cash return.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Investment Property Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Analyze the profitability of a rental property by calculating cash flow, cap rate, and cash on cash return.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
                 <InputField id="price" label="Purchase Price" value={purchasePrice} onChange={setPurchasePrice} prefix="$" />
                 <InputField id="down" label="Down Payment" value={downPayment} onChange={setDownPayment} prefix="$" />
                 <InputField id="rate" label="Interest Rate" value={interestRate} onChange={setInterestRate} suffix="%" />
@@ -96,10 +95,11 @@ const InvestmentPropertyCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Profitability Report</h2>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -120,11 +120,14 @@ const InvestmentPropertyCalculator = () => {
                   { label: "Total Monthly Outflow", value: 0, textValue: "$" + Math.round(results.totalMonthlyOutflow).toLocaleString() },
                   { label: "Annual NOI", value: 0, textValue: "$" + Math.round(results.annualNOI).toLocaleString() },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Investing in Real Estate</h2>
               <p>Real estate is one of the most reliable ways to build long-term wealth, but not every property is a good investment. Running the numbers is the difference between a profitable asset and a "money pit."</p>
               <h3>Cash Flow is King</h3>
@@ -132,12 +135,8 @@ const InvestmentPropertyCalculator = () => {
               <h3>Leverage and Risk</h3>
               <p>Using a mortgage (leverage) allows you to control a $250,000 asset with only $50,000 of your own money. This amplifies your Cash on Cash return but also increases your risk. If the property becomes vacant, you are still responsible for the full mortgage payment.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/investment-property" />
-            <PopularCalculators exclude="/calculator/investment-property-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/investment-property" />
+          <PopularCalculators exclude="/calculator/investment-property-calculator" />
         </div>
       </div>
     </>

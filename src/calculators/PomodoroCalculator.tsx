@@ -71,14 +71,13 @@ const PomodoroCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Pomodoro Cycle Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Pomodoro Cycle Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Plan your study or work day by calculating the total time required for multiple Pomodoro sessions and breaks.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Pomodoro Cycle Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Plan your study or work day by calculating the total time required for multiple Pomodoro sessions and breaks.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-8">
                 <section className="space-y-6">
                   <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
                     <Timer className="h-5 w-5 text-primary" /> Work Sessions
@@ -135,10 +134,11 @@ const PomodoroCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 mb-8">
+              <>
                 <div className="card-calculator bg-primary/5 border-solid border-primary/20 text-center flex flex-col justify-center py-10 mb-6 relative overflow-hidden">
                     <p className="text-sm font-bold text-primary uppercase tracking-widest mb-2">Total Time Required</p>
                     <p className="text-7xl font-black text-foreground">
@@ -167,11 +167,14 @@ const PomodoroCalculator = () => {
                     { label: "Completion Time", value: new Date(Date.now() + results.totalTimeMinutes * 60000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) },
                   ]} />
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="my-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Mastering the Pomodoro Technique</h2>
               <p>The Pomodoro Technique is one of the most effective ways to maintain deep focus while preventing mental burnout. By breaking your day into small, manageable chunks, you can maintain high productivity throughout the entire day.</p>
               
@@ -181,12 +184,8 @@ const PomodoroCalculator = () => {
               <h3>Customizing Your Flow</h3>
               <p>While the standard 25/5 rhythm works for many, some people prefer longer sessions. For complex tasks like coding or writing, a 50-minute work session followed by a 10-minute break (often called the '50/10' rule) might be more effective to maintain "flow state."</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/pomodoro-cycle" />
-            <PopularCalculators exclude="/calculator/pomodoro-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/pomodoro-cycle" />
+          <PopularCalculators exclude="/calculator/pomodoro-calculator" />
         </div>
       </div>
     </>

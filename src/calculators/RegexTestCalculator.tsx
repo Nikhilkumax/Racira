@@ -69,14 +69,13 @@ const RegexTestCalculator = () => {
           { label: "Regex Match Calculator" }
         ]} 
       />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Regex Match Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Test and validate regular expressions in real-time with captured group support.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Regex Match Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Test and validate regular expressions in real-time with captured group support.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="space-y-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="space-y-6">
                 <div>
                   <label className="block text-xs font-bold text-muted-foreground uppercase mb-2">Regex Pattern</label>
                   <div className="flex gap-2">
@@ -126,10 +125,11 @@ const RegexTestCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <div className="grid sm:grid-cols-2 gap-4 mb-6">
                   <div className="card-calculator py-6 text-center">
                     <p className="text-xs font-bold text-primary uppercase tracking-widest mb-1">Total Matches</p>
@@ -174,11 +174,14 @@ const RegexTestCalculator = () => {
                     )}
                   </div>
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="my-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Mastering Regular Expressions</h2>
               <p>Regular expressions (regex) are incredibly powerful tools for text processing. From validating form inputs like emails and passwords to parsing complex server logs, regex is an essential skill for any developer or IT professional.</p>
               
@@ -193,12 +196,8 @@ const RegexTestCalculator = () => {
               <h3>Why Captured Groups?</h3>
               <p>Brackets <code>()</code> in regex serve two purposes: they group parts of your pattern together, and they "capture" the matched text so you can reference it later. This is extremely useful when you need to extract specific parts of a string, such as a username from an email or a domain from a URL.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/regex-match" />
-            <PopularCalculators exclude="/calculator/regex-test-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/regex-match" />
+          <PopularCalculators exclude="/calculator/regex-test-calculator" />
         </div>
       </div>
     </>

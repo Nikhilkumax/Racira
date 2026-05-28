@@ -63,14 +63,13 @@ const RothIraCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Roth IRA Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Roth IRA Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Project your tax-free Roth IRA balance at retirement and estimate sustainable withdrawal income.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Roth IRA Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Project your tax-free Roth IRA balance at retirement and estimate sustainable withdrawal income.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
                 <InputField id="age" label="Current Age" value={currentAge} onChange={setCurrentAge} />
                 <InputField id="retage" label="Retirement Age" value={retirementAge} onChange={setRetirementAge} />
                 <InputField id="contrib" label="Annual Contribution ($)" value={annualContribution} onChange={setAnnualContribution} tooltip="2024 limit: $7,000 ($8,000 if 50+)." />
@@ -84,10 +83,11 @@ const RothIraCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Roth IRA Projection</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -105,11 +105,14 @@ const RothIraCalculator = () => {
                   { label: "Total Contributed", value: 0, textValue: "$" + results.totalContributed.toLocaleString(undefined, { maximumFractionDigits: 0 }) },
                   { label: "Tax-Free Growth", value: 0, textValue: "$" + results.taxFreGrowth.toLocaleString(undefined, { maximumFractionDigits: 0 }) },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Why a Roth IRA is Powerful</h2>
               <p>The Roth IRA is often considered one of the best retirement savings vehicles available. Its core advantage — tax-free growth — becomes increasingly powerful over a long investment horizon.</p>
               <h3>The Tax-Free Advantage</h3>
@@ -119,12 +122,8 @@ const RothIraCalculator = () => {
               <h3>The Back-Door Roth</h3>
               <p>If your income exceeds the Roth IRA limits, high earners can use a "backdoor Roth" strategy: making a non-deductible Traditional IRA contribution and then immediately converting it to a Roth. Consult a tax professional before attempting this strategy.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/roth-ira" />
-            <PopularCalculators exclude="/calculator/roth-ira-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/roth-ira" />
+          <PopularCalculators exclude="/calculator/roth-ira-calculator" />
         </div>
       </div>
     </>

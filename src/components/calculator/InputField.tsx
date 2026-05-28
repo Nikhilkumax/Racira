@@ -30,7 +30,7 @@ const InputField = ({
   disabled,
 }: InputFieldProps) => (
   <div>
-    <label htmlFor={id} className="flex items-center text-sm font-medium text-foreground mb-1.5">
+    <label htmlFor={id} className="flex items-center text-sm font-medium text-foreground mb-1">
       {label}
       {tooltip && <FinancialTooltip text={tooltip} />}
     </label>

@@ -103,14 +103,13 @@ const CommercialLoanCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Commercial Loan Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Commercial Loan Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Analyze commercial real estate financing with amortization, balloon payments, and Debt Service Coverage Ratio (DSCR) analysis.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Commercial Loan Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Analyze commercial real estate financing with amortization, balloon payments, and Debt Service Coverage Ratio (DSCR) analysis.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-8">
                 <section className="space-y-6">
                   <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
                     <Building className="h-5 w-5 text-primary" /> Property & Income
@@ -137,10 +136,11 @@ const CommercialLoanCalculator = () => {
                   <RotateCcw className="h-4 w-4" /> Reset 
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 mb-8">
+              <>
                 <div className="grid sm:grid-cols-2 gap-4 mb-6">
                   <div className="card-calculator bg-primary/5 border-solid border-primary/20 text-center flex flex-col justify-center py-8">
                     <p className="text-xs font-bold text-primary uppercase tracking-widest mb-1">Monthly Payment</p>
@@ -155,7 +155,7 @@ const CommercialLoanCalculator = () => {
                   </div>
                 </div>
 
-                <div className="card-calculator mb-6">
+                <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
                   <h2 className="text-xl font-bold flex items-center gap-2 mb-6">
                     <PieChart className="h-5 w-5 text-primary" /> Financial Metrics
                   </h2>
@@ -168,12 +168,14 @@ const CommercialLoanCalculator = () => {
                 </div>
 
                 <AmortizationTable rows={results.yearlyRows} yearly={true} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="my-8" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Mastering Commercial Real Estate Finance</h2>
               <p>Commercial real estate (CRE) loans are a different animal compared to residential mortgages. While residential loans focus on the borrower's personal creditworthiness and salary, commercial lenders care primarily about the property's ability to generate cash flow and the overall strength of the asset.</p>
 
@@ -202,13 +204,8 @@ const CommercialLoanCalculator = () => {
                 <li><strong>Environmental & Property Reports:</strong> To ensure there are no hidden liabilities or structural issues.</li>
               </ol>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/commercial-loan-calculator" />
-            <PopularCalculators exclude="/calculator/commercial-loan-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/commercial-loan-calculator" />
+          <PopularCalculators exclude="/calculator/commercial-loan-calculator" />
         </div>
       </div>
     </>

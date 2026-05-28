@@ -52,14 +52,13 @@ const RefinanceBreakEvenCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Refinance Break-Even Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Refinance Break-Even Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Determine exactly how many months it will take for your mortgage savings to cover the cost of refinancing.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Refinance Break-Even Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Determine exactly how many months it will take for your mortgage savings to cover the cost of refinancing.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
                 <InputField id="currentPayment" label="Current Monthly Payment" value={currentPayment} onChange={setCurrentPayment} prefix="$" />
                 <InputField id="newPayment" label="New Monthly Payment" value={newPayment} onChange={setNewPayment} prefix="$" />
                 <InputField id="closingCosts" label="Total Closing Costs" value={closingCosts} onChange={setClosingCosts} prefix="$" />
@@ -72,10 +71,11 @@ const RefinanceBreakEvenCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Break-Even Analysis</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -93,11 +93,14 @@ const RefinanceBreakEvenCalculator = () => {
                   { label: "Net Savings (10 Years)", value: 0, textValue: "$" + results.savings10Year.toLocaleString() },
                   { label: "Cost-to-Savings Ratio", value: 0, textValue: (parseFloat(closingCosts) / results.monthlySavings).toFixed(1) },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>When Refinancing Makes Sense</h2>
               <p>Refinancing is more than just getting a lower interest rate; it's a math problem. If the cost of getting the new loan is higher than what you save over the time you intend to stay in the home, it's not a good deal.</p>
               <h3>The Break-Even Point</h3>
@@ -105,12 +108,8 @@ const RefinanceBreakEvenCalculator = () => {
               <h3>Factors That Influence Your Decision</h3>
               <p>If you plan to live in your home for the next 10-20 years, a longer break-even point might be acceptable. However, if there's any chance you'll sell or move in the next 3-5 years, you need to be very careful that the math works in your favor before signing the paperwork.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/refinance-break-even" />
-            <PopularCalculators exclude="/calculator/refinance-break-even-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/refinance-break-even" />
+          <PopularCalculators exclude="/calculator/refinance-break-even-calculator" />
         </div>
       </div>
     </>

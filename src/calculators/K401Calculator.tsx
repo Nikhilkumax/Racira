@@ -134,15 +134,13 @@ const K401Calculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "401K Calculator" }]} />
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">401K Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Project your 401(k) retirement savings with employer match, salary increases, inflation adjustment, and year-by-year growth table. Includes 2024 contribution limits.</p>
 
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">401K Calculator</h1>
-            <p className="text-muted-foreground mb-8">Project your 401(k) retirement savings with employer match, salary increases, inflation adjustment, and year-by-year growth table. Includes 2024 contribution limits.</p>
-
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-5 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-5 mb-6">
                 <InputField id="curr-age" label="Current Age" value={currentAge} onChange={setCurrentAge} tooltip="Your current age in years." min="18" step="1" />
                 <InputField id="ret-age" label="Retirement Age" value={retirementAge} onChange={setRetirementAge} tooltip="The age at which you plan to retire." min="50" step="1" />
                 <InputField id="curr-balance" label="Current 401(k) Balance" value={currentBalance} onChange={setCurrentBalance} prefix="$" tooltip="Your existing 401(k) account balance today." />
@@ -160,10 +158,11 @@ const K401Calculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8">
+              <>
                 <h2 className="text-xl font-bold mb-4">Retirement Projection</h2>
 
                 <ResultDisplay items={[
@@ -220,12 +219,14 @@ const K401Calculator = () => {
                 <div className="mt-4 p-4 rounded-lg bg-secondary/30 border border-border text-xs text-muted-foreground">
                   <strong>Note:</strong> This projection uses simplified annual compounding and assumes constant contribution percentages. Actual 401(k) growth depends on fund selection, fees, market performance, and plan-specific rules. This is not financial advice.
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>What Is a 401(k) Calculator?</h2>
               <p>A 401(k) calculator projects how much money you'll accumulate in your employer-sponsored retirement account by the time you retire. It factors in your current balance, annual contributions (up to the IRS limit), employer matching contributions, expected investment returns, salary increases, and inflation to provide a comprehensive retirement savings forecast.</p>
               <p>Our advanced 401(k) calculator includes all factors that significantly impact your retirement outcome: employer match with configurable match percentage and limits, annual salary increase projections, inflation-adjusted purchasing power, and a complete year-by-year growth table showing every variable at each age from now until retirement.</p>
@@ -248,15 +249,8 @@ const K401Calculator = () => {
               <h2>Tips to Maximize Your 401(k)</h2>
               <p>Always contribute at least enough to get the full employer match first. Then maximize an IRA (Roth or Traditional). Then maximize the 401(k) to the full $23,000 limit. Increase your contribution rate by 1% each time you receive a raise. Choose low-cost index funds — expense ratios of 0.03–0.10% vs 1%+ for actively managed funds can mean hundreds of thousands of dollars difference at retirement. At age 50+, take full advantage of the $7,500 catch-up contribution. Review and rebalance your asset allocation annually.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/401k-calculator" />
-            <PopularCalculators exclude="/calculator/401k-calculator" />
-          </div>
-
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/401k-calculator" />
+          <PopularCalculators exclude="/calculator/401k-calculator" />
         </div>
       </div>
     </>

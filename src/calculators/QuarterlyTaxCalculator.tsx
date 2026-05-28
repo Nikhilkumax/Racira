@@ -86,14 +86,13 @@ const QuarterlyTaxCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Quarterly Estimated Tax Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Quarterly Estimated Tax Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Calculate your required quarterly tax payments to stay compliant and avoid IRS underpayment penalties.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Quarterly Estimated Tax Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate your required quarterly tax payments to stay compliant and avoid IRS underpayment penalties.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-8">
                 <section className="space-y-6">
                   <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
                     <Calendar className="h-5 w-5 text-primary" /> Current Year Projection
@@ -126,10 +125,11 @@ const QuarterlyTaxCalculator = () => {
                   <RotateCcw className="h-4 w-4" /> Reset 
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 mb-8">
+              <>
                 <div className="grid sm:grid-cols-2 gap-4 mb-6">
                   <div className="card-calculator bg-primary/5 border-solid border-primary/20 text-center flex flex-col justify-center py-8">
                     <p className="text-xs font-bold text-primary uppercase tracking-widest mb-1">Recommended Quarterly Payment</p>
@@ -143,7 +143,7 @@ const QuarterlyTaxCalculator = () => {
                   </div>
                 </div>
 
-                <div className="card-calculator mb-6">
+                <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
                   <h2 className="text-xl font-bold flex items-center gap-2 mb-6">
                     <Calculator className="h-5 w-5 text-primary" /> Payment Breakdown
                   </h2>
@@ -154,12 +154,14 @@ const QuarterlyTaxCalculator = () => {
                     { label: "Remaining Balance at Year-End", value: results.totalCurrentLiability - results.requiredAnnualPayment },
                   ]} />
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="my-8" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Mastering Your Quarterly Estimated Taxes</h2>
               <p>For freelancers, solopreneurs, and business owners, tax season happens four times a year. Because no employer is withholding taxes from your income, the IRS requires you to calculate and pay your own taxes as you earn them. This is known as "Estimated Tax."</p>
 
@@ -198,13 +200,8 @@ const QuarterlyTaxCalculator = () => {
                 <li><strong>Q4 (Sep 1 - Dec 31):</strong> Due January 15 (following year)</li>
               </ul>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/quarterly-tax-calculator" />
-            <PopularCalculators exclude="/calculator/quarterly-tax-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/quarterly-tax-calculator" />
+          <PopularCalculators exclude="/calculator/quarterly-tax-calculator" />
         </div>
       </div>
     </>

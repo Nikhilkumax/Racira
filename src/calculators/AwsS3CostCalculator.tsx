@@ -75,14 +75,13 @@ const AwsS3CostCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "AWS S3 Cost Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">AWS S3 Cost Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Estimate your monthly AWS S3 bill including storage, requests, and data transfer costs.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">AWS S3 Cost Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Estimate your monthly AWS S3 bill including storage, requests, and data transfer costs.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-8 mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-8 mb-8">
                 <section>
                   <div className="flex items-center gap-2 mb-4 text-primary font-bold text-sm uppercase tracking-wider">
                      <Database className="h-4 w-4" /> Storage
@@ -125,10 +124,11 @@ const AwsS3CostCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Cost Breakdown</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -156,11 +156,14 @@ const AwsS3CostCalculator = () => {
                     { label: "Retrieval Fees", value: 0, textValue: results.retrievalCost > 0 ? "$" + results.retrievalCost.toFixed(2) : "None" },
                   ]} />
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Mastering S3 Storage Costs</h2>
               <p>Amazon S3 (Simple Storage Service) is the backbone of the internet, but its pricing model can be complex. Understanding the three main dimensions of cost—storage, requests, and transfer—is key to keeping your cloud bill under control.</p>
               
@@ -175,12 +178,8 @@ const AwsS3CostCalculator = () => {
               <p><strong>Minimum Storage Duration:</strong> Classes like IA and Glacier have minimum storage durations (e.g., 30 or 90 days). If you delete an object before this time, you still pay for the full duration.</p>
               <p><strong>Object Overhead:</strong> Each object in S3 has a small amount of metadata (typically 8KB-32KB) that is billed at the storage class rate. For billions of tiny files, this overhead can be significant.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/aws-s3-cost" />
-            <PopularCalculators exclude="/calculator/aws-s3-cost-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/aws-s3-cost" />
+          <PopularCalculators exclude="/calculator/aws-s3-cost-calculator" />
         </div>
       </div>
     </>

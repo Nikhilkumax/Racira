@@ -54,13 +54,13 @@ export default function BondPriceCalculator() {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Bond Price Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Bond Price Calculator</h1>
-            <p className="text-muted-foreground mb-8">Calculate the current market price of a bond given its coupon rate, yield to maturity, and time to maturity.</p>
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-5 mb-6">
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Bond Price Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate the current market price of a bond given its coupon rate, yield to maturity, and time to maturity.</p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-5 mb-6">
                 <InputField id="face-value" label="Face / Par Value ($)" value={faceValue} onChange={setFaceValue} prefix="$" tooltip="The bond's face value, typically $1,000 for corporate bonds." />
                 <InputField id="coupon-rate" label="Annual Coupon Rate (%)" value={couponRate} onChange={setCouponRate} suffix="%" tooltip="The stated interest rate paid annually on the bond's face value." />
                 <InputField id="ytm" label="Yield to Maturity (%)" value={ytm} onChange={setYtm} suffix="%" tooltip="The required return / market interest rate used to discount cash flows." />
@@ -79,9 +79,11 @@ export default function BondPriceCalculator() {
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Bond Price</button>
                 <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
+
+          <div className="flex flex-col gap-3">
             {showResults && (
-              <div className="card-calculator mb-8">
+              <>
                 <h2 className="text-xl font-bold mb-4">Bond Valuation Results</h2>
                 <ResultDisplay items={[
                   { label: "Bond Price", value: results.price, highlight: true },
@@ -89,10 +91,14 @@ export default function BondPriceCalculator() {
                   { label: "Annual Coupon Income", value: results.annualIncome },
                   { label: "Current Yield", value: 0, textValue: `${results.currentYield.toFixed(3)}%` },
                 ]} />
-              </div>
+              </>
             )}
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-            <article className="prose-finance">
+          </div>
+        </div>
+
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>How Bond Pricing Works</h2>
               <p>A bond is essentially a loan from an investor to a borrower (typically a government or corporation). In exchange for the loan, the borrower promises to pay regular interest payments (coupons) and return the principal (face value) at maturity. The fair price of a bond equals the present value of all future cash flows, discounted at the current market interest rate (yield to maturity).</p>
               <h2>The Inverse Relationship Between Price and Yield</h2>
@@ -106,13 +112,8 @@ export default function BondPriceCalculator() {
               <h2>Bond Yield Measures</h2>
               <p>There are multiple yield measures for bonds: <strong>Coupon Rate</strong> (stated annual interest as % of face value), <strong>Current Yield</strong> (annual coupon ÷ current price), <strong>Yield to Maturity (YTM)</strong> (total return if held to maturity), and <strong>Yield to Call (YTC)</strong> (return if the bond is called by the issuer before maturity). YTM is the most comprehensive and most widely used.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/bond-price-calculator" />
-            <PopularCalculators exclude="/calculator/bond-price-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/bond-price-calculator" />
+          <PopularCalculators exclude="/calculator/bond-price-calculator" />
         </div>
       </div>
     </>

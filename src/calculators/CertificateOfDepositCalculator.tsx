@@ -45,13 +45,13 @@ export default function CertificateOfDepositCalculator() {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "CD Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Certificate of Deposit (CD) Calculator</h1>
-            <p className="text-muted-foreground mb-8">Calculate the maturity value and total interest earned on a CD investment based on term, APY, and compounding frequency.</p>
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-5 mb-6">
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Certificate of Deposit (CD) Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate the maturity value and total interest earned on a CD investment based on term, APY, and compounding frequency.</p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-5 mb-6">
                 <InputField id="principal" label="Deposit Amount ($)" value={principal} onChange={setPrincipal} prefix="$" tooltip="Initial amount deposited into the CD." />
                 <InputField id="apy" label="Annual Percentage Yield (APY)" value={apy} onChange={setApy} suffix="%" tooltip="The APY offered by the CD — check the institution's current rates." />
                 <InputField id="term" label="CD Term (Months)" value={term} onChange={setTerm} tooltip="Duration of the CD. Common terms: 3, 6, 12, 18, 24, 36, 60 months." />
@@ -70,19 +70,25 @@ export default function CertificateOfDepositCalculator() {
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate CD Earnings</button>
                 <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
+
+          <div className="flex flex-col gap-3">
             {showResults && (
-              <div className="card-calculator mb-8">
+              <>
                 <h2 className="text-xl font-bold mb-4">CD Maturity Results</h2>
                 <ResultDisplay items={[
                   { label: "Maturity Value", value: results.maturityValue, highlight: true },
                   { label: "Total Interest Earned", value: results.interestEarned, highlight: true },
                   { label: "Effective APY", value: 0, textValue: `${results.effectiveAPY.toFixed(4)}%` },
                 ]} />
-              </div>
+              </>
             )}
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-            <article className="prose-finance">
+          </div>
+        </div>
+
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>Understanding Certificates of Deposit</h2>
               <p>A Certificate of Deposit (CD) is a time deposit savings product that offers a guaranteed fixed interest rate in exchange for committing your money for a specified period. CDs have been a cornerstone of conservative investing for decades, offering FDIC-insured safety with returns that typically exceed those of standard savings accounts. In the elevated interest rate environment of 2023-2025, CDs have become especially attractive, with many institutions offering 5%+ APY on 1-year terms.</p>
               <h2>The CD Ladder Strategy</h2>
@@ -94,13 +100,8 @@ export default function CertificateOfDepositCalculator() {
               <h2>No-Penalty CDs: The Best of Both Worlds?</h2>
               <p>Some banks offer "no-penalty" or "liquid" CDs that allow you to withdraw your funds without penalty after a brief lock-up period (typically 7 days). These instruments offer the guaranteed rate advantage of traditional CDs with the flexibility closer to a savings account. However, they typically offer lower APYs than standard CDs of the same term. They're worth considering when you want a guaranteed rate but aren't certain you can commit for the full term.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/certificate-of-deposit-calculator" />
-            <PopularCalculators exclude="/calculator/certificate-of-deposit-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/certificate-of-deposit-calculator" />
+          <PopularCalculators exclude="/calculator/certificate-of-deposit-calculator" />
         </div>
       </div>
     </>

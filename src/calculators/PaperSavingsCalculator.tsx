@@ -46,14 +46,13 @@ const PaperSavingsCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Paper Savings Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Paper Savings Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Calculate the environmental resources you save by going paperless and reducing document printing.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Paper Savings Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate the environmental resources you save by going paperless and reducing document printing.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="max-w-md mx-auto space-y-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="max-w-md mx-auto space-y-6">
                  <h2 className="text-xl font-bold flex items-center gap-2 justify-center mb-6">
                     <FileText className="h-6 w-6 text-primary" /> Paper Consumption
                  </h2>
@@ -66,10 +65,11 @@ const PaperSavingsCalculator = () => {
                     <RotateCcw className="h-5 w-5" /> Reset
                  </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {results && results.annualReams > 0 && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6 text-center">Annual Environmental Impact</h2>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
                   <div className="p-4 rounded-xl bg-emerald-500/5 border border-emerald-500/20 text-center flex flex-col items-center justify-center">
@@ -98,11 +98,14 @@ const PaperSavingsCalculator = () => {
                   <p className="text-sm font-bold text-muted-foreground mb-2 uppercase tracking-widest">Total Paper Saved</p>
                   <p className="text-4xl font-black text-foreground">{Math.round(results.annualReams * 500).toLocaleString()} <span className="text-xl font-normal text-muted-foreground">sheets per year</span></p>
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>The Environmental Cost of Paper</h2>
               <p>In the digital age, we often assume that our reliance on paper has drastically decreased. However, global paper consumption continues to rise, driven by packaging and printing. Understanding the true environmental cost of paper can inspire businesses and individuals to adopt "paperless" workflows.</p>
               
@@ -112,12 +115,8 @@ const PaperSavingsCalculator = () => {
               <h3>Energy and Emissions</h3>
               <p>Processing raw timber into white copy paper requires massive amounts of energy for chipping, pulping, bleaching, and pressing. Furthermore, when paper decays in a landfill, it emits methane, a greenhouse gas significantly more potent than CO2.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/paper-savings" />
-            <PopularCalculators exclude="/calculator/paper-savings-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/paper-savings" />
+          <PopularCalculators exclude="/calculator/paper-savings-calculator" />
         </div>
       </div>
     </>

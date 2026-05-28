@@ -69,16 +69,14 @@ const SalaryCalculator = () => {
 
   return (
     <>
-<Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Salary Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Salary Calculator" }]} />
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Salary Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Convert your salary between hourly, daily, weekly, monthly, and annual rates. Adjust for holidays and vacation days.</p>
 
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Salary Calculator</h1>
-            <p className="text-muted-foreground mb-8">Convert your salary between hourly, daily, weekly, monthly, and annual rates. Adjust for holidays and vacation days.</p>
-
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-5 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-5 mb-6">
                 <InputField id="amount" label="Salary Amount" value={amount} onChange={setAmount} prefix="$" />
                 <div>
                   <label className="block text-sm font-medium text-foreground mb-1.5">Pay Frequency</label>
@@ -99,10 +97,11 @@ const SalaryCalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && result && (
-              <div className="card-calculator mb-8">
+              <>
                 <h2 className="text-xl font-bold mb-4">Salary Breakdown</h2>
                 <div className="overflow-x-auto rounded-lg border border-border">
                   <table className="w-full text-sm">
@@ -132,12 +131,14 @@ const SalaryCalculator = () => {
                 <div className="mt-4 p-3 rounded-lg bg-secondary/30 border border-border text-sm text-muted-foreground">
                   <p>Adjusted for {result.workDays} working days ({parseFloat(holidays)} holidays + {parseFloat(vacationDays)} vacation days excluded from 260 total work days).</p>
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>What Is a Salary Calculator?</h2>
               <p>A salary calculator converts your pay between different time periods — hourly, daily, weekly, bi-weekly, monthly, and annually. Whether you're evaluating a job offer, comparing different positions, or budgeting, understanding your salary across different timeframes is essential.</p>
               <p>Our calculator also accounts for paid holidays and vacation days, giving you a more accurate picture of your actual working hours and effective hourly rate.</p>
@@ -159,14 +160,8 @@ const SalaryCalculator = () => {
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> This calculator provides gross salary conversions. Actual take-home pay depends on taxes, deductions, and benefits. Use our Income Tax Calculator for net pay estimates.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/salary-calculator" />
-            <PopularCalculators exclude="/salary-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/salary-calculator" />
+          <PopularCalculators exclude="/salary-calculator" />
         </div>
       </div>
     </>

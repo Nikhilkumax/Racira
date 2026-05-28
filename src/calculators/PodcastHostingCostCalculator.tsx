@@ -74,14 +74,13 @@ export default function PodcastHostingCalculator() {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Podcast Hosting Cost Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Podcast Hosting Cost Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Estimate your monthly podcasting infrastructure costs based on episode size, frequency, and listener volume.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Podcast Hosting Cost Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Estimate your monthly podcasting infrastructure costs based on episode size, frequency, and listener volume.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-6 mb-6">
                 <InputField id="episodes" label="Episodes Per Month" value={monthlyEpisodes} onChange={setMonthlyEpisodes} tooltip="How many new episodes do you plan to publish each month?" />
                 <InputField id="size" label="Avg Episode Size (MB)" value={avgEpisodeSize} onChange={setAvgEpisodeSize} tooltip="Average file size of your episodes. A 128kbps 60min MP3 is ~60MB." />
                 <InputField id="downloads" label="Monthly Downloads" value={monthlyDownloads} onChange={setMonthlyDownloads} tooltip="Total combined downloads across all your episodes in a month." />
@@ -96,10 +95,11 @@ export default function PodcastHostingCalculator() {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Monthly Cost Breakdown</h2>
                 <div className="grid sm:grid-cols-3 gap-4 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -120,12 +120,14 @@ export default function PodcastHostingCalculator() {
                   { label: "Fixed Platform Fee", value: 0, textValue: `$${parseFloat(platformFee).toFixed(2)}` },
                   { label: "Variable Infrastructure Cost", value: 0, textValue: `$${(results.storageCost + results.bandwidthCost).toFixed(2)}` },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>The Hidden Economics of Podcast Hosting</h2>
               <p>Choosing a podcast host is one of the first and most critical technical decisions for any creator. While it might seem like a simple matter of uploading an MP3 file, the infrastructure required to serve high-fidelity audio to thousands of listeners simultaneously is complex and costly. This calculator helps you understand exactly where your money is going and how your costs will scale as your show grows.</p>
 
@@ -144,15 +146,8 @@ export default function PodcastHostingCalculator() {
               <h3>5. Free vs. Paid Hosting</h3>
               <p>Services like Spotify for Podcasters offer free hosting because they benefit from having your content on their platform. While free hosting is an excellent way to start, paid hosts offer significant advantages: ownership of your RSS feed, advanced IAB-certified analytics (which advertisers require), private podcasting features, and better customer support. For serious creators, the $15-$20 monthly investment is usually worth the peace of mind and data accuracy.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/podcast-hosting-cost-calculator" />
-            <PopularCalculators exclude="/calculator/podcast-hosting-cost-calculator" />
-          </div>
-
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/podcast-hosting-cost-calculator" />
+          <PopularCalculators exclude="/calculator/podcast-hosting-cost-calculator" />
         </div>
       </div>
     </>

@@ -46,13 +46,13 @@ const LeanBodyMassCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Lean Body Mass Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Lean Body Mass Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Calculate your lean body mass, fat mass, and Katch-McArdle BMR from your body fat percentage.</p>
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-3 gap-6 mb-6">
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Lean Body Mass Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate your lean body mass, fat mass, and Katch-McArdle BMR from your body fat percentage.</p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-3 gap-6 mb-6">
                 <InputField id="wt" label={`Body Weight (${unit})`} value={weight} onChange={setWeight} />
                 <InputField id="bf" label="Body Fat (%)" value={bodyFatPct} onChange={setBodyFatPct} />
                 <div>
@@ -66,9 +66,11 @@ const LeanBodyMassCalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2"><Dumbbell className="h-5 w-5" /> Calculate LBM</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
+
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Body Composition Results</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -85,10 +87,14 @@ const LeanBodyMassCalculator = () => {
                   { label: "Daily Protein Target", value: 0, textValue: Math.round(results.proteinTarget) + "g (1g per lb LBM)" },
                   { label: "Lean Mass Ratio", value: 0, textValue: (100 - parseFloat(bodyFatPct)).toFixed(1) + "%" },
                 ]} />
-              </div>
+              </>
             )}
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+          </div>
+        </div>
+
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Why Lean Body Mass Matters More Than Weight</h2>
               <p>The number on the scale is a poor indicator of health and fitness. Two people at the same weight can look and perform very differently depending on their body composition.</p>
               <h3>Tracking Progress with LBM</h3>
@@ -96,10 +102,8 @@ const LeanBodyMassCalculator = () => {
               <h3>Katch-McArdle Formula</h3>
               <p>This BMR formula is considered more accurate than Harris-Benedict for people who know their body fat percentage, because it accounts for lean mass directly rather than using height, weight, age, and sex as proxies.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/lean-body-mass" />
-            <PopularCalculators exclude="/calculator/lean-body-mass-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6"><AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" /></aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/lean-body-mass" />
+          <PopularCalculators exclude="/calculator/lean-body-mass-calculator" />
         </div>
       </div>
     </>

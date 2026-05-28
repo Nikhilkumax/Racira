@@ -72,22 +72,24 @@ const TargetHeartRateCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Target Heart Rate Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Target Heart Rate Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Calculate your personalized heart rate training zones using the Karvonen formula for optimal fitness results.</p>
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-6 mb-6">
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Target Heart Rate Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate your personalized heart rate training zones using the Karvonen formula for optimal fitness results.</p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-6 mb-6">
                 <InputField id="age" label="Age" value={age} onChange={setAge} />
                 <InputField id="rhr" label="Resting Heart Rate (bpm)" value={restingHr} onChange={setRestingHr} />
               </div>
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2"><HeartPulse className="h-5 w-5" /> Calculate Zones</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
+
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Your Heart Rate Zones</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-red-500/10 border border-red-500/20 text-center">
@@ -138,10 +140,14 @@ const TargetHeartRateCalculator = () => {
                     <div className="font-black text-blue-500">{results.z1}</div>
                   </div>
                 </div>
-              </div>
+              </>
             )}
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+          </div>
+        </div>
+
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Why Train in Zones?</h2>
               <p>Heart rate zone training ensures you are working out at the right intensity to achieve your specific goals. If you want to run a faster 5K, you need to spend time in Zones 3 and 4. If you want to build endurance for a marathon or burn fat efficiently, you should spend the majority of your time in Zone 2.</p>
               <h3>The 80/20 Rule of Endurance Training</h3>
@@ -149,10 +155,8 @@ const TargetHeartRateCalculator = () => {
               <h3>Checking Your Max Heart Rate</h3>
               <p>Formulas provide estimates. Your true maximum heart rate is determined genetically and can only be definitively found through a strenuous stress test (like running 400m intervals on a track until absolute exhaustion).</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/target-heart-rate" />
-            <PopularCalculators exclude="/calculator/target-heart-rate-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6"><AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" /></aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/target-heart-rate" />
+          <PopularCalculators exclude="/calculator/target-heart-rate-calculator" />
         </div>
       </div>
     </>

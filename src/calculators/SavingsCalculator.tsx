@@ -1,6 +1,6 @@
-"use client";
+﻿"use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import PopularCalculators from "@/components/PopularCalculators";
@@ -20,8 +20,6 @@ const SavingsCalculator = () => {
   const [showInflation, setShowInflation] = useState(false);
 
   const [results, setResults] = useState<any>(null);
-  const [showResults, setShowResults] = useState(false);
-
   const freqLabels: Record<string, string> = {
     "365": "Daily",
     "12": "Monthly",
@@ -30,8 +28,9 @@ const SavingsCalculator = () => {
     "1": "Annual",
   };
 
+  useEffect(() => { handleCalculate(); }, []);
+
   const handleCalculate = () => {
-    setShowResults(true);
     const P = parseFloat(initialDeposit) || 0;
     const PMT = parseFloat(monthlyContribution) || 0;
     const r = parseFloat(annualRate) || 0;
@@ -77,11 +76,11 @@ const SavingsCalculator = () => {
   };
 
   const reset = () => {
-    setShowResults(false);
     setInitialDeposit("5000"); setMonthlyContribution("500");
     setAnnualRate("7"); setYears("20");
     setCompoundFreq("12"); setInflationRate("3");
     setShowInflation(false); setResults(null);
+    setTimeout(() => handleCalculate(), 0);
   };
 
   const faqs = [
@@ -98,21 +97,18 @@ const SavingsCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Savings Calculator" }]} />
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Savings Calculator</h1>
 
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Savings Calculator</h1>
-            <p className="text-muted-foreground mb-8">Calculate how your savings grow with compound interest and regular contributions. Includes inflation-adjusted projections and year-by-year growth table.</p>
-
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-5 mb-6">
-                <InputField id="init-deposit" label="Initial Deposit" value={initialDeposit} onChange={setInitialDeposit} prefix="$" tooltip="The starting balance or one-time lump sum deposit." />
-                <InputField id="monthly-contrib" label="Monthly Contribution" value={monthlyContribution} onChange={setMonthlyContribution} prefix="$" tooltip="How much you add to savings each month." />
-                <InputField id="annual-rate" label="Annual Interest Rate" value={annualRate} onChange={setAnnualRate} suffix="%" tooltip="Expected annual return or interest rate on your savings." />
-                <InputField id="years" label="Time Period (Years)" value={years} onChange={setYears} tooltip="How long you plan to save or invest." />
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-3 mb-6">
+                <InputField id="init-deposit" label="Initial Deposit" value={initialDeposit} onChange={setInitialDeposit} prefix="$" />
+                <InputField id="monthly-contrib" label="Monthly Contribution" value={monthlyContribution} onChange={setMonthlyContribution} prefix="$" />
+                <InputField id="annual-rate" label="Annual Interest Rate" value={annualRate} onChange={setAnnualRate} suffix="%" />
+                <InputField id="years" label="Time Period (Years)" value={years} onChange={setYears} />
                 <div>
-                  <label className="flex items-center text-sm font-medium text-foreground mb-1.5">Compounding Frequency</label>
+                  <label className="flex items-center text-sm font-medium text-foreground mb-1">Compounding Frequency</label>
                   <select value={compoundFreq} onChange={(e) => setCompoundFreq(e.target.value as any)} className="input-calc" aria-label="Compounding frequency">
                     {Object.entries(freqLabels).map(([v, l]) => (
                       <option key={v} value={v}>{l}</option>
@@ -129,9 +125,11 @@ const SavingsCalculator = () => {
                   />
                   <label htmlFor="show-inflation" className="text-sm font-medium text-foreground">Adjust for inflation</label>
                 </div>
-                {showInflation && (
-                  <InputField id="inflation-rate" label="Inflation Rate" value={inflationRate} onChange={setInflationRate} suffix="%" tooltip="Expected annual inflation rate (US avg ~3%)." />
-                )}
+                {showInflation && (<>
+
+                  <InputField id="inflation-rate" label="Inflation Rate" value={inflationRate} onChange={setInflationRate} suffix="%" />
+                
+</>)}
               </div>
 
               <div className="flex gap-3">
@@ -139,10 +137,12 @@ const SavingsCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
-            {showResults && results && (
-              <div className="card-calculator mb-8">
+          <div className="flex flex-col gap-3">
+            {results && (<>
+
+              <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
                 <h2 className="text-xl font-bold mb-4">Your Savings Projection</h2>
 
                 <ResultDisplay items={[
@@ -189,12 +189,16 @@ const SavingsCalculator = () => {
                     </table>
                   </div>
                 </div>
+              
               </div>
-            )}
+            
+</>)}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>What Is a Savings Calculator?</h2>
               <p>A savings calculator projects how much money you'll accumulate over time based on your initial deposit, regular contributions, interest rate, and compounding frequency. It's an essential planning tool for anyone building an emergency fund, saving for a down payment, funding a college education, or growing long-term wealth.</p>
               <p>Our advanced savings calculator goes beyond basic projections by including compounding frequency options (daily, monthly, quarterly, annually), optional inflation adjustment to show real purchasing power, and a complete year-by-year breakdown table that reveals exactly how compound interest and regular savings work together over time.</p>
@@ -219,15 +223,8 @@ const SavingsCalculator = () => {
               <h2>Savings Tips to Maximize Growth</h2>
               <p>Automate contributions so you save before spending. Take advantage of tax-advantaged accounts (401k, Roth IRA, 529) to keep more of your returns. Reinvest all interest and dividends to maximize compound growth. Increase contributions by 1% each year or with every raise. Consider high-yield savings accounts (currently 4–5%) versus traditional banks (0.01–0.5%) — the difference is enormous over time. Keep emergency savings in liquid accounts; invest longer-term savings in diversified portfolios for better growth.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/savings-calculator" />
-            <PopularCalculators exclude="/calculator/savings-calculator" />
-          </div>
-
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/savings-calculator" />
+          <PopularCalculators exclude="/calculator/savings-calculator" />
         </div>
       </div>
     </>
@@ -235,4 +232,5 @@ const SavingsCalculator = () => {
 };
 
 export default SavingsCalculator;
+
 

@@ -73,14 +73,13 @@ const CatCalorieCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Cat Calorie Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Cat Calorie Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Determine the exact daily caloric intake your cat needs to stay healthy, maintain weight, or shed excess pounds.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Cat Calorie Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Determine the exact daily caloric intake your cat needs to stay healthy, maintain weight, or shed excess pounds.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-6 mb-6">
                 <div className="flex gap-2">
                   <div className="flex-1">
                     <InputField id="weight" label="Weight" value={weight} onChange={setWeight} />
@@ -118,10 +117,11 @@ const CatCalorieCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Daily Nutrition Plan</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -138,11 +138,14 @@ const CatCalorieCalculator = () => {
                   { label: "Treat Allowance (10%)", value: 0, textValue: results.treatAllowance + " kcal" },
                   { label: "Main Meals (90%)", value: 0, textValue: results.mealCalories + " kcal" },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Understanding Your Cat's Caloric Needs</h2>
               <p>Feeding a cat the right amount is one of the most important things you can do for their long-term health. Unlike dogs, cats are <strong>obligate carnivores</strong> — their bodies are optimised to derive energy from animal protein and fat rather than carbohydrates. This has a direct impact on how their caloric needs are calculated.</p>
 
@@ -175,12 +178,8 @@ const CatCalorieCalculator = () => {
               <h3>Reading Commercial Cat Food Labels</h3>
               <p>When comparing cat foods, always check the <strong>caloric content per 100g or per can</strong>, not just the protein percentages. A food with 40% protein on a "dry matter basis" from a tiny can might deliver far fewer calories than expected. The gold standard is kcal/cup or kcal/100g listed under the Guaranteed Analysis section of the label.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/cat-calorie" />
-            <PopularCalculators exclude="/calculator/cat-calorie-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/cat-calorie" />
+          <PopularCalculators exclude="/calculator/cat-calorie-calculator" />
         </div>
       </div>
     </>

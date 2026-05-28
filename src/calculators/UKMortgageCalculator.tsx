@@ -169,15 +169,13 @@ const UKMortgageCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "UK Mortgage Calculator" }]} />
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">UK Mortgage Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Professional UK mortgage planning with Stamp Duty estimates, LTV tracking, and repayment schedules.</p>
 
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">UK Mortgage Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg text-balance">Professional UK mortgage planning with Stamp Duty estimates, LTV tracking, and repayment schedules.</p>
-
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-6">
                 <div className="space-y-6">
                   <InputField id="price" label="Property Price" value={propertyPrice} onChange={setPropertyPrice} prefix="£" tooltip="The total purchase price of the property." />
                   <InputField id="deposit" label="Deposit" value={deposit} onChange={setDeposit} prefix="£" tooltip="The cash you are paying upfront." />
@@ -215,10 +213,11 @@ const UKMortgageCalculator = () => {
               <div className="flex gap-3 mt-8">
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Mortgage</button><button onClick={reset} className="p-4 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4" ref={printRef}>
+              <>
                 <div className="flex items-center justify-between mb-6">
                   <h2 className="text-2xl font-bold">Monthly Repayment</h2>
                   <button onClick={() => window.print()} className="p-2 text-primary hover:bg-primary/5 rounded-lg transition-colors"><Printer className="h-5 w-5" /></button>
@@ -259,12 +258,14 @@ const UKMortgageCalculator = () => {
                   </div>
                   <AmortizationTable rows={viewMode === "yearly" ? results.yearlyRows : results.monthlyRows} yearly={viewMode === "yearly"} currency="£" />
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-10" label="UK Mortgage Content Ad" />
-
-            <article className="prose-finance max-w-none">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="UK Mortgage Content Ad" />
+          <article className="prose-finance max-w-none">
               <h2>Navigating the UK Mortgage Market</h2>
               <p>Buying a home in the United Kingdom is a complex journey involving lenders, solicitors, surveyors, and the taxman. Our UK Mortgage Calculator is designed to provide clarity on the financial aspects of this journey, helping you understand not just your monthly repayments, but also the significant upfront costs like Stamp Duty Land Tax (SDLT).</p>
               
@@ -301,15 +302,8 @@ const UKMortgageCalculator = () => {
               <h2>Mortgage Stress Testing</h2>
               <p>Since the 2014 Mortgage Market Review, UK lenders must "stress test" your finances. They don't just check if you can afford the mortgage at today's rates; they check if you could still afford it if interest rates rose to 6% or 7%. Using our calculator to see how your payment changes at different interest rates can help you understand your own financial resilience.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/uk-mortgage-calculator" />
-            <PopularCalculators exclude="/calculator/uk-mortgage-calculator" />
-          </div>
-
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="UK Sidebar Ad" />
-            <AdPlaceholder className="min-h-[600px]" label="Sticky UK Ad" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/uk-mortgage-calculator" />
+          <PopularCalculators exclude="/calculator/uk-mortgage-calculator" />
         </div>
       </div>
     </>

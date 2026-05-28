@@ -60,14 +60,13 @@ const MeatlessDietImpactCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Meatless Diet Impact Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Meatless Impact Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Calculate the environmental resources saved by skipping meat for one or more days.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Meatless Impact Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate the environmental resources saved by skipping meat for one or more days.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="max-w-xl mx-auto space-y-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="max-w-xl mx-auto space-y-6">
                  <h2 className="text-xl font-bold flex items-center gap-2 mb-6">
                     <Utensils className="h-6 w-6 text-primary" /> Diet Plan
                  </h2>
@@ -100,10 +99,11 @@ const MeatlessDietImpactCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <div className="text-center mb-8">
                    <p className="text-sm font-bold text-primary uppercase tracking-widest mb-1">Total Impact Over</p>
                    <p className="text-3xl font-black">{results.totalDays.toLocaleString()} <span className="text-lg font-normal text-muted-foreground">Meatless Days</span></p>
@@ -131,11 +131,14 @@ const MeatlessDietImpactCalculator = () => {
                     <p className="text-[10px] font-bold text-rose-600 uppercase tracking-widest mt-1">Animals</p>
                   </div>
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>The Environmental Impact of Diet</h2>
               <p>The foods we choose to eat have a profound impact on the environment. Animal agriculture is heavily resource-intensive compared to plant-based agriculture. Even a slight reduction in meat consumption, such as participating in "Meatless Mondays," can yield significant environmental benefits.</p>
               
@@ -145,12 +148,8 @@ const MeatlessDietImpactCalculator = () => {
               <h3>Land Use and Deforestation</h3>
               <p>Vast tracts of natural ecosystems, including the Amazon rainforest, are cleared daily to make room for cattle ranching and to grow monoculture crops (like soy and corn) destined for animal feed. Transitioning to plant-based diets frees up massive amounts of land that can be rewilded to absorb carbon.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/meatless-monday-impact" />
-            <PopularCalculators exclude="/calculator/meatless-monday-impact-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/meatless-monday-impact" />
+          <PopularCalculators exclude="/calculator/meatless-monday-impact-calculator" />
         </div>
       </div>
     </>

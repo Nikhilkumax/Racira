@@ -57,14 +57,13 @@ const WebsiteHostingCostCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Website Hosting Cost Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Website Hosting Cost Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Estimate your monthly web hosting expenses based on traffic, storage, and server type.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Website Hosting Cost Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Estimate your monthly web hosting expenses based on traffic, storage, and server type.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
                 <InputField id="traffic" label="Monthly Visitors" value={traffic} onChange={setTraffic} />
                 <InputField id="pageSize" label="Avg Page Size (MB)" value={pageSize} onChange={setPageSize} suffix="MB" />
                 <div>
@@ -85,10 +84,11 @@ const WebsiteHostingCostCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Cost Projection</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -106,22 +106,21 @@ const WebsiteHostingCostCalculator = () => {
                   { label: "SSL Certificate", value: 0, textValue: "Free (Let's Encrypt)" },
                   { label: "Scalability", value: 0, textValue: hostingType === "cloud" ? "Excellent" : "Limited" },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Choosing the Right Web Hosting</h2>
               <p>Choosing a hosting provider is one of the most important decisions for your online business. The right choice ensures your site is fast, secure, and always available to your customers.</p>
               <h3>When to Upgrade</h3>
               <p>If your website starts to feel slow during peak traffic times, or if you are exceeding your current plan's bandwidth limits, it's time to upgrade. Moving from shared hosting to a VPS is the most common first step for growing businesses, providing much better reliability and speed.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/website-hosting-cost" />
-            <PopularCalculators exclude="/calculator/website-hosting-cost-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/website-hosting-cost" />
+          <PopularCalculators exclude="/calculator/website-hosting-cost-calculator" />
         </div>
       </div>
     </>

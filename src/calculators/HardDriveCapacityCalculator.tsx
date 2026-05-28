@@ -58,14 +58,13 @@ const HardDriveCapacityCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Hard Drive Capacity Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Hard Drive Capacity Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Calculate the actual usable storage space of your hard drive or SSD as seen by your operating system.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Hard Drive Capacity Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate the actual usable storage space of your hard drive or SSD as seen by your operating system.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-6 mb-6">
                 <div className="flex gap-2">
                   <div className="flex-1">
                     <InputField id="size" label="Drive Size (Marketing)" value={size} onChange={setSize} />
@@ -85,10 +84,11 @@ const HardDriveCapacityCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Storage Conversion</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -108,11 +108,14 @@ const HardDriveCapacityCalculator = () => {
                   { label: "Usable (Formatted)", value: 0, textValue: results.formattedGiB.toFixed(1) + " GiB (est.)" },
                   { label: "Binary Unit Name", value: 0, textValue: unit === "TB" ? "Tebibytes (TiB)" : "Gibibytes (GiB)" },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>The Mystery of the Missing Gigabytes</h2>
               <p>When you buy a hard drive, you might feel cheated when your "1TB" drive shows up as "931GB" in Windows. This isn't because the drive is broken or poor quality; it's because manufacturers and software developers use different measuring sticks.</p>
               <h3>Decimal vs Binary</h3>
@@ -122,12 +125,8 @@ const HardDriveCapacityCalculator = () => {
               </ul>
               <p>As drives get larger, this 2.4% difference compounds. By the time you reach Terabytes, the difference is approximately 7.4%.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/hard-drive-capacity" />
-            <PopularCalculators exclude="/calculator/hard-drive-capacity-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/hard-drive-capacity" />
+          <PopularCalculators exclude="/calculator/hard-drive-capacity-calculator" />
         </div>
       </div>
     </>

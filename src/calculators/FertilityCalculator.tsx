@@ -79,13 +79,13 @@ const FertilityCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Fertility Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Fertility Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Plan for pregnancy by finding your most fertile days and estimated ovulation dates for the next three months.</p>
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-6 mb-6">
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Fertility Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Plan for pregnancy by finding your most fertile days and estimated ovulation dates for the next three months.</p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-6 mb-6">
                 <div>
                   <label className="block text-sm font-medium text-foreground mb-1.5">First Day of Last Period</label>
                   <input type="date" value={lmpDate} onChange={e => setLmpDate(e.target.value)} className="input-calc w-full" />
@@ -98,9 +98,11 @@ const FertilityCalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2"><Heart className="h-5 w-5" /> Calculate Fertility Window</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
+
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Your Upcoming Fertile Window</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-pink-500/10 border border-pink-500/20 text-center flex flex-col justify-center">
@@ -118,10 +120,14 @@ const FertilityCalculator = () => {
                   { label: "Cycle 2 Window", value: 0, textValue: results.windows[1].range + " (Ovulation: " + results.windows[1].ovulation + ")" },
                   { label: "Cycle 3 Window", value: 0, textValue: results.windows[2].range + " (Ovulation: " + results.windows[2].ovulation + ")" },
                 ]} />
-              </div>
+              </>
             )}
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+          </div>
+        </div>
+
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>How Fertility Tracking Works</h2>
               <p>For pregnancy to occur, live sperm must be present in the fallopian tubes when an egg is released. Because sperm can live in optimal conditions for up to 5 days, a woman's fertile window is roughly 6 days long: the 5 days before ovulation, plus the day of ovulation.</p>
               <h3>Why Ovulation Day Matters</h3>
@@ -129,10 +135,8 @@ const FertilityCalculator = () => {
               <h3>Increasing Accuracy</h3>
               <p>Because this calculator relies on standard averages (a 14-day luteal phase), cycles that vary due to stress, travel, or illness may cause the actual window to shift. For higher accuracy, combine these dates with tracking your Basal Body Temperature (BBT) and using Ovulation Predictor Kits (OPKs).</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/fertility" />
-            <PopularCalculators exclude="/calculator/fertility-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6"><AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" /></aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/fertility" />
+          <PopularCalculators exclude="/calculator/fertility-calculator" />
         </div>
       </div>
     </>

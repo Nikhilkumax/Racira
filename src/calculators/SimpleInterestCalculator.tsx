@@ -1,281 +1,173 @@
 "use client";
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import InputField from "@/components/calculator/InputField";
-import ResultDisplay from "@/components/calculator/ResultDisplay";
-import PieChart from "@/components/calculator/PieChart";
-import { RotateCcw } from "lucide-react";
+import PopularCalculators from "@/components/PopularCalculators";
+import { RotateCcw, Calculator } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 
 const SimpleInterestCalculator = () => {
-  const [principal, setPrincipal] = useState("10000");
-  const [rate, setRate] = useState("5");
-  const [time, setTime] = useState("3");
-  const [timeUnit, setTimeUnit] = useState<"years" | "months" | "days">("years");
-  const [mode, setMode] = useState<"calculate" | "find-rate" | "find-time">("calculate");
+  const DEFAULTS = { principal: "5000", rate: "8", time: "3" };
+  const [principal, setPrincipal] = useState(DEFAULTS.principal);
+  const [rate, setRate] = useState(DEFAULTS.rate);
+  const [time, setTime] = useState(DEFAULTS.time);
+  const [result, setResult] = useState<any>(null);
 
-  // Mode: find-rate
-  const [knownInterest, setKnownInterest] = useState("1500");
-  // Mode: find-time
-  const [targetInterest, setTargetInterest] = useState("1500");
-
-  const [results, setResults] = useState<any>(null);
-  const [showResults, setShowResults] = useState(false);
-
-  const handleCalculate = () => {
-    setShowResults(true);
-    const P = parseFloat(principal) || 0;
-    const R = parseFloat(rate) || 0;
-    const rawTime = parseFloat(time) || 0;
-
-    // Convert time to years
-    const T = timeUnit === "years" ? rawTime : timeUnit === "months" ? rawTime / 12 : rawTime / 365;
-
-    if (mode === "calculate") {
-      const SI = P * R * T / 100;
-      const totalAmount = P + SI;
-      const dailyInterest = SI / (T * 365);
-      const monthlyInterest = SI / (T * 12);
-
-      setResults({
-        mode,
-        SI,
-        totalAmount,
-        principal: P,
-        rate: R,
-        time: T,
-        rawTime,
-        timeUnit,
-        dailyInterest,
-        monthlyInterest,
-        // Year-by-year
-        yearlyData: Array.from({ length: Math.ceil(T) }, (_, i) => {
-          const yr = Math.min(i + 1, T);
-          const interest = P * R * yr / 100;
-          return { year: i + 1, interest, total: P + interest };
-        }),
-      });
-    } else if (mode === "find-rate") {
-      const I = parseFloat(knownInterest) || 0;
-      const rateCalc = (I * 100) / (P * T);
-      setResults({ mode, rateCalc, principal: P, interest: I, time: T });
-    } else {
-      const I = parseFloat(targetInterest) || 0;
-      const timeCalc = (I * 100) / (P * R);
-      setResults({ mode, timeCalc, principal: P, interest: I, rate: R });
-    }
+  const calculate = (pV = principal, rV = rate, tV = time) => {
+    const P = parseFloat(pV), r = parseFloat(rV) / 100, t = parseFloat(tV);
+    if (isNaN(P) || isNaN(r) || isNaN(t) || P <= 0 || t <= 0) return;
+    const interest = P * r * t;
+    const total = P + interest;
+    const chartData = Array.from({ length: Math.ceil(t) + 1 }, (_, i) => ({
+      name: `Yr ${i}`,
+      balance: parseFloat((P + P * r * i).toFixed(2)),
+      interest: parseFloat((P * r * i).toFixed(2)),
+    }));
+    setResult({
+      primary: `$${interest.toFixed(2)}`,
+      subtitle: `Simple Interest on $${P.toLocaleString()} at ${(r * 100).toFixed(2)}% for ${t} years`,
+      rows: [
+        { label: "Principal (P)", value: `$${P.toLocaleString()}` },
+        { label: "Annual Rate (r)", value: `${(r * 100).toFixed(2)}%` },
+        { label: "Time (t)", value: `${t} years` },
+        { label: "Simple Interest (I = Prt)", value: `$${interest.toFixed(2)}` },
+        { label: "Total Amount (P + I)", value: `$${total.toFixed(2)}` },
+        { label: "Interest per year", value: `$${(P * r).toFixed(2)}` },
+        { label: "Interest per month", value: `$${(P * r / 12).toFixed(2)}` },
+      ],
+      chartData,
+      summary: [
+        { label: "Principal", value: `$${P.toLocaleString()}` },
+        { label: "Interest Earned", value: `$${interest.toFixed(2)}` },
+        { label: "Rate × Time", value: `${(r * t * 100).toFixed(2)}%` },
+        { label: "Total Amount", value: `$${total.toFixed(2)}`, border: true, bold: true },
+      ],
+    });
   };
 
-  const reset = () => {
-    setShowResults(false);
-    setPrincipal("10000"); setRate("5"); setTime("3");
-    setTimeUnit("years"); setMode("calculate");
-    setKnownInterest("1500"); setTargetInterest("1500");
-    setResults(null);
-  };
+  useEffect(() => { calculate(); }, []);
+  const reset = () => { setPrincipal(DEFAULTS.principal); setRate(DEFAULTS.rate); setTime(DEFAULTS.time); calculate(DEFAULTS.principal, DEFAULTS.rate, DEFAULTS.time); };
 
   const faqs = [
-    { question: "What is simple interest?", answer: "Simple interest is a method of calculating interest where the interest is earned only on the original principal, not on any accumulated interest. It's calculated using the formula SI = P × R × T / 100, where P is principal, R is the annual interest rate, and T is the time period in years. Simple interest is commonly used for short-term loans, car loans, and some savings accounts." },
-    { question: "What is the difference between simple and compound interest?", answer: "Simple interest is calculated only on the original principal, while compound interest is calculated on the principal plus previously accumulated interest ('interest on interest'). For the same principal, rate, and time, compound interest always generates more growth than simple interest. Over long periods, the difference can be enormous due to the compounding effect." },
-    { question: "What is the simple interest formula?", answer: "The simple interest formula is: SI = (P × R × T) / 100, where SI = Simple Interest, P = Principal (initial amount), R = Annual Interest Rate (%), and T = Time in years. To find the total amount including principal: A = P + SI = P(1 + RT/100)." },
-    { question: "How do I calculate monthly simple interest?", answer: "For monthly simple interest, convert the time to years by dividing months by 12. For example, for 6 months, T = 6/12 = 0.5 years. Then apply the formula: SI = P × R × 0.5 / 100. Alternatively, divide the annual rate by 12 to get the monthly rate and multiply by the number of months." },
-    { question: "What types of loans use simple interest?", answer: "Simple interest is commonly used in: short-term personal loans, car loans (installment loans), some payday loans, US savings bonds, student loans during the grace period, and certificates of deposit. Most credit cards and mortgages use compound interest, which is more expensive for borrowers." },
-    { question: "Can I calculate the principal from simple interest?", answer: "Yes. If you know the interest amount, rate, and time, you can find the principal: P = (SI × 100) / (R × T). For example, if you earned $300 in simple interest at 5% annual rate over 2 years, the principal was P = (300 × 100) / (5 × 2) = $3,000." },
-    { question: "What is the rule of 72 for simple interest?", answer: "The Rule of 72 is primarily used for compound interest to estimate doubling time. For simple interest, the calculation is simpler: time to double = 100 / R years. At 5% simple interest, it takes 100/5 = 20 years to double your money. With compound interest at 5%, it takes only about 14.4 years (72/5)." },
-    { question: "How does time unit affect simple interest calculations?", answer: "Time must always be expressed in years for the standard simple interest formula. If your time is in months, divide by 12. If in days, divide by 365 (or 360 for some financial calculations). Our calculator handles all these conversions automatically, so you can enter time in years, months, or days." },
+    { question: "What is the simple interest formula?", answer: "I = P × r × t, where P = principal, r = annual interest rate (as decimal), t = time in years. Total amount A = P + I = P(1 + rt)." },
+    { question: "What is the difference between simple and compound interest?", answer: "Simple interest is calculated only on the original principal. Compound interest is calculated on principal plus accumulated interest, producing faster growth. For short periods and small amounts, the difference is small; over decades it becomes enormous." },
+    { question: "When is simple interest used?", answer: "Simple interest is used in short-term loans (payday loans, auto loans), US Treasury bills, some savings bonds, and as an approximation for quick calculations. Most long-term financial products use compound interest." },
+    { question: "How do I calculate monthly simple interest?", answer: "Monthly rate = Annual rate / 12. Monthly interest = P × (r/12). For $5,000 at 8% annually: monthly interest = $5,000 × (0.08/12) = $33.33/month." },
+    { question: "What is the Rule of 72 for simple interest?", answer: "For simple interest, the doubling time = 1/r years. At 8%, it takes exactly 1/0.08 = 12.5 years to double. Note: the Rule of 72 (72/r) applies to compound interest — the simple interest formula is exact." },
+    { question: "What is APR?", answer: "APR (Annual Percentage Rate) is the simple interest rate expressed annually, including fees. For a loan, APR = (Interest + Fees) / (Principal × Term). This calculator uses straightforward simple interest without fees." },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Simple Interest Calculator" }]} />
-
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Simple Interest Calculator</h1>
-            <p className="text-muted-foreground mb-8">Calculate simple interest (SI = P×R×T/100), total amount, daily/monthly breakdown, and find unknown rate or time. Includes year-by-year growth table.</p>
-
-            <div className="card-calculator mb-8">
-              {/* Mode Selector */}
-              <div className="mb-6">
-                <label className="block text-sm font-medium text-foreground mb-1.5">Calculate</label>
-                <div className="flex rounded-lg border border-input overflow-hidden">
-                  <button type="button" onClick={() => { setMode("calculate"); setResults(null); }} className={`flex-1 py-3 text-sm font-medium transition-colors ${mode === "calculate" ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:bg-secondary"}`}>Simple Interest</button>
-                  <button type="button" onClick={() => { setMode("find-rate"); setResults(null); }} className={`flex-1 py-3 text-sm font-medium transition-colors ${mode === "find-rate" ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:bg-secondary"}`}>Find Rate</button>
-                  <button type="button" onClick={() => { setMode("find-time"); setResults(null); }} className={`flex-1 py-3 text-sm font-medium transition-colors ${mode === "find-time" ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:bg-secondary"}`}>Find Time</button>
-                </div>
-              </div>
-
-              <div className="grid sm:grid-cols-2 gap-5 mb-6">
-                <InputField id="principal" label="Principal Amount" value={principal} onChange={setPrincipal} prefix="$" tooltip="The initial amount of money borrowed or invested." />
-
-                {mode !== "find-rate" && (
-                  <InputField id="rate" label="Annual Interest Rate" value={rate} onChange={setRate} suffix="%" tooltip="The yearly interest rate applied to the principal." />
-                )}
-                {mode === "find-rate" && (
-                  <InputField id="known-interest" label="Interest Earned/Paid" value={knownInterest} onChange={setKnownInterest} prefix="$" tooltip="The total interest earned or paid." />
-                )}
-
-                {mode !== "find-time" && (
-                  <div>
-                    <label className="flex items-center text-sm font-medium text-foreground mb-1.5">Time Period</label>
-                    <div className="flex gap-2">
-                      <input
-                        id="time"
-                        type="number"
-                        value={time}
-                        onChange={(e) => setTime(e.target.value)}
-                        className="input-calc flex-1"
-                        min="0"
-                        step="0.5"
-                        aria-label="Time period"
-                      />
-                      <select
-                        value={timeUnit}
-                        onChange={(e) => setTimeUnit(e.target.value as any)}
-                        className="input-calc w-auto"
-                        aria-label="Time unit"
-                      >
-                        <option value="years">Years</option>
-                        <option value="months">Months</option>
-                        <option value="days">Days</option>
-                      </select>
-                    </div>
-                  </div>
-                )}
-                {mode === "find-time" && (
-                  <InputField id="target-interest" label="Target Interest" value={targetInterest} onChange={setTargetInterest} prefix="$" tooltip="The total interest you want to earn or pay." />
-                )}
-              </div>
-
-              <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset">
-                  <RotateCcw className="h-5 w-5" />
-                </button>
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Finance", href: "/calculator#finance" }, { label: "Simple Interest Calculator" }]} />
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Simple Interest Calculator</h1>
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1200px] mx-auto">
+          <div className="card-calculator flex flex-col gap-5 !p-6 border border-border bg-card">
+            <div>
+              <label className="text-base font-medium block mb-1.5">Principal (P)</label>
+              <div className="relative">
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">$</span>
+                <input type="number" value={principal} onChange={e => setPrincipal(e.target.value)}
+                  className="h-10 w-full pl-7 pr-3 text-lg rounded-md border border-input bg-background focus:ring-2 focus:ring-primary/20 outline-none transition-all" placeholder="5000" min="0" step="any" />
               </div>
             </div>
-
-            {showResults && results && (
-              <div className="card-calculator mb-8">
-                <h2 className="text-xl font-bold mb-4">Results</h2>
-
-                {results.mode === "calculate" && (
-                  <>
-                    <ResultDisplay items={[
-                      { label: "Simple Interest", value: results.SI, highlight: true },
-                      { label: "Total Amount", value: results.totalAmount, highlight: true },
-                      { label: "Principal", value: results.principal },
-                      { label: "Daily Interest", value: results.dailyInterest },
-                      { label: "Monthly Interest", value: results.monthlyInterest },
-                    ]} />
-
-                    <div className="mt-6 flex justify-center">
-                      <PieChart
-                        segments={[
-                          { label: "Principal", value: results.principal, color: "hsl(211, 100%, 50%)" },
-                          { label: "Interest", value: results.SI, color: "hsl(220, 60%, 30%)" },
-                        ]}
-                        size={180}
-                      />
-                    </div>
-
-                    {results.yearlyData.length > 0 && (
-                      <div className="mt-6">
-                        <h3 className="text-sm font-semibold text-foreground mb-3">Year-by-Year Interest Growth</h3>
-                        <div className="overflow-x-auto rounded-lg border border-border">
-                          <table className="w-full text-sm">
-                            <thead>
-                              <tr className="bg-secondary text-foreground">
-                                <th className="px-3 py-2 text-left font-medium">Year</th>
-                                <th className="px-3 py-2 text-right font-medium">Interest Earned</th>
-                                <th className="px-3 py-2 text-right font-medium">Total Amount</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              {results.yearlyData.map((row: any) => (
-                                <tr key={row.year} className="border-t border-border hover:bg-secondary/30">
-                                  <td className="px-3 py-2 text-muted-foreground">Year {row.year}</td>
-                                  <td className="px-3 py-2 text-right text-primary">${row.interest.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-                                  <td className="px-3 py-2 text-right font-medium">${row.total.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-                                </tr>
-                              ))}
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                    )}
-                  </>
-                )}
-
-                {results.mode === "find-rate" && (
-                  <ResultDisplay items={[
-                    { label: "Annual Interest Rate", value: 0, textValue: `${results.rateCalc.toFixed(4)}%`, highlight: true },
-                    { label: "Principal", value: results.principal },
-                    { label: "Interest Amount", value: results.interest },
-                    { label: "Time (years)", value: 0, textValue: `${results.time.toFixed(2)} years` },
-                  ]} />
-                )}
-
-                {results.mode === "find-time" && (
-                  <ResultDisplay items={[
-                    { label: "Time Required", value: 0, textValue: `${results.timeCalc.toFixed(2)} years`, highlight: true },
-                    { label: "Time in Months", value: 0, textValue: `${(results.timeCalc * 12).toFixed(1)} months`, highlight: true },
-                    { label: "Principal", value: results.principal },
-                    { label: "Target Interest", value: results.interest },
-                  ]} />
-                )}
+            <div>
+              <label className="text-base font-medium block mb-1.5">Annual Interest Rate (r)</label>
+              <div className="relative">
+                <input type="number" value={rate} onChange={e => setRate(e.target.value)}
+                  className="h-10 w-full pl-3 pr-8 text-lg rounded-md border border-input bg-background focus:ring-2 focus:ring-primary/20 outline-none transition-all" placeholder="8" min="0" step="0.1" />
+                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">%</span>
               </div>
-            )}
-
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-
-            <article className="prose-finance">
-              <h2>What Is a Simple Interest Calculator?</h2>
-              <p>A simple interest calculator computes the interest earned or owed on a principal amount over a given time period at a fixed interest rate. Unlike compound interest, simple interest is calculated only on the original principal — it does not include interest on previously accrued interest. This makes it the most straightforward interest calculation method and is used for many types of short-term loans and savings instruments.</p>
-              <p>Our advanced calculator goes beyond basic SI calculation by offering three modes: standard interest calculation, finding the unknown interest rate, and determining how long to reach a target interest amount. It also provides daily and monthly interest breakdowns alongside a year-by-year growth table.</p>
-
-              <h2>The Simple Interest Formula</h2>
-              <p>The standard simple interest formula is:</p>
-              <p><strong>SI = (P × R × T) / 100</strong></p>
-              <p>Where:</p>
-              <ul>
-                <li><strong>SI</strong> = Simple Interest (the interest amount earned or paid)</li>
-                <li><strong>P</strong> = Principal (the original sum of money)</li>
-                <li><strong>R</strong> = Annual Interest Rate (expressed as a percentage)</li>
-                <li><strong>T</strong> = Time (in years)</li>
-              </ul>
-              <p>The total amount (principal + interest) is: <strong>A = P + SI = P(1 + RT/100)</strong></p>
-
-              <h2>How to Use This Calculator</h2>
-              <p>In Standard mode, enter your principal, annual interest rate, and time period. Select whether time is in years, months, or days — the calculator automatically converts to years. In Find Rate mode, enter the principal, time, and interest already earned to calculate the implied rate. In Find Time mode, enter principal, rate, and target interest to discover how long you need to wait.</p>
-
-              <h2>Simple Interest vs Compound Interest</h2>
-              <p>Simple interest and compound interest both measure how money grows over time, but they differ fundamentally in how interest accumulates. With simple interest at 5% on $10,000 for 5 years, you earn exactly $2,500 total ($500/year). With compound interest at 5% annually on the same principal for 5 years, you earn $2,762.82 — because each year, the interest from previous years also earns interest.</p>
-              <p>For short periods (under 2 years) and smaller amounts, the difference is relatively minor. Over long periods (10–30 years), compound interest dramatically outperforms simple interest — which is why it's preferred for long-term investments and savings accounts.</p>
-
-              <h2>Example Scenario</h2>
-              <p>Sarah invests $15,000 in a fixed deposit that offers 6.5% simple interest per annum for 4 years. Using the formula: SI = ($15,000 × 6.5 × 4) / 100 = $3,900. At the end of 4 years, she receives $15,000 + $3,900 = $18,900. Her monthly interest income is $3,900 ÷ 48 months = $81.25/month. This is a predictable, guaranteed return useful for conservative investors or emergency funds.</p>
-
-              <h2>When Is Simple Interest Used?</h2>
-              <p>Simple interest is used in: short-term personal loans and payday loans, car loans (amortized loans often use simple interest), some savings bonds and treasury notes, bank overdrafts and short-term credit lines, education loans during the moratorium period in India, and trade credit between businesses. Understanding simple interest helps you evaluate loan offers more accurately and compare different investment products.</p>
-            </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/simple-interest-calculator" />
-            <PopularCalculators exclude="/calculator/simple-interest-calculator" />
+            </div>
+            <div>
+              <label className="text-base font-medium block mb-1.5">Time Period (t)</label>
+              <div className="relative">
+                <input type="number" value={time} onChange={e => setTime(e.target.value)}
+                  className="h-10 w-full pl-3 pr-16 text-lg rounded-md border border-input bg-background focus:ring-2 focus:ring-primary/20 outline-none transition-all" placeholder="3" min="0" step="0.5" />
+                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">years</span>
+              </div>
+            </div>
+            <div className="flex gap-3">
+              <button onClick={() => calculate()} className="flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors">
+                <Calculator className="w-4 h-4" /> Calculate
+              </button>
+              <button onClick={reset} className="h-10 w-10 border border-border rounded-md flex items-center justify-center hover:bg-secondary transition-colors">
+                <RotateCcw className="w-4 h-4" />
+              </button>
+            </div>
           </div>
-
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <div className="space-y-4">
+            {result && (<>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-4">
+                <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Simple Interest Earned</div>
+                <div className="text-4xl font-bold text-primary">{result.primary}</div>
+                <div className="text-sm text-muted-foreground mt-1">{result.subtitle}</div>
+              </div>
+              <div className="card-calculator !p-4 border border-border bg-card">
+                <h3 className="text-base font-semibold mb-3">Breakdown</h3>
+                <table className="w-full text-base"><tbody>
+                  {result.rows?.map((r: any, i: number) => (
+                    <tr key={i} className="border-b last:border-0">
+                      <td className="py-2 text-muted-foreground">{r.label}</td>
+                      <td className="text-right font-medium">{r.value}</td>
+                    </tr>
+                  ))}
+                </tbody></table>
+              </div>
+              {result.chartData && (
+                <div className="card-calculator !p-4 border border-border bg-card">
+                  <h3 className="text-base font-semibold mb-3">Balance Growth (Linear)</h3>
+                  <ResponsiveContainer width="100%" height={220}>
+                    <BarChart data={result.chartData}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="name" tick={{ fontSize: 11 }} />
+                      <YAxis tick={{ fontSize: 10 }} tickFormatter={(v) => `$${(v / 1000).toFixed(0)}k`} />
+                      <Tooltip formatter={(v: any) => [`$${Number(v).toLocaleString()}`, ""]} />
+                      <Bar dataKey="balance" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} name="Total Balance" />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
+              )}
+              <div className="bg-muted/30 rounded-lg p-6">
+                <h3 className="text-base font-semibold mb-4">Summary</h3>
+                <div className="space-y-3">
+                  {result.summary?.map((s: any, i: number) => (
+                    <div key={i} className={`flex justify-between text-base ${s.border ? "border-t pt-3" : ""}`}>
+                      <span className="text-muted-foreground">{s.label}</span>
+                      <span className={`font-medium ${s.bold ? "font-bold text-primary" : ""}`}>{s.value}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </>)}
+          </div>
+        </div>
+        <div className="max-w-[1200px] mx-auto mt-10">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
+            <h2>What Is a Simple Interest Calculator?</h2>
+            <p>A simple interest calculator computes the interest earned or paid on a principal amount using the formula I = Prt, where interest grows linearly — the same fixed amount each year. Unlike compound interest, simple interest does not earn interest on accumulated interest. Pre-filled with $5,000 at 8% for 3 years, the result is $1,200 in interest ($400/year) for a total of $6,200.</p>
+            <p>Simple interest is used for short-term personal loans, some auto financing, US Treasury bills, pawnshop loans, and as a baseline for comparing more complex financial products. Understanding simple interest is the first step toward mastering personal finance math.</p>
+            <h2>The Simple Interest Formula</h2>
+            <p><strong>I = P × r × t</strong> (Interest = Principal × Rate × Time)</p>
+            <p><strong>A = P + I = P(1 + rt)</strong> (Total Amount)</p>
+            <p>For $5,000 at 8% for 3 years: I = 5000 × 0.08 × 3 = $1,200. Total = $5,000 + $1,200 = $6,200. The interest grows at exactly $400 per year — this linear growth is the key characteristic of simple interest.</p>
+            <h2>Simple vs Compound Interest</h2>
+            <p>The same $5,000 at 8% for 3 years under monthly compounding: A = 5000 × (1 + 0.08/12)^36 = $6,348.67 — $148.67 more than simple interest. Over longer periods, the gap widens dramatically. Over 30 years: simple interest A = $5,000 × (1 + 2.4) = $17,000. Monthly compound: $5,000 × (1.00667)^360 = $54,911. The compound result is more than 3× the simple interest result. See the <a href="/calculator/compound-interest-calculator">compound interest calculator</a> for direct comparison.</p>
+            <h2>Real-World Applications</h2>
+            <p><strong>Auto loans:</strong> Many auto loans use simple interest — interest is charged daily on the outstanding balance. Making early or extra payments reduces the principal faster, directly reducing the total interest paid. <strong>Treasury bills:</strong> US T-bills are sold at a discount and mature at face value; the return is computed as simple interest on the purchase price. <strong>Short-term loans:</strong> A 90-day bridge loan at 12% annual simple interest charges: 12% × (90/365) = 2.96% for the period.</p>
+            <h2>Solving for Other Variables</h2>
+            <p>The simple interest formula can be rearranged: <strong>P = I / (rt)</strong> — find how much you need to invest to earn a target interest amount. <strong>r = I / (Pt)</strong> — find the rate given principal, interest, and time. <strong>t = I / (Pr)</strong> — find how long it takes to earn a target amount.</p>
+            <h2>Tips for Using This Calculator</h2>
+            <p>Enter fractional years for partial-year calculations (e.g., 0.5 for 6 months, 0.25 for a quarter). The bar chart shows the linearly growing balance — compare this visually to the exponential curve in the compound interest calculator to see the dramatic difference. For borrowing, simple interest is usually better; for investing, compound interest is always preferable.</p>
+          </article>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/simple-interest-calculator" />
+          <PopularCalculators exclude="/calculator/simple-interest-calculator" />
         </div>
       </div>
     </>
   );
 };
-
 export default SimpleInterestCalculator;
-

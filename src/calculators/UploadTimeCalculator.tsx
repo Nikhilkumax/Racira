@@ -66,14 +66,13 @@ const UploadTimeCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Upload Time Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Upload Time Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Estimate how long it will take to upload files to the cloud or a remote server.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Upload Time Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Estimate how long it will take to upload files to the cloud or a remote server.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-6 mb-6">
                 <div className="space-y-4">
                   <div className="flex gap-2">
                     <div className="flex-1">
@@ -108,10 +107,11 @@ const UploadTimeCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Transfer Estimate</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -128,22 +128,21 @@ const UploadTimeCalculator = () => {
                   { label: "File Size in MB", value: 0, textValue: results.sizeInMB.toFixed(2) + " MB" },
                   { label: "Bits to Transfer", value: 0, textValue: (results.sizeInMB * 8 * 1.1).toFixed(0) + " Mbits (with overhead)" },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>How Upload Speeds Work</h2>
               <p>Upload speed refers to how much data you can send from your device to the internet in a given second. Most consumer internet connections (like Cable or DSL) are "asymmetric," meaning they have much slower upload speeds than download speeds.</p>
               <h3>Understanding Bits vs Bytes</h3>
               <p>Network speeds are measured in <strong>bits</strong> (lower case 'b'), while file sizes are measured in <strong>Bytes</strong> (upper case 'B'). Since 1 Byte = 8 bits, an 80 Mbps connection can theoretically upload 10 MB of data per second.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/upload-time" />
-            <PopularCalculators exclude="/calculator/upload-time-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/upload-time" />
+          <PopularCalculators exclude="/calculator/upload-time-calculator" />
         </div>
       </div>
     </>

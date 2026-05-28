@@ -59,14 +59,13 @@ const StepperMotorCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Stepper Motor Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Stepper Motor Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Calculate 'Steps per mm' for 3D printers and CNC machines driven by belts or lead screws.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Stepper Motor Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate 'Steps per mm' for 3D printers and CNC machines driven by belts or lead screws.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-8">
                 <section className="space-y-6">
                   <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
                     <Cpu className="h-5 w-5 text-primary" /> Motor & Driver
@@ -130,10 +129,11 @@ const StepperMotorCalculator = () => {
                   <RotateCcw className="h-4 w-4" /> Reset
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 mb-8">
+              <>
                 <div className="grid sm:grid-cols-2 gap-4 mb-6">
                   <div className="card-calculator text-center py-8 border-primary/20 bg-primary/5">
                     <p className="text-xs font-bold text-primary uppercase tracking-widest mb-1">Belt Steps/mm</p>
@@ -158,11 +158,14 @@ const StepperMotorCalculator = () => {
                     { label: "Linear Res (Screw)", value: 0, textValue: (1 / results.screwStepsPerMm * 1000).toFixed(2) + " μm" },
                   ]} />
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="my-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Configuring 3D Printer Firmware</h2>
               <p>For a 3D printer or CNC machine to move accurately, its firmware (like Marlin, Klipper, or RepRapFirmware) must know exactly how many electronic pulses (steps) correspond to one millimeter of physical movement.</p>
               
@@ -172,12 +175,8 @@ const StepperMotorCalculator = () => {
               <h3>Lead vs. Pitch</h3>
               <p>When calculating Z-axis steps, it's vital to use the 'Lead' of the screw, not just the 'Pitch'. The lead is the linear distance a nut travels in one complete revolution of the screw. For a single-start screw, lead equals pitch. For an 4-start T8 screw (very common in 3D printers), the pitch might be 2mm, but the lead is 8mm.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/stepper-motor" />
-            <PopularCalculators exclude="/calculator/stepper-motor-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/stepper-motor" />
+          <PopularCalculators exclude="/calculator/stepper-motor-calculator" />
         </div>
       </div>
     </>

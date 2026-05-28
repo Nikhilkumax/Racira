@@ -66,13 +66,13 @@ export default function LcmGcdCalculator() {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "LCM and GCD Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">LCM and GCD Calculator</h1>
-            <p className="text-muted-foreground mb-8">Calculate the Least Common Multiple (LCM) and Greatest Common Divisor (GCD) of two or three numbers instantly.</p>
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-3 gap-5 mb-6">
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">LCM and GCD Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate the Least Common Multiple (LCM) and Greatest Common Divisor (GCD) of two or three numbers instantly.</p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-3 gap-5 mb-6">
                 <InputField id="num1" label="First Number" value={num1} onChange={setNum1} tooltip="Enter a positive integer." />
                 <InputField id="num2" label="Second Number" value={num2} onChange={setNum2} tooltip="Enter a positive integer." />
                 <InputField id="num3" label="Third Number (Optional)" value={num3} onChange={setNum3} tooltip="Optionally enter a third number." />
@@ -81,9 +81,11 @@ export default function LcmGcdCalculator() {
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate LCM & GCD</button>
                 <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
+
+          <div className="flex flex-col gap-3">
             {showResults && (
-              <div className="card-calculator mb-8">
+              <>
                 <h2 className="text-xl font-bold mb-4">Results</h2>
                 <ResultDisplay items={[
                   { label: "LCM (Least Common Multiple)", value: 0, textValue: results.lcm.toString(), highlight: true },
@@ -91,10 +93,14 @@ export default function LcmGcdCalculator() {
                   { label: `Prime factors of ${num1}`, value: 0, textValue: results.factorsA.join(" × ") || "1" },
                   { label: `Prime factors of ${num2}`, value: 0, textValue: results.factorsB.join(" × ") || "1" },
                 ]} />
-              </div>
+              </>
             )}
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-            <article className="prose-finance">
+          </div>
+        </div>
+
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>Understanding GCD and LCM</h2>
               <p>Greatest Common Divisor (GCD) and Least Common Multiple (LCM) are two of the most fundamental concepts in number theory. They appear in everything from simplifying fractions to scheduling systems and cryptography. Understanding these concepts is essential for any student of mathematics.</p>
               <h2>The Euclidean Algorithm for GCD</h2>
@@ -106,13 +112,8 @@ export default function LcmGcdCalculator() {
               <h2>Real-World Applications</h2>
               <p>LCM is used to find common denominators when adding fractions. If adding 1/12 + 1/18, the LCM (36) becomes the common denominator. LCM also solves scheduling problems: if event A occurs every 12 days and event B every 18 days, they coincide every 36 days. GCD is used to simplify fractions to lowest terms and in cryptographic algorithms like RSA.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/lcm-gcd-calculator" />
-            <PopularCalculators exclude="/calculator/lcm-gcd-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/lcm-gcd-calculator" />
+          <PopularCalculators exclude="/calculator/lcm-gcd-calculator" />
         </div>
       </div>
     </>

@@ -58,14 +58,13 @@ const ImageFileSizeCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Image File Size Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Image File Size Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Estimate the uncompressed and compressed file size of an image based on resolution and color depth.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Image File Size Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Estimate the uncompressed and compressed file size of an image based on resolution and color depth.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-8">
                 <section className="space-y-6">
                   <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
                     <Maximize className="h-5 w-5 text-primary" /> Dimensions
@@ -115,10 +114,11 @@ const ImageFileSizeCalculator = () => {
                   <RotateCcw className="h-4 w-4" /> Reset Settings
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 mb-8">
+              <>
                 <div className="grid sm:grid-cols-2 gap-4 mb-6">
                   <div className="card-calculator bg-secondary/5 border-dashed text-center flex flex-col justify-center py-8">
                     <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-1">Uncompressed Size (RAW)</p>
@@ -141,11 +141,14 @@ const ImageFileSizeCalculator = () => {
                     { label: "Compression Used", value: 0, textValue: compressionRatio + ":1" },
                   ]} />
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="my-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Digital Image Architecture</h2>
               <p>Understanding how image file sizes are calculated requires knowledge of resolution and color depth. A digital image is essentially a grid of pixels, where each pixel stores a specific color value.</p>
               
@@ -155,12 +158,8 @@ const ImageFileSizeCalculator = () => {
               <h3>Bit Depth and Color Range</h3>
               <p>The bit depth determines the precision of color representation. For example, a 1-bit image only has two states: 0 or 1 (Black or White). A 24-bit image uses 8 bits for each of the three primary color channels (Red, Green, Blue), resulting in over 16 million possible color combinations per pixel.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/image-file-size" />
-            <PopularCalculators exclude="/calculator/image-file-size-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/image-file-size" />
+          <PopularCalculators exclude="/calculator/image-file-size-calculator" />
         </div>
       </div>
     </>

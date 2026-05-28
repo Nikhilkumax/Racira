@@ -1,243 +1,187 @@
 "use client";
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import InputField from "@/components/calculator/InputField";
-import ResultDisplay from "@/components/calculator/ResultDisplay";
-import PieChart from "@/components/calculator/PieChart";
-import { RotateCcw } from "lucide-react";
+import PopularCalculators from "@/components/PopularCalculators";
+import { RotateCcw, Calculator } from "lucide-react";
+import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from "recharts";
 
 const TipCalculator = () => {
-  const [billAmount, setBillAmount] = useState("85.00");
-  const [tipPercent, setTipPercent] = useState("18");
-  const [numPeople, setNumPeople] = useState("2");
-  const [roundUp, setRoundUp] = useState(false);
+  const DEFAULTS = { bill: "85", tipPct: "18", people: "4" };
+  const [bill, setBill] = useState(DEFAULTS.bill);
+  const [tipPct, setTipPct] = useState(DEFAULTS.tipPct);
+  const [people, setPeople] = useState(DEFAULTS.people);
+  const [result, setResult] = useState<any>(null);
 
-  const [results, setResults] = useState<{
-    tipAmount: number;
-    totalBill: number;
-    perPersonBill: number;
-    perPersonTip: number;
-    roundedTotal: number;
-    roundedTip: number;
-  } | null>(null);
-  const [showResults, setShowResults] = useState(false);
-
-  const tipPresets = [10, 15, 18, 20, 25];
-
-  const handleCalculate = () => {
-    setShowResults(true);
-    const bill = parseFloat(billAmount) || 0;
-    const tip = parseFloat(tipPercent) || 0;
-    const people = Math.max(1, parseInt(numPeople) || 1);
-
-    const tipAmount = bill * (tip / 100);
-    const totalBill = bill + tipAmount;
-    const perPersonBill = totalBill / people;
-    const perPersonTip = tipAmount / people;
-    const roundedTotal = Math.ceil(totalBill / people) * people;
-    const roundedTip = roundedTotal - bill;
-
-    setResults({ tipAmount, totalBill, perPersonBill, perPersonTip, roundedTotal, roundedTip });
+  const calculate = (bV = bill, tV = tipPct, pV = people) => {
+    const b = parseFloat(bV), t = parseFloat(tV), p = parseFloat(pV);
+    if (isNaN(b) || isNaN(t) || isNaN(p) || b <= 0 || p < 1) return;
+    const tipAmt = b * (t / 100);
+    const total = b + tipAmt;
+    const perPerson = total / p;
+    const tipPerPerson = tipAmt / p;
+    const billPerPerson = b / p;
+    const chartData = [
+      { name: "Bill", value: parseFloat(b.toFixed(2)) },
+      { name: "Tip", value: parseFloat(tipAmt.toFixed(2)) },
+    ];
+    setResult({
+      primary: `$${total.toFixed(2)}`,
+      subtitle: `$${b.toFixed(2)} bill + $${tipAmt.toFixed(2)} tip (${t}%) for ${p} ${p === 1 ? "person" : "people"}`,
+      rows: [
+        { label: "Bill Amount", value: `$${b.toFixed(2)}` },
+        { label: "Tip Percentage", value: `${t}%` },
+        { label: "Tip Amount", value: `$${tipAmt.toFixed(2)}` },
+        { label: "Total Bill", value: `$${total.toFixed(2)}` },
+        { label: "Number of People", value: p },
+        { label: "Bill per Person", value: `$${billPerPerson.toFixed(2)}` },
+        { label: "Tip per Person", value: `$${tipPerPerson.toFixed(2)}` },
+        { label: "Total per Person", value: `$${perPerson.toFixed(2)}` },
+      ],
+      chartData,
+      summary: [
+        { label: "Tip Amount", value: `$${tipAmt.toFixed(2)}` },
+        { label: "Total Bill", value: `$${total.toFixed(2)}` },
+        { label: "Per Person", value: `$${perPerson.toFixed(2)}`, border: true, bold: true },
+      ],
+    });
   };
 
-  const reset = () => {
-    setShowResults(false);
-    setBillAmount("85.00");
-    setTipPercent("18");
-    setNumPeople("2");
-    setRoundUp(false);
-    setResults(null);
-  };
+  useEffect(() => { calculate(); }, []);
+  const reset = () => { setBill(DEFAULTS.bill); setTipPct(DEFAULTS.tipPct); setPeople(DEFAULTS.people); calculate(DEFAULTS.bill, DEFAULTS.tipPct, DEFAULTS.people); };
+
+  const COLORS = ["hsl(var(--primary))", "#10b981"];
+  const quickTips = [10, 15, 18, 20, 25];
 
   const faqs = [
-    { question: "What is the standard tip percentage in the US?", answer: "The standard tip in the US ranges from 15% to 20% for restaurant service. 15% is considered the minimum for acceptable service, 18% is standard, 20% is good, and 25% or more is for exceptional service. For other services like taxis and hotel staff, 10–15% is typical." },
-    { question: "How is a tip calculated?", answer: "A tip is calculated by multiplying the pre-tax bill amount by the tip percentage. For example, if your bill is $80 and you want to tip 20%, multiply $80 × 0.20 = $16 tip. Add the tip to the bill for a total of $96." },
-    { question: "Should I tip on the pre-tax or post-tax amount?", answer: "Tipping on the pre-tax amount is technically correct, but most people tip on the total (post-tax) amount for simplicity. The difference is minimal — on a $100 bill with 8% tax, you'd tip $0.80 more by tipping on the post-tax amount at 15%." },
-    { question: "How do I split a bill evenly with a tip?", answer: "Add the tip to the bill total first, then divide by the number of people. For example, a $120 bill with 20% tip = $144 total ÷ 4 people = $36 per person. Our calculator handles all of this automatically." },
-    { question: "What if some people ordered more expensive items?", answer: "For unequal orders, it's fairest to split the bill based on what each person ordered. Add each person's items, apply tip proportionally, and have each person pay their share. Our calculator handles even splits; for unequal splits, calculate each person's share individually." },
-    { question: "Do I tip on alcohol?", answer: "Yes, tip applies to the full bill including alcoholic beverages. Bartenders typically expect 15–20% on drink orders as well. If someone is just having drinks at a bar, $1–2 per drink or 20% of the tab is standard." },
-    { question: "How much do I tip for food delivery?", answer: "For food delivery, tip 15–20% of the order total or at least $3–5 minimum. Larger orders, bad weather, or long distances warrant higher tips. The delivery driver relies on tips as a significant portion of their income." },
-    { question: "Is tip calculated before or after discounts?", answer: "Tip should be calculated on the original (pre-discount) bill amount to properly compensate the server for their full service. If you have a coupon or discount card, the tip should reflect what the meal would have cost without the discount." },
+    { question: "How do I calculate a tip?", answer: "Tip Amount = Bill × (Tip% / 100). Total = Bill + Tip. For 18% on $85: Tip = $85 × 0.18 = $15.30. Total = $100.30." },
+    { question: "What is a standard tip percentage?", answer: "Standard restaurant tips: 15% = adequate service, 18% = good service, 20% = great service, 25%+ = exceptional service. For takeout, 10–15% is customary. Tip before tax in most guidance." },
+    { question: "Should I tip on the pre-tax or post-tax amount?", answer: "Etiquette guides suggest tipping on the pre-tax bill, as servers don't benefit from the taxes. However, many people find it simpler to tip on the total. The difference is small — on a $100 pre-tax bill with 8% tax, the tip difference is about $1.60." },
+    { question: "How do I split a bill evenly?", answer: "Per person = (Bill + Tip) / Number of People. This calculator shows both the total per person and the breakdown of bill vs tip per person for transparency when splitting." },
+    { question: "Is there a quick mental math trick for tips?", answer: "For 20%: move the decimal left one place then double it. $85 → $8.50 × 2 = $17. For 15%: find 10% ($8.50) and add half ($4.25) = $12.75. For 18%: find 20% and subtract 10% of that: $17 − $1.70 = $15.30." },
+    { question: "How much do I tip for different services?", answer: "Restaurants: 15–25%. Delivery: 10–20% (minimum $3–5). Hair/beauty: 15–20%. Taxi/rideshare: 15–20%. Hotel housekeeping: $2–5/night. Bartender: $1–2/drink or 15–20%." },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Tip Calculator" }]} />
-
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Tip Calculator</h1>
-            <p className="text-muted-foreground mb-8">Calculate tip amount, total bill, and per-person split instantly. Choose from preset tip percentages or enter a custom amount.</p>
-
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-5 mb-6">
-                <InputField id="bill-amount" label="Bill Amount" value={billAmount} onChange={setBillAmount} prefix="$" tooltip="Enter the subtotal before tax and tip." />
-                <div>
-                  <label className="flex items-center text-sm font-medium text-foreground mb-1.5">Tip Percentage</label>
-                  <div className="flex gap-2 mb-2">
-                    {tipPresets.map((p) => (
-                      <button
-                        key={p}
-                        type="button"
-                        onClick={() => setTipPercent(String(p))}
-                        className={`flex-1 py-2 text-xs font-medium rounded-md border transition-colors ${tipPercent === String(p) ? "bg-accent text-accent-foreground border-accent" : "border-border text-muted-foreground hover:bg-secondary"}`}
-                      >
-                        {p}%
-                      </button>
-                    ))}
-                  </div>
-                  <input
-                    id="tip-percent"
-                    type="number"
-                    value={tipPercent}
-                    onChange={(e) => setTipPercent(e.target.value)}
-                    className="input-calc"
-                    placeholder="Custom %"
-                    aria-label="Tip percentage"
-                  />
-                </div>
-                <InputField id="num-people" label="Number of People" value={numPeople} onChange={setNumPeople} tooltip="Number of people splitting the bill." min="1" step="1" />
-                <div className="flex items-center gap-3 pt-6">
-                  <input
-                    id="round-up"
-                    type="checkbox"
-                    checked={roundUp}
-                    onChange={(e) => setRoundUp(e.target.checked)}
-                    className="h-4 w-4 rounded border-border"
-                  />
-                  <label htmlFor="round-up" className="text-sm font-medium text-foreground">Round up per person</label>
-                </div>
-              </div>
-
-              <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Tip</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset">
-                  <RotateCcw className="h-5 w-5" />
-                </button>
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Finance", href: "/calculator#finance" }, { label: "Tip Calculator" }]} />
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Tip Calculator</h1>
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1200px] mx-auto">
+          <div className="card-calculator flex flex-col gap-5 !p-6 border border-border bg-card">
+            <div>
+              <label className="text-base font-medium block mb-1.5">Bill Amount</label>
+              <div className="relative">
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">$</span>
+                <input type="number" value={bill} onChange={e => setBill(e.target.value)}
+                  className="h-10 w-full pl-7 pr-3 text-lg rounded-md border border-input bg-background focus:ring-2 focus:ring-primary/20 outline-none transition-all" placeholder="85" min="0" step="0.01" />
               </div>
             </div>
-
-            {showResults && results && (
-              <div className="card-calculator mb-8">
-                <h2 className="text-xl font-bold mb-4">Tip Results</h2>
-
-                <ResultDisplay items={[
-                  { label: "Tip Amount", value: results.tipAmount, highlight: true },
-                  { label: "Total Bill", value: results.totalBill, highlight: true },
-                  { label: "Per Person", value: results.perPersonBill },
-                  { label: "Tip Per Person", value: results.perPersonTip },
-                ]} />
-
-                {roundUp && (
-                  <div className="mt-4 p-4 rounded-lg bg-accent/5 border border-accent/20">
-                    <h3 className="font-semibold text-foreground mb-2">Rounded Up Per Person</h3>
-                    <ResultDisplay items={[
-                      { label: "Per Person (Rounded)", value: Math.ceil(results.perPersonBill), highlight: true },
-                      { label: "Total Tip (Rounded)", value: results.roundedTip },
-                    ]} />
-                  </div>
-                )}
-
-                <div className="mt-6 flex justify-center">
-                  <PieChart
-                    segments={[
-                      { label: "Bill", value: parseFloat(billAmount) || 0, color: "hsl(211, 100%, 50%)" },
-                      { label: "Tip", value: results.tipAmount, color: "hsl(220, 60%, 30%)" },
-                    ]}
-                    size={180}
-                  />
+            <div>
+              <label className="text-base font-medium block mb-1.5">Tip Percentage</label>
+              <div className="flex gap-2 mb-2">
+                {quickTips.map(t => (
+                  <button key={t} onClick={() => { setTipPct(String(t)); calculate(bill, String(t), people); }}
+                    className={`flex-1 h-9 rounded-md border text-sm font-medium transition-colors ${tipPct === String(t) ? "bg-primary text-primary-foreground border-primary" : "border-border hover:bg-secondary"}`}>
+                    {t}%
+                  </button>
+                ))}
+              </div>
+              <div className="relative">
+                <input type="number" value={tipPct} onChange={e => setTipPct(e.target.value)}
+                  className="h-10 w-full pl-3 pr-8 text-lg rounded-md border border-input bg-background focus:ring-2 focus:ring-primary/20 outline-none transition-all" placeholder="18" min="0" step="1" />
+                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">%</span>
+              </div>
+            </div>
+            <div>
+              <label className="text-base font-medium block mb-1.5">Number of People</label>
+              <input type="number" value={people} onChange={e => setPeople(e.target.value)}
+                className="h-10 w-full px-3 text-lg rounded-md border border-input bg-background focus:ring-2 focus:ring-primary/20 outline-none transition-all" placeholder="4" min="1" step="1" />
+            </div>
+            <div className="flex gap-3">
+              <button onClick={() => calculate()} className="flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors">
+                <Calculator className="w-4 h-4" /> Calculate
+              </button>
+              <button onClick={reset} className="h-10 w-10 border border-border rounded-md flex items-center justify-center hover:bg-secondary transition-colors">
+                <RotateCcw className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+          <div className="space-y-4">
+            {result && (<>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-4">
+                <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Total Bill</div>
+                <div className="text-4xl font-bold text-primary">{result.primary}</div>
+                <div className="text-sm text-muted-foreground mt-1">{result.subtitle}</div>
+              </div>
+              <div className="card-calculator !p-4 border border-border bg-card">
+                <h3 className="text-base font-semibold mb-3">Breakdown</h3>
+                <table className="w-full text-base"><tbody>
+                  {result.rows?.map((r: any, i: number) => (
+                    <tr key={i} className="border-b last:border-0">
+                      <td className="py-2 text-muted-foreground">{r.label}</td>
+                      <td className="text-right font-medium">{r.value}</td>
+                    </tr>
+                  ))}
+                </tbody></table>
+              </div>
+              {result.chartData && (
+                <div className="card-calculator !p-4 border border-border bg-card">
+                  <h3 className="text-base font-semibold mb-3">Bill vs Tip Split</h3>
+                  <ResponsiveContainer width="100%" height={200}>
+                    <PieChart>
+                      <Pie data={result.chartData} cx="50%" cy="50%" outerRadius={80} dataKey="value"
+                        label={({ name, value }: any) => `${name}: $${value}`}>
+                        {result.chartData.map((_: any, i: number) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
+                      </Pie>
+                      <Tooltip formatter={(v: any) => [`$${v}`, ""]} />
+                      <Legend />
+                    </PieChart>
+                  </ResponsiveContainer>
                 </div>
-
-                {/* Tip Reference Table */}
-                <div className="mt-6">
-                  <h3 className="text-sm font-semibold text-foreground mb-3">Tip Reference Table</h3>
-                  <div className="overflow-x-auto rounded-lg border border-border">
-                    <table className="w-full text-sm">
-                      <thead>
-                        <tr className="bg-secondary text-foreground">
-                          <th className="px-3 py-2 text-left font-medium">Tip %</th>
-                          <th className="px-3 py-2 text-right font-medium">Tip Amount</th>
-                          <th className="px-3 py-2 text-right font-medium">Total</th>
-                          <th className="px-3 py-2 text-right font-medium">Per Person</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {[10, 15, 18, 20, 25].map((p) => {
-                          const bill = parseFloat(billAmount) || 0;
-                          const people = Math.max(1, parseInt(numPeople) || 1);
-                          const t = bill * (p / 100);
-                          const total = bill + t;
-                          return (
-                            <tr key={p} className={`border-t border-border hover:bg-secondary/30 ${p === parseFloat(tipPercent) ? "bg-accent/10" : ""}`}>
-                              <td className="px-3 py-2 text-muted-foreground font-medium">{p}%</td>
-                              <td className="px-3 py-2 text-right">${t.toFixed(2)}</td>
-                              <td className="px-3 py-2 text-right">${total.toFixed(2)}</td>
-                              <td className="px-3 py-2 text-right font-medium">${(total / people).toFixed(2)}</td>
-                            </tr>
-                          );
-                        })}
-                      </tbody>
-                    </table>
-                  </div>
+              )}
+              <div className="bg-muted/30 rounded-lg p-6">
+                <h3 className="text-base font-semibold mb-4">Summary</h3>
+                <div className="space-y-3">
+                  {result.summary?.map((s: any, i: number) => (
+                    <div key={i} className={`flex justify-between text-base ${s.border ? "border-t pt-3" : ""}`}>
+                      <span className="text-muted-foreground">{s.label}</span>
+                      <span className={`font-medium ${s.bold ? "font-bold text-primary" : ""}`}>{s.value}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
-            )}
-
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-
-            <article className="prose-finance">
-              <h2>What Is a Tip Calculator?</h2>
-              <p>A tip calculator is a simple but essential tool that helps you determine the appropriate gratuity to add to a bill at restaurants, bars, salons, hotels, and other service establishments. Instead of doing mental math or guessing, you can input the bill total, select a tip percentage, and instantly see how much to tip — along with the split-per-person amount when dining in groups.</p>
-              <p>Our advanced tip calculator goes beyond the basics by offering preset tip percentages (10%, 15%, 18%, 20%, 25%), a reference table showing all common tip amounts simultaneously, and a rounding feature for easy cash payments when splitting bills.</p>
-
-              <h2>How Is a Tip Calculated?</h2>
-              <p>The tip calculation formula is straightforward:</p>
-              <ul>
-                <li><strong>Tip Amount</strong> = Bill Amount × (Tip Percentage ÷ 100)</li>
-                <li><strong>Total Bill</strong> = Bill Amount + Tip Amount</li>
-                <li><strong>Per Person</strong> = Total Bill ÷ Number of People</li>
-              </ul>
-              <p>For example, if your restaurant bill is $95.00 and you want to leave an 18% tip: Tip = $95.00 × 0.18 = $17.10. Total = $95.00 + $17.10 = $112.10. Split between 3 people = $37.37 each.</p>
-
-              <h2>How to Use This Tip Calculator</h2>
-              <p>Using our tip calculator takes just seconds. Enter the bill amount, select your desired tip percentage (or enter a custom percentage), specify how many people are splitting the bill, and click Calculate. You'll instantly see the tip amount, total bill, and per-person share. The reference table also shows you all standard tip percentages at once for easy comparison.</p>
-
-              <h2>Tipping Etiquette by Service Type</h2>
-              <p>Tipping customs vary significantly by service type and location. In the United States, tipping is customary and expected in most service industries:</p>
-              <ul>
-                <li><strong>Restaurants:</strong> 15–20% for table service; 15% minimum for acceptable service</li>
-                <li><strong>Bars:</strong> $1–2 per drink or 15–20% of the tab</li>
-                <li><strong>Food delivery:</strong> 15–20%, minimum $3–5</li>
-                <li><strong>Taxis and rideshares:</strong> 15–20% of the fare</li>
-                <li><strong>Hair salons and spas:</strong> 15–20% of the service cost</li>
-                <li><strong>Hotel housekeeping:</strong> $2–5 per night</li>
-                <li><strong>Valet parking:</strong> $2–5 when retrieving your car</li>
-              </ul>
-
-              <h2>Example Scenario</h2>
-              <p>You and three friends go out for dinner. The bill comes to $168.40 before tax. You decide to tip 20% for excellent service. Tip = $168.40 × 0.20 = $33.68. Total = $168.40 + $33.68 = $202.08. Split four ways = $50.52 per person. If you want to round up for easy payment, each person pays $51, making the total $204 and the effective tip rate about 21.2%.</p>
-
-              <h2>Tips for Splitting the Bill Fairly</h2>
-              <p>When dining with a group, consider these approaches for fair bill splitting. For similar orders, splitting evenly (with our calculator) is simplest. For significantly different orders, ask your server to split the check. If someone ordered alcohol and others didn't, calculate separately. Some groups use apps like Splitwise to track shared expenses. Always round up rather than down — it's better for the server and avoids awkward change.</p>
-            </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/tip-calculator" />
-            <PopularCalculators exclude="/calculator/tip-calculator" />
+            </>)}
           </div>
-
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+        </div>
+        <div className="max-w-[1200px] mx-auto mt-10">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
+            <h2>What Is a Tip Calculator?</h2>
+            <p>A tip calculator instantly computes the tip amount and total bill for any service, with easy bill splitting for groups. Pre-filled with an $85 restaurant bill at 18% tip split 4 ways, it shows a $15.30 tip ($100.30 total) with each person paying $25.08. Quick-select buttons for 10%, 15%, 18%, 20%, and 25% match the most common tipping conventions, and you can enter any custom percentage.</p>
+            <p>Tip calculators are essential for dining out, managing group expenses, calculating service charges for delivery and rideshare, and understanding tipping conventions across different service industries. This calculator also shows the per-person breakdown of bill and tip separately — useful when some people in a group ordered more expensive dishes and want to split proportionally.</p>
+            <h2>The Tip Formula</h2>
+            <p><strong>Tip Amount = Bill × (Tip% / 100)</strong></p>
+            <p><strong>Total = Bill + Tip Amount</strong></p>
+            <p><strong>Per Person = Total / Number of People</strong></p>
+            <p>For $85 at 18%: Tip = $85 × 0.18 = $15.30. Total = $100.30. For 4 people: $100.30 / 4 = $25.08 each. Each person contributes $21.25 toward the bill and $3.83 toward the tip.</p>
+            <h2>Standard Tipping Guidelines</h2>
+            <p>Tipping customs vary significantly by country and service type. In the US, restaurant tipping is expected and forms a substantial part of server income. <strong>10%:</strong> Below expectations — typically for poor service. <strong>15%:</strong> Adequate service minimum. <strong>18%:</strong> Standard for good service — the most common benchmark. <strong>20%:</strong> Excellent service — increasingly considered the standard minimum. <strong>25%+:</strong> Exceptional service or high-end establishments.</p>
+            <h2>Mental Math Tip Tricks</h2>
+            <p><strong>20% tip:</strong> Move the decimal left one place, then double. $85 → $8.50 × 2 = $17.00. <strong>15% tip:</strong> Find 10% then add half. $85: 10% = $8.50, half = $4.25, total = $12.75. <strong>18% tip:</strong> Find 20% then subtract 10% of that. $85: 20% = $17, 10% of $17 = $1.70, subtract: $15.30. These mental shortcuts work for any bill amount once you get comfortable with decimal movement.</p>
+            <h2>Tipping for Different Services</h2>
+            <p><strong>Sit-down restaurants:</strong> 15–25% on the pre-tax amount. <strong>Delivery:</strong> 10–20% with a $3–5 minimum. <strong>Rideshare (Uber/Lyft):</strong> 15–20%, especially for long rides or great service. <strong>Hair salons:</strong> 15–20% for stylists, $5–10 for assistants. <strong>Hotel housekeeping:</strong> $2–5 per night, left daily. <strong>Bartenders:</strong> $1–2 per drink or 15–20% of tab. <strong>Pizza delivery:</strong> $3–5 minimum or 10–15%.</p>
+            <h2>Should You Tip on Pre- or Post-Tax?</h2>
+            <p>Etiquette traditionally recommends tipping on the pre-tax bill. Servers provide service on the food and drink, not the government's portion. However, for simplicity many people tip on the total including tax. On a $100 pre-tax bill with 8% tax ($108 total), the difference between 20% on $100 ($20) versus 20% on $108 ($21.60) is $1.60 — a minor difference that you can resolve based on the quality of service.</p>
+            <h2>Tips for Using This Calculator</h2>
+            <p>Use the quick-select buttons to instantly switch between standard percentages. The pie chart shows the bill-to-tip ratio at a glance. For unequal splits (where people ordered different amounts), use the per-person breakdown to settle the difference. Combine with the <a href="/calculator/sales-tax-calculator">sales tax calculator</a> to compute the full pre-tax amount if you only know the total, or with the <a href="/calculator/percentage-calculator">percentage calculator</a> for other service charge needs.</p>
+          </article>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/tip-calculator" />
+          <PopularCalculators exclude="/calculator/tip-calculator" />
         </div>
       </div>
     </>
   );
 };
-
 export default TipCalculator;
-

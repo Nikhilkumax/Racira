@@ -112,14 +112,13 @@ const CreditScoreEstimator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Credit Score Estimator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Credit Score Estimator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Estimate your credit score range based on the key factors used by FICO and VantageScore models.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Credit Score Estimator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Estimate your credit score range based on the key factors used by FICO and VantageScore models.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-8">
                 <section className="space-y-6">
                   <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
                     <Shield className="h-5 w-5 text-primary" /> Core Factors
@@ -184,10 +183,11 @@ const CreditScoreEstimator = () => {
                   <RotateCcw className="h-4 w-4" /> Reset 
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 mb-8">
+              <>
                 <div className="card-calculator bg-primary/5 border-solid border-primary/20 text-center py-12 relative overflow-hidden">
                   <div className="absolute top-0 right-0 p-4 opacity-5">
                     <Gauge className="h-48 w-48" />
@@ -236,12 +236,14 @@ const CreditScoreEstimator = () => {
                       </div>
                    </div>
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="my-8" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>How Credit Scores Are Calculated</h2>
               <p>Your credit score is a three-digit number that tells lenders how likely you are to repay your debts. In the United States, the most common model is the FICO score, which ranges from 300 to 850. Understanding the five main components of this score is the first step toward financial health.</p>
 
@@ -271,13 +273,8 @@ const CreditScoreEstimator = () => {
                 <li><strong>Keep Old Cards Open:</strong> Even if you don't use them, they contribute to your average account age.</li>
               </ul>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/credit-score-estimator" />
-            <PopularCalculators exclude="/calculator/credit-score-estimator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/credit-score-estimator" />
+          <PopularCalculators exclude="/calculator/credit-score-estimator" />
         </div>
       </div>
     </>

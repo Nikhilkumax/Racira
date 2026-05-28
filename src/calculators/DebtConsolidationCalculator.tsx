@@ -75,14 +75,13 @@ const DebtConsolidationCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Debt Consolidation Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Debt Consolidation Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Compare combining all your debts into one lower-interest loan against your current payments.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Debt Consolidation Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Compare combining all your debts into one lower-interest loan against your current payments.</p>
 
-            <div className="card-calculator mb-8">
-              <h3 className="font-semibold mb-4 text-foreground">Current Debts</h3>
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <h3 className="font-semibold mb-4 text-foreground">Current Debts</h3>
               <div className="space-y-4 mb-6">
                 {debts.map((d, i) => (
                   <div key={i} className="grid grid-cols-2 sm:grid-cols-4 gap-3 p-3 rounded-xl bg-secondary/5 border border-border">
@@ -104,10 +103,11 @@ const DebtConsolidationCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Consolidation Analysis</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -124,11 +124,14 @@ const DebtConsolidationCalculator = () => {
                   { label: "Monthly Savings", value: 0, textValue: "$" + results.monthlySavings.toLocaleString(undefined, { maximumFractionDigits: 0 }) },
                   { label: "Total Interest (New Loan)", value: 0, textValue: "$" + results.consolidatedTotalInterest.toLocaleString(undefined, { maximumFractionDigits: 0 }) },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>When Does Consolidation Make Sense?</h2>
               <p>Debt consolidation is beneficial when you can secure a consolidation loan at a meaningfully lower interest rate than your current debts. It simplifies your finances into a single monthly payment and can reduce total interest costs significantly.</p>
               <h3>Watch Out for Longer Terms</h3>
@@ -136,12 +139,8 @@ const DebtConsolidationCalculator = () => {
               <h3>The Discipline Problem</h3>
               <p>The biggest risk of consolidation is re-accumulating the debts you just paid off. If you consolidate your credit cards and then start using them again, you'll end up with even more total debt. Consolidation works best alongside a committed behavioral change.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/debt-consolidation" />
-            <PopularCalculators exclude="/calculator/debt-consolidation-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/debt-consolidation" />
+          <PopularCalculators exclude="/calculator/debt-consolidation-calculator" />
         </div>
       </div>
     </>

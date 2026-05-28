@@ -53,13 +53,13 @@ export default function DollarCostAveragingCalculator() {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Dollar Cost Averaging Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Dollar Cost Averaging (DCA) Calculator</h1>
-            <p className="text-muted-foreground mb-8">See the long-term wealth-building impact of investing a fixed amount at regular intervals using dollar cost averaging.</p>
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-5 mb-6">
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Dollar Cost Averaging (DCA) Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">See the long-term wealth-building impact of investing a fixed amount at regular intervals using dollar cost averaging.</p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-5 mb-6">
                 <InputField id="initial" label="Initial Investment ($)" value={initialInvestment} onChange={setInitialInvestment} prefix="$" tooltip="Lump sum invested at the start of the period." />
                 <InputField id="monthly" label="Monthly Investment ($)" value={monthlyAmount} onChange={setMonthlyAmount} prefix="$" tooltip="Fixed amount added to the investment each month." />
                 <InputField id="years" label="Investment Period (Years)" value={years} onChange={setYears} tooltip="Total number of years to invest." />
@@ -69,9 +69,11 @@ export default function DollarCostAveragingCalculator() {
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate DCA Growth</button>
                 <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
+
+          <div className="flex flex-col gap-3">
             {showResults && (
-              <div className="card-calculator mb-8">
+              <>
                 <h2 className="text-xl font-bold mb-4">DCA Investment Results</h2>
                 <ResultDisplay items={[
                   { label: "Final Portfolio Value", value: results.finalValue, highlight: true },
@@ -80,10 +82,14 @@ export default function DollarCostAveragingCalculator() {
                   { label: "Effective CAGR", value: 0, textValue: `${results.cagr.toFixed(2)}%` },
                   { label: "Total # of Investments", value: 0, textValue: results.numInvestments.toString() },
                 ]} />
-              </div>
+              </>
             )}
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-            <article className="prose-finance">
+          </div>
+        </div>
+
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>What Is Dollar Cost Averaging?</h2>
               <p>Dollar Cost Averaging (DCA) is one of the most powerful — and psychologically comfortable — investment strategies available to individual investors. The concept is elegantly simple: invest a fixed dollar amount into a chosen asset at regular intervals (weekly, monthly, quarterly) regardless of what the market is doing. When prices are high, your fixed amount buys fewer shares. When prices are low, the same amount buys more shares. Over time, this results in a lower average cost per share than randomly timed purchases.</p>
               <h2>The Math Behind DCA</h2>
@@ -97,13 +103,8 @@ export default function DollarCostAveragingCalculator() {
               <h2>DCA During Market Downturns</h2>
               <p>Market downturns are where DCA truly shines. While a lump-sum investor who put everything in at the peak watches their portfolio decline, a DCA investor continues buying at lower and lower prices, accumulating more shares for the same monthly dollar amount. When the inevitable recovery occurs, the DCA investor has a larger share count and often recovers their losses — and then some — much faster than the lump-sum investor who timed the market badly.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/dollar-cost-averaging-calculator" />
-            <PopularCalculators exclude="/calculator/dollar-cost-averaging-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/dollar-cost-averaging-calculator" />
+          <PopularCalculators exclude="/calculator/dollar-cost-averaging-calculator" />
         </div>
       </div>
     </>

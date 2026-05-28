@@ -64,14 +64,13 @@ const AudioFileSizeCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Audio File Size Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Audio File Size Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Calculate file sizes for both compressed (MP3, AAC) and uncompressed (WAV, AIFF) audio formats.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Audio File Size Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate file sizes for both compressed (MP3, AAC) and uncompressed (WAV, AIFF) audio formats.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-8">
                 <section className="space-y-6">
                   <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
                     <Clock className="h-5 w-5 text-primary" /> Track Info
@@ -153,10 +152,11 @@ const AudioFileSizeCalculator = () => {
                   <RotateCcw className="h-4 w-4" /> Reset
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 mb-8">
+              <>
                 <div className="card-calculator bg-primary/5 border-solid border-primary/20 text-center flex flex-col justify-center py-10 mb-6">
                     <p className="text-sm font-bold text-primary uppercase tracking-widest mb-2">Estimated File Size</p>
                     <p className="text-6xl font-black text-foreground">
@@ -164,7 +164,7 @@ const AudioFileSizeCalculator = () => {
                     </p>
                 </div>
 
-                <div className="card-calculator">
+                <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
                   <h2 className="text-xl font-bold flex items-center gap-2 mb-6">
                     <HardDrive className="h-5 w-5 text-primary" /> Technical Breakdown
                   </h2>
@@ -174,11 +174,14 @@ const AudioFileSizeCalculator = () => {
                     { label: "Total Space Required", value: 0, textValue: (results.totalMB * 1024 * 1024).toLocaleString() + " bytes" },
                   ]} />
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="my-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Digital Audio Science</h2>
               <p>Digital audio is created by sampling a continuous sound wave at regular intervals. The frequency of these intervals is called the sample rate, and the precision of each sample is called the bit depth.</p>
               
@@ -188,12 +191,8 @@ const AudioFileSizeCalculator = () => {
               <h3>High-Resolution Audio</h3>
               <p>While CD quality (44.1 kHz / 16-bit) covers the entire frequency range audible to humans, many audiophiles and professionals prefer "High-Res" audio (96 kHz or 192 kHz / 24-bit). These formats provide a lower noise floor and greater dynamic range, though they require significantly more storage space and high-end playback equipment to be appreciated.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/audio-file-size" />
-            <PopularCalculators exclude="/calculator/audio-file-size-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/audio-file-size" />
+          <PopularCalculators exclude="/calculator/audio-file-size-calculator" />
         </div>
       </div>
     </>

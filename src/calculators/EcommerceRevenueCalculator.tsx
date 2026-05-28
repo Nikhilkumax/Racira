@@ -51,13 +51,13 @@ export default function EcommerceRevenueCalculator() {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Ecommerce Revenue Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Ecommerce Revenue Calculator</h1>
-            <p className="text-muted-foreground mb-8">Estimate monthly ecommerce revenue, gross profit, and net profit based on traffic, conversion rate, and order metrics.</p>
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-5 mb-6">
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Ecommerce Revenue Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Estimate monthly ecommerce revenue, gross profit, and net profit based on traffic, conversion rate, and order metrics.</p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-5 mb-6">
                 <InputField id="visitors" label="Monthly Website Visitors" value={monthlyVisitors} onChange={setMonthlyVisitors} tooltip="Total unique visitors to your ecommerce site per month." />
                 <InputField id="cr" label="Conversion Rate (%)" value={conversionRate} onChange={setConversionRate} suffix="%" tooltip="Percentage of visitors who complete a purchase. Average: 1-4%." />
                 <InputField id="aov" label="Average Order Value ($)" value={avgOrderValue} onChange={setAvgOrderValue} prefix="$" tooltip="The average dollar amount per order placed." />
@@ -68,9 +68,11 @@ export default function EcommerceRevenueCalculator() {
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Revenue</button>
                 <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
+
+          <div className="flex flex-col gap-3">
             {showResults && (
-              <div className="card-calculator mb-8">
+              <>
                 <h2 className="text-xl font-bold mb-4">Monthly Ecommerce Projections</h2>
                 <ResultDisplay items={[
                   { label: "Monthly Orders", value: 0, textValue: Math.round(results.monthlyOrders).toLocaleString(), highlight: true },
@@ -78,10 +80,14 @@ export default function EcommerceRevenueCalculator() {
                   { label: "Net Revenue (after returns)", value: results.netRevenue },
                   { label: "Gross Profit", value: results.grossProfit, highlight: true },
                 ]} />
-              </div>
+              </>
             )}
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-            <article className="prose-finance">
+          </div>
+        </div>
+
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>The Ecommerce Revenue Formula</h2>
               <p>Ecommerce revenue is fundamentally driven by three metrics: Traffic × Conversion Rate × Average Order Value = Gross Revenue. This simple formula has profound implications. A 10% increase in each metric alone doesn't just add 10% to revenue — if all three improve by 10% simultaneously, revenue increases by 33.1% (1.1 × 1.1 × 1.1 = 1.331). This multiplicative effect is why ecommerce growth strategies often focus on improving multiple metrics in parallel.</p>
               <h2>Understanding Traffic Quality vs. Quantity</h2>
@@ -93,13 +99,8 @@ export default function EcommerceRevenueCalculator() {
               <h2>From Gross to Net Profit</h2>
               <p>After COGS, ecommerce businesses must account for many more expense layers before arriving at net profit: customer acquisition costs (CAC), platform fees (Shopify, Amazon, etc.), payment processing fees (2.5-3.5%), warehouse and fulfillment costs, customer service overhead, and marketing/advertising spend. Healthy ecommerce businesses typically target 10-20% net profit margins after all operating expenses.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/ecommerce-revenue-calculator" />
-            <PopularCalculators exclude="/calculator/ecommerce-revenue-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/ecommerce-revenue-calculator" />
+          <PopularCalculators exclude="/calculator/ecommerce-revenue-calculator" />
         </div>
       </div>
     </>

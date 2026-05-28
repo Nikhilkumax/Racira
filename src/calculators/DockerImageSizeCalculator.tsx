@@ -88,15 +88,13 @@ const DockerImageSizeCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Docker Image Size Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Docker Image Size Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Estimate the final footprint of your Docker container based on the base OS, packages, and custom code.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Docker Image Size Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Estimate the final footprint of your Docker container based on the base OS, packages, and custom code.</p>
 
-            <div className="grid md:grid-cols-2 gap-8 mb-8">
-              <div className="card-calculator h-fit">
-                <section className="space-y-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <section className="space-y-6">
                   <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
                     <Layers className="h-5 w-5 text-primary" /> Image Configuration
                   </h2>
@@ -148,11 +146,12 @@ const DockerImageSizeCalculator = () => {
                     </button>
                   </div>
                 </section>
-              </div>
+          </div>
 
-              {showResults && results && (
-                <div className="card-calculator flex flex-col animate-in fade-in slide-in-from-bottom-4 duration-500">
-                  <h2 className="text-xl font-bold flex items-center gap-2 mb-6">
+          <div className="flex flex-col gap-3">
+            {showResults && results && (
+              <>
+                <h2 className="text-xl font-bold flex items-center gap-2 mb-6">
                      <ArrowDown className="h-5 w-5 text-primary" /> Size Breakdown
                   </h2>
                   
@@ -189,12 +188,14 @@ const DockerImageSizeCalculator = () => {
                         </div>
                      )}
                   </div>
-                </div>
-              )}
-            </div>
+              </>
+            )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Optimizing Docker Images</h2>
               <p>In the world of containerization, size matters. Smaller Docker images deploy faster, consume less network bandwidth, boot up quicker, and present a smaller attack surface for security vulnerabilities.</p>
               
@@ -204,12 +205,8 @@ const DockerImageSizeCalculator = () => {
               <h3>Beware of Build Tools</h3>
               <p>If your application requires compiling native extensions (like certain Python packages or Node.js modules), you need heavy tools like `gcc` and `make`. However, these tools are only needed during the build process, not when the app is running. Using Docker Multi-stage builds allows you to compile your code in a heavy container, and then copy the compiled files into a fresh, tiny container, leaving the massive build tools behind.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/docker-image-size" />
-            <PopularCalculators exclude="/calculator/docker-image-size-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/docker-image-size" />
+          <PopularCalculators exclude="/calculator/docker-image-size-calculator" />
         </div>
       </div>
     </>

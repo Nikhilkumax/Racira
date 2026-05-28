@@ -59,14 +59,13 @@ const ScreenSizeCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Screen Size" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Screen Size Calculator</h1>
-            <p className="text-muted-foreground mb-8">Calculate the physical width, height, and surface area of a screen based on its diagonal size and aspect ratio.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Screen Size Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate the physical width, height, and surface area of a screen based on its diagonal size and aspect ratio.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-3 gap-5 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-3 gap-5 mb-6">
                 <InputField id="diagonal" label="Diagonal Size" value={diagonal} onChange={setDiagonal} suffix="in" />
                 <InputField id="ratioW" label="Ratio Width" value={ratioWidth} onChange={setRatioWidth} />
                 <InputField id="ratioH" label="Ratio Height" value={ratioHeight} onChange={setRatioHeight} />
@@ -75,10 +74,12 @@ const ScreenSizeCalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Dimensions</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8">
+              <>
+                <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
                 <div className="grid sm:grid-cols-2 gap-8 items-center">
                   <div className="relative aspect-video bg-secondary/30 rounded-lg border border-border flex items-center justify-center overflow-hidden">
                      {/* Dynamic Visual representation */}
@@ -101,21 +102,21 @@ const ScreenSizeCalculator = () => {
                   </div>
                 </div>
               </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Sidebar Ad" />
+          <article className="prose-finance">
               <h2>Choosing the Right Screen Size</h2>
               <p>When buying a new monitor or TV, diagonal size is only half the story. The aspect ratio significantly changes how much usable space you have for work or entertainment.</p>
               <h3>Area vs. Diagonal</h3>
               <p>Because screen sizes are marketed by diagonal, manufacturers can make a screen 'sound' bigger while providing less surface area by making it wider (increasing aspect ratio). For example, a 34-inch ultrawide (21:9) actually has a similar height to a 27-inch standard widescreen (16:9), but with extra width on the sides.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/screen-size-calculator" />
-            <PopularCalculators exclude="/calculator/screen-size-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder label="Sidebar Ad" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/screen-size-calculator" />
+          <PopularCalculators exclude="/calculator/screen-size-calculator" />
         </div>
       </div>
     </>

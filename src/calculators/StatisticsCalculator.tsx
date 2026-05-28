@@ -50,16 +50,14 @@ const StatisticsCalculator = () => {
 
   return (
     <>
-<Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Statistics Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Statistics Calculator" }]} />
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Statistics Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Enter comma-separated numbers to calculate descriptive statistics.</p>
 
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Statistics Calculator</h1>
-            <p className="text-muted-foreground mb-8">Enter comma-separated numbers to calculate descriptive statistics.</p>
-
-            <div className="card-calculator mb-8">
-              <div className="mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="mb-6">
                 <label htmlFor="data" className="text-sm font-medium text-foreground mb-1.5 block">Data Set</label>
                 <textarea id="data" value={data} onChange={(e) => setData(e.target.value)} rows={3} className="input-calc w-full resize-none" placeholder="Enter numbers separated by commas or spaces" />
                 <p className="text-xs text-muted-foreground mt-1">Separate values with commas or spaces</p>
@@ -67,10 +65,11 @@ const StatisticsCalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && result && (
-              <div className="card-calculator mb-8">
+              <>
                 <h2 className="text-xl font-bold mb-4">Result</h2>
                 <ResultDisplay items={[
                   { label: "Count", value: 0, textValue: result.count.toString() },
@@ -84,18 +83,19 @@ const StatisticsCalculator = () => {
                   { label: "Min", value: 0, textValue: result.min.toFixed(4) },
                   { label: "Max", value: 0, textValue: result.max.toFixed(4) },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>Descriptive Statistics</h2>
               <p><strong>Mean:</strong> Sum of all values ÷ count. <strong>Median:</strong> Middle value when sorted. <strong>Mode:</strong> Most frequent value. <strong>Standard Deviation:</strong> Measures how spread out data is from the mean.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/statistics-calculator" />
-            <PopularCalculators exclude="/statistics-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6"><AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" /></aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/statistics-calculator" />
+          <PopularCalculators exclude="/statistics-calculator" />
         </div>
       </div>
     </>

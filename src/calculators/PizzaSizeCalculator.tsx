@@ -83,15 +83,13 @@ const PizzaSizeCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Pizza Size Calculator" }]} />
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Pizza Size Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Compare two pizzas to see which one gives you more food for your money using price per square inch analysis.</p>
 
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Pizza Size Calculator</h1>
-            <p className="text-muted-foreground mb-8">Compare two pizzas to see which one gives you more food for your money using price per square inch analysis.</p>
-
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-8 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-8 mb-6">
                 <div className="space-y-5">
                   <h3 className="font-bold text-primary">Pizza 1</h3>
                   <InputField id="dia1" label="Diameter (inches)" value={dia1} onChange={setDia1} suffix="in" />
@@ -109,10 +107,11 @@ const PizzaSizeCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8">
+              <>
                 <h2 className="text-xl font-bold mb-6">Comparison Results</h2>
                 
                 {results.betterDeal !== 0 && (
@@ -149,12 +148,14 @@ const PizzaSizeCalculator = () => {
                     size={160}
                   />
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>The Math of Pizza Value</h2>
               <p>When you're ordering pizza, your eyes often deceive you. A 12-inch pizza might look only slightly smaller than a 14-inch pizza, but the math tells a different story. Because the area of a circle grows exponentially as the diameter increases, those extra two inches actually provide about 36% more pizza!</p>
               
@@ -172,15 +173,8 @@ const PizzaSizeCalculator = () => {
               <h2>Tips for Savvy Ordering</h2>
               <p>Always check for "BOGO" (Buy One Get One) deals on smaller sizes, but compare them against the price of one extra-large. Often, one 18-inch pizza contains more food than two 12-inch pizzas, and usually costs less. Use our calculator at the restaurant to ensure you're getting the most crust for your buck.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/pizza-size" />
-            <PopularCalculators exclude="/calculator/pizza-size-calculator" />
-          </div>
-
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/pizza-size" />
+          <PopularCalculators exclude="/calculator/pizza-size-calculator" />
         </div>
       </div>
     </>

@@ -97,14 +97,13 @@ export default function SslCostCalculator() {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "SSL Certificate Cost Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">SSL Certificate Cost Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Compare costs and features for different types of SSL certificates to secure your website and user data.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">SSL Certificate Cost Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Compare costs and features for different types of SSL certificates to secure your website and user data.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-6 mb-6">
                 <div>
                   <label className="block text-sm font-medium text-foreground mb-1.5">Certificate Type</label>
                   <select 
@@ -133,10 +132,11 @@ export default function SslCostCalculator() {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Cost & Protection Summary</h2>
                 <div className="grid sm:grid-cols-2 gap-4 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -157,12 +157,14 @@ export default function SslCostCalculator() {
                   <AlertCircle className="h-5 w-5 text-amber-600 shrink-0" />
                   <p className="text-sm text-amber-800">Note: Browser standards require certificates to be re-issued every 13 months, even if you pay for multiple years upfront.</p>
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>Why Your Website Needs an SSL Certificate</h2>
               <p>SSL (Secure Sockets Layer) is the standard technology for keeping an internet connection secure and safeguarding any sensitive data that is being sent between two systems. It prevents criminals from reading and modifying any information transferred, including potential personal details like credit card numbers or login credentials. Today, SSL is not just a luxury; it is a fundamental requirement for any professional website.</p>
 
@@ -183,15 +185,8 @@ export default function SslCostCalculator() {
               <h3>Impact on SEO and User Experience</h3>
               <p>Google has officially stated that HTTPS is a ranking signal. Beyond SEO, browsers like Chrome and Firefox now display 'Not Secure' warnings for any page served over HTTP. Studies show that up to 85% of users will abandon a website if they see a 'Not Secure' warning, especially if the site asks for any form of data input. Investing in a stable, trusted SSL certificate is a direct investment in your conversion rate and brand reputation.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/ssl-certificate-cost-calculator" />
-            <PopularCalculators exclude="/calculator/ssl-certificate-cost-calculator" />
-          </div>
-
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/ssl-certificate-cost-calculator" />
+          <PopularCalculators exclude="/calculator/ssl-certificate-cost-calculator" />
         </div>
       </div>
     </>

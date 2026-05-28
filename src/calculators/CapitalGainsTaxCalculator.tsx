@@ -92,14 +92,13 @@ const CapitalGainsTaxCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Capital Gains Tax Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Capital Gains Tax Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Estimate the taxes owed on your investment profits and calculate your net after-tax return.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Capital Gains Tax Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Estimate the taxes owed on your investment profits and calculate your net after-tax return.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-8">
                 <section className="space-y-6">
                   <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
                     <TrendingUp className="h-5 w-5 text-primary" /> The Transaction
@@ -151,10 +150,11 @@ const CapitalGainsTaxCalculator = () => {
                   <RotateCcw className="h-4 w-4" /> Reset 
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 mb-8">
+              <>
                 <div className="grid sm:grid-cols-2 gap-4 mb-6">
                   <div className="card-calculator bg-red-500/5 border-red-500/20 text-center flex flex-col justify-center py-8">
                     <p className="text-xs font-bold text-red-600 uppercase tracking-widest mb-1">Estimated Tax Due</p>
@@ -167,7 +167,7 @@ const CapitalGainsTaxCalculator = () => {
                   </div>
                 </div>
 
-                <div className="card-calculator mb-6">
+                <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
                   <h2 className="text-xl font-bold flex items-center gap-2 mb-6">
                     <Info className="h-5 w-5 text-primary" /> Tax Breakdown
                   </h2>
@@ -178,12 +178,14 @@ const CapitalGainsTaxCalculator = () => {
                     { label: "Profit Kept After Tax", value: results.netProfit },
                   ]} />
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="my-8" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>How Capital Gains Taxes Work</h2>
               <p>When you sell an investment for more than you paid for it, the profit is considered a "capital gain." The IRS taxes these gains differently depending on how long you owned the asset. Understanding these rules can help you time your sales to minimize your tax bill.</p>
 
@@ -217,13 +219,8 @@ const CapitalGainsTaxCalculator = () => {
               <h2>Special Assets</h2>
               <p>Be aware that some assets don't follow the 0/15/20 rules. Collectibles (like art, stamps, or vintage cars) are taxed at a maximum rate of 28%. Real estate gains resulting from depreciation deductions taken in previous years (depreciation recapture) are taxed at 25%.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/capital-gains-tax-calculator" />
-            <PopularCalculators exclude="/calculator/capital-gains-tax-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/capital-gains-tax-calculator" />
+          <PopularCalculators exclude="/calculator/capital-gains-tax-calculator" />
         </div>
       </div>
     </>

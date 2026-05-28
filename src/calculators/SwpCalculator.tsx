@@ -66,16 +66,14 @@ const SWPCalculator = () => {
 
   return (
     <>
-<Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "SWP Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "SWP Calculator" }]} />
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">SWP Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Plan systematic withdrawals from your mutual fund investment. See how long your corpus will last.</p>
 
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">SWP Calculator</h1>
-            <p className="text-muted-foreground mb-8">Plan systematic withdrawals from your mutual fund investment. See how long your corpus will last.</p>
-
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-5 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-5 mb-6">
                 <InputField id="corpus" label="Total Investment" value={corpus} onChange={setCorpus} prefix="₹" />
                 <InputField id="withdrawal" label="Monthly Withdrawal" value={withdrawal} onChange={setWithdrawal} prefix="₹" />
                 <InputField id="rate" label="Expected Return (p.a.)" value={rate} onChange={setRate} suffix="%" />
@@ -85,10 +83,11 @@ const SWPCalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && result && (
-              <div className="card-calculator mb-8">
+              <>
                 <h2 className="text-xl font-bold mb-4">SWP Summary</h2>
                 <ResultDisplay currency="₹" items={[
                   { label: "Total Withdrawn", value: result.totalWithdrawn },
@@ -119,12 +118,14 @@ const SWPCalculator = () => {
                     </table>
                   </div>
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>What Is an SWP Calculator?</h2>
               <p>An SWP (Systematic Withdrawal Plan) calculator helps you plan regular withdrawals from your mutual fund investment. It shows how your corpus behaves over time as you withdraw fixed amounts while the remaining balance continues to earn returns.</p>
 
@@ -139,14 +140,8 @@ const SWPCalculator = () => {
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> Mutual fund returns are not guaranteed. Actual returns may vary significantly from expected rates. This calculator assumes constant returns for estimation.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/swp-calculator" />
-            <PopularCalculators exclude="/swp-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/swp-calculator" />
+          <PopularCalculators exclude="/swp-calculator" />
         </div>
       </div>
     </>

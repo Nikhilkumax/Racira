@@ -52,14 +52,13 @@ const TipAndSplitCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Tip and Split Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Tip and Split Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Quickly calculate the correct tip amount and split the total bill evenly among your group.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Tip and Split Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Quickly calculate the correct tip amount and split the total bill evenly among your group.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
                 <InputField id="bill" label="Bill Amount" value={bill} onChange={setBill} prefix="$" />
                 <InputField id="tip" label="Tip Percentage" value={tipPct} onChange={setTipPct} suffix="%" />
                 <InputField id="people" label="Number of People" value={people} onChange={setPeople} />
@@ -72,10 +71,11 @@ const TipAndSplitCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Split Results</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -92,11 +92,14 @@ const TipAndSplitCalculator = () => {
                   { label: "Tip Per Person", value: 0, textValue: "$" + results.tipPerPerson.toFixed(2) },
                   { label: "Suggested Tip (20%)", value: 0, textValue: "$" + (parseFloat(bill) * 0.2).toFixed(2) },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Tipping Etiquette</h2>
               <p>Tipping is a way to show appreciation for good service, but the rules can vary significantly depending on where you are in the world. In the US, it is an essential part of service workers' income.</p>
               <h3>When to Tip More</h3>
@@ -104,12 +107,8 @@ const TipAndSplitCalculator = () => {
               <h3>International Tipping</h3>
               <p>In many European countries, a service charge is often included in the bill, and a small additional tip (rounding up the bill) is appreciated but not mandatory. In Japan, tipping is often seen as unnecessary or even offensive. Always research local customs before traveling!</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/tip-and-split" />
-            <PopularCalculators exclude="/calculator/tip-and-split-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/tip-and-split" />
+          <PopularCalculators exclude="/calculator/tip-and-split-calculator" />
         </div>
       </div>
     </>

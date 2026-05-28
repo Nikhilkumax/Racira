@@ -123,14 +123,13 @@ const RentVsBuyCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Rent vs Buy" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">Rent vs Buy Calculator</h1>
-            <p className="text-muted-foreground mb-8">Compare the total costs of renting versus buying a home over time to make the best financial decision for your future.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Rent vs Buy Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Compare the total costs of renting versus buying a home over time to make the best financial decision for your future.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-6 mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-6 mb-8">
                 <div className="space-y-4">
                   <h3 className="font-bold text-lg border-b pb-2">Buying Parameters</h3>
                   <InputField id="homePrice" label="Home Price" value={homePrice} onChange={setHomePrice} prefix="$" />
@@ -149,10 +148,11 @@ const RentVsBuyCalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Compare Options</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8">
+              <>
                 <div className="text-center mb-6">
                   <h2 className="text-2xl font-bold">Conclusion: {results.betterOption} is likely better</h2>
                   <p className="text-muted-foreground">Estimated difference: <span className="font-bold text-primary">${Math.round(results.difference).toLocaleString()}</span> over {years} years</p>
@@ -172,10 +172,14 @@ const RentVsBuyCalculator = () => {
                     <p className="text-sm text-muted-foreground">Invested DP Growth: <span className="text-foreground font-medium">${Math.round(results.investmentBalance).toLocaleString()}</span></p>
                   </div>
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – Sidebar" />
+          <article className="prose-finance">
               <h2>Renting vs. Buying: Which is the Smart Move?</h2>
               <p>The "rent vs buy" debate is one of the most significant financial decisions you'll ever face. While the American Dream often emphasizes homeownership, the math doesn't always favor buying—especially in high-interest environments or expensive markets.</p>
               <h3>When Buying Wins</h3>
@@ -183,14 +187,8 @@ const RentVsBuyCalculator = () => {
               <h3>When Renting Wins</h3>
               <p>Renting is often better if you prioritize mobility or have a short time horizon (less than 5 years). It also allows you to invest your down payment capital into the stock market, which historically often yields higher returns than real estate appreciation. Renting is also a "predictable" cost, as the landlord is responsible for all maintenance, taxes, and insurance.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/rent-vs-buy-calculator" />
-            <PopularCalculators exclude="/calculator/rent-vs-buy-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/rent-vs-buy-calculator" />
+          <PopularCalculators exclude="/calculator/rent-vs-buy-calculator" />
         </div>
       </div>
     </>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { RotateCcw, BookOpen, Timer, Info, Play, Pause } from "lucide-react";
 
 import { useState, useEffect, useRef } from "react";
@@ -16,7 +16,7 @@ const ReadingSpeedCalculator = () => {
   const [totalWords, setTotalWords] = useState(0);
 
   const [bookLength, setBookLength] = useState("50000");
-  const [showResults, setShowResults] = useState(false); // Standard novel
+  // Standard novel
   const [readingTime, setReadingTime] = useState<any>(null);
 
   useEffect(() => {
@@ -53,7 +53,6 @@ const ReadingSpeedCalculator = () => {
   }, [wpm, bookLength]);
 
   const reset = () => {
-    setShowResults(false);
     setStartTime(null);
     setEndTime(null);
     setIsRunning(false);
@@ -70,14 +69,13 @@ const ReadingSpeedCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Reading Speed Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Reading Speed Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Test your reading speed (WPM) and estimate how long it will take to finish your books or documents.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Reading Speed Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Test your reading speed (WPM) and estimate how long it will take to finish your books or documents.</p>
 
-            <div className="card-calculator mb-8">
-              <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
                  <Timer className="h-5 w-5 text-primary" /> Speed Test
               </h2>
               <p className="text-sm text-muted-foreground mb-6">Click Start, read the passage below at your normal pace, then click Stop when you finish.</p>
@@ -102,10 +100,12 @@ const ReadingSpeedCalculator = () => {
                   <RotateCcw className="h-4 w-4" /> Reset
                 </button>
               </div>
-            </div>
+          </div>
 
-            {wpm && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+          <div className="flex flex-col gap-3">
+            {wpm && (<>
+
+              <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
                 <h2 className="text-xl font-bold mb-6">Your Results</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -142,11 +142,16 @@ const ReadingSpeedCalculator = () => {
                       </div>
                    </div>
                 </div>
+              
               </div>
-            )}
+            
+</>)}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>The Mechanics of Reading</h2>
               <p>Reading is a complex neurological process that involves vision, language, and memory. While we often think of it as a single skill, it's actually a collection of many sub-skills working in harmony.</p>
               
@@ -165,12 +170,8 @@ const ReadingSpeedCalculator = () => {
               <p><strong>College Student:</strong> 300 - 400 WPM</p>
               <p><strong>Speed Readers:</strong> 700+ WPM</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/reading-speed" />
-            <PopularCalculators exclude="/calculator/reading-speed-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/reading-speed" />
+          <PopularCalculators exclude="/calculator/reading-speed-calculator" />
         </div>
       </div>
     </>
@@ -178,4 +179,5 @@ const ReadingSpeedCalculator = () => {
 };
 
 export default ReadingSpeedCalculator;
+
 

@@ -73,14 +73,13 @@ const CatPregnancyCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Cat Pregnancy Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Cat Pregnancy Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Calculate your cat's expected due date, current trimester, and days remaining based on the mating date.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Cat Pregnancy Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate your cat's expected due date, current trimester, and days remaining based on the mating date.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="mb-6">
                 <label className="block text-sm font-medium text-foreground mb-1.5">Date of Mating</label>
                 <input
                   type="date"
@@ -97,10 +96,11 @@ const CatPregnancyCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Pregnancy Timeline</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -119,11 +119,14 @@ const CatPregnancyCalculator = () => {
                   { label: "Latest Possible Delivery", value: 0, textValue: results.lateDate },
                   { label: "Average Gestation Period", value: 0, textValue: "63–65 days" },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>A Complete Guide to Cat Pregnancy</h2>
               <p>Whether you are a professional breeder or a surprised pet owner, understanding the timeline and stages of feline pregnancy helps you provide the best possible care for your queen and her unborn kittens.</p>
 
@@ -143,12 +146,8 @@ const CatPregnancyCalculator = () => {
               <h3>Preparing for Labour</h3>
               <p>Set up a quiet, warm, dark nesting box in the last week. Line it with clean towels or paper. The queen will likely choose this spot to give birth if she feels safe there. Signs of imminent labour include restlessness, loss of appetite, and a drop in rectal temperature to below 37.8°C (100°F).</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/cat-pregnancy" />
-            <PopularCalculators exclude="/calculator/cat-pregnancy-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/cat-pregnancy" />
+          <PopularCalculators exclude="/calculator/cat-pregnancy-calculator" />
         </div>
       </div>
     </>

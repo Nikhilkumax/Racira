@@ -50,13 +50,13 @@ export default function HighYieldSavingsCalculator() {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "High-Yield Savings Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">High-Yield Savings Account Calculator</h1>
-            <p className="text-muted-foreground mb-8">Project the growth of your high-yield savings account with compound interest and regular monthly deposits.</p>
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-5 mb-6">
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">High-Yield Savings Account Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Project the growth of your high-yield savings account with compound interest and regular monthly deposits.</p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-5 mb-6">
                 <InputField id="principal" label="Initial Deposit ($)" value={principal} onChange={setPrincipal} prefix="$" tooltip="The amount you deposit when opening the account." />
                 <InputField id="apy" label="Annual Percentage Yield (APY)" value={apy} onChange={setApy} suffix="%" tooltip="The actual annual return including compound interest." />
                 <InputField id="monthly-deposit" label="Monthly Deposit ($)" value={monthlyDeposit} onChange={setMonthlyDeposit} prefix="$" tooltip="Additional amount deposited to the account each month." />
@@ -66,9 +66,11 @@ export default function HighYieldSavingsCalculator() {
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Savings Growth</button>
                 <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
+
+          <div className="flex flex-col gap-3">
             {showResults && (
-              <div className="card-calculator mb-8">
+              <>
                 <h2 className="text-xl font-bold mb-4">Savings Projection</h2>
                 <ResultDisplay items={[
                   { label: "Final Account Balance", value: results.finalBalance, highlight: true },
@@ -76,10 +78,14 @@ export default function HighYieldSavingsCalculator() {
                   { label: "Total Interest Earned", value: results.totalInterest, highlight: true },
                   { label: "Annual Yield (APY)", value: 0, textValue: `${results.effectiveAPY.toFixed(2)}%` },
                 ]} />
-              </div>
+              </>
             )}
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-            <article className="prose-finance">
+          </div>
+        </div>
+
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>Why Choose a High-Yield Savings Account?</h2>
               <p>High-yield savings accounts have become increasingly popular as interest rates rose significantly from 2022 to 2024. Traditional brick-and-mortar banks often offer savings account rates near 0.01-0.10% APY — essentially nothing. By contrast, online-only banks and fintech platforms regularly offer 4-5% APY, resulting in dramatically better returns on your cash reserves without any additional risk.</p>
               <h2>The Power of Compound Interest in Savings</h2>
@@ -96,13 +102,8 @@ export default function HighYieldSavingsCalculator() {
               <h2>Comparing HYSAs to Other Savings Vehicles</h2>
               <p>At 5% APY, a HYSA competes favorably with money market mutual funds and short-term CDs. The key advantages of a HYSA over CDs are full liquidity (no early withdrawal penalty), no fixed term, and the ability to continue depositing. The advantage of a CD is often a guaranteed fixed rate for its term, protecting against rate decreases if the Fed cuts interest rates.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/high-yield-savings-calculator" />
-            <PopularCalculators exclude="/calculator/high-yield-savings-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/high-yield-savings-calculator" />
+          <PopularCalculators exclude="/calculator/high-yield-savings-calculator" />
         </div>
       </div>
     </>

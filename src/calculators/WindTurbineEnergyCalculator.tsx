@@ -62,14 +62,13 @@ const WindTurbineEnergyCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Wind Turbine Energy Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Wind Turbine Energy Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Estimate the power output and energy generation of a wind turbine based on size and wind conditions.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Wind Turbine Energy Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Estimate the power output and energy generation of a wind turbine based on size and wind conditions.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 gap-6 mb-6">
                 <InputField id="diameter" label="Rotor Diameter" value={rotorDiameter} onChange={setRotorDiameter} suffix="m" />
                 <InputField id="speed" label="Average Wind Speed" value={windSpeed} onChange={setWindSpeed} suffix="m/s" tooltip="Average speed at hub height." />
                 <InputField id="eff" label="Turbine Efficiency" value={efficiency} onChange={setEfficiency} suffix="%" />
@@ -83,10 +82,11 @@ const WindTurbineEnergyCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Generation Report</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -119,11 +119,14 @@ const WindTurbineEnergyCalculator = () => {
                 <div className="p-4 rounded-xl bg-primary/5 border border-primary/10 text-xs text-muted-foreground leading-relaxed">
                   <p className="flex items-center gap-1.5"><Info className="h-3 w-3" /> Theoretical maximum power in the wind for this area is {Math.round(results.powerInWind).toLocaleString()}W. Your efficiency of {efficiency}% captures {Math.round(results.powerWatts).toLocaleString()}W.</p>
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Harnessing the Wind</h2>
               <p>Wind energy is one of the fastest-growing sources of renewable electricity. Unlike solar, wind can produce power 24 hours a day, though it is often more intermittent and highly dependent on local terrain.</p>
               <h3>The Cube Law</h3>
@@ -131,12 +134,8 @@ const WindTurbineEnergyCalculator = () => {
               <h3>Rotor Diameter and Swept Area</h3>
               <p>The power captured is also directly proportional to the swept area of the blades. Doubling the length of the blades (the radius) quadruples the swept area and the potential power output. This is why commercial wind turbines are becoming increasingly massive.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/wind-turbine-energy" />
-            <PopularCalculators exclude="/calculator/wind-turbine-energy-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/wind-turbine-energy" />
+          <PopularCalculators exclude="/calculator/wind-turbine-energy-calculator" />
         </div>
       </div>
     </>

@@ -65,16 +65,14 @@ const BMRCalculator = () => {
 
   return (
     <>
-<Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "BMR Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "BMR Calculator" }]} />
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">BMR Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate your Basal Metabolic Rate — the calories your body burns at complete rest.</p>
 
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">BMR Calculator</h1>
-            <p className="text-muted-foreground mb-8">Calculate your Basal Metabolic Rate — the calories your body burns at complete rest.</p>
-
-            <div className="card-calculator mb-8">
-              <div className="mb-6 flex gap-2">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="mb-6 flex gap-2">
                 <button onClick={() => setGender("male")} className={`flex-1 py-3 rounded-lg text-sm font-medium transition-colors ${gender === "male" ? "bg-accent text-accent-foreground" : "bg-secondary text-muted-foreground"}`}>Male</button>
                 <button onClick={() => setGender("female")} className={`flex-1 py-3 rounded-lg text-sm font-medium transition-colors ${gender === "female" ? "bg-accent text-accent-foreground" : "bg-secondary text-muted-foreground"}`}>Female</button>
               </div>
@@ -99,10 +97,11 @@ const BMRCalculator = () => {
                 <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2"><Calculator className="h-5 w-5" /> Calculate</button>
                 <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && result && (
-              <div className="card-calculator mb-8">
+              <>
                 <h2 className="text-xl font-bold mb-4">Your BMR</h2>
                 <div className="text-center mb-6">
                   <p className="text-5xl font-extrabold mb-1">{result.bmr.toLocaleString()}</p>
@@ -114,36 +113,14 @@ const BMRCalculator = () => {
                   { label: "Weekly BMR", value: 0, textValue: `${(result.bmr * 7).toLocaleString()} kcal` },
                   { label: "Monthly BMR", value: 0, textValue: `${(result.bmr * 30).toLocaleString()} kcal` },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-
-            {/* SEO Content Sections */}
-            <div className="mt-4 space-y-8 mb-10">
-              <section>
-                <h2 className="text-2xl font-bold mb-4">How the BMR Calculator Works</h2>
-                <p className="text-muted-foreground mb-3">Our BMR Calculator uses scientifically validated equations to estimate the minimum calories your body needs while completely at rest. Simply enter your gender, age, weight, and height, choose a formula, and click Calculate to get your personal Basal Metabolic Rate in seconds.</p>
-                <p className="text-muted-foreground mb-3">The Mifflin-St Jeor formula (the default) is the gold standard recommended by most dietitians. If you know your body fat percentage, the Katch-McArdle formula offers even higher precision by working directly from lean body mass instead of total weight.</p>
-                <p className="text-muted-foreground">All three supported equations — Mifflin-St Jeor, Harris-Benedict (Revised), and Katch-McArdle — are explained in detail below so you can choose the one that best fits your situation.</p>
-              </section>
-
-              <section>
-                <h2 className="text-2xl font-bold mb-4">Understanding Your Results</h2>
-                <p className="text-muted-foreground mb-3">Your BMR result represents the calories burned per day doing absolutely nothing — just lying still while your heart beats, lungs breathe, and cells repair themselves. It is not the number of calories you should eat; it is the baseline before activity is factored in.</p>
-                <p className="text-muted-foreground mb-3">To find your Total Daily Energy Expenditure (TDEE), multiply your BMR by an activity factor: sedentary (×1.2), lightly active (×1.375), moderately active (×1.55), very active (×1.725), or extra active (×1.9). TDEE is the calorie target for weight maintenance.</p>
-                <p className="text-muted-foreground">To lose weight, aim for a deficit of 300–500 kcal below TDEE. To gain muscle, add 200–300 kcal above it. Never eat below your BMR without medical supervision — doing so can cause muscle loss, nutrient deficiencies, and metabolic slowdown.</p>
-              </section>
-
-              <section>
-                <h2 className="text-2xl font-bold mb-4">Common Use Cases</h2>
-                <p className="text-muted-foreground mb-3"><strong>Weight management:</strong> Athletes and dieters use BMR to set precise calorie targets rather than guessing. Knowing your baseline prevents under-eating (which slows metabolism) and over-eating (which causes fat gain).</p>
-                <p className="text-muted-foreground mb-3"><strong>Fitness programming:</strong> Personal trainers calculate client BMR to design nutrition plans that support training goals — whether cutting, bulking, or maintaining body composition.</p>
-                <p className="text-muted-foreground"><strong>Health monitoring:</strong> Tracking BMR over months reveals how lifestyle changes (strength training, improved sleep, hormonal treatment) affect your resting metabolism, making it a useful biometric alongside weight and body fat percentage.</p>
-              </section>
-            </div>
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>What Is BMR?</h2>
               <p>Basal Metabolic Rate (BMR) represents the minimum number of calories your body needs to function while at complete rest. This includes essential processes like breathing, blood circulation, nutrient processing, and cell production. BMR typically accounts for 60-75% of your total daily calorie expenditure.</p>
 
@@ -172,14 +149,8 @@ const BMRCalculator = () => {
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> BMR calculations provide estimates. Individual metabolic rates can vary. Consult a healthcare professional for personalized nutrition advice.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/bmr-calculator" />
-            <PopularCalculators exclude="/bmr-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/bmr-calculator" />
+          <PopularCalculators exclude="/bmr-calculator" />
         </div>
       </div>
     </>

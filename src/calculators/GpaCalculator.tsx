@@ -150,15 +150,13 @@ const GPACalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "GPA Calculator" }]} />
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">GPA Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate your semester GPA, cumulative GPA, and the grades needed to reach your target GPA. Supports all standard letter grades and credit hours.</p>
 
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">GPA Calculator</h1>
-            <p className="text-muted-foreground mb-8">Calculate your semester GPA, cumulative GPA, and the grades needed to reach your target GPA. Supports all standard letter grades and credit hours.</p>
-
-            <div className="card-calculator mb-8">
-              {/* Mode Selector */}
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            {/* Mode Selector */}
               <div className="mb-6">
                 <label className="block text-sm font-medium text-foreground mb-1.5">Calculator Mode</label>
                 <div className="flex rounded-lg border border-input overflow-hidden">
@@ -240,10 +238,11 @@ const GPACalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8">
+              <>
                 <h2 className="text-xl font-bold mb-4">GPA Results</h2>
 
                 {results.mode === "semester" && (
@@ -342,12 +341,14 @@ const GPACalculator = () => {
                     )}
                   </>
                 )}
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>What Is a GPA Calculator?</h2>
               <p>A GPA (Grade Point Average) calculator converts your letter grades and credit hours into a numerical GPA on the standard 4.0 scale. It's an essential tool for students planning their academic paths, checking honor roll eligibility, preparing graduate school applications, and monitoring academic progress throughout their college career.</p>
               <p>Our advanced calculator offers three modes: Semester GPA for calculating your current term's GPA, Cumulative GPA for updating your overall GPA after a new semester, and Needed GPA for finding exactly what grades you need in remaining courses to reach a target GPA by graduation.</p>
@@ -369,15 +370,8 @@ const GPACalculator = () => {
               <h2>Tips for Improving Your GPA</h2>
               <p>Take advantage of grade replacement policies at schools that allow retaking courses. Focus extra effort on high-credit courses where grades have a proportionally larger impact on GPA. Use incomplete/withdrawal options strategically rather than taking a failing grade. Attend office hours — research shows students who attend office hours receive on average 0.5 GPA points higher than those who don't. Balance your course load to avoid taking multiple difficult courses simultaneously.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/gpa-calculator" />
-            <PopularCalculators exclude="/calculator/gpa-calculator" />
-          </div>
-
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/gpa-calculator" />
+          <PopularCalculators exclude="/calculator/gpa-calculator" />
         </div>
       </div>
     </>

@@ -61,14 +61,13 @@ const BusinessLoanCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Business Loan Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Business Loan Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Calculate payments and analyze the ROI of borrowing for your business growth.</p>
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Business Loan Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate payments and analyze the ROI of borrowing for your business growth.</p>
 
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
                 <InputField id="amount" label="Loan Amount ($)" value={amount} onChange={setAmount} />
                 <InputField id="rate" label="Interest Rate (%)" value={rate} onChange={setRate} />
                 <InputField id="term" label="Term (Months)" value={term} onChange={setTerm} />
@@ -82,10 +81,11 @@ const BusinessLoanCalculator = () => {
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Loan Analysis</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -104,11 +104,14 @@ const BusinessLoanCalculator = () => {
                   { label: "Total Payback", value: 0, textValue: "$" + results.totalPayback.toLocaleString(undefined, { maximumFractionDigits: 0 }) },
                   { label: "Investment Break-Even", value: 0, textValue: Math.ceil(results.breakEvenMonths) + " Months" },
                 ]} />
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Fueling Your Business Growth</h2>
               <p>Borrowing money for your business is a strategic decision. Unlike personal debt, business debt is often used to generate more income than the cost of the loan itself.</p>
               <h3>Types of Business Loans</h3>
@@ -121,12 +124,8 @@ const BusinessLoanCalculator = () => {
               <h3>Analyzing the ROI</h3>
               <p>When taking a business loan, you should always calculate the expected return on investment. If a $100,000 loan costs you $2,000 per month but allows you to increase your monthly revenue by $5,000, the 'net' gain is $3,000 per month. This is the hallmark of healthy business debt.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/business-loan" />
-            <PopularCalculators exclude="/calculator/business-loan-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/business-loan" />
+          <PopularCalculators exclude="/calculator/business-loan-calculator" />
         </div>
       </div>
     </>

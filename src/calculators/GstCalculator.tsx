@@ -70,16 +70,14 @@ const GSTCalculator = () => {
 
   return (
     <>
-<Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "GST Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "GST Calculator" }]} />
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">GST Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Calculate GST (Goods and Services Tax) with CGST/SGST split or IGST for inter-state transactions.</p>
 
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">GST Calculator</h1>
-            <p className="text-muted-foreground mb-8">Calculate GST (Goods and Services Tax) with CGST/SGST split or IGST for inter-state transactions.</p>
-
-            <div className="card-calculator mb-8">
-              <div className="flex rounded-lg border border-input overflow-hidden mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="flex rounded-lg border border-input overflow-hidden mb-6">
                 <button onClick={() => { setMode("exclusive"); setResult(null); }} className={`flex-1 py-3 text-sm font-medium transition-colors ${mode === "exclusive" ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:bg-secondary"}`}>Add GST (Exclusive)</button>
                 <button onClick={() => { setMode("inclusive"); setResult(null); }} className={`flex-1 py-3 text-sm font-medium transition-colors ${mode === "inclusive" ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:bg-secondary"}`}>Remove GST (Inclusive)</button>
               </div>
@@ -99,10 +97,11 @@ const GSTCalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate GST</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
 
+          <div className="flex flex-col gap-3">
             {showResults && result && (
-              <div className="card-calculator mb-8">
+              <>
                 <h2 className="text-xl font-bold mb-4">GST Breakdown</h2>
                 <ResultDisplay currency="₹" items={[
                   { label: "Net Amount", value: result.netAmount },
@@ -148,12 +147,14 @@ const GSTCalculator = () => {
                     </tbody>
                   </table>
                 </div>
-              </div>
+              </>
             )}
+          </div>
+        </div>
 
-            <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-
-            <article className="prose-finance">
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <article className="prose-finance">
               <h2>What Is a GST Calculator?</h2>
               <p>A GST (Goods and Services Tax) calculator helps you add or remove GST from any amount. It's essential for businesses and consumers in India and other countries that use the GST system. Our calculator provides a complete breakdown including CGST, SGST, and IGST splits.</p>
               <p>Whether you're preparing invoices, checking bills, or calculating the tax component of a purchase, this tool gives you instant, accurate results with an invoice-ready format.</p>
@@ -178,14 +179,8 @@ const GSTCalculator = () => {
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> This calculator provides estimates for general purposes. GST rules are complex and subject to change. For official tax compliance, consult a chartered accountant or tax professional.</p>
             </article>
-
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/gst-calculator" />
-            <PopularCalculators exclude="/gst-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6">
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-            <AdPlaceholder className="min-h-[250px]" label="Ad Space – Sidebar" />
-          </aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/gst-calculator" />
+          <PopularCalculators exclude="/gst-calculator" />
         </div>
       </div>
     </>

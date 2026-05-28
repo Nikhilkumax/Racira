@@ -59,13 +59,13 @@ const DividendCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Dividend Calculator" }]} />
-      <div className="container-page py-8">
-        <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 text-foreground">Dividend Calculator</h1>
-            <p className="text-muted-foreground mb-8 text-lg">Estimate dividend income, yield, and long-term DRIP accumulation for stock investments.</p>
-            <div className="card-calculator mb-8">
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+      <div className="container-page py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Dividend Calculator</h1>
+        <p className="text-muted-foreground mb-6 text-lg">Estimate dividend income, yield, and long-term DRIP accumulation for stock investments.</p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
                 <InputField id="shares" label="Number of Shares" value={shares} onChange={setShares} />
                 <InputField id="price" label="Price Per Share ($)" value={pricePerShare} onChange={setPricePerShare} />
                 <InputField id="div" label="Annual Dividend Per Share ($)" value={annualDividend} onChange={setAnnualDividend} />
@@ -75,9 +75,11 @@ const DividendCalculator = () => {
               <div className="flex gap-3">
                 <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2"><DollarSign className="h-5 w-5" /> Calculate Income</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground"><RotateCcw className="h-5 w-5" /></button>
               </div>
-            </div>
+          </div>
+
+          <div className="flex flex-col gap-3">
             {showResults && results && (
-              <div className="card-calculator mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <>
                 <h2 className="text-xl font-bold mb-6">Dividend Income Analysis</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
@@ -95,10 +97,14 @@ const DividendCalculator = () => {
                   { label: "Quarterly Payment", value: 0, textValue: "$" + results.quarterlyIncome.toLocaleString(undefined, { maximumFractionDigits: 0 }) },
                   { label: "Total Investment", value: 0, textValue: "$" + results.totalInvestment.toLocaleString() },
                 ]} />
-              </div>
+              </>
             )}
-            <AdPlaceholder className="mb-8" />
-            <article className="prose-finance">
+          </div>
+        </div>
+
+        <div className="max-w-[1180px] mx-auto mt-8">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance">
               <h2>Building Dividend Income</h2>
               <p>Dividend investing is a popular strategy for generating passive income. By owning dividend-paying stocks, you receive regular cash payments simply for holding shares.</p>
               <h3>The Power of DRIP</h3>
@@ -106,10 +112,8 @@ const DividendCalculator = () => {
               <h3>Dividend Growth Investing</h3>
               <p>Companies that have consistently raised their dividends for 25+ consecutive years are called "Dividend Aristocrats." These companies tend to be financially strong and shareholder-friendly, making them excellent candidates for long-term income portfolios.</p>
             </article>
-            <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/dividend" />
-            <PopularCalculators exclude="/calculator/dividend-calculator" />
-          </div>
-          <aside className="hidden lg:block space-y-6"><AdPlaceholder className="min-h-[600px]" label="Sticky Sidebar" /></aside>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/dividend" />
+          <PopularCalculators exclude="/calculator/dividend-calculator" />
         </div>
       </div>
     </>
