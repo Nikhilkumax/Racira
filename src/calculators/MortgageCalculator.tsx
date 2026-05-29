@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState, useRef, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
@@ -464,7 +464,7 @@ const MortgageCalculator = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <h2 className="text-lg font-bold text-foreground pb-2 border-b border-border">Inputs</h2>
+
 
             <div className="grid grid-cols-2 gap-4">
               <CompactInput
@@ -716,9 +716,8 @@ const MortgageCalculator = () => {
                 <>
 
               <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card" ref={printRef}>
-                {/* Results Header */}
-                <div className="flex items-center justify-between pb-2 border-b border-border">
-                  <h2 className="text-lg font-bold text-foreground">Results</h2>
+                {/* Print Button */}
+                <div className="flex justify-end">
                   <button onClick={handlePrint} className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline focus:outline-none">
                     <Printer className="h-3.5 w-3.5" /> Print
                   </button>

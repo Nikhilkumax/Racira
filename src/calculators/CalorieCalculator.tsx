@@ -119,7 +119,7 @@ const CalorieCalculator = () => {
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
           {/* LEFT */}
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <h2 className="text-lg font-bold text-foreground pb-2 border-b border-border">Inputs</h2>
+
 
             {/* Unit tabs */}
             <div className="flex rounded-md border border-input overflow-hidden h-9">
@@ -257,7 +257,7 @@ const CalorieCalculator = () => {
           <div className="flex flex-col gap-3">
             {result&&(
               <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-                <h2 className="text-lg font-bold text-foreground pb-2 border-b border-border">Results</h2>
+
 
                 {/* TDEE hero */}
                 <div className="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-xl p-5 text-center">
@@ -363,7 +363,7 @@ const CalorieCalculator = () => {
             </ul>
             <p>Second, your BMR is multiplied by an activity factor ranging from 1.2 (sedentary) to 2.0 (extra active) to produce your TDEE. The result is your maintenance calorie level — eat below it to lose weight, above it to gain.</p>
 
-            <h2>Is the Losertown Calorie Calculator Accurate?</h2>
+            <h2>How Accurate Is the Losertown Calorie Calculator?</h2>
             <p>Yes — within the expected range of any population-level formula. The Mifflin-St Jeor equation (the default in our <strong>Losertown calorie calculator</strong>) estimates TDEE within 10% for ~82% of tested subjects in controlled studies. That's as accurate as any non-invasive method gets without metabolic chamber testing.</p>
             <p>Where variance creeps in: individual metabolic differences, hormonal factors, gut microbiome, and muscle-to-fat ratio. If the calculator's output isn't producing expected weight change after 3–4 weeks of consistent tracking, adjust by ±100–200 Cal/day. Use the <a href="/calculator/bmr-calculator">BMR Calculator</a> and the <a href="/calculator/calorie-deficit-calculator">Calorie Deficit Calculator</a> together for a complete picture.</p>
             <p>Compared with other tools: Cronometer, MyFitnessPal, and calculator.net all use the same underlying Mifflin-St Jeor equation. The difference between tools is UX, not math. Our <strong>Losertown calorie calculator</strong> adds multi-formula support and real-time kJ conversion that most competitors lack.</p>
