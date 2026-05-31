@@ -1,213 +1,747 @@
 "use client";
-import { RotateCcw, ShieldCheck, TrendingDown, Home } from "lucide-react";
-
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { ChevronDown, RotateCcw, Printer, Calculator } from "lucide-react";
+import { PieChart as RPie, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import ResultDisplay from "@/components/calculator/ResultDisplay";
-import InputField from "@/components/calculator/InputField";
+import { calculatePmi, MONTHS, type PmiInputs, type LoanType, type PaymentFreq, type DpMode, type PmiMode } from "./pmiLogic";
+
+const fmt = (n: number, dec = 2) => n.toLocaleString("en-US", { minimumFractionDigits: dec, maximumFractionDigits: dec });
+const fmtInt = (n: number) => Math.round(n).toLocaleString("en-US");
+
+const CompactInput = ({
+  id,
+  label,
+  value,
+  onChange,
+  prefix,
+  suffix,
+  tooltip,
+  type = "number",
+  ...props
+}: {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (val: string) => void;
+  prefix?: string;
+  suffix?: string;
+  tooltip?: string;
+  type?: string;
+  [key: string]: any;
+}) => (
+  <div className="flex flex-col">
+    <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1">
+      {label}
+    </label>
+    <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-9 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
+      {prefix && (
+        <span className="pl-3 pr-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">
+          {prefix}
+        </span>
+      )}
+      <input
+        id={id}
+        type={type}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground"
+        {...props}
+      />
+      {suffix && (
+        <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">
+          {suffix}
+        </span>
+      )}
+    </div>
+  </div>
+);
+
+
+
+const PIE_COLORS = ["hsl(var(--primary))", "#10b981", "#f59e0b", "#ef4444", "#8b5cf6"];
+
 const PmiCalculator = () => {
+  const now = new Date();
   const [homeValue, setHomeValue] = useState("400000");
-  const [downPayment, setDownPayment] = useState("20000");
-  const [creditScore, setCreditScore] = useState("720");
+  const [dpMode, setDpMode] = useState<DpMode>("percent");
+  const [dpPct, setDpPct] = useState("10");
+  const [dpAmt, setDpAmt] = useState("40000");
+  const [interestRate, setInterestRate] = useState("6.5");
   const [loanTerm, setLoanTerm] = useState("30");
+  const [creditScore, setCreditScore] = useState("720");
+  const [loanType, setLoanType] = useState<LoanType>("conventional");
+  const [propertyUse, setPropertyUse] = useState("primary");
+  const [startMonth, setStartMonth] = useState(MONTHS[now.getMonth()]);
+  const [startYear, setStartYear] = useState(String(now.getFullYear()));
+  const [paymentFreq, setPaymentFreq] = useState<PaymentFreq>("monthly");
+  const [showAdv, setShowAdv] = useState(false);
+  const [pmiMode, setPmiMode] = useState<PmiMode>("auto");
+  const [manualPmiRate, setManualPmiRate] = useState("0.5");
+  const [propertyTax, setPropertyTax] = useState("3600");
+  const [homeInsurance, setHomeInsurance] = useState("1200");
+  const [hoaFee, setHoaFee] = useState("0");
+  const [extraMonthly, setExtraMonthly] = useState("0");
+  const [oneTimeExtra, setOneTimeExtra] = useState("0");
+  const [annualExtra, setAnnualExtra] = useState("0");
+  const [fhaMipMode, setFhaMipMode] = useState<PmiMode>("auto");
+  const [manualFhaMipRate, setManualFhaMipRate] = useState("0.85");
+  const [mounted, setMounted] = useState(false);
+  const printRef = useRef<HTMLDivElement>(null);
 
-  const [results, setResults] = useState<any>(null);
-  const [showResults, setShowResults] = useState(false);
+  const getInputs = (): PmiInputs => ({
+    homeValue: parseFloat(homeValue) || 0,
+    dpMode, dpPct: parseFloat(dpPct) || 0, dpAmt: parseFloat(dpAmt) || 0,
+    interestRate: parseFloat(interestRate) || 0,
+    loanTerm: parseFloat(loanTerm) || 30,
+    creditScore: parseInt(creditScore) || 720,
+    loanType, propertyUse, startMonth, startYear,
+    paymentFreq, pmiMode, manualPmiRate: parseFloat(manualPmiRate) || 0,
+    propertyTax: parseFloat(propertyTax) || 0,
+    homeInsurance: parseFloat(homeInsurance) || 0,
+    hoaFee: parseFloat(hoaFee) || 0,
+    extraMonthly: parseFloat(extraMonthly) || 0,
+    oneTimeExtra: parseFloat(oneTimeExtra) || 0,
+    annualExtra: parseFloat(annualExtra) || 0,
+    fhaMipMode, manualFhaMipRate: parseFloat(manualFhaMipRate) || 0,
+  });
 
-  const handleCalculate = () => {
-    setShowResults(true);
-    const value = parseFloat(homeValue) || 0;
-    const down = parseFloat(downPayment) || 0;
-    const score = parseInt(creditScore) || 0;
-    const loanAmount = value - down;
-    const ltv = (loanAmount / value) * 100;
+  const [results, setResults] = useState(() => calculatePmi({
+    homeValue: 400000, dpMode: "percent", dpPct: 10, dpAmt: 40000,
+    interestRate: 6.5, loanTerm: 30, creditScore: 720, loanType: "conventional",
+    propertyUse: "primary", startMonth: MONTHS[now.getMonth()], startYear: String(now.getFullYear()),
+    paymentFreq: "monthly", pmiMode: "auto", manualPmiRate: 0,
+    propertyTax: 3600, homeInsurance: 1200, hoaFee: 0,
+    extraMonthly: 0, oneTimeExtra: 0, annualExtra: 0,
+    fhaMipMode: "auto", manualFhaMipRate: 0,
+  }));
 
-    if (value <= 0 || loanAmount <= 0) return;
+  useEffect(() => { setMounted(true); }, []);
 
-    if (ltv <= 80) {
-      setResults({ isRequired: false, ltv });
-      return;
-    }
-
-    // Simplified PMI rate estimation based on LTV and Credit Score
-    let baseRate = 0.5;
-    if (ltv > 95) baseRate = 1.0;
-    else if (ltv > 90) baseRate = 0.75;
-    else if (ltv > 85) baseRate = 0.55;
-
-    // Credit score adjustment
-    if (score >= 760) baseRate *= 0.8;
-    else if (score >= 720) baseRate *= 1.0;
-    else if (score >= 680) baseRate *= 1.4;
-    else if (score >= 640) baseRate *= 2.0;
-    else baseRate *= 2.5;
-
-    const annualPMI = (loanAmount * baseRate) / 100;
-    const monthlyPMI = annualPMI / 12;
-
-    // Estimate cancellation date (when balance reaches 80% LTV)
-    // For simplicity, we'll assume a 7% annual interest rate for the mortgage
-    const rate = 0.07 / 12;
-    const payment = (loanAmount * rate * Math.pow(1 + rate, parseInt(loanTerm) * 12)) / (Math.pow(1 + rate, parseInt(loanTerm) * 12) - 1);
-    
-    let currentBalance = loanAmount;
-    let monthsTo80 = 0;
-    const targetBalance = value * 0.8;
-
-    while (currentBalance > targetBalance && monthsTo80 < 360) {
-      currentBalance -= (payment - (currentBalance * rate));
-      monthsTo80++;
-    }
-
-    setResults({
-      isRequired: true,
-      ltv,
-      annualPMI,
-      monthlyPMI,
-      baseRate,
-      monthsTo80,
-      totalPmiPaid: monthlyPMI * monthsTo80
-    });
+  const handleHvChange = (v: string) => {
+    setHomeValue(v);
+    const hv = parseFloat(v) || 0;
+    if (dpMode === "percent") setDpAmt(String(Math.round(hv * (parseFloat(dpPct) || 0) / 100)));
+    else setDpPct(hv > 0 ? String(((parseFloat(dpAmt) || 0) / hv * 100).toFixed(1)) : "0");
+  };
+  const handleDpChange = (v: string) => {
+    const hv = parseFloat(homeValue) || 0;
+    if (dpMode === "percent") { setDpPct(v); setDpAmt(String(Math.round(hv * (parseFloat(v) || 0) / 100))); }
+    else { setDpAmt(v); setDpPct(hv > 0 ? String(((parseFloat(v) || 0) / hv * 100).toFixed(1)) : "0"); }
+  };
+  const handleDpModeToggle = (m: string) => {
+    setDpMode(m as DpMode);
   };
 
   const reset = () => {
-    setHomeValue("400000");
-    setDownPayment("20000");
-    setCreditScore("720");
-    setLoanTerm("30");
+    setHomeValue("400000"); setDpMode("percent"); setDpPct("10"); setDpAmt("40000");
+    setInterestRate("6.5"); setLoanTerm("30"); setCreditScore("720");
+    setLoanType("conventional"); setPropertyUse("primary");
+    setStartMonth(MONTHS[now.getMonth()]); setStartYear(String(now.getFullYear()));
+    setPaymentFreq("monthly"); setPmiMode("auto"); setManualPmiRate("0.5");
+    setPropertyTax("3600"); setHomeInsurance("1200"); setHoaFee("0");
+    setExtraMonthly("0"); setOneTimeExtra("0"); setAnnualExtra("0");
+    setFhaMipMode("auto"); setManualFhaMipRate("0.85");
+    setResults(calculatePmi({
+      homeValue: 400000, dpMode: "percent", dpPct: 10, dpAmt: 40000,
+      interestRate: 6.5, loanTerm: 30, creditScore: 720, loanType: "conventional",
+      propertyUse: "primary", startMonth: MONTHS[now.getMonth()], startYear: String(now.getFullYear()),
+      paymentFreq: "monthly", pmiMode: "auto", manualPmiRate: 0,
+      propertyTax: 3600, homeInsurance: 1200, hoaFee: 0,
+      extraMonthly: 0, oneTimeExtra: 0, annualExtra: 0,
+      fhaMipMode: "auto", manualFhaMipRate: 0,
+    }));
   };
 
-  const faqs = [
-    {
-      question: "What is PMI?",
-      answer: "Private Mortgage Insurance (PMI) is a type of insurance that protects the lender if you stop making payments on your loan. It is typically required on conventional loans when the down payment is less than 20% of the home's value."
-    },
-    {
-      question: "How much does PMI cost?",
-      answer: "PMI costs usually range from 0.2% to 2% of your loan amount annually. The specific rate depends on your loan-to-value (LTV) ratio, your credit score, and the type of mortgage you have."
-    },
-    {
-      question: "Can I remove PMI?",
-      answer: "Yes. Under the Homeowners Protection Act, you can request PMI cancellation when your loan balance reaches 80% of the original home value. Lenders are required to automatically terminate PMI when the balance reaches 78% LTV, provided you are current on payments."
-    },
-    {
-      question: "Is PMI tax-deductible?",
-      answer: "PMI deductibility varies depending on current tax laws and your income level. It has historically been deductible for many taxpayers, but you should consult with a tax professional for the latest rules."
-    }
+  const handlePrint = () => {
+    if (!printRef.current) return;
+    const w = window.open("", "_blank");
+    if (!w) return;
+    w.document.write(`<html><head><title>PMI Calculator Results</title><style>body{font-family:system-ui;padding:2rem}table{width:100%;border-collapse:collapse}th,td{border:1px solid #ddd;padding:8px;text-align:left}</style></head><body>`);
+    w.document.write(printRef.current.innerHTML);
+    w.document.write("</body></html>");
+    w.document.close(); w.print();
+  };
+
+  const liveHv = parseFloat(homeValue) || 0;
+  const liveDpAmt = parseFloat(dpAmt) || 0;
+  const liveDpPct = parseFloat(dpPct) || 0;
+  const liveLa = dpMode === "percent" ? liveHv * (1 - liveDpPct / 100) : liveHv - liveDpAmt;
+  const liveLtv = liveHv > 0 ? (liveLa / liveHv) * 100 : 0;
+  const ltvBadgeColor = liveLtv > 90 ? "bg-red-500" : liveLtv > 80 ? "bg-orange-500" : "bg-emerald-500";
+
+  const ltv = results.ltv;
+
+  const pieData = [
+    { name: "P & I", value: results.monthlyPI, color: PIE_COLORS[0] },
+    { name: "Property Tax", value: results.monthlyTax, color: PIE_COLORS[1] },
+    { name: "Insurance", value: results.monthlyInsurance, color: PIE_COLORS[2] },
+    { name: "PMI / MIP", value: results.monthlyPmi, color: PIE_COLORS[3] },
+    { name: "HOA / Other", value: results.monthlyHoa, color: PIE_COLORS[4] },
+  ].filter(d => d.value > 0);
+
+  const termYrs = parseFloat(loanTerm) || 30;
+  const breakdown = [
+    { label: "Principal & Interest", monthly: results.monthlyPI, total: results.monthlyPI * termYrs * 12 },
+    { label: "Property Tax", monthly: results.monthlyTax, total: results.monthlyTax * termYrs * 12 },
+    { label: "Home Insurance", monthly: results.monthlyInsurance, total: results.monthlyInsurance * termYrs * 12 },
+    { label: loanType === "fha" ? "MIP (Mortgage Ins.)" : "PMI", monthly: results.monthlyPmi, total: results.totalPmiCost, highlight: true },
+    { label: "HOA / Other Costs", monthly: results.monthlyHoa, total: results.monthlyHoa * termYrs * 12 },
+    { label: "Total Out-of-Pocket", monthly: results.totalMonthly, total: results.totalMonthly * termYrs * 12, isTotal: true },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "PMI Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Finance", href: "/calculator#finance" }, { label: "PMI Calculator" }]} />
       <div className="container-page py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">PMI Calculator</h1>
-        <p className="text-muted-foreground mb-6 text-lg">Estimate your monthly Private Mortgage Insurance (PMI) costs and see when you can cancel it.</p>
 
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="grid sm:grid-cols-2 gap-8">
-                <section className="space-y-6">
-                  <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
-                    <Home className="h-5 w-5 text-primary" /> Loan Basics
-                  </h2>
-                  <InputField id="home-value" label="Home Value" value={homeValue} onChange={setHomeValue} prefix="$" tooltip="The purchase price or appraised value of the home." />
-                  <InputField id="down-payment" label="Down Payment" value={downPayment} onChange={setDownPayment} prefix="$" tooltip="The amount of cash you are paying upfront." />
-                </section>
+          {/* LEFT: INPUT PANEL */}
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card !overflow-visible">
 
-                <section className="space-y-6">
-                  <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
-                    <ShieldCheck className="h-5 w-5 text-primary" /> Risk Factors
-                  </h2>
-                  <InputField id="credit-score" label="Credit Score" value={creditScore} onChange={setCreditScore} tooltip="Lenders use your credit score to determine your PMI rate." />
-                  <InputField id="loan-term" label="Loan Term (Years)" value={loanTerm} onChange={setLoanTerm} suffix="yrs" />
-                </section>
-              </div>
-              <div className="mt-8 flex gap-3 items-center">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button>
-<button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground flex items-center gap-2 font-bold text-sm">
-                  <RotateCcw className="h-4 w-4" /> Reset 
-                </button>
-              </div>
-          </div>
-
-          <div className="flex flex-col gap-3">
-            {showResults && results && (
-              <>
-                {!results.isRequired ? (
-                  <div className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 p-8 rounded-2xl text-center">
-                    <ShieldCheck className="h-12 w-12 mx-auto mb-4 text-emerald-500" />
-                    <p className="text-2xl font-black mb-2">No PMI Required!</p>
-                    <p className="font-medium">Your LTV ratio is {results.ltv.toFixed(1)}%, which is 80% or less. You do not need to pay Private Mortgage Insurance on a conventional loan.</p>
+            {/* HOME VALUE & DOWN PAYMENT */}
+            <div className="grid grid-cols-2 gap-4">
+              <CompactInput
+                id="home-value"
+                label="Home Value"
+                value={homeValue}
+                onChange={handleHvChange}
+                prefix="$"
+              />
+              
+              {/* DOWN PAYMENT with toggle + LTV badge */}
+              <div className="flex flex-col">
+                <label htmlFor="down-payment" className="flex items-start justify-start gap-2 text-sm font-semibold text-foreground mb-1">
+                  <span>Down Payment</span>
+                  <span className={`mt-px text-[10px] font-bold px-1.5 py-0.5 rounded text-white whitespace-nowrap shrink-0 ${ltvBadgeColor}`} title={liveLtv <= 80 ? "PMI Usually Not Required" : ""}>
+                    LTV: {liveLtv.toFixed(1)}%{liveLtv <= 80 ? " (No PMI)" : ""}
+                  </span>
+                </label>
+                <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-9 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
+                  {dpMode === "amount" && (
+                    <span className="pl-3 pr-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">
+                      $
+                    </span>
+                  )}
+                  <input
+                    id="down-payment"
+                    type="number"
+                    value={dpMode === "percent" ? dpPct : dpAmt}
+                    onChange={(e) => handleDpChange(e.target.value)}
+                    className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground"
+                  />
+                  <div className="flex border-l border-input h-full shrink-0">
+                    <button
+                      type="button"
+                      onClick={() => handleDpModeToggle("percent")}
+                      className={`px-2 text-sm font-bold transition-colors border-r border-input ${
+                        dpMode === "percent"
+                          ? "bg-primary text-primary-foreground"
+                          : "bg-secondary text-muted-foreground hover:bg-secondary/80"
+                      }`}
+                    >
+                      %
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleDpModeToggle("amount")}
+                      className={`px-2 text-sm font-bold transition-colors ${
+                        dpMode === "amount"
+                          ? "bg-primary text-primary-foreground"
+                          : "bg-secondary text-muted-foreground hover:bg-secondary/80"
+                      }`}
+                    >
+                      $
+                    </button>
                   </div>
-                ) : (
-                  <>
-                    <div className="grid sm:grid-cols-2 gap-4 mb-6">
-                      <div className="card-calculator bg-primary/5 border-solid border-primary/20 text-center flex flex-col justify-center py-8">
-                        <p className="text-xs font-bold text-primary uppercase tracking-widest mb-1">Monthly PMI Cost</p>
-                        <p className="text-5xl font-black text-foreground">${Math.round(results.monthlyPMI).toLocaleString()}</p>
-                      </div>
-                      <div className="card-calculator bg-amber-500/5 border-amber-500/20 text-center flex flex-col justify-center py-8">
-                        <p className="text-xs font-bold text-amber-600 uppercase tracking-widest mb-1">Time to 80% LTV</p>
-                        <p className="text-5xl font-black text-foreground">{Math.floor(results.monthsTo80 / 12)}y {results.monthsTo80 % 12}m</p>
-                      </div>
-                    </div>
+                </div>
+              </div>
+            </div>
 
-                    <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-                      <h2 className="text-xl font-bold flex items-center gap-2 mb-6">
-                        <TrendingDown className="h-5 w-5 text-primary" /> Cost Analysis
-                      </h2>
-                      <ResultDisplay items={[
-                        { label: "Annual PMI Premium", value: results.annualPMI },
-                        { label: "Estimated PMI Rate", value: 0, textValue: `${results.baseRate.toFixed(2)}%` },
-                        { label: "Total PMI Paid Over Time", value: results.totalPmiPaid },
-                        { label: "Current LTV Ratio", value: 0, textValue: `${results.ltv.toFixed(1)}%` },
-                      ]} />
+            {/* INTEREST RATE + LOAN TERM */}
+            <div className="grid grid-cols-2 gap-4">
+              <CompactInput
+                id="interest-rate"
+                label="Interest Rate"
+                value={interestRate}
+                onChange={setInterestRate}
+                suffix="%"
+              />
+              <div className="flex flex-col">
+                <label className="text-sm font-semibold text-foreground mb-1">Loan Term</label>
+                <div className="relative h-9">
+                  <select
+                    id="loan-term"
+                    value={loanTerm}
+                    onChange={(e) => setLoanTerm(e.target.value)}
+                    className="w-full h-full rounded-md border border-input bg-background px-3 text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-foreground transition-all cursor-pointer font-medium"
+                  >
+                    {["10","15","20","25","30"].map((t) => (
+                      <option key={t} value={t}>{t} years</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            {/* CREDIT SCORE + LOAN TYPE */}
+            <div className="grid grid-cols-2 gap-4">
+              <CompactInput
+                id="credit-score"
+                label="Credit Score"
+                value={creditScore}
+                onChange={setCreditScore}
+              />
+              <div className="flex flex-col">
+                <label htmlFor="loan-type" className="text-sm font-semibold text-foreground mb-1">
+                  Loan Type
+                </label>
+                <div className="relative h-9">
+                  <select
+                    id="loan-type"
+                    value={loanType}
+                    onChange={(e) => setLoanType(e.target.value as LoanType)}
+                    className="w-full h-full rounded-md border border-input bg-background px-3 text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-foreground transition-all cursor-pointer font-medium"
+                  >
+                    <option value="conventional">Conventional</option>
+                    <option value="fha">FHA</option>
+                    <option value="va">VA</option>
+                    <option value="usda">USDA</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            {/* PROPERTY USE + START DATE */}
+            <div className="grid grid-cols-2 gap-4">
+              <div className="flex flex-col">
+                <label htmlFor="property-use" className="text-sm font-semibold text-foreground mb-1">
+                  Property Use
+                </label>
+                <div className="relative h-9">
+                  <select
+                    id="property-use"
+                    value={propertyUse}
+                    onChange={(e) => setPropertyUse(e.target.value)}
+                    className="w-full h-full rounded-md border border-input bg-background px-3 text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-foreground transition-all cursor-pointer font-medium"
+                  >
+                    <option value="primary">Primary Residence</option>
+                    <option value="second">Second Home</option>
+                    <option value="investment">Investment Property</option>
+                  </select>
+                </div>
+              </div>
+              <div className="flex flex-col">
+                <label className="text-sm font-semibold text-foreground mb-1">
+                  Start Date
+                </label>
+                <div className="grid grid-cols-2 gap-2 h-9">
+                  <div className="relative h-full">
+                    <select
+                      value={startMonth}
+                      onChange={(e) => setStartMonth(e.target.value)}
+                      className="w-full h-full rounded-md border border-input bg-background px-3 text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-foreground transition-all cursor-pointer font-medium"
+                    >
+                      {MONTHS.map(m => <option key={m} value={m}>{m}</option>)}
+                    </select>
+                  </div>
+                  <div className="relative h-full">
+                    <input
+                      type="text"
+                      value={startYear}
+                      onChange={(e) => setStartYear(e.target.value)}
+                      placeholder="Year"
+                      className="w-full h-full rounded-md border border-input bg-background px-3 text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-foreground transition-all font-medium"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* PAYMENT FREQUENCY */}
+            <div className="grid grid-cols-2 gap-4">
+              <div className="flex flex-col col-span-1">
+                <label className="flex items-center text-sm font-semibold text-foreground mb-1">
+                  Payment Frequency
+                </label>
+                <div className="flex rounded-md border border-input overflow-hidden h-9 w-full">
+                  <button
+                    type="button"
+                    onClick={() => setPaymentFreq("monthly")}
+                    className={`flex-1 text-sm font-semibold transition-colors ${
+                      paymentFreq === "monthly"
+                        ? "bg-primary text-primary-foreground"
+                        : "bg-secondary text-muted-foreground hover:bg-secondary/80"
+                    }`}
+                  >
+                    Monthly
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setPaymentFreq("biweekly")}
+                    className={`flex-1 text-sm font-semibold transition-colors border-l border-input ${
+                      paymentFreq === "biweekly"
+                        ? "bg-primary text-primary-foreground"
+                        : "bg-secondary text-muted-foreground hover:bg-secondary/80"
+                    }`}
+                  >
+                    Bi-Weekly
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* ADVANCED OPTIONS */}
+            <div>
+              <button
+                type="button"
+                onClick={() => setShowAdv(!showAdv)}
+                className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline mt-1 focus:outline-none"
+              >
+                Advanced Options
+                <ChevronDown className={`h-3 w-3 transition-transform ${showAdv ? "rotate-180" : ""}`} />
+              </button>
+
+              {showAdv && (
+                <div className="grid grid-cols-2 gap-3 p-3.5 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up !overflow-visible">
+                  {/* PMI RATE */}
+                  <div className="col-span-2 flex flex-col gap-1">
+                    <div className="flex items-center justify-between">
+                      <label className="flex items-center text-sm font-semibold text-foreground mb-1">PMI Rate (%)</label>
+                      <div className="flex rounded-md border border-input overflow-hidden h-8 w-32">
+                        <button
+                          type="button"
+                          onClick={() => setPmiMode("auto")}
+                          className={`flex-1 text-xs font-semibold transition-colors ${
+                            pmiMode === "auto" ? "bg-primary text-primary-foreground" : "bg-secondary text-muted-foreground"
+                          }`}
+                        >
+                          Auto
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setPmiMode("manual")}
+                          className={`flex-1 text-xs font-semibold transition-colors border-l border-input ${
+                            pmiMode === "manual" ? "bg-primary text-primary-foreground" : "bg-secondary text-muted-foreground"
+                          }`}
+                        >
+                          Manual
+                        </button>
+                      </div>
                     </div>
-                  </>
-                )}
+                    {pmiMode === "manual"
+                      ? <CompactInput id="pmi-rate" label="" value={manualPmiRate} onChange={setManualPmiRate} suffix="%" />
+                      : <div className="h-9 rounded-md border border-input bg-secondary/40 px-3 flex items-center text-sm text-muted-foreground font-medium">
+                          Auto: ~{results.pmiRate.toFixed(2)}% (based on LTV + credit score)
+                        </div>}
+                  </div>
+
+                  <CompactInput id="property-tax" label="Property Tax (Annual)" value={propertyTax} onChange={setPropertyTax} prefix="$" />
+                  <CompactInput id="home-insurance" label="Home Insurance (Annual)" value={homeInsurance} onChange={setHomeInsurance} prefix="$" />
+                  <CompactInput id="hoa-fee" label="HOA Fee (Monthly)" value={hoaFee} onChange={setHoaFee} prefix="$" />
+                  <CompactInput id="extra-monthly" label="Extra Monthly Payment" value={extraMonthly} onChange={setExtraMonthly} prefix="$" />
+                  <CompactInput id="one-time-extra" label="One-Time Extra Payment" value={oneTimeExtra} onChange={setOneTimeExtra} prefix="$" />
+                  <CompactInput id="annual-extra" label="Annual Extra Payment" value={annualExtra} onChange={setAnnualExtra} prefix="$" />
+                </div>
+              )}
+            </div>
+
+            {/* FHA SPECIFIC */}
+            {loanType === "fha" && showAdv && (
+              <div className="p-3 rounded-lg bg-blue-500/10 border border-blue-500/20 flex flex-col gap-3 mt-1">
+                <p className="text-xs font-bold text-blue-600 uppercase tracking-wider">🏦 FHA-Specific Fields</p>
+                <div className="flex items-center justify-between text-sm">
+                  <span className="font-semibold text-foreground">Upfront MIP</span>
+                  <span className="font-bold text-blue-600">1.75% (${fmtInt(results.upfrontMip)}) — Fixed</span>
+                </div>
+                <div className="flex flex-col gap-1">
+                  <div className="flex items-center justify-between">
+                    <label className="flex items-center text-sm font-semibold text-foreground mb-1">Annual MIP Rate</label>
+                    <div className="flex rounded-md border border-input overflow-hidden h-8 w-32">
+                      <button
+                        type="button"
+                        onClick={() => setFhaMipMode("auto")}
+                        className={`flex-1 text-xs font-semibold transition-colors ${
+                          fhaMipMode === "auto" ? "bg-primary text-primary-foreground" : "bg-secondary text-muted-foreground"
+                        }`}
+                      >
+                        Auto
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setFhaMipMode("manual")}
+                        className={`flex-1 text-xs font-semibold transition-colors border-l border-input ${
+                          fhaMipMode === "manual" ? "bg-primary text-primary-foreground" : "bg-secondary text-muted-foreground"
+                        }`}
+                      >
+                        Manual
+                      </button>
+                    </div>
+                  </div>
+                  {fhaMipMode === "manual"
+                    ? <CompactInput id="fha-mip-rate" label="" value={manualFhaMipRate} onChange={setManualFhaMipRate} suffix="%" />
+                    : <div className="h-9 rounded-md border border-input bg-secondary/40 px-3 flex items-center text-sm text-muted-foreground font-medium">
+                        Auto: {results.annualMipRate.toFixed(2)}% (based on LTV + term)
+                      </div>}
+                </div>
+              </div>
+            )}
+
+            {/* BUTTONS */}
+            <div className="flex gap-2.5 mt-2">
+              <button
+                type="button"
+                onClick={() => setResults(calculatePmi(getInputs()))}
+                onKeyDown={e => e.key === "Enter" && setResults(calculatePmi(getInputs()))}
+                className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm"
+              >
+                <Calculator className="h-4 w-4" /> Calculate
+              </button>
+              <button
+                type="button"
+                onClick={reset}
+                aria-label="Reset"
+                className="h-10 w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 shadow-sm"
+              >
+                <RotateCcw className="h-4 w-4" />
+              </button>
+            </div>
+          </div>
+          {/* RIGHT: RESULTS PANEL */}
+          <div className="flex flex-col gap-3 lg:sticky lg:top-6 lg:self-start" ref={printRef}>
+
+            {/* VA/USDA No PMI Banner */}
+            {results.noMipLoan && (
+              <div className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 p-6 rounded-2xl text-center">
+                <p className="text-2xl font-black mb-1">✅ No PMI Required!</p>
+                <p className="text-sm font-medium">{loanType.toUpperCase()} loans do not require Private Mortgage Insurance. LTV: {ltv.toFixed(1)}%</p>
+              </div>
+            )}
+
+            {/* No PMI (conventional at ≤80% LTV) */}
+            {!results.noMipLoan && !results.pmiRequired && (
+              <div className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 p-6 rounded-2xl text-center">
+                <p className="text-2xl font-black mb-1">✅ No PMI Required!</p>
+                <p className="text-sm font-medium">Your LTV is {ltv.toFixed(1)}% — at or below 80%. No PMI needed on this conventional loan.</p>
+              </div>
+            )}
+
+            {/* PRIMARY PMI CARD */}
+            {(results.pmiRequired || results.noMipLoan === false) && !results.noMipLoan && (
+              <>
+                <div className="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-xl p-5 text-center relative overflow-hidden">
+                  <div className="flex justify-end absolute top-3 right-3">
+                    <button onClick={handlePrint} className="flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline focus:outline-none">
+                      <Printer className="h-3.5 w-3.5" /> Print
+                    </button>
+                  </div>
+                  <div className="text-[13px] font-bold text-primary mb-1 uppercase tracking-wider">Estimated Monthly PMI</div>
+                  <div className="text-4xl font-extrabold text-foreground mb-1 tracking-tight">
+                    ${fmt(results.monthlyPmi)}
+                  </div>
+                  <div className="text-sm text-muted-foreground font-medium">
+                    Total Monthly Payment: ${fmt(results.totalMonthly)}/mo
+                  </div>
+                </div>
+
+                {/* COMPACT SUMMARY ROW */}
+                <div className="flex items-center justify-between px-4 py-3 bg-secondary/30 border border-border rounded-lg text-sm">
+                  <div className="flex flex-col">
+                    <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Current LTV</span>
+                    <span className="font-extrabold text-foreground">{ltv.toFixed(1)}%</span>
+                  </div>
+                  <div className="w-px h-8 bg-border"></div>
+                  <div className="flex flex-col">
+                    <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">PMI Rate</span>
+                    <span className="font-extrabold text-foreground">{loanType === "fha" ? results.annualMipRate.toFixed(2) : results.pmiRate.toFixed(2)}%</span>
+                  </div>
+                  <div className="w-px h-8 bg-border"></div>
+                  <div className="flex flex-col">
+                    <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">PMI Ends</span>
+                    <span className="font-extrabold text-foreground">{results.pmiCancelDate}</span>
+                  </div>
+                </div>
               </>
             )}
+
+            {/* BREAKDOWN TABLE */}
+            <div className="overflow-x-auto rounded-lg border border-border bg-card">
+              <table className="w-full text-left border-collapse text-sm">
+                <thead>
+                  <tr className="bg-secondary/40 border-b border-border text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
+                    <th className="p-2.5 pl-3">Expense Category</th>
+                    <th className="p-2.5 text-right w-[100px]">Monthly</th>
+                    <th className="p-2.5 pr-3 text-right w-[120px]">Total Paid</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border/50">
+                  {breakdown.map(row => (
+                    <tr key={row.label} className={`hover:bg-secondary/20 transition-colors ${row.isTotal ? "font-bold bg-secondary/30 border-t border-border" : ""} ${row.highlight ? "bg-red-500/5" : ""}`}>
+                      <td className={`p-2.5 pl-3 font-semibold ${row.highlight ? "text-red-600" : "text-foreground"}`}>{row.label}</td>
+                      <td className={`p-2.5 text-right ${row.highlight ? "text-red-600 font-bold" : "text-foreground"}`}>${fmt(row.monthly)}</td>
+                      <td className={`p-2.5 pr-3 text-right font-semibold ${row.highlight ? "text-red-600" : "text-foreground"}`}>${fmtInt(row.total)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {/* PMI TIMELINE CARD */}
+            {results.pmiRequired && (
+              <div className="rounded-xl border border-border bg-card p-4 flex flex-col gap-2">
+                <h3 className="text-sm font-bold text-foreground mb-1">📅 PMI Timeline</h3>
+                <div className="grid grid-cols-2 gap-x-4 gap-y-2">
+                  {[
+                    { label: "Current LTV", value: `${ltv.toFixed(1)}%` },
+                    { label: "PMI Required Until LTV", value: "80%" },
+                    { label: "Estimated PMI Cancellation", value: results.pmiCancelDate },
+                    { label: "Months of PMI Payments", value: `${results.pmiCancelMonth} months` },
+                    { label: "Total PMI Cost", value: `$${fmtInt(results.totalPmiCost)}` },
+                    { label: "Monthly Savings After PMI", value: `$${fmt(results.monthlySavingsAfterPmi)}/mo`, highlight: true },
+                  ].map(item => (
+                    <div key={item.label} className="flex flex-col">
+                      <span className="text-[11px] font-bold uppercase text-muted-foreground tracking-wider">{item.label}</span>
+                      <span className={`text-sm font-extrabold ${item.highlight ? "text-emerald-600" : "text-foreground"}`}>{item.value}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* DONUT CHART */}
+            <div className="flex flex-col sm:flex-row items-center gap-5 p-4 rounded-xl border border-border bg-card">
+              <div className="shrink-0">
+                {mounted && pieData.length > 0 ? (
+                  <div className="w-[160px] h-[160px] relative">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <RPie>
+                        <Pie data={pieData} cx="50%" cy="50%" innerRadius={44} outerRadius={66} paddingAngle={2} dataKey="value">
+                          {pieData.map((e, i) => <Cell key={i} fill={e.color} />)}
+                        </Pie>
+                        <Tooltip formatter={(v: any) => [`$${fmt(v)}`, ""]} />
+                      </RPie>
+                    </ResponsiveContainer>
+                    <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                      <span className="text-[10px] uppercase font-bold text-muted-foreground">Total/mo</span>
+                      <span className="text-base font-extrabold text-foreground">${fmtInt(results.totalMonthly)}</span>
+                    </div>
+                  </div>
+                ) : <div className="w-[160px] h-[160px] flex items-center justify-center text-muted-foreground text-xs">Loading chart...</div>}
+              </div>
+              <div className="flex-1 flex flex-col gap-2">
+                <h4 className="text-[11px] font-bold uppercase text-muted-foreground tracking-wider">Monthly Payment Split</h4>
+                {[
+                  { name: "P & I", value: results.monthlyPI, color: PIE_COLORS[0] },
+                  { name: "Property Tax", value: results.monthlyTax, color: PIE_COLORS[1] },
+                  { name: "Insurance", value: results.monthlyInsurance, color: PIE_COLORS[2] },
+                  { name: "PMI / MIP", value: results.monthlyPmi, color: PIE_COLORS[3] },
+                  { name: "HOA / Other", value: results.monthlyHoa, color: PIE_COLORS[4] },
+                ].map(item => {
+                  const pct = results.totalMonthly > 0 ? (item.value / results.totalMonthly * 100).toFixed(1) : "0.0";
+                  return (
+                    <div key={item.name} className="flex items-center justify-between text-[13px]">
+                      <div className="flex items-center gap-1.5">
+                        <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: item.color }} />
+                        <span className="font-semibold text-muted-foreground">{item.name}</span>
+                      </div>
+                      <span className="font-bold text-foreground">${fmt(item.value)} ({pct}%)</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* SUMMARY STATISTICS BOX */}
+            <div className="bg-muted/30 rounded-lg p-5 border border-border">
+              <h3 className="text-base font-semibold text-foreground mb-3">PMI Summary Statistics</h3>
+              <div className="grid grid-cols-2 gap-y-3 gap-x-4 text-base">
+                {[
+                  { label: "Loan Amount", value: `$${fmtInt(results.loanAmount)}` },
+                  { label: "Loan-to-Value (LTV)", value: `${results.ltv.toFixed(1)}%` },
+                  { label: "Monthly P&I", value: `$${fmt(results.monthlyPI)}` },
+                  { label: "Monthly PMI / MIP", value: `$${fmt(results.monthlyPmi)}` },
+                  { label: "PMI Cancellation Date", value: results.pmiCancelDate },
+                  { label: "Total PMI Cost", value: `$${fmtInt(results.totalPmiCost)}` },
+                  { label: "Monthly Tax & Insurance", value: `$${fmt(results.monthlyTax + results.monthlyInsurance)}` },
+                  { label: "HOA Fee", value: `$${fmt(results.monthlyHoa)}/mo` },
+                ].map(item => (
+                  <div key={item.label} className="flex flex-col">
+                    <span className="text-xs text-muted-foreground">{item.label}</span>
+                    <span className="font-semibold text-foreground">{item.value}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="border-t border-border pt-3 mt-3">
+                <div className="flex justify-between items-center">
+                  <span className="text-base font-bold text-foreground">Total Monthly Payment</span>
+                  <span className="text-base font-bold text-primary">${fmt(results.totalMonthly)}/mo</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance">
-              <h2>What Is Private Mortgage Insurance (PMI)?</h2>
-              <p>Private Mortgage Insurance, commonly known as PMI, is a risk-management product that protects lenders in the event that a borrower defaults on their home loan. While it increases your monthly housing expense, it serves a critical purpose: it allows you to purchase a home with a down payment as low as 3% or 5%, rather than waiting until you've saved the traditional 20%.</p>
+            <h2>What Is Private Mortgage Insurance (PMI)?</h2>
+            <p>Private Mortgage Insurance, commonly known as PMI, is a financial product that protects the lender — not the borrower — in the event of a loan default. It is typically required on conventional mortgage loans when the borrower makes a down payment of less than 20% of the home&apos;s purchase price. While PMI adds to your monthly housing cost, it plays an important role in making homeownership accessible to millions of Americans who cannot yet afford a 20% down payment.</p>
+            <p>PMI essentially allows lenders to take on greater risk by insuring themselves against potential losses. Without PMI, most lenders would require a 20% down payment as a mandatory condition for loan approval. With PMI in place, you can purchase a home with as little as 3% to 5% down — a significant advantage in today&apos;s competitive housing market.</p>
 
-              <h3>Why Lenders Require PMI</h3>
-              <p>Statistically, borrowers with less 'skin in the game' (equity) are more likely to walk away from a mortgage during financial hardship. PMI provides a financial cushion for the lender, covering a portion of their losses if they have to foreclose on the property.</p>
+            <h2>How the PMI Calculator Works</h2>
+            <p>Our PMI calculator uses your loan details to estimate your monthly private mortgage insurance cost and project when that cost will end. The core formula for monthly PMI is straightforward:</p>
+            <p><strong>Monthly PMI = (Loan Amount × Annual PMI Rate) ÷ 12</strong></p>
+            <p>The PMI rate itself is not fixed — it varies based on your Loan-to-Value (LTV) ratio and your credit score. The LTV ratio is calculated as: <strong>LTV = (Loan Amount ÷ Home Value) × 100</strong>. A higher LTV means greater risk to the lender, which translates to a higher PMI rate.</p>
+            <p>The calculator also simulates your amortization schedule month-by-month to determine the exact date your loan balance will fall to 80% of the original home value — the threshold at which you can request PMI cancellation. If you add extra monthly or one-time payments, the simulation automatically accounts for the accelerated principal paydown and adjusts the PMI cancellation date accordingly.</p>
 
-              <h3>Factors That Determine Your PMI Rate</h3>
-              <ul>
-                <li><strong>Loan-to-Value (LTV) Ratio:</strong> The higher your loan balance relative to the home's value, the higher the risk and the higher the rate.</li>
-                <li><strong>Credit Score:</strong> Borrowers with higher credit scores are seen as lower risk and receive significantly lower PMI rates.</li>
-                <li><strong>Loan Type:</strong> Fixed-rate mortgages often have lower PMI costs than adjustable-rate mortgages (ARMs).</li>
-                <li><strong>Property Type:</strong> Investment properties or multi-unit homes usually carry higher premiums than single-family primary residences.</li>
-              </ul>
+            <h2>Understanding Your PMI Results</h2>
+            <p>When you run a calculation, the results panel breaks down your full monthly housing cost into its component parts: principal and interest (P&I), property tax, home insurance, HOA fees, and PMI. This holistic view helps you understand your true out-of-pocket cost beyond just the mortgage payment.</p>
+            <p>The <strong>PMI Timeline</strong> card shows you four critical data points: your current LTV, the date PMI is estimated to cancel, how many months you&apos;ll pay PMI, and your total PMI cost over the life of the insurance period. The <strong>Monthly Savings After PMI</strong> metric is particularly motivating — it shows exactly how much more take-home money you&apos;ll have once PMI drops off your payment.</p>
 
-              <h3>How to Avoid Paying PMI</h3>
-              <p>There are several ways to eliminate or avoid PMI altogether:</p>
-              <ol>
-                <li><strong>Save a 20% Down Payment:</strong> This is the most direct way to avoid PMI on a conventional loan.</li>
-                <li><strong>VA Loans:</strong> If you are a veteran or active-duty service member, VA loans require no down payment and have no monthly PMI.</li>
-                <li><strong>LPMI (Lender-Paid Mortgage Insurance):</strong> The lender pays the PMI in exchange for a slightly higher interest rate on your loan.</li>
-                <li><strong>Piggyback Loans:</strong> Taking out a second mortgage (e.g., an 80/10/10 loan) to cover part of the down payment.</li>
-              </ol>
+            <h2>Key Factors That Affect Your PMI Rate</h2>
+            <p><strong>Loan-to-Value (LTV) Ratio:</strong> This is the single biggest driver of your PMI cost. LTV is the percentage of the home&apos;s value you&apos;re borrowing. A 95% LTV (5% down) will carry a significantly higher PMI rate than a 90% LTV (10% down) or an 85% LTV (15% down). Most PMI providers have distinct pricing tiers at 85%, 90%, 95%, and 97% LTV.</p>
+            <p><strong>Credit Score:</strong> Your FICO credit score is the second largest factor. Borrowers with scores of 760 or above typically qualify for the lowest PMI rates available — often 30–40% lower than borrowers in the 640–679 range. Improving your credit score before applying for a mortgage can meaningfully reduce your PMI cost.</p>
+            <p><strong>Loan Term:</strong> PMI rates are generally higher for 30-year loans compared to 15-year loans, because the longer amortization means your balance declines more slowly in the early years, keeping the lender at risk for a longer period.</p>
+            <p><strong>Property Type &amp; Occupancy:</strong> Investment properties and second homes carry higher PMI rates than primary residences. Lenders view non-owner-occupied properties as higher default risks, and PMI pricing reflects that additional exposure.</p>
 
-              <h3>The Path to PMI Cancellation</h3>
-              <p>One of the best features of PMI is that it isn't permanent. You have two main paths to removal:</p>
-              <ul>
-                <li><strong>Request Cancellation:</strong> Once your loan balance reaches 80% of the original value, you can submit a written request to your lender to remove the PMI.</li>
-                <li><strong>Automatic Termination:</strong> By law, lenders must automatically stop charging PMI when your balance hits 78% of the original value, provided you are current on your payments.</li>
-                <li><strong>New Appraisal:</strong> If your home's value has increased significantly due to market conditions or renovations, you can pay for a new appraisal to prove your LTV is now below 80%.</li>
-              </ul>
-            </article>
-          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/pmi-calculator" />
+            <h2>FHA MIP vs. Conventional PMI: Key Differences</h2>
+            <p>FHA loans use a system called Mortgage Insurance Premiums (MIP) that works differently from conventional PMI. FHA MIP has two components: an <strong>Upfront MIP</strong> of 1.75% of the loan amount (usually rolled into the loan) and an <strong>Annual MIP</strong> paid monthly, ranging from 0.45% to 0.85% depending on your LTV and loan term.</p>
+            <p>The most critical distinction is cancellation policy. On a conventional loan, PMI automatically cancels once your balance reaches 78% LTV (Homeowners Protection Act). On an FHA loan with a down payment below 10%, MIP lasts for the <em>entire life of the loan</em> — there is no automatic cancellation. For borrowers with 10% or more down on an FHA loan, MIP cancels after 11 years.</p>
+            <p>This difference makes conventional loans with PMI potentially more cost-effective over the long run for buyers who can eventually reach 20% equity, because once PMI drops off, it&apos;s gone entirely. FHA MIP, by contrast, may never go away unless you refinance into a conventional loan.</p>
+            <p><strong>VA and USDA Loans:</strong> Neither VA loans (for eligible veterans and service members) nor USDA loans (for rural homebuyers) require any form of PMI. VA loans charge a one-time funding fee instead, which varies based on service history and down payment amount. USDA loans have an annual guarantee fee that&apos;s much lower than conventional PMI rates.</p>
+
+            <h2>Practical Examples: PMI in Action</h2>
+            <p><strong>Example 1 — Conventional Loan, 10% Down:</strong> Home value $400,000, loan amount $360,000, LTV 90%, credit score 720. Estimated PMI rate: ~0.85% annually. Monthly PMI: ($360,000 × 0.0085) ÷ 12 = <strong>$255/month</strong>. Based on standard amortization at 6.5%, PMI would cancel after approximately 9.5 years. Total PMI cost: ~$29,070.</p>
+            <p><strong>Example 2 — FHA Loan, 3.5% Down:</strong> Home value $300,000, loan amount $289,500 (after 3.5% down). Upfront MIP: $5,066 (1.75%). Annual MIP rate: 0.85%. Monthly MIP: ~$205. Because the down payment is under 10%, MIP lasts the life of the 30-year loan — total MIP cost: <strong>~$73,800</strong> plus the upfront premium. This dramatically illustrates why reaching 10% down on an FHA loan is so valuable.</p>
+            <p><strong>Example 3 — Accelerated PMI Removal:</strong> Same Conventional Loan as Example 1, but adding $300/month in extra principal payments. PMI cancels after roughly 5.5 years instead of 9.5 years, saving 4 years × 12 months × $255 = <strong>~$12,240</strong> in PMI alone, plus substantial interest savings.</p>
+
+            <h2>Tips &amp; Best Practices for Managing PMI</h2>
+            <ul>
+              <li><strong>Request cancellation proactively:</strong> Lenders must cancel PMI automatically at 78% LTV, but you can request it at 80% — potentially saving several months of payments.</li>
+              <li><strong>Get a new appraisal:</strong> If your home has appreciated significantly, a new appraisal may show your LTV is already below 80%, allowing PMI removal without extra payments.</li>
+              <li><strong>Make extra principal payments:</strong> Even an extra $100–$200/month can shave years off your PMI timeline. Use the Advanced Options in our calculator to model this scenario.</li>
+              <li><strong>Refinance strategically:</strong> If rates have dropped and your equity has grown, refinancing into a new conventional loan without PMI may be financially beneficial — though you&apos;ll need to factor in closing costs.</li>
+              <li><strong>Consider lender-paid PMI (LPMI):</strong> Some lenders offer to pay the PMI premium in exchange for a slightly higher interest rate. Run both scenarios to see which costs less over your expected holding period.</li>
+              <li><strong>Keep records:</strong> Maintain documentation of your payment history and original home value so you can build a strong case for early PMI cancellation when the time comes.</li>
+            </ul>
+
+            <h2>The Benefits of Using a PMI Calculator</h2>
+            <p>A PMI calculator gives you a comprehensive, real-time view of one of homeownership&apos;s most misunderstood costs. Instead of being surprised by a higher-than-expected mortgage payment, you can model different down payment amounts, loan types, and payment strategies <em>before</em> you commit. This empowers you to make smarter decisions — whether that means saving a little longer to hit 20% down, choosing a conventional loan over FHA, or structuring extra payments to eliminate PMI as quickly as possible.</p>
+            <p>Use this tool alongside our <a href="/calculator/mortgage-calculator">Mortgage Calculator</a> for a complete view of your monthly housing costs, and our <a href="/calculator/home-affordability-calculator">Home Affordability Calculator</a> to determine how much house fits your budget before factoring in PMI.</p>
+          </article>
+          <FAQSection faqs={[
+            { question: "What is PMI and why is it required?", answer: "Private Mortgage Insurance (PMI) protects the lender if you default on your loan. It is required on conventional loans when your down payment is less than 20% of the home's purchase price, since lower equity represents higher risk to the lender." },
+            { question: "How is my monthly PMI payment calculated?", answer: "Monthly PMI = (Loan Amount × Annual PMI Rate) ÷ 12. For example, a $320,000 loan with a 0.85% PMI rate results in ($320,000 × 0.0085) ÷ 12 = $226.67/month. The annual rate is determined by your LTV ratio and credit score." },
+            { question: "When can I remove PMI from my mortgage?", answer: "On conventional loans, you can request PMI cancellation once your balance reaches 80% of the original home value. Lenders must automatically cancel it at 78% LTV under the Homeowners Protection Act. You can accelerate this by making extra principal payments or requesting a new appraisal if your home has appreciated." },
+            { question: "What is the difference between PMI and FHA MIP?", answer: "PMI is for conventional loans and cancels automatically at 78% LTV. FHA MIP is for FHA-backed loans and includes an upfront fee (1.75%) plus annual premiums. If your FHA down payment is under 10%, MIP lasts the life of the loan — unlike conventional PMI which eventually goes away." },
+            { question: "Do VA and USDA loans require PMI?", answer: "No. VA loans (for eligible veterans) and USDA loans (for rural homebuyers) do not require PMI. VA loans charge a one-time funding fee instead, and USDA loans charge a small annual guarantee fee — both typically lower than conventional PMI rates." },
+            { question: "How do extra payments affect my PMI timeline?", answer: "Extra payments reduce your principal balance faster, helping you reach 80% LTV sooner. Even an extra $100–$200/month can cut years off your PMI period. Use the Advanced Options section in our calculator to model different extra payment scenarios and see the exact savings." },
+            { question: "When should I choose a conventional loan over FHA to minimize mortgage insurance costs?", answer: "If you have a credit score above 680 and can put at least 10% down, a conventional loan with PMI is usually cheaper long-term because PMI cancels once you reach 20% equity. FHA MIP with less than 10% down lasts the life of the loan, making it significantly more expensive over 30 years." },
+            { question: "What credit score gives me the best PMI rate?", answer: "Borrowers with credit scores of 760 or above qualify for the lowest PMI rates — often 30–40% lower than borrowers in the 640–679 range. Improving your credit score before applying can meaningfully reduce your monthly PMI cost. Our calculator automatically adjusts the estimated PMI rate based on the credit score you enter." },
+          ]} pageUrl="https://racira.com/calculator/pmi-calculator" />
           <PopularCalculators exclude="/calculator/pmi-calculator" />
         </div>
       </div>
@@ -216,4 +750,3 @@ const PmiCalculator = () => {
 };
 
 export default PmiCalculator;
-

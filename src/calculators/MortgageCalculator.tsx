@@ -138,60 +138,70 @@ const calculateMortgage = ({
   const extraM = extraMonthlyVal;
   const oneTime = oneTimeExtraVal;
   const annualE = annualExtraVal;
+  
   const taxMonthly = propertyTaxVal / 12;
   const insMonthly = homeInsuranceVal / 12;
   const pmiMonthly = pmiVal;
   const hoaMonthly = hoaFeeVal;
   const otherMonthly = otherCostsVal;
+  const escrow = taxMonthly + insMonthly + pmiMonthly + hoaMonthly + otherMonthly;
 
-  const r = annualRate / 100 / 12;
-  const n = years * 12;
+  const rMonthly = annualRate / 100 / 12;
+  const nMonthly = years * 12;
 
-  if (P <= 0 || r <= 0 || n <= 0) {
+  if (P <= 0 || nMonthly <= 0) {
     return {
-      monthlyPI: 0,
-      totalMonthly: 0,
-      totalInterest: 0,
-      totalCost: 0,
-      payoffDate: "N/A",
-      interestSaved: 0,
-      timeSavedMonths: 0,
-      loanAmount: P,
-      totalTaxInsurance: 0,
-      monthlyRows: [],
-      yearlyRows: [],
+      monthlyPI: 0, totalMonthly: 0, totalInterest: 0, totalCost: 0, payoffDate: "N/A",
+      interestSaved: 0, timeSavedMonths: 0, loanAmount: P, totalTaxInsurance: 0,
+      monthlyRows: [], yearlyRows: [],
     };
   }
 
-  const M = P * (r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
-  const totalWithoutExtra = M * n;
+  const standardMonthlyPI = rMonthly > 0 
+    ? P * (rMonthly * Math.pow(1 + rMonthly, nMonthly)) / (Math.pow(1 + rMonthly, nMonthly) - 1)
+    : P / nMonthly;
+    
+  const totalWithoutExtra = standardMonthlyPI * nMonthly;
   const totalInterestBase = totalWithoutExtra - P;
-  const escrow = taxMonthly + insMonthly + pmiMonthly + hoaMonthly + otherMonthly;
+
+  const isBiweekly = paymentFreqVal === "biweekly";
+  const periodsPerYear = isBiweekly ? 26 : 12;
+  const r = annualRate / 100 / periodsPerYear;
+  const n = years * periodsPerYear;
+  
+  // Bi-weekly payment is exactly half of standard monthly payment.
+  const basePayment = isBiweekly ? standardMonthlyPI / 2 : standardMonthlyPI;
 
   let balance = P;
-  const monthlyRows: AmortRow[] = [];
+  const periodicRows: AmortRow[] = [];
   let totalPaid = 0;
-  let month = 0;
-  const hasExtra = extraM > 0 || oneTime > 0 || annualE > 0;
+  let period = 0;
+  const hasExtra = extraM > 0 || oneTime > 0 || annualE > 0 || isBiweekly;
 
-  while (balance > 0.01 && month < n * 2) {
-    month++;
-    const intPayment = balance * r;
-    let prinPayment = M - intPayment;
-    let extra = extraM;
-    if (month === 1) extra += oneTime;
-    if (month % 12 === 0) extra += annualE;
+  while (balance > 0.01 && period < n * 2) {
+    period++;
+    const intPayment = r > 0 ? balance * r : 0;
+    let prinPayment = basePayment - intPayment;
+    
+    // Add extra payments
+    let extra = isBiweekly ? (extraM / 2) : extraM; 
+    if (period === 1) extra += oneTime;
+    if (period % periodsPerYear === 0) extra += annualE;
+    
     prinPayment += extra;
+    
     if (prinPayment > balance) {
       prinPayment = balance;
     }
+    
     const totalPayment = intPayment + prinPayment;
     balance -= prinPayment;
     totalPaid += totalPayment;
-    monthlyRows.push({
-      period: month,
+    
+    periodicRows.push({
+      period,
       payment: totalPayment,
-      principal: prinPayment - extra > 0 ? prinPayment - extra : prinPayment,
+      principal: prinPayment, // Include extra payment in principal so table sums correctly
       interest: intPayment,
       extraPayment: extra,
       balance: Math.max(0, balance),
@@ -199,14 +209,14 @@ const calculateMortgage = ({
   }
 
   const yearlyRows: AmortRow[] = [];
-  for (let y = 0; y < Math.ceil(monthlyRows.length / 12); y++) {
-    const yearSlice = monthlyRows.slice(y * 12, (y + 1) * 12);
+  for (let y = 0; y < Math.ceil(periodicRows.length / periodsPerYear); y++) {
+    const yearSlice = periodicRows.slice(y * periodsPerYear, (y + 1) * periodsPerYear);
     if (yearSlice.length === 0) break;
     yearlyRows.push({
       period: y + 1,
-      payment: yearSlice.reduce((s, r) => s + r.payment, 0),
-      principal: yearSlice.reduce((s, r) => s + r.principal, 0),
-      interest: yearSlice.reduce((s, r) => s + r.interest, 0),
+      payment: yearSlice.reduce((s, row) => s + row.payment, 0),
+      principal: yearSlice.reduce((s, row) => s + row.principal, 0),
+      interest: yearSlice.reduce((s, row) => s + row.interest, 0),
       balance: yearSlice[yearSlice.length - 1].balance,
     });
   }
@@ -214,21 +224,28 @@ const calculateMortgage = ({
   const sd = startDateVal.split("-");
   const startMonth = parseMonthStr(sd[1]);
   const startYear = parseInt(sd[0]) || new Date().getFullYear();
-  const payoffMonth = ((startMonth - 1 + month) % 12) + 1;
-  const payoffYear = startYear + Math.floor((startMonth - 1 + month) / 12);
+  
+  // Calculate payoff date
+  const totalMonthsTaken = isBiweekly ? Math.ceil(period * 12 / 26) : period;
+  const payoffMonth = ((startMonth - 1 + totalMonthsTaken) % 12) + 1;
+  const payoffYear = startYear + Math.floor((startMonth - 1 + totalMonthsTaken) / 12);
   const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
+  // Normalize outputs to "monthly" equivalent for the top cards
+  const displayedMonthlyPI = isBiweekly ? basePayment * (26/12) : standardMonthlyPI;
+  const displayedEscrow = escrow;
+  
   return {
-    monthlyPI: M,
-    totalMonthly: M + escrow,
+    monthlyPI: displayedMonthlyPI,
+    totalMonthly: displayedMonthlyPI + displayedEscrow,
     totalInterest: totalPaid - P,
-    totalCost: totalPaid + escrow * month,
+    totalCost: totalPaid + (displayedEscrow * totalMonthsTaken),
     payoffDate: `${monthNames[payoffMonth - 1]} ${payoffYear}`,
-    interestSaved: hasExtra ? totalInterestBase - (totalPaid - P) : 0,
-    timeSavedMonths: hasExtra ? n - month : 0,
+    interestSaved: hasExtra ? Math.max(0, totalInterestBase - (totalPaid - P)) : 0,
+    timeSavedMonths: hasExtra ? nMonthly - totalMonthsTaken : 0,
     loanAmount: P,
-    totalTaxInsurance: escrow * month,
-    monthlyRows,
+    totalTaxInsurance: displayedEscrow * totalMonthsTaken,
+    monthlyRows: periodicRows, // actually periodic (bi-weekly or monthly)
     yearlyRows,
   };
 };
