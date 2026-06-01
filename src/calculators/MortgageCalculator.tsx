@@ -22,6 +22,8 @@ interface MortgageResults {
   totalTaxInsurance: number;
   monthlyRows: AmortRow[];
   yearlyRows: AmortRow[];
+  totalPmiCost: number;
+  totalHoaOther: number;
 }
 
 const CompactInput = ({
@@ -131,6 +133,8 @@ const calculateMortgage = ({
   otherCostsVal: number;
   paymentFreqVal: "monthly" | "biweekly";
 }): MortgageResults => {
+  const isBiweekly = paymentFreqVal === "biweekly";
+  const periodsPerYear = isBiweekly ? 26 : 12;
   const hp = homePriceVal;
   const P = dpModeVal === "percent" ? hp * (1 - dpPctVal / 100) : hp - dpAmtVal;
   const annualRate = interestRateVal;
@@ -139,69 +143,83 @@ const calculateMortgage = ({
   const oneTime = oneTimeExtraVal;
   const annualE = annualExtraVal;
   
-  const taxMonthly = propertyTaxVal / 12;
-  const insMonthly = homeInsuranceVal / 12;
-  const pmiMonthly = pmiVal;
-  const hoaMonthly = hoaFeeVal;
-  const otherMonthly = otherCostsVal;
-  const escrow = taxMonthly + insMonthly + pmiMonthly + hoaMonthly + otherMonthly;
+  const taxPeriodic = propertyTaxVal / periodsPerYear;
+  const insPeriodic = homeInsuranceVal / periodsPerYear;
+  const hoaPeriodic = (hoaFeeVal * 12) / periodsPerYear;
+  const otherPeriodic = (otherCostsVal * 12) / periodsPerYear;
+  
+  // annualPmiRate derived from monthly input assuming it's based on initial loan
+  const annualPmiRate = P > 0 ? (pmiVal * 12) / P : 0;
 
-  const rMonthly = annualRate / 100 / 12;
-  const nMonthly = years * 12;
+  const periodicRate = annualRate / 100 / periodsPerYear;
+  const n = years * periodsPerYear;
 
-  if (P <= 0 || nMonthly <= 0) {
+  if (P <= 0 || n <= 0) {
     return {
       monthlyPI: 0, totalMonthly: 0, totalInterest: 0, totalCost: 0, payoffDate: "N/A",
       interestSaved: 0, timeSavedMonths: 0, loanAmount: P, totalTaxInsurance: 0,
-      monthlyRows: [], yearlyRows: [],
+      monthlyRows: [], yearlyRows: [], totalPmiCost: 0, totalHoaOther: 0
     };
   }
 
-  const standardMonthlyPI = rMonthly > 0 
-    ? P * (rMonthly * Math.pow(1 + rMonthly, nMonthly)) / (Math.pow(1 + rMonthly, nMonthly) - 1)
-    : P / nMonthly;
+  const basePayment = periodicRate > 0 
+    ? P * (periodicRate * Math.pow(1 + periodicRate, n)) / (Math.pow(1 + periodicRate, n) - 1)
+    : P / n;
     
-  const totalWithoutExtra = standardMonthlyPI * nMonthly;
-  const totalInterestBase = totalWithoutExtra - P;
+  // Baseline loop (no extra payments) to calculate savings
+  let balanceBase = P;
+  let totalInterestBase = 0;
+  let periodBase = 0;
+  while (balanceBase > 0.01 && periodBase < n * 2) {
+    periodBase++;
+    const intPmt = periodicRate > 0 ? balanceBase * periodicRate : 0;
+    let prinPmt = basePayment - intPmt;
+    if (prinPmt > balanceBase) prinPmt = balanceBase;
+    totalInterestBase += intPmt;
+    balanceBase -= prinPmt;
+  }
+  const totalPeriodsBase = periodBase;
 
-  const isBiweekly = paymentFreqVal === "biweekly";
-  const periodsPerYear = isBiweekly ? 26 : 12;
-  const r = annualRate / 100 / periodsPerYear;
-  const n = years * periodsPerYear;
-  
-  // Bi-weekly payment is exactly half of standard monthly payment.
-  const basePayment = isBiweekly ? standardMonthlyPI / 2 : standardMonthlyPI;
-
+  // Actual loop with extras and PMI tracking
   let balance = P;
   const periodicRows: AmortRow[] = [];
-  let totalPaid = 0;
+  let totalPaidLoop = 0;
   let period = 0;
-  const hasExtra = extraM > 0 || oneTime > 0 || annualE > 0 || isBiweekly;
+  let totalPmiCost = 0;
+  let pmiActive = (P / hp) > 0.80;
 
   while (balance > 0.01 && period < n * 2) {
     period++;
-    const intPayment = r > 0 ? balance * r : 0;
+    const intPayment = periodicRate > 0 ? balance * periodicRate : 0;
     let prinPayment = basePayment - intPayment;
     
-    // Add extra payments
-    let extra = isBiweekly ? (extraM / 2) : extraM; 
+    // Add extra payments properly scaled
+    let extra = isBiweekly ? (extraM * 12 / 26) : extraM; 
     if (period === 1) extra += oneTime;
     if (period % periodsPerYear === 0) extra += annualE;
     
     prinPayment += extra;
+    if (prinPayment > balance) prinPayment = balance;
     
-    if (prinPayment > balance) {
-      prinPayment = balance;
+    // Check PMI auto-cancellation
+    const currentLTV = balance / hp;
+    if (currentLTV <= 0.80) {
+      pmiActive = false;
     }
-    
+    let currentPeriodicPMI = 0;
+    if (pmiActive) {
+      currentPeriodicPMI = (annualPmiRate * balance) / periodsPerYear;
+      totalPmiCost += currentPeriodicPMI;
+    }
+
     const totalPayment = intPayment + prinPayment;
     balance -= prinPayment;
-    totalPaid += totalPayment;
+    totalPaidLoop += totalPayment;
     
     periodicRows.push({
       period,
       payment: totalPayment,
-      principal: prinPayment, // Include extra payment in principal so table sums correctly
+      principal: prinPayment,
       interest: intPayment,
       extraPayment: extra,
       balance: Math.max(0, balance),
@@ -225,28 +243,35 @@ const calculateMortgage = ({
   const startMonth = parseMonthStr(sd[1]);
   const startYear = parseInt(sd[0]) || new Date().getFullYear();
   
-  // Calculate payoff date
-  const totalMonthsTaken = isBiweekly ? Math.ceil(period * 12 / 26) : period;
-  const payoffMonth = ((startMonth - 1 + totalMonthsTaken) % 12) + 1;
-  const payoffYear = startYear + Math.floor((startMonth - 1 + totalMonthsTaken) / 12);
+  // Calculate exact payoff date based on periods
+  const payoffMonth = ((startMonth - 1 + Math.ceil(period * 12 / periodsPerYear)) % 12) + 1;
+  const payoffYear = startYear + Math.floor((startMonth - 1 + Math.ceil(period * 12 / periodsPerYear)) / 12);
   const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-  // Normalize outputs to "monthly" equivalent for the top cards
-  const displayedMonthlyPI = isBiweekly ? basePayment * (26/12) : standardMonthlyPI;
-  const displayedEscrow = escrow;
-  
+  const actualInterestPaid = totalPaidLoop - P;
+  const periodsSaved = totalPeriodsBase - period;
+  const timeSavedMonths = periodsSaved * 12 / periodsPerYear;
+  const interestSaved = Math.max(0, totalInterestBase - actualInterestPaid);
+  const hasExtras = extraM > 0 || oneTime > 0 || annualE > 0;
+
+  const totalTaxInsurance = (propertyTaxVal + homeInsuranceVal) * years;
+  const totalHoaOther = (hoaFeeVal * 12 + otherCostsVal * 12) * years;
+  const totalCost = totalPaidLoop + totalTaxInsurance + totalPmiCost + totalHoaOther;
+
   return {
-    monthlyPI: displayedMonthlyPI,
-    totalMonthly: displayedMonthlyPI + displayedEscrow,
-    totalInterest: totalPaid - P,
-    totalCost: totalPaid + (displayedEscrow * totalMonthsTaken),
+    monthlyPI: basePayment,
+    totalMonthly: basePayment + taxPeriodic + insPeriodic + (pmiActive ? (annualPmiRate * P) / periodsPerYear : 0) + hoaPeriodic + otherPeriodic,
+    totalInterest: actualInterestPaid,
+    totalCost: totalCost,
     payoffDate: `${monthNames[payoffMonth - 1]} ${payoffYear}`,
-    interestSaved: hasExtra ? Math.max(0, totalInterestBase - (totalPaid - P)) : 0,
-    timeSavedMonths: hasExtra ? nMonthly - totalMonthsTaken : 0,
+    interestSaved: hasExtras ? interestSaved : 0,
+    timeSavedMonths: hasExtras ? timeSavedMonths : 0,
     loanAmount: P,
-    totalTaxInsurance: displayedEscrow * totalMonthsTaken,
-    monthlyRows: periodicRows, // actually periodic (bi-weekly or monthly)
+    totalTaxInsurance: totalTaxInsurance,
+    monthlyRows: periodicRows,
     yearlyRows,
+    totalPmiCost,
+    totalHoaOther: totalHoaOther,
   };
 };
 
@@ -288,14 +313,43 @@ const MortgageCalculator = () => {
   const [annualExtra, setAnnualExtra] = useState("0");
   const [paymentFreq, setPaymentFreq] = useState<"monthly" | "biweekly">("monthly");
 
-  const [results, setResults] = useState<MortgageResults | null>(null);
+  const [calcInputs, setCalcInputs] = useState(() => ({
+    homePrice: "400000",
+    downPaymentAmt: "80000",
+    downPaymentPct: "20",
+    dpMode: "percent" as "amount" | "percent",
+    interestRate: "6.5",
+    loanTerm: "30",
+    startDate: `${new Date().getFullYear()}-${["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][new Date().getMonth()]}`,
+    propertyTax: "3600",
+    homeInsurance: "1200",
+    pmi: "0",
+    hoaFee: "0",
+    otherCosts: "0",
+    extraMonthly: "0",
+    oneTimeExtra: "0",
+    annualExtra: "0",
+    paymentFreq: "monthly" as "monthly" | "biweekly",
+  }));
+
+  const [results, setResults] = useState<MortgageResults | null>(() => {
+    const d = new Date();
+    const startD = `${d.getFullYear()}-${["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][d.getMonth()]}`;
+    return calculateMortgage({
+      homePriceVal: 400000, dpModeVal: "percent", dpPctVal: 20, dpAmtVal: 80000,
+      interestRateVal: 6.5, loanTermVal: 30, startDateVal: startD,
+      extraMonthlyVal: 0, oneTimeExtraVal: 0, annualExtraVal: 0,
+      propertyTaxVal: 3600, homeInsuranceVal: 1200, pmiVal: 0,
+      hoaFeeVal: 0, otherCostsVal: 0, paymentFreqVal: "monthly",
+    });
+  });
+  
   const [viewMode, setViewMode] = useState<"monthly" | "yearly">("yearly");
   const [mounted, setMounted] = useState(false);
   const printRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setMounted(true);
-    handleCalculate();
   }, []);
 
   const handleHomePriceChange = (val: string) => {
@@ -322,71 +376,53 @@ const MortgageCalculator = () => {
   };
 
   const handleCalculate = () => {
+    const inputs = {
+      homePrice, downPaymentAmt, downPaymentPct, dpMode, interestRate, loanTerm, startDate,
+      propertyTax, homeInsurance, pmi, hoaFee, otherCosts, extraMonthly, oneTimeExtra, annualExtra, paymentFreq
+    };
+    setCalcInputs(inputs);
     const calcResults = calculateMortgage({
-      homePriceVal: parseFloat(homePrice) || 0,
-      dpModeVal: dpMode,
-      dpPctVal: parseFloat(downPaymentPct) || 0,
-      dpAmtVal: parseFloat(downPaymentAmt) || 0,
-      interestRateVal: parseFloat(interestRate) || 0,
-      loanTermVal: parseFloat(loanTerm) || 0,
-      startDateVal: startDate,
-      extraMonthlyVal: parseFloat(extraMonthly) || 0,
-      oneTimeExtraVal: parseFloat(oneTimeExtra) || 0,
-      annualExtraVal: parseFloat(annualExtra) || 0,
-      propertyTaxVal: parseFloat(propertyTax) || 0,
-      homeInsuranceVal: parseFloat(homeInsurance) || 0,
-      pmiVal: parseFloat(pmi) || 0,
-      hoaFeeVal: parseFloat(hoaFee) || 0,
-      otherCostsVal: parseFloat(otherCosts) || 0,
-      paymentFreqVal: paymentFreq,
+      homePriceVal: parseFloat(inputs.homePrice) || 0,
+      dpModeVal: inputs.dpMode,
+      dpPctVal: parseFloat(inputs.downPaymentPct) || 0,
+      dpAmtVal: parseFloat(inputs.downPaymentAmt) || 0,
+      interestRateVal: parseFloat(inputs.interestRate) || 0,
+      loanTermVal: parseFloat(inputs.loanTerm) || 0,
+      startDateVal: inputs.startDate,
+      extraMonthlyVal: parseFloat(inputs.extraMonthly) || 0,
+      oneTimeExtraVal: parseFloat(inputs.oneTimeExtra) || 0,
+      annualExtraVal: parseFloat(inputs.annualExtra) || 0,
+      propertyTaxVal: parseFloat(inputs.propertyTax) || 0,
+      homeInsuranceVal: parseFloat(inputs.homeInsurance) || 0,
+      pmiVal: parseFloat(inputs.pmi) || 0,
+      hoaFeeVal: parseFloat(inputs.hoaFee) || 0,
+      otherCostsVal: parseFloat(inputs.otherCosts) || 0,
+      paymentFreqVal: inputs.paymentFreq,
     });
     setResults(calcResults);
   };
 
   const reset = () => {
-    setHomePrice("400000");
-    setDownPaymentAmt("80000");
-    setDownPaymentPct("20");
-    setDpMode("percent");
-    setInterestRate("6.5");
-    setLoanTerm("30");
-    setStartDate(() => {
-      const d = new Date();
-      const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-      return `${d.getFullYear()}-${months[d.getMonth()]}`;
-    });
-    setPropertyTax("3600");
-    setHomeInsurance("1200");
-    setPmi("0");
-    setHoaFee("0");
-    setOtherCosts("0");
-    setExtraMonthly("0");
-    setOneTimeExtra("0");
-    setAnnualExtra("0");
-    setPaymentFreq("monthly");
+    const d = new Date();
+    const startD = `${d.getFullYear()}-${["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][d.getMonth()]}`;
+    setHomePrice("400000"); setDownPaymentAmt("80000"); setDownPaymentPct("20"); setDpMode("percent");
+    setInterestRate("6.5"); setLoanTerm("30"); setStartDate(startD);
+    setPropertyTax("3600"); setHomeInsurance("1200"); setPmi("0"); setHoaFee("0"); setOtherCosts("0");
+    setExtraMonthly("0"); setOneTimeExtra("0"); setAnnualExtra("0"); setPaymentFreq("monthly");
 
-    const defaultResults = calculateMortgage({
-      homePriceVal: 400000,
-      dpModeVal: "percent",
-      dpPctVal: 20,
-      dpAmtVal: 80000,
-      interestRateVal: 6.5,
-      loanTermVal: 30,
-      startDateVal: (() => {
-        const d = new Date();
-        return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
-      })(),
-      extraMonthlyVal: 0,
-      oneTimeExtraVal: 0,
-      annualExtraVal: 0,
-      propertyTaxVal: 3600,
-      homeInsuranceVal: 1200,
-      pmiVal: 0,
-      hoaFeeVal: 0,
-      otherCostsVal: 0,
-      paymentFreqVal: "monthly",
-    });
-    setResults(defaultResults);
+    const defaultInputs = {
+      homePrice: "400000", downPaymentAmt: "80000", downPaymentPct: "20", dpMode: "percent" as "amount" | "percent",
+      interestRate: "6.5", loanTerm: "30", startDate: startD, propertyTax: "3600", homeInsurance: "1200", pmi: "0",
+      hoaFee: "0", otherCosts: "0", extraMonthly: "0", oneTimeExtra: "0", annualExtra: "0", paymentFreq: "monthly" as "monthly" | "biweekly"
+    };
+    setCalcInputs(defaultInputs);
+    setResults(calculateMortgage({
+      homePriceVal: 400000, dpModeVal: "percent", dpPctVal: 20, dpAmtVal: 80000,
+      interestRateVal: 6.5, loanTermVal: 30, startDateVal: startD,
+      extraMonthlyVal: 0, oneTimeExtraVal: 0, annualExtraVal: 0,
+      propertyTaxVal: 3600, homeInsuranceVal: 1200, pmiVal: 0,
+      hoaFeeVal: 0, otherCostsVal: 0, paymentFreqVal: "monthly",
+    }));
   };
 
   const handlePrint = () => {
@@ -405,15 +441,17 @@ const MortgageCalculator = () => {
 
   const getBreakdownData = () => {
     if (!results) return [];
-    const months = results.monthlyRows.length || 1;
-    const years = months / 12;
+    
+    const isBiweekly = calcInputs.paymentFreq === "biweekly";
+    const periodsPerYear = isBiweekly ? 26 : 12;
+    const totalPeriods = results.monthlyRows.length;
 
-    const hp = parseFloat(homePrice) || 0;
-    const annualTax = parseFloat(propertyTax) || 0;
-    const annualIns = parseFloat(homeInsurance) || 0;
-    const monthlyPmi = parseFloat(pmi) || 0;
-    const monthlyHoa = parseFloat(hoaFee) || 0;
-    const monthlyOther = parseFloat(otherCosts) || 0;
+    const hp = parseFloat(calcInputs.homePrice) || 0;
+    const annualTax = parseFloat(calcInputs.propertyTax) || 0;
+    const annualIns = parseFloat(calcInputs.homeInsurance) || 0;
+    const monthlyPmi = parseFloat(calcInputs.pmi) || 0;
+    const monthlyHoa = parseFloat(calcInputs.hoaFee) || 0;
+    const monthlyOther = parseFloat(calcInputs.otherCosts) || 0;
 
     const totalPIPaid = results.monthlyRows.reduce((sum, row) => sum + row.principal + row.interest, 0);
 
@@ -425,23 +463,23 @@ const MortgageCalculator = () => {
       },
       {
         label: "Property Tax",
-        monthly: annualTax / 12,
-        total: annualTax * years,
+        monthly: annualTax / periodsPerYear,
+        total: (annualTax / periodsPerYear) * totalPeriods,
       },
       {
         label: "Home Insurance",
-        monthly: annualIns / 12,
-        total: annualIns * years,
+        monthly: annualIns / periodsPerYear,
+        total: (annualIns / periodsPerYear) * totalPeriods,
       },
       {
         label: "PMI",
-        monthly: monthlyPmi,
-        total: monthlyPmi * months,
+        monthly: results.totalPmiCost > 0 ? (monthlyPmi * 12) / periodsPerYear : 0,
+        total: results.totalPmiCost,
       },
       {
         label: "Other Costs (HOA, etc.)",
-        monthly: monthlyHoa + monthlyOther,
-        total: (monthlyHoa + monthlyOther) * months,
+        monthly: ((monthlyHoa + monthlyOther) * 12) / periodsPerYear,
+        total: results.totalHoaOther,
       },
       {
         label: "Total Out-of-Pocket",
@@ -452,12 +490,17 @@ const MortgageCalculator = () => {
     ];
   };
 
+  const isBiweekly = calcInputs.paymentFreq === "biweekly";
+  const freqLabel = isBiweekly ? "Bi-Weekly" : "Monthly";
+  const freqSuffix = isBiweekly ? "/bi-wk" : "/mo";
+  const periodsPerYear = isBiweekly ? 26 : 12;
+
   const pieData = results
     ? [
         { name: "P & I", value: results.monthlyPI, color: "hsl(var(--primary))" },
-        { name: "Property Tax", value: (parseFloat(propertyTax) || 0) / 12, color: "#10b981" },
-        { name: "Insurance", value: (parseFloat(homeInsurance) || 0) / 12, color: "#f59e0b" },
-        { name: "Other Costs", value: (parseFloat(pmi) || 0) + (parseFloat(hoaFee) || 0) + (parseFloat(otherCosts) || 0), color: "#8b5cf6" },
+        { name: "Property Tax", value: (parseFloat(calcInputs.propertyTax) || 0) / periodsPerYear, color: "#10b981" },
+        { name: "Insurance", value: (parseFloat(calcInputs.homeInsurance) || 0) / periodsPerYear, color: "#f59e0b" },
+        { name: "Other Costs", value: (results.totalPmiCost > 0 ? (parseFloat(calcInputs.pmi) || 0) * 12 / periodsPerYear : 0) + ((parseFloat(calcInputs.hoaFee) || 0) * 12 / periodsPerYear) + ((parseFloat(calcInputs.otherCosts) || 0) * 12 / periodsPerYear), color: "#8b5cf6" },
       ]
     : [];
 
@@ -662,28 +705,28 @@ const MortgageCalculator = () => {
                   />
                   <CompactInput
                     id="pmi"
-                    label="PMI (Monthly)"
+                    label={`PMI (${paymentFreq === "biweekly" ? "Bi-Weekly" : "Monthly"})`}
                     value={pmi}
                     onChange={setPmi}
                     prefix="$"
                   />
                   <CompactInput
                     id="hoa"
-                    label="HOA Fee (Monthly)"
+                    label={`HOA Fee (${paymentFreq === "biweekly" ? "Bi-Weekly" : "Monthly"})`}
                     value={hoaFee}
                     onChange={setHoaFee}
                     prefix="$"
                   />
                   <CompactInput
                     id="other-costs"
-                    label="Other Monthly Costs"
+                    label={`Other ${paymentFreq === "biweekly" ? "Bi-Weekly" : "Monthly"} Costs`}
                     value={otherCosts}
                     onChange={setOtherCosts}
                     prefix="$"
                   />
                   <CompactInput
                     id="extra-monthly"
-                    label="Extra Monthly Payment"
+                    label={`Extra ${paymentFreq === "biweekly" ? "Bi-Weekly" : "Monthly"} Payment`}
                     value={extraMonthly}
                     onChange={setExtraMonthly}
                     prefix="$"
@@ -742,12 +785,12 @@ const MortgageCalculator = () => {
 
                 {/* Component 1: Monthly Payment Card */}
                 <div className="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-xl p-5 text-center relative overflow-hidden">
-                  <div className="text-[13px] font-bold text-primary mb-1 uppercase tracking-wider">Estimated Monthly Payment</div>
+                  <div className="text-[13px] font-bold text-primary mb-1 uppercase tracking-wider">Estimated {freqLabel} Payment</div>
                   <div className="text-4xl font-extrabold text-foreground mb-1 tracking-tight">
                     ${results.totalMonthly.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                   </div>
                   <div className="text-sm text-muted-foreground font-medium">
-                    Principal & Interest: ${results.monthlyPI.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}/mo
+                    Principal & Interest: ${results.monthlyPI.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}{freqSuffix}
                   </div>
                 </div>
 
@@ -769,7 +812,7 @@ const MortgageCalculator = () => {
                     <thead>
                       <tr className="bg-secondary/40 border-b border-border text-[12px] font-bold text-muted-foreground uppercase tracking-wider">
                         <th className="p-2.5 pl-3">Expense Category</th>
-                        <th className="p-2.5 text-right w-[110px]">Monthly</th>
+                        <th className="p-2.5 text-right w-[110px]">{freqLabel.toUpperCase()}</th>
                         <th className="p-2.5 pr-3 text-right w-[130px]">Total Paid</th>
                       </tr>
                     </thead>
@@ -818,7 +861,7 @@ const MortgageCalculator = () => {
                           </RechartsPieChart>
                         </ResponsiveContainer>
                         <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                          <span className="text-[11px] uppercase font-bold text-muted-foreground tracking-wider">Total / mo</span>
+                          <span className="text-[11px] uppercase font-bold text-muted-foreground tracking-wider">Total {freqSuffix}</span>
                           <span className="text-lg font-extrabold text-foreground leading-tight">
                             ${Math.round(results.totalMonthly).toLocaleString()}
                           </span>
@@ -831,7 +874,7 @@ const MortgageCalculator = () => {
                     )}
                   </div>
                   <div className="w-full sm:w-1/2 flex flex-col gap-2">
-                    <h4 className="text-[12px] font-bold uppercase text-muted-foreground tracking-wider mb-0.5">Monthly Payment Split</h4>
+                    <h4 className="text-[12px] font-bold uppercase text-muted-foreground tracking-wider mb-0.5">{freqLabel} Payment Split</h4>
                     {pieData.map((item) => {
                       const totalVal = results.totalMonthly;
                       const pct = totalVal > 0 ? (item.value / totalVal) * 100 : 0;
@@ -855,7 +898,7 @@ const MortgageCalculator = () => {
                   <div className="flex flex-col">
                     <span className="text-[12px] font-bold uppercase text-muted-foreground tracking-wider mb-0.5">House Price</span>
                     <span className="text-base font-extrabold text-foreground">
-                      ${(parseFloat(homePrice) || 0).toLocaleString("en-US")}
+                      ${(parseFloat(calcInputs.homePrice) || 0).toLocaleString("en-US")}
                     </span>
                   </div>
                   <div className="flex flex-col">
@@ -867,9 +910,9 @@ const MortgageCalculator = () => {
                   <div className="flex flex-col">
                     <span className="text-[12px] font-bold uppercase text-muted-foreground tracking-wider mb-0.5">Down Payment</span>
                     <span className="text-base font-extrabold text-foreground">
-                      ${Math.round(dpMode === "percent" ? (parseFloat(homePrice) || 0) * (parseFloat(downPaymentPct) || 0) / 100 : (parseFloat(downPaymentAmt) || 0)).toLocaleString("en-US")}
+                      ${Math.round(calcInputs.dpMode === "percent" ? (parseFloat(calcInputs.homePrice) || 0) * (parseFloat(calcInputs.downPaymentPct) || 0) / 100 : (parseFloat(calcInputs.downPaymentAmt) || 0)).toLocaleString("en-US")}
                       <span className="text-sm font-normal text-muted-foreground ml-1">
-                        ({parseFloat(downPaymentPct) || 0}%)
+                        ({parseFloat(calcInputs.downPaymentPct) || 0}%)
                       </span>
                     </span>
                   </div>
@@ -894,13 +937,13 @@ const MortgageCalculator = () => {
                 </div>
 
                 {/* Amortization Table */}
-                <div className="mt-1 border border-border rounded-xl p-4 bg-card">
-                  <div className="flex items-center justify-between mb-3">
+                <div className="mt-1 border border-border rounded-xl p-3 sm:p-4 bg-card">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-0 mb-3">
                     <h3 className="text-sm font-bold text-foreground">Amortization Schedule</h3>
-                    <div className="flex bg-secondary/50 rounded-md p-0.5 border border-border">
+                    <div className="flex bg-secondary/50 rounded-md p-0.5 border border-border w-full sm:w-auto">
                       <button
                         onClick={() => setViewMode("yearly")}
-                        className={`px-2 py-0.5 rounded-sm text-[12px] font-bold transition-colors ${
+                        className={`px-3 min-h-[36px] flex items-center justify-center rounded-sm text-[12px] font-bold transition-colors ${
                           viewMode === "yearly" ? "bg-primary text-primary-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
                         }`}
                       >
@@ -908,18 +951,19 @@ const MortgageCalculator = () => {
                       </button>
                       <button
                         onClick={() => setViewMode("monthly")}
-                        className={`px-2 py-0.5 rounded-sm text-[12px] font-bold transition-colors ${
+                        className={`px-3 min-h-[36px] flex items-center justify-center rounded-sm text-[12px] font-bold transition-colors ${
                           viewMode === "monthly" ? "bg-primary text-primary-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
                         }`}
                       >
-                        Monthly
+                        {freqLabel}
                       </button>
                     </div>
                   </div>
-                  <div className="max-h-[220px] overflow-y-auto rounded-lg border border-border">
+                  <div className="max-h-[350px] overflow-y-auto overflow-x-hidden rounded-lg border border-border print:max-h-none print:overflow-visible print:border-none [scrollbar-width:thin]">
                     <AmortizationTable
                       rows={viewMode === "yearly" ? results.yearlyRows : results.monthlyRows}
                       yearly={viewMode === "yearly"}
+                      periodLabel={freqLabel}
                     />
                   </div>
                 </div>

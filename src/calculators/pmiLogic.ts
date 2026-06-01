@@ -26,6 +26,7 @@ export interface PmiInputs {
   annualExtra: number;
   fhaMipMode: PmiMode;
   manualFhaMipRate: number;
+  vaFundingFeeRate: number;
 }
 
 export interface PmiResults {
@@ -47,11 +48,16 @@ export interface PmiResults {
   annualMipRate: number;
   monthlyMip: number;
   noMipLoan: boolean;
+  totalInterest: number;
+  totalPI: number;
+  payoffMonths: number;
+  vaFundingFee: number;
+  fhaPmiLifetime: boolean;
 }
 
 export const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 
-function autoEstimatePmiRate(ltv: number, creditScore: number): number {
+function autoEstimatePmiRate(ltv: number, creditScore: number, propertyUse: string): number {
   let base = 0.5;
   if (ltv > 95) base = 1.15;
   else if (ltv > 90) base = 0.85;
@@ -62,17 +68,21 @@ function autoEstimatePmiRate(ltv: number, creditScore: number): number {
   else if (creditScore >= 680) base *= 1.35;
   else if (creditScore >= 640) base *= 1.8;
   else base *= 2.2;
+  
+  if (propertyUse === "investment") base += 0.4;
+  else if (propertyUse === "second") base += 0.15;
+  
   return Math.round(base * 100) / 100;
 }
 
 function autoEstimateFhaMip(ltv: number, loanTerm: number): number {
   if (loanTerm <= 15) {
-    if (ltv <= 90) return 0.45;
-    return 0.70;
+    if (ltv <= 90) return 0.55;
+    return 0.75;
   }
-  if (ltv <= 90) return 0.50;
-  if (ltv <= 95) return 0.80;
-  return 0.85;
+  if (ltv <= 90) return 0.80;
+  if (ltv <= 95) return 0.85;
+  return 1.05;
 }
 
 function addMonths(monthName: string, year: string, n: number): string {
@@ -86,8 +96,23 @@ function addMonths(monthName: string, year: string, n: number): string {
 
 export function calculatePmi(inp: PmiInputs): PmiResults {
   const hv = inp.homeValue;
-  const la = inp.dpMode === "percent" ? hv * (1 - inp.dpPct / 100) : hv - inp.dpAmt;
-  const ltv = hv > 0 ? (la / hv) * 100 : 0;
+  const dpAmt = inp.dpMode === "percent" ? hv * (inp.dpPct / 100) : inp.dpAmt;
+  const baseLa = hv - dpAmt;
+  const dpPct = hv > 0 ? (dpAmt / hv) * 100 : 0;
+  const ltv = hv > 0 ? (baseLa / hv) * 100 : 0;
+
+  let upfrontMip = 0;
+  let vaFundingFee = 0;
+  let la = baseLa;
+  
+  if (inp.loanType === "fha") {
+    upfrontMip = baseLa * 0.0175;
+    la += upfrontMip;
+  } else if (inp.loanType === "va") {
+    vaFundingFee = baseLa * (inp.vaFundingFeeRate / 100);
+    la += vaFundingFee;
+  }
+
   const r = inp.interestRate / 100 / 12;
   const n = inp.loanTerm * 12;
   const monthlyPI = la > 0 && r > 0 && n > 0
@@ -98,69 +123,132 @@ export function calculatePmi(inp: PmiInputs): PmiResults {
   const monthlyInsurance = inp.homeInsurance / 12;
   const monthlyHoa = inp.hoaFee;
 
-  // VA / USDA - no PMI
-  if (inp.loanType === "va" || inp.loanType === "usda") {
+  const isFha = inp.loanType === "fha";
+  const isConventional = inp.loanType === "conventional";
+  const isVa = inp.loanType === "va";
+  const isUsda = inp.loanType === "usda";
+  const noMipLoan = isVa;
+
+  const pmiRequired = isConventional ? ltv > 80 : (isFha || isUsda);
+  const pmiRate = isConventional && pmiRequired
+    ? (inp.pmiMode === "manual" ? inp.manualPmiRate : autoEstimatePmiRate(ltv, inp.creditScore, inp.propertyUse))
+    : 0;
+  
+  const monthlyPmi = isConventional && pmiRequired ? (baseLa * pmiRate / 100) / 12 : 0;
+
+  let annualMipRate = 0;
+  let monthlyMip = 0;
+  let fhaPmiLifetime = false;
+
+  if (isFha) {
+    annualMipRate = inp.fhaMipMode === "manual" ? inp.manualFhaMipRate : autoEstimateFhaMip(ltv, inp.loanTerm);
+    monthlyMip = (baseLa * annualMipRate / 100) / 12;
+    fhaPmiLifetime = dpPct < 10;
+  } else if (isUsda) {
+    annualMipRate = 0.35;
+    monthlyMip = (baseLa * 0.35 / 100) / 12;
+  }
+
+  const activeMonthlyPmi = isFha || isUsda ? monthlyMip : (isConventional ? monthlyPmi : 0);
+  const totalMonthly = monthlyPI + monthlyTax + monthlyInsurance + monthlyHoa + activeMonthlyPmi;
+
+  let balance = la;
+  let currentPeriod = 0;
+  let totalInterest = 0;
+  let pmiPeriods = 0;
+
+  const targetLTV = hv * 0.80; 
+  
+  const isBiweekly = inp.paymentFreq === "biweekly";
+  const periodsPerYear = isBiweekly ? 26 : 12;
+  const rPeriod = inp.interestRate / 100 / periodsPerYear;
+  const piPayment = isBiweekly ? monthlyPI / 2 : monthlyPI;
+  const extraPerPeriod = (inp.extraMonthly * 12) / periodsPerYear;
+  
+  const maxPeriods = 100 * periodsPerYear;
+
+  while (balance > 0.005 && currentPeriod < maxPeriods) {
+    currentPeriod++;
+    const interest = balance * rPeriod;
+    totalInterest += interest;
+    
+    let principal = piPayment - interest + extraPerPeriod 
+                    + (currentPeriod === 1 ? inp.oneTimeExtra : 0) 
+                    + (currentPeriod % periodsPerYear === 0 ? inp.annualExtra : 0);
+    
+    if (principal > balance) principal = balance;
+    
+    const currentMonthForRules = currentPeriod / (periodsPerYear / 12);
+    
+    if (isConventional && pmiRequired) {
+      if (balance > targetLTV) {
+        pmiPeriods++;
+      }
+    } else if (isFha) {
+      if (!fhaPmiLifetime && currentMonthForRules <= 132) {
+        pmiPeriods++;
+      } else if (fhaPmiLifetime) {
+        pmiPeriods++;
+      }
+    } else if (isUsda) {
+      pmiPeriods++;
+    }
+
+    balance -= principal;
+  }
+
+  const totalPI = la + totalInterest;
+  const pmiCancelMonth = Math.ceil(pmiPeriods / (periodsPerYear / 12));
+  const payoffMonths = Math.ceil(currentPeriod / (periodsPerYear / 12));
+  const totalPmiCost = activeMonthlyPmi * pmiCancelMonth;
+
+  if (noMipLoan) { // VA
     return {
       loanAmount: la, ltv, monthlyPI, pmiRequired: false, pmiRate: 0,
-      monthlyPmi: 0, totalMonthly: monthlyPI + monthlyTax + monthlyInsurance + monthlyHoa,
+      monthlyPmi: 0, totalMonthly,
       monthlyTax, monthlyInsurance, monthlyHoa,
       pmiCancelMonth: 0, pmiCancelDate: "N/A", totalPmiCost: 0,
       monthlySavingsAfterPmi: 0,
       upfrontMip: 0, annualMipRate: 0, monthlyMip: 0, noMipLoan: true,
+      totalInterest, totalPI, payoffMonths, vaFundingFee, fhaPmiLifetime: false
     };
   }
 
-  // FHA
-  if (inp.loanType === "fha") {
-    const upfrontMip = la * 0.0175;
-    const annualMipRate = inp.fhaMipMode === "manual"
-      ? inp.manualFhaMipRate
-      : autoEstimateFhaMip(ltv, inp.loanTerm);
-    const monthlyMip = (la * annualMipRate / 100) / 12;
-    const totalMonthly = monthlyPI + monthlyTax + monthlyInsurance + monthlyHoa + monthlyMip;
-    // FHA MIP: lifetime if dp<10%; else 11 years (132 months) max
-    const pmiLifetime = inp.dpPct < 10;
-    const fhaCancelMonths = pmiLifetime ? n : Math.min(n, 132);
+  if (isFha) {
     return {
       loanAmount: la, ltv, monthlyPI, pmiRequired: true, pmiRate: annualMipRate,
       monthlyPmi: monthlyMip, totalMonthly, monthlyTax, monthlyInsurance, monthlyHoa,
-      pmiCancelMonth: fhaCancelMonths,
-      pmiCancelDate: pmiLifetime ? "Life of Loan" : addMonths(inp.startMonth, inp.startYear, fhaCancelMonths),
-      totalPmiCost: monthlyMip * fhaCancelMonths,
-      monthlySavingsAfterPmi: pmiLifetime ? 0 : monthlyMip,
+      pmiCancelMonth,
+      pmiCancelDate: (fhaPmiLifetime && pmiCancelMonth >= payoffMonths) ? "Life of Loan" : addMonths(inp.startMonth, inp.startYear, pmiCancelMonth),
+      totalPmiCost,
+      monthlySavingsAfterPmi: (fhaPmiLifetime && pmiCancelMonth >= payoffMonths) ? 0 : monthlyMip,
       upfrontMip, annualMipRate, monthlyMip, noMipLoan: false,
+      totalInterest, totalPI, payoffMonths, vaFundingFee, fhaPmiLifetime
+    };
+  }
+
+  if (isUsda) {
+    return {
+      loanAmount: la, ltv, monthlyPI, pmiRequired: true, pmiRate: annualMipRate,
+      monthlyPmi: monthlyMip, totalMonthly, monthlyTax, monthlyInsurance, monthlyHoa,
+      pmiCancelMonth,
+      pmiCancelDate: "Life of Loan",
+      totalPmiCost,
+      monthlySavingsAfterPmi: 0,
+      upfrontMip: 0, annualMipRate, monthlyMip, noMipLoan: false,
+      totalInterest, totalPI, payoffMonths, vaFundingFee: 0, fhaPmiLifetime: false
     };
   }
 
   // Conventional
-  const pmiRequired = ltv > 80;
-  const pmiRate = pmiRequired
-    ? (inp.pmiMode === "manual" ? inp.manualPmiRate : autoEstimatePmiRate(ltv, inp.creditScore))
-    : 0;
-  const monthlyPmi = pmiRequired ? (la * pmiRate / 100) / 12 : 0;
-  const totalMonthly = monthlyPI + monthlyTax + monthlyInsurance + monthlyHoa + monthlyPmi;
-
-  // Simulate to 80% LTV
-  let balance = la;
-  let cancelMonth = 0;
-  const target = hv * 0.80;
-  const biweeklyExtra = inp.paymentFreq === "biweekly" ? monthlyPI / 12 : 0;
-  
-  while (balance > target && cancelMonth < n * 2) {
-    cancelMonth++;
-    const interest = balance * r;
-    let principal = monthlyPI - interest + biweeklyExtra + (cancelMonth === 1 ? inp.oneTimeExtra : 0) + inp.extraMonthly + (cancelMonth % 12 === 0 ? inp.annualExtra : 0);
-    if (principal > balance) principal = balance;
-    balance -= principal;
-  }
-
   return {
     loanAmount: la, ltv, monthlyPI, pmiRequired, pmiRate,
     monthlyPmi, totalMonthly, monthlyTax, monthlyInsurance, monthlyHoa,
-    pmiCancelMonth: cancelMonth,
-    pmiCancelDate: addMonths(inp.startMonth, inp.startYear, cancelMonth),
-    totalPmiCost: monthlyPmi * cancelMonth,
+    pmiCancelMonth,
+    pmiCancelDate: pmiCancelMonth === 0 ? "N/A" : addMonths(inp.startMonth, inp.startYear, pmiCancelMonth),
+    totalPmiCost,
     monthlySavingsAfterPmi: monthlyPmi,
     upfrontMip: 0, annualMipRate: 0, monthlyMip: 0, noMipLoan: false,
+    totalInterest, totalPI, payoffMonths, vaFundingFee: 0, fhaPmiLifetime: false
   };
 }
