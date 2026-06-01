@@ -18,9 +18,11 @@ const CompactInput = ({
   onChange,
   prefix,
   suffix,
-  tooltip,
   type = "number",
-  ...props
+  min,
+  max,
+  step,
+  placeholder,
 }: {
   id: string;
   label: string;
@@ -28,9 +30,11 @@ const CompactInput = ({
   onChange: (val: string) => void;
   prefix?: string;
   suffix?: string;
-  tooltip?: string;
   type?: string;
-  [key: string]: any;
+  min?: string;
+  max?: string;
+  step?: string;
+  placeholder?: string;
 }) => (
   <div className="flex flex-col">
     <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1">
@@ -47,8 +51,11 @@ const CompactInput = ({
         type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}
+        min={min}
+        max={max}
+        step={step}
+        placeholder={placeholder}
         className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground"
-        {...props}
       />
       {suffix && (
         <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">
@@ -182,12 +189,17 @@ const PmiCalculator = () => {
   };
 
   const liveHv = parseFloat(homeValue) || 0;
-  const liveDpAmt = dpMode === "amount" ? parseFloat(dpAmt) || 0 : liveHv * (parseFloat(dpPct) || 0) / 100;
-  const liveLa = liveHv - liveDpAmt;
-  const liveLtv = liveHv > 0 ? (liveLa / liveHv) * 100 : 0;
+  // In $ mode read dpAmt directly; in % mode derive from dpPct
+  const liveDpAmt = dpMode === "amount" ? (parseFloat(dpAmt) || 0) : liveHv * (parseFloat(dpPct) || 0) / 100;
+  // LTV: 100% when no home value entered; clamp to [0,100]
+  const liveLtv = liveHv > 0 ? Math.min(100, Math.max(0, (liveHv - liveDpAmt) / liveHv * 100)) : 100;
   const ltvBadgeColor = liveLtv > 90 ? "bg-red-500" : liveLtv > 80 ? "bg-orange-500" : "bg-emerald-500";
-  const isInvalidDp = liveDpAmt >= liveHv;
+  // isInvalidDp only fires when we have a home value but DP >= it
+  const isInvalidDp = liveHv > 0 && liveDpAmt >= liveHv;
   const noPmiNeeded = liveLtv <= 80;
+
+  const creditScoreNum = parseInt(creditScore) || 0;
+  const creditScoreError = creditScore !== "" && (creditScoreNum < 300 || creditScoreNum > 850);
 
   const ltv = results.ltv;
 
@@ -263,12 +275,15 @@ const PmiCalculator = () => {
               
               {/* DOWN PAYMENT with toggle + LTV badge */}
               <div className="flex flex-col">
-                <label htmlFor="down-payment" className="flex items-start justify-start gap-2 text-sm font-semibold text-foreground mb-1">
-                  <span>Down Payment</span>
-                  <span className={`mt-px text-[10px] font-bold px-1.5 py-0.5 rounded text-white whitespace-nowrap shrink-0 ${ltvBadgeColor}`} title={noPmiNeeded ? "No PMI Required" : ""}>
-                    LTV: {liveLtv.toFixed(1)}%{noPmiNeeded ? " (No PMI)" : ""}
+                {/* Label + LTV badge: stacked on mobile, inline on md+ */}
+                <div className="flex flex-col md:flex-row md:items-center gap-x-2 mb-1">
+                  <label htmlFor="down-payment" className="text-sm font-semibold text-foreground leading-tight">
+                    Down Payment
+                  </label>
+                  <span className={`self-start md:self-auto mt-0.5 md:mt-0 text-[10px] font-bold px-1.5 py-0.5 rounded text-white whitespace-nowrap ${ltvBadgeColor}`} title={noPmiNeeded ? "No PMI Required" : ""}>
+                    LTV: {liveLtv.toFixed(1)}%{noPmiNeeded ? " ✓" : ""}
                   </span>
-                </label>
+                </div>
                 <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-9 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
                   {dpMode === "amount" && (
                     <span className="pl-3 pr-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">
@@ -280,7 +295,7 @@ const PmiCalculator = () => {
                     type="number"
                     value={dpMode === "percent" ? dpPct : dpAmt}
                     onChange={(e) => handleDpChange(e.target.value)}
-                    className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground"
+                    className="w-full h-full pl-2 pr-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
                   />
                   <div className="flex border-l border-input h-full shrink-0">
                     <button
@@ -570,27 +585,33 @@ const PmiCalculator = () => {
             <div className="flex flex-col gap-2.5 mt-2">
               {isInvalidDp && (
                 <div className="text-sm text-red-500 font-semibold bg-red-500/10 border border-red-500/20 p-2.5 rounded-md">
-                  Down payment cannot be greater than or equal to the home value.
+                  ⚠️ Down payment cannot be equal to or greater than the home value.
+                </div>
+              )}
+              {creditScoreError && (
+                <div className="text-sm text-red-500 font-semibold bg-red-500/10 border border-red-500/20 p-2.5 rounded-md">
+                  ⚠️ Credit score must be between 300 and 850.
                 </div>
               )}
               <div className="flex gap-2.5">
                 <button
                   type="button"
-                  disabled={isInvalidDp}
+                  disabled={isInvalidDp || !!creditScoreError}
                   onClick={() => {
+                    if (isInvalidDp || creditScoreError) return;
                     const inputs = getInputs();
                     setCalcInputs(inputs);
                     setResults(calculatePmi(inputs));
                   }}
                   onKeyDown={e => {
-                    if (e.key === "Enter" && !isInvalidDp) {
+                    if (e.key === "Enter" && !isInvalidDp && !creditScoreError) {
                       const inputs = getInputs();
                       setCalcInputs(inputs);
                       setResults(calculatePmi(inputs));
                     }
                   }}
                   className={`flex-1 flex items-center justify-center gap-1.5 rounded-md font-bold h-10 text-base transition-all shadow-sm ${
-                    isInvalidDp ? "bg-muted text-muted-foreground cursor-not-allowed" : "bg-primary hover:bg-primary/95 text-primary-foreground active:scale-[0.98]"
+                    isInvalidDp || creditScoreError ? "bg-muted text-muted-foreground cursor-not-allowed" : "bg-primary hover:bg-primary/95 text-primary-foreground active:scale-[0.98]"
                   }`}
                 >
                   <Calculator className="h-4 w-4" /> Calculate
