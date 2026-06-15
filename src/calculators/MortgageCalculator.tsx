@@ -9,6 +9,7 @@ import FinancialTooltip from "@/components/calculator/FinancialTooltip";
 import AmortizationTable, { type AmortRow } from "@/components/calculator/AmortizationTable";
 import { ChevronDown, Printer, RotateCcw, Calculator } from "lucide-react";
 import { PieChart as RechartsPieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
+import { LazyView } from "@/components/ui/LazyView";
 
 interface MortgageResults {
   monthlyPI: number;
@@ -842,24 +843,26 @@ const MortgageCalculator = () => {
                   <div className="w-full sm:w-1/2 flex justify-center shrink-0">
                     {mounted && activePieData.length > 0 ? (
                       <div className="w-[170px] h-[170px] relative">
-                        <ResponsiveContainer width="100%" height="100%">
-                          <RechartsPieChart>
-                            <Pie
-                              data={activePieData}
-                              cx="50%"
-                              cy="50%"
-                              innerRadius={48}
-                              outerRadius={70}
-                              paddingAngle={2}
-                              dataKey="value"
-                            >
-                              {activePieData.map((entry, index) => (
-                                <Cell key={`cell-${index}`} fill={entry.color} />
-                              ))}
-                            </Pie>
-                            <Tooltip content={<CustomTooltip />} />
-                          </RechartsPieChart>
-                        </ResponsiveContainer>
+                        <LazyView minHeight={170}>
+                          <ResponsiveContainer width="100%" height="100%">
+                            <RechartsPieChart>
+                              <Pie
+                                data={activePieData}
+                                cx="50%"
+                                cy="50%"
+                                innerRadius={48}
+                                outerRadius={70}
+                                paddingAngle={2}
+                                dataKey="value"
+                              >
+                                {activePieData.map((entry, index) => (
+                                  <Cell key={`cell-${index}`} fill={entry.color} />
+                                ))}
+                              </Pie>
+                              <Tooltip content={<CustomTooltip />} />
+                            </RechartsPieChart>
+                          </ResponsiveContainer>
+                        </LazyView>
                         <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
                           <span className="text-[11px] uppercase font-bold text-muted-foreground tracking-wider">Total {freqSuffix}</span>
                           <span className="text-lg font-extrabold text-foreground leading-tight">
@@ -960,11 +963,13 @@ const MortgageCalculator = () => {
                     </div>
                   </div>
                   <div className="max-h-[350px] overflow-y-auto overflow-x-hidden rounded-lg border border-border print:max-h-none print:overflow-visible print:border-none [scrollbar-width:thin]">
-                    <AmortizationTable
-                      rows={viewMode === "yearly" ? results.yearlyRows : results.monthlyRows}
-                      yearly={viewMode === "yearly"}
-                      periodLabel={freqLabel}
-                    />
+                    <LazyView minHeight={300}>
+                      <AmortizationTable
+                        rows={viewMode === "yearly" ? results.yearlyRows : results.monthlyRows}
+                        yearly={viewMode === "yearly"}
+                        periodLabel={freqLabel}
+                      />
+                    </LazyView>
                   </div>
                 </div>
               </div>

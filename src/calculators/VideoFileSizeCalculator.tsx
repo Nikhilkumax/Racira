@@ -55,7 +55,6 @@ const VideoFileSizeCalculator = () => {
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Video File Size Calculator" }]} />
       <div className="container-page py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Video File Size Calculator</h1>
-        <p className="text-muted-foreground mb-6 text-lg">Estimate the final file size of a video based on duration, bitrate, and audio quality.</p>
 
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">

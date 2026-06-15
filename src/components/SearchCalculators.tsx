@@ -2,8 +2,9 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { Search } from "lucide-react";
+import { Search, Calculator } from "lucide-react";
 import { calculatorRegistry } from "@/data/calculatorRegistry";
+import { trackSearchImpression, trackComingSoonClick } from "@/lib/analytics";
 
 const SearchCalculators = () => {
   const [query, setQuery] = useState("");
@@ -32,6 +33,10 @@ const SearchCalculators = () => {
           c.description.toLowerCase().includes(normalizedQuery)
         )
         .sort((a, b) => {
+          // Priority 0: Built vs Unbuilt
+          if (a.isBuilt && !b.isBuilt) return -1;
+          if (!a.isBuilt && b.isBuilt) return 1;
+
           const aName = a.name.toLowerCase();
           const bName = b.name.toLowerCase();
           
@@ -54,6 +59,15 @@ const SearchCalculators = () => {
     : [];
 
   useEffect(() => {
+    if (open && normalizedQuery.length >= 1) {
+      const timer = setTimeout(() => {
+        trackSearchImpression(query, results.length);
+      }, 500); // Debounce to avoid spamming tracking on every keystroke
+      return () => clearTimeout(timer);
+    }
+  }, [query, open, results.length, normalizedQuery.length]);
+
+  useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
     };
@@ -71,7 +85,7 @@ const SearchCalculators = () => {
           value={query}
           onChange={e => { setQuery(e.target.value); setOpen(true); }}
           onFocus={() => setOpen(true)}
-          placeholder="Search 980+ calculators..."
+          placeholder="Search 11,000+ calculators..."
           className="w-full h-11 pl-10 pr-16 rounded-lg border border-border bg-card text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/40 transition-shadow"
           aria-label="Search calculators"
         />
@@ -87,11 +101,15 @@ const SearchCalculators = () => {
               key={c.slug}
               href={`/calculator/${c.slug}`}
               prefetch={true}
-              onClick={() => { setQuery(""); setOpen(false); }}
+              onClick={() => { 
+                if (!c.isBuilt) trackComingSoonClick(c.slug, "search");
+                setQuery(""); 
+                setOpen(false); 
+              }}
               className="flex items-center gap-3 w-full px-4 py-2.5 text-left hover:bg-muted/60 transition-colors"
             >
               <div className="h-8 w-8 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                <c.icon className="h-4 w-4 text-primary" />
+                {c.icon ? <c.icon className="h-4 w-4 text-primary" /> : <Calculator className="h-4 w-4 text-primary" />}
               </div>
               <div className="min-w-0">
                 <p className="text-sm font-medium text-foreground truncate">{c.name}</p>

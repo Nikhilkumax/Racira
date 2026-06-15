@@ -5,71 +5,115 @@ import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
 import { RotateCcw, Calculator } from "lucide-react";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+
+interface FactorizationResult {
+  original: number;
+  factors: number[];
+  exponentsForm: { base: number; exp: number }[];
+  equation: string;
+  isCustomError: boolean;
+  errorMsg?: string;
+  isPrime: boolean;
+}
+
+const getPrimeFactorization = (numStr: string): FactorizationResult | null => {
+  const num = parseInt(numStr, 10);
+  if (isNaN(num)) return null;
+
+  if (num < 2 || num > 9000000000000000) {
+    return {
+      original: num,
+      factors: [],
+      exponentsForm: [],
+      equation: "",
+      isCustomError: true,
+      errorMsg: "Please enter a positive integer between 2 and 9,000,000,000,000,000.",
+      isPrime: false
+    };
+  }
+
+  // We need to use BigInt for large numbers to avoid float precision issues during math, 
+  // though for up to 9 quadrillion (Number.MAX_SAFE_INTEGER is 9 quadrillion) normal numbers work fine.
+  // We'll stick to standard JS numbers since we capped at 9 quadrillion (9,000,000,000,000,000).
+
+  let n = num;
+  const factors: number[] = [];
+
+  // Divide by 2
+  while (n % 2 === 0) {
+    factors.push(2);
+    n = n / 2;
+  }
+
+  // Divide by odd numbers
+  for (let i = 3; i <= Math.sqrt(n); i += 2) {
+    while (n % i === 0) {
+      factors.push(i);
+      n = n / i;
+    }
+  }
+
+  // If n is still greater than 2, then n itself is a prime
+  if (n > 2) {
+    factors.push(n);
+  }
+
+  // Group into exponents form
+  const factorCounts: Record<number, number> = {};
+  for (const f of factors) {
+    factorCounts[f] = (factorCounts[f] || 0) + 1;
+  }
+
+  const exponentsForm = Object.entries(factorCounts).map(([baseStr, exp]) => ({
+    base: parseInt(baseStr, 10),
+    exp
+  }));
+
+  // Build equation strings
+  const expandedEq = factors.join(" × ");
+  
+  const expEqArray = exponentsForm.map(item => {
+    if (item.exp === 1) return `${item.base}`;
+    return `${item.base}^${item.exp}`;
+  });
+  const expEq = expEqArray.join(" × ");
+
+  const isPrime = factors.length === 1 && factors[0] === num;
+
+  return {
+    original: num,
+    factors,
+    exponentsForm,
+    equation: isPrime ? `${num} (Prime Number)` : expEq,
+    isCustomError: false,
+    isPrime
+  };
+};
 
 const PrimeFactorizationCalculator = () => {
-  const DEFAULTS = { number: "360" };
-  const [number, setNumber] = useState(DEFAULTS.number);
-  const [result, setResult] = useState<any>(null);
+  const [inputVal, setInputVal] = useState("84");
+  const [result, setResult] = useState<FactorizationResult | null>(null);
 
-  const primeFactors = (n: number) => {
-    const factors: Record<number, number> = {};
-    let d = 2;
-    while (d * d <= n) {
-      while (n % d === 0) { factors[d] = (factors[d] || 0) + 1; n = Math.floor(n / d); }
-      d++;
-    }
-    if (n > 1) factors[n] = (factors[n] || 0) + 1;
-    return factors;
-  };
-
-  const isPrime = (n: number) => {
-    if (n < 2) return false;
-    for (let i = 2; i * i <= n; i++) if (n % i === 0) return false;
-    return true;
-  };
-
-  const calculate = (val = number) => {
-    const n = parseInt(val);
-    if (isNaN(n) || n < 2 || n > 1e9) return;
-    const factors = primeFactors(n);
-    const primes = Object.keys(factors).map(Number);
-    const expression = primes.map(p => factors[p] > 1 ? `${p}^${factors[p]}` : `${p}`).join(" × ");
-    const expanded = primes.flatMap(p => Array(factors[p]).fill(p)).join(" × ");
-    const numDivisors = Object.values(factors).reduce((acc, e) => acc * (e + 1), 1);
-    const chartData = primes.map(p => ({ name: `${p}`, value: factors[p] }));
-    const rows = [
-      { label: "Number", value: n.toLocaleString() },
-      { label: "Is Prime?", value: isPrime(n) ? "Yes ✓" : "No" },
-      { label: "Prime Factorization", value: expression },
-      { label: "Expanded Form", value: expanded },
-      { label: "Number of Prime Factors", value: primes.length },
-      { label: "Total Prime Factor Count", value: Object.values(factors).reduce((a, b) => a + b, 0) },
-      { label: "Number of Divisors", value: numDivisors },
-    ];
-    setResult({
-      primary: expression,
-      subtitle: `${n.toLocaleString()} = ${expanded}`,
-      rows, chartData,
-      summary: [
-        { label: "Input", value: n.toLocaleString() },
-        { label: "Unique prime factors", value: primes.length },
-        { label: "Total divisors", value: numDivisors },
-        { label: "Largest prime factor", value: Math.max(...primes), border: true, bold: true },
-      ],
-    });
+  const calculate = () => {
+    setResult(getPrimeFactorization(inputVal));
   };
 
   useEffect(() => { calculate(); }, []);
-  const reset = () => { setNumber(DEFAULTS.number); calculate(DEFAULTS.number); };
+
+  const reset = () => {
+    setInputVal("84");
+    setResult(getPrimeFactorization("84"));
+  };
+
+  const wrap = "flex items-center rounded-md border border-input bg-background h-12 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
+  const ci = "w-full h-full px-4 text-lg bg-transparent outline-none border-none text-foreground font-mono";
 
   const faqs = [
-    { question: "What is prime factorization?", answer: "Prime factorization is expressing a number as a product of its prime factors. Every integer greater than 1 has a unique prime factorization — this is the Fundamental Theorem of Arithmetic." },
-    { question: "What is the prime factorization of 360?", answer: "360 = 2³ × 3² × 5. Breaking it down: 360 ÷ 2 = 180, 180 ÷ 2 = 90, 90 ÷ 2 = 45, 45 ÷ 3 = 15, 15 ÷ 3 = 5, 5 is prime." },
-    { question: "How do I find the number of divisors?", answer: "If n = p₁^a₁ × p₂^a₂ × ... × pₖ^aₖ, then the number of divisors is (a₁+1)(a₂+1)...(aₖ+1). For 360 = 2³×3²×5¹: divisors = (3+1)(2+1)(1+1) = 24." },
-    { question: "How is prime factorization used in LCM and GCD?", answer: "LCM takes the highest power of each prime across both numbers. GCD takes the lowest power. For example, GCD(360, 48) uses the common prime factors: 2³ × 3 = 24." },
-    { question: "What numbers have many divisors?", answer: "Highly composite numbers — like 360, 720, 1260 — have more divisors than any smaller number. They are useful in scheduling, music, and ancient measurement systems." },
-    { question: "Can I factorize very large numbers?", answer: "This calculator handles numbers up to 1 billion. For larger numbers, trial division becomes slow and specialized algorithms like Pollard's rho are used." },
+    { question: "What is a prime number?", answer: "A prime number is a whole number greater than 1 whose only divisors are 1 and itself. Examples include 2, 3, 5, 7, 11, and 13. The number 2 is the only even prime number." },
+    { question: "What is prime factorization?", answer: "Prime factorization is the process of breaking down a composite number into a series of prime numbers that, when multiplied together, equal the original number. It is essentially finding the 'building blocks' of that number." },
+    { question: "Is there more than one prime factorization for a number?", answer: "No. According to the Fundamental Theorem of Arithmetic, every integer greater than 1 has a unique prime factorization. No matter how you break the number down, you will always end up with the exact same set of prime factors." },
+    { question: "Why do we use exponential form?", answer: "Exponential form is a shorthand way to write repeated prime factors. Instead of writing out 2 × 2 × 2 × 3 × 3, it is much cleaner and easier to read as 2³ × 3²." },
+    { question: "How large of a number can this calculator factor?", answer: "This calculator can quickly factor numbers up to 9 Quadrillion (9,000,000,000,000,000). Numbers larger than this exceed standard browser integer limits and begin losing mathematical precision." },
   ];
 
   return (
@@ -77,87 +121,109 @@ const PrimeFactorizationCalculator = () => {
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Math", href: "/calculator#math" }, { label: "Prime Factorization Calculator" }]} />
       <div className="container-page py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Prime Factorization Calculator</h1>
-        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1200px] mx-auto">
-          <div className="card-calculator flex flex-col gap-5 !p-6 border border-border bg-card">
-            <div>
-              <label className="text-base font-medium block mb-1.5">Number (2 – 1,000,000,000)</label>
-              <input type="number" value={number} onChange={e => setNumber(e.target.value)}
-                className="h-10 w-full px-3 text-lg rounded-md border border-input bg-background focus:ring-2 focus:ring-primary/20 outline-none transition-all"
-                placeholder="360" min="2" max="1000000000" step="1" />
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+          
+          <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
+            
+            <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 text-sm text-muted-foreground flex flex-col gap-2 mb-2">
+              <p>Enter any integer between 2 and 9,000,000,000,000,000 to find its unique set of prime factors.</p>
             </div>
-            <div className="flex gap-3">
-              <button onClick={() => calculate()} className="flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors">
-                <Calculator className="w-4 h-4" /> Calculate
+
+            <div className="flex flex-col">
+              <label className="text-base font-medium text-foreground mb-1.5">Enter Number</label>
+              <div className={wrap}><input type="number" value={inputVal} onChange={e => setInputVal(e.target.value)} className={ci} min="2" max="9000000000000000" step="1" placeholder="e.g. 84" /></div>
+            </div>
+
+            <div className="flex gap-3 mt-4">
+              <button type="button" onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-12 text-lg transition-all active:scale-[0.98] shadow-sm">
+                <Calculator className="h-5 w-5" /> Factorize
               </button>
-              <button onClick={reset} className="h-10 w-10 border border-border rounded-md flex items-center justify-center hover:bg-secondary transition-colors">
-                <RotateCcw className="w-4 h-4" />
+              <button type="button" onClick={reset} className="w-12 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-12 transition-colors flex items-center justify-center" aria-label="Reset">
+                <RotateCcw className="h-5 w-5" />
               </button>
             </div>
           </div>
-          <div className="space-y-4">
-            {result && (<>
-              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-4">
-                <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Prime Factorization</div>
-                <div className="text-3xl font-bold text-primary break-words">{result.primary}</div>
-                <div className="text-sm text-muted-foreground mt-1 break-words">{result.subtitle}</div>
+
+          <div className="flex flex-col gap-4">
+            {result && result.isCustomError ? (
+              <div className="bg-destructive/10 border-l-4 border-destructive rounded-lg p-5 flex items-center gap-3">
+                <div className="flex-1">
+                  <div className="text-sm font-bold text-destructive mb-1 uppercase tracking-wider">Input Error</div>
+                  <div className="text-base font-medium text-foreground">{result.errorMsg}</div>
+                </div>
               </div>
-              <div className="card-calculator !p-4 border border-border bg-card">
-                <h3 className="text-base font-semibold mb-3">Breakdown</h3>
-                <table className="w-full text-base"><tbody>
-                  {result.rows?.map((r: any, i: number) => (
-                    <tr key={i} className="border-b last:border-0">
-                      <td className="py-2 text-muted-foreground">{r.label}</td>
-                      <td className="text-right font-medium">{r.value}</td>
-                    </tr>
-                  ))}
-                </tbody></table>
+            ) : result && (<>
+              
+              <div className={`border-l-4 rounded-lg p-6 ${result.isPrime ? 'bg-emerald-500/10 border-emerald-500' : 'bg-primary/10 border-primary'}`}>
+                <div className={`text-sm font-bold mb-2 uppercase tracking-wider ${result.isPrime ? 'text-emerald-600 dark:text-emerald-400' : 'text-primary'}`}>
+                  {result.isPrime ? 'Prime Number Detected' : 'Prime Factorization (Exponential)'}
+                </div>
+                
+                {result.isPrime ? (
+                  <div className="text-3xl md:text-4xl font-extrabold text-foreground tracking-tight font-mono break-all leading-tight">
+                    {result.original}
+                  </div>
+                ) : (
+                  <div className="flex flex-wrap items-baseline gap-2 text-3xl md:text-4xl font-extrabold text-foreground tracking-tight font-mono leading-tight">
+                    {result.exponentsForm.map((item, idx) => (
+                      <span key={idx} className="flex items-start">
+                        {item.base}
+                        {item.exp > 1 && <sup className="text-xl md:text-2xl mt-1 text-primary">{item.exp}</sup>}
+                        {idx < result.exponentsForm.length - 1 && <span className="mx-2 text-muted-foreground">×</span>}
+                      </span>
+                    ))}
+                  </div>
+                )}
+                
+                {result.isPrime && (
+                  <p className="mt-4 text-base font-medium text-emerald-700 dark:text-emerald-400">
+                    {result.original} has no prime factors other than itself because it is already a prime number.
+                  </p>
+                )}
               </div>
-              {result.chartData?.length > 0 && (
-                <div className="card-calculator !p-4 border border-border bg-card">
-                  <h3 className="text-base font-semibold mb-3">Prime Factor Exponents</h3>
-                  <ResponsiveContainer width="100%" height={220}>
-                    <BarChart data={result.chartData}>
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="name" label={{ value: "Prime", position: "insideBottom", offset: -2 }} tick={{ fontSize: 12 }} />
-                      <YAxis allowDecimals={false} label={{ value: "Exponent", angle: -90, position: "insideLeft" }} tick={{ fontSize: 11 }} />
-                      <Tooltip formatter={(v: any) => [v, "Exponent"]} />
-                      <Bar dataKey="value" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
-                    </BarChart>
-                  </ResponsiveContainer>
+
+              {!result.isPrime && (
+                <div className="card-calculator !p-5 border border-border bg-card shadow-sm">
+                  <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-2 border-b border-border/50 pb-2">Expanded Form (Multiplication)</div>
+                  <div className="text-xl font-bold text-foreground font-mono break-all leading-relaxed">
+                    {result.factors.join(" × ")}
+                  </div>
                 </div>
               )}
-              <div className="bg-muted/30 rounded-lg p-6">
-                <h3 className="text-base font-semibold mb-4">Summary</h3>
-                <div className="space-y-3">
-                  {result.summary?.map((s: any, i: number) => (
-                    <div key={i} className={`flex justify-between text-base ${s.border ? "border-t pt-3" : ""}`}>
-                      <span className="text-muted-foreground">{s.label}</span>
-                      <span className={`font-medium ${s.bold ? "font-bold text-primary" : ""}`}>{s.value}</span>
-                    </div>
-                  ))}
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="card-calculator !p-5 border border-border bg-card shadow-sm flex flex-col justify-center items-center text-center">
+                  <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">Total Prime Factors</div>
+                  <div className="text-3xl font-extrabold text-foreground">{result.factors.length}</div>
+                  <div className="text-xs text-muted-foreground mt-1">(Including duplicates)</div>
+                </div>
+                
+                <div className="card-calculator !p-5 border border-border bg-card shadow-sm flex flex-col justify-center items-center text-center">
+                  <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">Distinct Prime Bases</div>
+                  <div className="text-3xl font-extrabold text-foreground">{result.exponentsForm.length}</div>
+                  <div className="text-xs text-muted-foreground mt-1">(Unique numbers)</div>
                 </div>
               </div>
+
             </>)}
           </div>
         </div>
-        <div className="max-w-[1200px] mx-auto mt-10">
+        
+        <div className="max-w-[1180px] mx-auto mt-12">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
-            <h2>What Is Prime Factorization?</h2>
-            <p>Prime factorization is the process of expressing any integer greater than 1 as a product of prime numbers. A prime number is a number greater than 1 that has exactly two divisors: 1 and itself (2, 3, 5, 7, 11, 13…). The Fundamental Theorem of Arithmetic states that every integer greater than 1 has a unique prime factorization — no two different combinations of primes multiply to give the same result.</p>
-            <p>For example, 360 = 2³ × 3² × 5. This means 360 = 8 × 9 × 5, and there is no other set of primes that multiplies to 360. This uniqueness property makes prime factorization foundational to number theory, cryptography, and many computational algorithms.</p>
-            <h2>How Prime Factorization Is Calculated</h2>
-            <p>The standard method is trial division: divide the number repeatedly by the smallest possible prime (starting with 2) until the quotient becomes 1. For 360: 360 ÷ 2 = 180 → 180 ÷ 2 = 90 → 90 ÷ 2 = 45 → 45 ÷ 3 = 15 → 15 ÷ 3 = 5 → 5 is prime. Result: 2³ × 3² × 5. This calculator uses optimized trial division up to √n, making it efficient for numbers up to 1 billion.</p>
-            <h2>Counting Divisors</h2>
-            <p>If n = p₁^a₁ × p₂^a₂ × … × pₖ^aₖ, the total number of positive divisors is (a₁+1)(a₂+1)…(aₖ+1). For 360 = 2³ × 3² × 5¹: divisors = (3+1)(2+1)(1+1) = 4 × 3 × 2 = 24. This means 360 has exactly 24 divisors: 1, 2, 3, 4, 5, 6, 8, 9, 10, 12, 15, 18, 20, 24, 30, 36, 40, 45, 60, 72, 90, 120, 180, 360.</p>
-            <h2>Applications of Prime Factorization</h2>
-            <p><strong>LCM and GCD:</strong> The least common multiple (LCM) takes the highest power of each prime across both numbers. GCD takes the lowest. For GCD(360, 48): 48 = 2⁴ × 3. GCD = 2³ × 3 = 24. LCM = 2⁴ × 3² × 5 = 720.</p>
-            <p><strong>RSA Cryptography:</strong> The security of RSA encryption relies on the computational difficulty of factorizing very large numbers (hundreds of digits). Multiplying two large primes is fast; factorizing their product is computationally infeasible with current technology.</p>
-            <p><strong>Simplifying fractions:</strong> To simplify 360/48, find GCD(360,48) = 24. Then 360/48 = 15/2. Prime factorization makes GCD computation systematic.</p>
-            <h2>Highly Composite Numbers</h2>
-            <p>360 is a highly composite number — it has more divisors (24) than any smaller positive integer. This is why 360 was chosen for degrees in a circle (divisible by 2, 3, 4, 5, 6, 8, 9, 10, 12…), why clocks use 12 and 60 (both highly composite), and why ancient Babylonians used a base-60 number system.</p>
-            <h2>Tips for Using This Calculator</h2>
-            <p>Enter any integer from 2 to 1,000,000,000. The bar chart shows each prime's exponent — taller bars indicate primes that divide the number more times. Pair with the <a href="/calculator/lcm-gcd-calculator">LCM/GCD calculator</a> for practical number theory applications, or use results with the <a href="/calculator/combinations-calculator">combinations calculator</a> in counting problems.</p>
+          <article className="prose-finance max-w-none">
+            <h2>What is Prime Factorization?</h2>
+            <p><strong>Prime Factorization</strong> is the mathematical process of breaking down a composite number into a series of prime numbers that, when multiplied together, equal the original composite number. You can think of prime numbers as the fundamental "building blocks" of all other numbers in mathematics.</p>
+            <p>For example, the number 12 is a composite number. It can be factored into 3 × 4. However, 4 is not a prime number, so we must break it down further into 2 × 2. Therefore, the complete prime factorization of 12 is <strong>2 × 2 × 3</strong>.</p>
+
+            <h2>The Fundamental Theorem of Arithmetic</h2>
+            <p>Why do we care about prime factorization? It is governed by one of the most important theorems in mathematics: The Fundamental Theorem of Arithmetic. This theorem states that every integer greater than 1 either is a prime number itself, or can be represented as the product of prime numbers. More importantly, this representation is <strong>100% unique</strong> to that number (ignoring the order of the factors). Like a fingerprint, no two different composite numbers share the exact same prime factorization.</p>
+
+            <h2>Expanded vs. Exponential Form</h2>
+            <p>When factoring larger numbers, you often end up with the same prime number repeated multiple times. For instance, the expanded prime factorization of 72 is <code>2 × 2 × 2 × 3 × 3</code>. To make this easier to read and write, mathematicians use <strong>exponential form</strong>. We group the identical numbers and raise them to the power of their count. Thus, the exponential form of 72 is written cleanly as <code>2³ × 3²</code>.</p>
+
+            <h2>Real-World Applications</h2>
+            <p>While prime factoring might seem like a purely academic exercise done in middle school math classes, it is actually the foundation of modern cybersecurity. The encryption that protects your bank account, your private text messages, and all secure internet traffic (such as the RSA algorithm) relies heavily on prime factorization. These systems multiply two incredibly massive prime numbers together to create a public "key". Hackers cannot crack the code without finding the original two prime numbers, and currently, there is no known algorithm that can prime-factor a 600-digit number fast enough to be useful to a hacker—even using supercomputers.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/prime-factorization-calculator" />
           <PopularCalculators exclude="/calculator/prime-factorization-calculator" />

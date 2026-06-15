@@ -1,135 +1,221 @@
 "use client";
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import InputField from "@/components/calculator/InputField";
-import ResultDisplay from "@/components/calculator/ResultDisplay";
-import PieChart from "@/components/calculator/PieChart";
-import { RotateCcw } from "lucide-react";
+import PopularCalculators from "@/components/PopularCalculators";
+import { RotateCcw, Calculator } from "lucide-react";
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from "recharts";
 
-const BudgetCalculator = () => {
-  const [monthlyIncome, setMonthlyIncome] = useState("5000");
-  const [housing, setHousing] = useState("1500");
-  const [utilities, setUtilities] = useState("200");
-  const [groceries, setGroceries] = useState("400");
-  const [transportation, setTransportation] = useState("300");
-  const [entertainment, setEntertainment] = useState("200");
-  const [shopping, setShopping] = useState("150");
-  const [savings, setSavings] = useState("500");
-  const [debt, setDebt] = useState("300");
+interface BudgetResult {
+  housing: number;
+  transportation: number;
+  food: number;
+  utilities: number;
+  insurance: number;
+  healthcare: number;
+  savings: number;
+  entertainment: number;
+  personalCare: number;
+  debt: number;
+  other: number;
+  totalAllocated: number;
+  surplusDeficit: number;
+  savingsRate: number;
+  breakdown: { category: string; amount: number; pct: number; color: string; status: string }[];
+  summaryStats: { label: string; value: string }[];
+}
 
-  const [results, setResults] = useState<any>(null);
-  const [showResults, setShowResults] = useState(false);
+const BUDGET_RULES = {
+  housing: { recommended: 25, max: 30, label: "Housing (rent/mortgage)" },
+  transportation: { recommended: 10, max: 15, label: "Transportation" },
+  food: { recommended: 10, max: 15, label: "Food & Groceries" },
+  utilities: { recommended: 5, max: 10, label: "Utilities & Bills" },
+  insurance: { recommended: 5, max: 8, label: "Insurance Premiums" },
+  healthcare: { recommended: 5, max: 8, label: "Healthcare" },
+  savings: { recommended: 20, max: 100, label: "Savings & Investments" },
+  entertainment: { recommended: 5, max: 10, label: "Entertainment" },
+  personalCare: { recommended: 3, max: 5, label: "Personal Care" },
+  debt: { recommended: 5, max: 15, label: "Debt Payments" },
+  other: { recommended: 7, max: 10, label: "Other / Miscellaneous" },
+};
 
-  const handleCalculate = () => {
-    setShowResults(true);
-    const income = parseFloat(monthlyIncome) || 0;
-    const needs = (parseFloat(housing) || 0) + (parseFloat(utilities) || 0) + (parseFloat(groceries) || 0) + (parseFloat(transportation) || 0);
-    const wants = (parseFloat(entertainment) || 0) + (parseFloat(shopping) || 0);
-    const financial = (parseFloat(savings) || 0) + (parseFloat(debt) || 0);
-    
-    const totalExpenses = needs + wants + financial;
-    const remaining = income - totalExpenses;
+const COLORS = ["#6366f1", "#22c55e", "#f59e0b", "#3b82f6", "#8b5cf6", "#ef4444", "#14b8a6", "#f97316", "#ec4899", "#64748b", "#84cc16"];
 
-    setResults({
-      needs,
-      wants,
-      financial,
-      totalExpenses,
-      remaining,
-      needsPct: (needs / income) * 100,
-      wantsPct: (wants / income) * 100,
-      financialPct: (financial / income) * 100,
-    });
+function calcBudget(monthlyIncome: number, expenses: Record<string, number>): BudgetResult {
+  const housing = expenses.housing ?? 0;
+  const transportation = expenses.transportation ?? 0;
+  const food = expenses.food ?? 0;
+  const utilities = expenses.utilities ?? 0;
+  const insurance = expenses.insurance ?? 0;
+  const healthcare = expenses.healthcare ?? 0;
+  const savings = expenses.savings ?? 0;
+  const entertainment = expenses.entertainment ?? 0;
+  const personalCare = expenses.personalCare ?? 0;
+  const debt = expenses.debt ?? 0;
+  const other = expenses.other ?? 0;
+
+  const totalAllocated = housing + transportation + food + utilities + insurance + healthcare + savings + entertainment + personalCare + debt + other;
+  const surplusDeficit = monthlyIncome - totalAllocated;
+  const savingsRate = monthlyIncome > 0 ? ((savings + Math.max(0, surplusDeficit)) / monthlyIncome) * 100 : 0;
+
+  const expenseMap: Record<string, number> = { housing, transportation, food, utilities, insurance, healthcare, savings, entertainment, personalCare, debt, other };
+
+  const breakdown = Object.entries(BUDGET_RULES).map(([key, rule], i) => {
+    const amount = expenseMap[key] ?? 0;
+    const pct = monthlyIncome > 0 ? (amount / monthlyIncome) * 100 : 0;
+    const status = pct <= rule.recommended ? "✓ Good" : pct <= rule.max ? "⚠ High" : "✗ Over";
+    return { category: rule.label, amount, pct, color: COLORS[i], status };
+  }).filter(b => b.amount > 0);
+
+  const summaryStats = [
+    { label: "Monthly Income", value: `$${monthlyIncome.toLocaleString()}` },
+    { label: "Total Expenses", value: `$${totalAllocated.toFixed(0)}` },
+    { label: "Surplus / Deficit", value: `${surplusDeficit >= 0 ? "+" : ""}$${surplusDeficit.toFixed(0)}` },
+    { label: "Savings Rate", value: `${savingsRate.toFixed(1)}%` },
+    { label: "Housing %", value: `${monthlyIncome > 0 ? ((housing / monthlyIncome) * 100).toFixed(1) : 0}%` },
+    { label: "Debt %", value: `${monthlyIncome > 0 ? ((debt / monthlyIncome) * 100).toFixed(1) : 0}%` },
+  ];
+
+  return { housing, transportation, food, utilities, insurance, healthcare, savings, entertainment, personalCare, debt, other, totalAllocated, surplusDeficit, savingsRate, breakdown, summaryStats };
+}
+
+export default function BudgetCalculator() {
+  const [income, setIncome] = useState("6000");
+  const [expenses, setExpenses] = useState<Record<string, string>>({
+    housing: "1500", transportation: "400", food: "600", utilities: "200",
+    insurance: "300", healthcare: "150", savings: "600", entertainment: "200",
+    personalCare: "100", debt: "300", other: "200",
+  });
+  const [result, setResult] = useState<BudgetResult | null>(null);
+
+  const setExpense = (key: string, value: string) => setExpenses(prev => ({ ...prev, [key]: value }));
+
+  const calculate = () => {
+    const inc = parseFloat(income) || 0;
+    const expNums = Object.fromEntries(Object.entries(expenses).map(([k, v]) => [k, parseFloat(v) || 0]));
+    setResult(calcBudget(inc, expNums));
   };
 
-  const reset = () => {
-    setShowResults(false);
-    setMonthlyIncome("5000");
-    setHousing("1500");
-    setResults(null);
-  };
+  const defaults = { housing: "1500", transportation: "400", food: "600", utilities: "200", insurance: "300", healthcare: "150", savings: "600", entertainment: "200", personalCare: "100", debt: "300", other: "200" };
+
+  useEffect(() => {
+    const expNums = Object.fromEntries(Object.entries(defaults).map(([k, v]) => [k, parseFloat(v) || 0]));
+    setResult(calcBudget(6000, expNums));
+  }, []);
+
+  const inp = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
+  const ci = "w-full h-full px-3 text-sm bg-transparent outline-none border-none text-foreground";
 
   const faqs = [
-    { question: "What is the 50/30/20 budget rule?", answer: "The 50/30/20 rule is a popular budgeting method where 50% of your after-tax income goes to Needs (housing, food, utilities), 30% to Wants (dining out, entertainment), and 20% to Savings and Debt repayment." },
-    { question: "Is budgeting necessary if I have high income?", answer: "Yes! High earners can still fall into 'lifestyle creep' where expenses rise to match income. Budgeting ensures that your money is working toward your long-term goals like retirement or house purchase rather than just disappearing on impulse buys." },
-    { question: "How often should I review my budget?", answer: "A monthly review is ideal. This allows you to adjust for variable expenses (like higher heating bills in winter) and ensures you are staying on track with your annual goals." }
+    { question: "What is the 50/30/20 budgeting rule?", answer: "The 50/30/20 rule (popularized by Senator Elizabeth Warren's book) splits after-tax income into: 50% Needs (housing, food, utilities, insurance, minimum debt payments, transportation for work). 30% Wants (entertainment, dining out, hobbies, subscriptions, new clothing beyond essentials). 20% Savings and debt repayment (emergency fund, retirement, extra debt payments). It's a simplified starting framework — adjust percentages based on your income level and cost of living." },
+    { question: "How much should I spend on housing?", answer: "Two common rules: 28% rule (front-end ratio): housing costs should not exceed 28% of gross monthly income. 30% rule: spend no more than 30% of gross income on rent. Many financial experts now recommend 25% or less given rising costs. At $6,000/month gross: 25% = $1,500 max housing. At $8,000/month: $2,000 max. Note: these are gross income percentages — after taxes, you may have significantly less available. High cost-of-living cities often force compromises." },
+    { question: "What savings rate should I aim for?", answer: "Minimum: 10–15% of gross income for retirement only (this may not be sufficient for early retirement). Good: 15–20% (covers retirement plus an emergency fund and other goals). Excellent: 25%+ (substantially accelerates wealth building and financial independence). FIRE (Financial Independence) community: 40–60%+ savings rates. The savings rate is the single biggest lever — every percentage point saved increases financial independence timeline dramatically." },
+    { question: "What is the 'debt-to-income' ratio and what's healthy?", answer: "Debt-to-Income (DTI) = Total Monthly Debt Payments ÷ Gross Monthly Income. Front-end DTI: housing costs only (target under 28%). Back-end DTI: all debt payments including housing, auto, student loans, credit cards (target under 36%). Mortgage lenders typically require back-end DTI under 43% (conventional) or 50% (FHA). High DTI constrains your ability to save and respond to financial emergencies — a back-end DTI above 35% is a warning sign." },
+    { question: "How do I create a budget from scratch?", answer: "1. Calculate true after-tax monthly income (all sources). 2. List all fixed expenses (rent, loan payments, subscriptions — amounts don't change). 3. List all variable expenses (food, utilities, entertainment — track for 3 months for accuracy). 4. Total all expenses and compare to income. 5. Identify areas to cut. 6. Set spending targets by category. 7. Track and review monthly. Tools: budgeting apps (YNAB, Mint, Copilot), bank categorization, or manual spreadsheet. Zero-based budgeting assigns every dollar a job." },
+    { question: "How much should I have in an emergency fund?", answer: "Standard recommendation: 3–6 months of essential living expenses in a liquid, high-yield savings account (not invested). Essential expenses = housing + food + utilities + minimum debt payments + insurance. For a family with $4,000/month in essential expenses: $12,000–$24,000 emergency fund. When to go higher (6–12 months): variable income (freelancer, commission-based), single income household, industry susceptible to layoffs, or health issues. Keep emergency funds in HYSA (5%+ interest rates in 2024) to minimize opportunity cost." },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Budget Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Finance", href: "/calculator#finance" }, { label: "Monthly Budget Calculator" }]} />
       <div className="container-page py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Budget Calculator</h1>
-        <p className="text-muted-foreground mb-6 text-lg">Take control of your finances by tracking your income and expenses. See how your spending aligns with the 50/30/20 rule.</p>
-
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Monthly Budget Calculator</h1>
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="grid sm:grid-cols-2 gap-8 mb-6">
-                <div className="space-y-4">
-                  <h3 className="font-bold border-b pb-2">Income & Needs</h3>
-                  <InputField id="monthlyIncome" label="Monthly Net Income" value={monthlyIncome} onChange={setMonthlyIncome} prefix="$" />
-                  <InputField id="housing" label="Rent / Mortgage" value={housing} onChange={setHousing} prefix="$" />
-                  <InputField id="utilities" label="Utilities & Phone" value={utilities} onChange={setUtilities} prefix="$" />
-                  <InputField id="groceries" label="Groceries" value={groceries} onChange={setGroceries} prefix="$" />
-                </div>
-                <div className="space-y-4">
-                  <h3 className="font-bold border-b pb-2">Wants & Savings</h3>
-                  <InputField id="entertainment" label="Entertainment" value={entertainment} onChange={setEntertainment} prefix="$" />
-                  <InputField id="shopping" label="Shopping" value={shopping} onChange={setShopping} prefix="$" />
-                  <InputField id="savings" label="Savings / Investing" value={savings} onChange={setSavings} prefix="$" />
-                  <InputField id="debt" label="Debt Repayment" value={debt} onChange={setDebt} prefix="$" />
-                </div>
+          <div className="card-calculator flex flex-col gap-3 !p-5 border border-border bg-card shadow-sm">
+            <div>
+              <label className="text-base font-medium mb-1.5 block">Monthly Take-Home Income</label>
+              <div className="flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20">
+                <span className="pl-3 text-muted-foreground">$</span>
+                <input type="number" value={income} onChange={e => setIncome(e.target.value)} className="w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground" />
               </div>
-
-              <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Generate Budget</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors"><RotateCcw className="h-5 w-5" /></button>
-              </div>
+            </div>
+            <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Monthly Expenses</p>
+            <div className="grid grid-cols-2 gap-x-3 gap-y-2">
+              {Object.entries(BUDGET_RULES).map(([key, rule]) => (
+                <div key={key}>
+                  <label className="text-xs font-medium mb-1 block text-muted-foreground">{rule.label}</label>
+                  <div className={inp}><span className="pl-2 text-muted-foreground text-sm">$</span><input type="number" value={expenses[key] ?? ""} onChange={e => setExpense(key, e.target.value)} className={ci} /></div>
+                </div>
+              ))}
+            </div>
+            <div className="flex gap-3 mt-1">
+              <button onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm">
+                <Calculator className="h-4 w-4" /> Analyze Budget
+              </button>
+              <button onClick={() => { setIncome("6000"); setExpenses(defaults); const expNums = Object.fromEntries(Object.entries(defaults).map(([k, v]) => [k, parseFloat(v) || 0])); setResult(calcBudget(6000, expNums)); }} className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center">
+                <RotateCcw className="h-4 w-4" />
+              </button>
+            </div>
           </div>
 
-          <div className="flex flex-col gap-3">
-            {showResults && results && (
-              <>
-                <div className="card-calculator flex items-center justify-center">
-                  <PieChart segments={[
-                    { label: "Needs", value: results.needs, color: "#6366f1" },
-                    { label: "Wants", value: results.wants, color: "#f59e0b" },
-                    { label: "Savings/Debt", value: results.financial, color: "#22c55e" },
-                    { label: "Remaining", value: Math.max(0, results.remaining), color: "#94a3b8" }
-                  ]} />
+          <div className="flex flex-col gap-4">
+            {result && (<>
+              <div className={`border-l-4 rounded-lg p-5 ${result.surplusDeficit >= 0 ? "bg-green-500/10 border-green-500" : "bg-red-500/10 border-red-500"}`}>
+                <div className={`text-sm font-bold uppercase tracking-wider mb-1 ${result.surplusDeficit >= 0 ? "text-green-600" : "text-red-600"}`}>{result.surplusDeficit >= 0 ? "Monthly Surplus" : "Monthly Deficit"}</div>
+                <div className="text-4xl font-extrabold text-foreground tracking-tight">{result.surplusDeficit >= 0 ? "+" : ""}${result.surplusDeficit.toFixed(0)}</div>
+                <div className="text-base text-muted-foreground mt-1">Total expenses: ${result.totalAllocated.toFixed(0)} · Savings rate: {result.savingsRate.toFixed(1)}%</div>
+              </div>
+              <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+                {[["Total Expenses", `$${result.totalAllocated.toFixed(0)}`], ["Savings Rate", `${result.savingsRate.toFixed(1)}%`], ["Housing %", `${parseFloat(income) > 0 ? ((result.housing / parseFloat(income)) * 100).toFixed(1) : 0}%`]].map(([l, v], i) => (
+                  <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                    <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                    <div className="text-base font-bold">{v}</div>
+                  </div>
+                ))}
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Category Analysis</h3>
+                <table className="w-full text-sm"><thead><tr className="border-b border-border text-muted-foreground text-xs"><th className="py-2 text-left">Category</th><th className="py-2 text-right">Amount</th><th className="py-2 text-right">%</th><th className="py-2 text-right">Status</th></tr></thead><tbody>
+                  {result.breakdown.map((r, i) => (
+                    <tr key={i} className="border-b border-border/50 last:border-0">
+                      <td className="py-2 flex items-center gap-1.5 text-muted-foreground"><span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: r.color }} />{r.category}</td>
+                      <td className="py-2 text-right font-semibold">${r.amount.toFixed(0)}</td>
+                      <td className="py-2 text-right">{r.pct.toFixed(1)}%</td>
+                      <td className={`py-2 text-right text-xs font-bold ${r.status.startsWith("✓") ? "text-green-600" : r.status.startsWith("⚠") ? "text-amber-500" : "text-red-500"}`}>{r.status}</td>
+                    </tr>
+                  ))}
+                </tbody></table>
+              </div>
+              {result.breakdown.length > 0 && (
+                <div className="card-calculator !p-5 border border-border bg-card">
+                  <h3 className="text-base font-bold mb-3">Budget Allocation</h3>
+                  <ResponsiveContainer width="100%" height={220}>
+                    <PieChart>
+                      <Pie data={result.breakdown} cx="50%" cy="50%" innerRadius={50} outerRadius={80} dataKey="amount" paddingAngle={2}>
+                        {result.breakdown.map((d, i) => <Cell key={i} fill={d.color} />)}
+                      </Pie>
+                      <Tooltip formatter={(v: any) => [`$${Number(v).toFixed(0)}`, ""]} />
+                      <Legend iconSize={10} wrapperStyle={{ fontSize: "11px" }} />
+                    </PieChart>
+                  </ResponsiveContainer>
                 </div>
-                <div className="card-calculator">
-                  <h3 className="font-bold mb-4">Budget Breakdown</h3>
-                  <ResultDisplay items={[
-                    { label: "Needs (Target 50%)", value: results.needs, textValue: `${results.needsPct.toFixed(1)}%` },
-                    { label: "Wants (Target 30%)", value: results.wants, textValue: `${results.wantsPct.toFixed(1)}%` },
-                    { label: "Financial (Target 20%)", value: results.financial, textValue: `${results.financialPct.toFixed(1)}%` },
-                    { label: "Left Over", value: results.remaining, highlight: results.remaining >= 0 },
-                  ]} />
+              )}
+              <div className="bg-muted/30 rounded-lg p-5">
+                <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
+                <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                  {result.summaryStats.map((s, i) => (
+                    <div key={i} className="flex justify-between"><span className="text-muted-foreground">{s.label}:</span><span className={`font-semibold ${s.label === "Surplus / Deficit" ? (result.surplusDeficit >= 0 ? "text-green-600" : "text-red-600") : ""}`}>{s.value}</span></div>
+                  ))}
                 </div>
-              </>
-            )}
+              </div>
+            </>)}
           </div>
         </div>
-
-        <div className="max-w-[1180px] mx-auto mt-8">
-          <AdPlaceholder className="mb-10" label="Sidebar Ad" />
-          <article className="prose-finance">
-              <h2>Mastering Your Monthly Budget</h2>
-              <p>Budgeting is the most fundamental skill in personal finance. It's not about restricting your spending, but rather about ensuring that your spending aligns with your values and long-term goals.</p>
-              <h3>The 50/30/20 Framework</h3>
-              <p>This simple framework helps you balance your current needs with your future security. By aiming to keep your fixed costs (Needs) under 50% of your income, you leave enough "breathing room" to enjoy your life (Wants) and build wealth (Savings).</p>
-            </article>
+        <div className="max-w-[1180px] mx-auto mt-12">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance max-w-none">
+            <h2>How to Build a Monthly Budget</h2>
+            <p>This <strong>monthly budget calculator</strong> compares your actual spending against recommended percentages for each category, instantly flagging areas where you're over budget. The status indicators (✓ Good / ⚠ High / ✗ Over) are based on the widely-accepted 50/30/20 framework and standard lender debt-to-income guidelines. Your savings rate — money saved plus any monthly surplus — is the key metric to optimize.</p>
+            <h2>The 50/30/20 Framework</h2>
+            <p>50% Needs: housing, food, utilities, insurance, minimum debt payments, essential transportation. 30% Wants: dining out, entertainment, hobbies, subscriptions, clothing above essentials. 20% Financial goals: retirement contributions, emergency fund, extra debt paydown, savings for goals. Adjust for your situation — a 25% savings rate accelerates financial independence dramatically; a 10% savings rate is a starting point, not a destination.</p>
+            <h2>The Most Impactful Budget Levers</h2>
+            <p>Housing: the biggest single expense for most households. Every $100/month saved on housing saves $1,200/year — consider roommates, a longer commute, or downsizing. Transportation: the second-largest expense. Car ownership costs average $12,000+/year all-in (loan, insurance, gas, maintenance, depreciation). Savings rate: every additional 1% of income saved is a permanent lifestyle improvement. Food: cooking at home vs. dining out has one of the highest ROI of any budget category. Related tools: <a href="/calculator/income-tax-calculator">Income Tax Calculator</a>, <a href="/calculator/early-retirement-calculator">FIRE Calculator</a>.</p>
+          </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/budget-calculator" />
           <PopularCalculators exclude="/calculator/budget-calculator" />
         </div>
       </div>
     </>
   );
-};
-
-export default BudgetCalculator;
-
+}

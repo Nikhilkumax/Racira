@@ -1,77 +1,256 @@
-
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
+import { RotateCcw, Calculator, Activity } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, ReferenceLine, CartesianGrid } from "recharts";
 
-const CreatinineClearanceCalculator = () => {
-  const [inputA, setInputA] = useState("");
-  const [inputB, setInputB] = useState("");
-  const [result, setResult] = useState<string|null>(null);
+interface CrClResult {
+  crcl: number;
+  stage: string;
+  stageDesc: string;
+  stageColor: string;
+  breakdown: { label: string; value: string }[];
+  chartData: { category: string; span: number; min: number; max: number; color: string }[];
+  summaryStats: { label: string; value: string }[];
+}
+
+function calcCrCl(age: number, weightKg: number, scr: number, sex: string): CrClResult {
+  // Cockcroft-Gault Equation
+  let crcl = ((140 - age) * weightKg) / (72 * scr);
+  if (sex === "female") {
+    crcl = crcl * 0.85;
+  }
+
+  let stage = "";
+  let stageDesc = "";
+  let stageColor = "";
+
+  if (crcl >= 90) {
+    stage = "Stage 1 (Normal)";
+    stageDesc = "Normal or high kidney function.";
+    stageColor = "#22c55e"; // Green
+  } else if (crcl >= 60) {
+    stage = "Stage 2 (Mild)";
+    stageDesc = "Mildly decreased kidney function.";
+    stageColor = "#84cc16"; // Light Green/Lime
+  } else if (crcl >= 30) {
+    stage = "Stage 3 (Moderate)";
+    stageDesc = "Moderately decreased kidney function.";
+    stageColor = "#f59e0b"; // Orange
+  } else if (crcl >= 15) {
+    stage = "Stage 4 (Severe)";
+    stageDesc = "Severely decreased kidney function.";
+    stageColor = "#f97316"; // Dark Orange
+  } else {
+    stage = "Stage 5 (Failure)";
+    stageDesc = "Kidney failure (ESRD).";
+    stageColor = "#ef4444"; // Red
+  }
+
+  const breakdown = [
+    { label: "Patient Age", value: `${age} years` },
+    { label: "Patient Weight", value: `${weightKg} kg` },
+    { label: "Serum Creatinine", value: `${scr.toFixed(2)} mg/dL` },
+    { label: "Sex Adjustment Factor", value: sex === "female" ? "0.85" : "1.00 (None)" },
+    { label: "Calculated CrCl", value: `${crcl.toFixed(1)} mL/min` },
+  ];
+
+  const summaryStats = [
+    { label: "CrCl Rate", value: `${crcl.toFixed(1)} mL/min` },
+    { label: "CKD Stage", value: stage.split(" ")[1] || stage },
+    { label: "Status", value: stageDesc.replace(' kidney function.', '') },
+    { label: "Algorithm", value: "Cockcroft-Gault" },
+  ];
+
+  // For the chart, we map the stages. The x-axis is CrCl from 0 to 140.
+  const chartData = [
+    { category: "Stage 5", min: 0, max: 15, span: 15, color: "#ef4444" },
+    { category: "Stage 4", min: 15, max: 30, span: 15, color: "#f97316" },
+    { category: "Stage 3", min: 30, max: 60, span: 30, color: "#f59e0b" },
+    { category: "Stage 2", min: 60, max: 90, span: 30, color: "#84cc16" },
+    { category: "Stage 1", min: 90, max: 140, span: 50, color: "#22c55e" },
+  ];
+
+  return { crcl, stage, stageDesc, stageColor, breakdown, chartData, summaryStats };
+}
+
+export default function CreatinineClearanceCalculator() {
+  const [age, setAge] = useState("65");
+  const [weight, setWeight] = useState("70");
+  const [scr, setScr] = useState("1.2");
+  const [sex, setSex] = useState("male");
+  const [result, setResult] = useState<CrClResult | null>(null);
 
   const calculate = () => {
-    const a = parseFloat(inputA);
-    const b = parseFloat(inputB);
-    if (isNaN(a)) { setResult("Please enter a valid number"); return; }
-    setResult(`Result: ${a} (input B: ${isNaN(b) ? "N/A" : b})`);
+    const a = parseFloat(age), w = parseFloat(weight), s = parseFloat(scr);
+    if (a > 0 && w > 0 && s > 0) setResult(calcCrCl(a, w, s, sex));
   };
 
-  const reset = () => { setInputA(""); setInputB(""); setResult(null); };
+  useEffect(() => { setResult(calcCrCl(65, 70, 1.2, "male")); }, []);
+
+  const inp = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
+  const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground";
+  const suf = "pr-3 text-sm text-muted-foreground shrink-0";
 
   const faqs = [
-    { question: "How do I use this calculator?", answer: "Enter your values in the input fields and click Calculate to see the result." },
-    { question: "What formula does this use?", answer: "This calculator uses the standard Creatinine Clearance Calculator formula. Enter your known values to compute the unknown." },
-    { question: "Is this calculator free?", answer: "Yes, all Racira calculators are completely free to use." },
+    { question: "What is Creatinine Clearance (CrCl)?", answer: "Creatinine clearance is a clinical measurement that estimates the glomerular filtration rate (GFR)—essentially, how many milliliters of blood your kidneys can filter and clean per minute. It is one of the most reliable indicators of overall kidney function and is heavily used by pharmacists to adjust medication dosages." },
+    { question: "What formula does this calculator use?", answer: "This tool uses the Cockcroft-Gault equation, which is the historical gold standard for estimating CrCl. The formula is: CrCl = [(140 - Age) * Weight in kg] / (72 * Serum Creatinine). If the patient is female, the final result is multiplied by 0.85 to account for naturally lower muscle mass." },
+    { question: "Why is patient weight required?", answer: "Creatinine is a waste product generated by normal muscle breakdown. Therefore, a person with more muscle mass will naturally produce more creatinine. The Cockcroft-Gault equation uses total body weight as a proxy for muscle mass to balance out the serum creatinine levels found in the blood test." },
+    { question: "Is CrCl the same as eGFR?", answer: "No, though they are very closely related. Creatinine Clearance (CrCl) estimates the actual volume of blood cleared of creatinine per minute (mL/min). Estimated Glomerular Filtration Rate (eGFR) uses newer formulas (like CKD-EPI) and standardizes the result to a body surface area of 1.73 m² (mL/min/1.73m²). Pharmacists generally use CrCl for drug dosing, while nephrologists use eGFR for diagnosing chronic kidney disease." },
+    { question: "What does it mean if my CrCl is low?", answer: "A low CrCl (typically below 60 mL/min) indicates that your kidneys are not filtering waste from your blood as efficiently as they should. This can be caused by chronic conditions (like diabetes or high blood pressure), acute kidney injury, severe dehydration, or natural age-related decline. A doctor must evaluate a low score." },
+    { question: "Should I use Actual or Ideal Body Weight?", answer: "This is a major topic of clinical debate. If a patient is significantly obese, using their Actual Body Weight (ABW) in the Cockcroft-Gault equation will drastically overestimate their kidney function because fat does not produce creatinine. Many clinicians recommend using Ideal Body Weight (IBW) for obese patients, or an Adjusted Body Weight. Consult a pharmacist for clinical dosing." },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Creatinine Clearance Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Health", href: "/calculator#health" }, { label: "Creatinine Clearance Calculator" }]} />
       <div className="container-page py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Creatinine Clearance Calculator</h1>
-        <p className="text-muted-foreground mb-6 text-lg">Use our free Creatinine Clearance Calculator to get instant, accurate results.</p>
-
+        <h1 className="text-3xl md:text-4xl font-bold mb-2 tracking-tight">Creatinine Clearance Calculator (Cockcroft-Gault)</h1>
+        
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+          <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
             <div>
-              <label className="text-sm font-semibold text-foreground mb-1 block">Value A</label>
-              <input type="number" value={inputA} onChange={e => setInputA(e.target.value)} className="input-calc" placeholder="Enter value" />
+              <label className="text-sm font-medium mb-1.5 block">Biological Sex</label>
+              <div className="grid grid-cols-2 gap-2">
+                {["male", "female"].map(s => (
+                  <button key={s} onClick={() => setSex(s)} className={`h-10 rounded-md border text-base font-medium capitalize transition-colors ${sex === s ? "bg-primary text-primary-foreground border-primary shadow-sm" : "border-border bg-background hover:bg-secondary"}`}>{s}</button>
+                ))}
+              </div>
             </div>
+            
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="text-sm font-medium mb-1.5 block">Patient Age</label>
+                <div className={inp}><input type="number" value={age} onChange={e => setAge(e.target.value)} className={ci} /><span className={suf}>yrs</span></div>
+              </div>
+              <div>
+                <label className="text-sm font-medium mb-1.5 block">Patient Weight</label>
+                <div className={inp}><input type="number" value={weight} onChange={e => setWeight(e.target.value)} className={ci} /><span className={suf}>kg</span></div>
+              </div>
+            </div>
+
             <div>
-              <label className="text-sm font-semibold text-foreground mb-1 block">Value B (if needed)</label>
-              <input type="number" value={inputB} onChange={e => setInputB(e.target.value)} className="input-calc" placeholder="Enter value (optional)" />
+              <label className="text-sm font-medium mb-1.5 block">Serum Creatinine (SCr)</label>
+              <div className={inp}><input type="number" value={scr} onChange={e => setScr(e.target.value)} step={0.1} className={ci} /><span className={suf}>mg/dL</span></div>
+              <p className="text-xs text-muted-foreground mt-1">Found on standard metabolic blood panels.</p>
             </div>
-            <div className="flex gap-2 pt-2">
-              <button onClick={calculate} className="btn-calculate flex-1">Calculate</button>
-              <button onClick={reset} className="px-4 py-2 rounded-lg border border-border hover:bg-secondary text-sm font-medium transition-colors">Reset</button>
+            
+            <div className="flex gap-3 mt-4">
+              <button onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm">
+                <Activity className="h-4 w-4" /> Calculate CrCl
+              </button>
+              <button onClick={() => { setAge("65"); setWeight("70"); setScr("1.2"); setSex("male"); setResult(calcCrCl(65, 70, 1.2, "male")); }} className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center" aria-label="Reset">
+                <RotateCcw className="h-4 w-4" />
+              </button>
             </div>
           </div>
 
-          <div className="flex flex-col gap-3">
-            {result !== null && (
-              <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-                <p className="text-xs font-bold text-primary uppercase tracking-widest mb-1">Result</p>
-                <p className="text-2xl font-black text-foreground">{result}</p>
+          <div className="flex flex-col gap-4">
+            {result && (<>
+              <div className="rounded-lg p-5 shadow-sm border-l-4" style={{ backgroundColor: `${result.stageColor}15`, borderColor: result.stageColor }}>
+                <div className="text-xs font-bold uppercase tracking-wider mb-1" style={{ color: result.stageColor }}>Estimated Creatinine Clearance</div>
+                <div className="flex items-baseline gap-2">
+                  <div className="text-4xl font-extrabold text-foreground tracking-tight">{result.crcl.toFixed(1)}</div>
+                  <div className="text-lg font-semibold text-muted-foreground">mL/min</div>
+                </div>
+                <div className="text-sm font-semibold mt-1" style={{ color: result.stageColor }}>{result.stage}: {result.stageDesc}</div>
               </div>
-            )}
+              
+              <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card shadow-sm">
+                {[["SCr Input", `${scr} mg/dL`], ["Weight Input", `${weight} kg`], ["Multiplier", sex === 'female' ? '0.85' : '1.00']].map(([l, v], i) => (
+                  <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                    <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                    <div className="text-lg font-bold">{v}</div>
+                  </div>
+                ))}
+              </div>
+              
+              <div className="card-calculator !p-5 border border-border bg-card shadow-sm">
+                <h3 className="text-base font-bold mb-4">Cockcroft-Gault Breakdown</h3>
+                <table className="w-full text-base"><tbody>
+                  {result.breakdown.map((r, i) => (
+                    <tr key={i} className={`border-b border-border/50 last:border-0 ${i === 4 ? "font-bold text-foreground border-t-2 border-border" : ""}`}>
+                      <td className="py-2.5 text-muted-foreground">{r.label}</td>
+                      <td className="py-2.5 text-right font-semibold">{r.value}</td>
+                    </tr>
+                  ))}
+                </tbody></table>
+              </div>
+
+              <div className="card-calculator !p-5 border border-border bg-card shadow-sm">
+                <h3 className="text-base font-bold mb-4">Renal Function Spectrum</h3>
+                <ResponsiveContainer width="100%" height={250}>
+                  <BarChart data={result.chartData} layout="vertical" margin={{ left: 10, right: 30, top: 5, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} />
+                    <XAxis type="number" domain={[0, 140]} tick={{ fontSize: 11 }} />
+                    <YAxis type="category" dataKey="category" tick={{ fontSize: 11 }} width={55} />
+                    <Tooltip formatter={(v: any, n: any, p: any) => [`${p.payload.min} – ${p.payload.max} mL/min`, "Function Range"]} />
+                    <ReferenceLine x={result.crcl > 140 ? 140 : result.crcl} stroke="#6366f1" strokeWidth={2} strokeDasharray="4 4" label={{ value: `You: ${result.crcl.toFixed(1)}`, position: "insideTopRight", fontSize: 11, fill: "#6366f1" }} />
+                    <Bar dataKey="span" radius={[0, 4, 4, 0]}>{result.chartData.map((e, i) => <Cell key={i} fill={e.color} fillOpacity={0.85} />)}</Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+                <p className="text-xs text-muted-foreground mt-3 text-center">Standard CKD stages based on clearance rates.</p>
+              </div>
+
+              <div className="bg-muted/30 rounded-lg p-5">
+                <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
+                <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                  {result.summaryStats.map((s, i) => (
+                    <div key={i} className="flex justify-between"><span className="text-muted-foreground">{s.label}:</span><span className="font-semibold">{s.value}</span></div>
+                  ))}
+                </div>
+              </div>
+            </>)}
           </div>
         </div>
-
-        <div className="max-w-[1180px] mx-auto mt-8">
+        
+        <div className="max-w-[1180px] mx-auto mt-12">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
-            <h2>About the Creatinine Clearance Calculator</h2>
-            <p>The Creatinine Clearance Calculator helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.</p>
-            <h3>How to Use</h3>
-            <ol>
-              <li>Enter your known values in the input fields.</li>
-              <li>Click the <strong>Calculate</strong> button.</li>
-              <li>Read your result instantly in the results panel.</li>
-            </ol>
-            <h3>Why Use This Calculator?</h3>
-            <p>Our calculator is fast, free, and accurate. No sign-up required.</p>
+          <article className="prose-finance max-w-none">
+            <h2>Understanding Creatinine Clearance (CrCl)</h2>
+            <p>The kidneys are the body's primary filtration system. Every minute, they filter roughly half a cup of blood, removing toxins, metabolic waste, and excess water to generate urine. However, because we cannot physically measure the exact volume of blood passing through a living patient's kidneys, medical professionals must rely on chemical markers to estimate how efficiently the kidneys are working.</p>
+            <p>The most reliable and widely used marker is <strong>Creatinine</strong>. Creatinine is a natural waste product generated by the normal, daily wear-and-tear of your muscles. Because your muscles break down at a relatively constant rate, your blood should always contain a steady, predictable amount of creatinine. Healthy kidneys easily filter this creatinine out of the blood and dump it into the urine.</p>
+            <p>Therefore, if a blood test shows a <em>high</em> level of Serum Creatinine (SCr), it strongly implies that the kidneys are failing to filter the blood efficiently. <strong>Creatinine Clearance (CrCl)</strong> is the mathematical estimation of exactly how many milliliters of blood your kidneys are successfully clearing of creatinine every single minute.</p>
+
+            <h2>The Cockcroft-Gault Equation</h2>
+            <p>Developed in 1976 by scientists Donald Cockcroft and Matthew Gault, the Cockcroft-Gault equation remains the gold standard in pharmacology for adjusting medication dosages based on renal function. The formula elegantly accounts for the three variables that most heavily influence creatinine production: Age, Weight, and Biological Sex.</p>
+            
+            <p><strong>Age:</strong> As humans age, nephrons (the microscopic filters in the kidneys) naturally die off, reducing overall kidney function. Simultaneously, aging reduces overall muscle mass. The formula incorporates age to balance these two declining factors.</p>
+            <p><strong>Weight:</strong> Because creatinine is a byproduct of muscle metabolism, a 110 kg bodybuilder will naturally produce significantly more creatinine than a 50 kg marathon runner, even if they both have perfectly healthy kidneys. Weight acts as a proxy for muscle mass in the equation.</p>
+            <p><strong>Biological Sex:</strong> On a population level, females possess roughly 15% less muscle mass than males of the exact same weight. To account for this lower baseline creatinine production, the equation automatically multiplies female results by a factor of 0.85.</p>
+            
+            <p>The core formula is: <code>((140 - Age) × Weight in kg) / (72 × Serum Creatinine)</code>.</p>
+
+            <h2>Interpreting Your CrCl Score (CKD Stages)</h2>
+            <p>Your calculated Creatinine Clearance rate (measured in mL/min) directly correlates with the five stages of Chronic Kidney Disease (CKD) established by the National Kidney Foundation.</p>
+            
+            <h3>Stage 1: Normal or High Function (≥ 90 mL/min)</h3>
+            <p>A score of 90 or above indicates that your kidneys are functioning perfectly, clearing waste at a highly efficient rate. No medical intervention regarding kidney function is typically required at this stage.</p>
+
+            <h3>Stage 2: Mild Decrease (60 to 89 mL/min)</h3>
+            <p>A mild decrease in filtration. This is incredibly common in older adults as part of the natural aging process. If there are no other signs of kidney damage (such as protein in the urine), a score in the 60s or 70s in a 70-year-old patient is generally considered acceptable.</p>
+
+            <h3>Stage 3: Moderate Decrease (30 to 59 mL/min)</h3>
+            <p>At this stage, the kidneys have lost roughly half of their functional capacity. Waste products may begin accumulating in the blood. Crucially, this is the threshold where pharmacists must begin significantly reducing the dosages of medications (like antibiotics or blood thinners) that are cleared by the kidneys, to prevent accidental overdoses.</p>
+
+            <h3>Stage 4: Severe Decrease (15 to 29 mL/min)</h3>
+            <p>Kidney function is severely compromised. Patients at this stage must be under the direct care of a nephrologist. Extensive dietary restrictions (limiting potassium, phosphorus, and protein) are required, and preparations for potential dialysis or a kidney transplant usually begin.</p>
+
+            <h3>Stage 5: Kidney Failure (&lt; 15 mL/min)</h3>
+            <p>Also known as End-Stage Renal Disease (ESRD). The kidneys have effectively shut down and can no longer keep the patient alive. Immediate dialysis or a kidney transplant is required for survival.</p>
+
+            <h2>CrCl vs. eGFR: What's the Difference?</h2>
+            <p>If you look at your metabolic blood panel, you will likely see a value for <strong>eGFR</strong> (Estimated Glomerular Filtration Rate) rather than CrCl. While both formulas attempt to measure the same thing (kidney function), they are used for different clinical purposes.</p>
+            <p><strong>eGFR</strong> (using the CKD-EPI formula) does not use the patient's weight. Instead, it normalizes the result to a "standard" body surface area of 1.73 m². Nephrologists and primary care doctors use eGFR to diagnose and stage Chronic Kidney Disease.</p>
+            <p><strong>CrCl</strong> (using Cockcroft-Gault) uses the patient's actual weight. Because historically all drug dosing guidelines were developed and approved by the FDA using the Cockcroft-Gault equation, pharmacists strictly rely on CrCl to determine if a patient's medication dosage needs to be reduced.</p>
+
+            <h2>Critical Limitations of the Calculator</h2>
+            <p>While the Cockcroft-Gault equation is incredibly useful, it has one major flaw: it assumes that <strong>Total Body Weight = Muscle Mass</strong>. </p>
+            <p>Because creatinine only comes from muscle, fat tissue produces zero creatinine. If a patient is severely obese (e.g., 150 kg), plugging their actual body weight into the formula will result in a massive, artificially inflated CrCl score. The calculator will assume the patient has 150 kg of muscle clearing creatinine, making their kidneys look far healthier than they actually are.</p>
+            <p>To prevent accidental drug overdoses in obese patients, clinical pharmacists often substitute the patient's <strong>Ideal Body Weight (IBW)</strong> or an <strong>Adjusted Body Weight (AdjBW)</strong> into the Cockcroft-Gault formula instead of their actual scale weight. Always consult a licensed medical professional or pharmacist before making any decisions regarding medication dosages based on these estimations.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/creatinine-clearance-calculator" />
           <PopularCalculators exclude="/calculator/creatinine-clearance-calculator" />
@@ -79,6 +258,4 @@ const CreatinineClearanceCalculator = () => {
       </div>
     </>
   );
-};
-
-export default CreatinineClearanceCalculator;
+}

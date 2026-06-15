@@ -1,34 +1,11 @@
+import React, { Suspense } from "react";
 import { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
 import { calculatorRegistry, getCalculatorBySlug } from "@/data/calculatorRegistry";
-import ComingSoonPage from "@/components/ComingSoonPage";
-import { Suspense } from "react";
+import ComingSoonCalculator from "@/components/calculators/ComingSoonCalculator";
+import CalculatorSkeleton from "@/components/calculators/CalculatorSkeleton";
 
-// Static imports of popular calculators for instant, zero-delay loads
-import MortgageCalculator from "@/calculators/MortgageCalculator";
-import AgeCalculator from "@/calculators/AgeCalculator";
-import BmiCalculator from "@/calculators/BmiCalculator";
-import BmrCalculator from "@/calculators/BmrCalculator";
-import GstCalculator from "@/calculators/GstCalculator";
-import WeightConverter from "@/calculators/WeightConverter";
-import TimeZoneConverter from "@/calculators/TimeZoneConverter";
-import PropertyAppreciationCalculator from "@/calculators/PropertyAppreciationCalculator";
-import SipCalculator from "@/calculators/SipCalculator";
-import IncomeTaxCalculator from "@/calculators/IncomeTaxCalculator";
-
-const staticCalculators: Record<string, React.ComponentType<any>> = {
-  "mortgage-calculator": MortgageCalculator,
-  "age-calculator": AgeCalculator,
-  "bmi-calculator": BmiCalculator,
-  "bmr-calculator": BmrCalculator,
-  "gst-calculator": GstCalculator,
-  "weight-converter": WeightConverter,
-  "time-zone-converter": TimeZoneConverter,
-  "property-appreciation-calculator": PropertyAppreciationCalculator,
-  "sip-calculator": SipCalculator,
-  "income-tax-calculator": IncomeTaxCalculator,
-};
 
 const calculatorComponents: Record<string, () => Promise<any>> = {
   "mortgage-calculator": () => import("@/calculators/MortgageCalculator"),
@@ -108,6 +85,24 @@ const calculatorComponents: Record<string, () => Promise<any>> = {
   "working-capital-calculator": () => import("@/calculators/WorkingCapitalCalculator"),
   "ebitda-calculator": () => import("@/calculators/EbitdaCalculator"),
   // New calculators
+
+  "steroid-equivalence-calculator": () => import("@/calculators/SteroidEquivalenceCalculator"),
+  "dead-space-fraction-calculator": () => import("@/calculators/DeadSpaceFractionCalculator"),
+  "radiation-dose-fractionation-calculator": () => import("@/calculators/RadiationDoseFractionationCalculator"),
+  "insulin-to-carb-ratio-calculator": () => import("@/calculators/InsulinToCarbRatioCalculator"),
+
+  "overweight-percentage-calculator": () => import("@/calculators/OverweightPercentageCalculator"),
+  "adolescent-bmi-calculator": () => import("@/calculators/AdolescentBmiCalculator"),
+  "senior-bmi-calculator": () => import("@/calculators/SeniorBmiCalculator"),
+  "ideal-bmi-weight-calculator": () => import("@/calculators/IdealBmiWeightCalculator"),
+
+  "weight-gain-during-pregnancy-target-calculator": () => import("@/calculators/PregnancyWeightTargetCalculator"),
+  "baseball-on-base-percentage-calculator": () => import("@/calculators/BaseballOBPCalculator"),
+  "tennis-first-serve-percentage-calculator": () => import("@/calculators/TennisFirstServeCalculator"),
+  "baseball-slugging-percentage-calculator": () => import("@/calculators/BaseballSluggingCalculator"),
+  "baseball-fielding-percentage-calculator": () => import("@/calculators/BaseballFieldingCalculator"),
+  "mindfulness-practice-roi-calculator": () => import("@/calculators/MindfulnessPracticeRoiCalculator"),
+
   "tip-calculator": () => import("@/calculators/TipCalculator"),
   "discount-calculator": () => import("@/calculators/DiscountCalculator"),
   "simple-interest-calculator": () => import("@/calculators/SimpleInterestCalculator"),
@@ -964,6 +959,16 @@ const calculatorComponents: Record<string, () => Promise<any>> = {
   "lease-vs-buy-calculator": () => import("@/calculators/LeaseVsBuyCalculator"),
 };
 
+// Pre-build lazy components at module level to avoid re-creating them on every render.
+// Creating dynamic() inside a render function causes unnecessary remounting.
+const lazyComponents: Record<string, React.ComponentType> = Object.fromEntries(
+  Object.entries(calculatorComponents).map(([slug, importFn]) => [
+    slug,
+    dynamic(importFn, { loading: () => <CalculatorSkeleton />, ssr: false }),
+  ])
+);
+
+
 interface Props {
   params: { slug: string };
 }
@@ -1012,32 +1017,17 @@ export default function CalculatorPage({ params }: Props) {
   }
 
   if (!calc.isBuilt) {
-    return <ComingSoonPage slug={slug} />;
+    return <ComingSoonCalculator slug={slug} />;
   }
 
-  // 1. Check if this is a popular calculator statically imported for instant, zero-delay loads
-  const StaticComponent = staticCalculators[slug];
-  if (StaticComponent) {
-    return <StaticComponent />;
+  const CalculatorComponent = lazyComponents[slug];
+
+  if (!CalculatorComponent) {
+    return <ComingSoonCalculator slug={slug} />;
   }
-
-  // 2. Otherwise, fall back to dynamically loading the chunk on-demand
-  const importFn = calculatorComponents[slug];
-
-  if (!importFn) {
-    return <ComingSoonPage slug={slug} />;
-  }
-
-  const CalculatorComponent = dynamic(importFn, {
-    loading: () => (
-      <div className="flex min-h-[50vh] items-center justify-center text-muted-foreground">
-        Loading Calculator...
-      </div>
-    ),
-  });
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<CalculatorSkeleton />}>
       <CalculatorComponent />
     </Suspense>
   );

@@ -36,6 +36,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.9,
     },
+    {
+      url: `${baseUrl}/ai-tools`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
   ];
 
   // Static Info Pages
@@ -57,7 +63,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${baseUrl}/calculator/${calc.slug}`,
     lastModified: new Date(),
     changeFrequency: calc.isBuilt ? "monthly" : "yearly",
-    priority: calc.isBuilt ? 0.7 : 0.4,
+    priority: calc.isBuilt ? 0.8 : 0.5,
   }));
 
   return [...platformPages, ...staticPages, ...calculatorPages];

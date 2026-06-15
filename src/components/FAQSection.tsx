@@ -8,7 +8,7 @@ interface FAQ {
   answer: string;
 }
 
-const FAQSection = ({ faqs, pageUrl }: { faqs: FAQ[]; pageUrl: string }) => {
+const FAQSection = ({ faqs, pageUrl }: { faqs: FAQ[]; pageUrl?: string }) => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   // JSON-LD

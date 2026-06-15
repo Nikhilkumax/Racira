@@ -2,258 +2,209 @@
 import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import { RotateCcw, Calculator, Bitcoin } from "lucide-react";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine } from "recharts";
-
-const fmt = (n: number, d = 2) => n.toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d });
-const fmtUSD = (n: number) => `$${fmt(n)}`;
-const fmtPct = (n: number) => `${fmt(n)}%`;
-
-const Inp = ({ id, label, value, onChange, prefix, suffix }: { id: string; label: string; value: string; onChange: (v: string) => void; prefix?: string; suffix?: string }) => (
-  <div className="flex flex-col">
-    <label htmlFor={id} className="text-sm font-semibold text-foreground mb-1">{label}</label>
-    <div className="relative flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
-      {prefix && <span className="pl-3 pr-1 text-sm text-muted-foreground select-none shrink-0">{prefix}</span>}
-      <input id={id} type="number" step="any" value={value} onChange={e => onChange(e.target.value)} className="w-full h-full px-3 py-1 text-base bg-transparent outline-none border-none text-foreground" />
-      {suffix && <span className="pr-3 pl-1 text-sm text-muted-foreground select-none shrink-0">{suffix}</span>}
-    </div>
-  </div>
-);
+import PopularCalculators from "@/components/PopularCalculators";
+import { RotateCcw, Calculator } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Cell } from "recharts";
 
 interface CryptoResult {
   profitLoss: number;
   profitLossPct: number;
-  totalBuyCost: number;
+  totalBuyValue: number;
   totalSellValue: number;
-  totalFees: number;
-  netProfitLoss: number;
-  roi: number;
+  netProfit: number;
   breakEvenPrice: number;
-  chartData: { price: number; pl: number }[];
+  roi: number;
+  breakdown: { label: string; value: string }[];
+  chartData: { metric: string; value: number; color: string }[];
+  summaryStats: { label: string; value: string }[];
+}
+
+function calcCryptoProfit(
+  buyPrice: number, sellPrice: number, amount: number,
+  buyFeesPct: number, sellFeesPct: number, investmentUSD: number
+): CryptoResult {
+  const coinsBought = investmentUSD > 0 ? investmentUSD / buyPrice : amount;
+  const totalBuyValue = coinsBought * buyPrice;
+  const buyFees = totalBuyValue * (buyFeesPct / 100);
+  const totalCostBasis = totalBuyValue + buyFees;
+
+  const grossSellValue = coinsBought * sellPrice;
+  const sellFees = grossSellValue * (sellFeesPct / 100);
+  const totalSellValue = grossSellValue - sellFees;
+
+  const profitLoss = totalSellValue - totalCostBasis;
+  const profitLossPct = (profitLoss / totalCostBasis) * 100;
+  const roi = profitLossPct;
+  const netProfit = profitLoss;
+  const breakEvenPrice = (totalCostBasis / coinsBought) / (1 - sellFeesPct / 100);
+
+  const breakdown = [
+    { label: "Coins / Tokens", value: coinsBought.toFixed(8) },
+    { label: "Buy Price", value: `$${buyPrice.toLocaleString("en-US", { minimumFractionDigits: 2 })}` },
+    { label: "Total Investment", value: `$${totalCostBasis.toFixed(2)}` },
+    { label: "Buy Fees", value: `$${buyFees.toFixed(2)} (${buyFeesPct}%)` },
+    { label: "Sell Price", value: `$${sellPrice.toLocaleString("en-US", { minimumFractionDigits: 2 })}` },
+    { label: "Gross Sell Value", value: `$${grossSellValue.toFixed(2)}` },
+    { label: "Sell Fees", value: `$${sellFees.toFixed(2)} (${sellFeesPct}%)` },
+    { label: "Net Sell Value", value: `$${totalSellValue.toFixed(2)}` },
+    { label: "Profit / Loss", value: `${profitLoss >= 0 ? "+" : ""}$${profitLoss.toFixed(2)}` },
+    { label: "Break-Even Price", value: `$${breakEvenPrice.toFixed(4)}` },
+  ];
+
+  const chartData = [
+    { metric: "Cost Basis", value: parseFloat(totalCostBasis.toFixed(2)), color: "hsl(var(--primary))" },
+    { metric: "Gross Sale", value: parseFloat(grossSellValue.toFixed(2)), color: "#22c55e" },
+    { metric: "Fees Total", value: parseFloat((buyFees + sellFees).toFixed(2)), color: "#ef4444" },
+    { metric: "Net P&L", value: parseFloat(Math.abs(netProfit).toFixed(2)), color: netProfit >= 0 ? "#22c55e" : "#ef4444" },
+  ];
+
+  const summaryStats = [
+    { label: "Profit / Loss", value: `${profitLoss >= 0 ? "+" : ""}$${profitLoss.toFixed(2)}` },
+    { label: "ROI", value: `${profitLossPct.toFixed(2)}%` },
+    { label: "Break-Even Price", value: `$${breakEvenPrice.toFixed(4)}` },
+    { label: "Total Investment", value: `$${totalCostBasis.toFixed(2)}` },
+    { label: "Net Proceeds", value: `$${totalSellValue.toFixed(2)}` },
+    { label: "Total Fees", value: `$${(buyFees + sellFees).toFixed(2)}` },
+  ];
+
+  return { profitLoss, profitLossPct, totalBuyValue, totalSellValue, netProfit, breakEvenPrice, roi, breakdown, chartData, summaryStats };
 }
 
 export default function CryptoProfitCalculator() {
-  const [investmentType, setInvestmentType] = useState<"amount" | "coins">("amount");
-  const [investmentAmount, setInvestmentAmount] = useState("5000");
-  const [coinCount, setCoinCount] = useState("0.1");
-  const [buyPrice, setBuyPrice] = useState("50000");
-  const [sellPrice, setSellPrice] = useState("65000");
-  const [investmentFee, setInvestmentFee] = useState("0.5");
-  const [exitFee, setExitFee] = useState("0.5");
-  const [res, setRes] = useState<CryptoResult | null>(null);
-
-  useEffect(() => { calculate(); }, []);
+  const [buyPrice, setBuyPrice] = useState("30000");
+  const [sellPrice, setSellPrice] = useState("45000");
+  const [investment, setInvestment] = useState("1000");
+  const [buyFees, setBuyFees] = useState("0.5");
+  const [sellFees, setSellFees] = useState("0.5");
+  const [result, setResult] = useState<CryptoResult | null>(null);
 
   const calculate = () => {
-    const bp = parseFloat(buyPrice) || 50000;
-    const sp = parseFloat(sellPrice) || 65000;
-    const buyFee = parseFloat(investmentFee) / 100 || 0.005;
-    const sellFee = parseFloat(exitFee) / 100 || 0.005;
-
-    let coins: number, totalBuyCost: number;
-    if (investmentType === "amount") {
-      const amt = parseFloat(investmentAmount) || 5000;
-      const buyFeeAmt = amt * buyFee;
-      coins = (amt - buyFeeAmt) / bp;
-      totalBuyCost = amt;
-    } else {
-      coins = parseFloat(coinCount) || 0.1;
-      const coinCost = coins * bp;
-      totalBuyCost = coinCost + coinCost * buyFee;
-    }
-
-    const grossSellValue = coins * sp;
-    const sellFeeAmt = grossSellValue * sellFee;
-    const totalSellValue = grossSellValue - sellFeeAmt;
-    const totalFees = (totalBuyCost * buyFee) + sellFeeAmt;
-    const netProfitLoss = totalSellValue - totalBuyCost;
-    const profitLossPct = ((sp - bp) / bp) * 100;
-    const roi = (netProfitLoss / totalBuyCost) * 100;
-    const breakEvenPrice = bp * (1 + buyFee) / (1 - sellFee);
-
-    const range = bp * 1.5;
-    const chartData = Array.from({ length: 50 }, (_, i) => {
-      const price = bp * 0.25 + (i / 49) * range;
-      const gross = coins * price;
-      const fee = gross * sellFee;
-      const pl = gross - fee - totalBuyCost;
-      return { price: parseFloat(price.toFixed(0)), pl: parseFloat(pl.toFixed(2)) };
-    });
-
-    setRes({ profitLoss: netProfitLoss, profitLossPct, totalBuyCost, totalSellValue, totalFees, netProfitLoss, roi, breakEvenPrice, chartData });
+    const bp = parseFloat(buyPrice) || 0, sp = parseFloat(sellPrice) || 0;
+    const inv = parseFloat(investment) || 0;
+    const bf = parseFloat(buyFees) || 0, sf = parseFloat(sellFees) || 0;
+    if (bp > 0) setResult(calcCryptoProfit(bp, sp, 0, bf, sf, inv));
   };
 
-  const reset = () => {
-    setInvestmentType("amount"); setInvestmentAmount("5000"); setCoinCount("0.1");
-    setBuyPrice("50000"); setSellPrice("65000"); setInvestmentFee("0.5"); setExitFee("0.5");
-    setTimeout(calculate, 0);
-  };
+  useEffect(() => { setResult(calcCryptoProfit(30000, 45000, 0, 0.5, 0.5, 1000)); }, []);
 
-  const isProfit = res && res.netProfitLoss >= 0;
+  const inp = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
+  const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground font-mono";
+  const suf = "pr-3 text-sm text-muted-foreground shrink-0";
 
   const faqs = [
-    { question: "How is cryptocurrency profit calculated?", answer: "Crypto profit = (Sell Price × Coins Sold) − (Buy Price × Coins Bought) − Total Fees. If you bought 0.1 BTC at $50,000 ($5,000 total) and sold at $65,000 ($6,500), your gross profit is $1,500 (30%). After fees (typically 0.1-1% per transaction), your net profit is slightly less. This calculator handles both amount-based and coin-count-based calculations." },
-    { question: "What fees should I account for?", answer: "Major fee types: Trading fees (0.1-1% per trade on most exchanges), Network/gas fees (especially for Ethereum), Spread (difference between buy/sell price on some exchanges), Withdrawal fees (flat fee to move crypto off exchange). On Coinbase, fees can be 1.5-2.5%. On Binance, 0.1% with BNB. Gas fees on Ethereum can be $5-$50+. Always include fees for accurate profit calculation." },
-    { question: "How do I calculate ROI for cryptocurrency?", answer: "ROI = (Net Profit / Total Investment) × 100. If you invested $5,000 and netted $1,450 after fees, your ROI = 29%. Compare this to holding index funds (10% historical annual return) to evaluate if the crypto risk was worth the reward. Remember: crypto volatility means both outsized gains and losses are possible." },
-    { question: "What is the break-even price?", answer: "The break-even price is the minimum price at which you must sell to recover your total investment including buy fees. If you bought at $50,000 with 0.5% buy fee and face a 0.5% sell fee, your break-even price is approximately $50,503 — you must sell above this to profit. Our calculator shows you this exact figure." },
-    { question: "Do I owe taxes on crypto profits?", answer: "In most countries, yes. In the US, cryptocurrency is treated as property. Short-term gains (held <1 year) are taxed as ordinary income (10-37%). Long-term gains (held >1 year) are taxed at preferential rates (0%, 15%, or 20%). Every trade is a taxable event. Use crypto tax software (CoinTracker, Koinly) to track your basis accurately." },
-    { question: "What's the difference between realized and unrealized profit?", answer: "Unrealized profit (or paper profit) is the gain on crypto you still hold — it exists only on paper until you sell. Realized profit is what you actually pocket after selling. Only realized gains are taxable events. Many investors fall into the trap of celebrating unrealized gains without accounting for the tax liability they'll face when selling." },
+    { question: "How is crypto profit calculated?", answer: "Crypto P&L = (Sell Price × Coins Sold) − (Buy Price × Coins Bought) − All Fees. More precisely: Cost Basis = (Buy Price × Coins) + Buy Fees. Net Proceeds = (Sell Price × Coins) − Sell Fees. Profit = Net Proceeds − Cost Basis. Example: Buy $1,000 of Bitcoin at $30,000/BTC (0.0333 BTC), pay 0.5% fee ($5). Sell at $45,000 (0.0333 × $45,000 = $1,500), pay 0.5% fee ($7.50). Net profit = $1,500 − $7.50 − $1,005 = $487.50." },
+    { question: "What fees do crypto exchanges charge?", answer: "Major exchange fees: Coinbase: 0.4–1.5% (maker/taker). Binance: 0.1% (maker), 0.1% (taker). Kraken: 0.16–0.26% maker/taker. Crypto.com: 0.075–0.2%. Fees can be reduced by holding the exchange's native token (e.g., BNB on Binance). Always factor fees into profit calculations — on frequent small trades, fees significantly erode returns." },
+    { question: "What is the break-even price in crypto trading?", answer: "The break-even price is the sell price at which you neither profit nor lose money, after all fees. Break-Even Price = (Buy Price × (1 + Buy Fee %)) / (1 − Sell Fee %). Example: Buy at $30,000 with 0.5% fee, sell with 0.5% fee: Break-even = ($30,000 × 1.005) / (1 − 0.005) = $30,150 / 0.995 ≈ $30,302. The price must exceed $30,302 for any profit." },
+    { question: "Do I need to pay taxes on crypto profits?", answer: "In most countries, yes. In the US, the IRS treats cryptocurrency as property. Short-term gains (held less than 1 year) are taxed as ordinary income (10–37%). Long-term gains (held over 1 year) are taxed at 0%, 15%, or 20% depending on income. Cost basis method (FIFO, LIFO, specific identification) significantly impacts taxable gain. Always consult a tax professional for crypto tax advice." },
+    { question: "How do I calculate ROI on crypto?", answer: "Crypto ROI = (Net Profit / Total Cost Basis) × 100%. Using our example: $487.50 profit on $1,005 cost basis = 48.5% ROI. For a 2× gain (100% ROI), the price must exactly double from your break-even price (not just your buy price). ROI does not account for time — a 48% gain in 1 month is very different from a 48% gain over 5 years in terms of annualized performance." },
+    { question: "What is dollar-cost averaging (DCA) in crypto?", answer: "DCA is an investment strategy where you invest a fixed dollar amount at regular intervals (weekly, monthly) regardless of price. Instead of trying to time the market, DCA reduces the impact of volatility and eliminates the emotional pressure of buy/sell timing. For example: investing $100/week in Bitcoin over 52 weeks, regardless of price. This results in buying more coins when prices are low and fewer when high, averaging out your cost basis." },
   ];
 
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Finance", href: "/calculator#finance" }, { label: "Crypto Profit Calculator" }]} />
       <div className="container-page py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Cryptocurrency Profit Calculator</h1>
-
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Crypto Profit Calculator</h1>
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <h2 className="text-lg font-bold text-foreground pb-2 border-b border-border">Trade Details</h2>
-
-            <div className="flex flex-col gap-1.5">
-              <span className="text-sm font-semibold text-foreground">Investment Type</span>
-              <div className="flex rounded-md border border-border overflow-hidden">
-                {(["amount", "coins"] as const).map(t => (
-                  <button key={t} type="button" onClick={() => setInvestmentType(t)} className={`flex-1 py-2.5 text-sm font-semibold transition-colors ${investmentType === t ? "bg-primary text-primary-foreground" : "bg-background text-muted-foreground hover:bg-secondary"}`}>
-                    {t === "amount" ? "By Dollar Amount" : "By Coin Count"}
-                  </button>
-                ))}
+          <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
+            <div>
+              <label className="text-base font-medium mb-1.5 block">Investment Amount</label>
+              <div className={inp}><span className="pl-3 text-muted-foreground">$</span><input type="number" value={investment} onChange={e => setInvestment(e.target.value)} className={ci} /></div>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="text-base font-medium mb-1.5 block">Buy Price</label>
+                <div className={inp}><span className="pl-3 text-muted-foreground">$</span><input type="number" value={buyPrice} onChange={e => setBuyPrice(e.target.value)} className={ci} /></div>
+              </div>
+              <div>
+                <label className="text-base font-medium mb-1.5 block">Sell Price</label>
+                <div className={inp}><span className="pl-3 text-muted-foreground">$</span><input type="number" value={sellPrice} onChange={e => setSellPrice(e.target.value)} className={ci} /></div>
               </div>
             </div>
-
-            <div className="flex flex-col gap-3">
-              {investmentType === "amount"
-                ? <Inp id="invest-amt" label="Investment Amount" value={investmentAmount} onChange={setInvestmentAmount} prefix="$" />
-                : <Inp id="coins" label="Number of Coins" value={coinCount} onChange={setCoinCount} />
-              }
-              <Inp id="buy-price" label="Buy Price (per coin)" value={buyPrice} onChange={setBuyPrice} prefix="$" />
-              <Inp id="sell-price" label="Sell Price (per coin)" value={sellPrice} onChange={setSellPrice} prefix="$" />
-              <div className="grid grid-cols-2 gap-3">
-                <Inp id="buy-fee" label="Buy Fee" value={investmentFee} onChange={setInvestmentFee} suffix="%" />
-                <Inp id="sell-fee" label="Sell Fee" value={exitFee} onChange={setExitFee} suffix="%" />
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="text-base font-medium mb-1.5 block">Buy Fee</label>
+                <div className={inp}><input type="number" value={buyFees} onChange={e => setBuyFees(e.target.value)} step={0.1} className={ci} /><span className={suf}>%</span></div>
+              </div>
+              <div>
+                <label className="text-base font-medium mb-1.5 block">Sell Fee</label>
+                <div className={inp}><input type="number" value={sellFees} onChange={e => setSellFees(e.target.value)} step={0.1} className={ci} /><span className={suf}>%</span></div>
               </div>
             </div>
-
-            <div className="flex gap-3 mt-2">
-              <button type="button" onClick={calculate} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm">
+            <div className="flex gap-3 mt-1">
+              <button onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm">
                 <Calculator className="h-4 w-4" /> Calculate
               </button>
-              <button type="button" onClick={reset} className="px-3 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center" aria-label="Reset">
+              <button onClick={() => { setBuyPrice("30000"); setSellPrice("45000"); setInvestment("1000"); setBuyFees("0.5"); setSellFees("0.5"); setResult(calcCryptoProfit(30000, 45000, 0, 0.5, 0.5, 1000)); }} className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center">
                 <RotateCcw className="h-4 w-4" />
               </button>
             </div>
           </div>
 
-          <div className="flex flex-col gap-3">
-            {res && (
-              <>
-                <>
-
-              <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-                <div className="flex items-center justify-between pb-2 border-b border-border">
-                  <h2 className="text-lg font-bold text-foreground">Results</h2>
-                  <Bitcoin className="h-5 w-5 text-primary" />
-                </div>
-
-                <div className={`bg-gradient-to-br border rounded-xl p-5 text-center ${isProfit ? "from-emerald-500/10 to-emerald-500/5 border-emerald-500/20" : "from-red-500/10 to-red-500/5 border-red-500/20"}`}>
-                  <div className={`text-[13px] font-bold mb-1 uppercase tracking-wider ${isProfit ? "text-emerald-600" : "text-red-500"}`}>
-                    {isProfit ? "Net Profit" : "Net Loss"}
+          <div className="flex flex-col gap-4">
+            {result && (<>
+              <div className={`border-l-4 rounded-lg p-5 ${result.profitLoss >= 0 ? "bg-green-500/10 border-green-500" : "bg-red-500/10 border-red-500"}`}>
+                <div className={`text-sm font-bold uppercase tracking-wider mb-1 ${result.profitLoss >= 0 ? "text-green-600" : "text-red-600"}`}>{result.profitLoss >= 0 ? "Profit" : "Loss"}</div>
+                <div className="text-4xl font-extrabold text-foreground tracking-tight font-mono">{result.profitLoss >= 0 ? "+" : ""}${result.profitLoss.toFixed(2)}</div>
+                <div className="text-base text-muted-foreground mt-1">ROI: {result.roi.toFixed(2)}% · Break-even: ${result.breakEvenPrice.toFixed(4)}</div>
+              </div>
+              <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+                {[["ROI", `${result.roi.toFixed(2)}%`], ["Net Proceeds", `$${result.totalSellValue.toFixed(2)}`], ["Break-Even", `$${result.breakEvenPrice.toFixed(2)}`]].map(([l, v], i) => (
+                  <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                    <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                    <div className="text-sm font-bold font-mono">{v}</div>
                   </div>
-                  <div className={`text-4xl font-extrabold mb-1 tracking-tight ${isProfit ? "text-emerald-600" : "text-red-500"}`}>
-                    {res.netProfitLoss >= 0 ? "+" : ""}{fmtUSD(res.netProfitLoss)}
-                  </div>
-                  <div className="text-sm text-muted-foreground font-medium">
-                    ROI: {res.roi >= 0 ? "+" : ""}{fmtPct(res.roi)}  |  Price Change: {res.profitLossPct >= 0 ? "+" : ""}{fmtPct(res.profitLossPct)}
-                  </div>
-                </div>
-
-                <div className="overflow-x-auto rounded-lg border border-border">
-                  <table className="w-full text-left">
-                    <thead><tr className="bg-secondary/40 border-b border-border text-[12px] font-bold text-muted-foreground uppercase tracking-wider">
-                      <th className="p-2.5 pl-3">Item</th><th className="p-2.5 pr-3 text-right">Value</th>
-                    </tr></thead>
-                    <tbody className="divide-y divide-border/50 text-base">
-                      {[
-                        { label: "Total Buy Cost", value: fmtUSD(res.totalBuyCost) },
-                        { label: "Total Sell Value", value: fmtUSD(res.totalSellValue) },
-                        { label: "Total Fees Paid", value: fmtUSD(res.totalFees) },
-                        { label: "Net Profit / Loss", value: `${res.netProfitLoss >= 0 ? "+" : ""}${fmtUSD(res.netProfitLoss)}` },
-                        { label: "Price Change", value: `${res.profitLossPct >= 0 ? "+" : ""}${fmtPct(res.profitLossPct)}` },
-                        { label: "ROI (net of fees)", value: `${res.roi >= 0 ? "+" : ""}${fmtPct(res.roi)}` },
-                        { label: "Break-Even Price", value: fmtUSD(res.breakEvenPrice) },
-                      ].map(row => (
-                        <tr key={row.label} className="hover:bg-secondary/20">
-                          <td className="p-2.5 pl-3 font-medium text-foreground">{row.label}</td>
-                          <td className="p-2.5 pr-3 text-right font-semibold text-foreground">{row.value}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-
-                <div className="p-4 rounded-xl border border-border bg-card">
-                  <h3 className="text-sm font-bold text-foreground mb-3">Profit / Loss at Different Sell Prices</h3>
-                  <ResponsiveContainer width="100%" height={200}>
-                    <LineChart data={res.chartData} margin={{ top: 4, right: 8, left: 0, bottom: 4 }}>
-                      <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-                      <XAxis dataKey="price" tick={{ fontSize: 10 }} tickFormatter={v => `$${(v / 1000).toFixed(0)}k`} />
-                      <YAxis tick={{ fontSize: 10 }} tickFormatter={v => `$${(v / 1000).toFixed(1)}k`} />
-                      <Tooltip formatter={(v: any) => [fmtUSD(v), "P&L"]} labelFormatter={l => `Sell at $${parseInt(l).toLocaleString()}`} />
-                      <ReferenceLine y={0} stroke="#ef4444" strokeDasharray="4 4" label={{ value: "Break-even", fontSize: 9 }} />
-                      <Line type="monotone" dataKey="pl" stroke="hsl(var(--primary))" strokeWidth={2} dot={false} name="P&L" />
-                    </LineChart>
-                  </ResponsiveContainer>
-                </div>
-
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 p-4 rounded-xl border border-border bg-muted/30">
-                  {[
-                    { label: "Buy Cost", value: fmtUSD(res.totalBuyCost) },
-                    { label: "Net P&L", value: `${res.netProfitLoss >= 0 ? "+" : ""}${fmtUSD(res.netProfitLoss)}` },
-                    { label: "ROI", value: `${res.roi >= 0 ? "+" : ""}${fmtPct(res.roi)}` },
-                    { label: "Break-Even", value: fmtUSD(res.breakEvenPrice) },
-                  ].map(item => (
-                    <div key={item.label} className="flex flex-col">
-                      <span className="text-[12px] font-bold uppercase text-muted-foreground tracking-wider mb-0.5">{item.label}</span>
-                      <span className="text-base font-extrabold text-foreground">{item.value}</span>
-                    </div>
+                ))}
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Trade Breakdown</h3>
+                <table className="w-full text-base"><tbody>
+                  {result.breakdown.map((r, i) => (
+                    <tr key={i} className={`border-b border-border/50 last:border-0 ${r.label === "Profit / Loss" ? "font-bold border-t-2 border-border" : ""}`}>
+                      <td className="py-2.5 text-muted-foreground">{r.label}</td>
+                      <td className={`py-2.5 text-right font-semibold font-mono ${r.label === "Profit / Loss" ? (result.profitLoss >= 0 ? "text-green-600" : "text-red-600") : ""}`}>{r.value}</td>
+                    </tr>
+                  ))}
+                </tbody></table>
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">P&L Overview</h3>
+                <ResponsiveContainer width="100%" height={200}>
+                  <BarChart data={result.chartData} margin={{ top: 10, right: 10, left: 0, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+                    <XAxis dataKey="metric" tick={{ fontSize: 11 }} />
+                    <YAxis tick={{ fontSize: 10 }} tickFormatter={v => `$${v}`} />
+                    <Tooltip formatter={(v: any) => [`$${Number(v).toFixed(2)}`, ""]} />
+                    <Bar dataKey="value" radius={[4, 4, 0, 0]}>{result.chartData.map((d, i) => <Cell key={i} fill={d.color} />)}</Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+              <div className="bg-muted/30 rounded-lg p-5">
+                <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
+                <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                  {result.summaryStats.map((s, i) => (
+                    <div key={i} className="flex justify-between"><span className="text-muted-foreground">{s.label}:</span><span className="font-semibold font-mono">{s.value}</span></div>
                   ))}
                 </div>
               </div>
-            
-</>
-              </>
-            )}
+            </>)}
           </div>
         </div>
-
-        <div className="max-w-[1180px] mx-auto mt-8">
-          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
-            <h2>What Is a Cryptocurrency Profit Calculator?</h2>
-            <p>A cryptocurrency profit calculator determines your exact gain or loss from a crypto trade, accounting for both buy and sell prices and all associated transaction fees. Whether you're trading Bitcoin, Ethereum, Solana, or any other cryptocurrency, accurately calculating profit requires more than just subtracting the buy price from the sell price. Exchange fees, network gas fees, and spread all erode your actual return.</p>
-            <p>This calculator handles all scenarios: investing a fixed dollar amount (how many coins did you get?), or tracking a specific number of coins (what were they worth to buy?). It also shows your break-even price and a profit/loss curve across different sell prices so you can see exactly where your trade becomes profitable.</p>
-
-            <h2>Understanding Crypto Profit Metrics</h2>
-            <p>The <strong>price change percentage</strong> is the simple percentage change in the coin's price from buy to sell. A $50,000 → $65,000 move = +30%. However, this ignores fees. The <strong>ROI (Return on Investment)</strong> is your actual return after all fees — typically 0.5-2% lower than the raw price change due to exchange fees on both sides of the trade.</p>
-            <p>The <strong>break-even price</strong> is critical: it's the minimum sell price to recover your full investment including buy fees. With typical fees, this is slightly above your buy price. If fees are 0.5% each way, your break-even is approximately buy price × 1.01 (1% total round-trip cost).</p>
-
-            <h2>Cryptocurrency Fees Explained</h2>
-            <p>Exchange fees vary widely: Coinbase charges 0.6% for most trades (higher for market orders), Binance charges 0.1% (0.075% with BNB), Kraken charges 0.16-0.26%. DeFi platforms charge swap fees (typically 0.3%) plus network gas fees which can be $1-$100+ on Ethereum depending on congestion. Always factor the total round-trip cost (buy + sell fees) when evaluating trade viability.</p>
-
-            <h2>Tax Implications of Crypto Trading</h2>
-            <p>In the United States, every cryptocurrency trade is a taxable event — even crypto-to-crypto swaps. Short-term capital gains (assets held less than one year) are taxed as ordinary income at your marginal rate (10-37%). Long-term gains (held more than one year) benefit from reduced rates (0%, 15%, or 20% depending on income). Keeping detailed records of every transaction, including fees, is essential. The IRS treats cryptocurrency as property, not currency.</p>
-
-            <h2>Practical Crypto Trading Examples</h2>
-            <p><strong>Example 1 (Profit):</strong> Buy 0.1 BTC at $50,000 ($5,000 investment, 0.5% fee = $25 cost, so $5,025 total). Sell at $65,000 (0.1 × $65,000 = $6,500, 0.5% fee = $32.50, net $6,467.50). Profit: $6,467.50 - $5,025 = $1,442.50. ROI: 28.7%.</p>
-            <p><strong>Example 2 (Break-Even Analysis):</strong> Same trade — break-even price = $50,000 × (1.005) / (1-0.005) = $50,503. You need to sell above $50,503 just to recover your investment. This is why high-fee exchanges significantly hurt small trades.</p>
-
-            <h2>Tips for Maximizing Crypto Returns</h2>
-            <p>Use low-fee exchanges for active trading — 0.1% vs 1% fees make a massive difference on frequent trades. Consider tax-loss harvesting: if some crypto is underwater, selling at a loss offsets gains elsewhere. Use a hardware wallet for long-term holdings instead of exchange storage. Never invest more than you can afford to lose in speculative assets. Dollar-cost averaging (buying fixed amounts regularly) reduces timing risk compared to lump-sum investments.</p>
+        <div className="max-w-[1180px] mx-auto mt-12">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance max-w-none">
+            <h2>How to Calculate Cryptocurrency Profit</h2>
+            <p>This <strong>crypto profit calculator</strong> computes your exact gain or loss from a cryptocurrency trade, accounting for exchange fees on both buy and sell sides. The core formula: <strong>Net Profit = (Sell Price × Coins − Sell Fees) − (Buy Price × Coins + Buy Fees)</strong>. The break-even price is the minimum sell price needed to cover your total cost including fees. ROI is calculated as Net Profit ÷ Total Cost Basis × 100%.</p>
+            <h2>The Hidden Cost of Crypto Fees</h2>
+            <p>Exchange fees of 0.5% on both sides might seem small, but on a $10,000 trade, that's $100 in buy fees + $100+ in sell fees = $200+ gone before any profit. On frequent day trades, fees can consume 30–50% of gross profits. Choosing low-fee exchanges (Binance at 0.1%, Kraken Pro at 0.16%) vs. high-fee platforms (Coinbase standard at 1.5%+) makes a dramatic difference in profitability over many trades.</p>
+            <h2>Crypto Tax Implications</h2>
+            <p>In the US, every crypto trade is a taxable event. Short-term gains (held ≤12 months) are taxed as ordinary income (10–37%). Long-term gains (held 12+ months) are taxed at 0%, 15%, or 20%. Cost basis methods (FIFO, HIFO, specific ID) determine which coins you're "selling" and can minimize tax liability. Keep detailed records of every trade including date, amount, USD value, and fees for accurate tax reporting.</p>
+            <h2>DCA vs. Lump Sum in Crypto</h2>
+            <p>Dollar-cost averaging (DCA) — investing fixed amounts at regular intervals — reduces volatility risk and removes the emotional burden of timing. Studies show DCA typically underperforms lump sum investing when markets trend upward (lump sum captures the full bull run), but significantly outperforms during bear markets and high-volatility periods common in crypto. Related tools: <a href="/calculator/bitcoin-mining-calculator">Bitcoin Mining Calculator</a>, <a href="/calculator/staking-rewards-calculator">Staking Rewards Calculator</a>.</p>
           </article>
-          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/cryptocurrency-profit-calculator" />
-          <PopularCalculators exclude="/calculator/cryptocurrency-profit-calculator" />
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/crypto-profit-calculator" />
+          <PopularCalculators exclude="/calculator/crypto-profit-calculator" />
         </div>
       </div>
     </>

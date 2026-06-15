@@ -61,7 +61,6 @@ const ContrastRatioCalculator = () => {
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Color Contrast Calculator" }]} />
       <div className="container-page py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Color Contrast Calculator</h1>
-        <p className="text-muted-foreground mb-6 text-lg">Ensure your web designs are accessible and meet WCAG 2.1 compliance standards.</p>
 
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">

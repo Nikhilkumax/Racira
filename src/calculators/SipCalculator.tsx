@@ -1,169 +1,158 @@
 "use client";
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import InputField from "@/components/calculator/InputField";
-import ResultDisplay from "@/components/calculator/ResultDisplay";
-import { RotateCcw } from "lucide-react";
+import PopularCalculators from "@/components/PopularCalculators";
+import { RotateCcw, Calculator } from "lucide-react";
+import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
 
-const SIPCalculator = () => {
-  const [monthly, setMonthly] = useState("5000");
-  const [rate, setRate] = useState("12");
-  const [years, setYears] = useState("10");
-  const [stepUp, setStepUp] = useState("10");
-  const [useStepUp, setUseStepUp] = useState(false);
-  const [showResults, setShowResults] = useState(false);
-  const [result, setResult] = useState<{ invested: number; returns: number; total: number; monthlyData: { year: number; invested: number; value: number }[] } | null>(null);
+interface SipResult {
+  futureValue: number;
+  totalInvested: number;
+  wealthGain: number;
+  xirr: number;
+  chartData: { year: number; invested: number; value: number }[];
+  breakdown: { label: string; value: string }[];
+  summaryStats: { label: string; value: string }[];
+}
 
-  const handleCalculate = () => {
-    setShowResults(true);
-    const P = parseFloat(monthly) || 0;
-    const r = (parseFloat(rate) || 0) / 100 / 12;
-    const n = (parseFloat(years) || 0) * 12;
-    const step = useStepUp ? (parseFloat(stepUp) || 0) / 100 : 0;
+function calcSip(monthlyInvestment: number, rate: number, years: number): SipResult {
+  const r = rate / 100 / 12;
+  const n = years * 12;
+  const futureValue = r > 0 ? monthlyInvestment * ((Math.pow(1 + r, n) - 1) / r) * (1 + r) : monthlyInvestment * n;
+  const totalInvested = monthlyInvestment * n;
+  const wealthGain = futureValue - totalInvested;
+  const xirr = rate; // Monthly SIP CAGR ≈ stated rate for regular investments
 
-    if (P <= 0 || n <= 0) return;
+  const chartData: { year: number; invested: number; value: number }[] = [];
+  for (let y = 0; y <= years; y++) {
+    const mN = y * 12;
+    const val = r > 0 ? monthlyInvestment * ((Math.pow(1 + r, mN) - 1) / r) * (1 + r) : monthlyInvestment * mN;
+    chartData.push({ year: y, invested: monthlyInvestment * mN, value: Math.round(val) });
+  }
 
-    let totalInvested = 0;
-    let totalValue = 0;
-    let currentMonthly = P;
-    const data: { year: number; invested: number; value: number }[] = [];
+  const breakdown = [
+    { label: "Monthly SIP Amount", value: `$${monthlyInvestment.toLocaleString()}` },
+    { label: "Annual Return Rate", value: `${rate}%` },
+    { label: "Investment Period", value: `${years} years (${n} months)` },
+    { label: "Total Amount Invested", value: `$${totalInvested.toLocaleString()}` },
+    { label: "Estimated Wealth Gain", value: `$${wealthGain.toLocaleString("en-US", { maximumFractionDigits: 0 })}` },
+    { label: "Future Value (Maturity)", value: `$${futureValue.toLocaleString("en-US", { maximumFractionDigits: 0 })}` },
+    { label: "Wealth Gain Multiple", value: `${(futureValue / totalInvested).toFixed(2)}x` },
+    { label: "Gain % of Total", value: `${((wealthGain / futureValue) * 100).toFixed(1)}%` },
+  ];
 
-    for (let month = 1; month <= n; month++) {
-      if (useStepUp && month > 1 && (month - 1) % 12 === 0) {
-        currentMonthly = currentMonthly * (1 + step);
-      }
-      totalInvested += currentMonthly;
-      totalValue = (totalValue + currentMonthly) * (1 + r);
+  const summaryStats = [
+    { label: "Future Value", value: `$${futureValue.toLocaleString("en-US", { maximumFractionDigits: 0 })}` },
+    { label: "Total Invested", value: `$${totalInvested.toLocaleString()}` },
+    { label: "Wealth Gain", value: `$${wealthGain.toLocaleString("en-US", { maximumFractionDigits: 0 })}` },
+    { label: "Return Multiple", value: `${(futureValue / totalInvested).toFixed(2)}x` },
+    { label: "Monthly Return", value: `$${(futureValue / n).toFixed(0)} avg/mo` },
+    { label: "Gain %", value: `${((wealthGain / futureValue) * 100).toFixed(1)}%` },
+  ];
 
-      if (month % 12 === 0) {
-        data.push({ year: month / 12, invested: totalInvested, value: totalValue });
-      }
-    }
+  return { futureValue, totalInvested, wealthGain, xirr, chartData, breakdown, summaryStats };
+}
 
-    if (n % 12 !== 0) {
-      data.push({ year: Math.ceil(n / 12), invested: totalInvested, value: totalValue });
-    }
+const DEFAULTS = { monthly: "500", rate: "12", years: "20" };
 
-    setResult({ invested: totalInvested, returns: totalValue - totalInvested, total: totalValue, monthlyData: data });
-  };
+export default function SipCalculator() {
+  const [monthly, setMonthly] = useState(DEFAULTS.monthly);
+  const [rate, setRate] = useState(DEFAULTS.rate);
+  const [years, setYears] = useState(DEFAULTS.years);
+  const [result, setResult] = useState<SipResult | null>(null);
 
-  const reset = () => {
-    setShowResults(false); setMonthly("5000"); setRate("12"); setYears("10"); setStepUp("10"); setUseStepUp(false); setResult(null); };
+  const calculate = () => setResult(calcSip(parseFloat(monthly) || 500, parseFloat(rate) || 12, parseInt(years) || 20));
+  const reset = () => { setMonthly(DEFAULTS.monthly); setRate(DEFAULTS.rate); setYears(DEFAULTS.years); setResult(calcSip(500, 12, 20)); };
+  useEffect(() => { setResult(calcSip(500, 12, 20)); }, []);
+
+  const inp = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
+  const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground";
 
   const faqs = [
-    { question: "What is SIP?", answer: "SIP (Systematic Investment Plan) is a method of investing a fixed amount regularly in mutual funds. It helps build wealth through disciplined investing and rupee cost averaging." },
-    { question: "How is SIP return calculated?", answer: "SIP returns are calculated using the future value of an annuity formula. Each monthly installment earns compound interest for its remaining tenure, and the sum gives total corpus." },
-    { question: "What is Step-Up SIP?", answer: "Step-Up SIP (or Top-Up SIP) increases your monthly investment by a fixed percentage every year. This helps counter inflation and accelerates wealth creation." },
-    { question: "What is a good SIP return rate?", answer: "Historically, equity mutual funds in India have delivered 12-15% annualized returns over 10+ years. Debt funds typically return 6-8%. Past performance doesn't guarantee future returns." },
-    { question: "Can I withdraw SIP anytime?", answer: "Yes, open-ended mutual fund SIPs can be redeemed anytime. However, ELSS funds have a 3-year lock-in period. Exit loads may apply for early redemption." },
+    { question: "What is a SIP (Systematic Investment Plan)?", answer: "A Systematic Investment Plan (SIP) is a method of investing a fixed, regular amount (weekly, monthly, or quarterly) into a mutual fund or investment account. SIPs leverage dollar-cost averaging — buying more units when prices are low and fewer when prices are high — which reduces the impact of market volatility and removes the need to time the market." },
+    { question: "How is SIP return calculated?", answer: "SIP Future Value = P × [(1+r)^n − 1] / r × (1+r). Where P = monthly investment, r = monthly rate (annual rate ÷ 12), n = total months. Unlike lumpsum, SIP's compounding is on an increasing balance, making it slightly less than lumpsum at the same rate over the same period — but the dollar-cost averaging benefit often more than compensates." },
+    { question: "What return rate should I use for SIP calculator?", answer: "Indian equity mutual funds (long-term): 12–14% CAGR. US equity (S&P 500, long-term): ~10% CAGR. Conservative balanced fund: 8–10%. For planning purposes: use 10–12% for equity, 6–8% for balanced, 5–6% for debt/bond funds. Returns are historical — actual future returns may differ." },
+    { question: "Is SIP better than lumpsum?", answer: "SIP: ideal for salaried investors with regular income, volatile markets, and risk-averse investors. Lumpsum: better when you have a large amount available and markets are relatively low. Research shows SIP outperforms lumpsum in volatile/falling markets, while lumpsum outperforms in steadily rising markets. Many experts recommend a hybrid approach." },
+    { question: "What is the best duration for SIP investment?", answer: "SIP duration depends on goal: Short-term (1–3 years): liquid/debt funds only, not equity. Medium-term (3–5 years): balanced funds. Long-term (7+ years): pure equity funds for maximum compounding. The longer the SIP horizon, the greater the compounding effect. The first $100K is hardest; the second $100K comes much faster." },
+    { question: "Can I increase my SIP amount over time?", answer: "Yes — this is called a Step-Up SIP or Top-Up SIP, where you increase your contribution by a fixed amount or percentage each year. A 10% annual step-up dramatically accelerates wealth creation. Example: $500/month SIP at 12% for 20 years = $494,000. Same SIP with 10% annual step-up = $857,000 — 73% more." },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "SIP Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Finance", href: "/calculator#finance" }, { label: "SIP Calculator" }]} />
       <div className="container-page py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">SIP Calculator</h1>
-        <p className="text-muted-foreground mb-6 text-lg">Calculate mutual fund SIP returns with optional step-up SIP and year-by-year growth projection.</p>
-
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">SIP Calculator (Systematic Investment Plan)</h1>
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="grid sm:grid-cols-2 gap-5 mb-6">
-                <InputField id="monthly" label="Monthly SIP Amount" value={monthly} onChange={setMonthly} prefix="₹" />
-                <InputField id="rate" label="Expected Return Rate (p.a.)" value={rate} onChange={setRate} suffix="%" />
-                <InputField id="years" label="Investment Period" value={years} onChange={setYears} suffix="Years" />
-                <div>
-                  <div className="flex items-center gap-2 mb-1.5">
-                    <input type="checkbox" id="stepUpCheck" checked={useStepUp} onChange={(e) => setUseStepUp(e.target.checked)} className="rounded border-input" />
-                    <label htmlFor="stepUpCheck" className="text-sm font-medium text-foreground">Enable Step-Up SIP</label>
-                  </div>
-                  {useStepUp && <InputField id="stepUp" label="Annual Step-Up" value={stepUp} onChange={setStepUp} suffix="%" />}
-                </div>
+          <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
+            <div><label className="text-base font-medium mb-1.5 block">Monthly Investment</label><div className={inp}><span className="pl-3 text-muted-foreground">$</span><input type="number" value={monthly} onChange={e => setMonthly(e.target.value)} className={ci} /></div></div>
+            <div>
+              <label className="text-base font-medium mb-1.5 block">Expected Annual Return</label>
+              <div className="grid grid-cols-4 gap-2 mb-2">
+                {[["8", "8%"], ["10", "10%"], ["12", "12%"], ["14", "14%"]].map(([v, l]) => (
+                  <button key={v} onClick={() => setRate(v)} className={`h-10 rounded-md border text-sm font-medium transition-colors ${rate === v ? "bg-primary text-primary-foreground border-primary" : "border-border bg-background hover:bg-secondary"}`}>{l}</button>
+                ))}
               </div>
-
-              <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+              <div className={inp}><input type="number" value={rate} onChange={e => setRate(e.target.value)} step={0.5} className={ci} /><span className="pr-3 text-muted-foreground text-sm">%</span></div>
+            </div>
+            <div>
+              <label className="text-base font-medium mb-1.5 block">Investment Period</label>
+              <div className="grid grid-cols-4 gap-2 mb-2">
+                {[["5", "5yr"], ["10", "10yr"], ["20", "20yr"], ["30", "30yr"]].map(([v, l]) => (
+                  <button key={v} onClick={() => setYears(v)} className={`h-10 rounded-md border text-sm font-medium transition-colors ${years === v ? "bg-primary text-primary-foreground border-primary" : "border-border bg-background hover:bg-secondary"}`}>{l}</button>
+                ))}
               </div>
+              <div className={inp}><input type="number" value={years} onChange={e => setYears(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">yrs</span></div>
+            </div>
+            <div className="flex gap-3 mt-1">
+              <button onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm"><Calculator className="h-4 w-4" /> Calculate</button>
+              <button onClick={reset} className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center"><RotateCcw className="h-4 w-4" /></button>
+            </div>
           </div>
-
-          <div className="flex flex-col gap-3">
-            {showResults && result && (
-              <>
-                <h2 className="text-xl font-bold mb-4">SIP Returns</h2>
-                <ResultDisplay currency="₹" items={[
-                  { label: "Total Invested", value: result.invested },
-                  { label: "Estimated Returns", value: result.returns, highlight: true },
-                  { label: "Total Value", value: result.total, highlight: true },
-                ]} />
-
-                {result.monthlyData.length > 0 && (
-                  <div className="mt-6">
-                    <h3 className="font-semibold mb-3">Year-by-Year Growth</h3>
-                    <div className="overflow-x-auto">
-                      <table className="w-full text-sm">
-                        <thead><tr className="border-b border-border">
-                          <th className="text-left py-2 px-3 font-medium text-muted-foreground">Year</th>
-                          <th className="text-right py-2 px-3 font-medium text-muted-foreground">Invested</th>
-                          <th className="text-right py-2 px-3 font-medium text-muted-foreground">Value</th>
-                          <th className="text-right py-2 px-3 font-medium text-muted-foreground">Returns</th>
-                        </tr></thead>
-                        <tbody>
-                          {result.monthlyData.map((d) => (
-                            <tr key={d.year} className="border-b border-border/50">
-                              <td className="py-2 px-3">{d.year}</td>
-                              <td className="py-2 px-3 text-right">₹{d.invested.toLocaleString("en-IN", { maximumFractionDigits: 0 })}</td>
-                              <td className="py-2 px-3 text-right font-medium">₹{d.value.toLocaleString("en-IN", { maximumFractionDigits: 0 })}</td>
-                              <td className="py-2 px-3 text-right text-[hsl(217,91%,40%)] dark:text-primary">₹{(d.value - d.invested).toLocaleString("en-IN", { maximumFractionDigits: 0 })}</td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                )}
-              </>
-            )}
+          <div className="flex flex-col gap-4">
+            {result && (<>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">SIP Maturity Value</div>
+                <div className="text-4xl font-extrabold text-foreground tracking-tight">${result.futureValue.toLocaleString("en-US", { maximumFractionDigits: 0 })}</div>
+                <div className="text-sm text-muted-foreground mt-1">Invested: ${result.totalInvested.toLocaleString()} · Gains: ${result.wealthGain.toLocaleString("en-US", { maximumFractionDigits: 0 })} · {(result.futureValue / result.totalInvested).toFixed(2)}x</div>
+              </div>
+              <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+                {[["Total Invested", `$${result.totalInvested.toLocaleString()}`], ["Wealth Gain", `$${result.wealthGain.toLocaleString("en-US", { maximumFractionDigits: 0 })}`], ["Return Multiple", `${(result.futureValue / result.totalInvested).toFixed(2)}x`]].map(([l, v], i) => (
+                  <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}><div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div><div className="text-base font-bold">{v}</div></div>
+                ))}
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">SIP Details</h3>
+                <table className="w-full text-base"><tbody>{result.breakdown.map((r, i) => (<tr key={i} className={`border-b border-border/50 last:border-0 ${r.label === "Future Value (Maturity)" ? "font-bold text-primary" : ""}`}><td className="py-2.5 text-muted-foreground">{r.label}</td><td className="py-2.5 text-right font-semibold">{r.value}</td></tr>))}</tbody></table>
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Growth Projection</h3>
+                <ResponsiveContainer width="100%" height={220}><AreaChart data={result.chartData} margin={{ top: 5, right: 10, left: 10, bottom: 5 }}><CartesianGrid strokeDasharray="3 3" stroke="var(--border)" /><XAxis dataKey="year" tick={{ fontSize: 11 }} label={{ value: "Year", position: "insideBottom", offset: -2, fontSize: 11 }} /><YAxis tick={{ fontSize: 10 }} tickFormatter={v => `$${(v / 1000).toFixed(0)}K`} /><Tooltip formatter={(v: number) => [`$${v.toLocaleString()}`, ""]} /><Area type="monotone" dataKey="invested" name="Invested" stroke="#10b981" fill="#10b981" fillOpacity={0.3} strokeWidth={1.5} /><Area type="monotone" dataKey="value" name="Value" stroke="hsl(var(--primary))" fill="hsl(var(--primary)/0.1)" strokeWidth={2} /></AreaChart></ResponsiveContainer>
+              </div>
+              <div className="bg-muted/30 rounded-lg p-5">
+                <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
+                <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">{result.summaryStats.map((s, i) => (<div key={i} className="flex justify-between"><span className="text-muted-foreground">{s.label}:</span><span className="font-semibold">{s.value}</span></div>))}</div>
+              </div>
+            </>)}
           </div>
         </div>
-
-        <div className="max-w-[1180px] mx-auto mt-8">
-          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
-              <h2>What Is a SIP Calculator?</h2>
-              <p>A SIP (Systematic Investment Plan) calculator helps you estimate the future value of your mutual fund investments made through regular monthly contributions. It uses the compound interest formula to project growth over your chosen investment period.</p>
-
-              <h2>How SIP Returns Are Calculated</h2>
-              <p>Each monthly SIP installment is treated as a separate investment that compounds at the expected rate of return. The formula used is the Future Value of an Annuity:</p>
-              <p><strong>FV = P × [((1 + r)^n - 1) / r] × (1 + r)</strong></p>
-              <p>Where P is the monthly investment, r is the monthly rate of return (annual rate / 12), and n is the total number of months.</p>
-
-              <h2>What Is Step-Up SIP?</h2>
-              <p>Step-Up SIP (also called Top-Up SIP) automatically increases your monthly investment by a fixed percentage every year. For example, a 10% step-up on ₹5,000/month means you invest ₹5,500/month in year 2, ₹6,050/month in year 3, and so on. This strategy significantly accelerates wealth creation by keeping pace with income growth.</p>
-
-              <h2>Benefits of SIP Investing</h2>
-              <ul>
-                <li><strong>Rupee Cost Averaging:</strong> Buying more units when prices are low and fewer when high, reducing average cost.</li>
-                <li><strong>Power of Compounding:</strong> Returns earn returns, creating exponential growth over long periods.</li>
-                <li><strong>Disciplined Investing:</strong> Automated monthly deductions build consistent saving habits.</li>
-                <li><strong>Flexibility:</strong> Start with as low as ₹500/month, increase, pause, or stop anytime.</li>
-              </ul>
-
-              <h2>SIP vs Lump Sum Investment</h2>
-              <p>SIP spreads investment over time, reducing market timing risk. Lump sum invests everything at once, which can yield higher returns in a consistently rising market. For most investors, SIP is the safer and more practical approach.</p>
-
-              <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> This calculator provides estimates based on assumed constant returns. Actual mutual fund returns vary and past performance does not guarantee future results. Consult a financial advisor.</p>
-            </article>
+        <div className="max-w-[1180px] mx-auto mt-12">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance max-w-none">
+            <h2>What Is a SIP Calculator?</h2>
+            <p>A <strong>SIP calculator</strong> projects the future value of regular monthly investments using compound interest. SIP (Systematic Investment Plan) investing automates disciplined wealth building — by investing a fixed amount every month, you leverage both compound growth and dollar-cost averaging to build significant wealth over time.</p>
+            <h2>SIP Formula</h2>
+            <p>FV = P × [(1+r)^n − 1] / r × (1+r). Where P = monthly investment amount, r = monthly return rate (annual ÷ 12), n = number of months. The extra (1+r) factor accounts for beginning-of-period investment timing (most SIPs invest at the start of each period).</p>
+            <h2>The Magic of Starting Early</h2>
+            <p>$500/month at 12% for 20 years = $494,000. Starting 5 years earlier (25 years): $941,000 — nearly double from just 5 extra years. Starting 5 years later (15 years): $250,000 — half the outcome. The compounding curve accelerates dramatically in the later years — the last 5 years of a 20-year SIP generate more wealth than the first 15 years combined.</p>
+            <h2>SIP vs. Lumpsum: The Dollar-Cost Averaging Advantage</h2>
+            <p>SIP automatically buys more units when prices are low (after market crashes) and fewer when prices are high. Over a full market cycle, this often produces better average cost than a single lumpsum investment. Studies show SIP outperforms lumpsum in volatile markets, making it the preferred choice for most retail investors.</p>
+          </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/sip-calculator" />
-          <PopularCalculators exclude="/sip-calculator" />
+          <PopularCalculators exclude="/calculator/sip-calculator" />
         </div>
       </div>
     </>
   );
-};
-
-export default SIPCalculator;
-
-
+}

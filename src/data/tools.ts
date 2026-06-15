@@ -70,7 +70,9 @@ export interface Tool {
   name: string;
   description: string;
   category: CategorySlug;
+  icon?: LucideIcon;
 }
+
 
 export const popularTools: Tool[] = [
   { slug: "emi-calculator", name: "EMI Calculator", description: "Calculate monthly EMI for any loan.", category: "calculator" },

@@ -4,31 +4,26 @@ import { DollarSign, Heart, Calculator, FlaskConical, Smile, HardHat, Trophy, Le
 import { calculatorRegistry, getCategories, getCategoryIcon } from "@/data/calculatorRegistry";
 import SearchCalculators from "@/components/SearchCalculators";
 
-const categoryOrder = [
-  "Finance",
-  "Health",
-  "Math",
-  "Science",
-  "Everyday Life",
-  "Construction",
-  "Sports",
-  "Ecology",
-  "Technology",
-  "Education",
-  "Conversion",
-  "Automobile",
-];
-
 export const metadata: Metadata = {
   title: "All Calculators — Racira",
-  description: "Browse 980+ free online calculators: finance, health, math, science, construction, and more. Professional-grade tools, no signup required.",
+  description: "Browse 11,000+ free online calculators: finance, business, math, science, construction, and more. Professional-grade tools, no signup required.",
   alternates: {
     canonical: "https://racira.com/calculator",
   },
 };
 
+const formatCategory = (cat: string) => {
+  if (cat === 'EVERYDAY_LIFE') return 'Everyday Life';
+  return cat.charAt(0).toUpperCase() + cat.slice(1).toLowerCase();
+};
+
 export default function Home() {
   const categories = getCategories();
+  const categoryOrder = [
+    "FINANCE", "BUSINESS", "HEALTH", "MATH", "SCIENCE", 
+    "ENGINEERING", "TECHNOLOGY", "ENVIRONMENT", "EVERYDAY_LIFE", 
+    "TRANSPORTATION", "CONSTRUCTION", "EDUCATION"
+  ];
 
   return (
     <div className="flex flex-col">
@@ -36,11 +31,11 @@ export default function Home() {
       <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
-            980+ Free Calculators —{" "}
+            11,000+ Free Calculators —{" "}
             <span className="hero-gradient-text">Fast, Accurate & Free</span>
           </h1>
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
-            Professional-grade financial, health, math, science, and business calculators. No signup required.
+            Professional-grade financial, business, health, math, science, and engineering calculators. No signup required.
           </p>
           <SearchCalculators />
         </div>
@@ -55,13 +50,13 @@ export default function Home() {
             return (
               <Link
                 key={cat}
-                href={`#${cat.toLowerCase().replace(/\s+&\s+/g, "-").replace(/\s+/g, "-")}`}
+                href={`#${cat.toLowerCase().replace(/_/g, "-")}`}
                 className="category-nav-card group calculator-category-card"
               >
                 <div className="tool-card-icon h-14 w-14 mb-5 rounded-2xl">
                   <Icon className="h-[30.6px] w-[30.6px] text-primary" />
                 </div>
-                <span className="text-[13.6px] font-bold text-foreground leading-tight text-center">{cat}</span>
+                <span className="text-[13.6px] font-bold text-foreground leading-tight text-center">{formatCategory(cat)}</span>
                 <span className="text-[11.9px] text-muted-foreground mt-2">{items.length} tools</span>
               </Link>
             );
@@ -85,11 +80,11 @@ export default function Home() {
           return (
             <section
               key={cat}
-              id={cat.toLowerCase().replace(/\s+&\s+/g, "-").replace(/\s+/g, "-")}
+              id={cat.toLowerCase().replace(/_/g, "-")}
               className={idx > 0 ? "mt-14" : "mt-4"}
             >
               <h2 className="text-xl font-bold text-foreground mb-2">
-                {cat}
+                {formatCategory(cat)}
               </h2>
               <p className="text-sm text-muted-foreground mb-5">{items.length} calculators</p>
 
@@ -102,7 +97,7 @@ export default function Home() {
                     {subItems.map(t => (
                       <Link key={t.slug} href={`/calculator/${t.slug}`} className="tool-card group">
                         <div className="tool-card-icon">
-                          <t.icon className="h-5 w-5 text-primary" />
+                          {t.icon ? <t.icon className="h-5 w-5 text-primary" /> : <Calculator className="h-5 w-5 text-primary" />}
                         </div>
                         <div className="min-w-0">
                           <h4 className="font-semibold text-foreground text-[15px] leading-snug mb-1">
@@ -127,7 +122,7 @@ export default function Home() {
         <p>
           Managing personal finances, tracking health metrics, solving math problems, or planning construction projects — 
           having the right tools at your fingertips makes all the difference.
-          Racira Calculator provides a comprehensive suite of 980+ free online calculators designed to help you make
+          Racira Calculator provides a comprehensive suite of 5000+ free online calculators designed to help you make
           informed decisions in every area of life.
         </p>
         <p>

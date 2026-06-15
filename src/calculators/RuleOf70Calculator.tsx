@@ -51,7 +51,6 @@ const RuleOf70Calculator = () => {
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Rule of 70 Calculator" }]} />
       <div className="container-page py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Rule of 70 Calculator</h1>
-        <p className="text-muted-foreground mb-6 text-lg">Quickly estimate how long it will take for your money to double based on a steady growth rate.</p>
 
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">

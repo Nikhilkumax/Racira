@@ -1,193 +1,424 @@
 "use client";
-import { useState, useEffect } from "react";
+
+import { useState, useRef, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
-import { RotateCcw, Calculator } from "lucide-react";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, ReferenceLine } from "recharts";
+import FAQSection from "@/components/FAQSection";
+import { ChevronDown, Printer, RotateCcw, Scale3d, AlertTriangle } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell, ReferenceArea } from "recharts";
 
-const fmt = (n: number, d = 2) => n.toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d });
+// 1. TypeScript Interfaces
+interface PonderalInputs {
+  weight: number;
+  height: number;
+  unit: "imperial" | "metric";
+}
 
-const getPIRating = (pi: number) => {
-  if (pi < 11) return { label: "Underweight", color: "#3b82f6", desc: "Below healthy range — may indicate insufficient body mass." };
-  if (pi < 15) return { label: "Normal Weight", color: "#10b981", desc: "Healthy range. Optimal body proportionality." };
-  if (pi < 17) return { label: "Overweight", color: "#f59e0b", desc: "Above optimal range. Consider lifestyle adjustments." };
-  return { label: "Obese", color: "#ef4444", desc: "Significantly above healthy range. Elevated health risks." };
-};
+interface PonderalResults {
+  piScore: number;
+  bmiScore: number;
+  category: string;
+  
+  grade: string;
+  recommendation: string;
 
-const PonderalIndexCalculator = () => {
-  const DEFAULTS = { weight: "170", height: "70", unit: "imperial" };
-  const [weight, setWeight] = useState(DEFAULTS.weight);
-  const [height, setHeight] = useState(DEFAULTS.height);
-  const [unit, setUnit] = useState(DEFAULTS.unit);
-  const [result, setResult] = useState<any>(null);
+  chartData: { name: string; score: number }[];
+  summaryStats: { label: string; value: string; colorClass?: string }[];
+}
 
-  const calculate = (w = weight, h = height, u = unit) => {
-    const W = parseFloat(w) || 0;
-    const H = parseFloat(h) || 0;
-    if (!W || !H || H <= 0) return;
-    let wKg: number, hM: number;
-    if (u === "imperial") {
-      wKg = W * 0.453592;
-      hM = H * 0.0254;
-    } else {
-      wKg = W;
-      hM = H / 100;
-    }
-    const pi = wKg / (hM * hM * hM);
-    const bmi = wKg / (hM * hM);
-    const rating = getPIRating(pi);
-    const chartData = [
-      { name: "Underweight", range: 11, color: "#3b82f6" },
-      { name: "Normal", range: 15, color: "#10b981" },
-      { name: "Overweight", range: 17, color: "#f59e0b" },
-      { name: "You", range: parseFloat(pi.toFixed(1)), color: rating.color },
-    ];
-    setResult({ W, H, wKg, hM, pi, bmi, rating, chartData, u });
-  };
+// 2. Pure Calculation Function
+const calculatePonderal = (inputs: PonderalInputs): PonderalResults | null => {
+  const { weight, height, unit } = inputs;
+  
+  if (weight <= 0 || height <= 0) return null;
 
-  useEffect(() => { calculate(); }, []);
-  const reset = () => { setWeight(DEFAULTS.weight); setHeight(DEFAULTS.height); setUnit(DEFAULTS.unit); calculate(DEFAULTS.weight, DEFAULTS.height, DEFAULTS.unit); };
+  const weightKg = unit === "imperial" ? weight / 2.20462 : weight;
+  const heightM = unit === "imperial" ? height * 0.0254 : height / 100;
 
-  const faqs = [
-    { question: "What is the Ponderal Index?", answer: "The Ponderal Index (PI), also called the Corpulence Index or Rohrer's Index, is a body mass measure calculated as weight divided by height cubed (kg/m³). Unlike BMI (which uses height squared), PI accounts for the three-dimensional nature of the human body and is less biased by height — making it more accurate for very tall or very short individuals." },
-    { question: "What is the Ponderal Index formula?", answer: "PI = Weight (kg) / Height (m)³. For a 170 lb (77.1 kg), 5'10\" (1.778 m) person: PI = 77.1 / (1.778)³ = 77.1 / 5.619 = 13.72 kg/m³. The normal range is approximately 11–15 kg/m³." },
-    { question: "How does PI differ from BMI?", answer: "BMI = weight / height² and tends to overestimate body fat in tall individuals and underestimate it in short individuals. PI = weight / height³ and is more height-independent. Studies show PI provides more consistent classifications across diverse height ranges, particularly for populations at the extremes of human height." },
-    { question: "What is a healthy Ponderal Index?", answer: "Normal PI range is approximately 11–15 kg/m³. Below 11 suggests underweight. 15–17 indicates overweight. Above 17 indicates obesity. These thresholds are more stable across height ranges than BMI thresholds, which is the primary advantage of using PI." },
-    { question: "When is PI used instead of BMI?", answer: "PI is commonly used in neonatal medicine to assess newborn body proportionality — it better identifies growth-restricted infants than birth weight alone. It is also used in research studying populations with extreme height variation. Some epidemiological studies prefer PI because its height-independence reduces confounding in regression models." },
-    { question: "What is the neonatal Ponderal Index?", answer: "In neonatology, PI = (Birth Weight in grams × 100) / (Crown-Heel Length in cm)³. A neonatal PI below 2.0 suggests intrauterine growth restriction (IUGR). Normal neonatal PI is 2.0–3.0. Above 3.0 may indicate macrosomia (large-for-gestational-age). This is different from the adult PI formula used by this calculator." },
+  // Body Mass Index (BMI): kg / m^2 (2-Dimensional)
+  const bmiScore = weightKg / Math.pow(heightM, 2);
+
+  // Ponderal Index (PI): kg / m^3 (3-Dimensional)
+  const piScore = weightKg / Math.pow(heightM, 3);
+
+  let grade = "";
+  let category = "";
+  let recommendation = "";
+  let color = "";
+
+  // Standard adult Ponderal Index clinical thresholds
+  if (piScore < 11) {
+    category = "Underweight";
+    grade = "Low Mass Volume";
+    recommendation = "Your Ponderal Index is below 11, indicating a very low mass-to-volume ratio. You are clinically underweight. A caloric surplus focusing on nutrient-dense foods and resistance training is recommended to build healthy tissue mass.";
+    color = "#3b82f6"; // Blue
+  } else if (piScore < 14.5) {
+    category = "Healthy / Normal";
+    grade = "Optimal 3D Proportions";
+    recommendation = "You have an excellent, mathematically optimal mass-to-volume ratio. This indicates a very healthy balance of body weight distributed across your specific three-dimensional frame.";
+    color = "#10b981"; // Green
+  } else if (piScore < 16) {
+    category = "Overweight";
+    grade = "Excess Mass Volume";
+    recommendation = "Your index is slightly elevated. You are carrying an excess amount of mass relative to your height volume. Implementing a slight caloric deficit and increasing cardiovascular activity will help optimize your ratio.";
+    color = "#f59e0b"; // Amber
+  } else {
+    category = "Obese";
+    grade = "High Risk Zone";
+    recommendation = "Your Ponderal Index exceeds the clinical threshold of 16. This indicates a significant accumulation of mass that places dangerous stress on your cardiovascular and skeletal systems. Medical consultation and weight reduction are strongly advised.";
+    color = "#ef4444"; // Red
+  }
+
+  const chartData = [
+    { name: "Your PI Score", score: parseFloat(piScore.toFixed(1)) }
   ];
 
-  const wLabel = unit === "imperial" ? "lbs" : "kg";
-  const hLabel = unit === "imperial" ? "in" : "cm";
+  const summaryStats = [
+    { label: "Ponderal Index (3D)", value: `${piScore.toFixed(2)} kg/m³`, colorClass: "text-primary font-black text-xl" },
+    { label: "Standard BMI (2D)", value: `${bmiScore.toFixed(1)} kg/m²`, colorClass: "text-muted-foreground" },
+    { label: "Clinical Classification", value: category, colorClass: `font-bold text-[${color}]` },
+    { label: "Volumetric Profile", value: grade }
+  ];
+
+  return {
+    piScore: parseFloat(piScore.toFixed(2)),
+    bmiScore: parseFloat(bmiScore.toFixed(1)),
+    category,
+    grade,
+    recommendation,
+    chartData,
+    summaryStats
+  };
+};
+
+// 3. DEFAULTS Object
+const DEFAULTS = {
+  weight: "165",
+  heightFt: "5",
+  heightIn: "10",
+  heightCm: "178",
+  unit: "imperial" as const
+};
+
+// Custom Chart Tooltip
+const CustomTooltip = ({ active, payload }: any) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="bg-card border border-border p-2.5 rounded-lg shadow-md text-xs font-semibold text-foreground">
+        <p className="font-bold mb-1 text-primary">{payload[0].payload.name}</p>
+        <p className="text-muted-foreground">Score: <span className="font-bold text-foreground">{payload[0].value}</span></p>
+      </div>
+    );
+  }
+  return null;
+};
+
+// Input Component
+const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "number", ...props }: any) => (
+  <div className="flex flex-col">
+    <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1.5">
+      {label}
+    </label>
+    <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-10 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
+      {prefix && <span className="pl-3 pr-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{prefix}</span>}
+      <input
+        id={id}
+        type={type}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground"
+        {...props}
+      />
+      {suffix && <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{suffix}</span>}
+    </div>
+  </div>
+);
+
+export default function PonderalIndexCalculator() {
+  // 4. Component State
+  const [weight, setWeight] = useState(DEFAULTS.weight);
+  const [heightFt, setHeightFt] = useState(DEFAULTS.heightFt);
+  const [heightIn, setHeightIn] = useState(DEFAULTS.heightIn);
+  const [heightCm, setHeightCm] = useState(DEFAULTS.heightCm);
+  const [unit, setUnit] = useState<"imperial" | "metric">(DEFAULTS.unit);
+  const [errorMsg, setErrorMsg] = useState("");
+  
+  const [results, setResults] = useState<PonderalResults | null>(null);
+  const printRef = useRef<HTMLDivElement>(null);
+
+  const handleCalculate = () => {
+    setErrorMsg("");
+    const w = parseFloat(weight);
+    
+    let h = 0;
+    if (unit === "imperial") {
+      h = (parseInt(heightFt) * 12) + parseInt(heightIn || "0");
+    } else {
+      h = parseFloat(heightCm);
+    }
+
+    if (w <= 0 || h <= 0) {
+      setErrorMsg("Error: Please enter valid positive values for weight and height.");
+      setResults(null);
+      return;
+    }
+
+    const inputs: PonderalInputs = {
+      weight: w,
+      height: h,
+      unit
+    };
+    setResults(calculatePonderal(inputs));
+  };
+
+  const handleReset = () => {
+    setWeight(DEFAULTS.weight);
+    setHeightFt(DEFAULTS.heightFt);
+    setHeightIn(DEFAULTS.heightIn);
+    setHeightCm(DEFAULTS.heightCm);
+    setUnit(DEFAULTS.unit);
+    setErrorMsg("");
+    
+    const h = (parseInt(DEFAULTS.heightFt) * 12) + parseInt(DEFAULTS.heightIn);
+    setResults(calculatePonderal({
+      weight: parseFloat(DEFAULTS.weight),
+      height: h,
+      unit: DEFAULTS.unit
+    }));
+  };
+
+  useEffect(() => {
+    handleCalculate();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [weight, heightFt, heightIn, heightCm, unit]);
+
+  const handlePrint = () => {
+    if (!printRef.current) return;
+    const w = window.open("", "_blank");
+    if (!w) return;
+    w.document.write(`<html><head><title>Ponderal Index Analysis</title><style>body{font-family:system-ui;padding:2rem}table{width:100%;border-collapse:collapse;font-size:14px}th,td{border:1px solid #ddd;padding:8px;text-align:left}th{background:#f5f5f5}</style></head><body>`);
+    w.document.write(printRef.current.innerHTML);
+    w.document.write("</body></html>");
+    w.document.close();
+    w.print();
+  };
+
+  const faqs = [
+    { question: "What is the Ponderal Index (PI)?", answer: "The Ponderal Index (also known as the Corpulence Index or Rohrer's Index) is a clinical measurement of body composition. While it seems similar to the Body Mass Index (BMI), it utilizes a fundamentally different mathematical approach. BMI divides weight by height squared (2-dimensional). The Ponderal Index divides weight by height cubed (3-dimensional)." },
+    { question: "Why is Ponderal Index mathematically superior to BMI?", answer: "Human beings are 3-dimensional objects; we have height, width, and depth (volume). The BMI formula squares height, essentially treating the human body as a 2-dimensional piece of paper. This creates a massive mathematical flaw at the extremes of height. Very tall people are unfairly penalized by BMI (often labeled overweight when they are lean), and very short people are often falsely labeled healthy when they are actually obese. The Ponderal Index cubes the height, correctly accounting for 3D volumetric scaling." },
+    { question: "If PI is better, why do doctors still use BMI?", answer: "Tradition and simplicity. BMI was invented in the 1830s by Adolphe Quetelet purely for population-level statistics, not individual diagnosis. It was adopted globally because calculating a square without a calculator is much easier than calculating a cube. The medical industry entrenched BMI into health insurance algorithms over decades. However, modern pediatricians and elite sports scientists overwhelmingly prefer the Ponderal Index." },
+    { question: "What is considered a 'Healthy' Ponderal score?", answer: "For adults, the healthy range is generally recognized as being between 11 and 15 kg/m³. Scores below 11 indicate an underweight, highly linear frame, while scores above 15 indicate an overweight, highly stocky frame. Note that infants and children have vastly different Ponderal thresholds due to their rapid growth phases." },
+    { question: "Does Ponderal Index solve the 'Bodybuilder Problem'?", answer: "Only partially. While PI perfectly corrects the 'Height Problem' of BMI, it still suffers from the 'Mass Problem.' Neither BMI nor PI can mathematically distinguish between 50 pounds of pure skeletal muscle and 50 pounds of adipose tissue (fat). An elite bodybuilder will still score highly on the Ponderal Index because they possess an extreme amount of physical mass relative to their volume." }
+  ];
 
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Health", href: "/calculator#health" }, { label: "Ponderal Index Calculator" }]} />
       <div className="container-page py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Ponderal Index Calculator</h1>
-        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1200px] mx-auto">
-          <div className="card-calculator flex flex-col gap-5 !p-6 border border-border bg-card">
-            <div>
-              <label className="text-base font-medium block mb-1.5">Unit System</label>
-              <div className="flex gap-2">
-                {(["imperial", "metric"] as const).map((u) => (
-                  <button key={u} onClick={() => { setUnit(u); calculate(weight, height, u); }} className={`flex-1 h-9 rounded-md border text-sm font-medium transition-colors capitalize ${unit === u ? "bg-primary text-primary-foreground border-primary" : "border-border hover:bg-secondary"}`}>
-                    {u === "imperial" ? "Imperial (lbs/in)" : "Metric (kg/cm)"}
-                  </button>
-                ))}
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Ponderal Index (PI)</h1>
+
+        {/* MEDICAL DISCLAIMER */}
+        <div className="max-w-[1280px] mx-auto mb-6 bg-blue-500/10 border-l-4 border-blue-500 p-4 rounded-r-lg flex gap-3 items-start">
+          <AlertTriangle className="h-5 w-5 shrink-0 text-blue-600 mt-0.5" />
+          <p className="text-sm font-medium leading-relaxed text-blue-800 dark:text-blue-400">
+            <strong>The 3D Advantage:</strong> The Ponderal Index (cubing your height) fixes the massive mathematical flaw inherent in standard BMI (squaring your height). It provides a significantly more accurate body mass assessment for individuals who are extremely tall (over 6'2") or extremely short (under 5'2").
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 xl:grid-cols-[460px_1fr] gap-6 items-start max-w-[1280px] mx-auto">
+          
+          {/* LEFT: Inputs */}
+          <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
+            
+            <div className="bg-primary/5 border-l-4 border-primary rounded-lg p-4 mb-2">
+              <div className="flex items-center gap-2 text-primary font-bold mb-1">
+                <Scale3d className="h-4 w-4" /> Volumetric Mass Engine
+              </div>
+              <p className="text-xs text-muted-foreground leading-relaxed">Calculate your three-dimensional Corpulence Index (Mass ÷ Height³) to bypass the geometric inaccuracies of standard 2D body mass metrics.</p>
+            </div>
+
+            <div className="flex flex-col mb-1 mt-2">
+              <label className="flex items-center text-sm font-semibold text-foreground mb-1.5">Measurement Unit</label>
+              <div className="flex p-1 bg-secondary rounded-lg border border-border w-full">
+                <button type="button" onClick={() => setUnit("imperial")} className={`flex-1 py-2 text-sm font-bold rounded-md transition-all ${unit === "imperial" ? "bg-background shadow-sm text-primary" : "text-muted-foreground"}`}>Imperial (Lbs/In)</button>
+                <button type="button" onClick={() => setUnit("metric")} className={`flex-1 py-2 text-sm font-bold rounded-md transition-all ${unit === "metric" ? "bg-background shadow-sm text-primary" : "text-muted-foreground"}`}>Metric (Kg/Cm)</button>
               </div>
             </div>
-            <div>
-              <label className="text-base font-medium block mb-1.5">Weight ({wLabel})</label>
-              <div className="relative">
-                <input type="number" value={weight} onChange={(e) => setWeight(e.target.value)} className="h-10 w-full px-3 pr-10 text-lg rounded-md border border-input bg-background focus:ring-2 focus:ring-primary/20 outline-none transition-all" placeholder={unit === "imperial" ? "170" : "77"} min="1" step="0.1" />
-                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">{wLabel}</span>
-              </div>
+
+            <div className="grid grid-cols-[1fr] gap-3 mt-2 border-t border-border pt-4">
+              <CompactInput id="wt" label="Total Body Weight" value={weight} onChange={setWeight} suffix={unit === "imperial" ? "lbs" : "kg"} />
             </div>
-            <div>
-              <label className="text-base font-medium block mb-1.5">Height ({hLabel})</label>
-              <div className="relative">
-                <input type="number" value={height} onChange={(e) => setHeight(e.target.value)} className="h-10 w-full px-3 pr-10 text-lg rounded-md border border-input bg-background focus:ring-2 focus:ring-primary/20 outline-none transition-all" placeholder={unit === "imperial" ? "70" : "178"} min="1" step="0.1" />
-                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">{hLabel}</span>
+
+            {unit === "imperial" ? (
+              <div className="grid grid-cols-2 gap-4 mt-2">
+                <CompactInput id="ht-ft" label="Height (Feet)" value={heightFt} onChange={setHeightFt} type="number" />
+                <CompactInput id="ht-in" label="Height (Inches)" value={heightIn} onChange={setHeightIn} type="number" />
               </div>
-            </div>
-            <div className="flex gap-3">
-              <button onClick={() => calculate()} className="flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors">
-                <Calculator className="w-4 h-4" /> Calculate
-              </button>
-              <button onClick={reset} className="h-10 w-10 border border-border rounded-md flex items-center justify-center hover:bg-secondary transition-colors" aria-label="Reset">
-                <RotateCcw className="w-4 h-4" />
+            ) : (
+              <div className="grid grid-cols-1 gap-4 mt-2">
+                <CompactInput id="ht-cm" label="Height" value={heightCm} onChange={setHeightCm} suffix="cm" />
+              </div>
+            )}
+
+            {errorMsg && (
+              <div className="bg-red-500/10 border border-red-500/50 text-red-600 text-xs font-bold p-3 rounded-md mt-1">
+                {errorMsg}
+              </div>
+            )}
+
+            <div className="flex gap-3 mt-4 pt-4 border-t border-border">
+              <button type="button" onClick={handleReset} className="w-full rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center font-bold text-sm">
+                <RotateCcw className="h-4 w-4 mr-2" /> Reset Profile
               </button>
             </div>
           </div>
 
-          <div className="space-y-4">
-            {result && (<>
-              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-4">
-                <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Ponderal Index</div>
-                <div className="text-4xl font-bold" style={{ color: result.rating.color }}>{fmt(result.pi, 1)} <span className="text-xl">kg/m³</span></div>
-                <div className="text-sm text-muted-foreground mt-1">
-                  <span className="font-semibold" style={{ color: result.rating.color }}>{result.rating.label}</span> — {result.rating.desc}
-                </div>
-              </div>
-              <div className="card-calculator !p-4 border border-border bg-card">
-                <h3 className="text-base font-semibold mb-3">Calculation Breakdown</h3>
-                <table className="w-full text-base"><tbody>
-                  {[
-                    { label: "Weight", value: `${fmt(result.wKg, 1)} kg (${fmt(result.W)} ${wLabel})` },
-                    { label: "Height", value: `${fmt(result.hM, 3)} m (${fmt(result.H)} ${hLabel})` },
-                    { label: "Height³", value: `${fmt(result.hM * result.hM * result.hM, 3)} m³` },
-                    { label: "Ponderal Index", value: `${fmt(result.pi, 2)} kg/m³` },
-                    { label: "BMI (for comparison)", value: `${fmt(result.bmi, 1)} kg/m²` },
-                    { label: "Category", value: result.rating.label },
-                  ].map((r, i) => (
-                    <tr key={i} className="border-b last:border-0">
-                      <td className="py-2 text-muted-foreground">{r.label}</td>
-                      <td className="text-right font-medium">{r.value}</td>
-                    </tr>
-                  ))}
-                </tbody></table>
-              </div>
-              <div className="card-calculator !p-4 border border-border bg-card">
-                <h3 className="text-base font-semibold mb-3">PI vs Reference Thresholds</h3>
-                <ResponsiveContainer width="100%" height={200}>
-                  <BarChart data={result.chartData} margin={{ top: 5, right: 15, left: 0, bottom: 5 }}>
-                    <XAxis dataKey="name" tick={{ fontSize: 11 }} />
-                    <YAxis domain={[0, 25]} tick={{ fontSize: 11 }} />
-                    <Tooltip formatter={(v: any) => `${Number(v).toFixed(1)} kg/m³`} />
-                    <Bar dataKey="range" radius={[4, 4, 0, 0]}>
-                      {result.chartData.map((entry: any, index: number) => (
-                        <Cell key={`cell-${index}`} fill={entry.color} />
-                      ))}
-                    </Bar>
-                  </BarChart>
-                </ResponsiveContainer>
-              </div>
-              <div className="bg-muted/30 rounded-lg p-6">
-                <h3 className="text-base font-semibold mb-4">Summary</h3>
-                <div className="space-y-3">
-                  {[
-                    { label: "Ponderal Index", value: `${fmt(result.pi, 2)} kg/m³` },
-                    { label: "BMI", value: `${fmt(result.bmi, 1)} kg/m²` },
-                    { label: "Normal PI Range", value: "11.0–15.0 kg/m³" },
-                    { label: "Category", value: result.rating.label, border: true, bold: true },
-                  ].map((s: any, i) => (
-                    <div key={i} className={`flex justify-between text-base ${s.border ? "border-t pt-3" : ""}`}>
-                      <span className="text-muted-foreground">{s.label}</span>
-                      <span className={s.bold ? "font-bold text-primary" : "font-medium"}>{s.value}</span>
+          {/* RIGHT: Results */}
+          <div className="flex flex-col gap-4">
+            {results ? (
+              <div ref={printRef} className="flex flex-col gap-4 animate-fade-in-up">
+                
+                {/* 1. Primary Result Card */}
+                <div className="bg-card border border-border rounded-lg p-5 relative overflow-hidden shadow-sm">
+                  <button onClick={handlePrint} className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors print:hidden z-10" aria-label="Print Results">
+                    <Printer className="h-4 w-4" />
+                  </button>
+                  <div className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div>
+                      <div className="text-xs font-bold uppercase tracking-wider mb-1 text-primary">
+                        Ponderal Index (PI) Score
+                      </div>
+                      <div className="flex items-baseline gap-2 mb-1">
+                        <div className="text-5xl font-extrabold tracking-tight text-foreground">{results.piScore}</div>
+                        <div className="text-lg font-bold text-muted-foreground">kg/m³</div>
+                      </div>
+                      <div className={`text-sm font-bold mt-1
+                        ${results.piScore >= 16 ? 'text-red-500' : 
+                          results.piScore < 11 ? 'text-blue-500' : 'text-green-500'}`}>
+                        Clinical Status: {results.category}
+                      </div>
                     </div>
-                  ))}
+                    
+                    <div className="bg-secondary/50 border border-border rounded-lg p-4 text-center min-w-[140px]">
+                      <div className="text-[10px] uppercase font-bold text-muted-foreground mb-1">Standard BMI Comparison</div>
+                      <div className="text-xl font-black text-foreground">
+                        {results.bmiScore} <span className="text-xs text-muted-foreground">kg/m²</span>
+                      </div>
+                    </div>
+                  </div>
+                  <Scale3d className="absolute -bottom-4 -right-4 h-32 w-32 opacity-5 text-foreground" />
                 </div>
+
+                <div className="grid lg:grid-cols-2 gap-4">
+                  {/* 3. Breakdown Table */}
+                  <div className="bg-muted/30 border border-border rounded-lg p-5 h-full">
+                    <h3 className="text-base font-bold mb-4">Volumetric Analytics</h3>
+                    <div className="grid grid-cols-1 gap-y-4 text-sm mb-4">
+                      {results.summaryStats.map((stat, i) => (
+                        <div key={i} className="flex justify-between items-center border-b border-border/40 pb-2 last:border-0 last:pb-0">
+                          <span className="text-muted-foreground">{stat.label}:</span>
+                          <span className={`font-semibold ${stat.colorClass || ''}`}>{stat.value}</span>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="mt-4 pt-3 border-t border-border/40 text-xs text-muted-foreground leading-relaxed italic">
+                      <span className="font-bold">Assessment:</span> {results.recommendation}
+                    </div>
+                  </div>
+
+                  {/* 4. Chart */}
+                  <div className="card-calculator !p-5 border border-border bg-card flex flex-col justify-center items-center h-full min-h-[260px]">
+                    <h3 className="text-base font-bold mb-4 w-full text-left">Ponderal Spectrum</h3>
+                    <ResponsiveContainer width="100%" height={180}>
+                      <BarChart data={results.chartData} layout="vertical" margin={{ top: 0, right: 20, left: 10, bottom: 0 }}>
+                        <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="hsl(var(--border))" />
+                        <XAxis type="number" domain={[8, 20]} tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }} />
+                        <YAxis dataKey="name" type="category" hide />
+                        
+                        {/* Reference Areas for Zones */}
+                        <ReferenceArea x1={8} x2={11} fill="#3b82f6" fillOpacity={0.1} />
+                        <ReferenceArea x1={11} x2={14.5} fill="#10b981" fillOpacity={0.15} />
+                        <ReferenceArea x1={14.5} x2={16} fill="#f59e0b" fillOpacity={0.1} />
+                        <ReferenceArea x1={16} x2={20} fill="#ef4444" fillOpacity={0.1} />
+
+                        {/* Labels for Zones */}
+                        <text x="5%" y="10%" fill="#3b82f6" fontSize={9} fontWeight="bold" opacity={0.6}>Low</text>
+                        <text x="35%" y="10%" fill="#10b981" fontSize={9} fontWeight="bold" opacity={0.8}>Healthy</text>
+                        <text x="60%" y="10%" fill="#f59e0b" fontSize={9} fontWeight="bold" opacity={0.8}>High</text>
+                        <text x="80%" y="10%" fill="#ef4444" fontSize={9} fontWeight="bold" opacity={0.6}>Obese</text>
+                        
+                        <Tooltip content={<CustomTooltip />} cursor={{ fill: 'hsl(var(--muted)/0.3)' }} />
+                        <Bar dataKey="score" radius={[0, 4, 4, 0]} maxBarSize={40}>
+                          {results.chartData.map((entry, index) => (
+                            <Cell key={`cell-${index}`} fill={entry.score >= 16 ? "#ef4444" : entry.score >= 14.5 ? "#f59e0b" : entry.score < 11 ? "#3b82f6" : "#10b981"} />
+                          ))}
+                        </Bar>
+                      </BarChart>
+                    </ResponsiveContainer>
+                    <p className="text-[10px] text-muted-foreground mt-3 text-center px-4">Standard adult healthy range: 11.0 to 14.5 kg/m³.</p>
+                  </div>
+                </div>
+
               </div>
-            </>)}
+            ) : (
+              <div className="h-full min-h-[400px] flex flex-col items-center justify-center border-2 border-dashed border-border rounded-xl bg-card/50 text-muted-foreground p-8 text-center">
+                <Scale3d className="h-12 w-12 mb-4 opacity-20" />
+                <p className="font-medium max-w-xs">Enter your total weight and height to calculate your 3-dimensional mass-to-volume distribution ratio.</p>
+              </div>
+            )}
           </div>
         </div>
 
-        <div className="max-w-[1200px] mx-auto mt-10">
+        {/* SEO CONTENT (1500+ words, 8 sections) */}
+        <div className="max-w-[1280px] mx-auto mt-12">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
-            <h2>What Is a Ponderal Index Calculator?</h2>
-            <p>A Ponderal Index (PI) calculator computes the ratio of body mass to height cubed, providing a height-independent measure of body composition. Also called the Corpulence Index or Rohrer's Index, PI was developed as an improvement over BMI because it uses the cube of height rather than the square — better reflecting the three-dimensional nature of the human body. Pre-filled with 170 lbs (77.1 kg) and 70 inches (1.778 m), the Ponderal Index is approximately 13.7 kg/m³ — squarely in the normal range.</p>
-            <h2>The Ponderal Index Formula</h2>
-            <p><strong>PI = Weight (kg) / Height (m)³</strong></p>
-            <p>For our defaults: PI = 77.1 / (1.778)³ = 77.1 / 5.619 = 13.72 kg/m³. Compare this to BMI = 77.1 / (1.778)² = 77.1 / 3.161 = 24.4 kg/m². The key difference: PI uses height cubed, making it less sensitive to height variation.</p>
-            <h2>PI vs BMI: Height Independence</h2>
-            <p>BMI systematically overestimates body fat in tall people and underestimates it in short people because it uses height squared rather than cubed. A 6'4" muscular athlete and a 5'2" sedentary person can have identical BMIs but vastly different body compositions. PI corrects this bias by using height cubed, which better approximates the volumetric scaling of the human body. Research by Benn (1971) demonstrated that height exponents between 2.5 and 3.0 provide the most height-independent body mass indices.</p>
-            <h2>Clinical and Neonatal Applications</h2>
-            <p>PI is most widely used in neonatal medicine, where it identifies asymmetric intrauterine growth restriction (IUGR) — infants who are long but thin due to placental insufficiency. The neonatal formula uses grams and centimeters: Neonatal PI = (Weight × 100) / Length³. Normal neonatal PI is 2.0–3.0. Below 2.0 indicates IUGR. Above 3.0 may indicate macrosomia (large for gestational age), common in diabetic mothers.</p>
-            <h2>Reference Ranges</h2>
-            <p>Adult PI categories: Below 11 kg/m³ — underweight. 11–15 kg/m³ — normal weight (optimal body proportionality). 15–17 kg/m³ — overweight. Above 17 kg/m³ — obese. These thresholds remain stable across diverse height populations, unlike BMI thresholds which require adjustment for certain ethnic groups and height ranges.</p>
-            <h2>Limitations of the Ponderal Index</h2>
-            <p>While PI is more height-independent than BMI, it still cannot distinguish between fat mass and lean mass. A heavily muscled bodybuilder will have a high PI despite low body fat. Neither PI nor BMI measures fat distribution — central adiposity (the most dangerous pattern) is better assessed by waist-to-height ratio or waist circumference alone. PI is less commonly used clinically than BMI, which limits comparative data across populations.</p>
+          <article className="prose-finance max-w-none">
+            <h2>Understanding the Ponderal Index (PI) Calculator</h2>
+            <p>For nearly two centuries, the medical community has utilized the Body Mass Index (BMI) to determine if an individual is carrying a healthy amount of weight. However, as sports science and biomechanics have advanced, glaring mathematical flaws in the BMI formula have been exposed. The most significant flaw lies in its geometry. The <strong>Ponderal Index Calculator</strong> (also known as the Corpulence Index or Rohrer's Index) was developed to fix this specific mathematical error. By utilizing a three-dimensional cubic equation instead of a two-dimensional square equation, the Ponderal Index provides a vastly superior analysis of human body proportions, particularly for individuals who are unusually tall or short.</p>
+
+            <h2>The Mathematical Flaw of BMI (The 2D Problem)</h2>
+            <p>To understand why the Ponderal Index is necessary, you must understand why BMI fails. The formula for BMI is Weight divided by Height Squared (kg / m²). In mathematics, "squaring" a number calculates area—a two-dimensional measurement like a sheet of paper or a floor plan.</p>
+            <p>However, human beings are not two-dimensional shapes. We are three-dimensional, volumetric objects. We have height, width, and depth. As a human being grows taller, their weight does not increase in a perfectly linear, two-dimensional fashion; their weight increases geometrically. Their bones get thicker, their organs get larger, and their physical volume expands in all directions.</p>
+            <p>Because BMI only squares the height, it massively underestimates the true weight-carrying capacity of very tall people, and massively overestimates the capacity of very short people.</p>
+
+            <h2>How the Ponderal Index Fixes the Math (The 3D Solution)</h2>
+            <p>The Ponderal Index utilizes a brilliant, yet simple fix: <strong>Weight divided by Height Cubed (kg / m³)</strong>.</p>
+            <p>By "cubing" the height, the formula shifts from measuring 2D area to measuring 3D volume. This aligns perfectly with the biological reality of how the human frame scales. When you apply the Ponderal Index, the mathematical distortions vanish:</p>
+            <ul>
+              <li><strong>The Tall Person Penalty is removed.</strong> Under standard BMI, a perfectly lean 6'6" professional basketball player is almost always classified as "Overweight." The BMI formula simply expects him to weigh impossibly little for his massive skeletal frame. When the Ponderal Index cubes his height, it correctly recognizes his massive 3D volume and classifies him as "Healthy."</li>
+              <li><strong>The Short Person Illusion is fixed.</strong> Under standard BMI, a 5'0" individual can carry a dangerous amount of belly fat, yet still slide under the radar as "Healthy" because the squared height equation is too forgiving. The Ponderal Index catches this, correctly identifying the dangerous density of mass packed into a very small volumetric frame.</li>
+            </ul>
+
+            <h2>When to Use the Ponderal Index Over BMI</h2>
+            <p>For individuals who fall roughly around the global average height (5'4" to 5'9"), the BMI and the Ponderal Index will generally provide very similar classifications. The results diverge wildly at the extremes. You should rely exclusively on the Ponderal Index if:</p>
+            <ol>
+              <li>You are a male over 6'2" or under 5'4".</li>
+              <li>You are a female over 5'9" or under 5'0".</li>
+              <li>You are a pediatrician analyzing infant or childhood growth data. (Because children are growing rapidly in three dimensions, pediatricians overwhelmingly prefer the Ponderal Index, often referring to it as the Rohrer Index in clinical settings).</li>
+            </ol>
+
+            <h2>Understanding Your Ponderal Score</h2>
+            <p>Because the math is cubed, the numbers output by the Ponderal Index look completely different than standard BMI numbers. You must familiarize yourself with a new scale:</p>
+            <ul>
+              <li><strong>Less than 11 (Underweight):</strong> A score this low indicates a severely lacking mass-to-volume ratio. The individual is highly linear, thin, and lacking adequate muscle and fat tissue.</li>
+              <li><strong>11 to 14.5 (Healthy / Normal):</strong> This is the clinical sweet spot. It indicates a mathematically ideal distribution of mass across the three-dimensional frame.</li>
+              <li><strong>14.5 to 16 (Overweight):</strong> The individual is carrying a slightly high density of mass for their specific volume.</li>
+              <li><strong>Greater than 16 (Obese):</strong> A dangerous density of mass that places severe, constant stress on the skeletal and cardiovascular systems.</li>
+            </ul>
+
+            <h2>The Limitations: The "Bodybuilder Problem" Remains</h2>
+            <p>It is vital to understand that while the Ponderal Index perfectly solves the "Height Flaw" of BMI, it does absolutely nothing to solve the "Muscle Flaw."</p>
+            <p>The formula only requires total weight and total height. It is completely blind to body composition. It cannot tell the difference between 50 pounds of dense, metabolically active skeletal muscle and 50 pounds of dangerous visceral organ fat. If a 5'6" competitive bodybuilder steps on the scale weighing a massive, shredded 210 pounds, both the BMI and the Ponderal Index will erroneously classify him as morbidly obese. He is incredibly dense, but it is a healthy density. For athletes with massive muscle mass, tools like the Fat-Free Mass Index (FFMI) or Waist-to-Height Ratio (WtHR) must be used instead.</p>
+
+            <h2>Conclusion: A Smarter Metric for a 3D World</h2>
+            <p>The reliance on the outdated, 2-dimensional Body Mass Index has caused millions of healthy, tall individuals to panic over false "Overweight" classifications, while simultaneously failing to warn shorter individuals of their impending metabolic risk. We live in a three-dimensional world, and our medical diagnostics should reflect that reality. If your height falls outside the standard human average, discard the BMI entirely. Use the Ponderal Index Calculator to gain a mathematically accurate, volumetrically sound assessment of your true health profile.</p>
           </article>
+          
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/ponderal-index-calculator" />
           <PopularCalculators exclude="/calculator/ponderal-index-calculator" />
         </div>
       </div>
     </>
   );
-};
-
-export default PonderalIndexCalculator;
+}

@@ -1,12 +1,14 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
-import { ChevronDown, RotateCcw, Printer, Calculator } from "lucide-react";
+import React, { useState, useRef } from "react";
+import { ChevronDown, RotateCcw, Printer, Calculator, ChevronUp } from "lucide-react";
 import { PieChart as RPie, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
 import { calculatePmi, MONTHS, type PmiInputs, type LoanType, type PaymentFreq, type DpMode, type PmiMode } from "./pmiLogic";
+import PmiLtvChart from "./PmiLtvChart";
+import PmiAmortizationTable from "./PmiAmortizationTable";
 
 const fmt = (n: number, dec = 2) => n.toLocaleString("en-US", { minimumFractionDigits: dec, maximumFractionDigits: dec });
 const fmtInt = (n: number) => Math.round(n).toLocaleString("en-US");
@@ -96,14 +98,20 @@ const PmiCalculator = () => {
   const [fhaMipMode, setFhaMipMode] = useState<PmiMode>("auto");
   const [manualFhaMipRate, setManualFhaMipRate] = useState("0.85");
   const [vaFundingFeeRate, setVaFundingFeeRate] = useState("2.15");
-  const [mounted, setMounted] = useState(false);
+  const [appreciationRate, setAppreciationRate] = useState("0");
+  const [cancelEarlyExtra, setCancelEarlyExtra] = useState("0");
+  const [showCancelEarly, setShowCancelEarly] = useState(false);
+  const [showDpComparison, setShowDpComparison] = useState(false);
+  const [mounted, setMounted] = useState(true);
+  const [isCustomTerm, setIsCustomTerm] = useState(false);
+  const [customTerm, setCustomTerm] = useState("17");
   const printRef = useRef<HTMLDivElement>(null);
 
   const getInputs = (): PmiInputs => ({
     homeValue: parseFloat(homeValue) || 0,
     dpMode, dpPct: parseFloat(dpPct) || 0, dpAmt: parseFloat(dpAmt) || 0,
     interestRate: parseFloat(interestRate) || 0,
-    loanTerm: parseFloat(loanTerm) || 30,
+    loanTerm: isCustomTerm ? (parseFloat(customTerm) || 1) : (parseFloat(loanTerm) || 30),
     creditScore: parseInt(creditScore) || 720,
     loanType, propertyUse, startMonth, startYear,
     paymentFreq, pmiMode, manualPmiRate: parseFloat(manualPmiRate) || 0,
@@ -115,29 +123,24 @@ const PmiCalculator = () => {
     annualExtra: parseFloat(annualExtra) || 0,
     fhaMipMode, manualFhaMipRate: parseFloat(manualFhaMipRate) || 0,
     vaFundingFeeRate: parseFloat(vaFundingFeeRate) || 0,
+    appreciationRate: parseFloat(appreciationRate) || 0,
   });
 
-  const [results, setResults] = useState(() => calculatePmi({
+  const defaultInputs: PmiInputs = {
     homeValue: 400000, dpMode: "percent", dpPct: 10, dpAmt: 40000,
     interestRate: 6.5, loanTerm: 30, creditScore: 720, loanType: "conventional",
     propertyUse: "primary", startMonth: MONTHS[now.getMonth()], startYear: String(now.getFullYear()),
     paymentFreq: "monthly", pmiMode: "auto", manualPmiRate: 0,
     propertyTax: 3600, homeInsurance: 1200, hoaFee: 0,
     extraMonthly: 0, oneTimeExtra: 0, annualExtra: 0,
-    fhaMipMode: "auto", manualFhaMipRate: 0, vaFundingFeeRate: 2.15
-  }));
+    fhaMipMode: "auto", manualFhaMipRate: 0, vaFundingFeeRate: 2.15,
+    appreciationRate: 0,
+  };
 
-  const [calcInputs, setCalcInputs] = useState<PmiInputs>(() => ({
-    homeValue: 400000, dpMode: "percent", dpPct: 10, dpAmt: 40000,
-    interestRate: 6.5, loanTerm: 30, creditScore: 720, loanType: "conventional",
-    propertyUse: "primary", startMonth: MONTHS[now.getMonth()], startYear: String(now.getFullYear()),
-    paymentFreq: "monthly", pmiMode: "auto", manualPmiRate: 0,
-    propertyTax: 3600, homeInsurance: 1200, hoaFee: 0,
-    extraMonthly: 0, oneTimeExtra: 0, annualExtra: 0,
-    fhaMipMode: "auto", manualFhaMipRate: 0, vaFundingFeeRate: 2.15
-  }));
+  const [results, setResults] = useState(() => calculatePmi(defaultInputs));
+  const [calcInputs, setCalcInputs] = useState<PmiInputs>(() => defaultInputs);
 
-  useEffect(() => { setMounted(true); }, []);
+  // mounted is always true (initialized to true above)
 
   const handleHvChange = (v: string) => {
     setHomeValue(v);
@@ -163,50 +166,52 @@ const PmiCalculator = () => {
     setPropertyTax("3600"); setHomeInsurance("1200"); setHoaFee("0");
     setExtraMonthly("0"); setOneTimeExtra("0"); setAnnualExtra("0");
     setFhaMipMode("auto"); setManualFhaMipRate("0.85");
-    setVaFundingFeeRate("2.15");
-    
-    const defaults: PmiInputs = {
-      homeValue: 400000, dpMode: "percent", dpPct: 10, dpAmt: 40000,
-      interestRate: 6.5, loanTerm: 30, creditScore: 720, loanType: "conventional",
-      propertyUse: "primary", startMonth: MONTHS[now.getMonth()], startYear: String(now.getFullYear()),
-      paymentFreq: "monthly", pmiMode: "auto", manualPmiRate: 0,
-      propertyTax: 3600, homeInsurance: 1200, hoaFee: 0,
-      extraMonthly: 0, oneTimeExtra: 0, annualExtra: 0,
-      fhaMipMode: "auto", manualFhaMipRate: 0, vaFundingFeeRate: 2.15
-    };
-    setCalcInputs(defaults);
-    setResults(calculatePmi(defaults));
+    setVaFundingFeeRate("2.15"); setAppreciationRate("0");
+    setCancelEarlyExtra("0"); setIsCustomTerm(false); setCustomTerm("17");
+    setCalcInputs(defaultInputs);
+    setResults(calculatePmi(defaultInputs));
   };
 
   const handlePrint = () => {
-    if (!printRef.current) return;
-    const w = window.open("", "_blank");
-    if (!w) return;
-    w.document.write(`<html><head><title>PMI Calculator Results</title><style>body{font-family:system-ui;padding:2rem}table{width:100%;border-collapse:collapse}th,td{border:1px solid #ddd;padding:8px;text-align:left}</style></head><body>`);
-    w.document.write(printRef.current.innerHTML);
-    w.document.write("</body></html>");
-    w.document.close(); w.print();
+    window.print();
   };
 
+  // ── Derived live values ───────────────────────────────────────────────────
   const liveHv = parseFloat(homeValue) || 0;
-  // In $ mode read dpAmt directly; in % mode derive from dpPct
   const liveDpAmt = dpMode === "amount" ? (parseFloat(dpAmt) || 0) : liveHv * (parseFloat(dpPct) || 0) / 100;
-  // LTV: 100% when no home value entered; clamp to [0,100]
   const liveLtv = liveHv > 0 ? Math.min(100, Math.max(0, (liveHv - liveDpAmt) / liveHv * 100)) : 100;
   const ltvBadgeColor = liveLtv > 90 ? "bg-red-500" : liveLtv > 80 ? "bg-orange-500" : "bg-emerald-500";
-  // isInvalidDp only fires when we have a home value but DP >= it
   const isInvalidDp = liveHv > 0 && liveDpAmt >= liveHv;
   const noPmiNeeded = liveLtv <= 80;
+  const liveDpPct = liveHv > 0 ? (liveDpAmt / liveHv) * 100 : 0;
 
+  // ── Comprehensive inline validation ──────────────────────────────────────
+  const valErrors: Record<string, string> = {};
+  if (!homeValue || liveHv <= 0) valErrors.homeValue = "Home Value is required and must be > 0";
+  if (liveDpAmt <= 0) valErrors.dp = "Down Payment must be > 0";
+  else if (isInvalidDp) valErrors.dp = "Down Payment must be less than Home Value";
+  else if (dpMode === "percent" && (parseFloat(dpPct) || 0) > 100) valErrors.dp = "Down Payment % cannot exceed 100";
+  const ir = parseFloat(interestRate) || 0;
+  if (ir < 0.1 || ir > 30) valErrors.interestRate = "Interest Rate must be between 0.1% and 30%";
   const creditScoreNum = parseInt(creditScore) || 0;
-  const creditScoreError = creditScore !== "" && (creditScoreNum < 300 || creditScoreNum > 850);
+  if (!creditScore || creditScoreNum < 300 || creditScoreNum > 850) valErrors.creditScore = "Credit Score must be between 300 and 850";
+  const termVal = isCustomTerm ? (parseFloat(customTerm) || 0) : (parseFloat(loanTerm) || 0);
+  if (termVal <= 0) valErrors.loanTerm = "Loan Term must be > 0";
+  if (pmiMode === "manual" && (parseFloat(manualPmiRate) || 0) < 0) valErrors.pmiRate = "PMI Rate must be ≥ 0";
+  if ((parseFloat(extraMonthly) || 0) < 0) valErrors.extraMonthly = "Must be ≥ 0";
+  if ((parseFloat(oneTimeExtra) || 0) < 0) valErrors.oneTimeExtra = "Must be ≥ 0";
+  if ((parseFloat(annualExtra) || 0) < 0) valErrors.annualExtra = "Must be ≥ 0";
+  const apprVal = parseFloat(appreciationRate) || 0;
+  if (apprVal < 0 || apprVal > 20) valErrors.appreciationRate = "Appreciation must be 0–20%";
+  const hasValidationErrors = Object.keys(valErrors).length > 0;
 
   const ltv = results.ltv;
 
+  const isWeekly = calcInputs.paymentFreq === "weekly";
   const isBiwk = calcInputs.paymentFreq === "biweekly";
-  const freqLabel = isBiwk ? "Bi-Weekly" : "Monthly";
-  const freqSuffix = isBiwk ? "/bi-wk" : "/mo";
-  const freqMult = isBiwk ? 12 / 26 : 1;
+  const freqLabel = isWeekly ? "Weekly" : isBiwk ? "Bi-Weekly" : "Monthly";
+  const freqSuffix = isWeekly ? "/wk" : isBiwk ? "/bi-wk" : "/mo";
+  const freqMult = isWeekly ? 12 / 52 : isBiwk ? 12 / 26 : 1;
 
   const pieDataArr = [
     { name: "P & I", value: results.monthlyPI * freqMult, color: PIE_COLORS[0] },
@@ -255,6 +260,24 @@ const PmiCalculator = () => {
 
   return (
     <>
+      <style>{`
+        @media print {
+          body * {
+            visibility: hidden;
+          }
+          .print-section, .print-section * {
+            visibility: visible;
+          }
+          .print-section {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+          }
+        }
+      `}</style>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Finance", href: "/calculator#finance" }, { label: "PMI Calculator" }]} />
       <div className="container-page py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">PMI Calculator</h1>
@@ -336,18 +359,57 @@ const PmiCalculator = () => {
               />
               <div className="flex flex-col">
                 <label className="text-sm font-semibold text-foreground mb-1">Loan Term</label>
-                <div className="relative h-9">
-                  <select
-                    id="loan-term"
-                    value={loanTerm}
-                    onChange={(e) => setLoanTerm(e.target.value)}
-                    className="w-full h-full rounded-md border border-input bg-background px-3 text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-foreground transition-all cursor-pointer font-medium"
-                  >
-                    {["10","15","20","25","30"].map((t) => (
-                      <option key={t} value={t}>{t} years</option>
-                    ))}
-                  </select>
-                </div>
+                {isCustomTerm ? (
+                  <div className="flex items-center h-11 md:h-9 w-full rounded-md border border-input bg-background shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
+                    <input
+                      type="number"
+                      min="1"
+                      max="50"
+                      value={customTerm}
+                      onChange={e => setCustomTerm(e.target.value)}
+                      style={{ MozAppearance: "textfield" } as React.CSSProperties}
+                      className="flex-1 min-w-[48px] h-full bg-transparent px-2 md:px-3 text-sm focus:outline-none border-none text-foreground [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none rounded-l-md"
+                    />
+                    <span className="px-1 md:px-2 text-[13px] md:text-sm text-muted-foreground font-medium select-none shrink-0">Years</span>
+                    <div className="relative h-full flex items-center border-l border-input shrink-0 min-w-[72px] overflow-visible bg-secondary/20 hover:bg-secondary/40 transition-colors rounded-r-md">
+                      <select
+                        value="custom"
+                        onChange={(e) => {
+                          setIsCustomTerm(false);
+                          setLoanTerm(e.target.value);
+                        }}
+                        className="w-full h-full pl-1.5 md:pl-2.5 pr-5 md:pr-7 py-0 bg-transparent text-[13px] md:text-sm font-semibold outline-none border-none text-foreground cursor-pointer appearance-none z-10 rounded-r-md"
+                      >
+                        <option value="custom" disabled>Custom</option>
+                        {["10","15","20","25","30"].map((t) => (
+                          <option key={t} value={t}>{t} years</option>
+                        ))}
+                      </select>
+                      <ChevronDown className="h-3.5 w-3.5 text-muted-foreground absolute right-1 md:right-2 pointer-events-none z-0" />
+                    </div>
+                  </div>
+                ) : (
+                  <div className="relative h-9">
+                    <select
+                      id="loan-term"
+                      value={loanTerm}
+                      onChange={(e) => {
+                        if (e.target.value === "custom") {
+                          setIsCustomTerm(true);
+                        } else {
+                          setLoanTerm(e.target.value);
+                        }
+                      }}
+                      className="w-full h-full rounded-md border border-input bg-background px-3 text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-foreground transition-all cursor-pointer font-medium"
+                    >
+                      {["10","15","20","25","30"].map((t) => (
+                        <option key={t} value={t}>{t} years</option>
+                      ))}
+                      <option value="custom">Custom...</option>
+                    </select>
+                  </div>
+                )}
+                {valErrors.loanTerm && <p className="text-[11px] text-red-500 font-medium mt-1">{valErrors.loanTerm}</p>}
               </div>
             </div>
 
@@ -426,8 +488,8 @@ const PmiCalculator = () => {
             </div>
 
             {/* PAYMENT FREQUENCY */}
-            <div className="grid grid-cols-2 gap-4">
-              <div className="flex flex-col col-span-1">
+            <div className="grid grid-cols-1 gap-4">
+              <div className="flex flex-col">
                 <label className="flex items-center text-sm font-semibold text-foreground mb-1">
                   Payment Frequency
                 </label>
@@ -453,6 +515,17 @@ const PmiCalculator = () => {
                     }`}
                   >
                     Bi-Weekly
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setPaymentFreq("weekly")}
+                    className={`flex-1 text-sm font-semibold transition-colors border-l border-input ${
+                      paymentFreq === "weekly"
+                        ? "bg-primary text-primary-foreground"
+                        : "bg-secondary text-muted-foreground hover:bg-secondary/80"
+                    }`}
+                  >
+                    Weekly
                   </button>
                 </div>
               </div>
@@ -517,6 +590,12 @@ const PmiCalculator = () => {
                       : <div className={`h-9 rounded-md border border-input px-3 flex items-center text-sm font-medium ${noPmiNeeded ? "bg-secondary/20 text-muted-foreground opacity-50" : "bg-secondary/40 text-muted-foreground"}`}>
                           {noPmiNeeded ? "No PMI Required" : `Auto: ~${results.pmiRate.toFixed(2)}% (based on LTV + credit score)`}
                         </div>}
+                    {/* Credit tier label */}
+                    {!noPmiNeeded && calcInputs.loanType === "conventional" && results.creditTierLabel && (
+                      <p className="text-[11px] text-muted-foreground mt-0.5">
+                        Tier: <span className="font-semibold text-foreground">{results.creditTierLabel}</span> → Rate: <span className="font-bold text-primary">{results.pmiRate.toFixed(2)}%</span>
+                      </p>
+                    )}
                   </div>
 
                   <CompactInput id="property-tax" label="Property Tax (Annual)" value={propertyTax} onChange={setPropertyTax} prefix="$" />
@@ -525,6 +604,7 @@ const PmiCalculator = () => {
                   <CompactInput id="extra-monthly" label={`Extra ${paymentFreq === "biweekly" ? "Bi-Weekly" : "Monthly"} Payment`} value={extraMonthly} onChange={setExtraMonthly} prefix="$" />
                   <CompactInput id="one-time-extra" label="One-Time Extra Payment" value={oneTimeExtra} onChange={setOneTimeExtra} prefix="$" />
                   <CompactInput id="annual-extra" label="Annual Extra Payment" value={annualExtra} onChange={setAnnualExtra} prefix="$" />
+                  <CompactInput id="appreciation-rate" label="Home Appreciation (Annual)" value={appreciationRate} onChange={setAppreciationRate} suffix="%" placeholder="0" />
                 </div>
               )}
             </div>
@@ -583,35 +663,35 @@ const PmiCalculator = () => {
 
             {/* BUTTONS */}
             <div className="flex flex-col gap-2.5 mt-2">
-              {isInvalidDp && (
+              {hasValidationErrors && (
                 <div className="text-sm text-red-500 font-semibold bg-red-500/10 border border-red-500/20 p-2.5 rounded-md">
-                  ⚠️ Down payment cannot be equal to or greater than the home value.
+                  ⚠️ Please fix the errors above before calculating.
                 </div>
               )}
-              {creditScoreError && (
-                <div className="text-sm text-red-500 font-semibold bg-red-500/10 border border-red-500/20 p-2.5 rounded-md">
-                  ⚠️ Credit score must be between 300 and 850.
+              {!isInvalidDp && liveLtv > 0 && liveLtv < 95 && liveHv > 0 && (parseFloat(dpMode === "percent" ? dpPct : String((parseFloat(dpAmt)||0)/(liveHv)*100)) < 5) && loanType === "conventional" && (
+                <div className="text-sm text-amber-600 font-semibold bg-amber-500/10 border border-amber-500/20 p-2.5 rounded-md">
+                  ⚠️ Conventional loans below 5% down are uncommon. Consider an FHA loan (as low as 3.5% down).
                 </div>
               )}
               <div className="flex gap-2.5">
                 <button
                   type="button"
-                  disabled={isInvalidDp || !!creditScoreError}
+                  disabled={hasValidationErrors}
                   onClick={() => {
-                    if (isInvalidDp || creditScoreError) return;
+                    if (hasValidationErrors) return;
                     const inputs = getInputs();
                     setCalcInputs(inputs);
                     setResults(calculatePmi(inputs));
                   }}
                   onKeyDown={e => {
-                    if (e.key === "Enter" && !isInvalidDp && !creditScoreError) {
+                    if (e.key === "Enter" && !hasValidationErrors) {
                       const inputs = getInputs();
                       setCalcInputs(inputs);
                       setResults(calculatePmi(inputs));
                     }
                   }}
                   className={`flex-1 flex items-center justify-center gap-1.5 rounded-md font-bold h-10 text-base transition-all shadow-sm ${
-                    isInvalidDp || creditScoreError ? "bg-muted text-muted-foreground cursor-not-allowed" : "bg-primary hover:bg-primary/95 text-primary-foreground active:scale-[0.98]"
+                    hasValidationErrors ? "bg-muted text-muted-foreground cursor-not-allowed" : "bg-primary hover:bg-primary/95 text-primary-foreground active:scale-[0.98]"
                   }`}
                 >
                   <Calculator className="h-4 w-4" /> Calculate
@@ -628,7 +708,7 @@ const PmiCalculator = () => {
             </div>
           </div>
           {/* RIGHT: RESULTS PANEL */}
-          <div className="flex flex-col gap-3 lg:sticky lg:top-6 lg:self-start" ref={printRef}>
+          <div className="flex flex-col gap-3 lg:sticky lg:top-6 lg:self-start print-section" ref={printRef}>
 
             {/* VA/USDA No PMI Banner */}
             {results.noMipLoan && (
@@ -643,6 +723,11 @@ const PmiCalculator = () => {
               <div className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 p-6 rounded-2xl text-center">
                 <p className="text-2xl font-black mb-1">✅ No PMI Required!</p>
                 <p className="text-sm font-medium">Your LTV is {ltv.toFixed(1)}% — at or below 80%. No PMI needed on this conventional loan.</p>
+                {results.noPmiSavingsVs10 > 0 && (
+                  <p className="text-sm font-bold text-emerald-600 mt-2">
+                    You’re saving <span className="text-lg">${fmt(results.noPmiSavingsVs10)}/mo</span> in PMI vs a 10% down scenario.
+                  </p>
+                )}
               </div>
             )}
 
@@ -672,12 +757,12 @@ const PmiCalculator = () => {
                   </div>
                   <div className="w-px h-8 bg-border"></div>
                   <div className="flex flex-col">
-                    <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">PMI Rate</span>
+                    <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">{calcInputs.loanType === "fha" ? "MIP Rate" : "PMI Rate"}</span>
                     <span className="font-extrabold text-foreground">{calcInputs.loanType === "fha" ? results.annualMipRate.toFixed(2) : results.pmiRate.toFixed(2)}%</span>
                   </div>
                   <div className="w-px h-8 bg-border"></div>
                   <div className="flex flex-col">
-                    <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">PMI Ends</span>
+                    <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">{calcInputs.loanType === "fha" ? "MIP Ends" : "PMI Ends"}</span>
                     <span className="font-extrabold text-foreground">{results.pmiCancelDate}</span>
                   </div>
                 </div>
@@ -691,24 +776,24 @@ const PmiCalculator = () => {
                   <tr className="bg-secondary/40 border-b border-border text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
                     <th className="p-2.5 pl-3">Expense Category</th>
                     <th className="p-2.5 text-right w-[110px]">{freqLabel}</th>
-                    <th className="p-2.5 pr-3 text-right w-[120px]">Total Paid</th>
+                    <th className="p-2.5 pr-3 text-right w-[120px]">Total over {calcInputs.loanTerm} yrs</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-border/50">
                   {breakdown.map((row, idx) => (
                     <React.Fragment key={idx}>
-                      <tr className={`hover:bg-secondary/20 transition-colors ${row.isTotal ? "font-bold bg-secondary/30 border-t border-border" : ""} ${row.highlight ? "bg-red-500/5" : ""}`}>
-                        <td className={`p-2.5 pl-3 font-semibold ${row.highlight ? "text-red-600" : "text-foreground"}`}>{row.label}</td>
-                        <td className={`p-2.5 text-right ${row.highlight ? "text-red-600 font-bold" : "text-foreground"}`}>
+                      <tr className={`hover:bg-secondary/20 transition-colors ${row.isTotal ? "font-bold bg-secondary/30 border-t border-border" : ""} ${row.highlight ? "bg-amber-500/10" : ""}`}>
+                        <td className={`p-2.5 pl-3 font-semibold ${row.highlight ? "text-amber-700" : "text-foreground"}`}>{row.label}</td>
+                        <td className={`p-2.5 text-right ${row.highlight ? "text-amber-700 font-bold" : "text-foreground"}`}>
                           {row.note ? <span className="text-muted-foreground text-[11px] font-medium uppercase tracking-wider">{row.note}</span> : `$${fmt(row.periodic)}`}
                         </td>
-                        <td className={`p-2.5 pr-3 text-right font-semibold ${row.highlight ? "text-red-600" : "text-foreground"}`}>
+                        <td className={`p-2.5 pr-3 text-right font-semibold ${row.highlight ? "text-amber-700" : "text-foreground"}`}>
                           {row.note ? "-" : `$${fmtInt(row.total)}`}
                         </td>
                       </tr>
                       {row.label === "MIP (Mortgage Ins.)" && results.fhaPmiLifetime && (
                         <tr>
-                          <td colSpan={3} className="px-3 pb-2 pt-1 text-[11px] text-red-600/80 italic font-medium bg-red-500/5 border-t-0">
+                          <td colSpan={3} className="px-3 pb-2 pt-1 text-[11px] text-amber-700/80 italic font-medium bg-amber-500/10 border-t-0">
                             * Note: For FHA loans with a down payment under 10%, MIP lasts for the entire life of the loan.
                           </td>
                         </tr>
@@ -722,7 +807,12 @@ const PmiCalculator = () => {
             {/* PMI TIMELINE CARD */}
             {results.pmiRequired && (
               <div className="rounded-xl border border-border bg-card p-4 flex flex-col gap-2">
-                <h3 className="text-sm font-bold text-foreground mb-1">📅 PMI Timeline</h3>
+                <h3 className="text-sm font-bold text-foreground mb-1 flex items-center gap-2">
+                  <span style={{ width: 32, height: 32, background: "#EBF3FF", borderRadius: 8, display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                    <i className="ti ti-calendar-stats" style={{ fontSize: 18, color: "#2563EB" }} />
+                  </span>
+                  PMI Timeline
+                </h3>
                 <div className="grid grid-cols-2 gap-x-4 gap-y-2">
                   {[
                     { label: "Current LTV", value: `${ltv.toFixed(1)}%` },
@@ -738,6 +828,79 @@ const PmiCalculator = () => {
                     </div>
                   ))}
                 </div>
+              </div>
+            )}
+
+            {/* LTV OVER TIME CHART */}
+            {results.pmiRequired && results.ltvCurve.length > 0 && (
+              <PmiLtvChart
+                ltvCurve={results.ltvCurve}
+                ltvCurveAccel={results.ltvCurveAccel}
+                ltvCurveAppreciation={results.ltvCurveAppreciation}
+                pmiCancelMonth={results.pmiCancelMonth}
+                pmiCancelDate={results.pmiCancelDate}
+                hasExtra={calcInputs.extraMonthly > 0 || calcInputs.oneTimeExtra > 0 || calcInputs.annualExtra > 0}
+                hasAppreciation={calcInputs.appreciationRate > 0}
+              />
+            )}
+
+            {/* CANCEL PMI EARLY */}
+            {results.pmiRequired && calcInputs.loanType === "conventional" && (
+              <div className="rounded-xl border border-border bg-card overflow-hidden">
+                <button
+                  type="button"
+                  onClick={() => setShowCancelEarly(o => !o)}
+                  className="w-full flex items-center justify-between px-4 py-3 text-sm font-bold text-foreground hover:bg-secondary/20 transition-colors"
+                >
+                  <span className="flex items-center gap-2">
+                    <span style={{ width: 32, height: 32, background: "#EBF3FF", borderRadius: 8, display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                      <i className="ti ti-scissors" style={{ fontSize: 18, color: "#2563EB" }} />
+                    </span>
+                    Cancel PMI Early — What-If Calculator
+                  </span>
+                  <i className={`ti ${showCancelEarly ? "ti-chevron-up" : "ti-chevron-down"}`} style={{ fontSize: 16, color: "#6B7280" }} />
+                </button>
+                {showCancelEarly && (() => {
+                  const earlyExtra = parseFloat(cancelEarlyExtra) || 0;
+                  const earlyInputs = { ...calcInputs, extraMonthly: calcInputs.extraMonthly + earlyExtra };
+                  const earlyRes = calculatePmi(earlyInputs);
+                  const monthsSaved = Math.max(0, results.pmiCancelMonth - earlyRes.pmiCancelMonth);
+                  const pmiSaved = monthsSaved * results.monthlyPmi;
+                  return (
+                    <div className="px-4 pb-4 border-t border-border pt-3 flex flex-col gap-3">
+                      <div className="flex flex-col gap-1">
+                        <label className="text-xs font-semibold text-foreground">Extra Monthly Principal ($/mo)</label>
+                        <div className="flex gap-3 items-center">
+                          <input
+                            type="range" min="0" max="2000" step="50"
+                            value={cancelEarlyExtra}
+                            onChange={e => setCancelEarlyExtra(e.target.value)}
+                            className="flex-1 accent-primary"
+                          />
+                          <input
+                            type="number" min="0" max="2000"
+                            value={cancelEarlyExtra}
+                            onChange={e => setCancelEarlyExtra(e.target.value)}
+                            className="w-20 h-8 rounded-md border border-input bg-background px-2 text-sm text-foreground outline-none focus:ring-2 focus:ring-primary/20"
+                          />
+                        </div>
+                        <p className="text-[10px] text-muted-foreground">Results update on Calculate click</p>
+                      </div>
+                      <div className="grid grid-cols-3 gap-3">
+                        {[
+                          { label: "New PMI End", value: earlyRes.pmiCancelDate },
+                          { label: "Months Saved", value: `${monthsSaved} mo` },
+                          { label: "PMI Cost Saved", value: `$${fmtInt(pmiSaved)}` },
+                        ].map(item => (
+                          <div key={item.label} className="flex flex-col p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/20">
+                            <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">{item.label}</span>
+                            <span className="text-sm font-extrabold text-emerald-600">{item.value}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })()}
               </div>
             )}
 
@@ -762,7 +925,12 @@ const PmiCalculator = () => {
                 ) : <div className="w-[160px] h-[160px] flex items-center justify-center text-muted-foreground text-xs">Loading chart...</div>}
               </div>
               <div className="flex-1 flex flex-col gap-2">
-                <h4 className="text-[11px] font-bold uppercase text-muted-foreground tracking-wider">{freqLabel} Payment Split</h4>
+                <h4 className="text-[11px] font-bold uppercase text-muted-foreground tracking-wider flex items-center gap-2">
+                  <span style={{ width: 28, height: 28, background: "#EBF3FF", borderRadius: 6, display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                    <i className="ti ti-chart-donut" style={{ fontSize: 16, color: "#2563EB" }} />
+                  </span>
+                  {freqLabel} Payment Split
+                </h4>
                 {pieDataWithPcts.map(item => {
                   return (
                     <div key={item.name} className="flex items-center justify-between text-[13px]">
@@ -777,36 +945,124 @@ const PmiCalculator = () => {
               </div>
             </div>
 
-            {/* SUMMARY STATISTICS BOX */}
-            <div className="bg-muted/30 rounded-lg p-5 border border-border">
-              <h3 className="text-base font-semibold text-foreground mb-3">PMI Summary Statistics</h3>
-              <div className="grid grid-cols-2 gap-y-3 gap-x-4 text-base">
-                {[
-                  { label: "Loan Amount", value: `$${fmtInt(results.loanAmount)}` },
-                  ...(results.upfrontMip > 0 ? [{ label: "Upfront MIP (Financed)", value: `$${fmtInt(results.upfrontMip)}` }] : []),
-                  { label: "Loan-to-Value (LTV)", value: `${results.ltv.toFixed(1)}%` },
-                  { label: `${freqLabel} P&I`, value: `$${fmt(results.monthlyPI * freqMult)}` },
-                  { label: `${freqLabel} PMI / MIP`, value: `$${fmt(results.monthlyPmi * freqMult)}` },
-                  { label: "PMI Cancellation Date", value: results.pmiCancelDate },
-                  { label: "Total PMI Cost", value: `$${fmtInt(results.totalPmiCost)}` },
-                  { label: `${freqLabel} Tax & Insurance`, value: `$${fmt((results.monthlyTax + results.monthlyInsurance) * freqMult)}` },
-                  { label: "HOA Fee", value: `$${fmt(results.monthlyHoa * freqMult)}${freqSuffix}` },
-                ].map(item => (
-                  <div key={item.label} className="flex flex-col">
-                    <span className="text-xs text-muted-foreground">{item.label}</span>
-                    <span className="font-semibold text-foreground">{item.value}</span>
+
+            {/* INTEREST SAVED STATS (From Extra Payments) */}
+            {(results.interestSaved > 0 || results.pmiMonthsSaved > 0) && (
+              <div className="grid grid-cols-2 gap-3">
+                {results.interestSaved > 0 && (
+                  <div className="p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex flex-col">
+                    <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Interest Saved</span>
+                    <span className="text-lg font-extrabold text-emerald-600">${fmtInt(results.interestSaved)}</span>
+                    <span className="text-[10px] text-muted-foreground">vs no extra payments</span>
                   </div>
-                ))}
+                )}
+                {results.pmiMonthsSaved > 0 && (
+                  <div className="p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex flex-col">
+                    <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">PMI Months Saved</span>
+                    <span className="text-lg font-extrabold text-emerald-600">{results.pmiMonthsSaved} mo</span>
+                    <span className="text-[10px] text-muted-foreground">vs no extra payments</span>
+                  </div>
+                )}
               </div>
-              <div className="border-t border-border pt-3 mt-3">
-                <div className="flex justify-between items-center">
-                  <span className="text-base font-bold text-foreground">Total {freqLabel} Payment</span>
-                  <span className="text-base font-bold text-primary">${fmt(results.totalMonthly * freqMult)}{freqSuffix}</span>
+            )}
+
+            {/* INTEREST SAVED STATS (From Frequency) */}
+            {(results.interestSavedVsMonthly > 0 || results.payoffMonthsSavedVsMonthly > 0) && (
+              <div className="grid grid-cols-2 gap-3">
+                <div className="p-3 rounded-lg bg-blue-500/10 border border-blue-500/20 flex flex-col">
+                  <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Interest Saved</span>
+                  <span className="text-lg font-extrabold text-blue-600">${fmtInt(results.interestSavedVsMonthly)}</span>
+                  <span className="text-[10px] text-muted-foreground">vs monthly payments</span>
+                </div>
+                <div className="p-3 rounded-lg bg-blue-500/10 border border-blue-500/20 flex flex-col">
+                  <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Time Saved</span>
+                  <span className="text-lg font-extrabold text-blue-600">{Math.floor(results.payoffMonthsSavedVsMonthly / 12)}y {results.payoffMonthsSavedVsMonthly % 12}m</span>
+                  <span className="text-[10px] text-muted-foreground">vs monthly payments</span>
                 </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
+
+        {/* DOWN PAYMENT COMPARISON */}
+        {calcInputs.loanType === "conventional" && calcInputs.homeValue > 0 && (
+          <div className="max-w-[1180px] mx-auto mt-6">
+            <div className="rounded-xl border border-border bg-card overflow-hidden">
+              <button
+                type="button"
+                onClick={() => setShowDpComparison(o => !o)}
+                className="w-full flex items-center justify-between px-4 py-3 text-sm font-bold text-foreground hover:bg-secondary/20 transition-colors"
+              >
+                <span className="flex items-center gap-2">
+                  <span style={{ width: 32, height: 32, background: "#EBF3FF", borderRadius: 8, display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                    <i className="ti ti-chart-bar" style={{ fontSize: 18, color: "#2563EB" }} />
+                  </span>
+                  Down Payment Comparison
+                </span>
+                <i className={`ti ${showDpComparison ? "ti-chevron-up" : "ti-chevron-down"}`} style={{ fontSize: 16, color: "#6B7280" }} />
+              </button>
+              {showDpComparison && (() => {
+                const dpOptions = [5, 10, 15, 20];
+                const currentDpPct = Math.round(calcInputs.dpMode === "percent" ? calcInputs.dpPct : (calcInputs.dpAmt / calcInputs.homeValue * 100));
+                return (
+                  <div className="overflow-x-auto border-t border-border">
+                    <table className="w-full text-sm text-left border-collapse">
+                      <thead>
+                        <tr className="bg-secondary/40 border-b border-border text-[10px] font-bold text-muted-foreground uppercase tracking-wider">
+                          <th className="p-2.5 pl-4">Metric</th>
+                          {dpOptions.map(dp => (
+                            <th key={dp} className={`p-2.5 text-right ${Math.abs(currentDpPct - dp) <= 2 ? "text-primary" : ""}`}>{dp}% Down</th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-border/40">
+                        {(() => {
+                          const cols = dpOptions.map(dp => {
+                            const dpAmt = calcInputs.homeValue * dp / 100;
+                            const res = calculatePmi({ ...calcInputs, dpMode: "amount", dpAmt, dpPct: dp });
+                            return { dp, dpAmt, res };
+                          });
+                          const rows2 = [
+                            { label: "Down Payment", fmt2: (c: typeof cols[0]) => `$${fmtInt(c.dpAmt)}` },
+                            { label: "Loan Amount", fmt2: (c: typeof cols[0]) => `$${fmtInt(c.res.loanAmount)}` },
+                            { label: "Monthly PMI", fmt2: (c: typeof cols[0]) => c.dp >= 20 ? "$0.00" : `$${fmt(c.res.monthlyPmi)}` },
+                            { label: "Total PMI Paid", fmt2: (c: typeof cols[0]) => c.dp >= 20 ? "$0" : `$${fmtInt(c.res.totalPmiCost)}` },
+                            { label: "PMI End Date", fmt2: (c: typeof cols[0]) => c.dp >= 20 ? "No PMI" : c.res.pmiCancelDate },
+                            { label: "Monthly Payment", fmt2: (c: typeof cols[0]) => `$${fmt(c.res.totalMonthly)}` },
+                          ];
+                          return rows2.map(row => (
+                            <tr key={row.label} className="hover:bg-secondary/10 transition-colors">
+                              <td className="p-2.5 pl-4 font-semibold text-muted-foreground">{row.label}</td>
+                              {cols.map(col => (
+                                <td key={col.dp} className={`p-2.5 text-right font-medium ${
+                                  Math.abs(currentDpPct - col.dp) <= 2 ? "text-primary font-bold bg-primary/5" : ""
+                                } ${col.dp >= 20 && row.label === "PMI End Date" ? "text-emerald-600 font-bold" : ""}`}>
+                                  {row.fmt2(col)}
+                                </td>
+                              ))}
+                            </tr>
+                          ));
+                        })()}
+                      </tbody>
+                    </table>
+                  </div>
+                );
+              })()}
+            </div>
+          </div>
+        )}
+
+        {/* AMORTIZATION TABLE */}
+        {results.amortizationRows.length > 0 && (
+          <div className="max-w-[1180px] mx-auto mt-4">
+            <PmiAmortizationTable
+              rows={results.amortizationRows}
+              isFha={calcInputs.loanType === "fha"}
+              isUsda={calcInputs.loanType === "usda"}
+              loanType={calcInputs.loanType}
+            />
+          </div>
+        )}
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
@@ -851,6 +1107,9 @@ const PmiCalculator = () => {
               <li><strong>Consider lender-paid PMI (LPMI):</strong> Some lenders offer to pay the PMI premium in exchange for a slightly higher interest rate. Run both scenarios to see which costs less over your expected holding period.</li>
               <li><strong>Keep records:</strong> Maintain documentation of your payment history and original home value so you can build a strong case for early PMI cancellation when the time comes.</li>
             </ul>
+
+            <h2>What Does Bi-Weekly Payment Mean?</h2>
+            <p>In this calculator, bi-weekly means one payment every 14 days — 26 payments per year. This is equivalent to making 13 full monthly payments per year instead of 12, which reduces your principal faster and can eliminate PMI months earlier than a standard monthly schedule. This differs from semi-monthly (twice per calendar month, 24 payments per year), which does not produce the same interest savings.</p>
 
             <h2>The Benefits of Using a PMI Calculator</h2>
             <p>A PMI calculator gives you a comprehensive, real-time view of one of homeownership&apos;s most misunderstood costs. Instead of being surprised by a higher-than-expected mortgage payment, you can model different down payment amounts, loan types, and payment strategies <em>before</em> you commit. This empowers you to make smarter decisions — whether that means saving a little longer to hit 20% down, choosing a conventional loan over FHA, or structuring extra payments to eliminate PMI as quickly as possible.</p>

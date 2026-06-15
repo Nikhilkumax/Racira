@@ -1,205 +1,159 @@
 "use client";
-
 import { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import InputField from "@/components/calculator/InputField";
-import ResultDisplay from "@/components/calculator/ResultDisplay";
-import { RotateCcw } from "lucide-react";
+import PopularCalculators from "@/components/PopularCalculators";
+import { RotateCcw, Calculator } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip as RTooltip, ResponsiveContainer, Cell, ReferenceLine } from "recharts";
 
-const MacroCalculator = () => {
-  const [gender, setGender] = useState<"male" | "female">("male");
-  const [age, setAge] = useState("30");
-  const [weight, setWeight] = useState("70");
-  const [heightCm, setHeightCm] = useState("170");
-  const [activity, setActivity] = useState(1.55);
-  const [showResults, setShowResults] = useState(false);
-  const [goal, setGoal] = useState<"lose" | "maintain" | "gain">("maintain");
-  const [split, setSplit] = useState<"balanced" | "lowcarb" | "highprotein" | "keto">("balanced");
-  const [result, setResult] = useState<{
-    calories: number; protein: number; carbs: number; fat: number;
-    proteinCal: number; carbsCal: number; fatCal: number;
-    proteinPct: number; carbsPct: number; fatPct: number;
-  } | null>(null);
+interface CarbResult { totalCalories: number; proteinCals: number; carbCals: number; fatCals: number; proteinG: number; carbG: number; fatG: number; goal: string; }
+const DEFAULTS = { calories: "2200", proteinPct: "30", carbPct: "40", fatPct: "30" };
 
-  const macroSplits = {
-    balanced: { protein: 30, carbs: 40, fat: 30, label: "Balanced (30/40/30)" },
-    lowcarb: { protein: 35, carbs: 25, fat: 40, label: "Low Carb (35/25/40)" },
-    highprotein: { protein: 40, carbs: 30, fat: 30, label: "High Protein (40/30/30)" },
-    keto: { protein: 25, carbs: 5, fat: 70, label: "Keto (25/5/70)" },
+function calculate(d: typeof DEFAULTS): CarbResult {
+  const total = parseFloat(d.calories)||0;
+  const pp = parseFloat(d.proteinPct)||0, cp = parseFloat(d.carbPct)||0, fp = parseFloat(d.fatPct)||0;
+  const sum = pp + cp + fp;
+  const pAdj = sum > 0 ? pp/sum : 0, cAdj = sum > 0 ? cp/sum : 0, fAdj = sum > 0 ? fp/sum : 0;
+  const proteinCals = total * pAdj, carbCals = total * cAdj, fatCals = total * fAdj;
+  return {
+    totalCalories: total, proteinCals: Math.round(proteinCals), carbCals: Math.round(carbCals), fatCals: Math.round(fatCals),
+    proteinG: Math.round(proteinCals/4), carbG: Math.round(carbCals/4), fatG: Math.round(fatCals/9),
+    goal: cp >= 50 ? "High-Carb / Endurance" : cp <= 20 ? "Low-Carb / Ketogenic" : pp >= 35 ? "High-Protein / Recomp" : "Balanced",
   };
+}
 
-  const handleCalculate = () => {
-    setShowResults(true);
-    const w = parseFloat(weight) || 0;
-    const h = parseFloat(heightCm) || 0;
-    const a = parseFloat(age) || 0;
-    if (w <= 0 || h <= 0 || a <= 0) return;
+export default function MacroCalculator() {
+  const [f, setF] = useState(DEFAULTS);
+  const [r, setR] = useState<CarbResult>(() => calculate(DEFAULTS));
+  const set = (k: keyof typeof DEFAULTS) => (v: string) => setF(p => ({ ...p, [k]: v }));
+  const calc = () => setR(calculate(f));
+  const reset = () => { setF(DEFAULTS); setR(calculate(DEFAULTS)); };
 
-    const bmr = gender === "male"
-      ? 10 * w + 6.25 * h - 5 * a + 5
-      : 10 * w + 6.25 * h - 5 * a - 161;
+  const macroData = [
+    { name: "Protein", grams: r.proteinG, cals: r.proteinCals, fill: "hsl(var(--primary))" },
+    { name: "Carbs", grams: r.carbG, cals: r.carbCals, fill: "#10b981" },
+    { name: "Fat", grams: r.fatG, cals: r.fatCals, fill: "#f59e0b" },
+  ];
 
-    let calories = bmr * activity;
-    if (goal === "lose") calories -= 500;
-    if (goal === "gain") calories += 500;
-    calories = Math.round(calories);
-
-    const s = macroSplits[split];
-    const proteinCal = Math.round(calories * s.protein / 100);
-    const carbsCal = Math.round(calories * s.carbs / 100);
-    const fatCal = Math.round(calories * s.fat / 100);
-
-    setResult({
-      calories,
-      protein: Math.round(proteinCal / 4),
-      carbs: Math.round(carbsCal / 4),
-      fat: Math.round(fatCal / 9),
-      proteinCal, carbsCal, fatCal,
-      proteinPct: s.protein, carbsPct: s.carbs, fatPct: s.fat,
-    });
-  };
-
-  const reset = () => {
-    setShowResults(false); setGender("male"); setAge("30"); setWeight("70"); setHeightCm("170"); setActivity(1.55); setGoal("maintain"); setSplit("balanced"); setResult(null); };
+  const presets = [
+    { name: "Balanced", p: 25, c: 45, f: 30 },
+    { name: "High-Protein", p: 40, c: 35, f: 25 },
+    { name: "Low-Carb", p: 35, c: 20, f: 45 },
+    { name: "Keto", p: 25, c: 5, f: 70 },
+    { name: "Endurance", p: 20, c: 55, f: 25 },
+  ];
 
   const faqs = [
-    { question: "What are macros?", answer: "Macros (macronutrients) are the three main nutrients that provide energy: protein (4 cal/g), carbohydrates (4 cal/g), and fat (9 cal/g). Tracking macros helps optimize body composition beyond just counting calories." },
-    { question: "Which macro split should I choose?", answer: "Balanced (30/40/30) works for most people. High protein is ideal for muscle building. Low carb helps with insulin sensitivity. Keto is for fat-adapted athletes or medical protocols." },
-    { question: "How much protein do I need?", answer: "For muscle maintenance: 1.2-1.6g/kg bodyweight. For muscle growth: 1.6-2.2g/kg. For fat loss while preserving muscle: 2.0-2.4g/kg." },
-    { question: "Do I need to hit macros exactly?", answer: "No. Aim within ±5g for protein and ±10g for carbs/fat. Consistency over perfection matters more for results." },
+    { question: "What is a macro calculator?", answer: "A macro calculator determines how many grams of protein, carbohydrates, and fat you should eat daily based on your total calorie goal and chosen macro split. Macros (macronutrients) are the three primary energy-providing nutrients: protein (4 kcal/g), carbohydrates (4 kcal/g), and fat (9 kcal/g)." },
+    { question: "What macro ratio should I use to lose weight?", answer: "For fat loss: High-protein ratios (35–40% protein) preserve muscle during calorie deficit. 30P/35C/35F or 35P/35C/30F are popular fat loss splits. Research shows protein above 1.6g/kg is most important for body recomposition — the protein percentage matters less than the absolute gram amount." },
+    { question: "What macros are best for building muscle?", answer: "For muscle gain: Protein 30–35% of calories (at least 1.6–2.2g/kg bodyweight). Carbohydrates 40–50% (fuel training and glycogen replenishment). Fat 20–30% (testosterone production and fat-soluble vitamins). Total calorie surplus of 200–500 kcal above maintenance is required for muscle growth." },
+    { question: "What is the ketogenic macro ratio?", answer: "Classic ketogenic diet: Fat 70–75%, Protein 20–25%, Carbs 5% (typically <50g total, <25g net carbs). This ratio induces nutritional ketosis — a metabolic state where fat is the primary fuel. Modified keto allows higher protein (30%) with lower fat (65%) and the same carb restriction." },
+    { question: "Does it matter when I eat my macros?", answer: "Meal timing is secondary to total daily intake for most people. However, consuming 20–40g protein within 2 hours post-workout maximizes muscle protein synthesis. Carbohydrates before and after training are optimal for performance and glycogen replenishment. Total daily macro goals are the primary driver of results." },
+    { question: "How do I track macros?", answer: "Use a food tracking app (MyFitnessPal, Cronometer, MacroFactor) to log all food and monitor macro targets. Weigh food with a kitchen scale for accuracy — volume measurements are 20–40% less accurate for calorie-dense foods. Track consistently for at least 4 weeks before evaluating results and adjusting targets." },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Macro Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Health", href: "/calculator#health" }, { label: "Macro Calculator" }]} />
       <div className="container-page py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Macro Calculator</h1>
-        <p className="text-muted-foreground mb-6 text-lg">Calculate your daily protein, carbs, and fat targets based on your goals.</p>
-
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Macro Calculator — Protein, Carbs & Fat</h1>
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="mb-6 flex gap-2">
-                <button onClick={() => setGender("male")} className={`flex-1 py-3 rounded-lg text-sm font-medium transition-colors ${gender === "male" ? "bg-accent text-accent-foreground" : "bg-secondary text-muted-foreground"}`}>Male</button>
-                <button onClick={() => setGender("female")} className={`flex-1 py-3 rounded-lg text-sm font-medium transition-colors ${gender === "female" ? "bg-accent text-accent-foreground" : "bg-secondary text-muted-foreground"}`}>Female</button>
+          <div className="card-calculator flex flex-col gap-3 !p-4 border border-border bg-card shadow-sm">
+            <div className="flex flex-col">
+              <label className="text-sm font-semibold mb-1">Daily Calorie Goal (kcal)</label>
+              <div className="flex items-center rounded-md border border-input bg-background h-9 overflow-hidden focus-within:ring-2 focus-within:ring-primary/20">
+                <input type="number" value={f.calories} onChange={e => set("calories")(e.target.value)} className="w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground" />
+                <span className="pr-3 text-sm text-muted-foreground">kcal</span>
               </div>
-
-              <div className="grid sm:grid-cols-3 gap-5 mb-6">
-                <InputField id="age" label="Age" value={age} onChange={setAge} suffix="years" />
-                <InputField id="weight" label="Weight" value={weight} onChange={setWeight} suffix="kg" />
-                <InputField id="heightCm" label="Height" value={heightCm} onChange={setHeightCm} suffix="cm" />
-              </div>
-
-              <div className="mb-6">
-                <label className="block text-sm font-medium text-foreground mb-2">Activity Level</label>
-                <div className="flex flex-wrap gap-2">
-                  {([
-                    [1.2, "Sedentary"], [1.375, "Light"], [1.55, "Moderate"], [1.725, "Active"], [1.9, "Very Active"]
-                  ] as const).map(([v, l]) => (
-                    <button key={v} onClick={() => setActivity(v)} className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${activity === v ? "bg-accent text-accent-foreground" : "bg-secondary text-muted-foreground hover:bg-secondary/80"}`}>{l}</button>
-                  ))}
+            </div>
+            <p className="text-xs font-bold text-muted-foreground uppercase tracking-wide">Macro Split (%)</p>
+            {([
+              { label: "Protein %", key: "proteinPct" },
+              { label: "Carbohydrates %", key: "carbPct" },
+              { label: "Fat %", key: "fatPct" },
+            ] as const).map(({ label, key }) => (
+              <div key={key} className="flex flex-col">
+                <label className="text-sm font-semibold mb-1">{label}</label>
+                <div className="flex items-center rounded-md border border-input bg-background h-9 overflow-hidden focus-within:ring-2 focus-within:ring-primary/20">
+                  <input type="number" value={f[key]} onChange={e => set(key)(e.target.value)} className="w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground" />
+                  <span className="pr-3 text-sm text-muted-foreground">%</span>
                 </div>
               </div>
-
-              <div className="mb-6">
-                <label className="block text-sm font-medium text-foreground mb-2">Goal</label>
-                <div className="flex gap-2">
-                  {([["lose", "Lose Fat"], ["maintain", "Maintain"], ["gain", "Build Muscle"]] as const).map(([v, l]) => (
-                    <button key={v} onClick={() => setGoal(v)} className={`flex-1 py-3 rounded-lg text-sm font-medium transition-colors ${goal === v ? "bg-accent text-accent-foreground" : "bg-secondary text-muted-foreground"}`}>{l}</button>
-                  ))}
-                </div>
-              </div>
-
-              <div className="mb-6">
-                <label className="block text-sm font-medium text-foreground mb-2">Macro Split</label>
-                <div className="flex flex-wrap gap-2">
-                  {(Object.entries(macroSplits) as [string, { label: string }][]).map(([k, v]) => (
-                    <button key={k} onClick={() => setSplit(k as any)} className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${split === k ? "bg-accent text-accent-foreground" : "bg-secondary text-muted-foreground hover:bg-secondary/80"}`}>{v.label}</button>
-                  ))}
-                </div>
-              </div>
-
-              <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Macros</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
-              </div>
+            ))}
+            <p className="text-xs text-muted-foreground text-right">Total: {(parseFloat(f.proteinPct)||0)+(parseFloat(f.carbPct)||0)+(parseFloat(f.fatPct)||0)}%</p>
+            <p className="text-xs font-bold text-muted-foreground uppercase tracking-wide -mb-1">Quick Presets</p>
+            <div className="flex flex-wrap gap-2">
+              {presets.map(p => (
+                <button key={p.name} onClick={() => { setF(prev => ({ ...prev, proteinPct: p.p.toString(), carbPct: p.c.toString(), fatPct: p.f.toString() })); setR(calculate({ ...f, proteinPct: p.p.toString(), carbPct: p.c.toString(), fatPct: p.f.toString() })); }} className="px-2.5 py-1 rounded-full border border-border text-xs font-semibold hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all">{p.name} ({p.p}/{p.c}/{p.f})</button>
+              ))}
+            </div>
+            <div className="flex gap-2 mt-1">
+              <button onClick={calc} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-9 transition-all"><Calculator className="h-4 w-4" /> Calculate</button>
+              <button onClick={reset} className="px-3 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-9 flex items-center justify-center"><RotateCcw className="h-4 w-4" /></button>
+            </div>
           </div>
-
           <div className="flex flex-col gap-3">
-            {showResults && result && (
-              <>
-                <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-                <h2 className="text-xl font-bold mb-4">Your Daily Macros</h2>
-                <div className="text-center mb-4">
-                  <p className="text-3xl font-extrabold">{result.calories} kcal/day</p>
-                </div>
-
-                {/* Macro bar visual */}
-                <div className="flex h-6 rounded-full overflow-hidden mb-4">
-                  <div className="bg-blue-500" style={{ width: `${result.proteinPct}%` }} title="Protein" />
-                  <div className="bg-amber-400" style={{ width: `${result.carbsPct}%` }} title="Carbs" />
-                  <div className="bg-red-400" style={{ width: `${result.fatPct}%` }} title="Fat" />
-                </div>
-                <div className="flex justify-between text-xs text-muted-foreground mb-6">
-                  <span className="flex items-center gap-1"><span className="w-3 h-3 rounded bg-blue-500 inline-block" />Protein {result.proteinPct}%</span>
-                  <span className="flex items-center gap-1"><span className="w-3 h-3 rounded bg-amber-400 inline-block" />Carbs {result.carbsPct}%</span>
-                  <span className="flex items-center gap-1"><span className="w-3 h-3 rounded bg-red-400 inline-block" />Fat {result.fatPct}%</span>
-                </div>
-
-                <ResultDisplay items={[
-                  { label: "Protein", value: 0, textValue: `${result.protein}g (${result.proteinCal} kcal)`, highlight: true },
-                  { label: "Carbohydrates", value: 0, textValue: `${result.carbs}g (${result.carbsCal} kcal)` },
-                  { label: "Fat", value: 0, textValue: `${result.fat}g (${result.fatCal} kcal)` },
-                  { label: "Total Calories", value: 0, textValue: `${result.calories} kcal` },
-                ]} />
+            <div className="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-xl p-5 text-center">
+              <div className="text-xs font-bold text-primary uppercase tracking-wide mb-1">Daily Target</div>
+              <div className="text-4xl font-extrabold text-foreground">{r.totalCalories.toLocaleString()} kcal</div>
+              <div className="text-sm text-muted-foreground mt-1">{r.goal}</div>
+            </div>
+            <div className="card-calculator !p-0 border border-border bg-card shadow-sm overflow-hidden">
+              <div className="grid grid-cols-3 divide-x divide-border">
+                <div className="p-3 text-center"><div className="text-xs text-muted-foreground mb-0.5">Protein</div><div className="font-extrabold text-xl text-primary">{r.proteinG}g</div><div className="text-xs text-muted-foreground">{r.proteinCals} kcal</div></div>
+                <div className="p-3 text-center"><div className="text-xs text-muted-foreground mb-0.5">Carbs</div><div className="font-extrabold text-xl text-emerald-600">{r.carbG}g</div><div className="text-xs text-muted-foreground">{r.carbCals} kcal</div></div>
+                <div className="p-3 text-center"><div className="text-xs text-muted-foreground mb-0.5">Fat</div><div className="font-extrabold text-xl text-amber-600">{r.fatG}g</div><div className="text-xs text-muted-foreground">{r.fatCals} kcal</div></div>
               </div>
-              </>
-            )}
+            </div>
+            <div className="card-calculator !p-4 border border-border bg-card shadow-sm">
+              <h3 className="font-semibold text-sm mb-3">Calorie Distribution by Macro</h3>
+              <div className="h-[180px]">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={macroData} barSize={55}>
+                    <XAxis dataKey="name" tick={{ fontSize: 11 }} />
+                    <YAxis tick={{ fontSize: 10 }} unit=" cal" />
+                    <RTooltip formatter={(v: number, n: string) => [n === "grams" ? `${v}g` : `${v} kcal`, n]} contentStyle={{ borderRadius: "8px", fontSize: "12px" }} />
+                    <ReferenceLine y={r.totalCalories / 3} stroke="#94a3b8" strokeDasharray="4 2" label={{ value: "Equal split", fontSize: 9 }} />
+                    <Bar dataKey="cals" radius={[4,4,0,0]}>
+                      {macroData.map((e, i) => <Cell key={i} fill={e.fill} />)}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+            <div className="card-calculator !p-0 border border-border bg-card shadow-sm overflow-hidden">
+              <div className="bg-secondary/50 px-4 py-2.5 border-b border-border/50"><h3 className="font-bold text-sm">Per Meal Targets (3 meals/day)</h3></div>
+              {[
+                { label: "Protein per meal", val: `${Math.round(r.proteinG/3)}g` },
+                { label: "Carbs per meal", val: `${Math.round(r.carbG/3)}g` },
+                { label: "Fat per meal", val: `${Math.round(r.fatG/3)}g` },
+                { label: "Calories per meal", val: `${Math.round(r.totalCalories/3)} kcal`, bold: true },
+              ].map((row, i) => (
+                <div key={i} className="grid grid-cols-2 px-4 py-2.5 border-b border-border/30 last:border-0 hover:bg-secondary/20">
+                  <span className="text-muted-foreground text-sm">{row.label}</span>
+                  <span className={`text-right text-sm ${row.bold ? "font-bold text-foreground" : ""}`}>{row.val}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-
-        <div className="max-w-[1180px] mx-auto mt-8">
-          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
-              <h2>What Is a Macro Calculator?</h2>
-              <p>A macro calculator determines your optimal daily intake of the three macronutrients — protein, carbohydrates, and fat — based on your body stats, activity level, and fitness goals. Unlike simple calorie counting, macro tracking ensures you're getting the right balance of nutrients for body composition goals.</p>
-
-              <h2>Macro Split Options Explained</h2>
-              <ul>
-                <li><strong>Balanced (30/40/30):</strong> Best for general fitness and health. Suitable for most people starting their nutrition journey.</li>
-                <li><strong>Low Carb (35/25/40):</strong> Beneficial for insulin-resistant individuals or those who feel better on fewer carbs. Improves fat oxidation.</li>
-                <li><strong>High Protein (40/30/30):</strong> Ideal for muscle building and fat loss. Higher protein maximizes muscle protein synthesis and satiety.</li>
-                <li><strong>Keto (25/5/70):</strong> Very low carb, high fat. Forces the body into ketosis. Best for specific medical conditions or experienced dieters.</li>
-              </ul>
-
-              <h2>How to Track Macros</h2>
-              <ul>
-                <li>Use a food tracking app (MyFitnessPal, Cronometer, MacroFactor)</li>
-                <li>Invest in a kitchen scale for accurate portions</li>
-                <li>Plan meals ahead to hit targets consistently</li>
-                <li>Focus on hitting protein first, then fill carbs and fats</li>
-              </ul>
-
-              <h2>Protein Sources by Grams</h2>
-              <ul>
-                <li>Chicken breast (100g): ~31g protein</li>
-                <li>Eggs (1 large): ~6g protein</li>
-                <li>Greek yogurt (100g): ~10g protein</li>
-                <li>Lentils (100g cooked): ~9g protein</li>
-                <li>Whey protein (1 scoop): ~25g protein</li>
-              </ul>
-
-              <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> Macro recommendations are general guidelines. Individual needs vary based on metabolism, health conditions, and training intensity. Consult a registered dietitian for personalized plans.</p>
-            </article>
+        <div className="max-w-[1180px] mx-auto mt-12">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance max-w-none">
+            <h2>What Is a Macro Calculator?</h2>
+            <p>A macro calculator converts your total daily calorie goal into specific gram targets for protein, carbohydrates, and fat based on your chosen percentage split. Macronutrients are the three classes of nutrients that provide energy: protein and carbohydrates each provide 4 kcal per gram; fat provides 9 kcal per gram. Tracking macros (not just calories) allows precision nutrition for specific body composition goals.</p>
+            <h2>How to Choose Your Macro Split</h2>
+            <p><strong>For Fat Loss:</strong> High protein (35–40%) to preserve muscle during deficit. Moderate carbs (30–35%) for training fuel. Lower fat (25–30%). <strong>For Muscle Building:</strong> Moderate protein (25–30%), high carbs (45–55%) for training performance and recovery, moderate fat (20–25%). <strong>For General Health:</strong> Balanced macros: 25–30% protein, 45–50% carbs, 25–30% fat — aligns with most dietary guidelines. <strong>Ketogenic:</strong> Very low carb (5%), high fat (70%), moderate protein (25%) — induces fat-burning ketosis.</p>
+            <h2>Protein: The Most Important Macro</h2>
+            <p>Protein is uniquely important because it is the only macronutrient that directly supports muscle synthesis and preservation. Minimum recommendation: 0.8g/kg (sedentary). For body composition goals: 1.6–2.2g/kg of bodyweight. High protein intake increases satiety (reduces hunger), has the highest thermic effect (20–30% of calories burned in digestion vs. 5–10% for carbs/fat), and protects muscle mass during calorie restriction. Prioritize hitting protein targets; fill remaining calories with carbs and fat based on preference and training demands.</p>
+            <h2>Carbohydrates and Exercise Performance</h2>
+            <p>Carbohydrates are the primary fuel for moderate-to-high intensity exercise. Muscle glycogen (stored carbs) is depleted within 60–90 minutes of intense training. Athletes and regular gym-goers perform better with adequate carbohydrate intake (5–7g/kg for moderate exercise; 7–10g/kg for endurance). Low-carb approaches can work for fat loss but may impair performance at high exercise intensities. Match carb intake to training volume and intensity.</p>
+          </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/macro-calculator" />
-          <PopularCalculators exclude="/macro-calculator" />
+          <PopularCalculators exclude="/calculator/macro-calculator" />
         </div>
       </div>
     </>
   );
-};
-
-export default MacroCalculator;
-
-
+}

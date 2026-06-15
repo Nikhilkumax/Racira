@@ -1,383 +1,151 @@
-﻿"use client";
-
-import { useState, useEffect, useRef } from "react";
+"use client";
+import { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import InputField from "@/components/calculator/InputField";
-import ResultDisplay from "@/components/calculator/ResultDisplay";
-import PieChart from "@/components/calculator/PieChart";
-import { Printer, RotateCcw, Plus, Trash2, Calculator } from "lucide-react";
+import PopularCalculators from "@/components/PopularCalculators";
+import { RotateCcw, Calculator } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip as RTooltip, ResponsiveContainer, Cell } from "recharts";
 
-interface Card {
-  id: number;
-  name: string;
-  balance: string;
-  rate: string;
-  minPayment: string;
-  extraPayment: string;
-}
+interface CCResult { totalDebt: number; monthlyPayment: number; monthsToPayoff: number; totalInterest: number; schedule: { name: string; balance: number; rate: number; min: number }[]; }
+const DEFAULTS_CARDS = [
+  { name: "Visa Signature", balance: "4500", rate: "22.99", min: "90" },
+  { name: "Chase Freedom", balance: "2800", rate: "19.99", min: "56" },
+  { name: "Store Card", balance: "1200", rate: "28.99", min: "25" },
+];
+const DEFAULTS = { extraPayment: "300", strategy: "avalanche" };
 
-interface PayoffResult {
-  months: number;
-  totalInterest: number;
-  totalPaid: number;
-  payoffDate: string;
-}
-
-const fmt = (n: number) => "$" + n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-let nextId = 2;
-
-const CreditCardPayoffCalculator = () => {
-  const [cards, setCards] = useState<Card[]>([
-    { id: 1, name: "Card 1", balance: "5000", rate: "19.99", minPayment: "100", extraPayment: "50" },
-  ]);
-  const [strategy, setStrategy] = useState<"avalanche" | "snowball">("avalanche");
-  const [avalancheResult, setAvalancheResult] = useState<PayoffResult | null>(null);
-  const [snowballResult, setSnowballResult] = useState<PayoffResult | null>(null);
-  const [schedule, setSchedule] = useState<{ month: number; payments: { name: string; payment: number; balance: number }[] }[]>([]);
-  const [showSchedule, setShowSchedule] = useState(false);
-  const printRef = useRef<HTMLDivElement>(null);
-
-  const addCard = () => {
-    nextId++;
-    setCards([...cards, { id: nextId, name: `Card ${nextId}`, balance: "0", rate: "0", minPayment: "25", extraPayment: "0" }]);
-  };
-
-  const removeCard = (id: number) => {
-    if (cards.length <= 1) return;
-    setCards(cards.filter((c) => c.id !== id));
-  };
-
-  const updateCard = (id: number, field: keyof Card, value: string) => {
-    setCards(cards.map((c) => (c.id === id ? { ...c, [field]: value } : c)));
-  };
-
-  const simulate = (strat: "avalanche" | "snowball"): { result: PayoffResult; sched: typeof schedule } => {
-    const balances = cards.map((c) => ({
-      name: c.name,
-      balance: parseFloat(c.balance) || 0,
-      rate: (parseFloat(c.rate) || 0) / 100 / 12,
-      minPayment: parseFloat(c.minPayment) || 0,
-      extraPayment: parseFloat(c.extraPayment) || 0,
-    }));
-
-    const totalExtra = balances.reduce((s, c) => s + c.extraPayment, 0);
-    let month = 0;
-    let totalInterest = 0;
-    let totalPaid = 0;
-    const sched: typeof schedule = [];
-
-    while (balances.some((c) => c.balance > 0.01) && month < 600) {
-      month++;
-      // Sort for strategy
-      const sorted = [...balances].filter((c) => c.balance > 0.01);
-      if (strat === "avalanche") sorted.sort((a, b) => b.rate - a.rate);
-      else sorted.sort((a, b) => a.balance - b.balance);
-
-      let extraPool = totalExtra;
-      const monthPayments: { name: string; payment: number; balance: number }[] = [];
-
-      for (const card of balances) {
-        if (card.balance <= 0.01) {
-          monthPayments.push({ name: card.name, payment: 0, balance: 0 });
-          continue;
-        }
-        const interest = card.balance * card.rate;
-        totalInterest += interest;
-        let payment = card.minPayment;
-
-        // Add extra to priority card
-        if (sorted.length > 0 && card.name === sorted[0].name) {
-          payment += extraPool;
-          extraPool = 0;
-        }
-
-        if (payment > card.balance + interest) payment = card.balance + interest;
-        card.balance = card.balance + interest - payment;
-        if (card.balance < 0.01) card.balance = 0;
-        totalPaid += payment;
-        monthPayments.push({ name: card.name, payment, balance: card.balance });
-      }
-
-      // Redistribute freed-up minimums
-      const paidOff = balances.filter((c) => c.balance <= 0.01);
-      if (paidOff.length > 0 && sorted.length > 1) {
-        // freed minimum goes to next priority
-      }
-
-      sched.push({ month, payments: monthPayments });
+function calculate(cards: typeof DEFAULTS_CARDS, extra: string, strategy: string): CCResult {
+  const extra$ = parseFloat(extra)||0;
+  const parsed = cards.map(c => ({ name: c.name, balance: parseFloat(c.balance)||0, rate: parseFloat(c.rate)||0, min: parseFloat(c.min)||0 })).filter(c => c.balance > 0);
+  const totalDebt = parsed.reduce((s, c) => s + c.balance, 0);
+  const totalMin = parsed.reduce((s, c) => s + c.min, 0);
+  const totalMonthly = totalMin + extra$;
+  let balances = parsed.map(c => ({ ...c }));
+  let months = 0, totalInterest = 0;
+  while (balances.some(c => c.balance > 0.01) && months < 600) {
+    months++;
+    for (const c of balances) { if (c.balance > 0) { const interest = c.balance * (c.rate / 100 / 12); totalInterest += interest; c.balance += interest; } }
+    const sorted = strategy === "avalanche" ? [...balances].sort((a, b) => b.rate - a.rate) : [...balances].sort((a, b) => a.balance - b.balance);
+    let remaining = totalMonthly;
+    for (const target of sorted) {
+      const card = balances.find(c => c.name === target.name)!;
+      if (card.balance > 0) { const pay = Math.min(card.balance, remaining); card.balance -= pay; remaining -= pay; if (remaining <= 0) break; }
     }
+  }
+  return { totalDebt, monthlyPayment: totalMonthly, monthsToPayoff: months, totalInterest: Math.round(totalInterest), schedule: parsed };
+}
 
-    const now = new Date();
-    const payoffDate = new Date(now.getFullYear(), now.getMonth() + month);
-    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+export default function CreditCardPayoffCalculator() {
+  const [cards, setCards] = useState(DEFAULTS_CARDS);
+  const [f, setF] = useState(DEFAULTS);
+  const [r, setR] = useState<CCResult>(() => calculate(DEFAULTS_CARDS, DEFAULTS.extraPayment, DEFAULTS.strategy));
+  const updateCard = (i: number, k: keyof typeof DEFAULTS_CARDS[0], v: string) => setCards(prev => prev.map((c, j) => j === i ? { ...c, [k]: v } : c));
+  const calc = () => setR(calculate(cards, f.extraPayment, f.strategy));
+  const reset = () => { setCards(DEFAULTS_CARDS); setF(DEFAULTS); setR(calculate(DEFAULTS_CARDS, DEFAULTS.extraPayment, DEFAULTS.strategy)); };
 
-    return {
-      result: {
-        months: month,
-        totalInterest,
-        totalPaid,
-        payoffDate: `${monthNames[payoffDate.getMonth()]} ${payoffDate.getFullYear()}`,
-      },
-      sched,
-    };
-  };
+  const avalanche = calculate(cards, f.extraPayment, "avalanche");
+  const snowball = calculate(cards, f.extraPayment, "snowball");
+  const minOnly = calculate(cards, "0", "avalanche");
 
-  useEffect(() => { handleCalculate(); }, []);
-
-  const handleCalculate = () => {
-    const av = simulate("avalanche");
-    const sb = simulate("snowball");
-    setAvalancheResult(av.result);
-    setSnowballResult(sb.result);
-    setSchedule(strategy === "avalanche" ? av.sched : sb.sched);
-  };
-
-  const reset = () => {
-    setCards([{ id: 1, name: "Card 1", balance: "5000", rate: "19.99", minPayment: "100", extraPayment: "50" }]);
-    setAvalancheResult(null);
-    setSnowballResult(null);
-    setSchedule([]);
-  };
-
-  const handlePrint = () => {
-    if (!printRef.current) return;
-    const w = window.open("", "_blank");
-    if (!w) return;
-    w.document.write(`<html><head><title>Credit Card Payoff – RaciraCalculator</title>
-      <style>body{font-family:system-ui;padding:2rem}table{width:100%;border-collapse:collapse;font-size:13px}
-      th,td{border:1px solid #ddd;padding:6px 10px;text-align:right}th{background:#f5f5f5;text-align:left}
-      h2{margin-bottom:1rem}</style></head><body>`);
-    w.document.write(printRef.current.innerHTML);
-    w.document.write("</body></html>");
-    w.document.close();
-    w.print();
-  };
-
-  const activeResult = strategy === "avalanche" ? avalancheResult : snowballResult;
-  const totalBalance = cards.reduce((s, c) => s + (parseFloat(c.balance) || 0), 0);
+  const compData = [
+    { name: "Min Only", months: minOnly.monthsToPayoff, interest: minOnly.totalInterest, fill: "#ef4444" },
+    { name: f.strategy === "avalanche" ? "Avalanche ✓" : "Avalanche", months: avalanche.monthsToPayoff, interest: avalanche.totalInterest, fill: f.strategy === "avalanche" ? "hsl(var(--primary))" : "#94a3b8" },
+    { name: f.strategy === "snowball" ? "Snowball ✓" : "Snowball", months: snowball.monthsToPayoff, interest: snowball.totalInterest, fill: f.strategy === "snowball" ? "#10b981" : "#94a3b8" },
+  ];
 
   const faqs = [
-    { question: "What is the avalanche method?", answer: "The avalanche method prioritizes paying off the card with the highest interest rate first while making minimum payments on all other cards. This minimizes total interest paid and is mathematically optimal." },
-    { question: "What is the snowball method?", answer: "The snowball method prioritizes paying off the card with the smallest balance first, providing quick psychological wins. While it may cost more in total interest, the motivation of eliminating cards faster helps many people stay on track." },
-    { question: "How much extra should I pay?", answer: "Even $50-$100 extra per month can dramatically reduce your payoff time and total interest. The more you can pay above the minimum, the faster you'll become debt-free. Our calculator shows the exact impact of extra payments." },
-    { question: "Should I use avalanche or snowball?", answer: "If you want to save the most money, use avalanche. If you need motivation from quick wins, use snowball. Our calculator compares both strategies so you can see the difference in total interest and payoff time." },
-    { question: "Can I add multiple credit cards?", answer: "Yes! Our calculator supports multiple cards with different balances, interest rates, and minimum payments. This gives you a comprehensive debt payoff plan across all your cards." },
-    { question: "How is credit card interest calculated?", answer: "Credit card interest is typically calculated daily on your average daily balance using the formula: Daily Rate × Balance × Days in Period. The APR is divided by 365 to get the daily rate. Our calculator uses monthly compounding for simplicity." },
+    { question: "What is the debt avalanche method?", answer: "The avalanche method directs extra payments to the card with the highest interest rate first (while paying minimums on others). Mathematically optimal — minimizes total interest paid and pays off debt fastest in dollar terms." },
+    { question: "What is the debt snowball method?", answer: "The snowball method pays off the smallest balance first. Creates psychological wins (one card eliminated sooner), which can improve motivation and consistency. Pays more total interest than avalanche but may be better for those who need motivation to stay on track." },
+    { question: "Which method should I use?", answer: "Mathematically: avalanche saves more money. Psychologically: snowball may be better for some people who need the motivation boost of eliminating a card. Hybrid approach: if the lowest balance card and highest rate card are similar, start with that card to get both benefits." },
+    { question: "How much extra should I pay on credit cards?", answer: "Every extra dollar above minimums saves multiples in future interest. On a 22.99% card, $100 extra saves approximately $350 in total interest over the payoff period. Prioritize credit card debt above nearly all other financial goals (except employer 401k match) due to the extreme interest rates." },
+    { question: "Should I consolidate credit card debt?", answer: "Balance transfer cards (0% APR for 15–21 months) can be extremely effective if: you can pay off within the intro period, you qualify for a good offer, and you stop using the cards. Personal loans at 8–15% APR also significantly reduce interest vs. 20–30% credit cards." },
+    { question: "What is the minimum payment trap?", answer: "Paying only minimums on credit cards keeps you in debt for decades. A $5,000 balance at 22% with $100 minimum payment takes 7+ years and costs $3,500+ in interest. Credit card companies set minimums precisely low enough to maximize long-term interest revenue." },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Credit Card Payoff" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Finance", href: "/calculator#finance" }, { label: "Credit Card Payoff Calculator" }]} />
       <div className="container-page py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Credit Card Payoff Calculator</h1>
-
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            {/* Strategy Toggle */}
-              <div className="mb-6">
-                <label className="block text-sm font-medium text-foreground mb-1">Payoff Strategy</label>
-                <div className="flex rounded-lg border border-input overflow-hidden">
-                  <button type="button" onClick={() => setStrategy("avalanche")} className={`flex-1 py-3 text-sm font-medium transition-colors ${strategy === "avalanche" ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:bg-secondary"}`}>Avalanche (Highest Rate)</button>
-                  <button type="button" onClick={() => setStrategy("snowball")} className={`flex-1 py-3 text-sm font-medium transition-colors ${strategy === "snowball" ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:bg-secondary"}`}>Snowball (Lowest Balance)</button>
+          <div className="card-calculator flex flex-col gap-3 !p-4 border border-border bg-card shadow-sm">
+            <p className="text-xs font-bold text-muted-foreground uppercase tracking-wide">Your Credit Cards</p>
+            {cards.map((c, i) => (
+              <div key={i} className="rounded-lg border border-border/60 p-3 bg-secondary/20 flex flex-col gap-2">
+                <div className="grid grid-cols-2 gap-2">
+                  <div><label className="text-xs font-semibold mb-1 block">Card Name</label>
+                    <input value={c.name} onChange={e => updateCard(i, "name", e.target.value)} className="h-8 w-full px-2 rounded border border-input bg-background text-sm outline-none text-foreground" /></div>
+                  <div><label className="text-xs font-semibold mb-1 block">Balance ($)</label>
+                    <input type="number" value={c.balance} onChange={e => updateCard(i, "balance", e.target.value)} className="h-8 w-full px-2 rounded border border-input bg-background text-sm outline-none text-foreground" /></div>
+                  <div><label className="text-xs font-semibold mb-1 block">APR (%)</label>
+                    <input type="number" value={c.rate} onChange={e => updateCard(i, "rate", e.target.value)} className="h-8 w-full px-2 rounded border border-input bg-background text-sm outline-none text-foreground" /></div>
+                  <div><label className="text-xs font-semibold mb-1 block">Min Payment ($)</label>
+                    <input type="number" value={c.min} onChange={e => updateCard(i, "min", e.target.value)} className="h-8 w-full px-2 rounded border border-input bg-background text-sm outline-none text-foreground" /></div>
                 </div>
               </div>
-
-              {/* Cards */}
-              <div className="space-y-4 mb-6">
-                {cards.map((card) => (
-                  <div key={card.id} className="p-4 rounded-lg bg-secondary/30 border border-border">
-                    <div className="flex items-center justify-between mb-3">
-                      <input
-                        type="text"
-                        value={card.name}
-                        onChange={(e) => updateCard(card.id, "name", e.target.value)}
-                        className="text-sm font-semibold text-foreground bg-transparent border-none outline-none"
-                      />
-                      {cards.length > 1 && (<>
-
-                        <button onClick={() => removeCard(card.id)} className="text-muted-foreground hover:text-destructive transition-colors" aria-label="Remove card">
-                          <Trash2 className="h-4 w-4" />
-                        </button>
-                      
-</>)}
-                    </div>
-                    <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                      <InputField id={`bal-${card.id}`} label="Balance" value={card.balance} onChange={(v) => updateCard(card.id, "balance", v)} prefix="$" />
-                      <InputField id={`rate-${card.id}`} label="APR" value={card.rate} onChange={(v) => updateCard(card.id, "rate", v)} suffix="%" />
-                      <InputField id={`min-${card.id}`} label="Min Payment" value={card.minPayment} onChange={(v) => updateCard(card.id, "minPayment", v)} prefix="$" />
-                      <InputField id={`extra-${card.id}`} label="Extra Payment" value={card.extraPayment} onChange={(v) => updateCard(card.id, "extraPayment", v)} prefix="$" />
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <button onClick={addCard} className="flex items-center gap-2 text-sm text-primary hover:underline mb-6">
-                <Plus className="h-4 w-4" /> Add Another Card
-              </button>
-
-              <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Payoff</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset">
-                  <RotateCcw className="h-5 w-5" />
-                </button>
-              </div>
+            ))}
+            <div className="flex flex-col"><label className="text-sm font-semibold mb-1">Extra Monthly Payment ($)</label>
+              <div className="flex items-center rounded-md border border-input bg-background h-9 overflow-hidden focus-within:ring-2 focus-within:ring-primary/20">
+                <span className="pl-3 pr-1 text-sm text-muted-foreground">$</span>
+                <input type="number" value={f.extraPayment} onChange={e => setF(p => ({ ...p, extraPayment: e.target.value }))} className="w-full h-full px-2 text-base bg-transparent outline-none border-none text-foreground" />
+              </div></div>
+            <div className="flex flex-col"><label className="text-sm font-semibold mb-1">Payoff Strategy</label>
+              <select value={f.strategy} onChange={e => setF(p => ({ ...p, strategy: e.target.value }))} className="h-9 px-3 rounded-md border border-input bg-background text-sm text-foreground outline-none">
+                <option value="avalanche">Avalanche (Highest Rate First)</option>
+                <option value="snowball">Snowball (Lowest Balance First)</option>
+              </select></div>
+            <div className="flex gap-2 mt-1">
+              <button onClick={calc} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-9 transition-all"><Calculator className="h-4 w-4" /> Calculate</button>
+              <button onClick={reset} className="px-3 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-9 flex items-center justify-center"><RotateCcw className="h-4 w-4" /></button>
+            </div>
           </div>
-
           <div className="flex flex-col gap-3">
-            {activeResult && (<>
-
-              <div className="card-calculator mb-8" ref={printRef}>
-                <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-xl font-bold">Payoff Results ({strategy === "avalanche" ? "Avalanche" : "Snowball"})</h2>
-                  <button onClick={handlePrint} className="flex items-center gap-1.5 text-sm text-primary hover:underline">
-                    <Printer className="h-4 w-4" /> Print
-                  </button>
-                </div>
-
-                <ResultDisplay items={[
-                  { label: "Months to Payoff", value: 0, textValue: `${activeResult.months} months` },
-                  { label: "Total Interest", value: activeResult.totalInterest },
-                  { label: "Total Paid", value: activeResult.totalPaid, highlight: true },
-                  { label: "Payoff Date", value: 0, textValue: activeResult.payoffDate },
-                ]} />
-
-                {/* Strategy Comparison */}
-                {avalancheResult && snowballResult && (<>
-
-                  <div className="mt-6 p-4 rounded-lg bg-secondary/30 border border-border">
-                    <h3 className="font-semibold text-foreground mb-3">Strategy Comparison</h3>
-                    <div className="overflow-x-auto">
-                      <table className="w-full text-sm">
-                        <thead>
-                          <tr className="bg-secondary text-foreground">
-                            <th className="px-3 py-2 text-left font-medium">Metric</th>
-                            <th className="px-3 py-2 text-right font-medium">Avalanche</th>
-                            <th className="px-3 py-2 text-right font-medium">Snowball</th>
-                            <th className="px-3 py-2 text-right font-medium">Difference</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr className="border-t border-border">
-                            <td className="px-3 py-2 text-muted-foreground">Months</td>
-                            <td className="px-3 py-2 text-right">{avalancheResult.months}</td>
-                            <td className="px-3 py-2 text-right">{snowballResult.months}</td>
-                            <td className="px-3 py-2 text-right font-medium text-primary">{Math.abs(avalancheResult.months - snowballResult.months)}</td>
-                          </tr>
-                          <tr className="border-t border-border">
-                            <td className="px-3 py-2 text-muted-foreground">Total Interest</td>
-                            <td className="px-3 py-2 text-right">{fmt(avalancheResult.totalInterest)}</td>
-                            <td className="px-3 py-2 text-right">{fmt(snowballResult.totalInterest)}</td>
-                            <td className="px-3 py-2 text-right font-medium text-primary">{fmt(Math.abs(avalancheResult.totalInterest - snowballResult.totalInterest))}</td>
-                          </tr>
-                          <tr className="border-t border-border">
-                            <td className="px-3 py-2 text-muted-foreground">Total Paid</td>
-                            <td className="px-3 py-2 text-right">{fmt(avalancheResult.totalPaid)}</td>
-                            <td className="px-3 py-2 text-right">{fmt(snowballResult.totalPaid)}</td>
-                            <td className="px-3 py-2 text-right font-medium text-primary">{fmt(Math.abs(avalancheResult.totalPaid - snowballResult.totalPaid))}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                
-</>)}
-
-                <div className="mt-6 flex justify-center">
-                  <PieChart
-                    segments={[
-                      { label: "Principal", value: totalBalance, color: "hsl(211, 100%, 50%)" },
-                      { label: "Interest", value: activeResult.totalInterest, color: "hsl(220, 60%, 20%)" },
-                    ]}
-                    size={180}
-                  />
-                </div>
-
-                {/* Payment Schedule */}
-                {schedule.length > 0 && (<>
-
-                  <div className="mt-6">
-                    <button onClick={() => setShowSchedule(!showSchedule)} className="text-sm text-primary hover:underline">
-                      {showSchedule ? "Hide" : "Show"} Payment Schedule ({schedule.length} months)
-                    </button>
-                    {showSchedule && (<>
-
-                      <div className="overflow-x-auto mt-3 rounded-lg border border-border">
-                        <table className="w-full text-sm">
-                          <thead>
-                            <tr className="bg-secondary text-foreground">
-                              <th className="px-3 py-2 text-left font-medium">Month</th>
-                              {cards.map((c) => (
-                                <th key={c.id} className="px-3 py-2 text-right font-medium">{c.name} Bal</th>
-                              ))}
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {schedule.slice(0, showSchedule ? schedule.length : 24).map((row) => (
-                              <tr key={row.month} className="border-t border-border hover:bg-secondary/30">
-                                <td className="px-3 py-2 text-muted-foreground">{row.month}</td>
-                                {row.payments.map((p) => (
-                                  <td key={p.name} className="px-3 py-2 text-right">{fmt(p.balance)}</td>
-                                ))}
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      </div>
-                    
-</>)}
-                  </div>
-                
-</>)}
+            <div className="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-xl p-5 text-center">
+              <div className="text-xs font-bold text-primary uppercase tracking-wide mb-1">Payoff Time</div>
+              <div className="text-4xl font-extrabold text-foreground">{r.monthsToPayoff} <span className="text-xl">months</span></div>
+              <div className="text-sm text-muted-foreground mt-1">Total interest: ${r.totalInterest.toLocaleString()} · Monthly: ${Math.round(r.monthlyPayment).toLocaleString()}</div>
+            </div>
+            <div className="card-calculator !p-0 border border-border bg-card shadow-sm overflow-hidden">
+              <div className="grid grid-cols-3 divide-x divide-border">
+                <div className="p-3 text-center"><div className="text-xs text-muted-foreground mb-1">Total Debt</div><div className="font-bold">${r.totalDebt.toLocaleString()}</div></div>
+                <div className="p-3 text-center"><div className="text-xs text-muted-foreground mb-1">Interest Paid</div><div className="font-bold text-red-600">${r.totalInterest.toLocaleString()}</div></div>
+                <div className="p-3 text-center"><div className="text-xs text-muted-foreground mb-1">vs Min Only</div><div className="font-bold text-emerald-600">Save ${(minOnly.totalInterest - r.totalInterest).toLocaleString()}</div></div>
               </div>
-            
-</>)}
+            </div>
+            <div className="card-calculator !p-4 border border-border bg-card shadow-sm">
+              <h3 className="font-semibold text-sm mb-3">Interest Comparison by Strategy</h3>
+              <div className="h-[170px]">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={compData} barSize={50}>
+                    <XAxis dataKey="name" tick={{ fontSize: 10 }} />
+                    <YAxis tickFormatter={v => `$${(v/1000).toFixed(0)}k`} tick={{ fontSize: 10 }} />
+                    <RTooltip formatter={(v: number, n: string) => [n === "interest" ? `$${v.toLocaleString()}` : `${v} mo`, n === "interest" ? "Interest" : "Months"]} contentStyle={{ borderRadius: "8px", fontSize: "12px" }} />
+                    <Bar dataKey="interest" radius={[4,4,0,0]}>
+                      {compData.map((e, i) => <Cell key={i} fill={e.fill} />)}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
           </div>
         </div>
-
-        <div className="max-w-[1180px] mx-auto mt-8">
-          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
-              <h2>What Is a Credit Card Payoff Calculator?</h2>
-              <p>A credit card payoff calculator helps you determine how long it will take to pay off your credit card debt and how much total interest you'll pay. By entering your balance, interest rate, and payment amounts, you get a clear picture of your debt repayment timeline.</p>
-              <p>Our advanced calculator supports multiple credit cards simultaneously and compares two proven debt payoff strategies — the avalanche method and the snowball method — so you can choose the approach that works best for your financial situation and personality.</p>
-
-              <h2>Understanding Debt Payoff Strategies</h2>
-              <h3>The Avalanche Method</h3>
-              <p>The avalanche method focuses on paying off the card with the highest interest rate first while making minimum payments on all other cards. Once the highest-rate card is paid off, the extra money rolls to the next highest rate. This approach minimizes total interest paid and is mathematically optimal.</p>
-              <h3>The Snowball Method</h3>
-              <p>The snowball method targets the card with the smallest balance first. The quick wins of eliminating smaller debts provide psychological motivation to keep going. While you may pay slightly more in total interest compared to avalanche, many people find this method easier to stick with long-term.</p>
-
-              <h2>How Credit Card Interest Works</h2>
-              <p>Credit card companies charge interest on your outstanding balance using the Annual Percentage Rate (APR). Most cards compound interest daily, meaning interest is calculated on your balance each day and added to what you owe. Even at seemingly modest APRs like 18-24%, the compounding effect can make credit card debt extremely expensive over time.</p>
-              <p>For example, a $5,000 balance at 19.99% APR with only minimum payments of $100/month would take approximately 9 years to pay off and cost over $4,700 in interest — nearly doubling the original balance.</p>
-
-              <h2>Tips for Paying Off Credit Card Debt</h2>
-              <ul>
-                <li><strong>Pay more than the minimum:</strong> Even small extra payments dramatically reduce payoff time and interest.</li>
-                <li><strong>Stop using the cards:</strong> Adding new charges while trying to pay off debt extends your timeline significantly.</li>
-                <li><strong>Consider balance transfers:</strong> A 0% APR balance transfer card can help you pay down principal faster during the promotional period.</li>
-                <li><strong>Automate payments:</strong> Set up automatic payments to ensure you never miss a due date and incur late fees.</li>
-                <li><strong>Build an emergency fund:</strong> Even a small emergency fund prevents you from relying on credit cards for unexpected expenses.</li>
-              </ul>
-
-              <h2>Making the Most of This Calculator</h2>
-              <p>Start by entering all your credit cards with their current balances, APRs, and minimum payments. Then experiment with different extra payment amounts to see how they affect your payoff timeline. Compare the avalanche and snowball results to choose your preferred strategy.</p>
-              <p>Remember, the best strategy is the one you'll actually follow through on. If the psychological boost of the snowball method keeps you motivated, the slightly higher interest cost may be worth it in the long run.</p>
-
-              <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> This calculator provides estimates for educational purposes only. Actual results may vary based on your specific card terms, payment timing, and any additional charges or fees. This is not financial advice.</p>
-            </article>
+        <div className="max-w-[1180px] mx-auto mt-12">
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance max-w-none">
+            <h2>Credit Card Debt Payoff Strategies</h2>
+            <p>This calculator models both the Debt Avalanche and Debt Snowball strategies across multiple credit cards simultaneously. Enter your cards&apos; balances, APRs, and minimum payments, then add any extra monthly payment you can allocate. The calculator shows exact payoff timelines, total interest cost, and compares your chosen strategy against minimum-payment-only (revealing exactly how much you save by being aggressive).</p>
+            <h2>Debt Avalanche — The Mathematically Optimal Method</h2>
+            <p>The avalanche method directs all extra payments to the card with the highest interest rate. After that card is paid off, its payment is added to the next-highest-rate card (the &quot;avalanche&quot; effect). This minimizes total interest paid and total time in debt. For high-rate credit cards (20–30% APR), the interest savings are substantial — often thousands of dollars over minimum payments alone.</p>
+            <h2>Debt Snowball — The Motivational Method</h2>
+            <p>The snowball method targets the smallest balance first. Each paid-off card provides a psychological win that maintains motivation for the longer journey. Research by behavioral economists (Haisley et al.) shows many people successfully pay off debt faster using snowball because motivation and consistency outweigh mathematical efficiency. Choose the method you will actually stick with.</p>
+            <h2>Balance Transfer and Consolidation</h2>
+            <p>0% APR balance transfer cards can dramatically accelerate payoff by eliminating interest for 15–21 months. Key considerations: transfer fee (typically 3–5% of balance), must pay off before the promotional period ends (or interest often applies retroactively), and requires good credit to qualify (700+ typically). A personal loan consolidation at 10–15% APR can save 10–15 percentage points vs. credit card rates while simplifying to a single payment with a definite payoff date.</p>
+          </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/credit-card-payoff-calculator" />
-          <PopularCalculators exclude="/credit-card-payoff-calculator" />
+          <PopularCalculators exclude="/calculator/credit-card-payoff-calculator" />
         </div>
       </div>
     </>
   );
-};
-
-export default CreditCardPayoffCalculator;
-
-
-
+}
