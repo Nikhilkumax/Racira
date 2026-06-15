@@ -961,7 +961,7 @@ const calculatorComponents: Record<string, () => Promise<any>> = {
 
 // Pre-build lazy components at module level to avoid re-creating them on every render.
 // Creating dynamic() inside a render function causes unnecessary remounting.
-const lazyComponents: Record<string, React.ComponentType> = Object.fromEntries(
+export const lazyComponents: Record<string, React.ComponentType> = Object.fromEntries(
   Object.entries(calculatorComponents).map(([slug, importFn]) => [
     slug,
     dynamic(importFn, { loading: () => <CalculatorSkeleton />, ssr: false }),

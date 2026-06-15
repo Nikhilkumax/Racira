@@ -59,12 +59,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   // Dynamic Calculator Pages
-  const calculatorPages: MetadataRoute.Sitemap = calculatorRegistry.map((calc) => ({
-    url: `${baseUrl}/calculator/${calc.slug}`,
-    lastModified: new Date(),
-    changeFrequency: calc.isBuilt ? "monthly" : "yearly",
-    priority: calc.isBuilt ? 0.8 : 0.5,
-  }));
+  const calculatorPages: MetadataRoute.Sitemap = calculatorRegistry.map((calc) => {
+    const catSlug = calc.category.toLowerCase().replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-').replace(/^-|-$/g, '');
+    const subSlug = calc.subcategory ? calc.subcategory.toLowerCase().replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-').replace(/^-|-$/g, '') : "general";
+    return {
+      url: `${baseUrl}/calculator/${catSlug}/${subSlug}/${calc.slug}`,
+      lastModified: new Date(),
+      changeFrequency: calc.isBuilt ? "monthly" : "yearly",
+      priority: calc.isBuilt ? 0.8 : 0.5,
+    };
+  });
 
   return [...platformPages, ...staticPages, ...calculatorPages];
 }

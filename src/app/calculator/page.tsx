@@ -1,8 +1,22 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { DollarSign, Heart, Calculator, FlaskConical, Smile, HardHat, Trophy, Leaf, Cpu, GraduationCap, ArrowLeftRight, Car } from "lucide-react";
-import { calculatorRegistry, getCategories, getCategoryIcon } from "@/data/calculatorRegistry";
+import { 
+  DollarSign, 
+  Briefcase, 
+  Heart, 
+  Calculator, 
+  Atom, 
+  Settings, 
+  Cpu, 
+  Leaf, 
+  Clock, 
+  Car, 
+  HardHat, 
+  GraduationCap 
+} from "lucide-react";
 import SearchCalculators from "@/components/SearchCalculators";
+import { CATEGORY_SUMMARY } from "./summaryData";
+import { toSlug } from "@/lib/utils/slug";
 
 export const metadata: Metadata = {
   title: "All Calculators — Racira",
@@ -17,8 +31,26 @@ const formatCategory = (cat: string) => {
   return cat.charAt(0).toUpperCase() + cat.slice(1).toLowerCase();
 };
 
+const getCategoryIcon = (category: string) => {
+  const upper = category.toUpperCase().replace(/ /g, '_');
+  const icons: Record<string, any> = {
+    "FINANCE": DollarSign,
+    "BUSINESS": Briefcase,
+    "HEALTH": Heart,
+    "MATH": Calculator,
+    "SCIENCE": Atom,
+    "ENGINEERING": Settings,
+    "TECHNOLOGY": Cpu,
+    "ENVIRONMENT": Leaf,
+    "EVERYDAY_LIFE": Clock,
+    "TRANSPORTATION": Car,
+    "CONSTRUCTION": HardHat,
+    "EDUCATION": GraduationCap
+  };
+  return icons[upper] || Calculator;
+};
+
 export default function Home() {
-  const categories = getCategories();
   const categoryOrder = [
     "FINANCE", "BUSINESS", "HEALTH", "MATH", "SCIENCE", 
     "ENGINEERING", "TECHNOLOGY", "ENVIRONMENT", "EVERYDAY_LIFE", 
@@ -45,19 +77,21 @@ export default function Home() {
       <div className="max-w-7xl mx-auto px-4 pb-4 sm:pb-8">
         <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4 justify-items-center calculator-category-grid">
           {categoryOrder.map(cat => {
-            const items = categories.get(cat) || [];
+            const summary = CATEGORY_SUMMARY.find(c => c.category === cat);
+            const totalCount = summary ? summary.total : 0;
             const Icon = getCategoryIcon(cat);
+            const catSlug = toSlug(formatCategory(cat));
             return (
               <Link
                 key={cat}
-                href={`#${cat.toLowerCase().replace(/_/g, "-")}`}
-                className="category-nav-card group calculator-category-card"
+                href={`/calculator/${catSlug}`}
+                className="category-nav-card group calculator-category-card hover:cursor-pointer hover:shadow-md transition-all duration-200"
               >
-                <div className="tool-card-icon h-14 w-14 mb-5 rounded-2xl">
+                <div className="tool-card-icon h-14 w-14 mb-5 rounded-2xl flex items-center justify-center">
                   <Icon className="h-[30.6px] w-[30.6px] text-primary" />
                 </div>
-                <span className="text-[13.6px] font-bold text-foreground leading-tight text-center">{formatCategory(cat)}</span>
-                <span className="text-[11.9px] text-muted-foreground mt-2">{items.length} tools</span>
+                <p className="text-[13.6px] font-bold text-foreground leading-tight text-center">{formatCategory(cat)}</p>
+                <p className="text-[11.9px] text-muted-foreground mt-2">{totalCount} tools</p>
               </Link>
             );
           })}
@@ -67,50 +101,47 @@ export default function Home() {
       {/* All Categories with Tools */}
       <div className="max-w-7xl mx-auto px-4 pb-16">
         {categoryOrder.map((cat, idx) => {
-          const items = categories.get(cat) || [];
-          // Group by subcategory
-          const subcategories = new Map<string, typeof items>();
-          items.forEach(item => {
-            const sub = item.subcategory || "General";
-            const list = subcategories.get(sub) || [];
-            list.push(item);
-            subcategories.set(sub, list);
-          });
+          const summary = CATEGORY_SUMMARY.find(c => c.category === cat);
+          if (!summary) return null;
+          const catSlug = toSlug(formatCategory(cat));
 
           return (
             <section
               key={cat}
-              id={cat.toLowerCase().replace(/_/g, "-")}
               className={idx > 0 ? "mt-14" : "mt-4"}
             >
               <h2 className="text-xl font-bold text-foreground mb-2">
-                {formatCategory(cat)}
+                <Link href={`/calculator/${catSlug}`} className="cursor-pointer">
+                  {formatCategory(cat)}
+                </Link>
               </h2>
-              <p className="text-sm text-muted-foreground mb-5">{items.length} calculators</p>
+              <p className="text-sm text-muted-foreground mb-5">{summary.total} calculators</p>
 
-              {Array.from(subcategories.entries()).map(([sub, subItems]) => (
-                <div key={sub} className="mb-6">
-                  {subcategories.size > 1 && (
-                    <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3">{sub}</h3>
-                  )}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                    {subItems.map(t => (
-                      <Link key={t.slug} href={`/calculator/${t.slug}`} className="tool-card group">
-                        <div className="tool-card-icon">
-                          {t.icon ? <t.icon className="h-5 w-5 text-primary" /> : <Calculator className="h-5 w-5 text-primary" />}
-                        </div>
-                        <div className="min-w-0">
-                          <h4 className="font-semibold text-foreground text-[15px] leading-snug mb-1">
-                            {t.name}
-                            {!t.isBuilt && <span className="ml-1.5 text-[10px] font-medium text-muted-foreground bg-muted px-1.5 py-0.5 rounded">Soon</span>}
-                          </h4>
-                          <p className="text-[13px] text-muted-foreground leading-relaxed line-clamp-2">{t.description}</p>
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              ))}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                {summary.subcategories.map(sub => {
+                  const SubIcon = getCategoryIcon(cat);
+                  const subSlug = toSlug(sub.name);
+                  return (
+                    <Link
+                      key={sub.name}
+                      href={`/calculator/${catSlug}/${subSlug}`}
+                      className="tool-card group hover:cursor-pointer hover:shadow-md transition-all duration-200"
+                    >
+                      <div className="tool-card-icon">
+                        <SubIcon className="h-5 w-5 text-primary" />
+                      </div>
+                      <div className="min-w-0">
+                        <h4 className="font-semibold text-foreground text-[15px] leading-snug mb-1">
+                          {sub.name}
+                        </h4>
+                        <p className="text-[13px] text-muted-foreground leading-relaxed line-clamp-2">
+                          {sub.count} calculators
+                        </p>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
             </section>
           );
         })}
