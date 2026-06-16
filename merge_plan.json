@@ -1,0 +1,745 @@
+{
+  "merges": {
+    "FINANCE": [
+      {
+        "source_slug": "loans",
+        "target_slug": "loans-mortgages",
+        "source_name": "Loans",
+        "target_name": "Loans & Mortgages",
+        "source_count": 2,
+        "target_count": 212,
+        "action": "merge_and_redirect",
+        "reason": "explicit_rule"
+      },
+      {
+        "source_slug": "savings",
+        "target_slug": "savings-banking",
+        "source_name": "Savings",
+        "target_name": "Savings & Banking",
+        "source_count": 12,
+        "target_count": 127,
+        "action": "merge_and_redirect",
+        "reason": "explicit_rule"
+      },
+      {
+        "source_slug": "crypto",
+        "target_slug": "crypto-defi",
+        "source_name": "Crypto",
+        "target_name": "Crypto & DeFi",
+        "source_count": 6,
+        "target_count": 43,
+        "action": "merge_and_redirect",
+        "reason": "explicit_rule"
+      },
+      {
+        "source_slug": "investment",
+        "target_slug": "investment-wealth",
+        "source_name": "Investment",
+        "target_name": "Investment & Wealth",
+        "source_count": 123,
+        "target_count": 103,
+        "action": "merge_and_redirect",
+        "reason": "explicit_rule"
+      },
+      {
+        "source_slug": "real-estate",
+        "target_slug": "real-estate-finance",
+        "source_name": "Real Estate",
+        "target_name": "Real Estate Finance",
+        "source_count": 5,
+        "target_count": 114,
+        "action": "merge_and_redirect",
+        "reason": "explicit_rule"
+      },
+      {
+        "source_slug": "income-tax",
+        "target_slug": "tax",
+        "source_name": "Income & Tax",
+        "target_name": "Tax",
+        "source_count": 94,
+        "target_count": 89,
+        "action": "merge_and_redirect",
+        "reason": "explicit_rule"
+      },
+      {
+        "source_slug": "interest",
+        "target_slug": "savings-banking",
+        "source_name": "Interest",
+        "target_name": "Savings & Banking",
+        "source_count": 3,
+        "target_count": 127,
+        "action": "merge_and_redirect",
+        "reason": "explicit_rule"
+      },
+      {
+        "source_slug": "employment",
+        "target_slug": "personal-finance",
+        "source_name": "Employment",
+        "target_name": "Personal Finance",
+        "source_count": 3,
+        "target_count": 109,
+        "action": "merge_and_redirect",
+        "reason": "explicit_rule"
+      },
+      {
+        "source_slug": "growth",
+        "target_slug": "investment-wealth",
+        "source_name": "Growth",
+        "target_name": "Investment & Wealth",
+        "source_count": 15,
+        "target_count": 103,
+        "action": "merge_and_redirect",
+        "reason": "explicit_rule"
+      },
+      {
+        "source_slug": "general",
+        "target_slug": "personal-finance",
+        "source_name": "General",
+        "target_name": "Personal Finance",
+        "source_count": 18,
+        "target_count": 109,
+        "action": "merge_and_redirect",
+        "reason": "explicit_rule"
+      },
+      {
+        "source_slug": "auto",
+        "target_slug": "loans-mortgages",
+        "source_name": "Auto",
+        "target_name": "Loans & Mortgages",
+        "source_count": 1,
+        "target_count": 212,
+        "action": "merge_and_redirect",
+        "reason": "explicit_rule"
+      }
+    ],
+    "BUSINESS": [
+      {
+        "source_slug": "business",
+        "target_slug": "business-finance",
+        "source_name": "Business",
+        "target_name": "Business Finance",
+        "source_count": 16,
+        "target_count": 86,
+        "action": "merge_and_redirect",
+        "reason": "autonomous_discovery"
+      }
+    ],
+    "HEALTH": [
+      {
+        "source_slug": "body-metrics",
+        "target_slug": "body-metrics-anthropometry",
+        "source_name": "Body Metrics",
+        "target_name": "Body Metrics & Anthropometry",
+        "source_count": 48,
+        "target_count": 63,
+        "action": "merge_and_redirect",
+        "reason": "explicit_rule"
+      },
+      {
+        "source_slug": "clinical-dosing",
+        "target_slug": "pharmacy-dosing",
+        "source_name": "Clinical & Dosing",
+        "target_name": "Pharmacy & Dosing",
+        "source_count": 68,
+        "target_count": 59,
+        "action": "merge_and_redirect",
+        "reason": "explicit_rule"
+      },
+      {
+        "source_slug": "pediatric",
+        "target_slug": "pediatric-health",
+        "source_name": "Pediatric",
+        "target_name": "Pediatric Health",
+        "source_count": 35,
+        "target_count": 43,
+        "action": "merge_and_redirect",
+        "reason": "explicit_rule"
+      },
+      {
+        "source_slug": "nutrition",
+        "target_slug": "nutrition-diet",
+        "source_name": "Nutrition",
+        "target_name": "Nutrition & Diet",
+        "source_count": 18,
+        "target_count": 147,
+        "action": "merge_and_redirect",
+        "reason": "explicit_rule"
+      },
+      {
+        "source_slug": "pregnancy",
+        "target_slug": "pregnancy-fertility",
+        "source_name": "Pregnancy",
+        "target_name": "Pregnancy & Fertility",
+        "source_count": 15,
+        "target_count": 36,
+        "action": "merge_and_redirect",
+        "reason": "explicit_rule"
+      },
+      {
+        "source_slug": "mental-health",
+        "target_slug": "sleep-mental-health",
+        "source_name": "Mental Health",
+        "target_name": "Sleep & Mental Health",
+        "source_count": 51,
+        "target_count": 37,
+        "action": "merge_and_redirect",
+        "reason": "explicit_rule"
+      },
+      {
+        "source_slug": "running",
+        "target_slug": "running-endurance",
+        "source_name": "Running",
+        "target_name": "Running & Endurance",
+        "source_count": 8,
+        "target_count": 29,
+        "action": "merge_and_redirect",
+        "reason": "explicit_rule"
+      },
+      {
+        "source_slug": "cycling",
+        "target_slug": "cycling-water-sports",
+        "source_name": "Cycling",
+        "target_name": "Cycling & Water Sports",
+        "source_count": 5,
+        "target_count": 26,
+        "action": "merge_and_redirect",
+        "reason": "explicit_rule"
+      },
+      {
+        "source_slug": "weightlifting",
+        "target_slug": "weightlifting-strength",
+        "source_name": "Weightlifting",
+        "target_name": "Weightlifting & Strength",
+        "source_count": 6,
+        "target_count": 27,
+        "action": "merge_and_redirect",
+        "reason": "explicit_rule"
+      },
+      {
+        "source_slug": "activity",
+        "target_slug": "fitness-exercise",
+        "source_name": "Activity",
+        "target_name": "Fitness & Exercise",
+        "source_count": 18,
+        "target_count": 129,
+        "action": "merge_and_redirect",
+        "reason": "explicit_rule"
+      },
+      {
+        "source_slug": "medical",
+        "target_slug": "clinical-medical",
+        "source_name": "Medical",
+        "target_name": "Clinical & Medical",
+        "source_count": 28,
+        "target_count": 92,
+        "action": "merge_and_redirect",
+        "reason": "explicit_rule"
+      },
+      {
+        "source_slug": "triathlon",
+        "target_slug": "running-endurance",
+        "source_name": "Triathlon",
+        "target_name": "Running & Endurance",
+        "source_count": 1,
+        "target_count": 29,
+        "action": "merge_and_redirect",
+        "reason": "explicit_rule"
+      },
+      {
+        "source_slug": "bowling",
+        "target_slug": "ball-sports",
+        "source_name": "Bowling",
+        "target_name": "Ball Sports",
+        "source_count": 1,
+        "target_count": 36,
+        "action": "merge_and_redirect",
+        "reason": "explicit_rule"
+      },
+      {
+        "source_slug": "baseball",
+        "target_slug": "ball-sports",
+        "source_name": "Baseball",
+        "target_name": "Ball Sports",
+        "source_count": 1,
+        "target_count": 36,
+        "action": "merge_and_redirect",
+        "reason": "explicit_rule"
+      },
+      {
+        "source_slug": "basketball",
+        "target_slug": "ball-sports",
+        "source_name": "Basketball",
+        "target_name": "Ball Sports",
+        "source_count": 2,
+        "target_count": 36,
+        "action": "merge_and_redirect",
+        "reason": "explicit_rule"
+      },
+      {
+        "source_slug": "football",
+        "target_slug": "ball-sports",
+        "source_name": "Football",
+        "target_name": "Ball Sports",
+        "source_count": 1,
+        "target_count": 36,
+        "action": "merge_and_redirect",
+        "reason": "explicit_rule"
+      },
+      {
+        "source_slug": "tennis",
+        "target_slug": "ball-sports",
+        "source_name": "Tennis",
+        "target_name": "Ball Sports",
+        "source_count": 1,
+        "target_count": 36,
+        "action": "merge_and_redirect",
+        "reason": "explicit_rule"
+      },
+      {
+        "source_slug": "billiards",
+        "target_slug": "ball-sports",
+        "source_name": "Billiards",
+        "target_name": "Ball Sports",
+        "source_count": 1,
+        "target_count": 36,
+        "action": "merge_and_redirect",
+        "reason": "explicit_rule"
+      },
+      {
+        "source_slug": "swimming",
+        "target_slug": "cycling-water-sports",
+        "source_name": "Swimming",
+        "target_name": "Cycling & Water Sports",
+        "source_count": 5,
+        "target_count": 26,
+        "action": "merge_and_redirect",
+        "reason": "explicit_rule"
+      },
+      {
+        "source_slug": "walking",
+        "target_slug": "running-endurance",
+        "source_name": "Walking",
+        "target_name": "Running & Endurance",
+        "source_count": 1,
+        "target_count": 29,
+        "action": "merge_and_redirect",
+        "reason": "explicit_rule"
+      }
+    ],
+    "MATH": [
+      {
+        "source_slug": "basic",
+        "target_slug": "basic-arithmetic",
+        "source_name": "Basic",
+        "target_name": "Basic Arithmetic",
+        "source_count": 28,
+        "target_count": 35,
+        "action": "merge_and_redirect",
+        "reason": "autonomous_discovery"
+      },
+      {
+        "source_slug": "discrete-math",
+        "target_slug": "number-theory-discrete-math",
+        "source_name": "Discrete Math",
+        "target_name": "Number Theory & Discrete Math",
+        "source_count": 6,
+        "target_count": 54,
+        "action": "merge_and_redirect",
+        "reason": "autonomous_discovery"
+      },
+      {
+        "source_slug": "number-theory",
+        "target_slug": "number-theory-discrete-math",
+        "source_name": "Number Theory",
+        "target_name": "Number Theory & Discrete Math",
+        "source_count": 1,
+        "target_count": 54,
+        "action": "merge_and_redirect",
+        "reason": "autonomous_discovery"
+      }
+    ],
+    "SCIENCE": [
+      {
+        "source_slug": "physics",
+        "target_slug": "physics-mechanics",
+        "source_name": "Physics",
+        "target_name": "Physics – Mechanics",
+        "source_count": 45,
+        "target_count": 62,
+        "action": "merge_and_redirect",
+        "reason": "autonomous_discovery"
+      },
+      {
+        "source_slug": "earth-science",
+        "target_slug": "earth-science-geology",
+        "source_name": "Earth Science",
+        "target_name": "Earth Science & Geology",
+        "source_count": 14,
+        "target_count": 53,
+        "action": "merge_and_redirect",
+        "reason": "autonomous_discovery"
+      },
+      {
+        "source_slug": "electricity-magnetism",
+        "target_slug": "physics-electricity-magnetism",
+        "source_name": "Electricity & Magnetism",
+        "target_name": "Physics – Electricity & Magnetism",
+        "source_count": 44,
+        "target_count": 56,
+        "action": "merge_and_redirect",
+        "reason": "autonomous_discovery"
+      }
+    ],
+    "ENGINEERING": [],
+    "TECHNOLOGY": [
+      {
+        "source_slug": "networking",
+        "target_slug": "networking-infrastructure",
+        "source_name": "Networking",
+        "target_name": "Networking & Infrastructure",
+        "source_count": 35,
+        "target_count": 82,
+        "action": "merge_and_redirect",
+        "reason": "autonomous_discovery"
+      },
+      {
+        "source_slug": "storage",
+        "target_slug": "storage-hardware",
+        "source_name": "Storage",
+        "target_name": "Storage & Hardware",
+        "source_count": 5,
+        "target_count": 26,
+        "action": "merge_and_redirect",
+        "reason": "autonomous_discovery"
+      },
+      {
+        "source_slug": "hardware",
+        "target_slug": "storage-hardware",
+        "source_name": "Hardware",
+        "target_name": "Storage & Hardware",
+        "source_count": 7,
+        "target_count": 26,
+        "action": "merge_and_redirect",
+        "reason": "autonomous_discovery"
+      },
+      {
+        "source_slug": "security",
+        "target_slug": "cybersecurity",
+        "source_name": "Security",
+        "target_name": "Cybersecurity",
+        "source_count": 31,
+        "target_count": 75,
+        "action": "merge_and_redirect",
+        "reason": "autonomous_discovery"
+      },
+      {
+        "source_slug": "infrastructure",
+        "target_slug": "cloud-infrastructure",
+        "source_name": "Infrastructure",
+        "target_name": "Cloud & Infrastructure",
+        "source_count": 3,
+        "target_count": 27,
+        "action": "merge_and_redirect",
+        "reason": "autonomous_discovery"
+      },
+      {
+        "source_slug": "software",
+        "target_slug": "software-development",
+        "source_name": "Software",
+        "target_name": "Software Development",
+        "source_count": 4,
+        "target_count": 35,
+        "action": "merge_and_redirect",
+        "reason": "autonomous_discovery"
+      },
+      {
+        "source_slug": "display",
+        "target_slug": "gaming-display",
+        "source_name": "Display",
+        "target_name": "Gaming & Display",
+        "source_count": 3,
+        "target_count": 23,
+        "action": "merge_and_redirect",
+        "reason": "autonomous_discovery"
+      },
+      {
+        "source_slug": "gaming",
+        "target_slug": "gaming-display",
+        "source_name": "Gaming",
+        "target_name": "Gaming & Display",
+        "source_count": 4,
+        "target_count": 23,
+        "action": "merge_and_redirect",
+        "reason": "autonomous_discovery"
+      },
+      {
+        "source_slug": "web",
+        "target_slug": "web-seo",
+        "source_name": "Web",
+        "target_name": "Web & SEO",
+        "source_count": 4,
+        "target_count": 27,
+        "action": "merge_and_redirect",
+        "reason": "autonomous_discovery"
+      },
+      {
+        "source_slug": "marketing",
+        "target_slug": "marketing-analytics",
+        "source_name": "Marketing",
+        "target_name": "Marketing & Analytics",
+        "source_count": 10,
+        "target_count": 26,
+        "action": "merge_and_redirect",
+        "reason": "autonomous_discovery"
+      },
+      {
+        "source_slug": "network",
+        "target_slug": "networking-infrastructure",
+        "source_name": "Network",
+        "target_name": "Networking & Infrastructure",
+        "source_count": 5,
+        "target_count": 82,
+        "action": "merge_and_redirect",
+        "reason": "autonomous_discovery"
+      }
+    ],
+    "ENVIRONMENT": [
+      {
+        "source_slug": "footprint",
+        "target_slug": "carbon-footprint",
+        "source_name": "Footprint",
+        "target_name": "Carbon Footprint",
+        "source_count": 9,
+        "target_count": 32,
+        "action": "merge_and_redirect",
+        "reason": "autonomous_discovery"
+      },
+      {
+        "source_slug": "offset",
+        "target_slug": "offset-sequestration",
+        "source_name": "Offset",
+        "target_name": "Offset & Sequestration",
+        "source_count": 1,
+        "target_count": 25,
+        "action": "merge_and_redirect",
+        "reason": "autonomous_discovery"
+      },
+      {
+        "source_slug": "energy",
+        "target_slug": "renewable-energy",
+        "source_name": "Energy",
+        "target_name": "Renewable Energy",
+        "source_count": 4,
+        "target_count": 114,
+        "action": "merge_and_redirect",
+        "reason": "autonomous_discovery"
+      }
+    ],
+    "EVERYDAY_LIFE": [
+      {
+        "source_slug": "food",
+        "target_slug": "food-kitchen",
+        "source_name": "Food",
+        "target_name": "Food & Kitchen",
+        "source_count": 7,
+        "target_count": 9,
+        "action": "merge_and_redirect",
+        "reason": "autonomous_discovery"
+      },
+      {
+        "source_slug": "home",
+        "target_slug": "home-garden",
+        "source_name": "Home",
+        "target_name": "Home & Garden",
+        "source_count": 17,
+        "target_count": 55,
+        "action": "merge_and_redirect",
+        "reason": "autonomous_discovery"
+      },
+      {
+        "source_slug": "garden",
+        "target_slug": "home-garden",
+        "source_name": "Garden",
+        "target_name": "Home & Garden",
+        "source_count": 6,
+        "target_count": 55,
+        "action": "merge_and_redirect",
+        "reason": "autonomous_discovery"
+      },
+      {
+        "source_slug": "travel",
+        "target_slug": "travel-recreation",
+        "source_name": "Travel",
+        "target_name": "Travel & Recreation",
+        "source_count": 47,
+        "target_count": 77,
+        "action": "merge_and_redirect",
+        "reason": "autonomous_discovery"
+      },
+      {
+        "source_slug": "finance",
+        "target_slug": "shopping-personal-finance",
+        "source_name": "FINANCE",
+        "target_name": "Shopping & Personal Finance",
+        "source_count": 5,
+        "target_count": 44,
+        "action": "merge_and_redirect",
+        "reason": "autonomous_discovery"
+      }
+    ],
+    "TRANSPORTATION": [
+      {
+        "source_slug": "costs",
+        "target_slug": "costs-ownership",
+        "source_name": "Costs",
+        "target_name": "Costs & Ownership",
+        "source_count": 1,
+        "target_count": 23,
+        "action": "merge_and_redirect",
+        "reason": "autonomous_discovery"
+      },
+      {
+        "source_slug": "performance",
+        "target_slug": "performance-engine",
+        "source_name": "Performance",
+        "target_name": "Performance & Engine",
+        "source_count": 2,
+        "target_count": 30,
+        "action": "merge_and_redirect",
+        "reason": "autonomous_discovery"
+      }
+    ],
+    "CONSTRUCTION": [
+      {
+        "source_slug": "green-building",
+        "target_slug": "green-building-energy-efficiency",
+        "source_name": "Green Building",
+        "target_name": "Green Building & Energy Efficiency",
+        "source_count": 31,
+        "target_count": 64,
+        "action": "merge_and_redirect",
+        "reason": "autonomous_discovery"
+      }
+    ],
+    "EDUCATION": [
+      {
+        "source_slug": "grades",
+        "target_slug": "gpa-grades",
+        "source_name": "Grades",
+        "target_name": "GPA & Grades",
+        "source_count": 7,
+        "target_count": 20,
+        "action": "merge_and_redirect",
+        "reason": "autonomous_discovery"
+      },
+      {
+        "source_slug": "finance",
+        "target_slug": "education-finance",
+        "source_name": "FINANCE",
+        "target_name": "Education Finance",
+        "source_count": 3,
+        "target_count": 32,
+        "action": "merge_and_redirect",
+        "reason": "autonomous_discovery"
+      },
+      {
+        "source_slug": "study-skills",
+        "target_slug": "study-skills-productivity",
+        "source_name": "Study Skills",
+        "target_name": "Study Skills & Productivity",
+        "source_count": 4,
+        "target_count": 29,
+        "action": "merge_and_redirect",
+        "reason": "autonomous_discovery"
+      }
+    ]
+  },
+  "relocations": [
+    {
+      "source_category": "FINANCE",
+      "target_category": "BUSINESS",
+      "slug": "saas-startup",
+      "name": "SaaS & Startup",
+      "count": 50
+    },
+    {
+      "source_category": "HEALTH",
+      "target_category": "SPORTS",
+      "slug": "fantasy-betting",
+      "name": "Fantasy & Betting",
+      "count": 28
+    },
+    {
+      "source_category": "HEALTH",
+      "target_category": "TRANSPORTATION",
+      "slug": "motorsports-special",
+      "name": "Motorsports & Special",
+      "count": 21
+    },
+    {
+      "source_category": "HEALTH",
+      "target_category": "EVERYDAY_LIFE",
+      "slug": "pets-animals",
+      "name": "Pets & Animals",
+      "count": 41
+    }
+  ],
+  "manual_review": [
+    {
+      "category": "MATH",
+      "source": {
+        "slug": "statistics",
+        "name": "Statistics",
+        "count": 94
+      },
+      "target": {
+        "slug": "statistics-probability",
+        "name": "Statistics & Probability",
+        "count": 63
+      },
+      "reason": "both > 50 count"
+    },
+    {
+      "category": "MATH",
+      "source": {
+        "slug": "statistics",
+        "name": "Statistics",
+        "count": 94
+      },
+      "target": {
+        "slug": "statistics-probability",
+        "name": "Statistics & Probability",
+        "count": 63
+      },
+      "reason": "both > 50 count"
+    },
+    {
+      "category": "ENGINEERING",
+      "source": {
+        "slug": "electronics",
+        "name": "Electronics",
+        "count": 53
+      },
+      "target": {
+        "slug": "electronics-embedded-systems",
+        "name": "Electronics & Embedded Systems",
+        "count": 65
+      },
+      "reason": "both > 50 count"
+    },
+    {
+      "category": "ENGINEERING",
+      "source": {
+        "slug": "electronics",
+        "name": "Electronics",
+        "count": 53
+      },
+      "target": {
+        "slug": "electronics-embedded-systems",
+        "name": "Electronics & Embedded Systems",
+        "count": 65
+      },
+      "reason": "both > 50 count"
+    }
+  ]
+}

@@ -1,129 +1,81 @@
 export const CATEGORY_SUMMARY = [
   {
     "category": "FINANCE",
-    "total": 1637,
+    "total": 1587,
     "subcategories": [
       {
+        "name": "Investment & Wealth",
+        "count": 241
+      },
+      {
         "name": "Loans & Mortgages",
-        "count": 212
+        "count": 215
       },
       {
-        "name": "Debt & Credit",
-        "count": 50
+        "name": "Tax",
+        "count": 183
       },
       {
-        "name": "Income & Tax",
-        "count": 94
-      },
-      {
-        "name": "Investment",
-        "count": 123
-      },
-      {
-        "name": "Savings",
-        "count": 12
-      },
-      {
-        "name": "Employment",
-        "count": 3
-      },
-      {
-        "name": "Growth",
-        "count": 15
-      },
-      {
-        "name": "Retirement",
-        "count": 75
-      },
-      {
-        "name": "General",
-        "count": 18
-      },
-      {
-        "name": "Crypto",
-        "count": 6
+        "name": "Savings & Banking",
+        "count": 142
       },
       {
         "name": "Personal Finance",
-        "count": 109
+        "count": 130
+      },
+      {
+        "name": "Real Estate Finance",
+        "count": 119
       },
       {
         "name": "Insurance",
         "count": 88
       },
       {
-        "name": "Loans",
-        "count": 2
+        "name": "Economics",
+        "count": 81
       },
       {
-        "name": "Interest",
-        "count": 3
-      },
-      {
-        "name": "Auto",
-        "count": 1
-      },
-      {
-        "name": "Real Estate",
-        "count": 5
-      },
-      {
-        "name": "Savings & Banking",
-        "count": 127
-      },
-      {
-        "name": "SaaS & Startup",
-        "count": 50
-      },
-      {
-        "name": "Crypto & DeFi",
-        "count": 43
-      },
-      {
-        "name": "Law & Legal Finance",
-        "count": 52
-      },
-      {
-        "name": "Real Estate Finance",
-        "count": 114
-      },
-      {
-        "name": "Investment & Wealth",
-        "count": 103
-      },
-      {
-        "name": "Tax",
-        "count": 89
+        "name": "Retirement",
+        "count": 75
       },
       {
         "name": "Accounting & Financial Statements",
         "count": 63
       },
       {
-        "name": "Economics",
-        "count": 81
+        "name": "Options & Derivatives",
+        "count": 59
+      },
+      {
+        "name": "Law & Legal Finance",
+        "count": 52
+      },
+      {
+        "name": "Debt & Credit",
+        "count": 50
+      },
+      {
+        "name": "Crypto & DeFi",
+        "count": 49
       },
       {
         "name": "Cryptocurrency (Offline Math)",
         "count": 40
-      },
-      {
-        "name": "Options & Derivatives",
-        "count": 59
       }
     ]
   },
   {
     "category": "BUSINESS",
-    "total": 754,
+    "total": 804,
     "subcategories": [
       {
-        "name": "Pricing & Revenue",
-        "count": 83
+        "name": "SaaS & Startups",
+        "count": 122
       },
       {
-        "name": "SaaS & Startups",
-        "count": 72
+        "name": "Business Finance",
+        "count": 102
       },
       {
         "name": "Sales & Marketing",
@@ -134,210 +86,114 @@ export const CATEGORY_SUMMARY = [
         "count": 86
       },
       {
-        "name": "Operations & Supply Chain",
-        "count": 80
-      },
-      {
-        "name": "Project Management & Finance",
-        "count": 79
-      },
-      {
-        "name": "Entrepreneurship & Strategy",
-        "count": 80
+        "name": "Pricing & Revenue",
+        "count": 83
       },
       {
         "name": "Logistics & Trade",
         "count": 82
       },
       {
-        "name": "Business Finance",
-        "count": 86
+        "name": "Operations & Supply Chain",
+        "count": 80
       },
       {
-        "name": "Business",
-        "count": 16
+        "name": "Entrepreneurship & Strategy",
+        "count": 80
+      },
+      {
+        "name": "Project Management & Finance",
+        "count": 79
       }
     ]
   },
   {
     "category": "HEALTH",
-    "total": 1492,
+    "total": 1402,
     "subcategories": [
       {
-        "name": "Body Metrics",
-        "count": 48
-      },
-      {
         "name": "Nutrition & Diet",
-        "count": 147
+        "count": 165
       },
       {
         "name": "Fitness & Exercise",
-        "count": 129
+        "count": 147
       },
       {
-        "name": "Pregnancy & Fertility",
-        "count": 36
+        "name": "Pharmacy & Dosing",
+        "count": 127
+      },
+      {
+        "name": "Clinical & Medical",
+        "count": 120
+      },
+      {
+        "name": "Body Metrics & Anthropometry",
+        "count": 111
+      },
+      {
+        "name": "Sleep & Mental Health",
+        "count": 88
       },
       {
         "name": "Medical Risk & Clinical Scores",
         "count": 80
       },
       {
-        "name": "Clinical & Dosing",
-        "count": 68
+        "name": "Pediatric Health",
+        "count": 78
       },
       {
-        "name": "Pediatric",
-        "count": 35
-      },
-      {
-        "name": "Sleep & Mental Health",
-        "count": 37
-      },
-      {
-        "name": "Pets & Animals",
-        "count": 41
-      },
-      {
-        "name": "Body Metrics & Anthropometry",
-        "count": 63
-      },
-      {
-        "name": "Clinical & Medical",
-        "count": 92
-      },
-      {
-        "name": "Pharmacy & Dosing",
-        "count": 59
-      },
-      {
-        "name": "Mental Health",
+        "name": "Pregnancy & Fertility",
         "count": 51
-      },
-      {
-        "name": "Women",
-        "count": 42
-      },
-      {
-        "name": "Aging & Geriatrics",
-        "count": 39
-      },
-      {
-        "name": "Epidemiology & Public Health",
-        "count": 48
       },
       {
         "name": "Cardiovascular & Metabolic Health",
         "count": 49
       },
       {
-        "name": "Pediatric Health",
-        "count": 43
-      },
-      {
-        "name": "Nutrition",
-        "count": 18
-      },
-      {
-        "name": "Pregnancy",
-        "count": 15
-      },
-      {
-        "name": "Activity",
-        "count": 18
-      },
-      {
-        "name": "Medical",
-        "count": 28
-      },
-      {
-        "name": "Running & Endurance",
-        "count": 29
-      },
-      {
-        "name": "Cycling & Water Sports",
-        "count": 26
-      },
-      {
-        "name": "Weightlifting & Strength",
-        "count": 27
-      },
-      {
-        "name": "Track & Field",
-        "count": 26
+        "name": "Epidemiology & Public Health",
+        "count": 48
       },
       {
         "name": "Ball Sports",
+        "count": 43
+      },
+      {
+        "name": "Women",
+        "count": 42
+      },
+      {
+        "name": "Running & Endurance",
+        "count": 39
+      },
+      {
+        "name": "Aging & Geriatrics",
+        "count": 39
+      },
+      {
+        "name": "Cycling & Water Sports",
         "count": 36
       },
       {
-        "name": "Winter, Water & Extreme",
-        "count": 23
-      },
-      {
-        "name": "Combat & Individual",
-        "count": 24
+        "name": "Weightlifting & Strength",
+        "count": 33
       },
       {
         "name": "Fitness Analytics",
         "count": 33
       },
       {
-        "name": "Fantasy & Betting",
-        "count": 28
+        "name": "Track & Field",
+        "count": 26
       },
       {
-        "name": "Motorsports & Special",
-        "count": 21
+        "name": "Combat & Individual",
+        "count": 24
       },
       {
-        "name": "Running",
-        "count": 8
-      },
-      {
-        "name": "Cycling",
-        "count": 5
-      },
-      {
-        "name": "Swimming",
-        "count": 5
-      },
-      {
-        "name": "Weightlifting",
-        "count": 6
-      },
-      {
-        "name": "Triathlon",
-        "count": 1
-      },
-      {
-        "name": "Bowling",
-        "count": 1
-      },
-      {
-        "name": "Baseball",
-        "count": 1
-      },
-      {
-        "name": "Basketball",
-        "count": 2
-      },
-      {
-        "name": "Football",
-        "count": 1
-      },
-      {
-        "name": "Tennis",
-        "count": 1
-      },
-      {
-        "name": "Billiards",
-        "count": 1
-      },
-      {
-        "name": "Walking",
-        "count": 1
+        "name": "Winter, Water & Extreme",
+        "count": 23
       }
     ]
   },
@@ -346,80 +202,48 @@ export const CATEGORY_SUMMARY = [
     "total": 1072,
     "subcategories": [
       {
-        "name": "Basic",
-        "count": 28
-      },
-      {
-        "name": "Statistics",
-        "count": 94
-      },
-      {
-        "name": "Algebra & Geometry",
-        "count": 18
-      },
-      {
-        "name": "Binary & Hex",
-        "count": 2
-      },
-      {
-        "name": "Algebra",
-        "count": 113
+        "name": "Financial Mathematics",
+        "count": 165
       },
       {
         "name": "Geometry",
         "count": 143
       },
       {
+        "name": "Algebra",
+        "count": 131
+      },
+      {
+        "name": "Number Theory & Discrete Math",
+        "count": 124
+      },
+      {
         "name": "Calculus",
         "count": 112
       },
       {
-        "name": "Discrete Math",
-        "count": 6
-      },
-      {
-        "name": "Number Theory",
-        "count": 1
-      },
-      {
-        "name": "Basic Arithmetic",
-        "count": 35
+        "name": "Statistics",
+        "count": 94
       },
       {
         "name": "Trigonometry",
         "count": 76
       },
       {
-        "name": "Linear Algebra",
-        "count": 36
-      },
-      {
-        "name": "Number Theory & Discrete Math",
-        "count": 54
-      },
-      {
-        "name": "Applied & Financial Math",
-        "count": 59
-      },
-      {
         "name": "Arithmetic & Number Theory",
         "count": 65
+      },
+      {
+        "name": "Basic Arithmetic",
+        "count": 63
       },
       {
         "name": "Statistics & Probability",
         "count": 63
       },
       {
-        "name": "Discrete Math & Logic",
-        "count": 61
-      },
-      {
-        "name": "Financial Mathematics",
-        "count": 51
-      },
-      {
-        "name": "Applied Mathematics",
-        "count": 55
+        "name": "Linear Algebra",
+        "count": 36
       }
     ]
   },
@@ -428,84 +252,44 @@ export const CATEGORY_SUMMARY = [
     "total": 997,
     "subcategories": [
       {
-        "name": "Physics",
-        "count": 45
-      },
-      {
         "name": "Chemistry",
         "count": 140
       },
       {
-        "name": "Weather",
-        "count": 4
-      },
-      {
-        "name": "Earth Science",
-        "count": 14
-      },
-      {
-        "name": "Mechanics & Motion",
-        "count": 28
-      },
-      {
-        "name": "Kinematics & Dynamics",
-        "count": 33
-      },
-      {
-        "name": "Thermodynamics & Fluids",
-        "count": 50
-      },
-      {
-        "name": "Electricity & Magnetism",
-        "count": 44
-      },
-      {
-        "name": "Waves, Optics & Nuclear",
-        "count": 54
-      },
-      {
-        "name": "Astrophysics & Relativity",
-        "count": 45
-      },
-      {
-        "name": "Earth, Atmosphere & Geography",
-        "count": 53
-      },
-      {
-        "name": "Biology & Genetics",
-        "count": 51
-      },
-      {
-        "name": "Aquatics & Marine Science",
-        "count": 35
+        "name": "Biology & Life Sciences",
+        "count": 125
       },
       {
         "name": "Physics – Mechanics",
-        "count": 62
+        "count": 107
       },
       {
-        "name": "Physics – Thermodynamics",
-        "count": 49
-      },
-      {
-        "name": "Physics – Electricity & Magnetism",
-        "count": 56
-      },
-      {
-        "name": "Physics – Waves & Optics",
-        "count": 49
-      },
-      {
-        "name": "Biology & Life Sciences",
-        "count": 74
+        "name": "Waves, Optics & Nuclear",
+        "count": 103
       },
       {
         "name": "Astronomy & Space Science",
-        "count": 58
+        "count": 103
+      },
+      {
+        "name": "Physics – Electricity & Magnetism",
+        "count": 100
+      },
+      {
+        "name": "Thermodynamics & Fluids",
+        "count": 99
+      },
+      {
+        "name": "Earth, Atmosphere & Geography",
+        "count": 92
       },
       {
         "name": "Earth Science & Geology",
-        "count": 53
+        "count": 67
+      },
+      {
+        "name": "Mechanics & Motion",
+        "count": 61
       }
     ]
   },
@@ -514,8 +298,8 @@ export const CATEGORY_SUMMARY = [
     "total": 1201,
     "subcategories": [
       {
-        "name": "Civil Engineering",
-        "count": 52
+        "name": "Civil & Structural Engineering",
+        "count": 189
       },
       {
         "name": "Mechanical Engineering",
@@ -530,8 +314,24 @@ export const CATEGORY_SUMMARY = [
         "count": 126
       },
       {
-        "name": "Electronics",
-        "count": 53
+        "name": "Industrial & Manufacturing",
+        "count": 123
+      },
+      {
+        "name": "Electronics & Embedded Systems",
+        "count": 118
+      },
+      {
+        "name": "Materials Science",
+        "count": 116
+      },
+      {
+        "name": "Aerospace Engineering",
+        "count": 105
+      },
+      {
+        "name": "Environmental Engineering",
+        "count": 73
       },
       {
         "name": "Piping & Flow",
@@ -540,38 +340,6 @@ export const CATEGORY_SUMMARY = [
       {
         "name": "Structural Connections",
         "count": 31
-      },
-      {
-        "name": "Aerospace Engineering",
-        "count": 105
-      },
-      {
-        "name": "Process & Industrial",
-        "count": 37
-      },
-      {
-        "name": "Materials & Vibration",
-        "count": 37
-      },
-      {
-        "name": "Civil & Structural Engineering",
-        "count": 137
-      },
-      {
-        "name": "Materials Science",
-        "count": 79
-      },
-      {
-        "name": "Industrial & Manufacturing",
-        "count": 86
-      },
-      {
-        "name": "Environmental Engineering",
-        "count": 73
-      },
-      {
-        "name": "Electronics & Embedded Systems",
-        "count": 65
       }
     ]
   },
@@ -580,120 +348,32 @@ export const CATEGORY_SUMMARY = [
     "total": 911,
     "subcategories": [
       {
-        "name": "Networking",
-        "count": 35
-      },
-      {
-        "name": "Storage & Hardware",
-        "count": 26
-      },
-      {
-        "name": "Security",
-        "count": 31
-      },
-      {
-        "name": "Cloud & Infrastructure",
-        "count": 27
-      },
-      {
-        "name": "Software Development",
-        "count": 35
-      },
-      {
-        "name": "AI & Machine Learning",
-        "count": 37
-      },
-      {
-        "name": "Gaming & Display",
-        "count": 23
-      },
-      {
-        "name": "Web & SEO",
-        "count": 27
-      },
-      {
-        "name": "Marketing & Analytics",
-        "count": 26
-      },
-      {
-        "name": "Performance & DevOps",
-        "count": 31
-      },
-      {
         "name": "Programming & Software",
-        "count": 87
-      },
-      {
-        "name": "Networking & Infrastructure",
-        "count": 82
-      },
-      {
-        "name": "Cybersecurity",
-        "count": 75
-      },
-      {
-        "name": "Data Science & AI/ML",
-        "count": 91
-      },
-      {
-        "name": "Cloud & DevOps",
-        "count": 75
+        "count": 161
       },
       {
         "name": "Web & Digital",
-        "count": 68
+        "count": 143
+      },
+      {
+        "name": "Cloud & DevOps",
+        "count": 136
+      },
+      {
+        "name": "Data Science & AI/ML",
+        "count": 128
+      },
+      {
+        "name": "Networking & Infrastructure",
+        "count": 122
       },
       {
         "name": "Database & Storage",
-        "count": 77
+        "count": 115
       },
       {
-        "name": "General",
-        "count": 5
-      },
-      {
-        "name": "Storage",
-        "count": 5
-      },
-      {
-        "name": "Display",
-        "count": 3
-      },
-      {
-        "name": "Hardware",
-        "count": 7
-      },
-      {
-        "name": "Infrastructure",
-        "count": 3
-      },
-      {
-        "name": "Software",
-        "count": 4
-      },
-      {
-        "name": "Design",
-        "count": 3
-      },
-      {
-        "name": "Network",
-        "count": 5
-      },
-      {
-        "name": "Gaming",
-        "count": 4
-      },
-      {
-        "name": "Creator",
-        "count": 5
-      },
-      {
-        "name": "Web",
-        "count": 4
-      },
-      {
-        "name": "Marketing",
-        "count": 10
+        "name": "Cybersecurity",
+        "count": 106
       }
     ]
   },
@@ -702,32 +382,44 @@ export const CATEGORY_SUMMARY = [
     "total": 737,
     "subcategories": [
       {
-        "name": "Footprint",
-        "count": 9
+        "name": "Renewable Energy",
+        "count": 118
       },
       {
-        "name": "Offset",
-        "count": 1
+        "name": "Climate & Carbon",
+        "count": 85
       },
       {
-        "name": "Energy",
-        "count": 4
+        "name": "Agriculture & Food Systems",
+        "count": 83
       },
       {
-        "name": "Gardening",
-        "count": 1
+        "name": "Water & Waste",
+        "count": 81
       },
       {
-        "name": "Conservation",
-        "count": 3
+        "name": "Ecology & Biodiversity",
+        "count": 67
       },
       {
-        "name": "Analysis",
-        "count": 2
+        "name": "Forestry & Land Use",
+        "count": 57
+      },
+      {
+        "name": "Livestock & Food Production",
+        "count": 46
+      },
+      {
+        "name": "Crops & Soil",
+        "count": 43
       },
       {
         "name": "Carbon Footprint",
-        "count": 32
+        "count": 41
+      },
+      {
+        "name": "Farm Business & Sustainability",
+        "count": 35
       },
       {
         "name": "Water & Resource Use",
@@ -739,117 +431,45 @@ export const CATEGORY_SUMMARY = [
       },
       {
         "name": "Offset & Sequestration",
-        "count": 25
-      },
-      {
-        "name": "Renewable Energy",
-        "count": 114
-      },
-      {
-        "name": "Crops & Soil",
-        "count": 42
-      },
-      {
-        "name": "Livestock & Food Production",
-        "count": 46
-      },
-      {
-        "name": "Farm Business & Sustainability",
-        "count": 35
-      },
-      {
-        "name": "Climate & Carbon",
-        "count": 83
-      },
-      {
-        "name": "Ecology & Biodiversity",
-        "count": 64
-      },
-      {
-        "name": "Water & Waste",
-        "count": 81
-      },
-      {
-        "name": "Agriculture & Food Systems",
-        "count": 83
-      },
-      {
-        "name": "Forestry & Land Use",
-        "count": 57
+        "count": 26
       }
     ]
   },
   {
     "category": "EVERYDAY_LIFE",
-    "total": 1001,
+    "total": 1070,
     "subcategories": [
       {
-        "name": "General",
-        "count": 17
+        "name": "Home & Household",
+        "count": 162
       },
       {
-        "name": "Time & Dates",
-        "count": 9
+        "name": "Food & Cooking",
+        "count": 149
       },
       {
-        "name": "Food & Kitchen",
-        "count": 9
+        "name": "Consumer & Shopping",
+        "count": 143
       },
       {
-        "name": "Home & Garden",
-        "count": 55
+        "name": "Gaming & Hobbies",
+        "count": 124
       },
       {
-        "name": "Shopping & Lifestyle",
-        "count": 12
+        "name": "Travel & Recreation",
+        "count": 124
       },
       {
-        "name": "Travel",
-        "count": 47
+        "name": "Time & Productivity",
+        "count": 106
       },
       {
-        "name": "FINANCE",
-        "count": 5
-      },
-      {
-        "name": "Animals",
-        "count": 1
-      },
-      {
-        "name": "Food",
-        "count": 7
-      },
-      {
-        "name": "Home",
-        "count": 17
-      },
-      {
-        "name": "Garden",
-        "count": 6
-      },
-      {
-        "name": "Pets",
-        "count": 6
-      },
-      {
-        "name": "Time, Dates & Productivity",
-        "count": 32
-      },
-      {
-        "name": "Food, Kitchen & Cooking",
-        "count": 51
-      },
-      {
-        "name": "Shopping & Personal Finance",
-        "count": 44
+        "name": "Personal & Family",
+        "count": 97
       },
       {
         "name": "Creative & Arts",
         "count": 75
-      },
-      {
-        "name": "Gaming & Hobbies",
-        "count": 48
       },
       {
         "name": "DIY & Crafts",
@@ -858,72 +478,60 @@ export const CATEGORY_SUMMARY = [
       {
         "name": "Fun & Personal",
         "count": 31
-      },
-      {
-        "name": "Food & Cooking",
-        "count": 82
-      },
-      {
-        "name": "Home & Household",
-        "count": 84
-      },
-      {
-        "name": "Travel & Recreation",
-        "count": 77
-      },
-      {
-        "name": "Personal & Family",
-        "count": 80
-      },
-      {
-        "name": "Consumer & Shopping",
-        "count": 82
-      },
-      {
-        "name": "Time & Productivity",
-        "count": 65
       }
     ]
   },
   {
     "category": "TRANSPORTATION",
-    "total": 641,
+    "total": 662,
     "subcategories": [
       {
-        "name": "General",
-        "count": 6
+        "name": "Automotive",
+        "count": 100
       },
       {
-        "name": "Costs",
-        "count": 1
+        "name": "Electric Vehicles",
+        "count": 73
       },
       {
-        "name": "Performance",
-        "count": 2
+        "name": "Rail & Transit",
+        "count": 65
       },
       {
-        "name": "Costs & Ownership",
-        "count": 23
+        "name": "Marine & Boating",
+        "count": 63
       },
       {
-        "name": "EV & Alternative Fuel",
-        "count": 27
+        "name": "Aviation",
+        "count": 61
+      },
+      {
+        "name": "Cycling & Micro-Mobility",
+        "count": 56
+      },
+      {
+        "name": "Performance & Engine",
+        "count": 32
       },
       {
         "name": "Buying & Selling",
         "count": 27
       },
       {
-        "name": "Tires & Wheels",
-        "count": 20
-      },
-      {
-        "name": "Performance & Engine",
-        "count": 30
+        "name": "EV & Alternative Fuel",
+        "count": 27
       },
       {
         "name": "Safety & Driving",
         "count": 25
+      },
+      {
+        "name": "Costs & Ownership",
+        "count": 24
+      },
+      {
+        "name": "Fleet & Motorsports",
+        "count": 23
       },
       {
         "name": "Suspension & Handling",
@@ -934,32 +542,12 @@ export const CATEGORY_SUMMARY = [
         "count": 22
       },
       {
-        "name": "Fleet & Motorsports",
-        "count": 23
+        "name": "Motorsports & Special",
+        "count": 21
       },
       {
-        "name": "Automotive",
-        "count": 94
-      },
-      {
-        "name": "Electric Vehicles",
-        "count": 73
-      },
-      {
-        "name": "Aviation",
-        "count": 61
-      },
-      {
-        "name": "Marine & Boating",
-        "count": 63
-      },
-      {
-        "name": "Rail & Transit",
-        "count": 65
-      },
-      {
-        "name": "Cycling & Micro-Mobility",
-        "count": 56
+        "name": "Tires & Wheels",
+        "count": 20
       }
     ]
   },
@@ -968,8 +556,32 @@ export const CATEGORY_SUMMARY = [
     "total": 775,
     "subcategories": [
       {
-        "name": "Concrete & Foundation",
-        "count": 35
+        "name": "Estimating & Costs",
+        "count": 138
+      },
+      {
+        "name": "Materials & Quantities",
+        "count": 119
+      },
+      {
+        "name": "Green Building & Energy Efficiency",
+        "count": 95
+      },
+      {
+        "name": "Surveying & Site Work",
+        "count": 91
+      },
+      {
+        "name": "HVAC & Mechanical Systems",
+        "count": 64
+      },
+      {
+        "name": "Plumbing & Electrical",
+        "count": 60
+      },
+      {
+        "name": "MEP — Mechanical, Electrical & Plumbing",
+        "count": 46
       },
       {
         "name": "Masonry, Walls & Framing",
@@ -980,60 +592,16 @@ export const CATEGORY_SUMMARY = [
         "count": 35
       },
       {
-        "name": "MEP — Mechanical, Electrical & Plumbing",
-        "count": 46
-      },
-      {
-        "name": "Insulation & Finishing",
-        "count": 26
+        "name": "Concrete & Foundation",
+        "count": 35
       },
       {
         "name": "Measurement & Layout",
         "count": 30
       },
       {
-        "name": "Real Estate",
-        "count": 18
-      },
-      {
-        "name": "Green Building",
-        "count": 31
-      },
-      {
-        "name": "Project Management & Estimating",
-        "count": 34
-      },
-      {
-        "name": "Surveying & GIS",
-        "count": 29
-      },
-      {
-        "name": "Estimating & Costs",
-        "count": 86
-      },
-      {
-        "name": "Materials & Quantities",
-        "count": 107
-      },
-      {
-        "name": "HVAC & Mechanical Systems",
-        "count": 64
-      },
-      {
-        "name": "Surveying & Site Work",
-        "count": 62
-      },
-      {
-        "name": "Green Building & Energy Efficiency",
-        "count": 64
-      },
-      {
-        "name": "Plumbing & Electrical",
-        "count": 60
-      },
-      {
-        "name": "General",
-        "count": 12
+        "name": "Insulation & Finishing",
+        "count": 26
       }
     ]
   },
@@ -1041,50 +609,6 @@ export const CATEGORY_SUMMARY = [
     "category": "EDUCATION",
     "total": 535,
     "subcategories": [
-      {
-        "name": "General",
-        "count": 4
-      },
-      {
-        "name": "Grades",
-        "count": 7
-      },
-      {
-        "name": "FINANCE",
-        "count": 3
-      },
-      {
-        "name": "Study Skills",
-        "count": 4
-      },
-      {
-        "name": "Standardized Tests",
-        "count": 36
-      },
-      {
-        "name": "Admissions",
-        "count": 1
-      },
-      {
-        "name": "GPA & Grades",
-        "count": 20
-      },
-      {
-        "name": "Education Finance",
-        "count": 32
-      },
-      {
-        "name": "Study Skills & Productivity",
-        "count": 29
-      },
-      {
-        "name": "Academic Planning",
-        "count": 22
-      },
-      {
-        "name": "Language Learning",
-        "count": 23
-      },
       {
         "name": "Teaching & Curriculum",
         "count": 95
@@ -1104,6 +628,30 @@ export const CATEGORY_SUMMARY = [
       {
         "name": "Research & Academic Tools",
         "count": 60
+      },
+      {
+        "name": "Standardized Tests",
+        "count": 36
+      },
+      {
+        "name": "Education Finance",
+        "count": 35
+      },
+      {
+        "name": "Study Skills & Productivity",
+        "count": 33
+      },
+      {
+        "name": "GPA & Grades",
+        "count": 27
+      },
+      {
+        "name": "Academic Planning",
+        "count": 27
+      },
+      {
+        "name": "Language Learning",
+        "count": 23
       }
     ]
   }

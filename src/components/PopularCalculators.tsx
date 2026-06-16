@@ -13,10 +13,11 @@ const PopularCalculators = ({ exclude }: { exclude?: string }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {items.map((c) => {
           const Icon = c.icon ?? getCategoryIcon(c.category);
+          const catSlug = c.category ? c.category.toLowerCase().replace(/\s+/g, '-') : 'general';
           return (
           <Link
             key={c.slug}
-            href={`/calculator/${c.slug}`}
+            href={`/calculator/${catSlug}/${c.slug}`}
             className="h-[140px] flex items-start gap-4 p-4 rounded-xl border border-border bg-card hover:bg-secondary/30 hover:border-primary/30 transition-all group"
           >
             <div className="p-2 bg-primary/10 rounded-lg shrink-0 mt-0.5">

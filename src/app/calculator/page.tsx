@@ -153,7 +153,7 @@ export default function Home() {
         <p>
           Managing personal finances, tracking health metrics, solving math problems, or planning construction projects — 
           having the right tools at your fingertips makes all the difference.
-          Racira Calculator provides a comprehensive suite of 5000+ free online calculators designed to help you make
+          Racira Calculator provides a comprehensive suite of 11,000+ free online calculators designed to help you make
           informed decisions in every area of life.
         </p>
         <p>

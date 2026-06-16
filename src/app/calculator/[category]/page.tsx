@@ -19,11 +19,23 @@ import {
 import { CATEGORY_SUMMARY } from "../summaryData";
 import { toSlug } from "@/lib/utils/slug";
 
+const categoryMap: Record<string, string> = {
+  "FINANCE": "Finance",
+  "BUSINESS": "Business",
+  "HEALTH": "Health",
+  "MATH": "Math",
+  "SCIENCE": "Science",
+  "ENGINEERING": "Engineering",
+  "TECHNOLOGY": "Technology",
+  "ENVIRONMENT": "Environment",
+  "EVERYDAY_LIFE": "Everyday Life",
+  "TRANSPORTATION": "Transportation",
+  "CONSTRUCTION": "Construction",
+  "EDUCATION": "Education"
+};
+
 const formatCategory = (cat: string) => {
-  if (cat === 'EVERYDAY_LIFE') return 'Everyday Life';
-  let formatted = cat.charAt(0).toUpperCase() + cat.slice(1).toLowerCase();
-  if (formatted.toLowerCase() === 'finance') formatted = 'Financial';
-  return formatted;
+  return categoryMap[cat.toUpperCase()] || cat;
 };
 
 const getCategoryIcon = (category: string) => {
