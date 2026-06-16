@@ -367,8 +367,7 @@ const PmiCalculator = () => {
                       max="50"
                       value={customTerm}
                       onChange={e => setCustomTerm(e.target.value)}
-                      style={{ MozAppearance: "textfield" } as React.CSSProperties}
-                      className="flex-1 min-w-[48px] h-full bg-transparent px-2 md:px-3 text-sm focus:outline-none border-none text-foreground [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none rounded-l-md"
+                      className="loan-term-custom-input flex-1 h-full bg-transparent text-sm focus:outline-none border-none rounded-l-md"
                     />
                     <span className="px-1 md:px-2 text-[13px] md:text-sm text-muted-foreground font-medium select-none shrink-0">Years</span>
                     <div className="relative h-full flex items-center border-l border-input shrink-0 min-w-[72px] overflow-visible bg-secondary/20 hover:bg-secondary/40 transition-colors rounded-r-md">

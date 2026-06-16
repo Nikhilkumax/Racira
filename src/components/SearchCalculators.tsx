@@ -144,7 +144,7 @@ const SearchCalculators = () => {
             return (
               <Link
                 key={c.slug}
-                href={`/calculator/${catSlug}/${c.slug}`}
+                href={`/calculator/${c.slug}`}
                 prefetch={false}
                 onClick={() => { 
                   if (!c.isBuilt) trackComingSoonClick(c.slug, "search");
