@@ -162,10 +162,10 @@ const PmiCalculator = () => {
     setInterestRate("6.5"); setLoanTerm("30"); setCreditScore("720");
     setLoanType("conventional"); setPropertyUse("primary");
     setStartMonth(MONTHS[now.getMonth()]); setStartYear(String(now.getFullYear()));
-    setPaymentFreq("monthly"); setPmiMode("auto"); setManualPmiRate("0.5");
+    setPaymentFreq("monthly"); setPmiMode("auto"); setManualPmiRate("0");
     setPropertyTax("3600"); setHomeInsurance("1200"); setHoaFee("0");
     setExtraMonthly("0"); setOneTimeExtra("0"); setAnnualExtra("0");
-    setFhaMipMode("auto"); setManualFhaMipRate("0.85");
+    setFhaMipMode("auto"); setManualFhaMipRate("0");
     setVaFundingFeeRate("2.15"); setAppreciationRate("0");
     setCancelEarlyExtra("0"); setIsCustomTerm(false); setCustomTerm("17");
     setCalcInputs(defaultInputs);
@@ -192,9 +192,12 @@ const PmiCalculator = () => {
   else if (isInvalidDp) valErrors.dp = "Down Payment must be less than Home Value";
   else if (dpMode === "percent" && (parseFloat(dpPct) || 0) > 100) valErrors.dp = "Down Payment % cannot exceed 100";
   const ir = parseFloat(interestRate) || 0;
-  if (ir < 0.1 || ir > 30) valErrors.interestRate = "Interest Rate must be between 0.1% and 30%";
+  if (ir < 0.1 || ir > 99) valErrors.interestRate = "Interest Rate must be between 0.1% and 99%";
   const creditScoreNum = parseInt(creditScore) || 0;
   if (!creditScore || creditScoreNum < 300 || creditScoreNum > 850) valErrors.creditScore = "Credit Score must be between 300 and 850";
+  if (liveLtv > 97 && loanType === "conventional") valErrors.dp = "Conventional loans typically require at least 3% down (LTV ≤ 97%)";
+  const sy = parseInt(startYear) || 0;
+  if (sy < 1900 || sy > 2100) valErrors.startYear = "Year must be 1900-2100";
   const termVal = isCustomTerm ? (parseFloat(customTerm) || 0) : (parseFloat(loanTerm) || 0);
   if (termVal <= 0) valErrors.loanTerm = "Loan Term must be > 0";
   if (pmiMode === "manual" && (parseFloat(manualPmiRate) || 0) < 0) valErrors.pmiRate = "PMI Rate must be ≥ 0";
@@ -238,24 +241,22 @@ const PmiCalculator = () => {
   const pieDataWithPcts = pieDataArr.map((item, i) => ({ ...item, pct: piePcts[i] }));
   const pieData = pieDataWithPcts.filter(d => d.value > 0);
 
-  const totalTax = calcInputs.propertyTax * calcInputs.loanTerm;
-  const totalInsurance = calcInputs.homeInsurance * calcInputs.loanTerm;
-  const totalHoa = calcInputs.hoaFee * 12 * calcInputs.loanTerm;
+  const termMonths = calcInputs.loanTerm * 12;
   
   type BreakdownRow = { label: string; periodic: number; total: number; highlight?: boolean; isTotal?: boolean; note?: string; };
   
   const breakdown: BreakdownRow[] = [
-    { label: "Principal & Interest", periodic: results.monthlyPI * freqMult, total: results.totalPI },
-    { label: "Property Tax", periodic: results.monthlyTax * freqMult, total: totalTax },
-    { label: "Home Insurance", periodic: results.monthlyInsurance * freqMult, total: totalInsurance },
+    { label: "Principal & Interest", periodic: results.monthlyPI * freqMult, total: (results.monthlyPI * freqMult) * results.payoffPeriods },
+    { label: "Property Tax", periodic: results.monthlyTax * freqMult, total: results.monthlyTax * termMonths },
+    { label: "Home Insurance", periodic: results.monthlyInsurance * freqMult, total: results.monthlyInsurance * termMonths },
     { label: calcInputs.loanType === "fha" ? "MIP (Mortgage Ins.)" : calcInputs.loanType === "usda" ? "Guarantee Fee" : "PMI", periodic: results.monthlyPmi * freqMult, total: results.totalPmiCost, highlight: true },
-    { label: "HOA / Other Costs", periodic: results.monthlyHoa * freqMult, total: totalHoa },
+    { label: "HOA / Other Costs", periodic: results.monthlyHoa * freqMult, total: results.monthlyHoa * termMonths },
   ];
   if (calcInputs.loanType === "va") {
     breakdown[3] = { label: "PMI", periodic: 0, total: 0, highlight: false, note: "No PMI required" };
   }
   
-  const totalOutOfPocket = results.totalPI + totalTax + totalInsurance + totalHoa + results.totalPmiCost;
+  const totalOutOfPocket = ((results.monthlyPI * freqMult) * results.payoffPeriods) + (results.monthlyTax * termMonths) + (results.monthlyInsurance * termMonths) + (results.monthlyHoa * termMonths) + results.totalPmiCost;
   breakdown.push({ label: "Total Out-of-Pocket", periodic: results.totalMonthly * freqMult, total: totalOutOfPocket, isTotal: true });
 
   return (
@@ -367,7 +368,7 @@ const PmiCalculator = () => {
                       max="50"
                       value={customTerm}
                       onChange={e => setCustomTerm(e.target.value)}
-                      className="loan-term-custom-input flex-1 h-full bg-transparent text-sm focus:outline-none border-none rounded-l-md"
+                      className="loan-term-custom-input flex-1 h-full pl-3 pr-8 min-w-[80px] bg-transparent text-sm focus:outline-none border-none rounded-l-md text-foreground"
                     />
                     <span className="px-1 md:px-2 text-[13px] md:text-sm text-muted-foreground font-medium select-none shrink-0">Years</span>
                     <div className="relative h-full flex items-center border-l border-input shrink-0 min-w-[72px] overflow-visible bg-secondary/20 hover:bg-secondary/40 transition-colors rounded-r-md">
@@ -670,6 +671,16 @@ const PmiCalculator = () => {
               {!isInvalidDp && liveLtv > 0 && liveLtv < 95 && liveHv > 0 && (parseFloat(dpMode === "percent" ? dpPct : String((parseFloat(dpAmt)||0)/(liveHv)*100)) < 5) && loanType === "conventional" && (
                 <div className="text-sm text-amber-600 font-semibold bg-amber-500/10 border border-amber-500/20 p-2.5 rounded-md">
                   ⚠️ Conventional loans below 5% down are uncommon. Consider an FHA loan (as low as 3.5% down).
+                </div>
+              )}
+              {ir > 25 && ir <= 99 && (
+                <div className="text-sm text-amber-600 font-semibold bg-amber-500/10 border border-amber-500/20 p-2.5 rounded-md">
+                  ⚠️ Interest rates above 25% are unusually high for standard mortgages.
+                </div>
+              )}
+              {creditScoreNum > 0 && creditScoreNum < 620 && (
+                <div className="text-sm text-amber-600 font-semibold bg-amber-500/10 border border-amber-500/20 p-2.5 rounded-md">
+                  ⚠️ PMI may not be available for credit scores under 620.
                 </div>
               )}
               <div className="flex gap-2.5">

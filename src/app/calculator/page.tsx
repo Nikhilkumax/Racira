@@ -148,7 +148,7 @@ export default function Home() {
       </div>
 
       {/* SEO Content */}
-      <section className="max-w-3xl mx-auto px-4 pb-16 prose-finance">
+      <section className="max-w-7xl mx-auto px-4 pb-16 prose-finance">
         <h2>Why Use Racira Calculator?</h2>
         <p>
           Managing personal finances, tracking health metrics, solving math problems, or planning construction projects — 

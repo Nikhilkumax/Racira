@@ -75,6 +75,7 @@ export interface PmiResults {
   totalInterest: number;
   totalPI: number;
   payoffMonths: number;
+  payoffPeriods: number;
   vaFundingFee: number;
   fhaPmiLifetime: boolean;
   creditTierLabel: string;
@@ -127,6 +128,7 @@ interface LoopResult {
   totalInterest: number;
   pmiCancelMonth: number;
   payoffMonths: number;
+  payoffPeriods: number;
   totalPmiCost: number;
   ltvCurve: LtvPoint[];
   amortizationRows: AmortizationRow[];
@@ -139,11 +141,12 @@ function periodsConfig(freq: PaymentFreq): { periodsPerYear: number; rDivisor: n
 }
 
 function calcPiPayment(la: number, annualRate: number, loanTermMonths: number, freq: PaymentFreq): number {
-  const { periodsPerYear, rDivisor } = periodsConfig(freq);
-  const r = annualRate / 100 / rDivisor;
-  const n = loanTermMonths / 12 * periodsPerYear;
-  if (r === 0) return la / n;
-  return la * (r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+  const rMonthly = annualRate / 100 / 12;
+  const nMonthly = loanTermMonths;
+  const monthlyPi = rMonthly === 0 ? la / nMonthly : la * (rMonthly * Math.pow(1 + rMonthly, nMonthly)) / (Math.pow(1 + rMonthly, nMonthly) - 1);
+  if (freq === "weekly") return monthlyPi / 4;
+  if (freq === "biweekly") return monthlyPi / 2;
+  return monthlyPi;
 }
 
 function runLoop(opts: LoopOpts): LoopResult {
@@ -157,7 +160,12 @@ function runLoop(opts: LoopOpts): LoopResult {
   // Extra monthly converted to per-period equivalent
   const extraPerPeriod = (extraMonthly * 12) / periodsPerYear;
 
+  const isCustomTerm = ![120, 180, 240, 300, 360].includes(loanTermMonths);
+  const pmiAmortTermMonths = isCustomTerm ? 360 : loanTermMonths;
+  const stdPiPayment = calcPiPayment(la, annualRate, pmiAmortTermMonths, freq);
+
   let balance = la;
+  let standardBalance = la;
   let totalInterest = 0;
   let totalPmiCost = 0;
   let pmiCancelPeriod = -1;
@@ -199,6 +207,15 @@ function runLoop(opts: LoopOpts): LoopResult {
     balance = prevBalance - principal;
     if (balance < 0) balance = 0;
 
+    // Standard Amortization tracking (ignores extra payments, uses pmiAmortTermMonths)
+    const stdInterest = standardBalance * rPeriod;
+    let stdPrincipal = stdPiPayment - stdInterest;
+    if (stdPrincipal < 0) stdPrincipal = 0;
+    const prevStandardBalance = standardBalance;
+    if (stdPrincipal > standardBalance) stdPrincipal = standardBalance;
+    standardBalance -= stdPrincipal;
+    if (standardBalance < 0) standardBalance = 0;
+
     const currentMonth = Math.ceil(currentPeriod * 12 / periodsPerYear);
     const currentTarget = currentHv * 0.80;
 
@@ -211,8 +228,8 @@ function runLoop(opts: LoopOpts): LoopResult {
       } else if (isFha) {
         pmiActive = fhaPmiLifetime || currentMonth <= 132; // 11 years
       } else {
-        // Conventional: PMI active while prev balance > 80% threshold
-        pmiActive = prevBalance > currentTarget;
+        // Conventional: PMI active while prev standard balance > 80% threshold
+        pmiActive = prevStandardBalance > currentTarget;
       }
 
       if (pmiActive) {
@@ -220,8 +237,8 @@ function runLoop(opts: LoopOpts): LoopResult {
         totalPmiCost += pmiThisPeriod;
       }
 
-      // Record cancel period for conventional (first period where balance crosses below threshold)
-      if (!isFha && !isUsda && pmiCancelPeriod === -1 && prevBalance > currentTarget && balance <= currentTarget) {
+      // Record cancel period for conventional (first period where standard balance crosses below threshold)
+      if (!isFha && !isUsda && pmiCancelPeriod === -1 && prevStandardBalance > currentTarget && standardBalance <= currentTarget) {
         pmiCancelPeriod = currentPeriod;
       }
     }
@@ -267,6 +284,7 @@ function runLoop(opts: LoopOpts): LoopResult {
     totalInterest,
     pmiCancelMonth,
     payoffMonths: Math.ceil(currentPeriod * 12 / periodsPerYear),
+    payoffPeriods: currentPeriod,
     totalPmiCost,
     ltvCurve,
     amortizationRows: rows,
@@ -321,12 +339,12 @@ export function calculatePmi(inp: PmiInputs): PmiResults {
       pmiRate = inp.manualPmiRate;
       creditTierLabel = "Manual rate";
     } else {
-      const res = getConventionalPmiRate(ltv, inp.creditScore, inp.loanTerm, inp.propertyUse);
+      const res = getConventionalPmiRate(ltv, inp.creditScore, inp.propertyUse);
       pmiRate = res.rate;
       creditTierLabel = res.tierLabel;
     }
   } else {
-    const { label } = { label: getConventionalPmiRate(ltv, inp.creditScore, inp.loanTerm, inp.propertyUse).tierLabel };
+    const { label } = { label: getConventionalPmiRate(ltv, inp.creditScore, inp.propertyUse).tierLabel };
     creditTierLabel = label;
   }
 
@@ -364,10 +382,10 @@ export function calculatePmi(inp: PmiInputs): PmiResults {
     return {
       loanAmount: la, ltv, monthlyPI, pmiRequired: false, pmiRate: 0, monthlyPmi: 0,
       totalMonthly, monthlyTax, monthlyInsurance, monthlyHoa,
-      pmiCancelMonth: 0, pmiCancelDate: "N/A", totalPmiCost: 0, monthlySavingsAfterPmi: 0,
+      pmiCancelMonth: 0, pmiCancelDate: "Not Required", totalPmiCost: 0, monthlySavingsAfterPmi: 0,
       upfrontMip: 0, annualMipRate: 0, monthlyMip: 0, noMipLoan: true,
       totalInterest: loop.totalInterest, totalPI: la + loop.totalInterest,
-      payoffMonths: loop.payoffMonths, vaFundingFee, fhaPmiLifetime: false,
+      payoffMonths: loop.payoffMonths, payoffPeriods: loop.payoffPeriods, vaFundingFee, fhaPmiLifetime: false,
       creditTierLabel, interestSaved: 0, pmiMonthsSaved: 0,
       ltvCurve: loop.ltvCurve, ltvCurveAccel: [], ltvCurveAppreciation: [],
       amortizationRows: loop.amortizationRows, noPmiSavingsVs10: 0,
@@ -414,7 +432,7 @@ export function calculatePmi(inp: PmiInputs): PmiResults {
   // ── No PMI savings vs 10% down ──────────────────────────────────────────
   let noPmiSavingsVs10 = 0;
   if (!pmiRequired && isConventional) {
-    const { rate: rate10 } = getConventionalPmiRate(90, inp.creditScore, inp.loanTerm, inp.propertyUse);
+    const { rate: rate10 } = getConventionalPmiRate(90, inp.creditScore, inp.propertyUse);
     noPmiSavingsVs10 = (hv * 0.90 * rate10 / 100) / 12;
   }
 
@@ -427,8 +445,10 @@ export function calculatePmi(inp: PmiInputs): PmiResults {
       : addMonths(inp.startMonth, inp.startYear, pmiCancelMonth);
   } else if (isUsda) {
     pmiCancelDate = "Life of Loan";
+  } else if (isVa) {
+    pmiCancelDate = "Not Required";
   } else {
-    pmiCancelDate = pmiCancelMonth === 0 ? "N/A" : addMonths(inp.startMonth, inp.startYear, pmiCancelMonth);
+    pmiCancelDate = pmiCancelMonth === 0 ? "Not Required" : addMonths(inp.startMonth, inp.startYear, pmiCancelMonth);
   }
 
   const monthlySavingsAfterPmi = isFha
@@ -443,7 +463,8 @@ export function calculatePmi(inp: PmiInputs): PmiResults {
     monthlySavingsAfterPmi,
     upfrontMip, annualMipRate, monthlyMip, noMipLoan: false,
     totalInterest: main.totalInterest, totalPI: la + main.totalInterest,
-    payoffMonths: main.payoffMonths, vaFundingFee, fhaPmiLifetime,
+    payoffMonths: main.payoffMonths, payoffPeriods: main.payoffPeriods,
+    vaFundingFee, fhaPmiLifetime,
     creditTierLabel, interestSaved, pmiMonthsSaved,
     ltvCurve: noExtraLtvCurve,
     ltvCurveAccel: accelLtvCurve,

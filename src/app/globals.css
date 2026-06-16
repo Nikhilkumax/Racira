@@ -563,10 +563,10 @@
 .loan-term-custom-input {
   color: hsl(var(--foreground)); /* never transparent */
   opacity: 1;
-  min-width: 48px;
-  width: 56px;
-  padding-left: 8px;
-  padding-right: 20px; /* room for spinner arrows */
+  min-width: 80px;
+  width: 100%;
+  padding-left: 12px;
+  padding-right: 16px; /* room for spinner arrows at the far right */
   text-align: left;
   -moz-appearance: auto; /* preserve spinners in Firefox */
 }
