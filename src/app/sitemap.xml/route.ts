@@ -1,5 +1,4 @@
-import { CATEGORY_SUMMARY } from "@/app/calculator/summaryData";
-import { toSlug } from "@/lib/utils/slug";
+import { sitemapSources, paginate } from "@/lib/sitemap/sitemapSources";
 
 export async function GET() {
   const baseUrl = "https://racira.com";
@@ -18,11 +17,13 @@ export async function GET() {
 `;
 
   // Add individual category files dynamically
-  CATEGORY_SUMMARY.forEach(c => {
-    const catSlug = toSlug(c.category);
-    xml += `  <sitemap>
-    <loc>${baseUrl}/sitemap-calculators-${catSlug}.xml</loc>
-  </sitemap>\n`;
+  sitemapSources.forEach(source => {
+    source.getCategorySlugs().forEach(categorySlug => {
+      const pageCount = paginate(source.getEntriesForCategory(categorySlug)).length;
+      for (let p = 1; p <= pageCount; p++) {
+        xml += `  <sitemap><loc>${baseUrl}/sitemap-${source.key}-${categorySlug}-${p}.xml</loc></sitemap>\n`;
+      }
+    });
   });
 
   xml += `</sitemapindex>`;

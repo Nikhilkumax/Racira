@@ -26,6 +26,7 @@ export interface CalculatorDef {
   isBuilt: boolean;
   tier?: string;
   priorityScore?: number;
+  updatedAt?: string;
 }
 
 import { financeCalculators } from "./calculators/finance";

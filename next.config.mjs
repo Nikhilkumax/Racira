@@ -161,6 +161,14 @@ const nextConfig = {
       { source: '/calculator/construction/project-management-estimating', destination: '/calculator/construction/estimating-costs', permanent: true }
     ];
   },
+  async rewrites() {
+    return [
+      {
+        source: "/sitemap-:key-:category-:page.xml",
+        destination: "/sitemaps/:key/:category/:page",
+      },
+    ];
+  },
   webpack: (config) => {
     config.resolve.extensionAlias = {
       '.js': ['.js', '.ts', '.tsx'],
