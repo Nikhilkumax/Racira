@@ -20,8 +20,8 @@ const PopularCalculators = ({ exclude }: { exclude?: string }) => {
             href={`/calculator/${c.slug}`}
             className="h-[140px] flex items-start gap-4 p-4 rounded-xl border border-border bg-card hover:bg-secondary/30 hover:border-primary/30 transition-all group"
           >
-            <div className="p-2 bg-primary/10 rounded-lg shrink-0 mt-0.5">
-              <Icon className="h-6 w-6 text-primary" />
+            <div className="tool-card-icon shrink-0 mt-1 bg-primary/10 p-2 rounded-lg">
+              <Icon className="h-5 w-5 text-primary" />
             </div>
             <div className="min-w-0 flex-1">
               <h3 className="font-bold text-base text-foreground mb-1 leading-snug flex items-center gap-1.5">

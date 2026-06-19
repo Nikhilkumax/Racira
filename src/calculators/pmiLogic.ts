@@ -90,6 +90,13 @@ export interface PmiResults {
   interestSavedVsMonthly: number;
   payoffMonthsSavedVsMonthly: number;
   pmiMonthsSavedVsMonthly: number;
+  // Periodic breakdowns
+  periodicPI: number;
+  periodicTax: number;
+  periodicInsurance: number;
+  periodicHoa: number;
+  periodicPmi: number;
+  periodicTotal: number;
 }
 
 export const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
@@ -160,12 +167,7 @@ function runLoop(opts: LoopOpts): LoopResult {
   // Extra monthly converted to per-period equivalent
   const extraPerPeriod = (extraMonthly * 12) / periodsPerYear;
 
-  const isCustomTerm = ![120, 180, 240, 300, 360].includes(loanTermMonths);
-  const pmiAmortTermMonths = isCustomTerm ? 360 : loanTermMonths;
-  const stdPiPayment = calcPiPayment(la, annualRate, pmiAmortTermMonths, freq);
-
   let balance = la;
-  let standardBalance = la;
   let totalInterest = 0;
   let totalPmiCost = 0;
   let pmiCancelPeriod = -1;
@@ -205,17 +207,6 @@ function runLoop(opts: LoopOpts): LoopResult {
     const prevBalance = balance;
     if (principal > balance) principal = balance;
     balance = prevBalance - principal;
-    if (balance < 0) balance = 0;
-
-    // Standard Amortization tracking (ignores extra payments, uses pmiAmortTermMonths)
-    const stdInterest = standardBalance * rPeriod;
-    let stdPrincipal = stdPiPayment - stdInterest;
-    if (stdPrincipal < 0) stdPrincipal = 0;
-    const prevStandardBalance = standardBalance;
-    if (stdPrincipal > standardBalance) stdPrincipal = standardBalance;
-    standardBalance -= stdPrincipal;
-    if (standardBalance < 0) standardBalance = 0;
-
     const currentMonth = Math.ceil(currentPeriod * 12 / periodsPerYear);
     const currentTarget = currentHv * 0.80;
 
@@ -228,8 +219,8 @@ function runLoop(opts: LoopOpts): LoopResult {
       } else if (isFha) {
         pmiActive = fhaPmiLifetime || currentMonth <= 132; // 11 years
       } else {
-        // Conventional: PMI active while prev standard balance > 80% threshold
-        pmiActive = prevStandardBalance > currentTarget;
+        // Conventional: PMI active while actual balance > 80% threshold
+        pmiActive = prevBalance > currentTarget;
       }
 
       if (pmiActive) {
@@ -237,8 +228,8 @@ function runLoop(opts: LoopOpts): LoopResult {
         totalPmiCost += pmiThisPeriod;
       }
 
-      // Record cancel period for conventional (first period where standard balance crosses below threshold)
-      if (!isFha && !isUsda && pmiCancelPeriod === -1 && prevStandardBalance > currentTarget && standardBalance <= currentTarget) {
+      // Record cancel period for conventional (first period where actual balance crosses below threshold)
+      if (!isFha && !isUsda && pmiCancelPeriod === -1 && prevBalance > currentTarget && balance <= currentTarget) {
         pmiCancelPeriod = currentPeriod;
       }
     }
@@ -368,6 +359,14 @@ export function calculatePmi(inp: PmiInputs): PmiResults {
   const activeMonthlyPmi = isFha || isUsda ? monthlyMip : (isConventional ? monthlyPmi : 0);
   const totalMonthly = monthlyPI + monthlyTax + monthlyInsurance + monthlyHoa + activeMonthlyPmi;
 
+  const periodicPI = inp.paymentFreq === "weekly" ? monthlyPI / 4 : inp.paymentFreq === "biweekly" ? monthlyPI / 2 : monthlyPI;
+  const rDivisor = inp.paymentFreq === "weekly" ? 52 : inp.paymentFreq === "biweekly" ? 26 : 12;
+  const periodicTax = inp.propertyTax / rDivisor;
+  const periodicInsurance = inp.homeInsurance / rDivisor;
+  const periodicHoa = (inp.hoaFee * 12) / rDivisor;
+  const periodicPmi = (activeMonthlyPmi * 12) / rDivisor;
+  const periodicTotal = periodicPI + periodicTax + periodicInsurance + periodicHoa + periodicPmi;
+
   const commonOpts = {
     la, annualRate: inp.interestRate, loanTermMonths,
     freq: inp.paymentFreq,
@@ -390,6 +389,7 @@ export function calculatePmi(inp: PmiInputs): PmiResults {
       ltvCurve: loop.ltvCurve, ltvCurveAccel: [], ltvCurveAppreciation: [],
       amortizationRows: loop.amortizationRows, noPmiSavingsVs10: 0,
       interestSavedVsMonthly: 0, payoffMonthsSavedVsMonthly: 0, pmiMonthsSavedVsMonthly: 0,
+      periodicPI, periodicTax, periodicInsurance, periodicHoa, periodicPmi: 0, periodicTotal: periodicPI + periodicTax + periodicInsurance + periodicHoa,
     };
   }
 
@@ -472,5 +472,6 @@ export function calculatePmi(inp: PmiInputs): PmiResults {
     amortizationRows: main.amortizationRows,
     noPmiSavingsVs10,
     interestSavedVsMonthly, payoffMonthsSavedVsMonthly, pmiMonthsSavedVsMonthly,
+    periodicPI, periodicTax, periodicInsurance, periodicHoa, periodicPmi, periodicTotal,
   };
 }

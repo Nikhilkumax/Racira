@@ -145,13 +145,13 @@ const PmiCalculator = () => {
   const handleHvChange = (v: string) => {
     setHomeValue(v);
     const hv = parseFloat(v) || 0;
-    if (dpMode === "percent") setDpAmt(String(Math.round(hv * (parseFloat(dpPct) || 0) / 100)));
-    else setDpPct(hv > 0 ? String(((parseFloat(dpAmt) || 0) / hv * 100).toFixed(1)) : "0");
+    if (dpMode === "percent") setDpAmt(String(+(hv * (parseFloat(dpPct) || 0) / 100).toFixed(2)));
+    else setDpPct(hv > 0 ? String(((parseFloat(dpAmt) || 0) / hv * 100).toFixed(2)) : "0");
   };
   const handleDpChange = (v: string) => {
     const hv = parseFloat(homeValue) || 0;
-    if (dpMode === "percent") { setDpPct(v); setDpAmt(String(Math.round(hv * (parseFloat(v) || 0) / 100))); }
-    else { setDpAmt(v); setDpPct(hv > 0 ? String(((parseFloat(v) || 0) / hv * 100).toFixed(1)) : "0"); }
+    if (dpMode === "percent") { setDpPct(v); setDpAmt(String(+(hv * (parseFloat(v) || 0) / 100).toFixed(2))); }
+    else { setDpAmt(v); setDpPct(hv > 0 ? String(((parseFloat(v) || 0) / hv * 100).toFixed(2)) : "0"); }
   };
   const handleDpModeToggle = (m: string) => {
     setDpMode(m as DpMode);
@@ -217,11 +217,11 @@ const PmiCalculator = () => {
   const freqMult = isWeekly ? 12 / 52 : isBiwk ? 12 / 26 : 1;
 
   const pieDataArr = [
-    { name: "P & I", value: results.monthlyPI * freqMult, color: PIE_COLORS[0] },
-    { name: "Property Tax", value: results.monthlyTax * freqMult, color: PIE_COLORS[1] },
-    { name: "Insurance", value: results.monthlyInsurance * freqMult, color: PIE_COLORS[2] },
-    { name: "PMI / MIP", value: results.monthlyPmi * freqMult, color: PIE_COLORS[3] },
-    { name: "HOA / Other", value: results.monthlyHoa * freqMult, color: PIE_COLORS[4] },
+    { name: "P & I", value: results.periodicPI, color: PIE_COLORS[0] },
+    { name: "Property Tax", value: results.periodicTax, color: PIE_COLORS[1] },
+    { name: "Insurance", value: results.periodicInsurance, color: PIE_COLORS[2] },
+    { name: "PMI / MIP", value: results.periodicPmi, color: PIE_COLORS[3] },
+    { name: "HOA / Other", value: results.periodicHoa, color: PIE_COLORS[4] },
   ];
   let pieSumPct = 0;
   const piePcts = pieDataArr.map(item => {
@@ -246,18 +246,18 @@ const PmiCalculator = () => {
   type BreakdownRow = { label: string; periodic: number; total: number; highlight?: boolean; isTotal?: boolean; note?: string; };
   
   const breakdown: BreakdownRow[] = [
-    { label: "Principal & Interest", periodic: results.monthlyPI * freqMult, total: (results.monthlyPI * freqMult) * results.payoffPeriods },
-    { label: "Property Tax", periodic: results.monthlyTax * freqMult, total: results.monthlyTax * termMonths },
-    { label: "Home Insurance", periodic: results.monthlyInsurance * freqMult, total: results.monthlyInsurance * termMonths },
-    { label: calcInputs.loanType === "fha" ? "MIP (Mortgage Ins.)" : calcInputs.loanType === "usda" ? "Guarantee Fee" : "PMI", periodic: results.monthlyPmi * freqMult, total: results.totalPmiCost, highlight: true },
-    { label: "HOA / Other Costs", periodic: results.monthlyHoa * freqMult, total: results.monthlyHoa * termMonths },
+    { label: "Principal & Interest", periodic: results.periodicPI, total: results.periodicPI * results.payoffPeriods },
+    { label: "Property Tax", periodic: results.periodicTax, total: results.monthlyTax * termMonths },
+    { label: "Home Insurance", periodic: results.periodicInsurance, total: results.monthlyInsurance * termMonths },
+    { label: calcInputs.loanType === "fha" ? "MIP (Mortgage Ins.)" : calcInputs.loanType === "usda" ? "Guarantee Fee" : "PMI", periodic: results.periodicPmi, total: results.totalPmiCost, highlight: true },
+    { label: "HOA / Other Costs", periodic: results.periodicHoa, total: results.monthlyHoa * termMonths },
   ];
   if (calcInputs.loanType === "va") {
     breakdown[3] = { label: "PMI", periodic: 0, total: 0, highlight: false, note: "No PMI required" };
   }
   
-  const totalOutOfPocket = ((results.monthlyPI * freqMult) * results.payoffPeriods) + (results.monthlyTax * termMonths) + (results.monthlyInsurance * termMonths) + (results.monthlyHoa * termMonths) + results.totalPmiCost;
-  breakdown.push({ label: "Total Out-of-Pocket", periodic: results.totalMonthly * freqMult, total: totalOutOfPocket, isTotal: true });
+  const totalOutOfPocket = (results.periodicPI * results.payoffPeriods) + (results.monthlyTax * termMonths) + (results.monthlyInsurance * termMonths) + (results.monthlyHoa * termMonths) + results.totalPmiCost;
+  breakdown.push({ label: "Total Out-of-Pocket", periodic: results.periodicTotal, total: totalOutOfPocket, isTotal: true });
 
   return (
     <>
@@ -591,7 +591,7 @@ const PmiCalculator = () => {
                           {noPmiNeeded ? "No PMI Required" : `Auto: ~${results.pmiRate.toFixed(2)}% (based on LTV + credit score)`}
                         </div>}
                     {/* Credit tier label */}
-                    {!noPmiNeeded && calcInputs.loanType === "conventional" && results.creditTierLabel && (
+                    {!noPmiNeeded && calcInputs.loanType === "conventional" && results.creditTierLabel && pmiMode !== "manual" && (
                       <p className="text-[11px] text-muted-foreground mt-0.5">
                         Tier: <span className="font-semibold text-foreground">{results.creditTierLabel}</span> → Rate: <span className="font-bold text-primary">{results.pmiRate.toFixed(2)}%</span>
                       </p>
@@ -666,6 +666,16 @@ const PmiCalculator = () => {
               {hasValidationErrors && (
                 <div className="text-sm text-red-500 font-semibold bg-red-500/10 border border-red-500/20 p-2.5 rounded-md">
                   ⚠️ Please fix the errors above before calculating.
+                </div>
+              )}
+              {propertyUse === "investment" && liveLtv > 85 && loanType === "conventional" && (
+                <div className="text-sm text-amber-600 font-semibold bg-amber-500/10 border border-amber-500/20 p-2.5 rounded-md">
+                  ⚠️ Investment properties typically cap at 80% or 85% LTV for conventional loans. Consider increasing your down payment.
+                </div>
+              )}
+              {propertyUse === "second" && liveLtv > 90 && loanType === "conventional" && (
+                <div className="text-sm text-amber-600 font-semibold bg-amber-500/10 border border-amber-500/20 p-2.5 rounded-md">
+                  ⚠️ Second homes typically cap at 90% LTV for conventional loans. Consider increasing your down payment.
                 </div>
               )}
               {!isInvalidDp && liveLtv > 0 && liveLtv < 95 && liveHv > 0 && (parseFloat(dpMode === "percent" ? dpPct : String((parseFloat(dpAmt)||0)/(liveHv)*100)) < 5) && loanType === "conventional" && (
@@ -752,10 +762,10 @@ const PmiCalculator = () => {
                   </div>
                   <div className="text-[13px] font-bold text-primary mb-1 uppercase tracking-wider">Estimated {freqLabel} PMI</div>
                   <div className="text-4xl font-extrabold text-foreground mb-1 tracking-tight">
-                    ${fmt(results.monthlyPmi * freqMult)}
+                    ${fmt(results.periodicPmi)}
                   </div>
                   <div className="text-sm text-muted-foreground font-medium">
-                    Total {freqLabel} Payment: ${fmt(results.totalMonthly * freqMult)}{freqSuffix}
+                    Total {freqLabel} Payment: ${fmt(results.periodicTotal)}{freqSuffix}
                   </div>
                 </div>
 
@@ -772,8 +782,13 @@ const PmiCalculator = () => {
                   </div>
                   <div className="w-px h-8 bg-border"></div>
                   <div className="flex flex-col">
-                    <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">{calcInputs.loanType === "fha" ? "MIP Ends" : "PMI Ends"}</span>
+                    <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider" title={calcInputs.loanType === "conventional" ? "Requestable at 80% LTV" : ""}>
+                      {calcInputs.loanType === "fha" ? "MIP Ends" : calcInputs.loanType === "conventional" ? "PMI Ends (80% LTV)" : "PMI Ends"}
+                    </span>
                     <span className="font-extrabold text-foreground">{results.pmiCancelDate}</span>
+                    {calcInputs.loanType === "conventional" && results.pmiCancelMonth > 0 && (
+                      <span className="text-[10px] text-muted-foreground mt-0.5">Requestable</span>
+                    )}
                   </div>
                 </div>
               </>

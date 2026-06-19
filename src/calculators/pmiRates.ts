@@ -28,9 +28,9 @@ const CONV_PMI_MATRIX: number[][] = [
 const FIFTEEN_YR_FACTOR = 0.65;
 
 function getLtvBandIndex(ltv: number): number {
-  if (ltv < 85) return 0;
-  if (ltv < 90) return 1;
-  if (ltv < 95) return 2;
+  if (ltv <= 85) return 0;
+  if (ltv <= 90) return 1;
+  if (ltv <= 95) return 2;
   return 3;
 }
 
