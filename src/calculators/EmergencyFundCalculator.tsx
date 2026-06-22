@@ -119,7 +119,7 @@ const EmergencyFundCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Sidebar Ad" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>The Foundation of Financial Peace</h2>
               <p>An emergency fund is not just a savings account; it's insurance for your life. It provides a financial buffer that allows you to weather unexpected storms without resorting to high-interest credit card debt or raiding your retirement accounts.</p>
               <h3>Why 3 to 6 Months?</h3>

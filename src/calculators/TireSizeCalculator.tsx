@@ -314,9 +314,9 @@ export default function TireSizeCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Why Use a Tire Size Calculator?</h2>
             <p>A Tire Size Calculator is an essential diagnostic tool for anyone looking to replace their factory tires with aftermarket alternatives, upgrade their wheel rims ("plus sizing"), or install a suspension lift kit. Modifying tire dimensions alters the geometry of your vehicle. This calculator instantly processes the complex metric-to-imperial conversions embedded in tire codes to reveal the exact physical changes in width, diameter, and circumference.</p>
 

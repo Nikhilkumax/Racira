@@ -220,7 +220,7 @@ export default function PaybackPeriodCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What is the Payback Period?</h2>
             <p>The payback period is the length of time required for an investment to generate enough cash flow to recover its initial cost. It is one of the oldest and simplest capital budgeting methods used by businesses to evaluate potential capital expenditures and investments.</p>
             <p>Because the payback period measures the time to recoup capital, it serves as a proxy for risk. Shorter payback periods are generally preferred because they free up cash quickly for other investments and reduce the period of time during which the investment is exposed to market, political, or technological obsolescence risks.</p>

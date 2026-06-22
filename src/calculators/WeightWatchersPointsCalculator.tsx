@@ -224,9 +224,9 @@ export default function WeightWatchersPointsCalculator() {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is the Weight Watchers Points Calculator?</h2>
             <p>The <strong>Weight Watchers (WW) Points Calculator</strong> is an estimation tool designed to help you determine your daily points budget based on the core methodologies of the famous WW program. For decades, Weight Watchers has been one of the most successful commercial weight loss programs in the world. Its success stems from a simple premise: counting calories is tedious and mathematically flawed because not all calories are processed by the body in the same way. 100 calories of salmon is fundamentally different from 100 calories of jellybeans.</p>
             <p>To solve this, WW created a proprietary "Points" algorithm. This algorithm assigns a single numerical value to every food based on its nutritional profile, heavily penalizing sugar and saturated fats while rewarding lean proteins and fiber. Simultaneously, the program assigns you a daily points budget based on your height, weight, age, and sex. Your goal is simply to eat whatever you want, provided you stay under your daily points limit.</p>

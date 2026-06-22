@@ -248,9 +248,9 @@ export default function HorsepowerCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>How Does a Horsepower Calculator Work?</h2>
             <p>At its core, estimating a vehicle's horsepower from its track performance is a physics equation. The heavier a car is, and the faster it travels across a 1/4 mile distance, the more energy the engine must be producing. Our Horsepower Calculator uses the industry-standard Hale formulas to convert your real-world drag strip data (Weight and Trap Speed or Elapsed Time) into a highly accurate estimate of your engine's power output.</p>
 

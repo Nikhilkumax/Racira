@@ -89,7 +89,7 @@ const BillSplitCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Sidebar Ad" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Sharing Expenses Without the Stress</h2>
               <p>Dining out or traveling with friends is fun until the bill arrives. A bill split calculator removes the awkwardness and math errors from the table, ensuring everyone pays their fair share exactly.</p>
               <h3>When to Split Evenly</h3>

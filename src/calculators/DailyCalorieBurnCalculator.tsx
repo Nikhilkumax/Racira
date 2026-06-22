@@ -360,9 +360,9 @@ export default function DailyCalorieBurnCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Mathematics of Your Metabolism</h2>
             <p>The fitness industry is flooded with fad diets, magic pills, and "fat-burning" supplements. We are constantly sold the lie that weight loss is a mysterious biological process dependent on eating specific superfoods or avoiding carbohydrates after 6:00 PM. In reality, human metabolism is governed by the unbreakable laws of thermodynamics. If you consume more energy (calories) than your body requires, it stores the excess as fat. If you consume less energy than your body requires, it is forced to burn stored fat to survive. It is a strict mathematical equation. The <strong>Daily Calorie Burn Calculator</strong> utilizes clinical algorithms to determine your exact metabolic baseline, giving you the mathematical key to manipulating your body composition.</p>
 

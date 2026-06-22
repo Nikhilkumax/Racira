@@ -129,9 +129,9 @@ export default function FixedAssetTurnoverCalculator() {
             </div>
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is the Fixed Asset Turnover Ratio?</h2>
             <p>The Fixed Asset Turnover (FAT) ratio measures how efficiently a company generates revenue from its long-term tangible assets — Property, Plant &amp; Equipment (PP&amp;E). It is a key operational efficiency metric in capital-intensive industries and a critical component of DuPont Analysis decomposition, where it feeds into the broader Asset Turnover ratio.</p>
             <h2>Fixed Asset Turnover Formula</h2>

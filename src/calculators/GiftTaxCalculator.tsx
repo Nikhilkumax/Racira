@@ -141,9 +141,9 @@ export default function GiftTaxCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Gift Tax Myth</h2>
             <p>One of the most common tax myths is that if you give someone a large sum of money, you or they will have to pay a massive tax bill. In reality, less than 1% of Americans ever pay the federal gift tax. The gift tax is deeply intertwined with the estate tax to prevent wealthy individuals from simply giving away all their assets before death to avoid estate taxes.</p>
             <h2>Annual Exclusion vs. Lifetime Exemption</h2>

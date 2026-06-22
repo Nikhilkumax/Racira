@@ -71,7 +71,7 @@ const PercentErrorCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Understanding Percent Error</h2>
               <p>Percent error quantifies how far an experimental measurement is from the accepted (theoretical) value. It is widely used in chemistry, physics, and engineering to assess measurement accuracy. The formula is: % Error = |Experimental − Theoretical| / |Theoretical| × 100%.</p>
             </article>

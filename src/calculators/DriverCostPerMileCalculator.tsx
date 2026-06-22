@@ -316,9 +316,9 @@ export default function DriverCostPerMileCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Mathematics of Fleet Profitability</h2>
             <p>If you own a logistics, trucking, or delivery company, you do not sell physical products; you sell distance. The only way your company makes money is by charging a customer a specific rate to move freight from Point A to Point B. This rate is heavily negotiated and usually breaks down to a specific dollar amount per mile.</p>
             <p>To ensure your company doesn't go bankrupt, you must know exactly how much it costs you to drive that mile. This is known as the <strong>Cost Per Mile (CPM)</strong>. A fleet's Total CPM is made up of several buckets: Fuel CPM, Maintenance CPM, Equipment CPM, and the largest controllable bucket: <strong>Driver CPM</strong>.</p>

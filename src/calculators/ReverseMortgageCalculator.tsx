@@ -146,7 +146,7 @@ const ReverseMortgageCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>How a Reverse Mortgage Works</h2>
               <p>A reverse mortgage is a financial tool designed specifically for older homeowners. Unlike a traditional mortgage where you make monthly payments to a lender, in a reverse mortgage, the lender provides you with funds based on your home equity. The interest is added to the loan balance over time, meaning the debt grows while your equity decreases.</p>
 

@@ -475,9 +475,9 @@ export default function BikeLoanCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding the Bike Loan Calculator</h2>
             <p>Buying a motorcycle is often an emotional decision driven by passion, freedom, and the open road. However, financing that motorcycle is a purely mathematical endeavor. An <strong>Motorcycle Loan Calculator</strong> is a critical financial planning tool designed specifically for riders. It helps you navigate the unique lending environment of recreational vehicles, allowing you to estimate your monthly payments, factor in riding gear, and understand the true cost of your new bike before you ever set foot inside a dealership.</p>
             <p>Dealership finance offices are notoriously adept at masking high interest rates by extending the loan term to hit your desired monthly payment. By using this calculator, you take the power back. You can clearly visualize the amortization schedule, analyze the impact of different down payments, and uncover exactly how much interest you will be paying over the life of the loan.</p>

@@ -196,7 +196,7 @@ export default function RuleOf72Calculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is the Rule of 72?</h2>
             <p>The Rule of 72 is one of the most useful mental shortcuts in personal finance and investing. It provides a quick, accurate estimate of how long it takes for an investment to double in value, given a fixed annual rate of return. Simply divide 72 by the annual interest rate percentage, and the result is the approximate number of years to double your money.</p>
             <p>For example: at 8% annual return, your money doubles in approximately 72 ÷ 8 = 9 years. At 6%, it takes 12 years. At 12%, it takes just 6 years. The simplicity is stunning — no calculator or complex formula needed, just a single division. Yet the result is remarkably accurate for most everyday investment rates (between 4% and 20%).</p>

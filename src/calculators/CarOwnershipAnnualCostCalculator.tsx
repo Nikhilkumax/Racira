@@ -264,7 +264,7 @@ const CarOwnershipAnnualCostCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is the Car Ownership Annual Cost Calculator?</h2>
             <p>The Car Ownership Annual Cost Calculator computes your year-by-year cost of owning a vehicle over a 10-year horizon. Unlike simple annual cost estimates, this tool shows how costs evolve over time — high in year 1 due to steep depreciation, then declining as the loan pays off and depreciation flattens. It provides an average annual cost, per-mile cost, and a year-by-year breakdown with cumulative totals and estimated vehicle value.</p>
             <p>This long-term view is essential for understanding how long you should keep a car to minimize cost and when the optimal sell point occurs.</p>

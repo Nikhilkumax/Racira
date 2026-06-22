@@ -201,9 +201,9 @@ export default function MarathonTrainingCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Mastering Marathon Training Paces</h2>
             <p>This <strong>Marathon Training Pace Calculator</strong> takes your goal finish time and reverse-engineers the exact paces you need to run during your weekly training blocks. Whether you are aiming for a sub-3 hour Boston Qualifier or looking to finish your first race under 4 hours, strictly adhering to these varied training zones is the key to preventing injury and building endurance.</p>
             <h2>The 80/20 Rule of Distance Running</h2>

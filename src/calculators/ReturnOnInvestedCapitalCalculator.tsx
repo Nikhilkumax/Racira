@@ -277,9 +277,9 @@ export default function ReturnOnInvestedCapitalCalculator() {
         </div>
 
         {/* SEO Article Section */}
-        <div className="max-w-[1180px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding Return on Invested Capital (ROIC)</h2>
             <p>
               <strong>Return on Invested Capital (ROIC)</strong> is one of the most critical efficiency ratios in corporate valuation. While return on equity (ROE) focuses only on the shareholders' portion of financing, and return on assets (ROA) counts all assets (including passive cash), ROIC isolates the actual return a business generates from its core operating capital base.

@@ -179,9 +179,9 @@ export default function GlycemicIndexCalculator() {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding the Glycemic Index (GI) vs. Glycemic Load (GL)</h2>
             <p>If you are managing diabetes, dealing with insulin resistance, or attempting to lose body fat, you have likely been told to "watch your glycemic index." While this is excellent advice, the Glycemic Index (GI) alone is actually a flawed, incomplete metric. To truly understand how a meal will impact your body, you must calculate the <strong>Glycemic Load (GL)</strong>.</p>
             <p>The <strong>Glycemic Index (GI)</strong> is a laboratory measurement on a scale of 0 to 100 that dictates how quickly the carbohydrates in a specific food break down into glucose and enter your bloodstream. Pure table sugar has a GI of 100. A food with a high GI digests rapidly, causing a massive spike in blood sugar. A food with a low GI digests slowly, providing a steady trickle of energy.</p>

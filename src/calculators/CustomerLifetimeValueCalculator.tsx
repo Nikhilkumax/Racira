@@ -105,7 +105,7 @@ const CustomerLifetimeValueCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Sidebar Ad" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>The Most Important Business Metric</h2>
               <p>Customer Lifetime Value (LTV) is the North Star for marketing and growth teams. If you know a customer is worth $500 in profit over their lifetime, you can confidently spend $150 to acquire them. Without this number, you are flying blind with your advertising budget.</p>
               <h3>The LTV/CAC Ratio</h3>

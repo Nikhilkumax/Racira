@@ -133,9 +133,9 @@ export default function PropertyTaxCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Property Tax Calculator?</h2>
             <p>A <strong>property tax calculator</strong> estimates your annual and monthly property tax bill based on your home&apos;s market value, local assessment ratio, mill rate, and applicable exemptions. Property taxes vary enormously by location — from under 0.3% in Hawaii to over 2.5% in New Jersey — making this calculator essential for home buyers evaluating total ownership cost.</p>
             <h2>How Property Tax Is Calculated</h2>

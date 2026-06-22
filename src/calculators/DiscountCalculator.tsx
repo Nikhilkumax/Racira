@@ -138,9 +138,9 @@ const DiscountCalculator = () => {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Discount Calculator?</h2>
             <p>A discount calculator computes the final price after applying a percentage discount to an original price. Enter the original price and discount percentage — the calculator instantly shows how much you save and what you actually pay. Pre-filled with a $120 item at 25% off, you immediately see the $30 savings and $90 final price, plus a pie chart showing the split between what you pay and what you save.</p>
             <p>Discount calculations are used everywhere: retail shopping, wholesale pricing, coupon redemption, seasonal sales, restaurant tipping (reverse), contractor pricing, and eCommerce. This calculator also shows the price multiplier — a quick way to mentally compute discounts on any price at the same percentage.</p>

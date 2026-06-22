@@ -226,9 +226,9 @@ export default function BabyGrowthPercentileCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Tracking Your Baby's Growth</h2>
             <p>This <strong>Baby Growth Percentile Calculator</strong> compares your infant's weight against the World Health Organization (WHO) Child Growth Standards. The WHO charts are the gold standard recommended by pediatricians for babies ages 0 to 24 months because they depict how children <em>should</em> grow under optimal conditions (e.g., breastfed as the norm), rather than just describing how children <em>do</em> grow.</p>
             <h2>Busting the Percentile Myth</h2>

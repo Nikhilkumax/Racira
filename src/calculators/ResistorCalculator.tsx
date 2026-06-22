@@ -238,9 +238,9 @@ const ResistorCalculator = () => {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Reading a Through-Hole Resistor</h2>
             <p>Through-hole resistors are tiny, cylindrical electronic components used to restrict the flow of electrical current in a circuit. Because they are so small, it is impossible to print text on them legibly. To solve this, the electronics industry developed the <strong>Electronic Color Code (IEC 60062)</strong> in the 1920s. By reading the painted bands on the resistor from left to right, you can determine its exact resistance value in Ohms (Ω) and its manufacturing tolerance.</p>
 

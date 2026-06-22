@@ -296,9 +296,9 @@ export default function StepCountToCalorieBurnCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Translating Raw Steps into Thermodynamic Energy</h2>
             <p>Every smartphone and smart watch on the market today features a built-in pedometer, constantly tracking your daily steps in the background. We are constantly told to aim for the magical "10,000 steps" to improve our health. However, a raw step count tells you almost nothing about the actual physical "work" your body performed. A step is not a universal measurement of energy. The <strong>Step Count to Calorie Burn Calculator</strong> bridges this gap. By factoring in your body mass to calculate mechanical resistance, and your pacing intensity to determine stride length and heart rate, it translates your raw pedometer data into a highly accurate, biologically sound caloric expenditure.</p>
 

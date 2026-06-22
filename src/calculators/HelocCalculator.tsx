@@ -211,9 +211,9 @@ export default function HelocCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a HELOC?</h2>
             <p>A Home Equity Line of Credit (HELOC) is a revolving credit line secured by your home equity. Unlike a traditional loan, you draw funds as needed up to your credit limit during the draw period, making it ideal for ongoing expenses like home renovations. This <strong>HELOC calculator</strong> estimates your interest-only draw period payments, principal-and-interest repayment payments, and total interest cost over the life of the line.</p>
             <h2>How HELOC Payments Are Calculated</h2>

@@ -113,7 +113,7 @@ const CreditCardMinimumPaymentCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>The Minimum Payment Trap</h2>
               <p>Credit card issuers design minimum payments to keep you in debt as long as possible. A $5,000 balance at 22.99% APR can take over 20 years to pay off with minimums alone, costing you thousands more than you borrowed.</p>
               <h3>How Minimums Are Calculated</h3>

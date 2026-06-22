@@ -178,9 +178,9 @@ export default function BusinessLoanCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Business Loan Calculator?</h2>
             <p>A <strong>business loan calculator</strong> estimates your monthly payment, total interest, and true borrowing cost for commercial financing. Whether you&apos;re funding equipment, inventory, expansion, or working capital, understanding the full cost of a business loan is critical for cash flow planning and profitability analysis.</p>
             <h2>How Business Loan Payments Are Calculated</h2>

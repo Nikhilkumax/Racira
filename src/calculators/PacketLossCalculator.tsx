@@ -101,7 +101,7 @@ const PacketLossCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Understanding Packet Loss</h2>
               <p>When you send data over the internet, it is broken down into small units called packets. If these packets don't arrive at their destination, the receiving computer must either ask for them to be resent (adding delay) or simply skip them (causing gaps in audio/video).</p>
               <h3>Why 1% Loss is a Big Deal</h3>

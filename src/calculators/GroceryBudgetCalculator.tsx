@@ -214,9 +214,9 @@ export default function GroceryBudgetCalculator() {
           </div>
         </div>
 
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>About the Grocery Budget Calculator</h2>
             <p>This grocery budget calculator gives you a clear picture of your household food spending across eight categories. Enter your typical spend per shopping trip and select your frequency — weekly, bi-weekly, or monthly — to see your projected weekly, monthly, and annual totals. The built-in cost-per-person-per-day metric benchmarks your spending against USDA dietary plans and national averages.</p>
             <h2>How the Calculation Works</h2>

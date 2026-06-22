@@ -214,9 +214,9 @@ export default function DisabilityInsuranceCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Why Disability Insurance Matters</h2>
             <p>This <strong>disability insurance calculator</strong> estimates your monthly benefit, premium costs, and total potential payout from a long-term disability policy. The Social Security Administration reports that 1 in 4 of today's 20-year-olds will become disabled before retirement. Despite this, disability insurance is the most commonly overlooked form of protection — many working professionals have life insurance but no individual DI. Your ability to earn income is your most valuable financial asset.</p>
             <h2>How Disability Premiums Are Determined</h2>

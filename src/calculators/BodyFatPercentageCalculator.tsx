@@ -268,9 +268,9 @@ export default function BodyFatPercentageCalculator() {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Why Body Fat Percentage is Better Than BMI</h2>
             <p>For decades, doctors have relied on the Body Mass Index (BMI) to screen patients for weight-related health risks. However, BMI is inherently flawed because it simply divides total weight by height. It cannot tell the difference between a 200-pound man carrying 60 pounds of dangerous visceral fat, and a 200-pound professional athlete carrying 180 pounds of healthy muscle.</p>
             <p><strong>Body Fat Percentage</strong> is a far superior metric because it isolates exactly how much of your mass is adipose tissue (fat). By tracking your body fat percentage, you ensure that any weight you lose is actually fat, rather than precious muscle mass or water.</p>

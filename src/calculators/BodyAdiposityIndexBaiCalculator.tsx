@@ -439,9 +439,9 @@ export default function BodyAdiposityIndexBaiCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding the Body Adiposity Index (BAI) Calculator</h2>
             <p>For over a century, the medical community has grappled with a massive problem: how do we easily and accurately measure how much fat a person is carrying? The Body Mass Index (BMI) has been the global standard, but it is deeply flawed because it relies heavily on total body weight. A dense, heavily muscled athlete will weigh the same as a severely obese, sedentary individual, causing BMI to falsely classify the athlete as unhealthy. In 2011, researchers at the University of Southern California developed a revolutionary new formula: The <strong>Body Adiposity Index (BAI) Calculator</strong>. The true genius of the BAI is that it completely ignores the scale. It estimates your body fat percentage using only two geometric measurements: your height and the circumference of your hips.</p>
 

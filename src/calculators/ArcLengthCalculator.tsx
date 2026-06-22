@@ -158,9 +158,9 @@ const ArcLengthCalculator = () => {
           </div>
         </div>
 
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is an Arc Length Calculator?</h2>
             <p>An arc length calculator computes the arc length, chord length, sector area, segment area, and apothem of a circular sector. Pre-filled with radius=5 and angle=72° (1/5 of a circle): arc length = 2π ≈ 6.283, sector area = 5π ≈ 15.708 sq units. The formula is s = rθ where θ must be in radians.</p>
             <h2>Arc Length Formula</h2>

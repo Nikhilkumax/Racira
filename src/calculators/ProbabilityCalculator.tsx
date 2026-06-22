@@ -256,9 +256,9 @@ const ProbabilityCalculator = () => {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding Probability Basics</h2>
             <p><strong>Probability</strong> is the mathematical measurement of how likely an event is to occur. It is expressed as a number between 0 and 1 (or 0% and 100%). A probability of 0% means the event is impossible, while a probability of 100% means the event is absolutely certain. Everything in between represents varying degrees of likelihood.</p>
             <p>When calculating probability manually using fractions, the formula is simple: divide the number of <em>favorable outcomes</em> by the total number of <em>possible outcomes</em>. For example, rolling a 4 on a standard six-sided die has a probability of 1/6, or ~16.66%.</p>

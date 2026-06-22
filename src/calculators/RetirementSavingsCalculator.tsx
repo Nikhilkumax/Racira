@@ -117,9 +117,9 @@ export default function RetirementSavingsCalculator() {
             </div>
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>How Much Do You Need to Retire?</h2>
             <p>This retirement calculator uses the 4% safe withdrawal rule and compound interest projection to determine your retirement nest egg target and whether current savings and contributions are sufficient. The target nest egg = (Desired Monthly Income × 12 × Inflation Adjustment) ÷ 0.04. The 4% rule suggests withdrawing no more than 4% of your portfolio annually to ensure it lasts 30+ years.</p>
             <h2>Inflation and Its Impact on Retirement Planning</h2>

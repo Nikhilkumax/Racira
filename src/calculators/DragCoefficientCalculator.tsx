@@ -282,9 +282,9 @@ export default function DragCoefficientCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Invisible Wall: Aerodynamic Drag</h2>
             <p>When you drive down the road, your vehicle is physically ramming into billions of air molecules. At low speeds, air easily parts and flows around the car. However, air behaves like a fluid. As you drive faster, the air resists being moved out of the way, creating immense backward pressure against the front bumper and windshield. This invisible wall of air is known as Aerodynamic Drag Force. Our calculator uses fluid dynamics equations to show exactly how much horsepower your engine is wasting just to slice through the air.</p>
 

@@ -196,9 +196,9 @@ const SampleSizeCalculator = () => {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Science of Statistical Sampling</h2>
             <p>If a polling agency wants to know who will win a presidential election, they do not ask all 160 million registered voters. That would cost billions of dollars and take months. Instead, they ask a few thousand people. How can asking 2,000 people accurately predict the behavior of 160 million people? The answer is <strong>Statistical Sampling</strong>.</p>
             <p>Sampling mathematics proves that if you select a group of people truly at random, the traits of that small group will mirror the traits of the massive population with astonishing accuracy. This calculator uses Cochran's formula to determine exactly how many people you need to test to guarantee that accuracy.</p>

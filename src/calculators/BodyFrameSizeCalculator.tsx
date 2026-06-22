@@ -196,9 +196,9 @@ export default function BodyFrameSizeCalculator() {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Body Frame Size Calculator?</h2>
             <p>A Body Frame Size Calculator is a clinical tool used in physical anthropometry to categorize the mass and density of a person's skeletal structure. In the fitness and medical communities, individuals are generally classified into three frame sizes: Small, Medium, or Large. Determining your frame size is crucial because it heavily influences your baseline ideal body weight, your natural propensity to gain muscle mass, and how certain BMI thresholds apply to your specific physique.</p>
             <p>While height and weight provide a general overview of your body, two people who are both 180 cm tall and weigh 80 kg can look entirely different. One might look incredibly skinny (small frame, low muscle mass, high body fat), while the other looks powerfully built (large frame, high bone density, high muscle mass). Frame size provides the vital context that simple BMI calculations lack.</p>

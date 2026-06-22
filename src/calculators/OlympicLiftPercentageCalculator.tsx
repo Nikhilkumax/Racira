@@ -356,9 +356,9 @@ export default function OlympicLiftPercentageCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding the Olympic Lift Percentage Calculator</h2>
             <p>If you observe a beginner attempting the Olympic lifts (the Snatch and the Clean & Jerk), you will immediately notice a chaotic disconnect between their strength and their technique. A massive powerlifter might be able to deadlift 600 pounds, but completely fail to Snatch 135 pounds due to a lack of speed and mobility. Conversely, a highly technical teenager might Snatch 185 pounds, but constantly fail standing up from the squat because they lack raw leg strength. The <strong>Olympic Lift Ratio Calculator</strong> uses decades of elite Russian and Soviet weightlifting data to diagnose exactly where your training is failing. By establishing an ideal mathematical ratio between your lifts, you can immediately identify whether you need to spend the next 12 weeks building raw strength or drilling technique.</p>
 

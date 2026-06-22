@@ -271,9 +271,9 @@ export default function CashBackVsLowInterestCalculator() {
           </div>
         </div>
 
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is the Cash Back vs Low Interest Calculator?</h2>
             <p>When financing a vehicle purchase, dealers often offer two mutually exclusive incentives: a cash rebate or a subsidized interest rate. This cash back vs low interest calculator helps you determine which incentive saves you more money over the life of your loan. The right choice depends on the loan amount, term length, rate differential, and how long you plan to keep the financing in place.</p>
             <p>This tool is used by car buyers, fleet managers, and personal finance planners who want to make an informed financing decision rather than relying on the dealer's recommendation.</p>

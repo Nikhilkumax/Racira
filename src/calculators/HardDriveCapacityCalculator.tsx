@@ -114,7 +114,7 @@ const HardDriveCapacityCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>The Mystery of the Missing Gigabytes</h2>
               <p>When you buy a hard drive, you might feel cheated when your "1TB" drive shows up as "931GB" in Windows. This isn't because the drive is broken or poor quality; it's because manufacturers and software developers use different measuring sticks.</p>
               <h3>Decimal vs Binary</h3>

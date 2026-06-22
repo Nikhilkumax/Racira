@@ -392,9 +392,9 @@ export default function BodyFatSkinfoldCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Flaw in Modern Fitness Technology</h2>
             <p>If you purchase a modern, $100 digital bathroom scale, it will likely claim to calculate your body fat percentage using Bioelectrical Impedance Analysis (BIA). You step on the metal plates, it shoots a small electrical current up your leg, and it spits out a number. The problem? That number is mathematically heavily dependent on your hydration levels. If you drink a gallon of water, or if you eat a salty meal that causes water retention, the electrical current moves faster, and the scale will instantly tell you your body fat has dropped by 3%. That is a biological impossibility. The <strong>Body Fat Percentage Calculator (Skinfold)</strong> bypasses digital gimmickry. By using physical calipers to measure the exact millimeter thickness of your subcutaneous tissue, it provides a clinical, hydration-immune view of your true body composition.</p>
 

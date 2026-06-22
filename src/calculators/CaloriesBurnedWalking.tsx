@@ -214,9 +214,9 @@ export default function CaloriesBurnedWalking() {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Hidden Power of Walking for Sustainable Fat Loss</h2>
             <p>In the fitness industry, walking is often dismissed in favor of high-intensity interval training (HIIT), heavy weightlifting, or grueling marathons. However, from a physiological perspective, walking is one of the absolute most powerful tools for sustainable fat loss. Why? Because it allows you to burn a significant amount of calories with an exceptionally low impact on your joints and virtually zero stress on your Central Nervous System (CNS).</p>
             <p>This <strong>Calories Burned Walking Calculator</strong> bypasses generic estimates and utilizes clinical MET (Metabolic Equivalent of Task) formulas to precisely calculate your exact energy expenditure. By factoring in your body weight, your exact walking speed, the incline grade of your path, and the terrain you are walking on, it provides laboratory-grade data for your nutritional planning.</p>

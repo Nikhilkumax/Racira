@@ -143,7 +143,7 @@ const BmiPercentileCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Understanding BMI in Youth</h2>
               <p>Body Mass Index (BMI) is a measure of weight relative to height. For children and teens, BMI is age- and sex-specific and is often referred to as BMI-for-age.</p>
               <h3>Why Percentiles Matter</h3>

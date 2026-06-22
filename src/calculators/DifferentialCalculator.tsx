@@ -272,9 +272,9 @@ export default function DifferentialCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What is a Differential?</h2>
             <p>While the transmission handles shifting gears, the differential (often called the "rear end" in RWD trucks and cars) provides the final, permanent gear reduction before engine power reaches the tires. Inside the differential casing, there are two primary gears: a small Pinion gear connected to the spinning driveshaft, and a large Ring gear connected to the wheel axles. By dividing the number of teeth on the Ring gear by the teeth on the Pinion gear, you calculate your differential ratio (e.g., 41 ring teeth ÷ 11 pinion teeth = 3.73:1).</p>
 

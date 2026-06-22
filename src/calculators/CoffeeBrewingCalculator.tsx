@@ -162,7 +162,7 @@ const CoffeeBrewingCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>The Art of the Brew Ratio</h2>
               <p>Coffee brewing is a delicate science where the ratio of coffee to water is the most critical variable. By controlling this ratio, you control the strength and extraction of your coffee. A lower ratio (like 1:12) will result in a heavy, intense cup, while a higher ratio (like 1:18) will be lighter and more tea-like.</p>
               

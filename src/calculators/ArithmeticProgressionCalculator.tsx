@@ -168,9 +168,9 @@ const ArithmeticProgressionCalculator = () => {
           </div>
         </div>
 
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is an Arithmetic Progression Calculator?</h2>
             <p>An arithmetic progression calculator finds the nth term, sum, and sequence of an AP given the first term, common difference, and number of terms. Pre-filled with a=2, d=5, n=10: the 10th term is 47, sum is 245, mean is 24.5. The linear term chart confirms that APs always form a straight line — their defining characteristic.</p>
             <h2>Key Formulas</h2>

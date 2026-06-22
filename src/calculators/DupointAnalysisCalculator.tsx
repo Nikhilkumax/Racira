@@ -133,9 +133,9 @@ export default function DupointAnalysisCalculator() {
             </div>
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is DuPont Analysis?</h2>
             <p>DuPont Analysis is a fundamental equity research framework that decomposes Return on Equity (ROE) into three operational and financial components: profitability, asset efficiency, and financial leverage. Developed by the DuPont Corporation in the 1920s, it remains one of the most powerful diagnostic tools in financial statement analysis, revealing not just how much return a company earns for shareholders, but precisely why that return exists and whether it is sustainable.</p>
             <h2>The 3-Factor DuPont Formula</h2>

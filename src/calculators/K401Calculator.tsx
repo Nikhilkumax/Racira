@@ -495,10 +495,10 @@ const K401Calculator = () => {
         </div>
 
         {/* SEO CONTENT SECTION */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
           
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a 401(k) Calculator?</h2>
             <p>A 401(k) calculator projects how much money you'll accumulate in your employer-sponsored retirement account by the time you retire. It factors in your current balance, annual contributions (up to the IRS limit), employer matching contributions, expected investment returns, salary increases, and inflation to provide a comprehensive retirement savings forecast.</p>
             <p>Our advanced 401(k) calculator includes all factors that significantly impact your retirement outcome: employer match with configurable match percentage and limits, annual salary increase projections, inflation-adjusted purchasing power, and a complete growth table showing milestones until retirement.</p>

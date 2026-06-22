@@ -401,9 +401,9 @@ export default function WaistToHeightRatioCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding the Waist-to-Height Ratio (WtHR) Calculator</h2>
             <p>For over 150 years, the medical establishment has leaned heavily on the Body Mass Index (BMI) as the primary indicator of obesity and health risk. However, modern cardiology and metabolic science have definitively proven that BMI is fundamentally flawed. BMI only measures your total gravitational pull (weight) against your height. It cannot differentiate between a pound of dense, healthy skeletal muscle and a pound of dangerous, toxic fat. More critically, BMI cannot tell doctors <em>where</em> your fat is located. The <strong>Waist-to-Height Ratio (WtHR) Calculator</strong> bypasses the flaws of the scale entirely. By directly comparing the circumference of your abdomen to your height, it zeroes in on the single most lethal type of fat in the human body, providing a vastly superior, highly accurate predictor of cardiovascular disease and metabolic syndrome.</p>
 

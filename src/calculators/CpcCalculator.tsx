@@ -86,7 +86,7 @@ const CpcCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Optimizing for CPC</h2>
               <p>CPC is the most popular metric for performance marketers. Unlike CPM, where you pay for eyeballs, CPC ensures you only pay when you actually get a visitor to your site.</p>
               <h3>Balancing CPC and Conversion</h3>

@@ -163,9 +163,9 @@ export default function BoatLoanCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Boat Loan Calculator?</h2>
             <p>A boat loan calculator is an essential financial tool designed specifically for marine financing. Purchasing a boat—whether it’s a small fishing vessel, a pontoon, or a luxury yacht—represents a significant capital expenditure. Unlike automotive loans, which typically span 3 to 7 years, boat loans operate in a unique space between auto loans and home mortgages, with terms frequently stretching from 10 to 20 years. This calculator helps prospective boat owners model different purchasing scenarios by factoring in the boat's price, down payment, trade-in value, interest rate, and term length. It goes beyond a simple monthly payment calculation by integrating critical out-the-door costs such as state sales tax and dealer registration fees, providing a transparent view of the true cost of boat ownership.</p>
             <p>Using this calculator allows you to confidently set a budget before visiting a marine dealership or negotiating with a private seller. By understanding the long-term amortization schedule and total interest accumulation, you can avoid the common trap of shopping based purely on a "monthly payment" and instead focus on securing the best overall financial deal for your nautical dreams.</p>

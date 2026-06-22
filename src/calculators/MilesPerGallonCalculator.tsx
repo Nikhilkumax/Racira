@@ -264,9 +264,9 @@ export default function MilesPerGallonCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is an MPG Calculator?</h2>
             <p>A Miles Per Gallon (MPG) Calculator is the most fundamental tool for tracking the health, efficiency, and operating cost of an internal combustion engine vehicle. It tells you exactly how many miles your car travels for every single gallon of gasoline it burns. While most modern cars have a digital dashboard that displays an estimated MPG, those onboard computers are notoriously inaccurate, often overestimating efficiency by 5% to 10% to make the driver feel better. This calculator relies on hard math based on actual fuel consumption.</p>
 

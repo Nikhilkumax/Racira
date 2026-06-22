@@ -398,9 +398,9 @@ export default function BodyFatNavyMethodCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Limitations of the Bathroom Scale</h2>
             <p>One of the most psychologically damaging aspects of the modern fitness industry is our total obsession with the bathroom scale. We have been conditioned to believe that the number on the scale is the ultimate arbiter of our health and aesthetic progress. However, from a clinical perspective, total body weight is an incredibly ignorant metric. The scale cannot tell the difference between a pound of heavy, metabolically active muscle and a pound of deadly visceral fat. A 220-pound professional athlete and a 220-pound sedentary office worker look identical to a bathroom scale, but their biological realities could not be more different. The <strong>Body Fat Percentage Calculator (Navy Method)</strong> solves this problem by completely bypassing raw weight and using anatomical geometry to isolate your true body composition.</p>
 

@@ -126,7 +126,7 @@ const HomeAffordabilityCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Finding Your Budget</h2>
               <p>Buying a home is the largest purchase most people will ever make. Knowing exactly how much you can afford before you start house hunting is critical to avoiding financial stress.</p>
               <h3>The Role of Interest Rates</h3>

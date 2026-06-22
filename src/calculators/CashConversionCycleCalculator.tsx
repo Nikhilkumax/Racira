@@ -163,9 +163,9 @@ export default function CashConversionCycleCalculator() {
           </div>
         </div>
 
-        <div className="max-w-[1180px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is the Cash Conversion Cycle?</h2>
             <p>The Cash Conversion Cycle (CCC) measures how many days it takes a company to convert its operational investments into cash flows from sales. It's the definitive metric for working capital efficiency. The formula: <strong>CCC = DIO + DSO − DPO</strong>.</p>
             <p>Pre-filled with DIO=45, DSO=38, DPO=30 days → CCC = 53 days. For a $1M/year company, this means ~$145,000 is continuously tied up in the operating cycle.</p>

@@ -138,9 +138,9 @@ export default function ActiveMetabolicRateCalculator() {
             </div>
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is Active Metabolic Rate (AMR)?</h2>
             <p>Active Metabolic Rate (AMR), also called Total Daily Energy Expenditure (TDEE), is the total number of calories your body burns in a 24-hour period, combining your resting metabolism with all physical activity. It is the master number in nutrition science — eat below it to lose weight, match it to maintain, and exceed it to gain mass. This calculator uses the gold-standard Mifflin-St Jeor equation for BMR and multiplies by validated activity factors.</p>
             <h2>AMR Formula</h2>

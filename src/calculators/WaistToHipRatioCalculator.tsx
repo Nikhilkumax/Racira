@@ -104,7 +104,7 @@ const WaistToHipRatioCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Understanding Waist-to-Hip Ratio</h2>
               <p>The WHO uses WHR as a key indicator of abdominal obesity and associated health risks. Fat stored around the abdomen (visceral fat) is metabolically active and linked to insulin resistance, inflammation, and cardiovascular disease.</p>
               <h3>Apple vs. Pear Body Shape</h3>

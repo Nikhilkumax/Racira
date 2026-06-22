@@ -124,7 +124,7 @@ const SWPCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>What Is an SWP Calculator?</h2>
               <p>An SWP (Systematic Withdrawal Plan) calculator helps you plan regular withdrawals from your mutual fund investment. It shows how your corpus behaves over time as you withdraw fixed amounts while the remaining balance continues to earn returns.</p>
 

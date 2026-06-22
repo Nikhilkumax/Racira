@@ -195,9 +195,9 @@ export default function BloodVolumeCalculator() {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Mathematics of Blood Volume</h2>
             <p>Your blood is the body's primary transportation network. It delivers oxygen and nutrients to every cell while simultaneously removing carbon dioxide and waste products. But exactly how much of this fluid do you have?</p>
             <p>In clinical settings (such as preparing a patient for major surgery or dialysis), doctors cannot simply guess a patient's blood volume. Instead, they rely on the <strong>Nadler Equation</strong>. Developed in the 1960s, this complex mathematical formula accounts for the non-linear relationship between a person's height, weight, and biological sex to provide a highly accurate estimation of Total Blood Volume (TBV).</p>

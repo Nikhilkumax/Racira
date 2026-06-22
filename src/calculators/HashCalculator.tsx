@@ -144,7 +144,7 @@ const HashCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Understanding Cryptographic Hashes</h2>
               <p>A hash function takes an input of any size and produces a fixed-size string of characters. This output, known as a hash or checksum, is consistent: the same input will always produce the same hash.</p>
               

@@ -5,7 +5,6 @@ import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import InputField from "@/components/calculator/InputField";
 import ResultDisplay from "@/components/calculator/ResultDisplay";
 import PieChart from "@/components/calculator/PieChart";
 import AmortizationTable, { type AmortRow } from "@/components/calculator/AmortizationTable";
@@ -22,6 +21,26 @@ interface CanadianResults {
   yearlyRows: AmortRow[];
 }
 
+const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "number", ...props }: any) => (
+  <div className="flex flex-col">
+    <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1.5">
+      {label}
+    </label>
+    <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-10 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
+      {prefix && <span className="pl-3 pr-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{prefix}</span>}
+      <input
+        id={id}
+        type={type}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground"
+        {...props}
+      />
+      {suffix && <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{suffix}</span>}
+    </div>
+  </div>
+);
+
 const CanadianMortgageCalculator = () => {
   const [homePrice, setHomePrice] = useState("500000");
   const [downPayment, setDownPayment] = useState("100000");
@@ -32,6 +51,7 @@ const CanadianMortgageCalculator = () => {
   const [results, setResults] = useState<CanadianResults | null>(null);
   const [showResults, setShowResults] = useState(false);
   const [viewMode, setViewMode] = useState<"monthly" | "yearly">("yearly");
+  const [showAdvanced, setShowAdvanced] = useState(false);
   const printRef = useRef<HTMLDivElement>(null);
 
   const calculateCMHC = (price: number, down: number) => {
@@ -138,139 +158,154 @@ const CanadianMortgageCalculator = () => {
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Canadian Mortgage Calculator</h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="grid sm:grid-cols-2 gap-6">
-                <InputField id="price" label="Home Price" value={homePrice} onChange={setHomePrice} prefix="$" tooltip="Total purchase price of the property." />
-                <InputField id="down" label="Down Payment" value={downPayment} onChange={setDownPayment} prefix="$" tooltip="Your upfront cash payment (Min 5-20% depending on price)." />
-                <InputField id="rate" label="Interest Rate" value={interestRate} onChange={setInterestRate} suffix="%" tooltip="Quoted annual interest rate." />
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-1.5">Amortization (Years)</label>
-                  <select value={amortization} onChange={(e) => setAmortization(e.target.value)} className="input-calc">
+          <div className="card-calculator flex flex-col gap-3 !p-5 shadow-sm border border-border bg-card">
+            <div className="grid grid-cols-2 gap-4">
+              <CompactInput id="price" label="Home Price" value={homePrice} onChange={setHomePrice} prefix="$" />
+              <CompactInput id="down" label="Down Payment" value={downPayment} onChange={setDownPayment} prefix="$" />
+              <CompactInput id="rate" label="Interest Rate" value={interestRate} onChange={setInterestRate} suffix="%" />
+              <div className="flex flex-col">
+                <label className="flex items-center text-sm font-semibold text-foreground mb-1.5">Amortization</label>
+                <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-10 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
+                  <select value={amortization} onChange={(e) => setAmortization(e.target.value)} className="w-full h-full px-3 py-1 text-base bg-transparent outline-none border-none text-foreground cursor-pointer">
                     <option value="5">5 Years</option>
                     <option value="10">10 Years</option>
                     <option value="15">15 Years</option>
                     <option value="20">20 Years</option>
                     <option value="25">25 Years</option>
-                    <option value="30">30 Years (Uninsured only)</option>
+                    <option value="30">30 Years (Uninsured)</option>
                   </select>
                 </div>
               </div>
+            </div>
 
-              <div className="mt-6">
-                <label className="block text-sm font-medium text-foreground mb-2">Compounding Frequency</label>
-                <div className="flex gap-4">
-                  <label className="flex items-center gap-2 cursor-pointer">
-                    <input type="radio" checked={compounding === "semiAnnual"} onChange={() => setCompounding("semiAnnual")} className="w-4 h-4 text-primary" />
-                    <span className="text-sm">Semi-Annual (Standard Fixed)</span>
-                  </label>
-                  <label className="flex items-center gap-2 cursor-pointer">
-                    <input type="radio" checked={compounding === "monthly"} onChange={() => setCompounding("monthly")} className="w-4 h-4 text-primary" />
-                    <span className="text-sm">Monthly (Standard Variable)</span>
-                  </label>
+            <div className="mt-2 border border-border rounded-md overflow-hidden bg-background">
+              <button
+                type="button"
+                onClick={() => setShowAdvanced(!showAdvanced)}
+                className="w-full flex items-center justify-between p-3 text-sm font-bold text-foreground hover:bg-secondary/50 transition-colors"
+              >
+                Advanced Options
+                <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${showAdvanced ? "rotate-180" : ""}`} />
+              </button>
+              <div className={`transition-all duration-300 ease-in-out ${showAdvanced ? "max-h-[500px] opacity-100 p-4 pt-1 border-t border-border" : "max-h-0 opacity-0 px-4 overflow-hidden"}`}>
+                <div className="mt-2">
+                  <label className="block text-sm font-medium text-foreground mb-2">Compounding Frequency</label>
+                  <div className="flex flex-col gap-2">
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <input type="radio" checked={compounding === "semiAnnual"} onChange={() => setCompounding("semiAnnual")} className="w-4 h-4 text-primary" />
+                      <span className="text-sm">Semi-Annual (Standard Fixed)</span>
+                    </label>
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <input type="radio" checked={compounding === "monthly"} onChange={() => setCompounding("monthly")} className="w-4 h-4 text-primary" />
+                      <span className="text-sm">Monthly (Standard Variable)</span>
+                    </label>
+                  </div>
                 </div>
               </div>
+            </div>
 
-              <div className="flex gap-3 mt-8">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Payments</button><button onClick={reset} className="p-4 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground"><RotateCcw className="h-5 w-5" /></button>
-              </div>
+            <div className="flex gap-3 mt-4">
+              <button onClick={handleCalculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm">
+                Calculate
+              </button>
+              <button onClick={reset} className="w-12 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center focus:outline-none">
+                <RotateCcw className="h-4 w-4" />
+              </button>
+            </div>
           </div>
 
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-4">
             {showResults && results && (
-              <>
-                <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-2xl font-bold">Mortgage Summary</h2>
-                  <button onClick={() => window.print()} className="text-primary hover:underline flex items-center gap-2"><Printer className="h-4 w-4" /> Print</button>
+              <div className="flex flex-col gap-4">
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative">
+                  <button onClick={() => window.print()} className="absolute top-4 right-4 text-muted-foreground hover:text-primary transition-colors print:hidden" aria-label="Print Results">
+                    <Printer className="h-4 w-4" />
+                  </button>
+                  <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Monthly Payment</div>
+                  <div className="text-4xl font-extrabold text-foreground tracking-tight">${results.monthlyPayment.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
                 </div>
 
-                <div className="bg-primary/5 rounded-3xl p-8 text-center border border-primary/10 mb-8">
-                    <p className="text-5xl font-black text-foreground mb-1">
-                        ${results.monthlyPayment.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                    </p>
-                    <p className="text-sm font-bold text-muted-foreground uppercase tracking-widest">Monthly Payment</p>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <div className="p-4 rounded-xl bg-secondary/20 text-center border border-border">
+                    <p className="text-[10px] font-bold text-muted-foreground uppercase mb-1">Loan Amount</p>
+                    <p className="font-bold">${results.loanAmount.toLocaleString()}</p>
+                  </div>
+                  <div className="p-4 rounded-xl bg-secondary/20 text-center border border-border">
+                    <p className="text-[10px] font-bold text-muted-foreground uppercase mb-1">CMHC Premium</p>
+                    <p className="font-bold">${results.cmhcPremium.toLocaleString()}</p>
+                  </div>
+                  <div className="p-4 rounded-xl bg-secondary/20 text-center border border-border">
+                    <p className="text-[10px] font-bold text-muted-foreground uppercase mb-1">Total Interest</p>
+                    <p className="font-bold">${Math.round(results.totalInterest).toLocaleString()}</p>
+                  </div>
+                  <div className="p-4 rounded-xl bg-secondary/20 text-center border border-border">
+                    <p className="text-[10px] font-bold text-muted-foreground uppercase mb-1">Total Cost</p>
+                    <p className="font-bold">${Math.round(results.totalCost).toLocaleString()}</p>
+                  </div>
                 </div>
 
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                    <div className="p-4 rounded-xl bg-secondary/20 text-center">
-                        <p className="text-[10px] font-bold text-muted-foreground uppercase mb-1">Loan Amount</p>
-                        <p className="font-bold">${results.loanAmount.toLocaleString()}</p>
-                    </div>
-                    <div className="p-4 rounded-xl bg-secondary/20 text-center">
-                        <p className="text-[10px] font-bold text-muted-foreground uppercase mb-1">CMHC Premium</p>
-                        <p className="font-bold">${results.cmhcPremium.toLocaleString()}</p>
-                    </div>
-                    <div className="p-4 rounded-xl bg-secondary/20 text-center">
-                        <p className="text-[10px] font-bold text-muted-foreground uppercase mb-1">Total Interest</p>
-                        <p className="font-bold">${Math.round(results.totalInterest).toLocaleString()}</p>
-                    </div>
-                    <div className="p-4 rounded-xl bg-secondary/20 text-center">
-                        <p className="text-[10px] font-bold text-muted-foreground uppercase mb-1">Total Cost</p>
-                        <p className="font-bold">${Math.round(results.totalCost).toLocaleString()}</p>
-                    </div>
-                </div>
-
-                <ResultDisplay items={[
+                <div className="card-calculator border border-border bg-card !p-5">
+                  <h3 className="text-base font-bold mb-4">Summary Breakdown</h3>
+                  <ResultDisplay items={[
                     { label: "Total Loan with CMHC", value: results.totalLoanWithPremium, highlight: true },
                     { label: "Amortization Period", value: 0, textValue: amortization + " Years" },
-                    { label: "Effective Monthly Rate", value: 0, textValue: ( (Math.pow(1+results.monthlyPayment/results.totalLoanWithPremium, 1)-1)*100 ).toFixed(4) + "%" }, // This is a rough calc for display
-                ]} />
-
-                <div className="mt-10">
-                    <div className="flex gap-2 mb-4">
-                        <button onClick={() => setViewMode("yearly")} className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${viewMode === "yearly" ? "bg-primary text-white" : "bg-secondary text-muted-foreground"}`}>Yearly Schedule</button>
-                        <button onClick={() => setViewMode("monthly")} className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${viewMode === "monthly" ? "bg-primary text-white" : "bg-secondary text-muted-foreground"}`}>Monthly Schedule</button>
-                    </div>
-                    <AmortizationTable rows={viewMode === "yearly" ? results.yearlyRows : results.monthlyRows} yearly={viewMode === "yearly"} />
+                    { label: "Effective Monthly Rate", value: 0, textValue: ( (Math.pow(1+results.monthlyPayment/results.totalLoanWithPremium, 1)-1)*100 ).toFixed(4) + "%" },
+                  ]} />
                 </div>
-              </>
+
+                <div className="card-calculator border border-border bg-card !p-5">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-base font-bold">Amortization Schedule</h3>
+                    <div className="flex rounded-md border border-input overflow-hidden h-8">
+                      <button onClick={() => setViewMode("monthly")} className={`px-3 text-xs font-semibold transition-colors ${viewMode === "monthly" ? "bg-primary text-primary-foreground" : "bg-secondary text-muted-foreground hover:bg-secondary/80"}`}>Monthly</button>
+                      <button onClick={() => setViewMode("yearly")} className={`px-3 text-xs font-semibold transition-colors border-l border-input ${viewMode === "yearly" ? "bg-primary text-primary-foreground" : "bg-secondary text-muted-foreground hover:bg-secondary/80"}`}>Yearly</button>
+                    </div>
+                  </div>
+                  <AmortizationTable rows={viewMode === "yearly" ? results.yearlyRows : results.monthlyRows} yearly={viewMode === "yearly"} currency="$" />
+                </div>
+              </div>
             )}
           </div>
         </div>
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
-              <h2>Understanding Canadian Mortgages</h2>
-              <p>The Canadian mortgage landscape is unique, governed by specific regulations in the Interest Act and the Bank Act. Whether you are buying a trendy condo in Toronto, a family home in Calgary, or an investment property in Vancouver, understanding how interest is calculated and how insurance premiums work can save you thousands of dollars.</p>
-              
-              <h2>Semi-Annual Compounding: The Canadian Standard</h2>
-              <p>One of the most distinctive features of Canadian fixed-rate mortgages is that interest is compounded semi-annually (twice a year) but paid monthly. This is a legal requirement for all fixed-rate mortgages in Canada. For the borrower, this is actually a slight advantage; it means the effective interest rate is slightly lower than if the same annual rate were compounded monthly (the US standard).</p>
-              <p>Variable-rate mortgages in Canada, however, are typically compounded monthly, matching the frequency of the payments.</p>
+          <article className="prose-finance text-[15.75px]">
+            <h2 className="text-2xl font-bold mb-3">Understanding Canadian Mortgages</h2>
+            <p>The Canadian mortgage landscape is unique, governed by specific regulations in the Interest Act and the Bank Act. Whether you are buying a trendy condo in Toronto, a family home in Calgary, or an investment property in Vancouver, understanding how interest is calculated and how insurance premiums work can save you thousands of dollars.</p>
+            
+            <h2 className="text-2xl font-bold mb-3">Semi-Annual Compounding: The Canadian Standard</h2>
+            <p>One of the most distinctive features of Canadian fixed-rate mortgages is that interest is compounded semi-annually (twice a year) but paid monthly. This is a legal requirement for all fixed-rate mortgages in Canada. For the borrower, this is actually a slight advantage; it means the effective interest rate is slightly lower than if the same annual rate were compounded monthly (the US standard).</p>
+            <p>Variable-rate mortgages in Canada, however, are typically compounded monthly, matching the frequency of the payments.</p>
 
-              <h2>CMHC Insurance and the 20% Rule</h2>
-              <p>In Canada, if your down payment is less than 20% of the home's purchase price, you must obtain mortgage default insurance. While there are private providers like Sagen and Canada Guaranty, this is most commonly provided by the <strong>Canada Mortgage and Housing Corporation (CMHC)</strong>.</p>
-              <p>The insurance premium is a one-time fee calculated as a percentage of your loan amount. It decreases as your down payment increases:</p>
-              <ul>
-                <li><strong>5.0% to 9.99% Down:</strong> 4.00% Premium</li>
-                <li><strong>10.0% to 14.99% Down:</strong> 3.10% Premium</li>
-                <li><strong>15.0% to 19.99% Down:</strong> 2.80% Premium</li>
-                <li><strong>20% or More Down:</strong> 0% Premium (Insurance not required)</li>
-              </ul>
-              <p>Most buyers choose to "roll" this premium into their mortgage balance rather than paying it upfront in cash.</p>
+            <h2 className="text-2xl font-bold mb-3">CMHC Insurance and the 20% Rule</h2>
+            <p>In Canada, if your down payment is less than 20% of the home's purchase price, you must obtain mortgage default insurance. While there are private providers like Sagen and Canada Guaranty, this is most commonly provided by the <strong>Canada Mortgage and Housing Corporation (CMHC)</strong>.</p>
+            <p>The insurance premium is a one-time fee calculated as a percentage of your loan amount. It decreases as your down payment increases:</p>
+            <p><strong>5.0% to 9.99% Down:</strong> 4.00% Premium</p>
+            <p><strong>10.0% to 14.99% Down:</strong> 3.10% Premium</p>
+            <p><strong>15.0% to 19.99% Down:</strong> 2.80% Premium</p>
+            <p><strong>20% or More Down:</strong> 0% Premium (Insurance not required)</p>
+            <p>Most buyers choose to "roll" this premium into their mortgage balance rather than paying it upfront in cash.</p>
 
-              <h2>Minimum Down Payment Requirements</h2>
-              <p>Canada has a tiered system for minimum down payments designed to ensure housing market stability:</p>
-              <ul>
-                <li><strong>Price up to $500,000:</strong> 5% of the total price.</li>
-                <li><strong>Price $500,001 to $999,999:</strong> 5% on the first $500k, and 10% on the remaining balance.</li>
-                <li><strong>Price $1,000,000 or more:</strong> A flat 20% minimum is required (no CMHC insurance available for homes over $1M).</li>
-              </ul>
+            <h2 className="text-2xl font-bold mb-3">Minimum Down Payment Requirements</h2>
+            <p>Canada has a tiered system for minimum down payments designed to ensure housing market stability:</p>
+            <p><strong>Price up to $500,000:</strong> 5% of the total price.</p>
+            <p><strong>Price $500,001 to $999,999:</strong> 5% on the first $500k, and 10% on the remaining balance.</p>
+            <p><strong>Price $1,000,000 or more:</strong> A flat 20% minimum is required (no CMHC insurance available for homes over $1M).</p>
 
-              <h2>Amortization vs. Term</h2>
-              <p>It is crucial to distinguish between the **amortization period** and the **mortgage term**.</p>
-              <p>The <strong>Amortization Period</strong> is the total length of time it would take to pay off the mortgage in full (e.g., 25 years). For insured mortgages, the maximum amortization is 25 years. For uninsured mortgages (20% down or more), 30-year amortizations are common.</p>
-              <p>The <strong>Mortgage Term</strong> is the length of your current contract with the lender (e.g., 5 years). At the end of the term, you must either pay off the remaining balance or "renew" your mortgage for a new term at the then-current market interest rates.</p>
+            <h2 className="text-2xl font-bold mb-3">Amortization vs. Term</h2>
+            <p>It is crucial to distinguish between the <strong>amortization period</strong> and the <strong>mortgage term</strong>.</p>
+            <p>The <strong>Amortization Period</strong> is the total length of time it would take to pay off the mortgage in full (e.g., 25 years). For insured mortgages, the maximum amortization is 25 years. For uninsured mortgages (20% down or more), 30-year amortizations are common.</p>
+            <p>The <strong>Mortgage Term</strong> is the length of your current contract with the lender (e.g., 5 years). At the end of the term, you must either pay off the remaining balance or "renew" your mortgage for a new term at the then-current market interest rates.</p>
 
-              <h2>Closing Costs in Canada</h2>
-              <p>In addition to your down payment, you should budget 1.5% to 4% of the purchase price for closing costs, which include:</p>
-              <ul>
-                <li><strong>Land Transfer Tax:</strong> Varies by province (and city, in Toronto's case).</li>
-                <li><strong>Legal Fees:</strong> Usually $1,000 - $2,500.</li>
-                <li><strong>Title Insurance:</strong> $250 - $500.</li>
-                <li><strong>Appraisal Fee:</strong> $300 - $500.</li>
-                <li><strong>PST on CMHC Premium:</strong> In provinces like Ontario, Quebec, and Saskatchewan, you must pay provincial sales tax on the insurance premium upfront, even if the premium itself is rolled into the loan.</li>
-              </ul>
-            </article>
+            <h2 className="text-2xl font-bold mb-3">Closing Costs in Canada</h2>
+            <p>In addition to your down payment, you should budget 1.5% to 4% of the purchase price for closing costs, which include:</p>
+            <p><strong>Land Transfer Tax:</strong> Varies by province (and city, in Toronto's case).</p>
+            <p><strong>Legal Fees:</strong> Usually $1,000 - $2,500.</p>
+            <p><strong>Title Insurance:</strong> $250 - $500.</p>
+            <p><strong>Appraisal Fee:</strong> $300 - $500.</p>
+            <p><strong>PST on CMHC Premium:</strong> In provinces like Ontario, Quebec, and Saskatchewan, you must pay provincial sales tax on the insurance premium upfront, even if the premium itself is rolled into the loan.</p>
+          </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/canadian-mortgage-calculator" />
           <PopularCalculators exclude="/calculator/canadian-mortgage-calculator" />
         </div>

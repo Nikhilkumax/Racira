@@ -292,9 +292,9 @@ export default function TurboBoostCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>How Do Turbochargers Add Horsepower?</h2>
             <p>Naturally aspirated engines rely on the downward stroke of the piston to pull atmospheric air into the combustion chamber. This creates a hard physical limit on how much oxygen can mix with fuel. A turbocharger completely rewrites this rule. Driven by waste exhaust gases, the turbo's compressor wheel acts as a powerful forced-induction pump. It artificially pressurizes the intake air (measured in PSI of "boost"), allowing the engine to inhale a massive surplus of oxygen and burn significantly more fuel, generating explosive horsepower gains.</p>
 

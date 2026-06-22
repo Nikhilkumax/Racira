@@ -252,9 +252,9 @@ export default function ChildPughScoreCalculator() {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding the Child-Pugh Score</h2>
             <p>The Child-Turcotte-Pugh (CTP) score, commonly known as the Child-Pugh score, was originally developed in 1964 to predict the surgical mortality risk of patients with cirrhosis undergoing liver portocaval shunt operations. Over time, it became the gold standard for predicting the overall severity and prognosis of chronic liver disease.</p>
             <p>While the modern MELD score has largely replaced the Child-Pugh score for determining liver transplant priority due to its purely objective mathematical nature, the Child-Pugh score remains critically important in everyday medicine. It is universally used to adjust medication dosing for patients with liver failure and to assess whether a patient can survive elective surgeries.</p>

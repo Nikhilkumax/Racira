@@ -301,9 +301,9 @@ export default function SedentaryTimeCostCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Mathematics of Inactivity</h2>
             <p>Modern society is built around the chair. We sit in our cars to commute, we sit at our desks for eight hours to work, we sit at the table to eat, and we sit on the couch to watch television before going to sleep. This hyper-sedentary lifestyle is completely alien to human evolutionary biology, and it is the primary driver behind the modern obesity epidemic. Many people believe they can counteract 10 hours of sitting by going to the gym for 45 minutes, but the math simply does not support this. The <strong>Sedentary Time Cost Calculator</strong> is designed to reveal the staggering amount of "free" passive calories you are leaving on the table by keeping your postural muscles turned off.</p>
 

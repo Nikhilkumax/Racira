@@ -108,7 +108,7 @@ const NPSCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>What Is an NPS Calculator?</h2>
               <p>An NPS calculator helps you estimate the retirement corpus from your National Pension System contributions. It projects your total accumulation, tax-free lump sum withdrawal, and estimated monthly pension from the annuity portion.</p>
 

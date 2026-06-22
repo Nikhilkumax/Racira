@@ -163,7 +163,7 @@ export default function SslCostCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Why Your Website Needs an SSL Certificate</h2>
               <p>SSL (Secure Sockets Layer) is the standard technology for keeping an internet connection secure and safeguarding any sensitive data that is being sent between two systems. It prevents criminals from reading and modifying any information transferred, including potential personal details like credit card numbers or login credentials. Today, SSL is not just a luxury; it is a fundamental requirement for any professional website.</p>
 

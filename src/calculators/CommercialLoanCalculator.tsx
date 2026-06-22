@@ -175,20 +175,20 @@ export default function CommercialLoanCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
-            <h2>What Is a Commercial Loan Calculator?</h2>
+          <article className="prose-finance text-[15.75px]">
+            <h2 className="text-2xl font-bold mb-3">What Is a Commercial Loan Calculator?</h2>
             <p>A commercial loan calculator is an advanced financial tool designed explicitly for real estate investors, business owners, and syndicators who are purchasing or refinancing income-producing properties. Unlike a standard residential mortgage calculator, which primarily focuses on basic amortization over a 15- or 30-year fixed term, a commercial loan calculator accounts for the unique, often complex structures inherent to commercial finance. This includes the decoupling of loan amortization from the loan term, the calculation of massive balloon payments, and the crucial analysis of cash flow metrics like the Debt Service Coverage Ratio (DSCR).</p>
             <p>Commercial real estate (CRE) deals live and die by the numbers. Lenders do not care about your personal W-2 salary in the same way residential lenders do. Instead, they underwrite the property itself as a standalone business. Our calculator replicates a commercial underwriter's desk, allowing you to instantly determine if a property generates enough Net Operating Income (NOI) to support the debt you are requesting, empowering you to negotiate with banks from a position of mathematical strength.</p>
 
-            <h2>How It Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
             <p>The mathematics powering this calculator use standard commercial lending formulas, executing thousands of calculations instantly. The core difference lies in how amortization and loan terms interact.</p>
             <p>First, the calculator uses the <strong>Amortization Period</strong> (typically 20-25 years) to establish your monthly payment. It uses the standard amortization formula: <code>M = P [ r(1 + r)^n ] / [ (1 + r)^n - 1 ]</code>, where <em>n</em> is the amortization in months. This gives you a relatively low monthly payment as if you had 25 years to pay it off.</p>
             <p>However, the calculator also tracks the <strong>Loan Term</strong> (typically 5-10 years). It runs an amortization schedule silently in the background, deducting your principal payments month by month. Exactly when the Loan Term expires, it halts the schedule and calculates the remaining principal balance. This massive remaining balance is your <strong>Balloon Payment</strong>.</p>
             <p>Simultaneously, the calculator evaluates risk by dividing your inputted Net Operating Income (NOI) by the calculated Annual Debt Service (your monthly payment multiplied by 12) to produce the exact DSCR.</p>
 
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>When you click calculate, the tool produces five distinct analytical zones designed to give you a 360-degree view of your commercial deal.</p>
             <p><strong>Primary Result Card:</strong> Your estimated monthly payment is displayed prominently, along with the exact dollar amount of the balloon payment due at the end of the term. This balloon figure is critical for planning your exit strategy (refinance or sale).</p>
             <p><strong>3-Stat Bar:</strong> This bar instantly tells you if the deal is viable. It displays the DSCR (highlighting green if it's over 1.25, the industry standard for safety), the Loan-to-Value (LTV) ratio, and the total interest you will pay over the term.</p>
@@ -196,29 +196,29 @@ export default function CommercialLoanCalculator() {
             <p><strong>Income vs. Debt Service Chart:</strong> This bar chart visually represents your DSCR. The blue bar represents the total cash the property generates (NOI), while the red bar represents the mortgage payments. The gap between them is your absolute cash flow cushion. If the red bar is ever larger than the blue bar, the property is cash-flow negative.</p>
             <p><strong>Summary Statistics:</strong> A fast, readable grid aggregating the most important metrics, including your net monthly cash flow after debt service is paid.</p>
 
-            <h2>Key Factors</h2>
+            <h2 className="text-2xl font-bold mb-3">Key Factors</h2>
             <p>To successfully utilize a commercial loan calculator and secure funding, you must deeply understand the primary variables lenders use to underwrite deals.</p>
             <p><strong>Debt Service Coverage Ratio (DSCR):</strong> This is the golden rule of commercial lending. A DSCR of 1.0 means your income exactly matches your debt—zero profit. A DSCR of 1.25x means you generate 25% more income than needed to pay the bank. Lenders almost universally require a minimum DSCR of 1.20 to 1.25. If your DSCR is below this, you must either increase the NOI, lower the interest rate, or bring a larger down payment to shrink the loan size.</p>
             <p><strong>Loan-to-Value (LTV):</strong> Commercial lenders are highly conservative. While you can buy a house with 3% down, commercial properties usually require 20% to 35% down (LTVs of 65% to 80%). High leverage in commercial real estate dramatically increases default risk during economic downturns, which is why lenders force you to keep significant equity in the deal.</p>
             <p><strong>Net Operating Income (NOI):</strong> NOI is the lifeblood of commercial real estate. It is the total revenue minus all operating expenses (taxes, insurance, maintenance, property management). Notably, NOI does <em>not</em> include your mortgage payment or depreciation. The higher your NOI, the higher the property's value, and the larger the loan you can secure.</p>
 
-            <h2>Advanced Features</h2>
+            <h2 className="text-2xl font-bold mb-3">Advanced Features</h2>
             <p>The Advanced Options tab is where the calculator transitions from a simple payment estimator into a true commercial underwriting tool.</p>
             <p>By inputting the <strong>Loan Term</strong> independently of the Amortization period, you accurately model the reality of commercial finance. Most commercial loans are 5, 7, or 10-year term loans amortized over 25 years. This feature alone separates this tool from basic residential calculators.</p>
             <p>Furthermore, adding the <strong>Annual NOI</strong> unlocks the DSCR and cash flow analysis. Without inputting NOI, a commercial calculator cannot tell you if the deal is safe or risky; it can only tell you the math of the loan. By integrating NOI, the tool validates the financial integrity of the asset.</p>
 
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <p>Let's look at how tweaking these variables changes the viability of a multi-million dollar deal.</p>
             <p><strong>Example 1: The Safe Bet.</strong> You are buying a $2,000,000 apartment complex. You request a $1,400,000 loan (70% LTV). The interest rate is 6.5%, amortized over 25 years with a 10-year term. The property generates $150,000 in NOI. Your annual debt service is $113,435. Your DSCR is an excellent 1.32x. The lender approves this deal instantly. After 10 years, you will owe a balloon payment of $1,053,000.</p>
             <p><strong>Example 2: The Risky Squeeze.</strong> You want to buy the exact same $2,000,000 property, but you want to put less money down. You request a $1,600,000 loan (80% LTV) at 6.5% over 25 years. Your annual debt service jumps to $129,640. The property still only generates $150,000 in NOI. Your DSCR plummets to 1.15x. Most traditional commercial lenders will deny this loan because the cash flow margin is too thin to handle an unexpected vacancy or repair. You must bring more cash to the closing table.</p>
 
-            <h2>Tips & Best Practices</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
             <p>Commercial financing is an art form as much as a science. Here are proven strategies to secure the best possible loan for your property.</p>
             <p>First, impeccably document your NOI. Lenders will not take your word for it. You must provide a "T-12" (Trailing 12 months profit and loss statement) and a certified Rent Roll. If you claim the NOI is $100k, but your tax returns show it was $70k because you expensed heavily, the lender will use the $70k figure, potentially killing the deal.</p>
             <p>Second, prepare for the balloon payment years in advance. A 10-year term feels like a lifetime, but it passes quickly. You must track current interest rates and market cap rates as you approach year 8 or 9 so you can execute a strategic refinance or sale before the massive principal balance comes due.</p>
             <p>Third, negotiate the "Prepayment Penalty." Commercial loans almost always feature severe penalties if you pay off the loan early (often called Yield Maintenance or Step-Down penalties). If you plan to flip the property in 3 years, do not sign a 10-year loan with yield maintenance; it will destroy your profit margin.</p>
 
-            <h2>Benefits</h2>
+            <h2 className="text-2xl font-bold mb-3">Benefits</h2>
             <p>Routinely using a commercial loan calculator before writing offers or contacting brokers gives you a massive competitive advantage. It prevents you from wasting time on deals that look good on a spreadsheet but will inevitably fail at the underwriter's desk.</p>
             <p>By forcing you to confront the DSCR and the balloon payment, this calculator ensures you structure your debt responsibly. It transforms you from a speculative buyer into a sophisticated investor who speaks the language of the bank, ultimately helping you build a safer, more profitable commercial real estate portfolio.</p>
           </article>

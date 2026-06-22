@@ -230,7 +230,7 @@ const NetPayCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Understanding Your Take-Home Pay</h2>
               <p>When you see a salary figure on a job offer or a promotion letter, it represents your gross pay—the total amount the company pays you. However, the amount that actually reaches your bank account is your net pay. This gap is filled by taxes, social insurance, and voluntary benefit contributions.</p>
 

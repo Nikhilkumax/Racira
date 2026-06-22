@@ -112,7 +112,7 @@ const TeaSteepingCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>The Importance of Temperature</h2>
               <p>Not all tea leaves are created equal. Black teas are fully oxidized and can withstand (and often require) boiling water to extract their deep flavors. Green and white teas, however, are delicate. Using boiling water on green tea "cooks" the leaves, resulting in a bitter, grassy taste rather than the sweet, nutty profile intended.</p>
               

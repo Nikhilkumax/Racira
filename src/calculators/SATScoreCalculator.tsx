@@ -139,7 +139,7 @@ const SATScoreCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Understanding the SAT Curve</h2>
               <p>The SAT uses a process called "equating" to ensure that scores are consistent across different test dates, regardless of slight variations in difficulty. This means that missing two questions on a particularly hard test might result in the same scaled score as missing zero questions on an easier test.</p>
               

@@ -91,7 +91,7 @@ const PercentageToCgpaConverter = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Sidebar Ad" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Academic Grading Conversions</h2>
               <p>Converting between percentage and Cumulative Grade Point Average (CGPA) is a common requirement for students applying to higher education or jobs. Different educational systems use different scales, but the 10-point scale is the most prevalent in modern systems.</p>
               <h3>The 9.5 Multiplier Rule</h3>

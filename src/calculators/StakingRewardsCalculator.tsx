@@ -205,9 +205,9 @@ export default function StakingRewardsCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>How Staking Rewards Work</h2>
             <p>Crypto staking earns rewards for participating in proof-of-stake (PoS) blockchain network validation. This <strong>staking rewards calculator</strong> computes daily, monthly, and annual rewards, and projects compounded growth over your holding period. The compound staking formula: <strong>A = P × (1 + r/n)^(nt)</strong>, where P = principal staked, r = APR, n = compound frequency, t = years.</p>
             <h2>APR vs. APY in Staking</h2>

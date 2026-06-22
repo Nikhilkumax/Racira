@@ -600,81 +600,7 @@ const MortgageCalculator = () => {
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              <div className="flex flex-col">
-                <label htmlFor="start-month" className="text-sm font-semibold text-foreground mb-1">
-                  Start Date
-                </label>
-                <div className="grid grid-cols-2 gap-2 h-9">
-                  {/* Month select dropdown */}
-                  <div className="relative h-full">
-                    <select
-                      id="start-month"
-                      value={startDate.split("-")[1] || "Jan"}
-                      onChange={(e) => {
-                        const parts = startDate.split("-");
-                        const y = parts[0] || "2026";
-                        setStartDate(`${y}-${e.target.value}`);
-                      }}
-                      className="w-full h-full rounded-md border border-input bg-background px-3 text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-foreground transition-all cursor-pointer font-medium"
-                    >
-                      {["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"].map((m) => (
-                        <option key={m} value={m}>
-                          {m}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
 
-                  {/* Year input - simple text input */}
-                  <div className="relative h-full">
-                    <input
-                      id="start-year"
-                      type="text"
-                      value={startDate.split("-")[0] || ""}
-                      onChange={(e) => {
-                        const parts = startDate.split("-");
-                        const m = parts[1] || "May";
-                        setStartDate(`${e.target.value}-${m}`);
-                      }}
-                      placeholder="Year"
-                      className="w-full h-full rounded-md border border-input bg-background px-3 text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-foreground transition-all font-medium"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              {/* Payment Frequency selector */}
-              <div className="flex flex-col">
-                <label className="flex items-center text-sm font-semibold text-foreground mb-1">
-                  Payment Frequency
-                </label>
-                <div className="flex rounded-md border border-input overflow-hidden h-9 w-full">
-                  <button
-                    type="button"
-                    onClick={() => setPaymentFreq("monthly")}
-                    className={`flex-1 text-sm font-semibold transition-colors ${
-                      paymentFreq === "monthly"
-                        ? "bg-primary text-primary-foreground"
-                        : "bg-secondary text-muted-foreground hover:bg-secondary/80"
-                    }`}
-                  >
-                    Monthly
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setPaymentFreq("biweekly")}
-                    className={`flex-1 text-sm font-semibold transition-colors border-l border-input ${
-                      paymentFreq === "biweekly"
-                        ? "bg-primary text-primary-foreground"
-                        : "bg-secondary text-muted-foreground hover:bg-secondary/80"
-                    }`}
-                  >
-                    Bi-Weekly
-                  </button>
-                </div>
-              </div>
-            </div>
 
             {/* Advanced Options */}
             <div>
@@ -689,63 +615,87 @@ const MortgageCalculator = () => {
 
               {showAdvanced && (<>
 
-                <div className="grid grid-cols-2 gap-3 p-3.5 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up">
-                  <CompactInput
-                    id="property-tax"
-                    label="Property Tax (Annual)"
-                    value={propertyTax}
-                    onChange={setPropertyTax}
-                    prefix="$"
-                  />
-                  <CompactInput
-                    id="home-insurance"
-                    label="Home Insurance (Annual)"
-                    value={homeInsurance}
-                    onChange={setHomeInsurance}
-                    prefix="$"
-                  />
-                  <CompactInput
-                    id="pmi"
-                    label={`PMI (${paymentFreq === "biweekly" ? "Bi-Weekly" : "Monthly"})`}
-                    value={pmi}
-                    onChange={setPmi}
-                    prefix="$"
-                  />
-                  <CompactInput
-                    id="hoa"
-                    label={`HOA Fee (${paymentFreq === "biweekly" ? "Bi-Weekly" : "Monthly"})`}
-                    value={hoaFee}
-                    onChange={setHoaFee}
-                    prefix="$"
-                  />
-                  <CompactInput
-                    id="other-costs"
-                    label={`Other ${paymentFreq === "biweekly" ? "Bi-Weekly" : "Monthly"} Costs`}
-                    value={otherCosts}
-                    onChange={setOtherCosts}
-                    prefix="$"
-                  />
-                  <CompactInput
-                    id="extra-monthly"
-                    label={`Extra ${paymentFreq === "biweekly" ? "Bi-Weekly" : "Monthly"} Payment`}
-                    value={extraMonthly}
-                    onChange={setExtraMonthly}
-                    prefix="$"
-                  />
-                  <CompactInput
-                    id="one-time-extra"
-                    label="One-Time Extra"
-                    value={oneTimeExtra}
-                    onChange={setOneTimeExtra}
-                    prefix="$"
-                  />
-                  <CompactInput
-                    id="annual-extra"
-                    label="Annual Extra"
-                    value={annualExtra}
-                    onChange={setAnnualExtra}
-                    prefix="$"
-                  />
+                <div className="flex flex-col gap-4 p-4 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up">
+                  {/* Payment Details */}
+                  <div>
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Payment Details</div>
+                    <div className="grid grid-cols-2 gap-3">
+                      <div className="flex flex-col">
+                        <label className="text-sm font-semibold text-foreground mb-1">Start Date</label>
+                        <div className="grid grid-cols-2 gap-2 h-9">
+                          <div className="relative h-full">
+                            <select
+                              value={startDate.split("-")[1] || "Jan"}
+                              onChange={(e) => {
+                                const parts = startDate.split("-");
+                                const y = parts[0] || "2026";
+                                setStartDate(`${y}-${e.target.value}`);
+                              }}
+                              className="w-full h-full rounded-md border border-input bg-background px-3 text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-foreground transition-all cursor-pointer font-medium"
+                            >
+                              {["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"].map((m) => (
+                                <option key={m} value={m}>{m}</option>
+                              ))}
+                            </select>
+                          </div>
+                          <div className="relative h-full">
+                            <input
+                              type="text"
+                              value={startDate.split("-")[0] || ""}
+                              onChange={(e) => {
+                                const parts = startDate.split("-");
+                                const m = parts[1] || "May";
+                                setStartDate(`${e.target.value}-${m}`);
+                              }}
+                              placeholder="Year"
+                              className="w-full h-full rounded-md border border-input bg-background px-3 text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-foreground transition-all font-medium"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex flex-col">
+                        <label className="flex items-center text-sm font-semibold text-foreground mb-1">Payment Frequency</label>
+                        <div className="flex rounded-md border border-input overflow-hidden h-9 w-full">
+                          <button
+                            type="button"
+                            onClick={() => setPaymentFreq("monthly")}
+                            className={`flex-1 text-sm font-semibold transition-colors ${paymentFreq === "monthly" ? "bg-primary text-primary-foreground" : "bg-secondary text-muted-foreground hover:bg-secondary/80"}`}
+                          >
+                            Monthly
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setPaymentFreq("biweekly")}
+                            className={`flex-1 text-sm font-semibold transition-colors border-l border-input ${paymentFreq === "biweekly" ? "bg-primary text-primary-foreground" : "bg-secondary text-muted-foreground hover:bg-secondary/80"}`}
+                          >
+                            Bi-Weekly
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Taxes & Insurance */}
+                  <div>
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Taxes & Insurance</div>
+                    <div className="grid grid-cols-2 gap-3">
+                      <CompactInput id="property-tax" label="Property Tax (Annual)" value={propertyTax} onChange={setPropertyTax} prefix="$" />
+                      <CompactInput id="home-insurance" label="Home Insurance (Annual)" value={homeInsurance} onChange={setHomeInsurance} prefix="$" />
+                      <CompactInput id="pmi" label={`PMI (${paymentFreq === "biweekly" ? "Bi-Weekly" : "Monthly"})`} value={pmi} onChange={setPmi} prefix="$" />
+                      <CompactInput id="hoa" label={`HOA Fee (${paymentFreq === "biweekly" ? "Bi-Weekly" : "Monthly"})`} value={hoaFee} onChange={setHoaFee} prefix="$" />
+                      <CompactInput id="other-costs" label={`Other ${paymentFreq === "biweekly" ? "Bi-Weekly" : "Monthly"} Costs`} value={otherCosts} onChange={setOtherCosts} prefix="$" />
+                    </div>
+                  </div>
+
+                  {/* Extra Payments */}
+                  <div>
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Extra Payments</div>
+                    <div className="grid grid-cols-2 gap-3">
+                      <CompactInput id="extra-monthly" label={`Extra ${paymentFreq === "biweekly" ? "Bi-Weekly" : "Monthly"}`} value={extraMonthly} onChange={setExtraMonthly} prefix="$" />
+                      <CompactInput id="one-time-extra" label="One-Time Extra" value={oneTimeExtra} onChange={setOneTimeExtra} prefix="$" />
+                      <CompactInput id="annual-extra" label="Annual Extra" value={annualExtra} onChange={setAnnualExtra} prefix="$" />
+                    </div>
+                  </div>
                 </div>
               
 </>)}
@@ -756,14 +706,14 @@ const MortgageCalculator = () => {
               <button
                 type="button"
                 onClick={handleCalculate}
-                className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-9 text-base transition-all active:scale-[0.98] shadow-sm"
+                className="h-10 w-full flex-1 flex items-center justify-center rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold text-base transition-all active:scale-[0.98] shadow-sm"
               >
-                <Calculator className="h-4 w-4" /> Calculate
+                Calculate
               </button>
               <button
                 type="button"
                 onClick={reset}
-                className="px-3 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-9 transition-colors flex items-center justify-center focus:outline-none"
+                className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 focus:outline-none"
                 aria-label="Reset"
               >
                 <RotateCcw className="h-4 w-4" />
@@ -785,12 +735,12 @@ const MortgageCalculator = () => {
                 </div>
 
                 {/* Component 1: Monthly Payment Card */}
-                <div className="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-xl p-5 text-center relative overflow-hidden">
-                  <div className="text-[13px] font-bold text-primary mb-1 uppercase tracking-wider">Estimated {freqLabel} Payment</div>
-                  <div className="text-4xl font-extrabold text-foreground mb-1 tracking-tight">
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Estimated {freqLabel} Payment</div>
+                  <div className="text-4xl font-bold text-primary mb-1">
                     ${results.totalMonthly.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                   </div>
-                  <div className="text-sm text-muted-foreground font-medium">
+                  <div className="text-sm text-muted-foreground">
                     Principal & Interest: ${results.monthlyPI.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}{freqSuffix}
                   </div>
                 </div>
@@ -825,11 +775,11 @@ const MortgageCalculator = () => {
                             item.isTotal ? "font-bold bg-secondary/30 text-foreground text-base border-t border-border" : "text-muted-foreground"
                           }`}
                         >
-                          <td className="p-2.5 pl-3 font-semibold text-foreground">{item.label}</td>
-                          <td className="p-2.5 text-right text-foreground">
+                          <td className="text-base py-2.5 px-3 font-semibold text-foreground">{item.label}</td>
+                          <td className="text-base py-2.5 px-3 text-right text-foreground">
                             ${item.monthly.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                           </td>
-                          <td className="p-2.5 pr-3 text-right text-foreground font-semibold">
+                          <td className="text-base py-2.5 px-3 text-right text-foreground font-semibold">
                             ${item.total.toLocaleString("en-US", { maximumFractionDigits: 0 })}
                           </td>
                         </tr>
@@ -982,45 +932,57 @@ const MortgageCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
-            <h2>What Is a Mortgage Calculator?</h2>
-            <p>A mortgage calculator is an essential financial planning tool that helps you estimate your monthly home loan payments. Our advanced calculator goes beyond basic principal and interest by including property taxes, homeowners insurance, PMI, HOA fees, and additional costs to give you a complete picture of your monthly housing expense.</p>
-            <p>Whether you're a first-time homebuyer exploring affordability or a homeowner considering refinancing, our mortgage calculator provides the clarity you need to make informed decisions. The built-in amortization schedule shows exactly how each payment is split between principal and interest over the life of the loan.</p>
-
-            <h2>How Mortgage Interest Works</h2>
-            <p>When you take out a mortgage, your lender charges interest on the outstanding principal balance. In the early years of a standard amortization schedule, a large portion of each monthly payment goes toward interest rather than paying down the principal. As you gradually reduce the principal, the interest portion decreases and more of your payment chips away at the balance.</p>
-            <p>For example, on a $320,000 mortgage at 6.5% interest over 30 years, your monthly payment would be approximately $2,023. In the first month alone, about $1,733 goes toward interest and only $290 toward principal. This ratio shifts dramatically over time, illustrating why early extra payments are so powerful.</p>
-
-            <h2>Understanding Your Total Monthly Payment</h2>
-            <p>Your total monthly housing payment consists of several components, often referred to as PITI: Principal, Interest, Taxes, and Insurance. Our calculator breaks down each component so you can see exactly where your money goes.</p>
-            <ul>
-              <li><strong>Principal & Interest:</strong> The core mortgage payment calculated using the amortization formula.</li>
-              <li><strong>Property Tax:</strong> Annual property taxes divided by 12, typically 0.5%–2.5% of home value depending on your location.</li>
-              <li><strong>Homeowners Insurance:</strong> Annual insurance premium divided by 12, protecting your property against damage and liability.</li>
-              <li><strong>PMI:</strong> Private Mortgage Insurance, required when your down payment is less than 20% of the purchase price.</li>
-              <li><strong>HOA Fees:</strong> Monthly homeowner association dues, common in condominiums and planned communities.</li>
-            </ul>
-
-            <h2>How Extra Payments Reduce Your Loan Term</h2>
-            <p>Making additional payments — even modest ones — can dramatically reduce both total interest and loan duration. Extra payments go directly toward reducing the principal balance, which means less interest accrues in every subsequent month.</p>
-            <p>Our calculator supports three types of extra payments: monthly additions, a one-time lump sum, and annual contributions. This flexibility lets you model real-world scenarios like applying a year-end bonus or consistently rounding up your payment.</p>
-
-            <h3>Example Scenario</h3>
-            <p>Consider a $350,000 home with 20% down ($70,000), leaving a $280,000 loan at 7% for 30 years. The base monthly P&I would be about $1,863. Adding just $200 per month extra reduces total interest by approximately $78,000 and pays off the mortgage 6 years early. Add property taxes ($4,200/year) and insurance ($1,500/year), and your total monthly payment would be about $2,338 before extra payments.</p>
-
-            <h2>Benefits of Using an Amortization Schedule</h2>
-            <p>An amortization schedule is your roadmap to debt freedom. It shows the exact breakdown of each payment into principal and interest, letting you see your equity building over time. Our calculator generates both monthly and yearly views, and you can print the schedule for your records or to share with a financial advisor.</p>
-            <ul>
-              <li><strong>Track equity growth:</strong> See how much of your home you truly own at any point in the loan.</li>
-              <li><strong>Plan extra payments:</strong> Identify optimal times to make additional payments for maximum impact.</li>
-              <li><strong>Compare scenarios:</strong> Run calculations with different terms, rates, or extra payments to find your best strategy.</li>
-              <li><strong>Tax planning:</strong> Understand your annual interest paid for potential mortgage interest deductions.</li>
-            </ul>
-
-            <h2>Tips for Managing Your Mortgage</h2>
-            <p>Before committing to extra payments, ensure you have an adequate emergency fund (3–6 months of expenses) and no higher-interest debt such as credit cards. Consider whether your mortgage has prepayment penalties — most modern mortgages do not, but it's worth confirming with your lender.</p>
-            <p>Always compare multiple lenders when shopping for a mortgage. Even a 0.25% difference in interest rate can translate to tens of thousands of dollars over the life of a 30-year loan. Use our calculator to compare different rate scenarios side by side.</p>
-            <p>If your interest rate is very low (under 4%), you may get a better return investing extra cash in diversified index funds rather than paying down the mortgage early. This decision depends on your risk tolerance, tax situation, and financial goals.</p>
+          <article className="prose-finance text-[15.75px]">
+            <section className="mt-12 space-y-8 text-base text-foreground">
+              <div>
+                <h2 className="text-2xl font-bold mb-3">What Is a Mortgage Calculator?</h2>
+                <p className="text-muted-foreground leading-relaxed">
+                  A mortgage calculator is an essential financial planning tool that helps you estimate your monthly home loan payments. Our advanced calculator goes beyond basic principal and interest by including property taxes, homeowners insurance, private mortgage insurance, homeowner association fees, and additional costs to give you a complete picture of your monthly housing expense. Whether you are a first-time homebuyer exploring affordability or a homeowner considering refinancing, our mortgage calculator provides the clarity you need to make informed decisions. The built-in amortization schedule shows exactly how each payment is split between principal and interest over the life of the loan.
+                </p>
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold mb-3">How It Works</h2>
+                <p className="text-muted-foreground leading-relaxed">
+                  When you take out a mortgage, your lender charges interest on the outstanding principal balance. In the early years of a standard amortization schedule, a large portion of each monthly payment goes toward interest rather than paying down the principal. As you gradually reduce the principal, the interest portion decreases and more of your payment chips away at the balance. The monthly payment uses the standard amortization formula where the payment equals the principal multiplied by the monthly interest rate and the compounded rate over the total number of payments, all divided by the compounded rate minus one. Taxes, insurance, and private mortgage insurance are added separately to this base amount.
+                </p>
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
+                <p className="text-muted-foreground leading-relaxed">
+                  Your total monthly housing payment consists of several components, often referred to as principal, interest, taxes, and insurance. Our calculator breaks down each component so you can see exactly where your money goes. The core mortgage payment is calculated using the amortization formula. The property tax is your annual property taxes divided by twelve, typically representing a small percentage of your home value depending on your location. Homeowners insurance is the annual insurance premium divided by twelve, protecting your property against damage and liability. Private mortgage insurance is typically required when your down payment is less than twenty percent of the purchase price. Finally, homeowner association dues are added if you live in a planned community.
+                </p>
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold mb-3">Key Factors</h2>
+                <p className="text-muted-foreground leading-relaxed">
+                  Several key inputs determine your final mortgage payment. The home price and your down payment dictate the total loan amount. A larger down payment reduces your loan principal and can eliminate the need for private mortgage insurance. Your interest rate directly affects the cost of borrowing; even a small reduction in the rate can save tens of thousands of dollars over the life of the loan. The loan term is also crucial. A thirty-year mortgage offers lower monthly payments but accrues more total interest, while a fifteen-year term has higher monthly payments but saves significant interest. Advanced options like property taxes, homeowners insurance, and association fees provide a realistic view of your total monthly obligations.
+                </p>
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold mb-3">Advanced Features</h2>
+                <p className="text-muted-foreground leading-relaxed">
+                  Our calculator includes an advanced options section that allows you to input precise figures for property tax, home insurance, private mortgage insurance, homeowner association fees, and other costs. This section also supports modeling extra payments. You can add extra monthly payments, a one-time lump sum payment, or an annual extra payment. These advanced features let you see exactly how additional contributions accelerate your payoff date and reduce the total interest paid over the life of the loan. The payment frequency toggle allows you to compare standard monthly payments against a bi-weekly payment schedule, which naturally results in one extra full payment per year.
+                </p>
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
+                <p className="text-muted-foreground leading-relaxed">
+                  Consider a home priced at four hundred thousand dollars with a twenty percent down payment of eighty thousand dollars, leaving a three hundred and twenty thousand dollar loan at a six point five percent interest rate for thirty years. The base monthly principal and interest payment would be approximately two thousand and twenty-two dollars. In the first month, about one thousand seven hundred and thirty-three dollars goes toward interest and only two hundred and eighty-nine dollars toward principal. If you use the advanced options to add just two hundred dollars per month in extra payments, you reduce the total interest by a substantial amount and pay off the mortgage several years early. Adding property taxes and insurance to the advanced inputs shows your true out-of-pocket monthly cost.
+                </p>
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
+                <p className="text-muted-foreground leading-relaxed">
+                  Before committing to extra payments on your mortgage, ensure you have an adequate emergency fund covering three to six months of living expenses. It is also wise to pay off any higher-interest debt, such as credit card balances, before accelerating your mortgage payoff. Check with your lender to ensure your mortgage does not have prepayment penalties, although most modern mortgages allow extra payments without fees. Always compare multiple lenders when shopping for a mortgage because even a fraction of a percent difference in your interest rate can dramatically alter your long-term financial picture. Use the amortization schedule to track your equity growth and plan your financial future.
+                </p>
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold mb-3">Benefits</h2>
+                <p className="text-muted-foreground leading-relaxed">
+                  Using a comprehensive mortgage calculator empowers you to take control of your homeownership journey. It provides a transparent view of your financial commitments and helps you avoid unexpected costs. By modeling different scenarios with our advanced features, you can optimize your loan structure, find the perfect balance between monthly affordability and long-term interest savings, and confidently navigate the real estate market. The detailed amortization schedule serves as a roadmap to debt freedom, showing you exactly when you will build significant equity and ultimately own your home outright.
+                </p>
+              </div>
+            </section>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/mortgage" />
           <PopularCalculators exclude="/calculator/mortgage-calculator" />

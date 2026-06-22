@@ -340,9 +340,9 @@ export default function HorseCalorieCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding Equine Dietary Requirements</h2>
             <p>Feeding a 1,200-pound animal is a complex science. A horse's digestive system is a marvel of evolutionary engineering, designed to constantly trickle-feed on low-quality, fibrous roughage for 16 to 18 hours a day. When we remove horses from open pasture and place them into stalls, domesticating them for athletic competition, we completely disrupt this natural balance. The <strong>Horse Calorie Calculator</strong> is designed to help owners bridge the gap between nature and domestication by providing precise, mathematically sound feeding guidelines based on the National Research Council (NRC) equations.</p>
             <p>This tool translates complex veterinary nutritional data—such as Digestible Energy (DE) and Megacalories (Mcal)—into actionable figures. By understanding exactly how much energy your horse requires based on their weight and workload, you can prevent both the severe metabolic consequences of obesity and the dangerous performance drops associated with malnutrition.</p>

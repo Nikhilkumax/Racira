@@ -184,9 +184,9 @@ const DopplerEffectCalculator = () => {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Doppler Effect Calculator?</h2>
             <p>A Doppler effect calculator computes the observed frequency shift when a wave source and observer are in relative motion. Supporting both sound and light waves, this calculator applies the classical Doppler formula for sound and the relativistic formula for light. Pre-filled with a 440 Hz source (musical note A4) approaching at 30 m/s in air, the observed frequency is approximately 482 Hz — a clearly audible pitch increase.</p>
             <h2>Classical Doppler Formula (Sound)</h2>

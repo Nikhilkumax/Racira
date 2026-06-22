@@ -261,7 +261,7 @@ export default function EbitdaMarginCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is EBITDA Margin?</h2>
             <p>EBITDA Margin is one of the most widely used profitability metrics in corporate finance. It measures how much of a company's revenue becomes EBITDA — Earnings Before Interest, Taxes, Depreciation, and Amortization. The formula is: EBITDA Margin = EBITDA / Revenue × 100. This metric allows investors and analysts to compare operational profitability across companies with different capital structures, tax situations, and asset base sizes.</p>
             <p>EBITDA itself is derived by adding back non-cash charges (depreciation and amortization) and non-operating items (interest and taxes) to net income. This produces a measure that closely approximates operating cash flow, which is why private equity firms, investment bankers, and fundamental analysts use it as a primary valuation anchor.</p>

@@ -159,9 +159,9 @@ export default function IncomeTaxCalculator() {
             </div>
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>How US Federal Income Tax Works (2024)</h2>
             <p>The United States uses a progressive federal income tax system with seven brackets. The key insight most people misunderstand: you do not pay your highest bracket rate on all income. You pay 10% on the first $11,600, 12% on the next portion, and so forth. Only income within each bracket is taxed at that rate. The standard deduction ($14,600 for single filers in 2024) is subtracted before any brackets apply, significantly reducing taxable income for most people.</p>
             <h2>2024 Federal Tax Brackets (Single Filers)</h2>

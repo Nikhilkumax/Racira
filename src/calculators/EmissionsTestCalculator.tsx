@@ -276,9 +276,9 @@ export default function EmissionsTestCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Science of Tailpipe Emissions</h2>
             <p>An internal combustion engine burns a mixture of gasoline and oxygen to create power. In a perfect, impossible world, this combustion process would produce only three harmless things: Water (H2O), Carbon Dioxide (CO2), and Nitrogen gas. However, because engines are imperfect machines dealing with varying temperatures and fuel qualities, they inevitably produce toxic byproducts.</p>
             <p>During a state emissions test, a metal sniffer probe is placed into the tailpipe while the engine is running on a dynamometer (treadmill) to measure the exact parts-per-million (ppm) of these three specific toxic gasses.</p>

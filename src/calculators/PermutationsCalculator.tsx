@@ -135,9 +135,9 @@ const PermutationsCalculator = () => {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Permutations Calculator?</h2>
             <p>A permutations calculator computes P(n, r) — the number of ordered arrangements of r items chosen from n distinct items. Unlike combinations (where order doesn't matter), permutations count each different ordering as a separate outcome. This calculator shows both the permutation count and the corresponding combination count, plus a bar chart showing how permutations grow as r increases from 0 to the entered value.</p>
             <p>Pre-filled with P(10, 3) = 720, the calculator shows that there are 720 different ways to arrange 3 items chosen from 10 when the order matters — for example, awarding gold, silver, and bronze medals to 3 of 10 athletes.</p>

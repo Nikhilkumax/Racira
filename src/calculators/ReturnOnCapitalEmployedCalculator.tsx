@@ -171,7 +171,7 @@ export default function ReturnOnCapitalEmployedCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is Return on Capital Employed (ROCE)?</h2>
             <p>Return on Capital Employed is a profitability ratio measuring how efficiently a company generates profits from its capital base. ROCE = EBIT / Capital Employed × 100%, where Capital Employed = Total Assets − Current Liabilities. This represents the total long-term investment in the business — equity plus long-term debt — the resources management is responsible for generating returns from.</p>
             <p>ROCE is one of the most widely used metrics by value investors, particularly those following the principles of Warren Buffett and Charlie Munger, who view consistently high ROCE as a hallmark of business quality and competitive moat. A business with ROCE of 25% is compounding shareholder capital far more effectively than one with 8% ROCE, all else equal.</p>

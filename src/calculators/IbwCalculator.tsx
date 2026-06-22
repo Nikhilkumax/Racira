@@ -230,9 +230,9 @@ export default function IbwCalculator() {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Medical Definition of "Ideal" Body Weight</h2>
             <p>The term "Ideal Body Weight" (IBW) is one of the most widely misunderstood terms in medicine. In the clinical world, "ideal" does not refer to aesthetics, visual attractiveness, or personal health goals. Instead, it is a strictly mathematical construct utilized by anesthesiologists, clinical pharmacists, and nephrologists to safely dose medications.</p>
             <p>This <strong>Ideal Body Weight Calculator</strong> computes the four globally recognized IBW formulas. Because different organ systems metabolize drugs differently, using a patient's actual total body weight can sometimes result in massive overdoses, particularly in obese patients. IBW strips away excess adipose (fat) tissue mathematically, providing doctors with an estimate of the patient's lean metabolic mass.</p>

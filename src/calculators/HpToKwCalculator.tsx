@@ -105,7 +105,7 @@ const HpToKwCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>What is a Horsepower?</h2>
               <p>The term "horsepower" was coined by James Watt in the 18th century to compare the output of steam engines to the power of draft horses. Today, it remains the most popular unit for describing engine power in the automotive world.</p>
               <h3>Mechanical vs. Metric</h3>

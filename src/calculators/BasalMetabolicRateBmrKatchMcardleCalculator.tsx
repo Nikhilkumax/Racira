@@ -328,9 +328,9 @@ export default function BasalMetabolicRateBmrKatchMcardleCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding the Katch-McArdle BMR Calculator</h2>
             <p>If you have ever attempted to track your macros or count calories, you have likely used a standard online calculator to find your Basal Metabolic Rate (BMR) or Total Daily Energy Expenditure (TDEE). The vast majority of these basic calculators use the Mifflin-St Jeor or Harris-Benedict formulas. While these equations are excellent for the "average" human being, they contain a massive mathematical flaw when applied to outliers: they only look at Total Body Weight. They assume that a pound of body fat and a pound of skeletal muscle burn calories at the exact same rate. This is biologically false. The <strong>Katch-McArdle Formula</strong> is an elite, clinical sports science calculation that corrects this flaw by basing your metabolism entirely on your <strong>Lean Body Mass</strong>.</p>
 

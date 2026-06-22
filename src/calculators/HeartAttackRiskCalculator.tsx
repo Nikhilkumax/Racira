@@ -306,9 +306,9 @@ export default function HeartAttackRiskCalculator() {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding the 10-Year ASCVD Risk Score</h2>
             <p>Cardiovascular disease remains the leading cause of death globally. However, heart attacks and strokes rarely occur without warning. They are the climax of a slow, multi-decade process of plaque buildup in the arteries known as atherosclerosis.</p>
             <p>This <strong>Heart Attack Risk Calculator</strong> implements the exact algorithms used by the American College of Cardiology (ACC) and the American Heart Association (AHA). These algorithms, known as the <em>Pooled Cohort Equations</em>, do not guess your future; they calculate your absolute statistical probability of experiencing a "hard" atherosclerotic cardiovascular disease (ASCVD) event within the next 10 years. A "hard event" is strictly defined as a non-fatal heart attack, a non-fatal stroke, or cardiovascular death.</p>

@@ -160,7 +160,7 @@ const QuarterlyTaxCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Mastering Your Quarterly Estimated Taxes</h2>
               <p>For freelancers, solopreneurs, and business owners, tax season happens four times a year. Because no employer is withholding taxes from your income, the IRS requires you to calculate and pay your own taxes as you earn them. This is known as "Estimated Tax."</p>
 

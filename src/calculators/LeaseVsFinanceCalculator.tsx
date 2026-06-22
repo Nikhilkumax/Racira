@@ -373,9 +373,9 @@ export default function LeaseVsFinanceCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Should You Lease or Finance Your Next Car?</h2>
             <p>The decision to lease or finance a vehicle is one of the most hotly debated topics in personal finance. A Lease vs Finance Calculator objectively compares the true cost of both options by analyzing monthly payments, interest rates, taxes, depreciation, and the equity you build. By projecting these variables over the exact same time horizon (typically 36 months), you can see mathematically which option drains less cash from your net worth.</p>
 

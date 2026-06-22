@@ -119,7 +119,7 @@ const HRACalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>What Is an HRA Calculator?</h2>
               <p>An HRA (House Rent Allowance) calculator helps salaried employees determine how much of their HRA is exempt from income tax under Section 10(13A) of the Income Tax Act. The exempt portion depends on your salary, rent paid, and city of residence.</p>
 

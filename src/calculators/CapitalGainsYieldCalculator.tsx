@@ -184,9 +184,9 @@ export default function CapitalGainsYieldCalculator() {
           </div>
         </div>
 
-        <div className="max-w-[1180px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is Capital Gains Yield?</h2>
             <p>Capital Gains Yield (CGY) is a key return metric for any investment that appreciates in price — stocks, real estate, bonds, or alternative assets. It measures the percentage price increase from your purchase price to your selling price, isolating the price appreciation component of your total investment return. For investors focused on growth rather than income, CGY is the primary performance metric.</p>
             <p>Our calculator uses a realistic example: a stock purchased at $150, sold at $185, with $4.50 in dividends received during the holding period. This produces a Capital Gains Yield of 23.33%, a Dividend Yield of 3.00%, and a Total Return of 26.33% — a strong performance representing approximately 2.5× the typical annual stock market return.</p>

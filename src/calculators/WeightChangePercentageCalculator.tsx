@@ -350,9 +350,9 @@ export default function WeightChangePercentageCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Mathematics of Relativity</h2>
             <p>One of the most psychologically frustrating aspects of the fitness journey is comparing yourself to others. A 130-pound woman might spend three months dieting rigorously to lose 6 pounds, while her 300-pound husband stops drinking soda for a month and drops 15 pounds. The woman feels defeated because she only looks at the absolute number on the scale. However, the laws of biology operate on relativity, not absolute numbers. Losing 6 pounds on a 130-pound frame is an incredibly difficult, massive physiological shift (nearly 5% of total body mass). Losing 15 pounds on a 300-pound frame is mathematically much easier and represents a smaller percentage. The <strong>Weight Change Percentage Calculator</strong> eliminates emotional bias by translating your progress into a strict, objective mathematical ratio.</p>
 

@@ -125,9 +125,9 @@ const RangeCalculator = () => {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Range Calculator?</h2>
             <p>A range calculator computes the spread of a dataset from its minimum to maximum value (Range = Max − Min), along with a full suite of dispersion metrics: IQR, standard deviation, coefficient of variation, quartiles, and midrange. Pre-filled with 9 values from a sample dataset, the range is 17 (max 19 − min 2). The sorted distribution chart includes a reference line at the mean.</p>
             <h2>Range Formula</h2>

@@ -126,7 +126,7 @@ const InvestmentPropertyCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Investing in Real Estate</h2>
               <p>Real estate is one of the most reliable ways to build long-term wealth, but not every property is a good investment. Running the numbers is the difference between a profitable asset and a "money pit."</p>
               <h3>Cash Flow is King</h3>

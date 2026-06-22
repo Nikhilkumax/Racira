@@ -192,9 +192,9 @@ export default function AnnuityCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is an Annuity?</h2>
             <p>An <strong>annuity</strong> is a financial product that provides a series of equal periodic payments over time. Used widely in retirement planning, insurance products, and loan structures, annuities offer predictable cash flows that help individuals plan their financial future. This <strong>annuity calculator</strong> computes both present value and future value based on your payment amount, interest rate, and investment horizon.</p>
             <h2>How Annuity Calculations Work</h2>

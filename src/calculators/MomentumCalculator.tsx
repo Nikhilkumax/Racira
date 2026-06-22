@@ -133,9 +133,9 @@ const MomentumCalculator = () => {
           </div>
         </div>
 
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Momentum Calculator?</h2>
             <p>A momentum calculator computes the linear momentum of an object — the product of its mass and velocity (p = mv). Momentum is one of the most fundamental quantities in physics, directly tied to Newton's Second Law and the conservation laws governing all physical interactions. Pre-filled with 75 kg at 10 m/s (a person sprinting), the momentum is 750 kg⋅m/s.</p>
             <h2>The Momentum Formula</h2>

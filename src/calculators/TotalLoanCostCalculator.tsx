@@ -304,7 +304,7 @@ const TotalLoanCostCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is the Total Loan Cost Calculator?</h2>
             <p>The Total Loan Cost Calculator reveals the true, all-in price of borrowing. Instead of focusing only on the monthly payment, it sums every dollar you will pay across the life of a loan — the principal, all interest charges, and any fees — so you can compare loans on equal footing and understand what borrowing really costs you.</p>
             <p>Borrowers often fixate on the monthly payment and discover too late that a longer term doubled their interest cost. This calculator makes the full cost obvious up front, with a per-component breakdown, an annual amortization schedule, and an effective APR that includes fees. It works for any fixed-rate amortizing loan.</p>

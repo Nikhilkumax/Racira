@@ -294,9 +294,9 @@ export default function HotYogaCalorieCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Illusion of the Hot Room</h2>
             <p>If you have ever taken a 90-minute Bikram or Hot Yoga class in a room cranked to 105°F and 40% humidity, you know the feeling of profound exhaustion. Your heart is pounding, you are completely drenched in sweat, and when you step on the scale in the locker room, you are thrilled to see you have miraculously "lost" 3 pounds in an hour and a half. This intense physical feedback makes it incredibly easy to believe that Hot Yoga is the ultimate calorie-burning, fat-melting workout on Earth. Unfortunately, human physiology tells a very different, mathematically strict story. The <strong>Hot Yoga Calorie Calculator</strong> strips away the illusions of thermal stress and water weight to reveal the true thermodynamic reality of your practice.</p>
 

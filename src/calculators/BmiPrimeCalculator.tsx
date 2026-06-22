@@ -203,9 +203,9 @@ export default function BmiPrimeCalculator() {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is BMI Prime?</h2>
             <p>The standard Body Mass Index (BMI) is a cornerstone of global preventative medicine, but it suffers from a major psychological flaw: the numbers mean absolutely nothing without referencing a medical chart. If a doctor tells a patient their BMI is 27.3, the patient doesn't intuitively know if that is slightly overweight or dangerously obese. They have to memorize that 25 is the cutoff for "normal" and 30 is the cutoff for "obese."</p>
             <p>To solve this communication barrier, medical researchers developed <strong>BMI Prime</strong>. BMI Prime is a simple mathematical ratio that converts your standard BMI into a fraction of your maximum optimal weight. Instead of dealing with abstract medical scales, BMI Prime expresses your body mass as a clean, intuitive percentage relative to the upper boundary of health.</p>

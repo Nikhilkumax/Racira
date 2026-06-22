@@ -204,7 +204,7 @@ const WeightConverter = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>What Is a Weight Converter?</h2>
               <p>
                 A weight converter is an online tool designed to instantly translate a measurement of weight or mass from one unit to another. Whether you need to know how many pounds are in 5 kilograms, how many grams are in an ounce, or how many stones you weigh based on your kilogram measurement, a weight converter eliminates manual calculation errors and saves time.

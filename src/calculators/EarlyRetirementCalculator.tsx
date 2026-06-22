@@ -224,9 +224,9 @@ export default function EarlyRetirementCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is the FIRE Movement?</h2>
             <p>FIRE (Financial Independence, Retire Early) is a personal finance strategy based on extreme savings and disciplined investing to achieve financial independence decades before traditional retirement age. This <strong>FIRE calculator</strong> determines your FIRE number (portfolio needed to sustain your lifestyle) and projects how long it will take to get there based on your current savings rate and investment returns.</p>
             <h2>The Math Behind FIRE</h2>

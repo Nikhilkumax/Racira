@@ -347,7 +347,7 @@ const GPACalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>What Is a GPA Calculator?</h2>
               <p>A GPA (Grade Point Average) calculator converts your letter grades and credit hours into a numerical GPA on the standard 4.0 scale. It's an essential tool for students planning their academic paths, checking honor roll eligibility, preparing graduate school applications, and monitoring academic progress throughout their college career.</p>
               <p>Our advanced calculator offers three modes: Semester GPA for calculating your current term's GPA, Cumulative GPA for updating your overall GPA after a new semester, and Needed GPA for finding exactly what grades you need in remaining courses to reach a target GPA by graduation.</p>

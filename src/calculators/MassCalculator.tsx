@@ -220,9 +220,9 @@ const MassCalculator = () => {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What is Mass?</h2>
             <p><strong>Mass</strong> is a fundamental property of physics that describes the amount of matter in an object. Unlike weight—which is the force created when gravity pulls on that mass—mass is absolute. A 10 kg bowling ball has a mass of 10 kg on Earth, in deep space, and on Jupiter. However, its weight will change dramatically in those three locations because gravity varies. The standard metric unit for mass is the Kilogram (kg).</p>
 

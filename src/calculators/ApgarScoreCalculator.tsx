@@ -228,9 +228,9 @@ export default function ApgarScoreCalculator() {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The History of the APGAR Score</h2>
             <p>Prior to the 1950s, the medical community had no standardized way to evaluate the health of a newborn immediately after birth. Because babies were often born pale and unresponsive due to the heavy anesthetics given to mothers at the time, doctors frequently assumed the babies were stillborn or beyond saving, leading to tragic, preventable infant mortality.</p>
             <p>In 1952, Dr. Virginia Apgar, an anesthesiologist, invented a rapid 5-point scoring system to definitively force delivery room staff to assess the baby's vital signs and intervene immediately if necessary. Today, the APGAR score is used in every hospital worldwide and has saved millions of infant lives.</p>

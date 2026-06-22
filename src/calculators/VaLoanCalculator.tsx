@@ -479,9 +479,9 @@ export default function VaLoanCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding the VA Loan Calculator</h2>
             <p>The Department of Veterans Affairs (VA) loan program is widely considered to be the single most powerful mortgage product available in the United States. Designed specifically to help active-duty service members, veterans, and eligible surviving spouses achieve the dream of homeownership, VA loans offer incredible financial leverage that simply does not exist in the conventional civilian market. Our <strong>VA Loan Calculator</strong> is specifically engineered to handle the unique quirks of VA financing, allowing you to accurately model your zero-down payment scenarios, calculate your VA Funding Fee, and visualize your true monthly housing costs.</p>
             <p>Standard mortgage calculators are inherently flawed when dealing with VA loans because they cannot process the capitalization of the Funding Fee, nor do they default to the absence of Private Mortgage Insurance (PMI). By using this specialized calculator, you bypass those errors, ensuring that the numbers you see on the screen precisely reflect the numbers you will see on your final Closing Disclosure at the title company.</p>

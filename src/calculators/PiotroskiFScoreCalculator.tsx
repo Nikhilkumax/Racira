@@ -182,9 +182,9 @@ export default function PiotroskiFScoreCalculator() {
             </div>
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is the Piotroski F-Score?</h2>
             <p>The Piotroski F-Score is a 9-point accounting-based scoring system developed by Stanford accounting professor Joseph Piotroski in his seminal 2000 paper &quot;Value Investing: The Use of Historical Financial Statement Information to Separate Winners from Losers.&quot; It assesses a company&apos;s fundamental financial health using binary criteria across three dimensions: profitability, financial leverage/liquidity, and operating efficiency. Each criterion earns one point, producing a total score between 0 and 9.</p>
             <h2>The 9 F-Score Criteria Explained</h2>

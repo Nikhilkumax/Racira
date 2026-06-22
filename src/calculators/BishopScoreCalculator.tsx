@@ -232,9 +232,9 @@ export default function BishopScoreCalculator() {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding Labor Induction</h2>
             <p>Labor induction is the medical process of artificially stimulating uterine contractions to achieve a vaginal birth before labor begins on its own. While inductions are common, they are not always successful. If an induction fails to progress, the mother is often rushed into an unplanned Cesarean section (C-section).</p>
             <p>In the 1960s, Dr. Edward Bishop recognized that the primary reason inductions fail is that the mother's body simply isn't physically prepared to give birth yet. He developed the <strong>Bishop Score</strong> to quantify exactly how "ripe" or ready the cervix is, allowing doctors to predict the success rate of the procedure.</p>

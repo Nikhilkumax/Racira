@@ -103,7 +103,7 @@ const ExponentCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>How Exponents Work</h2>
               <p>Exponentiation is repeated multiplication. The base is the number being multiplied, and the exponent tells how many times. This calculator also handles roots (fractional exponents) and scientific notation for very large or small numbers.</p>
             </article>

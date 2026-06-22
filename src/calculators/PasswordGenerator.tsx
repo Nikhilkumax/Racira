@@ -183,7 +183,7 @@ const PasswordGenerator = () => {
             </section>
           </div>
 
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>Why Strong Passwords Matter</h2>
             <p>In the age of frequent data breaches, your password is the first and sometimes only line of defense for your personal information. Reusing a simple password across multiple sites is the most common way accounts get compromised.</p>
             <h3>Best Practices for Security</h3>

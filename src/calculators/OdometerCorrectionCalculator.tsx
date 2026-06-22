@@ -270,9 +270,9 @@ export default function OdometerCorrectionCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Mathematics of Mileage</h2>
             <p>Your vehicle's dashboard does not use GPS satellites to track how many miles you have driven. Instead, it relies on a very simple piece of math: counting wheel rotations. When your vehicle leaves the factory, its central computer is permanently programmed with the physical circumference of the stock tires. The computer knows exactly how many times the axles must rotate to cover exactly one mile. If you change the size of the tires, you break that mathematical formula.</p>
 

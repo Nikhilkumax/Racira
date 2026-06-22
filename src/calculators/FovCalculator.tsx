@@ -122,7 +122,7 @@ const FovCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Why FOV Matters in Gaming</h2>
               <p>Field of View (FOV) determines how much of the game world you can see at once. While it seems simple, developers use different mathematical bases for their FOV sliders.</p>
               <h3>Source Engine Basis (4:3)</h3>

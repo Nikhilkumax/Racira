@@ -159,9 +159,9 @@ export default function NetIncomeCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What is Net Income?</h2>
             <p>Net income (often referred to colloquially as <strong>take-home pay</strong>) is the precise amount of money you actually receive in your paycheck after all mandatory taxes, voluntary benefits, and retirement contributions have been deducted from your gross salary. While your gross salary is the impressive top-line number you negotiate during a job offer, your net income is the realistic bottom-line number that dictates your lifestyle, budgeting capacity, and true financial power.</p>
             <p>Understanding the vast chasm between gross income and net income is a rite of passage for every working professional. It is the difference between what you earn on paper and what you actually have available to spend, save, and invest. For businesses, net income represents pure profit after all expenses, taxes, and costs of goods sold are subtracted from total revenue. For individuals, however, it represents your actual disposable income. Mastering the calculation and optimization of your net income is the foundational step in personal financial planning.</p>

@@ -255,9 +255,9 @@ export default function SustainableGrowthRateCalculator() {
         </div>
 
         {/* SEO Article Section */}
-        <div className="max-w-[1180px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding the Sustainable Growth Rate (SGR)</h2>
             <p>
               The <strong>Sustainable Growth Rate (SGR)</strong> is a foundational indicator in business planning and financial analysis. It represents the maximum annual growth in sales and assets a company can support without issuing new shares of stock (equity dilution) or altering its established capital leverage policy (debt-to-equity ratio).

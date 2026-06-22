@@ -223,9 +223,9 @@ export default function PotassiumIntakeCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Why Potassium Is The Missing Link In Heart Health</h2>
             <p>This <strong>Potassium Intake Calculator</strong> helps determine your Adequate Intake (AI) target based on the latest National Academies guidelines (2019). While almost everyone focuses on reducing sodium to lower blood pressure, researchers increasingly believe that <em>low potassium</em> is just as responsible for hypertension. Potassium helps blood vessels relax and signals the kidneys to excrete excess sodium. Fewer than 3% of Americans meet the recommended daily potassium target.</p>
             <h2>The Potassium-to-Sodium Ratio</h2>

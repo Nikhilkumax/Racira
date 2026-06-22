@@ -236,9 +236,9 @@ const ScientificNotationCalculator = () => {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Why Use Scientific Notation?</h2>
             <p><strong>Scientific notation</strong> is an essential mathematical tool for dealing with extreme numbers. In fields like astronomy and quantum physics, scientists frequently work with figures that are staggeringly large or incredibly small. For instance, the mass of the Earth is approximately 5,972,000,000,000,000,000,000,000 kg. The mass of an electron is roughly 0.0000000000000000000000000000009109 kg. Writing these standard decimals out by hand is not only tedious but highly prone to counting errors. Scientific notation condenses these numbers into a clean, universally readable format.</p>
 

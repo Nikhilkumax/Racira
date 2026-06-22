@@ -275,9 +275,9 @@ export default function BackdoorRothIraCalculator() {
           </div>
         </div>
 
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What is a Backdoor Roth IRA?</h2>
             <p>The IRS imposes income limits on who can contribute directly to a Roth IRA. In 2024, if you are single and earn over $161,000 (or Married Filing Jointly and earn over $240,000), you are barred from making direct contributions. However, the "Backdoor Roth" strategy allows high earners to legally bypass these limits.</p>
             

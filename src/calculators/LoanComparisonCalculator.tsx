@@ -1,305 +1,185 @@
 "use client";
-
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
+import AdPlaceholder from "@/components/AdPlaceholder";
 import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import { ChevronDown, Printer, RotateCcw, Calculator } from "lucide-react";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, Cell } from "recharts";
+import { RotateCcw, GitCompare, Plus, Trash2 } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, CartesianGrid } from "recharts";
 
-interface LoanOption {
-  loanAmount: number;
-  interestRate: number;
-  termMonths: number;
-  fees: number;
-  monthlyPayment: number;
-  totalInterest: number;
-  totalCost: number;
+interface LoanOption { id: number; name: string; amount: number; rate: number; termYears: number; originationFee: number; }
+interface LoanResult { id: number; name: string; monthlyPayment: number; totalInterest: number; totalCost: number; }
+
+function calcLoan(opt: LoanOption): LoanResult {
+  const { id, name, amount, rate, termYears, originationFee } = opt;
+  const r = rate / 100 / 12;
+  const n = termYears * 12;
+  const monthly = amount > 0 && n > 0
+    ? (r > 0 ? amount * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1) : amount / n)
+    : 0;
+  const totalInterest = Math.max(0, monthly * n - amount);
+  const totalCost = totalInterest + amount + originationFee;
+  return { id, name, monthlyPayment: monthly, totalInterest, totalCost };
 }
 
-interface ComparisonResults {
-  loanA: LoanOption;
-  loanB: LoanOption;
-  savingsMonthly: number;
-  savingsTotal: number;
-  betterOption: "A" | "B" | "Equal";
-  chartData: any[];
-  breakdownRows: any[];
-}
+const COLORS = ["hsl(var(--primary))", "#f59e0b", "#10b981", "#8b5cf6"];
+const DEFAULT_LOANS: LoanOption[] = [
+  { id: 1, name: "Option A", amount: 300000, rate: 6.5, termYears: 30, originationFee: 0 },
+  { id: 2, name: "Option B", amount: 300000, rate: 7.0, termYears: 25, originationFee: 0 },
+];
 
-const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "number", ...props }: any) => (
+const CompactInput = ({ id, label, value, onChange, prefix, suffix }: any) => (
   <div className="flex flex-col">
-    <label htmlFor={id} className="flex items-center text-[13px] font-semibold text-foreground mb-1">{label}</label>
+    <label htmlFor={id} className="text-sm font-semibold text-foreground mb-1">{label}</label>
     <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-9 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
-      {prefix && <span className="pl-3 pr-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{prefix}</span>}
-      <input id={id} type={type} value={value} onChange={(e) => onChange(e.target.value)} className="w-full h-full px-3 py-1 text-sm bg-transparent outline-none border-none text-foreground" {...props} />
-      {suffix && <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{suffix}</span>}
+      {prefix && <span className="pl-2.5 pr-1 text-xs text-muted-foreground shrink-0">{prefix}</span>}
+      <input id={id} type="number" value={value} onChange={e => onChange(e.target.value)} className="w-full h-full px-2.5 py-1 text-sm bg-transparent outline-none border-none text-foreground" />
+      {suffix && <span className="pr-2.5 pl-1 text-xs text-muted-foreground shrink-0">{suffix}</span>}
     </div>
   </div>
 );
 
-const calculateComparison = (inputs: any): ComparisonResults => {
-  const calcOption = (amtStr: string, rateStr: string, termStr: string, feeStr: string): LoanOption => {
-    const amt = parseFloat(amtStr) || 0;
-    const rate = parseFloat(rateStr) || 0;
-    const term = (parseFloat(termStr) || 0) * 12; // Assuming inputs in years
-    const fees = parseFloat(feeStr) || 0;
-    
-    let pmt = 0;
-    let totalInt = 0;
-    let totalCost = 0;
-    
-    if (amt > 0 && term > 0) {
-      const r = rate / 100 / 12;
-      pmt = r > 0 ? amt * (r * Math.pow(1 + r, term)) / (Math.pow(1 + r, term) - 1) : amt / term;
-      totalCost = (pmt * term) + fees;
-      totalInt = totalCost - amt - fees;
-    }
-    
-    return {
-      loanAmount: amt,
-      interestRate: rate,
-      termMonths: term,
-      fees,
-      monthlyPayment: pmt,
-      totalInterest: totalInt,
-      totalCost
-    };
+export default function LoanComparisonSideBySide() {
+  const [loans, setLoans] = useState<LoanOption[]>(DEFAULT_LOANS);
+  const [results, setResults] = useState<LoanResult[]>([]);
+  const [nextId, setNextId] = useState(3);
+
+  const updateLoan = (id: number, field: keyof LoanOption, value: string) =>
+    setLoans(prev => prev.map(l => l.id === id ? { ...l, [field]: field === "name" ? value : parseFloat(value) || 0 } : l));
+
+  const addLoan = () => {
+    if (loans.length >= 4) return;
+    const newId = nextId;
+    setLoans(prev => [...prev, { id: newId, name: `Option ${String.fromCharCode(64 + newId)}`, amount: 300000, rate: 6.5, termYears: 30, originationFee: 0 }]);
+    setNextId(n => n + 1);
   };
+  const removeLoan = (id: number) => { if (loans.length <= 2) return; setLoans(prev => prev.filter(l => l.id !== id)); };
 
-  const loanA = calcOption(inputs.amountA, inputs.rateA, inputs.termA, inputs.feeA);
-  const loanB = calcOption(inputs.amountB, inputs.rateB, inputs.termB, inputs.feeB);
+  useEffect(() => { setResults(loans.map(calcLoan)); }, [loans]);
 
-  const savingsMonthly = Math.abs(loanA.monthlyPayment - loanB.monthlyPayment);
-  const savingsTotal = Math.abs(loanA.totalCost - loanB.totalCost);
-  
-  let betterOption: "A" | "B" | "Equal" = "Equal";
-  if (loanA.totalCost < loanB.totalCost && loanA.totalCost > 0) betterOption = "A";
-  else if (loanB.totalCost < loanA.totalCost && loanB.totalCost > 0) betterOption = "B";
-
+  const best = results.length > 0 ? results.reduce((b, r) => r.totalCost < b.totalCost ? r : b, results[0]) : null;
   const chartData = [
-    {
-      name: "Loan A",
-      Principal: loanA.loanAmount,
-      Interest: loanA.totalInterest,
-      Fees: loanA.fees,
-    },
-    {
-      name: "Loan B",
-      Principal: loanB.loanAmount,
-      Interest: loanB.totalInterest,
-      Fees: loanB.fees,
-    }
+    { metric: "Monthly Pmt", ...Object.fromEntries(results.map(r => [r.name, Math.round(r.monthlyPayment)])) },
+    { metric: "Interest ($K)", ...Object.fromEntries(results.map(r => [r.name, Math.round(r.totalInterest / 1000)])) },
+    { metric: "Total Cost ($K)", ...Object.fromEntries(results.map(r => [r.name, Math.round(r.totalCost / 1000)])) },
   ];
 
-  const breakdownRows = [
-    { label: "Loan Amount", valA: loanA.loanAmount, valB: loanB.loanAmount, isCurrency: true },
-    { label: "Interest Rate", valA: loanA.interestRate, valB: loanB.interestRate, isCurrency: false, suffix: "%" },
-    { label: "Term (Years)", valA: loanA.termMonths / 12, valB: loanB.termMonths / 12, isCurrency: false },
-    { label: "Upfront Fees", valA: loanA.fees, valB: loanB.fees, isCurrency: true },
-    { label: "Monthly Payment", valA: loanA.monthlyPayment, valB: loanB.monthlyPayment, isCurrency: true, highlight: true },
-    { label: "Total Interest Paid", valA: loanA.totalInterest, valB: loanB.totalInterest, isCurrency: true },
-    { label: "Total Cost of Loan", valA: loanA.totalCost, valB: loanB.totalCost, isCurrency: true, isBold: true }
+  const faqs = [
+    { question: "What should I compare when evaluating loan options?", answer: "Compare monthly payment (cash flow impact), total interest paid (true financing cost), and total cost of the loan (principal + interest + fees). A lower monthly payment doesn't always mean a better deal — a 30-year vs. 15-year comparison is the classic example where lower monthly payments mask dramatically higher total costs." },
+    { question: "Why does a lower rate sometimes result in a higher total cost?", answer: "A loan with a lower interest rate but significantly longer term can cost more in total than a shorter-term loan at a higher rate. A $300,000 loan at 6% for 30 years costs $347,000 in interest. The same loan at 7% for 15 years costs only $136,000 in interest despite the higher rate." },
+    { question: "How do origination fees affect loan comparison?", answer: "Origination fees are upfront costs that don't affect your monthly payment but increase total loan cost. When comparing two loans with different rates and fee structures, always include fees in your comparison. A 'no-fee' loan at 7% may be better value than a loan with a 1% origination fee at 6.75%." },
+    { question: "When should I choose a shorter loan term?", answer: "Choose a shorter term when you can afford the higher monthly payment, want to build equity faster, want to be debt-free sooner, or are in a rising rate environment. The interest savings are dramatic — often 50-60% less total interest on a 15-year vs. 30-year loan." },
   ];
-
-  return {
-    loanA,
-    loanB,
-    savingsMonthly,
-    savingsTotal,
-    betterOption,
-    chartData,
-    breakdownRows
-  };
-};
-
-const DEFAULTS = {
-  amountA: "300000",
-  rateA: "6.5",
-  termA: "30",
-  feeA: "3000",
-  
-  amountB: "300000",
-  rateB: "5.75",
-  termB: "15",
-  feeB: "4500"
-};
-
-export default function LoanComparisonCalculator() {
-  const [inputs, setInputs] = useState(DEFAULTS);
-  const [results, setResults] = useState<ComparisonResults | null>(null);
-  const printRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    setResults(calculateComparison(inputs));
-  }, []);
-
-  const handleChange = (id: string, value: string) => {
-    setInputs(prev => ({ ...prev, [id]: value }));
-  };
-
-  const handleCalculate = () => {
-    setResults(calculateComparison(inputs));
-  };
-
-  const reset = () => {
-    setInputs(DEFAULTS);
-    setResults(calculateComparison(DEFAULTS));
-  };
-
-  const colors = {
-    Principal: "hsl(var(--primary))",
-    Interest: "#f59e0b",
-    Fees: "#ef4444"
-  };
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Finance", href: "/calculator#finance" }, { label: "Loan Comparison Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Finance", href: "/calculator/finance" }, { label: "Loan Comparison Calculator" }]} />
       <div className="container-page py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Loan Comparison Calculator</h1>
-        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
-          {/* LEFT COLUMN */}
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            
-            <div className="p-3 border border-border rounded-lg bg-secondary/10 relative">
-              <div className="absolute -top-3 left-3 bg-card px-2 text-xs font-bold text-primary uppercase tracking-wider">Loan Option A</div>
-              <div className="grid grid-cols-2 gap-3 mt-2">
-                <CompactInput id="amountA" label="Loan Amount" value={inputs.amountA} onChange={(v: string) => handleChange("amountA", v)} prefix="$" />
-                <CompactInput id="rateA" label="Interest Rate" value={inputs.rateA} onChange={(v: string) => handleChange("rateA", v)} suffix="%" />
-                <CompactInput id="termA" label="Loan Term" value={inputs.termA} onChange={(v: string) => handleChange("termA", v)} suffix="yrs" />
-                <CompactInput id="feeA" label="Closing Fees" value={inputs.feeA} onChange={(v: string) => handleChange("feeA", v)} prefix="$" />
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Loan Comparison Calculator (Side-by-Side)</h1>
+        <div className="max-w-[1180px] mx-auto">
+          <div className="grid gap-4 mb-6">
+            {loans.map((loan, idx) => (
+              <div key={loan.id} className="card-calculator !p-5 border border-border bg-card">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-3">
+                    <span className="w-3 h-3 rounded-full" style={{ backgroundColor: COLORS[idx % COLORS.length] }} />
+                    <input value={loan.name} onChange={e => updateLoan(loan.id, "name", e.target.value)} className="text-base font-bold bg-transparent border-none outline-none text-foreground w-28" />
+                  </div>
+                  {loans.length > 2 && (
+                    <button onClick={() => removeLoan(loan.id)} className="text-destructive hover:text-destructive/80 transition-colors"><Trash2 className="h-4 w-4" /></button>
+                  )}
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                  <CompactInput id={`amount-${loan.id}`} label="Loan Amount" value={loan.amount} onChange={(v: string) => updateLoan(loan.id, "amount", v)} prefix="$" />
+                  <CompactInput id={`rate-${loan.id}`} label="Interest Rate" value={loan.rate} onChange={(v: string) => updateLoan(loan.id, "rate", v)} suffix="%" />
+                  <CompactInput id={`term-${loan.id}`} label="Term" value={loan.termYears} onChange={(v: string) => updateLoan(loan.id, "termYears", v)} suffix="yrs" />
+                  <CompactInput id={`fee-${loan.id}`} label="Origination Fee" value={loan.originationFee} onChange={(v: string) => updateLoan(loan.id, "originationFee", v)} prefix="$" />
+                </div>
               </div>
-            </div>
-
-            <div className="p-3 border border-border rounded-lg bg-secondary/10 relative mt-2">
-              <div className="absolute -top-3 left-3 bg-card px-2 text-xs font-bold text-[#8b5cf6] uppercase tracking-wider">Loan Option B</div>
-              <div className="grid grid-cols-2 gap-3 mt-2">
-                <CompactInput id="amountB" label="Loan Amount" value={inputs.amountB} onChange={(v: string) => handleChange("amountB", v)} prefix="$" />
-                <CompactInput id="rateB" label="Interest Rate" value={inputs.rateB} onChange={(v: string) => handleChange("rateB", v)} suffix="%" />
-                <CompactInput id="termB" label="Loan Term" value={inputs.termB} onChange={(v: string) => handleChange("termB", v)} suffix="yrs" />
-                <CompactInput id="feeB" label="Closing Fees" value={inputs.feeB} onChange={(v: string) => handleChange("feeB", v)} prefix="$" />
-              </div>
-            </div>
-            
-            <div className="flex gap-2.5 mt-2">
-              <button type="button" onClick={handleCalculate} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-9 text-base transition-all shadow-sm">
-                <Calculator className="h-4 w-4" /> Compare Loans
+            ))}
+            {loans.length < 4 && (
+              <button onClick={addLoan} className="flex items-center justify-center gap-2 h-12 rounded-lg border-2 border-dashed border-border hover:border-primary text-muted-foreground hover:text-primary transition-colors text-sm font-medium">
+                <Plus className="h-4 w-4" /> Add Loan Option
               </button>
-              <button type="button" onClick={reset} className="px-3 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-9 transition-colors flex items-center justify-center focus:outline-none">
-                <RotateCcw className="h-4 w-4" />
-              </button>
-            </div>
-          </div>
-
-          {/* RIGHT COLUMN */}
-          <div className="flex flex-col gap-3">
-            {results && (
-              <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card" ref={printRef}>
-                <div className="flex justify-end">
-                  <button onClick={() => window.print()} className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline focus:outline-none">
-                    <Printer className="h-3.5 w-3.5" /> Print
-                  </button>
-                </div>
-                
-                <div className={`border-l-4 rounded-lg p-5 \${results.betterOption === 'A' ? 'bg-primary/10 border-primary' : results.betterOption === 'B' ? 'bg-[#8b5cf6]/10 border-[#8b5cf6]' : 'bg-muted border-muted-foreground'}`}>
-                  <div className="text-xs uppercase tracking-wide text-muted-foreground">The Better Financial Option Is</div>
-                  <div className={`text-4xl font-bold \${results.betterOption === 'A' ? 'text-primary' : results.betterOption === 'B' ? 'text-[#8b5cf6]' : 'text-foreground'}`}>
-                    {results.betterOption === "Equal" ? "Both are Equal" : `Loan Option \${results.betterOption}`}
-                  </div>
-                  <div className="text-sm text-muted-foreground mt-1">
-                    {results.betterOption !== "Equal" 
-                      ? `Choosing Option \${results.betterOption} saves you $\${results.savingsTotal.toLocaleString(undefined, { maximumFractionDigits: 2 })} over the life of the loan.` 
-                      : "Both loans have the exact same total cost."}
-                  </div>
-                </div>
-
-                <div className="h-[280px] w-full mt-4">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={results.chartData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
-                      <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 14, fontWeight: "bold" }} />
-                      <YAxis tickFormatter={(val) => `$\${val >= 1000 ? (val/1000).toFixed(0)+'k' : val}`} axisLine={false} tickLine={false} />
-                      <Tooltip formatter={(val: number) => `$\${val.toLocaleString(undefined, { maximumFractionDigits: 2 })}`} cursor={{fill: 'transparent'}} />
-                      <Legend />
-                      <Bar dataKey="Principal" stackId="a" fill={colors.Principal} maxBarSize={80} />
-                      <Bar dataKey="Interest" stackId="a" fill={colors.Interest} maxBarSize={80} />
-                      <Bar dataKey="Fees" stackId="a" fill={colors.Fees} radius={[4, 4, 0, 0]} maxBarSize={80} />
-                    </BarChart>
-                  </ResponsiveContainer>
-                </div>
-                
-                <div className="mt-4">
-                  <div className="text-sm font-bold mb-2">Side-by-Side Comparison</div>
-                  <div className="overflow-x-auto">
-                    <table className="w-full text-sm text-right">
-                      <thead>
-                        <tr className="border-b border-border text-muted-foreground uppercase text-[11px] tracking-wider">
-                          <th className="text-left py-2 font-semibold">Category</th>
-                          <th className="py-2 font-semibold text-primary">Loan Option A</th>
-                          <th className="py-2 font-semibold text-[#8b5cf6]">Loan Option B</th>
-                          <th className="py-2 font-semibold">Difference</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {results.breakdownRows.map((row, idx) => {
-                          const diff = Math.abs(row.valA - row.valB);
-                          return (
-                            <tr key={idx} className={`border-b border-border/50 hover:bg-muted/50 transition-colors \${row.isBold ? 'font-bold bg-muted/20' : ''} \${row.highlight ? 'bg-secondary/30' : ''}`}>
-                              <td className="text-left py-2.5 font-medium">{row.label}</td>
-                              <td className="py-2.5">
-                                {row.isCurrency ? "$" : ""}{row.valA.toLocaleString(undefined, { maximumFractionDigits: 2 })}{row.suffix || ""}
-                              </td>
-                              <td className="py-2.5">
-                                {row.isCurrency ? "$" : ""}{row.valB.toLocaleString(undefined, { maximumFractionDigits: 2 })}{row.suffix || ""}
-                              </td>
-                              <td className="py-2.5 text-muted-foreground">
-                                {diff > 0 ? (row.isCurrency ? `$\${diff.toLocaleString(undefined, { maximumFractionDigits: 2 })}` : `\${diff.toLocaleString(undefined, { maximumFractionDigits: 2 })}\${row.suffix || ""}`) : "-"}
-                              </td>
-                            </tr>
-                          );
-                        })}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-
-              </div>
             )}
           </div>
+
+          {results.length > 0 && (<>
+            {best && (
+              <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-lg p-4 mb-6">
+                <p className="text-sm text-emerald-700 dark:text-emerald-400 font-medium">✅ <strong>{best.name}</strong> has the lowest total cost — ${best.totalCost.toLocaleString("en-US", { maximumFractionDigits: 0 })} over the loan life.</p>
+              </div>
+            )}
+            <div className="overflow-x-auto mb-6">
+              <table className="w-full border border-border rounded-lg overflow-hidden text-sm">
+                <thead>
+                  <tr className="bg-secondary/50">
+                    <th className="text-left p-3 font-semibold text-muted-foreground border-b border-border">Metric</th>
+                    {results.map((r, i) => (
+                      <th key={r.id} className="text-right p-3 font-bold border-b border-border border-l">
+                        <span className="flex items-center justify-end gap-2">
+                          <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: COLORS[i % COLORS.length] }} />{r.name}
+                        </span>
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {([
+                    ["Monthly Payment", (r: LoanResult) => `$${r.monthlyPayment.toFixed(2)}`],
+                    ["Total Interest", (r: LoanResult) => `$${r.totalInterest.toLocaleString("en-US", { maximumFractionDigits: 0 })}`],
+                    ["Total Cost", (r: LoanResult) => `$${r.totalCost.toLocaleString("en-US", { maximumFractionDigits: 0 })}`],
+                  ] as [string, (r: LoanResult) => string][]).map(([label, fn], ri) => {
+                    const vals = results.map(fn);
+                    const nums = vals.map(v => parseFloat(v.replace(/[$,]/g, "")));
+                    const minVal = Math.min(...nums);
+                    return (
+                      <tr key={ri} className="border-b border-border/40 last:border-0 hover:bg-secondary/20">
+                        <td className="p-3 text-muted-foreground font-medium">{label}</td>
+                        {results.map((r, i) => {
+                          const isMin = nums[i] === minVal;
+                          return (
+                            <td key={r.id} className={`p-3 text-right border-l border-border font-semibold ${isMin ? "text-emerald-600 font-bold" : ""}`}>{vals[i]}</td>
+                          );
+                        })}
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+            <div className="card-calculator !p-5 border border-border bg-card mb-6">
+              <h3 className="text-base font-bold mb-4">Visual Comparison</h3>
+              <ResponsiveContainer width="100%" height={260}>
+                <BarChart data={chartData} margin={{ top: 5, right: 10, left: 10, bottom: 5 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+                  <XAxis dataKey="metric" tick={{ fontSize: 11 }} />
+                  <YAxis tick={{ fontSize: 10 }} />
+                  <Tooltip />
+                  <Legend />
+                  {results.map((r, i) => (
+                    <Bar key={r.id} dataKey={r.name} fill={COLORS[i % COLORS.length]} radius={[3, 3, 0, 0]} />
+                  ))}
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </>)}
+
+          <AdPlaceholder className="mb-10" />
+          <article className="prose-finance text-[15.75px]">
+            <h2 className="text-2xl font-bold mb-3">Why Compare Loans Side by Side?</h2>
+            <p>A <strong>Loan Comparison Calculator</strong> is the most powerful tool for evaluating competing financing offers. When you receive multiple loan quotes from different lenders, each one presents numbers in a way that emphasizes its best features. One lender might advertise a low monthly payment by extending the term. Another might show a lower rate that comes with high origination fees. Without a standardized comparison, it is nearly impossible to determine which offer is genuinely better for your financial situation.</p>
+            <p>This side-by-side calculator strips away the marketing and reveals the three numbers that truly matter: monthly payment (immediate cash flow impact), total interest paid (the true cost of borrowing), and total cost of the loan including fees. Cells highlighted in green indicate the best value for that metric.</p>
+
+            <h2 className="text-2xl font-bold mb-3">The Rate-vs-Term Trade-Off</h2>
+            <p>The most common comparison scenario is rate versus term. A $300,000 loan at 6.5% for 30 years produces a monthly payment of $1,896 and total interest of $382,000. The same loan at 7.0% for 15 years costs $2,695 per month but only $185,000 in total interest. The 15-year loan has a higher rate, a 42% larger monthly payment, yet saves $197,000 in total interest. Which is better? It depends entirely on your cash flow situation and financial priorities — and this calculator makes those trade-offs immediately visible.</p>
+
+            <h2 className="text-2xl font-bold mb-3">Including Origination Fees</h2>
+            <p>Lenders often offer a choice between a "low-rate" loan with origination fees and a "no-fee" loan at a slightly higher rate. Evaluating these correctly requires including the fee in the total cost. A $300,000 loan at 6.75% with a $3,000 origination fee may cost more than a 7.0% loan with no fees, depending on how long you hold the loan. The break-even point (where the lower rate's interest savings exceed the upfront fee) typically occurs at 24-36 months. If you plan to sell or refinance before that break-even, the no-fee loan is the better choice.</p>
+          </article>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/loan-comparison-calculator-side-by-side" />
+          <PopularCalculators exclude="/calculator/loan-comparison-calculator-side-by-side" />
         </div>
-
-        {/* SEO Content */}
-        <div className="max-w-[1180px] mx-auto mt-12 prose prose-slate dark:prose-invert">
-          <h2>What Is a Loan Comparison Calculator?</h2>
-          <p>A loan comparison calculator allows you to input the terms of two different loan offers and compare them side-by-side. It reveals which loan is mathematically the better deal by calculating the total cost of each loan over its entire lifespan.</p>
-          
-          <h2>How It Works</h2>
-          <p>The calculator uses standard amortization formulas to determine the monthly payment and total interest for both Loan A and Loan B. It then adds any upfront closing or origination fees to calculate the true "Total Cost of Loan." The loan with the lower total cost is declared the winner.</p>
-
-          <h2>Understanding Your Results</h2>
-          <p>While one loan may have a lower interest rate, it might require higher upfront fees. Alternatively, one loan might have a lower monthly payment because it's stretched over 30 years instead of 15, but it will cost significantly more in total interest. The side-by-side breakdown helps you weigh these trade-offs.</p>
-          
-          <h2>Key Factors</h2>
-          <p>The most important factors when comparing loans are the <strong>interest rate</strong>, the <strong>loan term</strong> (length of the loan), and the <strong>fees/points</strong>. A shorter loan term always saves you money on interest, but requires a higher monthly payment.</p>
-          
-          <h2>Practical Examples</h2>
-          <p>Imagine choosing between a 30-year mortgage at 6.5% with $3,000 in fees, and a 15-year mortgage at 5.75% with $4,500 in fees. The 15-year mortgage has a monthly payment about $600 higher, but it saves you over $200,000 in total interest compared to the 30-year loan.</p>
-          
-          <h2>Tips & Best Practices</h2>
-          <p>Always compare the APR (Annual Percentage Rate) if you are comparing loans with the exact same term length. However, if the terms are different (e.g., a 15-year vs a 30-year), comparing the Total Cost over the life of the loan using this calculator is the most accurate way to find the cheapest option.</p>
-          
-          <h2>Benefits</h2>
-          <p>Using a loan comparison tool prevents you from falling for "too good to be true" low interest rates that are secretly packed with exorbitant closing costs. It empowers you to make financial decisions based on hard math.</p>
-        </div>
-
-        <FAQSection pageUrl="https://racira.com/calculator/loan-comparison-calculator" faqs={[
-          { question: "How do I know which loan is better?", answer: "The mathematically 'better' loan is the one with the lowest total cost (Principal + Interest + Fees). However, you must also ensure you can comfortably afford the monthly payment of that loan." },
-          { question: "Why does the lower rate loan cost more overall sometimes?", answer: "If the lower-rate loan has a much longer repayment term (e.g., 30 years vs 15 years), the interest has much more time to compound. You pay a lower rate, but you pay it for twice as long, resulting in higher total costs." },
-          { question: "Should I pay points to get a lower rate?", answer: "It depends on how long you plan to keep the loan. If you plan to stay in the home or keep the loan for 7-10+ years, paying points upfront for a lower rate usually saves money. If you plan to move in 3 years, taking the higher rate with no fees is better." },
-          { question: "What if the monthly payments are vastly different?", answer: "If Loan A has a much higher monthly payment that strains your budget, it might not be the 'better' option for you, even if it saves money on total interest. Cash flow matters just as much as total cost." }
-        ]} />
-        <PopularCalculators />
       </div>
     </>
   );

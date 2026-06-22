@@ -108,9 +108,9 @@ export default function InvestmentGrowthCalculator() {
             </div>
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>How This Investment Growth Calculator Works</h2>
             <p>This calculator uses the Future Value of Annuity formula to model the growth of regular investment contributions combined with compound interest. It computes: FV = P(1+r)ⁿ + C × [(1+r)ⁿ − 1] / r, where P = initial investment, C = monthly contribution, r = monthly rate, n = months. Results are displayed year-by-year showing the split between your contributions and compound growth.</p>
             <h2>The Power of Starting Early</h2>

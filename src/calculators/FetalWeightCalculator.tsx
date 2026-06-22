@@ -262,9 +262,9 @@ export default function FetalWeightCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>How Is Fetal Weight Estimated?</h2>
             <p>This <strong>Fetal Weight Calculator</strong> uses the Hadlock IV mathematical formula, the global clinical standard for estimating fetal weight from ultrasound measurements. During your anatomy scan or third-trimester growth scan, the sonographer takes four primary measurements: Biparietal Diameter (BPD), Head Circumference (HC), Abdominal Circumference (AC), and Femur Length (FL). These 2-dimensional measurements are plugged into the formula to estimate the baby's 3-dimensional mass.</p>
             <h2>Understanding Percentiles</h2>

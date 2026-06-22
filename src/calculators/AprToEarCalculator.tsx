@@ -248,7 +248,7 @@ export default function AprToEarCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>APR vs EAR: Understanding the Difference</h2>
             <p>The Annual Percentage Rate (APR) is the nominal interest rate expressed on an annual basis, without accounting for compounding within the year. The Effective Annual Rate (EAR), also called the Effective Annual Interest Rate (EAIR) or Annual Equivalent Rate (AER), represents the true cost of borrowing or the true return on investment once intra-year compounding is considered.</p>
             <p>This APR to EAR calculator is essential for comparing financial products that use different compounding frequencies. A savings account offering 5% APR compounded monthly is strictly better than one offering 5% APR compounded annually — and this tool quantifies exactly how much better, instantly.</p>

@@ -319,9 +319,9 @@ export default function CarbohydrateGramsCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding Your Carbohydrate Grams Target</h2>
             <p>In the world of sports nutrition and dietetics, carbohydrates are often referred to as the "flexible macro." While your body absolutely requires specific minimums of dietary protein (to repair muscle tissue and synthesize enzymes) and dietary fat (to regulate hormones and absorb fat-soluble vitamins), your carbohydrate intake is entirely dictated by your energy output and performance goals. The <strong>Carbohydrate Grams Calculator</strong> removes the guesswork from meal planning by utilizing reverse-subtraction math. By establishing your total caloric ceiling and securing your essential protein and fat targets first, the calculator allocates every remaining calorie exclusively to carbohydrates, giving you an exact daily gram target to fuel your lifestyle.</p>
 

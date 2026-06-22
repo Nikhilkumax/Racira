@@ -106,7 +106,7 @@ const JitterCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Jitter: The Silent Connection Killer</h2>
               <p>You might have a fast connection, but if your jitter is high, your experience will be poor. Jitter represents the inconsistency in your connection. For example, if one packet takes 20ms and the next takes 100ms, the receiving device must wait for the slower packet, causing a glitch in the audio or video.</p>
               <h3>Impact of Jitter</h3>

@@ -189,9 +189,9 @@ const SquareFootageCalculator = () => {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Mathematics of Area Measurement</h2>
             <p>Whether you are buying real estate, ordering flooring, or applying fertilizer to a lawn, almost everything related to physical land or structure is measured in two-dimensional area. In the United States, the fundamental unit of this measurement is the <strong>Square Foot</strong>.</p>
             <p>If you have a tape measure, you are measuring a single line (one-dimensional length). To get square footage, you are multiplying two perpendicular lines (Length × Width) to calculate the size of the flat surface between them.</p>

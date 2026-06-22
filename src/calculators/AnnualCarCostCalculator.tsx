@@ -322,7 +322,7 @@ const AnnualCarCostCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is the Annual Car Cost Calculator?</h2>
             <p>The Annual Car Cost Calculator computes the full yearly cost of owning a vehicle — not just the monthly payment, but every expense: depreciation, loan interest, insurance, fuel, maintenance, registration fees, and parking. By revealing the true cost per year and per mile, it helps you budget accurately, compare vehicles objectively, and decide whether a car upgrade is financially justified.</p>
             <p>Most car buyers focus on the monthly payment and dramatically underestimate total ownership cost. Studies consistently show that the average American spends $8,000–$10,000 per year on their vehicle, yet most people would guess half that figure. This calculator eliminates the guesswork.</p>

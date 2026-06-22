@@ -75,7 +75,7 @@ export default function MoneyMarketCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Understanding Money Market Accounts</h2>
               <p>Money market accounts (MMAs) occupy a unique position in the financial product landscape, combining features of both checking and savings accounts while typically offering higher interest rates than either. They are particularly well-suited for individuals who want their emergency fund or short-term savings to earn a competitive yield while maintaining easy access to their money through checks or debit card transactions.</p>
               <h2>How Money Market Account Interest Works</h2>

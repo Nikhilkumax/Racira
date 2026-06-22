@@ -314,9 +314,9 @@ export default function HamsterCalorieCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding the Hamster Calorie Calculator</h2>
             <p>Hamsters are incredibly popular pets, yet their nutritional needs are frequently misunderstood. Because they are so small, it is remarkably easy to accidentally overfeed them, leading to severe obesity, diabetes (especially in dwarf species), and a significantly shortened lifespan. The <strong>Hamster Calorie Calculator</strong> is a veterinary-grade tool designed to strip the guesswork out of feeding your pocket pet. By utilizing standardized allometric scaling formulas, this tool calculates the exact resting and maintenance energy requirements for your specific hamster based on their weight and activity level.</p>
             <p>Whether you own a large 200-gram Syrian hamster or a tiny 30-gram Roborovski, understanding their exact daily caloric limit is the first step in providing responsible, ethical care. This calculator not only provides the raw caloric data but translates those numbers into actionable feeding portions in grams, ensuring you do not overfill the food bowl.</p>

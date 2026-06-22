@@ -183,9 +183,9 @@ const VelocityCalculator = () => {
           </div>
         </div>
 
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Velocity Calculator?</h2>
             <p>A velocity calculator computes the speed of an object from distance and time, or solves for distance or time given the other two values. Velocity (v = d/t) is the fundamental kinematic quantity describing motion. Pre-filled with 100 meters covered in 10 seconds, the velocity is 10 m/s (36 km/h) — roughly the speed of an Olympic sprinter.</p>
             <h2>The Velocity Formula</h2>

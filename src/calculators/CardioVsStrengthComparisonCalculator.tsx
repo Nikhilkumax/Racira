@@ -316,9 +316,9 @@ export default function CardioVsStrengthComparisonCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Long-Term Reality of Fat Loss</h2>
             <p>If you ask the average person on the street how to lose weight, 99% of them will say, "Eat less and go running." For decades, the fitness industry conditioned us to believe that the only path to a lean physique was endless hours of cardiovascular suffering. We were taught to obsess over the "Calories Burned" number on the treadmill screen. However, modern clinical exercise physiology has proven that this short-term, single-workout perspective is fundamentally flawed. The <strong>Cardio vs Strength Calorie Comparison Calculator</strong> zooms out. By analyzing your training over a full 30-day month, it reveals the massive thermodynamic secret that bodybuilders and fitness models have known for years: building muscle is the ultimate fat-loss hack.</p>
 

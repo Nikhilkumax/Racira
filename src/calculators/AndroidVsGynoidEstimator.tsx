@@ -322,9 +322,9 @@ export default function AndroidVsGynoidEstimator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Deception of the Bathroom Scale</h2>
             <p>For decades, the medical community relied almost entirely on the Body Mass Index (BMI) and the bathroom scale to assess patient health. While these metrics provide a general baseline, they suffer from a massive flaw: they treat all body weight as identical. A 200-pound man carrying most of his weight in his hips and thighs has an entirely different risk profile than a 200-pound man carrying all of his weight in a distended abdomen. The <strong>Android vs Gynoid Fat Distribution Estimator</strong> uses the Waist-to-Hip Ratio (WHR) to look past raw weight and analyze the far more dangerous metric of <em>where</em> your body is genetically choosing to store its excess energy.</p>
 

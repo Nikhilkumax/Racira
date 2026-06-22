@@ -247,9 +247,9 @@ const BtuCalculator = () => {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What is a BTU?</h2>
             <p><strong>BTU</strong> stands for British Thermal Unit. It is the international standard for measuring the power of heating and air conditioning systems. Scientifically, one BTU is the exact amount of energy required to raise the temperature of one pound of liquid water by 1 degree Fahrenheit.</p>
             <p>In the HVAC industry, when you buy an "8,000 BTU Air Conditioner," it technically means the unit has the capacity to remove 8,000 BTUs of heat from the air <em>per hour</em>.</p>

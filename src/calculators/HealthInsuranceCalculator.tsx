@@ -216,9 +216,9 @@ export default function HealthInsuranceCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding Health Insurance Costs</h2>
             <p>This <strong>health insurance calculator</strong> estimates your total annual healthcare costs across ACA marketplace metal tiers — Bronze, Silver, Gold, and Platinum. Your true annual cost includes not just the monthly premium, but your expected out-of-pocket expenses (deductibles, copays, coinsurance) up to the out-of-pocket maximum. Choosing the "cheapest" premium isn't always the most economical choice if you have significant medical needs.</p>
             <h2>How Metal Tiers Work</h2>

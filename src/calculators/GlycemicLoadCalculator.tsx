@@ -193,7 +193,7 @@ export default function GlycemicLoadCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding Glycemic Load</h2>
             <p>Glycemic Load (GL) is a nutritional measure that combines the Glycemic Index (GI) of a food with the actual amount of carbohydrates consumed. While GI ranks how rapidly a carbohydrate food raises blood glucose compared to pure glucose, it doesn't account for portion size. GL corrects this limitation by incorporating both the quality and quantity of carbohydrates in a meal or food item.</p>
             <p>The formula is simple: GL = (GI × grams of net carbohydrates) ÷ 100. A GL of 10 or below is low, 11–19 is medium, and 20 or above is high. When looking at an entire day's eating, most nutrition experts recommend keeping total daily GL below 80 for optimal blood sugar management.</p>

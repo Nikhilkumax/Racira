@@ -109,7 +109,7 @@ const UpsBatteryRuntimeCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Planning Your Backup Power</h2>
               <p>A UPS is your first line of defense against data loss and hardware damage from power surges or blackouts. Understanding its limits is crucial for maintaining server uptime.</p>
               <h3>Factors Affecting Runtime</h3>

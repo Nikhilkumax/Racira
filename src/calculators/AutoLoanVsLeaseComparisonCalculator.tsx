@@ -376,7 +376,7 @@ const AutoLoanVsLeaseComparisonCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is the Auto Loan vs Lease Comparison Calculator?</h2>
             <p>The Auto Loan vs Lease Comparison Calculator helps you decide whether financing the purchase of a vehicle or leasing it will cost less over the same term. It runs both scenarios on the same vehicle, same term, and same annual mileage, then reports the net cost of each — including the equity you keep when you buy versus the fees and mileage penalties you face when you lease.</p>
             <p>This side-by-side view removes the marketing spin that surrounds both options. Dealers quote low lease payments and low purchase APRs in isolation, but the only fair comparison is total dollars out of pocket over the term you actually intend to keep the car. This calculator does exactly that.</p>

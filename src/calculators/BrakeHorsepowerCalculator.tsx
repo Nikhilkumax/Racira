@@ -224,9 +224,9 @@ export default function BrakeHorsepowerCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Why Calculate Brake Horsepower?</h2>
             <p>If you take your modified car to a performance shop and run it on a chassis dynamometer (dyno), the computer will print out a graph showing your <strong>Wheel Horsepower (WHP)</strong>. However, the automotive industry does not use WHP for marketing; they use <strong>Brake Horsepower (BHP)</strong>, which is measured at the engine crank. If your dyno sheet says 400 WHP, and you want to know how that compares to a brand-new 480 BHP Mustang GT, you must mathematically convert your WHP back into BHP using this calculator.</p>
 

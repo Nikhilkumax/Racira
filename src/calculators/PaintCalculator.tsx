@@ -204,9 +204,9 @@ export default function PaintCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>How to Calculate Paint Needed for a Room</h2>
             <p>This <strong>paint calculator</strong> determines the exact amount of paint required for walls and ceiling of any room, accounting for doors, windows, number of coats, and a waste factor. The formula: Net Paintable Area = (2 × (Length + Width) × Height) − (Doors × 21 ft²) − (Windows × 15 ft²) + (Length × Width for ceiling). Multiply by coats and add 10% waste, then divide by 350 sq ft per gallon (standard coverage).</p>
             <h2>Paint Coverage Rates</h2>

@@ -229,9 +229,9 @@ export default function HasBledScoreCalculator() {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Balancing Act of Cardiology</h2>
             <p>Treating atrial fibrillation is a delicate balancing act. On one hand, a doctor wants to prescribe a powerful blood thinner to ensure the patient does not suffer a catastrophic ischemic stroke. On the other hand, giving a patient a blood thinner dramatically increases their risk of suffering a spontaneous internal hemorrhage (a "major bleed").</p>
             <p>The <strong>HAS-BLED score</strong> was developed as the perfect counterbalance to the stroke risk calculators. Before writing a prescription for a blood thinner like Eliquis, Xarelto, or Warfarin, a doctor calculates the HAS-BLED score to quantify exactly how dangerous that prescription will be.</p>

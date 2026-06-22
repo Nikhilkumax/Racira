@@ -132,9 +132,9 @@ export default function InventoryDaysCalculator() {
             </div>
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10"/>
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is the Days in Inventory Calculator?</h2>
             <p>Days in Inventory (DIO), also known as Days Sales of Inventory (DSI) or Days Inventory Outstanding, measures how many days on average a company holds inventory before selling it. It is a critical operational efficiency metric used by CFOs, supply chain managers, and equity analysts to assess working capital management.</p>
             <h2>DIO Formula</h2>

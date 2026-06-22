@@ -144,9 +144,9 @@ const SimpleInterestCalculator = () => {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Simple Interest Calculator?</h2>
             <p>A simple interest calculator computes the interest earned or paid on a principal amount using the formula I = Prt, where interest grows linearly — the same fixed amount each year. Unlike compound interest, simple interest does not earn interest on accumulated interest. Pre-filled with $5,000 at 8% for 3 years, the result is $1,200 in interest ($400/year) for a total of $6,200.</p>
             <p>Simple interest is used for short-term personal loans, some auto financing, US Treasury bills, pawnshop loans, and as a baseline for comparing more complex financial products. Understanding simple interest is the first step toward mastering personal finance math.</p>

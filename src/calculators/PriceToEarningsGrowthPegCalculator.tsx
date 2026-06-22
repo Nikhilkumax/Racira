@@ -175,9 +175,9 @@ const PriceToEarningsGrowthPegCalculator = () => {
           </div>
         </div>
 
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a PEG Ratio Calculator?</h2>
             <p>A PEG ratio calculator divides the price-to-earnings (P/E) ratio by the annual earnings growth rate to create a growth-adjusted valuation metric. Popularized by legendary investor Peter Lynch, the PEG ratio solves a key limitation of the P/E ratio: it doesn't account for how fast the company is growing. Pre-filled with a $150 stock, $7.50 EPS, and 15% growth, the P/E is 20x and the PEG is 1.33 — slightly above Lynch's "fair value" benchmark of 1.0.</p>
             <h2>The PEG Ratio Formula</h2>

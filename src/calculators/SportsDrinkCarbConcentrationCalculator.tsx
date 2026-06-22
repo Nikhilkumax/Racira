@@ -324,9 +324,9 @@ export default function SportsDrinkCarbConcentrationCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding the Sports Drink Carb Concentration Calculator</h2>
             <p>For endurance athletes—marathon runners, triathletes, and long-distance cyclists—nutrition is not just about daily macros; it is about intra-workout execution. When you are exercising continuously for over 90 minutes, your body drastically depletes its muscular glycogen stores. If those stores empty completely, you will "bonk" or "hit the wall," resulting in a catastrophic drop in athletic performance. To prevent this, athletes must ingest carbohydrates during the event. However, the human digestive system is highly sensitive under physical stress. The <strong>Sports Drink Carb Concentration Calculator</strong> is an essential sports science tool used to formulate hydration mixes that deliver maximum energy without triggering devastating gastrointestinal (GI) distress.</p>
 

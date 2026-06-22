@@ -123,7 +123,7 @@ const BacCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>How Alcohol is Metabolized</h2>
               <p>When you consume alcohol, it passes through the stomach and small intestine directly into your bloodstream. Because it is a toxin, your liver immediately begins producing enzymes (alcohol dehydrogenase) to break it down. However, the liver can only process a finite amount of alcohol per hour (roughly one standard drink).</p>
               <h3>The Danger of Binge Drinking</h3>

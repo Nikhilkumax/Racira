@@ -221,9 +221,9 @@ export default function WheelHorsepowerCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What is Wheel Horsepower?</h2>
             <p>When you buy a car, the manufacturer advertises the engine's power output. For example, a Ford Mustang GT is advertised with 480 horsepower. However, this is <strong>Brake Horsepower (BHP)</strong>, measured directly at the engine's crankshaft in a laboratory setting with no transmission attached. Wheel Horsepower (WHP) is the amount of power that actually makes it down to the asphalt. Our Wheel Horsepower Calculator converts factory marketing numbers into realistic, road-ready figures.</p>
 

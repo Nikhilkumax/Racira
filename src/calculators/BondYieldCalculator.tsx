@@ -264,7 +264,7 @@ export default function BondYieldCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Bond Yield Calculator?</h2>
             <p>A bond yield calculator helps investors determine the return they can expect from a bond investment. Whether you're evaluating corporate bonds, municipal bonds, U.S. Treasury bonds, or international debt securities, understanding yield is essential to comparing fixed-income investments and building a balanced portfolio. The two most critical yield metrics are Yield to Maturity (YTM) and current yield, each telling a different part of the story.</p>
             <p>Bond yield calculators are used by individual retail investors, portfolio managers, financial advisors, and institutional traders. They're especially valuable when comparing bonds with different coupon rates, maturities, and market prices to find the best risk-adjusted return. A bond priced at a discount to its face value always offers a higher YTM than its stated coupon rate, while a premium bond has a lower YTM.</p>

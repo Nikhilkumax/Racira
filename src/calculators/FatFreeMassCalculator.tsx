@@ -194,9 +194,9 @@ const FatFreeMassCalculator = () => {
           </div>
         </div>
 
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Fat-Free Mass Calculator?</h2>
             <p>A fat-free mass (FFM) calculator computes your total lean body mass — everything in your body except stored fat: muscle, bone, water, organs, and connective tissue. It also calculates the Fat-Free Mass Index (FFMI), which normalizes lean mass by height to enable fair comparison across different body sizes. Pre-filled with 185 lbs, 18% body fat, and 70 inches height for a male, the FFM is 68.8 kg (151.7 lbs) and the FFMI is 21.7 — classified as above-average muscularity.</p>
             <h2>FFM and FFMI Formulas</h2>

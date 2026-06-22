@@ -250,9 +250,9 @@ export default function BiweeklyVsMonthlyLoanComparison() {
         </div>
 
         {/* SEO CONTENT SECTION */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Biweekly Payment Plan?</h2>
             <p>Most standard loans — including mortgages, auto loans, and personal loans — are built around a monthly amortization schedule: one payment per month, twelve payments per year. A true biweekly payment plan changes that rhythm. Instead of paying once a month, you take your standard monthly payment, split it exactly in half, and submit that half-payment every two weeks. Because there are 52 weeks in a calendar year, a biweekly schedule produces exactly 26 half-payments annually.</p>
 

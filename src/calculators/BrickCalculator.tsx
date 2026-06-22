@@ -285,9 +285,9 @@ const BrickCalculator = () => {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Mathematics of Masonry</h2>
             <p>Laying a brick wall involves surprisingly precise mathematics. Because bricks are rigid, standardized blocks, calculating the exact quantity required is a matter of calculating the surface area of the wall and dividing it by the surface area of a single brick. However, a major component that DIYers often overlook is the <strong>Mortar Joint</strong>.</p>
             <p>If you stack bare bricks directly on top of each other, your math will be completely wrong. A wall is not just made of bricks; it is made of bricks suspended in a matrix of mortar. In the United States, a standard mortar joint is 3/8 of an inch thick. To calculate correctly, you must add that 3/8 inch to both the length and the height of every single brick to determine the "Effective Area" that each brick covers on the wall.</p>

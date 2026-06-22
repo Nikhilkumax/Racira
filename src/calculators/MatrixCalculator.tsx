@@ -140,7 +140,7 @@ const MatrixCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Matrix Operations</h2>
               <p>Matrices are rectangular arrays of numbers used in linear algebra. This calculator supports addition, multiplication, determinant calculation, and transposition for 2×2 and 3×3 matrices.</p>
             </article>

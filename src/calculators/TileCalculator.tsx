@@ -282,9 +282,9 @@ const TileCalculator = () => {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Mathematics of Flooring</h2>
             <p>Laying a tile floor seems like a simple math problem: calculate the square footage of the room, calculate the square footage of a single tile, and divide. However, performing this calculation without accounting for the realities of construction will leave you short on materials every time. The two critical factors you must include are the <strong>Grout Joint</strong> and the <strong>Waste Margin</strong>.</p>
 

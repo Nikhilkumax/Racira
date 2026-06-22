@@ -213,9 +213,9 @@ const IpSubnetCalculator = () => {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding IPv4 Subnetting</h2>
             <p>At its core, a computer network is like a city postal system. The IP address is the exact street address of a house, but the post office needs to know which city the house is in. A <strong>Subnet Mask</strong> acts as the dividing line, cutting an IP address into two distinct parts: the Network (the city) and the Host (the specific house).</p>
 

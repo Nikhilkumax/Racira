@@ -349,9 +349,9 @@ export default function NetCarbsCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding the Net Carbs Calculator</h2>
             <p>If you have ever attempted a Ketogenic diet, a strict low-carb diet, or simply tried to manage your blood sugar levels for medical reasons, you have likely run into the massive, confusing wall of modern food labeling. You pick up a "Keto-Friendly" protein bar at the grocery store, flip it over, and see that it contains 25 grams of Total Carbohydrates. How is a 25g carb bar allowed on a diet that strictly limits you to 30g of carbs a day? The answer lies in the physiological difference between <strong>Total Carbs</strong> and <strong>Net Carbs</strong>. The <strong>Net Carbs Calculator</strong> is an essential tool designed to deconstruct nutrition labels, stripping away the indigestible matter to reveal the true, blood-sugar-spiking carbohydrate load of your food.</p>
 

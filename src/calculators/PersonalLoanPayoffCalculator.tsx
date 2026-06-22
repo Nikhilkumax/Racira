@@ -129,9 +129,9 @@ export default function PersonalLoanPayoffCalculator() {
             </div>
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Personal Loan Payoff Calculator Guide</h2>
             <p>This calculator computes your monthly payment, total repayment cost, total interest paid, and generates a full amortization schedule showing how each payment is split between principal and interest reduction over the life of the loan.</p>
             <h2>How Loan Amortization Works</h2>

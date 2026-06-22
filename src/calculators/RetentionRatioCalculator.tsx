@@ -157,9 +157,9 @@ const RetentionRatioCalculator = () => {
           </div>
         </div>
 
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Retention Ratio Calculator?</h2>
             <p>A retention ratio calculator computes what fraction of a company's net income is retained and reinvested into the business rather than paid to shareholders as dividends. Also known as the plowback ratio, it is a fundamental corporate finance metric used by analysts, investors, and CFOs to understand how a company deploys its profits. Pre-filled with $100,000 net income and $30,000 dividends paid, the retention ratio is 70% — the company keeps $70,000 for reinvestment while returning $30,000 to shareholders.</p>
             <h2>The Retention Ratio Formula</h2>

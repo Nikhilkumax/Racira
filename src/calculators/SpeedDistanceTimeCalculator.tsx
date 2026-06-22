@@ -186,9 +186,9 @@ const SpeedDistanceTimeCalculator = () => {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Speed Distance Time Calculator?</h2>
             <p>A speed distance time calculator solves for any one of the three variables — speed, distance, or time — given the other two. Based on the fundamental kinematic relationship Speed = Distance ÷ Time, this calculator handles both metric (km) and imperial (miles) units and includes automatic unit conversions between km/h, mph, and m/s. Pre-filled with 150 km over 2 hours, it instantly shows the speed is 75 km/h (46.6 mph) and projects the distance covered at each hour mark.</p>
             <p>This tool is used by drivers planning road trips, runners tracking pace, cyclists computing split times, students solving physics problems, and pilots calculating flight time estimates. The three-mode toggle means you never need to rearrange the formula manually.</p>

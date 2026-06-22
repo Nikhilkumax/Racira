@@ -293,9 +293,9 @@ export default function SportSpecificCalorieCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Mathematics of Athletic Competition</h2>
             <p>For many people, the idea of running on a treadmill for 45 minutes is a form of psychological torture. Staring at a digital timer while jogging in place is incredibly monotonous. However, if you put those same people on a basketball court or a tennis court, they will happily sprint, jump, and sweat for two hours without complaining once. This is the power of gamifying fitness. But how does playing a sport actually compare to traditional gym cardio? The <strong>Sport Specific Calorie Calculator</strong> utilizes clinical Metabolic Equivalent (MET) formulas to mathematically prove that competitive sports are often vastly superior to steady-state cardio for burning massive amounts of energy.</p>
 

@@ -318,11 +318,7 @@ export default function EducationLoanCalculator() {
             </div>
 
             <div className="grid grid-cols-2 gap-4">
-              <CompactInput id="grants" label="Scholarships/Grants" value={scholarshipsOrGrants} onChange={setScholarshipsOrGrants} prefix="$" />
               <CompactInput id="rate" label="Interest Rate" value={interestRate} onChange={setInterestRate} suffix="%" />
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
               <CompactInput id="term" label="Repayment Term" value={repaymentTermYears} onChange={setRepaymentTermYears} suffix="years" />
             </div>
 
@@ -332,6 +328,7 @@ export default function EducationLoanCalculator() {
               </button>
               {showAdvanced && (
                 <div className="grid grid-cols-2 gap-3 p-4 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up">
+                  <CompactInput id="grants" label="Scholarships/Grants" value={scholarshipsOrGrants} onChange={setScholarshipsOrGrants} prefix="$" />
                   <CompactInput id="other-exp" label="Other Expenses" value={otherExpenses} onChange={setOtherExpenses} prefix="$" />
                   <CompactInput id="savings" label="Personal Savings" value={personalSavings} onChange={setPersonalSavings} prefix="$" />
                   <CompactInput id="grace" label="Grace Period" value={gracePeriodMonths} onChange={setGracePeriodMonths} suffix="mo" />
@@ -471,49 +468,49 @@ export default function EducationLoanCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
-            <h2>Understanding the Education Loan Calculator</h2>
+          <article className="prose-finance text-[15.75px]">
+            <h2 className="text-2xl font-bold mb-3">Understanding the Education Loan Calculator</h2>
             <p>Investing in higher education is often the most significant financial decision a young adult will make. While a degree can dramatically increase your lifelong earning potential, the debt required to obtain it can cripple your finances for decades if not managed correctly. An <strong>Education Loan Calculator</strong> (often referred to as a Student Loan Calculator) is a critical planning tool that helps prospective students and their parents project the true, long-term cost of borrowing money for college or graduate school.</p>
             <p>Unlike standard auto loans or mortgages, education loans have unique structural features—such as extended grace periods and capitalized interest—that make them deceptively expensive. By utilizing this comprehensive calculator, you can strip away the complexity, clearly visualize the impact of compound interest during your college years, and accurately estimate the monthly payment you will face upon graduation.</p>
 
-            <h2>How Education Loan Amortization Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How Education Loan Amortization Works</h2>
             <p>An education loan is ultimately a fixed-rate, amortizing installment loan, governed by the standard financial formula:</p>
             <p><strong>M = P [ r(1 + r)^n ] / [ (1 + r)^n – 1 ]</strong></p>
             <p>However, the crucial difference between a student loan and a car loan is the <em>timing</em> of the repayment and the calculation of the principal (<em>P</em>). With a car loan, you borrow $30,000 and immediately begin making payments the next month. With a student loan, you might borrow $50,000 over four years, but you are not required to make any payments while you are in school.</p>
             <p>This delay is known as the "Grace Period" or "Moratorium." While you are not making payments, the bank is still charging you interest. For Unsubsidized Federal Loans and all Private Student Loans, this interest accrues every single day you are in school.</p>
 
-            <h2>The Danger of Capitalized Interest</h2>
+            <h2 className="text-2xl font-bold mb-3">The Danger of Capitalized Interest</h2>
             <p>The most dangerous element of student debt is "Capitalization." When you graduate and your grace period ends, all the interest that accumulated over your four years of college is added to your original loan balance. This new, larger number becomes your starting principal for repayment.</p>
             <p>For example, if you borrow $40,000 at a 6.5% interest rate and defer payments for 4 years (48 months), the loan will accrue $10,400 in interest. Upon graduation, your new loan balance isn't $40,000; it is $50,400. You will now be forced to pay interest on that $10,400 of interest for the next 10 years. Our calculator specifically breaks out "Grace Period Interest" to highlight exactly how much this deferment is costing you.</p>
 
-            <h2>Analyzing Your Calculator Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Analyzing Your Calculator Results</h2>
             <p>Our Education Loan Calculator provides a detailed financial breakdown of your educational investment. Here is how to interpret the results:</p>
             <p><strong>Estimated Monthly Payment (Post-Grace):</strong> This is the exact amount of cash you must pull from your post-graduation salary every month. A common rule of thumb is that your total student loan payment should not exceed 8% to 10% of your gross monthly income.</p>
             <p><strong>Principal at Repayment Start:</strong> This number is often a shock. It takes your original requested loan amount and adds any capitalized interest from your time in school. This is the actual mountain of debt you must climb upon graduation.</p>
             <p><strong>Cost Distribution Chart:</strong> This visual pie chart illustrates the ratio of your original loan to the interest generated. If the "Grace Period Interest" slice is uncomfortably large, you should strongly consider paying the interest while in school.</p>
 
-            <h2>Critical Variables in Student Borrowing</h2>
+            <h2 className="text-2xl font-bold mb-3">Critical Variables in Student Borrowing</h2>
             <p>Understanding how different variables manipulate your loan is the key to minimizing your educational debt.</p>
             <p><strong>The Cost of Attendance (COA):</strong> Lenders allow you to borrow up to the school's official COA, which includes tuition, room and board, books, and "personal expenses." Borrowing money to pay for lifestyle expenses (like eating out or spring break trips) using a student loan is financially devastating. Every dollar borrowed for lifestyle costs will double over the life of the loan due to interest.</p>
             <p><strong>The Interest Rate:</strong> Federal student loan rates are set annually by Congress and are fixed for the life of the loan. Private loan rates are based on your (or your cosigner's) credit score and can be fixed or variable. Even a 1% reduction in your interest rate can save you thousands of dollars over a 10-year term.</p>
             <p><strong>Repayment Term Length:</strong> The standard federal repayment plan is 10 years (120 payments). Lenders often offer extended repayment plans of 15, 20, or 25 years to lower the monthly payment. While extending the term makes the monthly cash flow easier, it drastically increases the total interest you pay over your lifetime.</p>
 
-            <h2>Advanced Strategy: Paying Interest in School</h2>
+            <h2 className="text-2xl font-bold mb-3">Advanced Strategy: Paying Interest in School</h2>
             <p>Our calculator includes a critical toggle: "I will pay interest during the grace period."</p>
             <p>Checking this box simulates you (or your parents) making small, interest-only payments every month while you are in college. By doing this, you prevent the interest from capitalizing. While it requires cash flow during college, it is mathematically the smartest move you can make. It keeps your principal balance frozen at your original borrowed amount, significantly lowering your monthly payment upon graduation and saving you massive amounts of compound interest.</p>
 
-            <h2>Practical Examples of Student Financing</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples of Student Financing</h2>
             <p><strong>Example 1: The Cost of Capitalization.</strong> You take out $50,000 in unsubsidized loans for a 4-year degree at 7% APR. You choose to defer all payments. During those 4 years (48 months), you accrue $14,000 in interest. Your starting balance at graduation is $64,000. Over a standard 10-year repayment, your monthly payment is $743, and your total repayment cost is $89,170. That $50,000 degree ultimately cost you nearly $90,000.</p>
             <p><strong>Example 2: Paying Interest While in School.</strong> Using the exact same scenario above, you get a part-time job and pay the $291/month interest charge while in school. Upon graduation, your balance remains exactly $50,000. Your new monthly payment is only $580 (saving you $163 a month), and your total overall cost (including the in-school interest payments) drops to $83,600. You save $5,500 simply by not letting the interest capitalize.</p>
 
-            <h2>Tips and Best Practices for Borrowing</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips and Best Practices for Borrowing</h2>
             <p><strong>Max Out Free Money First:</strong> Before taking out a single dollar in loans, exhaust all federal grants, state grants, university scholarships, and private scholarships. This is free money that never has to be repaid. Utilize the FAFSA immediately when it opens.</p>
             <p><strong>Exhaust Federal Loans Before Private Loans:</strong> Federal loans offer massive protections that private loans do not, including income-driven repayment plans, generous deferment/forbearance options, and potential loan forgiveness programs (like PSLF). Only use private student loans as an absolute last resort to bridge a minor funding gap.</p>
             <p><strong>Calculate ROI Before Selecting a Major:</strong> Your total student debt should not exceed your realistically anticipated first-year starting salary. If you anticipate making $45,000 as a teacher, taking on $100,000 in private student loans is mathematical suicide. Ensure the Return on Investment (ROI) of your specific degree justifies the debt required to obtain it.</p>
 
-            <h2>Conclusion and Financial Security</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion and Financial Security</h2>
             <p>An education is a powerful asset, but excessive student loan debt is an anchor that can delay buying a home, starting a family, or saving for retirement. By utilizing this Education Loan Calculator, you transition from a passive student blindly accepting financial aid award letters, to an informed consumer.</p>
             <p>Running multiple scenarios—such as working part-time to pay down interest, choosing a less expensive state school, or committing to an aggressive 5-year repayment plan instead of the standard 10-year plan—empowers you to secure your education while fiercely protecting your financial future.</p>
           </article>

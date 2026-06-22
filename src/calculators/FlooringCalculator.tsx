@@ -205,9 +205,9 @@ const FlooringCalculator = () => {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Secret to Estimating Hard Floors</h2>
             <p>Whether you are laying traditional hardwood, laminate, or modern waterproof Luxury Vinyl Plank (LVP), accurately estimating flooring is not just about finding the area of a rectangle. You must account for how the material is physically cut, laid, and packaged by the manufacturer.</p>
 

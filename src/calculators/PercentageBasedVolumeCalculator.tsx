@@ -346,9 +346,9 @@ export default function PercentageBasedVolumeCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding the Percentage-Based Volume Calculator</h2>
             <p>In the realm of strength training and bodybuilding, progression is often tracked by a single metric: adding more weight to the bar. While hitting a new 1-Rep Maximum (1RM) is incredibly satisfying, it is an incomplete picture of physiological adaptation. Elite strength coaches rarely judge a workout solely by the heaviest weight lifted. Instead, they track the absolute, total physical work completed by the athlete. This metric is known as <strong>Volume Load</strong> or <strong>Tonnage</strong>. The <strong>Percentage-Based Volume Calculator</strong> allows you to perfectly quantify the massive amounts of physical work your body is performing, providing an objective mathematical lens through which to view your muscle growth and recovery demands.</p>
 

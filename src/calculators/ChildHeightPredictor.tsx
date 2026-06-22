@@ -217,9 +217,9 @@ export default function ChildHeightPredictor() {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Genetics of Human Growth</h2>
             <p>Predicting exactly how tall a child will be is one of the most common questions pediatricians face. Human height is considered a "polygenic trait"—meaning it is controlled by hundreds of different genes interacting together. However, extensive clinical research has shown that approximately <strong>80% of a person's adult height is determined solely by genetics</strong>.</p>
             <p>Because genetics play such a dominant role, doctors use a mathematical shortcut known as the <strong>Mid-Parental Height (Tanner) Method</strong> to quickly establish a child's growth target.</p>

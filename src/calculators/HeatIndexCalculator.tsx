@@ -223,9 +223,9 @@ const HeatIndexCalculator = () => {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Science of the Heat Index</h2>
             <p>During the summer, you will frequently hear meteorologists say, <em>"The temperature is 90°F, but the Heat Index makes it feel like 105°F."</em> This <strong>Heat Index</strong> (often called the apparent temperature) is the summer equivalent to the winter's Wind Chill factor. It calculates how hot it actually feels on human skin when relative humidity is combined with the air temperature.</p>
 

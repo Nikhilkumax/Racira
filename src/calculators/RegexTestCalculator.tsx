@@ -180,7 +180,7 @@ const RegexTestCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Mastering Regular Expressions</h2>
               <p>Regular expressions (regex) are incredibly powerful tools for text processing. From validating form inputs like emails and passwords to parsing complex server logs, regex is an essential skill for any developer or IT professional.</p>
               

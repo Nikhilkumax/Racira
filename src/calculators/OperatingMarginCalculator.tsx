@@ -178,7 +178,7 @@ export default function OperatingMarginCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is Operating Margin?</h2>
             <p>Operating Margin is an essential profitability ratio that measures the percentage of revenue a company retains after paying for all operating costs. These operating costs include Cost of Goods Sold (COGS) as well as Selling, General & Administrative (SG&A) expenses, Research & Development (R&D), and other overhead costs. It shows how much profit is generated per dollar of sales before taxes and financing costs are subtracted.</p>
             

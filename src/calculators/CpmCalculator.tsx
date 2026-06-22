@@ -86,7 +86,7 @@ const CpmCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Mastering CPM in Advertising</h2>
               <p>CPM is the standard metric for brand awareness campaigns. Whether you are running ads on Facebook, Google, or YouTube, understanding your CPM is the first step in optimizing your budget.</p>
               <h3>Why CPM Matters</h3>

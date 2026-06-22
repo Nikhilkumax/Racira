@@ -419,9 +419,9 @@ export default function InterestOnlyCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding the Interest-Only Mortgage Calculator</h2>
             <p>An Interest-Only (IO) mortgage is one of the most misunderstood and potentially hazardous financial products in real estate. While it offers the allure of drastically lower initial monthly payments, the mechanics behind those low payments can lead to severe financial distress if not properly managed. Our <strong>Interest-Only Mortgage Calculator</strong> is designed to mathematically reveal the two distinct phases of this loan, highlight the exact moment of "payment shock," and calculate the massive long-term interest penalty you pay for deferring your principal payments.</p>
             <p>Standard mortgage calculators assume you are paying down your debt from day one. An IO calculator correctly models the timeline, ensuring that for the first 5 to 10 years, your debt balance remains frozen. By visualizing the massive payment jump that occurs when the loan recasts, you can make an informed decision on whether this advanced lending tool fits your long-term financial strategy.</p>

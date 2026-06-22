@@ -198,7 +198,7 @@ export default function SafeWithdrawalRateCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is the Safe Withdrawal Rate?</h2>
             <p>The Safe Withdrawal Rate (SWR) is a crucial retirement planning formula that calculates the maximum percentage of your total savings you can withdraw in your first year of retirement, and then adjust for inflation annually, with a high probability that your money will not run out before you die.</p>
             

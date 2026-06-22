@@ -60,7 +60,7 @@ const SolarPanelCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>About the Solar Panel Calculator</h2>
             <p>The Solar Panel Calculator helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.</p>
             <h3>How to Use</h3>

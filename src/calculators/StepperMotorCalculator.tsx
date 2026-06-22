@@ -164,7 +164,7 @@ const StepperMotorCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Configuring 3D Printer Firmware</h2>
               <p>For a 3D printer or CNC machine to move accurately, its firmware (like Marlin, Klipper, or RepRapFirmware) must know exactly how many electronic pulses (steps) correspond to one millimeter of physical movement.</p>
               

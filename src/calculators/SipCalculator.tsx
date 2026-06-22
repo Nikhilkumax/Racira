@@ -137,9 +137,9 @@ export default function SipCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a SIP Calculator?</h2>
             <p>A <strong>SIP calculator</strong> projects the future value of regular monthly investments using compound interest. SIP (Systematic Investment Plan) investing automates disciplined wealth building — by investing a fixed amount every month, you leverage both compound growth and dollar-cost averaging to build significant wealth over time.</p>
             <h2>SIP Formula</h2>

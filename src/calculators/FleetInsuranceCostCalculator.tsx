@@ -307,7 +307,7 @@ const FleetInsuranceCostCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is the Fleet Insurance Cost Calculator?</h2>
             <p>This calculator estimates the total annual insurance cost for a fleet of vehicles — whether for a family with multiple cars, a small business, or a large commercial operation. It accounts for vehicle type, driver age, coverage level, annual mileage, multi-vehicle discounts, and commercial-use surcharges to produce an accurate per-vehicle and total-fleet premium estimate.</p>
 

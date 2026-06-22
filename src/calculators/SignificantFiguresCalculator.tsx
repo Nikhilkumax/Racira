@@ -242,9 +242,9 @@ const SignificantFiguresCalculator = () => {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding Significant Figures</h2>
             <p><strong>Significant figures</strong> (often called "sig figs" or "significant digits") are the digits in a measured or calculated number that carry reliable, meaningful information about the precision of that measurement. In science, chemistry, and engineering, no measurement is perfectly exact. Significant figures ensure that the mathematical results of a calculation do not imply a false sense of precision that wasn't present in the original data.</p>
 

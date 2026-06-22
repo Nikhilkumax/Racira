@@ -85,7 +85,7 @@ const SalesTaxCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>What Is a Sales Tax Calculator?</h2>
               <p>A sales tax calculator helps you determine the amount of sales tax on a purchase, or reverse-calculate the pre-tax price from a total that includes tax. It's useful for budgeting, price comparisons across states, and verifying receipts.</p>
               <p>Our calculator offers two modes: forward calculation (add tax to a pre-tax price) and reverse calculation (extract tax from a total amount). Simply enter the price and your local tax rate to get instant results.</p>

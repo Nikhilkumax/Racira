@@ -281,9 +281,9 @@ export default function WeightliftingSessionCalorieCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Mathematics of Resistance Training</h2>
             <p>One of the most disappointing truths in the fitness industry is the realization of how few calories traditional weightlifting actually burns compared to steady-state cardiovascular exercise. Many people assume that because lifting a 300-pound barbell off the ground is excruciatingly difficult, they must be burning massive amounts of energy. However, the human body does not burn calories based on the weight on the bar; it burns calories based on continuous cardiovascular demand and oxygen consumption. The <strong>Weightlifting Session Calorie Calculator</strong> bypasses inaccurate fitness watch estimations by utilizing clinically validated Metabolic Equivalent (MET) formulas. By factoring in your specific body mass and your training style, it calculates the exact thermodynamic cost of your time in the weight room.</p>
 

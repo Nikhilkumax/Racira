@@ -207,9 +207,9 @@ const RoofingCalculator = () => {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Secret of the Pitch Multiplier</h2>
             <p>If your house is exactly 40 feet long and 30 feet wide, the footprint of your house is 1,200 square feet. A massive amateur mistake is assuming you only need 1,200 square feet of roofing materials. <strong>This is completely wrong.</strong></p>
             <p>Your house footprint is flat, but your roof is angled upwards like a triangle. The steeper the angle, the longer the sides of the triangle become, meaning the physical surface area of the roof increases significantly. To calculate the actual square footage of your roof, you must multiply the flat footprint area by a <strong>Pitch Multiplier</strong> derived from the Pythagorean theorem.</p>

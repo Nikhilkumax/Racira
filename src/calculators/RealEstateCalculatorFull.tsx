@@ -235,7 +235,7 @@ export default function RealEstateCalculatorFull() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>How to Analyze a Real Estate Investment</h2>
             <p>Real estate investment analysis requires evaluating multiple metrics simultaneously to understand both cash flow and total return potential. This calculator computes the key metrics that experienced real estate investors use: cap rate, cash-on-cash return, net operating income, gross yield, break-even occupancy, and equity buildup over time. Understanding each metric's meaning and limitations is essential for making sound investment decisions.</p>
             <p>The starting point is always the <strong>Net Operating Income (NOI)</strong>: annual rent × (1 − vacancy rate) minus all operating expenses (taxes, insurance, maintenance, management fees). NOI is the income the property generates before debt service — it's independent of your financing, making it useful for comparing properties.</p>

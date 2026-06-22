@@ -140,9 +140,9 @@ const KineticEnergyCalculator = () => {
           </div>
         </div>
 
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Kinetic Energy Calculator?</h2>
             <p>A kinetic energy calculator computes the energy of motion for any moving object using the formula KE = ½mv². It is one of the most fundamental quantities in classical mechanics. This calculator instantly converts your mass (kg) and velocity (m/s) inputs into kinetic energy in Joules, kilojoules, or megajoules — and shows how KE scales as speed changes. Pre-filled with a typical passenger car (1,200 kg) traveling at 100 km/h (27.78 m/s), you can see immediately how much energy must be dissipated when braking.</p>
             <p>Engineers use kinetic energy calculations in vehicle crash safety testing, rollercoaster design, projectile analysis, sports equipment testing, and turbine design. The dramatic square relationship between speed and KE makes these calculations critical for safety planning across all engineering disciplines.</p>

@@ -139,9 +139,9 @@ export default function CurrentRatioCalculator() {
             </div>
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10"/>
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is the Current Ratio?</h2>
             <p>The current ratio is a liquidity ratio that measures a company&apos;s ability to pay its short-term obligations with its short-term assets. It is the most basic and widely cited liquidity metric in financial statement analysis, appearing in credit agreements, loan covenants, and equity research reports worldwide.</p>
             <h2>Current Ratio Formula</h2>

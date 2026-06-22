@@ -185,9 +185,9 @@ const YieldToMaturityCalculator = () => {
           </div>
         </div>
 
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Yield to Maturity Calculator?</h2>
             <p>A yield to maturity calculator determines the total annualized return on a bond if held until its maturity date. YTM is the single most important metric for bond valuation — it accounts for the bond's current price, face value, coupon payments, and time to maturity. Pre-filled with a $1,000 face value bond priced at $950 with a 6% coupon and 10 years to maturity, the YTM is approximately 6.71% — higher than the 6% coupon because the investor benefits from the $50 capital gain at maturity.</p>
             <p>The yield to maturity calculator is used by bond investors, portfolio managers, financial advisors, and corporate treasurers to evaluate fixed-income securities. It helps compare bonds with different coupon rates, maturities, and prices on a level playing field.</p>

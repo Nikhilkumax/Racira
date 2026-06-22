@@ -214,9 +214,9 @@ export default function SodiumIntakeCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding Your Sodium Limits</h2>
             <p>This <strong>Sodium Intake Calculator</strong> determines your ideal sodium target and maximum healthy limit based on guidelines from the FDA and the American Heart Association (AHA). For most adults, the FDA recommends no more than 2,300mg of sodium per day, but the AHA suggests an ideal limit of 1,500mg for optimal cardiovascular health — especially for those with high blood pressure.</p>
             <h2>The Athlete Exception</h2>

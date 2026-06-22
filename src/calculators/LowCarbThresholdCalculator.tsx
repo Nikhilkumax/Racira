@@ -331,9 +331,9 @@ export default function LowCarbThresholdCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding the Low-Carb Threshold Calculator</h2>
             <p>The term "low-carb" is one of the most widely used and broadly misunderstood phrases in the health and fitness industry. To a competitive marathon runner eating 500 grams of carbohydrates a day, dropping to 250 grams feels incredibly "low-carb." To a strict Ketogenic dieter eating 20 grams a day, 250 grams is an astronomical carbohydrate overload. Because human metabolism operates on a continuous spectrum rather than binary switches, defining where you stand requires mathematical precision. The <strong>Low-Carb Threshold Calculator</strong> classifies your exact dietary protocol based on established clinical guidelines, helping you align your carbohydrate intake with your specific metabolic goals (whether that is deep ketosis, insulin stabilization, or simple weight maintenance).</p>
 

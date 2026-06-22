@@ -225,9 +225,9 @@ const MolecularWeightCalculator = () => {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding Molecular Weight (Molar Mass)</h2>
             <p><strong>Molecular weight</strong> (more accurately called molar mass in modern chemistry) is a measure of the total mass of a single molecule or compound. It is a foundational metric in chemistry used to determine how much of a physical substance you need to measure out to ensure a reaction happens perfectly without leftover waste.</p>
 

@@ -218,9 +218,9 @@ const SteelWeightCalculator = () => {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Importance of Calculating Steel Weight</h2>
             <p>Steel is the backbone of modern construction, from the framing of skyscrapers to the chassis of automobiles. However, steel is extraordinarily dense and heavy. A solid block of steel measuring just 1 foot by 1 foot by 1 foot (a cubic foot) weighs a massive <strong>490 pounds</strong>.</p>
             <p>Accurately calculating the weight of a steel component is absolutely critical for three main reasons:</p>

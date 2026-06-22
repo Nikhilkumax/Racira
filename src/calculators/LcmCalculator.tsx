@@ -187,9 +187,9 @@ const LcmCalculator = () => {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding the Least Common Multiple (LCM)</h2>
             <p>The <strong>Least Common Multiple (LCM)</strong>, sometimes referred to as the Lowest Common Multiple, is a foundational mathematical concept used heavily when working with fractions. By definition, the LCM of two integers (let's say <em>a</em> and <em>b</em>) is the smallest positive integer that is perfectly divisible by both <em>a</em> and <em>b</em> without leaving a remainder.</p>
 

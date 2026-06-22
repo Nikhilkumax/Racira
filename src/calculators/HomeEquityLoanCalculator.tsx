@@ -137,9 +137,9 @@ export default function HomeEquityLoanCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Home Equity Loan?</h2>
             <p>A <strong>home equity loan</strong> allows homeowners to borrow a fixed lump sum against their home&apos;s equity at a fixed interest rate with fixed monthly payments. Unlike a HELOC, there are no surprises — your payment never changes. This <strong>home equity loan calculator</strong> shows your exact monthly payment, total interest cost, combined LTV, and available equity based on your home value and existing mortgage balance.</p>
             <h2>How Home Equity Loan Payments Are Calculated</h2>

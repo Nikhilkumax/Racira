@@ -227,9 +227,9 @@ export default function DebtPayoffCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Avalanche vs. Snowball: Which Debt Payoff Method Is Best?</h2>
             <p>This <strong>debt payoff calculator</strong> simulates both the Avalanche (highest interest rate first) and Snowball (smallest balance first) debt elimination strategies and compares total interest paid and payoff timeline. The Avalanche method is mathematically optimal — always paying less total interest. The Snowball method provides faster psychological wins. Both dramatically outperform making minimum payments only.</p>
             <h2>How the Debt Avalanche Works</h2>

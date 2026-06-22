@@ -222,9 +222,9 @@ export default function FertilityWindowCalculator() {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Mathematics of Conception</h2>
             <p>If you are Trying to Conceive (TTC), timing is absolutely everything. The human reproductive window is surprisingly narrow. Even young, healthy couples having well-timed intercourse only have about a 25% to 30% chance of successfully conceiving in any given cycle.</p>
             <p>This <strong>Fertility Window Calculator</strong> uses the clinical "Standard Days Method" to project exactly when your ovaries will release a mature egg, and maps out the 6-day biological window where intercourse can actually lead to pregnancy.</p>

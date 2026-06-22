@@ -100,7 +100,7 @@ const DistanceCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Distance Between Two Points</h2>
               <p>The Euclidean distance formula is derived from the Pythagorean theorem. This calculator also computes the Manhattan distance (city-block distance) and the midpoint between the two points.</p>
             </article>

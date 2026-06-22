@@ -459,9 +459,9 @@ export default function RepaymentCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding the Loan Repayment Calculator</h2>
             <p>Amortized debt—such as mortgages, auto loans, and student loans—is mathematically structured to extract the maximum amount of interest from you during the early years of the loan. This front-loaded interest model ensures that bank profits are secured early, while the borrower sees agonizingly slow progress in reducing their actual debt balance. Our <strong>Loan Repayment Calculator</strong> (often called an Early Payoff Calculator) is the ultimate tool for breaking this cycle. By simulating extra monthly, yearly, or lump-sum payments, you can instantly visualize how applying small amounts of excess cash directly against your principal can shave years off your loan term and save you tens of thousands of dollars.</p>
             <p>If you blindly make the minimum required payment every month, you are opting into the most expensive version of your loan. This calculator empowers you to take control of your amortization schedule, allowing you to model aggressive payoff strategies and achieve financial freedom years ahead of schedule.</p>

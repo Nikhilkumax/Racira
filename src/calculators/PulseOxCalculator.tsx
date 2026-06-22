@@ -237,9 +237,9 @@ export default function PulseOxCalculator() {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding Pulse Oximetry (SpO2)</h2>
             <p>A pulse oximeter is a small, non-invasive medical device that clips onto your finger to measure the oxygen saturation level of your blood (SpO2). It works by shining specialized wavelengths of light through your skin and nail bed, analyzing how much of that light is absorbed by the hemoglobin in your blood. Fully oxygenated blood absorbs light differently than oxygen-depleted blood.</p>
             <p>This <strong>Pulse Ox Triage Calculator</strong> provides immediate clinical context for your reading, distinguishing between normal healthy ranges and the specialized ranges required for patients with severe chronic lung disease.</p>

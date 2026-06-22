@@ -101,7 +101,7 @@ const CostOfLivingCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Sidebar Ad" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Calculating Your Real Income</h2>
               <p>Salary is a relative number. A $100,000 salary in San Francisco may provide a lower standard of living than a $60,000 salary in a smaller Midwest town. Understanding the cost of living index helps you compare "apples to apples" when evaluating job offers.</p>
               <h3>Why Housing Dominates</h3>

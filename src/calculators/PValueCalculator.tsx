@@ -238,7 +238,7 @@ export default function PValueCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Mechanics of Statistical Significance</h2>
             <p>P-values quantify the strength of evidence against the null hypothesis ($H_0$). They measure the likelihood of seeing sample statistics this extreme assuming no difference exists. A smaller p-value implies that the observed effect is highly unlikely to have occurred by chance variation alone.</p>
             <p>To declare statistical significance, the calculated p-value must fall below the pre-selected threshold value $\alpha$ (typically 0.05). Falling below this threshold supports rejecting the null hypothesis in favor of the alternative hypothesis ($H_1$).</p>

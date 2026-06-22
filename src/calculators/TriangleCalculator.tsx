@@ -82,7 +82,7 @@ const TriangleCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Triangle Formulas</h2>
               <p><strong>Heron's Formula:</strong> A = √(s(s−a)(s−b)(s−c)) where s = (a+b+c)/2</p>
               <p><strong>Law of Cosines:</strong> c² = a² + b² − 2ab·cos(C) — used to find angles from three sides.</p>

@@ -317,9 +317,9 @@ export default function CarAffordabilityCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Car Affordability Calculator?</h2>
             <p>A Car Affordability Calculator is an essential financial tool designed to help you determine exactly how much car you can afford based on your monthly budget, rather than getting tricked into a predatory loan at the dealership. Dealerships often manipulate the loan term to match a specific monthly payment, which can result in you paying thousands more in interest. By calculating your maximum purchase price beforehand, you can shop with confidence and negotiate strictly on the out-the-door price of the vehicle. This tool is perfect for anyone looking to finance a new or used vehicle while adhering to a strict monthly budget.</p>
 

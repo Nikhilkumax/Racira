@@ -144,7 +144,7 @@ const SelfEmploymentTaxCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>The Freelancer's Guide to Self-Employment Tax</h2>
               <p>When you work as an employee, your employer pays half of your Social Security and Medicare taxes (FICA), and you pay the other half. When you are self-employed, you are both the employer and the employee, meaning you are responsible for the full 15.3% tax rate. This is known as the self-employment (SE) tax.</p>
 

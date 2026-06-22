@@ -78,7 +78,7 @@ export default function TreasuryBillCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>What Are U.S. Treasury Bills?</h2>
               <p>U.S. Treasury Bills (T-Bills) are short-term debt instruments issued by the U.S. Department of the Treasury to finance the national debt. Unlike bonds, T-Bills do not pay periodic interest. Instead, they are sold at a discount from their face value, and the investor receives the full face value at maturity. The difference between the purchase price and the face value represents the investor's return.</p>
               <h2>How T-Bills Are Priced</h2>

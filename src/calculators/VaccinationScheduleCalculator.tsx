@@ -272,9 +272,9 @@ export default function VaccinationScheduleCalculator() {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Importance of the CDC Immunization Schedule</h2>
             <p>The Centers for Disease Control and Prevention (CDC), in collaboration with the American Academy of Pediatrics (AAP), publishes an updated childhood immunization schedule every year. This schedule is not arbitrarily designed; it is the result of decades of clinical trials, epidemiological data, and virology research aimed at protecting infants at their most vulnerable stages of life.</p>
             <p>This <strong>Vaccination Schedule Calculator</strong> maps your child's exact date of birth to the official CDC timeline, ensuring you never miss a critical milestone.</p>

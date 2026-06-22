@@ -211,9 +211,9 @@ const NavyBodyFatCalculator = () => {
           </div>
         </div>
 
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Navy Body Fat Calculator?</h2>
             <p>The Navy Body Fat Calculator uses the U.S. Navy circumference method to estimate body fat percentage from simple tape measurements — height, neck, waist, and hip (women). Pre-filled with height 70 inches, neck 15 inches, and waist 33 inches for a male, the estimated body fat is approximately 18% — in the average fitness category. This method was developed by Hodgdon and Beckett in 1984 for the U.S. military and is still used by the Navy, Army, and Marine Corps for fitness standards compliance.</p>
             <h2>The Navy Body Fat Formulas</h2>

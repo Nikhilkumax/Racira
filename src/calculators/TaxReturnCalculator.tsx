@@ -185,9 +185,9 @@ export default function TaxReturnCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>2024 Federal Tax Return Calculator</h2>
             <p>Our <strong>tax return calculator</strong> estimates your 2024 federal income tax liability using the latest IRS tax brackets, standard deductions, and filing status rules. It shows you whether to expect a refund or owe taxes, your effective rate vs. marginal rate, and exactly how much tax applies to each income bracket.</p>
             <h2>How Federal Taxes Are Calculated</h2>

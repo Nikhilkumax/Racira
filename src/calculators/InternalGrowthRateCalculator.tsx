@@ -255,9 +255,9 @@ export default function InternalGrowthRateCalculator() {
         </div>
 
         {/* SEO Article Section */}
-        <div className="max-w-[1180px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding the Internal Growth Rate (IGR)</h2>
             <p>
               In corporate finance, the <strong>Internal Growth Rate (IGR)</strong> represents the maximum rate of sales and operational growth that a business can achieve without requiring any external funding. This means the firm does not issue new shares (equity financing) or take on new loans or notes (debt financing). Instead, all expansion in assets is financed strictly using the company's retained cash flow from operations.

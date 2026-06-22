@@ -87,7 +87,7 @@ export default function CertificateOfDepositCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Understanding Certificates of Deposit</h2>
               <p>A Certificate of Deposit (CD) is a time deposit savings product that offers a guaranteed fixed interest rate in exchange for committing your money for a specified period. CDs have been a cornerstone of conservative investing for decades, offering FDIC-insured safety with returns that typically exceed those of standard savings accounts. In the elevated interest rate environment of 2023-2025, CDs have become especially attractive, with many institutions offering 5%+ APY on 1-year terms.</p>
               <h2>The CD Ladder Strategy</h2>

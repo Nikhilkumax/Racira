@@ -259,9 +259,9 @@ export default function RadiatorSizeCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Mathematics of Cooling</h2>
             <p>An internal combustion engine acts essentially as a massive heater. When you burn fuel to create horsepower, roughly one-third of the energy from that fuel is absorbed directly into the metal engine block as raw thermal heat. If you double the horsepower of an engine, you are burning twice as much fuel, which means you are dumping twice as much heat into the block.</p>
             <p>The radiator's only job is to act as a heat exchanger, pulling that heat out of the liquid coolant and dissipating it into the passing atmosphere. To dissipate more heat, you need a physically larger radiator.</p>

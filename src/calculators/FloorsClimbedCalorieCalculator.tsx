@@ -281,9 +281,9 @@ export default function FloorsClimbedCalorieCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Physics of Vertical Displacement</h2>
             <p>Every fitness tracker on the market gamifies the concept of "closing your rings" by telling you to stand up and walk. However, walking on flat ground is a highly efficient movement that barely challenges the human cardiovascular system. If you want to force your body to expend a massive amount of energy in a very short amount of time, you must wage war against the most powerful force on Earth: gravity.</p>
             <p>The <strong>Floors Climbed Calorie Calculator</strong> bypasses the inaccurate generalizations of wrist pedometers by utilizing pure Newtonian physics. By mathematically determining the exact mechanical force required to propel your specific body mass straight up into the air, it provides a flawless calculation of the thermodynamic energy your muscles were forced to expend.</p>

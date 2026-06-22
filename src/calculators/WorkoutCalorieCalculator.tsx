@@ -116,9 +116,9 @@ export default function WorkoutCalorieCalculator() {
             </div>
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>About the Workout Calorie Calculator</h2>
             <p>This workout calorie calculator covers 16 common gym and fitness activities using validated MET (Metabolic Equivalent of Task) values from the Compendium of Physical Activities (Ainsworth et al., 2011). It includes a custom MET option for activities not listed. Results include total calories, calorie rate per hour, and an estimate of fat mass burned.</p>
             <h2>How MET Values Work</h2>

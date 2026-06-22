@@ -154,7 +154,7 @@ const PizzaSizeCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>The Math of Pizza Value</h2>
               <p>When you're ordering pizza, your eyes often deceive you. A 12-inch pizza might look only slightly smaller than a 14-inch pizza, but the math tells a different story. Because the area of a circle grows exponentially as the diameter increases, those extra two inches actually provide about 36% more pizza!</p>
               

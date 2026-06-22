@@ -141,7 +141,7 @@ const EPFCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>What Is an EPF Calculator?</h2>
               <p>An EPF calculator estimates your Employee Provident Fund corpus at retirement based on your current salary, contribution rates, expected salary increments, and EPF interest rate. It helps you plan for retirement by projecting how your monthly EPF contributions will grow over time.</p>
 

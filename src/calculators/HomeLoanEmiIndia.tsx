@@ -161,7 +161,7 @@ export default function HomeLoanEmiIndia() {
                   <IndianRupee className="h-5 w-5 text-primary" />
                 </div>
 
-                <div className="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-xl p-5 text-center">
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center relative overflow-hidden">
                   <div className="text-[13px] font-bold text-primary mb-1 uppercase tracking-wider">Monthly EMI</div>
                   <div className="text-4xl font-extrabold text-foreground mb-1 tracking-tight">₹{fmt(Math.round(res.emi))}</div>
                   <div className="text-sm text-muted-foreground font-medium">Total Interest: {fmtINR(Math.round(res.totalInterest))}</div>
@@ -241,24 +241,24 @@ export default function HomeLoanEmiIndia() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
-            <h2>What Is a Home Loan EMI Calculator?</h2>
+          <article className="prose-finance text-[15.75px]">
+            <h2 className="text-2xl font-bold mb-3">What Is a Home Loan EMI Calculator?</h2>
             <p>A home loan EMI (Equated Monthly Installment) calculator is an essential tool for anyone considering or managing a home loan in India. It instantly calculates your fixed monthly payment, total interest outgo, and repayment schedule based on your loan amount, interest rate, and tenure. Whether you're comparing offers from SBI, HDFC, ICICI, or any other bank or NBFC, understanding your EMI before applying is crucial for financial planning.</p>
             <p>In India, home loans are typically available for tenures of 5 to 30 years, with amounts ranging from a few lakhs to several crores. The current (2024-25) home loan interest rate range is approximately 8.35% to 10.5% depending on the lender, your credit profile, and whether you choose a floating or fixed rate product. Even a 0.5% difference in interest rate on a ₹50 lakh loan over 20 years can mean a difference of ₹3-4 lakhs in total interest outgo.</p>
 
-            <h2>Understanding the EMI Formula</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the EMI Formula</h2>
             <p>The EMI is calculated using the formula: <strong>EMI = P × r × (1+r)^n / [(1+r)^n − 1]</strong>, where P = principal loan amount, r = monthly interest rate (annual rate ÷ 12 ÷ 100), and n = total number of monthly installments. For example, for a ₹50 lakh loan at 8.5% for 20 years: r = 8.5/12/100 = 0.00708, n = 240. EMI = ₹43,391 per month approximately.</p>
             <p>Over 20 years, you'd pay approximately ₹1.04 crore in total — ₹54.1 lakhs in interest on top of ₹50 lakhs principal. This is why longer tenures, while reducing monthly EMI, dramatically increase total interest cost. Conversely, a shorter tenure of 15 years at the same rate raises EMI to ₹49,238 but reduces total interest to ₹38.6 lakhs — a saving of ₹15.5 lakhs.</p>
 
-            <h2>Tips to Reduce Your Home Loan Interest Burden</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips to Reduce Your Home Loan Interest Burden</h2>
             <p><strong>Make regular prepayments:</strong> Even paying one extra EMI per year can reduce your tenure significantly. RBI mandates that banks charge no prepayment penalty on floating-rate home loans. Small prepayments in early years save disproportionately large amounts in interest since you're reducing the principal on which all future interest is calculated.</p>
             <p><strong>Maintain a high CIBIL score:</strong> Borrowers with CIBIL scores of 750+ qualify for the lowest interest rates. A difference of 50 basis points (0.5%) on a ₹75 lakh loan over 25 years can save ₹7-8 lakhs in interest. Check your credit report before applying and resolve any errors.</p>
             <p><strong>Choose the right tenure:</strong> Opt for the shortest tenure your cash flow allows. While a 30-year tenure minimizes monthly EMI, it maximizes total interest. A 15-20 year tenure offers a balanced approach — manageable EMI with significantly less total interest. Consider your age — ideally, the loan should close before retirement age.</p>
 
-            <h2>Tax Benefits on Home Loans in India</h2>
+            <h2 className="text-2xl font-bold mb-3">Tax Benefits on Home Loans in India</h2>
             <p>Home loan borrowers can claim significant tax deductions. Under <strong>Section 80C</strong>, principal repayment is eligible for deduction up to ₹1.5 lakh per year (shared with other 80C investments). Under <strong>Section 24(b)</strong>, interest paid on a home loan is deductible up to ₹2 lakh per year for a self-occupied property (unlimited for let-out properties). First-time homebuyers can claim an additional ₹1.5 lakh deduction under <strong>Section 80EEA</strong> if the property value doesn't exceed ₹45 lakhs (subject to conditions). These deductions make home loans one of the most tax-efficient instruments available to salaried individuals in India.</p>
 
-            <h2>Home Loan Comparison: Bank vs HFC vs NBFC</h2>
+            <h2 className="text-2xl font-bold mb-3">Home Loan Comparison: Bank vs HFC vs NBFC</h2>
             <p>Public sector banks (SBI, Bank of Baroda, PNB) typically offer the lowest interest rates and are benchmarked to the RBI repo rate. Private banks (HDFC Bank, ICICI, Axis) offer convenience, digital processing, and fast approvals but at slightly higher rates. Housing Finance Companies (HDFC Ltd, LIC Housing Finance, Bajaj Housing Finance) specialize in home loans and often have more flexible eligibility criteria. NBFCs may approve borrowers with non-traditional income but typically charge higher rates. Always compare the all-in cost including processing fees, legal charges, technical valuation fees, and insurance requirements.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/home-loan-emi-calculator-india" />

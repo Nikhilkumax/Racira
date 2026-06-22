@@ -127,9 +127,9 @@ export default function InheritanceTaxCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding Estate and Inheritance Taxes</h2>
             <p>Estate taxes and inheritance taxes are two different ways governments tax wealth transfer after death. The federal government only imposes an estate tax, which is calculated based on the total net value of the deceased's estate before any money is distributed. It is paid by the estate itself.</p>
             <h2>The High Federal Exemption</h2>

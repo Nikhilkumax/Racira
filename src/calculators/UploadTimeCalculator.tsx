@@ -134,7 +134,7 @@ const UploadTimeCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>How Upload Speeds Work</h2>
               <p>Upload speed refers to how much data you can send from your device to the internet in a given second. Most consumer internet connections (like Cable or DSL) are "asymmetric," meaning they have much slower upload speeds than download speeds.</p>
               <h3>Understanding Bits vs Bytes</h3>

@@ -197,7 +197,7 @@ export default function WeightedAverageYieldCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is Weighted Average Yield?</h2>
             <p>Weighted Average Yield (WAY) is the portfolio-level yield that accounts for the relative market value of each holding. Unlike a simple arithmetic average, WAY assigns more influence to larger positions — accurately reflecting the true income-generating capacity of a portfolio. The formula is WAY = Σ(Yield_i × Market Value_i) / Total Portfolio Value.</p>
             <p>Fixed income portfolio managers, bond fund analysts, and institutional investors use WAY daily to measure portfolio income efficiency, compare against benchmark indices, and track yield trends over time. A rising WAY suggests the portfolio is being repositioned toward higher-yielding (typically higher-risk) instruments; a falling WAY suggests a flight to quality or interest rate decline.</p>

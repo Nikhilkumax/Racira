@@ -153,9 +153,9 @@ const ZScoreCalculator = () => {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Z-Score Calculator?</h2>
             <p>A z-score calculator computes the standard score — how many standard deviations a particular value lies from the mean of a distribution. Pre-filled with a test score of 75 from a class where the mean is 60 and the standard deviation is 10, it shows z = (75−60)/10 = 1.5. This means the score is 1.5 standard deviations above average, placing it at the 93.32nd percentile — better than 93% of students.</p>
             <p>Z-scores are fundamental to statistics, research, quality control, finance, and any field that compares values to a reference distribution. This calculator also computes the cumulative probability from a standard normal table, eliminating the need to look up z-tables by hand.</p>

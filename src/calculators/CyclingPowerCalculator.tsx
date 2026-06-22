@@ -132,7 +132,7 @@ const CyclingPowerCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>The Physics of Cycling</h2>
               <p>When you ride a bike, you are constantly fighting against three main forces: air resistance (drag), rolling resistance, and gravity. Understanding how these forces interact can help you become a faster, more efficient cyclist.</p>
               <h3>Drafting and Drag</h3>

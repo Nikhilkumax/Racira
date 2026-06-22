@@ -97,7 +97,7 @@ const BodySurfaceAreaCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>The Importance of Body Surface Area</h2>
               <p>While Body Mass Index (BMI) is useful for population-level health screening, Body Surface Area (BSA) is critical for precise medical dosing and physiological assessment.</p>
               <h3>Why Not Just Use Weight?</h3>

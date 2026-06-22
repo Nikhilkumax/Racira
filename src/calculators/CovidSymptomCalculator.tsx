@@ -247,9 +247,9 @@ export default function CovidSymptomCalculator() {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding COVID-19 Triage</h2>
             <p>COVID-19 affects different people in drastically different ways. While some individuals remain entirely asymptomatic, others can develop life-threatening respiratory failure within days. Understanding when to isolate at home and when to seek emergency medical care is the cornerstone of managing the virus safely.</p>
             <p>This <strong>COVID-19 Symptom Triage Checker</strong> is designed using the official symptom categorizations established by the Centers for Disease Control and Prevention (CDC) and the World Health Organization (WHO).</p>

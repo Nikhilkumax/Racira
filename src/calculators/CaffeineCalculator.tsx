@@ -266,9 +266,9 @@ export default function CaffeineCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Track Your True Caffeine Intake</h2>
             <p>This <strong>Caffeine Calculator</strong> helps you quantify your total daily caffeine consumption across coffee, tea, energy drinks, and supplements. It compares your intake against FDA safety limits (400mg for adults, 200mg for pregnant women) and calculates your caffeine "half-life" to determine how much stimulant remains active in your bloodstream when you try to sleep.</p>
             <h2>The Half-Life Problem (Sleep Disruption)</h2>

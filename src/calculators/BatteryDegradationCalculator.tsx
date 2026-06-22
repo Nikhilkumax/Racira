@@ -389,9 +389,9 @@ export default function BatteryDegradationCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is an EV Battery Degradation Calculator?</h2>
             <p>An EV Battery Degradation Calculator is a diagnostic tool used to estimate the current health and remaining lifespan of a lithium-ion electric vehicle battery. Just like a smartphone battery, an EV battery permanently loses a small fraction of its maximum capacity over time. This calculator uses a multi-variable algorithm to estimate that capacity loss based on the vehicle's age, total mileage, your charging habits, and the local climate.</p>
 

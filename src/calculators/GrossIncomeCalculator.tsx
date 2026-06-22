@@ -194,9 +194,9 @@ export default function GrossIncomeCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Gross Income Calculator?</h2>
             <p>A gross income calculator is a foundational personal finance tool designed to convert your salary or hourly wages into various pay periods. Whether you are negotiating a job offer, applying for a mortgage, or trying to budget your monthly expenses, understanding your exact gross income across different timeframes is critical. "Gross income" refers to the raw, total amount of money you earn from your employer before any federal taxes, state taxes, Social Security, Medicare, or retirement contributions (like a 401k) are deducted from your paycheck.</p>
             <p>This calculator removes the mental gymnastics of converting an hourly wage into an annual salary, or figuring out exactly how much smaller a bi-weekly paycheck is compared to a semi-monthly paycheck. By standardizing your income into actionable data points, you can navigate financial decisions—from signing a lease to taking out an auto loan—with absolute confidence and precision.</p>

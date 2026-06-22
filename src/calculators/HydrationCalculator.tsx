@@ -117,7 +117,7 @@ const HydrationCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Sidebar Ad" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>The Importance of Staying Hydrated</h2>
               <p>Water is the most essential nutrient for the human body. Every cell, tissue, and organ needs water to work properly. From regulating body temperature to lubricating joints and carrying nutrients to cells, staying hydrated is a cornerstone of metabolic health.</p>
               <h3>Factors That Increase Your Needs</h3>

@@ -350,9 +350,9 @@ export default function TotalCostOfOwnershipCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is Total Cost of Ownership (TCO)?</h2>
             <p>Total Cost of Ownership (TCO) is the ultimate metric for understanding vehicle affordability. When buying a car, it is incredibly easy to focus solely on the sticker price or the monthly loan payment. However, these figures represent only a fraction of what the vehicle will actually cost you. TCO combines the direct costs (financing, taxes, fuel, insurance, and maintenance) with the indirect costs (depreciation) over a standard 5-year period. By calculating the TCO, you can accurately compare the long-term financial impact of different vehicles.</p>
 

@@ -305,9 +305,9 @@ export default function RadiationDoseFractionationCalculator() {
         </div>
 
         {/* SEO CONTENT */}
-        <div className="max-w-[1100px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding Radiation Dose Fractionation (BED & EQD2)</h2>
             <p>In modern oncology, radiation therapy is a cornerstone of cancer treatment. However, prescribing radiation is not as simple as giving a patient a total physical dose (e.g., 60 Gray) all at once. Delivering massive amounts of radiation in a single burst causes catastrophic damage to healthy, normal tissues. To protect the patient, radiation oncologists use "fractionation"—splitting the total dose into small daily treatments (fractions) delivered over several weeks. Our <strong>Radiation Dose Fractionation Calculator</strong> uses the Linear-Quadratic (LQ) model to calculate the true biological effect of these altered schedules, generating the Biologically Effective Dose (BED) and the Equivalent Dose in 2 Gy fractions (EQD2).</p>
 

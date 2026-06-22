@@ -136,7 +136,7 @@ const AspectRatioCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Common Aspect Ratios</h2>
               <p>Aspect ratios have evolved significantly over the history of cinema and television. Understanding which one to use is vital for content creators and web designers.</p>
               

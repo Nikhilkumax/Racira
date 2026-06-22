@@ -139,7 +139,7 @@ const FoodCarbonFootprintCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Food and the Environment</h2>
               <p>Food production is responsible for about one-quarter of the world's greenhouse gas emissions. This includes everything from the fertilizer used on crops to the fuel used for transportation.</p>
               <h3>The Hierarchy of Impacts</h3>

@@ -196,9 +196,9 @@ const TimeCalculator = () => {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Base-60 Problem</h2>
             <p>If you try to add 2 hours and 45 minutes to 3 hours and 30 minutes using a standard desk calculator, you might type <code>2.45 + 3.30</code>. The calculator will output <code>5.75</code>. This is mathematically correct in the Base-10 decimal system, but it is entirely incorrect for calculating time. 5.75 hours is not 5 hours and 75 minutes. Because time rolls over at 60, the correct answer is 6 hours and 15 minutes.</p>
 

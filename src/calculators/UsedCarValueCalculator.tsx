@@ -398,9 +398,9 @@ export default function UsedCarValueCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Used Car Value Calculator?</h2>
             <p>A Used Car Value Calculator is a financial modeling tool that estimates the current market value of an automobile by simulating its depreciation curve. Cars are depreciating assets, meaning they lose value every single day. This calculator takes the original sticker price (MSRP) of the vehicle when it was brand new and applies industry-standard depreciation logic based on its age, mileage, condition, and vehicle class to find its true current worth.</p>
 

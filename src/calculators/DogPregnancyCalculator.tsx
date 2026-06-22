@@ -140,7 +140,7 @@ const DogPregnancyCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Complete Guide to Dog Pregnancy (Canine Gestation)</h2>
               <p>Responsible breeding requires careful planning and attentive care throughout the entire gestation period. Here is everything you need to know about the 9 weeks of canine pregnancy.</p>
 

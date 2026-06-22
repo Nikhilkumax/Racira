@@ -133,9 +133,9 @@ const PercentageCalculator = () => {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Percentage Calculator?</h2>
             <p>A percentage calculator solves all common percentage problems in one place: finding a percentage of a number, increasing or decreasing a value by a percentage, finding what percentage one number is of another, and working backwards to find the whole. Pre-filled with 15% of 250, the calculator shows 37.5 along with all related calculations including increase (287.5) and decrease (212.5) results.</p>
             <p>Percentage calculations are among the most frequently needed in everyday life: calculating tips and discounts, understanding tax rates, tracking investment returns, analyzing test scores, interpreting statistics, and comparing quantities across different scales.</p>

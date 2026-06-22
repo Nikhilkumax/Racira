@@ -144,9 +144,9 @@ export default function PersonalLoanCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Personal Loan Calculator?</h2>
             <p>A <strong>personal loan calculator</strong> estimates your monthly payment, total interest, and effective APR for an unsecured personal loan. Whether you&apos;re consolidating credit card debt, financing a major purchase, or covering an emergency expense, understanding your true borrowing cost is critical. This calculator also factors in origination fees, which can significantly raise the effective APR above the stated interest rate.</p>
             <h2>How Personal Loan Payments Are Calculated</h2>

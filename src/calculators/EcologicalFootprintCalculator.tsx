@@ -196,7 +196,7 @@ const EcologicalFootprintCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>What is Earth Overshoot Day?</h2>
               <p>Earth Overshoot Day marks the date when humanity's demand for ecological resources and services in a given year exceeds what Earth can regenerate in that year. We maintain this deficit by liquidating stocks of ecological resources and accumulating waste, primarily carbon dioxide in the atmosphere.</p>
               

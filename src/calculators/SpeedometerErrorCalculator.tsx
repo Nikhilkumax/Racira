@@ -296,9 +296,9 @@ export default function SpeedometerErrorCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Causes Speedometer Error?</h2>
             <p>Your vehicle's speedometer is calibrated at the factory to match the exact circumference of the original equipment (OEM) tires. When you drive, a speed sensor located in the transmission or wheel hub counts the number of revolutions per minute. The vehicle's computer multiplies these revolutions by the factory tire circumference to calculate your speed. If you replace your tires with a different size, you alter the circumference, completely destroying the mathematical foundation of your speedometer's accuracy. Our Speedometer Error Calculator instantly reveals how far off your dash reading is from reality.</p>
 

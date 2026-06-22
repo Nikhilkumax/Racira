@@ -130,9 +130,9 @@ export default function DividendPayoutRatioCalculator() {
             </div>
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is the Dividend Payout Ratio?</h2>
             <p>The dividend payout ratio measures what percentage of a company&apos;s net income is distributed to common shareholders as dividends. It is a fundamental metric for income investors, equity analysts, and corporate finance professionals assessing a company&apos;s capital allocation policy, dividend sustainability, and long-term growth prospects. Formula: Payout Ratio = Total Dividends ÷ Net Income.</p>
             <h2>Payout Ratio vs. Retention Ratio</h2>

@@ -326,9 +326,9 @@ export default function StarterMotorCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Mechanics of Starting an Engine</h2>
             <p>Before a modern internal combustion engine can run on its own power, it must be physically rotated by an external force to suck in the first breath of air and compress the first spray of fuel. This incredibly demanding task falls on the <strong>Starter Motor</strong>, a small but incredibly powerful electric motor bolted to the side of the engine block.</p>
             <p>The starter motor draws a massive, instantaneous surge of electrical current from the battery to force the heavy steel crankshaft to turn against the mechanical resistance of the engine's internal compression.</p>

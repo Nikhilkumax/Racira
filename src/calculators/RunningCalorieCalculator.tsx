@@ -122,7 +122,7 @@ const RunningCalorieCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Maximizing Your Run</h2>
               <p>Running is one of the most efficient ways to burn calories and improve cardiovascular health. However, many people overestimate how much they burn during a workout.</p>
               <h3>Distance vs. Duration</h3>

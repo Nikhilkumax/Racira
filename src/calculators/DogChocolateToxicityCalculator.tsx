@@ -179,7 +179,7 @@ const DogChocolateToxicityCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>The Science of Chocolate Toxicity in Dogs</h2>
               <p>Chocolate poisoning is one of the most common emergencies seen by veterinarians, particularly around holidays like Halloween, Christmas, and Easter. Understanding exactly why chocolate is dangerous and how different types vary in their potency can help pet owners respond appropriately.</p>
 

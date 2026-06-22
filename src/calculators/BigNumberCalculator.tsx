@@ -202,9 +202,9 @@ const BigNumberCalculator = () => {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Limit of Normal Calculators</h2>
             <p>If you have ever typed a massive equation into a standard pocket calculator or your phone app, you've likely seen the screen output an error or revert to E-notation (like <code>4.5e12</code>). This happens because standard computational hardware allocates a fixed amount of memory (typically 64 bits) to store a number. Once a number exceeds roughly 15 digits (specifically 9,007,199,254,740,991 in JavaScript), the computer can no longer guarantee the precision of the integers at the end of the number. It will start rounding them off to zeroes to save memory.</p>
             

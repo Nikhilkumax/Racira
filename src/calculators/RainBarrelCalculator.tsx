@@ -107,7 +107,7 @@ const RainBarrelCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Rainwater Harvesting</h2>
               <p>Rainwater harvesting is an ancient practice that is seeing a modern resurgence. By catching water before it hits the ground, you reduce local runoff (which carries pollutants to streams) and decrease your reliance on treated municipal water for landscaping.</p>
               <h3>How to Measure Your Roof Area</h3>

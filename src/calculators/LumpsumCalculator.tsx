@@ -131,9 +131,9 @@ export default function LumpsumCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Lumpsum Calculator?</h2>
             <p>A <strong>lumpsum calculator</strong> computes the future value of a one-time investment using compound interest. Unlike systematic investment plans, lumpsum investing puts your entire capital to work immediately, maximizing the period over which compounding can operate. This calculator is widely used by mutual fund investors, financial planners, and anyone with a large sum to invest — from inheritance to year-end bonuses.</p>
             <h2>The Compound Interest Formula</h2>

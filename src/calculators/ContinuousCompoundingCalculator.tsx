@@ -252,7 +252,7 @@ export default function ContinuousCompoundingCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is Continuous Compounding?</h2>
             <p>Continuous compounding represents the mathematical limit of compound interest—the result when interest is compounded an infinite number of times per unit time. It is the most aggressive form of compounding, producing the maximum possible growth for a given interest rate and time period. The formula A = Pe^(rt) uses Euler's number e (approximately 2.71828) to capture this exponential growth.</p>
             <p>This calculator goes beyond the standard formula by comparing continuous compounding against daily, monthly, and annual compounding. This allows investors and students of financial mathematics to see both the theoretical maximum and how close common compounding frequencies come to achieving it.</p>

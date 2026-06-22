@@ -212,9 +212,9 @@ export default function ConceptionDateCalculator() {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Mathematics of Conception</h2>
             <p>Determining the exact date a child was conceived requires working backward using a set of clinical averages. While an ultrasound is the most accurate way to date a pregnancy, this <strong>Conception Date Calculator</strong> uses standard obstetric algorithms to reverse-engineer the timeline based on either your known Due Date or your Last Menstrual Period.</p>
 

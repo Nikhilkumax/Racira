@@ -209,9 +209,9 @@ const HoursCalculator = () => {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Mathematics of Payroll</h2>
             <p>Tracking time for payroll is notoriously frustrating because clocks operate on a Base-60 mathematical system (60 minutes in an hour), but financial currency operates on a Base-10 system (100 cents in a dollar).</p>
             <p>If you work 8 hours and 15 minutes, and your wage is $20 an hour, you cannot simply multiply 8.15 * 20. The answer you get ($163) is legally incorrect, and doing so will result in massive payroll violations. You must first convert the sexagesimal time into a standardized decimal format.</p>

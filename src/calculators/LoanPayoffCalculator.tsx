@@ -145,9 +145,9 @@ export default function LoanPayoffCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Loan Payoff Calculator?</h2>
             <p>A <strong>loan payoff calculator</strong> tells you exactly how long it will take to pay off a loan based on your current balance, interest rate, monthly payment, and any extra payments. It quantifies the interest and time savings from paying more than the minimum — making a compelling case for accelerated debt repayment.</p>
             <h2>How Loan Payoff Is Calculated</h2>

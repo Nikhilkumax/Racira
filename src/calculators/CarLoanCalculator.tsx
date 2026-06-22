@@ -214,9 +214,9 @@ export default function CarLoanCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>How Car Loan Payments Are Calculated</h2>
             <p>This <strong>car loan calculator</strong> uses the standard amortization formula and includes sales tax, trade-in value, and total ownership cost (loan + insurance + maintenance). Monthly Payment = Loan Amount × [r(1+r)^n] ÷ [(1+r)^n − 1], where r = monthly rate and n = term in months. The true cost of car ownership — including insurance, fuel, and maintenance — typically runs $9,000–$13,000/year for an average new vehicle (AAA 2024 data).</p>
             <h2>2024 Car Loan Rates and Market Context</h2>

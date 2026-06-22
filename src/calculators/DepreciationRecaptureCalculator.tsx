@@ -164,9 +164,9 @@ export default function DepreciationRecaptureCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding Depreciation Recapture</h2>
             <p>If you own an investment property, the IRS requires you to depreciate the building over 27.5 years (residential) or 39 years (commercial). This non-cash deduction saves you thousands of dollars in ordinary income tax every year you own the property. However, this tax break is technically a deferral, not a freebie.</p>
             <p>When you sell the property for a profit, the IRS "recaptures" the depreciation you claimed. Your cost basis is reduced by the amount of depreciation taken, which mathematically increases your taxable gain on the sale.</p>

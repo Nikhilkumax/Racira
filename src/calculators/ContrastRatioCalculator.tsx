@@ -136,7 +136,7 @@ const ContrastRatioCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Web Accessibility (a11y) and Color</h2>
               <p>Accessibility is not just a feature; it's a fundamental requirement of the modern web. The Web Content Accessibility Guidelines (WCAG) provide a technical standard for ensuring that web content is accessible to people with various disabilities.</p>
               

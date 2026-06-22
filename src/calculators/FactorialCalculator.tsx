@@ -127,9 +127,9 @@ const FactorialCalculator = () => {
           </div>
         </div>
 
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Factorial Calculator?</h2>
             <p>A factorial calculator computes n! — the product of every positive integer from 1 up to n. Factorials are foundational to combinatorics, probability theory, algebra, and calculus. They grow extraordinarily fast: 10! = 3,628,800 while 20! = 2,432,902,008,176,640,000. This calculator shows the result instantly alongside a complete table of all factorials from 0! through n! and a bar chart that visualizes the explosive growth pattern.</p>
             <p>Students use factorial calculators when working through permutations and combinations, educators use them to illustrate mathematical growth rates, and programmers use factorials in algorithms including sorting, hashing, and recursive function design.</p>

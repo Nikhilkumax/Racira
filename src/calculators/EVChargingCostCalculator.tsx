@@ -317,9 +317,9 @@ export default function EVChargingCostCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is an EV Charging Cost Calculator?</h2>
             <p>An EV Charging Cost Calculator takes the mystery out of "fueling" an electric vehicle. Unlike gas cars, where you look at a giant sign that clearly states $3.50 per gallon, the cost to charge an EV is largely invisible. It depends on your home utility rate, the size of your car's battery, and the efficiency of the vehicle itself. This calculator converts the abstract concepts of kilowatts and electrical efficiency into concrete dollars, cents, and miles, allowing you to accurately budget your transportation costs and compare them directly against gasoline.</p>
 

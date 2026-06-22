@@ -87,7 +87,7 @@ const ROICalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>What Is ROI?</h2>
               <p>Return on Investment (ROI) is one of the most widely used financial metrics for evaluating the profitability of an investment. It measures the percentage return generated relative to the amount invested, providing a simple way to compare different investment opportunities.</p>
 

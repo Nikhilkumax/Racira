@@ -274,9 +274,9 @@ export default function CarPerformanceCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Mathematics of Acceleration</h2>
             <p>Predicting a vehicle's 0-60 MPH and 1/4 mile times is not a guessing game; it is an exercise in applied physics. The fundamental equation of acceleration relies on the <strong>Power-to-Weight Ratio</strong>. The amount of energy (horsepower) required to move a specific mass (vehicle weight) across a set distance is mathematically constant. By evaluating this ratio alongside the physical traction limits of the vehicle's drivetrain, our calculator provides a highly accurate estimate of real-world straight-line performance.</p>
 

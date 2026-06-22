@@ -202,9 +202,9 @@ export default function BudgetCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>How to Build a Monthly Budget</h2>
             <p>This <strong>monthly budget calculator</strong> compares your actual spending against recommended percentages for each category, instantly flagging areas where you're over budget. The status indicators (✓ Good / ⚠ High / ✗ Over) are based on the widely-accepted 50/30/20 framework and standard lender debt-to-income guidelines. Your savings rate — money saved plus any monthly surplus — is the key metric to optimize.</p>
             <h2>The 50/30/20 Framework</h2>

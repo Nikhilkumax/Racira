@@ -169,9 +169,9 @@ const KeplersLawsCalculator = () => {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>{"What Is a Kepler's Laws Calculator?"}</h2>
             <p>{"A Kepler's Laws calculator applies Johannes Kepler's Third Law of Planetary Motion (T² ∝ a³) to compute orbital periods from semi-major axes or vice versa. Pre-filled with Earth's orbit around the Sun (a = 1.496×10⁸ km, e = 0.0167), the calculated period is 365.25 days — exactly one year. The calculator also computes perihelion/aphelion distances and orbital velocities using Kepler's First and Second Laws."}</p>
             <h2>{"Kepler's Three Laws"}</h2>

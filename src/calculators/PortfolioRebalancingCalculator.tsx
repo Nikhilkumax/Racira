@@ -134,7 +134,7 @@ export default function PortfolioRebalancingCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Why Portfolio Rebalancing Matters</h2>
               <p>Portfolio rebalancing is one of the most important — yet most overlooked — aspects of disciplined investing. When you initially construct a portfolio, you assign target weights to different asset classes (e.g., 60% stocks, 30% bonds, 10% international) based on your risk tolerance and investment goals. Over time, as markets move, these weights drift. Stocks may surge, pushing your portfolio to 75% stocks without you making a single decision. This drift can expose you to far more risk than you intended.</p>
               <h2>The Mathematics of Drift</h2>

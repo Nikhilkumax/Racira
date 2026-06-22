@@ -216,9 +216,9 @@ export default function TermLifeVsWholeLifeCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Term Life vs. Whole Life: The Core Difference</h2>
             <p>This <strong>term life vs. whole life calculator</strong> compares the true total cost of both insurance types using the "buy term and invest the difference" methodology — the gold standard approach recommended by most fee-only financial planners. Term life provides pure insurance with no cash value at dramatically lower premiums. Whole life combines insurance with a savings component but at 5–15× the cost of equivalent term coverage.</p>
             <h2>The "Buy Term, Invest the Difference" Strategy</h2>

@@ -280,9 +280,9 @@ export default function EngineCompressionCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Why Engine Compression Ratio Matters</h2>
             <p>The Static Compression Ratio is one of the most fundamental specifications of any internal combustion engine. It defines the mathematical relationship between the maximum volume of a cylinder (when the piston is at Bottom Dead Center) and the minimum volume (when the piston is at Top Dead Center). The higher the compression ratio, the more thermal energy the engine can extract from a single drop of fuel. High compression yields more horsepower, crisper throttle response, and better fuel efficiency.</p>
 

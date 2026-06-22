@@ -365,9 +365,9 @@ export default function BulkingCalorieCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding the Bulking Calorie Calculator</h2>
             <p>Building muscle is a deeply un-natural and energy-expensive process for the human body. Unlike fat, which is the body's preferred survival mechanism for storing excess energy, muscle tissue requires massive amounts of calories just to be built, and even more calories to be sustained on a daily basis. To force your body to build muscle, you must give it a reason (heavy resistance training) and you must provide the raw materials (a caloric surplus). The <strong>Bulking Calorie Calculator</strong> is designed to determine exactly how large that surplus should be to maximize muscle growth while minimizing unwanted fat accumulation.</p>
             <p>A "bulk" is a deliberate, mathematically structured phase of eating in a caloric surplus. Unfortunately, because the body's ability to build muscle is strictly biologically capped, many athletes fall into the trap of eating too much, resulting in what is colloquially known as a "Dirty Bulk." Our calculator prevents this by scaling your surplus directly to your body weight and experience level.</p>

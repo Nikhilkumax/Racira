@@ -308,9 +308,9 @@ export default function DeadSpaceFractionCalculator() {
         </div>
 
         {/* SEO CONTENT */}
-        <div className="max-w-[1100px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding the Dead Space Fraction (Vd/Vt) Calculator</h2>
             <p>Mechanical ventilation is a life-saving intervention, but managing a patient on a ventilator requires deep insight into pulmonary mechanics. One of the most critical metrics of lung efficiency is the <strong>Dead Space Fraction (Vd/Vt)</strong>. Our Dead Space Fraction Calculator uses the classic Bohr-Enghoff equation to determine exactly how much of a patient's breathing is "wasted" ventilation. By inputting the arterial CO2 (PaCO2) and the mixed expired CO2 (PeCO2), clinicians can rapidly assess the severity of ventilation-perfusion (V/Q) mismatch, guide ventilator weaning strategies, and predict patient mortality in severe respiratory failure.</p>
 

@@ -303,9 +303,9 @@ export default function MetsBasedCalorieBurnCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Universal Language of Energy: What is a MET?</h2>
             <p>If you ask a bodybuilder, a marathon runner, and a physical therapist how many calories are burned during a 30-minute workout, you will likely get three completely different answers. The fitness industry is plagued by misinformation, exaggerated claims, and wildly inaccurate smart watch algorithms. To solve this, clinical science required a standardized, immutable system to measure human energy expenditure. Enter the <strong>Metabolic Equivalent of Task (MET)</strong>.</p>
             <p>The <strong>METs Based Calorie Burn Calculator</strong> is the ultimate clinical tool. It bypasses marketing hype and fitness industry guesswork by utilizing the exact mathematical formulas used by physicians and sports scientists worldwide, providing you with a biologically accurate measurement of your thermodynamic output.</p>

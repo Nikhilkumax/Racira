@@ -236,9 +236,9 @@ export default function MetsCalculator() {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Science of METs (Metabolic Equivalents)</h2>
             <p>If you are attempting to lose body fat or track your daily energy expenditure, calculating exactly how many calories you burn during a workout is critical. However, most commercial fitness trackers provide highly inaccurate data. To get clinical-grade accuracy, nutritionists and sports scientists rely on the <strong>Metabolic Equivalent of Task (MET)</strong>.</p>
             <p>A MET is a standardized physiological measure expressing the energy cost (or caloric burn rate) of physical activities. <strong>One MET is defined as the exact amount of energy your body burns while sitting completely still on the couch.</strong> This baseline is your resting metabolic rate.</p>

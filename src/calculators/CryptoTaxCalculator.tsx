@@ -238,9 +238,9 @@ export default function CryptoTaxCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>How Crypto Capital Gains Tax Works</h2>
             <p>This <strong>crypto tax calculator</strong> computes your 2024 US federal capital gains tax liability from cryptocurrency trading, using the current IRS tax brackets. Short-term gains (held ≤12 months) are taxed at ordinary income rates (10–37%); long-term gains (held 12+ months) at preferential rates (0%, 15%, 20%). Losses offset gains, and net losses up to $3,000/year reduce ordinary income.</p>
             <h2>2024 Capital Gains Tax Rates</h2>

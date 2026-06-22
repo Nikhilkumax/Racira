@@ -311,9 +311,9 @@ export default function TotalCarCostPerMileCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Cost Per Mile Calculator?</h2>
             <p>A Total Car Cost Per Mile Calculator breaks down the massive, terrifying annual expense of owning a vehicle into a simple, microscopic metric: exactly how much money it costs you to drive one single mile. Many drivers think driving is cheap because they only look at the cost of gas. But gas is just the tip of the iceberg. Every mile you drive incurs invisible costs in depreciation, maintenance, insurance, and financing. Understanding your true cost per mile is crucial for budgeting, deciding whether to drive or fly on a trip, or determining if taking a gig-economy job (like Uber or Doordash) is actually profitable.</p>
 

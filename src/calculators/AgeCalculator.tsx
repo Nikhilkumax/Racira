@@ -154,7 +154,7 @@ const AgeCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>How Age Calculation Works</h2>
               <p>This calculator computes the exact difference between two dates by counting complete years, then remaining months, then remaining days. It properly handles varying month lengths (28–31 days) and leap years.</p>
 

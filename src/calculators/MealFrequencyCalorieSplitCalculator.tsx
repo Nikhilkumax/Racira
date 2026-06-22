@@ -438,9 +438,9 @@ export default function MealFrequencyCalorieSplitCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding the Meal Frequency Calorie Split</h2>
             <p>Once you have calculated your Total Daily Energy Expenditure (TDEE) and set a caloric target for cutting or bulking, you face the practical reality of execution: <em>How do I actually eat all this food?</em> Historically, the fitness industry was plagued by the myth that you had to eat six small meals a day to "stoke the metabolic fire." Modern science has thoroughly debunked this. The thermic effect of food is based entirely on the total caloric volume consumed, not how many times you sit down to eat.</p>
             <p>However, meal frequency and caloric distribution still matter massively for two critical reasons: <strong>Muscle Protein Synthesis (MPS)</strong> and <strong>Dietary Adherence</strong>. The <strong>Meal Frequency Calorie Split Calculator</strong> allows you to take your daily macroscopic targets and chop them up into a sustainable, scientifically optimized daily blueprint.</p>

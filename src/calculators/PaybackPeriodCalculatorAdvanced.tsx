@@ -204,9 +204,9 @@ export default function PaybackPeriodCalculatorAdvanced() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is the Payback Period?</h2>
             <p>The payback period is the length of time required for an investment to recoup its initial cost from generated cash flows. It's one of the most widely used capital budgeting metrics because of its simplicity and intuitive interpretation. This <strong>advanced payback period calculator</strong> goes beyond the basic formula to include discounted payback period, Net Present Value (NPV), and Internal Rate of Return (IRR) — giving you a comprehensive investment analysis.</p>
             <h2>Simple vs. Discounted Payback Period</h2>

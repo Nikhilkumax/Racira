@@ -159,7 +159,7 @@ const WaterFootprintCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>The Three Colors of Water</h2>
               <p>Water footprints are divided into three categories to help understand the source and impact of consumption:</p>
               <ul>

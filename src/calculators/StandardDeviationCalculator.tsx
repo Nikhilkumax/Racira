@@ -141,9 +141,9 @@ const StandardDeviationCalculator = () => {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Standard Deviation Calculator?</h2>
             <p>A standard deviation calculator measures how spread out a dataset is around its mean. It computes all key descriptive statistics: mean, median, variance, standard deviation, range, and coefficient of variation — giving you a complete picture of your data's distribution in one step. This calculator supports both sample SD (divides by n−1, for data sampled from a larger population) and population SD (divides by n, for complete dataset analysis).</p>
             <p>Standard deviation is the most widely used measure of statistical dispersion. It appears in finance (portfolio risk, volatility), quality control (Six Sigma), scientific research (margin of error), education (grading on a curve), weather forecasting, and sports analytics.</p>

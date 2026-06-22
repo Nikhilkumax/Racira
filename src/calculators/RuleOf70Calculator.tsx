@@ -94,7 +94,7 @@ const RuleOf70Calculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>The Power of Compounding</h2>
               <p>The Rule of 70 is a powerful mental shortcut used by economists and investors to understand exponential growth. It reveals why even a small difference in annual returns can lead to massive differences in wealth over long periods.</p>
               <h3>Why Time is Your Greatest Asset</h3>

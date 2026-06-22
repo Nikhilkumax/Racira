@@ -192,9 +192,9 @@ export default function FreeCashFlowCalculator() {
           </div>
         </div>
 
-        <div className="max-w-[1180px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is Free Cash Flow?</h2>
             <p><strong>Free Cash Flow (FCF) = Operating Cash Flow − Capital Expenditures.</strong> It is the cash a company generates after all spending required to maintain or expand its productive asset base. FCF is considered by many analysts — including Warren Buffett — to be the single most important indicator of a company's true financial health and intrinsic value.</p>
             <p>Our calculator is pre-filled with a typical mid-size company: $420,000 operating cash flow minus $95,000 in capital expenditures = $325,000 in free cash flow. The CapEx reinvestment rate of 22.6% means the company retains 77.4% of its operating cash flow as free cash — a healthy, asset-light profile.</p>

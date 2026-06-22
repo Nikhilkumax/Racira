@@ -328,9 +328,9 @@ export default function FuelEconomyCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Fuel Economy Calculator?</h2>
             <p>A Fuel Economy Calculator is a universal conversion and efficiency tool that bridges the gap between different global measurement systems. While the United States measures fuel efficiency in <strong>Miles Per Gallon (US MPG)</strong>, Europe and much of the world use <strong>Liters per 100 Kilometers (L/100km)</strong>, and the United Kingdom uses the slightly different <strong>Imperial MPG (UK MPG)</strong>. This calculator instantly processes your raw trip data (distance and fuel burned) and converts it across all these formats simultaneously.</p>
 

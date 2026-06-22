@@ -284,9 +284,9 @@ export default function DiabetesRiskCalculator() {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Silent Epidemic: Undiagnosed Diabetes</h2>
             <p>According to the CDC, over 37 million Americans have diabetes, but an estimated <strong>1 in 5 do not know they have it</strong>. Even more alarming, over 96 million adults have <em>prediabetes</em>, a condition where blood sugar is chronically elevated but not yet high enough for a formal diabetes diagnosis. More than 80% of those people are completely unaware.</p>
             <p>Type 2 diabetes is often called a "silent disease" because the early symptoms (fatigue, increased thirst, frequent urination) are mild and easily dismissed. Unfortunately, while it remains undiagnosed, chronically high blood sugar slowly causes irreversible microscopic damage to your blood vessels, kidneys, retinas, and nerves. This is why screening is absolutely critical.</p>

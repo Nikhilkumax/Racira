@@ -122,7 +122,7 @@ const LeaseVsBuyCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Lease or Buy: Which is Right for You?</h2>
               <p>Choosing between leasing and buying a car is one of the most common financial dilemmas. While buying is often the "smarter" financial move in the long term, leasing offers flexibility and lower upfront costs.</p>
               <h3>When Leasing Makes Sense</h3>

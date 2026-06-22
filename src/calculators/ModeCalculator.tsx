@@ -135,9 +135,9 @@ const ModeCalculator = () => {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Mode Calculator?</h2>
             <p>A mode calculator finds the most frequently occurring value(s) in a dataset and builds a complete frequency distribution. Pre-filled with 15 numbers, the mode is 23 (appearing 4 times) — a clear unimodal distribution. The frequency chart highlights modes in amber for immediate visual identification, while also computing mean and median for comparison.</p>
             <h2>Types of Mode Distributions</h2>

@@ -184,7 +184,7 @@ export default function DebtServiceCoverageCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding DSCR</h2>
             <p>For commercial real estate lenders and investors, the Debt Service Coverage Ratio (DSCR) is the gold standard for measuring leverage risk. It tells you whether an asset generates enough income to cover its debt obligations. Unlike residential mortgages where loan approval is based on a borrower's personal income, commercial real estate loans rely directly on the property's ability to cover its own debts via DSCR.</p>
             

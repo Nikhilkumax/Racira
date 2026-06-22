@@ -93,7 +93,7 @@ const LeanBodyMassCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Why Lean Body Mass Matters More Than Weight</h2>
               <p>The number on the scale is a poor indicator of health and fitness. Two people at the same weight can look and perform very differently depending on their body composition.</p>
               <h3>Tracking Progress with LBM</h3>

@@ -288,9 +288,9 @@ export default function WaterAerobicsCalorieCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Physics of Fluid Resistance</h2>
             <p>For decades, water aerobics was mistakenly viewed as a "light" or "easy" workout reserved exclusively for the elderly or those recovering from injuries. To a casual observer, the slow, buoyant movements in the pool look effortless compared to the heavy breathing and heavy sweating seen in a CrossFit gym or on a treadmill. However, from a purely thermodynamic and biomechanical perspective, exercising in water is one of the most mechanically demanding tasks the human body can perform. The <strong>Water Aerobics Calorie Calculator</strong> bypasses the visual illusion of "easy movement" by utilizing clinical Metabolic Equivalent (MET) formulas to calculate the massive energy required to displace high-density fluid.</p>
 

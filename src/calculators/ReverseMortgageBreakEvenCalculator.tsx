@@ -292,9 +292,9 @@ export default function ReverseMortgageBreakEvenCalculator() {
         </div>
 
         {/* SEO CONTENT SECTION */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding the Reverse Mortgage Structure</h2>
             <p>A reverse mortgage, most commonly known as a Home Equity Conversion Mortgage (HECM) insured by the Federal Housing Administration, allows senior homeowners aged 62 and older to tap into their home equity without selling the home or taking on a new monthly mortgage payment. Instead of you paying the lender every month, the lender pays you — either as a lump sum, a line of credit, or monthly installments.</p>
             <p>However, the money received is not free. Every dollar drawn, along with substantial upfront closing costs, is added to the loan balance. Because you are not making monthly principal and interest payments, the loan balance experiences negative amortization — it grows steadily over time, compounded by the interest rate.</p>

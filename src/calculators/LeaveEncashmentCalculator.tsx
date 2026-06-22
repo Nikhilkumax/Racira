@@ -111,7 +111,7 @@ const LeaveEncashmentCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>What Is Leave Encashment?</h2>
               <p>Leave encashment is the process of converting unused (accumulated) leave into cash. This is typically done at the time of retirement, resignation, or superannuation. Some organizations also allow leave encashment during service, but the tax treatment differs.</p>
 

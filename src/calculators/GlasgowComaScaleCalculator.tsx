@@ -206,9 +206,9 @@ export default function GlasgowComaScaleCalculator() {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Mathematics of Consciousness</h2>
             <p>Prior to the 1970s, measuring "consciousness" was entirely subjective. One doctor might chart a patient as "drowsy," while a nurse might chart them as "lethargic," leading to massive confusion regarding whether the patient's brain injury was actively worsening. In 1974, researchers at the University of Glasgow published the <strong>Glasgow Coma Scale (GCS)</strong> to solve this problem.</p>
             <p>The GCS removes the subjectivity. By assigning hard mathematical numbers to three distinct physical responses—Eye Opening (1-4), Verbal Response (1-5), and Motor Response (1-6)—medical professionals can instantly communicate the exact neurological status of a patient worldwide. The score is often communicated shorthand, for example: <em>"GCS 9: E2, V3, M4."</em></p>

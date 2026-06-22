@@ -231,7 +231,7 @@ export default function NetWorthTrackerCalc() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is Net Worth and Why Does It Matter?</h2>
             <p>Net worth is the cornerstone metric of personal finance — the single number that tells you exactly where you stand financially. It's calculated as Total Assets minus Total Liabilities. Everything you own minus everything you owe. While income matters for your standard of living today, net worth determines your long-term financial security, retirement readiness, and wealth legacy.</p>
             <p>Many people focus exclusively on income without tracking net worth, missing the bigger picture. A $200,000/year earner who spends everything has a lower net worth than a $70,000/year earner who saves and invests consistently. Wealth is built not by what you earn, but by what you keep and grow.</p>

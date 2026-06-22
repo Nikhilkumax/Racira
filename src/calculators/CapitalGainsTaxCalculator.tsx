@@ -184,7 +184,7 @@ const CapitalGainsTaxCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>How Capital Gains Taxes Work</h2>
               <p>When you sell an investment for more than you paid for it, the profit is considered a "capital gain." The IRS taxes these gains differently depending on how long you owned the asset. Understanding these rules can help you time your sales to minimize your tax bill.</p>
 

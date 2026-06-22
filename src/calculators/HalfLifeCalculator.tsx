@@ -239,9 +239,9 @@ const HalfLifeCalculator = () => {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Mathematics of Decay</h2>
             <p>In science, <strong>Exponential Decay</strong> describes a process where a quantity decreases at a rate proportional to its current value. Because the rate of decay slows down as the quantity shrinks, the material theoretically never reaches absolute zero. Instead, scientists measure the decay using a concept called the <strong>Half-Life</strong>.</p>
             <p>A half-life (denoted as t½) is exactly what it sounds like: the amount of time it takes for half of the original substance to decay or disappear. If you start with 100 grams of a substance that has a half-life of 10 years:</p>

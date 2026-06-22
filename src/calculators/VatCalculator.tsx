@@ -170,7 +170,7 @@ export default function VatCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is VAT (Value Added Tax)?</h2>
             <p>Value Added Tax (VAT) is a consumption-based tax levied on the value added to goods and services at each stage of production and distribution. Unlike a simple sales tax collected only at the point of final sale, VAT is charged incrementally throughout the supply chain, with each business able to reclaim the VAT it paid on its own purchases (input tax) and remitting only the net VAT on the value it added. This mechanism creates a self-auditing chain that reduces tax evasion significantly compared to traditional sales taxes.</p>
             <p>Over 170 countries worldwide use VAT or a closely related system (called GST — Goods and Services Tax — in countries like Australia, Canada, and India). The EU mandates VAT across all member states. The UK retained its VAT system after Brexit. The United States remains one of the few major economies without a federal VAT, relying instead on state-level sales taxes.</p>

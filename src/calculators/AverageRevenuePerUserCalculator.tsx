@@ -279,9 +279,9 @@ export default function AverageRevenuePerUserCalculator() {
           </div>
         </div>
 
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is ARPU?</h2>
             <p>Average Revenue Per User (ARPU) is a highly tracked performance metric in the software, media, telecommunications, and digital services industries. It essentially breaks down your total revenue on a per-customer basis. By understanding how much revenue a single user generates on average, executives and investors can quickly gauge the profitability of the business model and the effectiveness of upselling strategies.</p>
             

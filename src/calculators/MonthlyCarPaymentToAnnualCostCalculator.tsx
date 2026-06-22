@@ -298,7 +298,7 @@ const MonthlyCarPaymentToAnnualCostCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is the Monthly Payment to Annual Cost Calculator?</h2>
             <p>This calculator converts your monthly car payment into the true annual cost of ownership. Most people look at their $550/month payment and think that's what their car costs. In reality, the annual cost is typically 1.5–2.5x the loan payment alone because it also includes insurance, fuel, maintenance, registration, parking, and interest.</p>
             <p>By starting from the monthly payment you already know, this calculator reverse-engineers the full financial picture — revealing exactly how much your car really costs you every year.</p>

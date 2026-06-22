@@ -206,9 +206,9 @@ export default function CyclingCaloriesCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Weight Loss Power of Cycling</h2>
             <p>This <strong>Cycling Calorie Calculator</strong> uses the clinical METs (Metabolic Equivalent of Task) formula to estimate the energy you burn on a bike. Because cycling is a low-impact exercise, it is often considered superior to running for sustainable weight loss. While running burns massive calories, it causes joint degradation and severe CNS (Central Nervous System) fatigue, meaning you can't run for hours on end. Cyclists, however, routinely go for 2 or 3-hour rides, allowing them to burn upwards of 1,500 calories in a single, enjoyable session.</p>
             <h2>Aerodynamic Drag and Caloric Burn</h2>

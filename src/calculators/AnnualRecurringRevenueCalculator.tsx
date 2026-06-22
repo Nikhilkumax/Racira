@@ -287,9 +287,9 @@ export default function AnnualRecurringRevenueCalculator() {
           </div>
         </div>
 
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is Annual Recurring Revenue (ARR)?</h2>
             <p>Annual Recurring Revenue (ARR) is a key metric used by subscription-based businesses, particularly SaaS (Software as a Service) companies, to measure their predictable and recurring revenue over a 12-month period. It represents the annualized value of active subscriptions and is the most common metric used to value SaaS companies.</p>
             

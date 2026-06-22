@@ -152,7 +152,7 @@ const PasswordEntropyCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Password Strength vs. Entropy</h2>
               <p>Many websites use simple meters that check for specific characters. However, the true security of a password is its <strong>entropy</strong>, which measures the total number of guesses a computer must make to crack it via brute force.</p>
               

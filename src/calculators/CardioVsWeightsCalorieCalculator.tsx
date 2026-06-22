@@ -350,9 +350,9 @@ export default function CardioVsWeightsCalorieCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Great Debate: Cardio vs. Weights for Weight Loss</h2>
             <p>Walk into any gym, and you will see a clear divide. On one side of the room, people are sweating profusely on treadmills, chasing a high calorie-burn number on a digital screen. On the other side, people are lifting heavy barbells, taking long rest periods, and barely looking at their heart rate monitors. For decades, the fitness industry told us that to lose weight, you must do cardio. To build muscle, you must lift weights. However, modern clinical exercise physiology has proven that this binary thinking is fundamentally flawed. The <strong>Cardio vs Weights Calorie Calculator</strong> uses clinical Metabolic Equivalent (MET) data to mathematically prove why you need both, and why the calories you burn <em>after</em> you leave the gym matter more than the ones you burn while you are there.</p>
 

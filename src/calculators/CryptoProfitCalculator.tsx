@@ -191,9 +191,9 @@ export default function CryptoProfitCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>How to Calculate Cryptocurrency Profit</h2>
             <p>This <strong>crypto profit calculator</strong> computes your exact gain or loss from a cryptocurrency trade, accounting for exchange fees on both buy and sell sides. The core formula: <strong>Net Profit = (Sell Price × Coins − Sell Fees) − (Buy Price × Coins + Buy Fees)</strong>. The break-even price is the minimum sell price needed to cover your total cost including fees. ROI is calculated as Net Profit ÷ Total Cost Basis × 100%.</p>
             <h2>The Hidden Cost of Crypto Fees</h2>

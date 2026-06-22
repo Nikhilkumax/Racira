@@ -119,7 +119,7 @@ const StampDutyCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>What Is Stamp Duty?</h2>
               <p>Stamp duty is a legal tax imposed by state governments on property transactions. It must be paid before or at the time of executing a sale deed, and the property registration is incomplete without it. The rates vary significantly across states and are influenced by factors like property type, location, buyer's gender, and property value.</p>
 

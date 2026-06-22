@@ -228,9 +228,9 @@ export default function WheelOffsetCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Why Use a Wheel Offset Calculator?</h2>
             <p>Buying aftermarket wheels is one of the most popular and transformative modifications you can make to a vehicle. However, ensuring those new wheels actually fit without destroying your suspension or fenders is a mathematical headache. A Wheel Offset Calculator takes your factory wheel width and offset, compares it against your desired aftermarket specifications, and instantly tells you exactly how the new wheel will sit in the wheel well.</p>
 

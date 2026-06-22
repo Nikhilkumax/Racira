@@ -177,7 +177,7 @@ export default function EarToAprCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is the EAR to APR Calculator?</h2>
             <p>This calculator performs the reverse of the standard APR-to-EAR conversion: given an Effective Annual Rate (EAR) or Annual Percentage Yield (APY), it finds the equivalent nominal APR at any compounding frequency. The formula is APR = n × [(1 + EAR)^(1/n) − 1], where n is the number of compounding periods per year.</p>
             <p>This conversion is essential when you need to compare a savings account's APY to a loan's APR, when issuing bonds that must disclose a nominal coupon rate, or when converting investment returns to the rate convention used in your market. Financial professionals working across different markets use this constantly since countries and institutions use different rate quoting conventions.</p>

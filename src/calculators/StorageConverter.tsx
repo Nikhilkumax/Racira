@@ -168,9 +168,9 @@ const StorageConverter = () => {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Great Storage Discrepancy</h2>
             <p>Every year, millions of consumers buy a brand-new 1 Terabyte (TB) external hard drive, plug it into their Windows PC, and are furious to discover the computer says the drive only holds 931 Gigabytes. Did the manufacturer steal 69 Gigabytes of space? No, this discrepancy is the result of an industry-wide mathematical disagreement between hardware manufacturers and software developers.</p>
 

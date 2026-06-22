@@ -109,7 +109,7 @@ const BloodPressureCategoryCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Sidebar Ad" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>The 'Silent Killer': Why Monitoring Matters</h2>
               <p>High blood pressure (hypertension) often has no symptoms, earning it the nickname 'the silent killer.' Left untreated, it can lead to heart attacks, strokes, and kidney disease. Regular monitoring at home can help you and your doctor identify trends that might not be visible during an occasional office visit.</p>
               <h3>Understanding the AHA Guidelines</h3>

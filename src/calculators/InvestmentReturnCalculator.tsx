@@ -141,9 +141,9 @@ export default function InvestmentReturnCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is an Investment Return Calculator?</h2>
             <p>An <strong>investment return calculator</strong> projects the future value of an investment portfolio based on initial investment, annual contributions, expected return rate, and time horizon. It separates contributions from investment gains and adjusts for inflation to show the real purchasing power of your future savings.</p>
             <h2>The Power of Compound Growth</h2>

@@ -137,7 +137,7 @@ export default function LengthConverter() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>Complete Guide to Length Unit Conversion</h2>
             <p>Length conversion is one of the most common mathematical operations in everyday life, science, engineering, and international commerce. Whether converting room dimensions from feet to meters for a renovation project, calculating a running route in kilometers versus miles, or working with microscopic measurements in engineering, understanding length units and converting between them is an essential skill.</p>
             <p>The world uses two primary measurement systems: the International System of Units (SI — the metric system) and the Imperial/US Customary system. While most countries use metric exclusively, the United States continues to use Imperial for everyday measurements, creating a constant need for conversion in international contexts.</p>

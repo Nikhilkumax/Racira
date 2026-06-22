@@ -206,7 +206,7 @@ const CommissionCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
               <h2>A Comprehensive Guide to Sales Commission Structures</h2>
               <p>Commission is a powerful motivator in sales, aligning the interests of the salesperson with those of the company. However, not all commission structures are created equal. Whether you are a business owner designing a new comp plan or a sales professional trying to forecast your next paycheck, understanding the mechanics of these calculations is essential.</p>
               

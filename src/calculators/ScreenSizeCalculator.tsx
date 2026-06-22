@@ -108,7 +108,7 @@ const ScreenSizeCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Sidebar Ad" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Choosing the Right Screen Size</h2>
               <p>When buying a new monitor or TV, diagonal size is only half the story. The aspect ratio significantly changes how much usable space you have for work or entertainment.</p>
               <h3>Area vs. Diagonal</h3>

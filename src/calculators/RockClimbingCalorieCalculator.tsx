@@ -291,9 +291,9 @@ export default function RockClimbingCalorieCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Physics and Physiology of Rock Climbing</h2>
             <p>Rock climbing is rapidly transitioning from a niche outdoor extreme sport to a mainstream fitness staple, thanks to the explosion of massive indoor climbing gyms worldwide. As a full-body workout, it is almost entirely unique; it demands the cardiovascular endurance of running combined with the explosive pulling power of heavy weightlifting. However, because climbers spend so much time resting between routes, estimating the true energy expenditure is notoriously difficult. The <strong>Rock Climbing Calorie Calculator</strong> solves this by using clinically validated Metabolic Equivalent (MET) formulas. By focusing strictly on your active time on the wall, it provides a mathematically precise measurement of the massive thermodynamic effort required to conquer gravity.</p>
 

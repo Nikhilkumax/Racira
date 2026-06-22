@@ -219,9 +219,9 @@ const CementCalculator = () => {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Cement vs. Concrete: The Ultimate Misconception</h2>
             <p>One of the most common mistakes in DIY construction is confusing cement with concrete. <strong>Cement</strong> is merely an ingredient. It is a fine, grey powder (usually Portland cement) made from burning limestone and clay in a massive kiln. <strong>Concrete</strong> is the rock-solid final product. Concrete is created by mixing cement powder with water, sand, and gravel.</p>
             <p>You cannot pour a sidewalk using just cement and water. Without the structural integrity of the rocks and sand, the dried cement paste would have very little strength and would immediately crack into pieces under any pressure.</p>

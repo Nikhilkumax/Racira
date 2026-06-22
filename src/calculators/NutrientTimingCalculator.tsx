@@ -242,9 +242,9 @@ export default function NutrientTimingCalculator() {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Science of Nutrient Timing</h2>
             <p>In the hierarchy of sports nutrition, total daily calorie intake and total daily macronutrient targets are the undisputed king and queen. If you are not eating enough protein over a 24-hour period, or if you are not in a caloric deficit, no amount of precise meal timing will save your physique. However, once those foundational elements are dialed in, <strong>Nutrient Timing</strong> becomes the crucial final layer for optimizing physical performance, delaying systemic fatigue, and maximizing muscular recovery.</p>
             <p>Nutrient timing specifically refers to the strategic manipulation of macronutrients (primarily carbohydrates and protein) directly around your training window. This period is scientifically referred to as the "Peri-Workout Window," which encompasses your pre-workout, intra-workout, and post-workout nutrition.</p>

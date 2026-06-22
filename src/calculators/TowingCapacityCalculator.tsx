@@ -226,9 +226,9 @@ export default function TowingCapacityCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Myth of "Max Towing Capacity"</h2>
             <p>If you watch a truck commercial, the manufacturer will proudly display a massive number: <em>"Maximum Towing Capacity: 12,000 lbs!"</em> However, this number is a marketing myth. It is a theoretical maximum calculated under impossible conditions. To achieve that 12,000 lb rating, the manufacturer assumes the truck is completely empty, holding absolutely zero cargo, and being driven by a single 150-pound person.</p>
 

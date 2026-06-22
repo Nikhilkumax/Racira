@@ -127,7 +127,7 @@ const HomeEnergyEmissionsCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Heating, Cooling, and the Planet</h2>
               <p>For the average household, space heating and cooling account for more than half of total energy use. This is where the largest opportunities for emission reductions exist.</p>
               <h3>The Hidden Impact of Natural Gas</h3>

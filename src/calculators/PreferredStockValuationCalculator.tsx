@@ -177,7 +177,7 @@ export default function PreferredStockValuationCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is Preferred Stock Valuation?</h2>
             <p>Preferred stock is a hybrid security combining features of both bonds (fixed dividends) and equity (ownership claim). Valuation uses a Dividend Discount Model adapted for perpetuities. For non-growing preferred stock: Intrinsic Value = Annual Dividend ÷ Required Return. For growing preferred: Value = Dividend ÷ (Required Return − Growth Rate), which is the Gordon Growth Model.</p>
             <p>Preferred stockholders receive dividends before common shareholders and have priority claims in liquidation. However, dividends can be suspended without triggering default (unlike bond interest), and preferred holders typically don't vote on corporate matters. This risk profile places preferred stock between investment-grade bonds and common equity in the capital structure hierarchy.</p>

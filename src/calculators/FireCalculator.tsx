@@ -144,9 +144,9 @@ export default function FireCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a FIRE Calculator?</h2>
             <p>A <strong>FIRE calculator</strong> (Financial Independence, Retire Early) computes your target portfolio size and the years required to achieve financial independence. It applies the safe withdrawal rate framework — pioneered by the Trinity Study — to determine how much wealth you need to sustain your lifestyle indefinitely from investment returns alone.</p>
             <h2>The FIRE Number Formula</h2>

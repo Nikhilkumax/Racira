@@ -86,7 +86,7 @@ const ConceptionCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Understanding Conception Timing</h2>
               <p>Conception strictly occurs when a sperm fertilizes an egg. However, because sperm can survive in the reproductive tract for up to 5 days, the act that led to conception may have happened days prior to the actual conception date.</p>
               <h3>The 266-Day Rule</h3>

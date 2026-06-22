@@ -86,7 +86,7 @@ const InterestRateCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>What Is an Interest Rate Calculator?</h2>
               <p>An interest rate calculator determines the annual interest rate (APR) on a loan when you know the loan amount, monthly payment, and term length. This is essentially the reverse of a standard loan calculator — instead of calculating the payment from the rate, it calculates the rate from the payment.</p>
               <p>This tool is invaluable when you receive a loan offer that quotes a monthly payment but not the interest rate, or when you want to verify the rate on an existing loan.</p>

@@ -403,9 +403,9 @@ export default function PediatricBMICalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Danger of Adult Metrics for Children</h2>
             <p>One of the most common and terrifying mistakes parents make is taking their child's height and weight, plugging it into a standard adult Body Mass Index (BMI) calculator, and panicking at the result. The standard adult BMI formula establishes a rigid "Normal" range of 18.5 to 24.9. This range is designed for fully mature adult skeletons that have stopped growing. If you put the measurements of a perfectly healthy, athletic 7-year-old child into an adult calculator, the resulting BMI will often be around 15 or 16, leading the calculator to loudly declare the child is dangerously "Underweight." The <strong>BMI-for-Age (Pediatric) Calculator</strong> prevents this dangerous misdiagnosis by abandoning static adult numbers and utilizing the clinical percentile databases managed by the Centers for Disease Control (CDC).</p>
 

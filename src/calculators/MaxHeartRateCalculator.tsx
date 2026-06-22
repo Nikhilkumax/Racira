@@ -168,9 +168,9 @@ const MaxHeartRateCalculator = () => {
           </div>
         </div>
 
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Maximum Heart Rate Calculator?</h2>
             <p>A maximum heart rate (MHR) calculator estimates the highest number of heartbeats per minute your cardiovascular system can sustain during peak exercise. Pre-filled with age 35 and 65 bpm resting heart rate, the Tanaka formula gives a maximum heart rate of 183 bpm for men, with training zones ranging from 92 bpm (warm-up) to 183 bpm (maximum effort). MHR is the foundation of heart rate-based training and essential for designing effective workout programs.</p>
             <h2>Heart Rate Formulas Compared</h2>

@@ -194,9 +194,9 @@ const PriceToBookCalculator = () => {
           </div>
         </div>
 
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Price to Book Ratio Calculator?</h2>
             <p>A price-to-book (P/B) ratio calculator compares a company's current stock price to its book value per share — the net accounting value of its assets after subtracting all liabilities. Pre-filled with a $50 stock price, $1,000,000 in total assets, $400,000 in liabilities, and 20,000 shares outstanding, the book value per share is $30.00 and the P/B ratio is 1.67x — a fair valuation for most established businesses.</p>
             <h2>The P/B Ratio Formula</h2>

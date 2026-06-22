@@ -306,9 +306,9 @@ export default function RoadTaxCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is Road Tax?</h2>
             <p>Road Tax, commonly referred to as Vehicle Registration Fees in the United States, is an annual tax levied by state and local governments. This tax is the legal requirement to operate your vehicle on public roads. The revenue generated is typically earmarked for maintaining state highways, funding local infrastructure projects, and supporting the operations of the Department of Motor Vehicles (DMV). Knowing your annual road tax is crucial for calculating the true Total Cost of Ownership of your vehicle.</p>
 

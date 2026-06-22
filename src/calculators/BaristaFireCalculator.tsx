@@ -336,9 +336,9 @@ export default function BaristaFireCalculator() {
           </div>
         </div>
 
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What is Barista FIRE?</h2>
             <p>Barista FIRE is a hybrid approach to the Financial Independence, Retire Early (FIRE) movement. Traditional FIRE requires you to save a massive portfolio (usually 25x your annual expenses) so you can stop working entirely. Barista FIRE requires a much smaller portfolio because you continue to work a low-stress, part-time job (like a barista) to cover a portion of your living expenses and, crucially, to secure employer-sponsored health insurance.</p>
             

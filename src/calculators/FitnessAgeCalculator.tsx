@@ -233,9 +233,9 @@ export default function FitnessAgeCalculator() {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is Fitness Age?</h2>
             <p>Chronological age is a rigid, unchangeable number dictated by your birth certificate. However, biological age—specifically your <strong>Fitness Age</strong>—is a highly fluid metric that you can actively control. Fitness Age is a measurement of your body's cardiovascular capacity and metabolic health compared to the statistical averages of different age groups. If you are 55 years old but maintain the cardiovascular engine of a healthy 35-year-old, your body is biologically functioning 20 years younger than your chronological age.</p>
             <p>Pioneered by researchers at the Norwegian University of Science and Technology (NTNU) studying the longevity of over 50,000 individuals, the concept of Fitness Age has revolutionized preventative cardiology. The researchers discovered that a person's Fitness Age (derived from their VO2 Max) is a far more accurate predictor of long-term health, cardiovascular disease risk, and overall mortality than the year they were born.</p>

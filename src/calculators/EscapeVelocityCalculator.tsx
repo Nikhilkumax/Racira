@@ -349,9 +349,9 @@ const EscapeVelocityCalculator = () => {
         </div>
 
         {/* ── Article + FAQ ─────────────────────────────────────────────────── */}
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is an Escape Velocity Calculator?</h2>
             <p>
               This escape velocity calculator computes two fundamental cosmic speeds: the <strong>First Cosmic Velocity (V₁)</strong> — the minimum speed to orbit just above a body{"'"}s surface — and the <strong>Escape Velocity (Vₑ)</strong> — the minimum speed to leave the body{"'"}s gravitational field entirely. Both are calculated from mass and radius using the universal law of gravitation. You can express mass in anything from kilograms to Earth masses and radius from meters to solar radii, with output in six velocity units including fractions of the speed of light.

@@ -294,10 +294,10 @@ export default function AmortizationCalculator() {
             </div>
 
             <div className="flex gap-3 mt-4">
-              <button type="button" onClick={handleCalculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm">
-                <CalendarDays className="h-4 w-4" /> Generate Schedule
+              <button type="button" onClick={handleCalculate} className="h-10 w-full flex-1 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center transition-colors">
+                Calculate
               </button>
-              <button type="button" onClick={handleReset} className="w-12 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center focus:outline-none" aria-label="Reset">
+              <button type="button" onClick={handleReset} className="h-10 w-10 border border-border rounded-md flex items-center justify-center hover:bg-secondary transition-colors" aria-label="Reset">
                 <RotateCcw className="h-4 w-4" />
               </button>
             </div>
@@ -313,9 +313,9 @@ export default function AmortizationCalculator() {
                   <button onClick={handlePrint} className="absolute top-4 right-4 text-muted-foreground hover:text-primary transition-colors print:hidden" aria-label="Print Results">
                     <Printer className="h-4 w-4" />
                   </button>
-                  <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Standard Monthly Payment</div>
-                  <div className="flex items-end gap-2">
-                    <div className="text-4xl font-extrabold text-foreground tracking-tight">${results.monthlyPayment.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Standard Monthly Payment</div>
+                  <div className="flex items-end gap-3 mb-1">
+                    <div className="text-4xl font-bold text-primary tracking-tighter">${results.monthlyPayment.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
                   </div>
                   {results.interestSaved > 0 && (
                     <div className="text-sm text-emerald-600 font-bold mt-2">
@@ -399,48 +399,99 @@ export default function AmortizationCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
-            <h2>Understanding the Amortization Calculator</h2>
-            <p>Amortization is the financial engine that drives almost all consumer and commercial debt. It is the mathematical process of spreading out a loan into a series of fixed payments over a set period of time. While your monthly payment to the bank remains identical every single month, the invisible breakdown of that payment changes drastically over the life of the loan. Our <strong>Amortization Calculator</strong> is designed to pull back the curtain on this process, providing you with a complete, line-by-line schedule of exactly where your money is going.</p>
-            <p>Without understanding amortization, borrowers focus entirely on the "Monthly Payment" and ignore the "Total Interest" cost. By visualizing the crossover point—the exact month where you finally begin paying more toward your principal than to the bank's interest—you can make vastly superior financial decisions regarding debt consolidation, refinancing, and early payoff strategies.</p>
+          <article className="prose-finance text-[15.75px]">
+            <section className="mt-12 space-y-8 text-base text-foreground">
+              <div>
+                <h2 className="text-2xl font-bold mb-3">What Is an Amortization Calculator?</h2>
+                <p className="text-muted-foreground leading-relaxed">
+                  Amortization is the financial engine that drives almost all consumer and commercial debt. It is the mathematical process of spreading out a loan into a series of fixed payments over a set period of time. While your monthly payment to the bank remains identical every single month, the invisible breakdown of that payment changes drastically over the life of the loan. Our amortization calculator is designed to pull back the curtain on this process, providing you with a complete, line-by-line schedule of exactly where your money is going.
+                </p>
+                <p className="text-muted-foreground leading-relaxed mt-4">
+                  When you take out a standard fixed-rate loan—whether it's a 30-year mortgage, a 5-year auto loan, or a 10-year personal loan—the lender uses an amortization formula to guarantee they receive their required profit (the interest) while slowly retiring your principal debt. This structured repayment plan protects the lender while offering you the predictability of a fixed monthly budget. However, without a visual tool like our calculator, borrowers are essentially flying blind, unaware of just how heavily weighted their initial payments are toward lender profit.
+                </p>
+              </div>
+              
+              <div>
+                <h2 className="text-2xl font-bold mb-3">The Mechanics of Loan Repayment</h2>
+                <p className="text-muted-foreground leading-relaxed">
+                  The most important concept to grasp is that amortized loans are heavily front-loaded with interest. The bank calculates your monthly interest charge based strictly on your remaining principal balance at that specific moment in time. In month one, your principal balance is at its absolute highest point, which means the interest charge generated for that month is also at its peak.
+                </p>
+                <p className="text-muted-foreground leading-relaxed mt-4">
+                  Because your total monthly payment is fixed, the large interest charge consumes the vast majority of your payment, leaving only a tiny fraction to actually reduce your principal debt. However, as you make payments and gradually (albeit slowly) reduce the principal, the interest charge for the next month naturally shrinks. This allows a slightly larger portion of your fixed payment to hit the principal. Over years, this creates a compounding effect where your equity growth accelerates.
+                </p>
+                <p className="text-muted-foreground leading-relaxed mt-4">
+                  The monthly payment uses the standard amortization formula: <br/>
+                  <strong>M = P × [r(1+r)^n] / [(1+r)^n – 1]</strong><br/>
+                  Where <em>M</em> is your monthly payment, <em>P</em> is the principal loan amount, <em>r</em> is your monthly interest rate (your annual rate divided by 12), and <em>n</em> is the total number of payments (years multiplied by 12).
+                </p>
+              </div>
 
-            <h2>The Principal-Interest Shift (Front-Loaded Interest)</h2>
-            <p>The most important concept to grasp is that amortized loans are heavily front-loaded with interest. Why? Because the bank calculates your monthly interest charge based on your <em>remaining principal balance</em>. </p>
-            <p>In month one, your principal balance is at its absolute highest. Therefore, the interest charge is at its absolute highest. If you take out a $300,000 mortgage at 6.5%, your fixed monthly payment is $1,896. In month one, $1,625 of that payment goes directly to the bank as interest. Only $271 goes toward paying down your $300,000 debt. It is a highly discouraging realization.</p>
-            <p>However, because you paid off that tiny $271, your balance in month two is now $299,729. The bank calculates interest on this slightly smaller number, resulting in an interest charge of $1,623. Now, $273 goes to principal. This fractional shift continues every single month for 30 years. By year 28, the situation has flipped entirely: almost the entire $1,896 payment is attacking the principal, and the interest charge is negligible.</p>
+              <div>
+                <h2 className="text-2xl font-bold mb-3">Visualizing the Crossover Point</h2>
+                <p className="text-muted-foreground leading-relaxed">
+                  Without understanding amortization, borrowers focus entirely on the monthly payment and ignore the total interest cost. Our calculator displays a detailed schedule breaking down exactly how much of each payment goes toward interest versus principal. The area chart above provides a critical visual representation of this shift over time.
+                </p>
+                <p className="text-muted-foreground leading-relaxed mt-4">
+                  The most crucial milestone in any loan's life is the "crossover point." This is the exact month where the green curve (Principal Paid) overtakes the orange curve (Interest Paid). From that month onward, the majority of your monthly payment is finally building your wealth instead of simply renting the bank's money. On a standard 30-year mortgage at average interest rates, this crossover point often doesn't occur until year 15 or 16. By aggressively managing your debt, you can force this crossover point to happen years earlier.
+                </p>
+              </div>
 
-            <h2>Visualizing the Crossover Point</h2>
-            <p>The Area Chart provided in our calculator is critical for understanding your loan's timeline. Look for the "Crossover Point." This is the intersection where the green curve (Principal) crosses above the orange curve (Interest).</p>
-            <p>Before the crossover point, the bank is making more money off the transaction than you are building in equity. On a standard 30-year mortgage at 6.5%, this crossover point doesn't occur until year 19. For the first 18 years of the loan, you are primarily enriching the lender. By visually understanding how long it takes to reach this crossover point, you can better strategize when to sell a property or when to refinance.</p>
+              <div>
+                <h2 className="text-2xl font-bold mb-3">Key Factors Influencing Your Loan</h2>
+                <p className="text-muted-foreground leading-relaxed">
+                  Several key inputs drive the mathematics of your amortization schedule:
+                </p>
+                <ul className="list-disc pl-6 mt-4 space-y-2 text-muted-foreground">
+                  <li><strong>The Loan Amount (Principal):</strong> This determines the starting balance on which all interest is calculated. A larger principal mathematically requires a larger interest payment right out of the gate.</li>
+                  <li><strong>The Interest Rate:</strong> This dictates the fundamental cost of borrowing. Even a microscopic 0.5% difference in the rate can drastically alter the total interest paid over a 30-year timeframe, often swinging the total cost by tens of thousands of dollars.</li>
+                  <li><strong>The Loan Term:</strong> This sets the schedule for repayment. A shorter loan term (like 15 years) results in significantly higher monthly payments but drastically less total interest. A longer term (like 30 years) lowers the monthly payment to make the loan "affordable," but allows interest to compound against you over a massive period of time, enriching the bank.</li>
+                </ul>
+              </div>
 
-            <h2>The Massive Power of Extra Payments</h2>
-            <p>Because the amortization schedule front-loads interest so heavily, it creates a massive mathematical vulnerability that the borrower can exploit: Extra Principal Payments.</p>
-            <p>If your mandatory payment is $1,896 (with $1,625 going to interest), and you send the bank an extra $200 with instructions to apply it to the principal, that $200 skips the interest calculation entirely. It hits the core debt with 100% efficiency. This forces the bank to calculate next month's interest on a permanently smaller balance. </p>
-            <p>Using our "Add Extra Payments" toggle, you can model this. Adding just $200 a month to a 30-year mortgage can shave off 5 to 7 years of payments and save you over $80,000 in interest. You are essentially dismantling the bank's front-loaded interest structure brick by brick.</p>
+              <div>
+                <h2 className="text-2xl font-bold mb-3">The Power of Extra Principal Payments</h2>
+                <p className="text-muted-foreground leading-relaxed">
+                  Because the amortization schedule front-loads interest so heavily, it creates a massive mathematical vulnerability that the educated borrower can exploit. Our advanced options let you model this vulnerability by adding extra monthly payments. 
+                </p>
+                <p className="text-muted-foreground leading-relaxed mt-4">
+                  Unlike your standard payment, extra payments bypass the interest calculation entirely. They act as a direct strike against your principal balance. By shrinking the principal faster than the bank planned, you force the lender to calculate next month's interest on a permanently smaller number. This triggers a cascading snowball effect. Every extra dollar you pay today effectively "kills" all the future interest that dollar would have generated over the remaining decades of the loan.
+                </p>
+              </div>
 
-            <h2>How to Read an Amortization Schedule</h2>
-            <p>The detailed table at the bottom of the calculator is your financial roadmap. Here is how to use it:</p>
-            <p><strong>1. Checking Payoff Balances:</strong> If you plan to sell your house or car in 4 years, switch the table to "Yearly Summary" and look at the "Remaining Balance" at the end of Year 4. This is exactly what you will still owe the bank. If that number is higher than the expected resale value of the asset, you will be "underwater" and owe cash at closing.</p>
-            <p><strong>2. Tax Deductions:</strong> If you are financing a commercial property or a primary residence where interest is tax-deductible, the "Interest Paid" column shows you exactly how much of a deduction you can claim for the IRS in any given year.</p>
+              <div>
+                <h2 className="text-2xl font-bold mb-3">A Practical Mathematical Example</h2>
+                <p className="text-muted-foreground leading-relaxed">
+                  Consider a $300,000 home loan at a 6.5% interest rate mapped over 30 years. The mandatory fixed monthly payment is approximately $1,896. In the very first month, a staggering $1,625 goes directly to the bank as pure interest profit, while only $271 goes toward actually paying off your home. 
+                </p>
+                <p className="text-muted-foreground leading-relaxed mt-4">
+                  If you use the advanced options to send the bank an extra $200 every single month—specifying that it must be applied strictly to the principal—you skip the interest calculation on that $200. This small, consistent addition can shave more than six years off a 30-year mortgage and save you upwards of $85,000 in pure interest payments. You are effectively buying back years of your life and reclaiming wealth that would have otherwise gone to a financial institution.
+                </p>
+              </div>
 
-            <h2>Amortization in Auto Loans vs. Mortgages</h2>
-            <p>The mathematical formula for amortization is universal, but the term length drastically changes the experience.</p>
-            <p><strong>Auto Loans (Short Term):</strong> A 5-year auto loan amortizes very quickly. Because the term is short, the crossover point is reached much faster (usually within the first 18 months). The total interest paid is relatively small compared to the principal.</p>
-            <p><strong>Mortgages (Long Term):</strong> A 30-year mortgage amortizes agonizingly slowly. Because the term is stretched over three decades to keep the monthly payment low, the interest has time to compound massively. It is very common on a 30-year mortgage to pay more in total interest than the original purchase price of the house.</p>
+              <div>
+                <h2 className="text-2xl font-bold mb-3">Strategic Tips & Best Practices</h2>
+                <p className="text-muted-foreground leading-relaxed">
+                  The detailed table generated by our calculator serves as your personal financial roadmap. Here are several ways to leverage it effectively:
+                </p>
+                <ul className="list-disc pl-6 mt-4 space-y-2 text-muted-foreground">
+                  <li><strong>Planning a Sale:</strong> If you plan to sell a house or trade in a car in five years, check the "Remaining Balance" column at month 60. This tells you exactly what you will still owe the bank, allowing you to accurately project your net proceeds from the sale.</li>
+                  <li><strong>Choosing Terms:</strong> Always compare the amortization schedules of different loan terms side-by-side. If you can afford the higher monthly payment, always opt for a shorter term. A 15-year mortgage forces the principal-interest crossover point to happen almost immediately compared to a 30-year loan.</li>
+                  <li><strong>Refinancing Risks:</strong> If you are 10 years into a 30-year loan and decide to refinance, be incredibly careful about resetting your term back to 30 years. Doing so resets your amortization schedule back to month one, where the payments are heavily front-loaded with interest again. If you refinance late in a loan, always try to refinance into a shorter term (like 15 or 20 years) to maintain your forward momentum.</li>
+                </ul>
+              </div>
 
-            <h2>Negative Amortization (The Danger Zone)</h2>
-            <p>It is vital to mention "Negative Amortization." This occurs in predatory loan structures (like Option ARMs or some income-based student loans) where the required monthly payment is <em>less</em> than the interest generated that month.</p>
-            <p>If your loan generates $1,000 in interest, but the bank allows you to only pay $500, the unpaid $500 doesn't vanish. It is added to your principal balance. The next month, you owe interest on a larger balance. Your debt grows exponentially every month despite you making payments. Our calculator strictly models standard, positive amortization, ensuring your debt reaches zero by the end of the term.</p>
-
-            <h2>Tips and Best Practices</h2>
-            <p><strong>Shorter Terms Equal Less Interest:</strong> If you can afford the higher monthly payment, always opt for a 15-year mortgage over a 30-year, or a 4-year auto loan over a 7-year. You will reach the principal-interest crossover point years earlier and save tens of thousands in interest.</p>
-            <p><strong>Refinance Strategically:</strong> If you are 10 years into a 30-year mortgage, you have finally paid off the most expensive interest years. If you refinance into a new 30-year mortgage to get a slightly lower rate, you are resetting the amortization clock back to month one, subjecting yourself to front-loaded interest all over again. If you refinance late in a loan, always refinance into a shorter term (like a 15-year) to maintain your amortization momentum.</p>
-
-            <h2>Conclusion</h2>
-            <p>An amortization schedule is not just a spreadsheet; it is the absolute truth of your debt. Lenders use marketing to focus your attention on affordable monthly payments, but the amortization table reveals the true cost of renting their money.</p>
-            <p>By leveraging this Amortization Calculator, you shift the power dynamic. You can visualize exactly when your payments begin building your wealth rather than the bank's, you can accurately project your equity for future sales, and you can model aggressive early-payoff strategies to achieve financial freedom years ahead of schedule.</p>
+              <div>
+                <h2 className="text-2xl font-bold mb-3">Reclaiming Your Financial Power</h2>
+                <p className="text-muted-foreground leading-relaxed">
+                  An amortization schedule is not just a dry spreadsheet; it is the absolute mathematical truth of your debt. Lenders spend billions on marketing to focus your attention entirely on the "affordable monthly payment," actively distracting you from the true cost of renting their money. 
+                </p>
+                <p className="text-muted-foreground leading-relaxed mt-4">
+                  By leveraging this amortization calculator, you shift the power dynamic back in your favor. You gain the ability to visualize exactly when your hard-earned money begins building your own wealth rather than the bank's bottom line. You can accurately project your equity, avoid being trapped "underwater" on auto loans, and model aggressive, early-payoff strategies to achieve financial freedom years—or even decades—ahead of schedule.
+                </p>
+              </div>
+            </section>
           </article>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/amortization-calculator" />

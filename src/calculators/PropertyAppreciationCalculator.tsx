@@ -87,7 +87,7 @@ const PropertyAppreciationCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Real vs. Nominal Property Returns</h2>
               <p>Nominal appreciation is the headline number — the percentage your property grows each year. But real appreciation, adjusted for inflation, is the true measure of wealth creation.</p>
               <h3>The Leverage Effect</h3>

@@ -192,7 +192,7 @@ const InterestOnlyMortgageCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Understanding Interest-Only Mortgages</h2>
               <p>An interest-only (IO) mortgage is a specialized home loan that provides flexibility in the early years of homeownership. For a predetermined period, usually 5 to 10 years, you are not required to pay down any of the loan's principal. Instead, your monthly payments cover only the interest charges.</p>
 

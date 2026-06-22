@@ -146,9 +146,9 @@ const MeanArterialPressureCalculator = () => {
           </div>
         </div>
 
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Mean Arterial Pressure Calculator?</h2>
             <p>A mean arterial pressure (MAP) calculator computes the average blood pressure during a complete cardiac cycle from your systolic and diastolic readings. MAP is the single best indicator of organ perfusion pressure — the force driving blood through your kidneys, brain, and other vital organs. Pre-filled with 120/80 mmHg (normal blood pressure), the MAP is 93 mmHg — well within the healthy range of 70–100 mmHg.</p>
             <h2>The MAP Formula</h2>

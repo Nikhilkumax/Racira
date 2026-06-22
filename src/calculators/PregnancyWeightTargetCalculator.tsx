@@ -436,9 +436,9 @@ export default function PregnancyWeightTargetCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Mathematics of Gestation</h2>
             <p>Pregnancy is a masterclass in structural biology. For 40 weeks, the female body acts as a hyper-efficient construction zone, synthesizing complex neurological networks, skeletal structures, and a temporary organ (the placenta) from scratch. Because this process is so biologically demanding, the medical community established strict guidelines for how much raw mass a woman must acquire to support it safely. However, this process is not linear. Gaining 10 pounds in the first trimester is a massive medical red flag, whereas gaining 10 pounds in the third trimester is perfectly normal. The <strong>Pregnancy Weight Gain Trajectory Calculator</strong> maps your weekly progress against the exact biological curve established by the American College of Obstetricians and Gynecologists (ACOG), ensuring your body is scaling correctly.</p>
 

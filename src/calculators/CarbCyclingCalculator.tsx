@@ -372,9 +372,9 @@ export default function CarbCyclingCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding the Carb Cycling Calculator</h2>
             <p>Traditional diets operate on a linear model: you eat the exact same amount of food and the exact same macronutrient ratios every single day until you reach your goal. While this works mathematically, it ignores a fundamental biological reality—your energy expenditure is not linear. On a Tuesday, you might endure a brutal 90-minute weightlifting session that drains your muscular glycogen. On a Wednesday, you might sit at a desk for nine hours and do nothing.</p>
             <p>If you eat a massive amount of carbohydrates on Wednesday (your rest day), those excess carbs have nowhere to go; your glycogen tanks are already full from sitting, so the excess energy is highly likely to be stored as body fat. Conversely, if you eat a low-carb diet on Tuesday (your heavy training day), you will suffer from terrible gym performance and risk muscle catabolism. <strong>Carb Cycling</strong> solves this by periodizing your nutrition to match your physical output. Our Carb Cycling Calculator allows you to map your carbohydrate intake directly to your weekly training intensity.</p>

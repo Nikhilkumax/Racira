@@ -214,9 +214,9 @@ export default function BlendedRateMortgageCalculator() {
         </div>
 
         {/* SEO CONTENT SECTION */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Golden Handcuffs Dilemma</h2>
             <p>During periods of historically low interest rates, millions of homeowners locked in mortgages at 3% or 4%. Fast forward a few years, and those same homeowners may need cash for home improvements, tuition, or debt consolidation. If current market rates have risen to 7% or 8%, a traditional cash-out refinance forces them to surrender their low primary rate on the entire balance — replacing a 3% loan with a 7% loan on $350,000 is a punishing monthly payment increase. The blended rate calculation exists precisely to model the alternative.</p>
 

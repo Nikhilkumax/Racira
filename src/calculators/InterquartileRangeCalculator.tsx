@@ -136,9 +136,9 @@ const InterquartileRangeCalculator = () => {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is an IQR Calculator?</h2>
             <p>An IQR calculator computes the Interquartile Range — the spread of the middle 50% of a dataset — along with the full five-number summary, Tukey outlier fences, and identified outliers. Pre-filled with {"{7, 15, 36, 39, 40, 41}"}, the IQR is 25 (Q3=40 − Q1=15). The five-number summary chart visualizes Min, Q1, Median, Q3, and Max.</p>
             <h2>IQR Formula</h2>

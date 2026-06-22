@@ -277,9 +277,9 @@ export default function SafeFollowingDistanceCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Flaw of "Car Lengths"</h2>
             <p>For decades, driving instructors taught students to leave "one car length of space for every 10 MPH of speed." While this sounds like decent advice, it is incredibly dangerous in practice for two reasons. First, human beings are terrible at judging absolute distances while moving. Estimating "six car lengths" on an empty highway is nearly impossible. Second, modern safety engineering has proven that the one-car-length rule simply does not provide enough physical space to stop at high speeds.</p>
 

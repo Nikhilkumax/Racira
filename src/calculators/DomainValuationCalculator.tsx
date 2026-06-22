@@ -171,7 +171,7 @@ export default function DomainValuationCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>What Makes a Domain Name Valuable?</h2>
               <p>In the digital age, a domain name is more than just a website address — it is virtual real estate. Just like physical property, some addresses are worth more than others because of their location (extension), accessibility (length), and development (traffic). This calculator uses professional appraisal methodologies to give you a realistic window into what your domain might be worth on the open market.</p>
 

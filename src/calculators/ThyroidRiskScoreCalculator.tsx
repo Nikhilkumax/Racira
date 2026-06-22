@@ -377,9 +377,9 @@ export default function ThyroidRiskScoreCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding the Thyroid Risk Score Calculator</h2>
             <p>The thyroid is a small, butterfly-shaped gland located at the base of your neck. Despite its small size, it acts as the master control center for your entire body's metabolism. It regulates how fast your heart beats, how quickly you burn calories, how you regulate body temperature, and even how your brain functions. When this gland malfunctions, the physical and psychological symptoms can be devastating.</p>
             <p>The <strong>Thyroid Risk Score Calculator</strong> is an educational clinical profiling tool designed to help you quantify your symptoms. Because thyroid disease shares symptoms with many other common conditions (such as aging, menopause, stress, or depression), it is frequently misdiagnosed or ignored for years. By algorithmically weighting your demographics against the classic presentation of both overactive and underactive thyroid states, this calculator provides a clear visual risk profile to discuss with your endocrinologist.</p>

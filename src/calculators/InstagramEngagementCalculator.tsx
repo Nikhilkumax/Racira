@@ -122,7 +122,7 @@ export default function InstagramEngagementCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Mastering Instagram Engagement Metrics</h2>
               <p>In the early days of Instagram, a high follower count was the only metric that mattered. Today, the landscape has shifted entirely. Brands, agencies, and the Instagram algorithm itself now prioritize <strong>engagement</strong> over raw numbers. This Instagram Engagement Calculator is designed to help you see past the 'vanity metrics' and understand the true health and commercial value of your social presence.</p>
 

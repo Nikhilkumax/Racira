@@ -168,9 +168,9 @@ const FactorCalculator = () => {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Are Factors?</h2>
             <p>In mathematics, <strong>factors</strong> are the numbers that you can multiply together to get another number. Put differently, a factor is an integer that divides evenly into a larger integer without leaving a remainder. For example, 5 is a factor of 20 because 20 divided by 5 equals exactly 4.</p>
 

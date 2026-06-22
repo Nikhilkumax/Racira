@@ -180,7 +180,7 @@ export default function CustomerAcquisitionCostCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding CAC & LTV</h2>
             <p>For any modern recurring revenue business or e-commerce platform, two metrics reign supreme: Customer Acquisition Cost (CAC) and Customer Lifetime Value (LTV). Together, they tell the story of a company's marketing efficiency and unit economic health. If CAC exceeds LTV, the business is fundamentally unprofitable at its core; if LTV is significantly higher than CAC, the company has an engine for highly profitable growth.</p>
             

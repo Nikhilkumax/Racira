@@ -368,9 +368,9 @@ export default function CarInsuranceCostCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Car Insurance Cost Calculator?</h2>
             <p>A Car Insurance Cost Calculator is a risk-assessment tool that simulates how automotive insurance underwriters determine your premium. Insurance companies use massive actuarial algorithms to predict how likely you are to file a claim. If you represent a high risk, they charge you a high premium. This tool breaks down those hidden risk factors—including your age, your driving record, and where you park the vehicle—to show you exactly why you pay what you pay.</p>
 

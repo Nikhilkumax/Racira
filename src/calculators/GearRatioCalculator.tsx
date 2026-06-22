@@ -288,9 +288,9 @@ export default function GearRatioCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Magic of Gear Ratios</h2>
             <p>Gears are one of the most fundamental mechanical inventions in human history. They allow a small motor with very little twisting force (torque) to lift incredibly heavy objects. This mechanical advantage is achieved through a Gear Ratio. By connecting a small gear (the driving gear) to a large gear (the driven gear), you force the small gear to spin multiple times just to turn the large gear once. This concentrates the force, multiplying the torque output at the expense of rotational speed.</p>
 

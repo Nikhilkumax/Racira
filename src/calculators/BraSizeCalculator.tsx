@@ -210,9 +210,9 @@ const BraSizeCalculator = () => {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Mathematics of Sizing</h2>
             <p>It is estimated that over 70% of women are wearing the wrong size. This massive statistical error is not due to bad measurements, but rather terrible mathematics forced upon the market by major clothing retailers.</p>
             <p>The modern, mathematically accurate system (often referred to online as the <em>A Bra That Fits</em> method) relies on a simple +0 formula:</p>

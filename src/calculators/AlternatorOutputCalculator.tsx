@@ -294,9 +294,9 @@ export default function AlternatorOutputCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Misunderstood Alternator</h2>
             <p>Many drivers believe that the battery powers the car while driving. This is entirely false. The battery has exactly one job: to provide a massive burst of power to the starter motor for roughly three seconds to start the engine. Once the engine is running, the alternator takes over completely. The alternator powers the spark plugs, the headlights, the radio, the fuel pump, and simultaneously acts as a battery charger to replenish the power used during startup.</p>
 

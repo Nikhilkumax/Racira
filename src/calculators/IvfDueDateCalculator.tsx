@@ -230,9 +230,9 @@ export default function IvfDueDateCalculator() {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Unmatched Precision of IVF Pregnancy Dating</h2>
             <p>In a standard, unassisted pregnancy, a woman must calculate her Estimated Due Date (EDD) using the first day of her Last Menstrual Period (LMP). This biological dating standard assumes that every woman operates on a perfect 28-day cycle and ovulates exactly on day 14. Because this is rarely true, natural pregnancy due dates are, at best, highly educated guesses.</p>
             <p>In Vitro Fertilization (IVF) fundamentally changes this. Because medical embryologists know the precise moment the egg was fertilized in the laboratory, and exactly how many hours it developed before being transferred into the uterus, IVF offers absolute mathematical precision. There is no guesswork regarding ovulation. Your Estimated Due Date is anchored to exact scientific events.</p>

@@ -336,9 +336,9 @@ export default function BaseballOBPCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Mathematics of Moneyball</h2>
             <p>For over a century, the game of baseball operated under a deeply flawed mathematical assumption: the only way to measure a great hitter was by their Batting Average. If a player hit .300 (getting a hit 30% of the time), they were considered a superstar and were paid millions of dollars. If a player hit .240, they were considered a liability and benched. This massive mathematical blind spot ignored one of the most crucial elements of the game: the Walk. The <strong>Baseball On-Base Percentage (OBP) Calculator</strong> exposes the flaw of traditional Batting Average by measuring the only thing that actually prevents a team from losing: the ability to safely reach base.</p>
 

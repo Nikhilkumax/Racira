@@ -134,7 +134,7 @@ export default function TemperatureConverter() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding Temperature Scales</h2>
             <p>Temperature is a measure of the average kinetic energy of the particles in a substance. Four primary temperature scales are in common use: Celsius (°C), Fahrenheit (°F), Kelvin (K), and Rankine (°R). Each was developed for different purposes, and conversions between them are essential for science, cooking, engineering, medicine, and international communication.</p>
             <h2>The Celsius Scale</h2>

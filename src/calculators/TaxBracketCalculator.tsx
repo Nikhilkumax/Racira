@@ -206,7 +206,7 @@ const TaxBracketCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>How U.S. Tax Brackets Really Work</h2>
               <p>One of the most common misconceptions about personal finance is how tax brackets work. Many people believe that moving into a higher bracket means their entire income is suddenly taxed at that higher rate. This is false. The United States uses a <strong>progressive tax system</strong>, which means your income is divided into "buckets," and each bucket is taxed at its own specific rate.</p>
 

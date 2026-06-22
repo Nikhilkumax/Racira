@@ -152,9 +152,9 @@ export default function CollegeSavingsCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a College Savings Calculator?</h2>
             <p>A <strong>college savings calculator</strong> projects the future cost of higher education (accounting for historical tuition inflation of 5–7% annually) and calculates the exact monthly savings needed to fund your child&apos;s education. It factors in your current savings, investment returns, and tuition inflation to give you a realistic, actionable savings target.</p>
             <h2>Why Tuition Inflation Matters</h2>

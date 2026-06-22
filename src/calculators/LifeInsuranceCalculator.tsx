@@ -216,7 +216,7 @@ export default function LifeInsuranceCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>How Much Life Insurance Do You Need?</h2>
             <p>Life insurance is one of the most important financial safety nets you can provide for your family, yet determining how much coverage you need is often confusing. The right amount depends on your income, debts, family situation, existing savings, and financial goals. This calculator uses two proven methods to give you a data-driven coverage estimate rather than an arbitrary rule of thumb.</p>
             <p>The most common mistake people make is either being underinsured (relying solely on employer-provided group coverage, which is typically only 1–2× salary) or overinsured (buying more permanent life insurance than needed due to aggressive sales tactics). A properly sized term life policy can provide comprehensive protection at a fraction of the cost of whole life insurance.</p>

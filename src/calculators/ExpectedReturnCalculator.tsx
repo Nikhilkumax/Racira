@@ -166,7 +166,7 @@ const ExpectedReturnCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Managing Investment Uncertainty</h2>
               <p>In a world of fluctuating markets, static returns are rare. Expected return analysis allows investors to quantify the range of possibilities and make decisions based on the "average" outcome.</p>
               <h3>The Probability-Weighted Average</h3>

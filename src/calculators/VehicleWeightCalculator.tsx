@@ -242,9 +242,9 @@ export default function VehicleWeightCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding Vehicle Weight Limits</h2>
             <p>Every vehicle on the road, from a tiny Smart car to a massive commercial semi-truck, operates within strict weight boundaries designed by structural engineers. Ignoring these boundaries does not just cause accelerated wear and tear on your vehicle; it introduces catastrophic safety hazards. Overloading a vehicle causes brakes to overheat and fail, tires to blow out due to excessive sidewall pressure, and suspension components to snap.</p>
 

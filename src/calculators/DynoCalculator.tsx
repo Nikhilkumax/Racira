@@ -279,9 +279,9 @@ export default function DynoCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Mathematics of a Dyno</h2>
             <p>If you strap your car to a dynamometer (a "dyno"), it does not directly measure horsepower. A dyno is physically only capable of measuring two things: <strong>Torque</strong> (the twisting force of the tires against the rollers) and <strong>Engine Speed</strong> (RPM). Once the dyno captures these two variables, its internal computer uses a strict mathematical formula to calculate your Horsepower.</p>
 

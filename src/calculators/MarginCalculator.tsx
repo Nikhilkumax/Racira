@@ -322,9 +322,9 @@ export default function MarginCalculator() {
         </div>
 
         {/* SEO Article Section */}
-        <div className="max-w-[1180px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding Margin vs. Markup</h2>
             <p>
               In pricing strategies and business operations, the terms <strong>margin</strong> and <strong>markup</strong> are often used interchangeably. However, they describe two distinct viewpoints of profitability, and confusing them can lead to major pricing errors and financial deficits.

@@ -161,9 +161,9 @@ const QuickRatioCalculator = () => {
           </div>
         </div>
 
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Quick Ratio Calculator?</h2>
             <p>A quick ratio calculator measures a company's short-term liquidity by comparing its most liquid assets to its current liabilities. Also known as the acid-test ratio, the quick ratio is a stricter version of the current ratio because it excludes inventory and prepaid expenses — assets that cannot always be quickly converted to cash. Pre-filled with $50,000 cash, $30,000 securities, $80,000 receivables, and $100,000 in current liabilities, the quick ratio is 1.60x — indicating excellent liquidity.</p>
             <p>Financial analysts, investors, creditors, and business owners use the quick ratio to assess whether a company can meet its short-term obligations without relying on selling inventory or raising new capital. It is one of the primary financial ratios used in credit analysis and business valuation.</p>

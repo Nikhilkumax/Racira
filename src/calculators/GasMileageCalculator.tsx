@@ -236,9 +236,9 @@ const GasMileageCalculator = () => {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Mathematics of Fuel Efficiency</h2>
             <p>With gas prices constantly fluctuating, knowing your vehicle's exact fuel efficiency is crucial for budgeting a road trip or deciding if it's time to buy a new car. The gold standard for measuring fuel efficiency in the United States is <strong>Miles Per Gallon (MPG)</strong>. It is a simple calculation: how many miles can the car travel on a single gallon of gasoline?</p>
 

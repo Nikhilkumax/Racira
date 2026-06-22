@@ -427,42 +427,42 @@ export default function MortgagePayoffCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
-            <h2>Understanding the Target Payoff Calculator</h2>
+          <article className="prose-finance text-[15.75px]">
+            <h2 className="text-2xl font-bold mb-3">Understanding the Target Payoff Calculator</h2>
             <p>For most homeowners, the mortgage is a 30-year financial anchor. Standard amortization calculators are passive tools—they tell you what the bank requires you to do. Our <strong>Mortgage Payoff Calculator</strong> flips the script. It is an active, goal-oriented tool that allows you to dictate the timeline. Instead of asking "When will my loan end?", this calculator allows you to state "I want my loan to end in 10 years," and mathematically reverse-engineers the exact monthly payment required to make that goal a reality.</p>
             <p>By comparing your "Status Quo" trajectory against your "Target Strategy," you can visualize the massive disparity in wealth accumulation. While it requires financial discipline to funnel extra cash into your mortgage every month, seeing the tens of thousands of dollars in "Wealth Saved" provides the psychological motivation necessary to execute the plan and achieve ultimate financial freedom.</p>
 
-            <h2>Why Target a Specific Payoff Date?</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Target a Specific Payoff Date?</h2>
             <p>Aggressive debt reduction is rarely successful without a concrete, milestone-driven goal. The most successful financial plans sync the mortgage payoff with major life events where cash flow flexibility becomes critical.</p>
             <p><strong>Retirement Synchronization:</strong> The number one reason borrowers use this calculator is to ensure their mortgage hits zero the exact month they retire. Entering retirement (when you transition from W-2 income to fixed income/portfolio drawdowns) is exponentially less stressful if your largest monthly expense—housing—has been completely eliminated.</p>
             <p><strong>College Tuition Planning:</strong> If you have a child starting college in 8 years, you can set your "Target Payoff" to 8 years. By aggressively paying off the house before they enroll, the massive $2,000+ monthly cash flow previously dedicated to the mortgage can immediately be redirected to tuition payments, potentially allowing your child to graduate debt-free.</p>
 
-            <h2>The Mechanics of Reverse Amortization</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mechanics of Reverse Amortization</h2>
             <p>How does the calculator determine your required payment? It uses the standard amortization formula, but instead of solving for the 30-year term, it substitutes your "Target Payoff Years" into the equation.</p>
             <p>If you owe $300,000 at 6.5%, the bank's formula stretches that over 30 years to give you a $1,896 payment. If you tell our calculator you want to pay it off in 15 years, it forces the formula to compress the principal reduction into 180 months. The result is a required payment of $2,613. The calculator then subtracts your current payment from this new required payment to isolate the "Extra Monthly Needed" (+$717). This isolates exactly how much you need to cut from your current discretionary budget to achieve the goal.</p>
 
-            <h2>Analyzing the Trajectory Comparison Chart</h2>
+            <h2 className="text-2xl font-bold mb-3">Analyzing the Trajectory Comparison Chart</h2>
             <p>The Area Chart in this tool is designed to show the compounding effect of your target strategy. It plots your "Status Quo Balance" (the orange curve) against your "Target Strategy Balance" (the blue curve).</p>
             <p>Notice that in the first few years, the two curves are relatively close. However, as the years progress, the blue curve plummets toward zero at an accelerating rate. This is because every extra dollar you pay reduces the principal, which in turn reduces the interest charge the following month, freeing up even more of your payment to hit the principal. The widening gap between the orange and blue curves represents pure wealth that you are recapturing from the bank's profit margins.</p>
 
-            <h2>The Opportunity Cost Debate: Pay Off vs. Invest</h2>
+            <h2 className="text-2xl font-bold mb-3">The Opportunity Cost Debate: Pay Off vs. Invest</h2>
             <p>While seeing a massive "Wealth Saved" number is highly motivating, mathematically optimizing your finances requires understanding "Opportunity Cost." Should you aggressively pay down your mortgage, or should you invest that extra cash in the stock market?</p>
             <p><strong>The Mathematical Argument:</strong> If your mortgage interest rate is 3% (secured during the historic lows of 2020-2021), the mathematical argument strongly favors investing. Historically, broad market index funds (like the S&P 500) return an average of 7% to 10% annually. If you put your extra $700 a month into the market, you are earning ~8% while the bank is only charging you 3%. You are capturing a 5% "spread," which will make you significantly wealthier over 30 years.</p>
             <p><strong>The Risk-Free Return Argument:</strong> If your mortgage rate is 7% or 8% (standard for current markets), the decision flips. Paying extra on an 8% mortgage is effectively a guaranteed, risk-free, tax-free 8% return on your money. There is no safe investment in the world that guarantees an 8% yield. In high-rate environments, aggressively paying down debt is usually the mathematically superior choice.</p>
 
-            <h2>The Dangers of Refinancing to a 15-Year Mortgage</h2>
+            <h2 className="text-2xl font-bold mb-3">The Dangers of Refinancing to a 15-Year Mortgage</h2>
             <p>A common mistake borrowers make when trying to accelerate their payoff is officially refinancing from a 30-year term to a 15-year term. While a 15-year mortgage usually offers a slightly lower interest rate, it comes with a massive hidden risk.</p>
             <p>When you formally refinance to a 15-year mortgage, the bank legally obligates you to make the higher monthly payment. If you lose your job, suffer a medical emergency, or your business revenue drops, the bank still demands that massive payment. If you cannot make it, they will foreclose.</p>
             <p>By using this calculator and simply <em>making voluntary extra payments</em> on your 30-year mortgage, you achieve the exact same accelerated payoff timeline. But you retain the ultimate safety net: If financial disaster strikes, you can instantly stop making the extra payments and fall back to your original, lower 30-year required payment.</p>
 
-            <h2>How to Ensure Extra Payments Work</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Ensure Extra Payments Work</h2>
             <p>Banks do not want you to pay off your loan early. Therefore, you must be meticulous when executing this strategy.</p>
             <p><strong>Specify "Principal Only":</strong> When you send your extra $717 to the mortgage servicer, you must explicitly check the box or write instructions that the funds are to be applied as "Principal Only." If you do not, predatory servicers will simply apply it as an early payment for next month's bill, meaning they still charge you the interest. Your money will sit in an escrow account rather than destroying the principal balance.</p>
             <p><strong>Recasting:</strong> Note that making extra payments shortens your timeline, but it does <em>not</em> lower your required monthly bill. If your goal is to drastically lower your monthly payment rather than shorten the term, you must execute a "Mortgage Recast," where the bank recalculates your amortization schedule based on your newly lowered principal balance.</p>
 
-            <h2>Conclusion</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion</h2>
             <p>A mortgage is designed to generate decades of passive income for the lender. By shifting from a passive borrower to an active debt-destroyer, you reclaim that wealth for your own family.</p>
             <p>By leveraging this Target Payoff Calculator, you establish a concrete, mathematical roadmap to absolute ownership. By identifying your target date, isolating the required cash flow, and understanding the compounding mechanics of principal reduction, you ensure that the roof over your head eventually belongs entirely to you, not the bank.</p>
           </article>

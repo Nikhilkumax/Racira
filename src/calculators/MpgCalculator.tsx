@@ -119,7 +119,7 @@ const MpgCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Understanding Fuel Economy</h2>
               <p>Fuel economy is a measure of how far a vehicle can travel with a specific amount of fuel. In the United States and the United Kingdom, this is expressed in Miles Per Gallon (MPG). In most other parts of the world, efficiency is measured as Liters per 100 Kilometers (L/100km).</p>
               <h3>Why MPG Matters</h3>

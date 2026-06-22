@@ -139,9 +139,9 @@ const PotentialEnergyCalculator = () => {
           </div>
         </div>
 
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Potential Energy Calculator?</h2>
             <p>A potential energy calculator computes the gravitational potential energy stored in an object due to its position above a reference point in a gravitational field. PE = mgh, where m is mass, g is gravitational acceleration, and h is height. Pre-filled with 10 kg at 5 meters on Earth (g = 9.81 m/s²), the potential energy is 490.5 joules — the energy that would be released as kinetic energy if the object were dropped.</p>
             <h2>The Potential Energy Formula</h2>

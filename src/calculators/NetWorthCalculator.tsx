@@ -185,9 +185,9 @@ export default function NetWorthCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is Net Worth and How to Calculate It</h2>
             <p>This <strong>net worth calculator</strong> gives you a real-time snapshot of your financial position. Net Worth = Total Assets − Total Liabilities. It's the most comprehensive financial metric available — a high income with high debt produces low net worth, while a modest income with consistent saving builds strong net worth over time. Track it quarterly to see your true financial trajectory.</p>
             <h2>US Net Worth Benchmarks by Age</h2>

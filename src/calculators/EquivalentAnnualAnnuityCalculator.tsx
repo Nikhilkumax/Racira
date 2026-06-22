@@ -189,7 +189,7 @@ export default function EquivalentAnnualAnnuityCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is the Equivalent Annual Annuity?</h2>
             <p>The Equivalent Annual Annuity (EAA), also called Annualized NPV, Annual Worth, or Annual Equivalent, converts a project's Net Present Value into a uniform annual cash flow. The formula is EAA = NPV × [r / (1 - (1+r)^-n)], where r is the discount rate and n is the project life. This metric is essential for comparing projects with different lifespans because it expresses value in comparable annual terms.</p>
             <p>Consider two machines: Machine A costs $300K, lasts 3 years, with NPV $80K. Machine B costs $500K, lasts 5 years, with NPV $100K. NPV comparison favors B — but Machine A lasts only 3 years. EAA normalizes this: Machine A EAA = $29K/yr, Machine B EAA = $26K/yr. Machine A is actually more efficient per year, which is the correct comparison when both machines will be replaced indefinitely.</p>

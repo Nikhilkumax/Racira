@@ -257,9 +257,9 @@ const ActivationEnergyCalculator = () => {
           </div>
         </div>
 
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is an Activation Energy Calculator?</h2>
             <p>This activation energy calculator uses the single-point Arrhenius equation <strong>Eₐ = −R · T · ln(k / A)</strong> to compute activation energy from temperature, rate coefficient, and frequency factor. Pre-filled with T=25°C, k=0.001/sec, A=10¹³/sec — giving Eₐ ≈ 75 kJ/mol. Results are shown in all energy units: J, kJ, MJ, cal, kcal per mol.</p>
             <h2>The Arrhenius Equation</h2>

@@ -187,9 +187,9 @@ export default function CompoundAnnualGrowthRateCalculator() {
           </div>
         </div>
 
-        <div className="max-w-[1180px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is CAGR (Compound Annual Growth Rate)?</h2>
             <p>CAGR, or Compound Annual Growth Rate, is the single most important metric for measuring investment performance over time. It represents the rate at which an investment would have grown each year if it had grown at a perfectly steady rate — factoring in the effect of compounding. Unlike simple average returns, CAGR eliminates volatility from the picture, giving you a clean, comparable number that tells you exactly what your investment delivered annually, year after year.</p>
             <p>Our calculator is pre-filled with a common investment scenario: $10,000 growing to $18,500 over 6 years — producing a CAGR of 10.80% per year. This is close to the historical S&P 500 average, illustrating what a decade of consistent index fund investing looks like in practice.</p>

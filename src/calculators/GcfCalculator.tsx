@@ -205,9 +205,9 @@ const GcfCalculator = () => {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding the Greatest Common Factor (GCF)</h2>
             <p>The <strong>Greatest Common Factor (GCF)</strong>, which is entirely synonymous with the Greatest Common Divisor (GCD) and Highest Common Factor (HCF), is the largest integer that divides two or more numbers perfectly, leaving a remainder of zero. For example, the factors of 12 are 1, 2, 3, 4, 6, and 12. The factors of 16 are 1, 2, 4, 8, and 16. The common factors they share are 1, 2, and 4. The <em>greatest</em> of these is 4, making 4 the GCF.</p>
 

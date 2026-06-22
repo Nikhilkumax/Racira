@@ -99,7 +99,7 @@ export default function LcmGcdCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Understanding GCD and LCM</h2>
               <p>Greatest Common Divisor (GCD) and Least Common Multiple (LCM) are two of the most fundamental concepts in number theory. They appear in everything from simplifying fractions to scheduling systems and cryptography. Understanding these concepts is essential for any student of mathematics.</p>
               <h2>The Euclidean Algorithm for GCD</h2>

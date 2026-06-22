@@ -130,9 +130,9 @@ export default function CreditCardPayoffCalculator() {
             </div>
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Credit Card Debt Payoff Strategies</h2>
             <p>This calculator models both the Debt Avalanche and Debt Snowball strategies across multiple credit cards simultaneously. Enter your cards&apos; balances, APRs, and minimum payments, then add any extra monthly payment you can allocate. The calculator shows exact payoff timelines, total interest cost, and compares your chosen strategy against minimum-payment-only (revealing exactly how much you save by being aggressive).</p>
             <h2>Debt Avalanche — The Mathematically Optimal Method</h2>

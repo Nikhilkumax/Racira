@@ -172,7 +172,7 @@ const DogSizePredictor = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>How Puppies Grow: The Science of Canine Development</h2>
               <p>Puppy growth follows a predictable curve that varies significantly by breed size. Understanding this curve is essential for new dog owners who want to plan for food costs, crate size, harness upgrades, and even apartment requirements.</p>
 

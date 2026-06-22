@@ -142,9 +142,9 @@ const ZeroCouponBondCalculator = () => {
           </div>
         </div>
 
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Zero Coupon Bond Calculator?</h2>
             <p>A zero coupon bond calculator computes the present value (purchase price) of a zero coupon bond given its face value, yield to maturity, and years to maturity. Zero coupon bonds pay no periodic interest — instead, they are issued at a steep discount and redeemed at full face value at maturity. The profit is simply the difference: face value minus purchase price. Pre-filled at $10,000 face value, 5% yield, 10 years, the purchase price is $6,139.13 — delivering $3,860.87 total profit over a decade.</p>
             <p>Zero coupon bonds (also called ZCBs, discount bonds, or pure discount bonds) are used by individual investors, pension funds, and governments. US Treasury STRIPS are the most widely traded zero coupon instruments, derived by separating ("stripping") the principal and interest components of Treasury notes and bonds.</p>

@@ -86,7 +86,7 @@ export default function EcommerceRevenueCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>The Ecommerce Revenue Formula</h2>
               <p>Ecommerce revenue is fundamentally driven by three metrics: Traffic × Conversion Rate × Average Order Value = Gross Revenue. This simple formula has profound implications. A 10% increase in each metric alone doesn't just add 10% to revenue — if all three improve by 10% simultaneously, revenue increases by 33.1% (1.1 × 1.1 × 1.1 = 1.331). This multiplicative effect is why ecommerce growth strategies often focus on improving multiple metrics in parallel.</p>
               <h2>Understanding Traffic Quality vs. Quantity</h2>

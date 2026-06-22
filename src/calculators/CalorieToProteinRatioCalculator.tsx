@@ -321,9 +321,9 @@ export default function CalorieToProteinRatioCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding the Calorie-to-Protein Ratio</h2>
             <p>If you are an athlete, a bodybuilder, or simply someone trying to lose fat while preserving lean muscle mass, your primary nutritional goal is likely hitting a high daily protein target. However, doing so while staying within a strict caloric deficit is a mathematical puzzle. The <strong>Calorie to Protein Ratio (CPR) Calculator</strong> is the ultimate tool for solving this puzzle. By instantly evaluating the macronutrient density of any food, meal, or daily diet plan, it reveals exactly how efficiently you are sourcing your protein.</p>
             <p>The Calorie-to-Protein Ratio answers a single, critical question: <em>"How many calories do I have to eat to get exactly one gram of protein from this food?"</em> A lower number indicates a highly efficient, lean protein source, while a higher number indicates a food that is heavily laden with fats and carbohydrates.</p>

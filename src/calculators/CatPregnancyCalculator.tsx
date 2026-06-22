@@ -125,7 +125,7 @@ const CatPregnancyCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>A Complete Guide to Cat Pregnancy</h2>
               <p>Whether you are a professional breeder or a surprised pet owner, understanding the timeline and stages of feline pregnancy helps you provide the best possible care for your queen and her unborn kittens.</p>
 

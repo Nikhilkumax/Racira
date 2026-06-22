@@ -153,9 +153,9 @@ const LoveCalculator = () => {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Mathematics of Romance</h2>
             <p>Can a computer algorithm truly predict love? Since the dawn of the internet, "Love Calculators" have been incredibly popular tools for friends and couples to test their compatibility. While they are purely for entertainment, the mathematics running behind the scenes are quite interesting.</p>
 

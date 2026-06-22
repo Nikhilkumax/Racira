@@ -160,9 +160,9 @@ export default function EarningsPerShareCalculator() {
             </div>
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10"/>
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is the Earnings Per Share (EPS) Calculator?</h2>
             <p>Earnings Per Share (EPS) is the portion of a company&apos;s profit allocated to each outstanding common share. It is one of the most important metrics in equity analysis, directly impacting stock valuation, P/E ratios, and investor sentiment. This EPS calculator computes basic EPS, diluted EPS, adjusted EPS, and the implied P/E ratio and earnings yield.</p>
             <h2>EPS Formulas Explained</h2>

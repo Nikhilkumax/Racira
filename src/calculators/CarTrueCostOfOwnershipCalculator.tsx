@@ -306,7 +306,7 @@ const CarTrueCostOfOwnershipCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is the True Cost of Car Ownership?</h2>
             <p>The true cost of owning a car goes far beyond the sticker price or monthly payment. It encompasses every dollar you spend from the moment you purchase to the moment you sell — including depreciation (the silent wealth destroyer), financing interest, insurance premiums, fuel, maintenance, registration, parking, and taxes. For a typical mid-range sedan, the true cost over five years is $35,000–$55,000, yet most car buyers only consider the $400–$600/month payment.</p>
             <p>This calculator reveals the full picture so you can make informed decisions about which vehicle truly fits your budget and financial goals.</p>

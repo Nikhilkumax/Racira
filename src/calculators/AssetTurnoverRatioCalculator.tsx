@@ -178,7 +178,7 @@ export default function AssetTurnoverRatioCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is the Asset Turnover Ratio?</h2>
             <p>The Asset Turnover Ratio is a fundamental efficiency metric that measures how effectively a company uses its total asset base to generate revenue. The formula is simple: Asset Turnover = Net Revenue / Average Total Assets. A ratio of 1.5x means the company generates $1.50 in revenue for every dollar of assets it owns. Higher ratios indicate greater operational efficiency — the company is squeezing more revenue from the same asset base.</p>
             <p>This metric is a cornerstone of the DuPont Analysis framework, which decomposes Return on Equity (ROE) into three components: net profit margin, asset turnover, and financial leverage. Understanding asset turnover allows investors to diagnose whether a company's ROE is driven by superior margins, efficient asset use, or financial leverage — a critical distinction for valuation and risk assessment.</p>

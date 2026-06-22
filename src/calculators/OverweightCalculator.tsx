@@ -178,9 +178,9 @@ const OverweightCalculator = () => {
           </div>
         </div>
 
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is an Overweight Calculator?</h2>
             <p>An overweight calculator determines whether your current weight exceeds the healthy BMI range (18.5–24.9) for your height, and if so, calculates exactly how much excess weight you carry. Pre-filled with 195 lbs and 5'8" (68 inches), the BMI is 29.7 — classified as overweight, with approximately 31 lbs above the upper threshold of normal weight for this height.</p>
             <h2>Understanding the Results</h2>

@@ -174,7 +174,7 @@ export default function GrossMarginCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding Gross Margin</h2>
             <p>Gross profit margin, often simply called gross margin, is one of the most basic and vital profitability ratios used by business owners, analysts, and investors. It represents the percentage of total sales revenue that a company keeps after incurring the direct costs associated with producing the goods or services it sells. These direct costs are referred to as the Cost of Goods Sold (COGS).</p>
             

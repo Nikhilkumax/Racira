@@ -146,7 +146,7 @@ const FlightEmissionsCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Aviation and the Climate</h2>
               <p>Air travel is one of the most carbon-intensive activities an individual can perform. A single long-haul flight can produce more CO2 emissions than many people produce in an entire year through other activities.</p>
               <h3>The Radiative Forcing Index (RFI)</h3>

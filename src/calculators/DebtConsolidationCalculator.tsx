@@ -130,7 +130,7 @@ const DebtConsolidationCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>When Does Consolidation Make Sense?</h2>
               <p>Debt consolidation is beneficial when you can secure a consolidation loan at a meaningfully lower interest rate than your current debts. It simplifies your finances into a single monthly payment and can reduce total interest costs significantly.</p>
               <h3>Watch Out for Longer Terms</h3>

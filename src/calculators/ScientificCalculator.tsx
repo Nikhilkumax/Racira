@@ -266,9 +266,9 @@ const ScientificCalculator = () => {
           </div>
         </div>
         
-        <div className="max-w-[1000px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Online Scientific Calculator</h2>
             <p>A <strong>scientific calculator</strong> goes far beyond the capabilities of a basic arithmetic tool. It is engineered to solve complex mathematical, engineering, and scientific problems. Unlike basic calculators that process equations linearly as you type them, a scientific calculator strictly adheres to the mathematical order of operations (PEMDAS/BODMAS), allowing you to input complex, multi-layered equations exactly as they appear in a textbook.</p>
 

@@ -190,9 +190,9 @@ const FuelCostCalculator = () => {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Hidden Costs of the American Road Trip</h2>
             <p>The great American road trip is a classic vacation, but calculating the true cost of driving across the country can be deceiving. When choosing between driving 1,200 miles to a destination or buying a $300 airline ticket, many people vastly underestimate the cost of the drive because they only think about filling up the gas tank once.</p>
 

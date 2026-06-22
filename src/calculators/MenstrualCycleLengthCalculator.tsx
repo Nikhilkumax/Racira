@@ -232,9 +232,9 @@ export default function MenstrualCycleLengthCalculator() {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding Your Menstrual Cycle Length</h2>
             <p>The female menstrual cycle is a complex, continuous sequence of hormonal shifts designed to prepare the body for a potential pregnancy. Understanding the exact length of your cycle is the foundation of reproductive health, whether you are trying to conceive (TTC), practicing natural family planning, or simply monitoring for hormonal imbalances.</p>
             <p>This <strong>Menstrual Cycle Length Calculator</strong> determines the exact biological length of your cycle and utilizes retrograde clinical tracking to estimate your upcoming ovulation date, fertile window, and next period.</p>

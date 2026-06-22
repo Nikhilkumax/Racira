@@ -87,7 +87,7 @@ const CircleCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance"><h2>Circle Formulas</h2><p><strong>Area:</strong> A = πr² | <strong>Circumference:</strong> C = 2πr | <strong>Diameter:</strong> d = 2r | <strong>Arc Length:</strong> L = (θ/360) × 2πr</p></article>
+          <article className="prose-finance text-[15.75px]"><h2>Circle Formulas</h2><p><strong>Area:</strong> A = πr² | <strong>Circumference:</strong> C = 2πr | <strong>Diameter:</strong> d = 2r | <strong>Arc Length:</strong> L = (θ/360) × 2πr</p></article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/circle-calculator" />
           <PopularCalculators exclude="/circle-calculator" />
         </div>

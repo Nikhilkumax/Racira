@@ -282,9 +282,9 @@ export default function HiitCalorieBurnCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Efficiency of High-Intensity Interval Training (HIIT)</h2>
             <p>For decades, the fitness industry believed that the only way to lose weight and improve cardiovascular health was to jog at a moderate pace for 45 to 60 minutes on a treadmill. Then, the science of High-Intensity Interval Training (HIIT) emerged and completely disrupted the status quo. By alternating between short bursts of absolute maximum effort and brief periods of rest, researchers discovered that athletes could achieve drastically superior cardiovascular adaptations and fat-loss results in a fraction of the time. The <strong>HIIT Calorie Burn Calculator</strong> bypasses generic fitness watch estimations by utilizing clinical Metabolic Equivalent (MET) formulas based on your specific work-to-rest intervals, providing an exact mathematical measurement of your intense thermodynamic output.</p>
 

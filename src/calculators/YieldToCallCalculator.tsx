@@ -190,9 +190,9 @@ const YieldToCallCalculator = () => {
           </div>
         </div>
 
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Yield to Call Calculator?</h2>
             <p>A yield to call calculator determines the annualized return on a callable bond if the issuer redeems it on the earliest call date at the specified call price. Pre-filled with a $1,000 face value bond priced at $1,050 with an 8% coupon, $1,020 call price, and 5 years to call, the YTC is approximately 7.02% — meaningfully below the 8% coupon because the investor pays a premium and receives only $1,020 (not $1,000) at call. Callable bonds are common in corporate and municipal bond markets.</p>
             <p>When a bond trades at a premium, the issuer has financial incentive to call it and refinance at lower market rates. In such cases, yield to call is often a more realistic return expectation than yield to maturity. Our yield to call calculator helps bond investors assess call risk and true expected return.</p>

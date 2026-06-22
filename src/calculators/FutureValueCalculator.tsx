@@ -185,7 +185,7 @@ export default function FutureValueCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding Future Value</h2>
             <p>Future Value (FV) is the projected value of a current sum of money at a future date, assuming a specific rate of growth over time. It is one of the most important concepts in personal finance and investing, forming the mathematical backbone of retirement planning, college savings, investment analysis, and any goal that involves accumulating money over time.</p>
             <p>The core insight behind future value is the time value of money: money today is worth more than the same amount in the future because it can be invested to earn returns. Conversely, the future value calculation tells you exactly how much your current money will grow to — making it the essential tool for turning savings goals into concrete investment plans.</p>

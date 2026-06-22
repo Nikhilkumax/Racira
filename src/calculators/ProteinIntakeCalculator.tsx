@@ -133,7 +133,7 @@ const ProteinIntakeCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Why Protein Matters</h2>
               <p>Protein is the building block of muscle, skin, enzymes, and hormones. Unlike fats and carbohydrates, the body does not store protein effectively, meaning you need a consistent daily intake.</p>
               <h3>Protein and Fat Loss</h3>

@@ -228,9 +228,9 @@ export default function BondDurationCalculator() {
           </div>
         </div>
 
-        <div className="max-w-[1180px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is Bond Duration?</h2>
             <p>Bond duration is one of the most important concepts in fixed-income investing — yet it's frequently misunderstood. Duration is not simply the time until a bond matures. Rather, it is the weighted average time until all cash flows (coupons and principal repayment) are received, where each cash flow is weighted by its present value as a fraction of the total bond price. Duration measures both the average timing of a bond's cash flows and, critically, its sensitivity to interest rate changes.</p>
             <p>Our calculator is pre-filled with a typical investment-grade bond: $1,000 face value, 6% coupon, 10-year maturity, 5% yield to maturity, semi-annual payments. This produces a bond price of approximately $1,077 (premium bond since coupon &gt; yield) and a Macaulay Duration of about 7.8 years.</p>

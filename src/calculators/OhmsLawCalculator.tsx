@@ -178,9 +178,9 @@ const OhmsLawCalculator = () => {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is Ohm&apos;s Law?</h2>
             <p>Ohm&apos;s Law is the fundamental relationship in electrical circuit analysis: the voltage across a conductor equals the current flowing through it multiplied by its resistance (V = I × R). Published by German physicist Georg Simon Ohm in 1827, this simple equation underpins all of electrical engineering and electronics. This calculator solves for any one of the three variables — voltage, current, or resistance — given the other two, and also computes power using the three equivalent power formulas.</p>
             <p>Pre-filled with 12V and 4Ω (a common 12V automotive circuit), the calculator immediately shows that 3 amperes of current flow and 36 watts of power are consumed — typical for a small automotive accessory.</p>

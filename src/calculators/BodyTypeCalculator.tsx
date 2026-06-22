@@ -196,9 +196,9 @@ export default function BodyTypeCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding Your Genetic Blueprint</h2>
             <p>A body type calculator is a crucial first step in designing an effective, highly personalized fitness regimen. For decades, frustrated gym-goers have downloaded generic workout templates from fitness magazines, only to find they yield zero results. The reason is simple: a high-volume, low-rest workout designed for a naturally muscular athlete will absolutely destroy the nervous system of a naturally skinny beginner. By determining your dominant somatotype—Ectomorph, Mesomorph, or Endomorph—you unlock the specific metabolic rules that govern your body, allowing you to stop fighting your genetics and start working with them.</p>
             <p>Originally categorized by American psychologist William Sheldon in the 1940s, somatotyping provides a framework for understanding human physical variation. While modern exercise science rejects Sheldon's psychological assumptions, the physiological classifications remain the gold standard heuristic used by elite personal trainers and sports dietitians to establish baseline training protocols for new clients.</p>

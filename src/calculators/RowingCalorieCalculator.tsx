@@ -281,9 +281,9 @@ export default function RowingCalorieCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Unmatched Efficiency of the Rowing Machine</h2>
             <p>For decades, the treadmill and the elliptical have dominated commercial gym cardio sections. However, in recent years, the indoor rowing machine (ergometer) has surged in popularity, largely driven by the rise of functional fitness and CrossFit. The reason is simple: efficiency. Rowing is one of the few cardiovascular exercises that simultaneously acts as full-body resistance training. But calculating exactly how many calories you are burning while pulling the chain is complex. The <strong>Rowing Calorie Calculator</strong> eliminates the generic estimations of gym consoles by utilizing clinical Metabolic Equivalent (MET) formulas. By factoring in your specific body mass and exact exertion level, it provides a highly accurate, biologically sound caloric burn estimate.</p>
 

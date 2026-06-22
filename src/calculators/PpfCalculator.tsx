@@ -109,7 +109,7 @@ const PPFCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>What Is a PPF Calculator?</h2>
               <p>A PPF calculator helps you estimate the maturity value of your Public Provident Fund account based on annual deposits, interest rate, and tenure. PPF is one of the safest investment options in India, backed by the Government of India.</p>
 

@@ -192,7 +192,7 @@ const PayrollTaxCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Understanding Payroll Taxes</h2>
               <p>Payroll taxes are taxes imposed on employers and employees and are usually calculated as a percentage of the salaries that employers pay their staff. These taxes fund essential social insurance programs, including Social Security and Medicare.</p>
 

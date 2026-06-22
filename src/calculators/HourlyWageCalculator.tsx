@@ -153,9 +153,9 @@ export default function HourlyWageCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Why Convert Salary to an Hourly Wage?</h2>
             <p>At first glance, converting an annual salary into an hourly wage might seem like a simple mathematical exercise. However, for professionals, it is a critical step in understanding the true, granular value of their time. Society often measures career success by the "headline" salary number—$70,000, $100,000, or $150,000. But that headline number hides the reality of how many hours of your life you are actually trading for that money.</p>
             <p>By converting your salary to an hourly wage, you uncover your "Effective Hourly Rate." This metric is essential for evaluating job offers, understanding the financial impact of unpaid overtime, and making better day-to-day spending decisions based on the time-value of your money.</p>

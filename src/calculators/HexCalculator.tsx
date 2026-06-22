@@ -226,9 +226,9 @@ const HexCalculator = () => {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Power of Hexadecimal</h2>
             <p><strong>Hexadecimal (Base-16)</strong> is a numbering system designed to make raw binary code significantly more human-readable. Computers only understand binary (Base-2), meaning long strings of 0s and 1s. However, writing out millions of binary digits is incredibly prone to error for human programmers.</p>
             <p>Hexadecimal solves this problem elegantly. Because 16 is exactly 2⁴, one single hexadecimal digit maps perfectly to four binary digits (a "nibble"). Therefore, an 8-bit byte (like <code>1101 0101</code>) can be compressed down to just two hex characters (<code>D5</code>). This drastically shortens code while retaining an exact, mathematical link to the underlying binary.</p>

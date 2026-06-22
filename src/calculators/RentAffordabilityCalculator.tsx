@@ -102,7 +102,7 @@ const RentAffordabilityCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Renting Without Stress</h2>
               <p>Rent is often the single largest monthly expense. Overextending yourself on a "dream apartment" can lead to a cycle of debt and prevent you from reaching other financial goals like traveling or saving for a down payment.</p>
               <h3>Why the 30% Rule Exists</h3>

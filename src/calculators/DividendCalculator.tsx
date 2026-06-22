@@ -228,9 +228,9 @@ export default function DividendCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>How Dividend Income Is Calculated</h2>
             <p>This <strong>dividend calculator</strong> computes your current income and projects future portfolio value and dividend income using compounding growth assumptions. Annual Dividend = Portfolio Value × Dividend Yield. With DRIP enabled, dividends purchase additional shares at each payment, creating a compounding cycle where each reinvestment generates its own future dividends. Over 20 years, DRIP can add 40–60% more total return compared to taking dividends as cash.</p>
             <h2>The Power of Dividend Growth Investing</h2>

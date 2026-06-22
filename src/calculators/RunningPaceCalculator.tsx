@@ -127,9 +127,9 @@ export default function RunningPaceCalculator() {
             </div>
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>How to Use the Running Pace Calculator</h2>
             <p>Enter your distance, completion time, and body weight to instantly calculate pace per km and mile, running speed, calories burned, and projected finish times for all major race distances. Whether you are training for a 5K or targeting a sub-3-hour marathon, this tool provides the data you need to structure your training.</p>
             <h2>Understanding Running Pace</h2>

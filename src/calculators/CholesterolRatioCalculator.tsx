@@ -215,9 +215,9 @@ export default function CholesterolRatioCalculator() {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Why "Total Cholesterol" is a Flawed Metric</h2>
             <p>For decades, physicians focused almost entirely on a patient's Total Cholesterol number, pushing patients to aggressively lower it below 200 mg/dL. Modern lipidology has revealed that Total Cholesterol is actually a relatively poor predictor of cardiovascular events when viewed in isolation.</p>
             <p>Cholesterol is not an inherently dangerous toxin; it is a vital structural component of every cell membrane in your body and the precursor to essential hormones like testosterone and estrogen. It travels through your bloodstream inside protein "boats" known as lipoproteins. The clinical danger arises not from having cholesterol, but from the <em>type</em> of lipoproteins carrying it.</p>

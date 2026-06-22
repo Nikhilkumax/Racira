@@ -172,9 +172,9 @@ export default function AutoLeaseCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is an Auto Lease Calculator?</h2>
             <p>An auto lease calculator is an essential financial tool that demystifies the complex mathematics behind car leasing. Unlike a standard auto loan where you are financing the entire purchase price of a vehicle, a lease operates on a completely different framework. When you lease a car, you are essentially paying for the exact amount of value the car loses (depreciation) during the time you drive it, plus a finance charge (rent charge) and taxes. Because the vocabulary of leasing—using terms like Money Factor, Capitalized Cost, and Residual Value—is designed to be opaque, dealerships often use leasing as a way to maximize profit from uninformed buyers.</p>
             <p>This calculator strips away the dealership jargon and reveals the true cost of your lease. By independently calculating the depreciation fee, the rent charge, and the localized sales tax, it empowers you to negotiate effectively. You will no longer be negotiating a "monthly payment"—a dangerous practice that allows dealers to hide fees—but rather negotiating the raw numbers that construct that payment.</p>

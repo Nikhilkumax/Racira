@@ -344,9 +344,9 @@ export default function ChargingSpeedCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is an EV Charging Speed Calculator?</h2>
             <p>An EV Charging Speed Calculator is a specialized tool designed to estimate exactly how long it will take to charge an Electric Vehicle battery. Unlike filling a gas tank, which takes exactly 3 minutes regardless of how empty the tank is, charging a battery is an incredibly dynamic process. It depends on the size of the battery, the maximum output of the charger, and crucially, the battery's current State of Charge (SoC). This calculator factors in these complex variables to provide a realistic time estimate.</p>
 

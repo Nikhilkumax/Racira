@@ -230,9 +230,9 @@ const VoltageDropCalculator = () => {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Physics of Voltage Drop</h2>
             <p>No wire is a perfect conductor of electricity. Even highly conductive metals like copper and aluminum possess a small amount of internal resistance to the flow of electrons. When electrical current (Amperage) pushes through this resistance over a long distance, some of the electrical energy is converted into heat and lost to the surrounding environment. This loss of electrical "pressure" is known as <strong>Voltage Drop</strong>.</p>
             

@@ -119,7 +119,7 @@ const SurfaceAreaCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Surface Area Formulas</h2>
               <p>Surface area measures the total area of the exterior surfaces of a 3D object. This calculator supports cubes, spheres, cylinders, cones, and rectangular prisms (boxes), providing both total and lateral surface area.</p>
             </article>

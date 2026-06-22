@@ -140,7 +140,7 @@ const EBITDACalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>What Is EBITDA?</h2>
               <p>EBITDA (Earnings Before Interest, Taxes, Depreciation, and Amortization) is a widely used measure of core profitability. By excluding financing costs, tax rates, and non-cash accounting charges, EBITDA reveals a company's operational performance independent of its capital structure and accounting decisions.</p>
 

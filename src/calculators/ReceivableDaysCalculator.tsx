@@ -124,9 +124,9 @@ export default function ReceivableDaysCalculator() {
             </div>
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10"/>
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is Days Sales Outstanding (DSO)?</h2>
             <p>Days Sales Outstanding (DSO) is a financial ratio that measures the average number of days a company takes to collect payment after a sale has been made on credit. It is a key accounts receivable efficiency metric used by finance teams, credit analysts, and investors to assess collection effectiveness and working capital management quality.</p>
             <h2>DSO Formula</h2>

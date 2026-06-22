@@ -138,9 +138,9 @@ export default function MacroCalculator() {
             </div>
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Macro Calculator?</h2>
             <p>A macro calculator converts your total daily calorie goal into specific gram targets for protein, carbohydrates, and fat based on your chosen percentage split. Macronutrients are the three classes of nutrients that provide energy: protein and carbohydrates each provide 4 kcal per gram; fat provides 9 kcal per gram. Tracking macros (not just calories) allows precision nutrition for specific body composition goals.</p>
             <h2>How to Choose Your Macro Split</h2>

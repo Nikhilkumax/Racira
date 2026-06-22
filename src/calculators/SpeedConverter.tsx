@@ -126,7 +126,7 @@ export default function SpeedConverter() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>Complete Guide to Speed Unit Conversion</h2>
             <p>Speed is defined as the rate at which an object covers distance over time. Different fields and regions use different speed units, making conversions essential for science, transportation, sports, and engineering. This converter handles all major speed units: meters per second (m/s), kilometers per hour (km/h), miles per hour (mph), knots (kn), feet per second (ft/s), and Mach numbers.</p>
             <p>The SI base unit for speed is meters per second (m/s). However, km/h is the most commonly used unit globally for road speeds and weather, mph is standard in the United States and United Kingdom, and knots are used universally in aviation and maritime navigation. Mach numbers are used for supersonic and high-altitude flight where the speed of sound is a critical reference point.</p>

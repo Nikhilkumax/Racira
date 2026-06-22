@@ -1,5 +1,5 @@
 "use client";
-import { RotateCcw, TrendingUp, Hammer, DollarSign, AlertTriangle } from "lucide-react";
+import { RotateCcw, TrendingUp, Hammer, DollarSign, AlertTriangle, ChevronDown } from "lucide-react";
 
 import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
@@ -88,29 +88,33 @@ const HardMoneyLoanCalculator = () => {
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Hard Money Loan Calculator</h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="grid sm:grid-cols-2 gap-8">
-                <section className="space-y-6">
-                  <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
-                    <Hammer className="h-5 w-5 text-primary" /> Project Details
-                  </h2>
-                  <InputField id="purchase" label="Purchase Price" value={purchasePrice} onChange={setPurchasePrice} prefix="$" />
-                  <InputField id="reno" label="Renovation Cost" value={renovationCost} onChange={setRenovationCost} prefix="$" />
-                  <InputField id="arv" label="After Repair Value (ARV)" value={arv} onChange={setArv} prefix="$" tooltip="Estimated market value after all renovations are complete." />
-                </section>
+          <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
+            <div className="flex flex-col gap-4">
+              <InputField id="purchase" label="Purchase Price" value={purchasePrice} onChange={setPurchasePrice} prefix="$" />
+              <InputField id="reno" label="Renovation Cost" value={renovationCost} onChange={setRenovationCost} prefix="$" />
+              <InputField id="arv" label="After Repair Value (ARV)" value={arv} onChange={setArv} prefix="$" tooltip="Estimated market value after all renovations are complete." />
+              <InputField id="rate" label="Interest Rate (Annual %)" value={interestRate} onChange={setInterestRate} suffix="%" step="0.1" />
+            </div>
 
-                <section className="space-y-6">
-                  <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
-                    <DollarSign className="h-5 w-5 text-primary" /> Loan Terms
-                  </h2>
+            <div>
+              <button
+                type="button"
+                onClick={() => setShowResults((prev) => !prev)}
+                className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline mt-1 focus:outline-none"
+              >
+                Advanced Options
+                <ChevronDown className={`h-3 w-3 transition-transform ${showResults ? "rotate-180" : ""}`} />
+              </button>
+
+              {showResults && (
+                <div className="grid grid-cols-1 gap-3 p-4 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up">
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1 font-bold">Loan Details</div>
                   <InputField id="ltc" label="Loan-to-Cost (%)" value={ltc} onChange={setLtc} suffix="%" tooltip="Percentage of total costs funded by the lender." />
-                  <InputField id="rate" label="Interest Rate (Annual %)" value={interestRate} onChange={setInterestRate} suffix="%" step="0.1" />
-                  <div className="grid grid-cols-2 gap-4">
-                    <InputField id="points" label="Points" value={points} onChange={setPoints} suffix="pts" />
-                    <InputField id="term" label="Term" value={loanTerm} onChange={setLoanTerm} suffix="mo" />
-                  </div>
-                </section>
-              </div>
+                  <InputField id="points" label="Points" value={points} onChange={setPoints} suffix="pts" />
+                  <InputField id="term" label="Term" value={loanTerm} onChange={setLoanTerm} suffix="mo" />
+                </div>
+              )}
+            </div>
               <div className="mt-8 flex gap-3 items-center">
                 <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Loan</button>
 <button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground flex items-center gap-2 font-bold text-sm">
@@ -122,17 +126,10 @@ const HardMoneyLoanCalculator = () => {
           <div className="flex flex-col gap-3">
             {showResults && results && (
               <>
-                <div className="grid sm:grid-cols-2 gap-4 mb-6">
-                  <div className="card-calculator bg-emerald-500/5 border-emerald-500/20 text-center flex flex-col justify-center py-8">
-                    <p className="text-xs font-bold text-emerald-600 uppercase tracking-widest mb-1">Projected Net Profit</p>
-                    <p className="text-5xl font-black text-foreground">${Math.round(results.profit).toLocaleString()}</p>
-                    <p className="text-sm font-bold text-emerald-500 mt-2">{results.roi.toFixed(1)}% ROI</p>
-                  </div>
-                  <div className="card-calculator bg-primary/5 border-solid border-primary/20 text-center flex flex-col justify-center py-8">
-                    <p className="text-xs font-bold text-primary uppercase tracking-widest mb-1">Total Loan Amount</p>
-                    <p className="text-5xl font-black text-foreground">${Math.round(results.loanAmount).toLocaleString()}</p>
-                    <p className="text-[10px] text-primary mt-2 font-bold uppercase tracking-widest">({ltc}% of Cost)</p>
-                  </div>
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 mb-6">
+                  <div className="text-xs font-bold text-primary mb-1 uppercase tracking-wider">Projected Net Profit</div>
+                  <div className="text-4xl font-extrabold text-foreground mb-1 tracking-tight">${Math.round(results.profit).toLocaleString()}</div>
+                  <div className="text-sm text-muted-foreground font-medium">Total Loan Amount: ${Math.round(results.loanAmount).toLocaleString()} ({ltc}% of Cost)</div>
                 </div>
 
                 <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
@@ -160,34 +157,30 @@ const HardMoneyLoanCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
-              <h2>Fix-and-Flip with Hard Money</h2>
+          <article className="prose-finance text-[15.75px]">
+              <h2 className="text-2xl font-bold mb-3">Fix-and-Flip with Hard Money</h2>
               <p>Hard money loans are the lifeblood of real estate investors. Because these loans focus on the property's potential value rather than the borrower's credit score, they allow for rapid funding of distressed properties that traditional banks won't touch.</p>
 
-              <h3>The Mechanics of the Loan</h3>
+              <h2 className="text-2xl font-bold mb-3">The Mechanics of the Loan</h2>
               <p>Hard money lenders care most about the <strong>ARV (After Repair Value)</strong>. They typically lend up to 70-75% of the ARV, which should cover both the purchase price and the renovation costs. This "70% Rule" is a standard benchmark used to ensure there is enough profit margin to cover high interest rates and unexpected costs.</p>
 
-              <h3>Understanding the Costs</h3>
+              <h2 className="text-2xl font-bold mb-3">Understanding the Costs</h2>
               <p>Because hard money is high-risk for the lender, it is high-cost for the borrower. You should expect:</p>
-              <ul>
-                <li><strong>High Interest:</strong> Rates typically range from 10% to 15%, depending on your experience and the market.</li>
-                <li><strong>Points:</strong> Upfront fees of 1-4% of the loan amount are common.</li>
-                <li><strong>Closing Costs:</strong> In addition to points, you'll pay for appraisals, title work, and legal fees.</li>
-              </ul>
+              <p><strong>High Interest:</strong> Rates typically range from 10% to 15%, depending on your experience and the market.</p>
+              <p><strong>Points:</strong> Upfront fees of 1-4% of the loan amount are common.</p>
+              <p><strong>Closing Costs:</strong> In addition to points, you'll pay for appraisals, title work, and legal fees.</p>
 
-              <h3>Managing the 'Holding Period'</h3>
+              <h2 className="text-2xl font-bold mb-3">Managing the 'Holding Period'</h2>
               <p>Time is money in real estate flipping. Since hard money interest is charged monthly on the full loan balance, every day the house sits on the market or every week the contractor is delayed directly eats into your net profit. This calculator helps you see exactly how much each month of 'holding' costs you.</p>
 
-              <h3>Why Use Hard Money?</h3>
+              <h2 className="text-2xl font-bold mb-3">Why Use Hard Money?</h2>
               <p>If it's so expensive, why use it? The answer is <strong>speed and leverage</strong>. Hard money lenders can often fund a deal in 7-10 days, allowing you to beat out other buyers who are waiting for bank approvals. Additionally, using a lender's capital allows you to flip multiple houses simultaneously with less of your own cash tied up in any single deal.</p>
 
-              <h2>Critical Success Factors</h2>
+              <h2 className="text-2xl font-bold mb-3">Critical Success Factors</h2>
               <p>To maximize your ROI when using hard money, focus on these three areas:</p>
-              <ol>
-                <li><strong>Accurate ARV:</strong> Overestimating the final sale price is the most common reason flippers lose money. Always use conservative 'Comps' (comparable sales).</li>
-                <li><strong>Tight Renovation Budget:</strong> Get multiple quotes and add a 10-20% contingency fund for 'surprises' behind the walls.</li>
-                <li><strong>Speed:</strong> Have your contractors ready to go the day you close. Every day the house is empty is a day you are losing interest.</li>
-              </ol>
+              <p><strong>Accurate ARV:</strong> Overestimating the final sale price is the most common reason flippers lose money. Always use conservative 'Comps' (comparable sales).</p>
+              <p><strong>Tight Renovation Budget:</strong> Get multiple quotes and add a 10-20% contingency fund for 'surprises' behind the walls.</p>
+              <p><strong>Speed:</strong> Have your contractors ready to go the day you close. Every day the house is empty is a day you are losing interest.</p>
             </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/hard-money-loan-calculator" />
           <PopularCalculators exclude="/calculator/hard-money-loan-calculator" />

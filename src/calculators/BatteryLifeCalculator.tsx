@@ -280,9 +280,9 @@ export default function BatteryLifeCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding Battery Capacity (Amp-Hours)</h2>
             <p>Whether you are building a solar system for an RV, powering a portable fridge for overlanding, or setting up a trolling motor for a boat, your primary limitation is battery capacity. Deep cycle batteries are measured in <strong>Amp-Hours (Ah)</strong>. This metric tells you exactly how much electrical current the battery can hold. If a device draws 5 Amps of current, and you run it for 2 hours, you have consumed 10 Amp-Hours of battery capacity.</p>
 

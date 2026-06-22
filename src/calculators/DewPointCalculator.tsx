@@ -204,9 +204,9 @@ const DewPointCalculator = () => {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Why Dew Point is Better Than Relative Humidity</h2>
             <p>If you have ever stepped outside in Florida during the summer and felt like you could drink the air, you have experienced a high <strong>Dew Point</strong>. While most weather apps prominently display Relative Humidity (RH), meteorologists actually prefer using the Dew Point to measure human comfort.</p>
             <p>Why? Because Relative Humidity is highly misleading. RH measures how close the air is to being completely saturated with water, but this capacity changes with temperature. Hot air can hold vastly more water than cold air. If the temperature is 95°F with 50% humidity, the air feels violently oppressive. But if the temperature is 35°F with 50% humidity, the air feels crisp and dry. The RH is the exact same, but the physical amount of water floating around you is entirely different.</p>

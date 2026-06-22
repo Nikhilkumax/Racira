@@ -175,7 +175,7 @@ const GitRepoSizeCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>The Mechanics of Git Storage</h2>
               <p>Git is incredibly efficient at storing source code. Instead of saving a full copy of a file every time you make a commit, it uses compression and deltas. A delta only stores the lines of text that changed between commits. This allows a repository with thousands of commits to remain remarkably small.</p>
               

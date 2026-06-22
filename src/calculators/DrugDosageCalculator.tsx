@@ -245,9 +245,9 @@ export default function DrugDosageCalculator() {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Mathematics of Weight-Based Dosing</h2>
             <p>Administering medication to pediatric patients or underweight adults requires absolute mathematical precision. Unlike standard adult medications which often come in fixed, universal pill sizes (e.g., "take two 200mg capsules"), pediatric medications must be dynamically scaled. This <strong>Drug Dosage Calculator</strong> automates the clinical pharmacology equations required to safely convert a prescribed mg/kg target into an exact liquid milliliter (mL) volume for syringe administration.</p>
 

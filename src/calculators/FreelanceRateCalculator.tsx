@@ -96,7 +96,7 @@ export default function FreelanceRateCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Setting Your Freelance Rate: A Complete Guide</h2>
               <p>Pricing your freelance services is one of the most important business decisions you'll make. Charge too little and you'll be overworked and underpaid. Charge too much without the portfolio to justify it and you'll struggle to win clients. The goal is to find a rate that covers all your costs, compensates for all the time you spend on non-billable activities, and provides a sustainable income for your lifestyle.</p>
               <h2>The Hidden Costs of Freelancing</h2>

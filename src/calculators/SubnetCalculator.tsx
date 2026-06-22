@@ -148,7 +148,7 @@ const SubnetCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Understanding Subnetting</h2>
               <p>In the early days of the Internet, IP addresses were assigned in large blocks called "classes" (Class A, B, and C). This was extremely wasteful, as many organizations received far more addresses than they needed. Subnetting was developed to allow for much more precise allocation of IP address space.</p>
               <h3>CIDR Notation</h3>

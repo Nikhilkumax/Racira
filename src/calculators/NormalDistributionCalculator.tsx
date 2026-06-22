@@ -123,9 +123,9 @@ export default function NormalDistributionCalculator() {
             </div>
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Normal Distribution Calculator — Overview</h2>
             <p>This normal distribution calculator computes the Z-score, cumulative probability (CDF), percentile rank, and left/right tail probabilities for any value from a normal distribution. It uses the error function (erf) for precise CDF calculation and renders the full bell curve for visual reference.</p>
             <h2>Key Formulas</h2>

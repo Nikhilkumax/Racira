@@ -311,9 +311,9 @@ export default function CarDownPaymentCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Why Use a Car Down Payment Calculator?</h2>
             <p>A Car Down Payment Calculator allows you to visualize the direct mathematical impact of bringing cash to the closing table. Many buyers fixate entirely on the monthly payment negotiated at the dealership without realizing the massive downstream effects of a down payment. Dropping cash upfront doesn't just lower your monthly bill; it drastically reduces the total amount of interest you will pay to the bank over the life of the loan.</p>
 

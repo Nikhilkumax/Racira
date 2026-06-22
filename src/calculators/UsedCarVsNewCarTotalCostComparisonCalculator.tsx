@@ -309,7 +309,7 @@ const UsedCarVsNewCarTotalCostComparisonCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is the Used vs New Car Total Cost Comparison?</h2>
             <p>This calculator performs a comprehensive side-by-side comparison of the total cost of ownership for a new car versus a used car over the same ownership period. It goes beyond sticker prices to include every cost factor: depreciation, financing interest, insurance, fuel, maintenance, and registration — giving you the honest financial picture needed to make the right purchase decision.</p>
 

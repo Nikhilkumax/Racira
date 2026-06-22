@@ -489,9 +489,9 @@ export default function AutoLoanCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding the Auto Loan Calculator</h2>
             <p>Buying a car is typically the second largest purchase an average consumer will make, following only the purchase of a home. Yet, while home buyers spend months analyzing mortgages, car buyers often make rushed decisions in the finance office of a dealership. An <strong>Auto Loan Calculator</strong> is your primary defense against overpaying. It is an essential financial tool that demystifies dealership mathematics, allowing you to accurately estimate your monthly payments and uncover the true, long-term cost of vehicle ownership before you sign a contract.</p>
             <p>Dealerships frequently negotiate based on the "monthly payment" rather than the total purchase price of the vehicle. This tactic obscures the actual cost. By stretching a loan over 72 or 84 months, a salesperson can hit your target monthly payment while quietly increasing the total vehicle price and inflating the interest charges by thousands of dollars. Our comprehensive Auto Loan Calculator prevents this by giving you the power to see the entire amortization schedule, factoring in trade-in values, local taxes, dealer fees, and manufacturer incentives.</p>

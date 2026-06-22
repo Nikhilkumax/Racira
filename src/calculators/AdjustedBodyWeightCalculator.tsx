@@ -124,7 +124,7 @@ const AdjustedBodyWeightCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Clinical Uses of Body Weight Calculations</h2>
               <p>In clinical settings, using a patient's actual weight can lead to overdosing or overfeeding if the patient is obese. Using their ideal body weight can lead to underdosing or underfeeding.</p>
               <h3>Why Use ABW?</h3>

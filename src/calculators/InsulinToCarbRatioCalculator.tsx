@@ -240,9 +240,9 @@ export default function InsulinToCarbRatioCalculator() {
         </div>
 
         {/* SEO CONTENT */}
-        <div className="max-w-[1100px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding the Insulin-to-Carb Ratio Calculator</h2>
             <p>For individuals managing Type 1 Diabetes or insulin-dependent Type 2 Diabetes, precision is the difference between optimal health and dangerous glycemic extremes. Modern diabetes management relies heavily on Intensive Insulin Therapy (IIT), also known as "basal-bolus" therapy. This strategy mimics a healthy pancreas by providing a steady baseline of insulin (basal) and sharp spikes of insulin (bolus) specifically to cover the carbohydrates eaten at meals. To successfully bolus for a meal, you must know your exact <strong>Insulin-to-Carb Ratio (ICR)</strong>. Our calculator uses established clinical algorithms to provide you with your baseline ICR and your Insulin Sensitivity Factor (ISF).</p>
 

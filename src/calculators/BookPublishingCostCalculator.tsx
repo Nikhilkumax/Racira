@@ -501,10 +501,10 @@ export default function BookPublishingCostCalculator() {
         </div>
 
         {/* SEO CONTENT SECTION */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
           
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>Complete Guide to Book Publishing Costs</h2>
             <h3>Understanding the True Cost of Publishing</h3>
             <p>Writing a book is free, but publishing a high-quality book that competes with traditional publishers requires a financial investment. Our Book Publishing Cost Calculator helps aspiring independent authors construct a realistic budget before launching their literary careers.</p>

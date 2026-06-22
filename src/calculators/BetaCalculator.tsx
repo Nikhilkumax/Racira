@@ -139,9 +139,9 @@ export default function BetaCalculator() {
             </div>
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is the Stock Beta Calculator?</h2>
             <p>This stock beta calculator uses the Capital Asset Pricing Model (CAPM) to compute the risk-adjusted expected return of any stock given its beta, the current risk-free rate, and the expected market return. It also calculates Jensen&apos;s Alpha — the excess return above what CAPM predicts — and plots the Security Market Line for visual context.</p>
             <h2>Beta and CAPM Formula</h2>

@@ -297,9 +297,9 @@ export default function Plan529Calculator() {
           </div>
         </div>
 
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a 529 Plan?</h2>
             <p>A 529 plan is a tax-advantaged savings plan designed to encourage saving for future education costs. Sponsored by states, state agencies, or educational institutions, these plans are legally known as "qualified tuition programs." There are two main types of 529 plans: education savings plans and prepaid tuition plans. This calculator focuses on the more common education savings plans, which allow you to open an investment account to save for the beneficiary's future qualified higher education expenses.</p>
             

@@ -209,9 +209,9 @@ export default function ConcreteCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>How to Calculate Concrete Volume</h2>
             <p>This <strong>concrete calculator</strong> computes the exact volume of concrete needed for slabs, footings, and columns in cubic yards, cubic feet, and cubic meters. The core formula for rectangular shapes: <strong>Volume (ft³) = Length (ft) × Width (ft) × Depth (in) ÷ 12</strong>. Divide by 27 to convert to cubic yards (the standard ordering unit for ready-mix concrete). Always add 10% waste to account for spillage, uneven subgrade, and settling.</p>
             <h2>Ready-Mix vs. Bagged Concrete</h2>

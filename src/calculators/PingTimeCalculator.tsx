@@ -124,7 +124,7 @@ const PingTimeCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>What is Ping?</h2>
               <p>Ping is the time it takes for a small packet of data to travel from your device to a server and back again. It is also called Round Trip Time (RTT). While download speed tells you how much data you can move, ping tells you how fast that data starts moving.</p>
               <h3>Why Distance Matters</h3>

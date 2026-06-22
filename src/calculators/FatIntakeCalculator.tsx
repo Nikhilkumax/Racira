@@ -97,7 +97,7 @@ const FatIntakeCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>The Importance of Dietary Fat</h2>
               <p>For decades, fat was demonized as the primary cause of weight gain and heart disease. Modern nutritional science has shown that dietary fat is essential for health, hormone production, and nutrient absorption.</p>
               <h3>Hormonal Balance and Fat</h3>

@@ -188,9 +188,9 @@ const BMICalculator = () => {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a BMI Calculator?</h2>
             <p>A BMI (Body Mass Index) calculator computes a standardized score from height and weight to assess weight status relative to health guidelines. BMI is the most widely used screening tool for underweight, normal weight, overweight, and obesity in adults worldwide. This calculator uses the standard WHO BMI formula, adds an estimated body fat percentage using the Deurenberg formula, and computes your Basal Metabolic Rate (BMR) — the calories your body burns at rest.</p>
             <p>Pre-filled with a 30-year-old male at 175 cm (5&apos;9&quot;) and 77 kg (170 lbs), the calculator shows BMI = 25.1 — just above the normal-weight threshold, a common scenario for millions of adults navigating their health goals.</p>

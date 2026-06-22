@@ -112,7 +112,7 @@ const WebsiteHostingCostCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Choosing the Right Web Hosting</h2>
               <p>Choosing a hosting provider is one of the most important decisions for your online business. The right choice ensures your site is fast, secure, and always available to your customers.</p>
               <h3>When to Upgrade</h3>

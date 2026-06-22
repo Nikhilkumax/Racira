@@ -209,7 +209,7 @@ export default function GdpCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding GDP: The Expenditure Approach</h2>
             <p>The Gross Domestic Product (GDP) formula using the expenditure approach is: <strong>GDP = C + I + G + (X − M)</strong>. This is the most commonly used method for calculating GDP. Consumer spending (C) typically represents 65-70% of GDP in developed economies. Business investment (I) covers capital expenditure on equipment, structures, and inventories. Government spending (G) includes federal, state, and local expenditures on goods and services (but not transfer payments like Social Security). Net exports (X−M) is exports minus imports; a trade deficit produces a negative value that reduces GDP.</p>
             <p>The US GDP is approximately $28-29 trillion annually (2024), making it the world's largest economy. China is second at approximately $18 trillion, followed by Germany, Japan, and India. The EU as a bloc exceeds $18 trillion combined. GDP growth of 2-3% annually is considered healthy for a developed economy; emerging markets often target 5-7%.</p>

@@ -219,9 +219,9 @@ export default function Omega3Calculator() {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding Omega-3 Fatty Acids</h2>
             <p>Omega-3 fatty acids are "essential" fats. Unlike saturated fats or cholesterol, the human body lacks the enzymes required to produce Omega-3s from scratch. Therefore, you must obtain them directly through your diet or via supplementation. They play a critical structural role in the cell membranes of every tissue in your body, particularly in the brain, retina, and cardiovascular system.</p>
             <p>While the supplement industry often groups all Omega-3s together, from a clinical perspective, they are absolutely not equal. There are three primary types of Omega-3 fatty acids, separated into "Marine" and "Plant" sources:</p>

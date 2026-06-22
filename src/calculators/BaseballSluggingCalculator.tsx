@@ -347,9 +347,9 @@ export default function BaseballSluggingCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Flaw of Traditional Batting Average</h2>
             <p>For decades, the most celebrated statistic in the sport of baseball was the Batting Average. If a player was hitting .300, they were automatically considered a superstar. But there is a massive, fundamental mathematical flaw in Batting Average: it treats every single hit as if it possesses the exact same value. In the eyes of Batting Average, a slow, bouncing infield single that barely beats the throw to first base is completely equal to a 450-foot grand slam home run that clears the stadium walls. The <strong>Baseball Slugging Percentage (SLG) Calculator</strong> destroys this false equivalency by evaluating hits based on the actual, physical damage they do to the opposing team.</p>
 

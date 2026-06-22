@@ -116,7 +116,7 @@ const TDEECalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>What Is TDEE?</h2>
               <p>Total Daily Energy Expenditure (TDEE) is the total number of calories your body burns in a day. It combines your Basal Metabolic Rate (BMR) — calories burned at rest — with the energy used for physical activity, digestion, and non-exercise movement. TDEE is the cornerstone of any weight management plan.</p>
 

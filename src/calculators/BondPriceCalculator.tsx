@@ -97,7 +97,7 @@ export default function BondPriceCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>How Bond Pricing Works</h2>
               <p>A bond is essentially a loan from an investor to a borrower (typically a government or corporation). In exchange for the loan, the borrower promises to pay regular interest payments (coupons) and return the principal (face value) at maturity. The fair price of a bond equals the present value of all future cash flows, discounted at the current market interest rate (yield to maturity).</p>
               <h2>The Inverse Relationship Between Price and Yield</h2>

@@ -286,9 +286,9 @@ export default function AlcoholCaloriesCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Silent Saboteur of Weight Loss</h2>
             <p>Every year, millions of people dedicate themselves to strict diets and punishing gym routines. They carefully weigh their chicken breast, they refuse to eat bread, and they spend hours on the treadmill. Yet, their weight on the scale refuses to budge. Frustrated, they blame their genetics or their age. In reality, the culprit is often sitting quietly in a glass on Friday night. The <strong>Alcohol Calories Calculator</strong> is designed to expose the hidden, massive thermodynamic debt created by casual weekend drinking, proving mathematically why you can never out-train liquid calories.</p>
 

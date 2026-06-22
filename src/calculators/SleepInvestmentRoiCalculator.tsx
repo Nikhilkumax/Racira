@@ -295,9 +295,9 @@ export default function SleepInvestmentRoiCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Mathematics of Exhaustion</h2>
             <p>For decades, "hustle culture" has glorified sleep deprivation. Ambitious professionals proudly declare, "I'll sleep when I'm dead," treating a 5-hour night of sleep as a badge of honor and a sign of massive dedication to their careers. They believe that by staying awake for two extra hours at night, they are gaining two extra hours of valuable work. The <strong>Sleep Investment ROI Calculator</strong> utilizes modern neuroscience and clinical cognitive data to prove that this belief is a catastrophic mathematical error. Sacrificing sleep does not buy you more output; it simply forces you to produce lower-quality work at a much slower, more expensive rate.</p>
 

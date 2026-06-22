@@ -128,7 +128,7 @@ const DogCalorieCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Feeding Your Dog for Longevity</h2>
               <p>Maintaining a healthy weight is the single most important factor in extending your dog's life. Even a slight excess in calories can lead to obesity-related joint issues and health complications.</p>
               <h3>Understanding Caloric Density</h3>

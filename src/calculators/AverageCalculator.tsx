@@ -95,9 +95,9 @@ const AverageCalculator = () => {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is an Average Calculator?</h2>
             <p>An average calculator computes descriptive statistics — mean, median, mode, range, sum, minimum, and maximum — for any list of numbers you provide. The arithmetic mean is the single number most people call "the average," but a complete statistical summary requires several measures to describe a dataset accurately.</p>
             <p>This calculator is useful for students computing class averages, analysts summarizing data, athletes tracking performance metrics, businesses calculating sales averages, and scientists summarizing experimental results.</p>

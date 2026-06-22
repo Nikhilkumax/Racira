@@ -332,9 +332,9 @@ export default function BlackScholesCalculator() {
           </div>
         </div>
 
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Black-Scholes Option Pricing Model</h2>
             <p>Developed by Fischer Black, Myron Scholes, and Robert Merton in 1973, the Black-Scholes model revolutionized modern finance by providing a mathematical framework for pricing options contracts. It is widely considered one of the most important concepts in financial engineering and earned its creators the Nobel Prize in Economics.</p>
             

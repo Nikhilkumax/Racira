@@ -322,9 +322,9 @@ export default function DogPregnancyDurationCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding Canine Gestation</h2>
             <p>If you are a dog breeder or have an intact female dog that recently mated, knowing the exact timeline of her pregnancy is critical for ensuring the health of both the mother (dam) and her puppies. The <strong>Dog Pregnancy Calculator</strong> takes the guesswork out of canine reproduction. By simply inputting the date of mating or ovulation, our algorithm generates a precise timeline outlining the estimated whelping date, safe delivery windows, and key fetal developmental milestones.</p>
             <p>Canine pregnancy is remarkably short compared to humans, meaning physiological changes happen rapidly. Proper nutrition, timely veterinary care, and adequate whelping preparation are required at very specific intervals to prevent life-threatening complications like eclampsia or dystocia.</p>

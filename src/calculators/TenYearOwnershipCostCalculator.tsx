@@ -273,7 +273,7 @@ const TenYearOwnershipCostCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is the 10-Year Ownership Cost Calculator?</h2>
             <p>The 10-Year Ownership Cost Calculator projects the full cost of owning a vehicle over a decade — the longest realistic ownership period for most drivers. It accounts for depreciation flattening over time, loan interest ending after the loan term, maintenance costs rising with age, and all annual operating expenses. This long view reveals the true cost efficiency of keeping a car versus replacing it.</p>
 

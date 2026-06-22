@@ -189,7 +189,7 @@ export default function BusinessValuationCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding Business Valuation</h2>
             <p>Business valuation is the process of determining the economic value of a whole business or company unit. It is used to establish the fair value of a business for sale, merger, acquisition, partner buyouts, tax reporting, or capital allocation. A thorough valuation typically employs multiple methodologies to establish a realistic valuation range rather than relying on a single approach.</p>
             

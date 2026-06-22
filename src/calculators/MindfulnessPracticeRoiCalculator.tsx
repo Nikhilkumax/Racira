@@ -317,7 +317,7 @@ export default function MindfulnessPracticeRoiCalculator() {
             </p>
           </div>
 
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Billion-Dollar Secret of Silicon Valley</h2>
             <p>If you look at the daily routines of elite performers—from Fortune 500 CEOs to hedge fund managers to Olympic athletes—you will find one terrifyingly consistent habit: Mindfulness Meditation. For decades, the Western corporate world viewed meditation as esoteric nonsense. Today, companies like Google, Apple, and Goldman Sachs actively pay their executives to sit in silence. Why? Because it is not a spiritual practice; it is a neurological upgrade. The <strong>Mindfulness Practice ROI Calculator</strong> mathematically proves that in the modern knowledge economy, where you are paid strictly for your attention and output, spending 15 minutes a day upgrading your brain's 'hardware' is the single highest-yielding financial investment you can make.</p>
 

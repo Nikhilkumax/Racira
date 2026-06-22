@@ -282,9 +282,9 @@ export default function JumpRopeCalorieCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Unmatched Caloric Power of the Jump Rope</h2>
             <p>For decades, the jump rope was viewed simply as a playground toy or a warm-up drill for professional boxers. However, modern exercise physiology has revealed the truth: from a purely thermodynamic standpoint, jumping rope is arguably the single most efficient cardiovascular exercise ever invented. It requires almost zero space, costs less than a fast-food meal, and yet, it reliably burns more calories per minute than running, swimming, or cycling. The <strong>Jump Rope Calorie Calculator</strong> eliminates the guesswork from your workouts by utilizing clinically validated Metabolic Equivalent (MET) formulas, translating your body weight, duration, and skipping pace into a mathematically precise measurement of your total energy expenditure.</p>
 

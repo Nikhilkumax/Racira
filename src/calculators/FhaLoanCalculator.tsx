@@ -177,20 +177,20 @@ export default function FhaLoanCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
-            <h2>What Is an FHA Loan Calculator?</h2>
+          <article className="prose-finance text-[15.75px]">
+            <h2 className="text-2xl font-bold mb-3">What Is an FHA Loan Calculator?</h2>
             <p>An FHA loan calculator is a specialized mortgage tool designed to compute the unique costs associated with a mortgage insured by the Federal Housing Administration. FHA loans are incredibly popular among first-time homebuyers because they drastically lower the barrier to entry, requiring a down payment of just 3.5% and accepting credit scores as low as 580. However, this leniency comes with a specific cost structure that traditional mortgage calculators fail to capture accurately.</p>
             <p>Unlike a conventional loan, an FHA loan mandates two distinct types of Mortgage Insurance Premiums (MIP) to protect the lender against default. Without factoring in both the Upfront MIP and the Annual MIP, a standard calculator will severely underestimate your monthly payment and total loan balance. This FHA loan calculator perfectly replicates the FHA underwriting process, automatically rolling the upfront fees into your loan balance and distributing the annual fees into your monthly payment, giving you the exact, to-the-penny cost of homeownership.</p>
 
-            <h2>How It Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
             <p>The math behind an FHA loan is slightly more complex than a standard amortization schedule due to the mandatory insurance premiums. Here is how the calculator processes your inputs.</p>
             <p>First, it calculates your <strong>Base Loan Amount</strong> by subtracting your Down Payment (typically 3.5%) from the Home Price. Formula: <code>Base Loan = Home Price - Down Payment</code>.</p>
             <p>Next, it calculates the <strong>Upfront MIP (Mortgage Insurance Premium)</strong>. The current FHA standard is 1.75% of the Base Loan. Most borrowers do not pay this in cash; they finance it. The calculator automatically adds this to your loan. Formula: <code>Total Loan Amount = Base Loan + (Base Loan * 1.75%)</code>.</p>
             <p>The calculator then runs a standard amortization formula on the Total Loan Amount to find your Principal and Interest (P&I) payment. Crucially, it then adds the <strong>Annual MIP</strong>. The current standard Annual MIP is 0.55% of the Base Loan, divided by 12 months. Finally, it adds your monthly property taxes, home insurance, and any HOA fees to generate the true Total Monthly Payment (often referred to as PITI + MIP).</p>
 
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>When you click calculate, the tool generates a comprehensive financial breakdown designed to mirror the Loan Estimate form you will receive from a lender.</p>
             <p><strong>Primary Result Card:</strong> This displays your Total Monthly Payment. This is the absolute amount of cash you must pay the bank every month. It includes the loan repayment, taxes, insurance, and the mandatory FHA insurance.</p>
             <p><strong>3-Stat Bar:</strong> This section highlights your Total Loan (which will be higher than you expect due to the financed Upfront MIP), your Monthly MIP cost, and the Total Cost of the loan if you keep it for the full 30-year term.</p>
@@ -198,30 +198,30 @@ export default function FhaLoanCalculator() {
             <p><strong>Monthly Payment Breakdown Chart:</strong> This pie chart breaks your monthly payment into its core components (P&I, Taxes, Insurance, and MIP). Seeing how large a slice the taxes and MIP consume helps you understand that a mortgage payment is much more than just paying back the money you borrowed.</p>
             <p><strong>Summary Statistics:</strong> A fast, readable grid aggregating the most important metrics, including the total interest you will pay over the life of the loan.</p>
 
-            <h2>Key Factors</h2>
+            <h2 className="text-2xl font-bold mb-3">Key Factors</h2>
             <p>Several variables dictate the affordability of an FHA loan. Understanding these factors can help you make a more informed purchase.</p>
             <p><strong>The 3.5% Down Payment:</strong> This is the hallmark of the FHA loan. On a $350,000 house, 3.5% is only $12,250. This low barrier allows you to preserve cash for furnishings, emergencies, and closing costs. However, a low down payment means a high loan balance, which leads to higher interest charges over time.</p>
             <p><strong>Upfront MIP (1.75%):</strong> This is a hefty fee. On a $337,750 base loan, the Upfront MIP is nearly $6,000. By rolling this into the loan (as the calculator assumes), you are paying interest on that $6,000 for the next 30 years. It is a hidden cost of the low down payment privilege.</p>
             <p><strong>Annual MIP (0.55%):</strong> This is an ongoing monthly cost. Unlike Private Mortgage Insurance (PMI) on a conventional loan, which automatically falls off when you reach 20% equity, FHA Annual MIP is permanent for the life of the loan if you put down less than 10%. The only way to remove it is to refinance the home into a conventional loan once you build enough equity.</p>
             <p><strong>Property Taxes and Insurance:</strong> These are required to be held in an escrow account and paid monthly along with your mortgage. Because they are based on the home's value, they will increase over time. They often make up 20% to 30% of your total monthly payment.</p>
 
-            <h2>Advanced Features</h2>
+            <h2 className="text-2xl font-bold mb-3">Advanced Features</h2>
             <p>The Advanced Options toggle unlocks the ability to highly customize the FHA calculations, matching the exact current FHA guidelines or adjusting for unique scenarios.</p>
             <p>While the calculator defaults to the current standard Upfront MIP of 1.75% and Annual MIP of 0.55%, these rates can change based on congressional action or FHA policy adjustments. Furthermore, if you choose a 15-year term or put down more than 5%, the Annual MIP rate drops. The advanced inputs allow you to adjust these percentages to perfectly match your lender's quote.</p>
             <p>You can also precisely adjust local Property Tax Rates and Home Insurance estimates, which vary wildly by state and zip code, ensuring your monthly payment estimate is localized and accurate.</p>
 
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <p>Let's look at how the FHA structure compares to a conventional loan scenario.</p>
             <p><strong>Example A: The FHA First-Timer.</strong> You buy a $400,000 home using an FHA loan with 3.5% down ($14,000). Your base loan is $386,000. The Upfront MIP adds $6,755, making your Total Loan $392,755. At a 6.5% interest rate, your P&I is $2,482. The Annual MIP adds $176/month. With taxes and insurance, your total payment is roughly $3,158/month. You got into the house cheaply, but your monthly burden is high, and the MIP never drops off.</p>
             <p><strong>Example B: The Conventional Wait.</strong> You wait two years and save a 10% down payment ($40,000) on the same $400,000 house, qualifying for a conventional loan. Your loan is $360,000 (no Upfront MIP!). At 6.5%, your P&I is $2,275. You pay $90/month in PMI (which falls off in a few years). With taxes and insurance, your total payment is $2,865. By waiting and saving, you save nearly $300 a month and avoid the permanent FHA insurance trap.</p>
 
-            <h2>Tips & Best Practices</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
             <p>FHA loans are excellent tools, but they must be used strategically. Follow these best practices when utilizing FHA financing.</p>
             <p>First, view the FHA loan as a stepping stone, not a permanent mortgage. Because the Annual MIP cannot be removed (if you put down less than 10%), your long-term goal should be to refinance into a conventional mortgage as soon as the home appreciates enough to give you 20% equity. This will eliminate the monthly insurance premium entirely.</p>
             <p>Second, remember that FHA appraisals are notoriously strict. The FHA requires homes to meet specific safety and livability standards. A home with peeling paint, a bad roof, or missing handrails will fail an FHA appraisal. You cannot buy a "fixer-upper" with a standard FHA 203(b) loan; you would need a specialized FHA 203(k) rehab loan.</p>
             <p>Third, negotiate for seller concessions. FHA guidelines allow sellers to contribute up to 6% of the purchase price toward your closing costs. In a buyer's market, you can use these concessions to cover origination fees, appraisal costs, or even buy down your interest rate.</p>
 
-            <h2>Benefits</h2>
+            <h2 className="text-2xl font-bold mb-3">Benefits</h2>
             <p>Using an accurate FHA loan calculator is critical because standard mortgage calculators lie to you by omission. If you only calculate Principal and Interest, you will be shocked when the lender shows you the true monthly payment incorporating the mandatory FHA premiums.</p>
             <p>This tool provides absolute clarity. It shows you the true cost of putting down only 3.5%, allowing you to budget safely. By understanding exactly how much of your payment is consumed by interest and insurance versus how much is actually paying down the principal, you can make the most informed decision possible about whether an FHA loan is the right path to your first home.</p>
           </article>

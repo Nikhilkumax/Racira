@@ -120,7 +120,7 @@ const RgbToHexConverter = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Color Models in Web Design</h2>
               <p>Computers create colors by mixing light. The primary colors of light are Red, Green, and Blue (RGB). By varying the intensity of these three lights, we can create millions of distinct colors.</p>
               

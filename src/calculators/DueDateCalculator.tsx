@@ -150,7 +150,7 @@ const DueDateCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Multiple Ways to Calculate a Due Date</h2>
               <p>Depending on how your pregnancy occurred and what data you have, different calculation methods yield different levels of accuracy.</p>
               <h3>The LMP Method (Naegele's Rule)</h3>

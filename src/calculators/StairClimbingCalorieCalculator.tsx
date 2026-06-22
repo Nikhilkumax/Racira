@@ -287,9 +287,9 @@ export default function StairClimbingCalorieCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Brutal Mathematics of the Stepmill</h2>
             <p>Walk into any commercial gym in the world, and you will notice a stark difference between the people on the treadmills and the people on the Stepmills (StairMasters). The people on the treadmills are often watching TV or casually scrolling on their phones. The people on the Stepmills are dripping with sweat, gasping for air, and staring blankly at the timer, praying for the workout to end. This is not a coincidence. From a purely thermodynamic and physiological perspective, stair climbing is one of the most mechanically devastating exercises a human being can perform. The <strong>Stair Climbing Calorie Calculator</strong> utilizes clinical Metabolic Equivalent (MET) formulas to mathematically explain exactly why the Stepmill obliterates flat-ground cardio.</p>
 

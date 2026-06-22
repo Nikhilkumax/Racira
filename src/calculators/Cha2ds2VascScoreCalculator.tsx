@@ -226,9 +226,9 @@ export default function Cha2ds2VascScoreCalculator() {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Evolution of Stroke Risk Assessment</h2>
             <p>Atrial fibrillation (AFib) is a condition where the upper chambers of the heart quiver erratically, causing blood to pool and form clots. If these clots travel to the brain, they cause massive strokes. To prevent this, doctors prescribe powerful blood thinners.</p>
             <p>For years, cardiologists used the CHADS2 score to decide who needed these medications. However, CHADS2 was fundamentally flawed because it failed to account for several major risk factors, leaving thousands of seemingly "low risk" patients unprotected. The <strong>CHA2DS2-VASc score</strong> was introduced in 2010 to fix these blind spots by incorporating age nuances, vascular disease, and sex differences.</p>

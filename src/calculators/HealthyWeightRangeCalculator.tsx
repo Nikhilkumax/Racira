@@ -215,9 +215,9 @@ export default function HealthyWeightRangeCalculator() {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Science Behind the Healthy Weight Range</h2>
             <p>Weight is a highly emotional topic, but biologically, it is simply a metric of physical mass. The medical community uses the <strong>Healthy Weight Range</strong> to identify the optimal amount of mass your specific skeleton is designed to carry.</p>
             <p>This calculator reverse-engineers the standard Body Mass Index (BMI) formula. Instead of telling you your BMI score, it calculates the exact minimum and maximum pounds you can weigh before crossing the clinical threshold into elevated health risks.</p>

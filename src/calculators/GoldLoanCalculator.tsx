@@ -383,9 +383,9 @@ export default function GoldLoanCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding the Gold Loan Calculator</h2>
             <p>For thousands of years, gold has served as the ultimate store of value. However, holding physical gold does not pay your bills. When sudden financial emergencies arise—whether it is a medical bill, a business opportunity, or an unexpected repair—selling your family's precious heirlooms is an emotional and permanent decision. A gold loan offers an alternative. An <strong>Gold Loan Calculator</strong> is a specialized financial tool designed to help you unlock the liquidity trapped within your gold assets without forfeiting ownership of them.</p>
             <p>A gold loan is fundamentally different from a car loan or a personal loan. It is an asset-backed, fully secured credit line. Because the lender is holding an asset with universally recognized intrinsic value, the lending process is incredibly fast, and credit scores are largely irrelevant. By using this calculator, you can instantly estimate how much cash your jewelry or coins can generate, allowing you to compare lender terms before handing over your precious metals.</p>

@@ -135,9 +135,9 @@ export default function SavingsGoalCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Savings Goal Calculator?</h2>
             <p>A <strong>savings goal calculator</strong> tells you exactly how much you need to save each month to reach a financial goal by a specific date. Whether you&apos;re saving for a house down payment, emergency fund, vacation, education, or retirement milestone, knowing your required monthly contribution removes guesswork and keeps your plan concrete and actionable.</p>
             <h2>How the Calculation Works</h2>

@@ -226,9 +226,9 @@ const ArmyBodyFatCalculator = () => {
           </div>
         </div>
 
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is the Army Body Fat Calculator?</h2>
             <p>The Army Body Fat Calculator uses the U.S. Army's official circumference-based method (AR 600-9) to estimate body fat percentage and evaluate compliance with U.S. Army fitness standards. Pre-filled with age 25, height 70 inches, neck 15.5 inches, and waist 33 inches for a male, the estimated body fat is approximately 17% — well within the Army standard of 22% for the 21–27 age group. This calculator is essential for soldiers, recruits, and fitness-conscious individuals tracking military fitness readiness.</p>
             <h2>Army Body Fat Formula</h2>

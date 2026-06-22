@@ -352,9 +352,9 @@ export default function BodyMassIndexCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Foundation of Modern Health Metrics</h2>
             <p>If you visit any physician in the developed world, before they check your blood pressure or draw your blood, they will measure your height and weight to calculate your Body Mass Index (BMI). Despite intense criticism from the fitness community, BMI remains the undisputed foundation of global health tracking. It is a simple, universal ratio that compares your total physical mass to your structural height. The <strong>Body Mass Index (BMI) Calculator</strong> instantly computes this crucial metric, placing you within the standard clinical classifications established by the World Health Organization (WHO).</p>
 

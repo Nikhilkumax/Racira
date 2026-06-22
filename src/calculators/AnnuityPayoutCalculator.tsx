@@ -264,7 +264,7 @@ export default function AnnuityPayoutCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding Annuity Payouts</h2>
             <p>An annuity is a structured long-term financial contract designed to mitigate the risk of outliving your retirement savings. You transfer a sum of cash to an insurance company or financial institution, and they invest it to produce steady income streams. The payout phase represents the period where you withdraw funds from this capital pool.</p>
             

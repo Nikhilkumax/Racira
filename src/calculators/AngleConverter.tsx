@@ -187,9 +187,9 @@ const AngleConverter = () => {
           </div>
         </div>
 
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is an Angle Converter?</h2>
             <p>An angle converter converts between all common angular units: degrees, radians, gradians, turns, arcminutes, arcseconds, and milliradians. Pre-filled at 45° — a fundamental angle that equals π/4 radians, 50 gradians, 1/8 turn, 2700 arcminutes, and 785.4 milliradians. The calculator also computes sin, cos, and tan for the converted angle.</p>
             <h2>Degrees vs Radians</h2>

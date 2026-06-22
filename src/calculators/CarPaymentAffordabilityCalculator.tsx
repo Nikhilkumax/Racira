@@ -374,9 +374,9 @@ export default function CarPaymentAffordabilityCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Car Payment Affordability Calculator?</h2>
             <p>A Car Payment Affordability Calculator is a reverse-engineering tool designed to protect car buyers from predatory dealership math. While a standard auto loan calculator asks "Here is the car price, what is my payment?", this affordability calculator asks "Here is my monthly budget, exactly how much car can I afford to buy?" It strips away the hidden costs by working backward, deducting taxes, fees, and interest from your total budget to reveal the true maximum vehicle sticker price you can negotiate for.</p>
 

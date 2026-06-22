@@ -207,7 +207,7 @@ export default function ViscerialFatCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is Visceral Fat?</h2>
             <p>Visceral fat is the fat that accumulates deep in the abdominal cavity, surrounding vital organs like the liver, pancreas, and intestines. Unlike subcutaneous fat — the soft fat you can pinch under your skin — visceral fat is metabolically active tissue that secretes inflammatory compounds, disrupts hormonal signals, and significantly raises the risk of chronic disease.</p>
             <p>Consumer-grade body composition monitors (like Tanita and InBody scales) express visceral fat as a level from 1 to 15 (or 1 to 30 in some systems). Levels below 4 are considered healthy. Levels above 9 represent very high risk and are associated with metabolic syndrome, elevated triglycerides, low HDL cholesterol, insulin resistance, and systemic inflammation.</p>

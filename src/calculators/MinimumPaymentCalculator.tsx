@@ -187,7 +187,7 @@ const MinimumPaymentCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>The Danger of Minimum Payments</h2>
               <p>Minimum payments are one of the most effective ways for credit card companies to maximize their profits. While they allow you to avoid late fees and keep your account active, they are mathematically structured to keep you in debt for as long as possible—often decades.</p>
 

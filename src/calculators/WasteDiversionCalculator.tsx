@@ -158,7 +158,7 @@ const WasteDiversionCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>The Importance of Waste Diversion</h2>
               <p>Waste diversion is the process of redirecting waste from landfills and incinerators to more sustainable channels like recycling, composting, or reuse. It is a key metric for businesses, municipalities, and households aiming for environmental sustainability.</p>
               

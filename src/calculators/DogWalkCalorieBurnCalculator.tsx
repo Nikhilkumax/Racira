@@ -316,9 +316,9 @@ export default function DogWalkCalorieBurnCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding the Dog Walk Calorie Burn Calculator</h2>
             <p>Walking the dog is a daily ritual for millions of pet owners worldwide. It serves as a primary source of cardiovascular exercise and mental stimulation for the animal, while providing a consistent, low-impact workout for the owner. However, quantifying the exact physiological benefits of this activity can be difficult due to differences in weight, pace, and biomechanics. The <strong>Dog Walk Calorie Burn Calculator</strong> is designed to solve this problem by simultaneously calculating the metabolic energy expenditure of both you and your canine companion.</p>
             <p>By inputting basic metrics—your weight, your dog’s weight, the duration of the walk, and the intensity of the pace—the algorithm determines exactly how many calories were burned during the session. Furthermore, it contextualizes this data by displaying what percentage of your dog's daily maintenance diet was burned off, helping you manage their weight more effectively.</p>

@@ -88,7 +88,7 @@ const CurrencyConverter = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>How Currency Conversion Works</h2>
             <p>Currency conversion calculates how much of one currency you receive when exchanging another. This converter uses fixed reference rates relative to the US Dollar (USD) as a base currency.</p>
             <h3>Understanding Exchange Rates</h3>

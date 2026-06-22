@@ -182,9 +182,9 @@ export default function HealthyWeightCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding Your Healthy Weight Range</h2>
             <p>Determining a "healthy weight" is one of the most critical steps in preventative medicine and personal fitness. Unlike the aesthetic goals pushed by fitness magazines, a clinically healthy weight is rooted in statistical biology. It represents the specific weight range at which your body functions optimally, significantly reducing your statistical risk for chronic conditions such as cardiovascular disease, hypertension, type 2 diabetes, and certain forms of cancer.</p>
             <p>However, calculating this target is not a one-size-fits-all equation. Because human bodies vary wildly in bone density, muscle distribution, and genetic frame size, a single "perfect" number does not exist. Instead, medical science uses a combination of established clinical formulas and Body Mass Index (BMI) ranges to define a target zone. This Healthy Weight Calculator aggregates four decades of medical research to provide you with the most accurate, personalized weight target possible.</p>

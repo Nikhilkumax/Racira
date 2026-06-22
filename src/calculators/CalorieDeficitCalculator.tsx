@@ -237,7 +237,7 @@ export default function CalorieDeficitCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding the Mechanics of Calorie Deficits</h2>
             <p>Weight reduction is governed by thermodynamics: to lose tissue mass, the body must consume fewer calories than it expends to maintain basic operations and activities. This deficit forces the body to mobilize adipose tissue (fat stores) and convert it to ATP energy.</p>
             <p>Our calculator determines your Basal Metabolic Rate (BMR) using the Mifflin-St Jeor formula and adjusts it for your exercise habits to determine your Total Daily Energy Expenditure (TDEE). The required daily deficit is then subtracted to calculate your final daily calorie intake goal.</p>

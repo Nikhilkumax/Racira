@@ -94,7 +94,7 @@ const DACalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>What Is a DA Calculator?</h2>
               <p>A Dearness Allowance (DA) calculator helps government employees and pensioners estimate their DA component based on their basic pay and the applicable DA rate. DA is revised semi-annually by the central government to compensate for rising cost of living.</p>
 

@@ -114,7 +114,7 @@ const MouseSensitivityCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Mastering Your Aim</h2>
               <p>In competitive gaming, consistency is everything. If you change your DPI or switch to a new game, your "feel" for the mouse might be ruined. Using an eDPI calculator ensures you maintain the same physical movement distance across different hardware and software settings.</p>
               <h3>Why cm/360 Matters</h3>

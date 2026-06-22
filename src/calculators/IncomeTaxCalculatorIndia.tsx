@@ -174,7 +174,7 @@ const IncomeTaxCalculatorIndia = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Income Tax Slabs FY 2024-25 (New Regime)</h2>
               <ul>
                 <li>Up to ₹3,00,000 — Nil</li>

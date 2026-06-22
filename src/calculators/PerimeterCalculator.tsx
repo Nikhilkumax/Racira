@@ -254,7 +254,7 @@ export default function PerimeterCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>Geometric Perimeter Calculations</h2>
             <p>Perimeter measures the cumulative outline of closed 2D planar shapes. Rectangle perimeters sum both length and width dimensions twice, while circles estimate boundary tracks using circumference equations incorporating PI constants.</p>
             <p>Understanding boundary metrics facilitates material ordering for fences, frames, and borders. Comparing perimeter to internal coverage area helps assess structural volume-to-surface configurations in design operations.</p>

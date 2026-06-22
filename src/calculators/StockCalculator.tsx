@@ -108,7 +108,7 @@ const StockCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Sidebar Ad" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Understanding Your Investment Returns</h2>
               <p>Calculating the true profit of a stock trade involves more than just subtracting the purchase price from the selling price. Commissions and taxes can significantly eat into your returns, especially for high-frequency traders.</p>
               <h3>The Impact of Fees</h3>

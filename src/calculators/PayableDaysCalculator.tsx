@@ -124,9 +124,9 @@ export default function PayableDaysCalculator() {
             </div>
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10"/>
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is the Days Payable Outstanding (DPO) Calculator?</h2>
             <p>Days Payable Outstanding (DPO) measures how many days on average a company takes to pay its trade creditors. It is the supplier-side counterpart to Days Sales Outstanding (DSO) and is a critical component of the Cash Conversion Cycle. Higher DPO means the business retains cash longer before paying suppliers — effectively using supplier credit as free short-term financing.</p>
             <h2>DPO Formula</h2>

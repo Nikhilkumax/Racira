@@ -253,9 +253,9 @@ const LongDivisionCalculator = () => {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding Long Division</h2>
             <p><strong>Long division</strong> is a foundational mathematical algorithm that breaks down the division of large numbers into a sequence of simpler, more manageable steps. By addressing the number piece by piece from left to right, we can efficiently find how many times one number (the divisor) fits into another (the dividend).</p>
 

@@ -180,7 +180,7 @@ const AudioFileSizeCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Digital Audio Science</h2>
               <p>Digital audio is created by sampling a continuous sound wave at regular intervals. The frequency of these intervals is called the sample rate, and the precision of each sample is called the bit depth.</p>
               

@@ -417,9 +417,9 @@ export default function MacronutrientCalorieDistributionCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding the Macronutrient Calorie Distribution Calculator</h2>
             <p>In the hierarchy of nutritional importance, Total Calories dictate whether you will gain or lose weight. However, your <strong>Macronutrients (Macros)</strong> dictate your body composition—specifically, whether that weight gained or lost comes from muscle or fat. "If It Fits Your Macros" (IIFYM) is a scientifically validated dieting approach that ignores restrictive food rules (like "no eating after 8 PM" or "no white bread") and focuses entirely on hitting specific daily targets of Protein, Carbohydrates, and Fats. The <strong>Macronutrient Calorie Distribution Calculator</strong> acts as the architectural blueprint for your diet, taking your raw calorie target and converting it into physical, trackable grams.</p>
 

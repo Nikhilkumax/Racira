@@ -140,7 +140,7 @@ const SubscriptionCostCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>The Hidden Cost of 'Small' Monthly Fees</h2>
               <p>In the digital economy, everything has moved to a subscription model. While $10 or $20 a month feels insignificant, these recurring costs act like a 'leak' in your bucket of wealth. Over 10 years, a simple $15/mo Netflix subscription costs you $1,800—and that's without considering what that money could have earned if invested.</p>
               <h3>Auditing Your Subscriptions</h3>

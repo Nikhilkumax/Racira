@@ -199,7 +199,7 @@ export default function FatBurningZoneCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>Optimal Exercise Intensity for Fat Oxidation</h2>
             <p>To maximize fitness and target fat reduction, understanding training zones is essential. Training intensity dictates whether the body converts carbohydrates or fat lipids into energy. Lower-intensity exercise (Zone 2) depends mostly on oxidative metabolism, utilizing fat stores for fuel, while higher intensities switch to glycogen conversion.</p>
             <p>Using target zones like Zone 2 optimizes base aerobic development, improves mitochondrial efficiency, and allows athletes to train for longer durations without central nervous fatigue. Calculating maximum heart rate and adjusting for resting levels yields customized target ranges for safe, efficient workouts.</p>

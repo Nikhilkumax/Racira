@@ -208,9 +208,9 @@ const RandomNumberGenerator = () => {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What is a Random Number Generator?</h2>
             <p>A <strong>Random Number Generator (RNG)</strong> is a computational or physical device designed to generate a sequence of numbers or symbols that lack any pattern. This online RNG allows you to define a specific numerical range (e.g., 1 to 100) and instantly draw one or multiple unbiased numbers from that pool.</p>
 

@@ -171,9 +171,9 @@ export default function BreakEvenCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is Break-Even Analysis?</h2>
             <p>A <strong>break-even analysis</strong> identifies the exact point where total revenue equals total costs — the moment your business neither gains nor loses money. Every unit sold beyond the break-even point generates pure profit. This <strong>break-even calculator</strong> helps entrepreneurs, managers, and analysts understand the minimum sales volume required for profitability.</p>
             <h2>The Break-Even Formula</h2>

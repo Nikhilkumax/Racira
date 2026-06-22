@@ -163,9 +163,9 @@ export default function AdsenseRevenueCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is an AdSense Revenue Calculator?</h2>
             <p>An AdSense revenue calculator is a vital predictive tool for webmasters, bloggers, and digital publishers looking to forecast their earnings from Google's ubiquitous advertising network. Google AdSense works by displaying contextually relevant text, display, or video advertisements on your website. When a visitor engages with these ads, you receive a portion of the revenue that the advertiser paid to Google. However, because earnings fluctuate wildly based on dozens of variables, predicting your monthly payout can be frustratingly complex.</p>
             <p>This calculator simplifies that complexity by isolating the three most important metrics in the display advertising industry: Traffic (Page Views), Click-Through Rate (CTR), and Cost Per Click (CPC). By adjusting these inputs, publishers can mathematically determine exactly how much traffic they need to quit their day jobs, or how improving their site's layout to boost CTR could double their income without requiring a single new visitor. It transforms the mystery of digital monetization into a solvable algebraic equation.</p>

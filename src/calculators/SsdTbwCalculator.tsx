@@ -106,7 +106,7 @@ const SsdTbwCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>How Long Will Your SSD Last?</h2>
               <p>Unlike traditional hard drives which have mechanical parts that wear out, SSDs use NAND flash memory cells that can only be written to a finite number of times. This is why manufacturers provide a <strong>TBW (Total Bytes Written)</strong> rating.</p>
               <h3>What is DWPD?</h3>

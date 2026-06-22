@@ -138,7 +138,7 @@ const GradeCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Mastering Course Grading Scales</h2>
               <p>In high school and college, grading systems vary widely. The two most common types are point-based systems and weighted systems. Point-based systems are straightforward, but weighted systems can be tricky to track without a dedicated calculator.</p>
               <h3>Why Weighted Grades Matter</h3>

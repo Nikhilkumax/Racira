@@ -301,7 +301,7 @@ const CarFinancingInterestCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is the Car Financing Interest Calculator?</h2>
             <p>The Car Financing Interest Calculator shows you exactly how much interest you will pay over the life of an auto loan, how the interest-to-principal ratio changes from year to year, and what the daily cost of borrowing really is. It provides a year-by-year amortization schedule and a first-year versus final-year comparison that makes the front-loaded nature of loan interest easy to understand.</p>
             <p>Whether you are comparing two loan offers, evaluating a refinance, or simply trying to understand the true cost of dealer financing, this tool gives you a clear, mathematically precise picture of every dollar of interest you will pay and when it accrues.</p>

@@ -289,9 +289,9 @@ export default function CrossFitWodCalorieCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Brutal Efficiency of CrossFit for Weight Loss</h2>
             <p>Walk into any CrossFit "box" (gym) around the world, and you will see athletes lying flat on their backs, gasping for air after a 12-minute workout. To an outsider who is used to spending an hour walking on a treadmill, a 12-minute workout sounds absurd. However, from a purely thermodynamic and physiological standpoint, CrossFit represents the absolute pinnacle of caloric efficiency. By combining heavy resistance training with maximal cardiovascular output and minimal rest, it forces the human body to expend a staggering amount of energy in a very short window. The <strong>CrossFit WOD Calorie Calculator</strong> bypasses inaccurate smart watch estimations by utilizing clinical Metabolic Equivalent (MET) formulas, translating your body weight, time domain, and WOD modality into mathematically precise expenditure data.</p>
 

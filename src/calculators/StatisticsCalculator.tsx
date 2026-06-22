@@ -89,7 +89,7 @@ const StatisticsCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Descriptive Statistics</h2>
               <p><strong>Mean:</strong> Sum of all values ÷ count. <strong>Median:</strong> Middle value when sorted. <strong>Mode:</strong> Most frequent value. <strong>Standard Deviation:</strong> Measures how spread out data is from the mean.</p>
             </article>

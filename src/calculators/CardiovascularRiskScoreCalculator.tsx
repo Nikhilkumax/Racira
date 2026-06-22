@@ -417,9 +417,9 @@ export default function CardiovascularRiskScoreCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding Your ASCVD Risk Score</h2>
             <p>Atherosclerotic Cardiovascular Disease (ASCVD) remains the leading cause of death globally. It is an umbrella term that encompasses conditions caused by the buildup of cholesterol plaque in the arteries, most notably leading to acute myocardial infarctions (heart attacks) and ischemic strokes. Because atherosclerosis is a silent disease that progresses over decades without symptoms, physicians cannot rely on how a patient "feels" to assess their danger. Instead, they rely on mathematics.</p>
             <p>The <strong>10-Year ASCVD Risk Score Calculator</strong> implements the official Pooled Cohort Equations developed by the American College of Cardiology (ACC) and the American Heart Association (AHA) in 2013. By inputting your age, sex, race, lipid profile, and medical history, this algorithm calculates the exact percentage probability that you will suffer a fatal or non-fatal cardiovascular event within the next ten years.</p>

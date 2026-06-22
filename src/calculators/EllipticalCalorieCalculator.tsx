@@ -307,9 +307,9 @@ export default function EllipticalCalorieCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding the Elliptical Calorie Calculator</h2>
             <p>Walk into any commercial gym in the world, and you will find the cardio section dominated by elliptical trainers. Since its invention in the 1990s, the elliptical machine has revolutionized cardiovascular training by offering a unique, suspended-pedal design that mimics the natural motion of running without subjecting the skeletal system to harsh impact forces. However, estimating the true energy expenditure on these machines is notoriously difficult. The <strong>Elliptical Calorie Calculator</strong> bypasses inaccurate gym console readouts by utilizing established Metabolic Equivalent (MET) formulas. By factoring in your exact body mass, duration, and cardiovascular effort level, it provides a highly accurate, biologically sound estimate of your caloric burn.</p>
 

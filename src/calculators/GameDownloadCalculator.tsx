@@ -131,7 +131,7 @@ const GameDownloadCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Wait Less, Play More</h2>
               <p>With modern games like *Call of Duty* or *Baldur's Gate 3* reaching over 100GB, download time is a serious consideration. Understanding your real-world transfer rate helps you plan your gaming sessions.</p>
               <h3>Why is my speed fluctuating?</h3>

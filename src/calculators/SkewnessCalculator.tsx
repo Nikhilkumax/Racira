@@ -129,9 +129,9 @@ const SkewnessCalculator = () => {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Skewness Calculator?</h2>
             <p>A skewness calculator measures the asymmetry of a probability distribution using three methods: population skewness (γ₁), Fisher{"'"}s sample skewness (G₁), and Pearson{"'"}s second skewness coefficient. Pre-filled with a left-skewed dataset, the calculator shows numerical skewness values, an interpretation, and a histogram visualizing the distribution shape.</p>
             <h2>Understanding Skewness Values</h2>

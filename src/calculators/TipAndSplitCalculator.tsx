@@ -98,7 +98,7 @@ const TipAndSplitCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Tipping Etiquette</h2>
               <p>Tipping is a way to show appreciation for good service, but the rules can vary significantly depending on where you are in the world. In the US, it is an essential part of service workers' income.</p>
               <h3>When to Tip More</h3>

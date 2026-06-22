@@ -279,9 +279,9 @@ export default function SteroidEquivalenceCalculator() {
         </div>
 
         {/* SEO CONTENT */}
-        <div className="max-w-[1100px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding the Steroid Equivalence Calculator</h2>
             <p>Corticosteroids are powerful, life-saving medications used to treat severe inflammation, autoimmune diseases, asthma exacerbations, and severe allergic reactions. However, not all steroids are created equal. The <strong>Steroid Equivalence Calculator</strong> is a vital pharmacological tool used by physicians, pharmacists, and medical students to safely convert a patient's dose from one specific systemic corticosteroid to another.</p>
             <p>Switching steroid types is incredibly common in medicine. A patient might be admitted to the emergency room and given a massive dose of intravenous Methylprednisolone. When they are discharged three days later, they need a prescription for oral Prednisone. If the doctor simply writes the same milligram number on the prescription, it could result in a dangerous overdose or a failure to control the disease. This calculator ensures the anti-inflammatory potency remains perfectly matched across different drug molecules.</p>

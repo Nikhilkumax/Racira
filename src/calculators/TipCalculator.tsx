@@ -155,9 +155,9 @@ const TipCalculator = () => {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Tip Calculator?</h2>
             <p>A tip calculator instantly computes the tip amount and total bill for any service, with easy bill splitting for groups. Pre-filled with an $85 restaurant bill at 18% tip split 4 ways, it shows a $15.30 tip ($100.30 total) with each person paying $25.08. Quick-select buttons for 10%, 15%, 18%, 20%, and 25% match the most common tipping conventions, and you can enter any custom percentage.</p>
             <p>Tip calculators are essential for dining out, managing group expenses, calculating service charges for delivery and rideshare, and understanding tipping conventions across different service industries. This calculator also shows the per-person breakdown of bill and tip separately — useful when some people in a group ordered more expensive dishes and want to split proportionally.</p>

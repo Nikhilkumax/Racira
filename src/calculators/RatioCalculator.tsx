@@ -129,7 +129,7 @@ const RatioCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>How to Use the Ratio Calculator</h2>
               <p>A ratio compares two quantities. Use "Simplify" to reduce a ratio to its lowest terms, "Equivalent" to scale a ratio, or "Proportion" to find a missing value using cross-multiplication.</p>
             </article>

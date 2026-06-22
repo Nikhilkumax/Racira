@@ -154,9 +154,9 @@ const KurtosisCalculator = () => {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Kurtosis Calculator?</h2>
             <p>A kurtosis calculator measures the tailedness of a distribution — how prone the data is to producing extreme outliers. Pre-filled with 13 values that cluster around the center, the calculator computes population and sample kurtosis, excess kurtosis, classifies the distribution (leptokurtic/mesokurtic/platykurtic), and shows a distribution histogram.</p>
             <h2>Kurtosis vs Excess Kurtosis</h2>

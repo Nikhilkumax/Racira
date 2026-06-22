@@ -283,9 +283,9 @@ export default function StoppingDistanceCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Two Halves of Stopping</h2>
             <p>Most drivers assume that "stopping distance" refers only to how strong their car's brakes are. In reality, a vehicle's total stopping distance is comprised of two completely separate phases: <strong>Reaction Distance</strong> (the human element) and <strong>Braking Distance</strong> (the mechanical element). Our Stopping Distance Calculator analyzes both to give you a true, real-world estimate of how much space you need to avoid an accident.</p>
 

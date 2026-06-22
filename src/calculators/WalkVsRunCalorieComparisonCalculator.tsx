@@ -332,9 +332,9 @@ export default function WalkVsRunCalorieComparisonCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Great Debate: Walking vs. Running for Calorie Burn</h2>
             <p>One of the most pervasive myths in the fitness industry is the belief that moving a specific mass across a specific distance burns the exact same amount of energy, regardless of speed. People often say, "A mile is a mile; if you weigh 150 pounds, you'll burn 100 calories whether you walk it or run it." From a strict Newtonian physics perspective (Work = Force × Distance), this sounds logical. However, human biology does not operate like a simple machine. The <strong>Walk vs Run Calorie Comparison Calculator</strong> mathematically proves that the biomechanics and cardiovascular demands of running force your body to expend significantly more energy over the exact same distance compared to walking.</p>
 

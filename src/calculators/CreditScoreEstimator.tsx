@@ -242,7 +242,7 @@ const CreditScoreEstimator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>How Credit Scores Are Calculated</h2>
               <p>Your credit score is a three-digit number that tells lenders how likely you are to repay your debts. In the United States, the most common model is the FICO score, which ranges from 300 to 850. Understanding the five main components of this score is the first step toward financial health.</p>
 

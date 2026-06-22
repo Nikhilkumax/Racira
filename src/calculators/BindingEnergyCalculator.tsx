@@ -164,9 +164,9 @@ const BindingEnergyCalculator = () => {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Binding Energy Calculator?</h2>
             <p>A nuclear binding energy calculator computes the energy holding a nucleus together — the energy required to completely separate all protons and neutrons. Pre-filled with Helium-4 (the alpha particle), the total binding energy is 28.22 MeV with 7.06 MeV per nucleon. This calculator uses precise atomic masses and {"Einstein's"} mass-energy equivalence (E = mc²) to derive binding energies for 8 common isotopes plus custom inputs.</p>
             <h2>Mass-Energy Equivalence</h2>

@@ -185,9 +185,9 @@ const RootCalculator = () => {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding Mathematical Roots</h2>
             <p>In mathematics, calculating a <strong>root</strong> is the inverse operation of exponentiation. When you raise a number to a power (like 4³ = 64), you multiply that number by itself repeatedly. When you take the root of a number, you are working backward. The "cube root" of 64 asks the question: <em>What number, multiplied by itself 3 times, equals 64?</em> The answer is 4.</p>
 

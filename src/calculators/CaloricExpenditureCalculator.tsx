@@ -214,9 +214,9 @@ export default function CaloricExpenditureCalculator() {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Mathematics of Weight Loss: Understanding TDEE</h2>
             <p>Every fad diet on the market—from Keto and Paleo to Intermittent Fasting and Weight Watchers—ultimately works through the exact same biological mechanism: a caloric deficit. If you consume fewer calories than your body burns, your body is forced to oxidize stored fat tissue to make up the missing energy difference. To create that precise deficit, you must first calculate your <strong>Total Daily Energy Expenditure (TDEE)</strong>.</p>
             <p>This calculator uses the <strong>Mifflin-St Jeor Equation</strong>, the clinical formula used by registered dietitians worldwide to calculate human energy expenditure. It is significantly more accurate than the older Harris-Benedict equation, which notoriously overestimates caloric burn.</p>

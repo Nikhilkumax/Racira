@@ -136,7 +136,7 @@ const ACTScoreCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>The ACT Scoring System</h2>
               <p>The ACT uses a unique scoring system that can be confusing for first-time test-takers. Unlike the SAT's 1600-point scale, the ACT focuses on a compact 1-36 range. Every question is worth the same amount of points, and there is no deduction for wrong answers.</p>
               

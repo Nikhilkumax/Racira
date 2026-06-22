@@ -356,9 +356,9 @@ export default function EvVsGasCostCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is an EV vs Gas Cost Calculator?</h2>
             <p>An EV vs Gas Cost Calculator is a comparative financial model that determines whether an Electric Vehicle or an Internal Combustion Engine (Gas) car is mathematically cheaper over a specific period. While EVs are notorious for having higher upfront sticker prices, they counter this with significantly cheaper "fuel" (electricity), massive government tax rebates, and vastly reduced maintenance requirements. This tool simulates the total Total Cost of Ownership (TCO) for both vehicles simultaneously to reveal exactly when—and if—the EV becomes the better financial choice.</p>
 

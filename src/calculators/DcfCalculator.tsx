@@ -99,7 +99,7 @@ export default function DcfCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>What Is Discounted Cash Flow Analysis?</h2>
               <p>Discounted Cash Flow (DCF) analysis is a fundamental valuation method used by institutional investors, Warren Buffett, and corporate finance professionals worldwide. The core premise is simple but powerful: a dollar today is worth more than a dollar tomorrow. By projecting a company's future cash flows and discounting them back to today's dollars, we can determine what a business is intrinsically worth — independent of what the market currently prices it at.</p>
               <h2>How the DCF Model Works</h2>

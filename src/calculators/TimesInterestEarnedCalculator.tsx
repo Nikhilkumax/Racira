@@ -174,7 +174,7 @@ export default function TimesInterestEarnedCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is the Times Interest Earned Ratio?</h2>
             <p>The Times Interest Earned (TIE) ratio, also called the Interest Coverage Ratio, is one of the most fundamental solvency metrics in financial analysis. It answers a simple but critical question: how many times can a company pay its annual interest expense out of its operating earnings? The formula is TIE = EBIT / Interest Expense, where EBIT is Earnings Before Interest and Taxes.</p>
             <p>A TIE of 5.0x means the company generates five dollars of operating income for every dollar of interest owed — a strong position with significant cushion for earnings downturns. A TIE below 1.5x signals financial stress; below 1.0x, the company cannot cover interest from operations and must draw on cash reserves or borrow more, both unsustainable paths.</p>

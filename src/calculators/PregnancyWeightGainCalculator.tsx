@@ -148,7 +148,7 @@ const PregnancyWeightGainCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Why Tracking Matters</h2>
               <p>Gaining the right amount of weight during pregnancy is crucial. Gaining too little can result in a low birth weight baby, while gaining too much increases the risk of gestational diabetes, high blood pressure, and complications during delivery.</p>
               <h3>Trimester Breakdown</h3>

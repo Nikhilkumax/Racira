@@ -133,7 +133,7 @@ const VideoFileSizeCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Video Compression Fundamentals</h2>
               <p>The file size of any video is determined by two main factors: duration and bitrate. Bitrate represents the amount of data processed per second. If you know these two numbers, you can precisely calculate the final file size regardless of the resolution or frame rate.</p>
               

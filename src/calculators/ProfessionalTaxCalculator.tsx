@@ -164,7 +164,7 @@ const ProfessionalTaxCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>What Is Professional Tax?</h2>
               <p>Professional Tax (PT) is a direct tax levied by state governments on individuals earning income through employment, trade, or profession. It is one of the oldest forms of taxation in India and is governed by Article 276 of the Indian Constitution, which caps it at ₹2,500 per year.</p>
 

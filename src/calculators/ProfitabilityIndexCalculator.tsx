@@ -149,9 +149,9 @@ export default function ProfitabilityIndexCalculator() {
             </div>
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10"/>
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is the Profitability Index?</h2>
             <p>The Profitability Index (PI), also known as the Profit Investment Ratio (PIR) or Value Investment Ratio (VIR), is a capital budgeting metric that measures the value created per unit of investment. It extends NPV analysis by providing a relative measure of investment efficiency — essential when comparing projects of different sizes or allocating limited capital across multiple opportunities.</p>
             <h2>Profitability Index Formula</h2>

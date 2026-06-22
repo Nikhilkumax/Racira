@@ -353,9 +353,9 @@ export default function PrePregnancyBMICalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Biological Reality of Pregnancy</h2>
             <p>Pregnancy is arguably the most intense physiological stress test the human body can endure. For nine months, the mother's cardiovascular system, hormonal network, and metabolic engine are pushed to their absolute biological limits. Yet, despite the severity of this medical event, societal mythology continues to push the dangerous narrative that pregnant women should "eat for two" and stop worrying about the scale. The medical community vehemently disagrees. The <strong>Pre-Pregnancy BMI & Target Gain Calculator</strong> utilizes the strict guidelines established by the American College of Obstetricians and Gynecologists (ACOG) to mathematically define exactly how much weight you are permitted to gain, proving that your biological starting point dictates the safety of your entire term.</p>
 

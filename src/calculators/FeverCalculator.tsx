@@ -277,9 +277,9 @@ export default function FeverCalculator() {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Medical Reality of Fevers</h2>
             <p>One of the most common reasons for emergency room visits and panicked calls to pediatricians is a fever. However, there is widespread misunderstanding about what a fever actually is. A fever is not a disease; it is a highly evolved, biological defense mechanism. When your immune system detects a viral or bacterial invader, the hypothalamus (the brain's thermostat) intentionally raises your core body temperature. Why? Because most pathogens replicate very poorly in high heat, and your immune cells operate more efficiently at higher temperatures.</p>
 

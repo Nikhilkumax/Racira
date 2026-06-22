@@ -124,7 +124,7 @@ const PlasticFootprintCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>The Plastic Problem</h2>
               <p>Plastic is a miracle material: it's cheap, durable, and lightweight. However, those same qualities make it a nightmare for the environment. Most single-use plastics are used for just a few minutes but persist in the environment for centuries.</p>
               <h3>Microplastics: The Invisible Threat</h3>

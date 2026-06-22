@@ -228,7 +228,7 @@ export default function CarInsuranceCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>How This Car Insurance Calculator Works</h2>
             <p>This car insurance calculator provides a data-driven estimate of your expected annual auto insurance premium based on the key underwriting factors used by major insurers. It applies state-specific rate factors (insurance costs vary by 3× or more between states), age-based risk multipliers, driving record adjustments, mileage factors, and deductible discounts to produce a realistic estimate for budgeting and comparison purposes.</p>
             <p>The national average for full coverage auto insurance is approximately $1,600-$2,000 per year (2024), though individual rates vary dramatically. A clean-record 35-year-old in a low-risk state might pay $800-$1,200, while a 20-year-old with a DUI in Michigan might pay $5,000+. Always shop multiple carriers — rate differences of 40-50% for the same coverage are common.</p>

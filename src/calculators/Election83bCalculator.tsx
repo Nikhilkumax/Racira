@@ -285,9 +285,9 @@ export default function Election83bCalculator() {
           </div>
         </div>
 
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is an 83(b) Election?</h2>
             <p>An 83(b) election is a letter you send to the Internal Revenue Service (IRS) informing them that you'd like to be taxed on your equity, such as restricted stock, on the date the equity was granted to you rather than on the date the equity vests. This provision under Section 83(b) of the Internal Revenue Code is particularly popular among startup founders and early employees who receive stock when the company's valuation is very low.</p>
             

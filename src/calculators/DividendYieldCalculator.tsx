@@ -198,9 +198,9 @@ export default function DividendYieldCalculator() {
           </div>
         </div>
 
-        <div className="max-w-[1180px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is Dividend Yield?</h2>
             <p><strong>Dividend Yield = Annual Dividend Per Share ÷ Current Stock Price × 100.</strong> It tells you the annual cash return from a stock relative to its price. Our pre-filled example: $3.80 annual dividend ÷ $95.00 stock price = 4.00% yield — meaning for every $95 invested, you receive $3.80 in cash per year, regardless of stock price movements.</p>
 

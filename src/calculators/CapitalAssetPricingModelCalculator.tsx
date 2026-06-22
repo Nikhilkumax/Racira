@@ -188,9 +188,9 @@ export default function CapitalAssetPricingModelCalculator() {
           </div>
         </div>
 
-        <div className="max-w-[1180px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is the Capital Asset Pricing Model (CAPM)?</h2>
             <p>The Capital Asset Pricing Model (CAPM) is the foundational theory of modern finance for determining the required return on any investment. Developed by William Sharpe in 1964 (building on Harry Markowitz's portfolio theory), CAPM establishes that the expected return on an asset is proportional to its systematic risk — the risk that cannot be eliminated through diversification. This model underpins how trillions of dollars in capital are priced, valued, and allocated across global financial markets every day.</p>
             <p>Our calculator comes pre-filled with realistic 2024 values: a risk-free rate of 4.5% (approximating the 10-year US Treasury yield), beta of 1.2 (a moderately aggressive stock), and expected market return of 10.5% (close to the long-run S&P 500 average). The result: a required expected return of 11.7% per year.</p>

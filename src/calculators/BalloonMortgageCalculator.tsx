@@ -175,7 +175,7 @@ const BalloonMortgageCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>What Is a Balloon Mortgage?</h2>
               <p>A balloon mortgage is a unique type of financing that offers the low monthly payments of a long-term mortgage (like a 30-year fixed) but requires the borrower to pay off the entire remaining balance in one large "balloon" payment at the end of a much shorter term (typically 5, 7, or 10 years).</p>
 

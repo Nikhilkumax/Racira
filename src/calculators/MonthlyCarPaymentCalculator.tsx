@@ -332,9 +332,9 @@ export default function MonthlyCarPaymentCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Monthly Car Payment Calculator?</h2>
             <p>A Monthly Car Payment Calculator is a financial tool that simulates an auto loan amortization schedule. When you buy a car, the dealership negotiates based on the sticker price of the vehicle. However, your actual monthly obligation is determined by a combination of the vehicle price, state sales tax, dealership fees, your cash down payment, and the interest rate charged by the bank. This calculator synthesizes all of these variables into a single, accurate monthly payment figure.</p>
 

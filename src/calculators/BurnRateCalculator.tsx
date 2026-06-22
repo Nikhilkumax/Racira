@@ -185,9 +185,9 @@ export default function BurnRateCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is Burn Rate?</h2>
             <p>Burn rate measures how fast a startup or early-stage company is spending its cash reserves. For companies pre-profitability, this is the single most critical financial metric — it determines survival. This <strong>burn rate calculator</strong> computes your net and gross burn rate, runway in months and weeks, and projects when your cash will run out at current rates.</p>
             <h2>The Burn Rate Formulas</h2>

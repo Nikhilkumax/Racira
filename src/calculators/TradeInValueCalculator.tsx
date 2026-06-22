@@ -291,9 +291,9 @@ export default function TradeInValueCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Trade-In Value Calculator?</h2>
             <p>A Trade-In Value Calculator is a financial modeling tool that estimates exactly how much a dealership is willing to pay you for your used car. While most people know what their car is roughly worth on the open market (Private Party Value), dealership math operates differently. Dealerships are not buying your car to use it; they are buying it to re-sell it for a profit. This calculator reverse-engineers the dealership's profit margin and risk-assessment logic to provide you with a realistic negotiation target before you ever step foot on the lot.</p>
 

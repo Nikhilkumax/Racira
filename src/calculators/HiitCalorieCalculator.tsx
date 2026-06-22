@@ -187,9 +187,9 @@ export default function HiitCalorieCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Science of High-Intensity Interval Training</h2>
             <p>This <strong>HIIT Calorie Calculator</strong> uses clinical METs formulas to estimate the energy you burn during the active and rest phases of an interval workout, and crucially, calculates the "Afterburn" (EPOC) effect. HIIT is a training technique where you give 100% maximal effort through quick, intense bursts of exercise, followed by short, sometimes active, recovery periods. This type of training keeps your heart rate up and burns more fat in less time.</p>
             <h2>The Magic of EPOC</h2>

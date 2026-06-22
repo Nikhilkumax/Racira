@@ -226,7 +226,7 @@ export default function HomeInsuranceCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>How to Use This Home Insurance Calculator</h2>
             <p>This home insurance calculator provides an estimated annual premium and recommended coverage levels based on your home's characteristics and location. Enter your home's current market value, age, square footage, state, construction type, and roof age to generate a tailored estimate. The calculator adjusts rates based on real state-by-state insurance cost data and applies standard underwriting factors like roof age, pool presence, and deductible selection.</p>
             <p>Note that this is an estimate for budgeting purposes. Actual premiums vary by insurer, claims history, credit score, local fire ratings, and individual underwriting guidelines. Always get at least 3 competitive quotes from licensed insurers before purchasing or renewing a homeowners policy.</p>

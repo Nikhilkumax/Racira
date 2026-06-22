@@ -357,9 +357,9 @@ const PmiRemovalDateCalculator = () => {
         </div>
 
         {/* ─── SEO CONTENT ─── */}
-        <div className="max-w-[1180px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is It?</h2>
             <p>A PMI Removal Date Calculator is an advanced financial tool designed to tell you the exact month and year you can legally cancel private mortgage insurance on a conventional loan—or when FHA mortgage insurance premiums (MIP) finally expire. PMI typically costs homeowners between $100 and $400 per month, and millions of people pay it for years longer than necessary because they do not fully understand the legal regulations that dictate when lenders are forced to remove it. By simulating your loan's amortization schedule and applying the federal Homeowners Protection Act (HPA) of 1998, this calculator projects three distinct termination pathways to show you the fastest possible route to eliminating this unnecessary expense.</p>
             <p>Many homeowners operate under the misconception that their loan servicer will automatically drop their PMI the very moment their loan balance falls below 80% of the home's value. Unfortunately, this is a widespread myth that costs borrowers thousands of dollars in excess premiums. The law only requires automatic termination when your scheduled balance reaches 78% of the original home value. If you want it removed earlier—such as when you hit 80% of the home's current market value—you must proactively request it in writing. This calculator eliminates the guesswork by doing the complex date math for you, allowing you to take control of your mortgage.</p>

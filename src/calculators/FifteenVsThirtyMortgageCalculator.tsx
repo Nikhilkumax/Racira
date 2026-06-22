@@ -236,9 +236,9 @@ export default function FifteenVsThirtyMortgageCalculator() {
         </div>
 
         {/* SEO CONTENT SECTION */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Classic Homebuyer's Dilemma</h2>
             <p>When financing a home purchase, the most common decision borrowers face is choosing between a 15-year fixed-rate mortgage and a 30-year fixed-rate mortgage. The choice fundamentally dictates your monthly cash flow, the total cost of the home, and the speed at which you build equity. While the 30-year mortgage is the undisputed king of popularity in the United States — prized for its lower monthly payments — the 15-year mortgage offers a rapid path to debt freedom and massive interest savings. Our calculator lets you input your specific loan amounts and rates to see the exact mathematical divergence between these two paths.</p>
 

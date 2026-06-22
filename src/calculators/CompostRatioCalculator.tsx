@@ -129,7 +129,7 @@ const CompostRatioCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>The Science of Composting</h2>
               <p>Composting is a biological process where microorganisms convert organic material into a nutrient-rich soil amendment. The speed and quality of this process depend on four factors: Carbon, Nitrogen, Oxygen, and Water.</p>
               <h3>Why the Ratio Matters</h3>

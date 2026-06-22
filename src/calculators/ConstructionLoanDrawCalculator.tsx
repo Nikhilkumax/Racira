@@ -210,7 +210,7 @@ const ConstructionLoanDrawCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>How Construction Loans Work</h2>
               <p>Building a home is different from buying one. Because the asset (the house) doesn't exist yet, lenders provide funds in stages rather than all at once. This is done through a 'draw' process, where money is released only after specific milestones are reached and verified by an inspector.</p>
 

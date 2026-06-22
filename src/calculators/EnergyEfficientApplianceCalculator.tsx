@@ -155,7 +155,7 @@ const EnergyEfficientApplianceCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Understanding Appliance Energy Efficiency</h2>
               <p>Upgrading to energy-efficient appliances is one of the most effective ways to reduce your household's carbon footprint and save money on electricity bills. Modern appliances, especially those with the ENERGY STAR label, use significantly less energy than models built just a decade ago.</p>
               

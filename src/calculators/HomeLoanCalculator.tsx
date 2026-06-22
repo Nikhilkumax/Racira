@@ -500,9 +500,9 @@ export default function HomeLoanCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Home Loan Calculator?</h2>
             <p>A <strong>Home Loan Calculator</strong> is a powerful financial modeling tool designed to help prospective home buyers and real estate investors estimate their true monthly mortgage obligations and total long-term borrowing costs. When you purchase a home, the sticker price is just the beginning. The actual amount you will pay every month—and over the course of the loan—depends heavily on your down payment, interest rate, loan duration, and peripheral costs like property taxes and homeowner's insurance.</p>
             <p>This calculator removes the guesswork from the home-buying process. By instantly processing standard amortization mathematics alongside your specific local variables, it provides a crystal-clear picture of your housing affordability. Whether you are a first-time home buyer trying to figure out if you can afford a starter home, or an experienced investor calculating cash flow on a rental property, a home loan calculator is your first step toward responsible property ownership.</p>

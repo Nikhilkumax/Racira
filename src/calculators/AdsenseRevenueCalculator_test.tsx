@@ -112,7 +112,7 @@ export default function AdsenseRevenueCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Mastering the Math of AdSense Revenue</h2>
               <p>Google AdSense remains the most accessible way for bloggers, news sites, and niche publishers to monetize their content. However, success with AdSense is a game of statistics. To build a sustainable income, you need to understand how the three pillars of revenue — Traffic, CTR, and CPC — interact to determine your final payout. This calculator is designed to help you run 'what-if' scenarios to find the most efficient path to your income goals.</p>
 

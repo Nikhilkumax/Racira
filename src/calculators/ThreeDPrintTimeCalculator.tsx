@@ -449,7 +449,7 @@ const ThreeDPrintTimeCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What is a 3D Print Time Calculator?</h2>
             <p>
               A <strong>3D Print Time Calculator</strong> is an advanced planning tool designed to estimate how long a 3D model will take to manufacture using Fused Deposition Modeling (FDM) or other additive manufacturing technologies. For hobbyists, engineers, and print farm operators, time is the ultimate bottleneck. This calculator uses volumetric flow algorithms, kinematic limits, and slicer approximations to give you a highly accurate preview of your print duration without needing to open resource-heavy slicing software like Cura or PrusaSlicer.

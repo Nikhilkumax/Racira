@@ -259,9 +259,9 @@ export default function GestationalAgeCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding Your Gestational Age</h2>
             <p>This <strong>Gestational Age Calculator</strong> precisely tracks how far along you are in your pregnancy based on multiple clinical dating methods. It determines your exact week and day count (e.g., 20 weeks, 3 days), calculates your Estimated Due Date (EDD), and tracks your progress through the three trimesters.</p>
             <h2>The Medical "Two Week" Oddity</h2>

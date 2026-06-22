@@ -518,9 +518,9 @@ export default function AccountsReceivableCalculator() {
         </div>
 
         {/* SEO CONTENT SECTION */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Mathematics of Accounts Receivable</h2>
             <p>Managing accounts receivable (AR) effectively is one of the most critical components of maintaining healthy cash flow. Our calculator tracks every key metric related to your credit sales, providing you with exact formulas to understand the pace at which your business collects cash.</p>
 

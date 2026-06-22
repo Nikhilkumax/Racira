@@ -309,9 +309,9 @@ export default function VicariousTraumaRiskCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Hidden Biological Cost of Empathy</h2>
             <p>Society rightly celebrates nurses, social workers, therapists, and first responders as heroes. They are the individuals who run toward the pain and suffering that the rest of society actively avoids. However, society rarely discusses the devastating biological cost of this service. Empathy is not a superpower; it is a neurological mechanism. To effectively help a traumatized person, the helper's brain must physically mirror their pain. Doing this day after day creates a massive psychological accumulation known as Secondary Traumatic Stress. The <strong>Vicarious Trauma Risk Calculator</strong> is designed to visually expose the dangerous deficit between the trauma you absorb and the clinical time you spend clearing it from your nervous system.</p>
 

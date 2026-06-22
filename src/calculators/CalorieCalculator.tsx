@@ -349,7 +349,7 @@ const CalorieCalculator = () => {
           }) }} />
 
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is the Losertown Calorie Calculator?</h2>
             <p>The <strong>Losertown calorie calculator</strong> is a free, science-backed tool that estimates how many calories you need each day to lose weight, maintain your current weight, or build muscle. It calculates your <strong>Basal Metabolic Rate (BMR)</strong> — the energy your body burns at complete rest — then multiplies it by an activity factor to produce your Total Daily Energy Expenditure (TDEE). Pre-filled with a 25-year-old male, 180 cm, 65 kg, moderate activity: TDEE ≈ 2,510 Cal/day.</p>
             <p>Unlike generic "2,000 Cal/day" guidance, the <strong>Losertown calculator calorie</strong> approach gives you a personalized target based on your actual body and lifestyle. Whether you're cutting, bulking, or just trying to understand your energy balance, this tool gives you the numbers you need in seconds — in Calories or Kilojoules, Metric or US units.</p>

@@ -126,7 +126,7 @@ const IdealWeightCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>What Is Ideal Body Weight?</h2>
               <p>Ideal body weight (IBW) is a clinical estimate of the weight at which a person of a given height is likely to be healthiest. It was originally developed for drug dosing calculations but is now widely used as a general health reference. This calculator uses four of the most established formulas in medicine.</p>
 

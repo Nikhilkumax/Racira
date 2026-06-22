@@ -114,7 +114,7 @@ const TakeHomeSalaryCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Where Does Your Money Go?</h2>
               <p>Understanding your paycheck deductions is the foundation of personal finance. For most Americans, federal income taxes and FICA (Social Security and Medicare) are the two largest deductions.</p>
               <h3>Pre-Tax vs. Post-Tax Deductions</h3>

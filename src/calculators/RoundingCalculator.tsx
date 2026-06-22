@@ -227,9 +227,9 @@ const RoundingCalculator = () => {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Importance of Rounding</h2>
             <p><strong>Rounding</strong> is a mathematical technique used to reduce the number of digits in a figure while keeping its value relatively similar to the original. This is done to make numbers simpler, more readable, and easier to use in mental calculations, particularly when extreme precision is unnecessary. For instance, stating that a distance is "about 15 miles" is usually more helpful than stating it is "14.8392 miles."</p>
 

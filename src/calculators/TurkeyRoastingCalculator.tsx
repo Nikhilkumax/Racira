@@ -154,7 +154,7 @@ const TurkeyRoastingCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Mastering the Holiday Roast</h2>
               <p>Roasting a turkey can be intimidating, but with proper planning, it's a straightforward process. The most important step isn't the cooking—it's the thawing. A partially frozen turkey will cook unevenly, leaving some parts raw while others are dry. Always plan your thawing time several days in advance.</p>
               

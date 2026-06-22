@@ -166,7 +166,7 @@ const Vo2MaxCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Improving Your VO2 Max</h2>
               <p>While genetics play a significant role in your absolute potential, almost anyone can improve their VO2 Max through consistent training. The most effective way to increase it is through High-Intensity Interval Training (HIIT).</p>
               <h3>Why It Matters for Health</h3>

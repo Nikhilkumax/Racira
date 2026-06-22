@@ -345,9 +345,9 @@ export default function CarbohydrateCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding the Daily Carbohydrate Calculator</h2>
             <p>Carbohydrates are the most controversial macronutrient in the modern diet industry. Over the last three decades, they have been unfairly demonized by low-carb and ketogenic diets as the primary cause of the obesity epidemic. The scientific reality is entirely different: carbohydrates are the human body's absolute preferred source of high-octane energy. The problem is not the carbohydrate itself; the problem is an extreme mismatch between energy intake and energy expenditure. The <strong>Daily Carbohydrate Calculator</strong> utilizes clinical sports science formulas (measured in grams per kilogram of body weight) to map your exact carbohydrate requirements directly to your physical activity level, ensuring you are perfectly fueled without "spilling over" into fat storage.</p>
 

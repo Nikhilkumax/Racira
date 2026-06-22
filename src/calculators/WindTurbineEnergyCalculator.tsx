@@ -125,7 +125,7 @@ const WindTurbineEnergyCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Harnessing the Wind</h2>
               <p>Wind energy is one of the fastest-growing sources of renewable electricity. Unlike solar, wind can produce power 24 hours a day, though it is often more intermittent and highly dependent on local terrain.</p>
               <h3>The Cube Law</h3>

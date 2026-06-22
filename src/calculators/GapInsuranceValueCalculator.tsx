@@ -284,7 +284,7 @@ const GapInsuranceValueCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is the GAP Insurance Value Calculator?</h2>
             <p>GAP (Guaranteed Asset Protection) insurance covers the difference between what you owe on your car loan and what the car is actually worth if it's totaled or stolen. This calculator determines whether GAP insurance is worth buying for your specific loan by comparing the cost of GAP coverage against the maximum potential payout over the life of your loan.</p>
 

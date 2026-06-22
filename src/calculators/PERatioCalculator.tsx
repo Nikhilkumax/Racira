@@ -79,7 +79,7 @@ export default function PERatioCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Understanding the Price-to-Earnings (P/E) Ratio</h2>
               <p>The Price-to-Earnings (P/E) ratio is the most widely used valuation metric in stock market investing. It answers the fundamental question: "How much am I paying for each dollar of this company's earnings?" A P/E of 20 means investors pay $20 for every $1 of annual profit the company generates.</p>
               <h2>The P/E Ratio Formula</h2>

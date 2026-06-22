@@ -326,9 +326,9 @@ export default function AltmanZScoreCalculator() {
           </div>
         </div>
 
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is the Altman Z-Score?</h2>
             <p>The Altman Z-Score is a numerical measurement that is used to predict the chances of a business going bankrupt in the next two years. Edward Altman, a finance professor at New York University, developed the formula in 1968. The score relies on five key financial ratios derived from a company's financial statements to measure liquidity, profitability, operating efficiency, and total asset turnover.</p>
             

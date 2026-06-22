@@ -200,9 +200,9 @@ const FreeFallCalculator = () => {
           </div>
         </div>
 
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Free Fall Calculator?</h2>
             <p>A free fall calculator computes the time, velocity, or height of an object falling under gravity with no air resistance. Pre-filled with a 50-meter drop on Earth (g = 9.81 m/s²), the fall takes approximately 3.19 seconds with an impact velocity of 31.3 m/s (113 km/h). Select different planets to see how gravity affects free fall — a 50m drop on the Moon takes 7.86 seconds.</p>
             <h2>Free Fall Equations</h2>

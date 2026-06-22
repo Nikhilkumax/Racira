@@ -149,9 +149,9 @@ export default function DefensiveIntervalRatioCalculator() {
             </div>
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is the Defensive Interval Ratio?</h2>
             <p>The Defensive Interval Ratio (DIR), also known as the Basic Defense Interval (BDI) or Defensive Interval Period (DIP), is a liquidity metric that measures how many days a company could operate exclusively using its most liquid assets — without generating any new revenue or accessing additional financing. It answers the critical question: "If all revenue stopped today, how long could we keep the lights on?"</p>
             <h2>DIR Formula</h2>

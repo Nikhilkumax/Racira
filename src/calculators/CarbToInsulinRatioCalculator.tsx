@@ -307,9 +307,9 @@ export default function CarbToInsulinRatioCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding the Carb-to-Insulin Ratio (ICR)</h2>
             <p>For individuals living with Type 1 Diabetes (and insulin-dependent Type 2 Diabetes), the pancreas no longer produces the insulin required to shuttle glucose from the bloodstream into the body's cells. To survive and prevent severe hyperglycemia, patients must manually inject exogenous insulin every time they eat. However, guessing the dose is incredibly dangerous. Inject too little, and blood sugar spikes dangerously high. Inject too much, and blood sugar crashes, leading to potentially fatal hypoglycemia.</p>
             <p>To navigate this, endocrinologists utilize the <strong>Insulin-to-Carbohydrate Ratio (ICR)</strong>. This ratio dictates exactly how many grams of carbohydrates are covered by a single unit of rapid-acting insulin. The <strong>Carb-to-Insulin Ratio Calculator</strong> utilizes the globally recognized clinical heuristics—the "500 Rule" and the "450 Rule"—to help patients determine their baseline starting ratio based on their total physiological insulin requirements.</p>

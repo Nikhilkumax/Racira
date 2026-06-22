@@ -126,7 +126,7 @@ const DayCounter = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>About the Day Counter</h2>
               <p>This tool calculates the exact number of days between two dates, along with breakdowns by weeks, months, weekdays, and weekend days.</p>
 

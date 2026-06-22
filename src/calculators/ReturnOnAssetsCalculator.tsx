@@ -161,7 +161,7 @@ export default function ReturnOnAssetsCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is Return on Assets (ROA)?</h2>
             <p>Return on Assets (ROA) is an essential financial metric that measures how effectively a company uses its assets to generate profits. It shows the relationship between a company's earnings and the capital invested in its infrastructure, inventory, machinery, and other physical or intellectual properties. In simple terms: for every dollar in assets a business owns, how many cents of net profit does it produce?</p>
             <p>A higher ROA indicates that a company is more efficient and productive with its resources, while a lower ROA indicates potential mismanagement, underutilized assets, or excessive capital expenditures that are not translating into earnings growth. Investors and analysts use ROA to compare companies within the same industry to evaluate operational performance.</p>

@@ -107,7 +107,7 @@ export default function OptionsProfitCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Understanding Options Profit and Loss</h2>
               <p>Options trading offers investors a powerful way to profit from price movements in stocks, ETFs, and other securities with a defined and limited risk. Unlike buying shares outright, purchasing an option grants you the right — but not the obligation — to buy or sell an underlying asset at a predetermined price (the strike price) before a specified expiration date. This Options Profit Calculator helps you visualize the exact profit, loss, and break-even points for your trade before you commit capital.</p>
 

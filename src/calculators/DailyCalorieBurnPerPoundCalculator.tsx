@@ -304,9 +304,9 @@ export default function DailyCalorieBurnPerPoundCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Mathematics of the Cellular Engine</h2>
             <p>One of the most profound mistakes people make when analyzing their metabolism is looking exclusively at the total number of calories they burn in a day (TDEE). They see their Apple Watch register a burn of 3,000 calories and immediately assume they have a "fast" metabolism. However, thermodynamics is entirely relative to the mass of the organism. A 350-pound man burning 3,000 calories is effectively in a highly sedentary state, while a 120-pound gymnast burning 3,000 calories is operating at the absolute razor's edge of human cardiovascular capacity. The <strong>Metabolic Energy Density Calculator</strong> solves this discrepancy by dividing your total energy output by your physical mass, revealing the exact calorie-per-pound efficiency of your cellular engine.</p>
 

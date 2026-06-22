@@ -416,9 +416,9 @@ export default function PaymentCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding the Universal Payment Calculator</h2>
             <p>At its core, almost all modern debt functions on the exact same mathematical formula. Whether you are financing a $5,000 used car, taking out a $50,000 personal loan to consolidate credit cards, or signing a $500,000 commercial note for a business expansion, the bank calculates your required payment using a standard amortization schedule. Our <strong>General Payment Calculator</strong> is a universal financial tool designed to strip away marketing jargon and reveal the raw mathematics of any fixed-rate loan.</p>
             <p>By inputting just three variables—your loan amount, your interest rate, and your desired term length—you can instantly determine your exact recurring payment. More importantly, this calculator exposes the "Total Interest" metric, showing you exactly how much profit the lender is extracting from you over the life of the loan. Understanding this number is the foundation of financial literacy and responsible borrowing.</p>

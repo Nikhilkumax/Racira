@@ -134,7 +134,7 @@ const WorkingCapitalCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>What Is Working Capital?</h2>
               <p>Working capital is a measure of a company's short-term financial health and operational efficiency. It represents the difference between current assets (cash, receivables, inventory) and current liabilities (payables, short-term debt). Positive working capital means the company can fund its day-to-day operations and invest in growth.</p>
 

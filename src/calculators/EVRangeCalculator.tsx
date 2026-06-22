@@ -360,9 +360,9 @@ export default function EVRangeCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is an EV Range Calculator?</h2>
             <p>An EV Range Calculator is a predictive tool that models the real-world driving range of an Electric Vehicle based on environmental and driving conditions. The range sticker plastered on the window of a new EV at the dealership is the official EPA estimate. However, this number is notoriously optimistic, acting more as a theoretical maximum under laboratory conditions than a practical guarantee. By inputting your actual driving speed, local weather, and battery age, this calculator strips away the marketing fluff to reveal exactly how far you can drive before you are stranded.</p>
 

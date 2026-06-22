@@ -269,9 +269,9 @@ export default function AverageReturnCalculator() {
         </div>
 
         {/* SEO Article section */}
-        <div className="max-w-[1180px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding Average Returns: Arithmetic vs. Geometric Mean</h2>
             <p>
               When evaluating the performance of stocks, mutual funds, or real estate assets over multiple years, investors frequently refer to "average returns." However, the term average can be highly misleading in finance because it can refer to two fundamentally different mathematical concepts: the <strong>Arithmetic Mean</strong> and the <strong>Geometric Mean</strong>.

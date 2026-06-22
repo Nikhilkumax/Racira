@@ -122,7 +122,7 @@ const PaceCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Training with Pace</h2>
               <p>Understanding your pace is the foundation of endurance training. Whether you are training for a 5K, a half-marathon, or a full marathon, knowing exactly how fast you are running per mile or kilometer allows you to pace yourself so you don't burn out early.</p>
               <h3>Pacing Strategies</h3>

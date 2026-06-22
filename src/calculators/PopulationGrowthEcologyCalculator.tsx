@@ -165,7 +165,7 @@ const PopulationGrowthEcologyCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Population Dynamics in Ecology</h2>
               <p>In population ecology, understanding how populations grow and what limits their growth is fundamental to managing wildlife, conserving endangered species, and understanding human impacts on ecosystems.</p>
               

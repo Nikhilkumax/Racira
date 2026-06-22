@@ -192,9 +192,9 @@ const WindChillCalculator = () => {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Science of Wind Chill</h2>
             <p>During the winter, meteorologists will often say, <em>"The temperature is 30°F, but it feels like 15°F."</em> This phenomenon is known as the <strong>Wind Chill Factor</strong>. It explains why a calm, sunny day at 30°F feels tolerable, but a blustery, windy day at 30°F cuts right to the bone.</p>
 

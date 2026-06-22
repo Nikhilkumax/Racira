@@ -162,9 +162,9 @@ const QuartileCalculator = () => {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Quartile Calculator?</h2>
             <p>A quartile calculator divides a dataset into four equal parts using Q1 (25th percentile), Q2 (50th percentile/median), and Q3 (75th percentile). Pre-filled with 10 evenly spaced values (1–19), Q1=5, Q2=10, Q3=15, IQR=10. Choose between inclusive (Excel QUARTILE.INC) and exclusive (QUARTILE.EXC) interpolation methods. The calculator also shows a full percentile table from P10 to P90.</p>
             <h2>How Quartiles Are Computed</h2>

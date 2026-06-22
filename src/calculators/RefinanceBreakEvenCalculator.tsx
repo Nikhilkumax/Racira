@@ -139,9 +139,9 @@ export default function RefinanceBreakEvenCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Refinance Break-Even Calculator?</h2>
             <p>A <strong>refinance break-even calculator</strong> determines the exact number of months you need to stay in your home after refinancing before your cumulative monthly savings exceed the upfront closing costs. This is the single most important calculation for deciding whether to refinance — without knowing your break-even point, you risk paying thousands in costs only to move before recouping them.</p>
             <h2>How Break-Even Is Calculated</h2>

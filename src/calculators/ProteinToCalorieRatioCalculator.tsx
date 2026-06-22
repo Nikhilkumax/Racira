@@ -313,9 +313,9 @@ export default function ProteinToCalorieRatioCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding the Protein to Calorie Ratio</h2>
             <p>Hitting your daily protein target while staying inside a caloric deficit is the hardest mathematical challenge in fitness. Many people fail because they are tricked by deceptive marketing on the front of food packaging. A box of cereal might claim "10g of Protein!" in huge letters, but if that serving also contains 400 calories of sugar, it is actively destroying your fat loss goals. The <strong>Protein to Calorie Ratio (PCR) Calculator</strong> cuts through the marketing noise by giving you the only metric that actually matters: <em>How many grams of protein are you getting for every 100 calories you consume?</em></p>
             <p>By standardizing all foods to a 100-calorie baseline, you can easily compare a massive 800-calorie steak dinner to a 150-calorie protein shake on an even, mathematical playing field. This is the ultimate tool for evaluating macronutrient density and building a diet that supports lean muscle growth without unnecessary fat accumulation.</p>

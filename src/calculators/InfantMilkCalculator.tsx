@@ -216,9 +216,9 @@ export default function InfantMilkCalculator() {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Mathematics of Infant Nutrition</h2>
             <p>During the first year of life, an infant's brain and body grow at a faster rate than at any other point in human development. Because their caloric needs are so massive relative to their tiny size, pediatricians use weight-based clinical formulas to ensure they are receiving adequate nutrition without over-stretching their stomachs.</p>
             <p>The universal clinical standard for infant nutrition is <strong>2.5 ounces of milk per pound of body weight per day</strong>. This 2.5x multiplier ensures the baby receives roughly 50 calories per pound, which is the precise amount required to fuel both basic metabolic functions and rapid cellular growth.</p>

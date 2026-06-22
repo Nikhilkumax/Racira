@@ -159,9 +159,9 @@ const QuadraticFormulaCalculator = () => {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is the Quadratic Formula Calculator?</h2>
             <p>This quadratic formula calculator solves any quadratic equation of the form ax² + bx + c = 0 using the quadratic formula, plots the parabola, and shows the vertex, discriminant, and nature of the roots. Pre-filled with x² − 5x + 6 = 0 (which factors as (x−2)(x−3) = 0, giving roots x=2 and x=3), the calculator demonstrates a clean example with two positive real roots.</p>
             <p>Quadratic equations appear in physics (projectile motion), engineering (structural analysis), economics (profit maximization), and geometry (area and distance problems). The quadratic formula provides a universal solution — working for any quadratic regardless of whether it factors easily.</p>

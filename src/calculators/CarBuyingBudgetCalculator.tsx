@@ -310,9 +310,9 @@ export default function CarBuyingBudgetCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Car Buying Budget Calculator?</h2>
             <p>A Car Buying Budget Calculator is designed to tell you exactly how much car you can afford based on the monthly payment you are comfortable making. It takes the guesswork out of the financing process by working backward. You supply your maximum monthly budget, the amount of cash you have for a down payment, and the estimated interest rate, and the calculator mathematically strips away taxes, fees, and interest to reveal the exact sticker price you should target on the dealership lot.</p>
 

@@ -279,9 +279,9 @@ export default function CircuitTrainingCalorieCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding the Caloric Power of Circuit Training</h2>
             <p>If you have ever felt completely exhausted after just 20 minutes of a high-intensity workout class, you have experienced the brutal efficiency of circuit training. While traditional weightlifting requires long rest periods and steady-state cardio requires long time commitments, circuit training perfectly marries the two into a hyper-efficient, massive calorie-burning protocol. The <strong>Circuit Training Calorie Calculator</strong> bypasses inaccurate fitness watch estimates by utilizing clinical Metabolic Equivalent (MET) formulas. By factoring in your specific body mass and the intensity of your rest periods, it calculates the exact thermodynamic cost of your session.</p>
 

@@ -185,9 +185,9 @@ export default function CapRateCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is Cap Rate in Real Estate?</h2>
             <p>The <strong>capitalization rate (cap rate)</strong> is the most widely used metric in commercial real estate valuation. It measures a property&apos;s annual return based on its net operating income relative to its market value — independent of financing. This <strong>cap rate calculator</strong> also computes gross rental yield, cash-on-cash return, and gross rent multiplier for complete investment analysis.</p>
             <h2>Cap Rate Formula</h2>

@@ -112,7 +112,7 @@ const WaterIntakeCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Why Hydration is Essential</h2>
               <p>Water makes up about 60% of your body weight. It is vital for flushing toxins, lubricating joints, regulating body temperature, and transporting nutrients to cells. Even mild dehydration can impair energy levels and brain function.</p>
               <h3>Signs You Aren't Drinking Enough</h3>

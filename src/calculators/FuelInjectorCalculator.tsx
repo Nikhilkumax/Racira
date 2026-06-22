@@ -294,9 +294,9 @@ export default function FuelInjectorCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Why Fuel Injector Sizing is Critical</h2>
             <p>If you are upgrading your engine to make more horsepower—whether by installing a supercharger, adding a turbo, or switching to E85 fuel—your factory fuel injectors will rapidly become a bottleneck. An engine requires a very precise ratio of air to fuel to operate safely. If you force massive amounts of air into the engine, but the injectors are too small to supply the matching amount of fuel, the engine will run "lean." A lean engine runs violently hot and will suffer from detonation, quickly melting pistons and destroying the block. Our Fuel Injector Calculator uses strict engineering formulas to ensure you buy the exact size injector required to safely support your horsepower goals.</p>
 

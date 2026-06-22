@@ -209,9 +209,9 @@ export default function RefinanceCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Should You Refinance Your Mortgage?</h2>
             <p>This <strong>refinance calculator</strong> computes your monthly savings, break-even period, and lifetime interest savings from refinancing. The decision hinges on three factors: how much you lower your rate, how much the closing costs are, and how long you plan to stay in the home. Break-even formula: Months = Closing Costs ÷ Monthly Payment Savings. If you plan to stay longer than the break-even, refinancing makes financial sense.</p>
             <h2>The 1% Rule and Rate-Drop Thresholds</h2>

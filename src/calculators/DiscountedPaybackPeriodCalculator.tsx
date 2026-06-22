@@ -186,7 +186,7 @@ export default function DiscountedPaybackPeriodCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is the Discounted Payback Period?</h2>
             <p>The Discounted Payback Period (DPP) is a capital budgeting metric that calculates how long it takes to recover an initial investment using the present value of future cash flows. Unlike the simple payback period, DPP accounts for the time value of money — a dollar received in the future is worth less than a dollar today, and DPP quantifies this rigorously by discounting every cash flow at your required rate of return before accumulating them.</p>
             <p>This makes DPP a more conservative and realistic measure of investment recovery. A project that recovers its cost in 3 years on a simple basis may take 3.8 years on a discounted basis at a 10% rate. The difference matters enormously for capital allocation decisions in corporations, private equity, and real estate development.</p>

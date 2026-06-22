@@ -2556,7 +2556,7 @@
           "slug": "amt-calculator",
           "name": "AMT Calculator",
           "description": "Calculate amt calculator online with our free tool.",
-          "isBuilt": false,
+          "isBuilt": true,
           "subcategoryPriority": 3,
           "priorityScore": 40,
           "tier": "Tier3"
@@ -11000,7 +11000,7 @@
           "slug": "angel-investment-return-calculator",
           "name": "Angel Investment Return Calculator",
           "description": "Calculate angel investment return calculator online with our free tool.",
-          "isBuilt": false,
+          "isBuilt": true,
           "subcategoryPriority": 4,
           "priorityScore": 60,
           "tier": "Tier2"

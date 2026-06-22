@@ -134,7 +134,7 @@ const VehicleEmissionsCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Transportation and CO2</h2>
               <p>The transportation sector is one of the largest contributors to greenhouse gas emissions worldwide. For many households, the personal vehicle is the single largest source of their carbon footprint.</p>
               <h3>MPG Matters</h3>

@@ -308,9 +308,9 @@ export default function BreakEvenMileageCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Mathematics of Efficiency</h2>
             <p>Automakers heavily heavily market Hybrid and Electric Vehicles (EVs) based on fuel savings. A salesman will excitedly tell you that upgrading to the Hybrid trim level will jump your fuel economy from 30 MPG to an astonishing 50 MPG. What they rarely mention is the upfront math. The Hybrid engine upgrade usually carries a massive <strong>Price Premium</strong> (often $2,000 to $4,000) that gets rolled into your loan.</p>
             <p>This creates a race between two numbers: The extra money you paid at the dealership vs the money you are saving at the gas pump each week.</p>

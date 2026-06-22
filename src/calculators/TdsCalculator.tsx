@@ -116,7 +116,7 @@ const TDSCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>What Is a TDS Calculator?</h2>
               <p>A TDS (Tax Deducted at Source) calculator helps you estimate the tax that will be deducted from various types of payments. TDS is the Indian government's mechanism to collect tax at the point of income generation.</p>
 

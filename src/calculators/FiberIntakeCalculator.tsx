@@ -224,9 +224,9 @@ export default function FiberIntakeCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>How Much Fiber Should You Eat?</h2>
             <p>This <strong>Daily Fiber Intake Calculator</strong> determines your personalized fiber needs based on USDA guidelines (14g per 1,000 calories) while ensuring you meet the Institute of Medicine's absolute minimums (38g for men, 25g for women under 50). It also adjusts your target upward if your primary health goal is weight loss, cholesterol reduction, or blood sugar management.</p>
             <h2>The Soluble vs Insoluble Ratio</h2>

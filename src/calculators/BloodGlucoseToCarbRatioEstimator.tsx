@@ -309,9 +309,9 @@ export default function BloodGlucoseToCarbRatioEstimator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding the Blood Glucose-to-Carb Ratio Estimator</h2>
             <p>Managing diabetes—whether Type 1 or insulin-dependent Type 2—is one of the most mathematically demanding clinical tasks a patient can undertake. Every meal, every snack, and every high blood sugar correction requires a precise mathematical calculation to determine exactly how much insulin is needed. Guessing is not an option; taking too little insulin leads to hyperglycemia and organ damage over time, while taking too much leads to acute hypoglycemia, which can be immediately life-threatening. The <strong>Blood Glucose-to-Carb Ratio Estimator</strong> utilizes universally accepted endocrinology formulas to provide you with mathematical starting points for two of the most critical numbers in diabetes management: your Insulin-to-Carb Ratio (ICR) and your Insulin Sensitivity Factor (ISF).</p>
 

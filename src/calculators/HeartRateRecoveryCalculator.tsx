@@ -172,9 +172,9 @@ const HeartRateRecoveryCalculator = () => {
           </div>
         </div>
 
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Heart Rate Recovery Calculator?</h2>
             <p>A heart rate recovery (HRR) calculator measures how quickly your heart rate drops after peak exercise — a powerful indicator of cardiovascular fitness and autonomic nervous system health. Pre-filled with a peak heart rate of 175 bpm dropping to 150 bpm at 1 minute, the 25-bpm recovery is rated "Excellent." Slower recovery indicates reduced parasympathetic (vagal) tone and may warrant medical evaluation.</p>
             <h2>The Clinical Significance of HRR</h2>

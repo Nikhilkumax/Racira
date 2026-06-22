@@ -368,9 +368,9 @@ export default function TwinPregnancyWeightGainCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding Twin Pregnancy Weight Gain Guidelines</h2>
             <p>Finding out that you are pregnant with twins is a life-altering moment. Almost immediately, the medical care required shifts from standard obstetrics to specialized, high-risk Maternal-Fetal Medicine (MFM). One of the most immediate, critical conversations you will have with your healthcare provider revolves around maternal nutrition and weight gain. Carrying multiples demands a drastically different physiological environment than a singleton pregnancy. The <strong>Twin Pregnancy Weight Gain Calculator</strong> utilizes the official, peer-reviewed guidelines published by the Institute of Medicine (IOM) to provide you with a mathematically precise target range designed to maximize fetal growth while protecting maternal health.</p>
 

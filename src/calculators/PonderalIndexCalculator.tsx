@@ -371,9 +371,9 @@ export default function PonderalIndexCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding the Ponderal Index (PI) Calculator</h2>
             <p>For nearly two centuries, the medical community has utilized the Body Mass Index (BMI) to determine if an individual is carrying a healthy amount of weight. However, as sports science and biomechanics have advanced, glaring mathematical flaws in the BMI formula have been exposed. The most significant flaw lies in its geometry. The <strong>Ponderal Index Calculator</strong> (also known as the Corpulence Index or Rohrer's Index) was developed to fix this specific mathematical error. By utilizing a three-dimensional cubic equation instead of a two-dimensional square equation, the Ponderal Index provides a vastly superior analysis of human body proportions, particularly for individuals who are unusually tall or short.</p>
 

@@ -180,7 +180,7 @@ const VpsPricingCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>VPS Pricing Decoded</h2>
               <p>Virtual Private Server (VPS) pricing is generally more predictable than "serverless" or "managed" services because you are paying for reserved capacity. However, there are several factors that can influence your final bill.</p>
               

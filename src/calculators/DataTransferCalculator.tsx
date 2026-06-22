@@ -194,9 +194,9 @@ const DataTransferCalculator = () => {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Reality of Internet Downloads</h2>
             <p>In theory, calculating a file download is simple math: divide the size of the file by the speed of the network. However, in the real world of computer science, theoretical speeds are never achieved. There are two major technical bottlenecks that prevent perfect data transfer: Base Conversion and Network Overhead.</p>
 

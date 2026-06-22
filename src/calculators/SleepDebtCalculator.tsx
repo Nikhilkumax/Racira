@@ -199,7 +199,7 @@ export default function SleepDebtCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding Your Sleep Deficit</h2>
             <p>Sleep debt is the cumulative difference between the amount of sleep your body requires and the amount you actually obtain. Just like financial debt, sleep debt accumulates over days of deficit. If you need 8 hours of sleep per night but only obtain 6, you build a sleep debt of 2 hours daily, totaling 14 hours by the end of a single week.</p>
             <p>Chronic sleep deficit impairs cognitive performance, response times, memory retrieval, and emotional regulation. Over time, it contributes to metabolic imbalances, immune suppression, and elevated risks of cardiovascular complications.</p>

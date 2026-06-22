@@ -274,7 +274,7 @@ const FiveYearOwnershipCostCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is the 5-Year Ownership Cost Calculator?</h2>
             <p>The 5-Year Ownership Cost Calculator estimates the total cost of owning a vehicle over five years — the most common ownership period in the United States. It goes beyond the purchase price to include depreciation, financing interest, insurance, fuel, maintenance, registration, and parking. The result is the true dollar amount you will spend over 60 months of ownership.</p>
             <p>Five years is a natural evaluation horizon because it aligns with the typical auto loan term and marks the point where the steepest depreciation has already occurred.</p>

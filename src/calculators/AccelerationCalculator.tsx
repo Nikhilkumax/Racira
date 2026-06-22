@@ -146,9 +146,9 @@ const AccelerationCalculator = () => {
           </div>
         </div>
 
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is an Acceleration Calculator?</h2>
             <p>An acceleration calculator computes the rate of change of velocity over time using the fundamental kinematic equation a = (vf − vi) / t. Acceleration describes how quickly an object speeds up or slows down — it is a vector quantity with both magnitude and direction. This calculator gives you acceleration in m/s², the distance covered during the motion, and a velocity-time chart showing how speed changes at each second.</p>
             <p>Engineers use acceleration calculations in vehicle testing, aerospace design, and structural analysis. Students use this tool for physics homework covering Newton's laws and kinematics. Sports scientists analyze acceleration profiles of athletes. This tool handles both positive acceleration (speeding up) and negative acceleration (braking/deceleration).</p>

@@ -156,9 +156,9 @@ export default function TotalDebtRatioCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is the Total Debt Ratio?</h2>
             <p>The <strong>total debt ratio</strong>, frequently referred to in financial planning as the debt-to-asset ratio, is a fundamental metric used to evaluate a person's or a business's financial leverage. It measures the exact percentage of your total assets that are financed by creditors versus the percentage you own outright (your equity). Simply put, it answers the question: "How much of what I own is actually mine?" For individuals, this is one of the most critical indicators of long-term financial health and solvency.</p>
             <p>While income dictates your day-to-day cash flow and ability to pay bills, your total debt ratio reveals your true underlying wealth. High-income earners can still have a poor total debt ratio if they finance everything they own—from luxury vehicles and primary residences to vacation homes and credit card spending. Conversely, someone with a modest income who diligently pays down their mortgage and avoids consumer debt might boast an excellent total debt ratio. A lower ratio means you are significantly more financially secure, less vulnerable to economic downturns, and closer to achieving true financial independence.</p>

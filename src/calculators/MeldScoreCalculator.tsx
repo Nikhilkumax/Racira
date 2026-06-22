@@ -274,9 +274,9 @@ export default function MeldScoreCalculator() {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Science of End-Stage Liver Disease</h2>
             <p>The liver is the body's primary chemical processing plant. It is responsible for filtering toxins out of the blood, manufacturing the proteins required for blood to clot, and producing bile to digest food. When a patient develops cirrhosis (severe scarring of the liver from alcohol, hepatitis, or fatty liver disease), these vital functions begin to shut down.</p>
             <p>Before the year 2002, prioritizing patients on the liver transplant waiting list was heavily subjective. Patients were ranked largely based on how long they had been waiting. Unfortunately, this meant that critically ill patients who had just been added to the list were dying before patients who were relatively stable but had been waiting longer. To fix this, the medical community adopted the <strong>MELD Score</strong>.</p>

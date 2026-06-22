@@ -111,7 +111,7 @@ const RothIraCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Why a Roth IRA is Powerful</h2>
               <p>The Roth IRA is often considered one of the best retirement savings vehicles available. Its core advantage — tax-free growth — becomes increasingly powerful over a long investment horizon.</p>
               <h3>The Tax-Free Advantage</h3>

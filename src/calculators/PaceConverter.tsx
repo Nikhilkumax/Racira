@@ -128,7 +128,7 @@ const PaceConverter = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Mastering Your Pace</h2>
               <p>Pace is the primary language of runners. Unlike speed, which tells you how much distance you cover in a set time, pace tells you how long it will take to reach your destination. This makes it invaluable for race planning and training.</p>
               <h3>Training Zones</h3>

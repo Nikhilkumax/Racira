@@ -397,9 +397,9 @@ export default function FreeCashFlowToEquityCalculator() {
         </div>
 
         {/* SEO Content Section */}
-        <div className="max-w-[1180px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding Free Cash Flow to Equity (FCFE)</h2>
             <p>
               Free Cash Flow to Equity (FCFE) represents the actual amount of liquid cash a business generates that is fully available to be distributed back to its common stock owners or equity shareholders. This distribution can take multiple forms, including direct dividend payouts, share buyback programs (treasury shares repurchase), or simply being retained in the equity segment of the balance sheet for future growth.

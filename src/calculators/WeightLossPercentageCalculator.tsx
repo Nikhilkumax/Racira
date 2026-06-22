@@ -317,9 +317,9 @@ export default function WeightLossPercentageCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Deception of Aspirational Fitness</h2>
             <p>If you consume fitness media on Instagram or TikTok, you are subjected to a relentless barrage of "aspirational" physiques. You are shown images of bodybuilders with 5% body fat and fitness models with six-pack abs. This creates a deeply toxic psychological framework for the average person attempting to lose weight. They believe that unless they achieve that magazine-cover perfection, their diet was a failure. Medical science completely disagrees. The clinical reality is that you do not need to be perfect to save your own life. The <strong>Clinical Weight Loss Percentage Calculator</strong> strips away the aesthetic vanity of the fitness industry and anchors your progress to the three objective medical milestones that actually govern human longevity.</p>
 

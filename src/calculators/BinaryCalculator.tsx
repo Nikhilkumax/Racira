@@ -234,9 +234,9 @@ const BinaryCalculator = () => {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Foundation of Computing</h2>
             <p>Every digital device—from your smartphone to supercomputers—operates fundamentally on <strong>binary code</strong>. The binary numeral system (Base-2) uses only two symbols: <code>0</code> and <code>1</code>. In physical hardware, a 1 represents a microscopic transistor being "ON" (allowing electricity to flow), while a 0 represents it being "OFF." By stringing millions of these binary switches together, computers can perform complex arithmetic and logic instantly.</p>
 

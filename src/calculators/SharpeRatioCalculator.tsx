@@ -80,7 +80,7 @@ export default function SharpeRatioCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Understanding the Sharpe Ratio</h2>
               <p>The Sharpe Ratio, developed by Nobel laureate William F. Sharpe in 1966, is the most widely used metric for measuring risk-adjusted investment performance. Its central insight is that return alone is a meaningless number — what matters is return per unit of risk taken. A portfolio returning 15% with enormous volatility may be inferior to one returning 12% with much lower volatility, once risk is properly accounted for.</p>
               <h2>The Sharpe Ratio Formula</h2>

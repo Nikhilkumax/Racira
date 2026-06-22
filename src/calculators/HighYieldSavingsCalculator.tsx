@@ -84,7 +84,7 @@ export default function HighYieldSavingsCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Why Choose a High-Yield Savings Account?</h2>
               <p>High-yield savings accounts have become increasingly popular as interest rates rose significantly from 2022 to 2024. Traditional brick-and-mortar banks often offer savings account rates near 0.01-0.10% APY — essentially nothing. By contrast, online-only banks and fintech platforms regularly offer 4-5% APY, resulting in dramatically better returns on your cash reserves without any additional risk.</p>
               <h2>The Power of Compound Interest in Savings</h2>

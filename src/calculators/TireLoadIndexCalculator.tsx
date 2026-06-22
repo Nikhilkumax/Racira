@@ -213,9 +213,9 @@ export default function TireLoadIndexCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding Your Tire Load Index</h2>
             <p>Every tire manufactured for road use carries a specific Load Index, a numerical code that dictates exactly how much physical weight the tire is engineered to support. Our Tire Load Index Calculator instantly decodes this industry-standard numbering system into practical pounds and kilograms, allowing you to ensure your vehicle is safe to operate under heavy loads.</p>
 

@@ -98,7 +98,7 @@ const CtrCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Why CTR is the Most Important Ad Metric</h2>
               <p>CTR is the ultimate 'BS detector' in advertising. It tells you exactly whether your message is resonating with your audience. If 1,000 people see your ad and no one clicks, you have a message-market mismatch.</p>
               <h3>Increasing Your CTR</h3>

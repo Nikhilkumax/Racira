@@ -118,7 +118,7 @@ const DateCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>About the Date Calculator</h2>
               <p>This tool lets you quickly find a date in the future or past by adding or subtracting a specific number of years, months, and days from any starting date.</p>
 

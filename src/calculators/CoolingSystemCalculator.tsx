@@ -233,9 +233,9 @@ export default function CoolingSystemCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Physics of an Internal Combustion Engine</h2>
             <p>An internal combustion engine is not really a machine designed to create motion; it is a machine designed to create controlled explosions. When a spark plug ignites the gasoline and air mixture inside the cylinder, it creates a massive fireball. This fireball expands violently, pushing the piston downward. This downward force turns the crankshaft, which ultimately spins the wheels.</p>
             <p>However, the laws of thermodynamics dictate that this process is incredibly inefficient. A typical gasoline engine is only about 30% to 35% thermally efficient. This means that if you buy a gallon of gasoline, only one-third of that gasoline actually moves the car forward. The other two-thirds is instantly converted into raw, violent heat.</p>

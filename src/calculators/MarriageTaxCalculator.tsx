@@ -196,7 +196,7 @@ const MarriageTaxCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Marriage and the IRS: How Your Filing Status Affects Your Taxes</h2>
               <p>For most couples, getting married is a significant financial event. The "marriage bonus" or "marriage penalty" is the difference between what a couple pays in taxes as a married unit versus what they would have paid as two single individuals. Understanding how these calculations work can help you choose the best filing status every year.</p>
 

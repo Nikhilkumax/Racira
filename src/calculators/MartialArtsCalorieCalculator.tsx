@@ -291,9 +291,9 @@ export default function MartialArtsCalorieCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Massive Caloric Demand of Martial Arts</h2>
             <p>From the explosive high kicks of Muay Thai to the grueling ground battles of Brazilian Jiu-Jitsu, martial arts represent one of the most physically exhausting forms of training in existence. They are entirely unique in the fitness world because they combine the heavy resistance of lifting weights (moving another human being) with the maximum heart rate spikes of sprinting. However, estimating the true energy expenditure of a dojo session is incredibly difficult because so much time is spent receiving instruction. The <strong>Martial Arts Calorie Calculator</strong> solves this by using clinically validated Metabolic Equivalent (MET) formulas based solely on your active drilling time, providing a mathematically precise measurement of your thermodynamic output.</p>
 

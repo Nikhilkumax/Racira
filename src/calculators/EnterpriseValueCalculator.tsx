@@ -266,7 +266,7 @@ export default function EnterpriseValueCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is Enterprise Value?</h2>
             <p>Enterprise Value (EV) is a financial metric that represents the total economic value of a business — the theoretical price an acquirer would pay to own the entire company, including its debt. Unlike market capitalization, which only reflects the equity holders' claim, enterprise value encompasses all stakeholders: equity shareholders, debt holders, preferred stockholders, and minority interest holders.</p>
             <p>The formula is: EV = Market Capitalization + Total Debt + Preferred Equity + Minority Interest − Cash & Cash Equivalents. The inclusion of debt makes EV capital-structure neutral, allowing fair comparisons between companies regardless of how they finance their operations.</p>

@@ -126,7 +126,7 @@ const FertilityCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>How Fertility Tracking Works</h2>
               <p>For pregnancy to occur, live sperm must be present in the fallopian tubes when an egg is released. Because sperm can live in optimal conditions for up to 5 days, a woman's fertile window is roughly 6 days long: the 5 days before ovulation, plus the day of ovulation.</p>
               <h3>Why Ovulation Day Matters</h3>

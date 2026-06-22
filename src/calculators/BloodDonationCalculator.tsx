@@ -209,9 +209,9 @@ export default function BloodDonationCalculator() {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Science of Blood Recovery</h2>
             <p>Every day in the United States, patients in emergency rooms, surgical suites, and cancer treatment centers require approximately 36,000 units of red blood cells to survive. Because human blood cannot be manufactured in a laboratory, it must be voluntarily donated. However, blood banks enforce strict recovery periods to protect the health of the donor.</p>
 

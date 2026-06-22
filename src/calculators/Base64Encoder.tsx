@@ -60,7 +60,7 @@ const Base64Encoder = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>About the Base64 Encoder</h2>
             <p>The Base64 Encoder helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.</p>
             <h3>How to Use</h3>

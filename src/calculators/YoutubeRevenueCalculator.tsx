@@ -150,9 +150,9 @@ export default function YoutubeRevenueCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a YouTube Revenue Calculator?</h2>
             <p>A YouTube revenue calculator is an essential forecasting tool for content creators, digital marketers, and entrepreneurs looking to understand the financial viability of building a YouTube channel. YouTube has evolved from a simple video-sharing platform into a massive global economic engine, minting millionaires and providing sustainable, full-time careers for millions of creators worldwide. However, the actual mathematics behind how YouTube pays its creators is famously opaque and confusing for beginners.</p>
             <p>Because earnings fluctuate wildly based on dozens of algorithmic variables—from viewer demographics to video length—predicting your monthly AdSense payout can be frustrating. This calculator cuts through the complexity by isolating the two most critical metrics in the YouTube Partner Program: Traffic (Daily Views) and Revenue Per Mille (RPM). By adjusting these inputs, creators can mathematically determine exactly how much traffic they need to quit their day jobs, or how improving their niche to boost RPM could double their income without requiring a single new subscriber.</p>

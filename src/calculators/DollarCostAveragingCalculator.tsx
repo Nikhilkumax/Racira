@@ -88,7 +88,7 @@ export default function DollarCostAveragingCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>What Is Dollar Cost Averaging?</h2>
               <p>Dollar Cost Averaging (DCA) is one of the most powerful — and psychologically comfortable — investment strategies available to individual investors. The concept is elegantly simple: invest a fixed dollar amount into a chosen asset at regular intervals (weekly, monthly, quarterly) regardless of what the market is doing. When prices are high, your fixed amount buys fewer shares. When prices are low, the same amount buys more shares. Over time, this results in a lower average cost per share than randomly timed purchases.</p>
               <h2>The Math Behind DCA</h2>

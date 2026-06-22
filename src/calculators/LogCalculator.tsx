@@ -93,7 +93,7 @@ const LogCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Understanding Logarithms</h2>
               <p>A logarithm is the inverse of exponentiation. The common logarithm (log₁₀) is used in science and engineering, while the natural logarithm (ln, base e) is fundamental in calculus and exponential growth/decay models.</p>
             </article>

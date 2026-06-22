@@ -356,9 +356,9 @@ export default function PregnancyDueDateCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding the Pregnancy Due Date Calculator</h2>
             <p>Discovering you are pregnant is one of the most monumental moments in a woman's life. Almost instantly, the single most pressing question becomes: "When is the baby arriving?" For decades, modern obstetrics has relied on a specific mathematical algorithm to predict exactly when a full-term pregnancy will reach its natural conclusion. The <strong>Pregnancy Due Date Calculator</strong> utilizes this globally accepted medical standard—the Modified Naegele's Rule—to provide you with an incredibly precise Estimated Date of Delivery (EDD), alongside a comprehensive timeline of your gestational milestones.</p>
 

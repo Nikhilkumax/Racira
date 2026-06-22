@@ -124,7 +124,7 @@ const HouseAffordabilityCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Sidebar Ad" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>How Lenders Determine Your Budget</h2>
               <p>When you apply for a mortgage, lenders don't just look at your credit score; they look at your "capacity" to pay. The primary metric they use is the Debt-to-Income (DTI) ratio.</p>
               <h3>Front-End vs. Back-End Ratio</h3>

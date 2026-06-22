@@ -360,9 +360,9 @@ export default function RepetitionMaxPercentageCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding the 1-Rep Max (1RM) Estimator</h2>
             <p>Every legitimate, science-based strength training program on earth—from Jim Wendler’s 5/3/1 to the legendary Smolov Squat Routine—requires you to know your 1-Repetition Maximum (1RM). Your 1RM is the absolute maximum amount of weight you can physically lift for a single, full repetition with proper form. It is the mathematical anchor point used to calculate the percentages for every warmup set, working set, and speed set in your entire program. However, actually performing a true 1RM test in the gym is exhausting, neurologically draining, and highly dangerous for amateur lifters. The <strong>Repetition Max Percentage Calculator</strong> provides a mathematically safe alternative, allowing you to convert a lighter, high-repetition set (e.g., 5 reps) into a highly accurate 1RM estimation using aggregated clinical formulas.</p>
 

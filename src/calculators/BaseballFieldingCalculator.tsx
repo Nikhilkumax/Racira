@@ -318,9 +318,9 @@ export default function BaseballFieldingCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Mathematics of Defense</h2>
             <p>For over a century, the sport of baseball has relied on one fundamental metric to evaluate the defensive prowess of a player: the Fielding Percentage. While offensive statistics focus on generating runs, defensive statistics focus on preventing them. The <strong>Baseball Fielding Percentage Calculator</strong> isolates a player's raw ability to handle the baseball without making mistakes. It is a pure measurement of sure-handedness, calculating exactly how often a player executes a defensive play flawlessly when given the opportunity.</p>
 

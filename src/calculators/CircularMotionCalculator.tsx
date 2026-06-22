@@ -153,9 +153,9 @@ const CircularMotionCalculator = () => {
           </div>
         </div>
 
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Circular Motion Calculator?</h2>
             <p>A circular motion calculator computes the centripetal acceleration, centripetal force, angular velocity, period, frequency, and G-force for an object moving in a circular path. Pre-filled with a 5 kg object at radius 2 m moving at 10 m/s, the centripetal acceleration is 50 m/s² (5.1g) and the centripetal force is 250 N.</p>
             <h2>Core Formulas</h2>

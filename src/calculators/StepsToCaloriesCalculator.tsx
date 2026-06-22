@@ -335,9 +335,9 @@ export default function StepsToCaloriesCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Translating Steps into Energy: The Biomechanics of Walking</h2>
             <p>Every smartphone and smart watch on the market today features a built-in pedometer, constantly tracking your daily steps in the background. We are constantly told to aim for the magical "10,000 steps" to improve our health. However, a raw step count tells you nothing about the actual thermodynamic "work" your body performed. A step is not a universal measurement of energy. The <strong>Steps to Calories Calculator</strong> bridges this gap. By factoring in your exact height to determine your unique stride length, and your exact body weight to calculate mechanical resistance, it translates your raw step count into a highly accurate, biologically sound caloric expenditure.</p>
 

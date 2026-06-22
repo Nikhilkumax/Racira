@@ -337,9 +337,9 @@ export default function CarDepreciationCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is Car Depreciation?</h2>
             <p>Car depreciation is the financial reality that a vehicle loses value over time. It is the single largest hidden expense of car ownership. While most people focus on their monthly loan payment, insurance, and gas, the thousands of dollars the vehicle sheds in market value every year quietly dwarfs those other costs. A Car Depreciation Calculator is an essential tool for buyers who want to understand the true cost to own a vehicle before signing the paperwork.</p>
 

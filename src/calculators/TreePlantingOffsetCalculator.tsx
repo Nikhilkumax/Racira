@@ -126,7 +126,7 @@ const TreePlantingOffsetCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Nature's Solution</h2>
               <p>Reforestation is one of the most scalable and cost-effective ways to remove existing carbon dioxide from the atmosphere. Trees act as natural "carbon sinks," pulling CO2 from the air to build their trunks, branches, and roots.</p>
               <h3>The Time Factor</h3>

@@ -99,7 +99,7 @@ const GratuityCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>What Is a Gratuity Calculator?</h2>
               <p>A gratuity calculator helps employees estimate the gratuity amount they are entitled to receive upon retirement, resignation, or completion of service. Gratuity is a lump sum payment made by employers as a gesture of gratitude for the employee's service.</p>
 

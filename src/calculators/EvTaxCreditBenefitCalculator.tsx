@@ -306,7 +306,7 @@ const EvTaxCreditBenefitCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is the EV Tax Credit Benefit Calculator?</h2>
             <p>This calculator estimates the total financial benefit of buying an electric vehicle, combining the federal tax credit, state incentives, utility rebates, and fuel savings over your ownership period. It also checks federal eligibility based on MSRP, vehicle class, income, and filing status under the Inflation Reduction Act rules.</p>
 

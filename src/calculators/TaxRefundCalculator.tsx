@@ -174,7 +174,7 @@ const TaxRefundCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>How to Estimate Your Tax Refund</h2>
               <p>Understanding how your tax refund is calculated can help you manage your finances better and avoid surprises in April. A tax refund is not "free money" from the government; it is simply the return of money that you overpaid throughout the year.</p>
 

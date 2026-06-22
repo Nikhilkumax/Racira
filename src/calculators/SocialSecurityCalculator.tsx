@@ -188,9 +188,9 @@ export default function SocialSecurityCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>When Should You Claim Social Security?</h2>
             <p>This <strong>Social Security calculator</strong> computes your monthly benefit at the three key claiming ages (62, FRA, and 70) and provides break-even analysis — the age at which delaying produces more total lifetime income than claiming early. For post-1960 birth years: claiming at 62 reduces your full benefit by 30%; claiming at 70 increases it by 24% (8%/year for 3 years past FRA). The break-even analysis assumes equal health and spending needs at all ages.</p>
             <h2>Break-Even Analysis</h2>

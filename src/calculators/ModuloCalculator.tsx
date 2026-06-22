@@ -120,9 +120,9 @@ const ModuloCalculator = () => {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Modulo Calculator?</h2>
             <p>A modulo calculator computes the remainder of integer division: a mod b. Pre-filled with 17 mod 5, the result is 2 (because 17 = 5 × 3 + 2). This calculator shows three mod variants — truncated remainder (C/JS), floor mod (Python), and Euclidean mod — along with a visual chart of remainders across divisors 1–12.</p>
             <h2>The Division Algorithm</h2>

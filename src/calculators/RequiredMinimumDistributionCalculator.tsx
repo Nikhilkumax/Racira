@@ -184,9 +184,9 @@ export default function RequiredMinimumDistributionCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Required Minimum Distribution?</h2>
             <p>A Required Minimum Distribution (RMD) is the annual amount the IRS mandates you withdraw from tax-deferred retirement accounts — traditional IRAs, 401(k)s, 403(b)s, SEP IRAs, and SIMPLE IRAs — starting at age 73 (SECURE 2.0 Act, 2022). These rules exist because the IRS deferred taxes when you contributed to these accounts; RMDs ensure those taxes are eventually collected. The <strong>RMD calculator</strong> uses the IRS Uniform Lifetime Table to compute your precise annual distribution requirement.</p>
             <h2>RMD Calculation Formula</h2>

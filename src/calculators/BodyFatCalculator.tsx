@@ -140,7 +140,7 @@ const BodyFatCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>What Is Body Fat Percentage?</h2>
               <p>Body fat percentage is the proportion of your total body weight that is fat tissue. It's a better indicator of health and fitness than weight alone, as it distinguishes between fat mass and lean mass (muscle, bone, water, organs).</p>
 

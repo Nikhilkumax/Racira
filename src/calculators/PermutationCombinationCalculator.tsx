@@ -120,9 +120,9 @@ export default function PermutationCombinationCalculator() {
             </div>
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Permutations vs. Combinations</h2>
             <p>The fundamental distinction in counting: permutations count ordered selections; combinations count unordered selections. If you select 3 letters from {"{A, B, C}"}: Permutations = 6 (ABC, ACB, BAC, BCA, CAB, CBA). Combinations = 1 ({"{A, B, C}"}). The ratio between permutations and combinations is always r! — the number of ways to arrange the selected items.</p>
             <h2>Permutation Formula: P(n, r) = n! / (n−r)!</h2>

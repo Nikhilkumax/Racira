@@ -205,7 +205,7 @@ const W4WithholdingCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>How to Use This W-4 Calculator</h2>
               <p>The goal of tax withholding is to pay exactly what you owe to the government—no more and no less. This calculator helps you see if your current paycheck withholding is on track to meet your annual tax liability or if you need to make an adjustment to avoid a surprise bill in April.</p>
 

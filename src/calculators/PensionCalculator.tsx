@@ -137,7 +137,7 @@ const PensionCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>How Defined Benefit Pensions Work</h2>
               <p>While 401(k) plans have become the standard in the private sector, many public sector employees (teachers, police officers, government workers) still have access to defined benefit pensions. These plans offer a high level of retirement security because the employer bears all the investment risk, promising a set income for the rest of your life.</p>
 

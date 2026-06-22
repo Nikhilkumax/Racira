@@ -257,9 +257,9 @@ export default function TransmissionRatioCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Mathematics of Vehicle Speed</h2>
             <p>Have you ever wondered exactly how fast your car will go if you bounce it off the 7,000 RPM rev limiter in 4th gear? Or maybe you are planning to install massive 35-inch off-road tires and want to know how badly it will affect your highway cruising RPM. The Transmission Ratio Calculator removes the guesswork by applying strict mechanical physics to your drivetrain specifications. By linking your engine's rotational speed (RPM) to the physical circumference of your tires through a series of gear reductions, this tool calculates your exact road velocity.</p>
 

@@ -298,9 +298,9 @@ export default function AssetCoverageRatioCalculator() {
           </div>
         </div>
 
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is the Asset Coverage Ratio?</h2>
             <p>The Asset Coverage Ratio is a financial solvency metric used by lenders and investors to determine how well a company can repay its debts by liquidating its assets. It provides a measure of downside protection. Specifically, it tells you how many times over the company's tangible assets can cover its total debt obligations in the event of bankruptcy.</p>
             

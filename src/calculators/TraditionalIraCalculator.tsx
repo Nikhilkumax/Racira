@@ -110,7 +110,7 @@ const TraditionalIraCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Tax-Deferred Growth Explained</h2>
               <p>The Traditional IRA is built around a "pay taxes later" philosophy. By deferring taxes until retirement, your entire contribution — including the portion that would have gone to taxes — grows and compounds for decades.</p>
               <h3>Traditional vs. Roth IRA</h3>

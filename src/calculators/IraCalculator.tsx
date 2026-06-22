@@ -149,9 +149,9 @@ export default function IraCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is an IRA Calculator?</h2>
             <p>An <strong>IRA calculator</strong> projects the future value of your Individual Retirement Account based on annual contributions, current balance, expected return, and time horizon. Whether you have a Traditional IRA (pre-tax contributions) or Roth IRA (after-tax contributions), understanding how compound growth works over decades is essential for retirement planning.</p>
             <h2>How IRA Growth Is Calculated</h2>

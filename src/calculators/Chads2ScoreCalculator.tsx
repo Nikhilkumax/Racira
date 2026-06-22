@@ -202,9 +202,9 @@ export default function Chads2ScoreCalculator() {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding Atrial Fibrillation & Stroke</h2>
             <p>Atrial fibrillation (often called AFib) is the most common type of treated heart arrhythmia. In a healthy heart, electrical signals fire in a steady rhythm, causing the upper chambers (atria) to contract and pump blood efficiently into the lower chambers. In AFib, chaotic electrical signals cause the atria to quiver rapidly and irregularly.</p>
             <p>Because the atria are quivering rather than squeezing, they fail to empty all of their blood. This stagnant blood tends to pool in a small sac in the left atrium called the atrial appendage. Blood that sits still quickly coagulates into a solid clot. If that clot breaks free, it is pumped out of the heart, up the carotid artery, and directly into the brain, causing a devastating ischemic stroke.</p>

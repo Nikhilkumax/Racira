@@ -137,7 +137,7 @@ const SalaryCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>What Is a Salary Calculator?</h2>
               <p>A salary calculator converts your pay between different time periods — hourly, daily, weekly, bi-weekly, monthly, and annually. Whether you're evaluating a job offer, comparing different positions, or budgeting, understanding your salary across different timeframes is essential.</p>
               <p>Our calculator also accounts for paid holidays and vacation days, giving you a more accurate picture of your actual working hours and effective hourly rate.</p>

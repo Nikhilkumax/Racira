@@ -273,9 +273,9 @@ export default function BrakingDistanceCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Mathematics of Deceleration</h2>
             <p>Every time you press the brake pedal, you are engaging in a violent exercise of physics. A 4,000-pound vehicle traveling at 70 MPH possesses a massive amount of kinetic energy. The brakes must convert 100% of that kinetic energy into thermal energy (heat) in a matter of seconds. The physical distance the car travels while the brakes are working to dissipate this energy is known as the <strong>Braking Distance</strong>.</p>
 

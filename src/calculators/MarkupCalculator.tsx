@@ -124,7 +124,7 @@ const MarkupCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>What Is Markup?</h2>
               <p>Markup is the amount added to the cost of a product or service to determine its selling price. It is expressed as a percentage of the cost. Markup is one of the most fundamental pricing concepts in business, directly affecting profitability and competitiveness.</p>
 

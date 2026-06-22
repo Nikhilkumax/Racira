@@ -167,7 +167,7 @@ export default function EquityMultiplierCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is the Equity Multiplier?</h2>
             <p>The Equity Multiplier (EM) is a financial leverage ratio that measures how much of a company's assets are financed by equity versus debt. Formula: Equity Multiplier = Total Assets / Total Shareholders' Equity. An EM of 2.5x tells you that for every dollar of equity, the company controls $2.50 worth of assets — meaning $1.50 comes from debt financing.</p>
             <p>This ratio is the third component of the classic DuPont Analysis framework, which decomposes Return on Equity as: ROE = Net Profit Margin × Asset Turnover × Equity Multiplier. Understanding the EM allows analysts to isolate whether a company's ROE performance stems from operational excellence (high margins and turnover) or financial engineering (high leverage). Both can produce identical ROE figures but with very different risk profiles.</p>

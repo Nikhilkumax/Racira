@@ -265,9 +265,9 @@ export default function ReactionTimeCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Physics of Perception</h2>
             <p>We often think of cars stopping instantaneously when we press the brake pedal, but we forget the critical human element involved before the brakes even engage. When a deer jumps into the road, your vehicle does not instantly begin slowing down. A complex biological chain reaction must occur first.</p>
             <p>Traffic engineers call this <strong>Perception-Reaction Time (PRT)</strong>. First, your eyes must capture the image of the deer. Second, your brain must process that the image represents a dangerous hazard. Third, your brain must calculate a solution (stop the car). Finally, your brain sends a neurological signal down to your leg muscles, instructing them to lift off the accelerator and slam onto the brake pedal. This entire process takes the average, alert driver 1.5 seconds.</p>

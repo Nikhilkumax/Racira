@@ -178,7 +178,7 @@ const RentVsBuyCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – Sidebar" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Renting vs. Buying: Which is the Smart Move?</h2>
               <p>The "rent vs buy" debate is one of the most significant financial decisions you'll ever face. While the American Dream often emphasizes homeownership, the math doesn't always favor buying—especially in high-interest environments or expensive markets.</p>
               <h3>When Buying Wins</h3>

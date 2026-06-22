@@ -131,9 +131,9 @@ export default function DCFValuationCalculator() {
             </div>
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What is DCF (Discounted Cash Flow) Analysis?</h2>
             <p>DCF analysis is the fundamental valuation method in finance, used by investment banks, private equity firms, and value investors to determine a company&apos;s intrinsic value based on its future earnings power. The core principle: a dollar today is worth more than a dollar in the future due to time value of money and risk. By discounting projected future free cash flows back to present value, we determine what the business is worth today.</p>
             <h2>DCF Formula</h2>

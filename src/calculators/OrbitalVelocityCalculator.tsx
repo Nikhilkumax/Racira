@@ -133,9 +133,9 @@ const OrbitalVelocityCalculator = () => {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is an Orbital Velocity Calculator?</h2>
             <p>An orbital velocity calculator computes the speed required for an object to maintain a stable circular orbit around a celestial body at a given altitude. Pre-filled with Earth at 400 km altitude (the ISS orbit), the orbital velocity is approximately 7.67 km/s (27,600 km/h or Mach 22). This calculator supports 7 celestial bodies from the Moon to the Sun.</p>
             <h2>The Orbital Velocity Formula</h2>

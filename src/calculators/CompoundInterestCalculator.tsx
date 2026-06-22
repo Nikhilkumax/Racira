@@ -195,9 +195,9 @@ const CompoundInterestCalculator = () => {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Compound Interest Calculator?</h2>
             <p>A compound interest calculator computes how an investment grows when interest is earned on both the initial principal and the accumulated interest from previous periods. This "interest on interest" effect — compounding — is the most powerful force in personal finance. Pre-filled with $10,000 invested at 7% for 20 years with $200/month contributions, the calculator shows the final balance, the breakdown of principal vs contributions vs interest, and a growth chart showing how the balance accelerates over time.</p>
             <p>Understanding compound interest is essential for retirement planning, savings goal-setting, loan comparison, and investment analysis. Albert Einstein allegedly called compound interest "the eighth wonder of the world" — whether or not the quote is authentic, the math is undeniably powerful.</p>

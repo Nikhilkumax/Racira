@@ -165,7 +165,7 @@ export default function PresentValueCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is Present Value?</h2>
             <p>Present Value (PV) is one of the most fundamental concepts in finance and investing. It answers a simple but powerful question: how much is a future sum of money worth today? The answer depends on the discount rate — the rate of return you could earn if you invested that money right now.</p>
             <p>The principle behind present value is the time value of money: a dollar today is worth more than a dollar in the future. Why? Because money today can be invested to generate returns, while future money carries both inflation risk and opportunity cost. If you can earn 8% per year, receiving $10,000 in 10 years is equivalent to having $4,632 today — the present value at an 8% discount rate.</p>

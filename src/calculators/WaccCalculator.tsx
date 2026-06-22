@@ -216,7 +216,7 @@ export default function WaccCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding Weighted Average Cost of Capital (WACC)</h2>
             <p>The Weighted Average Cost of Capital (WACC) is a financial metric used to calculate a company's cost of capital. It represents the minimum rate of return a company must earn on its existing asset base to satisfy its creditors, owners, and other providers of capital. If a company's investments yield returns below its WACC, it is destroying corporate value.</p>
             

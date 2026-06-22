@@ -162,7 +162,7 @@ const AwsS3CostCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Mastering S3 Storage Costs</h2>
               <p>Amazon S3 (Simple Storage Service) is the backbone of the internet, but its pricing model can be complex. Understanding the three main dimensions of cost—storage, requests, and transfer—is key to keeping your cloud bill under control.</p>
               

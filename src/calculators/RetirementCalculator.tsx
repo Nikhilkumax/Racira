@@ -148,9 +148,9 @@ export default function RetirementCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Retirement Calculator?</h2>
             <p>A <strong>retirement calculator</strong> projects your portfolio at retirement, estimates monthly income from all sources (investments, Social Security, pension), compares it against your planned expenses, and tells you whether you&apos;re on track or need to save more. This comprehensive planner integrates the 4% safe withdrawal rate framework with multi-source income analysis.</p>
             <h2>How Retirement Income Is Calculated</h2>

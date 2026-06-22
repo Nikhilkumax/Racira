@@ -240,9 +240,9 @@ export default function HemoglobinCalculator() {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding Your Hemoglobin (Hb) Results</h2>
             <p>A Complete Blood Count (CBC) is one of the most common laboratory tests performed in medicine. Within that test, Hemoglobin is arguably the most critical metric. Hemoglobin is the iron-rich protein residing inside your red blood cells that is solely responsible for carrying oxygen from your lungs to the rest of your body.</p>
             <p>This <strong>Hemoglobin Calculator</strong> analyzes your blood test results, automatically cross-referencing your value against the exact clinical ranges established for your specific demographic (age, biological sex, and pregnancy status).</p>

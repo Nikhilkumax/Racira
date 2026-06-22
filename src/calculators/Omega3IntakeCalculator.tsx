@@ -224,9 +224,9 @@ export default function Omega3IntakeCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding Omega-3 Fatty Acids</h2>
             <p>This <strong>Omega-3 intake calculator</strong> determines your recommended daily requirement for both ALA (plant-based) and EPA/DHA (marine-based) Omega-3 fatty acids based on age, sex, and specific health goals. Omega-3s are essential polyunsaturated fats, meaning your body cannot produce them from scratch — they must be obtained through diet or supplementation.</p>
             <h2>The Importance of EPA and DHA vs ALA</h2>

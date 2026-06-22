@@ -198,7 +198,7 @@ const SavingsCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>What Is a Savings Calculator?</h2>
               <p>A savings calculator projects how much money you'll accumulate over time based on your initial deposit, regular contributions, interest rate, and compounding frequency. It's an essential planning tool for anyone building an emergency fund, saving for a down payment, funding a college education, or growing long-term wealth.</p>
               <p>Our advanced savings calculator goes beyond basic projections by including compounding frequency options (daily, monthly, quarterly, annually), optional inflation adjustment to show real purchasing power, and a complete year-by-year breakdown table that reveals exactly how compound interest and regular savings work together over time.</p>

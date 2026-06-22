@@ -105,9 +105,9 @@ const AbsoluteValueCalculator = () => {
           </div>
         </div>
 
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is an Absolute Value Calculator?</h2>
             <p>An absolute value calculator computes |x| — the distance of a real number from zero on the number line — for any positive, negative, or fractional input. The result is always non-negative. Absolute value appears throughout mathematics, physics, engineering, and finance as a fundamental operation that measures magnitude without regard to sign.</p>
             <p>Whether you are working through algebra homework, computing error bounds in statistics, or analyzing signal amplitudes in electronics, this calculator delivers the result instantly. Simply type any real number and click Calculate.</p>

@@ -93,7 +93,7 @@ const RoasCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Scaling Your Business with ROAS</h2>
               <p>ROAS is the primary compass for e-commerce brands. If you know that every dollar you put into Facebook Ads returns five dollars in sales, you can scale your budget with confidence.</p>
               <h3>The Break-Even ROAS</h3>

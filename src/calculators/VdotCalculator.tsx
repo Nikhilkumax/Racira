@@ -120,9 +120,9 @@ export default function VdotCalculator() {
             </div>
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is VDOT?</h2>
             <p>VDOT is a performance index developed by exercise physiologist Jack Daniels, Ph.D., author of &quot;Daniels&apos; Running Formula&quot; — considered the bible of distance running training. Rather than requiring a laboratory VO2max test, VDOT is derived from race performance and represents an integrated measure of aerobic capacity and running economy. It provides a single number that precisely determines optimal training paces across all workout types.</p>
             <h2>Training Zones Explained</h2>

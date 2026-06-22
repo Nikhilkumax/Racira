@@ -121,9 +121,9 @@ const MedianCalculator = () => {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Median Calculator?</h2>
             <p>A median calculator finds the middle value of a dataset after sorting it in ascending order. Pre-filled with the sequence {"{4, 8, 15, 16, 23, 42}"} (the famous Lost numbers), the median is 15.5 — the average of the two middle values in this even-count dataset. The calculator also computes mean, mode, range, standard deviation, and variance for complete descriptive statistics.</p>
             <h2>How to Calculate the Median</h2>

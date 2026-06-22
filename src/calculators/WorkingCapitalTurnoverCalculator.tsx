@@ -123,9 +123,9 @@ export default function WorkingCapitalTurnoverCalculator() {
             </div>
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is Working Capital Turnover?</h2>
             <p>Working Capital Turnover (WCT) measures how efficiently a company uses its net current assets (working capital) to generate revenue. A higher ratio indicates more revenue generated per dollar of working capital deployed — a hallmark of capital-efficient businesses. Formula: WCT = Net Revenue ÷ (Current Assets − Current Liabilities).</p>
             <h2>Interpreting High vs. Low WCT</h2>

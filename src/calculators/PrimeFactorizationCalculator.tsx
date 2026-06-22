@@ -209,9 +209,9 @@ const PrimeFactorizationCalculator = () => {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What is Prime Factorization?</h2>
             <p><strong>Prime Factorization</strong> is the mathematical process of breaking down a composite number into a series of prime numbers that, when multiplied together, equal the original composite number. You can think of prime numbers as the fundamental "building blocks" of all other numbers in mathematics.</p>
             <p>For example, the number 12 is a composite number. It can be factored into 3 × 4. However, 4 is not a prime number, so we must break it down further into 2 × 2. Therefore, the complete prime factorization of 12 is <strong>2 × 2 × 3</strong>.</p>

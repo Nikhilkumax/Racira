@@ -88,7 +88,7 @@ const DownPaymentCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Planning Your Home Purchase</h2>
               <p>One of the biggest barriers to homeownership is saving the necessary cash. Most buyers underestimate the total needed because they focus on the down payment and forget about closing costs, moving expenses, and initial repairs.</p>
               <h3>The 20% Threshold</h3>

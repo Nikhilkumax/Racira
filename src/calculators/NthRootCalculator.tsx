@@ -204,7 +204,7 @@ export default function NthRootCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is an Nth Root Calculator?</h2>
             <p>
               An nth root calculator finds the value r such that r raised to the power n equals a given number x. Written mathematically: ⁿ√x = r, which means rⁿ = x. The most familiar examples are the square root (n = 2) and the cube root (n = 3), but the operation generalizes to any positive integer — or even fractional and decimal — root degree.

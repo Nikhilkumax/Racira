@@ -272,9 +272,9 @@ export default function BitcoinMiningCalculator() {
           </div>
         </div>
 
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Realities of Bitcoin Mining</h2>
             <p>Bitcoin mining is the process of using high-powered computer hardware (ASICs) to solve complex cryptographic puzzles. The first miner to solve the puzzle earns the right to add a new block to the blockchain and receives the "block reward" (newly minted Bitcoins) plus transaction fees.</p>
             

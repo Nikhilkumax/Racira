@@ -130,9 +130,9 @@ const HarmonicMeanCalculator = () => {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Harmonic Mean Calculator?</h2>
             <p>A harmonic mean calculator computes HM = n / Σ(1/xᵢ) and compares it against the geometric mean (GM) and arithmetic mean (AM). Pre-filled with the geometric sequence {"{1, 2, 4, 8, 16}"}: HM ≈ 2.581, GM = 4.0, AM = 6.2 — demonstrating the AM≥GM≥HM inequality. The reciprocals table shows exactly how each value contributes to the calculation.</p>
             <h2>The Harmonic Mean Formula</h2>

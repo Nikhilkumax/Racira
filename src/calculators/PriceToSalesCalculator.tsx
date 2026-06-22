@@ -156,9 +156,9 @@ const PriceToSalesCalculator = () => {
           </div>
         </div>
 
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Price to Sales Ratio Calculator?</h2>
             <p>A price-to-sales (P/S) ratio calculator compares a company's market capitalization to its total revenue, showing investors how much they are paying for each dollar of sales. Pre-filled with a $120 stock price, 50,000 shares, and $2,000,000 in annual revenue, the P/S ratio is 3.00x — typical for a mature company with predictable revenue streams.</p>
             <h2>The P/S Ratio Formula</h2>

@@ -126,7 +126,7 @@ const WaterBoilingTimeCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>The Physics of Boiling</h2>
               <p>Boiling water seems simple, but it's a fascinating thermodynamic process. To boil water, you must first raise its temperature to the boiling point (sensible heat) and then provide enough energy to convert it from liquid to gas (latent heat of vaporization). This calculator focuses on the first stage: reaching the boiling point.</p>
               

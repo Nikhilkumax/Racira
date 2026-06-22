@@ -251,9 +251,9 @@ export default function TirePressureCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Why Does Tire Pressure Drop in the Winter?</h2>
             <p>Every year, as autumn turns to winter, millions of drivers are startled by the sudden glow of their dashboard's TPMS (Tire Pressure Monitoring System) warning light. This phenomenon is a direct result of Gay-Lussac's Law of thermodynamics. Our Tire Pressure Calculator models this exact physical relationship so you can predict and adjust your tire pressure before the warning light ever comes on.</p>
 

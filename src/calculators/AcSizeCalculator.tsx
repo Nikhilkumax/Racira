@@ -206,9 +206,9 @@ const AcSizeCalculator = () => {
           </div>
         </div>
 
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is an AC Size Calculator?</h2>
             <p>An AC size calculator determines the right cooling capacity (in BTU/hour or tons) for your room. Pre-filled with a 300 sq ft room at normal sun exposure, it recommends a 1-ton (12,000 BTU) unit. Inputs include ceiling height, occupants, sun exposure, and whether the room has a kitchen — all factors that affect heat load significantly.</p>
             <h2>The BTU Formula</h2>

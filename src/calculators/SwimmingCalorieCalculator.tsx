@@ -113,9 +113,9 @@ export default function SwimmingCalorieCalculator() {
             </div>
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>How Swimming Calories Are Calculated</h2>
             <p>This swimming calorie calculator uses MET (Metabolic Equivalent of Task) values from the Compendium of Physical Activities (Ainsworth et al.) — the gold standard reference for exercise energy expenditure. Formula: Calories = MET × Body Weight (kg) × Duration (hours). Different strokes have different MET values because they engage different muscle groups with varying efficiency.</p>
             <h2>Swimming vs. Other Cardio</h2>

@@ -201,9 +201,9 @@ const WeddingBudgetCalculator = () => {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Mathematics of a Wedding</h2>
             <p>Planning a wedding is effectively managing a large-scale event production. Many couples start planning with an arbitrary total budget in mind, only to be completely shocked when they receive their first quote from a caterer or venue. Understanding the mathematical breakdown of the event is crucial to avoid going deeply into debt before the honeymoon even begins.</p>
 

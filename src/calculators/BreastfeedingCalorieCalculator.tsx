@@ -394,9 +394,9 @@ export default function BreastfeedingCalorieCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding the Metabolic Demands of Breastfeeding</h2>
             <p>From a biological perspective, exclusive breastfeeding is one of the most metabolically demanding processes the human female body will ever undergo. Synthesizing complex breast milk—which is heavily fortified with fat, proteins, antibodies, and carbohydrates (lactose)—requires a staggering amount of energy. To put it in perspective, the daily energy expenditure required to exclusively breastfeed an infant is roughly equivalent to running 5 to 7 miles every single day. The <strong>Breastfeeding Calorie Calculator</strong> is designed to help postpartum mothers navigate this extreme metabolic shift, ensuring they consume enough high-quality calories to sustain a robust milk supply without compromising their own physical recovery and health.</p>
 

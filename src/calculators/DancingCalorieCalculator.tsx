@@ -281,9 +281,9 @@ export default function DancingCalorieCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Cardiovascular Power of Dance</h2>
             <p>For many people, the thought of strapping on running shoes and jogging on a treadmill for 60 minutes is an exercise in pure mental torture. Enter dance cardio. Over the last two decades, structured dance classes have exploded as a mainstream fitness alternative, offering a highly engaging, music-driven way to achieve massive cardiovascular benefits. But exactly how many calories are you burning while having all that fun? The <strong>Dancing Calorie Calculator</strong> removes the guesswork. By applying clinically validated Metabolic Equivalent (MET) formulas to your specific body mass and the type of dance you are performing, it provides a mathematically precise measurement of your thermodynamic output.</p>
 

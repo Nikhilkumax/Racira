@@ -202,9 +202,9 @@ const BandwidthCalculator = () => {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Great Broadband Marketing Trick</h2>
             <p>If you pay your Internet Service Provider (ISP) for a "100 Meg" internet connection, you might be furious when you download a video game and your browser says it is only downloading at 12 Megs. Are you being scammed? No, you are experiencing the most successful marketing trick in the technology industry: the difference between a Bit and a Byte.</p>
 

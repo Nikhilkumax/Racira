@@ -279,9 +279,9 @@ export default function PilatesCalorieCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding the Caloric Demand of Pilates</h2>
             <p>Developed in the early 20th century by Joseph Pilates for rehabilitating bedridden soldiers, "Contrology" (now known globally as Pilates) has become one of the most popular functional fitness modalities in the world. It is highly revered for building exceptional core strength, improving posture, and increasing flexibility. However, because it is low-impact and often lacks the rapid, heavy breathing associated with cardio, calculating the exact energy expended can be confusing. The <strong>Pilates Calorie Calculator</strong> removes the guesswork. By applying clinically established Metabolic Equivalent (MET) formulas to your specific body mass and the type of equipment you are using, it provides a mathematically precise estimate of your caloric burn.</p>
 

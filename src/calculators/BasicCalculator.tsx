@@ -244,9 +244,9 @@ const BasicCalculator = () => {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Basic Four-Function Calculator</h2>
             <p>Our <strong>online basic calculator</strong> provides a clean, distraction-free interface for standard arithmetic operations. It is designed to function exactly like a traditional physical desktop calculator, supporting the "Big Four" mathematical operations: addition, subtraction, multiplication, and division.</p>
             <p>Whether you are balancing a checkbook, splitting a dinner bill, or helping with elementary school homework, a fast, reliable basic calculator is an essential everyday tool.</p>

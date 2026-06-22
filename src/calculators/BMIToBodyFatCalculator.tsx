@@ -367,9 +367,9 @@ export default function BMIToBodyFatCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Flaw in the Body Mass Index (BMI)</h2>
             <p>The standard Body Mass Index (BMI) is the most widely used medical metric in the world, but it suffers from a massive, undeniable flaw: it is completely blind to tissue composition. The mathematical formula (weight divided by height squared) assumes that all physical mass is perfectly identical. It cannot differentiate between five pounds of dense, highly metabolic muscle tissue and five pounds of deadly, inflammatory visceral fat. Because of this blind spot, highly trained athletes are frequently misdiagnosed as "Obese," while sedentary individuals with dangerous levels of internal organ fat are praised for having a "Normal" BMI. The <strong>BMI to Body Fat Conversion Calculator</strong> attempts to correct this clinical failure by utilizing advanced regression algorithms to estimate your actual body fat percentage.</p>
 

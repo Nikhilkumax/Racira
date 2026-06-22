@@ -216,9 +216,9 @@ export default function VacationBudgetCalculator() {
           </div>
         </div>
 
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>About the Vacation Budget Calculator</h2>
             <p>Planning a vacation without a budget is one of the fastest ways to return home stressed about finances. This vacation budget calculator lets you itemize all trip expenses across eight common categories, set your travel group size and trip length, and automatically adds a contingency buffer for unexpected costs. The result is a comprehensive, realistic trip budget with per-person and per-day metrics.</p>
             <h2>How Vacation Budgets Are Calculated</h2>

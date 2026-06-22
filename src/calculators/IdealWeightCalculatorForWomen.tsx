@@ -388,9 +388,9 @@ export default function IdealWeightCalculatorForWomen() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding the Ideal Weight Calculator for Women</h2>
             <p>Every day, millions of women step onto the bathroom scale and feel intense frustration because their weight does not match an arbitrary number they saw in a magazine. Society often conflates a "model physique" with a "healthy physique," leading to dangerous eating disorders and unrealistic expectations. The <strong>Ideal Weight Calculator for Women</strong> strips away cosmetic societal pressures and relies entirely on cold, hard medical science. It utilizes four heavily researched clinical algorithms—developed by physicians—to determine the exact mathematical baseline weight required to ensure optimal cardiovascular health, organ function, and joint longevity based exclusively on your biological height and bone structure.</p>
 

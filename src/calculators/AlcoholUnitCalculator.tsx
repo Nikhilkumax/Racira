@@ -190,9 +190,9 @@ const AlcoholUnitCalculator = () => {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is an Alcohol Unit Calculator?</h2>
             <p>An <strong>alcohol unit calculator</strong> measures alcohol consumption in standardized "units" — a system used primarily in the United Kingdom to help people track and moderate their drinking. One UK alcohol unit equals 10ml (approximately 8 grams) of pure ethanol. The UK National Health Service (NHS) recommends that both men and women drink no more than 14 units per week, spread over at least 3 days, to minimize health risks. This calculator instantly converts any drink's ABV and volume into units, making it easy to stay within recommended guidelines.</p>
             

@@ -322,9 +322,9 @@ export default function CalorieDeficitForWeightLossCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding the Calorie Deficit Calculator</h2>
             <p>The diet industry generates billions of dollars annually by complicating the simple. They sell detox teas, complicated fasting protocols, "fat-burning" supplements, and highly restrictive food rules (like banning carbohydrates or fats). However, the underlying mechanism behind every single successful diet in human history is exactly the same: <strong>The Calorie Deficit</strong>.</p>
             <p>The First Law of Thermodynamics dictates that energy cannot be created or destroyed, only transferred. If you consume fewer calories (energy) from your diet than your body requires to function, the missing energy must be sourced from somewhere. The body's primary storage tank for excess energy is adipose tissue (body fat). By entering a caloric deficit, you force your body to metabolize its own fat to keep your heart beating and your lungs inflating. The <strong>Calorie Deficit Calculator</strong> allows you to strip away the marketing noise, input your exact mathematical deficit, and project your fat loss across a concrete timeline.</p>

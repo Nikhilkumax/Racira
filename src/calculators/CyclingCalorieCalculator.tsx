@@ -115,9 +115,9 @@ export default function CyclingCalorieCalculator() {
             </div>
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Cycling Calorie Burn — How It&apos;s Calculated</h2>
             <p>Cycling calorie burn is calculated using validated MET values from the Compendium of Physical Activities. Formula: Calories = MET × Weight (kg) × Duration (hours). A terrain multiplier adjusts for the additional energy cost of hill climbing, which can increase expenditure by 15–60% compared to flat cycling at the same speed.</p>
             <h2>Cycling for Weight Loss</h2>

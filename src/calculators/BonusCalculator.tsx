@@ -146,7 +146,7 @@ const BonusCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
               <h2>Understanding Bonus Taxes: Why Your Net is Lower Than Expected</h2>
               <p>Receiving a bonus is always exciting, but the excitement often turns to confusion when you see the final amount on your paycheck. It's a common observation: "My bonus was taxed at 40%!" In reality, while bonuses might be *withheld* at a higher rate, they are eventually taxed as regular income when you file your annual return. This guide explains how the withholding math works and how you can plan for it.</p>
               

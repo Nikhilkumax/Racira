@@ -194,7 +194,7 @@ const DockerImageSizeCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Optimizing Docker Images</h2>
               <p>In the world of containerization, size matters. Smaller Docker images deploy faster, consume less network bandwidth, boot up quicker, and present a smaller attack surface for security vulnerabilities.</p>
               

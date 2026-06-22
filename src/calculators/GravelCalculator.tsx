@@ -197,9 +197,9 @@ const GravelCalculator = () => {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Mathematics of Landscaping</h2>
             <p>One of the most difficult parts of landscaping is visualizing exactly how much material you need. Unlike water, rock and dirt do not level themselves perfectly, and it is incredibly easy to vastly underestimate the volume required to fill a garden bed.</p>
             <p>To accurately calculate gravel, you must convert three-dimensional space into the universal landscaping unit: the <strong>Cubic Yard</strong>.</p>

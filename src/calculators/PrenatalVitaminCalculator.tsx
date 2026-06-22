@@ -234,9 +234,9 @@ export default function PrenatalVitaminCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Demystifying Prenatal Vitamins</h2>
             <p>This <strong>Prenatal Vitamin Calculator</strong> compares your current supplement stack against guidelines from the American College of Obstetricians and Gynecologists (ACOG). While a balanced diet is the best source of nutrients, the massive physical demands of building a new human require supplementation. The "big three" nutrients you must monitor are Folic Acid, Iron, and DHA.</p>
             <h2>Gummy Vitamins: The Hidden Trap</h2>

@@ -124,7 +124,7 @@ const DepreciationCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Choosing a Depreciation Method</h2>
               <p>The method you choose affects your financial statements and tax liability significantly. Each method is appropriate for different assets and goals.</p>
               <h3>Straight-Line: Simplicity and Consistency</h3>

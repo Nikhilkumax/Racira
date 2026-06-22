@@ -127,6 +127,31 @@ const calculatorComponents: Record<string, () => Promise<any>> = {
   "percentage-to-cgpa-converter": () => import("@/calculators/PercentageToCgpaConverter"),
   "grade-calculator": () => import("@/calculators/GradeCalculator"),
   "bridge-loan-calculator": () => import("@/calculators/BridgeLoanCalculator"),
+  // Batch 1 — Loans & Mortgages
+  "business-loan-payment-calculator": () => import("@/calculators/BusinessLoanPaymentCalculator"),
+  "construction-to-permanent-loan-calculator": () => import("@/calculators/ConstructionToPermanentLoanCalculator"),
+  "fha-mortgage-insurance-premium-mip-calculator": () => import("@/calculators/FhaMipCalculator"),
+  "fixed-rate-mortgage-payment-calculator": () => import("@/calculators/FixedRateMortgagePaymentCalculator"),
+  // Batch 2 — Loans & Mortgages
+  "home-loan-eligibility-calculator": () => import("@/calculators/HomeLoanEligibilityCalculator"),
+  "jumbo-loan-payment-calculator": () => import("@/calculators/JumboLoanPaymentCalculator"),
+  "loan-comparison-calculator-side-by-side": () => import("@/calculators/LoanComparisonCalculator"),
+  "loan-deferment-interest-accumulation-calculator": () => import("@/calculators/LoanDefermentInterestCalculator"),
+  // Batch 3 — Loans & Mortgages
+  "loan-origination-points-to-apr-calculator": () => import("@/calculators/LoanOriginationPointsToAprCalculator"),
+  "maximum-mortgage-affordability-calculator": () => import("@/calculators/MaximumMortgageAffordabilityCalculator"),
+  "microfinance-loan-repayment-calculator": () => import("@/calculators/MicrofinanceLoanRepaymentCalculator"),
+  "mortgage-points-calculator": () => import("@/calculators/MortgagePointsCalculator"),
+  // Batch 4 — Loans & Mortgages
+  "piti-mortgage-payment-calculator": () => import("@/calculators/PitiMortgagePaymentCalculator"),
+  "payday-loan-true-cost-calculator": () => import("@/calculators/PaydayLoanTrueCostCalculator"),
+  "rv-loan-payment-calculator": () => import("@/calculators/RvLoanPaymentCalculator"),
+  "rehab-loan-203k-estimator-calculator": () => import("@/calculators/RehabLoan203kEstimatorCalculator"),
+  // Batch 5 — Loans & Mortgages
+  "reverse-mortgage-estimation-calculator": () => import("@/calculators/ReverseMortgageEstimationCalculator"),
+  "sba-7a-loan-payment-calculator": () => import("@/calculators/Sba7aLoanPaymentCalculator"),
+  "seasonal-payment-loan-calculator": () => import("@/calculators/SeasonalPaymentLoanCalculator"),
+  "simple-interest-loan-calculator": () => import("@/calculators/SimpleInterestLoanCalculator"),
   "balloon-mortgage-calculator": () => import("@/calculators/BalloonMortgageCalculator"),
   "reverse-mortgage-calculator": () => import("@/calculators/ReverseMortgageCalculator"),
   "interest-only-mortgage-calculator": () => import("@/calculators/InterestOnlyMortgageCalculator"),
@@ -437,6 +462,7 @@ const calculatorComponents: Record<string, () => Promise<any>> = {
   "nth-root-calculator": () => import("@/calculators/NthRootCalculator"),
   "perimeter-calculator": () => import("@/calculators/PerimeterCalculator"),
   // Batch 1 — Finance (new)
+  "loan-to-cost-ltc-ratio-calculator": () => import("@/calculators/LoanToCostRatioCalculator"),
   "bond-yield-calculator": () => import("@/calculators/BondYieldCalculator"),
   "cd-calculator": () => import("@/calculators/CdCalculatorFull"),
   "cryptocurrency-profit-calculator": () => import("@/calculators/CryptoProfitCalculator"),

@@ -167,9 +167,9 @@ const TaxEquivalentYieldCalculator = () => {
           </div>
         </div>
 
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Tax Equivalent Yield Calculator?</h2>
             <p>A tax equivalent yield (TEY) calculator converts the yield of a tax-exempt municipal bond into the equivalent pre-tax yield that a taxable bond would need to offer to match it on an after-tax basis. This comparison is essential for fixed-income investors choosing between corporate bonds, Treasury bonds, and tax-free municipal bonds. Pre-filled with a 4.00% muni yield, 24% federal rate, and 5% state rate, the TEY is 5.63% — meaning you would need a taxable bond yielding at least 5.63% to beat the muni bond after taxes.</p>
             <h2>The Tax Equivalent Yield Formula</h2>

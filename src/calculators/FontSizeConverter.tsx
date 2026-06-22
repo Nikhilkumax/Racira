@@ -164,7 +164,7 @@ const FontSizeConverter = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>Modern Web Typography Units</h2>
             <p>In modern web development, absolute units like pixels (px) are generally discouraged. Responsive, accessible designs prioritize relative units like REM and EM.</p>
             <h3>The Power of REM</h3>

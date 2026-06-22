@@ -185,9 +185,9 @@ const PostpartumWeightLossCalculator = () => {
           </div>
         </div>
 
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Postpartum Weight Loss Calculator?</h2>
             <p>A postpartum weight loss calculator tracks your progress from delivery weight back to your pre-pregnancy weight, estimates your weekly loss rate, and projects a realistic timeline to reach your goal. Pre-filled with 165 lbs pre-pregnancy, 195 lbs at delivery (30 lbs gained), and 180 lbs at 6 weeks postpartum (15 lbs lost), the calculator shows 50% of pregnancy weight already lost — right on track with typical postpartum progression.</p>
             <h2>Normal Postpartum Weight Loss Timeline</h2>

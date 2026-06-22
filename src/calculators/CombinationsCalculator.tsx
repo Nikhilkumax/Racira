@@ -142,9 +142,9 @@ const CombinationsCalculator = () => {
           </div>
         </div>
 
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is a Combinations Calculator?</h2>
             <p>A combinations calculator computes C(n, r) — the number of ways to choose r items from a group of n items without regard to the order of selection. Also called "n choose r" and written nCr or C(n,r), this is one of the most-used formulas in probability, statistics, card games, lottery analysis, genetics, and computer science. This calculator simultaneously computes both combinations and permutations so you can compare the two at a glance.</p>
             <p>For example, choosing 3 members for a committee from 10 candidates: the order in which they are chosen doesn't matter, so we use combinations. C(10, 3) = 120 means there are exactly 120 distinct possible committees.</p>

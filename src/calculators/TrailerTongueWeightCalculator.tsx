@@ -258,9 +258,9 @@ export default function TrailerTongueWeightCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Physics of a Trailer</h2>
             <p>Towing a trailer is an incredibly complex balancing act of physics. A trailer is essentially a giant seesaw balancing on its central axles. When you hook the front of the trailer (the tongue) onto the back of your truck (the hitch), the trailer pushes down on the truck. This downward force is called <strong>Tongue Weight</strong>, and it is the single most important factor determining whether you will arrive at your destination safely.</p>
 

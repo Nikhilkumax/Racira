@@ -106,7 +106,7 @@ const PeriodCalculator = () => {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>The Phases of the Menstrual Cycle</h2>
               <p>Your cycle is divided into four distinct phases, each driven by changing hormone levels that affect mood, energy, and physical symptoms.</p>
               <h3>Menstruation & The Follicular Phase</h3>

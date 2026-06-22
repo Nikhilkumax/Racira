@@ -299,9 +299,9 @@ export default function HikingCalorieCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>The Hidden Physics of Hiking</h2>
             <p>To the untrained observer, hiking appears to be nothing more than walking outdoors. From a physiological and thermodynamic perspective, however, it is an entirely different mechanical beast. Walking on a flat, paved sidewalk is a highly efficient form of transportation; hiking up a mountain with a loaded backpack is a grueling, multi-hour resistance training session that demands massive cardiovascular output. The <strong>Hiking Calorie Calculator</strong> bypasses the inaccurate generalizations of fitness trackers by utilizing clinical Metabolic Equivalent (MET) formulas. By mathematically combining your specific body mass with the dead weight of your pack, and factoring in the vertical severity of the terrain, it provides an exact measurement of the energy required to conquer the trail.</p>
 

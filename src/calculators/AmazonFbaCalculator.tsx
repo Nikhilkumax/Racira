@@ -131,7 +131,7 @@ export default function AmazonFbaCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
               <h2>Mastering Amazon FBA Profitability</h2>
               <p>Selling on Amazon through the Fulfillment by Amazon (FBA) program is one of the most popular ways to build a scalable e-commerce business. However, it is also a business of 'thin margins' where Amazon takes a significant portion of every sale. To succeed, you must move beyond 'guessing' and have a crystal-clear understanding of your unit economics. This Amazon FBA Profit Calculator is designed to help you analyze every cent of your revenue and expenses.</p>
 

@@ -213,9 +213,9 @@ export default function TireDiameterCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Why Calculate Tire Diameter?</h2>
             <p>Tire diameter is the most critical metric when modifying your vehicle's stance, installing a lift kit, or ensuring speedometer accuracy. Unfortunately, the metric tire code printed on the sidewall (e.g., 275/60R20) is notoriously difficult to parse into a straightforward overall diameter. A Tire Diameter Calculator bypasses the complex math to instantly provide the true height of the tire in both inches and millimeters.</p>
 

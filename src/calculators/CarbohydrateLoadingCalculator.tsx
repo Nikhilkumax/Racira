@@ -341,9 +341,9 @@ export default function CarbohydrateLoadingCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding the Carbohydrate Loading Calculator</h2>
             <p>Hitting "The Wall" is the most feared physiological event in all of endurance sports. Around mile 20 of a marathon, thousands of perfectly trained runners suddenly find their legs turned to cement, their vision tunneling, and their pace dropping to a staggered walk. This is not a failure of willpower or cardiovascular fitness; it is a mathematical failure of chemistry. They have completely depleted their muscular glycogen stores. To prevent this, elite endurance athletes utilize a strict nutritional protocol known as Carbohydrate Loading (or Glycogen Supercompensation). The <strong>Carb Loading Calculator</strong> provides the exact mathematical framework to execute this protocol, ensuring your fuel tanks are literally overflowing when you step on the starting line.</p>
 

@@ -335,9 +335,9 @@ export default function CalorieToNutrientDensityRatioCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding Nutrient Density</h2>
             <p>In the modern world of fitness and dieting, there is a massive obsession with macronutrients (proteins, carbs, and fats) and raw calorie counting. This approach, colloquially known as "If It Fits Your Macros" (IIFYM), has led many people to believe that 500 calories of potato chips is biologically equivalent to 500 calories of grilled chicken and broccoli, so long as the math balances out at the end of the day. This is a fundamentally flawed understanding of human biology.</p>
             <p>The human body does not just require raw energy (calories) to survive; it requires microscopic instructions in the form of vitamins, minerals, and amino acids to repair DNA, balance hormones, and fight off disease. This is where the concept of <strong>Nutrient Density</strong> comes in. The <strong>Calorie to Nutrient Density Ratio Calculator</strong> is designed to look past the raw calorie count and algorithmically determine exactly how much actual <em>nutrition</em> a food provides per calorie consumed.</p>

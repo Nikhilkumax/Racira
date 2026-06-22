@@ -254,6 +254,7 @@ export default function UkMortgageCalculator() {
 
   const [results, setResults] = useState<UkMortgageResults | null>(null);
   const [viewMode, setViewMode] = useState<"yearly" | "monthly">("yearly");
+  const [showAdvanced, setShowAdvanced] = useState(false);
   const printRef = useRef<HTMLDivElement>(null);
 
   const handleCalculate = () => {
@@ -340,30 +341,42 @@ export default function UkMortgageCalculator() {
               <CompactInput id="term" label="Mortgage Term" value={termYears} onChange={setTermYears} suffix="years" />
             </div>
 
-            <div className="flex flex-col gap-4 mt-2">
-              <div className="flex flex-col">
-                <label htmlFor="buyerType" className="flex items-center text-sm font-semibold text-foreground mb-1.5">
-                  Buyer Type (For Stamp Duty)
-                </label>
-                <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-10 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
-                  <select
-                    id="buyerType"
-                    value={buyerType}
-                    onChange={(e) => setBuyerType(e.target.value as any)}
-                    className="w-full h-full px-3 py-1 text-base bg-transparent outline-none border-none text-foreground cursor-pointer"
-                  >
-                    <option value="standard">Home Mover (Standard)</option>
-                    <option value="firstTime">First-Time Buyer</option>
-                    <option value="additional">Additional Property / BTL</option>
-                  </select>
-                </div>
-              </div>
-
-              <div className="flex flex-col">
-                <label className="flex items-center text-sm font-semibold text-foreground mb-1.5">Repayment Type</label>
-                <div className="flex p-1 bg-secondary rounded-lg border border-border">
-                  <button type="button" onClick={() => setPaymentType("repayment")} className={`flex-1 py-1.5 text-sm font-bold rounded-md transition-all ${paymentType === "repayment" ? "bg-background shadow-sm text-primary" : "text-muted-foreground"}`}>Repayment</button>
-                  <button type="button" onClick={() => setPaymentType("interestOnly")} className={`flex-1 py-1.5 text-sm font-bold rounded-md transition-all ${paymentType === "interestOnly" ? "bg-background shadow-sm text-primary" : "text-muted-foreground"}`}>Interest Only</button>
+            <div className="mt-2 border border-border rounded-md overflow-hidden bg-background">
+              <button
+                type="button"
+                onClick={() => setShowAdvanced(!showAdvanced)}
+                className="w-full flex items-center justify-between p-3 text-sm font-bold text-foreground hover:bg-secondary/50 transition-colors"
+              >
+                Advanced Options
+                <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${showAdvanced ? "rotate-180" : ""}`} />
+              </button>
+              <div className={`transition-all duration-300 ease-in-out ${showAdvanced ? "max-h-[500px] opacity-100 p-4 pt-1 border-t border-border" : "max-h-0 opacity-0 px-4 overflow-hidden"}`}>
+                <div className="flex flex-col gap-4 mt-2">
+                  <div className="flex flex-col">
+                    <label htmlFor="buyerType" className="flex items-center text-sm font-semibold text-foreground mb-1.5">
+                      Buyer Type (For Stamp Duty)
+                    </label>
+                    <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-10 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
+                      <select
+                        id="buyerType"
+                        value={buyerType}
+                        onChange={(e) => setBuyerType(e.target.value as any)}
+                        className="w-full h-full px-3 py-1 text-base bg-transparent outline-none border-none text-foreground cursor-pointer"
+                      >
+                        <option value="standard">Home Mover (Standard)</option>
+                        <option value="firstTime">First-Time Buyer</option>
+                        <option value="additional">Additional Property / BTL</option>
+                      </select>
+                    </div>
+                  </div>
+    
+                  <div className="flex flex-col">
+                    <label className="flex items-center text-sm font-semibold text-foreground mb-1.5">Repayment Type</label>
+                    <div className="flex p-1 bg-secondary rounded-lg border border-border">
+                      <button type="button" onClick={() => setPaymentType("repayment")} className={`flex-1 py-1.5 text-sm font-bold rounded-md transition-all ${paymentType === "repayment" ? "bg-background shadow-sm text-primary" : "text-muted-foreground"}`}>Repayment</button>
+                      <button type="button" onClick={() => setPaymentType("interestOnly")} className={`flex-1 py-1.5 text-sm font-bold rounded-md transition-all ${paymentType === "interestOnly" ? "bg-background shadow-sm text-primary" : "text-muted-foreground"}`}>Interest Only</button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -489,43 +502,43 @@ export default function UkMortgageCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
-            <h2>Understanding the UK Mortgage Calculator</h2>
+          <article className="prose-finance text-[15.75px]">
+            <h2 className="text-2xl font-bold mb-3">Understanding the UK Mortgage Calculator</h2>
             <p>Buying a property in the United Kingdom is a massive financial commitment that involves far more than just agreeing to a purchase price. Lenders, solicitors, surveyors, and HM Revenue and Customs (HMRC) all play a role in determining your final costs. Our <strong>UK Mortgage Calculator</strong> is specifically engineered for the British housing market. It bypasses generic international formulas to accurately model Loan-to-Value (LTV) bands, Stamp Duty Land Tax (SDLT) thresholds, and Repayment vs. Interest-Only structures.</p>
             <p>Whether you are a First-Time Buyer trying to get onto the property ladder, a Home Mover upgrading your primary residence, or a Buy-to-Let investor expanding your portfolio, this calculator provides a transparent breakdown of your monthly obligations and total upfront tax liabilities.</p>
 
-            <h2>The Importance of Your Deposit and LTV</h2>
+            <h2 className="text-2xl font-bold mb-3">The Importance of Your Deposit and LTV</h2>
             <p>In the UK mortgage market, the size of your deposit is the ultimate lever of power. It dictates your Loan-to-Value (LTV) ratio, which is the percentage of the property's price that you are borrowing. If you buy a £300,000 house with a £30,000 deposit, your mortgage is £270,000, giving you an LTV of 90%.</p>
             <p><strong>Why LTV Matters:</strong> Lenders group their interest rates into LTV bands (typically 60%, 75%, 80%, 85%, 90%, and 95%). The lower your LTV, the less risk the bank takes. Therefore, a borrower with a 60% LTV will almost always be offered a significantly lower interest rate than a borrower with a 95% LTV. When planning your deposit, hitting a lower LTV band (even by adding just a few thousand pounds to your deposit) can save you tens of thousands in interest over the life of the loan.</p>
 
-            <h2>Decoding Stamp Duty Land Tax (SDLT)</h2>
+            <h2 className="text-2xl font-bold mb-3">Decoding Stamp Duty Land Tax (SDLT)</h2>
             <p>Stamp Duty is often the largest upfront cost outside of the deposit itself. It is a progressive tax applied by the government when you purchase property or land in England and Northern Ireland. (Note: Scotland uses the Land and Buildings Transaction Tax, and Wales uses the Land Transaction Tax). The amount of SDLT you owe depends entirely on your "Buyer Type."</p>
             <p><strong>1. First-Time Buyers:</strong> The government offers significant relief to help people onto the ladder. You pay absolutely zero SDLT on the first £425,000 of a property. If the property costs between £425,001 and £625,000, you only pay 5% on that specific portion. However, if the property costs more than £625,000, you lose all first-time buyer privileges and pay the standard rates.</p>
             <p><strong>2. Standard Home Movers:</strong> If you have owned a home before, you pay standard progressive rates. Currently, you pay 0% on the first £250,000, 5% on the portion up to £925,000, 10% up to £1.5m, and 12% on anything above that.</p>
             <p><strong>3. Additional Properties (Buy-to-Let / Second Homes):</strong> If you are buying a second property without selling your main residence, the government applies a severe 3% surcharge across every single SDLT band. This massively increases the upfront cost of becoming a landlord.</p>
 
-            <h2>Repayment vs. Interest Only Mortgages</h2>
+            <h2 className="text-2xl font-bold mb-3">Repayment vs. Interest Only Mortgages</h2>
             <p>When selecting your mortgage structure, you have two distinct paths, each with massive long-term implications.</p>
             <p><strong>Repayment (Capital & Interest):</strong> This is the standard for almost all residential buyers. Every month, your payment covers the interest generated by the loan, plus a portion of the principal debt. It guarantees that at the end of your 25-year term, your balance is £0, and you own the house outright. This builds equity automatically.</p>
             <p><strong>Interest Only:</strong> Common for Buy-to-Let investors, this structure requires you to only pay the interest generated by the loan each month. Your monthly payments are drastically lower, maximizing your cash flow. However, your principal balance never decreases. After 25 years, you still owe the bank the exact original loan amount. To qualify for this, lenders legally require you to prove a "Repayment Vehicle" (e.g., selling the property, selling a stock portfolio) to clear the debt at the end.</p>
 
-            <h2>Fixed Rate vs. Standard Variable Rate (SVR)</h2>
+            <h2 className="text-2xl font-bold mb-3">Fixed Rate vs. Standard Variable Rate (SVR)</h2>
             <p>The UK mortgage market is unique globally because long-term (30-year) fixed rates are incredibly rare. The vast majority of British borrowers take out short-term fixed deals (typically 2, 3, or 5 years).</p>
             <p>During your 2-year or 5-year fixed period, your interest rate and monthly payment are locked and cannot change, providing absolute budgeting security. However, when that fixed period ends, your mortgage automatically reverts to the lender's Standard Variable Rate (SVR), which is almost always significantly higher than your fixed rate. This causes "Payment Shock." To avoid this, UK borrowers regularly "Remortgage" (switch to a new fixed-rate deal with their current or a new lender) every few years.</p>
 
-            <h2>The Hidden Costs of Buying a House</h2>
+            <h2 className="text-2xl font-bold mb-3">The Hidden Costs of Buying a House</h2>
             <p>Your deposit and Stamp Duty are the largest capital outlays, but when budgeting for a house purchase in the UK, you must account for thousands of pounds in ancillary fees:</p>
             <p><strong>Conveyancing (Solicitor) Fees:</strong> You must hire a solicitor to handle the legal transfer of the property, conduct local authority searches, and register the property with the Land Registry. Expect to pay between £1,000 and £2,500.</p>
             <p><strong>Valuation and Survey Fees:</strong> The lender will charge a Valuation Fee (sometimes waived on new deals) to ensure the house is worth the loan amount. However, this is not a structural survey. You should independently hire a surveyor (RICS HomeBuyer Report or Building Survey) to identify hidden defects like damp or subsidence, costing between £400 and £1,000.</p>
             <p><strong>Arrangement Fees:</strong> To secure the lowest interest rates, lenders often charge a Product or Arrangement Fee, typically around £999. You can often add this to the mortgage balance, but remember you will pay interest on it for 25 years if you do.</p>
 
-            <h2>Mortgage Affordability and Stress Testing</h2>
+            <h2 className="text-2xl font-bold mb-3">Mortgage Affordability and Stress Testing</h2>
             <p>Since the regulatory reforms of the 2014 Mortgage Market Review (MMR), getting a mortgage is no longer just about multiplying your salary by 4.5. Lenders conduct rigorous affordability checks.</p>
             <p>They will scrutinize your bank statements for childcare costs, car finance, credit card debt, and regular living expenses. More importantly, they "stress test" the loan. They must verify that if interest rates were to spike to 6% or 7% when your fixed-rate deal ends, you could still afford the monthly repayments without defaulting. Using our calculator to simulate an interest rate 3% higher than current deals is an excellent way to stress-test your own finances before applying.</p>
 
-            <h2>Conclusion</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion</h2>
             <p>Securing a UK mortgage requires navigating a labyrinth of LTV bands, tax thresholds, and fixed-rate expiries. It is not a passive process; it requires active financial management every few years to ensure you remain on the optimal rate.</p>
             <p>By utilizing this UK Mortgage Calculator, you gain the foresight needed to confidently approach lenders. By accurately projecting your SDLT liability, understanding the amortization curve of your repayment structure, and recognizing the power of your deposit, you can transition from a prospective buyer to a financially secure homeowner.</p>
           </article>

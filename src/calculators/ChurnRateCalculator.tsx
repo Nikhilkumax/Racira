@@ -186,9 +186,9 @@ export default function ChurnRateCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>What Is Churn Rate?</h2>
             <p><strong>Churn rate</strong> measures the percentage of customers who cancel or stop using a service in a given period. For subscription businesses and SaaS companies, churn is the single most important metric after growth — even a small churn rate compounds into massive customer base erosion over time. This <strong>churn rate calculator</strong> computes monthly churn, customer lifetime, LTV, and revenue at risk.</p>
             <h2>Churn Rate Formulas</h2>

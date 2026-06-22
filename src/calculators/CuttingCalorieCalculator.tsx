@@ -368,9 +368,9 @@ export default function CuttingCalorieCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1280px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding the Cutting Calorie Calculator</h2>
             <p>In the fitness and bodybuilding world, losing weight is not the goal—losing <em>fat</em> is the goal. If you simply stop eating, you will lose weight rapidly, but a massive portion of that weight will be metabolically expensive, hard-earned muscle tissue. This process, known as muscle catabolism, leaves you looking "skinny fat" and drastically lowers your basal metabolic rate (BMR), guaranteeing that you will rebound and gain all the fat back once the diet ends.</p>
             <p>To prevent this, athletes utilize a highly structured nutritional phase known as a "Cut". A cut is not a crash diet; it is a mathematically precise caloric deficit designed to coax the body into burning stored body fat for fuel while providing just enough energy (and heavy resistance training) to signal the body to preserve muscle. The <strong>Cutting Calorie Calculator</strong> removes the guesswork by providing exact daily targets based on your unique body weight and timeline.</p>

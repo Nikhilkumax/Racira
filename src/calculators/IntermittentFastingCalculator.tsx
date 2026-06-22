@@ -198,7 +198,7 @@ export default function IntermittentFastingCalculator() {
 
         <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding Intermittent Fasting Schedules</h2>
             <p>Intermittent fasting (IF) is an eating framework centered on cyclic periods of voluntary abstinence from food and caloric beverages. Instead of limiting the kinds of food you eat, it restricts the hours in which you eat them, aligning your intake with metabolic and biological cycles.</p>
             <p>Popular protocols include the 16:8 model (sixteen hours of fasting followed by an eight-hour eating window), the 18:6 and 20:4 variations, and alternative schedules like the 5:2 diet (normal eating for five days, restriction for two non-consecutive days). Selecting the right start and end times ensures the fasting window fits seamlessly into your lifestyle, sleep schedule, and work commitments.</p>

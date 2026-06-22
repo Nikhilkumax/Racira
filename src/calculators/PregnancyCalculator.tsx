@@ -294,9 +294,9 @@ export default function PregnancyCalculator() {
         </div>
 
         {/* SEO CONTENT */}
-        <div className="max-w-[1100px] mx-auto mt-12">
+        <div className="max-w-[1180px] mx-auto mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance max-w-none">
+          <article className="prose-finance text-[15.75px]">
             <h2>Understanding Your Pregnancy Timeline</h2>
             <p>Finding out you are pregnant is an incredibly exciting and life-changing moment. However, the medical math used to determine exactly how far along you are can often feel confusing. Our <strong>Pregnancy Calculator</strong> is designed to cut through the clinical jargon, providing you with a highly accurate Estimated Due Date (EDD), your exact current gestational age, and a customized timeline of crucial developmental milestones for your baby.</p>
             <p>Obstetricians and midwives use standard clinical formulas to track pregnancy progress. By understanding the methodology behind these calculations, you can better follow along with your medical charts, know when to schedule vital ultrasounds, and prepare for the physical changes occurring in each trimester.</p>
