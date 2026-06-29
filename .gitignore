@@ -39,3 +39,8 @@ next-env.d.ts
 # OS
 .DS_Store
 Thumbs.db
+
+# Artifacts
+test_video.mov
+dev_err.txt
+dev_out.txt
