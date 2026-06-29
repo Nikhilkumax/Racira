@@ -141,7 +141,7 @@ const LinearEquationCalculator = () => {
           <div className="flex flex-col gap-3">
             {showResults && result && (
               <>
-                <h2 className="text-xl font-bold mb-4">Solution</h2>
+                <h2 className="text-2xl font-bold mb-3">Solution</h2>
                 {result.type === "error" ? (
                   <p className="text-destructive font-medium">{result.message}</p>
                 ) : result.type === "single" ? (

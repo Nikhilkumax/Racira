@@ -87,7 +87,7 @@ const SWPCalculator = () => {
           <div className="flex flex-col gap-3">
             {showResults && result && (
               <>
-                <h2 className="text-xl font-bold mb-4">SWP Summary</h2>
+                <h2 className="text-2xl font-bold mb-3">SWP Summary</h2>
                 <ResultDisplay currency="₹" items={[
                   { label: "Total Withdrawn", value: result.totalWithdrawn },
                   { label: "Total Returns Earned", value: result.totalReturns, highlight: true },

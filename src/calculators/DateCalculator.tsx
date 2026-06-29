@@ -90,9 +90,7 @@ const DateCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">
-                  <Calculator className="h-4 w-4" /> Calculate Date
-                </button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">Calculate</button>
                 <button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground">
                   <RotateCcw className="h-5 w-5" />
                 </button>
@@ -102,7 +100,7 @@ const DateCalculator = () => {
           <div className="flex flex-col gap-3">
             {result && (
               <>
-                <h2 className="text-xl font-bold mb-4">Result</h2>
+                <h2 className="text-2xl font-bold mb-3">Result</h2>
                 <div className="text-center mb-4">
                   <p className="text-3xl font-extrabold mb-1">{result.resultDate}</p>
                   <p className="text-lg text-muted-foreground">{result.dayOfWeek}</p>

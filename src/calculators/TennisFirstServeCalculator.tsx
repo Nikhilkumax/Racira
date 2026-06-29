@@ -177,7 +177,6 @@ export default function TennisFirstServeCalculator() {
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Sports", href: "/calculator#sports" }, { label: "Tennis First Serve Percentage Calculator" }]} />
       <div className="container-page py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Tennis First Serve Percentage Calculator</h1>
-        <p className="text-sm text-muted-foreground mt-1">The Baseline of Control: In competitive tennis, the player who dictates the point wins the match. The first serve is the ultimate offensive weapon. If your First Serve Percentage drops below 55%, you are forcing yourself into a defensive posture on the majority of your service points, drastically increasing the probability of being broken.</p>
 
         <div className="grid grid-cols-1 xl:grid-cols-[460px_1fr] gap-6 items-start max-w-[1280px] mx-auto mt-4">
           

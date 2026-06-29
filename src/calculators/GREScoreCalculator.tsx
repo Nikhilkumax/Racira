@@ -59,7 +59,7 @@ const GREScoreCalculator = () => {
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
             <div className="grid sm:grid-cols-2 gap-8">
                 <section className="space-y-6">
-                  <h2 className="text-lg font-bold flex items-center gap-2 text-primary">
+                  <h2 className="text-2xl font-bold mb-3">
                     <Brain className="h-5 w-5" /> Reasoning Sections
                   </h2>
                   <div>
@@ -73,7 +73,7 @@ const GREScoreCalculator = () => {
                 </section>
 
                 <section className="space-y-6">
-                  <h2 className="text-lg font-bold flex items-center gap-2 text-amber-600">
+                  <h2 className="text-2xl font-bold mb-3">
                     <FileText className="h-5 w-5" /> Analytical Writing
                   </h2>
                   <div>
@@ -93,7 +93,7 @@ const GREScoreCalculator = () => {
               </div>
             
               <div className="mt-8 flex gap-3 items-center pt-4 border-t border-border">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Score</button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button>
                 <button
                   onClick={reset}
                   className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground"

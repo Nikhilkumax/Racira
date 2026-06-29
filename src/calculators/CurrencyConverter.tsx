@@ -73,7 +73,7 @@ const CurrencyConverter = () => {
               <p className="text-sm text-muted-foreground">Rate: 1 {from} = {fmt(fromCur.rateToUSD / toCur.rateToUSD)} {to}</p>
             </div>
             <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-              <h2 className="text-base font-bold text-foreground">All Conversions ({from} {fmt(v)})</h2>
+              <h2 className="text-2xl font-bold mb-3">All Conversions ({from} {fmt(v)})</h2>
               <div className="grid sm:grid-cols-2 gap-1">
                 {currencies.map(c => (
                   <div key={c.key} className="flex justify-between py-1.5 border-b border-border last:border-0">

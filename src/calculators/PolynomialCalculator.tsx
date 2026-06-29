@@ -122,7 +122,7 @@ const PolynomialCalculator = () => {
           <div className="flex flex-col gap-3">
             {showResults && result && (
               <>
-                <h2 className="text-xl font-bold mb-4">Result</h2>
+                <h2 className="text-2xl font-bold mb-3">Result</h2>
                 {result.type === "eval" ? (
                   <ResultDisplay items={[
                     { label: "P(x)", value: 0, textValue: result.poly },

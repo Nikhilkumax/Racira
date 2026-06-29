@@ -83,9 +83,7 @@ export default function TiktokEarningsCalculator() {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">
-                  <Calculator className="h-5 w-5" /> Estimate My Earnings
-                </button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">Calculate</button>
                 <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset">
                   <RotateCcw className="h-5 w-5" />
                 </button>
@@ -95,7 +93,7 @@ export default function TiktokEarningsCalculator() {
           <div className="flex flex-col gap-3">
             {showResults && (
               <>
-                <h2 className="text-xl font-bold mb-6">Revenue Projections</h2>
+                <h2 className="text-2xl font-bold mb-3">Revenue Projections</h2>
                 <div className="grid sm:grid-cols-2 gap-4 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
                     <p className="text-xs font-bold text-primary uppercase tracking-widest mb-1">Rewards Program (Per Video)</p>

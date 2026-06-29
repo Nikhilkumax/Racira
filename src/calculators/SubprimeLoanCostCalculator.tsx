@@ -341,9 +341,7 @@ export default function SubprimeLoanCostCalculator() {
             </div>
 
             <div className="flex gap-3 mt-4">
-              <button type="button" onClick={handleCalculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-destructive hover:bg-destructive/90 text-destructive-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm">
-                Calculate Wealth Lost
-              </button>
+              <button type="button" onClick={handleCalculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-destructive hover:bg-destructive/90 text-destructive-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm">Calculate</button>
               <button type="button" onClick={handleReset} className="w-12 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center focus:outline-none" aria-label="Reset">
                 <RotateCcw className="h-4 w-4" />
               </button>

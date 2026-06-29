@@ -211,7 +211,6 @@ export default function BaseballOBPCalculator() {
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Sports", href: "/calculator#sports" }, { label: "Baseball On-Base Percentage (OBP) Calculator" }]} />
       <div className="container-page py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Baseball On-Base Percentage (OBP) Calculator</h1>
-        <p className="text-sm text-muted-foreground mt-1">The Moneyball Metric: Traditional Batting Average is a flawed statistic because it ignores walks. A walk is statistically identical to a single in its ability to prevent an out. OBP is the gold standard of modern Sabermetrics because it measures the only thing that truly matters: a player's ability to safely reach base.</p>
 
         <div className="grid grid-cols-1 xl:grid-cols-[460px_1fr] gap-6 items-start max-w-[1280px] mx-auto mt-4">
           

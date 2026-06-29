@@ -71,7 +71,7 @@ const BmiClassificationCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate BMI</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors"><RotateCcw className="h-5 w-5" /></button>
               </div>
           </div>
 
@@ -79,7 +79,7 @@ const BmiClassificationCalculator = () => {
             {showResults && results && (
               <>
                 <div className="card-calculator mb-8 text-center">
-                <h2 className="text-sm font-bold text-primary uppercase tracking-wider mb-2">Your BMI Result</h2>
+                <h2 className="text-2xl font-bold mb-3">Your BMI Result</h2>
                 <p className="text-6xl font-extrabold">{results.bmi.toFixed(1)}</p>
                 <p className={`text-xl font-bold mt-2 ${results.color}`}>Category: {results.category}</p>
                 

@@ -75,14 +75,14 @@ const ProfitMarginCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Margins</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
           </div>
 
           <div className="flex flex-col gap-3">
             {showResults && result && (
               <>
-                <h2 className="text-xl font-bold mb-4">Profit Margins</h2>
+                <h2 className="text-2xl font-bold mb-3">Profit Margins</h2>
                 <ResultDisplay items={[
                   { label: "Gross Profit", value: result.grossProfit, highlight: true },
                   { label: "Gross Margin", value: 0, textValue: `${result.grossMargin.toFixed(1)}%` },

@@ -157,7 +157,6 @@ export default function IdealBmiWeightCalculator() {
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Health", href: "/calculator#health" }, { label: "Ideal BMI Weight Calculator" }]} />
       <div className="container-page py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Ideal BMI Weight Calculator</h1>
-        <p className="text-sm text-muted-foreground mt-1">Reverse-engineer the BMI formula. Enter your target BMI to discover the exact scale weight required to achieve it.</p>
 
         <div className="grid grid-cols-1 xl:grid-cols-[460px_1fr] gap-6 items-start max-w-[1280px] mx-auto mt-4">
           
@@ -235,7 +234,7 @@ export default function IdealBmiWeightCalculator() {
                     <p className="text-sm font-semibold text-muted-foreground mb-2 uppercase tracking-wider">
                       Target Weight for BMI {results.targetBmi}
                     </p>
-                    <h2 className="text-5xl md:text-6xl font-black tabular-nums text-foreground">
+                    <h2 className="text-2xl font-bold mb-3">
                       {results.exactTargetWeight} <span className="text-2xl md:text-3xl text-muted-foreground ml-1">{unitSystem === "imperial" ? "lbs" : "kg"}</span>
                     </h2>
                   </div>

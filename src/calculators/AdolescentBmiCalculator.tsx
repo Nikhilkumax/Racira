@@ -210,7 +210,6 @@ export default function AdolescentBmiCalculator() {
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Health", href: "/calculator#health" }, { label: "Adolescent BMI Calculator" }]} />
       <div className="container-page py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Adolescent BMI Calculator</h1>
-        <p className="text-sm text-muted-foreground mt-1">Calculate adolescent BMI percentiles according to the CDC growth charts tailored for teenagers (ages 10-19).</p>
 
         <div className="grid grid-cols-1 xl:grid-cols-[460px_1fr] gap-6 items-start max-w-[1280px] mx-auto mt-4">
           

@@ -65,7 +65,7 @@ const ACTScoreCalculator = () => {
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
             <div className="grid sm:grid-cols-2 gap-x-12 gap-y-8">
                 <section className="space-y-6">
-                  <h2 className="text-lg font-bold flex items-center gap-2 text-primary">
+                  <h2 className="text-2xl font-bold mb-3">
                     <Book className="h-5 w-5" /> Language & Reading
                   </h2>
                   <div>
@@ -79,7 +79,7 @@ const ACTScoreCalculator = () => {
                 </section>
 
                 <section className="space-y-6">
-                  <h2 className="text-lg font-bold flex items-center gap-2 text-emerald-600">
+                  <h2 className="text-2xl font-bold mb-3">
                     <Calculator className="h-5 w-5" /> Math & Science
                   </h2>
                   <div>
@@ -93,7 +93,7 @@ const ACTScoreCalculator = () => {
                 </section>
               </div>
               <div className="mt-8 flex gap-3 items-center pt-4 border-t border-border">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Score</button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button>
 <button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground flex items-center gap-2 font-bold text-sm">
                   <RotateCcw className="h-4 w-4" /> Reset 
                 </button>

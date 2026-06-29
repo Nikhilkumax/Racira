@@ -96,7 +96,7 @@ const EcologicalFootprintCalculator = () => {
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
             <div className="grid sm:grid-cols-2 gap-8 mb-8">
                 <section className="space-y-6">
-                  <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
+                  <h2 className="text-2xl font-bold mb-3">
                     <Utensils className="h-5 w-5 text-primary" /> Diet & Goods
                   </h2>
                   <div>
@@ -119,7 +119,7 @@ const EcologicalFootprintCalculator = () => {
                 </section>
 
                 <section className="space-y-6">
-                  <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
+                  <h2 className="text-2xl font-bold mb-3">
                     <Home className="h-5 w-5 text-primary" /> Housing
                   </h2>
                   <div>
@@ -138,7 +138,7 @@ const EcologicalFootprintCalculator = () => {
                 </section>
 
                 <section className="space-y-6 sm:col-span-2 border-t border-border pt-6">
-                  <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
+                  <h2 className="text-2xl font-bold mb-3">
                     <Car className="h-5 w-5 text-primary" /> Transportation
                   </h2>
                   <div className="grid sm:grid-cols-2 gap-6">
@@ -163,7 +163,7 @@ const EcologicalFootprintCalculator = () => {
           <div className="flex flex-col gap-3">
             {showResults && results && (
               <>
-                <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
+                <h2 className="text-2xl font-bold mb-3">
                    <Globe className="h-5 w-5 text-primary" /> Your Impact
                 </h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">

@@ -72,7 +72,7 @@ const VolumeCalculator = () => {
           <div className="flex flex-col gap-3">
             {showResults && result && (
               <>
-                <h2 className="text-xl font-bold mb-4">Result</h2>
+                <h2 className="text-2xl font-bold mb-3">Result</h2>
                 <ResultDisplay items={[
                   { label: "Volume", value: 0, textValue: result.volume.toFixed(4) + " cubic units" },
                   { label: "Surface Area", value: 0, textValue: result.surfaceArea.toFixed(4) + " sq units" },

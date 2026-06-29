@@ -162,9 +162,7 @@ export default function SodiumIntakeCalculator() {
               <p className="text-xs text-muted-foreground mt-1.5">Average US adult consumes ~3,400mg daily.</p>
             </div>
             <div className="flex gap-3 mt-2">
-              <button onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm">
-                <Calculator className="h-4 w-4" /> Calculate Limit
-              </button>
+              <button onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm">Calculate</button>
               <button onClick={() => { setAge("35"); setBloodPressure("normal"); setActivity("moderate"); setSweat("normal"); setCurrentSodium("3400"); setResult(calcSodium(35, "normal", "moderate", "normal", 3400)); }} className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center">
                 <RotateCcw className="h-4 w-4" />
               </button>

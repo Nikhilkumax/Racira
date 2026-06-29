@@ -90,14 +90,14 @@ const LeaveEncashmentCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Encashment</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
           </div>
 
           <div className="flex flex-col gap-3">
             {showResults && result && (
               <>
-                <h2 className="text-xl font-bold mb-4">Leave Encashment Calculation</h2>
+                <h2 className="text-2xl font-bold mb-3">Leave Encashment Calculation</h2>
                 <ResultDisplay currency="₹" items={[
                   { label: "Total Encashment", value: result.encashmentAmount, highlight: true },
                   { label: "Tax-Exempt Amount", value: result.taxExempt },

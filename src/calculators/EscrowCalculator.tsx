@@ -173,7 +173,7 @@ export default function EscrowCalculator() {
 
       {/* Educational Content */}
       <div className="mt-16 max-w-4xl mx-auto prose prose-slate dark:prose-invert">
-        <h2 className="text-3xl font-bold mb-6">What is an Escrow Account?</h2>
+        <h2 className="text-2xl font-bold mb-3">What is an Escrow Account?</h2>
         <p className="text-lg text-muted-foreground mb-6">
           In real estate, an escrow account is set up by your mortgage lender to pay certain property-related expenses on your behalf. Most lenders require you to pay a portion of your property taxes and homeowners insurance each month along with your mortgage payment.
         </p>

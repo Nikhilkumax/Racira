@@ -150,7 +150,7 @@ export default function DomainValuationCalculator() {
           <div className="flex flex-col gap-3">
             {showResults && (
               <>
-                <h2 className="text-xl font-bold mb-6">Valuation Summary</h2>
+                <h2 className="text-2xl font-bold mb-3">Valuation Summary</h2>
                 <div className="p-8 rounded-3xl bg-primary/5 border border-primary/20 text-center mb-8">
                   <p className="text-xs font-bold text-primary uppercase tracking-widest mb-2">Estimated Market Value</p>
                   <p className="text-6xl font-black text-foreground mb-4">${results.totalValuation.toLocaleString()}</p>

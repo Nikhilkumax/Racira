@@ -104,9 +104,7 @@ const LoveCalculator = () => {
             </div>
 
             <div className="flex gap-3 mt-4">
-              <button type="button" onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-bold h-14 text-xl transition-all active:scale-[0.98] shadow-md hover:shadow-lg">
-                <Sparkles className="h-6 w-6" /> Calculate Match
-              </button>
+              <button type="button" onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-bold h-14 text-xl transition-all active:scale-[0.98] shadow-md hover:shadow-lg">Calculate</button>
             </div>
           </div>
 

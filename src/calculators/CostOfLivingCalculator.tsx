@@ -81,7 +81,7 @@ const CostOfLivingCalculator = () => {
             {showResults && results && (
               <>
                 <div className="text-center mb-8">
-                  <h2 className="text-sm font-bold text-primary uppercase tracking-wider mb-1">Equivalent Salary Needed</h2>
+                  <h2 className="text-2xl font-bold mb-3">Equivalent Salary Needed</h2>
                   <p className="text-5xl font-extrabold mb-2">${Math.round(results.equivalentSalary).toLocaleString()}</p>
                   <p className="text-sm text-muted-foreground">
                     Target city is <span className="font-bold text-foreground">{Math.abs(results.percentage).toFixed(1)}% {results.isMoreExpensive ? 'more' : 'less'}</span> expensive

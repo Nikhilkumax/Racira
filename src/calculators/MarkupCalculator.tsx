@@ -109,7 +109,7 @@ const MarkupCalculator = () => {
           <div className="flex flex-col gap-3">
             {showResults && result && (
               <>
-                <h2 className="text-xl font-bold mb-4">Markup & Margin</h2>
+                <h2 className="text-2xl font-bold mb-3">Markup & Margin</h2>
                 <ResultDisplay items={[
                   { label: "Cost Price", value: result.cost },
                   { label: "Selling Price", value: result.selling },

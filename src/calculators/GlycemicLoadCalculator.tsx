@@ -98,7 +98,7 @@ export default function GlycemicLoadCalculator() {
 
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <h2 className="text-lg font-bold text-foreground pb-2 border-b border-border">Food Glycemic Load</h2>
+            <h2 className="text-2xl font-bold mb-3">Food Glycemic Load</h2>
             <div className="flex gap-2">
               {(["preset", "custom"] as const).map(m => (
                 <button key={m} type="button" onClick={() => setMode(m)} className={`flex-1 h-9 rounded-md text-sm font-semibold transition-all ${mode === m ? "bg-primary text-primary-foreground shadow-sm" : "border border-border bg-background text-muted-foreground hover:bg-secondary"}`}>{m === "preset" ? "Food Presets" : "Custom Entry"}</button>
@@ -119,9 +119,7 @@ export default function GlycemicLoadCalculator() {
             )}
             <CompactInput id="serving" label="Number of Servings" value={servingSize} onChange={setServingSize} min="0.25" step="0.25" />
             <div className="flex gap-2.5 mt-2">
-              <button type="button" onClick={calc} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm">
-                <Calculator className="h-4 w-4" /> Calculate GL
-              </button>
+              <button type="button" onClick={calc} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm">Calculate</button>
               <button type="button" onClick={reset} className="px-3 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center" aria-label="Reset">
                 <RotateCcw className="h-4 w-4" />
               </button>
@@ -135,7 +133,7 @@ export default function GlycemicLoadCalculator() {
 
               <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
                 <div className="flex items-center justify-between pb-2 border-b border-border">
-                  <h2 className="text-lg font-bold text-foreground">Glycemic Load Result</h2>
+                  <h2 className="text-2xl font-bold mb-3">Glycemic Load Result</h2>
                   <Apple className="h-5 w-5 text-primary" />
                 </div>
                 <div className={`bg-gradient-to-br ${res.category.bg} border ${res.category.border} rounded-xl p-5 text-center`}>

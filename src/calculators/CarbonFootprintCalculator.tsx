@@ -91,7 +91,7 @@ const CarbonFootprintCalculator = () => {
                 <section>
                   <div className="flex items-center gap-2 mb-4 text-primary">
                     <Home className="h-5 w-5" />
-                    <h2 className="font-bold uppercase tracking-wider text-sm">Home Energy (Monthly)</h2>
+                    <h2 className="text-2xl font-bold mb-3">Home Energy (Monthly)</h2>
                   </div>
                   <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     <InputField id="elec" label="Electricity" value={electricity} onChange={setElectricity} suffix="kWh" />
@@ -104,7 +104,7 @@ const CarbonFootprintCalculator = () => {
                 <section>
                   <div className="flex items-center gap-2 mb-4 text-primary">
                     <Car className="h-5 w-5" />
-                    <h2 className="font-bold uppercase tracking-wider text-sm">Transportation (Monthly)</h2>
+                    <h2 className="text-2xl font-bold mb-3">Transportation (Monthly)</h2>
                   </div>
                   <div className="grid sm:grid-cols-2 gap-6">
                     <InputField id="miles" label="Distance Driven" value={carMiles} onChange={setCarMiles} suffix="miles" />
@@ -116,7 +116,7 @@ const CarbonFootprintCalculator = () => {
                 <section>
                   <div className="flex items-center gap-2 mb-4 text-primary">
                     <Plane className="h-5 w-5" />
-                    <h2 className="font-bold uppercase tracking-wider text-sm">Flights (Annual)</h2>
+                    <h2 className="text-2xl font-bold mb-3">Flights (Annual)</h2>
                   </div>
                   <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     <InputField id="short" label="Short Haul (< 3hr)" value={shortFlights} onChange={setShortFlights} />
@@ -138,7 +138,7 @@ const CarbonFootprintCalculator = () => {
           <div className="flex flex-col gap-3">
             {showResults && results && (
               <>
-                <h2 className="text-xl font-bold mb-6">Your Annual Impact</h2>
+                <h2 className="text-2xl font-bold mb-3">Your Annual Impact</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
                     <p className="text-sm font-bold text-primary uppercase tracking-widest mb-1">Total CO2e Emissions</p>

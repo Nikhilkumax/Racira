@@ -195,7 +195,6 @@ export default function BaseballFieldingCalculator() {
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Sports", href: "/calculator#sports" }, { label: "Baseball Fielding Percentage Calculator" }]} />
       <div className="container-page py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Baseball Fielding Percentage Calculator</h1>
-        <p className="text-sm text-muted-foreground mt-1">The Range Paradox: Traditional Fielding Percentage is an excellent measure of sure-handedness, but it possesses a massive analytical flaw: it cannot measure defensive range. A slow fielder who cannot reach the ball will never be charged with an error, resulting in an artificially high Fielding Percentage.</p>
 
         <div className="grid grid-cols-1 xl:grid-cols-[460px_1fr] gap-6 items-start max-w-[1280px] mx-auto mt-4">
           

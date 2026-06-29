@@ -1,0 +1,1 @@
+  • AverageReturnCalculator — Calculate button label is not exactly Calculate

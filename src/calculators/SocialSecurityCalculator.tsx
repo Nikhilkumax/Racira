@@ -130,9 +130,7 @@ export default function SocialSecurityCalculator() {
               <p className="text-xs text-muted-foreground mt-1.5">Determines your Full Retirement Age (FRA). Born 1960+: FRA = 67.</p>
             </div>
             <div className="flex gap-3 mt-1">
-              <button onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm">
-                <Calculator className="h-4 w-4" /> Compare Claiming Ages
-              </button>
+              <button onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm">Calculate</button>
               <button onClick={() => { setPia("2000"); setBirthYear("1965"); setResult(calcSocialSecurity(2000, 1965)); }} className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center">
                 <RotateCcw className="h-4 w-4" />
               </button>

@@ -68,7 +68,7 @@ export default function LengthConverter() {
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Length Converter</h1>
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <h2 className="text-lg font-bold text-foreground pb-2 border-b border-border">Convert Length Units</h2>
+            <h2 className="text-2xl font-bold mb-3">Convert Length Units</h2>
             <CompactInput id="len-value" label="Value to Convert" value={value} onChange={setValue} />
             <div className="grid grid-cols-2 gap-3">
               <div className="flex flex-col gap-1">
@@ -92,7 +92,7 @@ export default function LengthConverter() {
           <div className="flex flex-col gap-3">
             <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
               <div className="flex items-center justify-between pb-2 border-b border-border">
-                <h2 className="text-lg font-bold text-foreground">Conversion Result</h2>
+                <h2 className="text-2xl font-bold mb-3">Conversion Result</h2>
                 <Ruler className="h-5 w-5 text-primary" />
               </div>
               <div className="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-xl p-5 text-center">

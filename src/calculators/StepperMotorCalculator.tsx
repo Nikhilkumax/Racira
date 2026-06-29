@@ -66,7 +66,7 @@ const StepperMotorCalculator = () => {
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
             <div className="grid sm:grid-cols-2 gap-8">
                 <section className="space-y-6">
-                  <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
+                  <h2 className="text-2xl font-bold mb-3">
                     <Cpu className="h-5 w-5 text-primary" /> Motor & Driver
                   </h2>
                   <div className="grid grid-cols-2 gap-4">
@@ -96,7 +96,7 @@ const StepperMotorCalculator = () => {
                 </section>
 
                 <section className="space-y-6">
-                  <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
+                  <h2 className="text-2xl font-bold mb-3">
                     <Settings className="h-5 w-5 text-primary" /> Mechanical System
                   </h2>
                   <div className="border-b border-border pb-4 mb-4">
@@ -147,7 +147,7 @@ const StepperMotorCalculator = () => {
                 </div>
 
                 <div className="card-calculator">
-                  <h2 className="text-xl font-bold flex items-center gap-2 mb-6">
+                  <h2 className="text-2xl font-bold mb-3">
                     <Zap className="h-5 w-5 text-primary" /> Resolution Data
                   </h2>
                   <ResultDisplay items={[

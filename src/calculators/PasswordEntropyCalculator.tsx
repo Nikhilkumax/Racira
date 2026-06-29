@@ -112,7 +112,7 @@ const PasswordEntropyCalculator = () => {
             {password && (<>
 
               <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-                <h2 className="text-xl font-bold mb-6">Security Analysis</h2>
+                <h2 className="text-2xl font-bold mb-3">Security Analysis</h2>
                 <div className="space-y-4">
                   <div className="flex items-center justify-between p-4 rounded-xl border border-border bg-secondary/20">
                      <div className="flex items-center gap-3">

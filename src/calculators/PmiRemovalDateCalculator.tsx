@@ -107,7 +107,6 @@ const PmiRemovalDateCalculator = () => {
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Finance", href: "/calculator#finance" }, { label: "PMI Removal Date" }]} />
       <div className="container-page py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-2 tracking-tight text-foreground">PMI Removal Date Calculator</h1>
-        <p className="text-muted-foreground mb-4 max-w-2xl">Find the exact date your private mortgage insurance can be cancelled under the Homeowners Protection Act — including automatic termination, borrower-requested removal, and acceleration from appreciation and extra payments.</p>
 
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
           {/* ─── LEFT: Inputs ─── */}
@@ -185,9 +184,7 @@ const PmiRemovalDateCalculator = () => {
             </div>
 
             <div className="flex gap-2.5 mt-2">
-              <button type="button" onClick={() => setResults(calculatePmiRemoval(inputs))} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-9 text-base transition-all active:scale-[0.98] shadow-sm">
-                <Calculator className="h-4 w-4" /> Calculate Removal Date
-              </button>
+              <button type="button" onClick={() => setResults(calculatePmiRemoval(inputs))} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-9 text-base transition-all active:scale-[0.98] shadow-sm">Calculate</button>
               <button type="button" onClick={handleReset} className="px-3 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-9 transition-colors flex items-center justify-center focus:outline-none" aria-label="Reset">
                 <RotateCcw className="h-4 w-4" />
               </button>

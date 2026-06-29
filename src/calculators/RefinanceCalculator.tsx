@@ -150,9 +150,7 @@ export default function RefinanceCalculator() {
               <div className={inp}><span className="pl-3 text-muted-foreground">$</span><input type="number" value={closingCosts} onChange={e => setClosingCosts(e.target.value)} className={ci} /></div>
             </div>
             <div className="flex gap-3 mt-1">
-              <button onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm">
-                <Calculator className="h-4 w-4" /> Calculate
-              </button>
+              <button onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm">Calculate</button>
               <button onClick={() => { setBalance("280000"); setCurrentRate("7.5"); setMonthsLeft("300"); setNewRate("6.5"); setNewTerm("30"); setClosingCosts("5000"); setResult(calcRefinance(280000, 7.5, 300, 6.5, 30, 5000)); }} className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center">
                 <RotateCcw className="h-4 w-4" />
               </button>

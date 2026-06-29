@@ -79,16 +79,14 @@ const HydrationCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">
-                  <Droplets className="h-5 w-5" /> Calculate Intake
-                </button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors"><RotateCcw className="h-5 w-5" /></button>
               </div>
           </div>
 
           <div className="flex flex-col gap-3">
             {showResults && results && (
               <>
-                <h2 className="text-sm font-bold text-primary uppercase tracking-wider mb-2">Recommended Daily Intake</h2>
+                <h2 className="text-2xl font-bold mb-3">Recommended Daily Intake</h2>
                 <p className="text-6xl font-extrabold">{results.liters.toFixed(1)}L</p>
                 <p className="text-sm text-muted-foreground mt-2">Approximately {Math.round(results.ounces)} oz or {Math.round(results.glasses)} glasses</p>
 

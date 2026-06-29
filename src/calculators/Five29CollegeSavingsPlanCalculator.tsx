@@ -233,9 +233,7 @@ export default function Five29CollegeSavingsPlanCalculator() {
                 type="button"
                 onClick={handleCalculate}
                 className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm"
-              >
-                <Calculator className="h-4 w-4" /> Calculate Savings
-              </button>
+              >Calculate</button>
               <button
                 type="button"
                 onClick={handleReset}

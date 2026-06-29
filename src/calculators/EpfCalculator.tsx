@@ -103,7 +103,7 @@ const EPFCalculator = () => {
           <div className="flex flex-col gap-3">
             {showResults && result && (
               <>
-                <h2 className="text-xl font-bold mb-4">EPF Corpus at Retirement</h2>
+                <h2 className="text-2xl font-bold mb-3">EPF Corpus at Retirement</h2>
                 <ResultDisplay currency="₹" items={[
                   { label: "Your Contribution", value: result.employeeTotal },
                   { label: "Employer's Contribution", value: result.employerTotal },

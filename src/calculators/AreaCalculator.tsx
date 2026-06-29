@@ -72,7 +72,7 @@ const AreaCalculator = () => {
           <div className="flex flex-col gap-3">
             {showResults && result && (
               <>
-                <h2 className="text-xl font-bold mb-4">Result</h2>
+                <h2 className="text-2xl font-bold mb-3">Result</h2>
                 <ResultDisplay items={[
                   { label: "Area", value: 0, textValue: result.area.toFixed(4) + " sq units" },
                   { label: "Perimeter", value: 0, textValue: result.perimeter.toFixed(4) + " units" },

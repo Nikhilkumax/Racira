@@ -110,7 +110,7 @@ const HourlyToSalaryCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2"><Calculator className="h-5 w-5" /> Calculate</button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">Calculate</button>
                 <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
           </div>
@@ -130,7 +130,7 @@ const HourlyToSalaryCalculator = () => {
                 </div>
 
                 <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-                  <h2 className="text-xl font-bold flex items-center gap-2 mb-6">
+                  <h2 className="text-2xl font-bold mb-3">
                     <TrendingUp className="h-5 w-5 text-primary" /> Pay Period Breakdown (Gross)
                   </h2>
                   <ResultDisplay items={[

@@ -88,7 +88,7 @@ const DataStorageConverter = () => {
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
             <div className="max-w-3xl mx-auto">
-                 <h2 className="text-xl font-bold flex items-center gap-2 mb-6 text-center justify-center">
+                 <h2 className="text-2xl font-bold mb-3">
                     <HardDrive className="h-6 w-6 text-primary" /> Storage Conversion
                  </h2>
                  
@@ -119,7 +119,7 @@ const DataStorageConverter = () => {
           <div className="flex flex-col gap-3">
             {allConversions.length > 0 && (
               <>
-                <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
+                <h2 className="text-2xl font-bold mb-3">
                   <Cpu className="h-5 w-5 text-primary" /> Full Conversion Table
                 </h2>
                 <div className="grid sm:grid-cols-2 gap-3">

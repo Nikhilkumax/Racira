@@ -141,7 +141,7 @@ const RegexTestCalculator = () => {
                 </div>
 
                 <div className="card-calculator">
-                  <h2 className="text-xl font-bold flex items-center gap-2 mb-6">
+                  <h2 className="text-2xl font-bold mb-3">
                     <List className="h-5 w-5 text-primary" /> Captured Matches & Groups
                   </h2>
                   <div className="space-y-4 max-h-[400px] overflow-y-auto custom-scrollbar pr-2">

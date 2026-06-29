@@ -157,10 +157,7 @@ const WeightConverter = () => {
                   id="wt-calculate"
                   onClick={handleCalculate}
                   className="btn-calculate flex-1 flex items-center justify-center gap-2"
-                >
-                  <Calculator className="h-5 w-5" />
-                  Convert
-                </button>
+                >Calculate</button>
                 <button
                   onClick={reset}
                   className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors"
@@ -175,7 +172,7 @@ const WeightConverter = () => {
           <div className="flex flex-col gap-3">
             {showResults && (
               <>
-                <h2 className="text-xl font-bold mb-4">Result</h2>
+                <h2 className="text-2xl font-bold mb-3">Result</h2>
 
                 <div className="result-card mb-6">
                   <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">

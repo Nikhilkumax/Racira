@@ -68,7 +68,7 @@ const PlasticFootprintCalculator = () => {
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
             <div className="flex items-center gap-2 mb-6 text-primary">
                 <ShoppingBag className="h-5 w-5" />
-                <h2 className="font-bold uppercase tracking-wider text-sm">Weekly Consumption</h2>
+                <h2 className="text-2xl font-bold mb-3">Weekly Consumption</h2>
               </div>
               
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
@@ -91,7 +91,7 @@ const PlasticFootprintCalculator = () => {
           <div className="flex flex-col gap-3">
             {showResults && results && (
               <>
-                <h2 className="text-xl font-bold mb-6">Waste Analysis</h2>
+                <h2 className="text-2xl font-bold mb-3">Waste Analysis</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
                     <p className="text-sm font-bold text-primary uppercase tracking-widest mb-1">Annual Plastic Waste</p>

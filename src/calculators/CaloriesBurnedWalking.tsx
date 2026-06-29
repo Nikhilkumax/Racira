@@ -162,9 +162,7 @@ export default function CaloriesBurnedWalking() {
             </div>
 
             <div className="flex gap-3 mt-4">
-              <button onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm">
-                <Calculator className="h-4 w-4" /> Calculate Calorie Burn
-              </button>
+              <button onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm">Calculate</button>
               <button onClick={() => { setWeight("160"); setDistance("3"); setDuration("60"); setIncline("flat"); setTerrain("paved"); setResult(calcWalking(160, 3, 60, "flat", "paved")); }} className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center" aria-label="Reset">
                 <RotateCcw className="h-4 w-4" />
               </button>

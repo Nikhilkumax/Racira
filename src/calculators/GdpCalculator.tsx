@@ -100,7 +100,7 @@ export default function GdpCalculator() {
 
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <h2 className="text-lg font-bold text-foreground pb-2 border-b border-border">GDP Inputs (Expenditure Approach)</h2>
+            <h2 className="text-2xl font-bold mb-3">GDP Inputs (Expenditure Approach)</h2>
             <p className="text-sm text-muted-foreground">Enter components in billions USD. Default values approximate the US economy.</p>
             <div className="flex flex-col gap-4">
               <Inp id="C" label="Consumer Spending (C)" value={consumption} onChange={setConsumption} suffix="B" />
@@ -123,9 +123,7 @@ export default function GdpCalculator() {
               </div>
             </div>
             <div className="flex gap-3 mt-2">
-              <button type="button" onClick={calculate} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm">
-                <Calculator className="h-4 w-4" /> Calculate
-              </button>
+              <button type="button" onClick={calculate} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm">Calculate</button>
               <button type="button" onClick={() => { setConsumption("14200"); setInvestment("3800"); setGovSpending("4600"); setExports("3100"); setImports("3300"); setPopulation("335"); setInflationRate("3.2"); setGrowthRate("2.5"); setYears("5"); setTimeout(calculate, 0); }} className="px-3 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center">
                 <RotateCcw className="h-4 w-4" />
               </button>
@@ -139,7 +137,7 @@ export default function GdpCalculator() {
 
               <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
                 <div className="flex items-center justify-between pb-2 border-b border-border">
-                  <h2 className="text-lg font-bold text-foreground">GDP Results</h2>
+                  <h2 className="text-2xl font-bold mb-3">GDP Results</h2>
                   <Globe className="h-5 w-5 text-primary" />
                 </div>
 

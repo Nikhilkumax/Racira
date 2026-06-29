@@ -88,7 +88,7 @@ const NPSCalculator = () => {
           <div className="flex flex-col gap-3">
             {showResults && result && (
               <>
-                <h2 className="text-xl font-bold mb-4">NPS Retirement Projection</h2>
+                <h2 className="text-2xl font-bold mb-3">NPS Retirement Projection</h2>
                 <ResultDisplay currency="₹" items={[
                   { label: "Total Invested", value: result.totalInvested },
                   { label: "Interest Earned", value: result.interest, highlight: true },

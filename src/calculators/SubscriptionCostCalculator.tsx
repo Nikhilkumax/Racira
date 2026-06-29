@@ -111,7 +111,7 @@ const SubscriptionCostCalculator = () => {
                   <Plus className="h-4 w-4" /> Add Subscription
                 </button>
                 <div className="flex-1" />
-                <button onClick={handleCalculate} className="btn-calculate px-8">Calculate Total</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate px-8">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors"><RotateCcw className="h-5 w-5" /></button>
               </div>
           </div>
 
@@ -120,7 +120,7 @@ const SubscriptionCostCalculator = () => {
 
               <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
                 <div className="text-center mb-8">
-                  <h2 className="text-sm font-bold text-primary uppercase tracking-wider mb-1">Total Annual Cost</h2>
+                  <h2 className="text-2xl font-bold mb-3">Total Annual Cost</h2>
                   <p className="text-5xl font-extrabold mb-2 text-red-500">${results.annualTotal.toFixed(2)}</p>
                   <p className="text-sm text-muted-foreground">Monthly Average: ${results.monthlyAvg.toFixed(2)}</p>
                 </div>

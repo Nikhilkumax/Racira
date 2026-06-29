@@ -72,7 +72,7 @@ const PPFCalculator = () => {
           <div className="flex flex-col gap-3">
             {showResults && result && (
               <>
-                <h2 className="text-xl font-bold mb-4">PPF Maturity</h2>
+                <h2 className="text-2xl font-bold mb-3">PPF Maturity</h2>
                 <ResultDisplay currency="₹" items={[
                   { label: "Total Deposited", value: result.invested },
                   { label: "Total Interest", value: result.interest, highlight: true },

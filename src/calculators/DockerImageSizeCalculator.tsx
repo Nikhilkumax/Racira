@@ -94,7 +94,7 @@ const DockerImageSizeCalculator = () => {
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
             <section className="space-y-6">
-                  <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
+                  <h2 className="text-2xl font-bold mb-3">
                     <Layers className="h-5 w-5 text-primary" /> Image Configuration
                   </h2>
                   <div>
@@ -137,9 +137,7 @@ const DockerImageSizeCalculator = () => {
                   </div>
 
                   <div className="pt-2 flex gap-3">
-                    <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">
-                      <Layers className="h-4 w-4" /> Calculate Size
-                    </button>
+                    <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">Calculate</button>
                     <button onClick={reset} className="w-full p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground flex items-center justify-center gap-2 font-bold text-sm">
                       <RotateCcw className="h-4 w-4" /> Reset
                     </button>
@@ -150,7 +148,7 @@ const DockerImageSizeCalculator = () => {
           <div className="flex flex-col gap-3">
             {showResults && results && (
               <>
-                <h2 className="text-xl font-bold flex items-center gap-2 mb-6">
+                <h2 className="text-2xl font-bold mb-3">
                      <ArrowDown className="h-5 w-5 text-primary" /> Size Breakdown
                   </h2>
                   

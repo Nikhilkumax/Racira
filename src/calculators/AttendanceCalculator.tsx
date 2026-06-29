@@ -96,7 +96,7 @@ const AttendanceCalculator = () => {
             {showResults && results && (
               <>
                 <div className="mb-6">
-                  <h2 className="text-sm font-bold text-primary uppercase tracking-wider mb-2">Current Attendance</h2>
+                  <h2 className="text-2xl font-bold mb-3">Current Attendance</h2>
                   <p className="text-6xl font-extrabold">{results.currentPct.toFixed(1)}%</p>
                   <p className={`font-bold mt-2 ${results.statusColor}`}>Status: {results.status}</p>
                 </div>

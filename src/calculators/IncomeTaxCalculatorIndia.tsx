@@ -139,7 +139,7 @@ const IncomeTaxCalculatorIndia = () => {
           <div className="flex flex-col gap-3">
             {showResults && result && (
               <>
-                <h2 className="text-xl font-bold mb-4">Tax Comparison — FY 2024-25</h2>
+                <h2 className="text-2xl font-bold mb-3">Tax Comparison — FY 2024-25</h2>
 
                 <div className="p-4 rounded-lg bg-accent/10 border border-accent/30 mb-6 text-center">
                   <p className="text-sm text-muted-foreground">Better Regime</p>

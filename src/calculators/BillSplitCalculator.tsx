@@ -71,7 +71,7 @@ const BillSplitCalculator = () => {
             {showResults && results && (
               <>
                 <div className="text-center mb-8">
-                  <h2 className="text-sm font-bold text-primary uppercase tracking-wider mb-1">Amount Per Person</h2>
+                  <h2 className="text-2xl font-bold mb-3">Amount Per Person</h2>
                   <p className="text-5xl font-extrabold mb-2">${results.perPerson.toFixed(2)}</p>
                   <p className="text-sm text-muted-foreground">Total with tip: ${results.totalWithTip.toFixed(2)}</p>
                 </div>

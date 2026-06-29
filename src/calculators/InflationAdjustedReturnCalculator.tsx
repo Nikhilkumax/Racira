@@ -129,7 +129,7 @@ export default function InflationAdjustedReturnCalculator() {
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
           {/* Inputs Card */}
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <h2 className="text-lg font-bold text-foreground pb-2 border-b border-border">Inputs</h2>
+            <h2 className="text-2xl font-bold mb-3">Inputs</h2>
 
             <div>
               <label className="text-sm font-semibold text-foreground mb-1 block">Initial Investment ($)</label>
@@ -187,9 +187,7 @@ export default function InflationAdjustedReturnCalculator() {
               <button
                 onClick={() => runCalc()}
                 className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm"
-              >
-                <Calculator className="h-4 w-4" /> Calculate
-              </button>
+              >Calculate</button>
               <button
                 onClick={reset}
                 className="px-3 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center"

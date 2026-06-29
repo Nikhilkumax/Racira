@@ -84,7 +84,7 @@ const CumulativeGPACalculator = () => {
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
             <div className="grid sm:grid-cols-2 gap-8 mb-8 pb-8 border-b border-border">
                 <section className="space-y-4">
-                  <h2 className="text-lg font-bold flex items-center gap-2">
+                  <h2 className="text-2xl font-bold mb-3">
                     <GraduationCap className="h-5 w-5 text-primary" /> Current Standing
                   </h2>
                   <div className="grid grid-cols-2 gap-4">
@@ -104,7 +104,7 @@ const CumulativeGPACalculator = () => {
               </div>
 
               <section className="space-y-4">
-                <h2 className="text-lg font-bold flex items-center gap-2 mb-4">
+                <h2 className="text-2xl font-bold mb-3">
                   <BookOpen className="h-5 w-5 text-primary" /> New Courses
                 </h2>
                 <div className="space-y-3">

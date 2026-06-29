@@ -106,7 +106,7 @@ export default function InventoryTurnoverCalculator() {
 
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <h2 className="text-lg font-bold text-foreground pb-2 border-b border-border">Inventory details</h2>
+            <h2 className="text-2xl font-bold mb-3">Inventory details</h2>
             <CompactInput id="cogs" label="Cost of Goods Sold (COGS)" value={cogs} onChange={setCogs} prefix="$" />
             <CompactInput id="bi" label="Beginning Inventory" value={beginInv} onChange={setBeginInv} prefix="$" />
             <CompactInput id="ei" label="Ending Inventory" value={endInv} onChange={setEndInv} prefix="$" />
@@ -120,9 +120,7 @@ export default function InventoryTurnoverCalculator() {
             </div>
 
             <div className="flex gap-2.5 mt-2">
-              <button type="button" onClick={calc} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm">
-                <Calculator className="h-4 w-4" /> Calculate Turnover
-              </button>
+              <button type="button" onClick={calc} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm">Calculate</button>
               <button type="button" onClick={reset} className="px-3 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center" aria-label="Reset">
                 <RotateCcw className="h-4 w-4" />
               </button>
@@ -136,7 +134,7 @@ export default function InventoryTurnoverCalculator() {
 
               <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
                 <div className="flex items-center justify-between pb-2 border-b border-border">
-                  <h2 className="text-lg font-bold text-foreground">Inventory Performance</h2>
+                  <h2 className="text-2xl font-bold mb-3">Inventory Performance</h2>
                   <RefreshCw className="h-5 w-5 text-primary" />
                 </div>
                 

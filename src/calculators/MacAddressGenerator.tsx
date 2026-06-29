@@ -87,7 +87,7 @@ const MacAddressGenerator = () => {
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
             <section className="space-y-4">
-                  <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
+                  <h2 className="text-2xl font-bold mb-3">
                     <Settings className="h-5 w-5 text-primary" /> Settings
                   </h2>
                   <div>
@@ -125,7 +125,7 @@ const MacAddressGenerator = () => {
 
           <div className="flex flex-col gap-3">
             <div className="card-calculator flex flex-col">
-                <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
+                <h2 className="text-2xl font-bold mb-3">
                   <Hash className="h-5 w-5 text-primary" /> Results
                 </h2>
                 {macs.length === 0 ? (

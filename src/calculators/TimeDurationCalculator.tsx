@@ -117,7 +117,7 @@ const TimeDurationCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2"><Calculator className="h-5 w-5" /> Calculate</button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">Calculate</button>
                 <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
           </div>
@@ -125,7 +125,7 @@ const TimeDurationCalculator = () => {
           <div className="flex flex-col gap-3">
             {showResults && result && (
               <>
-                <h2 className="text-xl font-bold mb-6">Duration Results</h2>
+                <h2 className="text-2xl font-bold mb-3">Duration Results</h2>
                 <div className="text-center mb-8 p-8 rounded-2xl bg-primary/5 border border-primary/10">
                   <p className="text-4xl font-black text-foreground">
                     {result.years > 0 && <>{result.years}y </>}

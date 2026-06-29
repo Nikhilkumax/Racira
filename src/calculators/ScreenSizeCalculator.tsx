@@ -71,7 +71,7 @@ const ScreenSizeCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Dimensions</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors"><RotateCcw className="h-5 w-5" /></button>
               </div>
           </div>
 
@@ -91,7 +91,7 @@ const ScreenSizeCalculator = () => {
                      />
                   </div>
                   <div>
-                    <h2 className="text-xl font-bold mb-4">Physical Dimensions</h2>
+                    <h2 className="text-2xl font-bold mb-3">Physical Dimensions</h2>
                     <ResultDisplay items={[
                       { label: "Width", value: 0, textValue: `${results.width.toFixed(2)} in (${(results.width * 2.54).toFixed(1)} cm)` },
                       { label: "Height", value: 0, textValue: `${results.height.toFixed(2)} in (${(results.height * 2.54).toFixed(1)} cm)` },

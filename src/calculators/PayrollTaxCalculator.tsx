@@ -104,7 +104,7 @@ const PayrollTaxCalculator = () => {
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
             <div className="grid sm:grid-cols-2 gap-8">
                 <section className="space-y-6">
-                  <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
+                  <h2 className="text-2xl font-bold mb-3">
                     <Wallet className="h-5 w-5 text-primary" /> Salary Info
                   </h2>
                   <InputField id="salary" label="Annual Gross Salary" value={grossSalary} onChange={setGrossSalary} prefix="$" />
@@ -120,7 +120,7 @@ const PayrollTaxCalculator = () => {
                 </section>
 
                 <section className="space-y-6">
-                  <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
+                  <h2 className="text-2xl font-bold mb-3">
                     <Calculator className="h-5 w-5 text-primary" /> Tax Details
                   </h2>
                   <div className="space-y-2">
@@ -137,7 +137,7 @@ const PayrollTaxCalculator = () => {
                 </section>
               </div>
               <div className="mt-8 flex gap-3 items-center">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Tax</button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button>
 <button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground flex items-center gap-2 font-bold text-sm">
                   <RotateCcw className="h-4 w-4" /> Reset 
                 </button>

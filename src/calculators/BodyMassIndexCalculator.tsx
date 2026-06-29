@@ -222,7 +222,6 @@ export default function BodyMassIndexCalculator() {
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Health", href: "/calculator#health" }, { label: "Body Mass Index (BMI) Calculator" }]} />
       <div className="container-page py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Body Mass Index (BMI) Calculator</h1>
-        <p className="text-sm text-muted-foreground mt-1">The Muscle Mass Caveat: The BMI formula is a blunt mathematical instrument that cannot differentiate between fat and muscle. If you are a highly trained athlete or a bodybuilder, this calculator will inaccurately classify you as Overweight or Obese. For athletes, please use our Body Fat Percentage (Skinfold) calculator instead.</p>
 
         {/* MEDICAL DISCLAIMER */}
         

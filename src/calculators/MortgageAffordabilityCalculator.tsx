@@ -119,9 +119,7 @@ const MortgageAffordabilityCalculator = () => {
                 <InputField id="hoa" label="Monthly HOA Fees ($)" value={hoaFees} onChange={setHoaFees} />
               </div>
               <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">
-                  <Home className="h-5 w-5" /> Calculate Affordability
-                </button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">Calculate</button>
                 <button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground">
                   <RotateCcw className="h-5 w-5" />
                 </button>

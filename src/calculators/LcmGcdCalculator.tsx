@@ -77,7 +77,7 @@ export default function LcmGcdCalculator() {
                 <InputField id="num3" label="Third Number (Optional)" value={num3} onChange={setNum3} tooltip="Optionally enter a third number." />
               </div>
               <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate LCM & GCD</button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button>
                 <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
           </div>
@@ -85,7 +85,7 @@ export default function LcmGcdCalculator() {
           <div className="flex flex-col gap-3">
             {showResults && (
               <>
-                <h2 className="text-xl font-bold mb-4">Results</h2>
+                <h2 className="text-2xl font-bold mb-3">Results</h2>
                 <ResultDisplay items={[
                   { label: "LCM (Least Common Multiple)", value: 0, textValue: results.lcm.toString(), highlight: true },
                   { label: "GCD (Greatest Common Divisor)", value: 0, textValue: results.gcd.toString(), highlight: true },

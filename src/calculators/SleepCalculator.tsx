@@ -99,14 +99,14 @@ const SleepCalculator = () => {
                 </div>
               </div>
               <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2"><Moon className="h-5 w-5" /> Calculate Cycles</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">Calculate</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground"><RotateCcw className="h-5 w-5" /></button>
               </div>
           </div>
 
           <div className="flex flex-col gap-3">
             {showResults && results && (
               <>
-                <h2 className="text-xl font-bold mb-6">{mode === 'wake' ? 'Suggested Bedtimes' : 'Suggested Wake Times'}</h2>
+                <h2 className="text-2xl font-bold mb-3">{mode === 'wake' ? 'Suggested Bedtimes' : 'Suggested Wake Times'}</h2>
                 <p className="text-muted-foreground mb-6">These times factor in the {sleepLatency} minutes it takes you to fall asleep, aiming to wake you up between 90-minute sleep cycles.</p>
                 
                 <div className="grid sm:grid-cols-2 gap-4 mb-6">

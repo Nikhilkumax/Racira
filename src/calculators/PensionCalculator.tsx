@@ -75,7 +75,7 @@ const PensionCalculator = () => {
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
             <div className="grid sm:grid-cols-2 gap-8">
                 <section className="space-y-6">
-                  <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
+                  <h2 className="text-2xl font-bold mb-3">
                     <Calendar className="h-5 w-5 text-primary" /> Service & Age
                   </h2>
                   <div className="grid grid-cols-2 gap-4">
@@ -86,7 +86,7 @@ const PensionCalculator = () => {
                 </section>
 
                 <section className="space-y-6">
-                  <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
+                  <h2 className="text-2xl font-bold mb-3">
                     <DollarSign className="h-5 w-5 text-primary" /> Salary & Formula
                   </h2>
                   <InputField id="salary" label="Final Average Salary" value={finalSalary} onChange={setFinalSalary} prefix="$" tooltip="The average of your highest earning years (e.g., top 3 or 5 years)." />
@@ -117,7 +117,7 @@ const PensionCalculator = () => {
                 </div>
 
                 <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-                  <h2 className="text-xl font-bold flex items-center gap-2 mb-6">
+                  <h2 className="text-2xl font-bold mb-3">
                     <TrendingUp className="h-5 w-5 text-primary" /> Formula Breakdown
                   </h2>
                   <div className="mb-8 p-6 bg-secondary/30 rounded-2xl text-center border border-border italic font-medium">

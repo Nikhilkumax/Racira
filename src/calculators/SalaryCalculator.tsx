@@ -101,7 +101,7 @@ const SalaryCalculator = () => {
           <div className="flex flex-col gap-3">
             {showResults && result && (
               <>
-                <h2 className="text-xl font-bold mb-4">Salary Breakdown</h2>
+                <h2 className="text-2xl font-bold mb-3">Salary Breakdown</h2>
                 <div className="overflow-x-auto rounded-lg border border-border">
                   <table className="w-full text-sm">
                     <thead>

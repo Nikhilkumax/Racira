@@ -100,7 +100,7 @@ const DensityCalculator = () => {
           <div className="flex flex-col gap-3">
             {showResults && results && (
               <>
-                <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
+                <h2 className="text-2xl font-bold mb-3">
                   <Atom className="h-5 w-5 text-primary" /> Calculation Results
                 </h2>
                 <div className="grid sm:grid-cols-3 gap-4">

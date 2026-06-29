@@ -140,9 +140,7 @@ export default function BudgetCalculator() {
               ))}
             </div>
             <div className="flex gap-3 mt-1">
-              <button onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm">
-                <Calculator className="h-4 w-4" /> Analyze Budget
-              </button>
+              <button onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm">Calculate</button>
               <button onClick={() => { setIncome("6000"); setExpenses(defaults); const expNums = Object.fromEntries(Object.entries(defaults).map(([k, v]) => [k, parseFloat(v) || 0])); setResult(calcBudget(6000, expNums)); }} className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center">
                 <RotateCcw className="h-4 w-4" />
               </button>

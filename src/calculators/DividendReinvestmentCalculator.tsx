@@ -103,7 +103,7 @@ const DividendReinvestmentCalculator = () => {
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
             <div className="grid sm:grid-cols-2 gap-8">
                 <section className="space-y-6">
-                  <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
+                  <h2 className="text-2xl font-bold mb-3">
                     <TrendingUp className="h-5 w-5 text-primary" /> Investment Strategy
                   </h2>
                   <InputField id="initial" label="Initial Investment" value={initialInvestment} onChange={setInitialInvestment} prefix="$" />
@@ -112,7 +112,7 @@ const DividendReinvestmentCalculator = () => {
                 </section>
 
                 <section className="space-y-6">
-                  <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
+                  <h2 className="text-2xl font-bold mb-3">
                     <RefreshCw className="h-5 w-5 text-primary" /> Yield & Growth
                   </h2>
                   <InputField id="yield" label="Annual Dividend Yield (%)" value={dividendYield} onChange={setDividendYield} suffix="%" step="0.1" />
@@ -124,9 +124,7 @@ const DividendReinvestmentCalculator = () => {
                 </section>
               </div>
               <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">
-                  <Calculator className="h-4 w-4" /> Calculate
-                </button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">Calculate</button>
                 <button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground">
                   <RotateCcw className="h-5 w-5" />
                 </button>
@@ -150,7 +148,7 @@ const DividendReinvestmentCalculator = () => {
                 </div>
 
                 <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-                  <h2 className="text-xl font-bold flex items-center gap-2 mb-6">
+                  <h2 className="text-2xl font-bold mb-3">
                     <BarChart3 className="h-5 w-5 text-primary" /> Performance Summary
                   </h2>
                   <div className="mb-8">

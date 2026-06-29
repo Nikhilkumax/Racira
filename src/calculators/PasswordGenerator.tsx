@@ -123,7 +123,7 @@ const PasswordGenerator = () => {
             </div>
 
             <div className="flex gap-3">
-              <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2"><Calculator className="h-5 w-5" /> Calculate</button>
+              <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">Calculate</button>
               <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
             </div>
           </div>
@@ -131,7 +131,7 @@ const PasswordGenerator = () => {
           {/* Results/Display Column */}
           <div className="flex flex-col gap-3">
             <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-              <h2 className="text-xl font-bold mb-2">Generated Password</h2>
+              <h2 className="text-2xl font-bold mb-3">Generated Password</h2>
               <div className="relative mb-4">
                 <div className="w-full bg-secondary/50 rounded-xl border border-border p-6 pr-16 text-2xl font-mono break-all min-h-[80px] flex items-center text-foreground">
                   {password}
@@ -162,21 +162,21 @@ const PasswordGenerator = () => {
           
           <div className="mt-4 space-y-8 mb-10">
             <section>
-              <h2 className="text-2xl font-bold mb-4">How the Password Generator Works</h2>
+              <h2 className="text-2xl font-bold mb-3">How the Password Generator Works</h2>
               <p className="text-muted-foreground mb-3">Our Password Generator uses a cryptographically secure randomization process to create truly unpredictable strings of characters. Simply select your desired length (from 6 to 64 characters) and toggle which character sets you want to include: uppercase, lowercase, numbers, or symbols.</p>
               <p className="text-muted-foreground mb-3">When you click Calculate, the tool pulls randomly from your selected pools to assemble a unique password. The 'Strength' meter provides real-time feedback based on the length and variety of characters used, helping you ensure your new password meets modern security standards.</p>
               <p className="text-muted-foreground">For maximum security, we recommend a minimum length of 16 characters including all four character types. You can easily copy your new password to your clipboard using the icon in the display box.</p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold mb-4">Understanding Your Results</h2>
+              <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
               <p className="text-muted-foreground mb-3">The <strong>Generated Password</strong> is displayed in the large, monospace box at the top. This font ensures that ambiguous characters (like a lowercase 'l' and uppercase 'I') are easily distinguishable to prevent entry errors.</p>
               <p className="text-muted-foreground mb-3">The <strong>Strength Meter</strong> categorizes your password as Weak, Medium, or Strong. This is calculated using 'entropy' logic—the more characters and variety you have, the higher the entropy, and the harder it is for automated 'brute-force' tools to guess your password.</p>
               <p className="text-muted-foreground">If you see a 'Weak' rating, we strongly suggest increasing the length or adding more character types before using the password for sensitive accounts like banking or email.</p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold mb-4">Common Use Cases</h2>
+              <h2 className="text-2xl font-bold mb-3">Common Use Cases</h2>
               <p className="text-muted-foreground mb-3"><strong>New Account Creation:</strong> Use the generator whenever you sign up for a new service to ensure you aren't reusing old, potentially compromised passwords from other sites.</p>
               <p className="text-muted-foreground mb-3"><strong>Regular Security Audits:</strong> Cybersecurity experts recommend changing passwords for sensitive accounts every 3–6 months. Our tool makes it easy to rotate in fresh, high-strength passwords regularly.</p>
               <p className="text-muted-foreground"><strong>Internal Systems:</strong> Developers and IT administrators use random generators to create secure temporary passwords for users or default credentials for new server deployments.</p>

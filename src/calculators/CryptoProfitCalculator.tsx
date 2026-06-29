@@ -133,9 +133,7 @@ export default function CryptoProfitCalculator() {
               </div>
             </div>
             <div className="flex gap-3 mt-1">
-              <button onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm">
-                <Calculator className="h-4 w-4" /> Calculate
-              </button>
+              <button onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm">Calculate</button>
               <button onClick={() => { setBuyPrice("30000"); setSellPrice("45000"); setInvestment("1000"); setBuyFees("0.5"); setSellFees("0.5"); setResult(calcCryptoProfit(30000, 45000, 0, 0.5, 0.5, 1000)); }} className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center">
                 <RotateCcw className="h-4 w-4" />
               </button>

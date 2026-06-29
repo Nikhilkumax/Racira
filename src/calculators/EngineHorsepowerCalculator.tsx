@@ -92,8 +92,8 @@ const EngineHorsepowerCalculator = () => {
             <div className="flex flex-col">
               <label className="text-base font-medium text-foreground mb-1.5">What are you trying to find?</label>
               <div className="flex flex-col gap-2 rounded-md border border-input p-1 bg-background">
-                <button type="button" onClick={() => handleModeChange("find_hp")} className={`py-2 px-3 text-sm font-bold rounded transition-colors text-left ${mode === "find_hp" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-secondary"}`}>Calculate Horsepower (HP)</button>
-                <button type="button" onClick={() => handleModeChange("find_torque")} className={`py-2 px-3 text-sm font-bold rounded transition-colors text-left ${mode === "find_torque" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-secondary"}`}>Calculate Torque (lb-ft)</button>
+                <button type="button" onClick={() => handleModeChange("find_hp")} className={`py-2 px-3 text-sm font-bold rounded transition-colors text-left ${mode === "find_hp" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-secondary"}`}>Calculate</button>
+                <button type="button" onClick={() => handleModeChange("find_torque")} className={`py-2 px-3 text-sm font-bold rounded transition-colors text-left ${mode === "find_torque" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-secondary"}`}>Calculate</button>
               </div>
             </div>
 
@@ -116,9 +116,7 @@ const EngineHorsepowerCalculator = () => {
             </div>
 
             <div className="flex gap-3 mt-2">
-              <button type="button" onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-12 text-lg transition-all active:scale-[0.98] shadow-sm">
-                <Gauge className="h-5 w-5" /> Calculate {mode === "find_hp" ? "HP" : "Torque"}
-              </button>
+              <button type="button" onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-12 text-lg transition-all active:scale-[0.98] shadow-sm">Calculate</button>
               <button type="button" onClick={() => { handleModeChange(mode); }} className="w-12 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-12 transition-colors flex items-center justify-center" aria-label="Reset">
                 <RotateCcw className="h-5 w-5" />
               </button>

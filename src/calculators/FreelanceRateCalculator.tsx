@@ -73,7 +73,7 @@ export default function FreelanceRateCalculator() {
                 <InputField id="profit" label="Desired Profit Margin (%)" value={profitMargin} onChange={setProfitMargin} suffix="%" tooltip="Extra percentage above costs for business growth and savings." />
               </div>
               <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate My Rate</button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button>
                 <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
           </div>
@@ -81,7 +81,7 @@ export default function FreelanceRateCalculator() {
           <div className="flex flex-col gap-3">
             {showResults && (
               <>
-                <h2 className="text-xl font-bold mb-4">Your Recommended Rates</h2>
+                <h2 className="text-2xl font-bold mb-3">Your Recommended Rates</h2>
                 <ResultDisplay items={[
                   { label: "Minimum Hourly Rate (Break-Even)", value: results.breakEvenRate },
                   { label: "Recommended Hourly Rate (with Profit)", value: results.hourlyRate, highlight: true },

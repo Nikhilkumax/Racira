@@ -229,7 +229,6 @@ export default function BMIToBodyFatCalculator() {
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Health", href: "/calculator#health" }, { label: "BMI to Body Fat Conversion Calculator" }]} />
       <div className="container-page py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">BMI to Body Fat Conversion Calculator</h1>
-        <p className="text-sm text-muted-foreground mt-1">The Deurenberg Algorithm: While the standard BMI scale is heavily flawed because it cannot differentiate between fat and muscle, clinical researchers developed a mathematical regression formula to estimate your actual Body Fat Percentage by factoring in the biological realities of age-related muscle loss and sex hormones.</p>
 
         {/* MEDICAL DISCLAIMER */}
         

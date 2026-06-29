@@ -95,7 +95,7 @@ export default function PortfolioRebalancingCalculator() {
               </div>
               <button onClick={addAsset} className="flex items-center gap-2 text-sm text-primary hover:underline mb-6"><Plus className="h-4 w-4" /> Add Asset</button>
               <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Rebalancing Trades</button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button>
                 <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
           </div>
@@ -103,7 +103,7 @@ export default function PortfolioRebalancingCalculator() {
           <div className="flex flex-col gap-3">
             {showResults && (
               <>
-                <h2 className="text-xl font-bold mb-4">Rebalancing Plan</h2>
+                <h2 className="text-2xl font-bold mb-3">Rebalancing Plan</h2>
                 <p className="text-sm text-muted-foreground mb-4">Total Portfolio Value: <strong>${totalValue.toLocaleString()}</strong></p>
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">

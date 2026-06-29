@@ -73,14 +73,14 @@ const DACalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate DA</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
           </div>
 
           <div className="flex flex-col gap-3">
             {showResults && result && (
               <>
-                <h2 className="text-xl font-bold mb-4">DA Calculation</h2>
+                <h2 className="text-2xl font-bold mb-3">DA Calculation</h2>
                 <ResultDisplay currency="₹" items={[
                   { label: "Monthly DA", value: result.monthlyDA, highlight: true },
                   { label: "Annual DA", value: result.daAmount, highlight: true },

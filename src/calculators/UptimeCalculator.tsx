@@ -97,9 +97,7 @@ const UptimeCalculator = () => {
                 </div>
 
                 <div className="flex gap-3">
-                  <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">
-                    <Server className="h-5 w-5" /> Calculate Downtime
-                  </button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground">
+                  <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">Calculate</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground">
                     <RotateCcw className="h-5 w-5" />
                   </button>
                 </div>
@@ -109,7 +107,7 @@ const UptimeCalculator = () => {
           <div className="flex flex-col gap-3">
             {showResults && results && (
               <>
-                <h2 className="text-xl font-bold mb-6">Allowed Downtime Limits</h2>
+                <h2 className="text-2xl font-bold mb-3">Allowed Downtime Limits</h2>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
                   {[
                     { label: "Daily", value: results.daily },

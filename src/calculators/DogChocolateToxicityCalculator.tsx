@@ -161,7 +161,7 @@ const DogChocolateToxicityCalculator = () => {
           <div className="flex flex-col gap-3">
             {showResults && results && (
               <>
-                <h2 className="text-xl font-bold mb-6">Toxicity Assessment</h2>
+                <h2 className="text-2xl font-bold mb-3">Toxicity Assessment</h2>
                 <div className={`p-6 rounded-2xl border mb-6 ${colorMap[results.color]}`}>
                   <p className="text-sm font-bold uppercase tracking-widest mb-2 opacity-80">Risk Level</p>
                   <p className="text-2xl font-black mb-2">{results.severity}</p>

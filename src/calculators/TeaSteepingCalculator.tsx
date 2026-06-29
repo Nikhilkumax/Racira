@@ -80,7 +80,7 @@ const TeaSteepingCalculator = () => {
           <div className="flex flex-col gap-3">
             {showResults && results && (
               <>
-                <h2 className="text-xl font-bold mb-6">Brewing Guide: {teaType.charAt(0).toUpperCase() + teaType.slice(1)} Tea</h2>
+                <h2 className="text-2xl font-bold mb-3">Brewing Guide: {teaType.charAt(0).toUpperCase() + teaType.slice(1)} Tea</h2>
                 
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">

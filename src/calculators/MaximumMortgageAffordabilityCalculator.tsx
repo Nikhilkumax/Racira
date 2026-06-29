@@ -135,9 +135,7 @@ export default function MaximumMortgageAffordabilityCalculator() {
               )}
             </div>
             <div className="flex gap-3 mt-2">
-              <button type="button" onClick={calc} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm">
-                <Home className="h-4 w-4" /> Calculate Affordability
-              </button>
+              <button type="button" onClick={calc} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm">Calculate</button>
               <button type="button" onClick={reset} className="w-12 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center" aria-label="Reset">
                 <RotateCcw className="h-4 w-4" />
               </button>

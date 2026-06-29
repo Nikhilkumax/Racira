@@ -150,9 +150,7 @@ export default function WeightWatchersPointsCalculator() {
               </div>
             </div>
             <div className="flex gap-3 mt-4">
-              <button onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm">
-                <Calculator className="h-4 w-4" /> Calculate Points
-              </button>
+              <button onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm">Calculate</button>
               <button onClick={() => { setWeight("82"); setHeight("168"); setAge("35"); setSex("female"); setActivity("light"); setResult(calcWWPoints(82, 168, 35, "female", "light")); }} className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center">
                 <RotateCcw className="h-4 w-4" />
               </button>

@@ -192,9 +192,7 @@ export default function CarRegistrationFeeCalculator() {
             </div>
 
             <div className="flex gap-2.5 mt-2.5">
-              <button type="button" onClick={handleCalculate} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm">
-                <Calculator className="h-4 w-4" /> Calculate Total Fee
-              </button>
+              <button type="button" onClick={handleCalculate} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm">Calculate</button>
               <button type="button" onClick={handleReset} className="w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center focus:outline-none">
                 <RotateCcw className="h-4 w-4" />
               </button>

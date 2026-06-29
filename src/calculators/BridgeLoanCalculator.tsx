@@ -134,9 +134,7 @@ const BridgeLoanCalculator = () => {
             </div>
 
             <div className="mt-4 flex gap-3 items-center">
-              <button onClick={handleCalculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm">
-                Calculate Loan
-              </button>
+              <button onClick={handleCalculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm">Calculate</button>
               <button onClick={reset} className="w-12 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center focus:outline-none">
                 <RotateCcw className="h-4 w-4" />
               </button>

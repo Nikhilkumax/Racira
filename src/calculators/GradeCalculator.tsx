@@ -118,7 +118,7 @@ const GradeCalculator = () => {
                   <Plus className="h-4 w-4" /> Add Item
                 </button>
                 <div className="flex-1" />
-                <button onClick={handleCalculate} className="btn-calculate px-8">Calculate Grade</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate px-8">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors"><RotateCcw className="h-5 w-5" /></button>
               </div>
           </div>
 
@@ -126,7 +126,7 @@ const GradeCalculator = () => {
             {results && (<>
 
               <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-                <h2 className="text-sm font-bold text-primary uppercase tracking-wider mb-2">Your Weighted Grade</h2>
+                <h2 className="text-2xl font-bold mb-3">Your Weighted Grade</h2>
                 <p className="text-6xl font-extrabold">{results.finalGrade.toFixed(2)}%</p>
                 <p className="text-sm text-muted-foreground mt-2">Total Weight Accounted: {results.totalWeight}%</p>
               

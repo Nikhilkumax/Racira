@@ -122,7 +122,7 @@ const W4WithholdingCalculator = () => {
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
             <div className="grid sm:grid-cols-2 gap-8">
                 <section className="space-y-6">
-                  <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
+                  <h2 className="text-2xl font-bold mb-3">
                     <TrendingUp className="h-5 w-5 text-primary" /> Current Situation
                   </h2>
                   <InputField id="salary" label="Annual Gross Salary" value={annualSalary} onChange={setAnnualSalary} prefix="$" />
@@ -139,7 +139,7 @@ const W4WithholdingCalculator = () => {
                 </section>
 
                 <section className="space-y-6">
-                  <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
+                  <h2 className="text-2xl font-bold mb-3">
                     <Info className="h-5 w-5 text-primary" /> Adjustments
                   </h2>
                   <div className="space-y-2">

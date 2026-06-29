@@ -68,7 +68,7 @@ const CompostRatioCalculator = () => {
                 <section>
                   <div className="flex items-center gap-2 mb-4 text-green-600">
                     <Sprout className="h-5 w-5" />
-                    <h2 className="font-bold uppercase tracking-wider text-sm">Greens (Nitrogen)</h2>
+                    <h2 className="text-2xl font-bold mb-3">Greens (Nitrogen)</h2>
                   </div>
                   <div className="space-y-4">
                     <InputField id="gw" label="Weight / Volume" value={greensWeight} onChange={setGreensWeight} suffix="units" />
@@ -79,7 +79,7 @@ const CompostRatioCalculator = () => {
                 <section>
                   <div className="flex items-center gap-2 mb-4 text-orange-700">
                     <Leaf className="h-5 w-5" />
-                    <h2 className="font-bold uppercase tracking-wider text-sm">Browns (Carbon)</h2>
+                    <h2 className="text-2xl font-bold mb-3">Browns (Carbon)</h2>
                   </div>
                   <div className="space-y-4">
                     <InputField id="bw" label="Weight / Volume" value={brownsWeight} onChange={setBrownsWeight} suffix="units" />
@@ -89,9 +89,7 @@ const CompostRatioCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">
-                  <RotateCcw className="h-5 w-5" /> Calculate Ratio
-                </button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground">
+                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">Calculate</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground">
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
@@ -100,7 +98,7 @@ const CompostRatioCalculator = () => {
           <div className="flex flex-col gap-3">
             {showResults && results && (
               <>
-                <h2 className="text-xl font-bold mb-6 text-center">Mix Analysis</h2>
+                <h2 className="text-2xl font-bold mb-3">Mix Analysis</h2>
                 <div className="max-w-md mx-auto text-center mb-8">
                   <p className="text-sm font-bold text-muted-foreground uppercase tracking-widest mb-2">Calculated Ratio</p>
                   <p className={`text-6xl font-black mb-4 ${results.isOptimal ? 'text-green-600' : 'text-foreground'}`}>{results.totalRatio.toFixed(1)}<span className="text-2xl">:1</span></p>

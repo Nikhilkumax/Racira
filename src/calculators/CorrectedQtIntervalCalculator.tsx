@@ -363,9 +363,7 @@ export default function CorrectedQtIntervalCalculator() {
                 type="button"
                 onClick={handleCalculate}
                 className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm"
-              >
-                <HeartPulse className="h-4 w-4" /> Calculate QTc
-              </button>
+              >Calculate</button>
               <button
                 type="button"
                 onClick={reset}
@@ -485,7 +483,7 @@ export default function CorrectedQtIntervalCalculator() {
               <div className="p-3 bg-primary/10 rounded-lg text-primary">
                 <HeartPulse className="w-6 h-6" />
               </div>
-              <h2 className="text-2xl font-bold text-foreground m-0">Complete Clinical Guide to the QTc Interval</h2>
+              <h2 className="text-2xl font-bold mb-3">Complete Clinical Guide to the QTc Interval</h2>
             </div>
 
             <div className="prose prose-slate max-w-none prose-headings:text-foreground prose-p:text-muted-foreground prose-a:text-primary">

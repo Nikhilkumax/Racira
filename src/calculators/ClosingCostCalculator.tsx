@@ -213,7 +213,7 @@ export default function ClosingCostCalculator() {
 
       {/* Educational Content */}
       <div className="mt-16 max-w-4xl mx-auto prose prose-slate dark:prose-invert">
-        <h2 className="text-3xl font-bold mb-6">Understanding Closing Costs</h2>
+        <h2 className="text-2xl font-bold mb-3">Understanding Closing Costs</h2>
         <p className="text-lg text-muted-foreground mb-6">
           Closing costs are processing fees that you pay to your lender and third parties when you close on your loan. They typically range from 2% to 5% of the total loan amount.
         </p>

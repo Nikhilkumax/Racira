@@ -87,7 +87,7 @@ const DistanceCalculator = () => {
           <div className="flex flex-col gap-3">
             {showResults && result && (
               <>
-                <h2 className="text-xl font-bold mb-4">Result</h2>
+                <h2 className="text-2xl font-bold mb-3">Result</h2>
                 <ResultDisplay items={[
                   { label: "Euclidean Distance", value: 0, textValue: result.dist.toFixed(6), highlight: true },
                   { label: "Manhattan Distance", value: 0, textValue: result.manhattan.toFixed(4) },

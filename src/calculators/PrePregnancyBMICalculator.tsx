@@ -220,7 +220,6 @@ export default function PrePregnancyBMICalculator() {
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Health", href: "/calculator#health" }, { label: "Pre-Pregnancy BMI & Weight Target Calculator" }]} />
       <div className="container-page py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Pre-Pregnancy BMI & Target Gain Calculator</h1>
-        <p className="text-sm text-muted-foreground mt-1">ACOG Clinical Guidelines: The "eating for two" myth is medically dangerous. The American College of Obstetricians and Gynecologists (ACOG) dictates that your total safe weight gain during pregnancy is strictly governed by your baseline starting BMI. Exceeding your specific target range exponentially increases the risk of gestational diabetes, preeclampsia, and traumatic delivery.</p>
 
         {/* MEDICAL DISCLAIMER */}
         

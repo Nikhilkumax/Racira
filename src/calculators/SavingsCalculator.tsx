@@ -133,7 +133,7 @@ const SavingsCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Savings</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset">
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset">
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
@@ -143,7 +143,7 @@ const SavingsCalculator = () => {
             {results && (<>
 
               <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-                <h2 className="text-xl font-bold mb-4">Your Savings Projection</h2>
+                <h2 className="text-2xl font-bold mb-3">Your Savings Projection</h2>
 
                 <ResultDisplay items={[
                   { label: "Total Savings", value: results.totalSavings, highlight: true },

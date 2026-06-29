@@ -72,7 +72,7 @@ const SalesTaxCalculator = () => {
           <div className="flex flex-col gap-3">
             {showResults && result && (
               <>
-                <h2 className="text-xl font-bold mb-4">Results</h2>
+                <h2 className="text-2xl font-bold mb-3">Results</h2>
                 <ResultDisplay items={[
                   { label: "Before-Tax Price", value: result.beforeTax },
                   { label: "Sales Tax", value: result.taxAmount, highlight: true },

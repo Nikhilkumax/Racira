@@ -65,7 +65,7 @@ export default function DollarCostAveragingCalculator() {
                 <InputField id="return" label="Expected Annual Return (%)" value={annualReturn} onChange={setAnnualReturn} suffix="%" tooltip="Expected average annual return. S&P 500 long-term average is ~10%." />
               </div>
               <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate DCA Growth</button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button>
                 <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
           </div>
@@ -73,7 +73,7 @@ export default function DollarCostAveragingCalculator() {
           <div className="flex flex-col gap-3">
             {showResults && (
               <>
-                <h2 className="text-xl font-bold mb-4">DCA Investment Results</h2>
+                <h2 className="text-2xl font-bold mb-3">DCA Investment Results</h2>
                 <ResultDisplay items={[
                   { label: "Final Portfolio Value", value: results.finalValue, highlight: true },
                   { label: "Total Amount Invested", value: results.totalInvested },

@@ -98,7 +98,7 @@ const ContrastRatioCalculator = () => {
             </div>
 
             <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-               <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
+               <h2 className="text-2xl font-bold mb-3">
                   <Eye className="h-5 w-5 text-primary" /> WCAG Compliance Check
                </h2>
                <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">

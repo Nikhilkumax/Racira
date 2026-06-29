@@ -96,7 +96,7 @@ const DepreciationCalculator = () => {
           <div className="flex flex-col gap-3">
             {showResults && results && (
               <>
-                <h2 className="text-xl font-bold mb-4">Depreciation Schedule</h2>
+                <h2 className="text-2xl font-bold mb-3">Depreciation Schedule</h2>
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead>

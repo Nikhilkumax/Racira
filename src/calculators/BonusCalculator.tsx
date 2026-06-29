@@ -105,7 +105,7 @@ const BonusCalculator = () => {
                     </section>
 
                     <div className="flex gap-3 pt-4">
-                        <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Take-Home</button><button onClick={reset} className="p-4 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground"><RotateCcw className="h-5 w-5" /></button>
+                        <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="p-4 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground"><RotateCcw className="h-5 w-5" /></button>
                     </div>
                 </div>
           </div>
@@ -113,7 +113,7 @@ const BonusCalculator = () => {
           <div className="flex flex-col gap-3">
             {showResults && results && (
               <>
-                <h2 className="text-2xl font-bold mb-6">Net Bonus Breakdown</h2>
+                <h2 className="text-2xl font-bold mb-3">Net Bonus Breakdown</h2>
                 
                 <div className="bg-primary/5 rounded-3xl p-10 text-center border border-primary/10 mb-8">
                     <p className="text-sm font-bold text-primary uppercase tracking-widest mb-1">Your Take-Home Bonus</p>

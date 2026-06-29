@@ -187,7 +187,6 @@ export default function DailyCalorieBurnPerPoundCalculator() {
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Health", href: "/calculator#health" }, { label: "Daily Calorie Burn per Pound Calculator" }]} />
       <div className="container-page py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Metabolic Energy Density Calculator</h1>
-        <p className="text-sm text-muted-foreground mt-1">The Relativity of Burn: Burning 3,000 calories in a day is an intense, hyper-metabolic feat for a 140-pound marathon runner, but it is a sluggish, sedentary baseline for a 350-pound individual. This calculator neutralizes raw numbers by determining the exact metabolic efficiency of each individual pound of your physical mass.</p>
 
         {/* MEDICAL DISCLAIMER */}
         

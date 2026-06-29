@@ -71,7 +71,7 @@ const AudioFileSizeCalculator = () => {
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
             <div className="grid sm:grid-cols-2 gap-8">
                 <section className="space-y-6">
-                  <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
+                  <h2 className="text-2xl font-bold mb-3">
                     <Clock className="h-5 w-5 text-primary" /> Track Info
                   </h2>
                   <div>
@@ -98,7 +98,7 @@ const AudioFileSizeCalculator = () => {
                 </section>
 
                 <section className="space-y-6">
-                  <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
+                  <h2 className="text-2xl font-bold mb-3">
                     <Settings className="h-5 w-5 text-primary" /> {format === "compressed" ? "Compression" : "Technical Specs"}
                   </h2>
                   
@@ -164,7 +164,7 @@ const AudioFileSizeCalculator = () => {
                 </div>
 
                 <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-                  <h2 className="text-xl font-bold flex items-center gap-2 mb-6">
+                  <h2 className="text-2xl font-bold mb-3">
                     <HardDrive className="h-5 w-5 text-primary" /> Technical Breakdown
                   </h2>
                   <ResultDisplay items={[

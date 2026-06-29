@@ -98,7 +98,7 @@ const HouseAffordabilityCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Budget</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors"><RotateCcw className="h-5 w-5" /></button>
               </div>
           </div>
 
@@ -106,7 +106,7 @@ const HouseAffordabilityCalculator = () => {
             {results && !results.error && (
               <>
                 <div className="text-center mb-6">
-                  <h2 className="text-sm font-bold text-primary uppercase tracking-wider">Maximum Home Price</h2>
+                  <h2 className="text-2xl font-bold mb-3">Maximum Home Price</h2>
                   <p className="text-5xl font-extrabold">${Math.round(results.maxPrice).toLocaleString()}</p>
                 </div>
 

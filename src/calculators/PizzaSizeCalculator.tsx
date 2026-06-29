@@ -111,7 +111,7 @@ const PizzaSizeCalculator = () => {
           <div className="flex flex-col gap-3">
             {showResults && results && (
               <>
-                <h2 className="text-xl font-bold mb-6">Comparison Results</h2>
+                <h2 className="text-2xl font-bold mb-3">Comparison Results</h2>
                 
                 {results.betterDeal !== 0 && (
                   <div className="mb-8 p-6 rounded-2xl bg-green-500/5 border border-green-500/10 text-center">

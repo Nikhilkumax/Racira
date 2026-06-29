@@ -79,7 +79,7 @@ const StockCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Profit</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors"><RotateCcw className="h-5 w-5" /></button>
               </div>
           </div>
 
@@ -87,7 +87,7 @@ const StockCalculator = () => {
             {showResults && results && (
               <>
                 <div className="text-center mb-8">
-                  <h2 className="text-sm font-bold text-primary uppercase tracking-wider mb-1">Net Profit</h2>
+                  <h2 className="text-2xl font-bold mb-3">Net Profit</h2>
                   <p className={`text-5xl font-extrabold mb-2 ${results.netProfit >= 0 ? 'text-green-500' : 'text-red-500'}`}>
                     ${Math.round(results.netProfit).toLocaleString()}
                   </p>

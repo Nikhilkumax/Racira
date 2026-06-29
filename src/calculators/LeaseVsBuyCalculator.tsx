@@ -98,7 +98,7 @@ const LeaseVsBuyCalculator = () => {
           <div className="flex flex-col gap-3">
             {showResults && results && (
               <>
-                <h2 className="text-xl font-bold mb-6">Comparison Analysis</h2>
+                <h2 className="text-2xl font-bold mb-3">Comparison Analysis</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className={`p-6 rounded-2xl border text-center flex flex-col justify-center ${results.betterOption === "Lease" ? "bg-primary/5 border-primary/10" : "bg-secondary/5 border-secondary/10"}`}>
                     <p className="text-sm font-bold uppercase tracking-widest mb-1 opacity-70">Total Lease Cost</p>

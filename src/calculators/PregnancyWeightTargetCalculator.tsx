@@ -294,7 +294,6 @@ export default function PregnancyWeightTargetCalculator() {
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Health", href: "/calculator#health" }, { label: "Pregnancy Weight Gain Target Calculator" }]} />
       <div className="container-page py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Pregnancy Weight Gain Trajectory Calculator</h1>
-        <p className="text-sm text-muted-foreground mt-1">Clinical Mapping: Safe pregnancy weight gain is not a flat line; it is a biological curve. The first trimester requires almost no mass accumulation, followed by strict weekly increases in the second and third trimesters. This calculator maps your current weekly progress against the strict safety channels established by ACOG to prevent gestational complications.</p>
 
         <div className="grid grid-cols-1 xl:grid-cols-[460px_1fr] gap-6 items-start max-w-[1280px] mx-auto mt-4">
           

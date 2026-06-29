@@ -131,7 +131,7 @@ const FontSizeConverter = () => {
                   <p className="text-sm text-muted-foreground">{inputValue} {fromUnit} at base {baseSize}px</p>
                 </div>
                 <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-                  <h2 className="text-base font-bold flex items-center gap-2">
+                  <h2 className="text-2xl font-bold mb-3">
                     <Table className="h-4 w-4 text-primary" /> Common Sizes (base {baseSize}px)
                   </h2>
                   <div className="overflow-x-auto">

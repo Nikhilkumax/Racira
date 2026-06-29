@@ -116,9 +116,7 @@ const DebtAvalancheCalculator = () => {
               </div>
               <InputField id="extra" label="Extra Monthly Payment ($)" value={extraPayment} onChange={setExtraPayment} />
               <div className="flex gap-3 mt-4">
-                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">
-                  <CreditCard className="h-5 w-5" /> Calculate Avalanche
-                </button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground">
+                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">Calculate</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground">
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
@@ -127,7 +125,7 @@ const DebtAvalancheCalculator = () => {
           <div className="flex flex-col gap-3">
             {showResults && results && (
               <>
-                <h2 className="text-xl font-bold mb-6">Avalanche Plan Results</h2>
+                <h2 className="text-2xl font-bold mb-3">Avalanche Plan Results</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
                     <p className="text-sm font-bold text-primary uppercase tracking-widest mb-1">Debt-Free In</p>

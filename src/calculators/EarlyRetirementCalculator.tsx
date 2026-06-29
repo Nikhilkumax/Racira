@@ -162,9 +162,7 @@ export default function EarlyRetirementCalculator() {
               </div>
             </div>
             <div className="flex gap-3 mt-1">
-              <button onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm">
-                <Calculator className="h-4 w-4" /> Calculate FIRE
-              </button>
+              <button onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm">Calculate</button>
               <button onClick={() => { setCurrentAge("30"); setCurrentSavings("50000"); setAnnualIncome("80000"); setAnnualExpenses("40000"); setInvestReturn("7"); setWithdrawalRate("4"); setInflation("3"); setResult(calcEarlyRetirement(30, 50000, 80000, 40000, 7, 4, 3)); }} className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center">
                 <RotateCcw className="h-4 w-4" />
               </button>

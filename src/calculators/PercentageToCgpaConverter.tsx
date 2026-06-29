@@ -82,7 +82,7 @@ const PercentageToCgpaConverter = () => {
           <div className="flex flex-col gap-3">
             {showResults && results && (
               <>
-                <h2 className="text-sm font-bold text-primary uppercase tracking-wider mb-2">{results.label}</h2>
+                <h2 className="text-2xl font-bold mb-3">{results.label}</h2>
                 <p className="text-6xl font-extrabold">{results.value.toFixed(2)}{results.mode === "%" ? "%" : ""}</p>
               </>
             )}

@@ -73,7 +73,7 @@ const InterestRateCalculator = () => {
           <div className="flex flex-col gap-3">
             {showResults && result && (
               <>
-                <h2 className="text-xl font-bold mb-4">Results</h2>
+                <h2 className="text-2xl font-bold mb-3">Results</h2>
                 <ResultDisplay items={[
                   { label: "Annual Interest Rate", value: 0, textValue: `${result.rate.toFixed(3)}%`, highlight: true },
                   { label: "Total Interest", value: result.totalInterest },

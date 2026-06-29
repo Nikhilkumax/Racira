@@ -135,9 +135,7 @@ export default function BmiPrimeCalculator() {
             </div>
             
             <div className="flex gap-3 mt-4">
-              <button onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm">
-                <Calculator className="h-4 w-4" /> Calculate BMI Prime
-              </button>
+              <button onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm">Calculate</button>
               <button onClick={() => { setWeight("75"); setHeight("175"); setIsAsian("false"); setResult(calcBmiPrime(75, 175, false)); }} className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center" aria-label="Reset">
                 <RotateCcw className="h-4 w-4" />
               </button>

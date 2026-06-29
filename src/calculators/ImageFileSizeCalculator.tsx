@@ -65,7 +65,7 @@ const ImageFileSizeCalculator = () => {
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
             <div className="grid sm:grid-cols-2 gap-8">
                 <section className="space-y-6">
-                  <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
+                  <h2 className="text-2xl font-bold mb-3">
                     <Maximize className="h-5 w-5 text-primary" /> Dimensions
                   </h2>
                   <div className="grid grid-cols-2 gap-4">
@@ -86,7 +86,7 @@ const ImageFileSizeCalculator = () => {
                 </section>
 
                 <section className="space-y-6">
-                  <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
+                  <h2 className="text-2xl font-bold mb-3">
                     <FileDigit className="h-5 w-5 text-primary" /> Format Specs
                   </h2>
                   <div>
@@ -130,7 +130,7 @@ const ImageFileSizeCalculator = () => {
                 </div>
 
                 <div className="card-calculator">
-                  <h2 className="text-xl font-bold flex items-center gap-2 mb-6">
+                  <h2 className="text-2xl font-bold mb-3">
                     <Image className="h-5 w-5 text-primary" /> Technical Breakdown
                   </h2>
                   <ResultDisplay items={[

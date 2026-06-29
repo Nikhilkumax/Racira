@@ -62,14 +62,14 @@ const OvertimeCalculator = () => {
                 <InputField id="wks" label="Weeks Per Year" value={weeksPerYear} onChange={setWeeksPerYear} />
               </div>
               <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2"><Clock className="h-5 w-5" /> Calculate Pay</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">Calculate</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground"><RotateCcw className="h-5 w-5" /></button>
               </div>
           </div>
 
           <div className="flex flex-col gap-3">
             {showResults && results && (
               <>
-                <h2 className="text-xl font-bold mb-6">Pay Breakdown</h2>
+                <h2 className="text-2xl font-bold mb-3">Pay Breakdown</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
                     <p className="text-sm font-bold text-primary uppercase tracking-widest mb-1">Weekly Total Pay</p>

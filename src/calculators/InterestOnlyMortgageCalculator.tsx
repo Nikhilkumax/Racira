@@ -120,7 +120,7 @@ const InterestOnlyMortgageCalculator = () => {
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
             <div className="grid sm:grid-cols-2 gap-8">
                 <section className="space-y-6">
-                  <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
+                  <h2 className="text-2xl font-bold mb-3">
                     <Home className="h-5 w-5 text-primary" /> Loan Details
                   </h2>
                   <InputField id="loan-amount" label="Loan Amount" value={loanAmount} onChange={setLoanAmount} prefix="$" tooltip="Total amount of the mortgage loan." />
@@ -128,7 +128,7 @@ const InterestOnlyMortgageCalculator = () => {
                 </section>
 
                 <section className="space-y-6">
-                  <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
+                  <h2 className="text-2xl font-bold mb-3">
                     <Calendar className="h-5 w-5 text-primary" /> Terms
                   </h2>
                   <InputField id="io-period" label="Interest-Only Period" value={ioPeriod} onChange={setIoPeriod} suffix="yrs" tooltip="The number of years you only pay interest." />
@@ -160,7 +160,7 @@ const InterestOnlyMortgageCalculator = () => {
                 </div>
 
                 <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-                  <h2 className="text-xl font-bold flex items-center gap-2 mb-6">
+                  <h2 className="text-2xl font-bold mb-3">
                     <Info className="h-5 w-5 text-primary" /> Payment Shock Analysis
                   </h2>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">

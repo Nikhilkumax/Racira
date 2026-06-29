@@ -275,7 +275,6 @@ export default function PediatricBMICalculator() {
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Health", href: "/calculator#health" }, { label: "BMI-for-Age (Pediatric) Calculator" }]} />
       <div className="container-page py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">BMI-for-Age (Pediatric) Calculator</h1>
-        <p className="text-sm text-muted-foreground mt-1">The Percentile Distinction: Children are not small adults. Because their bodies are constantly growing, a raw BMI number is medically useless. Pediatricians calculate the raw BMI, but then map it against massive CDC databases to find the child's <em>percentile</em> compared to other children of the exact same age and sex.</p>
 
         {/* MEDICAL DISCLAIMER */}
         

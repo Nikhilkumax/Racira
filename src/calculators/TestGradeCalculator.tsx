@@ -79,10 +79,7 @@ const TestGradeCalculator = () => {
                 <button
                   onClick={handleCalculate}
                   className="flex-1 w-full bg-primary text-primary-foreground hover:bg-primary/90 font-bold py-3 px-8 rounded-xl transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2"
-                >
-                  <Calculator className="h-4 w-4" />
-                  Calculate Grade
-                </button>
+                >Calculate</button>
                 <button onClick={reset} className="w-full mt-4 p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground flex items-center justify-center gap-2 font-bold text-sm">
                   <RotateCcw className="h-4 w-4" /> Reset
                 </button>
@@ -91,7 +88,7 @@ const TestGradeCalculator = () => {
           <div className="flex flex-col gap-3">
             {showResults && results && (
               <>
-                <h2 className="text-xl font-bold mb-6">Final Score</h2>
+                <h2 className="text-2xl font-bold mb-3">Final Score</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
                     <p className="text-sm font-bold text-primary uppercase tracking-widest mb-1">Percentage Score</p>

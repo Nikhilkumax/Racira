@@ -77,9 +77,7 @@ const CreditUtilizationCalculator = () => {
                 <button onClick={() => setCards(prev => [...prev, { name: `Card ${prev.length + 1}`, balance: "0", limit: "1000" }])} className="text-sm text-primary underline">+ Add Card</button>
               </div>
               <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">
-                  <PieChart className="h-5 w-5" /> Calculate Utilization
-                </button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">Calculate</button>
                 <button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground">
                   <RotateCcw className="h-5 w-5" />
                 </button>
@@ -89,7 +87,7 @@ const CreditUtilizationCalculator = () => {
           <div className="flex flex-col gap-3">
             {showResults && results && (
               <>
-                <h2 className="text-xl font-bold mb-6">Utilization Report</h2>
+                <h2 className="text-2xl font-bold mb-3">Utilization Report</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className={`p-6 rounded-2xl text-center border ${results.overallUtilization > 30 ? "bg-red-500/10 border-red-500/20" : results.overallUtilization > 10 ? "bg-yellow-500/10 border-yellow-500/20" : "bg-green-500/10 border-green-500/20"}`}>
                     <p className="text-sm font-bold uppercase tracking-widest mb-1">Overall Utilization</p>

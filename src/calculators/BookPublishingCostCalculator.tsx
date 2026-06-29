@@ -378,9 +378,7 @@ export default function BookPublishingCostCalculator() {
                 type="button"
                 onClick={handleCalculate}
                 className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm"
-              >
-                <Calculator className="h-4 w-4" /> Calculate Costs
-              </button>
+              >Calculate</button>
               <button
                 type="button"
                 onClick={reset}

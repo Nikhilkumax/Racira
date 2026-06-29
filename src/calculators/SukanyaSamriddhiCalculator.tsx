@@ -77,7 +77,7 @@ const SukanyaSamriddhiCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Maturity</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
           </div>
 
@@ -86,7 +86,7 @@ const SukanyaSamriddhiCalculator = () => {
               <>
                 <>
                 <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-                  <h2 className="text-xl font-bold mb-4">SSY Maturity Summary</h2>
+                  <h2 className="text-2xl font-bold mb-3">SSY Maturity Summary</h2>
                   <ResultDisplay currency="₹" items={[
                     { label: "Total Deposited", value: result.totalDeposited },
                     { label: "Total Interest Earned", value: result.totalInterest, highlight: true },
@@ -97,7 +97,7 @@ const SukanyaSamriddhiCalculator = () => {
 
                 {yearlyBreakdown.length > 0 && (
                   <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-                    <h2 className="text-xl font-bold mb-4">Year-wise Breakdown</h2>
+                    <h2 className="text-2xl font-bold mb-3">Year-wise Breakdown</h2>
                     <table className="w-full text-sm">
                       <thead><tr className="border-b border-border text-left"><th className="pb-2 pr-4">Year</th><th className="pb-2 pr-4 text-right">Deposit</th><th className="pb-2 pr-4 text-right">Interest</th><th className="pb-2 text-right">Balance</th></tr></thead>
                       <tbody>

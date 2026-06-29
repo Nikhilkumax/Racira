@@ -260,9 +260,7 @@ const EscapeVelocityCalculator = () => {
               <button
                 onClick={() => calculate()}
                 className="flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors"
-              >
-                <Calculator className="w-4 h-4" /> Calculate
-              </button>
+              >Calculate</button>
               <button
                 onClick={reset}
                 className="h-10 w-10 border border-border rounded-md flex items-center justify-center hover:bg-secondary transition-colors"

@@ -94,7 +94,7 @@ const BodyFatCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Body Fat</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
           </div>
 
@@ -102,7 +102,7 @@ const BodyFatCalculator = () => {
             {showResults && result && (
               <>
                 <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-                <h2 className="text-xl font-bold mb-4">Your Body Composition</h2>
+                <h2 className="text-2xl font-bold mb-3">Your Body Composition</h2>
                 <div className="text-center mb-6">
                   <p className="text-5xl font-extrabold mb-1">{result.bodyFat}%</p>
                   <p className="text-lg font-semibold text-primary">{result.category}</p>

@@ -72,7 +72,7 @@ const CircleCalculator = () => {
           <div className="flex flex-col gap-3">
             {showResults && result && (
               <>
-                <h2 className="text-xl font-bold mb-4">Result</h2>
+                <h2 className="text-2xl font-bold mb-3">Result</h2>
                 <ResultDisplay items={[
                   { label: "Radius", value: 0, textValue: result.radius.toFixed(4) },
                   { label: "Diameter", value: 0, textValue: result.diameter.toFixed(4) },

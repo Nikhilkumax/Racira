@@ -56,7 +56,7 @@ export default function TreasuryBillCalculator() {
                 <InputField id="days" label="Days to Maturity" value={daysToMaturity} onChange={setDaysToMaturity} tooltip="Standard maturities: 28, 56, 91, 119, 182, or 364 days." />
               </div>
               <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate T-Bill Yield</button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button>
                 <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
           </div>
@@ -64,7 +64,7 @@ export default function TreasuryBillCalculator() {
           <div className="flex flex-col gap-3">
             {showResults && (
               <>
-                <h2 className="text-xl font-bold mb-4">T-Bill Yield Results</h2>
+                <h2 className="text-2xl font-bold mb-3">T-Bill Yield Results</h2>
                 <ResultDisplay items={[
                   { label: "Purchase Price", value: results.purchasePrice, highlight: true },
                   { label: "Discount Amount (Profit at Maturity)", value: results.discountAmount, highlight: true },

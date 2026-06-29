@@ -106,7 +106,7 @@ const CAGRCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate CAGR</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset">
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset">
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
@@ -115,7 +115,7 @@ const CAGRCalculator = () => {
           <div className="flex flex-col gap-3">
             {showResults && results && (
               <>
-                <h2 className="text-xl font-bold mb-4">Results</h2>
+                <h2 className="text-2xl font-bold mb-3">Results</h2>
 
                 {results.mode === "cagr" && (
                   <>

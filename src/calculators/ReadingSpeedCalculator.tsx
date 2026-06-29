@@ -74,7 +74,7 @@ const ReadingSpeedCalculator = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
+            <h2 className="text-2xl font-bold mb-3">
                  <Timer className="h-5 w-5 text-primary" /> Speed Test
               </h2>
               <p className="text-sm text-muted-foreground mb-6">Click Start, read the passage below at your normal pace, then click Stop when you finish.</p>
@@ -105,7 +105,7 @@ const ReadingSpeedCalculator = () => {
             {wpm && (<>
 
               <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-                <h2 className="text-xl font-bold mb-6">Your Results</h2>
+                <h2 className="text-2xl font-bold mb-3">Your Results</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
                     <p className="text-sm font-bold text-primary uppercase tracking-widest mb-1">Reading Speed</p>

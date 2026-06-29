@@ -65,7 +65,7 @@ const WasteDiversionCalculator = () => {
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
             <div className="grid md:grid-cols-[1fr_1fr] gap-8">
                 <section className="space-y-6">
-                  <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
+                  <h2 className="text-2xl font-bold mb-3">
                     <Trash2 className="h-5 w-5 text-primary" /> Waste Data (lbs or kg)
                   </h2>
                   <div>
@@ -120,7 +120,7 @@ const WasteDiversionCalculator = () => {
                   </div>
                 )}
                 
-                <h2 className="text-xl font-bold mb-6">Diversion Analysis</h2>
+                <h2 className="text-2xl font-bold mb-3">Diversion Analysis</h2>
                 <div className="grid sm:grid-cols-3 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center flex flex-col justify-center">
                     <p className="text-xs font-bold text-primary uppercase tracking-widest mb-2">Diversion Rate</p>

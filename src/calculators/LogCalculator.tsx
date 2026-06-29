@@ -73,7 +73,7 @@ const LogCalculator = () => {
           <div className="flex flex-col gap-3">
             {showResults && result && (
               <>
-                <h2 className="text-xl font-bold mb-4">Result</h2>
+                <h2 className="text-2xl font-bold mb-3">Result</h2>
                 {mode === "log" ? (
                   <ResultDisplay items={[
                     { label: `log₁₀(${value})`, value: 0, textValue: result.log10 },

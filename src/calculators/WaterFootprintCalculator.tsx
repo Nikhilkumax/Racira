@@ -83,7 +83,7 @@ const WaterFootprintCalculator = () => {
                 <section>
                   <div className="flex items-center gap-2 mb-4 text-primary">
                     <ShowerHead className="h-5 w-5" />
-                    <h2 className="font-bold uppercase tracking-wider text-sm">Direct Usage (Daily)</h2>
+                    <h2 className="text-2xl font-bold mb-3">Direct Usage (Daily)</h2>
                   </div>
                   <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
                     <InputField id="showers" label="Shower Time" value={showers} onChange={setShowers} suffix="min" />
@@ -96,7 +96,7 @@ const WaterFootprintCalculator = () => {
                 <section>
                   <div className="flex items-center gap-2 mb-4 text-primary">
                     <Utensils className="h-5 w-5" />
-                    <h2 className="font-bold uppercase tracking-wider text-sm">Dietary Impact (Indirect)</h2>
+                    <h2 className="text-2xl font-bold mb-3">Dietary Impact (Indirect)</h2>
                   </div>
                   <div className="max-w-md">
                     <label className="block text-sm font-medium text-foreground mb-1.5">Typical Diet</label>
@@ -124,7 +124,7 @@ const WaterFootprintCalculator = () => {
           <div className="flex flex-col gap-3">
             {showResults && results && (
               <>
-                <h2 className="text-xl font-bold mb-6">Your Water Profile</h2>
+                <h2 className="text-2xl font-bold mb-3">Your Water Profile</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
                     <p className="text-sm font-bold text-primary uppercase tracking-widest mb-1">Total Daily Usage</p>

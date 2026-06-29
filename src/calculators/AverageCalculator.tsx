@@ -51,9 +51,7 @@ const AverageCalculator = () => {
               <textarea value={nums} onChange={e=>setNums(e.target.value)} className="w-full px-3 py-2 text-lg rounded-md border border-input bg-background focus:ring-2 focus:ring-primary/20 outline-none resize-none transition-all" rows={3} placeholder="10, 20, 30, 40, 50" />
             </div>
             <div className="flex gap-3">
-              <button onClick={()=>calculate()} className="flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors">
-                <Calculator className="w-4 h-4" /> Calculate
-              </button>
+              <button onClick={()=>calculate()} className="flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors">Calculate</button>
               <button onClick={reset} className="h-10 w-10 border border-border rounded-md flex items-center justify-center hover:bg-secondary transition-colors"><RotateCcw className="w-4 h-4" /></button>
             </div>
           </div>

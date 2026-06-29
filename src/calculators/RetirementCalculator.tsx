@@ -117,7 +117,7 @@ export default function RetirementCalculator() {
               <div><label className="text-base font-medium mb-1.5 block">Pension/mo</label><div className={inp}><span className="pl-2 text-muted-foreground text-sm">$</span><input type="number" value={pension} onChange={e => setPension(e.target.value)} className={ci} /></div></div>
             </div>
             <div className="flex gap-3 mt-1">
-              <button onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm"><Calculator className="h-4 w-4" /> Calculate</button>
+              <button onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm">Calculate</button>
               <button onClick={reset} className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center"><RotateCcw className="h-4 w-4" /></button>
             </div>
           </div>

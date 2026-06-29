@@ -126,14 +126,14 @@ const DueDateCalculator = () => {
 
               </div>
               <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2"><Calendar className="h-5 w-5" /> Calculate Due Date</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">Calculate</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground"><RotateCcw className="h-5 w-5" /></button>
               </div>
           </div>
 
           <div className="flex flex-col gap-3">
             {showResults && results && (
               <>
-                <h2 className="text-xl font-bold mb-6">Your Due Date</h2>
+                <h2 className="text-2xl font-bold mb-3">Your Due Date</h2>
                 <div className="p-8 rounded-2xl bg-primary/5 border border-primary/10 text-center mb-8">
                   <p className="text-sm font-bold text-primary uppercase tracking-widest mb-2">Estimated Arrival</p>
                   <p className="text-3xl sm:text-4xl font-black text-foreground">{results.dueDate}</p>

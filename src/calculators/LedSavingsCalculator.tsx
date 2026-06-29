@@ -81,7 +81,7 @@ const LedSavingsCalculator = () => {
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
             <div className="grid md:grid-cols-2 gap-8">
                 <section className="space-y-6">
-                  <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
+                  <h2 className="text-2xl font-bold mb-3">
                     <Lightbulb className="h-5 w-5 text-primary" /> Lighting Setup
                   </h2>
                   <div>
@@ -111,7 +111,7 @@ const LedSavingsCalculator = () => {
                 </section>
 
                 <section className="space-y-6">
-                  <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
+                  <h2 className="text-2xl font-bold mb-3">
                     <DollarSign className="h-5 w-5 text-primary" /> Financials
                   </h2>
                   <div>
@@ -140,7 +140,7 @@ const LedSavingsCalculator = () => {
           <div className="flex flex-col gap-3">
             {results && results.annualSavingsDollars > 0 && (
               <>
-                <h2 className="text-xl font-bold mb-6">Your Savings Projection</h2>
+                <h2 className="text-2xl font-bold mb-3">Your Savings Projection</h2>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
                   <div className="p-4 rounded-xl bg-emerald-500/5 border border-emerald-500/20 text-center">
                     <p className="text-[10px] font-bold text-emerald-600 uppercase tracking-widest mb-1">Annual Savings</p>

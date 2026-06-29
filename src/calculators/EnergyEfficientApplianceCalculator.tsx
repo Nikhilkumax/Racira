@@ -65,7 +65,7 @@ const EnergyEfficientApplianceCalculator = () => {
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
             <div className="grid md:grid-cols-2 gap-8">
                 <div className="space-y-6">
-                  <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
+                  <h2 className="text-2xl font-bold mb-3">
                     <Zap className="h-5 w-5 text-primary" /> Appliance Specs
                   </h2>
                   <div>
@@ -89,7 +89,7 @@ const EnergyEfficientApplianceCalculator = () => {
                 </div>
 
                 <div className="space-y-6">
-                  <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
+                  <h2 className="text-2xl font-bold mb-3">
                     <DollarSign className="h-5 w-5 text-primary" /> Financial Details
                   </h2>
                   <div>
@@ -118,7 +118,7 @@ const EnergyEfficientApplianceCalculator = () => {
           <div className="flex flex-col gap-3">
             {results && results.annualSavingsDollars > 0 && (
               <>
-                <h2 className="text-xl font-bold mb-6">Return on Investment</h2>
+                <h2 className="text-2xl font-bold mb-3">Return on Investment</h2>
                 <div className="grid sm:grid-cols-3 gap-4 mb-8">
                   <div className="p-4 rounded-xl bg-primary/5 border border-primary/10 text-center">
                     <p className="text-xs font-bold text-primary uppercase tracking-widest mb-1">Payback Period</p>

@@ -94,7 +94,7 @@ const BiodiversityIndexCalculator = () => {
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
             <div className="flex justify-between items-center mb-6">
-                   <h2 className="text-xl font-bold flex items-center gap-2">
+                   <h2 className="text-2xl font-bold mb-3">
                      <Trees className="h-5 w-5 text-primary" /> Species Data
                    </h2>
                    <button onClick={addSpecies} className="text-xs font-bold bg-primary/10 text-primary px-3 py-1.5 rounded-lg hover:bg-primary/20 flex items-center gap-1 transition-colors">
@@ -136,7 +136,7 @@ const BiodiversityIndexCalculator = () => {
           <div className="flex flex-col gap-3">
             {showResults && results && (
               <>
-                <h2 className="text-xl font-bold flex items-center gap-2 mb-6">
+                <h2 className="text-2xl font-bold mb-3">
                      <PieChart className="h-5 w-5 text-primary" /> Analysis Results
                   </h2>
                   

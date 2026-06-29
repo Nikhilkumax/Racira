@@ -87,9 +87,7 @@ const DayCounter = () => {
               </label>
 
               <div className="flex gap-3">
-                <button onClick={calculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">
-                  <Calculator className="h-4 w-4" /> Count Days
-                </button>
+                <button onClick={calculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">Calculate</button>
                 <button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground">
                   <RotateCcw className="h-5 w-5" />
                 </button>
@@ -99,7 +97,7 @@ const DayCounter = () => {
           <div className="flex flex-col gap-3">
             {result && (
               <>
-                <h2 className="text-xl font-bold mb-4">Results</h2>
+                <h2 className="text-2xl font-bold mb-3">Results</h2>
                 <div className="text-center mb-6">
                   <p className="text-5xl font-extrabold mb-1">{result.totalDays}</p>
                   <p className="text-lg text-muted-foreground">days</p>

@@ -68,7 +68,7 @@ const StudentLoanPayoffCalculator = () => {
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
             <div className="grid sm:grid-cols-2 gap-8">
                 <section className="space-y-6">
-                  <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
+                  <h2 className="text-2xl font-bold mb-3">
                     <GraduationCap className="h-5 w-5 text-primary" /> Loan Details
                   </h2>
                   <div>
@@ -82,7 +82,7 @@ const StudentLoanPayoffCalculator = () => {
                 </section>
 
                 <section className="space-y-6">
-                  <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
+                  <h2 className="text-2xl font-bold mb-3">
                     <CreditCard className="h-5 w-5 text-primary" /> Payment Plan
                   </h2>
                   <div>
@@ -96,7 +96,7 @@ const StudentLoanPayoffCalculator = () => {
                 </section>
               </div>
               <div className="mt-8 flex gap-3 items-center">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Loan</button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button>
 <button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground flex items-center gap-2 font-bold text-sm">
                   <RotateCcw className="h-4 w-4" /> Reset 
                 </button>
@@ -124,7 +124,7 @@ const StudentLoanPayoffCalculator = () => {
                     </div>
 
                     <div className="card-calculator">
-                      <h2 className="text-xl font-bold flex items-center gap-2 mb-6">
+                      <h2 className="text-2xl font-bold mb-3">
                         <Calendar className="h-5 w-5 text-primary" /> Payoff Timeline
                       </h2>
                         <ResultDisplay items={[

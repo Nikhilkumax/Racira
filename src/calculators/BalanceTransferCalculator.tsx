@@ -236,7 +236,6 @@ const BalanceTransferCalculator = () => {
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Finance", href: "/finance" }, { label: "Balance Transfer Calculator" }]} />
       <div className="container-page py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-1 tracking-tight text-foreground">Balance Transfer Calculator</h1>
-        <p className="text-sm text-muted-foreground mb-4">Discover how much time and money you can save by moving your debt to a 0% APR credit card.</p>
 
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
           
@@ -267,9 +266,7 @@ const BalanceTransferCalculator = () => {
               </div>
 
               <div className="flex gap-3 mt-2">
-                <button type="submit" className="h-10 w-full bg-primary text-primary-foreground font-medium rounded-lg hover:bg-primary/90 transition-colors flex items-center justify-center gap-2">
-                  <Calculator className="h-4 w-4" /> Calculate Savings
-                </button>
+                <button type="submit" className="h-10 w-full bg-primary text-primary-foreground font-medium rounded-lg hover:bg-primary/90 transition-colors flex items-center justify-center gap-2">Calculate</button>
                 <button type="button" onClick={reset} className="h-10 w-10 flex-shrink-0 flex items-center justify-center rounded-lg border border-border hover:bg-secondary transition-colors text-muted-foreground" aria-label="Reset">
                   <RotateCcw className="h-4 w-4" />
                 </button>

@@ -81,7 +81,7 @@ const InflationCalculator = () => {
           <div className="flex flex-col gap-3">
             {showResults && result && (
               <>
-                <h2 className="text-xl font-bold mb-4">Results</h2>
+                <h2 className="text-2xl font-bold mb-3">Results</h2>
                 <ResultDisplay items={[
                   { label: mode === "forward" ? "Future Equivalent" : mode === "backward" ? "Past Equivalent" : "Adjusted Value", value: result.adjustedValue, highlight: true },
                   { label: mode === "forward" ? "Today's $1 will be worth" : "Purchasing Power Change", value: result.purchasingPower },

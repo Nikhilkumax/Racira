@@ -87,7 +87,7 @@ const BloodPressureCategoryCalculator = () => {
             {showResults && results && (
               <>
                 <div className="mb-6">
-                  <h2 className="text-sm font-bold text-primary uppercase tracking-wider mb-2">Reading Category</h2>
+                  <h2 className="text-2xl font-bold mb-3">Reading Category</h2>
                   <p className={`text-4xl font-extrabold mb-2 ${results.color}`}>{results.category}</p>
                   <p className="text-muted-foreground max-w-md mx-auto">{results.description}</p>
                 </div>

@@ -233,9 +233,7 @@ const TileCalculator = () => {
             </div>
 
             <div className="flex gap-3 mt-2">
-              <button type="button" onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-12 text-lg transition-all active:scale-[0.98] shadow-sm">
-                <LayoutGrid className="h-5 w-5" /> Calculate Project
-              </button>
+              <button type="button" onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-12 text-lg transition-all active:scale-[0.98] shadow-sm">Calculate</button>
             </div>
           </div>
 

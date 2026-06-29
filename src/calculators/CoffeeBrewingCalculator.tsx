@@ -125,9 +125,7 @@ const CoffeeBrewingCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">
-                  <Coffee className="h-5 w-5" /> Calculate Brew
-                </button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset">
+                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset">
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
@@ -136,7 +134,7 @@ const CoffeeBrewingCalculator = () => {
           <div className="flex flex-col gap-3">
             {showResults && results && (
               <>
-                <h2 className="text-xl font-bold mb-6">Your Perfect Recipe</h2>
+                <h2 className="text-2xl font-bold mb-3">Your Perfect Recipe</h2>
                 
                 <div className="grid sm:grid-cols-2 gap-8 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">

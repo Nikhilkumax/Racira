@@ -87,7 +87,7 @@ const RothIraCalculator = () => {
           <div className="flex flex-col gap-3">
             {showResults && results && (
               <>
-                <h2 className="text-xl font-bold mb-6">Roth IRA Projection</h2>
+                <h2 className="text-2xl font-bold mb-3">Roth IRA Projection</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
                   <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
                     <p className="text-sm font-bold text-primary uppercase tracking-widest mb-1">Balance at Retirement</p>

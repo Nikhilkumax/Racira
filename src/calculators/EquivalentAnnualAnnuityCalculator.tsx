@@ -91,7 +91,7 @@ export default function EquivalentAnnualAnnuityCalculator() {
 
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <h2 className="text-lg font-bold pb-2 border-b border-border">Project Parameters</h2>
+            <h2 className="text-2xl font-bold mb-3">Project Parameters</h2>
             <CI id="inv" label="Initial Investment (Year 0)" value={investment} onChange={setInvestment} prefix="$" />
             <div className="grid grid-cols-2 gap-4">
               <CI id="rate" label="Discount Rate" value={rate} onChange={setRate} suffix="%" />
@@ -100,9 +100,7 @@ export default function EquivalentAnnualAnnuityCalculator() {
             <CI id="cf" label="Annual Cash Flow (each year)" value={annualCF} onChange={setAnnualCF} prefix="$" />
             <CI id="sv" label="Salvage Value (final year)" value={salvage} onChange={setSalvage} prefix="$" />
             <div className="flex gap-2.5">
-              <button onClick={run} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-9 text-base transition-all shadow-sm">
-                <Calculator className="h-4 w-4" /> Calculate
-              </button>
+              <button onClick={run} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-9 text-base transition-all shadow-sm">Calculate</button>
               <button onClick={reset} className="px-3 rounded-md border border-border hover:bg-secondary h-9 transition-colors flex items-center" aria-label="Reset">
                 <RotateCcw className="h-4 w-4" />
               </button>
@@ -116,7 +114,7 @@ export default function EquivalentAnnualAnnuityCalculator() {
 
               <div className="card-calculator flex flex-col gap-3 !p-4 border border-border bg-card shadow-sm">
                 <div className="flex items-center justify-between pb-2 border-b border-border">
-                  <h2 className="text-lg font-bold">EAA Results</h2>
+                  <h2 className="text-2xl font-bold mb-3">EAA Results</h2>
                   <TrendingUp className="h-5 w-5 text-primary" />
                 </div>
                 <div className="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-xl p-5 text-center">

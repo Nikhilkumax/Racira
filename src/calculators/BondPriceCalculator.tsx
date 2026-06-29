@@ -75,7 +75,7 @@ export default function BondPriceCalculator() {
                 </div>
               </div>
               <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Bond Price</button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button>
                 <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
           </div>
@@ -83,7 +83,7 @@ export default function BondPriceCalculator() {
           <div className="flex flex-col gap-3">
             {showResults && (
               <>
-                <h2 className="text-xl font-bold mb-4">Bond Valuation Results</h2>
+                <h2 className="text-2xl font-bold mb-3">Bond Valuation Results</h2>
                 <ResultDisplay items={[
                   { label: "Bond Price", value: results.price, highlight: true },
                   { label: "Premium / (Discount) to Par", value: results.premium, highlight: results.premium !== 0 },

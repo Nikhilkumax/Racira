@@ -101,7 +101,7 @@ export default function NetWorthTrackerCalc() {
             {/* ASSETS */}
             <div className="flex flex-col gap-3">
               <div className="flex items-center justify-between pb-2 border-b border-border">
-                <h2 className="text-lg font-bold text-foreground text-emerald-600">Assets (What You Own)</h2>
+                <h2 className="text-2xl font-bold mb-3">Assets (What You Own)</h2>
               </div>
               {assets.map(a => (
                 <div key={a.id} className="flex gap-2 items-center">
@@ -121,7 +121,7 @@ export default function NetWorthTrackerCalc() {
             {/* LIABILITIES */}
             <div className="flex flex-col gap-3">
               <div className="flex items-center justify-between pb-2 border-b border-border">
-                <h2 className="text-lg font-bold text-red-500">Liabilities (What You Owe)</h2>
+                <h2 className="text-2xl font-bold mb-3">Liabilities (What You Owe)</h2>
               </div>
               {liabilities.map(l => (
                 <div key={l.id} className="flex gap-2 items-center">
@@ -139,9 +139,7 @@ export default function NetWorthTrackerCalc() {
             </div>
 
             <div className="flex gap-3 mt-2">
-              <button type="button" onClick={calculate} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm">
-                <Calculator className="h-4 w-4" /> Calculate Net Worth
-              </button>
+              <button type="button" onClick={calculate} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm">Calculate</button>
               <button type="button" onClick={reset} className="px-3 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center">
                 <RotateCcw className="h-4 w-4" />
               </button>
@@ -155,7 +153,7 @@ export default function NetWorthTrackerCalc() {
 
               <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
                 <div className="flex items-center justify-between pb-2 border-b border-border">
-                  <h2 className="text-lg font-bold text-foreground">Your Net Worth</h2>
+                  <h2 className="text-2xl font-bold mb-3">Your Net Worth</h2>
                   <TrendingUp className="h-5 w-5 text-primary" />
                 </div>
 

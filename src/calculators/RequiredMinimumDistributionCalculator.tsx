@@ -125,9 +125,7 @@ export default function RequiredMinimumDistributionCalculator() {
               <div className={inp}><input type="number" value={growth} onChange={e => setGrowth(e.target.value)} min={0} max={20} step={0.5} className={ci} /><span className={suf}>%/yr</span></div>
             </div>
             <div className="flex gap-3 mt-1">
-              <button onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm">
-                <Calculator className="h-4 w-4" /> Calculate RMD
-              </button>
+              <button onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm">Calculate</button>
               <button onClick={() => { setBalance("500000"); setAge("73"); setTaxRate("22"); setGrowth("5"); setResult(calcRMD(500000, 73, 22, 5)); }} className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center">
                 <RotateCcw className="h-4 w-4" />
               </button>

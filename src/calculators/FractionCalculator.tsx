@@ -78,7 +78,7 @@ const FractionCalculator = () => {
           <div className="flex flex-col gap-3">
             {showResults && result && (
               <>
-                <h2 className="text-xl font-bold mb-4">Result</h2>
+                <h2 className="text-2xl font-bold mb-3">Result</h2>
                 <div className="text-center mb-4">
                   <p className="text-4xl font-extrabold">{result.num}<span className="mx-2 text-muted-foreground">/</span>{result.den}</p>
                   {result.den === 1 && <p className="text-muted-foreground mt-1">= {result.num}</p>}

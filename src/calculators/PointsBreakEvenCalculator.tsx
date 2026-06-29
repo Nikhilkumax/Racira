@@ -90,7 +90,7 @@ const PointsBreakEvenCalculator = () => {
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
             <div className="grid sm:grid-cols-2 gap-8">
                 <section className="space-y-6">
-                  <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
+                  <h2 className="text-2xl font-bold mb-3">
                     <DollarSign className="h-5 w-5 text-primary" /> Loan Details
                   </h2>
                   <InputField id="loan-amount" label="Loan Amount" value={loanAmount} onChange={setLoanAmount} prefix="$" />
@@ -99,7 +99,7 @@ const PointsBreakEvenCalculator = () => {
                 </section>
 
                 <section className="space-y-6">
-                  <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
+                  <h2 className="text-2xl font-bold mb-3">
                     <TrendingDown className="h-5 w-5 text-primary" /> Rate Comparison
                   </h2>
                   <InputField id="orig-rate" label="Original Rate (%)" value={originalRate} onChange={setOriginalRate} suffix="%" step="0.1" tooltip="The interest rate without paying points." />
@@ -136,7 +136,7 @@ const PointsBreakEvenCalculator = () => {
                     </div>
 
                     <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-                      <h2 className="text-xl font-bold flex items-center gap-2 mb-6">
+                      <h2 className="text-2xl font-bold mb-3">
                         <Target className="h-5 w-5 text-primary" /> Savings Breakdown
                       </h2>
                       <ResultDisplay items={[

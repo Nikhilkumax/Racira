@@ -89,7 +89,7 @@ export default function DiscountedPaybackPeriodCalculator() {
 
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <h2 className="text-lg font-bold pb-2 border-b border-border">Investment Details</h2>
+            <h2 className="text-2xl font-bold mb-3">Investment Details</h2>
             <CompactInput id="inv" label="Initial Investment" value={inv} onChange={setInv} prefix="$" />
             <CompactInput id="rate" label="Discount Rate (WACC)" value={rate} onChange={setRate} suffix="%" />
             <div className="flex flex-col">
@@ -99,9 +99,7 @@ export default function DiscountedPaybackPeriodCalculator() {
               <p className="text-xs text-muted-foreground mt-1">Enter each year's cash flow separated by commas (e.g. 20000, 25000, 30000)</p>
             </div>
             <div className="flex gap-2.5">
-              <button onClick={run} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-9 text-base transition-all shadow-sm">
-                <Calculator className="h-4 w-4" /> Calculate
-              </button>
+              <button onClick={run} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-9 text-base transition-all shadow-sm">Calculate</button>
               <button onClick={reset} className="px-3 rounded-md border border-border hover:bg-secondary h-9 transition-colors flex items-center justify-center" aria-label="Reset">
                 <RotateCcw className="h-4 w-4" />
               </button>
@@ -115,7 +113,7 @@ export default function DiscountedPaybackPeriodCalculator() {
 
               <div className="card-calculator flex flex-col gap-3 !p-4 border border-border bg-card shadow-sm">
                 <div className="flex items-center justify-between pb-2 border-b border-border">
-                  <h2 className="text-lg font-bold">Analysis Results</h2>
+                  <h2 className="text-2xl font-bold mb-3">Analysis Results</h2>
                   <TrendingUp className="h-5 w-5 text-primary" />
                 </div>
                 <div className="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-xl p-5 text-center">

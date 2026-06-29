@@ -202,7 +202,6 @@ export default function AnorexicBmiCalculator() {
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Health", href: "/calculator#health" }, { label: "Anorexic BMI Calculator" }]} />
       <div className="container-page py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Anorexic BMI Calculator</h1>
-        <p className="text-sm text-muted-foreground mt-1">Calculate the physical severity of anorexia nervosa or malnutrition based on the WHO and DSM-5 clinical BMI thresholds.</p>
 
         <div className="grid grid-cols-1 xl:grid-cols-[460px_1fr] gap-6 items-start max-w-[1280px] mx-auto mt-4">
           

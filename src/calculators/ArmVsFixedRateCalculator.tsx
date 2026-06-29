@@ -300,7 +300,7 @@ export default function ArmVsFixedRateCalculator() {
 
       {/* Educational Content */}
       <div className="mt-16 max-w-4xl mx-auto prose prose-slate dark:prose-invert">
-        <h2 className="text-3xl font-bold mb-6">ARM vs Fixed Rate: Which is Better?</h2>
+        <h2 className="text-2xl font-bold mb-3">ARM vs Fixed Rate: Which is Better?</h2>
         <p className="text-lg text-muted-foreground mb-6">
           Choosing between an Adjustable-Rate Mortgage (ARM) and a Fixed-Rate Mortgage is one of the most important decisions when financing a home.
         </p>

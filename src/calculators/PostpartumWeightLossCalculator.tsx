@@ -113,9 +113,7 @@ const PostpartumWeightLossCalculator = () => {
               Currently breastfeeding (+~300 kcal/day burn)
             </label>
             <div className="flex gap-3">
-              <button onClick={() => calculate(preWeight, deliveryWeight, currentWeight, weeksPostpartum, unit, breastfeeding)} className="flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors">
-                <Calculator className="w-4 h-4" /> Calculate
-              </button>
+              <button onClick={() => calculate(preWeight, deliveryWeight, currentWeight, weeksPostpartum, unit, breastfeeding)} className="flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors">Calculate</button>
               <button onClick={reset} className="h-10 w-10 border border-border rounded-md flex items-center justify-center hover:bg-secondary transition-colors" aria-label="Reset">
                 <RotateCcw className="w-4 h-4" />
               </button>

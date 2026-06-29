@@ -176,7 +176,6 @@ export default function OverweightPercentageCalculator() {
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Health", href: "/calculator#health" }, { label: "Overweight Percentage Calculator" }]} />
       <div className="container-page py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Overweight Percentage Calculator</h1>
-        <p className="text-sm text-muted-foreground mt-1">Calculate precisely how much your current weight exceeds the maximum healthy threshold for your height.</p>
 
         <div className="grid grid-cols-1 xl:grid-cols-[460px_1fr] gap-6 items-start max-w-[1280px] mx-auto mt-4">
           
@@ -261,7 +260,7 @@ export default function OverweightPercentageCalculator() {
                       </p>
                       {results.overweightPercentage > 0 ? (
                         <>
-                          <h2 className="text-4xl md:text-5xl font-black text-foreground tabular-nums">
+                          <h2 className="text-2xl font-bold mb-3">
                             {results.overweightPercentage}%
                           </h2>
                           <p className="text-lg text-red-500 font-bold mt-2">
@@ -270,7 +269,7 @@ export default function OverweightPercentageCalculator() {
                         </>
                       ) : (
                         <>
-                          <h2 className="text-4xl md:text-5xl font-black text-emerald-500 tabular-nums">
+                          <h2 className="text-2xl font-bold mb-3">
                             Healthy Range
                           </h2>
                           <p className="text-lg text-emerald-600 font-bold mt-2">

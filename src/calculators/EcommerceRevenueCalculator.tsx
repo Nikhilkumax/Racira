@@ -64,7 +64,7 @@ export default function EcommerceRevenueCalculator() {
                 <InputField id="cogs" label="Cost of Goods Sold (%)" value={cogsPercent} onChange={setCogsPercent} suffix="%" tooltip="Direct product costs as a percentage of revenue." />
               </div>
               <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate Revenue</button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button>
                 <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
           </div>
@@ -72,7 +72,7 @@ export default function EcommerceRevenueCalculator() {
           <div className="flex flex-col gap-3">
             {showResults && (
               <>
-                <h2 className="text-xl font-bold mb-4">Monthly Ecommerce Projections</h2>
+                <h2 className="text-2xl font-bold mb-3">Monthly Ecommerce Projections</h2>
                 <ResultDisplay items={[
                   { label: "Monthly Orders", value: 0, textValue: Math.round(results.monthlyOrders).toLocaleString(), highlight: true },
                   { label: "Gross Revenue", value: results.grossRevenue, highlight: true },

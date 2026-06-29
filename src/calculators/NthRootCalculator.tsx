@@ -122,7 +122,7 @@ export default function NthRootCalculator() {
 
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <h2 className="text-lg font-bold text-foreground pb-2 border-b border-border">Radical Parameters</h2>
+            <h2 className="text-2xl font-bold mb-3">Radical Parameters</h2>
 
             <CompactInput
               id="radicand"
@@ -145,9 +145,7 @@ export default function NthRootCalculator() {
                 type="button"
                 onClick={calc}
                 className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm"
-              >
-                <Calculator className="h-4 w-4" /> Calculate Root
-              </button>
+              >Calculate</button>
               <button
                 type="button"
                 onClick={reset}
@@ -182,7 +180,7 @@ export default function NthRootCalculator() {
                     </div>
                     {mounted && res.chartData.length > 1 && (
                       <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-                        <h2 className="text-sm font-bold text-foreground mb-2">Root Value vs. Degree (x = {radX})</h2>
+                        <h2 className="text-2xl font-bold mb-3">Root Value vs. Degree (x = {radX})</h2>
                         <ResponsiveContainer width="100%" height={200}>
                           <LineChart data={res.chartData}>
                             <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />

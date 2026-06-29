@@ -52,7 +52,7 @@ const PaperSavingsCalculator = () => {
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
             <div className="max-w-md mx-auto space-y-6">
-                 <h2 className="text-xl font-bold flex items-center gap-2 justify-center mb-6">
+                 <h2 className="text-2xl font-bold mb-3">
                     <FileText className="h-6 w-6 text-primary" /> Paper Consumption
                  </h2>
                  <div>
@@ -69,7 +69,7 @@ const PaperSavingsCalculator = () => {
           <div className="flex flex-col gap-3">
             {results && results.annualReams > 0 && (
               <>
-                <h2 className="text-xl font-bold mb-6 text-center">Annual Environmental Impact</h2>
+                <h2 className="text-2xl font-bold mb-3">Annual Environmental Impact</h2>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
                   <div className="p-4 rounded-xl bg-emerald-500/5 border border-emerald-500/20 text-center flex flex-col items-center justify-center">
                     <Trees className="h-8 w-8 text-emerald-600 mb-2" />

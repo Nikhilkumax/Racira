@@ -297,7 +297,7 @@ export default function PitiCalculator() {
 
       {/* Educational Content */}
       <div className="mt-16 max-w-4xl mx-auto prose prose-slate dark:prose-invert">
-        <h2 className="text-3xl font-bold mb-6">What does PITI mean?</h2>
+        <h2 className="text-2xl font-bold mb-3">What does PITI mean?</h2>
         <p className="text-lg text-muted-foreground mb-6">
           PITI is an acronym that stands for Principal, Interest, Taxes, and Insurance. It represents the total monthly payment you will make for your home. Lenders use PITI to determine if you can afford a mortgage.
         </p>

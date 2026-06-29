@@ -141,9 +141,7 @@ export default function ConceptionDateCalculator() {
             )}
 
             <div className="flex gap-3 mt-4">
-              <button onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-11 text-base transition-all shadow-sm">
-                <Sparkles className="h-5 w-5" /> Calculate Conception
-              </button>
+              <button onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-11 text-base transition-all shadow-sm">Calculate</button>
             </div>
           </div>
 

@@ -212,9 +212,7 @@ export default function DiabetesRiskCalculator() {
             </div>
 
             <div className="flex gap-3 mt-4">
-              <button onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm">
-                <Activity className="h-4 w-4" /> Calculate Risk Score
-              </button>
+              <button onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm">Calculate</button>
               <button onClick={() => { setAge("45"); setSex("male"); setGestationalDb(false); setFamilyHistory(false); setHighBp(false); setActive(true); setFeet("5"); setInches("10"); setWeight("190"); setResult(calcDiabetesRisk(45, "male", false, false, false, true, 70, 190)); }} className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center" aria-label="Reset">
                 <RotateCcw className="h-4 w-4" />
               </button>

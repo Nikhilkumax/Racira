@@ -104,7 +104,7 @@ const MinimumPaymentCalculator = () => {
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
             <div className="grid sm:grid-cols-2 gap-8">
                 <section className="space-y-6">
-                  <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
+                  <h2 className="text-2xl font-bold mb-3">
                     <CreditCard className="h-5 w-5 text-primary" /> Credit Card Info
                   </h2>
                   <InputField id="balance" label="Current Balance" value={balance} onChange={setBalance} prefix="$" />
@@ -112,7 +112,7 @@ const MinimumPaymentCalculator = () => {
                 </section>
 
                 <section className="space-y-6">
-                  <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
+                  <h2 className="text-2xl font-bold mb-3">
                     <Calendar className="h-5 w-5 text-primary" /> Payment Formula
                   </h2>
                   <InputField id="min-pct" label="Minimum Payment %" value={minPaymentPercent} onChange={setMinPaymentPercent} suffix="%" step="0.1" tooltip="Usually between 1.5% and 3.0% of your balance." />
@@ -152,7 +152,7 @@ const MinimumPaymentCalculator = () => {
                     </div>
 
                     <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-                      <h2 className="text-xl font-bold flex items-center gap-2 mb-6">
+                      <h2 className="text-2xl font-bold mb-3">
                         <TrendingUp className="h-5 w-5 text-primary" /> Cost Summary
                       </h2>
                       <ResultDisplay items={[

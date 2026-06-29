@@ -309,9 +309,7 @@ const ThreeDPrintTimeCalculator = () => {
             </div>
 
             <div className="flex gap-2.5 -mt-1">
-              <button onClick={handleCalculate} className="flex-1 flex items-center justify-center gap-1.5 rounded-md font-bold h-10 text-base transition-all shadow-sm bg-primary hover:bg-primary/95 text-primary-foreground active:scale-[0.98]">
-                <Calculator className="h-4 w-4" /> Calculate
-              </button>
+              <button onClick={handleCalculate} className="flex-1 flex items-center justify-center gap-1.5 rounded-md font-bold h-10 text-base transition-all shadow-sm bg-primary hover:bg-primary/95 text-primary-foreground active:scale-[0.98]">Calculate</button>
               <button onClick={reset} aria-label="Reset" className="h-10 w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 shadow-sm">
                 <RotateCcw className="h-4 w-4" />
               </button>

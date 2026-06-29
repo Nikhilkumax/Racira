@@ -83,7 +83,7 @@ const ReverseMortgageCalculator = () => {
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
             <div className="grid sm:grid-cols-2 gap-8">
                 <section className="space-y-6">
-                  <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
+                  <h2 className="text-2xl font-bold mb-3">
                     <Home className="h-5 w-5 text-primary" /> Property Info
                   </h2>
                   <InputField id="home-value" label="Estimated Home Value" value={homeValue} onChange={setHomeValue} prefix="$" tooltip="Current market value of your primary residence." />
@@ -91,7 +91,7 @@ const ReverseMortgageCalculator = () => {
                 </section>
 
                 <section className="space-y-6">
-                  <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
+                  <h2 className="text-2xl font-bold mb-3">
                     <User className="h-5 w-5 text-primary" /> Borrower Info
                   </h2>
                   <InputField id="age" label="Age of Youngest Borrower" value={age} onChange={setAge} suffix="yrs" tooltip="The age of the youngest person on the title (must be 62+)." />
@@ -127,7 +127,7 @@ const ReverseMortgageCalculator = () => {
                     </div>
 
                     <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-                      <h2 className="text-xl font-bold flex items-center gap-2 mb-6">
+                      <h2 className="text-2xl font-bold mb-3">
                         <DollarSign className="h-5 w-5 text-primary" /> Estimated Breakdown
                       </h2>
                       <ResultDisplay items={[

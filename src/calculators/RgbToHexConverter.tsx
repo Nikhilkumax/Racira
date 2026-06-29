@@ -94,7 +94,7 @@ const RgbToHexConverter = () => {
 
           <div className="flex flex-col gap-3">
             <div className="card-calculator py-6">
-                  <h2 className="text-sm font-bold text-muted-foreground uppercase tracking-widest mb-4 flex items-center gap-2">
+                  <h2 className="text-2xl font-bold mb-3">
                      <Hash className="h-4 w-4" /> Hexadecimal
                   </h2>
                   <div className="flex items-center justify-between p-4 rounded-xl bg-secondary/50 border border-border">
@@ -105,7 +105,7 @@ const RgbToHexConverter = () => {
                   </div>
                </div>
                <div className="card-calculator py-6">
-                  <h2 className="text-sm font-bold text-muted-foreground uppercase tracking-widest mb-4 flex items-center gap-2">
+                  <h2 className="text-2xl font-bold mb-3">
                      <Palette className="h-4 w-4" /> CSS RGB
                   </h2>
                   <div className="flex items-center justify-between p-4 rounded-xl bg-secondary/50 border border-border">

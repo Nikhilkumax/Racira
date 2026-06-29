@@ -76,7 +76,7 @@ const ExponentCalculator = () => {
           <div className="flex flex-col gap-3">
             {showResults && result && (
               <>
-                <h2 className="text-xl font-bold mb-4">Result</h2>
+                <h2 className="text-2xl font-bold mb-3">Result</h2>
                 {result.type === "power" && (
                   <ResultDisplay items={[
                     { label: `${result.base}^${result.exponent}`, value: 0, textValue: result.result.toLocaleString(undefined, { maximumFractionDigits: 10 }), highlight: true },

@@ -149,7 +149,7 @@ export default function PValueCalculator() {
 
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <h2 className="text-lg font-bold text-foreground pb-2 border-b border-border">Hypothesis Test Setup</h2>
+            <h2 className="text-2xl font-bold mb-3">Hypothesis Test Setup</h2>
             <div className="flex flex-col gap-1.5">
               <label className="text-sm font-semibold text-foreground">Test Statistic Distribution</label>
               <select value={testType} onChange={e => { const v = e.target.value as any; setTestType(v); if (v === "chi") setTailType("right"); }} className="w-full h-10 px-3 rounded-md border border-input bg-background text-foreground text-sm outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all">
@@ -179,9 +179,7 @@ export default function PValueCalculator() {
             <CompactInput id="alpha" label="Significance Level (α)" value={alpha} onChange={setAlpha} step="0.01" min="0.001" max="0.5" />
 
             <div className="flex gap-2.5 mt-2">
-              <button type="button" onClick={calc} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm">
-                <Calculator className="h-4 w-4" /> Calculate P-Value
-              </button>
+              <button type="button" onClick={calc} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm">Calculate</button>
               <button type="button" onClick={reset} className="px-3 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center" aria-label="Reset">
                 <RotateCcw className="h-4 w-4" />
               </button>
@@ -195,7 +193,7 @@ export default function PValueCalculator() {
 
               <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
                 <div className="flex items-center justify-between pb-2 border-b border-border">
-                  <h2 className="text-lg font-bold text-foreground">Significance Report</h2>
+                  <h2 className="text-2xl font-bold mb-3">Significance Report</h2>
                   <BarChart3 className="h-5 w-5 text-primary" />
                 </div>
                 

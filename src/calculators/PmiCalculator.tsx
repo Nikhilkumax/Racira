@@ -680,9 +680,7 @@ const PmiCalculator = () => {
                   className={`flex-1 flex items-center justify-center gap-1.5 rounded-md font-bold h-10 text-base transition-all shadow-sm ${
                     hasValidationErrors ? "bg-muted text-muted-foreground cursor-not-allowed" : "bg-primary hover:bg-primary/95 text-primary-foreground active:scale-[0.98]"
                   }`}
-                >
-                  <Calculator className="h-4 w-4" /> Calculate
-                </button>
+                >Calculate</button>
                 <button
                   type="button"
                   onClick={reset}

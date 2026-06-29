@@ -85,7 +85,7 @@ const DtiCalculator = () => {
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
             <div className="grid sm:grid-cols-2 gap-8">
                 <section className="space-y-6">
-                  <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
+                  <h2 className="text-2xl font-bold mb-3">
                     <Wallet className="h-5 w-5 text-primary" /> Monthly Income
                   </h2>
                   <InputField id="income" label="Gross Monthly Income" value={grossIncome} onChange={setGrossIncome} prefix="$" tooltip="Your total pre-tax income per month." />
@@ -96,7 +96,7 @@ const DtiCalculator = () => {
                 </section>
 
                 <section className="space-y-4">
-                  <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
+                  <h2 className="text-2xl font-bold mb-3">
                     <CreditCard className="h-5 w-5 text-primary" /> Monthly Debts
                   </h2>
                   <InputField id="mortgage" label="Housing (PITI)" value={mortgage} onChange={setMortgage} prefix="$" tooltip="Principal, Interest, Taxes, and Insurance." />
@@ -133,7 +133,7 @@ const DtiCalculator = () => {
                 </div>
 
                 <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-                  <h2 className="text-xl font-bold flex items-center gap-2 mb-6">
+                  <h2 className="text-2xl font-bold mb-3">
                     <PieChart className="h-5 w-5 text-primary" /> Ratio Breakdown
                   </h2>
                   <div className="mb-8">
