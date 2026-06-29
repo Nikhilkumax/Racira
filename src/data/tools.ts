@@ -35,35 +35,35 @@ import {
 
 export type CategorySlug =
   | "calculator"
-  | "pdf-tools"
-  | "image-tools"
-  | "design-tools"
-  | "color-tools"
-  | "typography-tools"
-  | "photo-editor"
-  | "video-tools"
-  | "animation-tools"
+  | "pdf"
+  | "image"
+  | "design"
+  | "colors"
+  | "typography"
+  | "photo"
+  | "video"
+  | "animator"
   | "voice"
-  | "audio-tools"
-  | "writing-tools"
-  | "seo-tools"
-  | "developer-tools"
-  | "business-tools"
-  | "finance-tools"
-  | "productivity-tools"
+  | "audio"
+  | "writing"
+  | "seo"
+  | "developers"
+  | "business"
+  | "finance"
+  | "productivity"
   | "games"
-  | "education-tools"
-  | "3d-tools"
-  | "cad-tools"
-  | "fitness-tools"
-  | "music-tools"
-  | "data-tools"
-  | "engineering-tools"
-  | "travel-tools"
-  | "crypto-tools"
-  | "security-tools"
-  | "diagram-tools"
-  | "presentation-tools"
+  | "education"
+  | "3d"
+  | "cad"
+  | "fitness"
+  | "music"
+  | "insight"
+  | "engineering"
+  | "travel"
+  | "crypto"
+  | "security"
+  | "flowchart"
+  | "presentation"
   | "maps";
 
 export interface Category {
@@ -88,83 +88,83 @@ export const categories: Category[] = [
     highlights: ["Finance", "Health", "Everyday", "Conversions"],
   },
   {
-    slug: "pdf-tools",
+    slug: "pdf",
     title: "PDF Tools",
     tagline: "DOCUMENTS, SIMPLIFIED.",
     description:
       "Merge, split, compress, and convert PDFs directly in your browser — no uploads required.",
     icon: FileText,
-    status: "coming-soon",
+    status: "active",
     highlights: ["Merge", "Split", "Compress", "Convert"],
   },
   {
-    slug: "image-tools",
+    slug: "image",
     title: "Image Tools",
     tagline: "PIXELS, POLISHED.",
     description:
       "Resize, compress, crop, and convert images with professional quality and zero friction.",
     icon: ImageIcon,
-    status: "coming-soon",
+    status: "active",
     highlights: ["Resize", "Compress", "Crop", "Format"],
   },
   {
-    slug: "design-tools",
+    slug: "design",
     title: "Design Tools",
     tagline: "IDEAS, VISUALIZED.",
     description:
       "Create graphics, layouts, and visual assets entirely in your browser with no installs.",
     icon: PenTool,
-    status: "coming-soon",
+    status: "active",
     highlights: ["Graphics", "Layouts", "Export", "Templates"],
   },
   {
-    slug: "color-tools",
+    slug: "colors",
     title: "Color Tools",
     tagline: "COLOR, PERFECTED.",
     description:
       "Pick, convert, generate palettes, and explore color theory — all in one place.",
     icon: Palette,
-    status: "coming-soon",
+    status: "active",
     highlights: ["Picker", "Palette", "Convert", "Contrast"],
   },
   {
-    slug: "typography-tools",
+    slug: "typography",
     title: "Typography Tools",
     tagline: "TYPE, CRAFTED.",
     description:
       "Explore fonts, pair typefaces, and fine-tune typographic scales for any project.",
     icon: Type,
-    status: "coming-soon",
+    status: "active",
     highlights: ["Fonts", "Pairing", "Scale", "Preview"],
   },
   {
-    slug: "photo-editor",
+    slug: "photo",
     title: "Photo Editor",
     tagline: "PHOTOS, ENHANCED.",
     description:
       "Edit, filter, crop, and retouch photos with professional-grade tools, right in your browser.",
     icon: Aperture,
-    status: "coming-soon",
+    status: "active",
     highlights: ["Edit", "Filter", "Retouch", "Export"],
   },
   {
-    slug: "video-tools",
+    slug: "video",
     title: "Video Tools",
     tagline: "VIDEO, SIMPLIFIED.",
     description:
       "Trim, convert, compress, and edit video files without any software downloads.",
     icon: Video,
-    status: "coming-soon",
+    status: "active",
     highlights: ["Trim", "Convert", "Compress", "Subtitles"],
   },
   {
-    slug: "animation-tools",
+    slug: "animator",
     title: "Animation Tools",
     tagline: "MOTION, CREATED.",
     description:
       "Build animations, transitions, and motion graphics directly in the browser.",
     icon: Clapperboard,
-    status: "coming-soon",
+    status: "active",
     highlights: ["Animate", "Timeline", "Export", "Lottie"],
   },
   {
@@ -178,73 +178,73 @@ export const categories: Category[] = [
     highlights: ["100+ Voices", "50+ Languages", "Unlimited", "Private"],
   },
   {
-    slug: "audio-tools",
+    slug: "audio",
     title: "Audio Tools",
     tagline: "SOUND, ENGINEERED.",
     description:
       "Record, edit, mix, and convert audio files with a full suite of browser-based tools.",
     icon: AudioWaveform,
-    status: "coming-soon",
+    status: "active",
     highlights: ["Record", "Edit", "Mix", "Convert"],
   },
   {
-    slug: "writing-tools",
+    slug: "writing",
     title: "Writing Tools",
     tagline: "WORDS, SHARPENED.",
     description:
       "Write, edit, summarize, and improve content with AI-assisted writing tools.",
     icon: Pen,
-    status: "coming-soon",
+    status: "active",
     highlights: ["AI Write", "Grammar", "Summarize", "Rewrite"],
   },
   {
-    slug: "seo-tools",
+    slug: "seo",
     title: "SEO Tools",
     tagline: "RANKINGS, OPTIMIZED.",
     description:
       "Analyze, audit, and improve your site's search visibility with a full browser-based SEO toolkit.",
     icon: Search,
-    status: "coming-soon",
+    status: "active",
     highlights: ["Audit", "Keywords", "Meta", "Backlinks"],
   },
   {
-    slug: "developer-tools",
+    slug: "developers",
     title: "Developer Tools",
     tagline: "CODE, STREAMLINED.",
     description:
       "Format, validate, convert, and debug code with a comprehensive set of developer utilities.",
     icon: Code,
-    status: "coming-soon",
+    status: "active",
     highlights: ["Format", "Validate", "Convert", "Debug"],
   },
   {
-    slug: "business-tools",
+    slug: "business",
     title: "Business Tools",
     tagline: "OPERATIONS, SIMPLIFIED.",
     description:
       "Manage invoices, proposals, reports, and business workflows without leaving your browser.",
     icon: Briefcase,
-    status: "coming-soon",
+    status: "active",
     highlights: ["Invoices", "Reports", "Proposals", "Templates"],
   },
   {
-    slug: "finance-tools",
+    slug: "finance",
     title: "Finance Tools",
     tagline: "MONEY, CALCULATED.",
     description:
       "Plan budgets, model investments, and calculate financial outcomes with precision tools.",
     icon: LineChart,
-    status: "coming-soon",
+    status: "active",
     highlights: ["Budget", "Investment", "Tax", "Planning"],
   },
   {
-    slug: "productivity-tools",
+    slug: "productivity",
     title: "Productivity Tools",
     tagline: "WORK, ACCELERATED.",
     description:
       "Streamline tasks, manage time, and boost output with a full productivity toolkit.",
     icon: CheckSquare,
-    status: "coming-soon",
+    status: "active",
     highlights: ["Tasks", "Time", "Focus", "Automation"],
   },
   {
@@ -254,127 +254,127 @@ export const categories: Category[] = [
     description:
       "Play hundreds of browser-based games instantly — no downloads, no accounts required.",
     icon: Gamepad2,
-    status: "coming-soon",
+    status: "active",
     highlights: ["Puzzle", "Arcade", "Strategy", "Word"],
   },
   {
-    slug: "education-tools",
+    slug: "education",
     title: "Education Tools",
     tagline: "KNOWLEDGE, BUILT.",
     description:
       "Learn, practice, and master subjects with interactive educational tools and calculators.",
     icon: GraduationCap,
-    status: "coming-soon",
+    status: "active",
     highlights: ["Math", "Science", "Language", "Quiz"],
   },
   {
-    slug: "3d-tools",
+    slug: "3d",
     title: "3D Tools",
     tagline: "DIMENSIONS, EXPLORED.",
     description:
       "Model, preview, and calculate 3D print parameters with browser-based 3D utilities.",
     icon: Box,
-    status: "coming-soon",
+    status: "active",
     highlights: ["Model", "Print", "Slicer", "Calculate"],
   },
   {
-    slug: "cad-tools",
+    slug: "cad",
     title: "CAD Tools",
     tagline: "DESIGNS, ENGINEERED.",
     description:
       "Draft, plan, and visualize technical designs with browser-based CAD utilities.",
     icon: Compass,
-    status: "coming-soon",
+    status: "active",
     highlights: ["Draft", "Blueprint", "Measure", "Export"],
   },
   {
-    slug: "fitness-tools",
+    slug: "fitness",
     title: "Fitness Tools",
     tagline: "HEALTH, TRACKED.",
     description:
       "Calculate calories, macros, BMI, and fitness metrics with tools built for real results.",
     icon: Dumbbell,
-    status: "coming-soon",
+    status: "active",
     highlights: ["Calories", "BMI", "Macros", "Workout"],
   },
   {
-    slug: "music-tools",
+    slug: "music",
     title: "Music Tools",
     tagline: "MUSIC, MADE.",
     description:
       "Create beats, compose melodies, and work with audio theory entirely in your browser.",
     icon: Music,
-    status: "coming-soon",
+    status: "active",
     highlights: ["Beats", "Compose", "Theory", "BPM"],
   },
   {
-    slug: "data-tools",
+    slug: "insight",
     title: "Data Tools",
     tagline: "DATA, VISUALIZED.",
     description:
       "Build charts, clean datasets, and explore data visually with browser-based data tools.",
     icon: Database,
-    status: "coming-soon",
+    status: "active",
     highlights: ["Charts", "CSV", "Visualize", "Analyze"],
   },
   {
-    slug: "engineering-tools",
+    slug: "engineering",
     title: "Engineering Tools",
     tagline: "PROBLEMS, SOLVED.",
     description:
       "Solve complex engineering calculations across mechanical, civil, and electrical domains.",
     icon: Wrench,
-    status: "coming-soon",
+    status: "active",
     highlights: ["Mechanical", "Civil", "Electrical", "Units"],
   },
   {
-    slug: "travel-tools",
+    slug: "travel",
     title: "Travel Tools",
     tagline: "JOURNEYS, PLANNED.",
     description:
       "Plan trips, convert currencies, calculate distances, and explore destinations effortlessly.",
     icon: Plane,
-    status: "coming-soon",
+    status: "active",
     highlights: ["Currency", "Distance", "Time Zones", "Packing"],
   },
   {
-    slug: "crypto-tools",
+    slug: "crypto",
     title: "Crypto Tools",
     tagline: "BLOCKCHAIN, DECODED.",
     description:
       "Calculate crypto returns, convert tokens, and analyze blockchain data in real time.",
     icon: Bitcoin,
-    status: "coming-soon",
+    status: "active",
     highlights: ["Convert", "Returns", "Gas", "Wallet"],
   },
   {
-    slug: "security-tools",
+    slug: "security",
     title: "Security Tools",
     tagline: "PRIVACY, PROTECTED.",
     description:
       "Encrypt files, generate passwords, and test security with a full browser-based privacy toolkit.",
     icon: Shield,
-    status: "coming-soon",
+    status: "active",
     highlights: ["Encrypt", "Passwords", "Hashing", "Privacy"],
   },
   {
-    slug: "diagram-tools",
+    slug: "flowchart",
     title: "Diagram Tools",
     tagline: "FLOWS, MAPPED.",
     description:
       "Build flowcharts, wireframes, org charts, and diagrams with intuitive browser-based tools.",
     icon: Network,
-    status: "coming-soon",
+    status: "active",
     highlights: ["Flowchart", "Wireframe", "Org Chart", "Export"],
   },
   {
-    slug: "presentation-tools",
+    slug: "presentation",
     title: "Presentation Tools",
     tagline: "SLIDES, CRAFTED.",
     description:
       "Design, build, and export professional presentations without any software installation.",
     icon: Presentation,
-    status: "coming-soon",
+    status: "active",
     highlights: ["Slides", "Templates", "Export", "Animate"],
   },
   {
@@ -384,7 +384,7 @@ export const categories: Category[] = [
     description:
       "Explore maps, calculate distances, and work with geographic data directly in your browser.",
     icon: MapPin,
-    status: "coming-soon",
+    status: "active",
     highlights: ["Maps", "Distance", "GIS", "Coordinates"],
   },
 ];
