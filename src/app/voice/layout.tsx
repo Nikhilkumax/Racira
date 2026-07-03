@@ -1,5 +1,6 @@
-import { TTSHeader } from "@/components/tts/TTSHeader";
+
 import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 
 export default function VoiceLayout({
   children,
@@ -8,7 +9,7 @@ export default function VoiceLayout({
 }) {
   return (
     <div className="flex min-h-screen flex-col">
-      <TTSHeader />
+      <Header mode="category" categoryName="Voice" />
       <main className="flex-1">
         {children}
       </main>

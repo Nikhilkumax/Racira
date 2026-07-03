@@ -107,9 +107,9 @@ const HoursCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Everyday Life", href: "/calculator#everyday-life" }, { label: "Hours Calculator" }]} />
-      <div className="container-page py-4">
+      <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Hours & Payroll Calculator</h1>
-        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           
           <div className="card-calculator flex flex-col gap-5 !p-5 shadow-sm border border-border bg-card">
             
@@ -197,7 +197,7 @@ const HoursCalculator = () => {
                 <div className="p-6 text-center">
                   <div className="text-sm font-bold text-muted-foreground uppercase mb-2">Decimal Hours for Payroll</div>
                   <div className="text-4xl font-extrabold text-primary font-mono">{result.totalHours}</div>
-                  <p className="text-sm text-muted-foreground mt-4 leading-relaxed max-w-xs mx-auto">
+                  <p className="text-sm text-muted-foreground mt-4 leading-relaxed max-w-xs">
                     To calculate your paycheck, HR multiplies this exact decimal number by your hourly wage.
                   </p>
                 </div>
@@ -207,7 +207,7 @@ const HoursCalculator = () => {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-8">
+        <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
             <h2>The Mathematics of Payroll</h2>

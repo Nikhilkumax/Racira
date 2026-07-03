@@ -19,7 +19,7 @@ export function ComingSoon({ tool }: { tool: Tool }) {
         Coming soon
       </div>
 
-      <p className="mt-6 text-sm text-muted-foreground max-w-md mx-auto">
+      <p className="mt-6 text-sm text-muted-foreground racira-page-container">
         We're polishing this tool. In the meantime, try our live MP4 Converter — it runs entirely in your browser.
       </p>
 

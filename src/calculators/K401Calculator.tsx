@@ -262,10 +262,10 @@ const K401Calculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "401K Calculator" }]} />
-      <div className="container-page py-4">
+      <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">401K Calculator</h1>
         
-        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           {/* LEFT COLUMN: INPUTS */}
           <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
             
@@ -447,7 +447,7 @@ const K401Calculator = () => {
                         </PieChart>
                       </ResponsiveContainer>
                     </div>
-                    <div className="flex flex-col gap-2 mt-4 max-w-[200px] mx-auto">
+                    <div className="flex flex-col gap-2 mt-4 max-w-[200px]">
                       {pieData.map((entry, index) => (
                         <div key={index} className="flex items-center justify-between text-xs text-muted-foreground">
                           <div className="flex items-center gap-1.5">
@@ -495,7 +495,7 @@ const K401Calculator = () => {
         </div>
 
         {/* SEO CONTENT SECTION */}
-        <div className="max-w-[1180px] mx-auto mt-8">
+        <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           
           <article className="prose-finance text-[15.75px]">

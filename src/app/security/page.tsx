@@ -32,7 +32,7 @@ export default function Home() {
 
   return (
     <Layout>
-      <section className="mx-auto max-w-7xl px-4 pt-16 pb-10 text-center">
+      <section className="racira-page-container pt-16 pb-10 text-center">
         <Badge variant="secondary" className="mb-6 bg-secondary text-primary">
           <ShieldCheck className="mr-1 h-3 w-3" /> {totalTools} security & privacy tools
         </Badge>
@@ -53,7 +53,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 pb-20 space-y-12">
+      <section className="racira-page-container pb-20 space-y-12">
         {filtered ? (
           <div>
             <div className="text-xs font-semibold tracking-wider text-muted-foreground uppercase mb-4">
@@ -93,23 +93,18 @@ function ToolGrid({ items }: { items: typeof tools }) {
           <Link
             key={t.slug}
             href={`/tool/${t.slug}`}
-            className="group rounded-xl border border-border bg-card p-5 hover:border-primary/40 hover:shadow-md transition-all"
+            className="tool-card group hover:-translate-y-[3px] hover:border-primary/40 hover:shadow-[0_8px_24px_hsl(var(--ring)/0.1)]"
           >
-            <div className="flex items-start justify-between">
-              <div className="grid h-9 w-9 place-items-center rounded-md bg-secondary text-primary">
-                <Icon className="h-4 w-4" />
-              </div>
-              {!t.live && (
-                <span className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground bg-muted px-1.5 py-0.5 rounded">
-                  Soon
-                </span>
-              )}
+            {!t.live && (
+              <span className="absolute right-3 top-3 rounded-md bg-muted px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+                Soon
+              </span>
+            )}
+            <div className="mb-4 grid h-10 w-10 place-items-center rounded-xl bg-primary/10 text-primary">
+              <Icon className="h-5 w-5" />
             </div>
-            <h3 className="mt-4 font-semibold text-foreground">{t.name}</h3>
+            <h3 className="font-semibold text-foreground leading-snug">{t.name}</h3>
             <p className="mt-1 text-sm text-muted-foreground line-clamp-2">{t.description}</p>
-            <div className="mt-3 text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
-              Open <ArrowRight className="h-3 w-3" />
-            </div>
           </Link>
         );
       })}

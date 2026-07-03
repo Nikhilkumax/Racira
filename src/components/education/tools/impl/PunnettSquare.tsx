@@ -18,7 +18,7 @@ export function PunnettSquare() {
         <div><Label>Parent 1 (e.g. Aa)</Label><Input maxLength={2} value={p1} onChange={(e) => setP1(e.target.value)} /></div>
         <div><Label>Parent 2 (e.g. Aa)</Label><Input maxLength={2} value={p2} onChange={(e) => setP2(e.target.value)} /></div>
       </div>
-      <div className="max-w-md mx-auto">
+      <div className="racira-page-container">
         <div className="grid grid-cols-3 gap-1 text-center">
           <div></div>
           {b.map((y, i) => <div key={i} className="font-bold text-lg p-2 bg-primary/10 rounded">{y}</div>)}

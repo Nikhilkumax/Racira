@@ -1,11 +1,12 @@
 ﻿"use client";
 
 import Link from "next/link";
+import Header from "@/components/Header";
 import { useMemo, useState } from "react";
 import { Search, Sparkles } from "lucide-react";
 import { CATEGORIES, TOTAL_TOOLS } from "@/data/productivity/tools";
 import { CategorySection } from "@/components/productivity/CategorySection";
-import { SiteHeader } from "@/components/productivity/SiteHeader";
+
 import { SiteFooter } from "@/components/productivity/SiteFooter";
 
 export default function Index() {
@@ -21,7 +22,7 @@ export default function Index() {
 
   return (
     <div className="min-h-screen">
-      <SiteHeader />
+      <Header mode="category" categoryName="Productivity" />
 
       {/* Hero */}
       <section className="relative overflow-hidden">
@@ -33,7 +34,7 @@ export default function Index() {
               "radial-gradient(circle at 20% 0%, color-mix(in oklch, var(--primary) 18%, transparent), transparent 50%), radial-gradient(circle at 80% 10%, color-mix(in oklch, var(--primary) 12%, transparent), transparent 45%)",
           }}
         />
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 pt-16 pb-12">
+        <div className="racira-page-container pt-16 pb-12">
           <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
             <Sparkles className="h-3.5 w-3.5" />
             {TOTAL_TOOLS} productivity tools · 1 live · {TOTAL_TOOLS - 1} coming soon
@@ -71,7 +72,7 @@ export default function Index() {
       </section>
 
       {/* Search + list */}
-      <section id="tools" className="mx-auto max-w-6xl px-4 sm:px-6 pb-16 space-y-14">
+      <section id="tools" className="racira-page-container pb-16 space-y-14">
         <div className="sticky top-16 z-30 -mx-4 sm:-mx-6 px-4 sm:px-6 py-3 bg-background/85 backdrop-blur border-b border-border/60">
           <div className="relative max-w-md">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />

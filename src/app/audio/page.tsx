@@ -1,8 +1,9 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Header from "@/components/Header";
 import { Search, AudioLines, Zap, ShieldCheck, Sparkles } from "lucide-react";
-import { SiteHeader } from "@/components/audio/SiteHeader";
+
 import { SiteFooter } from "@/components/audio/SiteFooter";
 import { ToolCard } from "@/components/audio/ToolCard";
 import { audioCategories, totalToolCount } from "@/data/audio/audioTools";
@@ -33,12 +34,12 @@ export default function HomePage() {
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
-      <SiteHeader />
+      <Header mode="category" categoryName="Audio" />
 
       <main className="flex-1">
         {/* Hero */}
         <section className="relative overflow-hidden" style={{ backgroundImage: "var(--gradient-hero)" }}>
-          <div className="mx-auto max-w-4xl px-4 py-16 text-center sm:py-20">
+          <div className="racira-page-container py-16 text-center sm:py-20">
             <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
               <Sparkles className="h-3.5 w-3.5" />
               {totalToolCount}+ audio tools in one place
@@ -83,7 +84,7 @@ export default function HomePage() {
 
         {/* Category chips */}
         <section id="categories" className="border-b border-border/70 bg-background/95">
-          <div className="mx-auto max-w-6xl px-4 py-4">
+          <div className="racira-page-container py-4">
             <div className="flex gap-2 overflow-x-auto pb-1">
               <CategoryChip
                 label="All tools"
@@ -103,7 +104,7 @@ export default function HomePage() {
         </section>
 
         {/* Tool sections */}
-        <section className="mx-auto max-w-6xl px-4 py-10">
+        <section className="racira-page-container py-10">
           {normalizedQuery !== "" && (
             <p className="mb-6 text-sm text-muted-foreground">
               {resultCount} result{resultCount === 1 ? "" : "s"} for “{query}”

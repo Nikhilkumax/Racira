@@ -74,9 +74,9 @@ export default function LoanComparisonSideBySide() {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Finance", href: "/calculator/finance" }, { label: "Loan Comparison Calculator" }]} />
-      <div className="container-page py-4">
+      <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Loan Comparison Calculator (Side-by-Side)</h1>
-        <div className="max-w-[1180px] mx-auto">
+        <div className="max-w-[1180px]">
           <div className="grid gap-4 mb-6">
             {loans.map((loan, idx) => (
               <div key={loan.id} className="card-calculator !p-5 border border-border bg-card">

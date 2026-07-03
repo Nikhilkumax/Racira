@@ -20,7 +20,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
   
   if (!found) {
     return (
-      <div className="mx-auto max-w-md px-4 py-24 text-center">
+      <div className="racira-page-container py-24 text-center">
         <h1 className="text-2xl font-bold">Tool not found</h1>
         <Link href="/" className="mt-4 inline-block text-[#EC4899] hover:underline">Back to all tools</Link>
       </div>
@@ -30,7 +30,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
   const { tool, category } = found;
 
   return (
-    <main className="mx-auto max-w-3xl px-4 py-12 sm:py-16">
+    <main className="racira-page-container py-12 sm:py-16">
       <Link href="/" className="mb-6 inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
         <ArrowLeft className="h-4 w-4" /> All tools
       </Link>

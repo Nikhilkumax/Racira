@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
@@ -119,7 +119,7 @@ export default function Home() {
       </section>
 
       {/* Categories / Results */}
-      <main id="tools" className="mx-auto max-w-7xl px-6 pb-24">
+      <main id="tools" className="racira-page-container pb-24">
         {filtered ? (
           <div>
             <div className="mb-6 flex items-baseline justify-between">
@@ -212,26 +212,22 @@ function ToolCard({ tool }: { tool: Tool }) {
   return (
     <Link
       href={`/tools/${tool.slug}`}
-      className="group flex items-start gap-3 rounded-xl border border-border bg-card p-4 transition hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md"
+      className="tool-card group"
     >
-      <div className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-accent text-accent-foreground transition group-hover:bg-primary group-hover:text-primary-foreground">
+      {!tool.active && (
+        <span className="absolute right-3 top-3 rounded-md bg-muted px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+          Soon
+        </span>
+      )}
+      <div className="mb-4 grid h-10 w-10 place-items-center rounded-xl bg-primary/10 text-primary">
         <Icon className="h-5 w-5" />
       </div>
-      <div className="min-w-0 flex-1">
-        <div className="flex items-start justify-between gap-2">
-          <h3 className="text-sm font-bold leading-snug text-card-foreground">
-            {tool.name}
-          </h3>
-          {tool.active && (
-            <span className="shrink-0 rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
-              Live
-            </span>
-          )}
-        </div>
-        <p className="mt-1 text-xs text-muted-foreground">
-          {shortDescription(tool)}
-        </p>
-      </div>
+      <h3 className="font-semibold text-foreground leading-snug">
+        {tool.name}
+      </h3>
+      <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
+        {shortDescription(tool)}
+      </p>
     </Link>
   );
 }

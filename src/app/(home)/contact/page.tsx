@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 const Contact = () => (
   <>
 <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Contact" }]} />
-    <div className="container-page py-12">
+    <div className="racira-page-container py-12">
       <h1 className="text-4xl font-extrabold mb-4">Contact Us</h1>
       <p className="text-lg text-muted-foreground mb-8">
         We'd love to hear from you. Whether you have a question about our calculators, want to report a bug, or have a suggestion for a new tool, our team is ready to help.

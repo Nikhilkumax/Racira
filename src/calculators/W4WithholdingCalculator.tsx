@@ -115,10 +115,10 @@ const W4WithholdingCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "W-4 Withholding Calculator" }]} />
-      <div className="container-page py-4">
+      <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">W-4 Withholding Calculator</h1>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
             <div className="grid sm:grid-cols-2 gap-8">
                 <section className="space-y-6">
@@ -168,7 +168,7 @@ const W4WithholdingCalculator = () => {
                   <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-1">{results.isOverpaying ? 'Projected Over-Withholding' : 'Projected Under-Withholding'}</p>
                   <p className={`text-7xl font-black mb-4 ${results.isOverpaying ? 'text-blue-600' : 'text-red-600'}`}>${Math.round(results.difference).toLocaleString()}</p>
                   
-                  <div className="max-w-md mx-auto px-6 py-4 bg-white/50 backdrop-blur rounded-2xl border border-border shadow-sm">
+                  <div className="max-w-md px-6 py-4 bg-white/50 backdrop-blur rounded-2xl border border-border shadow-sm">
                      <p className="text-sm font-medium text-foreground mb-1">
                         {results.isOverpaying 
                           ? `You are overpaying by $${Math.round(results.paycheckAdjustment)} per paycheck.` 
@@ -203,7 +203,7 @@ const W4WithholdingCalculator = () => {
           </div>
         </div>
 
-        <div className="max-w-[1180px] mx-auto mt-8">
+        <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
               <h2>How to Use This W-4 Calculator</h2>

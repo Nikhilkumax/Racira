@@ -155,10 +155,10 @@ export default function MeldScoreCalculator() {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Health", href: "/calculator#health" }, { label: "MELD Score Calculator" }]} />
-      <div className="container-page py-4">
+      <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-2 tracking-tight">MELD Score Calculator (UNOS 2016)</h1>
         
-        <div className="grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-6 items-start max-w-[1180px]">
           <div className="card-calculator flex flex-col gap-5 !p-5 border border-border bg-card shadow-sm sticky top-6">
             
             <div className="space-y-4">
@@ -274,7 +274,7 @@ export default function MeldScoreCalculator() {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-8">
+        <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
             <h2>The Science of End-Stage Liver Disease</h2>

@@ -21,7 +21,7 @@ export default function FlowchartHomePage() {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <main className="mx-auto max-w-7xl px-6 pb-24 pt-16">
+      <main className="racira-page-container pb-24 pt-16">
         <section className="text-center">
           <h1 className="mx-auto max-w-4xl text-4xl font-extrabold leading-tight tracking-tight md:text-6xl">
             All Diagram Tools You Need —{" "}
@@ -58,23 +58,18 @@ export default function FlowchartHomePage() {
                     <Link
                       key={t.slug}
                       href={`/flowchart/tool/${t.slug}`}
-                      className="group relative flex flex-col rounded-xl border bg-card p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-brand/50 hover:shadow-md"
+                      className="tool-card group"
                     >
-                      <div className="mb-3 flex h-9 w-9 items-center justify-center rounded-lg bg-brand-soft text-brand">
-                        <Workflow className="h-4 w-4" />
-                      </div>
-                      <h3 className="text-sm font-semibold leading-snug">{t.name}</h3>
-                      <p className="mt-1 text-xs text-muted-foreground">{t.desc}</p>
                       {!active && (
-                        <span className="absolute right-3 top-3 rounded-full bg-muted px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
+                        <span className="absolute right-3 top-3 rounded-md bg-muted px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
                           Soon
                         </span>
                       )}
-                      {active && (
-                        <span className="absolute right-3 top-3 rounded-full bg-brand px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary-foreground">
-                          Live
-                        </span>
-                      )}
+                      <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                        <Workflow className="h-5 w-5" />
+                      </div>
+                      <h3 className="font-semibold text-foreground leading-snug">{t.name}</h3>
+                      <p className="mt-1 text-sm text-muted-foreground line-clamp-2">{t.desc}</p>
                     </Link>
                   );
                 })}
@@ -111,7 +106,7 @@ function Header() {
 function Footer() {
   return (
     <footer className="border-t bg-card/50">
-      <div className="mx-auto max-w-7xl px-6 py-8 text-center text-xs text-muted-foreground">
+      <div className="racira-page-container py-8 text-center text-xs text-muted-foreground">
         © {new Date().getFullYear()} Racira Diagrams &amp; Flowcharts · {ALL_TOOLS.length} free tools
       </div>
     </footer>

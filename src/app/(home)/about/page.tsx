@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 const About = () => (
   <>
 <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "About" }]} />
-    <div className="container-page py-8 max-w-3xl">
+    <div className="racira-page-container py-8 max-w-3xl">
       <h1 className="text-3xl font-extrabold mb-6">About RaciraCalculator</h1>
       <div className="prose-finance">
         <h2>Our Mission</h2>

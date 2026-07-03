@@ -29,7 +29,7 @@ export default function Index() {
     <PageShell>
       {/* Hero */}
       <section className="relative overflow-hidden" style={{ background: "var(--gradient-hero)" }}>
-        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
+        <div className="racira-page-container py-20 sm:px-6 lg:px-8 lg:py-28">
           <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-primary">
             <TrendingUp className="h-3.5 w-3.5" /> The week in finance
           </div>
@@ -55,7 +55,7 @@ export default function Index() {
 
       {/* Featured article */}
       {featured && (
-        <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <section className="racira-page-container py-16 sm:px-6 lg:px-8">
           <div className="mb-8 flex items-end justify-between">
             <h2 className="font-display text-2xl font-semibold tracking-tight md:text-3xl">Featured</h2>
             <Link href="/blog" className="text-sm font-medium text-primary hover:underline">All articles →</Link>
@@ -87,7 +87,7 @@ export default function Index() {
       )}
 
       {/* Categories strip */}
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section className="racira-page-container">
         <div className="flex flex-wrap gap-2">
           {cats.map((c) => (
             <Link
@@ -102,7 +102,7 @@ export default function Index() {
       </section>
 
       {/* Latest */}
-      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <section className="racira-page-container py-16 sm:px-6 lg:px-8">
         <h2 className="mb-8 font-display text-2xl font-semibold tracking-tight md:text-3xl">Latest</h2>
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
           {latest.map((p) => <PostCard key={p.id} post={p} />)}
@@ -110,7 +110,7 @@ export default function Index() {
       </section>
 
       {/* Newsletter */}
-      <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
+      <section className="racira-page-container pb-16 sm:px-6 lg:px-8">
         <NewsletterSignup />
       </section>
     </PageShell>

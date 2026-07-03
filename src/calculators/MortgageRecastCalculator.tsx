@@ -130,9 +130,9 @@ export default function MortgageRecastCalculator() {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Finance", href: "/calculator#finance" }, { label: "Mortgage Recast Calculator" }]} />
-      <div className="container-page py-4">
+      <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Mortgage Recast Calculator</h1>
-        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           {/* LEFT COLUMN */}
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
             <div className="grid grid-cols-2 gap-4">
@@ -259,7 +259,7 @@ export default function MortgageRecastCalculator() {
         </div>
 
         {/* SEO Content */}
-        <div className="max-w-[1180px] mx-auto mt-12 prose prose-slate dark:prose-invert">
+        <div className="max-w-[1180px] mt-12 prose prose-slate dark:prose-invert">
           <h2>What Is a Mortgage Recast?</h2>
           <p>A mortgage recast (or re-amortization) occurs when you make a large lump-sum payment toward your mortgage principal, and your lender recalculates your monthly payments based on the new, lower balance. The interest rate and the remaining loan term stay exactly the same.</p>
           

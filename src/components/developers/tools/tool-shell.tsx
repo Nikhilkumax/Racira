@@ -131,7 +131,7 @@ export function ToolShell({ tool, toolMeta, categoryName, relatedTools }: ToolSh
   const isTableOut = tool.mode === "table" && Array.isArray(result.data);
 
   return (
-    <div className="container-page py-8 lg:py-12">
+    <div className="racira-page-container py-8 lg:py-12">
       <Breadcrumbs items={[{ label: categoryName }, { label: toolMeta.name }]} />
 
       <div className="mt-6 flex items-start gap-4">

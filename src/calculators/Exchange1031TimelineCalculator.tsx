@@ -127,10 +127,10 @@ export default function Exchange1031TimelineCalculator() {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Finance", href: "/calculator#finance" }, { label: "1031 Exchange Timeline Calculator" }]} />
-      <div className="container-page py-6">
+      <div className="racira-page-container py-6">
         <h1 className="text-3xl md:text-4xl font-bold mb-6 tracking-tight text-foreground">1031 Exchange Timeline Calculator</h1>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1200px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1200px]">
           {/* LEFT COLUMN - INPUTS */}
           <div className="card-calculator flex flex-col gap-4 p-5 shadow-sm border border-border bg-card rounded-xl">
             <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 mb-2">
@@ -275,7 +275,7 @@ export default function Exchange1031TimelineCalculator() {
         </div>
 
         {/* SEO CONTENT SECTION */}
-        <div className="max-w-[800px] mx-auto mt-16 prose prose-slate dark:prose-invert">
+        <div className="max-w-[800px] mt-16 prose prose-slate dark:prose-invert">
           <h2>What is a 1031 Exchange?</h2>
           <p>
             A 1031 exchange, named after Section 1031 of the U.S. Internal Revenue Code, is a powerful wealth-building strategy that allows real estate investors to defer paying capital gains taxes on the sale of an investment property. By taking the proceeds from the sale and reinvesting them into a new "like-kind" property, the investor defers the tax liability, allowing their wealth to grow tax-free over time.

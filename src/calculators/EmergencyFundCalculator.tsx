@@ -61,10 +61,10 @@ const EmergencyFundCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Emergency Fund" }]} />
-      <div className="container-page py-4">
+      <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Emergency Fund Calculator</h1>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
             <div className="grid sm:grid-cols-2 gap-5 mb-6">
                 <div className="space-y-4">
@@ -96,7 +96,7 @@ const EmergencyFundCalculator = () => {
                   <h2 className="text-2xl font-bold mb-3">Target Emergency Fund</h2>
                   <p className="text-5xl font-extrabold mb-4">${Math.round(results.totalTarget).toLocaleString()}</p>
                   
-                  <div className="w-full bg-secondary rounded-full h-3 mb-2 max-w-md mx-auto overflow-hidden">
+                  <div className="w-full bg-secondary rounded-full h-3 mb-2 max-w-md overflow-hidden">
                     <div 
                       className="bg-primary h-full transition-all duration-1000" 
                       style={{ width: `${Math.min(100, results.progress)}%` }} 
@@ -117,7 +117,7 @@ const EmergencyFundCalculator = () => {
           </div>
         </div>
 
-        <div className="max-w-[1180px] mx-auto mt-8">
+        <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Sidebar Ad" />
           <article className="prose-finance text-[15.75px]">
               <h2>The Foundation of Financial Peace</h2>

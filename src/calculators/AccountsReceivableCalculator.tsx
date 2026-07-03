@@ -236,10 +236,10 @@ export default function AccountsReceivableCalculator() {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Accounts Receivable Turnover Calculator" }]} />
-      <div className="container-page py-4">
+      <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Accounts Receivable Turnover Calculator</h1>
         
-        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           {/* LEFT COLUMN: INPUTS */}
           <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
             
@@ -509,14 +509,14 @@ export default function AccountsReceivableCalculator() {
               <div className="flex flex-col items-center justify-center h-full min-h-[400px] bg-secondary/10 border border-border border-dashed rounded-xl p-8 text-center text-muted-foreground">
                 <Calculator className="h-12 w-12 text-muted-foreground/30 mb-4" />
                 <p className="text-lg font-medium text-foreground">Awaiting Calculation</p>
-                <p className="text-sm max-w-[250px] mx-auto mt-1">Enter your accounts receivable numbers and click Calculate to view results.</p>
+                <p className="text-sm max-w-[250px] mt-1">Enter your accounts receivable numbers and click Calculate to view results.</p>
               </div>
             )}
           </div>
         </div>
 
         {/* SEO CONTENT SECTION */}
-        <div className="max-w-[1180px] mx-auto mt-8">
+        <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
             <h2>The Mathematics of Accounts Receivable</h2>

@@ -40,7 +40,7 @@ export default async function ToolPage({ params }: PageProps) {
   return (
     <div className="min-h-screen bg-background">
       <header className="border-b bg-background/80 backdrop-blur sticky top-0 z-30">
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+        <div className="racira-page-container h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
             <div className="h-8 w-8 rounded-lg bg-primary text-primary-foreground grid place-items-center">
               <GraduationCap className="h-5 w-5" />
@@ -55,7 +55,7 @@ export default async function ToolPage({ params }: PageProps) {
         </div>
       </header>
 
-      <div className="max-w-5xl mx-auto px-6 py-10">
+      <div className="racira-page-container py-10">
         <div className="text-xs text-muted-foreground uppercase tracking-widest mb-2">
           {category.name}
         </div>
@@ -79,7 +79,7 @@ export default async function ToolPage({ params }: PageProps) {
               <Construction className="h-7 w-7" />
             </div>
             <h2 className="text-xl font-semibold">Coming Soon</h2>
-            <p className="mt-2 text-muted-foreground max-w-md mx-auto">
+            <p className="mt-2 text-muted-foreground racira-page-container">
               {tool.name} is on the roadmap. We're building all 132 tools — check back soon.
             </p>
             <Button asChild className="mt-6">

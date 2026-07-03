@@ -28,13 +28,10 @@ const PopularTools = () => {
             <div className="tool-card-icon">
               <Calculator className="h-5 w-5 text-primary" strokeWidth={2} />
             </div>
-            <div className="min-w-0 flex-1">
-              <h3 className="text-[15px] font-semibold leading-snug">{tool.name}</h3>
-              <p className="mt-1 text-[13px] text-muted-foreground leading-relaxed line-clamp-2">
-                {tool.description}
-              </p>
-            </div>
-            <ArrowUpRight className="h-4 w-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-primary" />
+            <h3 className="font-semibold text-foreground leading-snug">{tool.name}</h3>
+            <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
+              {tool.description}
+            </p>
           </Link>
         ))}
       </div>

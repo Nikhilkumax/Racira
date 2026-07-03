@@ -73,7 +73,7 @@ function HomeContent() {
         </div>
       </section>
 
-      <div className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
+      <div className="racira-page-container pb-20 sm:px-6 lg:px-8">
         {isSearching ? (
           <section>
             <p className="mb-6 text-sm font-semibold uppercase tracking-wider text-muted-foreground">

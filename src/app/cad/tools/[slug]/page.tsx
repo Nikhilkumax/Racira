@@ -52,7 +52,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
         </div>
       </header>
 
-      <main className="mx-auto max-w-7xl px-6 py-8">
+      <main className="racira-page-container py-8">
         <div className="mb-6">
           {category && (
             <p className="text-xs font-bold uppercase tracking-[0.15em] text-muted-foreground">

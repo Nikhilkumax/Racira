@@ -1,12 +1,13 @@
 ﻿import { CATEGORIES } from "@/lib/insight/tools-data";
+import Header from "@/components/Header";
 import { CategorySection } from "@/components/insight/CategorySection";
-import { SiteHeader } from "@/components/insight/SiteHeader";
+
 
 export default function Index() {
   const total = CATEGORIES.reduce((s, c) => s + c.tools.length, 0);
   return (
     <div className="min-h-screen bg-background flex flex-col w-full">
-      <SiteHeader />
+      <Header mode="category" categoryName="Insight" />
       <main className="flex-1 w-full">
         <section className="px-4 pb-12 pt-16 sm:pt-24 w-full">
           <div className="mx-auto max-w-4xl text-center">
@@ -23,7 +24,7 @@ export default function Index() {
           </div>
         </section>
 
-        <section id="categories" className="mx-auto max-w-7xl px-4 pb-24 sm:px-6 w-full">
+        <section id="categories" className="racira-page-container pb-24 sm:px-6 w-full">
           {CATEGORIES.map((c) => (
             <CategorySection key={c.name} name={c.name} icon={c.icon} tools={c.tools} />
           ))}

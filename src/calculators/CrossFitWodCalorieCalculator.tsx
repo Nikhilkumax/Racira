@@ -169,18 +169,18 @@ export default function CrossFitWodCalorieCalculator() {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Health", href: "/calculator#health" }, { label: "CrossFit WOD Calorie Calculator" }]} />
-      <div className="container-page py-4">
+      <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">CrossFit WOD Calorie Calculator</h1>
 
         {/* MEDICAL DISCLAIMER */}
-        <div className="max-w-[1280px] mx-auto mb-6 bg-slate-500/10 border-l-4 border-slate-500 p-4 rounded-r-lg flex gap-3 items-start">
+        <div className="max-w-[1280px] mb-6 bg-slate-500/10 border-l-4 border-slate-500 p-4 rounded-r-lg flex gap-3 items-start">
           <AlertTriangle className="h-5 w-5 shrink-0 text-slate-600 mt-0.5" />
           <p className="text-sm font-medium leading-relaxed text-slate-800 dark:text-slate-400">
             <strong>Accuracy Warning:</strong> Only input your <strong>ACTIVE WOD</strong> time. If you attend a 60-minute class but the final MetCon is a 12-minute AMRAP, you must enter 12 minutes. Entering your total 60-minute class time will result in a massive, mathematically false overestimation of your caloric expenditure.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 xl:grid-cols-[460px_1fr] gap-6 items-start max-w-[1280px] mx-auto">
+        <div className="grid grid-cols-1 xl:grid-cols-[460px_1fr] gap-6 items-start max-w-[1280px]">
           
           {/* LEFT: Inputs */}
           <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
@@ -289,7 +289,7 @@ export default function CrossFitWodCalorieCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1180px] mx-auto mt-8">
+        <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
             <h2>The Brutal Efficiency of CrossFit for Weight Loss</h2>

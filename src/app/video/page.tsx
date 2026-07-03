@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export default function Home() {
   const total = TOOLS.length;
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6">
+    <div className="racira-page-container">
       <section className="py-16 sm:py-24 text-center">
         <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-foreground leading-[1.05]">
           All Video Tools You Need —{" "}

@@ -1,8 +1,9 @@
 import Link from "next/link";
+import Header from "@/components/Header";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Construction } from "lucide-react";
 import { findTool } from "@/data/typography/tools";
-import { SiteHeader, SiteFooter } from "@/components/typography/site-header";
+import { SiteFooter } from "@/components/typography/site-header";
 import { FontPreviewer } from "@/components/typography/font-previewer";
 import { Metadata } from "next";
 
@@ -33,8 +34,8 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
 
   return (
     <div className="min-h-screen bg-background">
-      <SiteHeader />
-      <main className="mx-auto max-w-6xl px-6 py-10">
+      <Header mode="category" categoryName="Typography" />
+      <main className="racira-page-container py-10">
         <Link
           href="/"
           className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"

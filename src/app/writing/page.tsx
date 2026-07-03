@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
@@ -73,7 +73,7 @@ export default function Index() {
         </div>
       </section>
 
-      <main className="mx-auto max-w-7xl px-5 pb-24">
+      <main className="racira-page-container pb-24">
         {filtered.length === 0 && (
           <p className="py-16 text-center text-muted-foreground">
             No tools match "{query}".
@@ -96,26 +96,22 @@ export default function Index() {
                   <Link
                     key={t.slug}
                     href={`/tools/${t.slug}`}
-                    className="group relative flex flex-col rounded-xl border border-border bg-card p-5 transition hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-[0_8px_30px_-12px_color-mix(in_oklab,var(--color-primary)_30%,transparent)]"
+                    className="tool-card group"
                   >
-                    <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-primary-soft text-primary">
+                    {!t.available && (
+                      <span className="absolute right-3 top-3 rounded-md bg-muted px-2 py-0.5 text-[10px] font-semibold tracking-wider uppercase text-muted-foreground">
+                        Soon
+                      </span>
+                    )}
+                    <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
                       <PenLine className="h-5 w-5" />
                     </div>
-                    <h3 className="text-[15px] font-semibold leading-snug text-card-foreground">
+                    <h3 className="font-semibold text-foreground leading-snug">
                       {t.name}
                     </h3>
-                    <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
+                    <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
                       {t.description}
                     </p>
-                    <span
-                      className={`mt-4 inline-flex w-fit items-center rounded-full px-2 py-0.5 text-[11px] font-medium ${
-                        t.available
-                          ? "bg-primary text-primary-foreground"
-                          : "bg-muted text-muted-foreground"
-                      }`}
-                    >
-                      {t.available ? "Available" : "Coming soon"}
-                    </span>
                   </Link>
                 ))}
               </div>

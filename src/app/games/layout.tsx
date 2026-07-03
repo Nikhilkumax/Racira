@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Header } from "@/components/games/Header";
+import Header from "@/components/Header";
+
 import { Footer } from "@/components/games/Footer";
 import { Toaster } from "@/components/ui/sonner";
 
@@ -27,7 +28,7 @@ export default function RootLayout({
     
       <>
         <div className="flex min-h-screen flex-col">
-          <Header />
+          <Header mode="category" categoryName="Games" />
           <main className="flex-1">
             {children}
           </main>

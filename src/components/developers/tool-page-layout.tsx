@@ -33,7 +33,7 @@ export function ToolPageLayout({
   };
 
   return (
-    <div className="container-page py-8 lg:py-12">
+    <div className="racira-page-container py-8 lg:py-12">
       <Breadcrumbs
         items={[
           { label: categoryName },

@@ -29,7 +29,7 @@ export function GridSystemBuilder() {
 
   return (
     <div className="grid lg:grid-cols-[320px_1fr] gap-6">
-      <aside className="rounded-2xl border border-border bg-card p-5 space-y-5 h-fit">
+      <aside className="tool-card group">
         <h3 className="font-bold text-sm tracking-wide uppercase text-muted-foreground">Settings</h3>
         <Slider label="Columns" value={columns} min={1} max={24} onChange={setColumns} />
         <Slider label="Gutter (px)" value={gutter} min={0} max={80} onChange={setGutter} />
@@ -87,7 +87,7 @@ export function GridSystemBuilder() {
           </div>
         </div>
 
-        <div className="rounded-2xl border border-border bg-card p-5">
+        <div className="tool-card group">
           <div className="flex items-center justify-between mb-2">
             <div className="text-xs font-bold tracking-wide uppercase text-muted-foreground">CSS Output</div>
             <button

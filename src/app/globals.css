@@ -145,9 +145,9 @@
 }
 
 @layer components {
-  /* Shared tool card pattern — used on homepage and inside every tool */
+  /* Shared tool card pattern — canonical vertical card matching /image reference */
   .tool-card {
-    @apply rounded-xl py-4 px-4 flex flex-row items-start gap-4 transition-all duration-200 h-[112px];
+    @apply relative rounded-2xl p-5 flex flex-col transition-all duration-200;
     background: hsl(var(--card));
     border: 1px solid hsl(var(--border));
   }
@@ -157,9 +157,16 @@
     box-shadow: 0 8px 24px hsl(var(--ring) / 0.1);
   }
 
+  /* Icon block: 40×40, rounded-xl, primary tint, 16px bottom margin */
   .tool-card-icon {
-    @apply h-11 w-11 shrink-0 rounded-xl flex items-center justify-center;
+    @apply h-10 w-10 shrink-0 rounded-xl flex items-center justify-center mb-4;
     background: hsl(var(--tool-icon-bg));
+  }
+
+  /* Badge — absolute top-right, used for "SOON" / "Coming soon" */
+  .tool-card-badge {
+    @apply absolute right-3 top-3 rounded-md bg-muted px-2 py-0.5
+           text-[10px] font-semibold tracking-wider uppercase text-muted-foreground;
   }
 
   .category-nav-card {
@@ -180,6 +187,13 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+  }
+
+  /* Shared page container matching /fitness layout */
+  .racira-page-container {
+    @apply mx-auto max-w-7xl px-6;
+    width: 100%;
+    overflow-x: hidden;
   }
 
   /* Calculator page-specific classes */

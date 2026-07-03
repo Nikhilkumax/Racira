@@ -102,9 +102,9 @@ export default function PaintCalculator() {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Construction", href: "/calculator#construction" }, { label: "Paint Calculator" }]} />
-      <div className="container-page py-4">
+      <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Paint Calculator</h1>
-        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
             <p className="text-sm text-muted-foreground">Enter room dimensions to calculate paint needed for walls + ceiling.</p>
             <div className="grid grid-cols-3 gap-3">
@@ -202,7 +202,7 @@ export default function PaintCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-8">
+        <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
             <h2>How to Calculate Paint Needed for a Room</h2>

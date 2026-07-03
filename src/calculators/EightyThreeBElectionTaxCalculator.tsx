@@ -185,10 +185,10 @@ export default function EightyThreeBElectionTaxCalculator() {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Finance", href: "/calculator#finance" }, { label: "83(b) Election Tax Calculator" }]} />
-      <div className="container-page py-6">
+      <div className="racira-page-container py-6">
         <h1 className="text-3xl md:text-4xl font-bold mb-6 tracking-tight text-foreground">83(b) Election Tax Calculator</h1>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1200px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1200px]">
           {/* LEFT COLUMN - INPUTS */}
           <div className="card-calculator flex flex-col gap-4 p-5 shadow-sm border border-border bg-card rounded-xl">
             <div className="bg-destructive/5 border border-destructive/20 rounded-lg p-4 mb-2">
@@ -396,7 +396,7 @@ export default function EightyThreeBElectionTaxCalculator() {
         </div>
 
         {/* SEO CONTENT SECTION */}
-        <div className="max-w-[800px] mx-auto mt-16 prose prose-slate dark:prose-invert">
+        <div className="max-w-[800px] mt-16 prose prose-slate dark:prose-invert">
           <h2>What is an 83(b) Election?</h2>
           <p>
             Section 83(b) of the Internal Revenue Code allows founders and startup employees to choose to be taxed on the fair market value (FMV) of restricted stock or options <em>at the time they are granted</em>, rather than waiting until the shares actually vest.

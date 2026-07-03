@@ -1,8 +1,9 @@
 import Link from "next/link";
+import Header from "@/components/Header";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Hammer } from "lucide-react";
 import { findTool, findCategory, FUNCTIONAL_SLUGS } from "@/lib/fitness/tools-data";
-import { SiteHeader } from "@/components/fitness/SiteHeader";
+
 import { WorkoutPlanner } from "@/components/fitness/WorkoutPlanner";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
@@ -30,8 +31,8 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
 
   return (
     <div className="min-h-screen bg-background">
-      <SiteHeader />
-      <main className="mx-auto max-w-5xl px-6 py-10">
+      <Header mode="category" categoryName="Fitness" />
+      <main className="racira-page-container py-10">
         <Link
           href="/"
           className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-6"

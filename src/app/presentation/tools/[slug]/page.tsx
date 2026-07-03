@@ -1,9 +1,10 @@
 import { Metadata } from "next";
+import Header from "@/components/Header";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import * as Icons from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import { Header } from "@/components/presentation/Header";
+
 import { getToolBySlug } from "@/data/presentation/tools";
 import { ArrowLeft, Sparkles } from "lucide-react";
 
@@ -45,8 +46,8 @@ export default async function ToolPage({ params }: Props) {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
-      <main className="mx-auto max-w-3xl px-6 py-16">
+      <Header mode="category" categoryName="Presentation" />
+      <main className="racira-page-container py-16">
         <Link
           href="/"
           className="inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"

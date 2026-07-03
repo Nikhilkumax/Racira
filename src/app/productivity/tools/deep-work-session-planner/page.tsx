@@ -1,6 +1,7 @@
 ﻿"use client";
 
 import Link from "next/link";
+import Header from "@/components/Header";
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowLeft,
@@ -16,7 +17,7 @@ import {
   ListChecks,
   Clock,
 } from "lucide-react";
-import { SiteHeader } from "@/components/productivity/SiteHeader";
+
 import { SiteFooter } from "@/components/productivity/SiteFooter";
 
 type Preset = { id: string; label: string; work: number; brk: number };
@@ -257,9 +258,9 @@ export default function DeepWorkPlanner() {
 
   return (
     <div className="min-h-screen">
-      <SiteHeader />
+      <Header mode="category" categoryName="Productivity" />
 
-      <main className="mx-auto max-w-5xl px-4 sm:px-6 py-10">
+      <main className="racira-page-container py-10">
         <Link
           href="/"
           className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors mb-6"

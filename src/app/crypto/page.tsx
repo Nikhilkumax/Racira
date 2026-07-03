@@ -1,9 +1,10 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
+import Header from "@/components/Header";
 import { useMemo, useState } from "react";
 import { Search, ArrowRight, Wallet, Send, FileCode, Lock, Coins, Image, BarChart3, GraduationCap, Wrench } from "lucide-react";
-import { SiteHeader } from "@/components/crypto/SiteHeader";
+
 import { TOOLS, CATEGORIES } from "@/lib/crypto/tools";
 
 const CATEGORY_ICONS: Record<string, typeof Wallet> = {
@@ -28,8 +29,8 @@ export default function Index() {
 
   return (
     <div className="min-h-screen bg-background">
-      <SiteHeader />
-      <main className="mx-auto max-w-7xl px-6">
+      <Header mode="category" categoryName="Crypto" />
+      <main className="racira-page-container">
         {/* Hero */}
         <section className="py-16 text-center md:py-24">
           <h1 className="mx-auto max-w-4xl text-5xl font-extrabold tracking-tight text-foreground md:text-7xl">
@@ -69,21 +70,20 @@ export default function Index() {
                   <Link
                     key={t.slug}
                     href={`/tool/${t.slug}`}
-                    className="group relative flex flex-col rounded-xl border border-border bg-card p-5 transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md"
+                    className="tool-card group hover:-translate-y-[3px] hover:border-primary/40 hover:shadow-[0_8px_24px_hsl(var(--ring)/0.1)]"
                   >
-                    <div className="mb-4 grid h-10 w-10 place-items-center rounded-lg bg-primary-soft text-primary">
-                      <Icon className="h-5 w-5" />
-                    </div>
-                    <h3 className="text-base font-bold leading-tight text-card-foreground">
-                      {t.name}
-                    </h3>
-                    <p className="mt-1 text-sm text-muted-foreground">{t.desc}</p>
                     {!t.implemented && (
-                      <span className="absolute right-3 top-3 rounded-full bg-muted px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+                      <span className="absolute right-3 top-3 rounded-md bg-muted px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
                         Soon
                       </span>
                     )}
-                    <ArrowRight className="absolute bottom-5 right-5 h-4 w-4 -translate-x-1 opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100 text-primary" />
+                    <div className="mb-4 grid h-10 w-10 place-items-center rounded-xl bg-primary/10 text-primary">
+                      <Icon className="h-5 w-5" />
+                    </div>
+                    <h3 className="font-semibold text-foreground leading-snug">
+                      {t.name}
+                    </h3>
+                    <p className="mt-1 text-sm text-muted-foreground line-clamp-2">{t.desc}</p>
                   </Link>
                 ))}
               </div>

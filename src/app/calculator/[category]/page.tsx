@@ -121,7 +121,7 @@ function CategoryView({ params, summary }: { params: any, summary: any }) {
 
   return (
     <div className="flex flex-col">
-      <div className="container-page pt-3 pb-0">
+      <div className="racira-page-container pt-3 pb-0">
         <nav aria-label="Breadcrumb" className="flex items-center flex-wrap text-sm text-muted-foreground mb-6">
           <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
           <ChevronRight className="h-4 w-4 mx-1 opacity-50 shrink-0" />
@@ -132,7 +132,7 @@ function CategoryView({ params, summary }: { params: any, summary: any }) {
       </div>
 
       <section className="pt-8 pb-8 sm:pt-12 sm:pb-10">
-        <div className="max-w-7xl mx-auto px-4 text-center">
+        <div className="racira-page-container text-center">
           <div className="inline-flex items-center justify-center h-16 w-16 rounded-2xl bg-primary/10 mb-6">
             <Icon className="h-8 w-8 text-primary" />
           </div>
@@ -145,7 +145,7 @@ function CategoryView({ params, summary }: { params: any, summary: any }) {
         </div>
       </section>
 
-      <div className="max-w-7xl mx-auto px-4 pb-16 w-full">
+      <div className="racira-page-container pb-16 w-full">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {summary.subcategories.map((sub: any) => {
             const subSlug = toSlug(sub.name);
@@ -219,7 +219,7 @@ function ToolView({ params, tool }: { params: any, tool: any }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
 
-      <div className="container-page pt-3 pb-0">
+      <div className="racira-page-container pt-3 pb-0">
         <nav aria-label="Breadcrumb" className="flex items-center flex-wrap text-sm text-muted-foreground mb-6">
           <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
           <ChevronRight className="h-4 w-4 mx-1 opacity-50 shrink-0" />
@@ -242,7 +242,7 @@ function ToolView({ params, tool }: { params: any, tool: any }) {
       <style dangerouslySetInnerHTML={{__html: `
         .tool-wrapper nav[aria-label="Breadcrumb"] { display: none !important; }
         .tool-wrapper h1:first-of-type { display: none !important; }
-        .tool-wrapper .container-page { padding-top: 0 !important; padding-bottom: 0 !important; }
+        .tool-wrapper .racira-page-container { padding-top: 0 !important; padding-bottom: 0 !important; }
         .tool-wrapper .card-calculator {
           box-shadow: 0 4px 16px -4px hsl(222 47% 11% / 0.08), 0 1px 4px hsl(222 47% 11% / 0.04) !important;
           border: 1px solid hsl(var(--border)) !important;

@@ -50,14 +50,14 @@ const ComingSoonCalculator = ({ slug }: ComingSoonCalculatorProps) => {
           { label: name },
         ]}
       />
-      <div className="container-page py-8">
+      <div className="racira-page-container py-8">
         <h1 className="text-3xl sm:text-4xl font-extrabold mb-2">{name}</h1>
         <p className="text-muted-foreground mb-8">{description}</p>
 
         <div className="card-calculator text-center py-16 mb-8">
           <p className="text-4xl mb-4">🚧</p>
           <p className="text-lg font-semibold text-foreground mb-2">Coming Soon</p>
-          <p className="text-sm text-muted-foreground max-w-md mx-auto mb-6">
+          <p className="text-sm text-muted-foreground racira-page-container mb-6">
             This calculator is planned for a future Racira release. We&apos;re building this calculator with the same professional-grade accuracy as our existing tools. Check back soon!
           </p>
           <Link

@@ -208,18 +208,18 @@ export default function DailyCalorieBurnCalculator() {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Health", href: "/calculator#health" }, { label: "Daily Calorie Burn Calculator" }]} />
-      <div className="container-page py-4">
+      <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Daily Calorie Burn Calculator (TDEE)</h1>
 
         {/* MEDICAL DISCLAIMER */}
-        <div className="max-w-[1280px] mx-auto mb-6 bg-slate-500/10 border-l-4 border-slate-500 p-4 rounded-r-lg flex gap-3 items-start">
+        <div className="max-w-[1280px] mb-6 bg-slate-500/10 border-l-4 border-slate-500 p-4 rounded-r-lg flex gap-3 items-start">
           <AlertTriangle className="h-5 w-5 shrink-0 text-slate-600 mt-0.5" />
           <p className="text-sm font-medium leading-relaxed text-slate-800 dark:text-slate-400">
             <strong>The Thermodynamic Baseline:</strong> This calculator uses the clinical <strong>Mifflin-St Jeor Equation</strong> to determine your Total Daily Energy Expenditure (TDEE). This number is your biological "maintenance line." Eating above it builds mass; eating below it forces fat oxidation.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 xl:grid-cols-[460px_1fr] gap-6 items-start max-w-[1280px] mx-auto">
+        <div className="grid grid-cols-1 xl:grid-cols-[460px_1fr] gap-6 items-start max-w-[1280px]">
           
           {/* LEFT: Inputs */}
           <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
@@ -360,7 +360,7 @@ export default function DailyCalorieBurnCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1180px] mx-auto mt-8">
+        <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
             <h2>The Mathematics of Your Metabolism</h2>

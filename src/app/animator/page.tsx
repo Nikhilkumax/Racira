@@ -1,4 +1,4 @@
-﻿import { categories, totalCount } from "@/lib/animator/tools";
+import { categories, totalCount } from "@/lib/animator/tools";
 import { Sparkles } from "lucide-react";
 import Link from "next/link";
 
@@ -20,7 +20,7 @@ export default function Index() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 pb-24 sm:px-6">
+      <section className="racira-page-container pb-24 sm:px-6">
         {categories.map((cat) => (
           <div key={cat.name} className="mb-12">
             <h2 className="mb-4 text-xs font-bold uppercase tracking-widest text-muted-foreground">
@@ -31,13 +31,13 @@ export default function Index() {
                 <Link
                   key={t.slug}
                   href={`/tool/${t.slug}`}
-                  className="group rounded-xl border border-border bg-card p-5 transition hover:border-[#EC4899]/50 hover:shadow-[0_8px_30px_-12px_rgba(236,72,153,0.35)]"
+                  className="tool-card group"
                 >
-                  <div className="mb-3 inline-flex h-9 w-9 items-center justify-center rounded-lg bg-[#EC4899]/10 text-[#EC4899] transition group-hover:bg-[#EC4899]/20">
-                    <Sparkles className="h-4 w-4" />
+                  <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                    <Sparkles className="h-5 w-5" />
                   </div>
-                  <h3 className="text-sm font-semibold leading-tight text-foreground">{t.name}</h3>
-                  <p className="mt-1 text-xs text-muted-foreground">{t.desc}</p>
+                  <h3 className="font-semibold text-foreground leading-snug">{t.name}</h3>
+                  <p className="mt-1 text-sm text-muted-foreground line-clamp-2">{t.desc}</p>
                 </Link>
               ))}
             </div>

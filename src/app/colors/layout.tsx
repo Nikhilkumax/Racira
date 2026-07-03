@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
+import Header from "@/components/Header";
 import { Providers } from "@/components/colors/providers";
-import { SiteHeader } from "@/components/colors/site-header";
+
 
 export const metadata: Metadata = {
   title: "Racira Colors",
@@ -17,7 +18,7 @@ export default function RootLayout({
       <>
         <Providers>
           <div className="min-h-screen bg-background text-foreground">
-            <SiteHeader />
+            <Header mode="category" categoryName="Colors" />
             {children}
           </div>
         </Providers>

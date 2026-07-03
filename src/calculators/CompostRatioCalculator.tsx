@@ -59,10 +59,10 @@ const CompostRatioCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Compost C:N Ratio Calculator" }]} />
-      <div className="container-page py-4">
+      <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Compost C:N Ratio Calculator</h1>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
             <div className="grid sm:grid-cols-2 gap-8 mb-6">
                 <section>
@@ -99,7 +99,7 @@ const CompostRatioCalculator = () => {
             {showResults && results && (
               <>
                 <h2 className="text-2xl font-bold mb-3">Mix Analysis</h2>
-                <div className="max-w-md mx-auto text-center mb-8">
+                <div className="max-w-md text-center mb-8">
                   <p className="text-sm font-bold text-muted-foreground uppercase tracking-widest mb-2">Calculated Ratio</p>
                   <p className={`text-6xl font-black mb-4 ${results.isOptimal ? 'text-green-600' : 'text-foreground'}`}>{results.totalRatio.toFixed(1)}<span className="text-2xl">:1</span></p>
                   <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full font-bold text-sm ${results.isOptimal ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-orange-700'}`}>
@@ -125,7 +125,7 @@ const CompostRatioCalculator = () => {
           </div>
         </div>
 
-        <div className="max-w-[1180px] mx-auto mt-8">
+        <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
               <h2>The Science of Composting</h2>

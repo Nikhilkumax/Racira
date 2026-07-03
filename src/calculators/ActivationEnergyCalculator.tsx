@@ -121,10 +121,10 @@ const ActivationEnergyCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Science", href: "/calculator#science" }, { label: "Activation Energy Calculator" }]} />
-      <div className="container-page py-4">
+      <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Activation Energy Calculator</h1>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[480px_1fr] gap-6 items-start max-w-[1200px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-[480px_1fr] gap-6 items-start max-w-[1200px]">
           {/* ── Inputs ── */}
           <div className="card-calculator flex flex-col gap-5 !p-6 border border-border bg-card">
             <div className="text-sm text-muted-foreground bg-muted/30 rounded-lg p-3">
@@ -255,7 +255,7 @@ const ActivationEnergyCalculator = () => {
           </div>
         </div>
 
-        <div className="max-w-[1180px] mx-auto mt-8">
+        <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
             <h2>What Is an Activation Energy Calculator?</h2>

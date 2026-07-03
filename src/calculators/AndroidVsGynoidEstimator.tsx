@@ -195,18 +195,18 @@ export default function AndroidVsGynoidEstimator() {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Health", href: "/calculator#health" }, { label: "Android vs Gynoid Fat Distribution Estimator" }]} />
-      <div className="container-page py-4">
+      <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Android vs Gynoid Fat Distribution Estimator</h1>
 
         {/* MEDICAL DISCLAIMER */}
-        <div className="max-w-[1280px] mx-auto mb-6 bg-rose-500/10 border-l-4 border-rose-500 p-4 rounded-r-lg flex gap-3 items-start">
+        <div className="max-w-[1280px] mb-6 bg-rose-500/10 border-l-4 border-rose-500 p-4 rounded-r-lg flex gap-3 items-start">
           <AlertTriangle className="h-5 w-5 shrink-0 text-rose-600 mt-0.5" />
           <p className="text-sm font-medium leading-relaxed text-rose-800 dark:text-rose-400">
             <strong>The Visceral Threat:</strong> Not all body fat is created equal. Where you store your fat is often more clinically significant than how much you have. Central abdominal (Android) fat actively secretes inflammatory cytokines that attack your cardiovascular system, making it vastly more dangerous than lower-body (Gynoid) fat.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 xl:grid-cols-[460px_1fr] gap-6 items-start max-w-[1280px] mx-auto">
+        <div className="grid grid-cols-1 xl:grid-cols-[460px_1fr] gap-6 items-start max-w-[1280px]">
           
           {/* LEFT: Inputs */}
           <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
@@ -322,7 +322,7 @@ export default function AndroidVsGynoidEstimator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1180px] mx-auto mt-8">
+        <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
             <h2>The Deception of the Bathroom Scale</h2>

@@ -9,6 +9,11 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/components/ThemeProvider";
 
+export interface HeaderProps {
+  mode?: "homepage" | "category";
+  categoryName?: string;
+}
+
 const nav = [
   { href: "/calculator", label: "Calculator" },
   { href: "/pdf-tools", label: "PDF" },
@@ -16,7 +21,7 @@ const nav = [
   { href: "/voice", label: "Voice" },
 ];
 
-const Header = () => {
+const Header = ({ mode = "homepage", categoryName }: HeaderProps) => {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const { theme, toggleTheme } = useTheme();
@@ -26,7 +31,7 @@ const Header = () => {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/60 bg-background/80 backdrop-blur-xl">
-      <div className="container flex h-16 items-center justify-between">
+      <div className="racira-page-container flex h-16 items-center justify-between">
         <Link href="/" className="flex items-center gap-2.5">
           <Image 
             src="/racira-logo-navbar.png" 
@@ -35,25 +40,38 @@ const Header = () => {
             height={32} 
             className="h-8 w-8 object-contain"
           />
-          <span className="text-lg font-bold tracking-tight">Racira</span>
+          <span className="text-lg font-bold tracking-tight text-foreground">
+            Racira
+            {mode === "category" && categoryName && (
+              <>
+                {" "}
+                <span className="text-primary">{categoryName}</span>
+              </>
+            )}
+          </span>
         </Link>
 
-        <nav className="hidden items-center gap-1 md:flex">
-          {nav.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={cn(
-                "rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-base hover:text-foreground",
-                (pathname || "").startsWith(item.href) && "text-foreground",
-              )}
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
+        {mode === "homepage" && (
+          <nav className="hidden items-center gap-1 md:flex">
+            {nav.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={cn(
+                  "rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-base hover:text-foreground",
+                  (pathname || "").startsWith(item.href) && "text-foreground",
+                )}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
+        )}
 
         <div className="hidden md:flex items-center gap-3">
+          <Button asChild variant="hero" size="sm">
+            <Link href={ctaHref}>{ctaLabel}</Link>
+          </Button>
           <button
             onClick={toggleTheme}
             className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
@@ -61,9 +79,6 @@ const Header = () => {
           >
             {theme === "light" ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
           </button>
-          <Button asChild variant="hero" size="sm">
-            <Link href={ctaHref}>{ctaLabel}</Link>
-          </Button>
         </div>
 
         <button
@@ -78,7 +93,7 @@ const Header = () => {
       {open && (
         <div className="border-t border-border/60 bg-background md:hidden">
           <div className="container flex flex-col gap-1 py-3">
-            {nav.map((item) => (
+            {mode === "homepage" && nav.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
@@ -88,9 +103,16 @@ const Header = () => {
                 {item.label}
               </Link>
             ))}
-            <Button asChild variant="hero" size="sm" className="mt-2">
+            <Button asChild variant="hero" size="sm" className="mt-2 w-full justify-center">
               <Link href={ctaHref} onClick={() => setOpen(false)}>{ctaLabel}</Link>
             </Button>
+            <button
+              onClick={() => { toggleTheme(); setOpen(false); }}
+              className="mt-2 rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-accent hover:text-foreground flex items-center justify-between"
+            >
+              Toggle Theme
+              {theme === "light" ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
+            </button>
           </div>
         </div>
       )}

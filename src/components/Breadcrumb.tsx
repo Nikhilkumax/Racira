@@ -7,7 +7,7 @@ interface BreadcrumbItem {
 }
 
 const Breadcrumb = ({ items }: { items: BreadcrumbItem[] }) => (
-  <nav aria-label="Breadcrumb" className="container-page py-3">
+  <nav aria-label="Breadcrumb" className="racira-page-container py-3">
     <ol className="flex flex-nowrap items-center gap-1 text-[11px] sm:text-sm text-muted-foreground overflow-x-auto whitespace-nowrap scrollbar-none py-1">
       {items.map((item, i) => (
         <li key={i} className="flex items-center gap-1 shrink-0">

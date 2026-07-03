@@ -268,7 +268,7 @@ export default function Index() {
         </div>
       </header>
 
-      <section className="mx-auto max-w-5xl px-6 pt-20 pb-16 text-center">
+      <section className="racira-page-container pt-20 pb-16 text-center">
         <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs font-medium text-muted-foreground">
           <span className="h-1.5 w-1.5 rounded-full bg-primary" />
           {totalTools}+ Maps & GIS tools — all free
@@ -283,7 +283,7 @@ export default function Index() {
         </p>
       </section>
 
-      <main id="tools" className="mx-auto max-w-7xl px-6 pb-24">
+      <main id="tools" className="racira-page-container pb-24">
         {sections.map((section) => (
           <section key={section.title} className="mb-14">
             <h2 className="mb-5 text-xs font-bold uppercase tracking-widest text-muted-foreground">
@@ -300,7 +300,7 @@ export default function Index() {
       </main>
 
       <footer id="about" className="border-t border-border bg-card/40">
-        <div className="mx-auto max-w-7xl px-6 py-10 text-sm text-muted-foreground">
+        <div className="racira-page-container py-10 text-sm text-muted-foreground">
           <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
             <div>
               <div className="font-semibold text-foreground">Racira Maps & GIS</div>
@@ -317,17 +317,15 @@ export default function Index() {
 function ToolCard({ tool }: { tool: Tool }) {
   const Icon = tool.icon;
   return (
-    <div className="group relative flex flex-col rounded-xl border border-border bg-card p-5 transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md">
-      <div className="mb-4 flex items-start justify-between">
-        <div className="grid h-10 w-10 place-items-center rounded-lg bg-accent text-primary">
-          <Icon className="h-5 w-5" />
-        </div>
-        <span className="rounded-full border border-primary/20 bg-primary/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-primary">
-          Coming soon
-        </span>
+    <div className="tool-card group hover:-translate-y-[3px] hover:border-primary/40 hover:shadow-[0_8px_24px_hsl(var(--ring)/0.1)]">
+      <span className="absolute right-3 top-3 rounded-md bg-muted px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+        Soon
+      </span>
+      <div className="mb-4 grid h-10 w-10 place-items-center rounded-xl bg-primary/10 text-primary">
+        <Icon className="h-5 w-5" />
       </div>
-      <h3 className="text-base font-semibold text-foreground">{tool.name}</h3>
-      <p className="mt-1 text-sm text-muted-foreground">{tool.desc}</p>
+      <h3 className="font-semibold text-foreground leading-snug">{tool.name}</h3>
+      <p className="mt-1 text-sm text-muted-foreground line-clamp-2">{tool.desc}</p>
     </div>
   );
 }

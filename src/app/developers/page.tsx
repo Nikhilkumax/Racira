@@ -1,4 +1,4 @@
-﻿import { tools, categories } from "@/data/developers/tools";
+import { tools, categories } from "@/data/developers/tools";
 import { ToolCard } from "@/components/developers/tool-card";
 import { ToolSearch } from "@/components/developers/tool-search";
 import { Metadata } from "next";
@@ -20,7 +20,7 @@ export default function Index() {
   return (
     <main>
       <section className="py-12 sm:py-16 text-center">
-        <div className="container-page max-w-3xl">
+        <div className="racira-page-container max-w-3xl">
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-foreground">
             All Developer Tools You Need —{" "}
             <span className="text-primary">Fast, Simple & Free</span>
@@ -36,7 +36,7 @@ export default function Index() {
       </section>
 
       <section className="pb-16">
-        <div className="container-page">
+        <div className="racira-page-container">
           {categories.map((category) => (
             <div key={category} className="mb-10 last:mb-0">
               <h2 className="text-xl font-bold text-foreground mb-4">{category}</h2>

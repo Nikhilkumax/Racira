@@ -24,7 +24,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
 
   return (
     <SiteShell>
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 py-8">
+      <div className="racira-page-container py-8">
         <Link href="/" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground">
           <ArrowLeft className="h-4 w-4" /> All tools
         </Link>
@@ -53,7 +53,7 @@ function ComingSoon({ name }: { name: string }) {
         <Sparkles className="h-6 w-6" />
       </div>
       <h2 className="mt-4 text-xl font-semibold">{name} is coming soon</h2>
-      <p className="mt-2 text-sm text-muted-foreground max-w-md mx-auto">
+      <p className="mt-2 text-sm text-muted-foreground racira-page-container">
         We're crafting this tool right now. In the meantime, explore our live tools from the homepage.
       </p>
       <Link href="/" className="mt-6 inline-flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90">

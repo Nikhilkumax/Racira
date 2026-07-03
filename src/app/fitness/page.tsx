@@ -1,13 +1,14 @@
-﻿import { Dumbbell } from "lucide-react";
+import { Dumbbell } from "lucide-react";
+import Header from "@/components/Header";
 import Link from "next/link";
 import { categories, FUNCTIONAL_SLUGS } from "@/lib/fitness/tools-data";
-import { SiteHeader } from "@/components/fitness/SiteHeader";
+
 
 export default function Home() {
   const total = categories.reduce((n, c) => n + c.tools.length, 0);
   return (
     <div className="min-h-screen bg-background">
-      <SiteHeader />
+      <Header mode="category" categoryName="Fitness" />
       <main className="mx-auto max-w-7xl px-6">
         <section className="py-20 text-center">
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-foreground">
@@ -32,20 +33,20 @@ export default function Home() {
                     <Link
                       key={t.slug}
                       href={`/tools/${t.slug}`}
-                      className="group relative rounded-xl border border-border bg-card p-5 hover:border-brand hover:shadow-[0_4px_20px_-8px_var(--brand)] transition"
+                      className="group relative flex flex-col rounded-2xl border border-border bg-card p-5 hover:-translate-y-[3px] hover:border-primary/40 hover:shadow-[0_8px_24px_hsl(var(--ring)/0.1)] transition-all"
                     >
-                      <div className="h-10 w-10 rounded-lg bg-brand-soft text-brand inline-flex items-center justify-center">
-                        <Dumbbell className="h-5 w-5" />
-                      </div>
-                      <h3 className="mt-4 font-semibold text-card-foreground">
-                        {t.name}
-                      </h3>
-                      <p className="mt-1 text-sm text-muted-foreground">{t.desc}</p>
                       {!active && (
-                        <span className="absolute top-3 right-3 text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full bg-muted text-muted-foreground">
+                        <span className="absolute top-3 right-3 rounded-md bg-muted px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
                           Soon
                         </span>
                       )}
+                      <div className="h-10 w-10 rounded-xl bg-primary/10 text-primary inline-flex items-center justify-center mb-4">
+                        <Dumbbell className="h-5 w-5" />
+                      </div>
+                      <h3 className="font-semibold text-foreground leading-snug">
+                        {t.name}
+                      </h3>
+                      <p className="mt-1 text-sm text-muted-foreground line-clamp-2">{t.desc}</p>
                     </Link>
                   );
                 })}

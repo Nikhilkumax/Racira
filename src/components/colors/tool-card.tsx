@@ -7,20 +7,16 @@ export function ToolCard({ tool }: { tool: ToolDef }) {
   return (
     <Link
       href={`/tools/${tool.slug}`}
-      className="group relative flex flex-col gap-3 rounded-xl border border-border bg-card p-5 transition hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md"
+      className="tool-card group"
     >
       {isSoon && (
-        <span className="absolute right-3 top-3 rounded-md bg-muted px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
-          Coming Soon
-        </span>
+        <span className="tool-card-badge">Soon</span>
       )}
-      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary-soft text-primary">
-        <Icon className="h-5 w-5" />
+      <div className="tool-card-icon">
+        <Icon className="h-5 w-5 text-primary" />
       </div>
-      <div>
-        <h3 className="font-semibold text-card-foreground">{tool.title}</h3>
-        <p className="mt-1 text-sm text-muted-foreground line-clamp-2">{tool.description}</p>
-      </div>
+      <h3 className="font-semibold text-foreground leading-snug">{tool.title}</h3>
+      <p className="mt-1 text-sm text-muted-foreground line-clamp-2">{tool.description}</p>
     </Link>
   );
-}
+}

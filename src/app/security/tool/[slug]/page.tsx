@@ -89,7 +89,7 @@ export default async function ToolPage({ params }: Props) {
   
   return (
     <Layout>
-      <div className="mx-auto max-w-4xl px-4 py-10">
+      <div className="racira-page-container py-10">
         <Link href="/" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-6">
           <ArrowLeft className="h-4 w-4" /> All tools
         </Link>
@@ -126,7 +126,7 @@ function ComingSoon({ name }: { name: string }) {
         <Construction className="h-6 w-6" />
       </div>
       <h3 className="mt-4 text-lg font-semibold">{name} is coming soon</h3>
-      <p className="mt-2 text-sm text-muted-foreground max-w-md mx-auto">
+      <p className="mt-2 text-sm text-muted-foreground racira-page-container">
         We're polishing this tool. In the meantime, explore the other 100+ live tools running entirely in your browser.
       </p>
       <Link href="/"><Button variant="outline" className="mt-6"><Shield className="h-4 w-4" /> Browse all tools</Button></Link>

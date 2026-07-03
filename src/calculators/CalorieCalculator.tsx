@@ -114,9 +114,9 @@ const CalorieCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Health", href: "/calculator#health" }, { label: "Losertown Calorie Calculator" }]} />
-      <div className="container-page py-4">
+      <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Losertown Calorie Calculator</h1>
-        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           {/* LEFT */}
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
 
@@ -320,7 +320,7 @@ const CalorieCalculator = () => {
           </div>
         </div>
 
-        <div className="max-w-[1200px] mx-auto mt-10">
+        <div className="max-w-[1200px] mt-10">
           {/* JSON-LD: FAQ + BreadcrumbList schema */}
           <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
             "@context": "https://schema.org",

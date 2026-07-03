@@ -1,5 +1,6 @@
 import { Metadata } from "next";
-import { Header } from "@/components/presentation/Header";
+import Header from "@/components/Header";
+
 import { CategorySection } from "@/components/presentation/CategorySection";
 import { categories, totalToolCount } from "@/data/presentation/tools";
 
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
 export default function Index() {
   return (
     <div className="min-h-screen bg-background">
-      <Header />
+      <Header mode="category" categoryName="Presentation" />
       <main>
         <section className="px-6 pb-12 pt-20 sm:pt-28">
           <div className="mx-auto max-w-5xl text-center">
@@ -32,14 +33,14 @@ export default function Index() {
           </div>
         </section>
 
-        <div className="mx-auto max-w-7xl px-6 pb-24">
+        <div className="racira-page-container pb-24">
           {categories.map((c) => (
             <CategorySection key={c.slug} category={c} />
           ))}
         </div>
       </main>
       <footer className="border-t border-border py-8">
-        <div className="mx-auto max-w-7xl px-6 text-center text-sm text-muted-foreground">
+        <div className="racira-page-container text-center text-sm text-muted-foreground">
           © {new Date().getFullYear()} Racira Presentation Tools
         </div>
       </footer>

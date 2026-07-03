@@ -177,18 +177,18 @@ export default function WeightLossPercentageCalculator() {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Health", href: "/calculator#health" }, { label: "Weight Loss Percentage Calculator" }]} />
-      <div className="container-page py-4">
+      <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Clinical Weight Loss Percentage Calculator</h1>
 
         {/* MEDICAL DISCLAIMER */}
-        <div className="max-w-[1280px] mx-auto mb-6 bg-emerald-500/10 border-l-4 border-emerald-500 p-4 rounded-r-lg flex gap-3 items-start">
+        <div className="max-w-[1280px] mb-6 bg-emerald-500/10 border-l-4 border-emerald-500 p-4 rounded-r-lg flex gap-3 items-start">
           <AlertTriangle className="h-5 w-5 shrink-0 text-emerald-600 mt-0.5" />
           <p className="text-sm font-medium leading-relaxed text-emerald-800 dark:text-emerald-400">
             <strong>The Clinical Milestones:</strong> You do not need a perfect magazine-cover physique to save your life. Modern medical literature proves that achieving specific percentage milestones (5%, 10%, 15%) creates profound biological shifts, dramatically reducing your risk of cardiovascular disease, sleep apnea, and Type 2 Diabetes.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 xl:grid-cols-[460px_1fr] gap-6 items-start max-w-[1280px] mx-auto">
+        <div className="grid grid-cols-1 xl:grid-cols-[460px_1fr] gap-6 items-start max-w-[1280px]">
           
           {/* LEFT: Inputs */}
           <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
@@ -317,7 +317,7 @@ export default function WeightLossPercentageCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1180px] mx-auto mt-8">
+        <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
             <h2>The Deception of Aspirational Fitness</h2>

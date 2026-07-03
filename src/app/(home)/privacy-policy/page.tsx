@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 const PrivacyPolicy = () => (
   <>
 <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Privacy Policy" }]} />
-    <div className="container-page py-12 prose-finance max-w-4xl">
+    <div className="racira-page-container py-12 prose-finance max-w-4xl">
       <h1 className="text-4xl font-extrabold mb-8 text-foreground">Privacy Policy</h1>
       
       <p>Last updated: April 25, 2024</p>

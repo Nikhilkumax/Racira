@@ -194,10 +194,10 @@ export default function TenYearAveragingDistributionCalculator() {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Finance", href: "/calculator#finance" }, { label: "10-Year Averaging Distribution Calculator" }]} />
-      <div className="container-page py-6">
+      <div className="racira-page-container py-6">
         <h1 className="text-3xl md:text-4xl font-bold mb-6 tracking-tight text-foreground">10-Year Averaging Distribution Calculator</h1>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1200px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1200px]">
           {/* LEFT COLUMN - INPUTS */}
           <div className="card-calculator flex flex-col gap-4 p-5 shadow-sm border border-border bg-card rounded-xl">
             <div className="grid grid-cols-1 gap-4">
@@ -376,7 +376,7 @@ export default function TenYearAveragingDistributionCalculator() {
         </div>
 
         {/* SEO CONTENT SECTION */}
-        <div className="max-w-[800px] mx-auto mt-16 prose prose-slate dark:prose-invert">
+        <div className="max-w-[800px] mt-16 prose prose-slate dark:prose-invert">
           <h2>What Is the 10-Year Averaging Distribution Calculator?</h2>
           <p>
             The 10-Year Averaging Distribution Calculator is a specialized tax tool designed to estimate the tax liability on a lump-sum distribution from a qualified retirement plan. This specific tax treatment is available only to individuals who were born before January 2, 1936, or to their beneficiaries.

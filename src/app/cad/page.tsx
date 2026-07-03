@@ -1,4 +1,4 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 import { categories, totalCount } from "@/lib/cad/tools-catalog";
 import {
   Pencil, Ruler, Cog, Building2, CircuitBoard, Home, Wind,
@@ -24,7 +24,7 @@ export default function Index() {
       <Header />
       <main>
         <Hero />
-        <section className="mx-auto max-w-7xl px-6 pb-24 space-y-16">
+        <section className="racira-page-container pb-24 space-y-16">
           {categories.map((c) => {
             const Icon = CATEGORY_ICONS[c.key] ?? Pencil;
             return (
@@ -41,26 +41,22 @@ export default function Index() {
                     <Link
                       key={t.slug}
                       href={`/tools/${t.slug}`}
-                      className="group relative rounded-xl border border-border bg-card p-5 transition-all hover:border-primary/40 hover:shadow-md"
+                      className="tool-card group hover:-translate-y-[3px] hover:border-primary/40 hover:shadow-[0_8px_24px_hsl(var(--ring)/0.1)]"
                     >
-                      <div className="mb-3 flex h-9 w-9 items-center justify-center rounded-lg bg-primary-soft text-primary">
-                        <Icon className="h-4 w-4" />
-                      </div>
-                      <h3 className="text-sm font-semibold text-foreground leading-snug">
-                        {t.name}
-                      </h3>
-                      <p className="mt-1.5 text-xs text-muted-foreground leading-relaxed line-clamp-2">
-                        {t.desc}
-                      </p>
-                      {t.active ? (
-                        <span className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-medium text-primary">
-                          <Sparkles className="h-2.5 w-2.5" /> Live
-                        </span>
-                      ) : (
-                        <span className="absolute right-3 top-3 rounded-full bg-muted px-2 py-0.5 text-[10px] font-medium text-muted-foreground">
+                      {!t.active && (
+                        <span className="absolute right-3 top-3 rounded-md bg-muted px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
                           Soon
                         </span>
                       )}
+                      <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                        <Icon className="h-5 w-5" />
+                      </div>
+                      <h3 className="font-semibold text-foreground leading-snug">
+                        {t.name}
+                      </h3>
+                      <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
+                        {t.desc}
+                      </p>
                     </Link>
                   ))}
                 </div>
@@ -96,7 +92,7 @@ function Header() {
 
 function Hero() {
   return (
-    <section className="mx-auto max-w-5xl px-6 py-20 text-center sm:py-28">
+    <section className="racira-page-container py-20 text-center sm:py-28">
       <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-6xl">
         All CAD Tools You Need —{" "}
         <span className="bg-gradient-to-r from-primary to-foreground bg-clip-text text-transparent">

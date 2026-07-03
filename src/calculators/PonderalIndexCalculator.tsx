@@ -215,18 +215,18 @@ export default function PonderalIndexCalculator() {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Health", href: "/calculator#health" }, { label: "Ponderal Index Calculator" }]} />
-      <div className="container-page py-4">
+      <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Ponderal Index (PI)</h1>
 
         {/* MEDICAL DISCLAIMER */}
-        <div className="max-w-[1280px] mx-auto mb-6 bg-blue-500/10 border-l-4 border-blue-500 p-4 rounded-r-lg flex gap-3 items-start">
+        <div className="max-w-[1280px] mb-6 bg-blue-500/10 border-l-4 border-blue-500 p-4 rounded-r-lg flex gap-3 items-start">
           <AlertTriangle className="h-5 w-5 shrink-0 text-blue-600 mt-0.5" />
           <p className="text-sm font-medium leading-relaxed text-blue-800 dark:text-blue-400">
             <strong>The 3D Advantage:</strong> The Ponderal Index (cubing your height) fixes the massive mathematical flaw inherent in standard BMI (squaring your height). It provides a significantly more accurate body mass assessment for individuals who are extremely tall (over 6'2") or extremely short (under 5'2").
           </p>
         </div>
 
-        <div className="grid grid-cols-1 xl:grid-cols-[460px_1fr] gap-6 items-start max-w-[1280px] mx-auto">
+        <div className="grid grid-cols-1 xl:grid-cols-[460px_1fr] gap-6 items-start max-w-[1280px]">
           
           {/* LEFT: Inputs */}
           <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
@@ -371,7 +371,7 @@ export default function PonderalIndexCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
-        <div className="max-w-[1180px] mx-auto mt-8">
+        <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
             <h2>Understanding the Ponderal Index (PI) Calculator</h2>

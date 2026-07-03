@@ -1,7 +1,8 @@
 import Link from "next/link";
+import Header from "@/components/Header";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Construction } from "lucide-react";
-import { SiteHeader } from "@/components/crypto/SiteHeader";
+
 import { getTool, TOOLS } from "@/lib/crypto/tools";
 import { ToolRenderer } from "@/components/crypto/tools/ToolRenderer";
 import type { Metadata } from "next";
@@ -29,8 +30,8 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
 
   return (
     <div className="min-h-screen bg-background">
-      <SiteHeader />
-      <main className="mx-auto max-w-3xl px-6 py-10">
+      <Header mode="category" categoryName="Crypto" />
+      <main className="racira-page-container py-10">
         <Link href="/" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
           <ArrowLeft className="h-4 w-4" /> All tools
         </Link>

@@ -98,9 +98,9 @@ export default function RetirementCalculator() {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Finance", href: "/calculator#finance" }, { label: "Retirement Calculator" }]} />
-      <div className="container-page py-4">
+      <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Retirement Calculator</h1>
-        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
             <div className="grid grid-cols-3 gap-4">
               <div><label className="text-base font-medium mb-1.5 block">Current Age</label><div className={inp}><input type="number" value={curAge} onChange={e => setCurAge(e.target.value)} className={ci} /></div></div>
@@ -148,7 +148,7 @@ export default function RetirementCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-8">
+        <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
             <h2>What Is a Retirement Calculator?</h2>

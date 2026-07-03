@@ -95,9 +95,9 @@ export default function HourlyWageCalculator() {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Finance", href: "/calculator#finance" }, { label: "Hourly Wage Calculator" }]} />
-      <div className="container-page py-4">
+      <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Hourly Wage Calculator</h1>
-        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
             <div><label className="text-sm font-medium mb-1.5 block">Annual Salary</label><div className={inp}><span className="pl-3 text-muted-foreground">$</span><input type="number" value={salary} onChange={e => setSalary(e.target.value)} className={ci} /></div></div>
             
@@ -153,7 +153,7 @@ export default function HourlyWageCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-8">
+        <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
             <h2>Why Convert Salary to an Hourly Wage?</h2>

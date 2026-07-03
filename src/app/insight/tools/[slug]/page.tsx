@@ -1,8 +1,9 @@
 import Link from "next/link";
+import Header from "@/components/Header";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Sparkles } from "lucide-react";
 import { findTool, FUNCTIONAL_SLUGS, CATEGORIES } from "@/lib/insight/tools-data";
-import { SiteHeader } from "@/components/insight/SiteHeader";
+
 import { LineChartBuilder } from "@/components/insight/tools/LineChartBuilder";
 import { Metadata } from "next";
 
@@ -37,8 +38,8 @@ export default async function ToolPage({ params }: Props) {
 
   return (
     <div className="min-h-screen bg-background">
-      <SiteHeader />
-      <main className="mx-auto max-w-5xl px-4 py-10 sm:px-6">
+      <Header mode="category" categoryName="Insight" />
+      <main className="racira-page-container py-10 sm:px-6">
         <Link
           href="/"
           className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"

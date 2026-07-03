@@ -1,14 +1,15 @@
-﻿import Link from "next/link";
+import Link from "next/link";
+import Header from "@/components/Header";
 import { categories, totalCount } from "@/lib/travel/tools";
 import { categoryIcons, fallbackIcon } from "@/lib/travel/category-icons";
-import { SiteFooter, SiteHeader } from "@/components/travel/site-chrome";
+import { SiteFooter } from "@/components/travel/site-chrome";
 import { Compass } from "lucide-react";
 
 export default function Home() {
   return (
     <div className="min-h-screen">
-      <SiteHeader />
-      <main className="mx-auto max-w-6xl px-4">
+      <Header mode="category" categoryName="Travel" />
+      <main className="racira-page-container">
         <section className="py-20 text-center sm:py-28">
           <h1 className="font-display text-4xl font-extrabold leading-tight sm:text-6xl">
             All Travel Tools You Need —{" "}
@@ -37,18 +38,15 @@ export default function Home() {
                   <Link
                     key={tool.slug}
                     href={`/tool/${tool.slug}`}
-                    className="group rounded-xl border border-border bg-card p-5 transition hover:border-[var(--sky)] hover:shadow-md"
+                    className="tool-card group"
                   >
-                    <div
-                      className="mb-4 grid h-10 w-10 place-items-center rounded-lg"
-                      style={{ backgroundColor: "var(--sky-soft)" }}
-                    >
-                      <Compass className="h-5 w-5" style={{ color: "var(--sky)" }} />
+                    <div className="mb-4 grid h-10 w-10 place-items-center rounded-xl bg-primary/10 text-primary">
+                      <Compass className="h-5 w-5" />
                     </div>
-                    <h3 className="font-display text-base font-bold leading-snug">
+                    <h3 className="font-semibold text-foreground leading-snug">
                       {tool.name}
                     </h3>
-                    <p className="mt-1 text-sm text-muted-foreground">{tool.desc}</p>
+                    <p className="mt-1 text-sm text-muted-foreground line-clamp-2">{tool.desc}</p>
                   </Link>
                 ))}
               </div>

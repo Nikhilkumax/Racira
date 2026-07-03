@@ -18,7 +18,7 @@ const Index = () => {
 
       {/* Tool Grid by Category */}
       <section className="pb-16">
-        <div className="mx-auto max-w-[1200px] px-4 sm:px-6">
+        <div className="racira-page-container">
           {categories.map((category) => (
             <div key={category} className="mb-10 last:mb-0">
               <h2 className="text-xl font-bold text-foreground mb-4">{category}</h2>

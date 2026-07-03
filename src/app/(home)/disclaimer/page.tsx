@@ -3,7 +3,7 @@ import Breadcrumb from "@/components/Breadcrumb";
 const Disclaimer = () => (
   <>
 <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Disclaimer" }]} />
-    <div className="container-page py-8 max-w-3xl prose-finance">
+    <div className="racira-page-container py-8 max-w-3xl prose-finance">
       <h1 className="text-3xl font-extrabold mb-6 text-foreground">Disclaimer</h1>
       <p><strong>Last updated:</strong> February 12, 2026</p>
 

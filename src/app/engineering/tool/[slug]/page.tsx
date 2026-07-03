@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
+import Header from "@/components/Header";
 import { toolsBySlug } from "@/lib/engineering/tools";
-import { SiteHeader } from "@/components/engineering/site-header";
+
 import { ComingSoon, ToolShell } from "@/components/engineering/tool-shell";
 import {
   OhmsLawTool,
@@ -34,7 +35,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
 
   return (
     <>
-      <SiteHeader />
+      <Header mode="category" categoryName="Engineering" />
       <ToolShell tool={tool}>
         {Comp ? <Comp /> : <ComingSoon name={tool.name} />}
       </ToolShell>

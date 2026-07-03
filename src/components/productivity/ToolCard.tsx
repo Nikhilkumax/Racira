@@ -24,7 +24,7 @@ export function ToolCard({ tool }: { tool: Tool }) {
   }
 
   return (
-    <div className="group relative flex flex-col justify-between rounded-2xl border border-border bg-card p-5">
+    <div className="tool-card group">
       <div className="flex items-start justify-between gap-3">
         <span className="inline-flex items-center gap-1 rounded-full bg-muted px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
           <Lock className="h-3 w-3" /> Soon

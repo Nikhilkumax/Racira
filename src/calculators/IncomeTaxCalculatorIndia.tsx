@@ -106,10 +106,10 @@ const IncomeTaxCalculatorIndia = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Income Tax Calculator (India)" }]} />
-      <div className="container-page py-4">
+      <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Income Tax Calculator (India)</h1>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
             <div className="mb-6">
                 <label className="block text-sm font-medium text-foreground mb-2">Age Group</label>
@@ -172,7 +172,7 @@ const IncomeTaxCalculatorIndia = () => {
           </div>
         </div>
 
-        <div className="max-w-[1180px] mx-auto mt-8">
+        <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
               <h2>Income Tax Slabs FY 2024-25 (New Regime)</h2>

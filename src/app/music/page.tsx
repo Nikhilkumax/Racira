@@ -1,13 +1,14 @@
-﻿import { SiteHeader, SiteFooter } from "@/components/music/site-chrome";
+﻿import { SiteFooter } from "@/components/music/site-chrome";
+import Header from "@/components/Header";
 import { ToolCard } from "@/components/music/tool-card";
 import { categories, totalTools } from "@/lib/music/tools-data";
 
 export default function HomePage() {
   return (
     <div className="flex min-h-screen flex-col">
-      <SiteHeader />
+      <Header mode="category" categoryName="Music" />
       <main className="flex-1">
-        <section className="mx-auto max-w-6xl px-4 pb-12 pt-16 text-center sm:px-6 sm:pt-24">
+        <section className="racira-page-container pb-12 pt-16 text-center sm:px-6 sm:pt-24">
           <h1 className="font-display text-5xl font-extrabold tracking-tight text-foreground sm:text-6xl md:text-7xl">
             All Music Tools You Need —{" "}
             <span className="bg-gradient-to-r from-primary to-fuchsia-500 bg-clip-text text-transparent">

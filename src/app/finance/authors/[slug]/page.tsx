@@ -48,7 +48,7 @@ export default async function AuthorPage({ params }: { params: Promise<{ slug: s
           </div>
         </div>
       </section>
-      <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+      <section className="racira-page-container py-12 sm:px-6 lg:px-8">
         <h2 className="mb-8 font-display text-2xl font-semibold tracking-tight">Articles by {author.name.split(" ")[0]}</h2>
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
           {posts.map((p: PostWithRelations) => <PostCard key={p.id} post={p} />)}

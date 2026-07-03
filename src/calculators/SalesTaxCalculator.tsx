@@ -49,10 +49,10 @@ const SalesTaxCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Sales Tax Calculator" }]} />
-      <div className="container-page py-4">
+      <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Sales Tax Calculator</h1>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
             <div className="flex rounded-lg border border-input overflow-hidden mb-6">
                 <button onClick={() => { setMode("add"); setResult(null); }} className={`flex-1 py-3 text-sm font-medium transition-colors ${mode === "add" ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:bg-secondary"}`}>Add Tax to Price</button>
@@ -83,7 +83,7 @@ const SalesTaxCalculator = () => {
           </div>
         </div>
 
-        <div className="max-w-[1180px] mx-auto mt-8">
+        <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
               <h2>What Is a Sales Tax Calculator?</h2>

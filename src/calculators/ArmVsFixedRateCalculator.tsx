@@ -129,7 +129,7 @@ export default function ArmVsFixedRateCalculator() {
   const isArmCheaperOverall = results.totalArmPaid < results.totalFixedPaid;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+    <div className="max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       {/* Header */}
       <div className="mb-12 text-center">
         <div className="inline-flex items-center justify-center p-3 bg-primary/10 rounded-full mb-4">
@@ -299,7 +299,7 @@ export default function ArmVsFixedRateCalculator() {
       </div>
 
       {/* Educational Content */}
-      <div className="mt-16 max-w-4xl mx-auto prose prose-slate dark:prose-invert">
+      <div className="mt-16 max-w-4xl prose prose-slate dark:prose-invert">
         <h2 className="text-2xl font-bold mb-3">ARM vs Fixed Rate: Which is Better?</h2>
         <p className="text-lg text-muted-foreground mb-6">
           Choosing between an Adjustable-Rate Mortgage (ARM) and a Fixed-Rate Mortgage is one of the most important decisions when financing a home.

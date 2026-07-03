@@ -215,14 +215,14 @@ export default function CorrectedQtIntervalCalculator() {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Corrected QT Interval (QTc) Calculator" }]} />
-      <div className="container-page py-4">
+      <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Corrected QT Interval (QTc) Calculator</h1>
         
-        <div className="bg-destructive/10 border-l-4 border-destructive text-destructive p-4 rounded-r-lg text-sm mb-6 max-w-[1180px] mx-auto">
+        <div className="bg-destructive/10 border-l-4 border-destructive text-destructive p-4 rounded-r-lg text-sm mb-6 max-w-[1180px]">
           <strong>Disclaimer:</strong> This tool is for educational and informational purposes only and is not intended to provide medical advice, diagnosis, or treatment. Always consult a qualified healthcare professional.
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           {/* LEFT COLUMN: INPUTS */}
           <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
             
@@ -475,7 +475,7 @@ export default function CorrectedQtIntervalCalculator() {
         </div>
 
         {/* SEO CONTENT SECTION */}
-        <div className="max-w-[1180px] mx-auto mt-12">
+        <div className="max-w-[1180px] mt-12">
           <AdPlaceholder className="mb-10" />
           
           <div className="bg-card rounded-xl border border-border p-8 mb-12 shadow-sm">

@@ -4,7 +4,7 @@ import React from "react";
 
 export default function CalculatorSkeleton() {
   return (
-    <div className="container-page py-4 animate-pulse">
+    <div className="racira-page-container py-4 animate-pulse">
       {/* Breadcrumb Skeleton */}
       <div className="h-4 w-48 bg-muted rounded mb-6 mt-2"></div>
       

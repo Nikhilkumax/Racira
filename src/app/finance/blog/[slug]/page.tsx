@@ -67,7 +67,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
       />
       <article>
         <header className="border-b border-border/60" style={{ background: "var(--gradient-hero)" }}>
-          <div className="mx-auto max-w-3xl px-4 py-14 sm:px-6 lg:px-8">
+          <div className="racira-page-container py-14 sm:px-6 lg:px-8">
             <Link href="/blog" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
               <ArrowLeft className="h-3.5 w-3.5" /> All articles
             </Link>
@@ -92,13 +92,13 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
           </div>
         </header>
 
-        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+        <div className="racira-page-container">
           <div className="-mt-2 overflow-hidden rounded-2xl border border-border/60 bg-card shadow-[var(--shadow-soft)]">
             <img src={post.cover_url} alt={post.title} className="aspect-[16/9] w-full object-cover" />
           </div>
         </div>
 
-        <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
+        <div className="racira-page-container py-12 sm:px-6 lg:px-8">
           <div className="prose-article" dangerouslySetInnerHTML={{ __html: html }} />
           {post.tags.length > 0 && (
             <div className="mt-10 flex flex-wrap gap-2 border-t border-border/60 pt-6">
@@ -125,7 +125,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         </div>
 
         {related.length > 0 && (
-          <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
+          <section className="racira-page-container pb-16 sm:px-6 lg:px-8">
             <h2 className="mb-8 font-display text-2xl font-semibold tracking-tight">Related reading</h2>
             <div className="grid gap-10 md:grid-cols-3">
               {related.map((p: PostWithRelations) => <PostCard key={p.id} post={p} variant="compact" />)}
@@ -133,7 +133,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
           </section>
         )}
 
-        <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
+        <section className="racira-page-container pb-16 sm:px-6 lg:px-8">
           <NewsletterSignup />
         </section>
       </article>

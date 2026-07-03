@@ -152,7 +152,7 @@ export default function ImagePage() {
                   <Link
                     key={tool.slug}
                     href={`/image/tool/${tool.slug}`}
-                    className="group relative rounded-2xl border border-border bg-card p-5 hover:border-sky-400/40 hover:shadow-[0_8px_30px_-12px_rgba(14,165,233,0.3)] transition-all"
+                    className="tool-card group"
                   >
                     <div className="mb-4 inline-flex items-center justify-center h-10 w-10 rounded-xl bg-sky-500/10 text-sky-500">
                       <Icon className="h-5 w-5" />

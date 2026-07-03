@@ -1,7 +1,8 @@
 import Link from "next/link";
+import Header from "@/components/Header";
 import { notFound } from "next/navigation";
 import { findTool } from "@/lib/design/tools-data";
-import { Header, Footer } from "@/components/design/HeaderFooter";
+import { Footer } from "@/components/design/HeaderFooter";
 import { GridSystemBuilder } from "@/components/design/tools/GridSystemBuilder";
 import { ArrowLeft, Hammer } from "lucide-react";
 
@@ -26,8 +27,8 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
   const Icon = tool.icon;
   return (
     <div className="min-h-screen">
-      <Header />
-      <main className="mx-auto max-w-6xl px-6 py-10">
+      <Header mode="category" categoryName="Design" />
+      <main className="racira-page-container py-10">
         <Link href="/" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-primary mb-6">
           <ArrowLeft className="h-4 w-4" /> All tools
         </Link>
@@ -64,7 +65,7 @@ function ComingSoon() {
         <Hammer className="h-7 w-7" />
       </div>
       <h2 className="text-2xl font-bold mb-2">Coming soon</h2>
-      <p className="text-muted-foreground max-w-md mx-auto">
+      <p className="text-muted-foreground racira-page-container">
         This tool is in the workshop. We're building it next — check back soon.
       </p>
       <Link

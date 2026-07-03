@@ -1,4 +1,4 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 import { tools, categories, type Tool } from "@/data/pdf/tools";
 
 interface RelatedToolsProps {
@@ -63,20 +63,17 @@ const RelatedTools = ({ currentSlug, currentCategory }: RelatedToolsProps) => {
             <Link
               key={t.slug}
               href={`/pdf/${t.slug}`}
-              className="group flex items-start gap-3 rounded-2xl border border-border bg-card p-4 sm:p-5 card-hover relative shrink-0 sm:shrink min-w-[220px] sm:min-w-0"
-              style={{ boxShadow: "var(--card-shadow)" }}
+              className="tool-card group shrink-0 sm:shrink min-w-[220px] sm:min-w-0"
             >
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                <Icon className="h-5 w-5" />
+              <div className="tool-card-icon">
+                <Icon className="h-5 w-5 text-primary" />
               </div>
-              <div className="min-w-0">
-                <p className="font-semibold text-foreground text-[14px] leading-snug">
-                  {t.name}
-                </p>
-                <p className="mt-0.5 text-[13px] text-muted-foreground leading-relaxed line-clamp-2">
-                  {t.description}
-                </p>
-              </div>
+              <h3 className="font-semibold text-foreground leading-snug">
+                {t.name}
+              </h3>
+              <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
+                {t.description}
+              </p>
             </Link>
           );
         })}

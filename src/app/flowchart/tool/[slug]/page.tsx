@@ -37,7 +37,7 @@ export default function ToolPage({ params }: ToolPageProps) {
         </div>
       </header>
 
-      <main className="mx-auto max-w-7xl px-6 py-10">
+      <main className="racira-page-container py-10">
         <div className="mb-6">
           <p className="text-xs font-bold uppercase tracking-widest text-brand">{category}</p>
           <h1 className="mt-2 text-3xl font-extrabold tracking-tight md:text-4xl">{tool.name}</h1>

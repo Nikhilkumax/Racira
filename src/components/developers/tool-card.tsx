@@ -7,20 +7,17 @@ export function ToolCard({ tool }: { tool: Tool }) {
   return (
     <Link
       href={`/developers/tools/${categorySlug(tool.category)}/${tool.slug}`}
-      className="group flex items-start gap-4 rounded-2xl border border-border bg-card p-5 sm:p-6 card-hover"
-      style={{ boxShadow: "var(--card-shadow)" }}
+      className="tool-card group"
     >
-      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
-        <Icon className="h-5 w-5" />
+      <div className="tool-card-icon">
+        <Icon className="h-5 w-5 text-primary" />
       </div>
-      <div className="min-w-0">
-        <h3 className="font-semibold text-foreground text-[15px] leading-snug">
-          {tool.name}
-        </h3>
-        <p className="mt-1 text-sm text-muted-foreground leading-relaxed">
-          {tool.description}
-        </p>
-      </div>
+      <h3 className="font-semibold text-foreground leading-snug">
+        {tool.name}
+      </h3>
+      <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
+        {tool.description}
+      </p>
     </Link>
   );
 }

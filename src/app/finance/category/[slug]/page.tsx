@@ -33,13 +33,13 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
   return (
     <PageShell>
       <section className="border-b border-border/60" style={{ background: "var(--gradient-hero)" }}>
-        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+        <div className="racira-page-container py-14 sm:px-6 lg:px-8">
           <div className="text-xs font-semibold uppercase tracking-wider text-primary">Category</div>
           <h1 className="mt-2 font-display text-4xl font-semibold tracking-tight md:text-5xl">{category.name}</h1>
           <p className="mt-3 max-w-2xl text-muted-foreground">{category.description}</p>
         </div>
       </section>
-      <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+      <section className="racira-page-container py-12 sm:px-6 lg:px-8">
         {posts.length === 0 ? (
           <p className="text-muted-foreground">No articles in this category yet.</p>
         ) : (

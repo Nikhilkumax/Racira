@@ -1,6 +1,7 @@
 ﻿import Link from "next/link";
+import Header from "@/components/Header";
 import { categories } from "@/lib/business/tools";
-import { SiteHeader, SiteFooter } from "@/components/business/SiteHeader";
+import { SiteFooter } from "@/components/business/SiteHeader";
 import { Wrench, Sparkles } from "lucide-react";
 import type { Metadata } from "next";
 
@@ -22,9 +23,9 @@ export const metadata: Metadata = {
 export default function Landing() {
   return (
     <div className="min-h-screen flex flex-col">
-      <SiteHeader />
+      <Header mode="category" categoryName="Business" />
       <main className="flex-1">
-        <section className="mx-auto max-w-5xl px-6 pt-20 pb-16 text-center">
+        <section className="racira-page-container pt-20 pb-16 text-center">
           <h1 className="font-display text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.05]">
             All Business Tools You Need —{" "}
             <span className="text-primary">Fast, Simple &amp; Free</span>
@@ -35,7 +36,7 @@ export default function Landing() {
           </p>
         </section>
 
-        <div className="mx-auto max-w-7xl px-6 pb-24 space-y-14">
+        <div className="racira-page-container pb-24 space-y-14">
           {categories.map((cat) => (
             <section key={cat.key}>
               <h2 className="text-xs font-bold tracking-[0.18em] text-muted-foreground uppercase mb-5">

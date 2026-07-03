@@ -122,9 +122,9 @@ export default function HealthInsuranceCalculator() {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Finance", href: "/calculator#finance" }, { label: "Health Insurance Calculator" }]} />
-      <div className="container-page py-4">
+      <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Health Insurance Calculator</h1>
-        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
             <p className="text-xs text-muted-foreground bg-secondary/30 rounded px-3 py-2">Estimates based on 2024 ACA marketplace averages. Actual premiums vary by state and insurer.</p>
             <div>
@@ -214,7 +214,7 @@ export default function HealthInsuranceCalculator() {
             </>)}
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-8">
+        <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
             <h2>Understanding Health Insurance Costs</h2>

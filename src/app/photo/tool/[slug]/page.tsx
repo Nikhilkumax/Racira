@@ -1,8 +1,9 @@
 import { notFound } from "next/navigation";
+import Header from "@/components/Header";
 import Link from "next/link";
 import { ArrowLeft, Clock } from "lucide-react";
 import { findTool } from "@/lib/photo/tools";
-import { SiteHeader } from "@/components/photo/SiteHeader";
+
 import { TOOL_COMPONENTS } from "@/components/photo/tools/registry";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
@@ -32,8 +33,8 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
 
   return (
     <div className="min-h-screen bg-background">
-      <SiteHeader />
-      <div className="mx-auto max-w-5xl px-6 py-10">
+      <Header mode="category" categoryName="Photo" />
+      <div className="racira-page-container py-10">
         <Link href="/" className="inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground hover:text-foreground">
           <ArrowLeft className="h-3.5 w-3.5" /> All tools
         </Link>

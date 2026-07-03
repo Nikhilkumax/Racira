@@ -135,9 +135,9 @@ export default function HousingRatioCalculator() {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Finance", href: "/calculator#finance" }, { label: "Housing Ratio Calculator" }]} />
-      <div className="container-page py-4">
+      <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Housing Ratio Calculator</h1>
-        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           {/* LEFT COLUMN */}
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
             
@@ -256,7 +256,7 @@ export default function HousingRatioCalculator() {
         </div>
 
         {/* SEO Content */}
-        <div className="max-w-[1180px] mx-auto mt-12 prose prose-slate dark:prose-invert">
+        <div className="max-w-[1180px] mt-12 prose prose-slate dark:prose-invert">
           <h2>What Is the Housing Ratio?</h2>
           <p>The housing ratio, also known as the front-end ratio, is the percentage of your gross monthly income that goes toward paying your total housing costs. It is a critical metric used by mortgage lenders to determine how much home you can afford.</p>
           

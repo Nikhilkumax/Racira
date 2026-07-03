@@ -47,7 +47,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
       </header>
       <main>{children}</main>
       <footer className="border-t border-border py-8 mt-16">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 text-center text-xs text-muted-foreground">
+        <div className="racira-page-container text-center text-xs text-muted-foreground">
           © {new Date().getFullYear()} Racira 3D &amp; Print — Free browser tools for 3D and print workflows.
         </div>
       </footer>

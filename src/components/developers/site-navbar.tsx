@@ -24,7 +24,7 @@ export function SiteNavbar() {
       className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-md border-b border-border"
       style={{ boxShadow: "var(--header-shadow)" }}
     >
-      <div className="container-page flex h-14 items-center justify-between">
+      <div className="racira-page-container flex h-14 items-center justify-between">
         <Link href="/" className="flex items-center gap-1.5 font-bold text-xl tracking-tight">
           <span className="text-primary">Dev</span>
           <span className="text-foreground">Forge</span>

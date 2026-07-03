@@ -208,10 +208,10 @@ export default function AdolescentBmiCalculator() {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Health", href: "/calculator#health" }, { label: "Adolescent BMI Calculator" }]} />
-      <div className="container-page py-4">
+      <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Adolescent BMI Calculator</h1>
 
-        <div className="grid grid-cols-1 xl:grid-cols-[460px_1fr] gap-6 items-start max-w-[1280px] mx-auto mt-4">
+        <div className="grid grid-cols-1 xl:grid-cols-[460px_1fr] gap-6 items-start max-w-[1280px] mt-4">
           
           {/* LEFT: Inputs */}
           <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
@@ -312,7 +312,7 @@ export default function AdolescentBmiCalculator() {
                       </span>
                     </div>
 
-                    <p className="text-sm text-muted-foreground mt-6 max-w-md mx-auto">
+                    <p className="text-sm text-muted-foreground mt-6 max-w-md">
                       Based on CDC growth charts, this BMI falls into the <strong>{results.percentileCategory}</strong> classification for a {age}-year-old {gender}.
                     </p>
                   </div>

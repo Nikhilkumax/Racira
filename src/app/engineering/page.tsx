@@ -1,8 +1,9 @@
 ﻿"use client";
 
 import { useMemo, useState } from "react";
+import Header from "@/components/Header";
 import { Search } from "lucide-react";
-import { SiteHeader } from "@/components/engineering/site-header";
+
 import { ToolCard } from "@/components/engineering/tool-card";
 import { categories, tools, toolsByCategory } from "@/lib/engineering/tools";
 
@@ -27,8 +28,8 @@ export default function Index() {
 
   return (
     <>
-      <SiteHeader />
-      <main className="mx-auto max-w-7xl px-4 pb-24 pt-12 sm:px-6 sm:pt-16">
+      <Header mode="category" categoryName="Engineering" />
+      <main className="racira-page-container pb-24 pt-12 sm:px-6 sm:pt-16">
         <section className="mx-auto max-w-4xl text-center">
           <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
             <span className="h-1.5 w-1.5 rounded-full bg-primary" /> {tools.length} engineering tools · {liveCount} live

@@ -1,7 +1,7 @@
 export function Footer() {
   return (
     <footer className="border-t border-border">
-      <div className="mx-auto max-w-7xl px-4 py-10 text-center text-sm text-muted-foreground sm:px-6 lg:px-8">
+      <div className="racira-page-container py-10 text-center text-sm text-muted-foreground sm:px-6 lg:px-8">
         <p>
           <span className="font-semibold text-foreground">Racira Games</span> —
           450+ free browser games. No signup, no downloads.

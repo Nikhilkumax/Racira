@@ -143,9 +143,9 @@ export default function BuyDownCalculator() {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Finance", href: "/calculator#finance" }, { label: "Buy Down Calculator" }]} />
-      <div className="container-page py-4">
+      <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Mortgage Buy Down Calculator</h1>
-        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           {/* LEFT COLUMN */}
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
             <div className="grid grid-cols-2 gap-4">
@@ -243,7 +243,7 @@ export default function BuyDownCalculator() {
         </div>
 
         {/* SEO Content */}
-        <div className="max-w-[1180px] mx-auto mt-12 prose prose-slate dark:prose-invert">
+        <div className="max-w-[1180px] mt-12 prose prose-slate dark:prose-invert">
           <h2>What Is a Mortgage Buy Down?</h2>
           <p>A mortgage buy-down is a financing technique where the borrower, home seller, or builder pays an upfront fee to temporarily lower the interest rate on a mortgage. The most common structures are the 3-2-1 and 2-1 buy-downs, which lower the rate for the first three or two years, respectively.</p>
           

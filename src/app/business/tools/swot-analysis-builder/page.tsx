@@ -1,10 +1,11 @@
 ﻿"use client";
 
 import { useEffect, useRef, useState } from "react";
+import Header from "@/components/Header";
 import { ArrowLeft, Download, FileDown, Plus, RotateCcw, Trash2 } from "lucide-react";
 import Link from "next/link";
 
-import { SiteHeader, SiteFooter } from "@/components/business/SiteHeader";
+import { SiteFooter } from "@/components/business/SiteHeader";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -103,7 +104,7 @@ export default function SwotBuilder() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <SiteHeader />
+      <Header mode="category" categoryName="Business" />
       <main className="flex-1 mx-auto max-w-6xl w-full px-6 py-12">
         <Link href="/" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-6">
           <ArrowLeft className="h-4 w-4" /> Back to all tools

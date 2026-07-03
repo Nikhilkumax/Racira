@@ -61,7 +61,7 @@ export default function Home() {
     <div className="flex flex-col">
       {/* Hero */}
       <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
-        <div className="max-w-7xl mx-auto px-4 text-center">
+        <div className="racira-page-container text-center">
           <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
             11,000+ Free Calculators —{" "}
             <span className="hero-gradient-text">Fast, Accurate & Free</span>
@@ -74,7 +74,7 @@ export default function Home() {
       </section>
 
       {/* Category Grid */}
-      <div className="max-w-7xl mx-auto px-4 pb-4 sm:pb-8">
+      <div className="racira-page-container pb-4 sm:pb-8">
         <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4 justify-items-center calculator-category-grid">
           {categoryOrder.map(cat => {
             const summary = CATEGORY_SUMMARY.find(c => c.category === cat);
@@ -99,7 +99,7 @@ export default function Home() {
       </div>
 
       {/* All Categories with Tools */}
-      <div className="max-w-7xl mx-auto px-4 pb-16">
+      <div className="racira-page-container pb-16">
         {categoryOrder.map((cat, idx) => {
           const summary = CATEGORY_SUMMARY.find(c => c.category === cat);
           if (!summary) return null;
@@ -148,7 +148,7 @@ export default function Home() {
       </div>
 
       {/* SEO Content */}
-      <section className="max-w-7xl mx-auto px-4 pb-16 prose-finance">
+      <section className="racira-page-container pb-16 prose-finance">
         <h2>Why Use Racira Calculator?</h2>
         <p>
           Managing personal finances, tracking health metrics, solving math problems, or planning construction projects — 

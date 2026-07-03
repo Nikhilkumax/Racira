@@ -5,12 +5,12 @@ const PopularCalculators = ({ exclude }: { exclude?: string }) => {
   const items = calculatorRegistry
     .filter(c => `/calculator/${c.slug}` !== exclude)
     .sort((a, b) => (b.isBuilt ? 1 : 0) - (a.isBuilt ? 1 : 0))
-    .slice(0, 12);
+    .slice(0, 8);
 
   return (
     <section className="mt-12">
       <h2 className="text-2xl font-bold mb-6">Related Calculators</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {items.map((c) => {
           const Icon = c.icon ?? getCategoryIcon(c.category);
           const catSlug = c.category ? c.category.toLowerCase().replace(/\s+/g, '-') : 'general';
@@ -18,21 +18,19 @@ const PopularCalculators = ({ exclude }: { exclude?: string }) => {
           <Link
             key={c.slug}
             href={`/calculator/${c.slug}`}
-            className="h-[140px] flex items-start gap-4 p-4 rounded-xl border border-border bg-card hover:bg-secondary/30 hover:border-primary/30 transition-all group"
+            className="tool-card group"
           >
-            <div className="tool-card-icon shrink-0 mt-1 bg-primary/10 p-2 rounded-lg">
+            {!c.isBuilt && (
+              <span className="tool-card-badge">Soon</span>
+            )}
+            <div className="tool-card-icon">
               <Icon className="h-5 w-5 text-primary" />
             </div>
-            <div className="min-w-0 flex-1">
-              <h3 className="font-bold text-base text-foreground mb-1 leading-snug flex items-center gap-1.5">
+            <div className="min-w-0">
+              <h4 className="font-semibold text-foreground text-[15px] leading-snug mb-1">
                 {c.name}
-                {!c.isBuilt && (
-                  <span className="text-[10px] font-medium text-muted-foreground bg-muted px-1.5 py-0.5 rounded">
-                    Soon
-                  </span>
-                )}
-              </h3>
-              <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
+              </h4>
+              <p className="text-[13px] text-muted-foreground leading-relaxed line-clamp-2">
                 {c.description}
               </p>
             </div>

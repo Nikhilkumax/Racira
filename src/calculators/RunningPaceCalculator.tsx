@@ -62,9 +62,9 @@ export default function RunningPaceCalculator() {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Health", href: "/calculator#health" }, { label: "Running Pace Calculator" }]} />
-      <div className="container-page py-4">
+      <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Running Pace Calculator</h1>
-        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           <div className="card-calculator flex flex-col gap-3 !p-4 border border-border bg-card shadow-sm">
             <div className="grid grid-cols-2 gap-3">
               <div className="flex flex-col"><label className="text-sm font-semibold mb-1">Distance</label>
@@ -127,7 +127,7 @@ export default function RunningPaceCalculator() {
             </div>
           </div>
         </div>
-        <div className="max-w-[1180px] mx-auto mt-8">
+        <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
             <h2>How to Use the Running Pace Calculator</h2>

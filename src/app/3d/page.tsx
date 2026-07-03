@@ -1,4 +1,4 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 import { CATEGORIES, TOTAL_TOOLS } from "@/lib/3d/tools-registry";
 import { SiteShell } from "@/components/3d/SiteShell";
 import {
@@ -42,7 +42,7 @@ export default function Index() {
         </div>
       </section>
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 space-y-14 pb-16">
+      <div className="racira-page-container space-y-14 pb-16">
         {CATEGORIES.map((cat) => {
           const Icon = CAT_ICONS[cat.name] ?? Box;
           const id = cat.name.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
@@ -69,26 +69,26 @@ export default function Index() {
                   <Link
                     key={tool.slug}
                     href={`/tool/${tool.slug}`}
-                    className="group relative rounded-xl border border-border bg-card p-4 transition-all hover:border-primary/40 hover:shadow-md"
+                    className="tool-card group"
                   >
-                    <div className="mb-3 flex items-center justify-between">
-                      <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary-soft text-primary">
-                        <Icon className="h-4 w-4" />
+                    <div className="mb-4 flex items-center justify-between">
+                      <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                        <Icon className="h-5 w-5" />
                       </span>
                       {tool.built ? (
                         <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-medium text-primary">
-                          <CheckCircle2 className="h-3 w-3" /> Live
+                          Live
                         </span>
                       ) : (
-                        <span className="rounded-full bg-muted px-2 py-0.5 text-[10px] font-medium text-muted-foreground">
+                        <span className="rounded-md bg-muted px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
                           Soon
                         </span>
                       )}
                     </div>
-                    <h3 className="text-sm font-semibold text-foreground leading-snug">
+                    <h3 className="font-semibold text-foreground leading-snug">
                       {tool.name}
                     </h3>
-                    <p className="mt-1 text-xs text-muted-foreground line-clamp-2">
+                    <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
                       {tool.description}
                     </p>
                   </Link>

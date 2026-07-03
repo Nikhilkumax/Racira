@@ -280,10 +280,10 @@ const PmiCalculator = () => {
         }
       `}</style>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Finance", href: "/calculator#finance" }, { label: "PMI Calculator" }]} />
-      <div className="container-page py-4">
+      <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">PMI Calculator</h1>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           {/* LEFT: INPUT PANEL */}
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card !overflow-visible">
 
@@ -976,7 +976,7 @@ const PmiCalculator = () => {
 
         {/* DOWN PAYMENT COMPARISON */}
         {calcInputs.loanType === "conventional" && calcInputs.homeValue > 0 && (
-          <div className="max-w-[1180px] mx-auto mt-6">
+          <div className="max-w-[1180px] mt-6">
             <div className="rounded-xl border border-border bg-card overflow-hidden">
               <button
                 type="button"
@@ -1044,7 +1044,7 @@ const PmiCalculator = () => {
 
         {/* AMORTIZATION TABLE */}
         {results.amortizationRows.length > 0 && (
-          <div className="max-w-[1180px] mx-auto mt-4">
+          <div className="max-w-[1180px] mt-4">
             <PmiAmortizationTable
               rows={results.amortizationRows}
               isFha={calcInputs.loanType === "fha"}
@@ -1054,7 +1054,7 @@ const PmiCalculator = () => {
           </div>
         )}
 
-        <div className="max-w-[1180px] mx-auto mt-8">
+        <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is Private Mortgage Insurance (PMI)?</h2>

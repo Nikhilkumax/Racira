@@ -66,10 +66,10 @@ const BloodPressureCategoryCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Blood Pressure" }]} />
-      <div className="container-page py-4">
+      <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Blood Pressure Category Calculator</h1>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
             <div className="grid sm:grid-cols-2 gap-5 mb-6">
                 <InputField id="systolic" label="Systolic (Top Number)" value={systolic} onChange={setSystolic} suffix="mmHg" />
@@ -89,10 +89,10 @@ const BloodPressureCategoryCalculator = () => {
                 <div className="mb-6">
                   <h2 className="text-2xl font-bold mb-3">Reading Category</h2>
                   <p className={`text-4xl font-extrabold mb-2 ${results.color}`}>{results.category}</p>
-                  <p className="text-muted-foreground max-w-md mx-auto">{results.description}</p>
+                  <p className="text-muted-foreground max-w-md">{results.description}</p>
                 </div>
                 
-                <div className="grid grid-cols-2 gap-4 max-w-sm mx-auto">
+                <div className="grid grid-cols-2 gap-4 max-w-sm">
                    <div className="p-4 rounded-xl bg-secondary/50 border border-border">
                       <p className="text-xs font-bold text-muted-foreground uppercase">Systolic</p>
                       <p className="text-2xl font-bold">{results.s}</p>
@@ -107,7 +107,7 @@ const BloodPressureCategoryCalculator = () => {
           </div>
         </div>
 
-        <div className="max-w-[1180px] mx-auto mt-8">
+        <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Sidebar Ad" />
           <article className="prose-finance text-[15.75px]">
               <h2>The 'Silent Killer': Why Monitoring Matters</h2>

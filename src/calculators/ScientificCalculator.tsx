@@ -169,9 +169,9 @@ const ScientificCalculator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Math", href: "/calculator#math" }, { label: "Scientific Calculator" }]} />
-      <div className="container-page py-4">
+      <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Scientific Calculator</h1>
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-6 items-start max-w-[1000px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-6 items-start max-w-[1000px]">
           
           <div className="card-calculator flex flex-col gap-4 !p-4 sm:!p-5 shadow-sm border border-border bg-muted/20">
             
@@ -266,7 +266,7 @@ const ScientificCalculator = () => {
           </div>
         </div>
         
-        <div className="max-w-[1180px] mx-auto mt-8">
+        <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
             <h2>The Online Scientific Calculator</h2>

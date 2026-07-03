@@ -90,7 +90,7 @@ export function KeywordDensityChecker() {
   return (
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1.4fr_1fr]">
       {/* Input */}
-      <div className="rounded-2xl border border-border/60 bg-card p-5">
+      <div className="tool-card group">
         <label className="text-xs font-medium text-muted-foreground">Focus keyword</label>
         <input
           value={focus}

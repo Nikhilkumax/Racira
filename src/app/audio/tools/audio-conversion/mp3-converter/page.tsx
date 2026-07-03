@@ -1,6 +1,7 @@
 ﻿"use client";
 
 import Link from "next/link";
+import Header from "@/components/Header";
 import { useCallback, useRef, useState } from "react";
 import {
   UploadCloud,
@@ -13,7 +14,7 @@ import {
   Zap,
   Music,
 } from "lucide-react";
-import { SiteHeader } from "@/components/audio/SiteHeader";
+
 import { SiteFooter } from "@/components/audio/SiteFooter";
 import { cn } from "@/lib/utils";
 
@@ -117,10 +118,10 @@ export default function Mp3ConverterPage() {
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
-      <SiteHeader />
+      <Header mode="category" categoryName="Audio" />
 
       <main className="flex-1">
-        <div className="mx-auto max-w-3xl px-4 py-10">
+        <div className="racira-page-container py-10">
           {/* Breadcrumb */}
           <nav className="flex items-center gap-1.5 text-xs text-muted-foreground">
             <Link href="/" className="hover:text-foreground">

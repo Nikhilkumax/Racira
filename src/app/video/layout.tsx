@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Header } from "@/components/video/Header";
+import Header from "@/components/Header";
+
 import { Footer } from "@/components/video/Footer";
 
 export const metadata: Metadata = {
@@ -17,7 +18,7 @@ export default function RootLayout({
       
       <>
         <div className="min-h-screen flex flex-col bg-background text-foreground">
-          <Header />
+          <Header mode="category" categoryName="Video" />
           <main className="flex-1">
             {children}
           </main>

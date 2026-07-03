@@ -112,10 +112,10 @@ const CreditScoreEstimator = () => {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Credit Score Estimator" }]} />
-      <div className="container-page py-4">
+      <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Credit Score Estimator</h1>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
             <div className="grid sm:grid-cols-2 gap-8">
                 <section className="space-y-6">
@@ -195,14 +195,14 @@ const CreditScoreEstimator = () => {
                   <p className={`text-8xl font-black mb-2 ${results.color}`}>{results.score}</p>
                   <p className={`text-2xl font-bold uppercase ${results.color}`}>{results.rating}</p>
                   
-                  <div className="mt-8 max-w-md mx-auto h-3 bg-secondary rounded-full overflow-hidden flex border border-border">
+                  <div className="mt-8 max-w-md h-3 bg-secondary rounded-full overflow-hidden flex border border-border">
                     <div className="h-full bg-red-500" style={{ width: "20%" }}></div>
                     <div className="h-full bg-orange-500" style={{ width: "20%" }}></div>
                     <div className="h-full bg-amber-500" style={{ width: "20%" }}></div>
                     <div className="h-full bg-emerald-400" style={{ width: "20%" }}></div>
                     <div className="h-full bg-emerald-600" style={{ width: "20%" }}></div>
                   </div>
-                  <div className="mt-2 max-w-md mx-auto flex justify-between text-[10px] font-bold text-muted-foreground uppercase tracking-tighter">
+                  <div className="mt-2 max-w-md flex justify-between text-[10px] font-bold text-muted-foreground uppercase tracking-tighter">
                     <span>300</span>
                     <span>580</span>
                     <span>670</span>
@@ -240,7 +240,7 @@ const CreditScoreEstimator = () => {
           </div>
         </div>
 
-        <div className="max-w-[1180px] mx-auto mt-8">
+        <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
               <h2>How Credit Scores Are Calculated</h2>

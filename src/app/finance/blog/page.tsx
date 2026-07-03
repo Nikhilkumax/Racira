@@ -29,7 +29,7 @@ function BlogList() {
   return (
     <PageShell>
       <section className="border-b border-border/60" style={{ background: "var(--gradient-hero)" }}>
-        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+        <div className="racira-page-container py-14 sm:px-6 lg:px-8">
           <h1 className="font-display text-4xl font-semibold tracking-tight md:text-5xl">Articles</h1>
           <p className="mt-3 max-w-xl text-muted-foreground">{all.length} pieces and counting. Search or browse by category.</p>
           <div className="mt-6 flex max-w-xl items-center gap-2 rounded-xl border border-border/60 bg-background px-3 py-1.5 shadow-sm">
@@ -51,7 +51,7 @@ function BlogList() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+      <section className="racira-page-container py-12 sm:px-6 lg:px-8">
         {slice.length === 0 ? (
           <p className="text-muted-foreground">No articles match your search.</p>
         ) : (

@@ -72,7 +72,7 @@ export default function SubcategoryPage({ params }: Props) {
 
   return (
     <div className="flex flex-col">
-      <div className="container-page pt-3 pb-0">
+      <div className="racira-page-container pt-3 pb-0">
         <nav aria-label="Breadcrumb" className="flex items-center flex-wrap text-sm text-muted-foreground mb-6">
           <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
           <ChevronRight className="h-4 w-4 mx-1 opacity-50 shrink-0" />
@@ -87,7 +87,7 @@ export default function SubcategoryPage({ params }: Props) {
       </div>
 
       <section className="pt-8 pb-8 sm:pt-12 sm:pb-10">
-        <div className="max-w-7xl mx-auto px-4 text-center">
+        <div className="racira-page-container text-center">
           <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
             {sub.name} Calculators
           </h1>
@@ -97,17 +97,17 @@ export default function SubcategoryPage({ params }: Props) {
         </div>
       </section>
 
-      <div className="max-w-7xl mx-auto px-4 pb-16 w-full">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="racira-page-container pb-16 w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {tools.map((tool: any) => {
             const toolSlug = tool.slug || toSlug(tool.name);
             return (
               <Link
                 key={toolSlug}
                 href={`/calculator/${toolSlug}`}
-                className="tool-card group hover:cursor-pointer hover:shadow-md transition-all duration-200 flex items-start p-4 border border-border rounded-xl bg-card"
+                className="tool-card group"
               >
-                <div className="tool-card-icon mr-4 mt-1 bg-primary/10 p-2 rounded-lg">
+                <div className="tool-card-icon">
                   <Calculator className="h-5 w-5 text-primary" />
                 </div>
                 <div className="min-w-0">

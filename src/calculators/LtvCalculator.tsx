@@ -41,7 +41,7 @@ export default function LtvCalculator() {
   const results = calculateLTV();
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+    <div className="max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       {/* Header */}
       <div className="mb-12 text-center">
         <div className="inline-flex items-center justify-center p-3 bg-primary/10 rounded-full mb-4">
@@ -181,7 +181,7 @@ export default function LtvCalculator() {
       </div>
 
       {/* Educational Content */}
-      <div className="mt-16 max-w-4xl mx-auto prose prose-slate dark:prose-invert">
+      <div className="mt-16 max-w-4xl prose prose-slate dark:prose-invert">
         <h2 className="text-2xl font-bold mb-3">What is a Loan-to-Value (LTV) Ratio?</h2>
         <p className="text-lg text-muted-foreground mb-6">
           The Loan-to-Value (LTV) ratio is a financial term used by lenders to express the ratio of a loan to the value of an asset purchased. The term is commonly used by banks and building societies to represent the ratio of the first mortgage line as a percentage of the total appraised value of real property.
