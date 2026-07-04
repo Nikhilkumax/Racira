@@ -4,8 +4,8 @@ import Link from "next/link";
 import { ArrowLeft, Hammer } from "lucide-react";
 import type { Metadata } from "next";
 
-import { findTool } from "@/lib/business/tools";
-import { SiteFooter } from "@/components/business/SiteHeader";
+import { findTool } from "@/domains/business/registry";
+import { SiteFooter } from "@/domains/business/components/SiteHeader";
 
 interface Props {
   params: Promise<{ slug: string }>;

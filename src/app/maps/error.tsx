@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
-import { reportLovableError } from "@/lib/maps/lovable-error-reporting";
+import { reportLovableError } from "@/domains/maps/lib/lovable-error-reporting";
 
 export default function Error({
   error,

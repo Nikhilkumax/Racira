@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { CATEGORIES, TOTAL_TOOLS } from "@/lib/3d/tools-registry";
-import { SiteShell } from "@/components/3d/SiteShell";
+import { CATEGORIES, TOTAL_TOOLS } from "@/domains/3d/registry";
+import { SiteShell } from "@/domains/3d/components/SiteShell";
 import {
   Eye, Box, Printer, Layers, Droplet, Wallet, Palette, Film,
   Globe, FileText, Scan, ArrowRight, CheckCircle2,

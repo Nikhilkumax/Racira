@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { TOOLS_BY_SLUG, TOOLS } from "@/tools/colors/registry-meta";
+import { TOOLS_BY_SLUG, TOOLS } from "@/domains/colors/registry/registry-meta";
 import { ToolRouteClient } from "./tool-client";
 
 export function generateStaticParams() {

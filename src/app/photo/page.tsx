@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import Header from "@/components/Header";
 import Link from "next/link";
 import { Search, ArrowRight, Aperture, Sparkles } from "lucide-react";
-import { CATEGORIES, ALL_TOOLS } from "@/lib/photo/tools";
+import { CATEGORIES, ALL_TOOLS } from "@/domains/photo/registry";
 
 
 export default function Home() {

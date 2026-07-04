@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { categories, totalCount } from "@/lib/cad/tools-catalog";
+import { categories, totalCount } from "@/domains/cad/registry";
 import {
   Pencil, Ruler, Cog, Building2, CircuitBoard, Home, Wind,
   Crosshair, Scissors, FileText, ArrowRight, Sparkles,

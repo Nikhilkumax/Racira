@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Providers } from "@/components/animator/providers";
+import { Providers } from "@/domains/animator/components/providers";
 import Link from "next/link";
 import { type ReactNode } from "react";
 

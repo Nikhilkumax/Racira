@@ -2,9 +2,9 @@ import { notFound } from "next/navigation";
 import Header from "@/components/Header";
 import Link from "next/link";
 import { ArrowLeft, Clock } from "lucide-react";
-import { findTool } from "@/lib/photo/tools";
+import { findTool } from "@/domains/photo/registry";
 
-import { TOOL_COMPONENTS } from "@/components/photo/tools/registry";
+import { TOOL_COMPONENTS } from "@/domains/photo/components/tools/registry";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;

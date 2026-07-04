@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { TOOLS_BY_SLUG } from "@/lib/3d/tools-registry";
-import { SiteShell } from "@/components/3d/SiteShell";
+import { TOOLS_BY_SLUG } from "@/domains/3d/registry";
+import { SiteShell } from "@/domains/3d/components/SiteShell";
 import { ArrowLeft, Sparkles } from "lucide-react";
-import { ToolRenderer } from "@/components/3d/tools/ToolRenderer";
+import { ToolRenderer } from "@/domains/3d/components/tools/ToolRenderer";
 import { notFound } from "next/navigation";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {

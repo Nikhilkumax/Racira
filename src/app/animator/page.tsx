@@ -1,4 +1,4 @@
-import { categories, totalCount } from "@/lib/animator/tools";
+import { categories, totalCount } from "@/domains/animator/registry";
 import { Sparkles } from "lucide-react";
 import Link from "next/link";
 

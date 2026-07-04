@@ -1,9 +1,9 @@
-import { TTSHero } from "@/components/tts-sections/TTSHero";
-import { StudioCard } from "@/components/tts/StudioCard";
-import { TTSFeatures } from "@/components/tts-sections/TTSFeatures";
-import { TTSWhyRacira } from "@/components/tts-sections/TTSWhyRacira";
-import { TTSFAQ } from "@/components/tts-sections/TTSFAQ";
-import { TTSSeoContent } from "@/components/tts-sections/TTSSeoContent";
+import { TTSHero } from "@/domains/voice/components/tts-sections/TTSHero";
+import { StudioCard } from "@/domains/voice/components/tts/StudioCard";
+import { TTSFeatures } from "@/domains/voice/components/tts-sections/TTSFeatures";
+import { TTSWhyRacira } from "@/domains/voice/components/tts-sections/TTSWhyRacira";
+import { TTSFAQ } from "@/domains/voice/components/tts-sections/TTSFAQ";
+import { TTSSeoContent } from "@/domains/voice/components/tts-sections/TTSSeoContent";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {

@@ -1,7 +1,7 @@
 "use client";
 
-import { TOOLS_BY_SLUG } from "@/tools/colors/registry";
-import { ToolShell } from "@/components/colors/tool-shell";
+import { TOOLS_BY_SLUG } from "@/domains/colors/registry";
+import { ToolShell } from "@/domains/colors/components/tool-shell";
 import { notFound } from "next/navigation";
 
 export function ToolRouteClient({ slug }: { slug: string }) {

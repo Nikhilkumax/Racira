@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { findTool, findCategoryForTool, categories } from "@/lib/cad/tools-catalog";
+import { findTool, findCategoryForTool, categories } from "@/domains/cad/registry";
 import { ArrowLeft, Construction, Sparkles } from "lucide-react";
 import { Metadata } from "next";
-import { SketchToolClient } from "@/components/cad/tools/sketch-tool-client";
+import { SketchToolClient } from "@/domains/cad/components/tools/sketch-tool-client";
 
 export async function generateStaticParams() {
   const slugs: { slug: string }[] = [];

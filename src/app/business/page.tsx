@@ -1,7 +1,7 @@
 ﻿import Link from "next/link";
 import Header from "@/components/Header";
-import { categories } from "@/lib/business/tools";
-import { SiteFooter } from "@/components/business/SiteHeader";
+import { categories } from "@/domains/business/registry";
+import { SiteFooter } from "@/domains/business/components/SiteHeader";
 import { Wrench, Sparkles } from "lucide-react";
 import type { Metadata } from "next";
 

@@ -5,7 +5,7 @@ import Header from "@/components/Header";
 import { ArrowLeft, Download, FileDown, Plus, RotateCcw, Trash2 } from "lucide-react";
 import Link from "next/link";
 
-import { SiteFooter } from "@/components/business/SiteHeader";
+import { SiteFooter } from "@/domains/business/components/SiteHeader";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 

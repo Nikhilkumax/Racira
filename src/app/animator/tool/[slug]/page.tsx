@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { findTool } from "@/lib/animator/tools";
+import { findTool } from "@/domains/animator/registry";
 import { ArrowLeft, Construction, Sparkles } from "lucide-react";
 import { Metadata } from "next";
 
