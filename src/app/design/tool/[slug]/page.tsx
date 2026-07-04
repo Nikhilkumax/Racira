@@ -1,9 +1,9 @@
 import Link from "next/link";
 import Header from "@/components/Header";
 import { notFound } from "next/navigation";
-import { findTool } from "@/lib/design/tools-data";
-import { Footer } from "@/components/design/HeaderFooter";
-import { GridSystemBuilder } from "@/components/design/tools/GridSystemBuilder";
+import { findTool } from "@/domains/design/registry";
+import { Footer } from "@/domains/design/components/HeaderFooter";
+import { GridSystemBuilder } from "@/domains/design/components/tools/GridSystemBuilder";
 import { ArrowLeft, Hammer } from "lucide-react";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {

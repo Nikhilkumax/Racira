@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Providers } from "@/components/insight/Providers";
+import { Providers } from "@/domains/insight/components/Providers";
 
 export const metadata: Metadata = {
   title: "Racira Data & Charts — 128 Free Data Visualization Tools",

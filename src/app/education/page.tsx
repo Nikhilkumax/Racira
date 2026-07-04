@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { Search, GraduationCap } from "lucide-react";
-import { categories, allTools } from "@/lib/education/tools";
+import { categories, allTools } from "@/domains/education/registry";
 import { Input } from "@/components/ui/input";
 
 export default function Home() {

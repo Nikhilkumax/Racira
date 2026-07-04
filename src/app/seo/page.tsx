@@ -23,7 +23,7 @@ import {
   Search as SearchIcon,
   Wrench,
 } from "lucide-react";
-import { CATEGORIES, TOOLS, TOTAL_TOOLS, type Tool } from "@/lib/seo/tools";
+import { CATEGORIES, TOOLS, TOTAL_TOOLS, type Tool } from "@/domains/seo/registry";
 
 // Map each category to an icon
 const CATEGORY_ICON: Record<string, React.ComponentType<{ className?: string }>> = {

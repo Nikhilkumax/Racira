@@ -3,8 +3,8 @@ import Header from "@/components/Header";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Construction } from "lucide-react";
 
-import { getTool, TOOLS } from "@/lib/crypto/tools";
-import { ToolRenderer } from "@/components/crypto/tools/ToolRenderer";
+import { getTool, TOOLS } from "@/domains/crypto/registry";
+import { ToolRenderer } from "@/domains/crypto/components/tools/ToolRenderer";
 import type { Metadata } from "next";
 
 export function generateStaticParams() {

@@ -18,7 +18,7 @@
  */
 
 import type { MetadataRoute } from "next";
-import { tools } from "@/data/pdf/tools";
+import { tools } from "@/domains/pdf/registry/tools";
 
 const BASE_URL = "https://racira.com";
 

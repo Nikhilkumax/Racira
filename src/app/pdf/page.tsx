@@ -1,6 +1,6 @@
 "use client";
 
-import Index from "../../views/pdf/Index";
+import Index from "@/domains/pdf/tools/Index";
 
 export default function Page() {
   return <Index />;

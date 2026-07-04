@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Providers } from "@/components/seo/providers";
+import { Providers } from "@/domains/seo/components/providers";
 
 export const metadata: Metadata = {
   title: "Racira SEO — All SEO Tools You Need, Fast, Simple & Free",

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Providers } from "@/components/education/providers";
+import { Providers } from "@/domains/education/components/providers";
 
 export const metadata: Metadata = {
   title: "Racira Education — 132 Free Learning Tools",

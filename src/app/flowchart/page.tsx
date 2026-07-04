@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { CATEGORIES, ACTIVE_SLUG, ALL_TOOLS } from "@/lib/flowchart/tools-data";
+import { CATEGORIES, ACTIVE_SLUG, ALL_TOOLS } from "@/domains/flowchart/registry";
 import { Workflow } from "lucide-react";
 
 export default function FlowchartHomePage() {

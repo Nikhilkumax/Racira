@@ -5,7 +5,7 @@ import Header from "@/components/Header";
 import { useMemo, useState } from "react";
 import { Search, ArrowRight, Wallet, Send, FileCode, Lock, Coins, Image, BarChart3, GraduationCap, Wrench } from "lucide-react";
 
-import { TOOLS, CATEGORIES } from "@/lib/crypto/tools";
+import { TOOLS, CATEGORIES } from "@/domains/crypto/registry";
 
 const CATEGORY_ICONS: Record<string, typeof Wallet> = {
   "Wallet & Address": Wallet,

@@ -2,9 +2,9 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Sparkles } from "lucide-react";
-import { findTool, FUNCTIONAL_SLUGS, CATEGORIES } from "@/lib/insight/tools-data";
+import { findTool, FUNCTIONAL_SLUGS, CATEGORIES } from "@/domains/insight/registry";
 
-import { LineChartBuilder } from "@/components/insight/tools/LineChartBuilder";
+import { LineChartBuilder } from "@/domains/insight/components/tools/LineChartBuilder";
 import { Metadata } from "next";
 
 type Props = {

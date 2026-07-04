@@ -2,10 +2,10 @@ import type { ReactElement } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Construction, Shield } from "lucide-react";
-import { Layout } from "@/components/security/Layout";
-import { getTool, toolsByCategory, tools } from "@/lib/security/tools";
+import { Layout } from "@/domains/security/components/Layout";
+import { getTool, toolsByCategory, tools } from "@/domains/security/registry";
 import { Button } from "@/components/ui/button";
-import * as T from "@/lib/security/tool-impls";
+import * as T from "@/domains/security/lib/tool-impls";
 import type { Metadata } from "next";
 
 const IMPLS: Record<string, () => ReactElement> = {

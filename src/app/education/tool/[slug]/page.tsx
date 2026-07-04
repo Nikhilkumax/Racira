@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, GraduationCap, Construction } from "lucide-react";
-import { findTool } from "@/lib/education/tools";
+import { findTool } from "@/domains/education/registry";
 import { Button } from "@/components/ui/button";
-import { ToolRenderer } from "@/components/education/tools/ToolRenderer";
+import { ToolRenderer } from "@/domains/education/components/tools/ToolRenderer";
 
 interface PageProps {
   params: Promise<{ slug: string }>;

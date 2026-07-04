@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Providers } from "@/components/writing/Providers";
+import { Providers } from "@/domains/writing/components/Providers";
 
 export const metadata: Metadata = {
   title: "Racira Writing — 150+ Free Writing Tools",

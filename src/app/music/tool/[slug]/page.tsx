@@ -2,10 +2,10 @@ import { notFound } from "next/navigation";
 import Header from "@/components/Header";
 import Link from "next/link";
 import { ArrowLeft, Clock, Sparkles } from "lucide-react";
-import { SiteFooter } from "@/components/music/site-chrome";
-import { ToolCard } from "@/components/music/tool-card";
-import { getToolIcon } from "@/components/music/tool-icon";
-import { findTool, findCategoryOfTool, type Tool } from "@/lib/music/tools-data";
+import { SiteFooter } from "@/domains/music/components/site-chrome";
+import { ToolCard } from "@/domains/music/components/tool-card";
+import { getToolIcon } from "@/domains/music/components/tool-icon";
+import { findTool, findCategoryOfTool, type Tool } from "@/domains/music/registry";
 import { Metadata } from "next";
 
 type Props = {

@@ -1,6 +1,6 @@
-﻿import { CATEGORIES } from "@/lib/insight/tools-data";
+﻿import { CATEGORIES } from "@/domains/insight/registry";
 import Header from "@/components/Header";
-import { CategorySection } from "@/components/insight/CategorySection";
+import { CategorySection } from "@/domains/insight/components/CategorySection";
 
 
 export default function Index() {

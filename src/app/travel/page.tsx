@@ -1,8 +1,8 @@
 import Link from "next/link";
 import Header from "@/components/Header";
-import { categories, totalCount } from "@/lib/travel/tools";
-import { categoryIcons, fallbackIcon } from "@/lib/travel/category-icons";
-import { SiteFooter } from "@/components/travel/site-chrome";
+import { categories, totalCount } from "@/domains/travel/registry";
+import { categoryIcons, fallbackIcon } from "@/domains/travel/lib/category-icons";
+import { SiteFooter } from "@/domains/travel/components/site-chrome";
 import { Compass } from "lucide-react";
 
 export default function Home() {

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Providers } from "@/components/engineering/Providers";
+import { Providers } from "@/domains/engineering/components/Providers";
 
 export const metadata: Metadata = {
   title: "Racira Engineering — Free Engineering Tools",

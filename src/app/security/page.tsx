@@ -3,8 +3,8 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { Search, ShieldCheck, Lock, KeyRound, Hash, Binary, EyeOff, Network, UserCheck, ClipboardCheck, Bug, Scale, Wrench, ArrowRight } from "lucide-react";
-import { Layout } from "@/components/security/Layout";
-import { categories, tools, toolsByCategory, totalTools, type ToolCategory } from "@/lib/security/tools";
+import { Layout } from "@/domains/security/components/Layout";
+import { categories, tools, toolsByCategory, totalTools, type ToolCategory } from "@/domains/security/registry";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 

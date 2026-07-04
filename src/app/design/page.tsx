@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { categories, totalCount } from "@/lib/design/tools-data";
+import { categories, totalCount } from "@/domains/design/registry";
 import { ArrowRight } from "lucide-react";
 
 export const metadata = {

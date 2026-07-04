@@ -1,9 +1,9 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Sparkles } from "lucide-react";
-import { TOOL_BY_SLUG, TOOLS } from "@/lib/seo/tools";
-import { KeywordDensityChecker } from "@/components/seo/tools/KeywordDensityChecker";
-import { ComingSoon } from "@/components/seo/tools/ComingSoon";
+import { TOOL_BY_SLUG, TOOLS } from "@/domains/seo/registry";
+import { KeywordDensityChecker } from "@/domains/seo/components/tools/KeywordDensityChecker";
+import { ComingSoon } from "@/domains/seo/components/tools/ComingSoon";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;

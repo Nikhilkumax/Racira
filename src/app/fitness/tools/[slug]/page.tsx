@@ -2,9 +2,9 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Hammer } from "lucide-react";
-import { findTool, findCategory, FUNCTIONAL_SLUGS } from "@/lib/fitness/tools-data";
+import { findTool, findCategory, FUNCTIONAL_SLUGS } from "@/domains/fitness/registry";
 
-import { WorkoutPlanner } from "@/components/fitness/WorkoutPlanner";
+import { WorkoutPlanner } from "@/domains/fitness/components/WorkoutPlanner";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;

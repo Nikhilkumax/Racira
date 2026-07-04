@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { Search, PenLine, Sparkles, ArrowRight } from "lucide-react";
-import { categories, totalToolCount } from "@/lib/writing/tools";
+import { categories, totalToolCount } from "@/domains/writing/registry";
 
 export default function Index() {
   const [query, setQuery] = useState("");

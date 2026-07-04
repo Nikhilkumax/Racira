@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { findTool, ACTIVE_SLUG } from "@/lib/flowchart/tools-data";
+import { findTool, ACTIVE_SLUG } from "@/domains/flowchart/registry";
 import { ArrowLeft, Workflow } from "lucide-react";
-import { FlowchartBuilder } from "@/components/flowchart/FlowchartBuilder";
+import { FlowchartBuilder } from "@/domains/flowchart/components/FlowchartBuilder";
 
 interface ToolPageProps {
   params: { slug: string };

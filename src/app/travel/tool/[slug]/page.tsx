@@ -1,10 +1,10 @@
 import Link from "next/link";
 import Header from "@/components/Header";
 import { notFound } from "next/navigation";
-import { findCategoryOfTool, findTool } from "@/lib/travel/tools";
-import { SiteFooter } from "@/components/travel/site-chrome";
+import { findCategoryOfTool, findTool } from "@/domains/travel/registry";
+import { SiteFooter } from "@/domains/travel/components/site-chrome";
 import { ArrowLeft, Construction } from "lucide-react";
-import { TripItineraryBuilder } from "@/components/travel/tools/trip-itinerary-builder";
+import { TripItineraryBuilder } from "@/domains/travel/components/tools/trip-itinerary-builder";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;

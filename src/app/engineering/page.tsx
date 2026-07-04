@@ -4,8 +4,8 @@ import { useMemo, useState } from "react";
 import Header from "@/components/Header";
 import { Search } from "lucide-react";
 
-import { ToolCard } from "@/components/engineering/tool-card";
-import { categories, tools, toolsByCategory } from "@/lib/engineering/tools";
+import { ToolCard } from "@/domains/engineering/components/tool-card";
+import { categories, tools, toolsByCategory } from "@/domains/engineering/registry";
 
 export default function Index() {
   const [query, setQuery] = useState("");

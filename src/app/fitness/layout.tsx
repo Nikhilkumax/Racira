@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Providers } from "@/components/fitness/Providers";
+import { Providers } from "@/domains/fitness/components/Providers";
 
 export const metadata: Metadata = {
   title: "Racira Fitness — 128 free fitness & nutrition tools",

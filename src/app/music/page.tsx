@@ -1,7 +1,7 @@
-﻿import { SiteFooter } from "@/components/music/site-chrome";
+﻿import { SiteFooter } from "@/domains/music/components/site-chrome";
 import Header from "@/components/Header";
-import { ToolCard } from "@/components/music/tool-card";
-import { categories, totalTools } from "@/lib/music/tools-data";
+import { ToolCard } from "@/domains/music/components/tool-card";
+import { categories, totalTools } from "@/domains/music/registry";
 
 export default function HomePage() {
   return (

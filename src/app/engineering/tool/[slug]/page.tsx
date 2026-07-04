@@ -1,8 +1,8 @@
 import { notFound } from "next/navigation";
 import Header from "@/components/Header";
-import { toolsBySlug } from "@/lib/engineering/tools";
+import { toolsBySlug } from "@/domains/engineering/registry";
 
-import { ComingSoon, ToolShell } from "@/components/engineering/tool-shell";
+import { ComingSoon, ToolShell } from "@/domains/engineering/components/tool-shell";
 import {
   OhmsLawTool,
   VoltageDividerTool,
@@ -11,7 +11,7 @@ import {
   InductorTool,
   RcTimeConstantTool,
   PowerFactorTool,
-} from "@/components/engineering/tools/electrical";
+} from "@/domains/engineering/components/tools/electrical";
 
 const builtComponents: Record<string, React.ComponentType> = {
   "ohm-s-law-calculator": OhmsLawTool,

@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Construction } from "lucide-react";
-import { findTool } from "@/lib/writing/tools";
+import { findTool } from "@/domains/writing/registry";
 import { Metadata } from "next";
-import { DistractionFreeEditor } from "@/components/writing/tools/DistractionFreeEditor";
+import { DistractionFreeEditor } from "@/domains/writing/components/tools/DistractionFreeEditor";
 
 type PageProps = {
   params: Promise<{ slug: string }>;

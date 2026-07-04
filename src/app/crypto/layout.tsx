@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Providers } from "@/components/crypto/Providers";
+import { Providers } from "@/domains/crypto/components/Providers";
 
 export const metadata: Metadata = {
   title: "Racira Crypto & Blockchain — 170 Free Tools",

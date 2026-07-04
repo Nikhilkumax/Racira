@@ -1,7 +1,7 @@
 import { Dumbbell } from "lucide-react";
 import Header from "@/components/Header";
 import Link from "next/link";
-import { categories, FUNCTIONAL_SLUGS } from "@/lib/fitness/tools-data";
+import { categories, FUNCTIONAL_SLUGS } from "@/domains/fitness/registry";
 
 
 export default function Home() {
