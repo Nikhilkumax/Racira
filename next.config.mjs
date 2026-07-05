@@ -158,7 +158,9 @@ const nextConfig = {
       { source: '/calculator/everyday-life/fantasy-betting', destination: '/calculator/everyday-life/gaming-hobbies', permanent: true },
       { source: '/calculator/everyday-life/pets-animals', destination: '/calculator/everyday-life/gaming-hobbies', permanent: true },
       { source: '/calculator/construction/surveying-gis', destination: '/calculator/construction/surveying-site-work', permanent: true },
-      { source: '/calculator/construction/project-management-estimating', destination: '/calculator/construction/estimating-costs', permanent: true }
+      { source: '/calculator/construction/project-management-estimating', destination: '/calculator/construction/estimating-costs', permanent: true },
+      { source: '/calculator/:category/ohm-s-law-calculator', destination: '/calculator/:category/ohms-law-calculator', permanent: true },
+      { source: '/calculator/:category/timezone-converter', destination: '/calculator/:category/time-zone-converter', permanent: true }
     ];
   },
   async rewrites() {

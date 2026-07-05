@@ -41,6 +41,8 @@ import { everydaylifeCalculators } from "./calculators/everyday-life";
 import { transportationCalculators } from "./calculators/transportation";
 import { constructionCalculators } from "./calculators/construction";
 import { educationCalculators } from "./calculators/education";
+import { utilityCalculators } from "./calculators/utilities";
+import { orphanedCalculators } from "./calculators/orphans";
 
 export const calculatorRegistry: CalculatorDef[] = [
   ...financeCalculators,
@@ -54,7 +56,9 @@ export const calculatorRegistry: CalculatorDef[] = [
   ...everydaylifeCalculators,
   ...transportationCalculators,
   ...constructionCalculators,
-  ...educationCalculators
+  ...educationCalculators,
+  ...utilityCalculators,
+  ...orphanedCalculators
 ];
 
 export const getBuiltCalculators = () =>
