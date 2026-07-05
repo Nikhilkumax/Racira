@@ -1,657 +1,661 @@
+import { calculatorRegistry } from "@/data/calculatorRegistry";
+
+const activeCalculators = calculatorRegistry.filter(c => c.isBuilt);
+
 export const CATEGORY_SUMMARY = [
   {
     "category": "FINANCE",
-    "total": 1587,
+    "total": activeCalculators.filter(c => c.category === "FINANCE").length,
     "subcategories": [
       {
         "name": "Investment & Wealth",
-        "count": 241
+        "count": activeCalculators.filter(c => c.category === "FINANCE" && c.subcategory === "Investment & Wealth").length
       },
       {
         "name": "Loans & Mortgages",
-        "count": 215
+        "count": activeCalculators.filter(c => c.category === "FINANCE" && c.subcategory === "Loans & Mortgages").length
       },
       {
         "name": "Tax",
-        "count": 183
+        "count": activeCalculators.filter(c => c.category === "FINANCE" && c.subcategory === "Tax").length
       },
       {
         "name": "Savings & Banking",
-        "count": 142
+        "count": activeCalculators.filter(c => c.category === "FINANCE" && c.subcategory === "Savings & Banking").length
       },
       {
         "name": "Personal Finance",
-        "count": 130
+        "count": activeCalculators.filter(c => c.category === "FINANCE" && c.subcategory === "Personal Finance").length
       },
       {
         "name": "Real Estate Finance",
-        "count": 119
+        "count": activeCalculators.filter(c => c.category === "FINANCE" && c.subcategory === "Real Estate Finance").length
       },
       {
         "name": "Insurance",
-        "count": 88
+        "count": activeCalculators.filter(c => c.category === "FINANCE" && c.subcategory === "Insurance").length
       },
       {
         "name": "Economics",
-        "count": 81
+        "count": activeCalculators.filter(c => c.category === "FINANCE" && c.subcategory === "Economics").length
       },
       {
         "name": "Retirement",
-        "count": 75
+        "count": activeCalculators.filter(c => c.category === "FINANCE" && c.subcategory === "Retirement").length
       },
       {
         "name": "Accounting & Financial Statements",
-        "count": 63
+        "count": activeCalculators.filter(c => c.category === "FINANCE" && c.subcategory === "Accounting & Financial Statements").length
       },
       {
         "name": "Options & Derivatives",
-        "count": 59
+        "count": activeCalculators.filter(c => c.category === "FINANCE" && c.subcategory === "Options & Derivatives").length
       },
       {
         "name": "Law & Legal Finance",
-        "count": 52
+        "count": activeCalculators.filter(c => c.category === "FINANCE" && c.subcategory === "Law & Legal Finance").length
       },
       {
         "name": "Debt & Credit",
-        "count": 50
+        "count": activeCalculators.filter(c => c.category === "FINANCE" && c.subcategory === "Debt & Credit").length
       },
       {
         "name": "Crypto & DeFi",
-        "count": 49
+        "count": activeCalculators.filter(c => c.category === "FINANCE" && c.subcategory === "Crypto & DeFi").length
       },
       {
         "name": "Cryptocurrency (Offline Math)",
-        "count": 40
+        "count": activeCalculators.filter(c => c.category === "FINANCE" && c.subcategory === "Cryptocurrency (Offline Math)").length
       }
     ]
   },
   {
     "category": "BUSINESS",
-    "total": 804,
+    "total": activeCalculators.filter(c => c.category === "BUSINESS").length,
     "subcategories": [
       {
         "name": "SaaS & Startups",
-        "count": 122
+        "count": activeCalculators.filter(c => c.category === "BUSINESS" && c.subcategory === "SaaS & Startups").length
       },
       {
         "name": "Business Finance",
-        "count": 102
+        "count": activeCalculators.filter(c => c.category === "BUSINESS" && c.subcategory === "Business Finance").length
       },
       {
         "name": "Sales & Marketing",
-        "count": 90
+        "count": activeCalculators.filter(c => c.category === "BUSINESS" && c.subcategory === "Sales & Marketing").length
       },
       {
         "name": "HR & Payroll",
-        "count": 86
+        "count": activeCalculators.filter(c => c.category === "BUSINESS" && c.subcategory === "HR & Payroll").length
       },
       {
         "name": "Pricing & Revenue",
-        "count": 83
+        "count": activeCalculators.filter(c => c.category === "BUSINESS" && c.subcategory === "Pricing & Revenue").length
       },
       {
         "name": "Logistics & Trade",
-        "count": 82
+        "count": activeCalculators.filter(c => c.category === "BUSINESS" && c.subcategory === "Logistics & Trade").length
       },
       {
         "name": "Operations & Supply Chain",
-        "count": 80
+        "count": activeCalculators.filter(c => c.category === "BUSINESS" && c.subcategory === "Operations & Supply Chain").length
       },
       {
         "name": "Entrepreneurship & Strategy",
-        "count": 80
+        "count": activeCalculators.filter(c => c.category === "BUSINESS" && c.subcategory === "Entrepreneurship & Strategy").length
       },
       {
         "name": "Project Management & Finance",
-        "count": 79
+        "count": activeCalculators.filter(c => c.category === "BUSINESS" && c.subcategory === "Project Management & Finance").length
       }
     ]
   },
   {
     "category": "HEALTH",
-    "total": 1402,
+    "total": activeCalculators.filter(c => c.category === "HEALTH").length,
     "subcategories": [
       {
         "name": "Nutrition & Diet",
-        "count": 165
+        "count": activeCalculators.filter(c => c.category === "HEALTH" && c.subcategory === "Nutrition & Diet").length
       },
       {
         "name": "Fitness & Exercise",
-        "count": 147
+        "count": activeCalculators.filter(c => c.category === "HEALTH" && c.subcategory === "Fitness & Exercise").length
       },
       {
         "name": "Pharmacy & Dosing",
-        "count": 127
+        "count": activeCalculators.filter(c => c.category === "HEALTH" && c.subcategory === "Pharmacy & Dosing").length
       },
       {
         "name": "Clinical & Medical",
-        "count": 120
+        "count": activeCalculators.filter(c => c.category === "HEALTH" && c.subcategory === "Clinical & Medical").length
       },
       {
         "name": "Body Metrics & Anthropometry",
-        "count": 111
+        "count": activeCalculators.filter(c => c.category === "HEALTH" && c.subcategory === "Body Metrics & Anthropometry").length
       },
       {
         "name": "Sleep & Mental Health",
-        "count": 88
+        "count": activeCalculators.filter(c => c.category === "HEALTH" && c.subcategory === "Sleep & Mental Health").length
       },
       {
         "name": "Medical Risk & Clinical Scores",
-        "count": 80
+        "count": activeCalculators.filter(c => c.category === "HEALTH" && c.subcategory === "Medical Risk & Clinical Scores").length
       },
       {
         "name": "Pediatric Health",
-        "count": 78
+        "count": activeCalculators.filter(c => c.category === "HEALTH" && c.subcategory === "Pediatric Health").length
       },
       {
         "name": "Pregnancy & Fertility",
-        "count": 51
+        "count": activeCalculators.filter(c => c.category === "HEALTH" && c.subcategory === "Pregnancy & Fertility").length
       },
       {
         "name": "Cardiovascular & Metabolic Health",
-        "count": 49
+        "count": activeCalculators.filter(c => c.category === "HEALTH" && c.subcategory === "Cardiovascular & Metabolic Health").length
       },
       {
         "name": "Epidemiology & Public Health",
-        "count": 48
+        "count": activeCalculators.filter(c => c.category === "HEALTH" && c.subcategory === "Epidemiology & Public Health").length
       },
       {
         "name": "Ball Sports",
-        "count": 43
+        "count": activeCalculators.filter(c => c.category === "HEALTH" && c.subcategory === "Ball Sports").length
       },
       {
         "name": "Women",
-        "count": 42
+        "count": activeCalculators.filter(c => c.category === "HEALTH" && c.subcategory === "Women").length
       },
       {
         "name": "Running & Endurance",
-        "count": 39
+        "count": activeCalculators.filter(c => c.category === "HEALTH" && c.subcategory === "Running & Endurance").length
       },
       {
         "name": "Aging & Geriatrics",
-        "count": 39
+        "count": activeCalculators.filter(c => c.category === "HEALTH" && c.subcategory === "Aging & Geriatrics").length
       },
       {
         "name": "Cycling & Water Sports",
-        "count": 36
+        "count": activeCalculators.filter(c => c.category === "HEALTH" && c.subcategory === "Cycling & Water Sports").length
       },
       {
         "name": "Weightlifting & Strength",
-        "count": 33
+        "count": activeCalculators.filter(c => c.category === "HEALTH" && c.subcategory === "Weightlifting & Strength").length
       },
       {
         "name": "Fitness Analytics",
-        "count": 33
+        "count": activeCalculators.filter(c => c.category === "HEALTH" && c.subcategory === "Fitness Analytics").length
       },
       {
         "name": "Track & Field",
-        "count": 26
+        "count": activeCalculators.filter(c => c.category === "HEALTH" && c.subcategory === "Track & Field").length
       },
       {
         "name": "Combat & Individual",
-        "count": 24
+        "count": activeCalculators.filter(c => c.category === "HEALTH" && c.subcategory === "Combat & Individual").length
       },
       {
         "name": "Winter, Water & Extreme",
-        "count": 23
+        "count": activeCalculators.filter(c => c.category === "HEALTH" && c.subcategory === "Winter, Water & Extreme").length
       }
     ]
   },
   {
     "category": "MATH",
-    "total": 1072,
+    "total": activeCalculators.filter(c => c.category === "MATH").length,
     "subcategories": [
       {
         "name": "Financial Mathematics",
-        "count": 165
+        "count": activeCalculators.filter(c => c.category === "MATH" && c.subcategory === "Financial Mathematics").length
       },
       {
         "name": "Geometry",
-        "count": 143
+        "count": activeCalculators.filter(c => c.category === "MATH" && c.subcategory === "Geometry").length
       },
       {
         "name": "Algebra",
-        "count": 131
+        "count": activeCalculators.filter(c => c.category === "MATH" && c.subcategory === "Algebra").length
       },
       {
         "name": "Number Theory & Discrete Math",
-        "count": 124
+        "count": activeCalculators.filter(c => c.category === "MATH" && c.subcategory === "Number Theory & Discrete Math").length
       },
       {
         "name": "Calculus",
-        "count": 112
+        "count": activeCalculators.filter(c => c.category === "MATH" && c.subcategory === "Calculus").length
       },
       {
         "name": "Statistics",
-        "count": 94
+        "count": activeCalculators.filter(c => c.category === "MATH" && c.subcategory === "Statistics").length
       },
       {
         "name": "Trigonometry",
-        "count": 76
+        "count": activeCalculators.filter(c => c.category === "MATH" && c.subcategory === "Trigonometry").length
       },
       {
         "name": "Arithmetic & Number Theory",
-        "count": 65
+        "count": activeCalculators.filter(c => c.category === "MATH" && c.subcategory === "Arithmetic & Number Theory").length
       },
       {
         "name": "Basic Arithmetic",
-        "count": 63
+        "count": activeCalculators.filter(c => c.category === "MATH" && c.subcategory === "Basic Arithmetic").length
       },
       {
         "name": "Statistics & Probability",
-        "count": 63
+        "count": activeCalculators.filter(c => c.category === "MATH" && c.subcategory === "Statistics & Probability").length
       },
       {
         "name": "Linear Algebra",
-        "count": 36
+        "count": activeCalculators.filter(c => c.category === "MATH" && c.subcategory === "Linear Algebra").length
       }
     ]
   },
   {
     "category": "SCIENCE",
-    "total": 997,
+    "total": activeCalculators.filter(c => c.category === "SCIENCE").length,
     "subcategories": [
       {
         "name": "Chemistry",
-        "count": 140
+        "count": activeCalculators.filter(c => c.category === "SCIENCE" && c.subcategory === "Chemistry").length
       },
       {
         "name": "Biology & Life Sciences",
-        "count": 125
+        "count": activeCalculators.filter(c => c.category === "SCIENCE" && c.subcategory === "Biology & Life Sciences").length
       },
       {
         "name": "Physics – Mechanics",
-        "count": 107
+        "count": activeCalculators.filter(c => c.category === "SCIENCE" && c.subcategory === "Physics – Mechanics").length
       },
       {
         "name": "Waves, Optics & Nuclear",
-        "count": 103
+        "count": activeCalculators.filter(c => c.category === "SCIENCE" && c.subcategory === "Waves, Optics & Nuclear").length
       },
       {
         "name": "Astronomy & Space Science",
-        "count": 103
+        "count": activeCalculators.filter(c => c.category === "SCIENCE" && c.subcategory === "Astronomy & Space Science").length
       },
       {
         "name": "Physics – Electricity & Magnetism",
-        "count": 100
+        "count": activeCalculators.filter(c => c.category === "SCIENCE" && c.subcategory === "Physics – Electricity & Magnetism").length
       },
       {
         "name": "Thermodynamics & Fluids",
-        "count": 99
+        "count": activeCalculators.filter(c => c.category === "SCIENCE" && c.subcategory === "Thermodynamics & Fluids").length
       },
       {
         "name": "Earth, Atmosphere & Geography",
-        "count": 92
+        "count": activeCalculators.filter(c => c.category === "SCIENCE" && c.subcategory === "Earth, Atmosphere & Geography").length
       },
       {
         "name": "Earth Science & Geology",
-        "count": 67
+        "count": activeCalculators.filter(c => c.category === "SCIENCE" && c.subcategory === "Earth Science & Geology").length
       },
       {
         "name": "Mechanics & Motion",
-        "count": 61
+        "count": activeCalculators.filter(c => c.category === "SCIENCE" && c.subcategory === "Mechanics & Motion").length
       }
     ]
   },
   {
     "category": "ENGINEERING",
-    "total": 1201,
+    "total": activeCalculators.filter(c => c.category === "ENGINEERING").length,
     "subcategories": [
       {
         "name": "Civil & Structural Engineering",
-        "count": 189
+        "count": activeCalculators.filter(c => c.category === "ENGINEERING" && c.subcategory === "Civil & Structural Engineering").length
       },
       {
         "name": "Mechanical Engineering",
-        "count": 146
+        "count": activeCalculators.filter(c => c.category === "ENGINEERING" && c.subcategory === "Mechanical Engineering").length
       },
       {
         "name": "Electrical Engineering",
-        "count": 140
+        "count": activeCalculators.filter(c => c.category === "ENGINEERING" && c.subcategory === "Electrical Engineering").length
       },
       {
         "name": "Chemical Engineering",
-        "count": 126
+        "count": activeCalculators.filter(c => c.category === "ENGINEERING" && c.subcategory === "Chemical Engineering").length
       },
       {
         "name": "Industrial & Manufacturing",
-        "count": 123
+        "count": activeCalculators.filter(c => c.category === "ENGINEERING" && c.subcategory === "Industrial & Manufacturing").length
       },
       {
         "name": "Electronics & Embedded Systems",
-        "count": 118
+        "count": activeCalculators.filter(c => c.category === "ENGINEERING" && c.subcategory === "Electronics & Embedded Systems").length
       },
       {
         "name": "Materials Science",
-        "count": 116
+        "count": activeCalculators.filter(c => c.category === "ENGINEERING" && c.subcategory === "Materials Science").length
       },
       {
         "name": "Aerospace Engineering",
-        "count": 105
+        "count": activeCalculators.filter(c => c.category === "ENGINEERING" && c.subcategory === "Aerospace Engineering").length
       },
       {
         "name": "Environmental Engineering",
-        "count": 73
+        "count": activeCalculators.filter(c => c.category === "ENGINEERING" && c.subcategory === "Environmental Engineering").length
       },
       {
         "name": "Piping & Flow",
-        "count": 34
+        "count": activeCalculators.filter(c => c.category === "ENGINEERING" && c.subcategory === "Piping & Flow").length
       },
       {
         "name": "Structural Connections",
-        "count": 31
+        "count": activeCalculators.filter(c => c.category === "ENGINEERING" && c.subcategory === "Structural Connections").length
       }
     ]
   },
   {
     "category": "TECHNOLOGY",
-    "total": 911,
+    "total": activeCalculators.filter(c => c.category === "TECHNOLOGY").length,
     "subcategories": [
       {
         "name": "Programming & Software",
-        "count": 161
+        "count": activeCalculators.filter(c => c.category === "TECHNOLOGY" && c.subcategory === "Programming & Software").length
       },
       {
         "name": "Web & Digital",
-        "count": 143
+        "count": activeCalculators.filter(c => c.category === "TECHNOLOGY" && c.subcategory === "Web & Digital").length
       },
       {
         "name": "Cloud & DevOps",
-        "count": 136
+        "count": activeCalculators.filter(c => c.category === "TECHNOLOGY" && c.subcategory === "Cloud & DevOps").length
       },
       {
         "name": "Data Science & AI/ML",
-        "count": 128
+        "count": activeCalculators.filter(c => c.category === "TECHNOLOGY" && c.subcategory === "Data Science & AI/ML").length
       },
       {
         "name": "Networking & Infrastructure",
-        "count": 122
+        "count": activeCalculators.filter(c => c.category === "TECHNOLOGY" && c.subcategory === "Networking & Infrastructure").length
       },
       {
         "name": "Database & Storage",
-        "count": 115
+        "count": activeCalculators.filter(c => c.category === "TECHNOLOGY" && c.subcategory === "Database & Storage").length
       },
       {
         "name": "Cybersecurity",
-        "count": 106
+        "count": activeCalculators.filter(c => c.category === "TECHNOLOGY" && c.subcategory === "Cybersecurity").length
       }
     ]
   },
   {
     "category": "ENVIRONMENT",
-    "total": 737,
+    "total": activeCalculators.filter(c => c.category === "ENVIRONMENT").length,
     "subcategories": [
       {
         "name": "Renewable Energy",
-        "count": 118
+        "count": activeCalculators.filter(c => c.category === "ENVIRONMENT" && c.subcategory === "Renewable Energy").length
       },
       {
         "name": "Climate & Carbon",
-        "count": 85
+        "count": activeCalculators.filter(c => c.category === "ENVIRONMENT" && c.subcategory === "Climate & Carbon").length
       },
       {
         "name": "Agriculture & Food Systems",
-        "count": 83
+        "count": activeCalculators.filter(c => c.category === "ENVIRONMENT" && c.subcategory === "Agriculture & Food Systems").length
       },
       {
         "name": "Water & Waste",
-        "count": 81
+        "count": activeCalculators.filter(c => c.category === "ENVIRONMENT" && c.subcategory === "Water & Waste").length
       },
       {
         "name": "Ecology & Biodiversity",
-        "count": 67
+        "count": activeCalculators.filter(c => c.category === "ENVIRONMENT" && c.subcategory === "Ecology & Biodiversity").length
       },
       {
         "name": "Forestry & Land Use",
-        "count": 57
+        "count": activeCalculators.filter(c => c.category === "ENVIRONMENT" && c.subcategory === "Forestry & Land Use").length
       },
       {
         "name": "Livestock & Food Production",
-        "count": 46
+        "count": activeCalculators.filter(c => c.category === "ENVIRONMENT" && c.subcategory === "Livestock & Food Production").length
       },
       {
         "name": "Crops & Soil",
-        "count": 43
+        "count": activeCalculators.filter(c => c.category === "ENVIRONMENT" && c.subcategory === "Crops & Soil").length
       },
       {
         "name": "Carbon Footprint",
-        "count": 41
+        "count": activeCalculators.filter(c => c.category === "ENVIRONMENT" && c.subcategory === "Carbon Footprint").length
       },
       {
         "name": "Farm Business & Sustainability",
-        "count": 35
+        "count": activeCalculators.filter(c => c.category === "ENVIRONMENT" && c.subcategory === "Farm Business & Sustainability").length
       },
       {
         "name": "Water & Resource Use",
-        "count": 28
+        "count": activeCalculators.filter(c => c.category === "ENVIRONMENT" && c.subcategory === "Water & Resource Use").length
       },
       {
         "name": "Ecological Impact",
-        "count": 27
+        "count": activeCalculators.filter(c => c.category === "ENVIRONMENT" && c.subcategory === "Ecological Impact").length
       },
       {
         "name": "Offset & Sequestration",
-        "count": 26
+        "count": activeCalculators.filter(c => c.category === "ENVIRONMENT" && c.subcategory === "Offset & Sequestration").length
       }
     ]
   },
   {
     "category": "EVERYDAY_LIFE",
-    "total": 1070,
+    "total": activeCalculators.filter(c => c.category === "EVERYDAY_LIFE").length,
     "subcategories": [
       {
         "name": "Home & Household",
-        "count": 162
+        "count": activeCalculators.filter(c => c.category === "EVERYDAY_LIFE" && c.subcategory === "Home & Household").length
       },
       {
         "name": "Food & Cooking",
-        "count": 149
+        "count": activeCalculators.filter(c => c.category === "EVERYDAY_LIFE" && c.subcategory === "Food & Cooking").length
       },
       {
         "name": "Consumer & Shopping",
-        "count": 143
+        "count": activeCalculators.filter(c => c.category === "EVERYDAY_LIFE" && c.subcategory === "Consumer & Shopping").length
       },
       {
         "name": "Gaming & Hobbies",
-        "count": 124
+        "count": activeCalculators.filter(c => c.category === "EVERYDAY_LIFE" && c.subcategory === "Gaming & Hobbies").length
       },
       {
         "name": "Travel & Recreation",
-        "count": 124
+        "count": activeCalculators.filter(c => c.category === "EVERYDAY_LIFE" && c.subcategory === "Travel & Recreation").length
       },
       {
         "name": "Time & Productivity",
-        "count": 106
+        "count": activeCalculators.filter(c => c.category === "EVERYDAY_LIFE" && c.subcategory === "Time & Productivity").length
       },
       {
         "name": "Personal & Family",
-        "count": 97
+        "count": activeCalculators.filter(c => c.category === "EVERYDAY_LIFE" && c.subcategory === "Personal & Family").length
       },
       {
         "name": "Creative & Arts",
-        "count": 75
+        "count": activeCalculators.filter(c => c.category === "EVERYDAY_LIFE" && c.subcategory === "Creative & Arts").length
       },
       {
         "name": "DIY & Crafts",
-        "count": 59
+        "count": activeCalculators.filter(c => c.category === "EVERYDAY_LIFE" && c.subcategory === "DIY & Crafts").length
       },
       {
         "name": "Fun & Personal",
-        "count": 31
+        "count": activeCalculators.filter(c => c.category === "EVERYDAY_LIFE" && c.subcategory === "Fun & Personal").length
       }
     ]
   },
   {
     "category": "TRANSPORTATION",
-    "total": 662,
+    "total": activeCalculators.filter(c => c.category === "TRANSPORTATION").length,
     "subcategories": [
       {
         "name": "Automotive",
-        "count": 100
+        "count": activeCalculators.filter(c => c.category === "TRANSPORTATION" && c.subcategory === "Automotive").length
       },
       {
         "name": "Electric Vehicles",
-        "count": 73
+        "count": activeCalculators.filter(c => c.category === "TRANSPORTATION" && c.subcategory === "Electric Vehicles").length
       },
       {
         "name": "Rail & Transit",
-        "count": 65
+        "count": activeCalculators.filter(c => c.category === "TRANSPORTATION" && c.subcategory === "Rail & Transit").length
       },
       {
         "name": "Marine & Boating",
-        "count": 63
+        "count": activeCalculators.filter(c => c.category === "TRANSPORTATION" && c.subcategory === "Marine & Boating").length
       },
       {
         "name": "Aviation",
-        "count": 61
+        "count": activeCalculators.filter(c => c.category === "TRANSPORTATION" && c.subcategory === "Aviation").length
       },
       {
         "name": "Cycling & Micro-Mobility",
-        "count": 56
+        "count": activeCalculators.filter(c => c.category === "TRANSPORTATION" && c.subcategory === "Cycling & Micro-Mobility").length
       },
       {
         "name": "Performance & Engine",
-        "count": 32
+        "count": activeCalculators.filter(c => c.category === "TRANSPORTATION" && c.subcategory === "Performance & Engine").length
       },
       {
         "name": "Buying & Selling",
-        "count": 27
+        "count": activeCalculators.filter(c => c.category === "TRANSPORTATION" && c.subcategory === "Buying & Selling").length
       },
       {
         "name": "EV & Alternative Fuel",
-        "count": 27
+        "count": activeCalculators.filter(c => c.category === "TRANSPORTATION" && c.subcategory === "EV & Alternative Fuel").length
       },
       {
         "name": "Safety & Driving",
-        "count": 25
+        "count": activeCalculators.filter(c => c.category === "TRANSPORTATION" && c.subcategory === "Safety & Driving").length
       },
       {
         "name": "Costs & Ownership",
-        "count": 24
+        "count": activeCalculators.filter(c => c.category === "TRANSPORTATION" && c.subcategory === "Costs & Ownership").length
       },
       {
         "name": "Fleet & Motorsports",
-        "count": 23
+        "count": activeCalculators.filter(c => c.category === "TRANSPORTATION" && c.subcategory === "Fleet & Motorsports").length
       },
       {
         "name": "Suspension & Handling",
-        "count": 23
+        "count": activeCalculators.filter(c => c.category === "TRANSPORTATION" && c.subcategory === "Suspension & Handling").length
       },
       {
         "name": "Electrical & Systems",
-        "count": 22
+        "count": activeCalculators.filter(c => c.category === "TRANSPORTATION" && c.subcategory === "Electrical & Systems").length
       },
       {
         "name": "Motorsports & Special",
-        "count": 21
+        "count": activeCalculators.filter(c => c.category === "TRANSPORTATION" && c.subcategory === "Motorsports & Special").length
       },
       {
         "name": "Tires & Wheels",
-        "count": 20
+        "count": activeCalculators.filter(c => c.category === "TRANSPORTATION" && c.subcategory === "Tires & Wheels").length
       }
     ]
   },
   {
     "category": "CONSTRUCTION",
-    "total": 775,
+    "total": activeCalculators.filter(c => c.category === "CONSTRUCTION").length,
     "subcategories": [
       {
         "name": "Estimating & Costs",
-        "count": 138
+        "count": activeCalculators.filter(c => c.category === "CONSTRUCTION" && c.subcategory === "Estimating & Costs").length
       },
       {
         "name": "Materials & Quantities",
-        "count": 119
+        "count": activeCalculators.filter(c => c.category === "CONSTRUCTION" && c.subcategory === "Materials & Quantities").length
       },
       {
         "name": "Green Building & Energy Efficiency",
-        "count": 95
+        "count": activeCalculators.filter(c => c.category === "CONSTRUCTION" && c.subcategory === "Green Building & Energy Efficiency").length
       },
       {
         "name": "Surveying & Site Work",
-        "count": 91
+        "count": activeCalculators.filter(c => c.category === "CONSTRUCTION" && c.subcategory === "Surveying & Site Work").length
       },
       {
         "name": "HVAC & Mechanical Systems",
-        "count": 64
+        "count": activeCalculators.filter(c => c.category === "CONSTRUCTION" && c.subcategory === "HVAC & Mechanical Systems").length
       },
       {
         "name": "Plumbing & Electrical",
-        "count": 60
+        "count": activeCalculators.filter(c => c.category === "CONSTRUCTION" && c.subcategory === "Plumbing & Electrical").length
       },
       {
         "name": "MEP — Mechanical, Electrical & Plumbing",
-        "count": 46
+        "count": activeCalculators.filter(c => c.category === "CONSTRUCTION" && c.subcategory === "MEP — Mechanical, Electrical & Plumbing").length
       },
       {
         "name": "Masonry, Walls & Framing",
-        "count": 36
+        "count": activeCalculators.filter(c => c.category === "CONSTRUCTION" && c.subcategory === "Masonry, Walls & Framing").length
       },
       {
         "name": "Roofing & Flooring",
-        "count": 35
+        "count": activeCalculators.filter(c => c.category === "CONSTRUCTION" && c.subcategory === "Roofing & Flooring").length
       },
       {
         "name": "Concrete & Foundation",
-        "count": 35
+        "count": activeCalculators.filter(c => c.category === "CONSTRUCTION" && c.subcategory === "Concrete & Foundation").length
       },
       {
         "name": "Measurement & Layout",
-        "count": 30
+        "count": activeCalculators.filter(c => c.category === "CONSTRUCTION" && c.subcategory === "Measurement & Layout").length
       },
       {
         "name": "Insulation & Finishing",
-        "count": 26
+        "count": activeCalculators.filter(c => c.category === "CONSTRUCTION" && c.subcategory === "Insulation & Finishing").length
       }
     ]
   },
   {
     "category": "EDUCATION",
-    "total": 535,
+    "total": activeCalculators.filter(c => c.category === "EDUCATION").length,
     "subcategories": [
       {
         "name": "Teaching & Curriculum",
-        "count": 95
+        "count": activeCalculators.filter(c => c.category === "EDUCATION" && c.subcategory === "Teaching & Curriculum").length
       },
       {
         "name": "Academic Performance",
-        "count": 77
+        "count": activeCalculators.filter(c => c.category === "EDUCATION" && c.subcategory === "Academic Performance").length
       },
       {
         "name": "Financial Aid & Student Costs",
-        "count": 61
+        "count": activeCalculators.filter(c => c.category === "EDUCATION" && c.subcategory === "Financial Aid & Student Costs").length
       },
       {
         "name": "Learning & Cognitive",
-        "count": 61
+        "count": activeCalculators.filter(c => c.category === "EDUCATION" && c.subcategory === "Learning & Cognitive").length
       },
       {
         "name": "Research & Academic Tools",
-        "count": 60
+        "count": activeCalculators.filter(c => c.category === "EDUCATION" && c.subcategory === "Research & Academic Tools").length
       },
       {
         "name": "Standardized Tests",
-        "count": 36
+        "count": activeCalculators.filter(c => c.category === "EDUCATION" && c.subcategory === "Standardized Tests").length
       },
       {
         "name": "Education Finance",
-        "count": 35
+        "count": activeCalculators.filter(c => c.category === "EDUCATION" && c.subcategory === "Education Finance").length
       },
       {
         "name": "Study Skills & Productivity",
-        "count": 33
+        "count": activeCalculators.filter(c => c.category === "EDUCATION" && c.subcategory === "Study Skills & Productivity").length
       },
       {
         "name": "GPA & Grades",
-        "count": 27
+        "count": activeCalculators.filter(c => c.category === "EDUCATION" && c.subcategory === "GPA & Grades").length
       },
       {
         "name": "Academic Planning",
-        "count": 27
+        "count": activeCalculators.filter(c => c.category === "EDUCATION" && c.subcategory === "Academic Planning").length
       },
       {
         "name": "Language Learning",
-        "count": 23
+        "count": activeCalculators.filter(c => c.category === "EDUCATION" && c.subcategory === "Language Learning").length
       }
     ]
   }
