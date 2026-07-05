@@ -888,14 +888,22 @@ export const technologyCalculators: CalculatorDef[] = [
   { slug: "cdn-latency-savings-calculator", name: "CDN Latency Savings Calculator", description: "Calculate cdn latency savings calculator online with our free tool.", category: "TECHNOLOGY", subcategory: "Networking & Infrastructure", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "network-capacity-headroom-calculator", name: "Network Capacity Headroom Calculator", description: "Calculate network capacity headroom calculator online with our free tool.", category: "TECHNOLOGY", subcategory: "Networking & Infrastructure", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "collision-domain-calculator", name: "Collision Domain Calculator", description: "Calculate collision domain calculator online with our free tool.", category: "TECHNOLOGY", subcategory: "Networking & Infrastructure", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "bandwidth-calculator", name: "Bandwidth Calculator", description: "Calculate bandwidth needs and file transfer times.", category: "TECHNOLOGY", subcategory: "Programming & Software", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "storage-converter", name: "Storage Converter", description: "Convert between bytes, KB, MB, GB, TB, and PB.", category: "TECHNOLOGY", subcategory: "Programming & Software", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "data-transfer-calculator", name: "Data Transfer Calculator", description: "Estimate data transfer time based on file size and speed.", category: "TECHNOLOGY", subcategory: "Programming & Software", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "net-promoter-score-calculator", name: "Net Promoter Score Calculator", description: "A free net promoter score calculator to easily calculate your results.", category: "TECHNOLOGY", subcategory: "Web & Digital", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "email-open-rate-calculator", name: "Email Open Rate Calculator", description: "Measure the percentage of recipients who opened your email campaign.", category: "TECHNOLOGY", subcategory: "Web & Digital", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "customer-retention-rate-calculator", name: "Customer Retention Rate Calculator", description: "A free customer retention rate calculator to easily calculate your results.", category: "TECHNOLOGY", subcategory: "Web & Digital", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "bounce-rate-calculator", name: "Bounce Rate Calculator", description: "A free bounce rate calculator to easily calculate your results.", category: "TECHNOLOGY", subcategory: "Web & Digital", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "churn-rate-calculator", name: "Churn Rate Calculator", description: "A free churn rate calculator to easily calculate your results.", category: "TECHNOLOGY", subcategory: "Web & Digital", tier: "Tier3", priorityScore: 28, isBuilt: false },
+  {
+    slug: "bandwidth-calculator", name: "Bandwidth Calculator", description: "Calculate bandwidth needs and file transfer times.", category: "TECHNOLOGY", subcategory: "Programming & Software", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "storage-converter", name: "Storage Converter", description: "Convert between bytes, KB, MB, GB, TB, and PB.", category: "TECHNOLOGY", subcategory: "Programming & Software", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "data-transfer-calculator", name: "Data Transfer Calculator", description: "Estimate data transfer time based on file size and speed.", category: "TECHNOLOGY", subcategory: "Programming & Software", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "net-promoter-score-calculator", name: "Net Promoter Score Calculator", description: "A free net promoter score calculator to easily calculate your results.", category: "TECHNOLOGY", subcategory: "Web & Digital", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "email-open-rate-calculator", name: "Email Open Rate Calculator", description: "Measure the percentage of recipients who opened your email campaign.", category: "TECHNOLOGY", subcategory: "Web & Digital", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "customer-retention-rate-calculator", name: "Customer Retention Rate Calculator", description: "A free customer retention rate calculator to easily calculate your results.", category: "TECHNOLOGY", subcategory: "Web & Digital", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "bounce-rate-calculator", name: "Bounce Rate Calculator", description: "A free bounce rate calculator to easily calculate your results.", category: "TECHNOLOGY", subcategory: "Web & Digital", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "churn-rate-calculator", name: "Churn Rate Calculator", description: "A free churn rate calculator to easily calculate your results.", category: "TECHNOLOGY", subcategory: "Web & Digital", tier: "Tier3", priorityScore: 28, isBuilt: true },
   { slug: "feature-flag-coverage-calculator", name: "Feature Flag Coverage Calculator", description: "Calculate Feature Flag Coverage Calculator online with our free tool.", category: "TECHNOLOGY", subcategory: "Cloud & DevOps", tier: "Tier3", priorityScore: 23, isBuilt: false },
   { slug: "cyclomatic-complexity-calculator", name: "Cyclomatic Complexity Calculator", description: "Calculate cyclomatic complexity calculator online with our free tool.", category: "TECHNOLOGY", subcategory: "Programming & Software", tier: "Tier3", priorityScore: 23, isBuilt: false },
   { slug: "feature-completion-rate-calculator", name: "Feature Completion Rate Calculator", description: "Calculate feature completion rate calculator online with our free tool.", category: "TECHNOLOGY", subcategory: "Programming & Software", tier: "Tier3", priorityScore: 23, isBuilt: false },

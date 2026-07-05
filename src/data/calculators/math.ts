@@ -80,7 +80,8 @@ export const mathCalculators: CalculatorDef[] = [
   { slug: "balloon-payment-formula-calculator", name: "Balloon Payment Formula Calculator", description: "Calculate Balloon Payment Formula Calculator online with our free tool.", category: "MATH", subcategory: "Financial Mathematics", tier: "Tier3", priorityScore: 43, isBuilt: false },
   { slug: "annuity-payment-from-present-value-calculator", name: "Annuity Payment from Present Value Calculator", description: "Calculate Annuity Payment from Present Value Calculator online with our free tool.", category: "MATH", subcategory: "Financial Mathematics", tier: "Tier3", priorityScore: 43, isBuilt: false },
   { slug: "sinking-fund-payment-formula-calculator", name: "Sinking Fund Payment Formula Calculator", description: "Calculate Sinking Fund Payment Formula Calculator online with our free tool.", category: "MATH", subcategory: "Financial Mathematics", tier: "Tier3", priorityScore: 43, isBuilt: false },
-  { slug: "margin-of-error-calculator", name: "Margin of Error Calculator", description: "A free margin of error calculator to easily calculate your results.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 43, isBuilt: false },
+  {
+    slug: "margin-of-error-calculator", name: "Margin of Error Calculator", description: "A free margin of error calculator to easily calculate your results.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 43, isBuilt: true },
   { slug: "shadow-price-calculator", name: "Shadow Price Calculator", description: "Calculate Shadow Price Calculator online with our free tool.", category: "MATH", subcategory: "Financial Mathematics", tier: "Tier3", priorityScore: 43, isBuilt: false },
   { slug: "duration-of-bond-macaulay-calculator", name: "Duration of Bond (Macaulay) Calculator", description: "Calculate Duration of Bond (Macaulay) Calculator online with our free tool.", category: "MATH", subcategory: "Financial Mathematics", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "actuarial-present-value-annuity-calculator", name: "Actuarial Present Value (Annuity) Calculator", description: "Calculate Actuarial Present Value (Annuity) Calculator online with our free tool.", category: "MATH", subcategory: "Financial Mathematics", tier: "Tier3", priorityScore: 28, isBuilt: false },
@@ -174,11 +175,16 @@ export const mathCalculators: CalculatorDef[] = [
   { slug: "mixture-model-calculator", name: "Mixture Model Calculator", description: "Calculate mixture model calculator online with our free tool.", category: "MATH", subcategory: "Financial Mathematics", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "rational-exponent-calculator", name: "Rational Exponent Calculator", description: "Calculate rational exponent calculator online with our free tool.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "rational-expression-simplifier", name: "Rational Expression Simplifier", description: "Calculate Rational Expression Simplifier online with our free tool.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "completing-the-square-calculator", name: "Completing the Square Calculator", description: "Convert quadratic equations to vertex form by completing the square.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "geometric-progression-calculator", name: "Geometric Progression Calculator", description: "Find nth term and sum of a geometric sequence given first term and ratio.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "exponential-growth-calculator", name: "Exponential Growth Calculator", description: "Model exponential growth for population, bacteria, investments, and more.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "matrix-multiplication-calculator", name: "Matrix Multiplication Calculator", description: "A free matrix multiplication calculator to easily calculate your results.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "matrix-determinant-calculator", name: "Matrix Determinant Calculator", description: "A free matrix determinant calculator to easily calculate your results.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, isBuilt: false },
+  {
+    slug: "completing-the-square-calculator", name: "Completing the Square Calculator", description: "Convert quadratic equations to vertex form by completing the square.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "geometric-progression-calculator", name: "Geometric Progression Calculator", description: "Find nth term and sum of a geometric sequence given first term and ratio.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "exponential-growth-calculator", name: "Exponential Growth Calculator", description: "Model exponential growth for population, bacteria, investments, and more.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "matrix-multiplication-calculator", name: "Matrix Multiplication Calculator", description: "A free matrix multiplication calculator to easily calculate your results.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "matrix-determinant-calculator", name: "Matrix Determinant Calculator", description: "A free matrix determinant calculator to easily calculate your results.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, isBuilt: true },
   { slug: "logarithm-calculator", name: "Logarithm Calculator", description: "Calculate logarithm calculator online with our free tool.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "synthetic-division-calculator", name: "Synthetic Division Calculator", description: "Calculate synthetic division calculator online with our free tool.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "piecewise-function-calculator", name: "Piecewise Function Calculator", description: "Calculate piecewise function calculator online with our free tool.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, isBuilt: false },
@@ -215,12 +221,18 @@ export const mathCalculators: CalculatorDef[] = [
   { slug: "trace-of-matrix-calculator", name: "Trace of Matrix Calculator", description: "Calculate Trace of Matrix Calculator online with our free tool.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "vector-addition-calculator", name: "Vector Addition Calculator", description: "Calculate Vector Addition Calculator online with our free tool.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "zero-of-function-estimator", name: "Zero of Function Estimator", description: "Calculate Zero of Function Estimator online with our free tool.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "exponential-decay-calculator", name: "Exponential Decay Calculator", description: "Model exponential decay for radioactive materials, drug clearance, and depreciation.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "logarithm-change-of-base-calculator", name: "Change of Base Calculator", description: "Convert logarithms between different bases using the change of base formula.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "inverse-variation-calculator", name: "Inverse Variation Calculator", description: "Solve inverse variation problems where two quantities vary inversely.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "function-composition-calculator", name: "Function Composition Calculator", description: "Compute the composition of two or more functions f(g(x)).", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "matrix-inverse-calculator", name: "Matrix Inverse Calculator", description: "A free matrix inverse calculator to easily calculate your results.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "vector-cross-product-calculator", name: "Vector Cross Product Calculator", description: "A free vector cross product calculator to easily calculate your results.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, isBuilt: false },
+  {
+    slug: "exponential-decay-calculator", name: "Exponential Decay Calculator", description: "Model exponential decay for radioactive materials, drug clearance, and depreciation.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "logarithm-change-of-base-calculator", name: "Change of Base Calculator", description: "Convert logarithms between different bases using the change of base formula.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "inverse-variation-calculator", name: "Inverse Variation Calculator", description: "Solve inverse variation problems where two quantities vary inversely.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "function-composition-calculator", name: "Function Composition Calculator", description: "Compute the composition of two or more functions f(g(x)).", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "matrix-inverse-calculator", name: "Matrix Inverse Calculator", description: "A free matrix inverse calculator to easily calculate your results.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "vector-cross-product-calculator", name: "Vector Cross Product Calculator", description: "A free vector cross product calculator to easily calculate your results.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, isBuilt: true },
   { slug: "cross-multiplication-calculator", name: "Cross Multiplication Calculator", description: "Calculate cross multiplication calculator online with our free tool.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "absolute-value-equation-calculator", name: "Absolute Value Equation Calculator", description: "Calculate absolute value equation calculator online with our free tool.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "interval-notation-calculator", name: "Interval Notation Calculator", description: "Calculate interval notation calculator online with our free tool.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, isBuilt: false },
@@ -253,10 +265,14 @@ export const mathCalculators: CalculatorDef[] = [
   { slug: "variable-substitution-solver", name: "Variable Substitution Solver", description: "Calculate Variable Substitution Solver online with our free tool.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "variation-directinversejoint-calculator", name: "Variation (Direct/Inverse/Joint) Calculator", description: "Calculate Variation (Direct/Inverse/Joint) Calculator online with our free tool.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "vector-normalization-calculator", name: "Vector Normalization Calculator", description: "Calculate Vector Normalization Calculator online with our free tool.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "system-of-equations-calculator", name: "System of Equations Calculator", description: "Solve 2×2 and 3×3 systems of linear equations by substitution or elimination.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "inequality-calculator", name: "Inequality Calculator", description: "Solve linear and quadratic inequalities and display solution on a number line.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "direct-variation-calculator", name: "Direct Variation Calculator", description: "Solve direct variation problems and find the constant of proportionality.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "eigenvalue-calculator", name: "Eigenvalue Calculator", description: "A free eigenvalue calculator to easily calculate your results.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, isBuilt: false },
+  {
+    slug: "system-of-equations-calculator", name: "System of Equations Calculator", description: "Solve 2×2 and 3×3 systems of linear equations by substitution or elimination.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "inequality-calculator", name: "Inequality Calculator", description: "Solve linear and quadratic inequalities and display solution on a number line.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "direct-variation-calculator", name: "Direct Variation Calculator", description: "Solve direct variation problems and find the constant of proportionality.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "eigenvalue-calculator", name: "Eigenvalue Calculator", description: "A free eigenvalue calculator to easily calculate your results.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, isBuilt: true },
   { slug: "proportion-calculator", name: "Proportion Calculator", description: "Calculate proportion calculator online with our free tool.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "radical-equation-calculator", name: "Radical Equation Calculator", description: "Calculate radical equation calculator online with our free tool.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "synthetic-substitution-calculator", name: "Synthetic Substitution Calculator", description: "Calculate synthetic substitution calculator online with our free tool.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, isBuilt: false },
@@ -280,10 +296,14 @@ export const mathCalculators: CalculatorDef[] = [
   { slug: "vector-scalar-multiplication-calculator", name: "Vector Scalar Multiplication Calculator", description: "Calculate Vector Scalar Multiplication Calculator online with our free tool.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "surface-area-to-volume-ratio-calculator", name: "Surface Area to Volume Ratio Calculator", description: "Calculate Surface Area to Volume Ratio Calculator online with our free tool.", category: "MATH", subcategory: "Geometry", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "triangle-similarity-ratio-calculator", name: "Triangle Similarity Ratio Calculator", description: "Calculate Triangle Similarity Ratio Calculator online with our free tool.", category: "MATH", subcategory: "Geometry", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "law-of-sines-calculator", name: "Law of Sines Calculator", description: "Solve oblique triangles using the Law of Sines.", category: "MATH", subcategory: "Geometry", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "polygon-calculator", name: "Regular Polygon Calculator", description: "Calculate area, perimeter, and angles of any regular polygon.", category: "MATH", subcategory: "Geometry", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "polygon-area-calculator", name: "Polygon Area Calculator", description: "Calculate the area of any irregular polygon using vertex coordinates.", category: "MATH", subcategory: "Geometry", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "sphere-calculator", name: "Sphere Calculator", description: "Calculate volume and surface area of a sphere from radius or diameter.", category: "MATH", subcategory: "Geometry", tier: "Tier3", priorityScore: 28, isBuilt: false },
+  {
+    slug: "law-of-sines-calculator", name: "Law of Sines Calculator", description: "Solve oblique triangles using the Law of Sines.", category: "MATH", subcategory: "Geometry", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "polygon-calculator", name: "Regular Polygon Calculator", description: "Calculate area, perimeter, and angles of any regular polygon.", category: "MATH", subcategory: "Geometry", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "polygon-area-calculator", name: "Polygon Area Calculator", description: "Calculate the area of any irregular polygon using vertex coordinates.", category: "MATH", subcategory: "Geometry", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "sphere-calculator", name: "Sphere Calculator", description: "Calculate volume and surface area of a sphere from radius or diameter.", category: "MATH", subcategory: "Geometry", tier: "Tier3", priorityScore: 28, isBuilt: true },
   { slug: "ellipse-area-calculator", name: "Ellipse Area Calculator", description: "Calculate ellipse area calculator online with our free tool.", category: "MATH", subcategory: "Geometry", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "cylinder-volume-calculator", name: "Cylinder Volume Calculator", description: "Calculate cylinder volume calculator online with our free tool.", category: "MATH", subcategory: "Geometry", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "rhombus-area-calculator", name: "Rhombus Area Calculator", description: "Calculate rhombus area calculator online with our free tool.", category: "MATH", subcategory: "Geometry", tier: "Tier3", priorityScore: 28, isBuilt: false },
@@ -336,10 +356,14 @@ export const mathCalculators: CalculatorDef[] = [
   { slug: "tetrahedron-volume-calculator", name: "Tetrahedron Volume Calculator", description: "Calculate Tetrahedron Volume Calculator online with our free tool.", category: "MATH", subcategory: "Geometry", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "torus-surface-area-calculator", name: "Torus Surface Area Calculator", description: "Calculate Torus Surface Area Calculator online with our free tool.", category: "MATH", subcategory: "Geometry", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "triangle-angle-sum-check-calculator", name: "Triangle Angle Sum Check Calculator", description: "Calculate Triangle Angle Sum Check Calculator online with our free tool.", category: "MATH", subcategory: "Geometry", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "right-angle-calculator", name: "Right Angle Triangle Calculator", description: "Solve right triangles by entering any two known values.", category: "MATH", subcategory: "Geometry", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "law-of-cosines-calculator", name: "Law of Cosines Calculator", description: "Solve any triangle using the Law of Cosines with SSS or SAS input.", category: "MATH", subcategory: "Geometry", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "sector-area-calculator", name: "Sector Area Calculator", description: "Calculate the area of a circle sector from radius and angle.", category: "MATH", subcategory: "Geometry", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "cylinder-calculator", name: "Cylinder Calculator", description: "Calculate volume, surface area, and lateral area of a cylinder.", category: "MATH", subcategory: "Geometry", tier: "Tier3", priorityScore: 28, isBuilt: false },
+  {
+    slug: "right-angle-calculator", name: "Right Angle Triangle Calculator", description: "Solve right triangles by entering any two known values.", category: "MATH", subcategory: "Geometry", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "law-of-cosines-calculator", name: "Law of Cosines Calculator", description: "Solve any triangle using the Law of Cosines with SSS or SAS input.", category: "MATH", subcategory: "Geometry", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "sector-area-calculator", name: "Sector Area Calculator", description: "Calculate the area of a circle sector from radius and angle.", category: "MATH", subcategory: "Geometry", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "cylinder-calculator", name: "Cylinder Calculator", description: "Calculate volume, surface area, and lateral area of a cylinder.", category: "MATH", subcategory: "Geometry", tier: "Tier3", priorityScore: 28, isBuilt: true },
   { slug: "circle-area-calculator", name: "Circle Area Calculator", description: "Calculate circle area calculator online with our free tool.", category: "MATH", subcategory: "Geometry", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "distance-between-points-calculator", name: "Distance Between Points Calculator", description: "Calculate distance between points calculator online with our free tool.", category: "MATH", subcategory: "Geometry", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "right-triangle-calculator", name: "Right Triangle Calculator", description: "Calculate right triangle calculator online with our free tool.", category: "MATH", subcategory: "Geometry", tier: "Tier3", priorityScore: 28, isBuilt: false },
@@ -387,9 +411,12 @@ export const mathCalculators: CalculatorDef[] = [
   { slug: "regular-polygon-apothem-calculator", name: "Regular Polygon Apothem Calculator", description: "Calculate Regular Polygon Apothem Calculator online with our free tool.", category: "MATH", subcategory: "Geometry", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "sagitta-of-arc-calculator", name: "Sagitta of Arc Calculator", description: "Calculate Sagitta of Arc Calculator online with our free tool.", category: "MATH", subcategory: "Geometry", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "triangle-altitude-calculator", name: "Triangle Altitude Calculator", description: "Calculate Triangle Altitude Calculator online with our free tool.", category: "MATH", subcategory: "Geometry", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "ellipse-calculator", name: "Ellipse Calculator", description: "Calculate area, perimeter, and eccentricity of an ellipse.", category: "MATH", subcategory: "Geometry", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "coordinate-geometry-calculator", name: "Coordinate Geometry Calculator", description: "Find distance, midpoint, and equation of a line through two points.", category: "MATH", subcategory: "Geometry", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "cone-calculator", name: "Cone Calculator", description: "Calculate volume, surface area, and slant height of a cone.", category: "MATH", subcategory: "Geometry", tier: "Tier3", priorityScore: 28, isBuilt: false },
+  {
+    slug: "ellipse-calculator", name: "Ellipse Calculator", description: "Calculate area, perimeter, and eccentricity of an ellipse.", category: "MATH", subcategory: "Geometry", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "coordinate-geometry-calculator", name: "Coordinate Geometry Calculator", description: "Find distance, midpoint, and equation of a line through two points.", category: "MATH", subcategory: "Geometry", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "cone-calculator", name: "Cone Calculator", description: "Calculate volume, surface area, and slant height of a cone.", category: "MATH", subcategory: "Geometry", tier: "Tier3", priorityScore: 28, isBuilt: true },
   { slug: "triangle-area-calculator", name: "Triangle Area Calculator", description: "Calculate triangle area calculator online with our free tool.", category: "MATH", subcategory: "Geometry", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "sphere-volume-calculator", name: "Sphere Volume Calculator", description: "Calculate sphere volume calculator online with our free tool.", category: "MATH", subcategory: "Geometry", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "pentagon-area-calculator", name: "Pentagon Area Calculator", description: "Calculate pentagon area calculator online with our free tool.", category: "MATH", subcategory: "Geometry", tier: "Tier3", priorityScore: 28, isBuilt: false },
@@ -419,11 +446,16 @@ export const mathCalculators: CalculatorDef[] = [
   { slug: "cox-proportional-hazard-ratio-calculator", name: "Cox Proportional Hazard Ratio Calculator", description: "Calculate cox proportional hazard ratio calculator online with our free tool.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "odds-ratio-calculator", name: "Odds Ratio Calculator", description: "Calculate odds ratio calculator online with our free tool.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "standardized-mortality-ratio-calculator", name: "Standardized Mortality Ratio Calculator", description: "Calculate standardized mortality ratio calculator online with our free tool.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "t-test-calculator", name: "T-Test Calculator", description: "Perform one-sample, two-sample, and paired t-tests with p-values.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "binomial-distribution-calculator", name: "Binomial Distribution Calculator", description: "Calculate probabilities for binomial distributions with n trials and probability p.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "coefficient-of-variation-calculator", name: "Coefficient of Variation Calculator", description: "A free coefficient of variation calculator to easily calculate your results.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "decile-calculator", name: "Decile Calculator", description: "A free decile calculator to easily calculate your results.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "f-test-calculator", name: "F-Test Calculator", description: "A free f-test calculator to easily calculate your results.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: false },
+  {
+    slug: "t-test-calculator", name: "T-Test Calculator", description: "Perform one-sample, two-sample, and paired t-tests with p-values.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "binomial-distribution-calculator", name: "Binomial Distribution Calculator", description: "Calculate probabilities for binomial distributions with n trials and probability p.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "coefficient-of-variation-calculator", name: "Coefficient of Variation Calculator", description: "A free coefficient of variation calculator to easily calculate your results.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "decile-calculator", name: "Decile Calculator", description: "A free decile calculator to easily calculate your results.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "f-test-calculator", name: "F-Test Calculator", description: "A free f-test calculator to easily calculate your results.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: true },
   { slug: "cohen", name: "Cohen", description: "Calculate cohen", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "sensitivity-and-specificity-calculator", name: "Sensitivity and Specificity Calculator", description: "Calculate sensitivity and specificity calculator online with our free tool.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "weighted-standard-deviation-calculator", name: "Weighted Standard Deviation Calculator", description: "Calculate weighted standard deviation calculator online with our free tool.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: false },
@@ -432,17 +464,28 @@ export const mathCalculators: CalculatorDef[] = [
   { slug: "kaplan-meier-estimate-calculator", name: "Kaplan-Meier Estimate Calculator", description: "Calculate kaplan-meier estimate calculator online with our free tool.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "secondary-attack-rate-calculator", name: "Secondary Attack Rate Calculator", description: "Calculate secondary attack rate calculator online with our free tool.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "case-fatality-rate-calculator", name: "Case Fatality Rate Calculator", description: "Calculate case fatality rate calculator online with our free tool.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "probability-calculator", name: "Probability Calculator", description: "Calculate probability of single and combined events.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "sample-size-calculator", name: "Sample Size Calculator", description: "Determine the required sample size for statistical significance.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "correlation-coefficient-calculator", name: "Correlation Coefficient Calculator", description: "Calculate Pearson and Spearman correlation coefficients for two data sets.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "linear-regression-calculator", name: "Linear Regression Calculator", description: "Find the best-fit line and R² value for a set of data points.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "poisson-distribution-calculator", name: "Poisson Distribution Calculator", description: "Calculate event probabilities using the Poisson distribution formula.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "geometric-mean-calculator", name: "Geometric Mean Calculator", description: "A free geometric mean calculator to easily calculate your results.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "skewness-calculator", name: "Skewness Calculator", description: "A free skewness calculator to easily calculate your results.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "kurtosis-calculator", name: "Kurtosis Calculator", description: "A free kurtosis calculator to easily calculate your results.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "quartile-calculator", name: "Quartile Calculator", description: "A free quartile calculator to easily calculate your results.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "anova-calculator", name: "ANOVA Calculator", description: "A free anova calculator to easily calculate your results.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "kendall-tau-calculator", name: "Kendall Tau Calculator", description: "A free kendall tau calculator to easily calculate your results.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: false },
+  {
+    slug: "probability-calculator", name: "Probability Calculator", description: "Calculate probability of single and combined events.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "sample-size-calculator", name: "Sample Size Calculator", description: "Determine the required sample size for statistical significance.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "correlation-coefficient-calculator", name: "Correlation Coefficient Calculator", description: "Calculate Pearson and Spearman correlation coefficients for two data sets.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "linear-regression-calculator", name: "Linear Regression Calculator", description: "Find the best-fit line and R² value for a set of data points.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "poisson-distribution-calculator", name: "Poisson Distribution Calculator", description: "Calculate event probabilities using the Poisson distribution formula.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "geometric-mean-calculator", name: "Geometric Mean Calculator", description: "A free geometric mean calculator to easily calculate your results.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "skewness-calculator", name: "Skewness Calculator", description: "A free skewness calculator to easily calculate your results.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "kurtosis-calculator", name: "Kurtosis Calculator", description: "A free kurtosis calculator to easily calculate your results.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "quartile-calculator", name: "Quartile Calculator", description: "A free quartile calculator to easily calculate your results.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "anova-calculator", name: "ANOVA Calculator", description: "A free anova calculator to easily calculate your results.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "kendall-tau-calculator", name: "Kendall Tau Calculator", description: "A free kendall tau calculator to easily calculate your results.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: true },
   { slug: "permutation-calculator", name: "Permutation Calculator", description: "Calculate permutation calculator online with our free tool.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "combination-calculator", name: "Combination Calculator", description: "Calculate combination calculator online with our free tool.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "expected-value-calculator", name: "Expected Value Calculator", description: "Calculate expected value calculator online with our free tool.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: false },
@@ -465,20 +508,34 @@ export const mathCalculators: CalculatorDef[] = [
   { slug: "attack-rate-calculator", name: "Attack Rate Calculator", description: "Calculate attack rate calculator online with our free tool.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "infection-fatality-rate-calculator", name: "Infection Fatality Rate Calculator", description: "Calculate infection fatality rate calculator online with our free tool.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "herd-immunity-threshold-calculator", name: "Herd Immunity Threshold Calculator", description: "Calculate herd immunity threshold calculator online with our free tool.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "permutation-combination-calculator", name: "Permutation & Combination Calculator", description: "Calculate permutations and combinations for probability problems.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "normal-distribution-calculator", name: "Normal Distribution Calculator", description: "Calculate area under the normal curve and find probabilities for z-scores.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "covariance-calculator", name: "Covariance Calculator", description: "Calculate population and sample covariance for two data sets.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "interquartile-range-calculator", name: "Interquartile Range Calculator", description: "Calculate Q1, Q2, Q3, and IQR from any data set.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "weighted-average-calculator", name: "Weighted Average Calculator", description: "Calculate the weighted mean of values with different weights or importance.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "harmonic-mean-calculator", name: "Harmonic Mean Calculator", description: "A free harmonic mean calculator to easily calculate your results.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "root-mean-square-calculator", name: "Root Mean Square Calculator", description: "A free root mean square calculator to easily calculate your results.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "percentile-calculator", name: "Percentile Calculator", description: "A free percentile calculator to easily calculate your results.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "mann-whitney-u-test-calculator", name: "Mann-Whitney U Test Calculator", description: "A free mann-whitney u test calculator to easily calculate your results.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "kruskal-wallis-test-calculator", name: "Kruskal-Wallis Test Calculator", description: "A free kruskal-wallis test calculator to easily calculate your results.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "wilcoxon-signed-rank-test-calculator", name: "Wilcoxon Signed-Rank Test Calculator", description: "A free wilcoxon signed-rank test calculator to easily calculate your results.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "spearman-rank-correlation-calculator", name: "Spearman Rank Correlation Calculator", description: "A free spearman rank correlation calculator to easily calculate your results.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "logistic-regression-calculator", name: "Logistic Regression Calculator", description: "A free logistic regression calculator to easily calculate your results.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "multiple-regression-calculator", name: "Multiple Regression Calculator", description: "A free multiple regression calculator to easily calculate your results.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: false },
+  {
+    slug: "permutation-combination-calculator", name: "Permutation & Combination Calculator", description: "Calculate permutations and combinations for probability problems.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "normal-distribution-calculator", name: "Normal Distribution Calculator", description: "Calculate area under the normal curve and find probabilities for z-scores.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "covariance-calculator", name: "Covariance Calculator", description: "Calculate population and sample covariance for two data sets.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "interquartile-range-calculator", name: "Interquartile Range Calculator", description: "Calculate Q1, Q2, Q3, and IQR from any data set.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "weighted-average-calculator", name: "Weighted Average Calculator", description: "Calculate the weighted mean of values with different weights or importance.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "harmonic-mean-calculator", name: "Harmonic Mean Calculator", description: "A free harmonic mean calculator to easily calculate your results.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "root-mean-square-calculator", name: "Root Mean Square Calculator", description: "A free root mean square calculator to easily calculate your results.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "percentile-calculator", name: "Percentile Calculator", description: "A free percentile calculator to easily calculate your results.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "mann-whitney-u-test-calculator", name: "Mann-Whitney U Test Calculator", description: "A free mann-whitney u test calculator to easily calculate your results.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "kruskal-wallis-test-calculator", name: "Kruskal-Wallis Test Calculator", description: "A free kruskal-wallis test calculator to easily calculate your results.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "wilcoxon-signed-rank-test-calculator", name: "Wilcoxon Signed-Rank Test Calculator", description: "A free wilcoxon signed-rank test calculator to easily calculate your results.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "spearman-rank-correlation-calculator", name: "Spearman Rank Correlation Calculator", description: "A free spearman rank correlation calculator to easily calculate your results.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "logistic-regression-calculator", name: "Logistic Regression Calculator", description: "A free logistic regression calculator to easily calculate your results.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "multiple-regression-calculator", name: "Multiple Regression Calculator", description: "A free multiple regression calculator to easily calculate your results.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: true },
   { slug: "mean-calculator", name: "Mean Calculator", description: "Calculate mean calculator online with our free tool.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "relative-risk-calculator", name: "Relative Risk Calculator", description: "Calculate relative risk calculator online with our free tool.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "number-needed-to-treat-calculator", name: "Number Needed to Treat Calculator", description: "Calculate number needed to treat calculator online with our free tool.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, isBuilt: false },
@@ -859,7 +916,8 @@ export const mathCalculators: CalculatorDef[] = [
   { slug: "unit-circle-coordinate-calculator", name: "Unit Circle Coordinate Calculator", description: "Calculate Unit Circle Coordinate Calculator online with our free tool.", category: "MATH", subcategory: "Trigonometry", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "versine-calculator", name: "Versine Calculator", description: "Calculate Versine Calculator online with our free tool.", category: "MATH", subcategory: "Trigonometry", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "fixed-point-iteration-calculator", name: "Fixed-Point Iteration Calculator", description: "Calculate fixed-point iteration calculator online with our free tool.", category: "MATH", subcategory: "Calculus", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "vector-operations-calculator", name: "Vector Operations Calculator", description: "Calculate dot product, cross product, magnitude, and angles between vectors.", category: "MATH", subcategory: "Calculus", tier: "Tier3", priorityScore: 28, isBuilt: false },
+  {
+    slug: "vector-operations-calculator", name: "Vector Operations Calculator", description: "Calculate dot product, cross product, magnitude, and angles between vectors.", category: "MATH", subcategory: "Calculus", tier: "Tier3", priorityScore: 28, isBuilt: true },
   { slug: "integration-by-parts-calculator", name: "Integration by Parts Calculator", description: "Calculate Integration by Parts Calculator online with our free tool.", category: "MATH", subcategory: "Calculus", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "area-under-curve-numerical-integration-calculator", name: "Area Under Curve (Numerical Integration) Calculator", description: "Calculate Area Under Curve (Numerical Integration) Calculator online with our free tool.", category: "MATH", subcategory: "Calculus", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "euler", name: "Euler", description: "Calculate euler", category: "MATH", subcategory: "Calculus", tier: "Tier3", priorityScore: 28, isBuilt: false },
@@ -903,9 +961,12 @@ export const mathCalculators: CalculatorDef[] = [
   { slug: "surface-of-revolution-calculator", name: "Surface of Revolution Calculator", description: "Calculate Surface of Revolution Calculator online with our free tool.", category: "MATH", subcategory: "Calculus", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "total-differential-calculator", name: "Total Differential Calculator", description: "Calculate Total Differential Calculator online with our free tool.", category: "MATH", subcategory: "Calculus", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "triple-integral-volume-estimator", name: "Triple Integral Volume Estimator", description: "Calculate Triple Integral Volume Estimator online with our free tool.", category: "MATH", subcategory: "Calculus", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "integral-calculator", name: "Integral Calculator", description: "Calculate definite and indefinite integrals of standard functions.", category: "MATH", subcategory: "Calculus", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "limit-calculator", name: "Limit Calculator", description: "Evaluate the limit of a function as the variable approaches a value.", category: "MATH", subcategory: "Calculus", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "riemann-sum-calculator", name: "Riemann Sum Calculator", description: "Approximate definite integrals using left, right, and midpoint Riemann sums.", category: "MATH", subcategory: "Calculus", tier: "Tier3", priorityScore: 28, isBuilt: false },
+  {
+    slug: "integral-calculator", name: "Integral Calculator", description: "Calculate definite and indefinite integrals of standard functions.", category: "MATH", subcategory: "Calculus", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "limit-calculator", name: "Limit Calculator", description: "Evaluate the limit of a function as the variable approaches a value.", category: "MATH", subcategory: "Calculus", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "riemann-sum-calculator", name: "Riemann Sum Calculator", description: "Approximate definite integrals using left, right, and midpoint Riemann sums.", category: "MATH", subcategory: "Calculus", tier: "Tier3", priorityScore: 28, isBuilt: true },
   { slug: "fourier-transform-calculator", name: "Fourier Transform Calculator", description: "Calculate fourier transform calculator online with our free tool.", category: "MATH", subcategory: "Calculus", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "laplace-transform-calculator", name: "Laplace Transform Calculator", description: "Calculate laplace transform calculator online with our free tool.", category: "MATH", subcategory: "Calculus", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "simpson", name: "Simpson", description: "Calculate simpson", category: "MATH", subcategory: "Calculus", tier: "Tier3", priorityScore: 28, isBuilt: false },
@@ -935,8 +996,10 @@ export const mathCalculators: CalculatorDef[] = [
   { slug: "riemann-sum-left-right-midpoint-calculator", name: "Riemann Sum (Left, Right, Midpoint) Calculator", description: "Calculate Riemann Sum (Left, Right, Midpoint) Calculator online with our free tool.", category: "MATH", subcategory: "Calculus", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "u-substitution-integral-calculator", name: "U-Substitution Integral Calculator", description: "Calculate U-Substitution Integral Calculator online with our free tool.", category: "MATH", subcategory: "Calculus", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "washer-method-volume-calculator", name: "Washer Method Volume Calculator", description: "Calculate Washer Method Volume Calculator online with our free tool.", category: "MATH", subcategory: "Calculus", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "derivative-calculator", name: "Derivative Calculator", description: "Find the derivative of common functions using differentiation rules.", category: "MATH", subcategory: "Calculus", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "taylor-series-calculator", name: "Taylor Series Calculator", description: "Expand a function as a Taylor series around a given point.", category: "MATH", subcategory: "Calculus", tier: "Tier3", priorityScore: 28, isBuilt: false },
+  {
+    slug: "derivative-calculator", name: "Derivative Calculator", description: "Find the derivative of common functions using differentiation rules.", category: "MATH", subcategory: "Calculus", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "taylor-series-calculator", name: "Taylor Series Calculator", description: "Expand a function as a Taylor series around a given point.", category: "MATH", subcategory: "Calculus", tier: "Tier3", priorityScore: 28, isBuilt: true },
   { slug: "trapezoidal-rule-calculator", name: "Trapezoidal Rule Calculator", description: "Calculate trapezoidal rule calculator online with our free tool.", category: "MATH", subcategory: "Calculus", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "related-rates-calculator", name: "Related Rates Calculator", description: "Calculate related rates calculator online with our free tool.", category: "MATH", subcategory: "Calculus", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "curl-calculator", name: "Curl Calculator", description: "Calculate curl calculator online with our free tool.", category: "MATH", subcategory: "Calculus", tier: "Tier3", priorityScore: 28, isBuilt: false },
@@ -1033,42 +1096,78 @@ export const mathCalculators: CalculatorDef[] = [
   { slug: "probability-density-calculator", name: "Probability Density Calculator", description: "Calculate Probability Density Calculator online with our free tool.", category: "MATH", subcategory: "Statistics & Probability", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "sample-standard-deviation-calculator", name: "Sample Standard Deviation Calculator", description: "Calculate Sample Standard Deviation Calculator online with our free tool.", category: "MATH", subcategory: "Statistics & Probability", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "t-score-calculator", name: "T-Score Calculator", description: "Calculate T-Score Calculator online with our free tool.", category: "MATH", subcategory: "Statistics & Probability", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "basic-calculator", name: "Basic Calculator", description: "Simple arithmetic calculator for addition, subtraction, multiplication, division.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "random-number-generator", name: "Random Number Generator", description: "Generate random numbers within a specified range.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "number-sequence-calculator", name: "Number Sequence Calculator", description: "Find patterns and next terms in arithmetic and geometric sequences.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "lcm-calculator", name: "LCM Calculator", description: "Calculate the Least Common Multiple of two or more numbers.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "gcf-calculator", name: "GCF Calculator", description: "Find the Greatest Common Factor of two or more numbers.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "factor-calculator", name: "Factor Calculator", description: "Find all factors and factor pairs of a number.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "modulo-calculator", name: "Modulo Calculator", description: "Calculate the remainder of division between any two numbers.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "ceiling-floor-calculator", name: "Ceiling & Floor Calculator", description: "Calculate ceiling and floor values for rounding real numbers.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "factorial-calculator", name: "Factorial Calculator", description: "Calculate the factorial of any non-negative integer step by step.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "fibonacci-calculator", name: "Fibonacci Sequence Calculator", description: "Generate Fibonacci sequence terms and find any position in the series.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "base-conversion-calculator", name: "Base Conversion Calculator", description: "Convert numbers between binary, octal, decimal, and hexadecimal bases.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "median-calculator", name: "Median Calculator", description: "Find the median value in any data set, odd or even count.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "cube-root-calculator", name: "Cube Root Calculator", description: "Calculate the cube root of any number with exact or decimal precision.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "rounding-calculator", name: "Rounding Calculator", description: "Round numbers to any decimal place or significant figure.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "absolute-value-calculator", name: "Absolute Value Calculator", description: "Find the absolute value of any number or expression.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "number-to-words-converter", name: "Number to Words Converter", description: "Convert any number to its English word representation.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "range-calculator", name: "Range Calculator", description: "Calculate the range, minimum, and maximum of a data set.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "scientific-calculator", name: "Scientific Calculator", description: "Advanced scientific calculator with trigonometry, logs, and constants.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "long-division-calculator", name: "Long Division Calculator", description: "Step-by-step long division with quotient, remainder, and decimal.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "significant-figures-calculator", name: "Significant Figures Calculator", description: "Count and round to the correct number of significant figures.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "scientific-notation-calculator", name: "Scientific Notation Calculator", description: "Convert numbers to and from scientific notation.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "big-number-calculator", name: "Big Number Calculator", description: "Perform arithmetic with extremely large numbers.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "prime-factorization-calculator", name: "Prime Factorization Calculator", description: "Find the prime factors of any number.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "root-calculator", name: "Root Calculator", description: "Calculate square roots, cube roots, and nth roots.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "average-calculator", name: "Average Calculator", description: "Calculate the arithmetic mean of a set of numbers quickly.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "mode-calculator", name: "Mode Calculator", description: "Find the most frequently occurring value in a data set.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "antilog-calculator", name: "Antilog Calculator", description: "Calculate the antilogarithm for any base from a given log value.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "bitwise-operations-calculator", name: "Bitwise Operations Calculator", description: "Perform AND, OR, XOR, NOT, and shift operations on binary numbers.", category: "MATH", subcategory: "Number Theory & Discrete Math", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "set-operations-calculator", name: "Set Operations Calculator", description: "Perform union, intersection, difference, and complement of sets.", category: "MATH", subcategory: "Number Theory & Discrete Math", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "combinations-calculator", name: "Combinations Calculator", description: "Calculate nCr — the number of ways to choose r items from n without repetition.", category: "MATH", subcategory: "Number Theory & Discrete Math", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "permutations-calculator", name: "Permutations Calculator", description: "Calculate nPr — the number of ordered arrangements of r items from n.", category: "MATH", subcategory: "Number Theory & Discrete Math", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "truth-table-calculator", name: "Truth Table Calculator", description: "Generate truth tables for any logical expression with AND, OR, NOT, XOR.", category: "MATH", subcategory: "Number Theory & Discrete Math", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "binary-decimal-calculator", name: "Binary to Decimal Calculator", description: "Convert between binary, decimal, octal, and hexadecimal number systems.", category: "MATH", subcategory: "Number Theory & Discrete Math", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "binary-calculator", name: "Binary Calculator", description: "Convert and perform arithmetic in binary number system.", category: "MATH", subcategory: "Number Theory & Discrete Math", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "hex-calculator", name: "Hex Calculator", description: "Convert and calculate in hexadecimal number system.", category: "MATH", subcategory: "Number Theory & Discrete Math", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "complex-numbers-calculator", name: "Complex Numbers Calculator", description: "Add, subtract, multiply, and divide complex numbers in rectangular and polar form.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 23, isBuilt: false },
+  {
+    slug: "basic-calculator", name: "Basic Calculator", description: "Simple arithmetic calculator for addition, subtraction, multiplication, division.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "random-number-generator", name: "Random Number Generator", description: "Generate random numbers within a specified range.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "number-sequence-calculator", name: "Number Sequence Calculator", description: "Find patterns and next terms in arithmetic and geometric sequences.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "lcm-calculator", name: "LCM Calculator", description: "Calculate the Least Common Multiple of two or more numbers.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "gcf-calculator", name: "GCF Calculator", description: "Find the Greatest Common Factor of two or more numbers.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "factor-calculator", name: "Factor Calculator", description: "Find all factors and factor pairs of a number.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "modulo-calculator", name: "Modulo Calculator", description: "Calculate the remainder of division between any two numbers.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "ceiling-floor-calculator", name: "Ceiling & Floor Calculator", description: "Calculate ceiling and floor values for rounding real numbers.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "factorial-calculator", name: "Factorial Calculator", description: "Calculate the factorial of any non-negative integer step by step.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "fibonacci-calculator", name: "Fibonacci Sequence Calculator", description: "Generate Fibonacci sequence terms and find any position in the series.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "base-conversion-calculator", name: "Base Conversion Calculator", description: "Convert numbers between binary, octal, decimal, and hexadecimal bases.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "median-calculator", name: "Median Calculator", description: "Find the median value in any data set, odd or even count.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "cube-root-calculator", name: "Cube Root Calculator", description: "Calculate the cube root of any number with exact or decimal precision.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "rounding-calculator", name: "Rounding Calculator", description: "Round numbers to any decimal place or significant figure.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "absolute-value-calculator", name: "Absolute Value Calculator", description: "Find the absolute value of any number or expression.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "number-to-words-converter", name: "Number to Words Converter", description: "Convert any number to its English word representation.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "range-calculator", name: "Range Calculator", description: "Calculate the range, minimum, and maximum of a data set.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "scientific-calculator", name: "Scientific Calculator", description: "Advanced scientific calculator with trigonometry, logs, and constants.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "long-division-calculator", name: "Long Division Calculator", description: "Step-by-step long division with quotient, remainder, and decimal.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "significant-figures-calculator", name: "Significant Figures Calculator", description: "Count and round to the correct number of significant figures.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "scientific-notation-calculator", name: "Scientific Notation Calculator", description: "Convert numbers to and from scientific notation.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "big-number-calculator", name: "Big Number Calculator", description: "Perform arithmetic with extremely large numbers.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "prime-factorization-calculator", name: "Prime Factorization Calculator", description: "Find the prime factors of any number.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "root-calculator", name: "Root Calculator", description: "Calculate square roots, cube roots, and nth roots.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "average-calculator", name: "Average Calculator", description: "Calculate the arithmetic mean of a set of numbers quickly.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "mode-calculator", name: "Mode Calculator", description: "Find the most frequently occurring value in a data set.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "antilog-calculator", name: "Antilog Calculator", description: "Calculate the antilogarithm for any base from a given log value.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "bitwise-operations-calculator", name: "Bitwise Operations Calculator", description: "Perform AND, OR, XOR, NOT, and shift operations on binary numbers.", category: "MATH", subcategory: "Number Theory & Discrete Math", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "set-operations-calculator", name: "Set Operations Calculator", description: "Perform union, intersection, difference, and complement of sets.", category: "MATH", subcategory: "Number Theory & Discrete Math", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "combinations-calculator", name: "Combinations Calculator", description: "Calculate nCr — the number of ways to choose r items from n without repetition.", category: "MATH", subcategory: "Number Theory & Discrete Math", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "permutations-calculator", name: "Permutations Calculator", description: "Calculate nPr — the number of ordered arrangements of r items from n.", category: "MATH", subcategory: "Number Theory & Discrete Math", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "truth-table-calculator", name: "Truth Table Calculator", description: "Generate truth tables for any logical expression with AND, OR, NOT, XOR.", category: "MATH", subcategory: "Number Theory & Discrete Math", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "binary-decimal-calculator", name: "Binary to Decimal Calculator", description: "Convert between binary, decimal, octal, and hexadecimal number systems.", category: "MATH", subcategory: "Number Theory & Discrete Math", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "binary-calculator", name: "Binary Calculator", description: "Convert and perform arithmetic in binary number system.", category: "MATH", subcategory: "Number Theory & Discrete Math", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "hex-calculator", name: "Hex Calculator", description: "Convert and calculate in hexadecimal number system.", category: "MATH", subcategory: "Number Theory & Discrete Math", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "complex-numbers-calculator", name: "Complex Numbers Calculator", description: "Add, subtract, multiply, and divide complex numbers in rectangular and polar form.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 23, isBuilt: true },
   { slug: "conjugate-of-complex-number-calculator", name: "Conjugate of Complex Number Calculator", description: "Calculate Conjugate of Complex Number Calculator online with our free tool.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 23, isBuilt: false },
   { slug: "complex-number-arithmetic-calculator", name: "Complex Number Arithmetic Calculator", description: "Calculate Complex Number Arithmetic Calculator online with our free tool.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 23, isBuilt: false },
   { slug: "complex-number-polar-form-calculator", name: "Complex Number Polar Form Calculator", description: "Calculate Complex Number Polar Form Calculator online with our free tool.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 23, isBuilt: false },

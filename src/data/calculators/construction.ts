@@ -699,18 +699,30 @@ export const constructionCalculators: CalculatorDef[] = [
   { slug: "shadow-length-calculator", name: "Shadow Length Calculator", description: "Calculate shadow length calculator online with our free tool.", category: "CONSTRUCTION", subcategory: "Measurement & Layout", tier: "Tier3", priorityScore: 38, isBuilt: false },
   { slug: "sight-line-calculator", name: "Sight Line Calculator", description: "Calculate sight line calculator online with our free tool.", category: "CONSTRUCTION", subcategory: "Measurement & Layout", tier: "Tier3", priorityScore: 38, isBuilt: false },
   { slug: "ramp-slope-calculator", name: "Ramp Slope Calculator", description: "Calculate ramp slope calculator online with our free tool.", category: "CONSTRUCTION", subcategory: "Measurement & Layout", tier: "Tier3", priorityScore: 38, isBuilt: false },
-  { slug: "cement-calculator", name: "Cement Calculator", description: "Calculate cement, sand, and aggregate quantities for concrete mix.", category: "CONSTRUCTION", subcategory: "Materials & Quantities", tier: "Tier3", priorityScore: 38, isBuilt: false },
-  { slug: "steel-weight-calculator", name: "Steel Weight Calculator", description: "Calculate weight of steel bars, plates, and sections.", category: "CONSTRUCTION", subcategory: "Materials & Quantities", tier: "Tier3", priorityScore: 38, isBuilt: false },
-  { slug: "gravel-calculator", name: "Gravel Calculator", description: "Calculate gravel volume and weight for landscaping projects.", category: "CONSTRUCTION", subcategory: "Materials & Quantities", tier: "Tier3", priorityScore: 38, isBuilt: false },
-  { slug: "concrete-calculator", name: "Concrete Calculator", description: "Calculate concrete volume in cubic yards for slabs, footings, and columns.", category: "CONSTRUCTION", subcategory: "Materials & Quantities", tier: "Tier3", priorityScore: 38, isBuilt: false },
-  { slug: "brick-calculator", name: "Brick Calculator", description: "Estimate number of bricks needed for walls with mortar joints.", category: "CONSTRUCTION", subcategory: "Materials & Quantities", tier: "Tier3", priorityScore: 38, isBuilt: false },
-  { slug: "paint-calculator", name: "Paint Calculator", description: "Estimate gallons of paint needed for rooms and surfaces.", category: "CONSTRUCTION", subcategory: "Materials & Quantities", tier: "Tier3", priorityScore: 38, isBuilt: false },
-  { slug: "mulch-calculator", name: "Mulch Calculator", description: "Estimate mulch volume needed for garden beds and landscaping.", category: "CONSTRUCTION", subcategory: "Materials & Quantities", tier: "Tier3", priorityScore: 38, isBuilt: false },
-  { slug: "stair-calculator", name: "Stair Calculator", description: "Calculate stair dimensions — rise, run, number of steps, and angles.", category: "CONSTRUCTION", subcategory: "Materials & Quantities", tier: "Tier3", priorityScore: 38, isBuilt: false },
-  { slug: "flooring-calculator", name: "Flooring Calculator", description: "Calculate flooring material needed with waste factor.", category: "CONSTRUCTION", subcategory: "Materials & Quantities", tier: "Tier3", priorityScore: 38, isBuilt: false },
-  { slug: "square-footage-calculator", name: "Square Footage Calculator", description: "Calculate square footage for rooms, yards, and irregular shapes.", category: "CONSTRUCTION", subcategory: "Materials & Quantities", tier: "Tier3", priorityScore: 38, isBuilt: false },
-  { slug: "tile-calculator", name: "Tile Calculator", description: "Calculate number of tiles needed with cutting waste allowance.", category: "CONSTRUCTION", subcategory: "Materials & Quantities", tier: "Tier3", priorityScore: 38, isBuilt: false },
-  { slug: "roofing-calculator", name: "Roofing Calculator", description: "Calculate roofing materials — shingles, squares, and underlayment.", category: "CONSTRUCTION", subcategory: "Materials & Quantities", tier: "Tier3", priorityScore: 38, isBuilt: false },
+  {
+    slug: "cement-calculator", name: "Cement Calculator", description: "Calculate cement, sand, and aggregate quantities for concrete mix.", category: "CONSTRUCTION", subcategory: "Materials & Quantities", tier: "Tier3", priorityScore: 38, isBuilt: true },
+  {
+    slug: "steel-weight-calculator", name: "Steel Weight Calculator", description: "Calculate weight of steel bars, plates, and sections.", category: "CONSTRUCTION", subcategory: "Materials & Quantities", tier: "Tier3", priorityScore: 38, isBuilt: true },
+  {
+    slug: "gravel-calculator", name: "Gravel Calculator", description: "Calculate gravel volume and weight for landscaping projects.", category: "CONSTRUCTION", subcategory: "Materials & Quantities", tier: "Tier3", priorityScore: 38, isBuilt: true },
+  {
+    slug: "concrete-calculator", name: "Concrete Calculator", description: "Calculate concrete volume in cubic yards for slabs, footings, and columns.", category: "CONSTRUCTION", subcategory: "Materials & Quantities", tier: "Tier3", priorityScore: 38, isBuilt: true },
+  {
+    slug: "brick-calculator", name: "Brick Calculator", description: "Estimate number of bricks needed for walls with mortar joints.", category: "CONSTRUCTION", subcategory: "Materials & Quantities", tier: "Tier3", priorityScore: 38, isBuilt: true },
+  {
+    slug: "paint-calculator", name: "Paint Calculator", description: "Estimate gallons of paint needed for rooms and surfaces.", category: "CONSTRUCTION", subcategory: "Materials & Quantities", tier: "Tier3", priorityScore: 38, isBuilt: true },
+  {
+    slug: "mulch-calculator", name: "Mulch Calculator", description: "Estimate mulch volume needed for garden beds and landscaping.", category: "CONSTRUCTION", subcategory: "Materials & Quantities", tier: "Tier3", priorityScore: 38, isBuilt: true },
+  {
+    slug: "stair-calculator", name: "Stair Calculator", description: "Calculate stair dimensions — rise, run, number of steps, and angles.", category: "CONSTRUCTION", subcategory: "Materials & Quantities", tier: "Tier3", priorityScore: 38, isBuilt: true },
+  {
+    slug: "flooring-calculator", name: "Flooring Calculator", description: "Calculate flooring material needed with waste factor.", category: "CONSTRUCTION", subcategory: "Materials & Quantities", tier: "Tier3", priorityScore: 38, isBuilt: true },
+  {
+    slug: "square-footage-calculator", name: "Square Footage Calculator", description: "Calculate square footage for rooms, yards, and irregular shapes.", category: "CONSTRUCTION", subcategory: "Materials & Quantities", tier: "Tier3", priorityScore: 38, isBuilt: true },
+  {
+    slug: "tile-calculator", name: "Tile Calculator", description: "Calculate number of tiles needed with cutting waste allowance.", category: "CONSTRUCTION", subcategory: "Materials & Quantities", tier: "Tier3", priorityScore: 38, isBuilt: true },
+  {
+    slug: "roofing-calculator", name: "Roofing Calculator", description: "Calculate roofing materials — shingles, squares, and underlayment.", category: "CONSTRUCTION", subcategory: "Materials & Quantities", tier: "Tier3", priorityScore: 38, isBuilt: true },
   { slug: "mortar-calculator", name: "Mortar Calculator", description: "Calculate mortar calculator online with our free tool.", category: "CONSTRUCTION", subcategory: "Masonry, Walls & Framing", tier: "Tier3", priorityScore: 38, isBuilt: false },
   { slug: "stucco-coverage-calculator", name: "Stucco Coverage Calculator", description: "Calculate stucco coverage calculator online with our free tool.", category: "CONSTRUCTION", subcategory: "Masonry, Walls & Framing", tier: "Tier3", priorityScore: 38, isBuilt: false },
   { slug: "lumber-calculator", name: "Lumber Calculator", description: "Calculate lumber calculator online with our free tool.", category: "CONSTRUCTION", subcategory: "Masonry, Walls & Framing", tier: "Tier3", priorityScore: 38, isBuilt: false },

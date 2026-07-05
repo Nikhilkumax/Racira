@@ -21,10 +21,13 @@ export const scienceCalculators: CalculatorDef[] = [
   { slug: "diffraction-grating-angle-calculator", name: "Diffraction Grating Angle Calculator", description: "Calculate Diffraction Grating Angle Calculator online with our free tool.", category: "SCIENCE", subcategory: "Waves, Optics & Nuclear", tier: "Tier2", priorityScore: 58, isBuilt: false },
   { slug: "refraction-angle-calculator", name: "Refraction Angle Calculator", description: "Calculate Refraction Angle Calculator online with our free tool.", category: "SCIENCE", subcategory: "Waves, Optics & Nuclear", tier: "Tier2", priorityScore: 58, isBuilt: false },
   { slug: "zero-order-diffraction-calculator", name: "Zero-Order Diffraction Calculator", description: "Calculate Zero-Order Diffraction Calculator online with our free tool.", category: "SCIENCE", subcategory: "Waves, Optics & Nuclear", tier: "Tier2", priorityScore: 58, isBuilt: false },
-  { slug: "electricity-cost-calculator", name: "Electricity Cost Calculator", description: "Estimate electricity costs for appliances based on usage and rates.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier2", priorityScore: 58, isBuilt: false },
-  { slug: "fractional-distillation-calculator", name: "Fractional Distillation Calculator", description: "A free fractional distillation calculator to easily calculate your results.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier2", priorityScore: 58, isBuilt: false },
+  {
+    slug: "electricity-cost-calculator", name: "Electricity Cost Calculator", description: "Estimate electricity costs for appliances based on usage and rates.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier2", priorityScore: 58, isBuilt: true },
+  {
+    slug: "fractional-distillation-calculator", name: "Fractional Distillation Calculator", description: "A free fractional distillation calculator to easily calculate your results.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier2", priorityScore: 58, isBuilt: true },
   { slug: "mole-fraction-calculator", name: "Mole Fraction Calculator", description: "Calculate mole fraction calculator online with our free tool.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier2", priorityScore: 58, isBuilt: false },
-  { slug: "carbon-dating-calculator", name: "Carbon Dating Calculator", description: "A free carbon dating calculator to easily calculate your results.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier2", priorityScore: 58, isBuilt: false },
+  {
+    slug: "carbon-dating-calculator", name: "Carbon Dating Calculator", description: "A free carbon dating calculator to easily calculate your results.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier2", priorityScore: 58, isBuilt: true },
   { slug: "energetic-cost-of-locomotion-calculator", name: "Energetic Cost of Locomotion Calculator", description: "Calculate Energetic Cost of Locomotion Calculator online with our free tool.", category: "SCIENCE", subcategory: "Biology & Life Sciences", tier: "Tier2", priorityScore: 58, isBuilt: false },
   { slug: "carrying-capacity-logistic-growth-calculator", name: "Carrying Capacity (Logistic Growth) Calculator", description: "Calculate Carrying Capacity (Logistic Growth) Calculator online with our free tool.", category: "SCIENCE", subcategory: "Biology & Life Sciences", tier: "Tier2", priorityScore: 58, isBuilt: false },
   { slug: "carrying-capacity-calculator", name: "Carrying Capacity Calculator", description: "Calculate carrying capacity calculator online with our free tool.", category: "SCIENCE", subcategory: "Biology & Life Sciences", tier: "Tier2", priorityScore: 58, isBuilt: false },
@@ -143,49 +146,85 @@ export const scienceCalculators: CalculatorDef[] = [
   { slug: "sound-decibel-level-calculator", name: "Sound Decibel Level Calculator", description: "Calculate Sound Decibel Level Calculator online with our free tool.", category: "SCIENCE", subcategory: "Waves, Optics & Nuclear", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "total-internal-reflection-angle-calculator", name: "Total Internal Reflection Angle Calculator", description: "Calculate Total Internal Reflection Angle Calculator online with our free tool.", category: "SCIENCE", subcategory: "Waves, Optics & Nuclear", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "wave-speed-calculator", name: "Wave Speed Calculator", description: "Calculate Wave Speed Calculator online with our free tool.", category: "SCIENCE", subcategory: "Waves, Optics & Nuclear", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "acceleration-calculator", name: "Acceleration Calculator", description: "Calculate linear acceleration from velocity change and time.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "simple-pendulum-calculator", name: "Simple Pendulum Calculator", description: "Calculate period and frequency of a simple pendulum from its length.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "voltage-drop-calculator", name: "Voltage Drop Calculator", description: "Calculate voltage drop across wire runs for electrical installations.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "work-power-calculator", name: "Work & Power Calculator", description: "Calculate work done, power output, and energy transfer in mechanical systems.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "spring-constant-calculator", name: "Spring Constant Calculator", description: "Calculate spring constant, force, and displacement using Hooke", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "resistors-in-parallel-calculator", name: "Resistors in Parallel Calculator", description: "Calculate total resistance for resistors connected in parallel.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "displacement-calculator", name: "Displacement Calculator", description: "A free displacement calculator to easily calculate your results.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "coulombs-law-calculator", name: "Coulombs Law Calculator", description: "A free coulombs law calculator to easily calculate your results.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "voltage-divider-calculator", name: "Voltage Divider Calculator", description: "A free voltage divider calculator to easily calculate your results.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "current-divider-calculator", name: "Current Divider Calculator", description: "A free current divider calculator to easily calculate your results.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "lc-resonance-calculator", name: "LC Resonance Calculator", description: "A free lc resonance calculator to easily calculate your results.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "resistor-calculator", name: "Resistor Calculator", description: "Decode resistor color bands and calculate resistance values.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "engine-horsepower-calculator", name: "Engine Horsepower Calculator", description: "Calculate engine horsepower from torque, RPM, or quarter-mile time.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "kinetic-energy-calculator", name: "Kinetic Energy Calculator", description: "Calculate kinetic energy of an object from its mass and velocity.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "projectile-motion-calculator", name: "Projectile Motion Calculator", description: "Calculate range, max height, and flight time for projectile motion problems.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "buoyancy-calculator", name: "Buoyancy Calculator", description: "Calculate buoyant force on an object submerged in a fluid.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "pressure-calculator", name: "Pressure Calculator", description: "Calculate pressure from force and area, or fluid depth and density.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "electric-field-calculator", name: "Electric Field Calculator", description: "Calculate electric field strength from charge and distance.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "electric-power-calculator", name: "Electric Power Calculator", description: "Calculate electric power from voltage, current, or resistance combinations.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "capacitance-calculator", name: "Capacitance Calculator", description: "A free capacitance calculator to easily calculate your results.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "mass-defect-calculator", name: "Mass Defect Calculator", description: "A free mass defect calculator to easily calculate your results.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "mass-calculator", name: "Mass Calculator", description: "Calculate mass using density and volume or force and acceleration.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "gravitational-force-calculator", name: "Gravitational Force Calculator", description: "Calculate gravitational attraction between two masses using Newton", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "specific-heat-calculator", name: "Specific Heat Calculator", description: "Calculate heat transfer using the specific heat capacity formula.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "frequency-wavelength-calculator", name: "Frequency & Wavelength Calculator", description: "Convert between frequency, wavelength, and wave speed for any wave.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "resistors-in-series-calculator", name: "Resistors in Series Calculator", description: "Calculate total resistance for resistors connected in series.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "inductance-calculator", name: "Inductance Calculator", description: "A free inductance calculator to easily calculate your results.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "rc-time-constant-calculator", name: "RC Time Constant Calculator", description: "A free rc time constant calculator to easily calculate your results.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "rl-time-constant-calculator", name: "RL Time Constant Calculator", description: "A free rl time constant calculator to easily calculate your results.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "wavelength-calculator", name: "Wavelength Calculator", description: "A free wavelength calculator to easily calculate your results.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "photon-energy-calculator", name: "Photon Energy Calculator", description: "A free photon energy calculator to easily calculate your results.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "titration-calculator", name: "Titration Calculator", description: "Calculate concentration of unknown solutions from titration data.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: false },
+  {
+    slug: "acceleration-calculator", name: "Acceleration Calculator", description: "Calculate linear acceleration from velocity change and time.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "simple-pendulum-calculator", name: "Simple Pendulum Calculator", description: "Calculate period and frequency of a simple pendulum from its length.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "voltage-drop-calculator", name: "Voltage Drop Calculator", description: "Calculate voltage drop across wire runs for electrical installations.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "work-power-calculator", name: "Work & Power Calculator", description: "Calculate work done, power output, and energy transfer in mechanical systems.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "spring-constant-calculator", name: "Spring Constant Calculator", description: "Calculate spring constant, force, and displacement using Hooke", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "resistors-in-parallel-calculator", name: "Resistors in Parallel Calculator", description: "Calculate total resistance for resistors connected in parallel.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "displacement-calculator", name: "Displacement Calculator", description: "A free displacement calculator to easily calculate your results.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "coulombs-law-calculator", name: "Coulombs Law Calculator", description: "A free coulombs law calculator to easily calculate your results.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "voltage-divider-calculator", name: "Voltage Divider Calculator", description: "A free voltage divider calculator to easily calculate your results.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "current-divider-calculator", name: "Current Divider Calculator", description: "A free current divider calculator to easily calculate your results.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "lc-resonance-calculator", name: "LC Resonance Calculator", description: "A free lc resonance calculator to easily calculate your results.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "resistor-calculator", name: "Resistor Calculator", description: "Decode resistor color bands and calculate resistance values.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "engine-horsepower-calculator", name: "Engine Horsepower Calculator", description: "Calculate engine horsepower from torque, RPM, or quarter-mile time.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "kinetic-energy-calculator", name: "Kinetic Energy Calculator", description: "Calculate kinetic energy of an object from its mass and velocity.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "projectile-motion-calculator", name: "Projectile Motion Calculator", description: "Calculate range, max height, and flight time for projectile motion problems.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "buoyancy-calculator", name: "Buoyancy Calculator", description: "Calculate buoyant force on an object submerged in a fluid.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "pressure-calculator", name: "Pressure Calculator", description: "Calculate pressure from force and area, or fluid depth and density.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "electric-field-calculator", name: "Electric Field Calculator", description: "Calculate electric field strength from charge and distance.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "electric-power-calculator", name: "Electric Power Calculator", description: "Calculate electric power from voltage, current, or resistance combinations.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "capacitance-calculator", name: "Capacitance Calculator", description: "A free capacitance calculator to easily calculate your results.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "mass-defect-calculator", name: "Mass Defect Calculator", description: "A free mass defect calculator to easily calculate your results.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "mass-calculator", name: "Mass Calculator", description: "Calculate mass using density and volume or force and acceleration.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "gravitational-force-calculator", name: "Gravitational Force Calculator", description: "Calculate gravitational attraction between two masses using Newton", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "specific-heat-calculator", name: "Specific Heat Calculator", description: "Calculate heat transfer using the specific heat capacity formula.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "frequency-wavelength-calculator", name: "Frequency & Wavelength Calculator", description: "Convert between frequency, wavelength, and wave speed for any wave.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "resistors-in-series-calculator", name: "Resistors in Series Calculator", description: "Calculate total resistance for resistors connected in series.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "inductance-calculator", name: "Inductance Calculator", description: "A free inductance calculator to easily calculate your results.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "rc-time-constant-calculator", name: "RC Time Constant Calculator", description: "A free rc time constant calculator to easily calculate your results.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "rl-time-constant-calculator", name: "RL Time Constant Calculator", description: "A free rl time constant calculator to easily calculate your results.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "wavelength-calculator", name: "Wavelength Calculator", description: "A free wavelength calculator to easily calculate your results.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "photon-energy-calculator", name: "Photon Energy Calculator", description: "A free photon energy calculator to easily calculate your results.", category: "SCIENCE", subcategory: "Physics – Mechanics", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "titration-calculator", name: "Titration Calculator", description: "Calculate concentration of unknown solutions from titration data.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: true },
   { slug: "concentration-molarity-calculator", name: "Concentration (Molarity) Calculator", description: "Calculate Concentration (Molarity) Calculator online with our free tool.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "hydronium-ion-concentration-calculator", name: "Hydronium Ion Concentration Calculator", description: "Calculate Hydronium Ion Concentration Calculator online with our free tool.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "titration-equivalence-point-calculator", name: "Titration Equivalence Point Calculator", description: "Calculate Titration Equivalence Point Calculator online with our free tool.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "concentration-calculator", name: "Concentration Calculator", description: "Calculate solution concentration in molarity, molality, or mass percent.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: false },
+  {
+    slug: "concentration-calculator", name: "Concentration Calculator", description: "Calculate solution concentration in molarity, molality, or mass percent.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: true },
   { slug: "acid-base-titration-calculator", name: "Acid-Base Titration Calculator", description: "Calculate Acid-Base Titration Calculator online with our free tool.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "degree-of-unsaturation-calculator", name: "Degree of Unsaturation Calculator", description: "Calculate Degree of Unsaturation Calculator online with our free tool.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "equilibrium-concentration-calculator", name: "Equilibrium Concentration Calculator", description: "Calculate Equilibrium Concentration Calculator online with our free tool.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "solution-concentration-calculator", name: "Solution Concentration Calculator", description: "Calculate Solution Concentration Calculator online with our free tool.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "half-life-calculator", name: "Half Life Calculator", description: "Calculate radioactive decay, half-life, and remaining quantity.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "buffer-solution-calculator", name: "Buffer Solution Calculator", description: "Calculate the pH of buffer solutions using the Henderson-Hasselbalch equation.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "normality-calculator", name: "Normality Calculator", description: "A free normality calculator to easily calculate your results.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: false },
+  {
+    slug: "half-life-calculator", name: "Half Life Calculator", description: "Calculate radioactive decay, half-life, and remaining quantity.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "buffer-solution-calculator", name: "Buffer Solution Calculator", description: "Calculate the pH of buffer solutions using the Henderson-Hasselbalch equation.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "normality-calculator", name: "Normality Calculator", description: "A free normality calculator to easily calculate your results.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: true },
   { slug: "buffer-solution-ph-calculator", name: "Buffer Solution pH Calculator", description: "Calculate buffer solution ph calculator online with our free tool.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "dilution-factor-calculator", name: "Dilution Factor Calculator", description: "Calculate dilution factor calculator online with our free tool.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "electrochemical-cell-potential-calculator", name: "Electrochemical Cell Potential Calculator", description: "Calculate electrochemical cell potential calculator online with our free tool.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: false },
@@ -225,12 +264,18 @@ export const scienceCalculators: CalculatorDef[] = [
   { slug: "zero-order-reaction-rate-calculator", name: "Zero-Order Reaction Rate Calculator", description: "Calculate Zero-Order Reaction Rate Calculator online with our free tool.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "pka-to-ka-calculator", name: "pKa to Ka Calculator", description: "Calculate pKa to Ka Calculator online with our free tool.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "poh-calculator", name: "pOH Calculator", description: "Calculate pOH Calculator online with our free tool.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "ph-calculator", name: "pH Calculator", description: "Calculate the pH of acids and bases from hydrogen ion concentration.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "empirical-formula-calculator", name: "Empirical Formula Calculator", description: "Determine the empirical formula of a compound from percent composition.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "equilibrium-constant-calculator", name: "Equilibrium Constant Calculator", description: "Calculate Kc or Kp from equilibrium concentrations or partial pressures.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "molality-calculator", name: "Molality Calculator", description: "A free molality calculator to easily calculate your results.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "vapor-pressure-calculator", name: "Vapor Pressure Calculator", description: "A free vapor pressure calculator to easily calculate your results.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "boiling-point-elevation-calculator", name: "Boiling Point Elevation Calculator", description: "A free boiling point elevation calculator to easily calculate your results.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: false },
+  {
+    slug: "ph-calculator", name: "pH Calculator", description: "Calculate the pH of acids and bases from hydrogen ion concentration.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "empirical-formula-calculator", name: "Empirical Formula Calculator", description: "Determine the empirical formula of a compound from percent composition.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "equilibrium-constant-calculator", name: "Equilibrium Constant Calculator", description: "Calculate Kc or Kp from equilibrium concentrations or partial pressures.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "molality-calculator", name: "Molality Calculator", description: "A free molality calculator to easily calculate your results.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "vapor-pressure-calculator", name: "Vapor Pressure Calculator", description: "A free vapor pressure calculator to easily calculate your results.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "boiling-point-elevation-calculator", name: "Boiling Point Elevation Calculator", description: "A free boiling point elevation calculator to easily calculate your results.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: true },
   { slug: "parts-per-million-calculator", name: "Parts Per Million Calculator", description: "Calculate parts per million calculator online with our free tool.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "redox-reaction-calculator", name: "Redox Reaction Calculator", description: "Calculate redox reaction calculator online with our free tool.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "crystal-field-splitting-calculator", name: "Crystal Field Splitting Calculator", description: "Calculate crystal field splitting calculator online with our free tool.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: false },
@@ -262,16 +307,26 @@ export const scienceCalculators: CalculatorDef[] = [
   { slug: "stoichiometry-mole-mass-calculator", name: "Stoichiometry Mole-Mass Calculator", description: "Calculate Stoichiometry Mole-Mass Calculator online with our free tool.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "theoretical-yield-calculator", name: "Theoretical Yield Calculator", description: "Calculate Theoretical Yield Calculator online with our free tool.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "volume-of-gas-at-stp-calculator", name: "Volume of Gas at STP Calculator", description: "Calculate Volume of Gas at STP Calculator online with our free tool.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "molecular-weight-calculator", name: "Molecular Weight Calculator", description: "Calculate molecular weight from chemical formula.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "ideal-gas-law-calculator", name: "Ideal Gas Law Calculator", description: "Solve for pressure, volume, temperature, or moles using PV=nRT.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "combined-gas-law-calculator", name: "Combined Gas Law Calculator", description: "Solve combined gas law problems with pressure, volume, and temperature variables.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "stoichiometry-calculator", name: "Stoichiometry Calculator", description: "Calculate moles, mass, and volume relationships in chemical reactions.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "percent-yield-calculator", name: "Percent Yield Calculator", description: "Calculate percent yield of a chemical reaction from actual and theoretical yields.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "limiting-reagent-calculator", name: "Limiting Reagent Calculator", description: "Find the limiting reagent and excess reactant in a chemical reaction.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "osmolarity-calculator", name: "Osmolarity Calculator", description: "Calculate osmolarity of a solution from solute concentrations.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "molar-mass-calculator", name: "Molar Mass Calculator", description: "A free molar mass calculator to easily calculate your results.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "avogadros-number-calculator", name: "Avogadros Number Calculator", description: "A free avogadros number calculator to easily calculate your results.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "freezing-point-depression-calculator", name: "Freezing Point Depression Calculator", description: "A free freezing point depression calculator to easily calculate your results.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: false },
+  {
+    slug: "molecular-weight-calculator", name: "Molecular Weight Calculator", description: "Calculate molecular weight from chemical formula.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "ideal-gas-law-calculator", name: "Ideal Gas Law Calculator", description: "Solve for pressure, volume, temperature, or moles using PV=nRT.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "combined-gas-law-calculator", name: "Combined Gas Law Calculator", description: "Solve combined gas law problems with pressure, volume, and temperature variables.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "stoichiometry-calculator", name: "Stoichiometry Calculator", description: "Calculate moles, mass, and volume relationships in chemical reactions.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "percent-yield-calculator", name: "Percent Yield Calculator", description: "Calculate percent yield of a chemical reaction from actual and theoretical yields.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "limiting-reagent-calculator", name: "Limiting Reagent Calculator", description: "Find the limiting reagent and excess reactant in a chemical reaction.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "osmolarity-calculator", name: "Osmolarity Calculator", description: "Calculate osmolarity of a solution from solute concentrations.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "molar-mass-calculator", name: "Molar Mass Calculator", description: "A free molar mass calculator to easily calculate your results.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "avogadros-number-calculator", name: "Avogadros Number Calculator", description: "A free avogadros number calculator to easily calculate your results.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "freezing-point-depression-calculator", name: "Freezing Point Depression Calculator", description: "A free freezing point depression calculator to easily calculate your results.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: true },
   { slug: "specific-gravity-calculator", name: "Specific Gravity Calculator", description: "Calculate specific gravity calculator online with our free tool.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "reaction-rate-calculator", name: "Reaction Rate Calculator", description: "Calculate reaction rate calculator online with our free tool.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "van", name: "van", description: "Calculate van", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, isBuilt: false },
@@ -841,24 +896,42 @@ export const scienceCalculators: CalculatorDef[] = [
   { slug: "soil-permeability-rate-calculator", name: "Soil Permeability Rate Calculator", description: "Calculate Soil Permeability Rate Calculator online with our free tool.", category: "SCIENCE", subcategory: "Earth Science & Geology", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "total-dissolved-solids-calculator", name: "Total Dissolved Solids Calculator", description: "Calculate Total Dissolved Solids Calculator online with our free tool.", category: "SCIENCE", subcategory: "Earth Science & Geology", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "water-table-depth-estimator", name: "Water Table Depth Estimator", description: "Calculate Water Table Depth Estimator online with our free tool.", category: "SCIENCE", subcategory: "Earth Science & Geology", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "fluid-flow-calculator", name: "Fluid Flow Rate Calculator", description: "Calculate volumetric flow rate, velocity, and pipe cross-section area.", category: "SCIENCE", subcategory: "Earth Science & Geology", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "power-factor-calculator", name: "Power Factor Calculator", description: "Calculate power factor, apparent power, and reactive power for AC circuits.", category: "SCIENCE", subcategory: "Earth Science & Geology", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "wind-speed-power-calculator", name: "Wind Speed & Power Calculator", description: "Calculate wind power density and turbine output from wind speed.", category: "SCIENCE", subcategory: "Earth Science & Geology", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "thermal-expansion-calculator", name: "Thermal Expansion Calculator", description: "Calculate linear and volumetric thermal expansion of materials.", category: "SCIENCE", subcategory: "Earth Science & Geology", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "radioactive-decay-calculator", name: "Radioactive Decay Calculator", description: "Calculate remaining quantity after radioactive decay using half-life.", category: "SCIENCE", subcategory: "Earth Science & Geology", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "humidity-calculator", name: "Relative Humidity Calculator", description: "Calculate relative humidity, dew point, and wet-bulb temperature.", category: "SCIENCE", subcategory: "Earth Science & Geology", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "uv-index-calculator", name: "UV Index Calculator", description: "Calculate UV exposure risk based on solar angle, altitude, and ozone levels.", category: "SCIENCE", subcategory: "Earth Science & Geology", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "altitude-calculator", name: "Altitude Calculator", description: "Calculate altitude from barometric pressure or GPS coordinates.", category: "SCIENCE", subcategory: "Earth Science & Geology", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "magnetic-field-calculator", name: "Magnetic Field Calculator", description: "Calculate magnetic field strength around a current-carrying conductor.", category: "SCIENCE", subcategory: "Earth Science & Geology", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "transformer-calculator", name: "Transformer Calculator", description: "Calculate primary/secondary voltage, current, and turns ratio for transformers.", category: "SCIENCE", subcategory: "Earth Science & Geology", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "efficiency-calculator", name: "Energy Efficiency Calculator", description: "Calculate energy efficiency ratio for machines, engines, and systems.", category: "SCIENCE", subcategory: "Earth Science & Geology", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "tidal-prediction-calculator", name: "Tidal Force Calculator", description: "Calculate tidal force exerted by the Moon and Sun on ocean bodies.", category: "SCIENCE", subcategory: "Earth Science & Geology", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "decibel-calculator", name: "Decibel Calculator", description: "Convert between decibels and power or intensity ratios.", category: "SCIENCE", subcategory: "Earth Science & Geology", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "barometric-pressure-calculator", name: "Barometric Pressure Calculator", description: "Calculate atmospheric pressure at different altitudes above sea level.", category: "SCIENCE", subcategory: "Earth Science & Geology", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "btu-calculator", name: "BTU Calculator", description: "Calculate BTU requirements for heating and cooling spaces.", category: "SCIENCE", subcategory: "Earth, Atmosphere & Geography", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "dew-point-calculator", name: "Dew Point Calculator", description: "Calculate dew point temperature from temperature and humidity.", category: "SCIENCE", subcategory: "Earth, Atmosphere & Geography", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "wind-chill-calculator", name: "Wind Chill Calculator", description: "Calculate wind chill factor from temperature and wind speed.", category: "SCIENCE", subcategory: "Earth, Atmosphere & Geography", tier: "Tier3", priorityScore: 28, isBuilt: false },
-  { slug: "heat-index-calculator", name: "Heat Index Calculator", description: "Calculate the feels-like temperature from heat and humidity.", category: "SCIENCE", subcategory: "Earth, Atmosphere & Geography", tier: "Tier3", priorityScore: 28, isBuilt: false },
+  {
+    slug: "fluid-flow-calculator", name: "Fluid Flow Rate Calculator", description: "Calculate volumetric flow rate, velocity, and pipe cross-section area.", category: "SCIENCE", subcategory: "Earth Science & Geology", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "power-factor-calculator", name: "Power Factor Calculator", description: "Calculate power factor, apparent power, and reactive power for AC circuits.", category: "SCIENCE", subcategory: "Earth Science & Geology", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "wind-speed-power-calculator", name: "Wind Speed & Power Calculator", description: "Calculate wind power density and turbine output from wind speed.", category: "SCIENCE", subcategory: "Earth Science & Geology", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "thermal-expansion-calculator", name: "Thermal Expansion Calculator", description: "Calculate linear and volumetric thermal expansion of materials.", category: "SCIENCE", subcategory: "Earth Science & Geology", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "radioactive-decay-calculator", name: "Radioactive Decay Calculator", description: "Calculate remaining quantity after radioactive decay using half-life.", category: "SCIENCE", subcategory: "Earth Science & Geology", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "humidity-calculator", name: "Relative Humidity Calculator", description: "Calculate relative humidity, dew point, and wet-bulb temperature.", category: "SCIENCE", subcategory: "Earth Science & Geology", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "uv-index-calculator", name: "UV Index Calculator", description: "Calculate UV exposure risk based on solar angle, altitude, and ozone levels.", category: "SCIENCE", subcategory: "Earth Science & Geology", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "altitude-calculator", name: "Altitude Calculator", description: "Calculate altitude from barometric pressure or GPS coordinates.", category: "SCIENCE", subcategory: "Earth Science & Geology", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "magnetic-field-calculator", name: "Magnetic Field Calculator", description: "Calculate magnetic field strength around a current-carrying conductor.", category: "SCIENCE", subcategory: "Earth Science & Geology", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "transformer-calculator", name: "Transformer Calculator", description: "Calculate primary/secondary voltage, current, and turns ratio for transformers.", category: "SCIENCE", subcategory: "Earth Science & Geology", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "efficiency-calculator", name: "Energy Efficiency Calculator", description: "Calculate energy efficiency ratio for machines, engines, and systems.", category: "SCIENCE", subcategory: "Earth Science & Geology", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "tidal-prediction-calculator", name: "Tidal Force Calculator", description: "Calculate tidal force exerted by the Moon and Sun on ocean bodies.", category: "SCIENCE", subcategory: "Earth Science & Geology", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "decibel-calculator", name: "Decibel Calculator", description: "Convert between decibels and power or intensity ratios.", category: "SCIENCE", subcategory: "Earth Science & Geology", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "barometric-pressure-calculator", name: "Barometric Pressure Calculator", description: "Calculate atmospheric pressure at different altitudes above sea level.", category: "SCIENCE", subcategory: "Earth Science & Geology", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "btu-calculator", name: "BTU Calculator", description: "Calculate BTU requirements for heating and cooling spaces.", category: "SCIENCE", subcategory: "Earth, Atmosphere & Geography", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "dew-point-calculator", name: "Dew Point Calculator", description: "Calculate dew point temperature from temperature and humidity.", category: "SCIENCE", subcategory: "Earth, Atmosphere & Geography", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "wind-chill-calculator", name: "Wind Chill Calculator", description: "Calculate wind chill factor from temperature and wind speed.", category: "SCIENCE", subcategory: "Earth, Atmosphere & Geography", tier: "Tier3", priorityScore: 28, isBuilt: true },
+  {
+    slug: "heat-index-calculator", name: "Heat Index Calculator", description: "Calculate the feels-like temperature from heat and humidity.", category: "SCIENCE", subcategory: "Earth, Atmosphere & Geography", tier: "Tier3", priorityScore: 28, isBuilt: true },
   { slug: "marine-filtration-flow-rate-calculator", name: "Marine Filtration Flow Rate Calculator", description: "Calculate marine filtration flow rate calculator online with our free tool.", category: "SCIENCE", subcategory: "Earth, Atmosphere & Geography", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "pond-aeration-rate-calculator", name: "Pond Aeration Rate Calculator", description: "Calculate pond aeration rate calculator online with our free tool.", category: "SCIENCE", subcategory: "Earth, Atmosphere & Geography", tier: "Tier3", priorityScore: 28, isBuilt: false },
   { slug: "scuba-tank-duration-calculator", name: "Scuba Tank Duration Calculator", description: "Calculate scuba tank duration calculator online with our free tool.", category: "SCIENCE", subcategory: "Earth, Atmosphere & Geography", tier: "Tier3", priorityScore: 28, isBuilt: false },
