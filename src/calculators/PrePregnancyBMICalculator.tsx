@@ -355,15 +355,15 @@ export default function PrePregnancyBMICalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Biological Reality of Pregnancy</h2>
+            <h2 className="text-2xl font-bold mb-3">The Biological Reality of Pregnancy</h2>
             <p>Pregnancy is arguably the most intense physiological stress test the human body can endure. For nine months, the mother's cardiovascular system, hormonal network, and metabolic engine are pushed to their absolute biological limits. Yet, despite the severity of this medical event, societal mythology continues to push the dangerous narrative that pregnant women should "eat for two" and stop worrying about the scale. The medical community vehemently disagrees. The <strong>Pre-Pregnancy BMI & Target Gain Calculator</strong> utilizes the strict guidelines established by the American College of Obstetricians and Gynecologists (ACOG) to mathematically define exactly how much weight you are permitted to gain, proving that your biological starting point dictates the safety of your entire term.</p>
 
-            <h2>Why Baseline BMI is the Ultimate Metric</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Baseline BMI is the Ultimate Metric</h2>
             <p>Before a physician can tell you how much weight you need to gain to build a healthy baby, they must first understand how much thermodynamic energy you already possess.</p>
             <p>Your pre-pregnancy Body Mass Index (BMI) is a proxy for your body's existing energy reserves. If a woman is clinically Underweight (BMI below 18.5) before conception, she does not possess enough internal fat reserves to safely grow a child. Her body must actively hoard calories to build not just the fetal tissue, but the necessary maternal fat stores required for breastfeeding. Therefore, ACOG dictates she must gain a massive 28 to 40 pounds.</p>
             <p>Conversely, if a woman is Obese (BMI above 30) before conception, she already possesses hundreds of thousands of calories in stored adipose tissue. Her body does not need to build new maternal fat to support the pregnancy. The growing fetus can easily draw upon her existing energy surplus. Therefore, ACOG severely restricts her target to a mere 11 to 20 pounds, which mathematically represents the weight of the biological apparatus (the baby, placenta, and fluid), not maternal fat.</p>
 
-            <h2>The Anatomy of Weight Gain</h2>
+            <h2 className="text-2xl font-bold mb-3">The Anatomy of Weight Gain</h2>
             <p>If an Obese mother is only permitted to gain 11 pounds, where exactly does that weight come from? It is critical to understand the biological breakdown of pregnancy weight. A healthy, full-term pregnancy physically constructs approximately 25 to 30 pounds of necessary, functional mass:</p>
             <ul>
               <li><strong>The Baby:</strong> 7 to 8 pounds</li>
@@ -377,19 +377,19 @@ export default function PrePregnancyBMICalculator() {
             </ul>
             <p>If a woman gains 60 pounds during her pregnancy, only 30 pounds of that was biologically necessary. The other 30 pounds is pure, unnecessary adipose tissue (fat) that will remain permanently bonded to her frame after delivery.</p>
 
-            <h2>The Threat of Gestational Complications</h2>
+            <h2 className="text-2xl font-bold mb-3">The Threat of Gestational Complications</h2>
             <p>Exceeding your specific ACOG target range is not a cosmetic failure; it is a clinical danger. Excessive weight gain during pregnancy exponentially increases the risk of severe medical complications.</p>
             <p>The first major threat is <strong>Gestational Diabetes</strong>. As adipose tissue rapidly accumulates, it forces the mother's cells to become insulin resistant. The pancreas cannot produce enough insulin to handle the massive caloric surplus, resulting in toxic, chronically elevated blood sugar that actively damages both the mother's vascular system and the developing fetus. The second major threat is <strong>Preeclampsia</strong>, a catastrophic condition characterized by skyrocketing blood pressure and potential organ failure, which is highly correlated with rapid, excessive maternal weight gain.</p>
 
-            <h2>The Danger of Fetal Macrosomia</h2>
+            <h2 className="text-2xl font-bold mb-3">The Danger of Fetal Macrosomia</h2>
             <p>It is not just the mother who suffers the consequences of excessive caloric intake; the baby pays the price directly. When a mother overconsumes calories, the excess glucose crosses the placenta and floods the fetal bloodstream.</p>
             <p>The baby's pancreas is forced to produce massive amounts of insulin to process the sugar, causing the fetus to rapidly synthesize unnecessary fat tissue. This leads to a condition known as Macrosomia (a baby born weighing more than 8 pounds, 13 ounces). Delivering a macrosomic infant vaginally is incredibly dangerous. It drastically increases the risk of severe vaginal tearing for the mother, shoulder dystocia (the baby's shoulders getting wedged behind the pelvic bone) for the infant, and frequently necessitates emergency Cesarean section surgery.</p>
 
-            <h2>Breaking the "Eating for Two" Delusion</h2>
+            <h2 className="text-2xl font-bold mb-3">Breaking the "Eating for Two" Delusion</h2>
             <p>The mathematical reality of pregnancy caloric requirements is shocking to most women. During the entire first trimester, the ACOG states that a woman starting at a "Normal" BMI requires exactly zero additional daily calories. The fetus is the size of a lemon; it does not require an extra bowl of pasta.</p>
             <p>During the second and third trimesters, the maternal body only requires an additional 300 to 400 calories per day to sustain peak fetal growth. This is the caloric equivalent of a single apple and a handful of almonds, or a cup of Greek yogurt. It is absolutely not an excuse to binge eat fast food. The "eating for two" myth is the primary driver of the postpartum obesity epidemic in the modern world.</p>
 
-            <h2>Conclusion: Protect the Baseline</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Protect the Baseline</h2>
             <p>Pregnancy is a massive physiological undertaking that requires clinical precision, not dietary recklessness. Use the Pre-Pregnancy BMI & Target Gain Calculator to establish your exact mathematical ceiling. Anchor your dietary decisions to the ACOG guidelines, protect your body from unnecessary adipose accumulation, and ensure a safer, healthier delivery for both you and your child.</p>
           </article>
           

@@ -105,7 +105,7 @@ const PaperSavingsCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>The Environmental Cost of Paper</h2>
+              <h2 className="text-2xl font-bold mb-3">The Environmental Cost of Paper</h2>
               <p>In the digital age, we often assume that our reliance on paper has drastically decreased. However, global paper consumption continues to rise, driven by packaging and printing. Understanding the true environmental cost of paper can inspire businesses and individuals to adopt "paperless" workflows.</p>
               
               <h3>More Than Just Trees</h3>

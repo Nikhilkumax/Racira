@@ -120,10 +120,10 @@ const HRACalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>What Is an HRA Calculator?</h2>
+              <h2 className="text-2xl font-bold mb-3">What Is an HRA Calculator?</h2>
               <p>An HRA (House Rent Allowance) calculator helps salaried employees determine how much of their HRA is exempt from income tax under Section 10(13A) of the Income Tax Act. The exempt portion depends on your salary, rent paid, and city of residence.</p>
 
-              <h2>HRA Exemption Formula</h2>
+              <h2 className="text-2xl font-bold mb-3">HRA Exemption Formula</h2>
               <p>HRA exemption is the <strong>minimum</strong> of these three amounts:</p>
               <ul>
                 <li><strong>Rule 1:</strong> Actual HRA received from employer.</li>
@@ -131,10 +131,10 @@ const HRACalculator = () => {
                 <li><strong>Rule 3:</strong> Rent paid minus 10% of (Basic + DA).</li>
               </ul>
 
-              <h2>Metro vs Non-Metro Cities</h2>
+              <h2 className="text-2xl font-bold mb-3">Metro vs Non-Metro Cities</h2>
               <p>For HRA calculation, only four cities are classified as metro: <strong>Mumbai, Delhi, Chennai, and Kolkata</strong>. All other cities, including Bangalore, Hyderabad, Pune, etc., are classified as non-metro and qualify for the 40% rule.</p>
 
-              <h2>Important Points</h2>
+              <h2 className="text-2xl font-bold mb-3">Important Points</h2>
               <ul>
                 <li>HRA exemption is only available under the <strong>old tax regime</strong>. The new regime does not allow HRA deduction.</li>
                 <li>If annual rent exceeds ₹1,00,000, you must provide your landlord's PAN.</li>

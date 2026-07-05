@@ -297,16 +297,16 @@ export default function PregnancyCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding Your Pregnancy Timeline</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Pregnancy Timeline</h2>
             <p>Finding out you are pregnant is an incredibly exciting and life-changing moment. However, the medical math used to determine exactly how far along you are can often feel confusing. Our <strong>Pregnancy Calculator</strong> is designed to cut through the clinical jargon, providing you with a highly accurate Estimated Due Date (EDD), your exact current gestational age, and a customized timeline of crucial developmental milestones for your baby.</p>
             <p>Obstetricians and midwives use standard clinical formulas to track pregnancy progress. By understanding the methodology behind these calculations, you can better follow along with your medical charts, know when to schedule vital ultrasounds, and prepare for the physical changes occurring in each trimester.</p>
 
-            <h2>Why is Pregnancy Calculated as 40 Weeks?</h2>
+            <h2 className="text-2xl font-bold mb-3">Why is Pregnancy Calculated as 40 Weeks?</h2>
             <p>One of the most common questions newly expectant mothers ask is: "Why does my doctor say I'm 6 weeks pregnant when I know I conceived only 4 weeks ago?"</p>
             <p>The discrepancy lies in historical medical practices. Before the invention of modern ultrasound technology or ovulation tracking, doctors had no reliable way of knowing exactly when a woman ovulated or conceived. However, they could rely on a highly visible biological marker: the first day of a woman's Last Menstrual Period (LMP).</p>
             <p>Therefore, medical convention established that "gestational age" begins on the first day of the LMP. Because ovulation typically occurs roughly 14 days after the LMP in a standard 28-day cycle, the first two weeks of your official "pregnancy" occur before you have even conceived. A full-term human gestation is approximately 266 days from the moment of conception. When you add the two-week (14 days) pre-conception window, you arrive at the standard 280 days, or exactly 40 weeks.</p>
 
-            <h2>Calculation Methods Explained</h2>
+            <h2 className="text-2xl font-bold mb-3">Calculation Methods Explained</h2>
             <p>Depending on your unique reproductive circumstances, our calculator offers several methods to determine your due date:</p>
 
             <h3>1. Last Menstrual Period (LMP)</h3>
@@ -318,7 +318,7 @@ export default function PregnancyCalculator() {
             <h3>3. In Vitro Fertilization (IVF)</h3>
             <p>For mothers undergoing fertility treatments, the exact moment of fertilization is known in a laboratory. Therefore, LMP is completely irrelevant. For IVF transfers, the EDD is calculated based on the embryo transfer date and the age of the embryo at transfer (usually a Day-3 cleavage stage embryo or a Day-5 blastocyst). The formula adds 266 days to the transfer date, and then subtracts the 3 or 5 days the embryo spent developing outside the womb.</p>
 
-            <h2>The Three Trimesters</h2>
+            <h2 className="text-2xl font-bold mb-3">The Three Trimesters</h2>
             <p>A full-term pregnancy is divided into three distinct phases, known as trimesters, each characterized by specific fetal developments and maternal symptoms.</p>
             <ul>
               <li><strong>First Trimester (Weeks 1 to 13):</strong> This is the period of rapid organogenesis. The fertilized egg transforms from a microscopic cluster of cells into a fetus with a beating heart, brain waves, and developing limbs. Because this developmental phase is so complex, it carries the highest risk of miscarriage. Mothers often experience intense fatigue and morning sickness during these weeks.</li>
@@ -326,11 +326,11 @@ export default function PregnancyCalculator() {
               <li><strong>Third Trimester (Weeks 28 to 40+):</strong> The final stretch is focused on weight gain and lung maturation for the baby. The fetus plumps up with fat to regulate body temperature after birth. For the mother, the physical burden of the growing uterus often causes backaches, shortness of breath, and frequent urination. The baby descends into the pelvis in preparation for labor.</li>
             </ul>
 
-            <h2>Understanding Milestones and "Viability"</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Milestones and "Viability"</h2>
             <p>Our calculator generates a timeline of essential milestones. One of the most emotionally significant milestones is the point of <strong>viability</strong>, generally recognized at 24 weeks gestation. This marks the threshold at which a prematurely born infant has a fighting chance of survival outside the womb with intensive neonatal care (NICU support). Reaching 24 weeks provides immense psychological relief for many expectant parents.</p>
             <p>Another crucial milestone is <strong>Early Term</strong> (37 weeks). By 37 weeks, fetal lung development is usually complete. If you were to go into labor at this point, doctors would not attempt to stop it, as the baby is considered mature enough to breathe independently.</p>
 
-            <h2>Conclusion</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion</h2>
             <p>While the Estimated Due Date is a vital clinical tool, it is important to remember that it is merely an estimate. Babies are not governed by calendars. Only about 4% to 5% of babies arrive exactly on their EDD. The vast majority are born perfectly healthy sometime within the two weeks before or the week after that date. Use our Pregnancy Calculator to stay informed, track your baby's remarkable journey, and prepare for the joyous arrival of your little one.</p>
           </article>
           

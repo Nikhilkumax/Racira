@@ -297,30 +297,30 @@ export default function HotYogaCalorieCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Illusion of the Hot Room</h2>
+            <h2 className="text-2xl font-bold mb-3">The Illusion of the Hot Room</h2>
             <p>If you have ever taken a 90-minute Bikram or Hot Yoga class in a room cranked to 105°F and 40% humidity, you know the feeling of profound exhaustion. Your heart is pounding, you are completely drenched in sweat, and when you step on the scale in the locker room, you are thrilled to see you have miraculously "lost" 3 pounds in an hour and a half. This intense physical feedback makes it incredibly easy to believe that Hot Yoga is the ultimate calorie-burning, fat-melting workout on Earth. Unfortunately, human physiology tells a very different, mathematically strict story. The <strong>Hot Yoga Calorie Calculator</strong> strips away the illusions of thermal stress and water weight to reveal the true thermodynamic reality of your practice.</p>
 
-            <h2>Sweat is Not Fat: The Thermal Response</h2>
+            <h2 className="text-2xl font-bold mb-3">Sweat is Not Fat: The Thermal Response</h2>
             <p>The single biggest misconception in the fitness industry is equating sweat with calorie burn. Sweat is not melting fat; sweat is simply water and electrolytes.</p>
             <p>When you exercise, your body temperature rises. To prevent your internal organs from overheating, your autonomic nervous system triggers the sweat glands. Water is pushed to the surface of your skin, where it evaporates, taking heat with it. This is a thermal cooling mechanism, not a mechanical exertion. If you stand perfectly still in a 110°F sauna for 30 minutes, you will sweat profusely, but you will burn almost zero calories because your muscles are not performing any physical "work" against gravity. Hot Yoga forces massive sweating due to the external room temperature, but this sweat has almost no correlation to the actual thermodynamic calories burned.</p>
 
-            <h2>The Scale Deception: Understanding Water Weight</h2>
+            <h2 className="text-2xl font-bold mb-3">The Scale Deception: Understanding Water Weight</h2>
             <p>If sweat is just water, why does the scale go down so drastically after a Hot Yoga class?</p>
             <p>The human body is roughly 60% water. One gallon of water weighs 8.3 pounds. If you sweat out just 32 ounces (four cups) of fluid during a rigorous 90-minute class, you have physically expelled 2 pounds of water from your body. When you step on the locker room scale, you weigh 2 pounds less. This creates a massive psychological reward, tricking users into believing they just burned 2 pounds of pure body fat. However, the moment you drink a large bottle of water or eat a meal later that day, your body reabsorbs the fluids, and the 2 pounds instantly returns. True fat loss requires a sustained, prolonged caloric deficit, not acute dehydration.</p>
 
-            <h2>Why Your Smart Watch is Lying to You</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Your Smart Watch is Lying to You</h2>
             <p>Many yogis look at their Apple Watch after a Bikram class and are ecstatic to see a readout of "900 Calories Burned." Sadly, the watch is being fooled by the heat.</p>
             <p>Smart watches calculate calories primarily by monitoring your heart rate. In a 105°F room, your body enters a state of thermal stress. To cool you down, your blood vessels dilate (vasodilation) and your heart has to pump significantly faster just to circulate blood to the surface of your skin to initiate sweating. This means your heart rate might jump to 140 BPM, even when you are just holding a static pose. The watch sees 140 BPM and assumes you are jogging on a treadmill, rewarding you with hundreds of phantom calories. The clinical MET formula used in this calculator ignores the false heart rate spike and measures the actual physical exertion of the poses.</p>
 
-            <h2>Vinyasa vs. Bikram: The Real Difference</h2>
+            <h2 className="text-2xl font-bold mb-3">Vinyasa vs. Bikram: The Real Difference</h2>
             <p>How much of a difference does the heat actually make? Exercise physiologists measure physical effort using METs (Metabolic Equivalents). </p>
             <p>A rigorous Vinyasa flow at normal room temperature carries a MET value of roughly 4.0. The continuous chaturangas, lunges, and balancing poses require significant muscular endurance. Bikram (Hot Yoga) carries a slightly higher MET value of roughly 5.0. The increase is legitimate, but it is small. The extra 1.0 MET comes from the fact that your cardiovascular system must work harder in the heat to maintain homeostasis, and the extreme flexibility demands more stabilizer engagement. However, it does not mathematically double your calorie burn as many people assume.</p>
 
-            <h2>The True Value of Hot Yoga</h2>
+            <h2 className="text-2xl font-bold mb-3">The True Value of Hot Yoga</h2>
             <p>If Hot Yoga is not a magical fat-burning furnace, is it a waste of time? Absolutely not. Hot Yoga is one of the most beneficial practices you can incorporate into a fitness routine.</p>
             <p>The heat allows the fascia and connective tissues to become incredibly pliable, allowing for deep, profound stretching that drastically improves mobility and prevents weightlifting injuries. The mental resilience required to endure 90 minutes of thermal discomfort builds massive discipline. Furthermore, the practice dramatically lowers chronic cortisol (the stress hormone), which is highly beneficial for overall metabolic health. Hot Yoga is a phenomenal tool for recovery, mobility, and mental strength; it is simply not a substitute for a caloric deficit when it comes to fat loss.</p>
 
-            <h2>Conclusion: Trust the Physics, Not the Sweat</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Trust the Physics, Not the Sweat</h2>
             <p>Stop chasing the illusion of the locker room scale, and stop trusting fitness watches that cannot differentiate between thermal stress and mechanical work. To achieve real body recomposition, you need cold, hard data. Use the Hot Yoga Calorie Calculator to track the true, clinical thermodynamic output of your practice, understand your exact fluid loss, and seamlessly integrate your yoga routine into a mathematically sound nutritional plan.</p>
           </article>
           

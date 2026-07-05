@@ -317,26 +317,26 @@ export default function MindfulnessPracticeRoiCalculator() {
           </div>
 
           <article className="prose-finance text-[15.75px]">
-            <h2>The Billion-Dollar Secret of Silicon Valley</h2>
+            <h2 className="text-2xl font-bold mb-3">The Billion-Dollar Secret of Silicon Valley</h2>
             <p>If you look at the daily routines of elite performers—from Fortune 500 CEOs to hedge fund managers to Olympic athletes—you will find one terrifyingly consistent habit: Mindfulness Meditation. For decades, the Western corporate world viewed meditation as esoteric nonsense. Today, companies like Google, Apple, and Goldman Sachs actively pay their executives to sit in silence. Why? Because it is not a spiritual practice; it is a neurological upgrade. The <strong>Mindfulness Practice ROI Calculator</strong> mathematically proves that in the modern knowledge economy, where you are paid strictly for your attention and output, spending 15 minutes a day upgrading your brain's 'hardware' is the single highest-yielding financial investment you can make.</p>
 
-            <h2>The Cost of the Fractured Mind</h2>
+            <h2 className="text-2xl font-bold mb-3">The Cost of the Fractured Mind</h2>
             <p>The modern human brain is under constant assault. Between emails, Slack messages, social media notifications, and a relentless 24-hour news cycle, our attention spans have been completely pulverized. </p>
             <p>When you sit down at your desk to do deep, meaningful work, you are rarely fully present. Your brain is context-switching every 3 minutes. Research shows that after a simple interruption (like checking a single text message), it takes the human brain an average of 23 minutes to return to a state of deep focus. Because of this constant mental friction, an 8-hour workday often only yields 2 or 3 hours of actual, valuable output. The rest of the time is lost to brain fog, anxiety, and digital distraction. This lost time is costing you tens of thousands of dollars in lost promotions, missed side-hustle opportunities, and destroyed free time.</p>
 
-            <h2>Sharpening the Cognitive Blade</h2>
+            <h2 className="text-2xl font-bold mb-3">Sharpening the Cognitive Blade</h2>
             <p>Mindfulness is the antidote to the fractured mind. When you sit in silence and focus on your breath, your mind will inevitably wander. The moment you realize your mind has wandered and you actively pull your attention back to the breath, you have just completed a 'bicep curl' for your brain. </p>
             <p>Clinical MRI studies show that just 8 weeks of consistent, 15-minute daily meditation physically alters the structure of the brain (Neuroplasticity). It dramatically thickens the prefrontal cortex—the area responsible for laser focus, complex problem-solving, and willpower. Simultaneously, it shrinks the amygdala, the brain's primitive fear and anxiety center. You are literally building the neurological infrastructure required to ignore distractions and execute deep work.</p>
 
-            <h2>The Mathematics of the Investment</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of the Investment</h2>
             <p>Many high-achievers refuse to meditate because they claim they "don't have the time." This calculator exposes the brutal mathematical flaw in that logic. </p>
             <p>If your time is worth $50 an hour, spending 15 minutes a day meditating costs you roughly $375 in "lost time" per month. This is your investment. However, if that daily practice thickens your prefrontal cortex and improves your focus by a highly conservative 15%, you are reclaiming 1.2 hours of lost, distracted time every single 8-hour workday. Over a 22-day work month, you have magically regained 26 hours of pure, deep-work productivity. At $50 an hour, that is a $1,300 return on a $375 investment. You are netting almost $1,000 in monthly value simply by closing your eyes.</p>
 
-            <h2>Why Stress Kills Productivity</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Stress Kills Productivity</h2>
             <p>Aside from pure focus, the ROI of mindfulness is heavily driven by stress reduction. When you are stressed, your body is flooded with cortisol. Chronic cortisol physically degrades the hippocampus (your memory center) and causes severe brain fog. You make poor decisions, you lash out at coworkers, and you lack the creative bandwidth to solve complex problems.</p>
             <p>By shrinking the amygdala, mindfulness serves as a physiological circuit breaker for stress. It moves your nervous system from "fight or flight" (sympathetic) into "rest and digest" (parasympathetic). When your nervous system is calm, your cognitive bandwidth expands, allowing you to solve problems in 20 minutes that would take a stressed, panicked brain three hours to figure out.</p>
 
-            <h2>Conclusion: Do Not Chop With a Dull Axe</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Do Not Chop With a Dull Axe</h2>
             <p>Abraham Lincoln famously said, <em>"If I had six hours to chop down a tree, I'd spend the first four sharpening the axe."</em> Working 12-hour days while exhausted, distracted, and anxious is the equivalent of hacking at a massive tree with a dull, rusted blade. It is highly inefficient and ultimately destructive. Stop working harder and start working sharper. Use the Mindfulness Practice ROI Calculator to visualize the massive financial leverage of a calm mind, invest the 15 minutes a day, and reclaim the most valuable asset you possess: your uncompromised attention.</p>
           </article>
           

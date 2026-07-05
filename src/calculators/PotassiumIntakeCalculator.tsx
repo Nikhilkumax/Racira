@@ -224,11 +224,11 @@ export default function PotassiumIntakeCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Why Potassium Is The Missing Link In Heart Health</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Potassium Is The Missing Link In Heart Health</h2>
             <p>This <strong>Potassium Intake Calculator</strong> helps determine your Adequate Intake (AI) target based on the latest National Academies guidelines (2019). While almost everyone focuses on reducing sodium to lower blood pressure, researchers increasingly believe that <em>low potassium</em> is just as responsible for hypertension. Potassium helps blood vessels relax and signals the kidneys to excrete excess sodium. Fewer than 3% of Americans meet the recommended daily potassium target.</p>
-            <h2>The Potassium-to-Sodium Ratio</h2>
+            <h2 className="text-2xl font-bold mb-3">The Potassium-to-Sodium Ratio</h2>
             <p>Focusing on the ratio between potassium and sodium is more critical than looking at either number in isolation. Anthropological evidence suggests early human diets provided a potassium-to-sodium ratio of about 4:1 to 10:1 (high plants, low salt). Today, the standard Western diet has inverted this ratio to about 1:2 (we consume twice as much sodium as potassium). A healthy goal is to consume at least twice as much potassium as sodium (a 2:1 ratio).</p>
-            <h2>Warning for Kidney Disease Patients</h2>
+            <h2 className="text-2xl font-bold mb-3">Warning for Kidney Disease Patients</h2>
             <p>While high potassium intake is encouraged for the general public, it is dangerous for individuals with Chronic Kidney Disease (CKD). Healthy kidneys effortlessly filter excess dietary potassium into the urine. Damaged kidneys cannot do this effectively. If CKD patients consume a high-potassium diet, the mineral builds up in their blood (hyperkalemia), which can trigger sudden and fatal cardiac arrhythmias. CKD patients must follow strict potassium-restricted diets as prescribed by their nephrologist. Related tools: <a href="/calculator/sodium-intake-calculator">Sodium Intake Calculator</a>.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/potassium-intake-calculator" />

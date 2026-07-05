@@ -176,22 +176,22 @@ const PriceToEarningsGrowthPegCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a PEG Ratio Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a PEG Ratio Calculator?</h2>
             <p>A PEG ratio calculator divides the price-to-earnings (P/E) ratio by the annual earnings growth rate to create a growth-adjusted valuation metric. Popularized by legendary investor Peter Lynch, the PEG ratio solves a key limitation of the P/E ratio: it doesn't account for how fast the company is growing. Pre-filled with a $150 stock, $7.50 EPS, and 15% growth, the P/E is 20x and the PEG is 1.33 — slightly above Lynch's "fair value" benchmark of 1.0.</p>
-            <h2>The PEG Ratio Formula</h2>
+            <h2 className="text-2xl font-bold mb-3">The PEG Ratio Formula</h2>
             <p><strong>PEG Ratio = P/E Ratio / Annual EPS Growth Rate (%)</strong></p>
             <p>Step 1: P/E = Stock Price / EPS = $150 / $7.50 = 20.0x. Step 2: PEG = P/E / Growth Rate = 20.0 / 15 = 1.33. A PEG of 1.33 means you're paying 33% more than Peter Lynch's fair value benchmark for each unit of growth.</p>
-            <h2>Peter Lynch's PEG Framework</h2>
+            <h2 className="text-2xl font-bold mb-3">Peter Lynch's PEG Framework</h2>
             <p>Peter Lynch defined PEG = 1.0 as the dividing line between fair value and overvaluation. He argued that a company growing earnings at 15% per year should, at fair value, trade at a P/E of 15x — giving a PEG of exactly 1.0. Companies with PEG below 1.0 were attractive; above 2.0 were expensive regardless of absolute growth rate. Lynch used this rule to discover multi-bagger investments in his Magellan Fund during the 1970s–90s.</p>
-            <h2>Trailing vs. Forward PEG</h2>
+            <h2 className="text-2xl font-bold mb-3">Trailing vs. Forward PEG</h2>
             <p>Trailing PEG uses historically confirmed EPS and realized historical growth rates — conservative and reliable. Forward PEG uses analyst consensus estimates for next-year EPS and projected growth — more forward-looking but dependent on forecast accuracy. Investment banks and professional analysts typically use the Forward PEG for growth stock analysis. Use the checkbox to toggle between both perspectives on this calculator.</p>
-            <h2>Implied Fair Value Calculation</h2>
+            <h2 className="text-2xl font-bold mb-3">Implied Fair Value Calculation</h2>
             <p>At PEG = 1.0 (Peter Lynch's fair value): Implied Price = EPS × Growth Rate. For defaults: $7.50 × 15 = $112.50. At PEG = 2.0 (upper reasonable limit): $7.50 × 15 × 2 = $225.00. The current $150 price falls between these bounds, confirming a fair-to-moderately-rich valuation.</p>
-            <h2>Industry and Growth Stage Considerations</h2>
+            <h2 className="text-2xl font-bold mb-3">Industry and Growth Stage Considerations</h2>
             <p>The PEG ratio is most reliable for companies growing earnings at 10–30% annually with predictable cash flows. It is less reliable for: (1) hypergrowth companies (50%+ growth) where a PEG of 3–5 may still represent reasonable value if growth sustains, (2) cyclical companies with volatile earnings, (3) mature companies with near-zero or negative growth, and (4) unprofitable companies where EPS is negative. For high-quality compounders (consistent 20%+ ROE, 15–20% EPS growth), a PEG of 1.5–2.0 is often justified by the quality premium.</p>
-            <h2>PEG vs P/E: When to Use Each</h2>
+            <h2 className="text-2xl font-bold mb-3">PEG vs P/E: When to Use Each</h2>
             <p>Use P/E alone for mature, slow-growth businesses where earnings stability matters more than growth rate. Use PEG for mid-cap and large-cap growth companies where earnings growth is the primary driver of future returns. Use neither for unprofitable companies — instead use P/S, EV/Revenue, or discounted cash flow analysis. The best equity analysts use all three metrics together to triangulate a comprehensive valuation picture.</p>
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <p><strong>Stock A:</strong> P/E = 30x, Growth = 30% → PEG = 1.0x. Fairly valued by Lynch's standard despite high absolute P/E. <strong>Stock B:</strong> P/E = 15x, Growth = 5% → PEG = 3.0x. Looks cheap but growth-adjusted is expensive. <strong>Stock C:</strong> P/E = 40x, Growth = 50% → PEG = 0.8x. Expensive P/E but growth-adjusted is actually undervalued if growth sustains. The PEG ratio reveals hidden value and hidden risk that absolute P/E misses.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/price-to-earnings-growth-peg-calculator" />

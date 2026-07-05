@@ -135,17 +135,17 @@ export default function TemperatureConverter() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding Temperature Scales</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Temperature Scales</h2>
             <p>Temperature is a measure of the average kinetic energy of the particles in a substance. Four primary temperature scales are in common use: Celsius (°C), Fahrenheit (°F), Kelvin (K), and Rankine (°R). Each was developed for different purposes, and conversions between them are essential for science, cooking, engineering, medicine, and international communication.</p>
-            <h2>The Celsius Scale</h2>
+            <h2 className="text-2xl font-bold mb-3">The Celsius Scale</h2>
             <p>The Celsius scale (formerly Centigrade) was created by Swedish astronomer Anders Celsius in 1742. It is based on two reference points: 0°C is the freezing point of water at standard atmospheric pressure, and 100°C is the boiling point of water at sea level. The scale divides this range into 100 equal degrees. Celsius is the standard for everyday temperature use in almost all countries outside the United States, as well as in scientific contexts worldwide. Human body temperature is 37°C; comfortable indoor room temperature is 20–22°C; refrigerators should be kept at 1–4°C.</p>
-            <h2>The Fahrenheit Scale</h2>
+            <h2 className="text-2xl font-bold mb-3">The Fahrenheit Scale</h2>
             <p>The Fahrenheit scale was created by German physicist Daniel Gabriel Fahrenheit in 1724. It remains the primary temperature scale for everyday use in the United States, the Cayman Islands, and a few other territories. On the Fahrenheit scale, water freezes at 32°F and boils at 212°F — a range of 180 degrees. Human body temperature is 98.6°F; comfortable indoor temperature is 68–72°F; a severe fever is above 104°F (40°C).</p>
-            <h2>The Kelvin Scale</h2>
+            <h2 className="text-2xl font-bold mb-3">The Kelvin Scale</h2>
             <p>The Kelvin scale is the SI base unit of temperature, named after British physicist William Thomson, 1st Baron Kelvin. Unlike Celsius and Fahrenheit, the Kelvin scale has no negative values because it starts at absolute zero — the theoretical minimum temperature where all molecular thermal motion ceases (0 K = −273.15°C = −459.67°F). Kelvin degrees are the same size as Celsius degrees. The Kelvin scale is essential in physics, chemistry, and astronomy: the cosmic microwave background radiation is 2.7 K; liquid nitrogen boils at 77 K; room temperature is approximately 293–298 K; the surface of the Sun is about 5,778 K.</p>
-            <h2>The Rankine Scale</h2>
+            <h2 className="text-2xl font-bold mb-3">The Rankine Scale</h2>
             <p>The Rankine scale is used in some American engineering applications, particularly in thermodynamics. It starts at absolute zero like the Kelvin scale, but uses the same degree size as Fahrenheit. Water freezes at 491.67°R and boils at 671.67°R. The relationship between Rankine and Kelvin is: R = K × 9/5. It is used in fields like gas dynamics and combustion engineering in the United States where Fahrenheit-based calculations are traditional.</p>
-            <h2>Common Temperature Reference Points</h2>
+            <h2 className="text-2xl font-bold mb-3">Common Temperature Reference Points</h2>
             <p>Understanding key reference temperatures helps build intuition for conversions. Absolute zero: 0 K = −273.15°C = −459.67°F. Liquid nitrogen boiling point: 77 K = −196°C = −321°F. Dry ice (CO₂) sublimation: −78.5°C = −109.3°F. Water freezing: 0°C = 32°F = 273.15 K. Human body: 37°C = 98.6°F = 310.15 K. Water boiling at sea level: 100°C = 212°F = 373.15 K. Self-cleaning oven temperature: 500°C = 932°F. Melting point of iron: 1538°C = 2800°F.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/temperature-converter" />

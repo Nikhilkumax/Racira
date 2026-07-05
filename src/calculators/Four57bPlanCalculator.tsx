@@ -366,7 +366,7 @@ export default function Four57bPlanCalculator() {
 
         {/* SEO CONTENT SECTION */}
         <div className="max-w-[800px] mt-16 prose prose-slate dark:prose-invert">
-          <h2>What is a 457(b) Plan?</h2>
+          <h2 className="text-2xl font-bold mb-3">What is a 457(b) Plan?</h2>
           <p>
             A 457(b) plan is a tax-advantaged retirement savings plan offered primarily to state and local government employees (such as police officers, firefighters, and municipal workers) as well as some non-profit executives. Like a 401(k) or 403(b), it allows employees to defer a portion of their salary into a retirement account where it can grow tax-deferred.
           </p>
@@ -374,7 +374,7 @@ export default function Four57bPlanCalculator() {
             However, the 457(b) has two massive advantages over its 401(k) and 403(b) cousins: independent contribution limits and no early withdrawal penalties. This makes it one of the most powerful and flexible retirement vehicles available in the United States.
           </p>
 
-          <h2>The Superpower of the 457(b): No Age 59½ Rule</h2>
+          <h2 className="text-2xl font-bold mb-3">The Superpower of the 457(b): No Age 59½ Rule</h2>
           <p>
             In a standard 401(k) or 403(b), if you withdraw money before age 59½, you are hit with a harsh 10% early withdrawal penalty from the IRS on top of standard income taxes.
           </p>
@@ -385,7 +385,7 @@ export default function Four57bPlanCalculator() {
             Once you separate from service (i.e., you quit, retire, or are fired from the employer sponsoring the plan), you can access your 457(b) funds immediately without any penalty, regardless of your age. You will still pay standard income taxes on the withdrawal, but the lack of a penalty makes the 457(b) the absolute best retirement account for individuals pursuing FIRE (Financial Independence, Retire Early) or those who simply plan to retire in their 40s or 50s.
           </p>
 
-          <h2>Double Limits: The Special 3-Year Catch-Up</h2>
+          <h2 className="text-2xl font-bold mb-3">Double Limits: The Special 3-Year Catch-Up</h2>
           <p>
             While all retirement accounts have an "Age 50 Catch-Up" provision (allowing you to contribute an extra $7,500 per year starting at age 50), the 457(b) has a unique "Special 3-Year Catch-Up" rule.
           </p>
@@ -393,7 +393,7 @@ export default function Four57bPlanCalculator() {
             If you are within three years of the normal retirement age specified by your plan, you can contribute up to <strong>twice the standard annual limit</strong>, provided you did not max out your contributions in previous years. For example, if the standard limit is $23,000, a government worker within 3 years of retirement could potentially contribute up to $46,000 per year into their 457(b). (Note: You cannot use both the Age 50 catch-up and the Special 3-Year catch-up in the same year; you must choose the one that provides the larger benefit).
           </p>
 
-          <h2>Independent Contribution Limits</h2>
+          <h2 className="text-2xl font-bold mb-3">Independent Contribution Limits</h2>
           <p>
             If you work for an employer that offers both a 403(b) and a 457(b) (which is common for teachers and hospital workers), the contribution limits are <strong>independent</strong>.
           </p>
@@ -401,7 +401,7 @@ export default function Four57bPlanCalculator() {
             Normally, if you have two 401(k)s from different jobs, you can only contribute a total of $23,000 across both accounts. But if you have a 403(b) and a 457(b), you can max out <em>both</em>. This allows a super-saver to shelter up to $46,000 of income per year from taxes ($23,000 in the 403(b) + $23,000 in the 457(b)).
           </p>
 
-          <h2>Governmental vs. Non-Governmental 457(b)s</h2>
+          <h2 className="text-2xl font-bold mb-3">Governmental vs. Non-Governmental 457(b)s</h2>
           <p>
             It is crucial to know which type of 457(b) you have:
           </p>
@@ -410,7 +410,7 @@ export default function Four57bPlanCalculator() {
             <li><strong>Non-Governmental 457(b):</strong> Often offered to highly compensated executives at non-profits. The money in this plan legally belongs to the employer until it is distributed to you. If the non-profit goes bankrupt, your retirement savings could be seized by their creditors. You also cannot roll a non-governmental 457(b) into an IRA.</li>
           </ul>
 
-          <h2>Benefits of Using This Calculator</h2>
+          <h2 className="text-2xl font-bold mb-3">Benefits of Using This Calculator</h2>
           <p>
             A 457(b) Growth Calculator helps public servants and non-profit workers visualize the long-term impact of their savings. Because many 457(b) participants also have a traditional pension, they often use the 457(b) to fund the "gap" years—the time between retiring early (e.g., at age 52) and when they can officially draw their full pension or Social Security. By estimating your future balance with this calculator, you can determine exactly when you have enough money saved to confidently walk away and enjoy early retirement.
           </p>

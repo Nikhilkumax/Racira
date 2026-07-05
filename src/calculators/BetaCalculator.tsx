@@ -142,20 +142,20 @@ export default function BetaCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is the Stock Beta Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is the Stock Beta Calculator?</h2>
             <p>This stock beta calculator uses the Capital Asset Pricing Model (CAPM) to compute the risk-adjusted expected return of any stock given its beta, the current risk-free rate, and the expected market return. It also calculates Jensen&apos;s Alpha — the excess return above what CAPM predicts — and plots the Security Market Line for visual context.</p>
-            <h2>Beta and CAPM Formula</h2>
+            <h2 className="text-2xl font-bold mb-3">Beta and CAPM Formula</h2>
             <p><strong>CAPM: E(R) = Rf + β × (Rm − Rf)</strong></p>
             <p>Where Rf = risk-free rate (10-year Treasury yield), β = stock beta, Rm = expected market return (typically 10–10.5% for S&amp;P 500 long-run average), and (Rm − Rf) = Equity Risk Premium. The ERP compensates investors for taking on market risk above the risk-free alternative.</p>
-            <h2>How Beta Is Measured</h2>
+            <h2 className="text-2xl font-bold mb-3">How Beta Is Measured</h2>
             <p>Beta is estimated by running an Ordinary Least Squares (OLS) regression of stock returns (y-axis) against market index returns (x-axis) over a historical period. The slope of the regression line is beta. Bloomberg uses 5-year monthly data (60 observations) against the relevant local index. MSCI uses 3-year monthly data. The intercept of the regression is Jensen&apos;s Alpha — the stock&apos;s average excess return unexplained by market movements.</p>
-            <h2>Beta by Asset Class and Sector</h2>
+            <h2 className="text-2xl font-bold mb-3">Beta by Asset Class and Sector</h2>
             <p>Gold: ~0 to -0.1 (non-correlated). Utilities: 0.3–0.6 (defensive). Consumer Staples: 0.5–0.8. Healthcare: 0.7–1.0. Financials: 1.0–1.4. Technology (large-cap): 1.0–1.3. Technology (small-cap): 1.3–2.0. Energy: 0.8–1.4. Biotech: 1.5–2.5+. Inverse ETFs: -1 to -3.</p>
-            <h2>Jensen&apos;s Alpha — Measuring Manager Skill</h2>
+            <h2 className="text-2xl font-bold mb-3">Jensen&apos;s Alpha — Measuring Manager Skill</h2>
             <p>If a stock returned 15% when CAPM predicted 12% given its beta, it generated +3% alpha — outperformance above its risk-adjusted expectation. In efficient market theory, alpha should be zero on average. Persistent positive alpha over multiple periods suggests either genuine competitive advantage (moat, management quality) or that the CAPM model is incomplete (which behavioral finance and factor models have demonstrated). Negative alpha means the stock underperformed for its risk level.</p>
-            <h2>Limitations of Beta</h2>
+            <h2 className="text-2xl font-bold mb-3">Limitations of Beta</h2>
             <p>Beta is backward-looking — historical beta is not a reliable predictor of future beta, especially after major business model changes. Beta measures only systematic (market) risk, ignoring company-specific risks. It assumes a stable linear relationship between stock and market returns, which breaks down during market crises (correlation spikes). Illiquid stocks have artificially low betas due to infrequent price updates. Always combine beta with fundamental analysis rather than relying on it in isolation.</p>
-            <h2>Portfolio Beta and Risk Management</h2>
+            <h2 className="text-2xl font-bold mb-3">Portfolio Beta and Risk Management</h2>
             <p>A portfolio&apos;s beta = weighted average of individual stock betas. A portfolio with beta 1.2 is expected to rise 12% when the market rises 10%, and fall 12% when it falls 10%. Investors approaching retirement typically lower portfolio beta by shifting to bonds (beta ≈ 0) and low-beta dividend stocks. Hedging with options or inverse ETFs can temporarily reduce portfolio beta during high-risk market environments.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/beta-calculator" />

@@ -322,10 +322,10 @@ export default function CarbohydrateGramsCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding Your Carbohydrate Grams Target</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Carbohydrate Grams Target</h2>
             <p>In the world of sports nutrition and dietetics, carbohydrates are often referred to as the "flexible macro." While your body absolutely requires specific minimums of dietary protein (to repair muscle tissue and synthesize enzymes) and dietary fat (to regulate hormones and absorb fat-soluble vitamins), your carbohydrate intake is entirely dictated by your energy output and performance goals. The <strong>Carbohydrate Grams Calculator</strong> removes the guesswork from meal planning by utilizing reverse-subtraction math. By establishing your total caloric ceiling and securing your essential protein and fat targets first, the calculator allocates every remaining calorie exclusively to carbohydrates, giving you an exact daily gram target to fuel your lifestyle.</p>
 
-            <h2>The Mathematics of Macronutrients</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of Macronutrients</h2>
             <p>To accurately calculate carbohydrate grams, you must first understand the caloric density of the three primary macronutrients. They are not created equal in terms of energy yield:</p>
             <ul>
               <li><strong>Protein:</strong> Yields exactly <strong>4 calories</strong> per gram.</li>
@@ -334,17 +334,17 @@ export default function CarbohydrateGramsCalculator() {
             </ul>
             <p>If you consume a meal containing 30g of protein, 20g of fat, and 50g of carbohydrates, the caloric math looks like this: (30 × 4) + (20 × 9) + (50 × 4) = 120 + 180 + 200 = 500 total calories.</p>
 
-            <h2>Why Calculate Carbs Last?</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Calculate Carbs Last?</h2>
             <p>A properly structured nutrition plan is built in a specific hierarchical order. First, you determine your Total Daily Energy Expenditure (TDEE) based on whether you want to lose weight (caloric deficit), maintain, or gain muscle (caloric surplus). This creates your absolute caloric ceiling.</p>
             <p>Second, you set your Protein target. Protein is the most critical macronutrient for preserving lean body mass during a diet, and it is highly satiating. Most active individuals aim for roughly 0.8 to 1.0 grams of protein per pound of body weight.</p>
             <p>Third, you set your Fat target. Dietary fat is crucial for testosterone production, brain health, and cell membrane integrity. A safe baseline is allocating 20% to 30% of your total daily calories to healthy fats.</p>
             <p>Finally, once the essential building blocks (protein and fat) are accounted for, every single remaining calorie is poured into your body's preferred energy system: Carbohydrates. This ensures your body is protected hormonally and structurally, while giving you the maximum possible fuel for your workouts.</p>
 
-            <h2>The Biological Role of Carbohydrates</h2>
+            <h2 className="text-2xl font-bold mb-3">The Biological Role of Carbohydrates</h2>
             <p>Despite heavy demonization in modern diet culture, carbohydrates are not inherently "bad" or "fattening." In fact, they are the primary and most efficient energy source for the human brain and central nervous system. When you consume carbohydrates—whether from a bowl of oatmeal or a piece of fruit—your digestive system breaks them down into glucose.</p>
             <p>This glucose enters your bloodstream and is immediately utilized for energy. Any excess glucose is converted into <strong>glycogen</strong> and stored in two primary locations: your liver (to maintain baseline blood sugar levels between meals) and your skeletal muscles (to fuel high-intensity physical activity). If, and only if, your glycogen stores are entirely full, and you remain in a massive caloric surplus, will your body convert excess carbohydrates into adipose tissue (body fat) through a highly inefficient process called <em>de novo lipogenesis</em>.</p>
 
-            <h2>How Many Carbohydrates Do You Actually Need?</h2>
+            <h2 className="text-2xl font-bold mb-3">How Many Carbohydrates Do You Actually Need?</h2>
             <p>Your ideal carbohydrate intake is entirely dependent on your lifestyle, training intensity, and metabolic health:</p>
             <ul>
               <li><strong>The Sedentary Office Worker:</strong> An individual who sits at a desk all day and does not exercise has very low glycogen turnover. They may thrive on a lower carbohydrate approach (20% to 30% of total calories) because their body simply does not require high-octane fuel.</li>
@@ -352,12 +352,12 @@ export default function CarbohydrateGramsCalculator() {
               <li><strong>The Endurance Athlete:</strong> Marathon runners, triathletes, and competitive cyclists require massive amounts of energy to sustain hours of continuous output. They frequently push their carbohydrate intake to 55%, 60%, or even 70% of their total daily calories to delay the dreaded "bonk" (complete glycogen depletion).</li>
             </ul>
 
-            <h2>The Difference Between Simple and Complex Carbohydrates</h2>
+            <h2 className="text-2xl font-bold mb-3">The Difference Between Simple and Complex Carbohydrates</h2>
             <p>While the calculator provides you with a total daily gram target, the <em>quality</em> of those carbohydrates dictates your health, energy stability, and digestion. Carbohydrates exist on a spectrum based on their chemical structure and how rapidly they are absorbed into your bloodstream (measured by the Glycemic Index).</p>
             <p><strong>Complex Carbohydrates</strong> (oats, brown rice, sweet potatoes, quinoa, and vegetables) contain long chains of sugar molecules intertwined with dietary fiber. The fiber drastically slows down the digestive process, resulting in a slow, steady trickle of glucose into your bloodstream. This provides sustained energy for hours and prevents massive spikes in insulin.</p>
             <p><strong>Simple Carbohydrates</strong> (table sugar, soda, candy, and white flour) have had their fiber entirely stripped away. They are absorbed into the bloodstream almost instantly. While this rapid absorption is highly beneficial for an athlete in the middle of a grueling race who needs immediate energy, it is detrimental for a sedentary individual sitting on a couch, as it leads to a massive insulin spike followed by a lethargic "crash."</p>
 
-            <h2>Conclusion: Fueling for Performance</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Fueling for Performance</h2>
             <p>Calculating your specific carbohydrate grams is the final step in designing a hyper-optimized nutrition protocol. By using this calculator to precisely balance your macronutrients, you ensure that your body has the exact structural materials it needs to recover (protein and fat), coupled with the exact amount of premium fuel required to perform (carbohydrates). Stick to your caloric ceiling, prioritize complex, nutrient-dense carbohydrate sources, and watch your gym performance, energy levels, and physique transform.</p>
           </article>
           

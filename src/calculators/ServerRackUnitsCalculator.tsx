@@ -149,7 +149,7 @@ const ServerRackUnitsCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Data Center Capacity Planning</h2>
+              <h2 className="text-2xl font-bold mb-3">Data Center Capacity Planning</h2>
               <p>Effective rack management is about more than just physical space; it's about power distribution, weight limits, and airflow. However, everything starts with the Rack Unit (U).</p>
               <h3>Standard Equipment Sizes</h3>
               <ul>

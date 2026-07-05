@@ -292,29 +292,29 @@ export default function CarRegistrationFeeCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Car Registration Fee Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Car Registration Fee Calculator?</h2>
             <p>A Car Registration Fee Calculator helps you estimate exactly how much it will cost to legally register and title your vehicle with the Department of Motor Vehicles (DMV). Registration fees are notoriously complex, often combining flat rates with value-based percentages and hidden surcharges. Whether you are buying a new car at a dealership, purchasing a used car from a private seller, or simply renewing your annual tags, this calculator removes the guesswork so you can budget appropriately without facing sticker shock at the DMV counter.</p>
 
-            <h2>How It Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
             <p>Our algorithm breaks down the common multi-layered structure of US vehicle registration. First, it takes a standard <strong>State Base Fee</strong>. Then, it calculates the <strong>Ad Valorem Tax</strong> by taking the <code>Vehicle Value * Tax Rate</code>. Ad Valorem is Latin for "according to value," meaning more expensive cars pay higher taxes. Next, it adds one-time costs like the <strong>License Plate Fee</strong> and <strong>Title Transfer Fee</strong>. Finally, any input local taxes or late penalties are summed together to provide your total estimated out-the-door registration cost.</p>
 
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>The <strong>Total Registration Due</strong> is the final amount you should expect to pay to get your sticker and legal paperwork. <strong>Base & Plates</strong> represent the fixed administrative costs of maintaining your records and physical license plate. The <strong>Value Tax</strong> is often the largest portion of the bill, directly reflecting the market value of your vehicle. If you miss your renewal date, <strong>Late Penalties</strong> will be added to this total.</p>
 
-            <h2>Key Factors</h2>
+            <h2 className="text-2xl font-bold mb-3">Key Factors</h2>
             <p>The single largest variable in your registration fee is your <strong>Vehicle Value</strong>. If you live in a state that charges a 2% ad valorem tax, registering a $50,000 luxury SUV will cost you $1,000 in taxes alone, compared to just $200 for a $10,000 used car. <strong>Title Fees</strong> are a factor only when ownership changes hands; if you are simply renewing your annual registration, you can typically set the Title Fee and Plate Fee to zero, drastically lowering your estimate.</p>
 
-            <h2>Advanced Features</h2>
+            <h2 className="text-2xl font-bold mb-3">Advanced Features</h2>
             <p>Under Advanced Options, you can input <strong>Local / County Tax</strong>. Many cities and counties add their own municipal "wheel tax" on top of the state registration fee to fund local road repairs. You can also calculate <strong>Late Penalties</strong>. Most DMVs are unforgiving; missing your expiration date by even a few days can trigger compounding late fees that quickly escalate.</p>
 
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <p><strong>Example 1: The Annual Renewal.</strong> Sarah is renewing the tags on her 5-year-old car, now valued at $15,000. Her state charges a $40 base fee and a 1% value tax. Because she isn't transferring ownership, her title and plate fees are $0. Her total registration cost is a reasonable $190.</p>
             <p><strong>Example 2: Buying a New Car.</strong> John just bought a brand new $60,000 truck. He has to pay the $50 base fee, $25 for new plates, $15 for the title transfer, and a massive 2% ad valorem tax because the vehicle is so valuable. When he goes to the DMV, his total bill will be a shocking $1,290.</p>
 
-            <h2>Tips & Best Practices</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
             <p>If you are buying a car from a private seller, always bring extra cash or a larger check than you expect; DMVs will not negotiate, and you cannot leave with your plates until the exact balance is paid in full. If you are renewing, set a calendar reminder a month in advance to avoid brutal late fees. Finally, remember that your Ad Valorem tax is tax-deductible on your federal income returns, so keep your registration receipt for tax season.</p>
 
-            <h2>Benefits</h2>
+            <h2 className="text-2xl font-bold mb-3">Benefits</h2>
             <p>Using a Car Registration Fee Calculator provides peace of mind. It prevents you from walking into the DMV completely blind to the costs. By anticipating the heavy value-based taxes associated with newer vehicles, you can roll these costs into your initial car-buying budget rather than scrambling to drain your savings account just to get license plates.</p>
           </article>
           

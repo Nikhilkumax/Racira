@@ -382,18 +382,18 @@ export default function FfmiFatFreeMassIndexCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Fat-Free Mass Index (FFMI) Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Fat-Free Mass Index (FFMI) Calculator</h2>
             <p>For decades, the medical community has relied on the Body Mass Index (BMI) to determine whether an individual is healthy, overweight, or obese. However, anyone who lifts weights knows that BMI is a fundamentally broken metric. It only measures Total Weight against Height. According to BMI, a 220-pound professional bodybuilder with 8% body fat is morbidly obese, placing them in the same health category as a 220-pound sedentary individual with 40% body fat. The <strong>Fat-Free Mass Index (FFMI) Calculator</strong> was developed by sports scientists to fix this flaw. It strips away all adipose tissue (fat) and mathematically isolates pure lean mass, providing the gold-standard metric for assessing true muscularity and genetic potential.</p>
 
-            <h2>The Mechanics: Stripping Away the Fat</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mechanics: Stripping Away the Fat</h2>
             <p>To understand your FFMI, you must first calculate your Lean Body Mass (LBM). LBM includes your skeletal muscle, bones, organs, and bodily fluids—everything in your body that is not fat. The calculator requires an accurate Body Fat Percentage to perform this extraction.</p>
             <p>For example, if you weigh 200 pounds and have 15% body fat, you are carrying 30 pounds of fat. By subtracting that fat, we determine your Lean Body Mass is exactly 170 pounds. The formula then takes this lean mass, converts it to kilograms, and divides it by your height in meters squared. The resulting number is your FFMI score. It is essentially a "BMI for muscle."</p>
 
-            <h2>The Problem with Height: Normalized FFMI</h2>
+            <h2 className="text-2xl font-bold mb-3">The Problem with Height: Normalized FFMI</h2>
             <p>As sports scientists began using FFMI, they discovered a mathematical discrepancy. A 6'4" lifter naturally carries significantly more bone mass, organ weight, and water volume than a 5'4" lifter, simply because they have a larger physical frame. If both men had the exact same level of muscularity, the taller man would unfairly score higher on the standard FFMI scale.</p>
             <p>To fix this, researchers introduced the <strong>Normalized FFMI</strong>. This algorithmic correction artificially levels the playing field, adjusting everyone's score to a theoretical height of 1.8 meters (roughly 5'11"). When discussing genetic limits or comparing physiques, you must always use the Normalized FFMI to ensure accuracy.</p>
 
-            <h2>The Famous 1995 Study and the "Natty Limit" of 25</h2>
+            <h2 className="text-2xl font-bold mb-3">The Famous 1995 Study and the "Natty Limit" of 25</h2>
             <p>The FFMI became famous in the fitness industry following a landmark 1995 study by Kouri et al. The researchers wanted to establish a baseline for natural human muscle growth. They analyzed the FFMI scores of 157 male athletes, half of whom were verified anabolic steroid users, and half of whom were lifetime natural lifters.</p>
             <p>Furthermore, they analyzed historical data from Mr. America bodybuilding winners from the 1930s and 1940s—an era before synthetic testosterone and anabolic steroids were commercially available or used in sports. The results were stunningly consistent:</p>
             <ul>
@@ -403,17 +403,17 @@ export default function FfmiFatFreeMassIndexCalculator() {
             </ul>
             <p>This established the clinical "Natty Limit." An FFMI of 25 is now widely accepted in sports science as the absolute upper ceiling of natural human genetic potential.</p>
 
-            <h2>Diagnosing the Modern Fitness Industry</h2>
+            <h2 className="text-2xl font-bold mb-3">Diagnosing the Modern Fitness Industry</h2>
             <p>The FFMI calculator is a powerful tool for cutting through the deception of the modern fitness industry. Social media is flooded with "fitness influencers" selling training programs and supplements, claiming their massive physiques are the result of hard work and chicken breast. If you run their stats (e.g., 5'10", 215 lbs, 8% body fat) through the FFMI calculator, they often generate scores of 27 or 28. Based on the historical data, it is mathematically near-impossible to achieve this naturally. The calculator protects consumers from false expectations.</p>
 
-            <h2>Can a Natural Lifter Ever Exceed 25?</h2>
+            <h2 className="text-2xl font-bold mb-3">Can a Natural Lifter Ever Exceed 25?</h2>
             <p>In science, absolutes rarely exist. Is it possible for a lifetime natural athlete to score a 26? Yes, but it requires being a one-in-a-million genetic outlier. Individuals with extremely thick bone structures (which adds to lean mass), incredibly favorable muscle insertion points, naturally high endogenous testosterone levels, or rare myostatin deficiencies could theoretically edge past 25. However, for 99.9% of the population, spending 10 years in the gym to achieve a lean, hard FFMI of 23 or 24 represents an elite, phenomenal physique.</p>
 
-            <h2>The Danger of Inaccurate Body Fat Estimations</h2>
+            <h2 className="text-2xl font-bold mb-3">The Danger of Inaccurate Body Fat Estimations</h2>
             <p>The entire FFMI calculation hinges on a single input: your Body Fat Percentage. This is where most people fail. Human beings are notoriously terrible at visually estimating their own body fat. A lifter might look in the mirror, see their top two abs, and claim they are "10% body fat." In reality, they might be 16%.</p>
             <p>If you plug an artificially low body fat number into the calculator, it artificially inflates your lean mass, generating a falsely high FFMI. You might think you have reached an elite 24, when in reality you are a 21. To use this calculator accurately, you must obtain a clinical measurement—preferably from a DEXA scan or hydrostatic weighing. If using skinfold calipers, ensure they are administered by a trained professional.</p>
 
-            <h2>Conclusion: Tracking True Progress</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Tracking True Progress</h2>
             <p>Stop chasing the number on the scale. Gaining 10 pounds of body weight is meaningless if 8 pounds of it is fat and water. By tracking your Normalized FFMI over time, you are tracking pure, actualized muscle tissue. Use the Fat-Free Mass Index Calculator to find your current baseline, set realistic physiological goals, and push yourself toward your true genetic potential.</p>
           </article>
           

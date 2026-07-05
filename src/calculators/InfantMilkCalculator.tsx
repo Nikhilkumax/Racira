@@ -217,15 +217,15 @@ export default function InfantMilkCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Mathematics of Infant Nutrition</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of Infant Nutrition</h2>
             <p>During the first year of life, an infant's brain and body grow at a faster rate than at any other point in human development. Because their caloric needs are so massive relative to their tiny size, pediatricians use weight-based clinical formulas to ensure they are receiving adequate nutrition without over-stretching their stomachs.</p>
             <p>The universal clinical standard for infant nutrition is <strong>2.5 ounces of milk per pound of body weight per day</strong>. This 2.5x multiplier ensures the baby receives roughly 50 calories per pound, which is the precise amount required to fuel both basic metabolic functions and rapid cellular growth.</p>
 
-            <h2>Why is the Volume Capped at 32 Ounces?</h2>
+            <h2 className="text-2xl font-bold mb-3">Why is the Volume Capped at 32 Ounces?</h2>
             <p>If a baby weighs 15 pounds, the math (15 x 2.5) indicates they need 37.5 ounces of milk per day. However, this calculator intentionally triggers a clinical warning and caps the recommendation at 32 ounces. Why?</p>
             <p>The human stomach is only designed to hold a certain volume of liquid. Pushing 38 to 40 ounces of liquid through a baby's digestive tract in 24 hours often leads to severe acid reflux, vomiting, and discomfort. When a baby's caloric demand exceeds what can be reasonably provided by 32 ounces of liquid (which typically happens around 4 to 6 months of age), it is a biological signal that their digestive tract has matured enough to handle denser, more calorically concentrated foods. This is exactly why pediatricians recommend introducing pureed solid foods at this stage.</p>
 
-            <h2>Breastmilk vs. Formula</h2>
+            <h2 className="text-2xl font-bold mb-3">Breastmilk vs. Formula</h2>
             <p>A common misconception is that breastfed babies require different volumes of milk than formula-fed babies. In the early months, this is false. Standard infant formulas are strictly regulated by the FDA to mimic the exact caloric density of mature human breastmilk—which is precisely <strong>20 calories per fluid ounce</strong>.</p>
             <p>Because the caloric density is identical, the physical volume required to keep the baby alive and growing is identical. The only difference is that breastmilk is often digested slightly faster than formula, meaning a breastfed baby might demand to be fed every 2 hours, whereas a formula-fed baby might comfortably wait 3 hours between feedings.</p>
           </article>

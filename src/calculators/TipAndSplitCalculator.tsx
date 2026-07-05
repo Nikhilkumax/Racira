@@ -97,7 +97,7 @@ const TipAndSplitCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Tipping Etiquette</h2>
+              <h2 className="text-2xl font-bold mb-3">Tipping Etiquette</h2>
               <p>Tipping is a way to show appreciation for good service, but the rules can vary significantly depending on where you are in the world. In the US, it is an essential part of service workers' income.</p>
               <h3>When to Tip More</h3>
               <p>It is customary to tip at the higher end of the scale (20-25%) for large groups, exceptional service, or when you stay at a table for a long time after finishing your meal. Conversely, if service was poor, a lower tip is acceptable, but it is often better to speak with a manager to address the issue directly.</p>

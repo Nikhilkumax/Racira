@@ -215,17 +215,17 @@ export default function LifeInsuranceCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-            <h2>How Much Life Insurance Do You Need?</h2>
+            <h2 className="text-2xl font-bold mb-3">How Much Life Insurance Do You Need?</h2>
             <p>Life insurance is one of the most important financial safety nets you can provide for your family, yet determining how much coverage you need is often confusing. The right amount depends on your income, debts, family situation, existing savings, and financial goals. This calculator uses two proven methods to give you a data-driven coverage estimate rather than an arbitrary rule of thumb.</p>
             <p>The most common mistake people make is either being underinsured (relying solely on employer-provided group coverage, which is typically only 1–2× salary) or overinsured (buying more permanent life insurance than needed due to aggressive sales tactics). A properly sized term life policy can provide comprehensive protection at a fraction of the cost of whole life insurance.</p>
 
-            <h2>The DIME Method Explained</h2>
+            <h2 className="text-2xl font-bold mb-3">The DIME Method Explained</h2>
             <p>The DIME method is the most systematic approach to calculating life insurance needs. It considers four key components: <strong>Debt</strong> — all outstanding obligations your family would inherit, including mortgage, car loans, student loans, credit card debt, and personal loans. <strong>Income</strong> — your annual income multiplied by the number of years until your youngest dependent reaches financial independence (typically 18–25). <strong>Mortgage</strong> — the remaining balance on your home (often included in debt, but highlighted separately due to its size). <strong>Education</strong> — estimated future education costs for all dependent children. The total is then reduced by your liquid assets and any existing life insurance coverage to find your net coverage gap.</p>
 
-            <h2>The 10× Income Rule</h2>
+            <h2 className="text-2xl font-bold mb-3">The 10× Income Rule</h2>
             <p>A simpler quick estimate, the 10× income rule suggests purchasing life insurance equal to 10 times your annual gross income. This approximation works reasonably well for families with average debt levels and young children. However, it's less accurate for high-debt families, those with significant savings, families with many dependents, or single-income households where the surviving spouse would need many years of income replacement. Always verify with the DIME method for a more precise figure.</p>
 
-            <h2>Term Life vs Whole Life Insurance</h2>
+            <h2 className="text-2xl font-bold mb-3">Term Life vs Whole Life Insurance</h2>
             <p>For most families, term life insurance is the right choice. A 20-year level-term policy locked in at age 30–35 can provide $500,000–$1,000,000 in coverage for $25–60/month. The policy covers the period when your family is most financially vulnerable — when children are young, the mortgage is large, and retirement savings are still accumulating. By the time the term ends (typically when children are grown and the mortgage is paid off), your need for life insurance has usually diminished significantly.</p>
             <p>Whole life and universal life policies combine permanent death benefit coverage with a cash value investment component. While they can make sense in specific estate planning scenarios (particularly for high-net-worth individuals), most financial advisors recommend "buy term and invest the difference" — purchasing affordable term coverage and investing the premium savings in diversified index funds, which typically outperform insurance cash value growth over the long term.</p>
           </article>

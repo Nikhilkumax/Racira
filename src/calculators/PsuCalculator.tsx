@@ -119,7 +119,7 @@ const PsuCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Choosing the Right PSU</h2>
+              <h2 className="text-2xl font-bold mb-3">Choosing the Right PSU</h2>
               <p>The Power Supply Unit is the heart of your PC. A poor-quality PSU can not only cause crashes and instability but can also damage your expensive CPU and GPU if it fails or experiences a surge.</p>
               
               <h3>Understanding PSU Tiers</h3>

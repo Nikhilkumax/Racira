@@ -192,21 +192,21 @@ const EngineHorsepowerCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Horsepower vs. Torque</h2>
+            <h2 className="text-2xl font-bold mb-3">Horsepower vs. Torque</h2>
             <p>In the automotive world, there is an old saying: <em>"Horsepower sells cars, but torque wins races."</em> To understand how an engine truly performs, you must understand the mathematical relationship between the two.</p>
             <ul>
               <li><strong>Torque (lb-ft)</strong> is the physical, twisting force the engine generates. Imagine using a wrench to tighten a bolt; the rotational force you apply is torque. In a car, torque is what pushes you back into your seat when you step on the gas. It represents <em>Work</em>.</li>
               <li><strong>Horsepower (HP)</strong> is a calculated measurement of how fast that work can be delivered. An engine might be capable of generating a lot of torque, but if it can't spin very fast, it won't produce much horsepower. HP represents the <em>Rate of Work</em>.</li>
             </ul>
 
-            <h2>The Formula: HP = (Torque × RPM) / 5252</h2>
+            <h2 className="text-2xl font-bold mb-3">The Formula: HP = (Torque × RPM) / 5252</h2>
             <p>Because horsepower is a mathematical derivative of torque and engine speed, you cannot have one without the other. This exact formula applies to every internal combustion engine on earth, from a lawnmower to a Formula 1 car.</p>
             
             <h3>What is 5252?</h3>
             <p>If you look at the dyno graph (the chart showing power delivery) of any engine, the Horsepower curve and the Torque curve will <strong>always perfectly intersect at exactly 5,252 RPM</strong>. Why? Because of the number 5,252 in the denominator.</p>
             <p>James Watt (who invented the concept of horsepower) defined 1 HP as 33,000 foot-pounds of work per minute. To calculate rotational engine power, you must convert linear distance to a circle (using Pi). When you do the math: <code>33,000 / (2 × π) = 5252.11</code>. That constant anchors the physics of engine rotation.</p>
 
-            <h2>Why Tractors and F1 Cars are Different</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Tractors and F1 Cars are Different</h2>
             <p>Understanding this formula explains why different vehicles feel completely different:</p>
             <ul>
               <li><strong>Semi-Trucks:</strong> A diesel truck might have 1,500 lb-ft of torque but only 400 HP. How? Because diesel engines spin very slowly (redlining around 2,000 RPM). A massive torque number divided by 5252, multiplied by a tiny RPM number, yields low horsepower. They pull massive weight, but accelerate very slowly.</li>

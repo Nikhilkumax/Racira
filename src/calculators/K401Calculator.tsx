@@ -499,26 +499,26 @@ const K401Calculator = () => {
           <AdPlaceholder className="mb-10" />
           
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a 401(k) Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a 401(k) Calculator?</h2>
             <p>A 401(k) calculator projects how much money you'll accumulate in your employer-sponsored retirement account by the time you retire. It factors in your current balance, annual contributions (up to the IRS limit), employer matching contributions, expected investment returns, salary increases, and inflation to provide a comprehensive retirement savings forecast.</p>
             <p>Our advanced 401(k) calculator includes all factors that significantly impact your retirement outcome: employer match with configurable match percentage and limits, annual salary increase projections, inflation-adjusted purchasing power, and a complete growth table showing milestones until retirement.</p>
 
-            <h2>How 401(k) Growth Is Calculated</h2>
+            <h2 className="text-2xl font-bold mb-3">How 401(k) Growth Is Calculated</h2>
             <p>Each year, your 401(k) grows from three sources: (1) your own contributions (pre-tax, up to $23,000 in 2024), (2) your employer's matching contributions (free money), and (3) investment returns on all accumulated assets. The compound growth formula is applied annually. Over 35 years at 7%, the compounding effect can generate 5–8× the total amount you personally contributed.</p>
 
-            <h2>How to Use This 401(k) Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Use This 401(k) Calculator</h2>
             <p>Enter your current age and target retirement age. Input your current 401(k) balance, annual salary, and the percentage you contribute. Under Advanced Options, set your employer's match percentage and the salary ceiling for matching. Use 7% for annual return as a historically-backed conservative estimate. Enable salary increase to model promotions. The inflation field shows what your balance will be worth in today's dollars, giving you a realistic sense of purchasing power at retirement.</p>
 
-            <h2>The Employer Match: Free Money You Can't Ignore</h2>
+            <h2 className="text-2xl font-bold mb-3">The Employer Match: Free Money You Can't Ignore</h2>
             <p>The employer 401(k) match is the single most powerful benefit in your compensation package. A typical match of "50% up to 6% of salary" means if you earn $80,000 and contribute 6% ($4,800), your employer adds $2,400 — a guaranteed 50% return on that portion of your savings before any investment return. Over 35 years at 7%, that $2,400/year in employer contributions alone grows to approximately $385,000. Never leave this money on the table.</p>
 
-            <h2>Example Scenario</h2>
+            <h2 className="text-2xl font-bold mb-3">Example Scenario</h2>
             <p>Michael, age 30, earns $75,000 with a $25,000 existing 401(k) balance. He contributes 6% ($4,500/year), and his employer matches 50% up to 6% ($2,250/year). Assuming 7% annual return, 2% salary growth, and 3% inflation, by age 65 his 401(k) grows to approximately $1.6 million in nominal terms, or about $580,000 in today's purchasing power. This supports a monthly withdrawal of $5,400 using the 4% rule — comparable to a solid middle-class retirement income.</p>
 
-            <h2>2024 401(k) Contribution Limits</h2>
+            <h2 className="text-2xl font-bold mb-3">2024 401(k) Contribution Limits</h2>
             <p>The IRS sets annual limits on how much you can contribute to your 401(k). For 2024: the employee contribution limit is $23,000 (up from $22,500 in 2023). Workers aged 50 and older can contribute an additional $7,500 "catch-up" contribution, for a total of $30,500. The combined limit including employer contributions is $69,000. Maximizing contributions, especially in your 50s with catch-up contributions, can significantly accelerate retirement savings in the final years before retirement.</p>
 
-            <h2>Tips to Maximize Your 401(k)</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips to Maximize Your 401(k)</h2>
             <p>Always contribute at least enough to get the full employer match first. Then maximize an IRA (Roth or Traditional). Then maximize the 401(k) to the full $23,000 limit. Increase your contribution rate by 1% each time you receive a raise. Choose low-cost index funds — expense ratios of 0.03–0.10% vs 1%+ for actively managed funds can mean hundreds of thousands of dollars difference at retirement. At age 50+, take full advantage of the $7,500 catch-up contribution. Review and rebalance your asset allocation annually.</p>
           </article>
 

@@ -243,7 +243,7 @@ const CreditScoreEstimator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>How Credit Scores Are Calculated</h2>
+              <h2 className="text-2xl font-bold mb-3">How Credit Scores Are Calculated</h2>
               <p>Your credit score is a three-digit number that tells lenders how likely you are to repay your debts. In the United States, the most common model is the FICO score, which ranges from 300 to 850. Understanding the five main components of this score is the first step toward financial health.</p>
 
               <h3>1. Payment History (35%)</h3>
@@ -261,7 +261,7 @@ const CreditScoreEstimator = () => {
               <h3>5. New Credit (10%)</h3>
               <p>Every time you apply for credit, a 'hard inquiry' is placed on your report, which can lower your score by a few points. Opening several new accounts in a short period can make you look desperate for cash and increase your risk profile.</p>
 
-              <h2>Why a High Credit Score Matters</h2>
+              <h2 className="text-2xl font-bold mb-3">Why a High Credit Score Matters</h2>
               <p>Your credit score doesn't just determine if you get a loan; it determines how much that loan will cost you. A borrower with an 'Exceptional' score might get an interest rate that is 2% or 3% lower than someone with a 'Fair' score. Over the life of a 30-year mortgage, this difference can save you hundreds of thousands of dollars.</p>
 
               <h3>Tips for a Perfect Score</h3>

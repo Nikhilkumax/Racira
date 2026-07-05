@@ -390,26 +390,26 @@ export default function BatteryDegradationCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is an EV Battery Degradation Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is an EV Battery Degradation Calculator?</h2>
             <p>An EV Battery Degradation Calculator is a diagnostic tool used to estimate the current health and remaining lifespan of a lithium-ion electric vehicle battery. Just like a smartphone battery, an EV battery permanently loses a small fraction of its maximum capacity over time. This calculator uses a multi-variable algorithm to estimate that capacity loss based on the vehicle's age, total mileage, your charging habits, and the local climate.</p>
 
-            <h2>How It Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
             <p>Battery degradation is caused by two primary factors: <strong>Calendar Aging</strong> and <strong>Cyclic Aging</strong>. Calendar aging means the battery degrades simply by existing; chemical reactions slowly break down the cells over time, resulting in roughly a 1.5% loss per year. Cyclic aging means the battery degrades through use; every time you charge and discharge the battery to drive, it causes microscopic wear and tear. Our algorithm isolates both factors and adds them together.</p>
 
-            <h2>The Impact of Heat and Fast Charging</h2>
+            <h2 className="text-2xl font-bold mb-3">The Impact of Heat and Fast Charging</h2>
             <p>Not all miles are equal. If you live in a scorching hot climate like Arizona, your battery will degrade significantly faster than a battery in a temperate climate like Seattle. Heat causes permanent damage to lithium-ion cells. Similarly, frequent use of DC Fast Chargers (Level 3 Superchargers) pumps massive amounts of current into the battery, generating extreme heat and causing micro-cracking in the anode. The calculator applies specific penalties if you select these harsh operating conditions.</p>
 
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>The primary result is your <strong>Estimated Battery Health (%)</strong>, also known as State of Health (SoH). If your battery health is 90%, it means your car can only hold 90% of the energy it held when it was brand new. The <strong>Max Range Now</strong> metric applies this percentage to your original EPA range, showing you your new, permanently lowered maximum driving distance.</p>
 
-            <h2>The Warranty Check</h2>
+            <h2 className="text-2xl font-bold mb-3">The Warranty Check</h2>
             <p>Almost all EV manufacturers offer a federally mandated battery warranty, typically 8 years or 100,000 miles. Crucially, this warranty does not just cover total battery failure; it covers excessive degradation. Most manufacturers guarantee the battery will retain at least 70% of its original capacity. If our calculator estimates that your battery has dropped below this <strong>Warranty Threshold</strong> while still within the time/mileage limits, you may be eligible for a completely free battery replacement (which is normally a $15,000 to $20,000 repair).</p>
 
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <p><strong>Example 1: The Normal Used Car.</strong> You are looking to buy a 4-year-old EV with 60,000 miles. It lived in a mild climate and was charged at home. The calculator estimates the battery health is roughly 92%. The original range was 310 miles, but the car will now only drive about 285 miles on a full charge. This is completely normal wear and tear.</p>
             <p><strong>Example 2: The Abused Uber.</strong> You are looking at a 3-year-old EV with 90,000 miles. It lived in hot Phoenix, Arizona, and the previous owner used it for rideshare, meaning they exclusively used DC Fast Chargers multiple times a day. The calculator estimates the battery health is around 82%. Because of the heat and fast charging, it degraded vastly faster than the normal car.</p>
 
-            <h2>Tips & Best Practices</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
             <p>To maximize the lifespan of your EV battery, follow the "20/80 Rule." Try to keep the battery charged between 20% and 80% for daily driving. Charging to 100% and letting the car sit for days puts extreme stress on the cells. Do not run the battery down to 0%. Avoid DC Fast Charging unless you are on a road trip; use a Level 2 home charger for daily top-ups. If you live in a very hot climate, try to park the car in the shade or a garage whenever possible.</p>
           </article>
           

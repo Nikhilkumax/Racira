@@ -180,24 +180,24 @@ export default function GlycemicIndexCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Glycemic Index (GI) vs. Glycemic Load (GL)</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Glycemic Index (GI) vs. Glycemic Load (GL)</h2>
             <p>If you are managing diabetes, dealing with insulin resistance, or attempting to lose body fat, you have likely been told to "watch your glycemic index." While this is excellent advice, the Glycemic Index (GI) alone is actually a flawed, incomplete metric. To truly understand how a meal will impact your body, you must calculate the <strong>Glycemic Load (GL)</strong>.</p>
             <p>The <strong>Glycemic Index (GI)</strong> is a laboratory measurement on a scale of 0 to 100 that dictates how quickly the carbohydrates in a specific food break down into glucose and enter your bloodstream. Pure table sugar has a GI of 100. A food with a high GI digests rapidly, causing a massive spike in blood sugar. A food with a low GI digests slowly, providing a steady trickle of energy.</p>
             <p>The problem? <strong>GI completely ignores portion size.</strong> It tells you the <em>speed</em> of the carbohydrate, but not the <em>volume</em> of the carbohydrate you are actually eating.</p>
 
-            <h2>Why You Must Calculate the Glycemic Load</h2>
+            <h2 className="text-2xl font-bold mb-3">Why You Must Calculate the Glycemic Load</h2>
             <p>The <strong>Glycemic Load (GL)</strong> solves the portion size problem. It combines the speed of the carbohydrate (the GI) with the actual amount of carbohydrate in your specific serving.</p>
             <p>The classic, textbook example of why GL is superior is watermelon. If you look up watermelon in a clinical database, you will see it has a shockingly high Glycemic Index of 72 to 80. On paper, it looks as dangerous for a diabetic as eating a donut. However, watermelon is essentially just flavored water; it is incredibly sparse in actual carbohydrates. A standard cup of diced watermelon only contains about 6 grams of net carbs.</p>
             <p>When you plug those numbers into the Glycemic Load formula—<code>(72 GI × 6g Carbs) ÷ 100</code>—the resulting Glycemic Load is a mere <strong>4.3</strong>. Despite the high GI, the actual impact on your blood sugar is minuscule because the volume of carbohydrates is so low. If you only looked at the GI, you would avoid a perfectly healthy, hydrating fruit.</p>
             <p>Conversely, a dense food like a large bagel might have a lower or moderate GI (e.g., 65), but because it contains a massive 50 grams of carbohydrates, the Glycemic Load spikes to <strong>32.5</strong>, which will heavily impact your blood sugar.</p>
 
-            <h2>How The Calculations Work</h2>
+            <h2 className="text-2xl font-bold mb-3">How The Calculations Work</h2>
             <p>Calculating your Glycemic Load requires two pieces of data:</p>
             <p><strong>1. The Glycemic Index of the Food:</strong> Because GI is determined by how complex the molecular structure of the food is, you cannot calculate it yourself. It must be tested in a lab on human subjects. You must look this number up in a reputable GI database (such as the official University of Sydney database).</p>
             <p><strong>2. The Net Carbohydrates:</strong> You can find this on the food's nutrition label. You must calculate "Net Carbs" by taking the Total Carbohydrates and subtracting the Dietary Fiber. The human body lacks the enzymes to digest fiber, so it passes through the system without converting to glucose. Therefore, fiber does not contribute to your blood sugar spike.</p>
             <p>The core mathematical formula is simple: <strong>GL = (GI × Net Carbs) ÷ 100</strong>.</p>
 
-            <h2>Interpreting Your Glycemic Load Score</h2>
+            <h2 className="text-2xl font-bold mb-3">Interpreting Your Glycemic Load Score</h2>
             <p>Medical professionals and dietitians use a standardized 3-tier bracket system to classify Glycemic Load results.</p>
             
             <h3>Low GL (10 or less)</h3>
@@ -209,13 +209,13 @@ export default function GlycemicIndexCalculator() {
             <h3>High GL (20 or greater)</h3>
             <p>A score of 20 or higher acts as a red flag. These meals flood the bloodstream with glucose faster than the body's cells can utilize it. In response, the pancreas must pump out massive amounts of insulin to clear the toxic glucose from the blood. This insulin spike aggressively forces the excess energy into your fat cells for storage, and the subsequent rapid drop in blood sugar triggers intense hunger cravings shortly after eating. Frequent high GL meals are the primary dietary driver of insulin resistance and Type 2 Diabetes. Examples include large servings of pasta, white rice, sugary cereals, and sodas.</p>
 
-            <h2>Advanced Strategies: Lowering Your Meal's GL</h2>
+            <h2 className="text-2xl font-bold mb-3">Advanced Strategies: Lowering Your Meal's GL</h2>
             <p>The Glycemic Index of a food is tested in absolute isolation—meaning the test subject eats the carbohydrate entirely by itself on an empty stomach. However, nobody eats like that in the real world. You can actively lower the Glycemic Load of a carbohydrate by changing how you eat it.</p>
             <p><strong>Add Fiber, Fat, and Protein:</strong> If you eat a high-GI food (like a white potato) completely by itself, it digests rapidly. If you eat that exact same potato with a piece of steak (protein) and butter (fat), the digestion process in your stomach slows to a crawl. The fat and protein physically delay gastric emptying, which means the carbohydrates are released into the small intestine much more slowly. This blunts the glucose spike, effectively lowering the overall Glycemic Load of the meal.</p>
             <p><strong>Use Acidic Dressings:</strong> Acids slow down carbohydrate digestion. Adding vinegar-based dressings to a salad or squeezing lemon juice over a carbohydrate-heavy meal can noticeably reduce the subsequent blood sugar spike.</p>
             <p><strong>Cool Your Starches:</strong> When you cook and then cool starches like potatoes, rice, or pasta, the molecular structure changes, forming "resistant starch." Resistant starch acts like fiber—your body cannot digest it. Even if you reheat the food later, the resistant starch remains, meaning the meal will have a lower Net Carb count and a lower Glycemic Load than when it was freshly cooked.</p>
 
-            <h2>Who Benefits Most From This Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">Who Benefits Most From This Calculator?</h2>
             <p>While everyone benefits from maintaining stable blood sugar, tracking Glycemic Load is absolutely critical for three specific populations:</p>
             <p><strong>1. Diabetics & Pre-diabetics:</strong> For individuals with impaired insulin sensitivity, preventing massive glucose spikes is the primary focus of disease management. Calculating the GL of a meal ensures the carbohydrate load will not overwhelm their compromised insulin response.</p>
             <p><strong>2. Individuals Seeking Fat Loss:</strong> High insulin levels actively block the body from burning stored fat (lipolysis). By keeping meals in the Low or Medium GL range, you keep insulin levels low, allowing your body to access and burn stored body fat for fuel between meals.</p>

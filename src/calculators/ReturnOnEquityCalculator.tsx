@@ -176,20 +176,20 @@ export default function ReturnOnEquityCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is Return on Equity (ROE)?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is Return on Equity (ROE)?</h2>
             <p>Return on Equity (ROE) is one of the most important metrics in fundamental stock analysis. It measures how effectively a company uses the money shareholders have invested to generate profit. The formula is straightforward: ROE = Net Income ÷ Average Shareholders' Equity × 100. An ROE of 20% means the company generates $20 in annual profit for every $100 of shareholders' equity on its balance sheet.</p>
             <p>ROE is particularly powerful as a tool for comparing companies within the same industry. It cuts through differences in company size, age, and accounting choices to reveal the fundamental question: how good are management at turning shareholders' capital into profit? Companies that consistently maintain high ROE over multiple years — without relying on excessive debt — typically command premium valuations in the stock market.</p>
 
-            <h2>The ROE Formula and Using Average Equity</h2>
+            <h2 className="text-2xl font-bold mb-3">The ROE Formula and Using Average Equity</h2>
             <p>ROE = Net Income / Average Shareholders' Equity × 100. Average shareholders' equity is calculated as (Beginning Equity + Ending Equity) ÷ 2. Using average equity is more accurate than simply using year-end equity because equity changes throughout the year. If a company raises $500M in a secondary offering in December, using only year-end equity would significantly understate the true ROE. The average smooths these fluctuations.</p>
 
-            <h2>DuPont Analysis: Decomposing ROE</h2>
+            <h2 className="text-2xl font-bold mb-3">DuPont Analysis: Decomposing ROE</h2>
             <p>The DuPont formula breaks ROE into three components: ROE = Net Profit Margin × Asset Turnover × Equity Multiplier. Net Profit Margin (Net Income ÷ Revenue) measures profitability. Asset Turnover (Revenue ÷ Total Assets) measures operational efficiency. Equity Multiplier (Total Assets ÷ Shareholders' Equity) measures financial leverage. This decomposition is critical for understanding the quality of ROE. A company achieving 25% ROE through high margins and efficient asset use is a superior business compared to one achieving 25% ROE primarily through high leverage (borrowed money amplifying equity returns).</p>
 
-            <h2>Industry ROE Benchmarks</h2>
+            <h2 className="text-2xl font-bold mb-3">Industry ROE Benchmarks</h2>
             <p>ROE varies dramatically by industry based on capital requirements and business model. Capital-light technology and software companies routinely achieve ROEs of 25–50% or more because they can generate enormous profits with minimal physical assets. Asset-heavy utilities and manufacturing companies typically show ROEs of 8–14% because they require massive capital investment. Financial companies (banks, insurance) show intermediate ROEs of 10–20% because regulations require large equity cushions. Always compare ROE within the same industry for meaningful analysis.</p>
 
-            <h2>Limitations of ROE</h2>
+            <h2 className="text-2xl font-bold mb-3">Limitations of ROE</h2>
             <p>ROE can be artificially inflated by high financial leverage (debt increases returns to equity but also increases bankruptcy risk), aggressive share buybacks (reducing the equity base), or one-time gains. Negative equity (from large share buybacks or cumulative losses) makes ROE meaningless or misleading. A company with ROE of 50% funded by 90% debt is far riskier than one with ROE of 18% and zero debt. Always examine ROE alongside the debt-to-equity ratio and interest coverage ratio.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/return-on-equity-calculator" />

@@ -255,11 +255,11 @@ export default function ChildPughScoreCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Child-Pugh Score</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Child-Pugh Score</h2>
             <p>The Child-Turcotte-Pugh (CTP) score, commonly known as the Child-Pugh score, was originally developed in 1964 to predict the surgical mortality risk of patients with cirrhosis undergoing liver portocaval shunt operations. Over time, it became the gold standard for predicting the overall severity and prognosis of chronic liver disease.</p>
             <p>While the modern MELD score has largely replaced the Child-Pugh score for determining liver transplant priority due to its purely objective mathematical nature, the Child-Pugh score remains critically important in everyday medicine. It is universally used to adjust medication dosing for patients with liver failure and to assess whether a patient can survive elective surgeries.</p>
 
-            <h2>The Five Pillars of Liver Health</h2>
+            <h2 className="text-2xl font-bold mb-3">The Five Pillars of Liver Health</h2>
             <p>The scoring system relies on five clinical parameters that measure the liver's synthetic function and its complications:</p>
             <ul>
               <li><strong>Albumin:</strong> The liver manufactures albumin, a protein that keeps fluid inside blood vessels. Low albumin indicates the liver's manufacturing plant is failing.</li>
@@ -269,7 +269,7 @@ export default function ChildPughScoreCalculator() {
               <li><strong>Encephalopathy:</strong> When the liver fails to filter toxins (like ammonia), those toxins travel to the brain, causing confusion, personality changes, and eventually coma.</li>
             </ul>
 
-            <h2>Compensated vs. Decompensated</h2>
+            <h2 className="text-2xl font-bold mb-3">Compensated vs. Decompensated</h2>
             <p>The medical community uses the Child-Pugh classes to determine if a patient is compensated or decompensated:</p>
             <p><strong>Class A (Score 5-6):</strong> Compensated. The liver is scarred, but it is still performing its vital functions. Life expectancy remains high.</p>
             <p><strong>Class B (Score 7-9):</strong> Transitioning. The liver is beginning to struggle to keep up with the body's demands, and complications are arising.</p>

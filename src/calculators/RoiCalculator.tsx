@@ -88,22 +88,22 @@ const ROICalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>What Is ROI?</h2>
+              <h2 className="text-2xl font-bold mb-3">What Is ROI?</h2>
               <p>Return on Investment (ROI) is one of the most widely used financial metrics for evaluating the profitability of an investment. It measures the percentage return generated relative to the amount invested, providing a simple way to compare different investment opportunities.</p>
 
-              <h2>ROI Formulas</h2>
+              <h2 className="text-2xl font-bold mb-3">ROI Formulas</h2>
               <ul>
                 <li><strong>Simple ROI = (Net Profit ÷ Total Cost) × 100</strong></li>
                 <li><strong>Annualized ROI = (Final Value ÷ Total Cost)^(1/years) − 1</strong></li>
                 <li><strong>Net Profit = Final Value − Initial Investment − Additional Costs</strong></li>
               </ul>
 
-              <h2>ROI Examples</h2>
+              <h2 className="text-2xl font-bold mb-3">ROI Examples</h2>
               <p><strong>Stock investment:</strong> Buy $10,000 of stock, sell for $15,000 after 3 years. ROI = 50%, Annualized ROI = 14.5%.</p>
               <p><strong>Real estate:</strong> Buy property for $200,000, sell for $280,000 after 5 years with $10,000 in costs. ROI = 33.3%, Annualized ROI = 5.9%.</p>
               <p><strong>Business:</strong> Invest $50,000 in marketing, generate $120,000 in revenue. ROI = 140%.</p>
 
-              <h2>Why Annualized ROI Matters</h2>
+              <h2 className="text-2xl font-bold mb-3">Why Annualized ROI Matters</h2>
               <p>Simple ROI doesn't account for time. A 50% return over 1 year is much better than 50% over 10 years. Annualized ROI normalizes returns to a per-year rate, enabling fair comparisons. For example:</p>
               <ul>
                 <li>Investment A: 100% ROI over 5 years = 14.9% annualized</li>
@@ -111,7 +111,7 @@ const ROICalculator = () => {
                 <li>Investment B is actually the better performer despite lower total ROI</li>
               </ul>
 
-              <h2>Limitations of ROI</h2>
+              <h2 className="text-2xl font-bold mb-3">Limitations of ROI</h2>
               <ul>
                 <li>Doesn't account for risk — a 20% return in bonds vs. crypto means very different things</li>
                 <li>Ignores cash flow timing — when you receive returns matters</li>

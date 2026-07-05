@@ -157,7 +157,7 @@ const StudyTimeCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Planning for Academic Success</h2>
+              <h2 className="text-2xl font-bold mb-3">Planning for Academic Success</h2>
               <p>Success in college is as much about time management as it is about intelligence. Most students underestimate the amount of time required to master complex subjects, leading to stress and lower grades.</p>
               
               <h3>The Carnegie Credit System</h3>

@@ -195,20 +195,20 @@ const PriceToBookCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Price to Book Ratio Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Price to Book Ratio Calculator?</h2>
             <p>A price-to-book (P/B) ratio calculator compares a company's current stock price to its book value per share — the net accounting value of its assets after subtracting all liabilities. Pre-filled with a $50 stock price, $1,000,000 in total assets, $400,000 in liabilities, and 20,000 shares outstanding, the book value per share is $30.00 and the P/B ratio is 1.67x — a fair valuation for most established businesses.</p>
-            <h2>The P/B Ratio Formula</h2>
+            <h2 className="text-2xl font-bold mb-3">The P/B Ratio Formula</h2>
             <p><strong>P/B Ratio = Stock Price / Book Value Per Share</strong></p>
             <p>Where: Book Value Per Share (BVPS) = (Total Assets − Total Liabilities) / Shares Outstanding. For our defaults: BVPS = ($1,000,000 − $400,000) / 20,000 = $30.00. P/B = $50.00 / $30.00 = 1.67x.</p>
-            <h2>Tangible Book Value (PTBV)</h2>
+            <h2 className="text-2xl font-bold mb-3">Tangible Book Value (PTBV)</h2>
             <p>The Price-to-Tangible Book Value (PTBV) ratio is a more conservative variant that strips out intangible assets like goodwill, patents, and trademarks: Tangible BVPS = (Total Assets − Total Liabilities − Goodwill &amp; Intangibles) / Shares Outstanding. PTBV is particularly important when analyzing financial institutions or evaluating acquisition targets at potential liquidation value.</p>
-            <h2>Industry Benchmarks</h2>
+            <h2 className="text-2xl font-bold mb-3">Industry Benchmarks</h2>
             <p>P/B benchmarks vary by industry. Banking and financial services: 0.5–2.0x (asset-heavy, regulated). Manufacturing and industrial: 1.5–4.0x. Consumer goods / retail: 2.0–8.0x. Technology and software: 5.0–30.0x (most value is human capital and IP, not reflected on the balance sheet). Real estate (REITs): 0.8–2.5x (asset-heavy but with appreciation above historical cost).</p>
-            <h2>When P/B Below 1.0 Is a Warning Sign</h2>
+            <h2 className="text-2xl font-bold mb-3">When P/B Below 1.0 Is a Warning Sign</h2>
             <p>A P/B below 1.0 can mean: (1) the market believes the company's assets are overstated or declining in value, (2) the company is facing operational difficulties, (3) the assets require significant capital to maintain (impairment risk), or (4) it's a genuine deep value opportunity. Benjamin Graham's classic value investing framework often targeted companies trading below tangible book value as margin-of-safety investments.</p>
-            <h2>Limitations of the P/B Ratio</h2>
+            <h2 className="text-2xl font-bold mb-3">Limitations of the P/B Ratio</h2>
             <p>Book value is an accounting construct based on historical cost, not fair market value. Assets like real estate, inventory, and equipment are often worth more (or less) than their balance sheet values. The P/B ratio is essentially meaningless for software companies, consulting firms, or pharmaceutical companies where human capital, patents, and brand equity — not recorded on the balance sheet — represent the majority of value. Always use P/B in conjunction with P/E, EV/EBITDA, and ROE analysis.</p>
-            <h2>P/B and Return on Equity Connection</h2>
+            <h2 className="text-2xl font-bold mb-3">P/B and Return on Equity Connection</h2>
             <p>The P/B ratio has a fundamental relationship with ROE: P/B = (ROE × Retention Ratio) / (Cost of Equity − Sustainable Growth Rate). Companies with high ROEs typically deserve higher P/B multiples because they generate more value per dollar of book assets. Conversely, companies with ROE below their cost of equity may deserve to trade at a discount to book value — the market anticipates value destruction.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/price-to-book-calculator" />

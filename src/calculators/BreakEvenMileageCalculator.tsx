@@ -311,18 +311,18 @@ export default function BreakEvenMileageCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Mathematics of Efficiency</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of Efficiency</h2>
             <p>Automakers heavily heavily market Hybrid and Electric Vehicles (EVs) based on fuel savings. A salesman will excitedly tell you that upgrading to the Hybrid trim level will jump your fuel economy from 30 MPG to an astonishing 50 MPG. What they rarely mention is the upfront math. The Hybrid engine upgrade usually carries a massive <strong>Price Premium</strong> (often $2,000 to $4,000) that gets rolled into your loan.</p>
             <p>This creates a race between two numbers: The extra money you paid at the dealership vs the money you are saving at the gas pump each week.</p>
 
-            <h2>The Concept of the Break-Even Point</h2>
+            <h2 className="text-2xl font-bold mb-3">The Concept of the Break-Even Point</h2>
             <p>The Break-Even Point is the exact moment in time when the total fuel savings finally equals the Price Premium. Until you reach this point, you have not saved a single dime; you are simply earning back the extra money you already spent. Once you cross the break-even threshold, every dollar saved at the pump is true profit.</p>
 
-            <h2>The "Low Mileage" Trap</h2>
+            <h2 className="text-2xl font-bold mb-3">The "Low Mileage" Trap</h2>
             <p>Many drivers make the mistake of buying expensive Hybrid or Diesel vehicles when they only commute a few miles to work. If you only drive 8,000 miles a year, you are not burning much fuel in the first place. Therefore, jumping from 30 MPG to 50 MPG might only save you $200 a year. If you paid a $3,000 Price Premium for the Hybrid, it will take you <strong>15 years</strong> to break even. Most people sell their cars long before 15 years, meaning the Hybrid upgrade was a complete financial loss.</p>
             <p>Hybrids and EVs are mathematically advantageous for high-mileage drivers (Uber drivers, long commuters, traveling salesmen). The more miles you drive per year, the faster you erase the upfront Price Premium.</p>
 
-            <h2>The Volatility of Fuel Prices</h2>
+            <h2 className="text-2xl font-bold mb-3">The Volatility of Fuel Prices</h2>
             <p>The break-even timeline is at the complete mercy of global oil prices. When gas spikes to $5.00 a gallon, the mathematical advantage of a 50 MPG Hybrid becomes massive, shortening the break-even time to just a few years. When gas drops down to $2.50 a gallon, the financial penalty of driving a standard 30 MPG gas car is so low that the Hybrid premium becomes nearly impossible to justify mathematically.</p>
           </article>
           

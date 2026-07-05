@@ -231,16 +231,16 @@ export default function IbwCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Medical Definition of "Ideal" Body Weight</h2>
+            <h2 className="text-2xl font-bold mb-3">The Medical Definition of "Ideal" Body Weight</h2>
             <p>The term "Ideal Body Weight" (IBW) is one of the most widely misunderstood terms in medicine. In the clinical world, "ideal" does not refer to aesthetics, visual attractiveness, or personal health goals. Instead, it is a strictly mathematical construct utilized by anesthesiologists, clinical pharmacists, and nephrologists to safely dose medications.</p>
             <p>This <strong>Ideal Body Weight Calculator</strong> computes the four globally recognized IBW formulas. Because different organ systems metabolize drugs differently, using a patient's actual total body weight can sometimes result in massive overdoses, particularly in obese patients. IBW strips away excess adipose (fat) tissue mathematically, providing doctors with an estimate of the patient's lean metabolic mass.</p>
 
-            <h2>Why Pharmacies Use IBW for Drug Dosing</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Pharmacies Use IBW for Drug Dosing</h2>
             <p>When a patient receives an intravenous (IV) drug, that drug must distribute itself throughout the body. Drugs are generally classified as either hydrophilic (water-soluble) or lipophilic (fat-soluble).</p>
             <p>Hydrophilic drugs (like aminoglycoside antibiotics or certain muscle relaxants used in surgery) do not enter fat tissue; they stay entirely in the blood and lean tissue. If a patient is obese and weighs 300 lbs, but their lean mass is only 150 lbs, administering a water-soluble drug based on their total 300 lb weight will result in a dangerous overdose. All of the drug will pool in the blood instead of distributing into the fat.</p>
             <p>To prevent toxicity and organ damage, pharmacists calculate the patient's Ideal Body Weight and dose the medication exclusively based on that lower, leaner number.</p>
 
-            <h2>The Four Core IBW Formulas</h2>
+            <h2 className="text-2xl font-bold mb-3">The Four Core IBW Formulas</h2>
             <p>Because humans vary wildly in bone density and muscle mass, no single formula is perfect. Over the decades, four distinct formulas have emerged in the medical literature:</p>
 
             <h3>1. The Devine Formula (1974)</h3>
@@ -255,7 +255,7 @@ export default function IbwCalculator() {
             <h3>4. The Hamwi Formula (1964)</h3>
             <p>Originally published by Dr. G.J. Hamwi, this formula was actually created as a rough guideline to help doctors estimate weight goals for diabetic patients. Because it is so simple to memorize, many dietitians still use it as a mental shortcut.</p>
 
-            <h2>Limitations of the IBW Calculations</h2>
+            <h2 className="text-2xl font-bold mb-3">Limitations of the IBW Calculations</h2>
             <p>While critical for pharmacology, IBW formulas are incredibly flawed for general health assessments. They were developed decades ago when the average population was significantly lighter. </p>
             <p>Furthermore, these formulas exclusively factor in <strong>height</strong>. They do not account for frame size, bone density, or muscle mass. An elite NFL linebacker who is 6'2" might weigh 245 lbs of pure muscle with 10% body fat, but the Devine formula will tell him his "Ideal Body Weight" is 177 lbs. For this reason, athletes should entirely ignore IBW formulas for fitness planning and instead rely on Body Fat Percentage or Fat-Free Mass Index (FFMI) calculations.</p>
           </article>

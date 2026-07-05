@@ -352,18 +352,18 @@ export default function NetCarbsCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Net Carbs Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Net Carbs Calculator</h2>
             <p>If you have ever attempted a Ketogenic diet, a strict low-carb diet, or simply tried to manage your blood sugar levels for medical reasons, you have likely run into the massive, confusing wall of modern food labeling. You pick up a "Keto-Friendly" protein bar at the grocery store, flip it over, and see that it contains 25 grams of Total Carbohydrates. How is a 25g carb bar allowed on a diet that strictly limits you to 30g of carbs a day? The answer lies in the physiological difference between <strong>Total Carbs</strong> and <strong>Net Carbs</strong>. The <strong>Net Carbs Calculator</strong> is an essential tool designed to deconstruct nutrition labels, stripping away the indigestible matter to reveal the true, blood-sugar-spiking carbohydrate load of your food.</p>
 
-            <h2>The Physiology of Digestion: Why "Total Carbs" is Misleading</h2>
+            <h2 className="text-2xl font-bold mb-3">The Physiology of Digestion: Why "Total Carbs" is Misleading</h2>
             <p>By FDA regulations, food manufacturers must list the "Total Carbohydrates" on their nutrition labels. This number represents every single carbohydrate molecule present in the food, regardless of whether the human body can actually process it. However, the human digestive system is not a simple incinerator; it is a complex chemical processing plant that lacks the enzymes to break down certain types of carbohydrates.</p>
             <p>When you consume a carbohydrate that your body <em>can</em> break down (like a potato or a piece of candy), it is converted into glucose in the small intestine, absorbed into the bloodstream, and causes your pancreas to release insulin. This process provides caloric energy and instantly halts ketosis (fat burning). However, if you consume a carbohydrate that your body <em>cannot</em> break down, it simply passes through your system untouched, providing zero calories and causing zero insulin response. Because of this biological reality, strict dieters ignore "Total Carbs" and only count "Net Carbs"—the carbs that actually matter.</p>
 
-            <h2>The Role of Dietary Fiber</h2>
+            <h2 className="text-2xl font-bold mb-3">The Role of Dietary Fiber</h2>
             <p>The single most important component to subtract from your Total Carbs is <strong>Dietary Fiber</strong>. Fiber is a structural carbohydrate found in plants (vegetables, nuts, seeds, and whole grains). Because humans do not possess the necessary digestive enzymes to break the chemical bonds in fiber, it cannot be converted into glucose.</p>
             <p>Instead, fiber travels through the stomach and small intestine entirely intact. When it reaches the large intestine (colon), it is either fermented by gut bacteria (soluble fiber) or passed as waste to aid in digestion (insoluble fiber). Because fiber never enters the bloodstream as glucose, it does not spike blood sugar. Therefore, if an avocado contains 12 grams of Total Carbs, but 10 of those grams are Dietary Fiber, the avocado only contains 2 grams of Net Carbs. You mathematically subtract 100% of the fiber grams from the total.</p>
 
-            <h2>The Sugar Alcohol Deception</h2>
+            <h2 className="text-2xl font-bold mb-3">The Sugar Alcohol Deception</h2>
             <p>Subtracting fiber is easy and universally accepted. The real danger of Net Carb math lies in <strong>Sugar Alcohols</strong> (polyols). Food manufacturers love sugar alcohols because they taste sweet like sugar, but have a fraction of the calories. They use them to mass-produce "sugar-free" candies, Keto cookies, and low-carb ice creams. However, unlike fiber, not all sugar alcohols are created equal. Many are partially digested and absolutely will spike your blood sugar.</p>
 
             <h3>The Safe List: Subtract 100%</h3>
@@ -378,10 +378,10 @@ export default function NetCarbsCalculator() {
             <p>Unfortunately, many manufacturers use cheaper, older sugar alcohols to cut costs. These alcohols are partially digested by the body, providing caloric energy and triggering an insulin response. The worst offender is <strong>Maltitol</strong>. Maltitol has a glycemic index of 35 (regular table sugar is 65). It acts very much like a real carbohydrate in the body.</p>
             <p>If a protein bar claims "2g Net Carbs" because it subtracted 15g of Maltitol, that label is lying to you biologically. In reality, about half of that Maltitol is digested. Therefore, our calculator forces you to identify the sweetener type. If you select Maltitol, the algorithm only allows you to subtract 50% of the sugar alcohol grams, exposing the true "hidden" Net Carbs that will wreck your diet.</p>
 
-            <h2>The FDA Labeling Trap</h2>
+            <h2 className="text-2xl font-bold mb-3">The FDA Labeling Trap</h2>
             <p>It is important to note that the FDA does not legally recognize the term "Net Carbs." You will never see "Net Carbs" listed as an official bolded line item on a Nutrition Facts panel alongside Fat and Protein. It is a completely unregulated marketing term. Food companies are allowed to plaster "Only 3g Net Carbs!" on the front of their packaging in giant letters, while using their own highly questionable math to arrive at that number. You cannot trust the front of the box. You must always flip the package over, read the actual Total Carbs, Fiber, and specific Sugar Alcohols, and run the math yourself using a reliable Net Carbs Calculator.</p>
 
-            <h2>Conclusion: Empowering Your Diet</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Empowering Your Diet</h2>
             <p>Navigating the grocery aisles while on a strict low-carb or Ketogenic diet can feel like walking through a minefield of deceptive marketing. By understanding the biological mechanics of digestion—knowing that fiber is free, erythritol is safe, and maltitol is dangerous—you take the power back from the food manufacturers. Use the Net Carbs Calculator to deconstruct every label before you buy it. This ensures your blood sugar remains flat, your insulin remains low, and your body remains locked in a state of fat-burning ketosis.</p>
           </article>
           

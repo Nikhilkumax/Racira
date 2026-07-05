@@ -228,10 +228,10 @@ const RoundingCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Importance of Rounding</h2>
+            <h2 className="text-2xl font-bold mb-3">The Importance of Rounding</h2>
             <p><strong>Rounding</strong> is a mathematical technique used to reduce the number of digits in a figure while keeping its value relatively similar to the original. This is done to make numbers simpler, more readable, and easier to use in mental calculations, particularly when extreme precision is unnecessary. For instance, stating that a distance is "about 15 miles" is usually more helpful than stating it is "14.8392 miles."</p>
 
-            <h2>Understanding Rounding Modes</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Rounding Modes</h2>
             <p>Our calculator supports several distinct rounding modes, as different disciplines require different mathematical logic:</p>
             <ul>
               <li><strong>Standard (Nearest, Half-Up):</strong> This is the method taught in most primary schools. You look at the digit to the right of your target precision. If it is 5 or higher, you round up. If it is 4 or lower, you round down. Example: 2.5 rounds to 3.</li>
@@ -240,7 +240,7 @@ const RoundingCalculator = () => {
               <li><strong>Floor (Round Down):</strong> The opposite of Ceiling; the number is always forced downward. Example: 2.9 rounds to 2.</li>
             </ul>
 
-            <h2>Precision Levels Explained</h2>
+            <h2 className="text-2xl font-bold mb-3">Precision Levels Explained</h2>
             <p>You can round to decimal places (tenths, hundredths, thousandths) or to whole numbers (tens, hundreds, thousands). Here is a quick reference for decimal precision:</p>
             <ul>
               <li><strong>Tenths (0.1):</strong> One digit after the decimal point. Often used for measuring weight or distance.</li>

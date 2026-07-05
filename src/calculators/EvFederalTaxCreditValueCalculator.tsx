@@ -229,13 +229,13 @@ const EvFederalTaxCreditValueCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is the EV Federal Tax Credit Value Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is the EV Federal Tax Credit Value Calculator?</h2>
             <p>This calculator determines the exact dollar value of the federal EV tax credit you qualify for, based on your vehicle's MSRP, class, condition, your household income, filing status, and federal tax liability. It applies the Inflation Reduction Act rules to check eligibility and caps the credit based on your ability to use it.</p>
 
-            <h2>How It Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
             <p>Enter the vehicle details and your financial situation. The calculator checks MSRP against the class-specific cap ($55K sedan, $80K SUV/truck/van for new; $25K for used), income against filing-status caps, and for new vehicles, limits the credit to your federal tax liability. The result shows the actual credit value and the maximum possible.</p>
 
-            <h2>Understanding the Credit Structure</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Credit Structure</h2>
             <ul>
               <li><strong>New vehicles:</strong> Up to $7,500 — split into $3,750 for N. America assembly + $3,750 for critical minerals sourcing.</li>
               <li><strong>Used vehicles:</strong> 30% of sale price up to $4,000 — refundable (you receive the full amount even with no tax liability).</li>
@@ -243,7 +243,7 @@ const EvFederalTaxCreditValueCalculator = () => {
               <li><strong>Point-of-sale transfer (2024+):</strong> Eliminates the tax-liability limit by transferring credit to dealer instantly.</li>
             </ul>
 
-            <h2>Eligibility Requirements</h2>
+            <h2 className="text-2xl font-bold mb-3">Eligibility Requirements</h2>
             <ul>
               <li><strong>MSRP caps:</strong> $55K sedans, $80K SUVs/pickups/vans (new); $25K (used).</li>
               <li><strong>Income caps (new):</strong> $300K joint, $225K head of household, $150K single.</li>
@@ -253,10 +253,10 @@ const EvFederalTaxCreditValueCalculator = () => {
               <li><strong>IRS list:</strong> Only vehicles on the Qualified Manufacturer list qualify.</li>
             </ul>
 
-            <h2>How Tax Liability Affects Your Credit</h2>
+            <h2 className="text-2xl font-bold mb-3">How Tax Liability Affects Your Credit</h2>
             <p>For new vehicles, the federal EV credit is non-refundable — it can only reduce your tax bill to zero. If your federal tax liability is $4,000 and the credit is $7,500, you benefit by $4,000, not $7,500. To capture the full amount, use the point-of-sale dealer transfer option (available 2024+) which converts the credit to an instant purchase discount.</p>
 
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <ul>
               <li><strong>Eligible SUV, $47K MSRP, $120K joint income, $8,500 tax liability:</strong> Full $7,500 credit, all usable. Effective net price: $39,500.</li>
               <li><strong>Eligible sedan, $50K MSRP, $200K single income:</strong> Ineligible — income exceeds $150K single cap.</li>
@@ -264,7 +264,7 @@ const EvFederalTaxCreditValueCalculator = () => {
               <li><strong>Used EV, $22K sale price, $80K joint income:</strong> $4,000 credit (30% of $22K capped at $4K), refundable.</li>
             </ul>
 
-            <h2>How to Claim the Credit</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Claim the Credit</h2>
             <ul>
               <li><strong>Point-of-sale transfer (recommended):</strong> Dealer applies $7,500 discount instantly at purchase. No tax filing required.</li>
               <li><strong>Tax return claim:</strong> File Form 8936 with your federal return. Receive credit as tax reduction the following year.</li>
@@ -272,7 +272,7 @@ const EvFederalTaxCreditValueCalculator = () => {
               <li><strong>Income verification:</strong> Use the lower of current-year or prior-year modified AGI.</li>
             </ul>
 
-            <h2>Benefits of Using This Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Benefits of Using This Calculator</h2>
             <p>This tool gives you the exact dollar value of the federal EV credit for your specific situation — not just a generic $7,500. By checking MSRP, income, and tax liability, it tells you whether you qualify, how much you'll actually benefit, and whether you should use point-of-sale transfer or tax-return filing.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/ev-federal-tax-credit-value-calculator" />

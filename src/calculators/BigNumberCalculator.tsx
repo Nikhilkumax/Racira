@@ -203,13 +203,13 @@ const BigNumberCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Limit of Normal Calculators</h2>
+            <h2 className="text-2xl font-bold mb-3">The Limit of Normal Calculators</h2>
             <p>If you have ever typed a massive equation into a standard pocket calculator or your phone app, you've likely seen the screen output an error or revert to E-notation (like <code>4.5e12</code>). This happens because standard computational hardware allocates a fixed amount of memory (typically 64 bits) to store a number. Once a number exceeds roughly 15 digits (specifically 9,007,199,254,740,991 in JavaScript), the computer can no longer guarantee the precision of the integers at the end of the number. It will start rounding them off to zeroes to save memory.</p>
             
-            <h2>How the Big Number Calculator Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How the Big Number Calculator Works</h2>
             <p>Our <strong>Big Number Calculator</strong> bypasses these hardware limitations by using arbitrary-precision arithmetic (specifically the modern BigInt data type). Instead of storing the number in a fixed-size hardware register, it stores the number dynamically in the system's RAM, stringing together memory blocks as the number grows. This allows the calculator to maintain absolute, perfect precision down to the final digit, even if the result is thousands of digits long.</p>
 
-            <h2>Supported Operations</h2>
+            <h2 className="text-2xl font-bold mb-3">Supported Operations</h2>
             <ul>
               <li><strong>Addition (+) and Subtraction (-):</strong> Add or subtract numbers of any length with perfect precision.</li>
               <li><strong>Multiplication (×):</strong> Rapidly multiply massive matrices of integers.</li>
@@ -218,7 +218,7 @@ const BigNumberCalculator = () => {
               <li><strong>Exponentiation (^):</strong> Raises A to the power of B. <em>Note: To protect your browser from freezing due to lack of RAM, we restrict the exponent B to a maximum of 100,000.</em></li>
             </ul>
 
-            <h2>Use Cases for Arbitrary-Precision Math</h2>
+            <h2 className="text-2xl font-bold mb-3">Use Cases for Arbitrary-Precision Math</h2>
             <p>While the average person rarely needs to calculate beyond trillions (12 digits), big number math is the backbone of modern cybersecurity. The encryption protecting your bank accounts, emails, and internet traffic (like RSA encryption) relies on generating and factoring prime numbers that are hundreds of digits long. Cryptographers use arbitrary-precision calculators constantly to verify these massive prime factoring algorithms.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/big-number-calculator" />

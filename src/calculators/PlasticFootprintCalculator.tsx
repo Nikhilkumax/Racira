@@ -125,7 +125,7 @@ const PlasticFootprintCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>The Plastic Problem</h2>
+              <h2 className="text-2xl font-bold mb-3">The Plastic Problem</h2>
               <p>Plastic is a miracle material: it's cheap, durable, and lightweight. However, those same qualities make it a nightmare for the environment. Most single-use plastics are used for just a few minutes but persist in the environment for centuries.</p>
               <h3>Microplastics: The Invisible Threat</h3>
               <p>As plastic items break down, they don't disappear; they simply become smaller. These "microplastics" have been found in the deepest parts of the ocean, in the air we breathe, and even in the human bloodstream. Reducing our use of macro-plastics (like bottles and bags) is the only way to stop the inflow of microplastics into our ecosystems.</p>

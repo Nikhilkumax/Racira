@@ -179,23 +179,23 @@ const OhmsLawCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is Ohm&apos;s Law?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is Ohm&apos;s Law?</h2>
             <p>Ohm&apos;s Law is the fundamental relationship in electrical circuit analysis: the voltage across a conductor equals the current flowing through it multiplied by its resistance (V = I × R). Published by German physicist Georg Simon Ohm in 1827, this simple equation underpins all of electrical engineering and electronics. This calculator solves for any one of the three variables — voltage, current, or resistance — given the other two, and also computes power using the three equivalent power formulas.</p>
             <p>Pre-filled with 12V and 4Ω (a common 12V automotive circuit), the calculator immediately shows that 3 amperes of current flow and 36 watts of power are consumed — typical for a small automotive accessory.</p>
-            <h2>Ohm&apos;s Law Formula and Variations</h2>
+            <h2 className="text-2xl font-bold mb-3">Ohm&apos;s Law Formula and Variations</h2>
             <p><strong>V = I × R</strong> (Voltage = Current × Resistance)</p>
             <p><strong>I = V / R</strong> (Current = Voltage ÷ Resistance)</p>
             <p><strong>R = V / I</strong> (Resistance = Voltage ÷ Current)</p>
             <p>Power equations: <strong>P = V × I = I² × R = V² / R</strong>. All three power forms are mathematically identical — use whichever two quantities you know.</p>
-            <h2>The Ohm&apos;s Law Triangle</h2>
+            <h2 className="text-2xl font-bold mb-3">The Ohm&apos;s Law Triangle</h2>
             <p>A memory aid: draw a triangle with V at the top, I at bottom-left, R at bottom-right. Cover the quantity you want to find: covering V reveals I × R. Covering I reveals V/R. Covering R reveals V/I. This triangle works the same way for the power triangle: P at top, I at bottom-left, V at bottom-right.</p>
-            <h2>Series and Parallel Circuits</h2>
+            <h2 className="text-2xl font-bold mb-3">Series and Parallel Circuits</h2>
             <p><strong>Series:</strong> Resistors in series add directly: R_total = R1 + R2 + R3. Current is the same through all components; voltage divides proportionally. <strong>Parallel:</strong> 1/R_total = 1/R1 + 1/R2 + 1/R3. Voltage is the same across all branches; current divides inversely with resistance. For two resistors in parallel: R_total = (R1 × R2)/(R1 + R2) — the product-over-sum shortcut.</p>
-            <h2>Practical Applications</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Applications</h2>
             <p><strong>LED circuits:</strong> An LED needs 2V forward voltage and 20mA current from a 5V supply. Required series resistor: R = (5 − 2) / 0.02 = 150Ω. Power dissipated in resistor: P = 0.02² × 150 = 0.06W — safely within a ¼W resistor rating. <strong>Fuse sizing:</strong> A 120V appliance drawing 1,200W needs a current of I = P/V = 10A — use a 15A fuse for safety margin. <strong>Battery drain:</strong> A 12V car battery powering a 60W load: I = 60/12 = 5A. If the battery is 60Ah, it lasts 60/5 = 12 hours.</p>
-            <h2>Limitations of Ohm&apos;s Law</h2>
+            <h2 className="text-2xl font-bold mb-3">Limitations of Ohm&apos;s Law</h2>
             <p>Ohm&apos;s Law applies only to ohmic (linear) conductors where resistance is constant regardless of applied voltage. Non-ohmic devices include diodes (exponential V-I curve), transistors, thermistors (resistance changes with temperature), and incandescent bulb filaments (resistance increases when hot). For AC circuits, resistance is replaced by impedance Z = √(R² + X²), where X is reactance from capacitors or inductors. Use the <a href="/calculator/impedance-calculator">impedance calculator</a> for AC analysis.</p>
-            <h2>Tips for Using This Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips for Using This Calculator</h2>
             <p>Select "Solve For" to choose which variable to calculate. The two known values auto-populate the visible input fields. The calculator verifies Ohm&apos;s Law in the breakdown table (V = I × R should equal your entered voltage). The pie chart shows all four quantities for quick visual comparison. Pair with the <a href="/calculator/power-calculator">power calculator</a> for complete electrical circuit analysis.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/ohms-law-calculator" />

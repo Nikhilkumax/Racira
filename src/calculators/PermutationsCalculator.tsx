@@ -136,23 +136,23 @@ const PermutationsCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Permutations Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Permutations Calculator?</h2>
             <p>A permutations calculator computes P(n, r) — the number of ordered arrangements of r items chosen from n distinct items. Unlike combinations (where order doesn't matter), permutations count each different ordering as a separate outcome. This calculator shows both the permutation count and the corresponding combination count, plus a bar chart showing how permutations grow as r increases from 0 to the entered value.</p>
             <p>Pre-filled with P(10, 3) = 720, the calculator shows that there are 720 different ways to arrange 3 items chosen from 10 when the order matters — for example, awarding gold, silver, and bronze medals to 3 of 10 athletes.</p>
-            <h2>The Permutations Formula</h2>
+            <h2 className="text-2xl font-bold mb-3">The Permutations Formula</h2>
             <p><strong>P(n, r) = n! / (n − r)!</strong></p>
             <p>For P(10, 3): P = 10! / 7! = (10 × 9 × 8 × 7!) / 7! = 10 × 9 × 8 = 720. Notice you can cancel the (n−r)! factorial and just multiply n × (n−1) × (n−2) × … for r terms. This shortcut avoids computing large factorials.</p>
-            <h2>Permutations vs Combinations</h2>
+            <h2 className="text-2xl font-bold mb-3">Permutations vs Combinations</h2>
             <p>The key relationship: P(n, r) = C(n, r) × r!. For every unordered combination of r items, there are r! ways to arrange them. So permutations always exceed combinations (when r &gt; 1). P(10,3) = 720 while C(10,3) = 120. The ratio 720/120 = 6 = 3! = the number of orderings of 3 items.</p>
             <p><strong>Use permutations when order matters:</strong> Race placements (1st ≠ 2nd), PIN combinations (1234 ≠ 4321), phone number arrangements, seating arrangements, scheduling ordered lists.</p>
             <p><strong>Use combinations when order doesn't matter:</strong> Choosing committee members, card hands, lottery picks, pizza topping selections.</p>
-            <h2>Counting with Repetition</h2>
+            <h2 className="text-2xl font-bold mb-3">Counting with Repetition</h2>
             <p>Standard permutations assume no repetition — each item can only appear once. If repetition is allowed (like a 4-digit PIN where digits can repeat), the count is simply n^r. For a 4-digit PIN from digits 0–9: 10⁴ = 10,000 possible codes. The permutations formula P(10,4) = 5,040 gives only the count where each digit appears at most once.</p>
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <p><strong>Olympics medals:</strong> 8 swimmers compete; how many ways can gold/silver/bronze be awarded? P(8,3) = 8!/5! = 336 possible podium results.</p>
             <p><strong>Seating arrangement:</strong> 6 people seated in a row: P(6,6) = 6! = 720 arrangements. At a round table (circular permutations): (6−1)! = 120, since rotations of the same arrangement are identical.</p>
             <p><strong>Password strength:</strong> An 8-character password from 26 lowercase letters without repetition: P(26,8) = 26!/(26-8)! = 62,990,928,000 — about 63 billion combinations. Pair with the <a href="/calculator/combinations-calculator">combinations calculator</a> for complete counting analysis.</p>
-            <h2>Tips for Using This Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips for Using This Calculator</h2>
             <p>Enter n and r as non-negative integers with r ≤ n. Maximum n = 20 due to integer overflow. The growth chart shows how rapidly permutations increase as r grows — a powerful visual for understanding combinatorial explosion. For larger values, use Stirling's approximation or logarithms to estimate factorial-based formulas.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/permutations-calculator" />

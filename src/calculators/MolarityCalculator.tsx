@@ -207,7 +207,7 @@ const MolarityCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding Molarity and Solution Chemistry</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Molarity and Solution Chemistry</h2>
             <p>Molarity is the most widely used measure of concentration in chemistry. It tells you how many moles of a dissolved substance (solute) are present in exactly one liter of solution.</p>
             <h3>The Molarity Formula</h3>
             <p>Molarity (M) = moles of solute / liters of solution. If you know the mass and molar mass of the solute, you can first convert: moles = mass (g) / molar mass (g/mol).</p>

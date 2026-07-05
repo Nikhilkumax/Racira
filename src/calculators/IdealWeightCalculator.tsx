@@ -127,10 +127,10 @@ const IdealWeightCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>What Is Ideal Body Weight?</h2>
+              <h2 className="text-2xl font-bold mb-3">What Is Ideal Body Weight?</h2>
               <p>Ideal body weight (IBW) is a clinical estimate of the weight at which a person of a given height is likely to be healthiest. It was originally developed for drug dosing calculations but is now widely used as a general health reference. This calculator uses four of the most established formulas in medicine.</p>
 
-              <h2>The Four Formulas</h2>
+              <h2 className="text-2xl font-bold mb-3">The Four Formulas</h2>
 
               <h3>Devine Formula (1974)</h3>
               <p><strong>Men:</strong> IBW = 50 + 2.3 × (height in inches − 60)</p>
@@ -149,7 +149,7 @@ const IdealWeightCalculator = () => {
               <p><strong>Men:</strong> IBW = 48 + 2.7 × (height in inches − 60)</p>
               <p><strong>Women:</strong> IBW = 45.5 + 2.2 × (height in inches − 60)</p>
 
-              <h2>Limitations of Ideal Weight Formulas</h2>
+              <h2 className="text-2xl font-bold mb-3">Limitations of Ideal Weight Formulas</h2>
               <ul>
                 <li>All formulas were developed using primarily Caucasian populations</li>
                 <li>They don't account for body frame size, muscle mass, or age</li>
@@ -157,7 +157,7 @@ const IdealWeightCalculator = () => {
                 <li>The BMI-based healthy weight range (18.5-24.9 kg/m²) provides an alternative reference</li>
               </ul>
 
-              <h2>Beyond Ideal Weight</h2>
+              <h2 className="text-2xl font-bold mb-3">Beyond Ideal Weight</h2>
               <p>Rather than fixating on an ideal number, focus on body composition (fat vs. muscle), waist-to-hip ratio, blood pressure, blood sugar, and how you feel. A holistic approach to health is more meaningful than any single metric.</p>
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> Ideal weight estimates are general guidelines based on population averages. They do not account for individual body composition. Consult a healthcare professional for personalized health advice.</p>

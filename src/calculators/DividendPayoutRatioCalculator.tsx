@@ -133,19 +133,19 @@ export default function DividendPayoutRatioCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is the Dividend Payout Ratio?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is the Dividend Payout Ratio?</h2>
             <p>The dividend payout ratio measures what percentage of a company&apos;s net income is distributed to common shareholders as dividends. It is a fundamental metric for income investors, equity analysts, and corporate finance professionals assessing a company&apos;s capital allocation policy, dividend sustainability, and long-term growth prospects. Formula: Payout Ratio = Total Dividends ÷ Net Income.</p>
-            <h2>Payout Ratio vs. Retention Ratio</h2>
+            <h2 className="text-2xl font-bold mb-3">Payout Ratio vs. Retention Ratio</h2>
             <p>These two ratios sum to 100%: Payout Ratio + Retention Ratio = 1.0. Payout ratio = percentage of earnings distributed to shareholders. Retention ratio = percentage of earnings reinvested in the business for growth. High retention is characteristic of growth companies; high payout is characteristic of mature, dividend-focused businesses. Neither is inherently better — the optimal balance depends on available reinvestment opportunities at attractive returns.</p>
-            <h2>Sustainable Growth Rate</h2>
+            <h2 className="text-2xl font-bold mb-3">Sustainable Growth Rate</h2>
             <p><strong>g = ROE × Retention Ratio</strong> (the Gordon Growth Model implication). A company with 25% ROE and 60% retention ratio has an sustainable growth rate of 15%. This is the rate at which earnings, dividends, and book value per share can grow indefinitely without changing the capital structure. Growth above this rate requires external equity or debt financing; growth below it generates excess capital that should be returned to shareholders.</p>
-            <h2>Dividend Sustainability Analysis</h2>
+            <h2 className="text-2xl font-bold mb-3">Dividend Sustainability Analysis</h2>
             <p>A payout ratio below 50% is generally considered safe. 50–75% is moderate risk. Above 80% leaves little margin for earnings variability before dividend cuts become necessary. Above 100% means dividends are not covered by earnings — a red flag unless temporary. Always analyze payout relative to free cash flow (FCF payout ratio = Dividends ÷ Free Cash Flow) rather than just net income, since earnings can include non-cash items.</p>
-            <h2>Sector Patterns</h2>
+            <h2 className="text-2xl font-bold mb-3">Sector Patterns</h2>
             <p>Utilities: 60–80% payout (regulated, stable income). REITs: 90%+ (legally required to distribute 90% of taxable income). Consumer staples: 40–60% (mature businesses with steady cash flows). Technology: 0–25% (reinvestment-focused). Banks: 30–50% (regulated minimum capital requirements constrain payout). Healthcare: 30–50%. Cyclicals (energy, materials): 20–50% with significant variability through cycles.</p>
-            <h2>Dividend Per Share (DPS) and Yield</h2>
+            <h2 className="text-2xl font-bold mb-3">Dividend Per Share (DPS) and Yield</h2>
             <p>DPS = Total Dividends ÷ Shares Outstanding. Dividend Yield = DPS ÷ Stock Price × 100%. Yield provides the income return per dollar invested. A 3% yield on a stock at $50 means $1.50 DPS annually. Investors often compare dividend yield to bond yields — when yields are similar, the dividend&apos;s growth potential makes equities attractive. Beware of high yields caused by falling stock prices (the "yield trap") rather than growing dividends.</p>
-            <h2>Dividend Growth Investing</h2>
+            <h2 className="text-2xl font-bold mb-3">Dividend Growth Investing</h2>
             <p>The "Dividend Aristocrats" are S&amp;P 500 companies that have increased dividends for 25+ consecutive years. These companies demonstrate consistent earnings power, disciplined capital allocation, and long-term business durability. DPS growth tracking (5-year CAGR) is often more important than current yield for long-term investors, as compounding dividend increases create substantial income growth over decades. The payout ratio trend over time reveals whether dividend growth is sustainable.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/dividend-payout-ratio-calculator" />

@@ -192,13 +192,13 @@ export default function CryptoProfitCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>How to Calculate Cryptocurrency Profit</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Calculate Cryptocurrency Profit</h2>
             <p>This <strong>crypto profit calculator</strong> computes your exact gain or loss from a cryptocurrency trade, accounting for exchange fees on both buy and sell sides. The core formula: <strong>Net Profit = (Sell Price × Coins − Sell Fees) − (Buy Price × Coins + Buy Fees)</strong>. The break-even price is the minimum sell price needed to cover your total cost including fees. ROI is calculated as Net Profit ÷ Total Cost Basis × 100%.</p>
-            <h2>The Hidden Cost of Crypto Fees</h2>
+            <h2 className="text-2xl font-bold mb-3">The Hidden Cost of Crypto Fees</h2>
             <p>Exchange fees of 0.5% on both sides might seem small, but on a $10,000 trade, that's $100 in buy fees + $100+ in sell fees = $200+ gone before any profit. On frequent day trades, fees can consume 30–50% of gross profits. Choosing low-fee exchanges (Binance at 0.1%, Kraken Pro at 0.16%) vs. high-fee platforms (Coinbase standard at 1.5%+) makes a dramatic difference in profitability over many trades.</p>
-            <h2>Crypto Tax Implications</h2>
+            <h2 className="text-2xl font-bold mb-3">Crypto Tax Implications</h2>
             <p>In the US, every crypto trade is a taxable event. Short-term gains (held ≤12 months) are taxed as ordinary income (10–37%). Long-term gains (held 12+ months) are taxed at 0%, 15%, or 20%. Cost basis methods (FIFO, HIFO, specific ID) determine which coins you're "selling" and can minimize tax liability. Keep detailed records of every trade including date, amount, USD value, and fees for accurate tax reporting.</p>
-            <h2>DCA vs. Lump Sum in Crypto</h2>
+            <h2 className="text-2xl font-bold mb-3">DCA vs. Lump Sum in Crypto</h2>
             <p>Dollar-cost averaging (DCA) — investing fixed amounts at regular intervals — reduces volatility risk and removes the emotional burden of timing. Studies show DCA typically underperforms lump sum investing when markets trend upward (lump sum captures the full bull run), but significantly outperforms during bear markets and high-volatility periods common in crypto. Related tools: <a href="/calculator/bitcoin-mining-calculator">Bitcoin Mining Calculator</a>, <a href="/calculator/staking-rewards-calculator">Staking Rewards Calculator</a>.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/crypto-profit-calculator" />

@@ -138,18 +138,18 @@ export default function LengthConverter() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Complete Guide to Length Unit Conversion</h2>
+            <h2 className="text-2xl font-bold mb-3">Complete Guide to Length Unit Conversion</h2>
             <p>Length conversion is one of the most common mathematical operations in everyday life, science, engineering, and international commerce. Whether converting room dimensions from feet to meters for a renovation project, calculating a running route in kilometers versus miles, or working with microscopic measurements in engineering, understanding length units and converting between them is an essential skill.</p>
             <p>The world uses two primary measurement systems: the International System of Units (SI — the metric system) and the Imperial/US Customary system. While most countries use metric exclusively, the United States continues to use Imperial for everyday measurements, creating a constant need for conversion in international contexts.</p>
-            <h2>The Metric System</h2>
+            <h2 className="text-2xl font-bold mb-3">The Metric System</h2>
             <p>The metric system is built on the meter as a base unit, with prefixes denoting powers of ten. Millimeter (mm = 0.001 m) is used for small engineering and machining measurements. Centimeter (cm = 0.01 m) is standard for clothing, human body measurements, and interior design. The meter (m) is the base unit for room sizes, fabric lengths, and athletic distances. The kilometer (km = 1,000 m) measures road distances, geographic separations, and flight paths.</p>
             <p>The meter was originally defined as one ten-millionth of the distance from the North Pole to the equator along the Paris meridian. Today it is defined as the distance light travels in vacuum in exactly 1/299,792,458 seconds — making it reproducible anywhere with sufficient instrumentation.</p>
-            <h2>The Imperial and US Customary System</h2>
+            <h2 className="text-2xl font-bold mb-3">The Imperial and US Customary System</h2>
             <p>The Imperial system evolved from historical English measurements. The inch traces to the Latin "uncia" (twelfth). The foot (ft = 12 in) was the length of a human foot. The yard (yd = 3 ft) was standardized as the distance from King Henry I's nose to his outstretched thumb. The mile (mi = 5,280 ft) derives from the Roman "mille passuum" — a thousand double-paces.</p>
             <p>The exact conversion 1 inch = 2.54 cm was internationally agreed in 1959 and underpins all metric-imperial conversions with complete mathematical precision.</p>
-            <h2>Nautical Miles in Navigation</h2>
+            <h2 className="text-2xl font-bold mb-3">Nautical Miles in Navigation</h2>
             <p>The nautical mile (nm = 1,852 m) equals one minute of arc of latitude on Earth's surface. This makes it ideal for navigation: distances in nautical miles correspond directly to degrees and minutes of latitude on charts. One degree of latitude equals 60 nautical miles. Speed in nautical miles per hour is called knots — the standard unit in aviation and maritime operations worldwide.</p>
-            <h2>Practical Length Conversion Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Length Conversion Examples</h2>
             <p>Common conversions that arise in daily life: A standard door is 6 feet 8 inches (203.2 cm) tall. A marathon is 42.195 km (26.219 miles). A football field is 100 yards (91.44 m). A sheet of A4 paper is 29.7 cm × 21 cm (11.69 in × 8.27 in). A credit card is 85.6 mm × 54 mm (3.37 in × 2.13 in). The average human walking step is about 0.762 m (2.5 ft). Understanding these reference points helps build intuition for length conversions in everyday contexts.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/length-converter" />

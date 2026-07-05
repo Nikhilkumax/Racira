@@ -215,29 +215,29 @@ export default function CaloriesBurnedWalking() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Hidden Power of Walking for Sustainable Fat Loss</h2>
+            <h2 className="text-2xl font-bold mb-3">The Hidden Power of Walking for Sustainable Fat Loss</h2>
             <p>In the fitness industry, walking is often dismissed in favor of high-intensity interval training (HIIT), heavy weightlifting, or grueling marathons. However, from a physiological perspective, walking is one of the absolute most powerful tools for sustainable fat loss. Why? Because it allows you to burn a significant amount of calories with an exceptionally low impact on your joints and virtually zero stress on your Central Nervous System (CNS).</p>
             <p>This <strong>Calories Burned Walking Calculator</strong> bypasses generic estimates and utilizes clinical MET (Metabolic Equivalent of Task) formulas to precisely calculate your exact energy expenditure. By factoring in your body weight, your exact walking speed, the incline grade of your path, and the terrain you are walking on, it provides laboratory-grade data for your nutritional planning.</p>
 
-            <h2>Understanding the "Fat Burning Zone"</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the "Fat Burning Zone"</h2>
             <p>You may have heard the term "fat-burning zone" and wondered if it is a myth. It is rooted in very real biology. When you exercise at a high intensity (like sprinting or heavy weightlifting), your body needs energy instantly. To get that energy, it burns stored carbohydrates (glycogen) because they can be broken down rapidly.</p>
             <p>However, when you exercise at a low intensity (like walking), your body has plenty of time to process energy. Instead of burning precious glycogen, it oxidizes stored body fat to fuel the movement. Therefore, while high-intensity exercise burns more <em>total</em> calories per minute, walking burns a significantly higher <em>percentage</em> of its calories directly from body fat.</p>
 
-            <h2>The "Incline Hack" (LISS Cardio)</h2>
+            <h2 className="text-2xl font-bold mb-3">The "Incline Hack" (LISS Cardio)</h2>
             <p>If you want to burn calories like a runner but absolutely despise running (or suffer from knee pain), there is a simple biomechanical hack: use an incline. This is often referred to as LISS (Low-Intensity Steady State) cardio.</p>
             <p>Walking on a perfectly flat surface relies heavily on forward momentum. You take a step, and momentum carries you forward into the next step. When you add a steep incline (such as setting a treadmill to a 10% or 12% grade, or hiking up a steep hill), you completely remove that momentum.</p>
             <p>Suddenly, every single step forces your quadriceps, hamstrings, and glutes to lift your entire body weight straight up against gravity. Walking on a steep incline can easily double your caloric expenditure per minute, turning a casual 3.0 mph stroll into an intense cardiovascular workout that burns as many calories as jogging—all while keeping your heart rate in the fat-burning zone and protecting your joints from impact trauma.</p>
 
-            <h2>How Body Weight Alters Caloric Burn</h2>
+            <h2 className="text-2xl font-bold mb-3">How Body Weight Alters Caloric Burn</h2>
             <p>The laws of physics dictate that it takes more energy to move a larger mass across a set distance than a smaller mass. Because of this, body weight is the single most important variable in the MET calorie equation.</p>
             <p>If a 140 lb person and a 220 lb person both walk side-by-side at a brisk 3.5 mph pace for one hour, the 220 lb person will burn drastically more calories. Their cardiovascular system has to pump harder, and their leg muscles must generate significantly more force to move the additional 80 lbs. This is why walking is so highly recommended for obese individuals beginning a weight loss journey: the built-in "weight vest" of their own body mass ensures they burn massive amounts of calories without needing to run.</p>
 
-            <h2>The Terrain Multiplier: Why Sand is Exhausting</h2>
+            <h2 className="text-2xl font-bold mb-3">The Terrain Multiplier: Why Sand is Exhausting</h2>
             <p>Have you ever tried to run on a dry beach and found yourself exhausted within minutes? This is due to mechanical energy return.</p>
             <p>When you walk on a hard, paved surface like concrete or an asphalt track, the ground is completely unyielding. It returns almost all of the kinetic energy back into your foot, helping propel you into the next stride. Your body acts like a spring.</p>
             <p>When you walk on soft sand, deep mud, or heavy snow, the surface shifts beneath your feet. It absorbs all of your kinetic energy and returns zero. To take the next step, your calves, ankles, and stabilizing muscles must work up to 50% harder just to push off. Walking in soft sand drastically increases your METs, converting a simple beach walk into a high-level resistance workout for your lower body.</p>
 
-            <h2>Walking vs. Running: The Calorie Debate</h2>
+            <h2 className="text-2xl font-bold mb-3">Walking vs. Running: The Calorie Debate</h2>
             <p>A common misconception is that running a mile burns wildly more calories than walking a mile. Physiologically, this is false. Per mile covered, walking and running actually burn a surprisingly similar amount of total energy, because you are ultimately moving the exact same mass across the exact same distance.</p>
             <p>The difference lies entirely in <strong>time efficiency</strong>. A 180lb man might burn 125 calories walking a mile in 20 minutes, whereas he would burn roughly 150 calories running that same mile in 8 minutes. Running doesn't burn magically different calories; it simply allows you to burn the required calories in less than half the time. If you have the time to walk, it is just as effective for creating a daily caloric deficit.</p>
           </article>

@@ -274,37 +274,37 @@ export default function RuleOf78Calculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is the Rule of 78 Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is the Rule of 78 Calculator?</h2>
             <p>The Rule of 78 Calculator is a specialized financial tool that helps borrowers understand how pre-computed interest loans work and quantifies the true cost of paying off a loan early. Unlike standard amortization loans where interest is calculated daily or monthly on the remaining balance, Rule of 78 loans front-load the interest — assigning more of the total interest to the early months and less to the later months. This creates a hidden financial trap: the earlier you pay off the loan, the less interest rebate you receive.</p>
             <p>This calculator is essential for anyone who has taken out a consumer loan — particularly from a car dealership, furniture store, or sub-prime lender — and is considering making an early payoff. By entering your loan amount, interest rate, term, and intended payoff month, you immediately see your exact interest rebate and remaining balance, often revealing a significant penalty compared to a simple interest loan.</p>
 
-            <h2>How the Rule of 78 Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How the Rule of 78 Works</h2>
             <p>The method gets its name from the sum of the digits 1 through 12, which equals 78, representing a 12-month loan. For any loan term, the lender calculates a "sum of digits" by adding all the month numbers from 1 to the term length. For a 48-month loan, that sum is (48 × 49) / 2 = 1,176.</p>
             <p>The lender then assigns interest weights to each month in reverse order. Month 1 receives the highest weight (48/1,176 of total interest for a 48-month loan), and Month 48 receives the lowest weight (1/1,176). The result is that in the first month alone, you pay 48 times more interest than in the last month.</p>
             <p>When you pay off early, the lender calculates the sum of the remaining digits and uses that to determine your interest rebate. If you're paying off at Month 24 of a 48-month loan, the remaining digit sum is (24 × 25) / 2 = 300 out of 1,176 — meaning you get a rebate of only 25.5% of remaining interest, while a simple interest loan would give you a 50% rebate (half the term remaining).</p>
 
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>The calculator provides several critical outputs. The <strong>Interest Rebate</strong> shows exactly how much pre-computed interest the lender will credit back upon early payoff. The <strong>Remaining Balance</strong> is what you'd actually owe at your chosen payoff month — principal remaining minus the rebate. The <strong>Penalty vs Simple Interest</strong> quantifies how much extra interest you'd pay compared to a standard amortizing loan, which is often the most eye-opening number for borrowers.</p>
             <p>The bar chart visualizes the front-loaded nature of Rule of 78 interest, clearly showing how early months carry disproportionately high interest charges. This visualization makes it immediately clear why early payoff offers so little savings under this method.</p>
 
-            <h2>Key Factors Explained</h2>
+            <h2 className="text-2xl font-bold mb-3">Key Factors Explained</h2>
             <p><strong>Loan Amount (Principal):</strong> The initial balance on which all interest calculations are based. Higher principal means higher absolute interest in all periods.</p>
             <p><strong>Annual Interest Rate:</strong> The stated rate used to compute total pre-calculated interest. In Rule of 78 loans, this rate determines the total interest pool, which is then distributed using the sum-of-digits method.</p>
             <p><strong>Loan Term:</strong> The total number of months in the loan agreement. Longer terms create a larger sum-of-digits denominator, which affects how interest is front-loaded. A 60-month loan has a digit sum of 1,830.</p>
             <p><strong>Early Payoff Month:</strong> The month in which you intend to make a full payoff. This is the critical variable — your rebate depends entirely on how many months remain. Paying off in Month 12 of 48 yields a much smaller rebate than paying off in Month 6.</p>
 
-            <h2>Advanced Features</h2>
+            <h2 className="text-2xl font-bold mb-3">Advanced Features</h2>
             <p>The Rule of 78 Calculator includes a complete month-by-month interest distribution schedule, allowing you to see precisely how much interest is assigned to each period. This is particularly valuable when comparing loan offers or negotiating with lenders. The calculator also quantifies the "penalty" compared to a simple interest equivalent — an important metric for determining whether refinancing makes financial sense.</p>
 
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <p><strong>Example 1: Auto Loan Early Payoff.</strong> Consider a $15,000 auto loan at 9.5% APR for 48 months. Monthly payment is $377.17, total interest is $1,104.16. If you pay off at Month 24, the digit sum rebate is 25.5% of remaining interest. Under simple interest you'd get ~50% back. The Rule of 78 costs you an extra ~$140 in this scenario.</p>
             <p><strong>Example 2: Near-End Payoff.</strong> Paying off the same loan at Month 42 of 48 yields a rebate of only 1/1,176 × total interest = essentially nothing. The last 6 months of a Rule of 78 loan carry almost no rebate value, so paying off in the final stretch saves very little interest.</p>
             <p><strong>Example 3: Very Early Payoff.</strong> Paying off at Month 6 of 48 yields a digit sum of (42 × 43)/2 = 903 remaining, so rebate = 903/1,176 × total interest ≈ 76.8% of remaining interest. Early payoff still penalizes vs simple interest but by less in absolute dollar terms because the loan balance itself is large.</p>
 
-            <h2>Tips and Best Practices</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips and Best Practices</h2>
             <p>Always read your loan contract before signing to determine whether it uses Rule of 78 or simple interest (actuarial) calculations. Ask the lender explicitly — by law they must disclose the prepayment method. If you anticipate paying off your loan early, seek a simple interest loan rather than a pre-computed interest loan. The earlier you anticipate paying off, the more important this distinction becomes. If you already have a Rule of 78 loan, consider whether refinancing to a simple interest loan — even at a similar rate — saves money given the rebate penalty.</p>
 
-            <h2>Benefits of Using This Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Benefits of Using This Calculator</h2>
             <p>This calculator eliminates the complex arithmetic of the sum-of-digits method and gives you an instant, accurate picture of your true payoff cost. It empowers borrowers to make informed decisions about early loan payoffs, refinancing, and loan selection. Understanding the Rule of 78 before signing can save hundreds to thousands of dollars over the life of a consumer loan.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/rule-of-78-calculator" />

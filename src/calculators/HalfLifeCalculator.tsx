@@ -240,7 +240,7 @@ const HalfLifeCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Mathematics of Decay</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of Decay</h2>
             <p>In science, <strong>Exponential Decay</strong> describes a process where a quantity decreases at a rate proportional to its current value. Because the rate of decay slows down as the quantity shrinks, the material theoretically never reaches absolute zero. Instead, scientists measure the decay using a concept called the <strong>Half-Life</strong>.</p>
             <p>A half-life (denoted as t½) is exactly what it sounds like: the amount of time it takes for half of the original substance to decay or disappear. If you start with 100 grams of a substance that has a half-life of 10 years:</p>
             <ul>
@@ -250,7 +250,7 @@ const HalfLifeCalculator = () => {
               <li>At 30 years (3 half-lives): 12.5 grams</li>
             </ul>
 
-            <h2>Real World Applications</h2>
+            <h2 className="text-2xl font-bold mb-3">Real World Applications</h2>
             <h3>1. Radiometric Dating</h3>
             <p>The most famous application of the half-life formula is <strong>Carbon Dating</strong>. Carbon-14 is a radioactive isotope that all living plants and animals absorb from the atmosphere while alive. When they die, they stop absorbing it. Carbon-14 decays into Nitrogen-14 with a known half-life of 5,730 years. By measuring the ratio of Carbon-14 to stable Carbon-12 in a fossil, archaeologists can calculate the exact "Elapsed Time" since the organism died.</p>
             

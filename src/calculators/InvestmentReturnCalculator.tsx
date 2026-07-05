@@ -144,13 +144,13 @@ export default function InvestmentReturnCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is an Investment Return Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is an Investment Return Calculator?</h2>
             <p>An <strong>investment return calculator</strong> projects the future value of an investment portfolio based on initial investment, annual contributions, expected return rate, and time horizon. It separates contributions from investment gains and adjusts for inflation to show the real purchasing power of your future savings.</p>
-            <h2>The Power of Compound Growth</h2>
+            <h2 className="text-2xl font-bold mb-3">The Power of Compound Growth</h2>
             <p>At 8% annual return, $20,000 initial plus $6,000/year for 25 years grows to approximately $580,000. Of that, only $170,000 came from contributions — the remaining $410,000 is pure compound growth. This is why time in the market matters more than timing the market.</p>
-            <h2>Inflation-Adjusted Returns</h2>
+            <h2 className="text-2xl font-bold mb-3">Inflation-Adjusted Returns</h2>
             <p>A nominal return of 8% with 3% inflation produces a real return of approximately 5%. Real return = (1 + nominal) / (1 + inflation) − 1. Over 25 years, this significantly impacts purchasing power — a $580,000 nominal value may have the purchasing power of only $285,000 in today&apos;s dollars.</p>
-            <h2>Portfolio Asset Allocation and Expected Returns</h2>
+            <h2 className="text-2xl font-bold mb-3">Portfolio Asset Allocation and Expected Returns</h2>
             <p>100% US stocks: ~10% nominal (historical). 80/20 stocks/bonds: ~8.5%. 60/40 balanced: ~7.5%. 40/60 conservative: ~6%. 100% bonds: ~4.5%. Diversification smooths volatility while preserving most of the return potential — especially important as you approach retirement age.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/investment-return-calculator" />

@@ -220,7 +220,7 @@ export default function Omega3Calculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding Omega-3 Fatty Acids</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Omega-3 Fatty Acids</h2>
             <p>Omega-3 fatty acids are "essential" fats. Unlike saturated fats or cholesterol, the human body lacks the enzymes required to produce Omega-3s from scratch. Therefore, you must obtain them directly through your diet or via supplementation. They play a critical structural role in the cell membranes of every tissue in your body, particularly in the brain, retina, and cardiovascular system.</p>
             <p>While the supplement industry often groups all Omega-3s together, from a clinical perspective, they are absolutely not equal. There are three primary types of Omega-3 fatty acids, separated into "Marine" and "Plant" sources:</p>
 
@@ -233,7 +233,7 @@ export default function Omega3Calculator() {
             <h3>3. ALA (Alpha-Linolenic Acid) - Plant Source</h3>
             <p>ALA is the most common Omega-3 found in the Western diet, abundant in flaxseeds, chia seeds, walnuts, and canola oil. However, <strong>ALA is not biologically active.</strong> To utilize it, your liver must convert ALA into EPA and DHA. This conversion process is extremely inefficient. Studies show that only 1-10% of ALA is successfully converted into EPA, and less than 0.5% is converted into DHA. Therefore, while ALA is healthy, you cannot rely on plant sources alone to meet your cardiovascular or neurological EPA/DHA requirements.</p>
 
-            <h2>How The Calculator Determines Your Dosage</h2>
+            <h2 className="text-2xl font-bold mb-3">How The Calculator Determines Your Dosage</h2>
             <p>Because the conversion of ALA is so poor, clinical guidelines separate your Omega-3 requirements into two distinct targets: a Plant Target (ALA) and a Marine Target (EPA + DHA).</p>
 
             <h3>The Plant Target (ALA)</h3>
@@ -250,12 +250,12 @@ export default function Omega3Calculator() {
             
             <p><strong>Triglyceride Reduction (2,000 - 4,000 mg/day):</strong> High triglycerides (fat in the blood) drastically increase the risk of heart attacks and acute pancreatitis. The FDA has approved prescription "mega-doses" of Omega-3s (up to 4 grams a day) as a pharmaceutical treatment for hypertriglyceridemia. At these massive doses, EPA and DHA inhibit the liver from synthesizing triglycerides, lowering blood levels by 20% to 30%. Because this requires taking multiple pills a day, it should only be done under a doctor's supervision.</p>
 
-            <h2>How to Read a Fish Oil Supplement Label</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Read a Fish Oil Supplement Label</h2>
             <p>The supplement industry is notorious for misleading labeling regarding Omega-3s. A massive label screaming "1,200 mg Fish Oil!" on the front of the bottle is virtually meaningless. That number refers to the total weight of the oil inside the capsule, not the active ingredients.</p>
             <p>To determine if a supplement is actually effective, you must turn the bottle over and look at the "Supplement Facts" panel. Look for the specific lines labeled <strong>EPA</strong> and <strong>DHA</strong>. Add those two numbers together.</p>
             <p>For example, a cheap "1,000 mg" fish oil pill might only contain 180 mg of EPA and 120 mg of DHA. That means you are only getting 300 mg of active Omega-3s, and 700 mg of useless "filler" fat. If your cardiologist told you to take 2,000 mg for your triglycerides, you would have to swallow <em>seven</em> of those cheap pills every single day. Always buy highly concentrated supplements where the EPA+DHA content makes up at least 60% of the total pill weight.</p>
 
-            <h2>Toxicity and the Safe Upper Limit</h2>
+            <h2 className="text-2xl font-bold mb-3">Toxicity and the Safe Upper Limit</h2>
             <p>Can you overdose on Omega-3s? Yes. Because EPA and DHA actively reduce platelet aggregation (they make your blood less sticky), consuming massive doses acts as a blood thinner.</p>
             <p>The FDA has established a Safe Upper Limit of 5,000 mg (5 grams) per day of combined EPA and DHA. Exceeding this amount can suppress your immune system and significantly increase the risk of severe bleeding episodes. If you are already taking pharmaceutical blood thinners (like Warfarin, Plavix, or even daily Aspirin), you must consult your doctor before starting high-dose Omega-3 therapy, as the compounding blood-thinning effects can be fatal.</p>
           </article>

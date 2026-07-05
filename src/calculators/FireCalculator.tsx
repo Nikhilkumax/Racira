@@ -147,13 +147,13 @@ export default function FireCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a FIRE Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a FIRE Calculator?</h2>
             <p>A <strong>FIRE calculator</strong> (Financial Independence, Retire Early) computes your target portfolio size and the years required to achieve financial independence. It applies the safe withdrawal rate framework — pioneered by the Trinity Study — to determine how much wealth you need to sustain your lifestyle indefinitely from investment returns alone.</p>
-            <h2>The FIRE Number Formula</h2>
+            <h2 className="text-2xl font-bold mb-3">The FIRE Number Formula</h2>
             <p>FIRE Number = Annual Expenses ÷ Safe Withdrawal Rate. At 4% SWR: FIRE Number = Annual Expenses × 25. At 3.5% SWR: FIRE Number × 28.6. At 3% SWR: FIRE Number × 33.3. The portfolio grows at your investment return rate while you add annual savings, eventually crossing the FIRE threshold.</p>
-            <h2>FIRE Variations</h2>
+            <h2 className="text-2xl font-bold mb-3">FIRE Variations</h2>
             <p>Lean FIRE: minimal expenses ($25K–$40K/year), small portfolio ($625K–$1M). Regular FIRE: average expenses ($50K–$75K/year), portfolio $1.25M–$1.875M. Fat FIRE: high-end lifestyle ($100K+/year), portfolio $2.5M+. Barista FIRE: semi-retirement with part-time work covering some expenses, reducing required portfolio.</p>
-            <h2>Why Savings Rate Is the Key Variable</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Savings Rate Is the Key Variable</h2>
             <p>The single biggest driver of FIRE achievement speed is savings rate — the percentage of income saved and invested. At 10% savings rate, you need ~43 working years. At 50%, ~17 years. At 75%, just 7 years. This is why FIRE practitioners focus obsessively on reducing expenses and increasing income rather than investment returns.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/fire-calculator" />

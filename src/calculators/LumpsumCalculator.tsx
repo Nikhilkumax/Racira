@@ -134,13 +134,13 @@ export default function LumpsumCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Lumpsum Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Lumpsum Calculator?</h2>
             <p>A <strong>lumpsum calculator</strong> computes the future value of a one-time investment using compound interest. Unlike systematic investment plans, lumpsum investing puts your entire capital to work immediately, maximizing the period over which compounding can operate. This calculator is widely used by mutual fund investors, financial planners, and anyone with a large sum to invest — from inheritance to year-end bonuses.</p>
-            <h2>The Compound Interest Formula</h2>
+            <h2 className="text-2xl font-bold mb-3">The Compound Interest Formula</h2>
             <p>Future Value = P × (1 + r/n)^(n×t). Where P = principal amount, r = annual interest rate (decimal), n = number of compounding periods per year, t = time in years. The effective annual rate (EAR) = (1 + r/n)^n − 1, which accounts for intra-year compounding effects.</p>
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>The future value is what your lumpsum grows to at the end of the investment period. Total growth represents pure compound interest earned — this accelerates over time as you earn interest on interest. The CAGR (Compound Annual Growth Rate) shows the equivalent annual return that would produce the same result.</p>
-            <h2>Compounding Frequency Impact</h2>
+            <h2 className="text-2xl font-bold mb-3">Compounding Frequency Impact</h2>
             <p>Daily compounding outperforms monthly, which outperforms annual. At 8% for 20 years on $50,000: Annual = $233,048. Monthly = $246,600. Daily = $247,589. The difference grows with higher rates and longer time horizons. High-yield savings accounts and money market funds typically compound daily.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/lumpsum-calculator" />

@@ -130,15 +130,15 @@ const SkewnessCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Skewness Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Skewness Calculator?</h2>
             <p>A skewness calculator measures the asymmetry of a probability distribution using three methods: population skewness (γ₁), Fisher{"'"}s sample skewness (G₁), and Pearson{"'"}s second skewness coefficient. Pre-filled with a left-skewed dataset, the calculator shows numerical skewness values, an interpretation, and a histogram visualizing the distribution shape.</p>
-            <h2>Understanding Skewness Values</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Skewness Values</h2>
             <p>Skewness = 0: perfectly symmetric. Positive skewness: the right tail is longer — most values cluster at the left (e.g., income distributions). Negative skewness: the left tail is longer — most values cluster at the right (e.g., exam scores on an easy test). Magnitude matters: |skew| &lt; 0.5 is approximately symmetric, 0.5–1.0 is moderate, and &gt;1.0 is highly skewed.</p>
-            <h2>Population vs Sample Skewness</h2>
+            <h2 className="text-2xl font-bold mb-3">Population vs Sample Skewness</h2>
             <p>Population skewness assumes you have the entire population: γ₁ = m₃/σ³. Sample skewness (Fisher{"'"}s G₁) adjusts for bias using: G₁ = [n/((n−1)(n−2))] × Σ((xᵢ−x̄)/s)³. For large samples, both converge. For small samples, Fisher{"'"}s adjustment is important — population skewness underestimates the true skewness of small samples.</p>
-            <h2>Skewness in Finance</h2>
+            <h2 className="text-2xl font-bold mb-3">Skewness in Finance</h2>
             <p>Financial returns often exhibit negative skewness — occasional large losses (crashes) with more frequent small gains. Investors dislike negative skewness because it implies tail risk. The 2008 crash was a negative skew event. Options pricing models that assume zero skewness (like Black-Scholes) misprice tail risk. Skewness is the third moment of the distribution — after mean (1st) and variance (2nd).</p>
-            <h2>Correcting Skewness</h2>
+            <h2 className="text-2xl font-bold mb-3">Correcting Skewness</h2>
             <p>Many statistical tests assume normality (symmetric, zero skewness). If data is skewed: log transform (right skew), square root (moderate right skew), reciprocal (strong right skew), or Box-Cox (automatic power selection). After transformation, verify that skewness is closer to zero. Some modern methods (bootstrap, permutation tests) work without normality assumptions.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/skewness-calculator" />

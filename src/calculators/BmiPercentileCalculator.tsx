@@ -142,7 +142,7 @@ const BmiPercentileCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Understanding BMI in Youth</h2>
+              <h2 className="text-2xl font-bold mb-3">Understanding BMI in Youth</h2>
               <p>Body Mass Index (BMI) is a measure of weight relative to height. For children and teens, BMI is age- and sex-specific and is often referred to as BMI-for-age.</p>
               <h3>Why Percentiles Matter</h3>
               <p>A BMI of 22 might be healthy for a 19-year-old but could indicate obesity in a 10-year-old. By using percentiles, we can see where a child stands relative to the "standard" population. The goal is typically to remain within the 5th to 85th percentile range.</p>

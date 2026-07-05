@@ -100,17 +100,17 @@ export default function DcfCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>What Is Discounted Cash Flow Analysis?</h2>
+              <h2 className="text-2xl font-bold mb-3">What Is Discounted Cash Flow Analysis?</h2>
               <p>Discounted Cash Flow (DCF) analysis is a fundamental valuation method used by institutional investors, Warren Buffett, and corporate finance professionals worldwide. The core premise is simple but powerful: a dollar today is worth more than a dollar tomorrow. By projecting a company's future cash flows and discounting them back to today's dollars, we can determine what a business is intrinsically worth — independent of what the market currently prices it at.</p>
-              <h2>How the DCF Model Works</h2>
+              <h2 className="text-2xl font-bold mb-3">How the DCF Model Works</h2>
               <p>The DCF model works in two phases: an explicit forecast period (typically 5-10 years) and a terminal value that captures all cash flows beyond the forecast period. For each year in the forecast period, we project free cash flow by applying a growth rate to the prior year's cash flow. Then we discount each year's cash flow back to today using the discount rate formula: <strong>PV = CF ÷ (1 + r)^n</strong>.</p>
-              <h2>Understanding Terminal Value</h2>
+              <h2 className="text-2xl font-bold mb-3">Understanding Terminal Value</h2>
               <p>Terminal value represents the bulk of a company's value in most DCF models — often 60-80% of the total. It's calculated using the Gordon Growth Model: <strong>Terminal Value = (Final Year CF × (1 + Terminal Growth Rate)) ÷ (Discount Rate – Terminal Growth Rate)</strong>. The terminal growth rate should be conservative (typically 2-4%), roughly in line with long-term GDP growth, since no company can grow faster than the economy forever.</p>
-              <h2>Choosing the Right Discount Rate</h2>
+              <h2 className="text-2xl font-bold mb-3">Choosing the Right Discount Rate</h2>
               <p>The discount rate is the most sensitive input in a DCF model. It represents the opportunity cost of capital — the return you could earn on a similarly risky investment. For most publicly traded companies, the appropriate discount rate is the Weighted Average Cost of Capital (WACC), which blends the cost of equity (using CAPM) with the after-tax cost of debt. Higher-risk companies require higher discount rates, which dramatically lowers their DCF valuation.</p>
-              <h2>The Margin of Safety Principle</h2>
+              <h2 className="text-2xl font-bold mb-3">The Margin of Safety Principle</h2>
               <p>No matter how careful your analysis, DCF projections are uncertain. This is why legendary investor Benjamin Graham emphasized the "Margin of Safety" principle: never pay full intrinsic value for a stock. By purchasing at a significant discount (20%, 30%, or more below intrinsic value), you protect yourself against errors in your growth assumptions or unforeseen business deterioration.</p>
-              <h2>Sensitivity Analysis</h2>
+              <h2 className="text-2xl font-bold mb-3">Sensitivity Analysis</h2>
               <p>Given the impact of assumptions on DCF output, always run sensitivity analysis. Try varying the growth rate by ±5% and the discount rate by ±2%. If the stock still looks cheap across a range of scenarios (a "bull/base/bear" case), your conviction is much higher than if it only looks cheap in the most optimistic scenario.</p>
             </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/dcf-calculator" />

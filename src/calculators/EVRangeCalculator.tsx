@@ -361,29 +361,29 @@ export default function EVRangeCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is an EV Range Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is an EV Range Calculator?</h2>
             <p>An EV Range Calculator is a predictive tool that models the real-world driving range of an Electric Vehicle based on environmental and driving conditions. The range sticker plastered on the window of a new EV at the dealership is the official EPA estimate. However, this number is notoriously optimistic, acting more as a theoretical maximum under laboratory conditions than a practical guarantee. By inputting your actual driving speed, local weather, and battery age, this calculator strips away the marketing fluff to reveal exactly how far you can drive before you are stranded.</p>
 
-            <h2>How It Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
             <p>Our algorithm starts with your vehicle's advertised EPA range and systematically subtracts mileage based on known lithium-ion battery physics. First, it accounts for <strong>Battery Degradation</strong>, stripping away roughly 2% capacity for every year of the battery's age. Next, it calculates the <strong>Temperature Impact</strong>. Below 70°F, lithium-ion cells lose their ability to discharge efficiently, dropping available capacity. Then, it assesses <strong>Aerodynamic Drag</strong>. Because drag increases exponentially with speed, driving 75 mph consumes massively more battery power than driving 55 mph. Finally, it subtracts parasitic draw from the <strong>HVAC system</strong> (heating and air conditioning).</p>
 
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>The <strong>Estimated Real-World Range</strong> is your personalized, practical limit for a single trip under the exact conditions you specified. Do not plan a road trip using the EPA number; use this number instead. We also provide three vital benchmarks: <strong>City Range</strong> (which is often higher than EPA due to regenerative braking), <strong>Highway Range</strong> (cruising at 70 mph in perfect weather), and the dreaded <strong>Freezing Range</strong> (driving in winter weather with the heater on, which represents the worst-case scenario for any EV).</p>
 
-            <h2>Key Factors</h2>
+            <h2 className="text-2xl font-bold mb-3">Key Factors</h2>
             <p><strong>Average Speed</strong> is the silent killer of EV range. Gas cars have complex transmissions with overdrive gears to keep the engine RPMs low at highway speeds. Most EVs have a single-speed transmission. When you drive 80 mph, the electric motor is screaming at maximum output to overcome immense wind resistance. <strong>Temperature</strong> is the second most critical factor. Freezing weather not only slows the chemical reactions inside the battery, but it forces the car to use massive amounts of energy to run an electric cabin heater (unlike a gas car, which uses free waste heat from the engine).</p>
 
-            <h2>Advanced Features</h2>
+            <h2 className="text-2xl font-bold mb-3">Advanced Features</h2>
             <p>For those planning serious road trips or hauling gear, the Advanced Options reveal even more range loss. <strong>Payload Weight</strong> is factored in; a family of four with luggage requires more energy to move than a single commuter. <strong>Elevation Change</strong> is brutal on EVs. If you are driving up a mountain pass, you are fighting gravity. While you will gain some energy back via regenerative braking on the way down, the immense energy required to climb cannot be fully recovered.</p>
 
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <p><strong>Example 1: The Perfect Commute.</strong> John drives a 3-year-old EV with an EPA range of 250 miles. He commutes in 70-degree weather at 40 mph through the city with minimal AC. His real-world range is actually <em>higher</em> than the EPA estimate, hovering around 260 miles due to the efficiency of regenerative braking at slow speeds.</p>
             <p><strong>Example 2: The Winter Road Trip.</strong> Sarah takes that exact same EV on a ski trip. It is 25°F outside. She drives 75 mph on the interstate with the heat blasting. Between the battery age, the cold crippling the chemistry, the massive aerodynamic drag at 75 mph, and the heater pulling thousands of watts, her real-world range collapses to just 135 miles. If she planned her charging stops based on the "250 mile" sticker, she would be stranded.</p>
 
-            <h2>Tips & Best Practices</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
             <p>To maximize your EV range on road trips, slow down. Dropping your speed from 75 mph to 65 mph can instantly claw back 10-15% of your range. In the winter, use the seat heaters and steering wheel heaters instead of blasting the cabin air heater, as radiant heat is much more energy-efficient. Finally, pre-condition your car (turn on the heat) while it is still plugged into the charger at home. This warms the battery and the cabin using wall electricity rather than draining the battery before you even leave the driveway.</p>
 
-            <h2>Benefits</h2>
+            <h2 className="text-2xl font-bold mb-3">Benefits</h2>
             <p>Using this calculator cures "range anxiety" with hard mathematics. By understanding precisely how your speed, the weather, and your heater interact to drain the battery, you can plan charging stops accurately and avoid the catastrophic scenario of running out of power on a lonely stretch of highway.</p>
           </article>
           

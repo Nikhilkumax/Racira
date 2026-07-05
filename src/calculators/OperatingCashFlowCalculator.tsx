@@ -316,7 +316,7 @@ export default function OperatingCashFlowCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding Operating Cash Flow (OCF)</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Operating Cash Flow (OCF)</h2>
             <p>
               Operating Cash Flow (OCF)—frequently referred to as Cash Flow from Operating Activities—represents the actual amount of currency a business generates from its standard operational transactions over a period. It excludes cash flow from investing (purchasing machinery or real estate) and cash flow from financing (issuing shares or paying debt).
             </p>

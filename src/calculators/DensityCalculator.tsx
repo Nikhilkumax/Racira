@@ -128,7 +128,7 @@ const DensityCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space" />
           <article className="prose-finance text-[15.75px]">
-              <h2>About Density Calculation</h2>
+              <h2 className="text-2xl font-bold mb-3">About Density Calculation</h2>
               <p>Density is a measure of how much mass is contained in a given unit of volume. It is a fundamental property of matter that describes how tightly atoms or molecules are packed together.</p>
               
               <h3>The Density Formula</h3>

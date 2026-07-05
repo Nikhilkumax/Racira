@@ -291,20 +291,20 @@ export default function GearRatioCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Magic of Gear Ratios</h2>
+            <h2 className="text-2xl font-bold mb-3">The Magic of Gear Ratios</h2>
             <p>Gears are one of the most fundamental mechanical inventions in human history. They allow a small motor with very little twisting force (torque) to lift incredibly heavy objects. This mechanical advantage is achieved through a Gear Ratio. By connecting a small gear (the driving gear) to a large gear (the driven gear), you force the small gear to spin multiple times just to turn the large gear once. This concentrates the force, multiplying the torque output at the expense of rotational speed.</p>
 
-            <h2>How to Calculate a Simple Gear Ratio</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Calculate a Simple Gear Ratio</h2>
             <p>The math behind gear ratios requires no advanced engineering degrees. You simply count the teeth on each gear. The formula is: <strong>Driven Teeth ÷ Driving Teeth</strong>.</p>
             <ul>
               <li><strong>Example 1:</strong> A 10-tooth gear driving a 40-tooth gear. 40 / 10 = 4.0. The ratio is 4.0:1. The small gear must spin 4 times to turn the big gear once. You have quadrupled your torque, but quartered your speed.</li>
               <li><strong>Example 2:</strong> A 50-tooth gear driving a 25-tooth gear. 25 / 50 = 0.5. The ratio is 0.5:1. This is called an Overdrive. The small gear spins twice as fast as the big gear, doubling your speed but cutting your torque in half.</li>
             </ul>
 
-            <h2>The Law of Conservation of Energy</h2>
+            <h2 className="text-2xl font-bold mb-3">The Law of Conservation of Energy</h2>
             <p>It is critical to understand that gears do not create horsepower. The Law of Conservation of Energy states that energy cannot be created or destroyed. If your electric motor outputs 10 horsepower, the gears will still only output 10 horsepower (minus a tiny amount of friction heat). Gears simply alter how that horsepower is delivered. You can configure the gears to deliver that 10 HP as a massive, slow-moving twisting force (torque), or as a weak, incredibly fast-spinning velocity (speed). You cannot increase both simultaneously.</p>
 
-            <h2>What is an Idler Gear?</h2>
+            <h2 className="text-2xl font-bold mb-3">What is an Idler Gear?</h2>
             <p>In a simple gear train with two gears, the driven gear always spins in the opposite direction of the driving gear. If you need the output shaft to spin in the exact same direction as the input shaft, you place a third gear in the middle. This is called an <strong>Idler Gear</strong>.</p>
             <p>A fascinating rule of physics is that an idler gear has zero effect on the final gear ratio. You could place a massive 100-tooth idler gear or a tiny 5-tooth idler gear between your 10-tooth driving gear and 30-tooth driven gear. In both scenarios, the final ratio remains exactly 3.0:1. The idler simply transfers the motion and reverses the direction.</p>
           </article>

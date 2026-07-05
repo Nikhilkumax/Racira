@@ -97,7 +97,7 @@ const ConversionRateCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>The Most Important E-commerce Metric</h2>
+              <h2 className="text-2xl font-bold mb-3">The Most Important E-commerce Metric</h2>
               <p>While traffic is important, the Conversion Rate is what actually pays the bills. A small improvement in your conversion rate can have a massive impact on your bottom line without increasing your ad spend.</p>
               <h3>Mathematics of Conversion</h3>
               <p>If you have 10,000 visitors and a 1% conversion rate, you have 100 sales. If you improve that rate to just 2%, you have 200 sales. You have doubled your revenue with the exact same amount of traffic.</p>

@@ -220,14 +220,14 @@ const StairCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Mathematics of Stairs</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of Stairs</h2>
             <p>Building stairs is arguably one of the most mathematically demanding tasks in carpentry. It requires absolute precision. If you simply divide the height by the number of stairs and round off the decimal, your staircase will fail building code inspections and present a massive tripping hazard.</p>
 
-            <h2>Why Exact Uniformity is Critical</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Exact Uniformity is Critical</h2>
             <p>Building codes strictly mandate that every single step in a staircase must have the exact same vertical rise. The maximum allowed variance between the tallest step and the shortest step is usually <strong>less than 3/8 of an inch</strong> over the entire flight of stairs.</p>
             <p>Why so strict? The human brain operates on "muscle memory" when climbing stairs. After your foot hits the first two steps, your brain calculates the exact height required and puts your legs on autopilot. If the 7th step is half an inch taller than the rest, your foot will catch the lip of the tread, and you will almost certainly trip and fall. <strong>You cannot simply make the bottom step smaller to "make the math work." Every step must be identical.</strong></p>
 
-            <h2>How the Calculation Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How the Calculation Works</h2>
             <p>To calculate a staircase, you must first determine the <strong>Total Rise</strong>. This is the absolute vertical measurement from the <em>finished</em> surface of the bottom floor to the <em>finished</em> surface of the top floor. (Do not measure from subfloor to subfloor if one floor is getting thick hardwood and the other is getting thin vinyl; the difference will ruin the math).</p>
             <ol>
               <li>Divide the Total Rise by your "Target Rise" (usually 7.5 inches in the US).</li>
@@ -237,7 +237,7 @@ const StairCalculator = () => {
             </ol>
             <p>You must then physically cut every single notch in your wooden stringer to exactly 7.71 inches tall.</p>
 
-            <h2>The Tread Rule (Runs vs Risers)</h2>
+            <h2 className="text-2xl font-bold mb-3">The Tread Rule (Runs vs Risers)</h2>
             <p>A staircase always has one less tread (horizontal run) than riser (vertical step). When you walk up a set of stairs, the very last vertical step you take lands you on the upper floor itself. Therefore, the upper floor acts as the final tread. If your staircase has 14 vertical risers, you will only physically cut and install 13 wooden treads.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/stair-calculator" />

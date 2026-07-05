@@ -197,17 +197,17 @@ export default function BodyTypeCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding Your Genetic Blueprint</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Genetic Blueprint</h2>
             <p>A body type calculator is a crucial first step in designing an effective, highly personalized fitness regimen. For decades, frustrated gym-goers have downloaded generic workout templates from fitness magazines, only to find they yield zero results. The reason is simple: a high-volume, low-rest workout designed for a naturally muscular athlete will absolutely destroy the nervous system of a naturally skinny beginner. By determining your dominant somatotype—Ectomorph, Mesomorph, or Endomorph—you unlock the specific metabolic rules that govern your body, allowing you to stop fighting your genetics and start working with them.</p>
             <p>Originally categorized by American psychologist William Sheldon in the 1940s, somatotyping provides a framework for understanding human physical variation. While modern exercise science rejects Sheldon's psychological assumptions, the physiological classifications remain the gold standard heuristic used by elite personal trainers and sports dietitians to establish baseline training protocols for new clients.</p>
 
-            <h2>How It Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
             <p>The mathematics behind this specific calculator rely on combining your soft tissue mass with your skeletal frame size to pinpoint your position on the somatotype spectrum.</p>
             <p>First, the tool calculates your <strong>Body Mass Index (BMI)</strong>. This provides a baseline understanding of how much mass (both fat and muscle) you currently carry relative to your height.</p>
             <p>Second, and most importantly, it analyzes your <strong>Wrist Circumference</strong>. Why the wrist? The wrist is one of the few areas on the human body that stores virtually no body fat. Therefore, measuring your wrist provides an incredibly accurate proxy for your overall bone thickness and skeletal frame size. A thick wrist indicates a dense, large skeletal structure capable of supporting massive muscle growth (Mesomorph/Endomorph traits). A thin wrist indicates a lighter, more fragile skeletal structure built for endurance (Ectomorph traits).</p>
             <p>By cross-referencing your frame size against your current mass and biological sex, the calculator scores your physical traits and categorizes you into your dominant genetic somatotype.</p>
 
-            <h2>The Three Somatotypes Explained</h2>
+            <h2 className="text-2xl font-bold mb-3">The Three Somatotypes Explained</h2>
             <p>It is important to remember that almost nobody is a 100% pure example of a single body type. You are a blend of all three, but one will heavily dominate your physical responses.</p>
             
             <h3>The Ectomorph</h3>
@@ -219,7 +219,7 @@ export default function BodyTypeCalculator() {
             <h3>The Endomorph</h3>
             <p>Endomorphs are naturally powerful but tend to have a slower, more conserving metabolism. They typically have a wider, stockier build with shorter limbs. They gain weight incredibly easily—both muscle and fat—and struggle the most to achieve a lean, "shredded" look. Endomorphs must be highly disciplined with their nutrition, often requiring lower carbohydrate diets to manage insulin sensitivity. Their training must prioritize high-intensity interval training (HIIT) and metabolic conditioning to force their bodies to burn stored fat.</p>
 
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>When you execute a calculation, the tool provides five distinct analytical sections designed to give you a comprehensive blueprint for your fitness journey.</p>
             <p><strong>Primary Result Card:</strong> This displays your dominant somatotype, accompanied by a brief summary of your metabolic tendencies.</p>
             <p><strong>3-Stat Bar:</strong> This section displays your precise blend percentage. For example, you might be 70% Mesomorph and 15% Ectomorph, indicating you are an athlete who leans slightly toward the leaner side of the spectrum.</p>
@@ -227,23 +227,23 @@ export default function BodyTypeCalculator() {
             <p><strong>Genetic Trait Scaling Chart:</strong> A visual bar chart comparing how the three different body types naturally perform across key fitness metrics: Leanness, Muscle Hypertrophy, Cardio Endurance, and Raw Strength.</p>
             <p><strong>Actionable Directives:</strong> A curated list of highly specific training and nutrition tips tailored exclusively to your dominant body type. This is the playbook you take to the gym.</p>
 
-            <h2>Overcoming Your Genetic Baseline</h2>
+            <h2 className="text-2xl font-bold mb-3">Overcoming Your Genetic Baseline</h2>
             <p>The most dangerous trap in fitness is the belief that your body type is your destiny. If you are an endomorph, you are not cursed to be overweight. If you are an ectomorph, you are not cursed to be weak. Your somatotype simply dictates the <strong>methods</strong> you must use to reach your goals.</p>
             <p>An ectomorph who wants to look like a bodybuilder must eat an uncomfortable amount of food—far more than a mesomorph—and focus exclusively on heavy compound movements like deadlifts and squats, resting up to 3 minutes between sets. An endomorph who wants to see their abs must tightly restrict refined carbohydrates, prioritize lean proteins, and commit to grueling cardio sessions 4 to 5 times a week.</p>
             <p>Genetics dictate the starting line, not the finish line. The fitness industry is filled with elite ectomorph bodybuilders and elite endomorph fitness models who learned the rules of their specific body type and executed their plans flawlessly.</p>
 
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <p>Let's look at how utilizing this calculator can prevent months of wasted effort in the gym.</p>
             <p><strong>Example 1: The Frustrated Runner.</strong> You are an Ectomorph. You want to build a bigger chest and wider shoulders. You start doing high-volume workouts (4 sets of 15 reps) and running 3 miles on the treadmill every day to "stay lean." Result: After six months, you are weaker and skinnier than when you started. Why? Because your fast metabolism burned through your muscle tissue to survive the cardio. If you had known your body type, you would have stopped running, dropped your reps to 5-8 per set, and increased your caloric intake.</p>
             <p><strong>Example 2: The Stalled Powerlifter.</strong> You are an Endomorph. You want to lose 20 pounds of body fat. You start lifting heavy weights for 3 reps per set and taking long 5-minute rests between sets. Result: You get incredibly strong, but you don't lose any fat, and you actually look larger because the new muscle is sitting under the existing fat layer. If you had known your body type, you would have switched to high-intensity circuit training to keep your heart rate elevated and implemented a strict caloric deficit.</p>
 
-            <h2>Tips & Best Practices</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
             <p>To successfully leverage your body type classification, you must integrate it into a comprehensive fitness strategy. Follow these best practices.</p>
             <p>First, be brutally honest about your nutrition. Training for your body type is useless if your diet contradicts it. Endomorphs cannot out-train a high-sugar diet. Ectomorphs cannot out-lift a low-calorie diet. Nutrition is the key that unlocks your genetic potential.</p>
             <p>Second, track your progress and adjust. Somatotypes are generalizations. You may be an endomorph who uniquely responds well to moderate carbohydrates, or a mesomorph who needs extra recovery time. Start with the baseline recommendations provided in this calculator, track your weight and strength for 4 weeks, and adjust the variables based on empirical data.</p>
             <p>Third, prioritize compound movements regardless of your body type. Squats, deadlifts, bench presses, overhead presses, and pull-ups form the foundation of human strength. Whether you are doing them for heavy singles (ecto) or in a fast-paced circuit (endo), these movements trigger the highest neuroendocrine response and drive the fastest physical changes.</p>
 
-            <h2>Benefits</h2>
+            <h2 className="text-2xl font-bold mb-3">Benefits</h2>
             <p>Utilizing a comprehensive Body Type Calculator eliminates the guesswork from your fitness journey. It stops you from blindly following the routines of genetic elites and forces you to confront the reality of your own physiological baseline.</p>
             <p>By understanding your inherent strengths and weaknesses, you can immediately discard training philosophies that conflict with your metabolism and adopt the specific nutritional strategies required to force adaptation. It empowers you to train smarter, recover faster, and finally build the physique you have been working toward.</p>
           </article>

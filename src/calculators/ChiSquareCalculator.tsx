@@ -234,7 +234,7 @@ export default function ChiSquareCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Mathematics of Association Testing</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of Association Testing</h2>
             <p>The Chi-Square test of independence determines structural correlation between qualitative categorical variables. It compares observed sample distribution matrices to predicted distributions under a theoretical model of perfect independence.</p>
             <p>Using the cumulative Chi-Square distribution density curves at calculated degrees of freedom, the tail area indicates the probability (P-value) of obtaining these distributions purely by chance variance.</p>
           </article>

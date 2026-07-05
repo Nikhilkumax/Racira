@@ -216,19 +216,19 @@ export default function TireLoadIndexCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding Your Tire Load Index</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Tire Load Index</h2>
             <p>Every tire manufactured for road use carries a specific Load Index, a numerical code that dictates exactly how much physical weight the tire is engineered to support. Our Tire Load Index Calculator instantly decodes this industry-standard numbering system into practical pounds and kilograms, allowing you to ensure your vehicle is safe to operate under heavy loads.</p>
 
-            <h2>Where to Find the Load Index</h2>
+            <h2 className="text-2xl font-bold mb-3">Where to Find the Load Index</h2>
             <p>To find your tire's load index, inspect the outer sidewall of the tire. You are looking for a long alphanumeric string that begins with your tire dimensions (e.g., 245/40R19). Immediately following that dimension string will be a two- or three-digit number followed by a single letter. For example, in the code <strong>245/40R19 98Y</strong>, the number "98" is the Load Index, and the letter "Y" is the Speed Rating.</p>
 
-            <h2>Gross Vehicle Weight Rating (GVWR) vs. Load Index</h2>
+            <h2 className="text-2xl font-bold mb-3">Gross Vehicle Weight Rating (GVWR) vs. Load Index</h2>
             <p>Your vehicle has a Gross Vehicle Weight Rating (GVWR) established by the manufacturer, which is the absolute maximum safe weight of the vehicle including passengers and cargo. If you multiply your single tire's load capacity by four (assuming a standard passenger car), the resulting number must be greater than your vehicle's GVWR. If the total tire capacity is lower than the GVWR, you are driving on tires that are unsafe for your vehicle.</p>
 
-            <h2>The Dangers of Downgrading Load Capacity</h2>
+            <h2 className="text-2xl font-bold mb-3">The Dangers of Downgrading Load Capacity</h2>
             <p>When purchasing replacement tires, you should never choose a tire with a load index lower than what was installed at the factory. Driving on tires that cannot support your vehicle's weight causes excessive sidewall flexing and heat generation. Under normal highway driving conditions, this extreme heat will eventually compromise the structural integrity of the tire, leading to a sudden and catastrophic blowout.</p>
 
-            <h2>Upgrading to a Higher Load Index</h2>
+            <h2 className="text-2xl font-bold mb-3">Upgrading to a Higher Load Index</h2>
             <p>Conversely, it is entirely safe—and sometimes beneficial—to install tires with a higher load index than the factory specification. A higher load index typically means the tire features a reinforced internal structure with stronger belts and a stiffer sidewall. For drivers who frequently tow heavy trailers or carry heavy cargo, an "XL" (Extra Load) tire with a higher index provides a superior margin of safety and improved steering response, albeit sometimes at the cost of a slightly stiffer ride quality.</p>
           </article>
           

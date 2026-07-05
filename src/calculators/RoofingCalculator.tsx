@@ -208,11 +208,11 @@ const RoofingCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Secret of the Pitch Multiplier</h2>
+            <h2 className="text-2xl font-bold mb-3">The Secret of the Pitch Multiplier</h2>
             <p>If your house is exactly 40 feet long and 30 feet wide, the footprint of your house is 1,200 square feet. A massive amateur mistake is assuming you only need 1,200 square feet of roofing materials. <strong>This is completely wrong.</strong></p>
             <p>Your house footprint is flat, but your roof is angled upwards like a triangle. The steeper the angle, the longer the sides of the triangle become, meaning the physical surface area of the roof increases significantly. To calculate the actual square footage of your roof, you must multiply the flat footprint area by a <strong>Pitch Multiplier</strong> derived from the Pythagorean theorem.</p>
 
-            <h2>Understanding Pitch (Rise over Run)</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Pitch (Rise over Run)</h2>
             <p>In North America, roof slope is almost universally measured in "Pitch". The denominator is always 12 inches (the run). The numerator is how many inches the roof rises vertically over that 12-inch horizontal span.</p>
             <ul>
               <li><strong>4/12 Pitch:</strong> A low-slope roof, common in ranch-style homes. Multiplier = 1.05. (A 1,200 sq ft house has a 1,260 sq ft roof).</li>
@@ -220,11 +220,11 @@ const RoofingCalculator = () => {
               <li><strong>12/12 Pitch:</strong> An extremely steep, A-Frame style roof. Multiplier = 1.41. (A 1,200 sq ft house has a massive 1,692 sq ft roof).</li>
             </ul>
 
-            <h2>What is a Roofing Square?</h2>
+            <h2 className="text-2xl font-bold mb-3">What is a Roofing Square?</h2>
             <p>Once you calculate your total roof area, you don't order materials by the square foot. The roofing industry operates entirely on the "Square". <strong>One Square equals exactly 100 square feet.</strong> If your final roof calculation (including waste) is 2,400 square feet, you need 24 Squares of material.</p>
             <p>A single square of asphalt shingles weighs roughly 200 to 250 pounds. Because a 250-pound package is impossible for a roofer to safely carry up a ladder, manufacturers split each Square into exactly <strong>three bundles</strong>. Therefore, if you need 24 Squares, you will order 72 bundles of shingles.</p>
 
-            <h2>The Waste Factor</h2>
+            <h2 className="text-2xl font-bold mb-3">The Waste Factor</h2>
             <p>Roofs are rarely simple rectangles. You will have to cut shingles at every edge, along the roof peak (the ridge), and in the valleys where two roof sections meet. These cuts create unusable scrap. For a simple gable roof (two flat sides like a tent), a 10% waste factor is standard. For complex roofs with many dormers, hips, and valleys, you must use a 15% to 20% waste factor, or you will run out of material before the job is done.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/roofing-calculator" />

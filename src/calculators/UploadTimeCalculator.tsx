@@ -133,7 +133,7 @@ const UploadTimeCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>How Upload Speeds Work</h2>
+              <h2 className="text-2xl font-bold mb-3">How Upload Speeds Work</h2>
               <p>Upload speed refers to how much data you can send from your device to the internet in a given second. Most consumer internet connections (like Cable or DSL) are "asymmetric," meaning they have much slower upload speeds than download speeds.</p>
               <h3>Understanding Bits vs Bytes</h3>
               <p>Network speeds are measured in <strong>bits</strong> (lower case 'b'), while file sizes are measured in <strong>Bytes</strong> (upper case 'B'). Since 1 Byte = 8 bits, an 80 Mbps connection can theoretically upload 10 MB of data per second.</p>

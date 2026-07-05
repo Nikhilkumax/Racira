@@ -135,7 +135,7 @@ const WalkingCalorieCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>The Benefits of Walking</h2>
+              <h2 className="text-2xl font-bold mb-3">The Benefits of Walking</h2>
               <p>Walking is the most accessible form of physical activity and offers profound health benefits for your heart, bones, and mind. Unlike high-impact exercises, it's gentle on the joints and can be sustained daily.</p>
               <h3>Steps and Heart Health</h3>
               <p>Walking at a brisk pace for just 30 minutes a day has been shown to reduce the risk of heart disease and stroke. It helps lower blood pressure, improves circulation, and can help manage blood sugar levels.</p>

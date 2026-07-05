@@ -338,10 +338,10 @@ export default function StepsToCaloriesCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Translating Steps into Energy: The Biomechanics of Walking</h2>
+            <h2 className="text-2xl font-bold mb-3">Translating Steps into Energy: The Biomechanics of Walking</h2>
             <p>Every smartphone and smart watch on the market today features a built-in pedometer, constantly tracking your daily steps in the background. We are constantly told to aim for the magical "10,000 steps" to improve our health. However, a raw step count tells you nothing about the actual thermodynamic "work" your body performed. A step is not a universal measurement of energy. The <strong>Steps to Calories Calculator</strong> bridges this gap. By factoring in your exact height to determine your unique stride length, and your exact body weight to calculate mechanical resistance, it translates your raw step count into a highly accurate, biologically sound caloric expenditure.</p>
 
-            <h2>Why Your Height Changes Everything</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Your Height Changes Everything</h2>
             <p>One of the biggest flaws in cheap pedometers is that they assume everyone covers the same distance per step. This is mathematically impossible.</p>
             <p>Stride length (the distance covered from the heel strike of one foot to the heel strike of the same foot) is directly correlated to leg length, which is determined by your overall height. Exercise physiologists have established that the average human stride length is approximately <strong>0.414 times their height</strong>.</p>
             <p>Consider two people walking exactly 10,000 steps:</p>
@@ -351,23 +351,23 @@ export default function StepsToCaloriesCalculator() {
             </ul>
             <p>Because Person A physically traveled a full mile further, they performed significantly more mechanical "work." Our calculator uses your height to calculate your precise stride length, converts your steps into total miles traveled, and then calculates the caloric burn based on that precise distance.</p>
 
-            <h2>The Role of Body Weight in Walking Physics</h2>
+            <h2 className="text-2xl font-bold mb-3">The Role of Body Weight in Walking Physics</h2>
             <p>Once the exact distance is established, the next critical variable is your body mass. The physics of walking are incredibly simple: Work = Force × Distance. Your muscles must generate force to propel your mass across that distance.</p>
             <p>If a 250-pound man and a 120-pound woman both walk the exact same 4-mile distance, the heavier man's quadriceps, hamstrings, and calves had to lift and propel 130 additional pounds with every single step. Because the heavier body required vastly more physiological energy (ATP) to accomplish the same task, the heavier person will mathematically burn significantly more absolute calories. The American College of Sports Medicine (ACSM) estimates that a person burns roughly <strong>0.57 calories per pound of body weight, per mile walked</strong>. The calculator utilizes this standardized clinical multiplier.</p>
 
-            <h2>The Truth About the 10,000 Steps Rule</h2>
+            <h2 className="text-2xl font-bold mb-3">The Truth About the 10,000 Steps Rule</h2>
             <p>The "10,000 steps a day" rule is arguably the most famous fitness metric in history. However, its origins are entirely unscientific. It was created in 1965 by a Japanese clock manufacturer (Yamasa) leading up to the 1964 Tokyo Olympics. They released a pedometer called the "Manpo-kei," which literally translates to "10,000-steps meter." The number was chosen purely for marketing purposes because the Japanese character for 10,000 (万) resembles a person walking.</p>
             <p>Despite its marketing origins, modern medical science has retrospectively proven the number's validity. Extensive studies by the American Medical Association have shown that walking 8,000 to 10,000 steps per day drastically reduces all-cause mortality, lowers blood pressure, and significantly decreases the risk of cardiovascular disease. It is the optimal threshold for general human longevity.</p>
 
-            <h2>Walking vs. Running: The Caloric Divide</h2>
+            <h2 className="text-2xl font-bold mb-3">Walking vs. Running: The Caloric Divide</h2>
             <p>A common question is whether running 10,000 steps burns more calories than walking 10,000 steps. The answer is an emphatic yes.</p>
             <p>Biomechanically, walking is an incredibly efficient mode of transportation. Your body has evolved to conserve as much energy as possible while walking; one foot is always in contact with the ground, and your center of gravity remains relatively flat. Running, however, is a series of explosive, continuous bounds. To run, your leg muscles must generate enough vertical force to push your entire body weight completely off the ground (the flight phase). Absorbing the massive impact forces upon landing requires heavy recruitment of fast-twitch muscle fibers. Because of this massive vertical and impact demand, running a specific distance burns roughly 20% to 30% more calories than walking that exact same distance.</p>
 
-            <h2>Is Walking Enough for Weight Loss?</h2>
+            <h2 className="text-2xl font-bold mb-3">Is Walking Enough for Weight Loss?</h2>
             <p>Walking is the ultimate sustainable exercise. Unlike heavy weightlifting or high-impact running, you can walk 10,000 steps every single day without needing a "recovery day" for your joints or central nervous system. It generates virtually zero orthopedic trauma.</p>
             <p>However, relying purely on walking for rapid fat loss is a losing battle. A 160-pound person walking 10,000 steps will burn roughly 400 calories. That entire 90-minute effort can be completely negated by eating a single blueberry muffin or a medium order of french fries. Fat loss occurs in the kitchen, not on the pavement. You must view walking as a tool for cardiovascular health and a way to increase your Total Daily Energy Expenditure (TDEE), but you must pair it with a strict, disciplined caloric deficit to actually force your body to oxidize stored fat.</p>
 
-            <h2>Conclusion: Track Your True Output</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Track Your True Output</h2>
             <p>Do not be satisfied with an arbitrary number on your smart watch. A step count is useless if you do not understand the thermodynamic energy behind it. By inputting your height, weight, and daily steps into the Steps to Calories Calculator, you can determine exactly how much energy you expended today, allowing you to seamlessly adjust your nutritional intake and achieve your weight management goals with mathematical precision.</p>
           </article>
           

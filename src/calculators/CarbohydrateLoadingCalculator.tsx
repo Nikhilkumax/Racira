@@ -344,22 +344,22 @@ export default function CarbohydrateLoadingCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Carbohydrate Loading Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Carbohydrate Loading Calculator</h2>
             <p>Hitting "The Wall" is the most feared physiological event in all of endurance sports. Around mile 20 of a marathon, thousands of perfectly trained runners suddenly find their legs turned to cement, their vision tunneling, and their pace dropping to a staggered walk. This is not a failure of willpower or cardiovascular fitness; it is a mathematical failure of chemistry. They have completely depleted their muscular glycogen stores. To prevent this, elite endurance athletes utilize a strict nutritional protocol known as Carbohydrate Loading (or Glycogen Supercompensation). The <strong>Carb Loading Calculator</strong> provides the exact mathematical framework to execute this protocol, ensuring your fuel tanks are literally overflowing when you step on the starting line.</p>
 
-            <h2>The Biological Mechanics of "The Wall"</h2>
+            <h2 className="text-2xl font-bold mb-3">The Biological Mechanics of "The Wall"</h2>
             <p>The human body stores fast-acting energy (glucose) inside the muscles and liver in a chemically bonded form called <em>glycogen</em>. However, these storage tanks have a strict biological capacity limit. A fully rested, well-fed athlete can store approximately 400 to 500 grams of glycogen in their muscles. Because each gram of glycogen yields 4 kilocalories of energy, the body holds roughly 2,000 kilocalories of premium, fast-acting rocket fuel.</p>
             <p>During a grueling event like a marathon, the body burns a mixture of fat and glycogen. The faster you run, the higher the percentage of glycogen burned. Regardless of your pace, by roughly two hours of continuous exertion, that 2,000-calorie glycogen tank will hit absolute zero. When the tank is empty, the body is forced to rely 100% on burning body fat. Because converting body fat to energy requires significantly more oxygen and is a much slower chemical process, your physical pace is violently down-regulated by the brain. You have officially hit the wall.</p>
 
-            <h2>The Science of Glycogen Supercompensation</h2>
+            <h2 className="text-2xl font-bold mb-3">The Science of Glycogen Supercompensation</h2>
             <p>In the 1960s, Scandinavian researchers discovered a biological loophole. They found that if an athlete depleted their glycogen via heavy training, and then consumed massive amounts of carbohydrates while resting, the muscles would panic. To protect against future depletion, the muscles would "supercompensate," temporarily expanding their storage capacity to hold roughly 20% to 30% more glycogen than normal.</p>
             <p>This means instead of starting a race with 2,000 calories of fuel, an athlete could manipulate their diet to start with 2,600 calories of fuel—enough to push "The Wall" from mile 20 back to mile 24, or eliminate it entirely if paired with intra-race sports drinks.</p>
 
-            <h2>Execution: The 3-Day Taper Window</h2>
+            <h2 className="text-2xl font-bold mb-3">Execution: The 3-Day Taper Window</h2>
             <p>The biggest amateur mistake in endurance racing is attempting to carb load in a single meal. The "massive pasta dinner" the night before the race is a terrible strategy. It overwhelms the digestive system, leaves a brick of undigested wheat in the stomach, and causes severe gastrointestinal distress on race morning while completely failing to saturate the muscles.</p>
             <p>Proper carbohydrate loading takes <strong>2 to 3 days</strong>. You must hit the massive targets output by this calculator (often 600 to 800 grams of carbs per day) while simultaneously dropping your running volume to zero (the Taper). By removing the expenditure and maxing out the intake for 72 hours, the glycogen slowly and safely packs into the muscle fibers.</p>
 
-            <h2>The Rule of Fiber and Fat (Why Quality Drops)</h2>
+            <h2 className="text-2xl font-bold mb-3">The Rule of Fiber and Fat (Why Quality Drops)</h2>
             <p>If the calculator tells you to eat 700 grams of carbohydrates a day, you will immediately realize that this is a staggering, almost nauseating amount of food. (For context, a large apple contains 25 grams of carbs; you would have to eat 28 apples a day).</p>
             <p>If you attempt to hit this target using "healthy," complex carbohydrates like brown rice, sweet potatoes, and oatmeal, the massive amount of dietary fiber will paralyze your digestive tract. You will suffer from agonizing bloating and constipation. Therefore, during a clinical carb load, the rules of "healthy eating" are temporarily suspended.</p>
             <ul>
@@ -368,14 +368,14 @@ export default function CarbohydrateLoadingCalculator() {
               <li><strong>Drink Your Carbs:</strong> When you physically cannot eat another bite of rice, you must drink your carbs. Apple juice, grape juice, and high-carb sports drinks (like Maurten or Tailwind) are critical tools for hitting high targets.</li>
             </ul>
 
-            <h2>The Psychological Hurdle: Water Weight Gain</h2>
+            <h2 className="text-2xl font-bold mb-3">The Psychological Hurdle: Water Weight Gain</h2>
             <p>When you use the calculator, pay close attention to the "Expected Water Weight Gain" warning. When the body stores a single gram of glycogen inside the muscle, it chemically binds it with approximately 3 grams of water. Therefore, if you successfully supercompensate and store an extra 500 grams of glycogen, you are also storing 1,500 grams of water.</p>
             <p>This means you will step on the scale the morning of your race and find yourself 4 to 6 pounds heavier than normal. You will feel bloated, heavy, and sluggish. <strong>Do not panic.</strong> Do not attempt to restrict water intake or sweat it out in a sauna. This is functional water weight. As you burn the glycogen during the marathon, that water is released into your system, acting as a critical internal hydration mechanism when you are sweating heavily.</p>
 
-            <h2>When NOT to Carb Load</h2>
+            <h2 className="text-2xl font-bold mb-3">When NOT to Carb Load</h2>
             <p>This protocol is miserable, requires military discipline to eat that much food, and is entirely unnecessary for short events. If you are running a 5K or a 10K, your event will be over in 20 to 60 minutes. You will not come close to depleting your baseline glycogen stores. Carb loading for a 5K simply adds 5 pounds of heavy, dead water weight to your body, making you slower. Reserve the supercompensation protocol strictly for events exceeding 90 to 120 minutes of continuous, high-intensity output.</p>
 
-            <h2>Conclusion: Trust the Process</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Trust the Process</h2>
             <p>A marathon is won or lost in the final 10 kilometers. Your cardiovascular fitness dictates your pace, but your glycogen dictates whether you get to maintain that pace or collapse. Use the Carbohydrate Loading Calculator to establish your 72-hour mathematical targets. Strip the fiber out of your diet, embrace the white rice and fruit juice, accept the temporary water weight gain, and step onto the starting line with an overflowing fuel tank.</p>
           </article>
           

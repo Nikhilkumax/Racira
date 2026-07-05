@@ -237,17 +237,17 @@ const ScientificNotationCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Why Use Scientific Notation?</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Use Scientific Notation?</h2>
             <p><strong>Scientific notation</strong> is an essential mathematical tool for dealing with extreme numbers. In fields like astronomy and quantum physics, scientists frequently work with figures that are staggeringly large or incredibly small. For instance, the mass of the Earth is approximately 5,972,000,000,000,000,000,000,000 kg. The mass of an electron is roughly 0.0000000000000000000000000000009109 kg. Writing these standard decimals out by hand is not only tedious but highly prone to counting errors. Scientific notation condenses these numbers into a clean, universally readable format.</p>
 
-            <h2>The Anatomy of Scientific Notation</h2>
+            <h2 className="text-2xl font-bold mb-3">The Anatomy of Scientific Notation</h2>
             <p>A number written in scientific notation consists of two main parts multiplied together:</p>
             <ul>
               <li><strong>The Coefficient:</strong> Also known as the mantissa or significand, this is a real number greater than or equal to 1, and strictly less than 10. It contains all the significant figures of the original number.</li>
               <li><strong>The Base and Exponent:</strong> The coefficient is multiplied by a base of 10 raised to an integer power (the exponent). The exponent tells you how many places to move the decimal point to return the coefficient back to its standard form.</li>
             </ul>
 
-            <h2>Rules for Converting to Scientific Notation</h2>
+            <h2 className="text-2xl font-bold mb-3">Rules for Converting to Scientific Notation</h2>
             <ol>
               <li>Move the decimal point in your original number until there is exactly one non-zero digit to its left. This new number becomes your coefficient.</li>
               <li>Count the number of places you moved the decimal point. This count becomes your exponent.</li>
@@ -259,7 +259,7 @@ const ScientificNotationCalculator = () => {
               </li>
             </ol>
 
-            <h2>Engineering Notation vs. Scientific Notation</h2>
+            <h2 className="text-2xl font-bold mb-3">Engineering Notation vs. Scientific Notation</h2>
             <p>While standard scientific notation requires the coefficient to be between 1 and 10, <strong>Engineering notation</strong> has a different rule: the exponent must always be a multiple of three (e.g., 3, 6, 9, -3, -6). Consequently, the coefficient can be anywhere between 1 and 1000. This system perfectly aligns with SI metric prefixes. For example, 5.5 × 10³ Hz translates instantly to 5.5 kiloHertz, while 5.5 × 10⁶ translates to 5.5 megaHertz.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/scientific-notation-calculator" />

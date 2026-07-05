@@ -326,11 +326,11 @@ export default function CalorieSurplusForWeightGainCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Calorie Surplus Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Calorie Surplus Calculator</h2>
             <p>In the world of fitness, nutrition, and bodybuilding, gaining weight is often referred to as "Bulking." However, gaining weight is incredibly easy; anyone can do it by simply eating massive amounts of fast food while sitting on a couch. The true challenge is gaining <strong>muscle</strong> while minimizing the accumulation of body fat. To accomplish this, you must manipulate the First Law of Thermodynamics by establishing a mathematically precise Calorie Surplus.</p>
             <p>A calorie surplus occurs when you consume more energy (measured in kilocalories) than your body expends throughout the day to survive and move. When the body encounters this excess energy, it must store it. The <strong>Calorie Surplus Calculator for Weight Gain</strong> is designed to help you project exactly how fast your body will accrue mass based on the size of the surplus you establish. By forecasting this growth over a 6-month timeline, you can visually determine if your eating habits align with your physique goals without crossing the line into a "dirty bulk."</p>
 
-            <h2>The Thermodynamics of Mass Accrual</h2>
+            <h2 className="text-2xl font-bold mb-3">The Thermodynamics of Mass Accrual</h2>
             <p>You have likely heard the golden rule of fat loss: a 3,500-calorie deficit results in one pound of fat lost. Does this rule work in reverse for muscle gain? The answer is slightly more complicated, but practically, yes.</p>
             <p>Skeletal muscle tissue is composed mostly of water (about 70%), with the rest being protein, glycogen, and intramuscular fat. Because of this high water content, the actual energy stored inside a pound of muscle is only about 600 to 700 calories. However, the biological process of synthesizing that new protein—building the muscle from scratch—is incredibly energy-intensive. Scientific estimates suggest that the body must burn approximately 2,500 to 2,800 kilocalories just to construct one pound of new muscle tissue.</p>
             <p>Because no bulking phase is 100% perfectly efficient (you will almost always gain a small fraction of fat alongside the muscle), the standard heuristic of a 3,500-calorie surplus per pound of body weight gained is universally utilized in sports nutrition. This means:</p>
@@ -339,28 +339,28 @@ export default function CalorieSurplusForWeightGainCalculator() {
               <li>A daily surplus of <strong>500 calories</strong> equals a weekly surplus of 3,500 calories, resulting in roughly <strong>1.0 pounds</strong> of mass gained per week.</li>
             </ul>
 
-            <h2>The Biological Limit of Muscle Growth</h2>
+            <h2 className="text-2xl font-bold mb-3">The Biological Limit of Muscle Growth</h2>
             <p>The biggest trap beginners fall into when trying to gain weight is assuming that more food equals more muscle. "If a 500-calorie surplus builds one pound of muscle, I will eat a 1,500-calorie surplus and build three pounds of muscle like Arnold Schwarzenegger!" This is biologically impossible.</p>
             <p>The human body has a strict, genetically determined limit on how fast it can synthesize new muscle protein. Under optimal conditions (perfect training, perfect sleep, high protein intake), the absolute maximum amount of pure muscle a natural novice lifter can build is about <strong>0.5 pounds per week</strong> (or roughly 2 pounds a month). For intermediate and advanced lifters, that number drops drastically to 0.25 pounds or less per week.</p>
             <p>Why does this matter? If your biological limit is 0.5 pounds of muscle per week, and your massive caloric surplus forces your body to gain 2 pounds per week, the remaining 1.5 pounds is guaranteed to be stored as 100% pure body fat. You cannot force the muscle-building machinery to run faster by over-feeding it. You will just get fat.</p>
 
-            <h2>Dirty Bulking vs. Lean Bulking</h2>
+            <h2 className="text-2xl font-bold mb-3">Dirty Bulking vs. Lean Bulking</h2>
             <p>Because of this biological limit, modern sports nutrition strongly advocates for "Lean Bulking" over the traditional "Dirty Bulking" methods of the 1990s.</p>
             <p><strong>The Dirty Bulk (Aggressive):</strong> A dirty bulk involves eating everything in sight to create a massive surplus (often 1,000+ calories a day). While your strength in the gym will skyrocket, you will gain massive amounts of fat. This ruins your insulin sensitivity (making it harder to build muscle later) and eventually forces you to undergo a grueling, 4-month cutting phase to strip the fat away, during which you will likely lose some of the muscle you just built.</p>
             <p><strong>The Lean Bulk (Optimal):</strong> A lean bulk utilizes a highly conservative surplus of just 200 to 300 calories a day. Because the surplus is so small, it provides the exact amount of energy needed to fuel muscle protein synthesis with almost zero excess left over to be stored as fat. It requires patience and strict macro tracking, but it allows you to bulk for 8 to 12 months without ever needing a drastic cutting phase.</p>
 
-            <h2>How to Ensure the Weight Gained is Muscle</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Ensure the Weight Gained is Muscle</h2>
             <p>If you establish a 500-calorie surplus using our calculator but do nothing else, 100% of the weight you gain will be body fat. To force the body to use that excess energy for muscle construction, two requirements must be met:</p>
             <ol>
               <li><strong>Progressive Overload (Resistance Training):</strong> You must provide a stimulus. Lifting heavy weights causes micro-tears in the muscle fibers. This damage sends a biological signal to the brain, essentially saying, "We are not strong enough to survive this environment; we must use our surplus energy to build thicker, stronger fibers." Without this stimulus, the body has no reason to build muscle.</li>
               <li><strong>Adequate Protein Intake:</strong> Calories provide the energy, but protein provides the physical building blocks (amino acids). You cannot build a brick house without bricks. To maximize muscle growth in a surplus, you must consume approximately 0.8 to 1.0 grams of protein per pound of your body weight every single day.</li>
             </ol>
 
-            <h2>Handling the Initial Water Weight Jump</h2>
+            <h2 className="text-2xl font-bold mb-3">Handling the Initial Water Weight Jump</h2>
             <p>When you transition from eating at maintenance (or a deficit) into a caloric surplus, you will likely see a massive jump on the scale within the first 72 hours—often 3 to 5 pounds. Do not panic. This is not fat, and it is not muscle.</p>
             <p>When you eat more food (specifically more carbohydrates), your body stores those carbs in your muscles as glycogen. Every gram of glycogen holds onto approximately 3 grams of water. Therefore, simply eating more carbs causes your muscles to fill up with heavy water, which registers on the scale. This is actually a good thing; it makes your muscles look fuller and drastically improves your strength in the gym. Ignore this initial spike and monitor your weight trajectory from week 2 onward.</p>
 
-            <h2>Conclusion: Patience and Precision</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Patience and Precision</h2>
             <p>Building an elite physique is a marathon, not a sprint. While you can lose fat rapidly through aggressive deficits, you cannot build muscle rapidly through aggressive surpluses. Use the Calorie Surplus Calculator to project a sustainable, lean-bulking timeline. Aim for a conservative weight gain of 0.5 to 1.0 pounds per week, lift progressively heavier weights, hit your protein targets, and trust the long-term mathematical process to deliver results.</p>
           </article>
           

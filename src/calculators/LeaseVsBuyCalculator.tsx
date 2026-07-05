@@ -87,9 +87,7 @@ const LeaseVsBuyCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">
-                  <Car className="h-5 w-5" /> Compare Options
-                </button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground">
+                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">Calculate</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground">
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
@@ -123,7 +121,7 @@ const LeaseVsBuyCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Lease or Buy: Which is Right for You?</h2>
+              <h2 className="text-2xl font-bold mb-3">Lease or Buy: Which is Right for You?</h2>
               <p>Choosing between leasing and buying a car is one of the most common financial dilemmas. While buying is often the "smarter" financial move in the long term, leasing offers flexibility and lower upfront costs.</p>
               <h3>When Leasing Makes Sense</h3>
               <p>Leasing is ideal if you enjoy driving a new car every few years, want the latest technology and safety features, and prefer lower monthly payments. Since you only pay for the car's depreciation during the lease term, your payments are typically lower than a loan for the full purchase price.</p>

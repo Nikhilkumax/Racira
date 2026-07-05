@@ -329,19 +329,19 @@ export default function StarterMotorCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Mechanics of Starting an Engine</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mechanics of Starting an Engine</h2>
             <p>Before a modern internal combustion engine can run on its own power, it must be physically rotated by an external force to suck in the first breath of air and compress the first spray of fuel. This incredibly demanding task falls on the <strong>Starter Motor</strong>, a small but incredibly powerful electric motor bolted to the side of the engine block.</p>
             <p>The starter motor draws a massive, instantaneous surge of electrical current from the battery to force the heavy steel crankshaft to turn against the mechanical resistance of the engine's internal compression.</p>
 
-            <h2>Why Engine Size (Displacement) Matters</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Engine Size (Displacement) Matters</h2>
             <p>Engine displacement (measured in Liters) dictates the physical size of the internal components. A 1.5L four-cylinder engine found in an economy car is relatively light and easy to rotate. It requires very little electrical power to start, usually around 250 Cold Cranking Amps (CCA).</p>
             <p>In stark contrast, a heavy-duty pickup truck equipped with a massive 6.2L V8 engine has giant, heavy pistons that must compress a massive volume of air. To physically rotate this massive block of steel, the starter motor must pull hundreds of Amps (often 700+ CCA) from the battery. If you put the small battery from the economy car into the V8 truck, the starter motor will not have enough electrical torque to overcome the physical resistance of the V8's cylinders.</p>
 
-            <h2>The Death Zone: Voltage Drop</h2>
+            <h2 className="text-2xl font-bold mb-3">The Death Zone: Voltage Drop</h2>
             <p>When the starter motor engages, it pulls so much current out of the battery that the overall system voltage in the vehicle instantly plummets. A fully charged resting battery sits at 12.6 Volts. During a healthy engine start, the massive draw of the starter motor will briefly pull the system voltage down to roughly 10.5 Volts before bouncing back.</p>
             <p>However, if the battery is old, weak, or severely undersized for the engine (e.g., trying to start a V8 with a 400 CCA battery), the starter motor will strain the battery to its breaking point. The system voltage will crash down into the "Death Zone" below 9.0 Volts. Because modern Engine Control Units (ECUs) require a stable 9.0V to operate the spark plugs and fuel injectors, the computer will actively shut down to protect itself. This is why a weak battery results in a rapid "clicking" sound rather than a successful start.</p>
 
-            <h2>The Brutality of Winter (Cold Starts)</h2>
+            <h2 className="text-2xl font-bold mb-3">The Brutality of Winter (Cold Starts)</h2>
             <p>Starting an engine in the dead of winter is exponentially harder than in the summer. When temperatures drop below freezing, the engine oil thickens from a smooth fluid into a thick, sticky sludge. The starter motor must fight against this increased mechanical resistance. Simultaneously, the freezing temperatures slow down the chemical reaction inside the Lead-Acid battery, severely reducing its ability to output maximum current. This combination of increased physical resistance and decreased electrical output is why batteries almost always fail on cold winter mornings.</p>
           </article>
           

@@ -377,7 +377,7 @@ export default function TenYearAveragingDistributionCalculator() {
 
         {/* SEO CONTENT SECTION */}
         <div className="max-w-[800px] mt-16 prose prose-slate dark:prose-invert">
-          <h2>What Is the 10-Year Averaging Distribution Calculator?</h2>
+          <h2 className="text-2xl font-bold mb-3">What Is the 10-Year Averaging Distribution Calculator?</h2>
           <p>
             The 10-Year Averaging Distribution Calculator is a specialized tax tool designed to estimate the tax liability on a lump-sum distribution from a qualified retirement plan. This specific tax treatment is available only to individuals who were born before January 2, 1936, or to their beneficiaries.
           </p>
@@ -385,7 +385,7 @@ export default function TenYearAveragingDistributionCalculator() {
             By using the 10-year tax option, taxpayers can calculate their tax on the ordinary income portion of a lump-sum distribution as if it were received evenly over 10 years, using the tax rates that were in effect in 1986. This often results in a significantly lower overall tax burden compared to adding the entire lump sum to your current year's ordinary income.
           </p>
 
-          <h2>How It Works</h2>
+          <h2 className="text-2xl font-bold mb-3">How It Works</h2>
           <p>
             The mathematics behind the 10-year averaging calculation are complex and defined by IRS Form 4972. Our calculator automates this process:
           </p>
@@ -396,7 +396,7 @@ export default function TenYearAveragingDistributionCalculator() {
             <li><strong>Apply 1986 Tax Rates:</strong> The taxable ordinary income is divided by 10. We then add $2,480 (the 1986 zero bracket amount for a single taxpayer). The 1986 tax tables are applied to this amount, and the resulting tax is multiplied by 10.</li>
           </ol>
 
-          <h2>Understanding Your Results</h2>
+          <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
           <p>
             When you use the calculator, you will see a detailed breakdown:
           </p>
@@ -407,7 +407,7 @@ export default function TenYearAveragingDistributionCalculator() {
             <li><strong>Minimum Distribution Allowance:</strong> If your distribution is under $70,000, this tax-free buffer is automatically calculated and subtracted from your taxable income.</li>
           </ul>
 
-          <h2>Key Factors to Consider</h2>
+          <h2 className="text-2xl font-bold mb-3">Key Factors to Consider</h2>
           <p>
             Before electing the 10-year tax option, consider these rules:
           </p>
@@ -418,7 +418,7 @@ export default function TenYearAveragingDistributionCalculator() {
             <li><strong>Capital Gains Treatment:</strong> If you participated in the plan before 1974, a portion of the distribution might qualify for a flat 20% capital gains tax rate instead of ordinary income.</li>
           </ul>
 
-          <h2>Practical Examples</h2>
+          <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
           <p>
             <strong>Example 1: Small Distribution</strong><br/>
             You receive a $40,000 lump sum with no capital gains. Because it is under $70,000, the Minimum Distribution Allowance kicks in. The MDA is $6,000. Your taxable ordinary income is $34,000. The 10-year averaging tax on $34,000 is approximately $4,220, resulting in an effective tax rate of just 10.5%.
@@ -428,14 +428,14 @@ export default function TenYearAveragingDistributionCalculator() {
             You receive a $250,000 lump sum. There is no MDA because the distribution exceeds $70,000. Using the 1986 single taxpayer rates on $25,000 ($250,000 / 10), the tax is $4,168. Multiplied by 10, your total tax is $41,680. An effective tax rate of 16.6%—likely far lower than standard income tax rates on a $250,000 spike in income.
           </p>
 
-          <h2>Tips & Best Practices</h2>
+          <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
           <ul>
             <li><strong>Compare All Options:</strong> Always compare the 10-year averaging tax to the alternative of rolling the distribution over into an IRA or paying standard income tax on it. An IRA rollover allows the funds to continue growing tax-deferred.</li>
             <li><strong>Use Form 4972:</strong> When filing your official taxes, you must use IRS Form 4972 (Tax on Lump-Sum Distributions) to formally elect this treatment.</li>
             <li><strong>Consult a Professional:</strong> Due to the complexity and the "once-in-a-lifetime" rule, consult with a Certified Public Accountant (CPA) or financial advisor before making a final decision.</li>
           </ul>
 
-          <h2>Benefits of Using This Calculator</h2>
+          <h2 className="text-2xl font-bold mb-3">Benefits of Using This Calculator</h2>
           <p>
             Manually calculating the 10-year averaging tax involves pulling out historical 1986 tax tables and executing a multi-step algebraic formula. This calculator does all the heavy lifting instantly. It allows retirees and beneficiaries to quickly evaluate whether the 10-year tax option is a financially advantageous choice compared to an IRA rollover or standard taxation, ensuring you keep as much of your retirement savings as legally possible.
           </p>

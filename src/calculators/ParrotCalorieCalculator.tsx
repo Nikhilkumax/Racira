@@ -332,11 +332,11 @@ export default function ParrotCalorieCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding Avian Metabolism and Nutrition</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Avian Metabolism and Nutrition</h2>
             <p>Parrots, macaws, and finches are incredibly complex animals with a metabolism vastly different from the domestic dogs and cats we are used to caring for. A bird's metabolic engine runs incredibly hot; their core body temperature is higher, their heart rate is significantly faster, and their respiratory system is highly specialized for the immense physical demands of flight. The <strong>Parrot & Avian Calorie Calculator</strong> utilizes veterinary allometric scaling equations to pinpoint exactly how much energy your bird needs to maintain this high-performance biology.</p>
             <p>Unfortunately, malnutrition is the leading cause of premature death in captive exotic birds. Many owners inadvertently feed their birds diets that are too high in fat, too low in calcium, and devoid of Vitamin A. By understanding your bird's precise daily caloric limit, you can transition them to a medically sound 70/20/10 diet plan, ensuring vibrant plumage, a strong immune system, and a lifespan that can stretch for decades.</p>
 
-            <h2>The Mathematics of Avian Basal Energy Requirements</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of Avian Basal Energy Requirements</h2>
             <p>To calculate a bird's daily caloric needs, avian veterinarians must first determine their Basal Energy Requirement (BER)—the amount of energy needed simply to keep the bird alive while at rest in a neutral temperature environment.</p>
             <p>Birds are divided into two main categories, which scale differently:</p>
             <ul>
@@ -345,7 +345,7 @@ export default function ParrotCalorieCalculator() {
             </ul>
             <p>Once the basal requirement is calculated, an <strong>Activity Multiplier</strong> must be applied to determine the Maintenance Energy Requirement (MER)—the actual calories they need to consume daily. A fully flighted macaw flying around a house requires significantly more energy (up to 3x BER) than a cage-bound, wing-clipped budgie (1.5x BER). Our calculator automatically applies these multipliers based on your selected activity level.</p>
 
-            <h2>The Dangers of the All-Seed Diet</h2>
+            <h2 className="text-2xl font-bold mb-3">The Dangers of the All-Seed Diet</h2>
             <p>For decades, the standard pet trade narrative was that parrots should eat seeds. This is perhaps the most dangerous myth in avian care. Feeding a parrot a 100% seed diet is the nutritional equivalent of feeding a human child nothing but potato chips and donuts for their entire life.</p>
             <p>Commercial seed mixes are primarily composed of sunflower and safflower seeds. These are incredibly high in fat and devastatingly low in essential vitamins and minerals. Because seeds are tasty, birds will quickly become "seed junkies," refusing to eat anything else. Over years, this leads to:</p>
             <ul>
@@ -355,24 +355,24 @@ export default function ParrotCalorieCalculator() {
               <li><strong>Severe Obesity:</strong> Leading to arthritis and cardiovascular failure.</li>
             </ul>
 
-            <h2>The 70/20/10 Protocol</h2>
+            <h2 className="text-2xl font-bold mb-3">The 70/20/10 Protocol</h2>
             <p>To reverse these statistics, board-certified avian veterinarians strongly advocate for the 70/20/10 protocol. Our calculator breaks down your bird's daily caloric limit into these three specific buckets:</p>
             <p><strong>1. Formulated Pellets (70%):</strong> The vast majority of your bird's calories must come from a high-quality, extruded pellet (brands like Harrison's, Roudybush, or ZuPreem). Pellets are scientifically engineered so that every single bite contains the exact ratio of protein, calcium, vitamins, and minerals required. Because it is uniform, the bird cannot "pick out" the unhealthy bits as they do with seed mixes.</p>
             <p><strong>2. Fresh Vegetables & Greens (20%):</strong> To provide phytonutrients and psychological foraging enrichment, one-fifth of the diet should be fresh, bird-safe vegetables. Dark leafy greens (kale, spinach, mustard greens), orange vegetables (carrots, sweet potatoes, butternut squash), and bell peppers are excellent choices. Avocado is highly toxic and must never be fed.</p>
             <p><strong>3. Seeds, Nuts, and Fruits (10% max):</strong> Seeds and nuts should be treated strictly as training rewards. They are excellent high-value tools for teaching your bird tricks or step-up commands, but they must not exceed 10% of their daily caloric intake. Fruits, while natural, are very high in fructose and should be limited as well.</p>
 
-            <h2>How to Transition a Seed-Junkie to Pellets</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Transition a Seed-Junkie to Pellets</h2>
             <p>If you realize your bird has been living on an unhealthy seed diet, do not simply replace their seeds with pellets overnight. Birds are neophobic (fearful of new things). If they do not recognize a pellet as food, they will stubbornly starve themselves to death rather than eat it.</p>
             <p>Transitioning requires time and patience. Start by mixing 90% seed and 10% pellets. Slowly increase the pellet ratio over four to six weeks. You can encourage curiosity by pretending to eat the pellets yourself; parrots are flock animals, and seeing you (their flock leader) eat something will often trigger them to try it. Another trick is slightly moistening the pellets with a tiny drop of unsweetened apple juice to make them smell sweeter, gradually reducing the juice over time.</p>
 
-            <h2>Weight Monitoring and Avian Health</h2>
+            <h2 className="text-2xl font-bold mb-3">Weight Monitoring and Avian Health</h2>
             <p>A digital gram scale is the most important medical tool an avian owner can possess. In the wild, a sick bird is quickly targeted by predators. To survive, birds have evolved to mask symptoms of illness perfectly. By the time a parrot looks sick (sitting at the bottom of the cage, fluffed feathers, lethargy), they are usually within hours of death.</p>
             <p>The only reliable early warning sign of avian illness is rapid weight loss. You should weigh your bird on a digital scale every single week at the exact same time of day (preferably in the morning before they eat). A loss of 5% of their body weight over a few days is a major red flag; a 10% loss is a critical emergency requiring an immediate trip to an exotic veterinarian.</p>
 
-            <h2>Hydration and Caloric Intake</h2>
+            <h2 className="text-2xl font-bold mb-3">Hydration and Caloric Intake</h2>
             <p>While the focus is often on food, hydration is equally critical. Unlike mammals, birds produce uric acid instead of liquid urea, which is why their droppings have a white, chalky component. While this is water-efficient, they still require constant access to fresh, clean water. A general rule of thumb is that a bird requires roughly 1 milliliter of water for every kilocalorie of energy consumed. A bird eating 100 kcal per day will generally drink about 100 mL of water, though much of this can come from the moisture content in their fresh vegetables.</p>
 
-            <h2>Conclusion</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion</h2>
             <p>Feeding a parrot is more akin to feeding a highly specialized human athlete than an ordinary house pet. Their brilliant minds and delicate biologies require exact nutritional inputs to thrive. By utilizing the Parrot & Avian Diet Calculator, converting their diet to a pellet-based protocol, and vigilantly monitoring their weight on a gram scale, you can protect your feathered companion from the silent epidemic of avian malnutrition.</p>
           </article>
           

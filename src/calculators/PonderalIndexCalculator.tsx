@@ -374,15 +374,15 @@ export default function PonderalIndexCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Ponderal Index (PI) Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Ponderal Index (PI) Calculator</h2>
             <p>For nearly two centuries, the medical community has utilized the Body Mass Index (BMI) to determine if an individual is carrying a healthy amount of weight. However, as sports science and biomechanics have advanced, glaring mathematical flaws in the BMI formula have been exposed. The most significant flaw lies in its geometry. The <strong>Ponderal Index Calculator</strong> (also known as the Corpulence Index or Rohrer's Index) was developed to fix this specific mathematical error. By utilizing a three-dimensional cubic equation instead of a two-dimensional square equation, the Ponderal Index provides a vastly superior analysis of human body proportions, particularly for individuals who are unusually tall or short.</p>
 
-            <h2>The Mathematical Flaw of BMI (The 2D Problem)</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematical Flaw of BMI (The 2D Problem)</h2>
             <p>To understand why the Ponderal Index is necessary, you must understand why BMI fails. The formula for BMI is Weight divided by Height Squared (kg / m²). In mathematics, "squaring" a number calculates area—a two-dimensional measurement like a sheet of paper or a floor plan.</p>
             <p>However, human beings are not two-dimensional shapes. We are three-dimensional, volumetric objects. We have height, width, and depth. As a human being grows taller, their weight does not increase in a perfectly linear, two-dimensional fashion; their weight increases geometrically. Their bones get thicker, their organs get larger, and their physical volume expands in all directions.</p>
             <p>Because BMI only squares the height, it massively underestimates the true weight-carrying capacity of very tall people, and massively overestimates the capacity of very short people.</p>
 
-            <h2>How the Ponderal Index Fixes the Math (The 3D Solution)</h2>
+            <h2 className="text-2xl font-bold mb-3">How the Ponderal Index Fixes the Math (The 3D Solution)</h2>
             <p>The Ponderal Index utilizes a brilliant, yet simple fix: <strong>Weight divided by Height Cubed (kg / m³)</strong>.</p>
             <p>By "cubing" the height, the formula shifts from measuring 2D area to measuring 3D volume. This aligns perfectly with the biological reality of how the human frame scales. When you apply the Ponderal Index, the mathematical distortions vanish:</p>
             <ul>
@@ -390,7 +390,7 @@ export default function PonderalIndexCalculator() {
               <li><strong>The Short Person Illusion is fixed.</strong> Under standard BMI, a 5'0" individual can carry a dangerous amount of belly fat, yet still slide under the radar as "Healthy" because the squared height equation is too forgiving. The Ponderal Index catches this, correctly identifying the dangerous density of mass packed into a very small volumetric frame.</li>
             </ul>
 
-            <h2>When to Use the Ponderal Index Over BMI</h2>
+            <h2 className="text-2xl font-bold mb-3">When to Use the Ponderal Index Over BMI</h2>
             <p>For individuals who fall roughly around the global average height (5'4" to 5'9"), the BMI and the Ponderal Index will generally provide very similar classifications. The results diverge wildly at the extremes. You should rely exclusively on the Ponderal Index if:</p>
             <ol>
               <li>You are a male over 6'2" or under 5'4".</li>
@@ -398,7 +398,7 @@ export default function PonderalIndexCalculator() {
               <li>You are a pediatrician analyzing infant or childhood growth data. (Because children are growing rapidly in three dimensions, pediatricians overwhelmingly prefer the Ponderal Index, often referring to it as the Rohrer Index in clinical settings).</li>
             </ol>
 
-            <h2>Understanding Your Ponderal Score</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Ponderal Score</h2>
             <p>Because the math is cubed, the numbers output by the Ponderal Index look completely different than standard BMI numbers. You must familiarize yourself with a new scale:</p>
             <ul>
               <li><strong>Less than 11 (Underweight):</strong> A score this low indicates a severely lacking mass-to-volume ratio. The individual is highly linear, thin, and lacking adequate muscle and fat tissue.</li>
@@ -407,11 +407,11 @@ export default function PonderalIndexCalculator() {
               <li><strong>Greater than 16 (Obese):</strong> A dangerous density of mass that places severe, constant stress on the skeletal and cardiovascular systems.</li>
             </ul>
 
-            <h2>The Limitations: The "Bodybuilder Problem" Remains</h2>
+            <h2 className="text-2xl font-bold mb-3">The Limitations: The "Bodybuilder Problem" Remains</h2>
             <p>It is vital to understand that while the Ponderal Index perfectly solves the "Height Flaw" of BMI, it does absolutely nothing to solve the "Muscle Flaw."</p>
             <p>The formula only requires total weight and total height. It is completely blind to body composition. It cannot tell the difference between 50 pounds of dense, metabolically active skeletal muscle and 50 pounds of dangerous visceral organ fat. If a 5'6" competitive bodybuilder steps on the scale weighing a massive, shredded 210 pounds, both the BMI and the Ponderal Index will erroneously classify him as morbidly obese. He is incredibly dense, but it is a healthy density. For athletes with massive muscle mass, tools like the Fat-Free Mass Index (FFMI) or Waist-to-Height Ratio (WtHR) must be used instead.</p>
 
-            <h2>Conclusion: A Smarter Metric for a 3D World</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: A Smarter Metric for a 3D World</h2>
             <p>The reliance on the outdated, 2-dimensional Body Mass Index has caused millions of healthy, tall individuals to panic over false "Overweight" classifications, while simultaneously failing to warn shorter individuals of their impending metabolic risk. We live in a three-dimensional world, and our medical diagnostics should reflect that reality. If your height falls outside the standard human average, discard the BMI entirely. Use the Ponderal Index Calculator to gain a mathematically accurate, volumetrically sound assessment of your true health profile.</p>
           </article>
           

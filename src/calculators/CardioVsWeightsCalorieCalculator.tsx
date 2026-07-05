@@ -353,31 +353,31 @@ export default function CardioVsWeightsCalorieCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Great Debate: Cardio vs. Weights for Weight Loss</h2>
+            <h2 className="text-2xl font-bold mb-3">The Great Debate: Cardio vs. Weights for Weight Loss</h2>
             <p>Walk into any gym, and you will see a clear divide. On one side of the room, people are sweating profusely on treadmills, chasing a high calorie-burn number on a digital screen. On the other side, people are lifting heavy barbells, taking long rest periods, and barely looking at their heart rate monitors. For decades, the fitness industry told us that to lose weight, you must do cardio. To build muscle, you must lift weights. However, modern clinical exercise physiology has proven that this binary thinking is fundamentally flawed. The <strong>Cardio vs Weights Calorie Calculator</strong> uses clinical Metabolic Equivalent (MET) data to mathematically prove why you need both, and why the calories you burn <em>after</em> you leave the gym matter more than the ones you burn while you are there.</p>
 
-            <h2>Why Cardio Wins the "Immediate Burn" Battle</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Cardio Wins the "Immediate Burn" Battle</h2>
             <p>If you look purely at a 60-minute window of time, cardiovascular exercise will mathematically burn significantly more absolute calories than weightlifting. The reason is simple: Continuous Output.</p>
             <p>When you jog on a treadmill for 60 minutes, your heart rate elevates to 150 BPM and stays there for the entire hour. Your legs never stop moving, and your lungs never stop pulling in oxygen. You are performing 60 solid minutes of physical "work."</p>
             <p>Weightlifting is highly segmented. If you spend 60 minutes in the weight room, you might do a heavy set of squats that takes 20 seconds, and then you sit on a bench and rest for 3 minutes to let your central nervous system recover. Out of that entire 60 minutes, you might only perform 12 total minutes of actual, active physical work. Because you spent 48 minutes resting, the acute caloric burn during that hour is significantly lower than the treadmill.</p>
 
-            <h2>The Muscle Paradox: Building a Caloric Furnace</h2>
+            <h2 className="text-2xl font-bold mb-3">The Muscle Paradox: Building a Caloric Furnace</h2>
             <p>If cardio burns more acute calories, why do professional bodybuilders and fitness models rely heavily on weightlifting to get so incredibly lean? The answer is Resting Metabolic Rate (RMR) and tissue density.</p>
             <p>Cardio burns calories only while you are actively doing it. Once you step off the treadmill, the burn effectively stops. Weightlifting, however, forces your body to adapt by building lean muscle tissue. Muscle is highly metabolically active tissue. It requires a constant supply of calories just to exist on your frame. For every pound of muscle you build, your body's baseline RMR increases. By lifting weights, you are physically expanding the size of your body's "engine," meaning you burn more calories 24 hours a day, 7 days a week, even while you are sitting at your desk or sleeping. Cardio does not build this engine; it merely burns the fuel currently in the tank.</p>
 
-            <h2>The Science of EPOC (The Afterburn Effect)</h2>
+            <h2 className="text-2xl font-bold mb-3">The Science of EPOC (The Afterburn Effect)</h2>
             <p>The interactive chart in this calculator highlights a critical physiological phenomenon known as <strong>Excess Post-Exercise Oxygen Consumption (EPOC)</strong>, commonly called the "Afterburn."</p>
             <p>When you jog at a moderate pace, you create very little mechanical damage to your body. When you lift a heavy barbell, you cause massive microscopic tearing in the muscle fibers and severely deplete your ATP energy stores. After you leave the gym, your body cannot immediately return to a resting state. It must rapidly consume oxygen and burn additional calories for up to 24 to 48 hours just to repair the damaged tissue, clear lactic acid, and synthesize new muscle proteins. Weightlifting generates a massive, prolonged EPOC effect, whereas steady-state cardio generates almost zero.</p>
 
-            <h2>The Danger of Being "Skinny Fat"</h2>
+            <h2 className="text-2xl font-bold mb-3">The Danger of Being "Skinny Fat"</h2>
             <p>If you only do cardio to lose weight, you will absolutely lose pounds on the scale. However, because you are not providing any resistance stimulus to your muscles, your body will happily burn away both fat and muscle tissue equally to drop weight. The result is becoming a smaller, softer version of yourself—often referred to as being "skinny fat."</p>
             <p>Weightlifting sends a powerful hormonal signal to your body: <em>"We need this muscle tissue to survive the heavy loads; do not burn it."</em> Consequently, when you are in a caloric deficit, weightlifting forces your body to spare the muscle and strictly oxidize stored body fat for fuel, resulting in a lean, toned, and athletic physique.</p>
 
-            <h2>Optimal Sequencing: Cardio Before or After Weights?</h2>
+            <h2 className="text-2xl font-bold mb-3">Optimal Sequencing: Cardio Before or After Weights?</h2>
             <p>If you are going to do both in the same gym session, the scientific consensus is clear: <strong>Always lift weights first, and do cardio second.</strong></p>
             <p>Your body stores immediate energy as glycogen (sugar) inside your muscles. To lift heavy weights safely and effectively, you need those glycogen stores to be completely full. If you run for 45 minutes first, you will burn through all of your high-octane glycogen. When you finally go to the weight room, your muscles will be depleted, weak, and highly susceptible to injury. By lifting weights first (utilizing the glycogen), you exhaust the sugar supply. When you step onto the treadmill afterward, your body has no sugar left and is forced to tap directly into stored body fat to fuel the cardio session.</p>
 
-            <h2>Conclusion: Do Not Pick a Side</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Do Not Pick a Side</h2>
             <p>Cardio is phenomenal for your heart, your lungs, and your immediate caloric deficit. Weightlifting is essential for your bone density, hormonal profile, and long-term metabolic rate. You do not have to choose a side. Use the Cardio vs Weights Calorie Calculator to visually understand the different ways these modalities manipulate thermodynamics, integrate both into your weekly routine, and let the science of body recomposition transform your physique.</p>
           </article>
           

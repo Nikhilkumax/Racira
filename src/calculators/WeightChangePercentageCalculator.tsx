@@ -353,26 +353,26 @@ export default function WeightChangePercentageCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Mathematics of Relativity</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of Relativity</h2>
             <p>One of the most psychologically frustrating aspects of the fitness journey is comparing yourself to others. A 130-pound woman might spend three months dieting rigorously to lose 6 pounds, while her 300-pound husband stops drinking soda for a month and drops 15 pounds. The woman feels defeated because she only looks at the absolute number on the scale. However, the laws of biology operate on relativity, not absolute numbers. Losing 6 pounds on a 130-pound frame is an incredibly difficult, massive physiological shift (nearly 5% of total body mass). Losing 15 pounds on a 300-pound frame is mathematically much easier and represents a smaller percentage. The <strong>Weight Change Percentage Calculator</strong> eliminates emotional bias by translating your progress into a strict, objective mathematical ratio.</p>
 
-            <h2>Why Doctors Track Percentages</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Doctors Track Percentages</h2>
             <p>In a clinical setting, your physician does not care about raw pounds; they care about percentage thresholds. </p>
             <p>A massive body of medical literature confirms that an obese individual does not need to achieve a "perfect" magazine-cover physique to drastically improve their health. The magic number in the medical community is the <strong>5% to 10% threshold</strong>. Losing just 5% to 10% of your total starting body weight creates a profound biological cascade: it drastically lowers systolic blood pressure, dramatically improves cellular insulin sensitivity, and significantly reduces the visceral fat wrapping around your liver. If you start at 250 pounds, a 10% loss is 25 pounds. You are still mathematically overweight at 225 pounds, but your risk of cardiovascular disease and Type 2 Diabetes has plummeted.</p>
 
-            <h2>The Danger of the "Biggest Loser" Fallacy</h2>
+            <h2 className="text-2xl font-bold mb-3">The Danger of the "Biggest Loser" Fallacy</h2>
             <p>The fitness industry and reality television have programmed society to believe that healthy weight loss looks like dropping 10 pounds in a single week. This is mathematically absurd and physiologically destructive.</p>
             <p>The clinical gold standard for safe, sustainable weight loss is <strong>0.5% to 1.0% of your body weight per week</strong>. For a 200-pound person, that means a maximum safe loss of 1 to 2 pounds per week. If you lose weight faster than 1% per week, the laws of thermodynamics dictate that you are not just burning fat. You are violently dehydrating your cells and cannibalizing your own functional Lean Body Mass (muscle tissue) for rapid fuel. Destroying your muscle mass permanently lowers your basal metabolic rate, virtually guaranteeing that you will suffer a massive "rebound" weight gain the moment you resume normal eating habits.</p>
 
-            <h2>Tracking Gain: The Science of Bulking</h2>
+            <h2 className="text-2xl font-bold mb-3">Tracking Gain: The Science of Bulking</h2>
             <p>While society focuses obsessively on weight loss, this calculator is mathematically agnostic. It is equally valuable for athletes, bodybuilders, and individuals recovering from severe illness who need to track mass accumulation (hypertrophy).</p>
             <p>When "bulking" to build muscle, the percentage rule still applies, but in reverse. If an athlete attempts to gain weight too quickly (e.g., gaining 3% of their body weight per week), the body cannot physically synthesize muscle tissue that fast. The vast majority of that rapid weight gain will be stored as unnecessary body fat. A controlled, clinical "lean bulk" targets a slow, deliberate percentage increase (roughly 0.25% to 0.5% per week) to ensure the newly acquired mass is primarily dense, functional muscle tissue rather than adipose fat.</p>
 
-            <h2>The Psychology of the Goal Progress Bar</h2>
+            <h2 className="text-2xl font-bold mb-3">The Psychology of the Goal Progress Bar</h2>
             <p>Motivation is notoriously unreliable. It is a fleeting emotion that vanishes the moment you are tired or stressed. Discipline is what builds physiques, and discipline requires objective data tracking.</p>
             <p>When you use the "Target Goal" feature in this calculator, the interface generates a strict visual progress bar. Seeing that you are "42% Complete" triggers the brain's dopamine reward system. It gamifies the difficult process of body recomposition. It prevents you from focusing on the massive mountain left to climb and forces you to acknowledge the mathematical reality of the ground you have already conquered.</p>
 
-            <h2>Conclusion: Trust the Math, Ignore the Mirror</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Trust the Math, Ignore the Mirror</h2>
             <p>When you stare at yourself in the mirror every single day, you suffer from "change blindness." The gradual shifts in your physique are impossible for your brain to detect in real-time. Do not trust the mirror, and do not let the raw poundage on the scale dictate your mood. Use the Weight Change Percentage Calculator to anchor your progress in cold, objective mathematics. Hit the 5% clinical milestone, push toward the 10% threshold, and permanently alter the trajectory of your metabolic health.</p>
           </article>
           

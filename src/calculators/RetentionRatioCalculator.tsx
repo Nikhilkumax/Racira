@@ -158,21 +158,21 @@ const RetentionRatioCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Retention Ratio Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Retention Ratio Calculator?</h2>
             <p>A retention ratio calculator computes what fraction of a company's net income is retained and reinvested into the business rather than paid to shareholders as dividends. Also known as the plowback ratio, it is a fundamental corporate finance metric used by analysts, investors, and CFOs to understand how a company deploys its profits. Pre-filled with $100,000 net income and $30,000 dividends paid, the retention ratio is 70% — the company keeps $70,000 for reinvestment while returning $30,000 to shareholders.</p>
-            <h2>The Retention Ratio Formula</h2>
+            <h2 className="text-2xl font-bold mb-3">The Retention Ratio Formula</h2>
             <p><strong>Retention Ratio = (Net Income − Dividends Paid) / Net Income</strong></p>
             <p>Equivalently: Retention Ratio = 1 − Dividend Payout Ratio. For our defaults: ($100,000 − $30,000) / $100,000 = 70%. This means 70 cents of every dollar earned is retained within the business.</p>
-            <h2>Sustainable Growth Rate (SGR)</h2>
+            <h2 className="text-2xl font-bold mb-3">Sustainable Growth Rate (SGR)</h2>
             <p><strong>SGR = Retention Ratio × Return on Equity (ROE)</strong></p>
             <p>The SGR represents the maximum rate a company can grow using only its internally generated cash flows. With a 70% retention ratio and 15% ROE: SGR = 0.70 × 15% = 10.5%. This company can sustainably grow at 10.5% annually from profits alone.</p>
-            <h2>Industry Benchmarks</h2>
+            <h2 className="text-2xl font-bold mb-3">Industry Benchmarks</h2>
             <p>Retention ratios vary dramatically by industry. Technology companies typically retain 80–100% of earnings. Consumer staples companies retain 40–60%. Utilities and REITs retain as little as 10–30% due to regulatory requirements to distribute 90%+ of taxable income. Growth-stage companies often retain 100% of earnings to fund expansion — Amazon maintained a near-zero dividend for decades.</p>
-            <h2>What the Ratio Tells You</h2>
+            <h2 className="text-2xl font-bold mb-3">What the Ratio Tells You</h2>
             <p>A high retention ratio signals a growth-oriented company that reinvests aggressively. A low ratio signals maturity and income distribution. Neither is inherently superior — what matters is whether retained earnings are deployed into investments that generate returns above the company's cost of capital. Always pair the retention ratio with ROE, ROIC, and free cash flow yield analysis to assess the quality of capital reinvestment.</p>
-            <h2>Connection to Earnings Growth</h2>
+            <h2 className="text-2xl font-bold mb-3">Connection to Earnings Growth</h2>
             <p>The retention ratio directly fuels future EPS growth. When a company retains earnings at high returns on equity, book value per share compounds, which drives earnings growth. Companies with high sustainable ROEs and appropriate retention ratios represent the most powerful compounding machines in equity markets.</p>
-            <h2>Limitations</h2>
+            <h2 className="text-2xl font-bold mb-3">Limitations</h2>
             <p>A company can retain 90% of earnings but deploy them into low-return acquisitions or excess working capital — destroying shareholder value. High retention alone does not guarantee value creation. Always verify that the company earns a return on retained earnings above its cost of equity (WACC). A declining retention ratio is not automatically negative — it may signal optimal capital return to shareholders when reinvestment opportunities are exhausted.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/retention-ratio-calculator" />

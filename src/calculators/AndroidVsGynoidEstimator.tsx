@@ -325,30 +325,30 @@ export default function AndroidVsGynoidEstimator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Deception of the Bathroom Scale</h2>
+            <h2 className="text-2xl font-bold mb-3">The Deception of the Bathroom Scale</h2>
             <p>For decades, the medical community relied almost entirely on the Body Mass Index (BMI) and the bathroom scale to assess patient health. While these metrics provide a general baseline, they suffer from a massive flaw: they treat all body weight as identical. A 200-pound man carrying most of his weight in his hips and thighs has an entirely different risk profile than a 200-pound man carrying all of his weight in a distended abdomen. The <strong>Android vs Gynoid Fat Distribution Estimator</strong> uses the Waist-to-Hip Ratio (WHR) to look past raw weight and analyze the far more dangerous metric of <em>where</em> your body is genetically choosing to store its excess energy.</p>
 
-            <h2>Understanding Subcutaneous Fat</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Subcutaneous Fat</h2>
             <p>To understand fat distribution, we must divide human fat into two distinct clinical categories. The first is subcutaneous fat.</p>
             <p>Subcutaneous fat is the soft, 'jiggly' fat located immediately beneath the skin. If you can pinch it between your fingers, it is subcutaneous fat. While it may be aesthetically undesirable to some, it is relatively biologically inert. Subcutaneous fat acts primarily as thermal insulation and a long-term energy reservoir. It does not actively damage your internal organs. Individuals who store the vast majority of their excess weight in their hips, thighs, and buttocks—creating a "Pear" or Gynoid shape—are storing primarily subcutaneous fat.</p>
 
-            <h2>The Hidden Threat: Visceral (Android) Fat</h2>
+            <h2 className="text-2xl font-bold mb-3">The Hidden Threat: Visceral (Android) Fat</h2>
             <p>The second category of fat is visceral fat, and it is a biological nightmare. Visceral fat is not stored under the skin; it is stored deep behind the abdominal wall, physically wrapping around your vital organs, including your liver, pancreas, and intestines.</p>
             <p>Visceral fat causes the classic "Apple" or Android shape. In men, this often manifests as a "beer belly"—a stomach that is physically large and distended, but feels surprisingly hard to the touch because the fat is tightly packed behind the abdominal muscle wall. Unlike subcutaneous fat, visceral fat is highly metabolically active. It functions as a rogue endocrine organ, constantly secreting highly inflammatory cytokines (like Interleukin-6 and TNF-alpha) directly into your portal vein. These toxins attack your cardiovascular system, severely degrade insulin sensitivity, and are a primary driver of Type 2 Diabetes, hypertension, and sudden cardiac events.</p>
 
-            <h2>The Mathematics of the Waist-to-Hip Ratio (WHR)</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of the Waist-to-Hip Ratio (WHR)</h2>
             <p>Because MRI scans to measure exact visceral fat volumes are incredibly expensive, clinicians rely on the Waist-to-Hip Ratio (WHR) as the most accurate proxy for visceral risk.</p>
             <p>The math is simple: you divide the circumference of your waist (which captures visceral fat volume) by the circumference of your hips (which captures bone structure and subcutaneous fat). If the number is low, your hips are wider than your waist, indicating a safe, Gynoid distribution. As the number approaches 1.0 (or exceeds it), it means your abdomen has expanded beyond the width of your pelvic structure, mathematically guaranteeing a massive accumulation of dangerous visceral fat.</p>
 
-            <h2>The Role of Hormones in Fat Storage</h2>
+            <h2 className="text-2xl font-bold mb-3">The Role of Hormones in Fat Storage</h2>
             <p>Fat distribution is not a choice; it is heavily governed by sex hormones. </p>
             <p>Testosterone actively drives excess calories to be stored in the central abdominal region. This is why middle-aged men are vastly more prone to the Android 'apple' shape and suffer from much higher rates of early cardiovascular disease compared to pre-menopausal women. Conversely, Estrogen drives fat storage into the hips, thighs, and buttocks (Gynoid distribution) to provide localized energy reserves for potential pregnancy and breastfeeding. Because estrogen protects women from central visceral fat storage, their cardiovascular risk remains relatively low. However, after menopause, when estrogen levels plummet, female fat distribution aggressively shifts into an Android pattern, and their cardiovascular risk profile immediately skyrockets to match that of men.</p>
 
-            <h2>Why "Spot Reduction" is a Dangerous Myth</h2>
+            <h2 className="text-2xl font-bold mb-3">Why "Spot Reduction" is a Dangerous Myth</h2>
             <p>When individuals realize they have a dangerous Android fat distribution, their immediate reaction is to start doing hundreds of crunches and sit-ups to "burn the belly fat."</p>
             <p>This is a complete physiological impossibility. You cannot burn fat in a specific area by exercising the muscles underneath it. Doing sit-ups will absolutely build strong rectus abdominis muscles, but those strong muscles will remain completely buried underneath the dangerous visceral fat. The only way to eliminate Android fat is to create a systemic, whole-body caloric deficit through dietary restriction and cardiovascular exercise. Your body will pull fat from wherever it chooses, but as you lose overall mass, the deadly visceral fat will eventually be oxidized.</p>
 
-            <h2>Conclusion: Target the Danger Zone</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Target the Danger Zone</h2>
             <p>Stop obsessing over the raw number on the bathroom scale. A person can have a "normal" BMI but still carry a massive amount of hidden visceral fat, making them biologically 'thin outside, fat inside' (TOFI). Use the Android vs Gynoid Fat Distribution Estimator to track your true cardiovascular risk. If your WHR places you in the Moderate or High-Risk category, you must immediately prioritize a caloric deficit and structured resistance training to clear the toxic inflammation from your abdominal cavity.</p>
           </article>
           

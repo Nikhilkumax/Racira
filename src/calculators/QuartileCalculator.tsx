@@ -163,15 +163,15 @@ const QuartileCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Quartile Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Quartile Calculator?</h2>
             <p>A quartile calculator divides a dataset into four equal parts using Q1 (25th percentile), Q2 (50th percentile/median), and Q3 (75th percentile). Pre-filled with 10 evenly spaced values (1–19), Q1=5, Q2=10, Q3=15, IQR=10. Choose between inclusive (Excel QUARTILE.INC) and exclusive (QUARTILE.EXC) interpolation methods. The calculator also shows a full percentile table from P10 to P90.</p>
-            <h2>How Quartiles Are Computed</h2>
+            <h2 className="text-2xl font-bold mb-3">How Quartiles Are Computed</h2>
             <p><strong>Inclusive method:</strong> index = p/100 × (n−1). Interpolate linearly between sorted[floor(index)] and sorted[ceil(index)]. Always returns a value within the data range. <strong>Exclusive method:</strong> index = p/100 × (n+1) − 1. May extrapolate slightly beyond the range. Different statistical software uses different methods, explaining occasional discrepancies between tools.</p>
-            <h2>Five-Number Summary</h2>
+            <h2 className="text-2xl font-bold mb-3">Five-Number Summary</h2>
             <p>The five-number summary (Min, Q1, Q2, Q3, Max) captures the essential shape of any distribution. Together with the IQR, it gives you: central tendency (Q2), spread (IQR), symmetry (compare Q2−Q1 to Q3−Q2), and extremes. It requires no distributional assumptions and is the basis of the box-and-whisker plot — arguably the most information-dense statistical graphic per unit area.</p>
-            <h2>Quartile Coefficient of Dispersion</h2>
+            <h2 className="text-2xl font-bold mb-3">Quartile Coefficient of Dispersion</h2>
             <p>QCD = (Q3 − Q1) / (Q3 + Q1) — a dimensionless relative measure of spread. Unlike CV (σ/μ), QCD uses quartiles and is resistant to outliers. Values near 0 indicate little spread relative to the central quartiles. Values near 1 indicate very high relative spread. Useful for comparing variability across datasets with different units or very different scales.</p>
-            <h2>Quartiles in Everyday Life</h2>
+            <h2 className="text-2xl font-bold mb-3">Quartiles in Everyday Life</h2>
             <p>Income distribution: "bottom quartile" earns less than Q1, "top quartile" more than Q3. Investment performance: funds ranked in Q1 outperformed 75% of peers. Academic grading: "quartile rank" in class. Health percentiles: child growth charts show weight/height by percentile. Employee compensation: salary band analysis often uses Q1, midpoint (Q2), and Q3 to define pay ranges.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/quartile-calculator" />

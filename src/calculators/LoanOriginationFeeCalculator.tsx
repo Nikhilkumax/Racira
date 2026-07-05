@@ -279,28 +279,28 @@ export default function LoanOriginationFeeCalculator() {
 
         {/* SEO Content */}
         <div className="max-w-[1180px] mt-12 prose prose-slate dark:prose-invert">
-          <h2>What Is a Loan Origination Fee?</h2>
+          <h2 className="text-2xl font-bold mb-3">What Is a Loan Origination Fee?</h2>
           <p>A loan origination fee is an upfront charge levied by a lender to process a new loan application. It serves as compensation for putting the loan in place. Origination fees are quoted as a percentage of the total loan amount and generally range between 0.5% and 1% for mortgages, and up to 8% for personal loans.</p>
           
-          <h2>How It Works</h2>
+          <h2 className="text-2xl font-bold mb-3">How It Works</h2>
           <p>The math is simple: <strong>Origination Fee = Loan Amount × Fee Percentage</strong>. However, what matters most is how this fee is treated at closing. It can either be paid entirely out-of-pocket as cash at closing, rolled into the total loan amount (increasing your monthly payments), or deducted directly from your loan proceeds (common in personal loans).</p>
 
-          <h2>Understanding Your Results</h2>
+          <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
           <p>This calculator determines the exact dollar amount of the origination fee. The pie chart visualizes your total cash needed to close, helping you see what portion of your upfront costs is strictly for the origination fee versus your down payment or other closing costs.</p>
           
-          <h2>Key Factors</h2>
+          <h2 className="text-2xl font-bold mb-3">Key Factors</h2>
           <p>The "Fee Treatment" option dramatically changes the financial outcome. If you pay upfront, it costs you cash today but saves you money long-term. If you roll it into the loan, you preserve cash today but will pay interest on that fee for the next 15 to 30 years.</p>
           
-          <h2>Advanced Features</h2>
+          <h2 className="text-2xl font-bold mb-3">Advanced Features</h2>
           <p>Using the advanced options, if you choose to "Roll into Loan Amount", the calculator will compute exactly how much extra interest you will pay over the life of the loan just for financing that origination fee.</p>
           
-          <h2>Practical Examples</h2>
+          <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
           <p>For a $320,000 loan with a 1% origination fee, you owe $3,200. If you roll that $3,200 into a 30-year mortgage at 6.5%, your monthly payment increases by about $20, and you will pay an additional $4,085 in interest over 30 years—making the true cost of that fee over $7,200.</p>
           
-          <h2>Tips & Best Practices</h2>
+          <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
           <p>Origination fees are highly negotiable. Always ask your lender to waive or reduce the fee. You can also compare "no-fee" loans, though be aware they often come with slightly higher interest rates to compensate the lender.</p>
           
-          <h2>Benefits</h2>
+          <h2 className="text-2xl font-bold mb-3">Benefits</h2>
           <p>By calculating the origination fee upfront, you can properly budget your cash-to-close and make an educated decision on whether it makes sense to pay the fee out-of-pocket or finance it.</p>
         </div>
 

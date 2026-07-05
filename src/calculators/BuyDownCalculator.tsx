@@ -244,25 +244,25 @@ export default function BuyDownCalculator() {
 
         {/* SEO Content */}
         <div className="max-w-[1180px] mt-12 prose prose-slate dark:prose-invert">
-          <h2>What Is a Mortgage Buy Down?</h2>
+          <h2 className="text-2xl font-bold mb-3">What Is a Mortgage Buy Down?</h2>
           <p>A mortgage buy-down is a financing technique where the borrower, home seller, or builder pays an upfront fee to temporarily lower the interest rate on a mortgage. The most common structures are the 3-2-1 and 2-1 buy-downs, which lower the rate for the first three or two years, respectively.</p>
           
-          <h2>How It Works</h2>
+          <h2 className="text-2xl font-bold mb-3">How It Works</h2>
           <p>The upfront cost of a buy-down is exactly equal to the total interest savings over the buy-down period. This money is deposited into an escrow account at closing and is used to subsidize your monthly payments. <strong>Upfront Cost = Σ (Base Payment - Reduced Payment) × 12</strong>.</p>
 
-          <h2>Understanding Your Results</h2>
+          <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
           <p>Our calculator shows the exact upfront cost required to fund the buy-down. The chart illustrates how your monthly out-of-pocket payment increases over time while the subsidy from the escrow account decreases until the base rate applies.</p>
           
-          <h2>Key Factors</h2>
+          <h2 className="text-2xl font-bold mb-3">Key Factors</h2>
           <p>Important factors include the loan amount, base interest rate, and the type of buy-down. In a 2-1 buy-down, your interest rate is 2% lower in year one and 1% lower in year two. In year three, the rate returns to the permanent base rate.</p>
           
-          <h2>Practical Examples</h2>
+          <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
           <p>Consider a $350,000 loan at a 7% base rate with a 2-1 buy-down. In year 1, your rate is 5%, saving you $447 per month. In year 2, your rate is 6%, saving you $230 per month. The total upfront cost funded by the seller would be around $8,127.</p>
           
-          <h2>Tips & Best Practices</h2>
+          <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
           <p>Seller concessions are the best way to fund a temporary buy-down. If you are negotiating a home purchase, asking the seller to pay for a 2-1 buy-down can make your first two years of homeownership much more affordable.</p>
           
-          <h2>Benefits</h2>
+          <h2 className="text-2xl font-bold mb-3">Benefits</h2>
           <p>A buy-down eases you into your full mortgage payment, providing extra cash flow in the early years of homeownership to pay for furniture, renovations, or unexpected expenses.</p>
         </div>
 

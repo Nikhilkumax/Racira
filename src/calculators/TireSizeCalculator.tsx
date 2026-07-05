@@ -317,19 +317,19 @@ export default function TireSizeCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Why Use a Tire Size Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Use a Tire Size Calculator?</h2>
             <p>A Tire Size Calculator is an essential diagnostic tool for anyone looking to replace their factory tires with aftermarket alternatives, upgrade their wheel rims ("plus sizing"), or install a suspension lift kit. Modifying tire dimensions alters the geometry of your vehicle. This calculator instantly processes the complex metric-to-imperial conversions embedded in tire codes to reveal the exact physical changes in width, diameter, and circumference.</p>
 
-            <h2>The 3% Safety Rule</h2>
+            <h2 className="text-2xl font-bold mb-3">The 3% Safety Rule</h2>
             <p>When swapping tires, the golden rule of automotive engineering is to stay within 3% of the factory overall diameter. Why? Modern cars are essentially rolling computers. The Anti-lock Braking System (ABS), Traction Control System (TCS), Electronic Stability Program (ESP), and automatic transmission shift maps all rely on mathematically predicting how fast the wheels are rotating relative to the road. If you increase tire diameter by more than 3%, you alter the rotational speed so drastically that these safety systems can fail or trigger dashboard warning lights.</p>
 
-            <h2>How Tire Sizing Affects Your Speedometer</h2>
+            <h2 className="text-2xl font-bold mb-3">How Tire Sizing Affects Your Speedometer</h2>
             <p>Your vehicle's speedometer does not actually measure how fast you are moving across the ground; it measures how fast the transmission output shaft is spinning, which correlates to the circumference of your factory tires. If you install larger diameter tires, your car will travel further per revolution than the computer expects. For example, if you increase your tire diameter by 10%, your speedometer might read 60 mph, but you are physically traveling 66 mph. Our calculator precisely models this Speedometer Error to protect you from accidental speeding tickets.</p>
 
-            <h2>Understanding "Plus Sizing"</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding "Plus Sizing"</h2>
             <p>Plus sizing is the practice of installing larger diameter wheels (e.g., swapping 18-inch wheels for 20-inch wheels) without changing the overall diameter of the tire assembly. To achieve this, you must buy tires with a significantly smaller aspect ratio (a "lower profile" sidewall). A correct "Plus 2" setup ensures that the overall diameter remains mathematically identical to the OEM setup. This stiffens the sidewall for improved cornering performance while maintaining exact speedometer and ABS calibration.</p>
 
-            <h2>Performance Impacts of Wider Tires</h2>
+            <h2 className="text-2xl font-bold mb-3">Performance Impacts of Wider Tires</h2>
             <p>Increasing the section width of your tires (the first number in the tire code, e.g., moving from 225 to 245) increases the contact patch with the road. This generally improves dry traction and cornering grip. However, wider tires are heavier, which increases unsprung mass and rotational inertia. This can negatively impact acceleration, increase fuel consumption, and make the steering feel heavier. Furthermore, excessively wide tires are prone to "hydroplaning" on wet roads because they distribute the vehicle's weight over a larger area, reducing the pressure needed to slice through standing water.</p>
           </article>
           

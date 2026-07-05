@@ -241,14 +241,14 @@ const ResistorCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Reading a Through-Hole Resistor</h2>
+            <h2 className="text-2xl font-bold mb-3">Reading a Through-Hole Resistor</h2>
             <p>Through-hole resistors are tiny, cylindrical electronic components used to restrict the flow of electrical current in a circuit. Because they are so small, it is impossible to print text on them legibly. To solve this, the electronics industry developed the <strong>Electronic Color Code (IEC 60062)</strong> in the 1920s. By reading the painted bands on the resistor from left to right, you can determine its exact resistance value in Ohms (Ω) and its manufacturing tolerance.</p>
 
-            <h2>4-Band vs 5-Band Resistors</h2>
+            <h2 className="text-2xl font-bold mb-3">4-Band vs 5-Band Resistors</h2>
             <p>Standard carbon-film resistors typically use a <strong>4-band</strong> system. The first two bands represent the significant digits (e.g., Red = 2, Red = 2, making "22"). The third band is the multiplier, indicating how many zeros to add (e.g., Brown = x10, making "220"). The final band, which usually has a small gap before it, indicates the tolerance (e.g., Gold = ±5%).</p>
             <p>Metal-film resistors, which are manufactured with much higher precision, use a <strong>5-band</strong> system. They feature three significant digits instead of two, allowing for much more granular resistance values (like 2.25 kΩ). The fourth band becomes the multiplier, and the fifth is the tolerance.</p>
 
-            <h2>The Tolerance Band Explained</h2>
+            <h2 className="text-2xl font-bold mb-3">The Tolerance Band Explained</h2>
             <p>Manufacturing resistors is an imprecise process. A 1,000 Ω (1 kΩ) resistor is rarely exactly 1,000 ohms. The final band on the resistor tells you how far off the actual value might be from the stated value.</p>
             <ul>
               <li><strong>Gold (±5%):</strong> The resistor is guaranteed to be within 5% of its stated value. A 1,000 Ω resistor will actually measure between 950 Ω and 1,050 Ω when tested with a multimeter.</li>
@@ -256,7 +256,7 @@ const ResistorCalculator = () => {
               <li><strong>Brown (±1%):</strong> Very high precision, used in sensitive audio equipment or measurement tools.</li>
             </ul>
 
-            <h2>Tips for Reading Real Resistors</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips for Reading Real Resistors</h2>
             <p>The most common mistake beginners make is reading the resistor backward. How do you know which end is the left? Look for the gap. The tolerance band (usually Gold or Silver) will be separated from the other bands by a slightly wider empty space. Put that band on the right-hand side, and read the colors from left to right.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/resistor-calculator" />

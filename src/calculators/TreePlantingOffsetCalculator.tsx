@@ -125,7 +125,7 @@ const TreePlantingOffsetCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Nature's Solution</h2>
+              <h2 className="text-2xl font-bold mb-3">Nature's Solution</h2>
               <p>Reforestation is one of the most scalable and cost-effective ways to remove existing carbon dioxide from the atmosphere. Trees act as natural "carbon sinks," pulling CO2 from the air to build their trunks, branches, and roots.</p>
               <h3>The Time Factor</h3>
               <p>It's important to remember that tree planting is a long-term commitment. A sapling planted today won't reach its peak absorption rate for 10 to 20 years. This is why preserving existing old-growth forests is even more critical than planting new ones—a mature forest has already done the decades of work required to become a massive carbon storage system.</p>

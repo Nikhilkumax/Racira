@@ -91,9 +91,7 @@ const PaceConverter = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">
-                  <Timer className="h-5 w-5" /> Convert Pace
-                </button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground">
+                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">Calculate</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground">
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
@@ -129,7 +127,7 @@ const PaceConverter = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Mastering Your Pace</h2>
+              <h2 className="text-2xl font-bold mb-3">Mastering Your Pace</h2>
               <p>Pace is the primary language of runners. Unlike speed, which tells you how much distance you cover in a set time, pace tells you how long it will take to reach your destination. This makes it invaluable for race planning and training.</p>
               <h3>Training Zones</h3>
               <p>Most running coaches use pace to define training zones. An "Easy Run" might be done at a pace 60-90 seconds slower than your 5K race pace, while "Interval Training" might be done at or faster than race pace to build speed and aerobic capacity.</p>

@@ -145,7 +145,7 @@ const RentVsBuyCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Compare Options</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors"><RotateCcw className="h-5 w-5" /></button>
               </div>
           </div>
 
@@ -179,7 +179,7 @@ const RentVsBuyCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – Sidebar" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Renting vs. Buying: Which is the Smart Move?</h2>
+              <h2 className="text-2xl font-bold mb-3">Renting vs. Buying: Which is the Smart Move?</h2>
               <p>The "rent vs buy" debate is one of the most significant financial decisions you'll ever face. While the American Dream often emphasizes homeownership, the math doesn't always favor buying—especially in high-interest environments or expensive markets.</p>
               <h3>When Buying Wins</h3>
               <p>Buying usually becomes the better option if you plan to stay in the home for 7 years or longer. This allows time for the home's appreciation to outweigh the high upfront closing costs and the interest-heavy early years of a mortgage. Additionally, buying acts as a forced savings plan by building equity through principal payments.</p>

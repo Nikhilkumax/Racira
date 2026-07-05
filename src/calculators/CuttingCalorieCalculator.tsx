@@ -371,38 +371,38 @@ export default function CuttingCalorieCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Cutting Calorie Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Cutting Calorie Calculator</h2>
             <p>In the fitness and bodybuilding world, losing weight is not the goal—losing <em>fat</em> is the goal. If you simply stop eating, you will lose weight rapidly, but a massive portion of that weight will be metabolically expensive, hard-earned muscle tissue. This process, known as muscle catabolism, leaves you looking "skinny fat" and drastically lowers your basal metabolic rate (BMR), guaranteeing that you will rebound and gain all the fat back once the diet ends.</p>
             <p>To prevent this, athletes utilize a highly structured nutritional phase known as a "Cut". A cut is not a crash diet; it is a mathematically precise caloric deficit designed to coax the body into burning stored body fat for fuel while providing just enough energy (and heavy resistance training) to signal the body to preserve muscle. The <strong>Cutting Calorie Calculator</strong> removes the guesswork by providing exact daily targets based on your unique body weight and timeline.</p>
 
-            <h2>The Mathematics of Fat Loss</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of Fat Loss</h2>
             <p>The entire foundation of a cutting protocol rests on the laws of thermodynamics. To lose fat, you must be in a caloric deficit. But how large should that deficit be? The math is universally established:</p>
             <p>One pound of human adipose tissue (body fat) contains approximately <strong>3,500 kilocalories</strong> of stored energy. (If you use the metric system, one kilogram of fat contains roughly 7,700 kcal). Therefore, if you want to lose exactly one pound of pure fat per week, you must create a deficit of 3,500 calories over the course of that week. Divided by 7 days, this equates to a daily deficit of <strong>500 calories</strong> below your Total Daily Energy Expenditure (TDEE).</p>
             <p>If your TDEE (maintenance) is 2,500 calories, eating 2,000 calories a day will result in exactly one pound of fat loss per week. The calculator automates this math, factoring in your exact target rate of loss to generate a customized daily limit.</p>
 
-            <h2>Why is the Target Based on Percentage of Body Weight?</h2>
+            <h2 className="text-2xl font-bold mb-3">Why is the Target Based on Percentage of Body Weight?</h2>
             <p>One of the most dangerous myths in the diet industry is the idea of a universal, flat rate of weight loss (e.g., "Everyone should aim to lose 2 pounds per week!"). This is biologically absurd. </p>
             <p>Adipose tissue can only release a finite amount of energy per day. If the caloric deficit you create exceeds the energy your fat cells can release, your body immediately panics and begins breaking down muscle tissue to make up the difference. A 300-pound man has massive fat reserves; he can safely lose 3 pounds (1%) per week without risking muscle loss. However, a 150-pound man attempting to lose 3 pounds per week is forcing his body into severe starvation and will strip away massive amounts of muscle.</p>
             <p>This is why our calculator bases your deficit on a <strong>percentage of your total body weight</strong>. This ensures the protocol scales safely to your unique physiology.</p>
 
-            <h2>Decoding the "Rate of Loss" Options</h2>
+            <h2 className="text-2xl font-bold mb-3">Decoding the "Rate of Loss" Options</h2>
             <p>When selecting your aggression level, it is vital to understand the physiological trade-offs of each tier:</p>
             <p><strong>0.25% - 0.50% (Conservative):</strong> This is the ideal zone for "Body Recomposition." The deficit is so small that your gym performance will not suffer at all. If your protein is high, you can actually build muscle while slowly dropping fat. However, the timeline to reach your goal will be extremely long.</p>
             <p><strong>0.75% - 1.00% (The Gold Standard):</strong> This is universally accepted as the optimal cutting zone for natural athletes. You are stripping away fat efficiently (often 1.5 to 2 pounds a week for a larger man) without triggering the body's starvation response. Gym performance may drop slightly toward the end of the cut, but muscle mass is preserved.</p>
             <p><strong>1.25% - 1.50% (The Mini-Cut):</strong> This is an aggressive deficit designed for short durations (usually 4 to 6 weeks maximum). Bodybuilders use mini-cuts to quickly strip off excess fat accumulated during a bulking phase so they can get back to building muscle. Because the deficit is massive, diet fatigue sets in rapidly, and you will feel hungry and tired.</p>
             <p><strong>2.00%+ (Extreme / High Risk):</strong> This rate should only be attempted by clinically obese individuals under medical supervision, or by enhanced bodybuilders utilizing exogenous hormones to chemically prevent muscle breakdown. For a natural, average-weight individual, a 2% weekly drop guarantees severe muscle atrophy and metabolic crash.</p>
 
-            <h2>The 1200 Calorie Hard-Stop</h2>
+            <h2 className="text-2xl font-bold mb-3">The 1200 Calorie Hard-Stop</h2>
             <p>If you input a highly aggressive rate of loss, the calculator may throw a red warning and hard-stop your target at 1,200 calories. This is not a glitch; it is a critical safety feature. </p>
             <p>Major medical institutions (including the NIH and the American College of Sports Medicine) state that diets dipping below 1,200 calories for women (or 1,500 for men) are clinically dangerous without medical supervision. When calories drop this low, it becomes mathematically impossible to consume the essential amino acids, essential fatty acids, and micronutrients your organs need to function. If your required deficit pushes you below 1,200 calories, you cannot simply "eat less." You must increase your TDEE by adding cardiovascular exercise to widen the gap.</p>
 
-            <h2>Macronutrients During a Cut</h2>
+            <h2 className="text-2xl font-bold mb-3">Macronutrients During a Cut</h2>
             <p>Knowing your daily calorie target is only step one. Step two is organizing those calories into macronutrients. During a cut, your macronutrient ratio must shift drastically compared to a maintenance or bulking phase.</p>
             <p><strong>1. Protein is Paramount:</strong> During a caloric deficit, protein becomes the most important macronutrient. You must consume at least 1 gram of protein per pound of your goal body weight. This forces the body to preserve muscle tissue and keeps you incredibly satiated.</p>
             <p><strong>2. Keep Fats Moderate:</strong> Dietary fats are essential for hormone production (specifically testosterone). Do not drop your fats below 0.3 grams per pound of body weight, or your hormonal profile will crash, leading to depression and zero libido.</p>
             <p><strong>3. Carbs Fill the Rest:</strong> Carbohydrates are the only macro you should actively restrict to create the deficit. Because carbs yield energy, and your goal is to force the body to use stored fat for energy, dropping carbs is the primary mechanism of a successful cut. However, time your remaining carbs strategically around your workout to fuel your training.</p>
 
-            <h2>Conclusion: Consistency Over Intensity</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Consistency Over Intensity</h2>
             <p>The most successful cut is not the one with the most aggressive deficit; it is the one you can actually adhere to. A 1% deficit followed perfectly for 12 weeks will yield vastly superior results to a 2% deficit that causes you to binge-eat every weekend. Use the Cutting Calorie Calculator to map out a mathematical, sustainable protocol, trust the timeline, and watch the fat melt away.</p>
           </article>
           

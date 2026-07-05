@@ -141,13 +141,13 @@ export default function MacroCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Macro Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Macro Calculator?</h2>
             <p>A macro calculator converts your total daily calorie goal into specific gram targets for protein, carbohydrates, and fat based on your chosen percentage split. Macronutrients are the three classes of nutrients that provide energy: protein and carbohydrates each provide 4 kcal per gram; fat provides 9 kcal per gram. Tracking macros (not just calories) allows precision nutrition for specific body composition goals.</p>
-            <h2>How to Choose Your Macro Split</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Choose Your Macro Split</h2>
             <p><strong>For Fat Loss:</strong> High protein (35–40%) to preserve muscle during deficit. Moderate carbs (30–35%) for training fuel. Lower fat (25–30%). <strong>For Muscle Building:</strong> Moderate protein (25–30%), high carbs (45–55%) for training performance and recovery, moderate fat (20–25%). <strong>For General Health:</strong> Balanced macros: 25–30% protein, 45–50% carbs, 25–30% fat — aligns with most dietary guidelines. <strong>Ketogenic:</strong> Very low carb (5%), high fat (70%), moderate protein (25%) — induces fat-burning ketosis.</p>
-            <h2>Protein: The Most Important Macro</h2>
+            <h2 className="text-2xl font-bold mb-3">Protein: The Most Important Macro</h2>
             <p>Protein is uniquely important because it is the only macronutrient that directly supports muscle synthesis and preservation. Minimum recommendation: 0.8g/kg (sedentary). For body composition goals: 1.6–2.2g/kg of bodyweight. High protein intake increases satiety (reduces hunger), has the highest thermic effect (20–30% of calories burned in digestion vs. 5–10% for carbs/fat), and protects muscle mass during calorie restriction. Prioritize hitting protein targets; fill remaining calories with carbs and fat based on preference and training demands.</p>
-            <h2>Carbohydrates and Exercise Performance</h2>
+            <h2 className="text-2xl font-bold mb-3">Carbohydrates and Exercise Performance</h2>
             <p>Carbohydrates are the primary fuel for moderate-to-high intensity exercise. Muscle glycogen (stored carbs) is depleted within 60–90 minutes of intense training. Athletes and regular gym-goers perform better with adequate carbohydrate intake (5–7g/kg for moderate exercise; 7–10g/kg for endurance). Low-carb approaches can work for fat loss but may impair performance at high exercise intensities. Match carb intake to training volume and intensity.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/macro-calculator" />

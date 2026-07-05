@@ -217,13 +217,13 @@ export default function TermLifeVsWholeLifeCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Term Life vs. Whole Life: The Core Difference</h2>
+            <h2 className="text-2xl font-bold mb-3">Term Life vs. Whole Life: The Core Difference</h2>
             <p>This <strong>term life vs. whole life calculator</strong> compares the true total cost of both insurance types using the "buy term and invest the difference" methodology — the gold standard approach recommended by most fee-only financial planners. Term life provides pure insurance with no cash value at dramatically lower premiums. Whole life combines insurance with a savings component but at 5–15× the cost of equivalent term coverage.</p>
-            <h2>The "Buy Term, Invest the Difference" Strategy</h2>
+            <h2 className="text-2xl font-bold mb-3">The "Buy Term, Invest the Difference" Strategy</h2>
             <p>The strategy: buy cheap term insurance for the coverage amount you need, then invest the annual premium difference in a diversified index fund portfolio. Annual whole life premium − Annual term premium = Annual investment difference. At 8% annual returns over 20 years, $3,000/year invested grows to approximately $148,000. This typically far exceeds the cash value accumulation inside a whole life policy, which often grows at only 2–4% after fees.</p>
-            <h2>When Whole Life Can Be Valuable</h2>
+            <h2 className="text-2xl font-bold mb-3">When Whole Life Can Be Valuable</h2>
             <p>Whole life makes sense for: (1) high-net-worth estate planning — life insurance death benefits pass tax-free to heirs; (2) special needs planning for a dependent who will need lifelong care; (3) business succession planning (key person insurance, buy-sell agreements); (4) when all tax-advantaged accounts are maximized. For the average middle-income family needing income replacement for 20–30 years, term life almost always wins the cost comparison.</p>
-            <h2>How Premiums Are Determined</h2>
+            <h2 className="text-2xl font-bold mb-3">How Premiums Are Determined</h2>
             <p>Life insurance premiums depend on: age (younger = cheaper), sex (females live longer = lower rates), health class (preferred, standard, substandard), coverage amount, and policy type. A 35-year-old male in standard health can expect: 20-year term at $500K ≈ $25–40/month; whole life at $500K ≈ $300–500/month. Medical underwriting (blood tests, health history) determines your final health classification. Related tools: <a href="/calculator/health-insurance-calculator">Health Insurance Calculator</a>, <a href="/calculator/disability-insurance-calculator">Disability Insurance Calculator</a>.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/term-life-vs-whole-life-calculator" />

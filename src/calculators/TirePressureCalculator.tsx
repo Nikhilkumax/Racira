@@ -254,19 +254,19 @@ export default function TirePressureCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Why Does Tire Pressure Drop in the Winter?</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Does Tire Pressure Drop in the Winter?</h2>
             <p>Every year, as autumn turns to winter, millions of drivers are startled by the sudden glow of their dashboard's TPMS (Tire Pressure Monitoring System) warning light. This phenomenon is a direct result of Gay-Lussac's Law of thermodynamics. Our Tire Pressure Calculator models this exact physical relationship so you can predict and adjust your tire pressure before the warning light ever comes on.</p>
 
-            <h2>The Science of Tire Pressure</h2>
+            <h2 className="text-2xl font-bold mb-3">The Science of Tire Pressure</h2>
             <p>A tire is essentially a sealed rubber chamber filled with a fixed mass of gas molecules (air or nitrogen). These molecules are constantly bouncing around and colliding with the inner walls of the tire. The force of these collisions creates pressure. When the outside temperature drops, the gas molecules lose kinetic energy. They slow down and collide with the tire walls less forcefully. Less force equals less pressure, even though no air actually escaped the tire.</p>
 
-            <h2>The "1 PSI per 10 Degrees" Rule</h2>
+            <h2 className="text-2xl font-bold mb-3">The "1 PSI per 10 Degrees" Rule</h2>
             <p>As a general rule of thumb, your tire pressure will drop by roughly 1 PSI for every 10°F drop in ambient temperature. For example, if you filled your tires to 35 PSI on a warm 80°F summer day, and the temperature plummets to 20°F in December (a 60-degree difference), your tire pressure will naturally drop by approximately 6 PSI. This is more than enough to trigger a TPMS warning light, which usually activates when pressure drops 25% below the factory recommendation.</p>
 
-            <h2>Why Under-Inflation is Dangerous</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Under-Inflation is Dangerous</h2>
             <p>Driving on under-inflated tires is extremely dangerous, particularly at highway speeds. When a tire lacks adequate pressure, its sidewalls flex excessively with every revolution. This constant flexing generates immense internal friction and heat. Eventually, the structural integrity of the rubber breaks down, leading to a catastrophic blowout. Furthermore, under-inflated tires increase rolling resistance, which forces your engine to work harder and drastically reduces your fuel economy.</p>
 
-            <h2>When to Check Your Tire Pressure</h2>
+            <h2 className="text-2xl font-bold mb-3">When to Check Your Tire Pressure</h2>
             <p>You should check your tire pressure at least once a month, and always first thing in the morning <em>before</em> driving the car. As you drive, the friction between the tire and the road heats up the air inside, temporarily raising the pressure. If you check your tires after a long highway commute, you will get a falsely high reading. Always check "cold" tire pressure for accurate maintenance.</p>
           </article>
           

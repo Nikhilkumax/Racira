@@ -229,15 +229,15 @@ export default function Cha2ds2VascScoreCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Evolution of Stroke Risk Assessment</h2>
+            <h2 className="text-2xl font-bold mb-3">The Evolution of Stroke Risk Assessment</h2>
             <p>Atrial fibrillation (AFib) is a condition where the upper chambers of the heart quiver erratically, causing blood to pool and form clots. If these clots travel to the brain, they cause massive strokes. To prevent this, doctors prescribe powerful blood thinners.</p>
             <p>For years, cardiologists used the CHADS2 score to decide who needed these medications. However, CHADS2 was fundamentally flawed because it failed to account for several major risk factors, leaving thousands of seemingly "low risk" patients unprotected. The <strong>CHA2DS2-VASc score</strong> was introduced in 2010 to fix these blind spots by incorporating age nuances, vascular disease, and sex differences.</p>
 
-            <h2>Why is Female Sex a Risk Factor?</h2>
+            <h2 className="text-2xl font-bold mb-3">Why is Female Sex a Risk Factor?</h2>
             <p>One of the most notable additions to the CHA2DS2-VASc score is the "Sc" (Sex category). Massive clinical data registries, including the Swedish Atrial Fibrillation cohort, proved that women inherently suffer from a higher rate of AFib-related strokes than men with the exact same health profiles.</p>
             <p>However, modern clinical guidelines come with a critical caveat: <strong>Female sex alone does not warrant blood thinners</strong>. If a patient is a healthy 50-year-old woman with no other medical issues, her score is 1. The guidelines consider this functionally equivalent to a score of 0 in a man, meaning she should not be prescribed dangerous anticoagulants simply because she is female.</p>
 
-            <h2>The Danger of Over-Prescribing</h2>
+            <h2 className="text-2xl font-bold mb-3">The Danger of Over-Prescribing</h2>
             <p>If blood thinners prevent strokes, why not give them to every patient with AFib? Because anticoagulants (like Warfarin, Eliquis, or Xarelto) carry a massive, intrinsic risk of causing internal hemorrhage. If a patient accidentally bumps their head, a minor concussion can turn into a fatal brain bleed because their blood cannot clot.</p>
             <p>Therefore, a doctor must ensure the patient's baseline stroke risk is mathematically higher than the risk of causing a fatal bleed with the medication. If a patient scores a 0 (or a 1 if female), their annual stroke risk is incredibly low (0.2%), and the risks of the medication heavily outweigh the benefits.</p>
           </article>

@@ -117,14 +117,14 @@ const TDEECalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>What Is TDEE?</h2>
+              <h2 className="text-2xl font-bold mb-3">What Is TDEE?</h2>
               <p>Total Daily Energy Expenditure (TDEE) is the total number of calories your body burns in a day. It combines your Basal Metabolic Rate (BMR) — calories burned at rest — with the energy used for physical activity, digestion, and non-exercise movement. TDEE is the cornerstone of any weight management plan.</p>
 
-              <h2>How Is TDEE Calculated?</h2>
+              <h2 className="text-2xl font-bold mb-3">How Is TDEE Calculated?</h2>
               <p><strong>TDEE = BMR × Activity Multiplier</strong></p>
               <p>This calculator uses the Mifflin-St Jeor equation for BMR (the most accurate for most people) and multiplies it by your activity factor.</p>
 
-              <h2>Activity Multiplier Values</h2>
+              <h2 className="text-2xl font-bold mb-3">Activity Multiplier Values</h2>
               <ul>
                 <li><strong>Sedentary (×1.2):</strong> Office job, minimal movement</li>
                 <li><strong>Light (×1.375):</strong> Walking, light gym 1-3×/week</li>
@@ -133,14 +133,14 @@ const TDEECalculator = () => {
                 <li><strong>Very Active (×1.9):</strong> Athlete, physical labor + training</li>
               </ul>
 
-              <h2>Using TDEE for Your Goals</h2>
+              <h2 className="text-2xl font-bold mb-3">Using TDEE for Your Goals</h2>
               <ul>
                 <li><strong>Weight loss:</strong> Eat 300-500 calories below TDEE (moderate deficit). Don't go below BMR.</li>
                 <li><strong>Maintenance:</strong> Eat at TDEE to maintain current weight.</li>
                 <li><strong>Muscle gain:</strong> Eat 300-500 calories above TDEE (lean bulk). Pair with strength training.</li>
               </ul>
 
-              <h2>Common Mistakes</h2>
+              <h2 className="text-2xl font-bold mb-3">Common Mistakes</h2>
               <ul>
                 <li>Overestimating activity level — most people are "Light" or "Moderate"</li>
                 <li>Not adjusting as weight changes — recalculate TDEE every 5-10 kg</li>

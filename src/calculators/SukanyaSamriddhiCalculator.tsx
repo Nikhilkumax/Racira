@@ -117,14 +117,14 @@ const SukanyaSamriddhiCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>What Is Sukanya Samriddhi Yojana?</h2>
+              <h2 className="text-2xl font-bold mb-3">What Is Sukanya Samriddhi Yojana?</h2>
               <p>Sukanya Samriddhi Yojana (SSY) is a government-backed savings scheme launched in 2015 under the Beti Bachao Beti Padhao campaign. It is designed to encourage parents to build a fund for their girl child's future education and marriage. The scheme offers one of the highest interest rates among small savings instruments and provides full tax benefits.</p>
 
-              <h2>How Is SSY Maturity Calculated?</h2>
+              <h2 className="text-2xl font-bold mb-3">How Is SSY Maturity Calculated?</h2>
               <p>The maturity amount depends on three factors: annual deposit amount, prevailing interest rate, and the tenure. Deposits are made for the first 15 years, but interest continues to accrue for the full 21-year term. The formula uses annual compounding:</p>
               <p><strong>A = P × [(1 + r)^n – 1] / r × (1 + r)</strong> (approximately, with yearly deposits)</p>
 
-              <h2>Key Features of SSY</h2>
+              <h2 className="text-2xl font-bold mb-3">Key Features of SSY</h2>
               <ul>
                 <li><strong>Eligibility:</strong> Parents of a girl child aged 0-10 years can open the account.</li>
                 <li><strong>Deposit period:</strong> 15 years from account opening.</li>
@@ -134,10 +134,10 @@ const SukanyaSamriddhiCalculator = () => {
                 <li><strong>Maximum 2 accounts:</strong> One per girl child, maximum two per family.</li>
               </ul>
 
-              <h2>SSY Interest Rate History</h2>
+              <h2 className="text-2xl font-bold mb-3">SSY Interest Rate History</h2>
               <p>The interest rate is set by the government quarterly. As of 2024-25, the rate is 8.2% per annum. Historically, rates have ranged from 7.6% to 9.2%, making it one of the most attractive fixed-income schemes in India.</p>
 
-              <h2>SSY vs PPF vs FD</h2>
+              <h2 className="text-2xl font-bold mb-3">SSY vs PPF vs FD</h2>
               <ul>
                 <li><strong>SSY (8.2%):</strong> Highest rate, 21-year lock-in, only for girl child, fully tax-free.</li>
                 <li><strong>PPF (7.1%):</strong> 15-year lock-in, available to all, also EEE status.</li>

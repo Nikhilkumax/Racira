@@ -312,31 +312,31 @@ export default function VicariousTraumaRiskCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Hidden Biological Cost of Empathy</h2>
+            <h2 className="text-2xl font-bold mb-3">The Hidden Biological Cost of Empathy</h2>
             <p>Society rightly celebrates nurses, social workers, therapists, and first responders as heroes. They are the individuals who run toward the pain and suffering that the rest of society actively avoids. However, society rarely discusses the devastating biological cost of this service. Empathy is not a superpower; it is a neurological mechanism. To effectively help a traumatized person, the helper's brain must physically mirror their pain. Doing this day after day creates a massive psychological accumulation known as Secondary Traumatic Stress. The <strong>Vicarious Trauma Risk Calculator</strong> is designed to visually expose the dangerous deficit between the trauma you absorb and the clinical time you spend clearing it from your nervous system.</p>
 
-            <h2>Burnout vs. Compassion Fatigue</h2>
+            <h2 className="text-2xl font-bold mb-3">Burnout vs. Compassion Fatigue</h2>
             <p>One of the most dangerous mistakes the medical and psychological fields make is confusing standard burnout with compassion fatigue (vicarious trauma). The treatments for the two are entirely different, and prescribing the wrong treatment can be disastrous.</p>
             <p><strong>Burnout</strong> is a state of physical and mental exhaustion caused by extreme workloads, administrative frustration, or poor management. An accountant working 80-hour weeks during tax season experiences severe burnout. The treatment for burnout is simple: rest. A two-week vacation to a quiet beach will generally cure burnout.</p>
             <p><strong>Vicarious Trauma</strong> is an emotional injury. A pediatric oncology nurse working 40-hour weeks is not just tired; she is absorbing the unbearable grief of dying children and shattered parents. Her nervous system is being constantly attacked by the suffering of others. A two-week vacation will not cure vicarious trauma, because the trauma is now wired into the way she perceives the world. She will sit on the beach, unable to relax, hyper-vigilant, and feeling profound guilt that she is safe while others are dying.</p>
 
-            <h2>The Science of Mirror Neurons</h2>
+            <h2 className="text-2xl font-bold mb-3">The Science of Mirror Neurons</h2>
             <p>Why does hearing about a trauma physically hurt the listener? The answer lies in mirror neurons. </p>
             <p>Humans are apex social creatures. To build functioning tribes, we evolved the ability to feel what others are feeling. When a therapist sits across from a client who is describing a horrific domestic assault, the therapist's mirror neurons fire, artificially recreating the biochemical signature of terror and helplessness in the therapist's own brain. The therapist's heart rate increases, and cortisol floods their system. If the therapist does this for 30 hours a week, their amygdala (the brain's fear center) becomes permanently enlarged. They begin to view the entire world as a dangerous, malevolent place, fundamentally altering their personality and destroying their ability to trust.</p>
 
-            <h2>The Failure of "Self-Care"</h2>
+            <h2 className="text-2xl font-bold mb-3">The Failure of "Self-Care"</h2>
             <p>When professionals begin showing signs of compassion fatigue, human resources departments usually offer insulting advice: "Practice better self-care. Take a bubble bath. Drink a glass of wine. Read a good book."</p>
             <p>This fundamentally misunderstands the severity of the injury. Passive relaxation does not clear trauma from the nervous system. The "Resilience Processing" metric in this calculator specifically refers to <strong>Active Processing</strong>. This means sitting down with a clinical supervisor to debrief horrific cases. It means the therapist attending their own intensive therapy. It means rigorous, intentional somatic release (such as heavy exercise explicitly used to process nervous energy) or structured mindfulness protocols. A bubble bath cannot fix a nervous system that is stuck in fight-or-flight mode.</p>
 
-            <h2>The Rise of Digital Vicarious Trauma</h2>
+            <h2 className="text-2xl font-bold mb-3">The Rise of Digital Vicarious Trauma</h2>
             <p>Historically, vicarious trauma was reserved exclusively for medical professionals and first responders. Today, the general public is experiencing massive rates of secondary trauma due to the digital revolution. </p>
             <p>The human brain was not evolutionarily designed to witness the suffering of the entire globe simultaneously. When a person spends three hours a day scrolling through algorithmic feeds showing war zones, natural disasters, political violence, and true crime documentaries, their nervous system cannot differentiate between a threat on a screen and a threat in their living room. Their cortisol levels remain permanently elevated. This chronic digital exposure is a massive, unacknowledged driver of modern cultural anxiety and clinical depression.</p>
 
-            <h2>The Warning Signs of the Deficit</h2>
+            <h2 className="text-2xl font-bold mb-3">The Warning Signs of the Deficit</h2>
             <p>How do you know if your "Net Risk Score" is too high? The psychological symptoms of vicarious trauma are distinct and terrifying. </p>
             <p>The first sign is often a complete loss of empathy for minor issues. A nurse who spends all day saving gunshot victims will come home and feel blinding rage when her spouse complains about a minor headache. The second sign is hyper-vigilance—an inability to let your children play outside because you are constantly visualizing catastrophic accidents. The final stage is profound cynicism: the deep, unshakeable belief that humanity is inherently evil and that the world is a hopelessly dark place.</p>
 
-            <h2>Conclusion: Protect the Helper</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Protect the Helper</h2>
             <p>If you work in a helping profession, your empathy is your greatest weapon, but it is also your greatest vulnerability. You cannot pour from an empty cup, and you cannot absorb the darkness of the world without a structured, clinical method for filtering it out of your own mind. Use the Vicarious Trauma Risk Calculator to face the mathematical reality of your psychological load. Demand adequate supervision, prioritize ruthless, active self-care, and protect your nervous system so you can continue the vital work of healing others.</p>
           </article>
           

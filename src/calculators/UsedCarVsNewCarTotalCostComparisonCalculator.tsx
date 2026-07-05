@@ -308,16 +308,16 @@ const UsedCarVsNewCarTotalCostComparisonCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is the Used vs New Car Total Cost Comparison?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is the Used vs New Car Total Cost Comparison?</h2>
             <p>This calculator performs a comprehensive side-by-side comparison of the total cost of ownership for a new car versus a used car over the same ownership period. It goes beyond sticker prices to include every cost factor: depreciation, financing interest, insurance, fuel, maintenance, and registration — giving you the honest financial picture needed to make the right purchase decision.</p>
 
-            <h2>How It Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
             <p>Enter the details for both the new car and the used car you're considering. The calculator computes the total cost of ownership for each vehicle over the specified number of years, including depreciation (purchase price minus resale value), loan interest via amortization, and all annual operating costs. It then subtracts the used car total from the new car total to show the net savings — or extra cost — of choosing used.</p>
 
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>The primary result shows the dollar savings from choosing the cheaper option and the percentage difference. The comparison table breaks down every category side-by-side with the difference column showing where each car wins or loses. The grouped bar chart visualizes the category-by-category comparison, making it immediately clear which cost factors favor each vehicle.</p>
 
-            <h2>Key Differences Between New and Used Cars</h2>
+            <h2 className="text-2xl font-bold mb-3">Key Differences Between New and Used Cars</h2>
             <ul>
               <li><strong>Depreciation:</strong> New cars lose 20% in year 1; used cars have already absorbed this loss. This is the #1 reason used cars are cheaper to own.</li>
               <li><strong>Maintenance:</strong> Used cars cost $300–$600/year more in maintenance but may need fewer repairs if the previous owner handled major service items.</li>
@@ -327,10 +327,10 @@ const UsedCarVsNewCarTotalCostComparisonCalculator = () => {
               <li><strong>Financing:</strong> New cars qualify for lower APRs, but the lower principal on used cars often results in similar or lower total interest.</li>
             </ul>
 
-            <h2>Practical Example</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Example</h2>
             <p>A new $35,000 sedan vs a 3-year-old version at $22,000, both held for 5 years. The new car depreciates $17,000 vs $12,000 for the used. The used car has $2,500 more in maintenance but $400/year less in insurance. Net result: the used car saves approximately $8,500 over 5 years — about $1,700/year or $0.11/mile.</p>
 
-            <h2>Tips for Making the Right Choice</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips for Making the Right Choice</h2>
             <ul>
               <li><strong>Buy slightly used (2–4 years old)</strong> for the best value — the previous owner absorbed the steepest depreciation.</li>
               <li><strong>Get a pre-purchase inspection</strong> to avoid buying a used car with hidden problems that erase the savings.</li>
@@ -339,7 +339,7 @@ const UsedCarVsNewCarTotalCostComparisonCalculator = () => {
               <li><strong>Consider reliability ratings.</strong> A reliable used Toyota may be a better deal than an unreliable new car that spends time in the shop.</li>
             </ul>
 
-            <h2>Benefits of Using This Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Benefits of Using This Calculator</h2>
             <p>This tool eliminates the guesswork from the new-vs-used decision by computing the actual dollar difference in total ownership cost. It accounts for every factor that dealers won't mention and helps you make a financially sound decision based on real numbers rather than sticker price perception.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/used-car-vs-new-car-total-cost-comparison-calculator" />

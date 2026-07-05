@@ -373,10 +373,10 @@ export default function PregnancyBmiCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Pregnancy BMI Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Pregnancy BMI Calculator</h2>
             <p>Weight gain during pregnancy is entirely expected, biologically necessary, and universally monitored by obstetricians. However, exactly how much weight you should safely gain depends entirely on the size of your body the day before you became pregnant. The <strong>Pregnancy BMI Calculator</strong> utilizes the official Institute of Medicine (IOM) clinical guidelines to analyze your pre-pregnancy Body Mass Index (BMI). By determining your starting body composition, the calculator provides a mathematically precise, 40-week weight gain trajectory designed to ensure maximum fetal health while minimizing maternal complications.</p>
 
-            <h2>Why Standard BMI Calculators Fail Pregnant Women</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Standard BMI Calculators Fail Pregnant Women</h2>
             <p>Body Mass Index (BMI) is a simple mathematical ratio: your weight in kilograms divided by your height in meters squared. In a non-pregnant adult, this formula attempts to estimate body fat percentage. However, once you become pregnant, standard BMI calculators become completely useless and highly misleading.</p>
             <p>When you step on a scale at 30 weeks pregnant, the number you see is not just maternal fat. You are weighing:</p>
             <ul>
@@ -389,7 +389,7 @@ export default function PregnancyBmiCalculator() {
             </ul>
             <p>If you plug your 30-week pregnant weight into a standard BMI calculator, it will incorrectly classify you as "Obese" simply because it assumes all the added weight is adipose tissue (fat). This is why obstetricians only care about your <strong>Pre-Pregnancy BMI</strong>. Your baseline BMI dictates your fat reserves prior to conception, which dictates your clinical weight gain target.</p>
 
-            <h2>The Institute of Medicine (IOM) Weight Gain Guidelines</h2>
+            <h2 className="text-2xl font-bold mb-3">The Institute of Medicine (IOM) Weight Gain Guidelines</h2>
             <p>In 2009, the Institute of Medicine (in conjunction with the National Research Council) overhauled the maternal weight gain guidelines based on decades of epidemiological data. The current standards are strictly tiered by pre-pregnancy BMI for singleton (one baby) pregnancies:</p>
             <ul>
               <li><strong>Underweight (BMI below 18.5):</strong> 28 to 40 pounds total gain. Women in this category lack the baseline fat reserves needed to support extreme fetal metabolic demand and must actively gain more weight.</li>
@@ -398,20 +398,20 @@ export default function PregnancyBmiCalculator() {
               <li><strong>Obese (BMI 30.0 and above):</strong> 11 to 20 pounds total gain. The most tightly restricted category, specifically designed to prevent severe gestational complications.</li>
             </ul>
 
-            <h2>The Danger of Gaining Too Much Weight</h2>
+            <h2 className="text-2xl font-bold mb-3">The Danger of Gaining Too Much Weight</h2>
             <p>The old adage of "eating for two" is a dangerous medical myth. A developing fetus is incredibly small and requires very few additional calories (roughly 300 extra calories a day in the second and third trimesters—the equivalent of a small sandwich). Exceeding the IOM guidelines significantly increases the risk of severe maternal and fetal complications.</p>
             <p>Excessive weight gain is heavily correlated with <strong>Gestational Diabetes Mellitus (GDM)</strong>, a condition where pregnancy hormones cause massive insulin resistance, leading to chronically high maternal blood sugar. This sugar crosses the placenta, overfeeding the fetus and leading to <strong>Macrosomia</strong> (a baby weighing over 8 pounds, 13 ounces). Macrosomic babies drastically complicate vaginal deliveries, increasing the risk of shoulder dystocia (the baby's shoulder getting stuck behind the pelvic bone), severe maternal tearing, and emergency Cesarean sections.</p>
             <p>Furthermore, excessive maternal weight gain is the leading controllable risk factor for Pregnancy-Induced Hypertension and Preeclampsia, a potentially fatal condition characterized by soaring blood pressure and organ damage.</p>
 
-            <h2>The Danger of Inadequate Weight Gain</h2>
+            <h2 className="text-2xl font-bold mb-3">The Danger of Inadequate Weight Gain</h2>
             <p>Conversely, failing to meet the minimum threshold of your designated weight gain category carries its own severe risks, primarily <strong>Intrauterine Growth Restriction (IUGR)</strong> and low birth weight. Babies born weighing less than 5.5 pounds are statistically far more likely to suffer from hypoglycemia, temperature regulation issues, and require extended admissions to the Neonatal Intensive Care Unit (NICU).</p>
             <p>ACOG (The American College of Obstetricians and Gynecologists) strictly forbids intentional dieting or calorie restriction during pregnancy, even for women classified as morbidly obese. Restricting food intake deprives the rapidly developing fetal brain of essential fatty acids and macronutrients. The goal is never weight loss; the goal is strictly controlled, nutrient-dense weight gain.</p>
 
-            <h2>The First Trimester Exception</h2>
+            <h2 className="text-2xl font-bold mb-3">The First Trimester Exception</h2>
             <p>Many newly pregnant women panic when they step on the scale at week 12 and realize they haven't gained any weight—or have even lost a few pounds. This is completely normal and clinically safe.</p>
             <p>During the first trimester (weeks 1 through 13), the embryo grows from a microscopic cluster of cells to roughly the size of a plum (about 1 ounce). It requires almost zero additional maternal calories. The IOM only recommends a total gain of 1 to 4 pounds during the entire first trimester. Furthermore, severe nausea, vomiting (Hyperemesis Gravidarum), and food aversions frequently cause a slight weight loss early on. Provided the mother can stay hydrated, early weight loss is rarely detrimental to the fetus, as the body will ruthlessly pull from maternal reserves to fund embryonic development.</p>
 
-            <h2>Tracking the Trajectory: Second and Third Trimesters</h2>
+            <h2 className="text-2xl font-bold mb-3">Tracking the Trajectory: Second and Third Trimesters</h2>
             <p>As illustrated by the Area Chart in our calculator, the weight gain curve should remain flat for the first 13 weeks, and then pitch sharply upwards into a steady, linear climb. During the second and third trimesters, women in the Normal BMI category should aim to gain approximately 1 pound per week. Women in the Overweight or Obese categories should aim for roughly 0.5 pounds per week.</p>
             <p>By monitoring your weight weekly and plotting it against your calculated trajectory, you and your obstetrician can make real-time dietary adjustments. If your weight spikes by 5 pounds in a single week, your doctor will immediately check for sudden fluid retention (edema)—a massive red flag for preeclampsia. If your weight stalls for three consecutive weeks in the third trimester, your doctor may order a growth ultrasound to ensure the placenta is still functioning properly. By knowing your precise, BMI-driven targets, you transform a simple scale into a powerful diagnostic tool for fetal health.</p>
           </article>

@@ -348,10 +348,10 @@ export default function CarbohydrateCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Daily Carbohydrate Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Daily Carbohydrate Calculator</h2>
             <p>Carbohydrates are the most controversial macronutrient in the modern diet industry. Over the last three decades, they have been unfairly demonized by low-carb and ketogenic diets as the primary cause of the obesity epidemic. The scientific reality is entirely different: carbohydrates are the human body's absolute preferred source of high-octane energy. The problem is not the carbohydrate itself; the problem is an extreme mismatch between energy intake and energy expenditure. The <strong>Daily Carbohydrate Calculator</strong> utilizes clinical sports science formulas (measured in grams per kilogram of body weight) to map your exact carbohydrate requirements directly to your physical activity level, ensuring you are perfectly fueled without "spilling over" into fat storage.</p>
 
-            <h2>The Physiology of Carbohydrates and Glycogen</h2>
+            <h2 className="text-2xl font-bold mb-3">The Physiology of Carbohydrates and Glycogen</h2>
             <p>To understand how to calculate your carbohydrate needs, you must first understand how the body processes them. When you eat a carbohydrate (like rice, bread, or fruit), the digestive system breaks it down into a simple sugar called glucose. This glucose enters the bloodstream, raising your blood sugar. In response, the pancreas releases insulin, which acts as a "key" to open your cells.</p>
             <p>The body attempts to store this glucose in two primary biological tanks:</p>
             <ol>
@@ -360,7 +360,7 @@ export default function CarbohydrateCalculator() {
             </ol>
             <p>Here is the critical catch: these storage tanks have a hard limit. If you are sedentary, your tanks are already 100% full. If you eat a massive bowl of pasta with full tanks, the body has no choice but to convert that excess glucose into fat through a process called <em>de novo lipogenesis</em>. If you are highly active, your tanks are constantly depleted, meaning you can eat massive amounts of carbohydrates simply to refill the void.</p>
 
-            <h2>Scaling Intake by Physical Exertion</h2>
+            <h2 className="text-2xl font-bold mb-3">Scaling Intake by Physical Exertion</h2>
             <p>Because carbohydrate demand is so deeply tied to glycogen depletion, the American College of Sports Medicine (ACSM) dictates that carb intake must be scaled dynamically. The calculator uses the following established physiological multipliers:</p>
 
             <h3>1. Sedentary (2-3 g/kg)</h3>
@@ -375,16 +375,16 @@ export default function CarbohydrateCalculator() {
             <h3>4. Intense to Extreme (8-12+ g/kg)</h3>
             <p>Reserved for ultra-endurance athletes (Tour de France cyclists, Ironman triathletes, marathon runners logging 80+ miles a week). Their energy expenditure is astronomical. They must consume massive amounts of carbohydrates not just at meals, but constantly via liquid sports drinks during their actual training sessions, just to prevent catastrophic physical failure.</p>
 
-            <h2>Simple vs. Complex Carbohydrates</h2>
+            <h2 className="text-2xl font-bold mb-3">Simple vs. Complex Carbohydrates</h2>
             <p>Hitting your target grams is only half the battle; the <em>quality</em> of the carbohydrates matters immensely based on timing.</p>
             <p><strong>Complex Carbohydrates</strong> (e.g., oats, brown rice, sweet potatoes, quinoa) contain fiber. Fiber slows down the digestive process, causing a slow, steady trickle of glucose into the bloodstream. This prevents massive insulin spikes and keeps you feeling full for hours. These should make up 80% to 90% of your daily intake.</p>
             <p><strong>Simple Carbohydrates</strong> (e.g., white rice, fruit juice, gummy bears, sports drinks) are stripped of fiber. They digest almost instantly, causing a violent spike in blood sugar and insulin. If you are sitting on the couch, this spike will cause a "sugar crash" and fat storage. However, if you are in the middle of a brutal 2-hour workout, or immediately after one, this rapid spike is exactly what you want. The insulin shuttles the fast-acting glucose directly into the depleted muscles for instant recovery.</p>
 
-            <h2>The Danger of "Low-Carb" for Athletes</h2>
+            <h2 className="text-2xl font-bold mb-3">The Danger of "Low-Carb" for Athletes</h2>
             <p>While low-carb and Keto diets are highly effective for sedentary individuals looking to lose weight via appetite suppression, they are often disastrous for high-intensity athletes. Carbohydrates are the only fuel source that can be broken down rapidly enough (without oxygen) to fuel explosive, high-intensity movements (like sprinting or lifting heavy weights). Fat burns far too slowly.</p>
             <p>If an athlete attempts to perform on a severe low-carb diet, their power output drops, their sprint speed decreases, and their perceived exertion (how hard the workout feels) skyrockets. You must earn your carbs, but once you earn them, you must eat them.</p>
 
-            <h2>Conclusion: Fueling for Performance</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Fueling for Performance</h2>
             <p>Do not be afraid of carbohydrates. They are the premium, high-octane fuel required to build elite physiques and achieve peak athletic performance. By utilizing the Daily Carbohydrate Calculator, you can align your intake perfectly with your lifestyle. Assess your activity level honestly, hit the calculated macro range consistently, prioritize complex fiber-dense sources, and utilize the energy to push harder in the gym than you ever have before.</p>
           </article>
           

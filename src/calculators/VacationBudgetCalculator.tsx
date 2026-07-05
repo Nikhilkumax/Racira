@@ -217,19 +217,19 @@ export default function VacationBudgetCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>About the Vacation Budget Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">About the Vacation Budget Calculator</h2>
             <p>Planning a vacation without a budget is one of the fastest ways to return home stressed about finances. This vacation budget calculator lets you itemize all trip expenses across eight common categories, set your travel group size and trip length, and automatically adds a contingency buffer for unexpected costs. The result is a comprehensive, realistic trip budget with per-person and per-day metrics.</p>
-            <h2>How Vacation Budgets Are Calculated</h2>
+            <h2 className="text-2xl font-bold mb-3">How Vacation Budgets Are Calculated</h2>
             <p>Total budget = sum of all category expenses. Contingency = total × contingency %. Grand total = total + contingency. Per person = grand total ÷ number of travelers. Per day = grand total ÷ trip length in days. These metrics allow you to compare your planned trip against travel benchmarks and adjust categories to hit a target spend.</p>
-            <h2>Average Vacation Costs by Destination Type</h2>
+            <h2 className="text-2xl font-bold mb-3">Average Vacation Costs by Destination Type</h2>
             <p>Domestic US travel for two people averages $4,200–$6,500 per week all-in. A week in Western Europe costs $6,000–$10,000 per couple. Southeast Asia is significantly cheaper at $2,500–$4,000 for two. Caribbean all-inclusive resorts range from $3,000–$8,000 per couple for seven nights. Your per-day figure should benchmark against these ranges to assess whether your budget is realistic.</p>
-            <h2>The Biggest Budget Categories Explained</h2>
+            <h2 className="text-2xl font-bold mb-3">The Biggest Budget Categories Explained</h2>
             <p><strong>Flights:</strong> Typically the largest single expense (25–35% of total). Book 6–8 weeks in advance for domestic and 3–6 months for international. Use Google Flights, Hopper, or Scott's Cheap Flights to track fares. <strong>Accommodation:</strong> The second largest at 20–30%. Alternatives to hotels (Airbnb, hostels, home-swapping) can cut this by 30–50%. <strong>Food:</strong> Budget $50–$100/person/day for mid-range. Cooking in self-catering accommodation saves substantially. <strong>Activities:</strong> Research free and low-cost activities at your destination — many world-class museums and attractions are free.</p>
-            <h2>Why a Contingency Buffer Is Essential</h2>
+            <h2 className="text-2xl font-bold mb-3">Why a Contingency Buffer Is Essential</h2>
             <p>Travel rarely goes exactly to plan. Airline delays may require unplanned hotel nights. Health emergencies can arise. Spontaneous excursions tempt even the strictest budgeters. Currency fluctuations affect international trips. A 10–15% contingency buffer prevents these situations from causing financial stress. If you return without using the buffer, transfer it directly to your next vacation fund.</p>
-            <h2>Saving Strategies to Hit Your Vacation Budget</h2>
+            <h2 className="text-2xl font-bold mb-3">Saving Strategies to Hit Your Vacation Budget</h2>
             <p>Open a dedicated vacation savings account. Automate monthly transfers equal to (Grand Total ÷ Months Until Trip). Use travel rewards credit cards for everyday purchases — a card offering 2–3x points on travel can offset $300–$600 in costs for a $5,000 trip. Sell unused items, take on extra work, or redirect discretionary spending temporarily to accelerate savings.</p>
-            <h2>Travel Insurance — Don't Skip It</h2>
+            <h2 className="text-2xl font-bold mb-3">Travel Insurance — Don't Skip It</h2>
             <p>Travel insurance typically costs 5–10% of the trip total and covers trip cancellation, emergency medical, evacuation, and baggage loss. For a $6,000 trip, expect to pay $200–$600 for comprehensive coverage. It is particularly critical for international travel where medical costs can be catastrophic. Always compare policies on InsureMyTrip or Squaremouth before purchasing.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/vacation-budget-calculator" />

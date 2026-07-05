@@ -173,15 +173,15 @@ export default function GrossMarginCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding Gross Margin</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Gross Margin</h2>
             <p>Gross profit margin, often simply called gross margin, is one of the most basic and vital profitability ratios used by business owners, analysts, and investors. It represents the percentage of total sales revenue that a company keeps after incurring the direct costs associated with producing the goods or services it sells. These direct costs are referred to as the Cost of Goods Sold (COGS).</p>
             
-            <h2>How to Calculate Gross Margin</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Calculate Gross Margin</h2>
             <p>The calculation of gross margin requires two numbers: Total Revenue (sales) and Cost of Goods Sold. The formula is:</p>
             <p><code>Gross Margin = ((Revenue − COGS) ÷ Revenue) × 100</code></p>
             <p>For example, if a store sells an item for $100 (Revenue) and bought that item from a supplier for $60 (COGS), the gross profit is $40. The gross margin is: <code>(($100 − $60) ÷ $100) × 100 = 40%</code>.</p>
             
-            <h2>Margin vs. Markup</h2>
+            <h2 className="text-2xl font-bold mb-3">Margin vs. Markup</h2>
             <p>A common point of confusion is the difference between margin and markup. While both terms measure the relationship between cost and selling price, they express it differently:</p>
             <ul>
               <li><strong>Gross Margin</strong> compares the profit to the selling price. It is calculated as: <code>(Profit ÷ Selling Price) × 100</code>.</li>
@@ -189,7 +189,7 @@ export default function GrossMarginCalculator() {
             </ul>
             <p>Using the example above, the profit of $40 divided by the cost of $60 results in a markup of 66.67%. Gross margin will never exceed 100%, but markup can grow infinitely.</p>
 
-            <h2>Why Gross Margin Matters</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Gross Margin Matters</h2>
             <p>Gross margin indicates whether a company can generate enough profit from selling its goods to pay for its other operating expenses, such as marketing, salaries, rent, research and development, and interest. A healthy gross margin provides a safety net against fluctuations in manufacturing costs or sales volume. Conversely, a low or declining gross margin suggests pricing pressures, rising supplier costs, or inefficient production methods.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/gross-margin-calculator" />

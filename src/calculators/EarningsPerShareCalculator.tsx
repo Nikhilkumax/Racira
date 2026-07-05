@@ -161,20 +161,20 @@ export default function EarningsPerShareCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10"/>
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is the Earnings Per Share (EPS) Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is the Earnings Per Share (EPS) Calculator?</h2>
             <p>Earnings Per Share (EPS) is the portion of a company&apos;s profit allocated to each outstanding common share. It is one of the most important metrics in equity analysis, directly impacting stock valuation, P/E ratios, and investor sentiment. This EPS calculator computes basic EPS, diluted EPS, adjusted EPS, and the implied P/E ratio and earnings yield.</p>
-            <h2>EPS Formulas Explained</h2>
+            <h2 className="text-2xl font-bold mb-3">EPS Formulas Explained</h2>
             <p><strong>Basic EPS</strong> = (Net Income − Preferred Dividends) ÷ Weighted Average Common Shares</p>
             <p><strong>Diluted EPS</strong> = (Net Income − Preferred Dividends) ÷ (Shares + Dilutive Securities)</p>
             <p><strong>Adjusted EPS</strong> = (Net Income − Preferred Dividends − One-Time Items) ÷ Diluted Shares</p>
             <p>Dilutive securities include in-the-money options, warrants, and convertible instruments. Diluted EPS is always ≤ basic EPS and is the preferred figure in investment analysis.</p>
-            <h2>Interpreting EPS Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Interpreting EPS Results</h2>
             <p>EPS alone is meaningless without context. Always view it relative to: (1) stock price via P/E ratio, (2) prior-year EPS for growth trend, (3) analyst consensus estimates for beat/miss analysis, and (4) industry peer EPS for competitive benchmarking. Consistent 10–15% annual EPS growth characterizes quality compounding businesses.</p>
-            <h2>EPS and P/E Ratio</h2>
+            <h2 className="text-2xl font-bold mb-3">EPS and P/E Ratio</h2>
             <p>P/E = Stock Price ÷ Diluted EPS. A P/E of 20× means investors pay $20 for every $1 of annual earnings. Growth stocks may trade at 30–50× EPS; mature value stocks at 10–15×. The earnings yield (1/P/E) is often compared to 10-year Treasury yields to assess equity attractiveness relative to bonds.</p>
-            <h2>EPS Dilution and Share Buybacks</h2>
+            <h2 className="text-2xl font-bold mb-3">EPS Dilution and Share Buybacks</h2>
             <p>Aggressive stock-based compensation inflates the diluted share count and mechanically reduces EPS. Conversely, buybacks reduce shares outstanding and mechanically boost EPS even with flat net income. Investors should distinguish EPS growth driven by genuine profit improvement versus financial engineering through buybacks or accounting adjustments.</p>
-            <h2>Reading Earnings Reports</h2>
+            <h2 className="text-2xl font-bold mb-3">Reading Earnings Reports</h2>
             <p>Companies report GAAP and often non-GAAP (adjusted) EPS in earnings releases. The consensus estimate aggregated by Bloomberg, FactSet, or Refinitiv serves as the benchmark. A "beat" occurs when reported EPS exceeds consensus — historically triggering positive stock moves. Guidance on forward EPS often matters more than the reported quarter for long-term investors.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/earnings-per-share-calculator"/>

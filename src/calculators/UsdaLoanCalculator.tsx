@@ -179,17 +179,17 @@ export default function UsdaLoanCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a USDA Loan Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a USDA Loan Calculator?</h2>
             <p>A USDA loan calculator is a specialized mortgage tool designed to compute the exact costs associated with the United States Department of Agriculture's Rural Development loan program. For millions of Americans living in suburban and rural areas, the USDA loan is arguably the best mortgage product on the market, offering 100% financing (zero down payment) and competitive interest rates. However, because it is a government-backed loan, it features unique fee structures—specifically the Upfront and Annual Guarantee Fees—that standard mortgage calculators simply ignore.</p>
             <p>If you use a generic calculator to estimate a USDA loan, you will dramatically underestimate your monthly payment and your total loan balance. This tool perfectly replicates the USDA underwriting formula. It automatically calculates the mandatory upfront fee, rolls it into your financed loan amount, and computes the ongoing monthly guarantee fee alongside your property taxes and insurance, providing you with a perfectly accurate, to-the-penny estimate of your true housing costs.</p>
 
-            <h2>How It Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
             <p>The mathematics behind a USDA loan are unique because the program allows you to finance its own mandatory fees, often pushing the initial loan balance higher than the actual purchase price of the home.</p>
             <p>First, the calculator determines your <strong>Base Loan Amount</strong> by subtracting your Down Payment (if you choose to make one) from the Home Price. Formula: <code>Base Loan = Home Price - Down Payment</code>.</p>
             <p>Next, it calculates the mandatory <strong>Upfront Guarantee Fee</strong>. The current standard is 1.0% of the Base Loan. Because virtually all borrowers finance this fee rather than paying it in cash at closing, the calculator automatically adds it to your loan. Formula: <code>Total Loan Amount = Base Loan + (Base Loan * 1.0%)</code>. On a $250,000 house with zero down, your starting loan balance is actually $252,500.</p>
             <p>The tool then runs a standard amortization formula on that Total Loan Amount to find your Principal and Interest (P&I) payment. Crucially, it then adds the <strong>Annual Guarantee Fee</strong>. The current standard is 0.35% of the Base Loan, divided by 12 months. Finally, it adds your monthly property taxes and home insurance to generate the true Total Monthly Payment.</p>
 
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>When you generate a calculation, the tool provides five distinct analytical sections designed to mirror the actual Loan Estimate you will receive from your USDA-approved lender.</p>
             <p><strong>Primary Result Card:</strong> This displays your Total Monthly Payment. This is the absolute amount of cash leaving your bank account every month, incorporating the loan, taxes, insurance, and USDA fees.</p>
             <p><strong>3-Stat Bar:</strong> This section highlights your Total Financed Amount (showing you the impact of the financed upfront fee), your Monthly Guarantee Fee cost, and your Loan-to-Value (LTV) ratio.</p>
@@ -197,30 +197,30 @@ export default function UsdaLoanCalculator() {
             <p><strong>Monthly Payment Breakdown Chart:</strong> A visual pie chart that breaks your monthly payment into its core components (P&I, Taxes, Insurance, and the Guarantee Fee). This helps you visualize exactly where your money is going every month.</p>
             <p><strong>Summary Statistics:</strong> A fast, readable grid aggregating the most important metrics, including the total interest you will pay over the life of the loan.</p>
 
-            <h2>Key Factors</h2>
+            <h2 className="text-2xl font-bold mb-3">Key Factors</h2>
             <p>To successfully utilize a USDA loan, you must understand both its financial mechanics and its strict eligibility requirements.</p>
             <p><strong>The 0% Down Payment:</strong> This is the primary draw of the USDA loan. By allowing 100% financing, families can buy homes without spending years saving for a 20% down payment. However, financing the entire purchase price (plus fees) means your monthly payments and total interest costs will be significantly higher than if you had put money down.</p>
             <p><strong>Location Eligibility:</strong> The USDA loan is geographically restricted. The home must be located in an eligible rural or suburban area. You can check any property address on the official USDA eligibility map. You might be surprised; many expanding suburban neighborhoods are still classified as "rural" by the USDA.</p>
             <p><strong>Income Limits:</strong> This program is designed for low-to-moderate-income families. There are strict caps on how much your entire household can earn. If your household income exceeds 115% of the median income for your area, you will be disqualified from the program, regardless of how good your credit score is.</p>
             <p><strong>The Guarantee Fees:</strong> The 1.0% upfront fee and 0.35% annual fee are mandatory. Unlike conventional loan PMI (Private Mortgage Insurance), which falls off when you reach 20% equity, the USDA annual fee remains for the life of the loan. However, at 0.35%, it is significantly cheaper than FHA mortgage insurance.</p>
 
-            <h2>Advanced Features</h2>
+            <h2 className="text-2xl font-bold mb-3">Advanced Features</h2>
             <p>The Advanced Options tab unlocks the ability to highly customize the USDA calculations, ensuring your estimate perfectly matches your localized market conditions.</p>
             <p>While the calculator defaults to the current standard Upfront Fee of 1.0% and Annual Fee of 0.35%, these rates can be adjusted by Congress or the USDA based on funding needs. The advanced inputs allow you to change these percentages if the government alters the program guidelines.</p>
             <p>Furthermore, you can precisely adjust local Property Tax Rates and Home Insurance estimates. Since property taxes vary wildly—from 0.3% in Hawaii to over 2.4% in New Jersey—adjusting this input is critical to generating an accurate monthly payment.</p>
 
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <p>Let's look at how the USDA loan compares to an FHA loan for the same property.</p>
             <p><strong>Example 1: The USDA 0% Down.</strong> You buy a $300,000 home using a USDA loan with 0% down. Your base loan is $300,000. The 1.0% upfront fee adds $3,000, making your Total Loan $303,000. At a 6.5% interest rate, your P&I is $1,915. The 0.35% Annual Fee adds $87/month. With taxes and insurance, your total payment is roughly $2,385/month. You moved in with zero cash down.</p>
             <p><strong>Example 2: The FHA Alternative.</strong> You buy the same $300,000 home using an FHA loan. You must put 3.5% down ($10,500). Your base loan is $289,500. The FHA 1.75% upfront fee adds $5,066, making your Total Loan $294,566. At 6.5%, your P&I is $1,861. The FHA 0.55% Annual Fee adds $132/month. With taxes and insurance, your total payment is roughly $2,376/month. The payments are almost identical, but the FHA loan required you to drain $10,500 from your bank account for the down payment.</p>
 
-            <h2>Tips & Best Practices</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
             <p>The USDA loan is a powerful tool, but it requires careful navigation. Follow these best practices when utilizing USDA financing.</p>
             <p>First, aggressively check the USDA eligibility map before you start touring homes. Do not assume a house qualifies just because it has trees in the yard. Conversely, do not rule out a neighborhood just because it looks suburban. The boundaries are strict and drawn by the government.</p>
             <p>Second, remember that USDA appraisals are very strict, similar to FHA appraisals. The home must be in good condition, safe, and structurally sound. You generally cannot use a standard USDA loan to buy a "fixer-upper" that needs a new roof or major structural repairs.</p>
             <p>Third, work with a lender who has extensive experience with USDA loans. Because this is a niche program, many loan officers are unfamiliar with the complex income calculations and property eligibility requirements. An inexperienced lender can cause your loan to be denied at the last minute by the USDA underwriting office.</p>
 
-            <h2>Benefits</h2>
+            <h2 className="text-2xl font-bold mb-3">Benefits</h2>
             <p>Using a dedicated USDA loan calculator is critical because standard mortgage calculators will mislead you by ignoring the mandatory guarantee fees, resulting in a payment shock when you receive your official loan estimate.</p>
             <p>This tool provides absolute clarity. It shows you the true cost of zero-down financing. By understanding exactly how much of your payment is consumed by interest, taxes, and government fees, you can confidently determine if a USDA loan is the right path to achieving your dream of homeownership.</p>
           </article>

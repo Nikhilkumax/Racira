@@ -251,19 +251,19 @@ export default function ContinuousCompoundingCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is Continuous Compounding?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is Continuous Compounding?</h2>
             <p>Continuous compounding represents the mathematical limit of compound interest—the result when interest is compounded an infinite number of times per unit time. It is the most aggressive form of compounding, producing the maximum possible growth for a given interest rate and time period. The formula A = Pe^(rt) uses Euler's number e (approximately 2.71828) to capture this exponential growth.</p>
             <p>This calculator goes beyond the standard formula by comparing continuous compounding against daily, monthly, and annual compounding. This allows investors and students of financial mathematics to see both the theoretical maximum and how close common compounding frequencies come to achieving it.</p>
 
-            <h2>The Mathematics of Continuous Compounding</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of Continuous Compounding</h2>
             <p>Standard compound interest uses A = P(1 + r/n)^(nt), where n is the compounding frequency. As n approaches infinity, this expression converges to Pe^(rt). The key insight is that beyond daily compounding, each additional compounding frequency yields diminishing returns — the practical difference between daily and continuous compounding is often less than 0.01% per year.</p>
             <p>The effective annual rate (EAR) under continuous compounding is e^r − 1. At 7% nominal rate, the EAR is 7.2508%. Compare this to daily compounding at 7.2501% — a difference of 0.0007%. This mathematically demonstrates why continuous compounding is largely theoretical in consumer finance but foundational in financial mathematics.</p>
 
-            <h2>Where Continuous Compounding Is Used</h2>
+            <h2 className="text-2xl font-bold mb-3">Where Continuous Compounding Is Used</h2>
             <p>While no bank literally compounds continuously, the formula has immense practical importance. The Black-Scholes options pricing model uses continuous compounding to calculate discount factors. Risk-neutral pricing in derivatives, bond duration calculations, and the mathematics of Brownian motion all use the continuous compounding framework because it produces cleaner, differentiable functions.</p>
             <p>FOREX traders and fixed-income analysts also use continuously compounded rates to convert between yield conventions across different markets. Central banks and academic economists express real interest rates using continuous compounding for consistency in dynamic models.</p>
 
-            <h2>Key Metrics Explained</h2>
+            <h2 className="text-2xl font-bold mb-3">Key Metrics Explained</h2>
             <p><strong>Doubling Time:</strong> Under continuous compounding, the time to double your money is ln(2) / r = 0.6931 / r. At 7%, money doubles every 9.9 years. This is more precise than the "Rule of 72" approximation. <strong>Effective Annual Rate:</strong> The EAR represents what you'd actually earn in one year after continuous compounding—always slightly above the nominal rate. <strong>Total Return %:</strong> Shows the percentage gain on your initial investment over the full period.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/continuous-compounding-calculator" />

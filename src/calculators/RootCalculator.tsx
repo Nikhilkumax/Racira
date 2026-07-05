@@ -186,10 +186,10 @@ const RootCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding Mathematical Roots</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Mathematical Roots</h2>
             <p>In mathematics, calculating a <strong>root</strong> is the inverse operation of exponentiation. When you raise a number to a power (like 4³ = 64), you multiply that number by itself repeatedly. When you take the root of a number, you are working backward. The "cube root" of 64 asks the question: <em>What number, multiplied by itself 3 times, equals 64?</em> The answer is 4.</p>
 
-            <h2>Anatomy of a Root Equation</h2>
+            <h2 className="text-2xl font-bold mb-3">Anatomy of a Root Equation</h2>
             <p>A standard root equation (often called a radical expression) consists of three parts:</p>
             <ul>
               <li><strong>The Radical Symbol (√):</strong> The mathematical symbol indicating a root operation.</li>
@@ -197,11 +197,11 @@ const RootCalculator = () => {
               <li><strong>The Degree (Index):</strong> The small number written to the upper left of the radical symbol. It tells you which root you are finding. If no degree is written, it is universally understood to be a square root (degree 2).</li>
             </ul>
 
-            <h2>Roots and Fractional Exponents</h2>
+            <h2 className="text-2xl font-bold mb-3">Roots and Fractional Exponents</h2>
             <p>As you progress in algebra and calculus, the radical symbol (√) is often replaced with <strong>fractional exponents</strong>. They are mathematically identical but easier to type and manipulate in complex equations. Taking the <em>n</em>-th root of a number <em>x</em> is exactly the same as calculating <code>x^(1/n)</code>.</p>
             <p>For example, the square root of 25 can be written as <code>25^(1/2)</code>. The cube root of 27 can be written as <code>27^(1/3)</code>. This is the exact mathematical method computers and modern calculators use to process roots behind the scenes.</p>
 
-            <h2>Imaginary Numbers and Negative Roots</h2>
+            <h2 className="text-2xl font-bold mb-3">Imaginary Numbers and Negative Roots</h2>
             <p>Can you find the root of a negative number? The answer depends on the degree (n) of the root.</p>
             <p>If the degree is <strong>odd</strong> (like a cube root or 5th root), the answer is yes, and it is a real number. The cube root of -8 is -2, because <code>(-2) × (-2) × (-2) = -8</code>.</p>
             <p>If the degree is <strong>even</strong> (like a square root or 4th root), the answer cannot be a real number. Why? Because multiplying any real number by itself an even number of times always results in a positive number. Therefore, to solve the square root of a negative number, mathematicians created <strong>Imaginary Numbers</strong>, denoted by the letter <em>i</em> (where <em>i</em> = √-1). Our calculator automatically detects this scenario and appends <em>i</em> to your result.</p>

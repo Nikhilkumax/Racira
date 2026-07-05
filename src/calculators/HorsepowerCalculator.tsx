@@ -251,21 +251,21 @@ export default function HorsepowerCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>How Does a Horsepower Calculator Work?</h2>
+            <h2 className="text-2xl font-bold mb-3">How Does a Horsepower Calculator Work?</h2>
             <p>At its core, estimating a vehicle's horsepower from its track performance is a physics equation. The heavier a car is, and the faster it travels across a 1/4 mile distance, the more energy the engine must be producing. Our Horsepower Calculator uses the industry-standard Hale formulas to convert your real-world drag strip data (Weight and Trap Speed or Elapsed Time) into a highly accurate estimate of your engine's power output.</p>
 
-            <h2>Trap Speed vs. Elapsed Time (ET)</h2>
+            <h2 className="text-2xl font-bold mb-3">Trap Speed vs. Elapsed Time (ET)</h2>
             <p>If you have a timeslip from the drag strip, you will notice two main numbers: your Elapsed Time (e.g., 12.5 seconds) and your Trap Speed (e.g., 115 mph). When estimating horsepower, <strong>Trap Speed is significantly more accurate</strong>.</p>
             <ul>
               <li><strong>Why Trap Speed works:</strong> The speed you are traveling when you cross the finish line is a direct reflection of your power-to-weight ratio. It does not matter if you spun the tires at the starting line; your terminal velocity is almost purely dictated by engine power.</li>
               <li><strong>Why ET is flawed:</strong> Elapsed Time is heavily dependent on driver skill, tire grip, suspension setup, and reaction time. A car with 1,000 horsepower but terrible tires might run a slow 13.0-second ET, making the calculator think it only has 300 horsepower. However, it will cross the finish line at an extremely high Trap Speed, revealing its true power.</li>
             </ul>
 
-            <h2>Wheel HP (WHP) vs. Flywheel HP (BHP)</h2>
+            <h2 className="text-2xl font-bold mb-3">Wheel HP (WHP) vs. Flywheel HP (BHP)</h2>
             <p>When an automaker advertises a car as having "400 horsepower," they are measuring the power directly at the engine's crankshaft. This is known as Flywheel HP or Brake Horsepower (BHP). However, this is not the power that actually reaches the road.</p>
             <p>Before the power hits the asphalt, it must travel through the transmission, driveshaft, differentials, and axles. The friction in these mechanical components consumes a large amount of energy. The power that survives this journey is known as Wheel HP (WHP). A chassis dynamometer (dyno) measures WHP.</p>
 
-            <h2>Understanding Drivetrain Loss</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Drivetrain Loss</h2>
             <p>Our calculator asks for your drivetrain type so it can mathematically estimate your Flywheel HP by adding back the power lost to friction. Standard industry estimations for drivetrain power loss are:</p>
             <ul>
               <li><strong>Front-Wheel Drive (FWD):</strong> ~15% power loss. Because the engine and drive axles are compact and located in the front, the power journey is short and efficient.</li>

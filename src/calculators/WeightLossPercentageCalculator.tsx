@@ -320,29 +320,29 @@ export default function WeightLossPercentageCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Deception of Aspirational Fitness</h2>
+            <h2 className="text-2xl font-bold mb-3">The Deception of Aspirational Fitness</h2>
             <p>If you consume fitness media on Instagram or TikTok, you are subjected to a relentless barrage of "aspirational" physiques. You are shown images of bodybuilders with 5% body fat and fitness models with six-pack abs. This creates a deeply toxic psychological framework for the average person attempting to lose weight. They believe that unless they achieve that magazine-cover perfection, their diet was a failure. Medical science completely disagrees. The clinical reality is that you do not need to be perfect to save your own life. The <strong>Clinical Weight Loss Percentage Calculator</strong> strips away the aesthetic vanity of the fitness industry and anchors your progress to the three objective medical milestones that actually govern human longevity.</p>
 
-            <h2>The 5% Clinical Threshold</h2>
+            <h2 className="text-2xl font-bold mb-3">The 5% Clinical Threshold</h2>
             <p>When an obese patient enters a medical weight-loss clinic, the physician does not tell them to lose 100 pounds. They tell them to lose 5% of their body weight. Why?</p>
             <p>Biologically, the first fat to be oxidized (burned) when you enter a caloric deficit is often the most dangerous fat: intra-hepatic (liver) fat and visceral fat. By simply losing 5% of your total body mass, you drastically reduce the toxic fat wrapping around your vital organs. Clinical trials consistently prove that a 5% reduction causes a massive improvement in cellular insulin sensitivity (lowering blood sugar) and a significant drop in systolic blood pressure. For a 250-pound individual, this is a loss of only 12.5 pounds. By hitting this incredibly achievable metric, you dramatically slash your risk of an early cardiovascular event.</p>
 
-            <h2>The 10% Systemic Shift</h2>
+            <h2 className="text-2xl font-bold mb-3">The 10% Systemic Shift</h2>
             <p>If you can maintain your caloric deficit and cross the 10% threshold, the physiological benefits compound exponentially. This is where systemic changes occur.</p>
             <p>For individuals suffering from Obstructive Sleep Apnea (OSA)—a terrifying condition where the weight of your own neck causes you to stop breathing dozens of times an hour while asleep—a 10% weight loss is often enough to significantly clear the airway and drastically improve sleep quality. Furthermore, crossing the 10% line frequently causes a steep drop in systemic inflammation markers (like CRP) and is strongly associated with moving patients out of the 'pre-diabetic' danger zone and back into a normal HbA1c metabolic baseline.</p>
 
-            <h2>The 15% Disease Remission Standard</h2>
+            <h2 className="text-2xl font-bold mb-3">The 15% Disease Remission Standard</h2>
             <p>The 15% threshold is the holy grail of metabolic medicine. Recent landmark studies, such as the DiRECT trial (Diabetes Remission Clinical Trial) in the UK, have revolutionized how doctors view Type 2 Diabetes.</p>
             <p>Historically, Type 2 Diabetes was considered a chronic, progressive, incurable disease. You simply managed it with insulin until you died. The DiRECT trial proved that if a patient can lose 15% (or more) of their total body weight, they can force the disease into complete remission. By stripping away massive amounts of ectopic fat from the pancreas and the liver, the organs are able to "turn back on" and resume normal insulin production. If the 15% weight loss is maintained, the patient is effectively cured of the disease.</p>
 
-            <h2>Why Speed Kills: The 1% Rule</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Speed Kills: The 1% Rule</h2>
             <p>Now that you know the percentage milestones, you must understand the speed limit. You cannot sprint to the 15% threshold.</p>
             <p>The clinical speed limit for weight loss is 0.5% to 1.0% of your body weight per week. If you attempt a starvation crash diet and lose 3% of your body weight in a single week, you are not burning fat. Thermodynamics dictates that your body is cannibalizing its own functional muscle tissue for rapid energy. Destroying your muscle mass permanently lowers your metabolism. Furthermore, rapid weight loss forces the liver to secrete excess cholesterol into the bile, drastically increasing your risk of developing painful gallstones. You must treat weight loss as a clinical procedure: slow, methodical, and relentless.</p>
 
-            <h2>The Psychology of the Milestone</h2>
+            <h2 className="text-2xl font-bold mb-3">The Psychology of the Milestone</h2>
             <p>By shifting your focus from "I need to lose 50 pounds" to "I just need to hit the 5% medical milestone," you hack your brain's dopamine reward system. Fifty pounds feels like an impossible, multi-year mountain. Five percent is an incredibly achievable goal that you can hit in six to eight weeks. Every time you cross a percentage threshold on this calculator, your brain releases dopamine, reinforcing the discipline required to keep pushing to the next milestone.</p>
 
-            <h2>Conclusion: Reclaim Your Health</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Reclaim Your Health</h2>
             <p>You do not need a six-pack to be healthy, and you do not need to be thin to dramatically extend your lifespan. You simply need to initiate the process of visceral fat oxidation. Use the Clinical Weight Loss Percentage Calculator to track your exact trajectory. Cross the 5% threshold, push relentlessly toward the 15% remission line, and mathematically reclaim your metabolic health.</p>
           </article>
           

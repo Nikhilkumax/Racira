@@ -323,39 +323,39 @@ export default function DogPregnancyDurationCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding Canine Gestation</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Canine Gestation</h2>
             <p>If you are a dog breeder or have an intact female dog that recently mated, knowing the exact timeline of her pregnancy is critical for ensuring the health of both the mother (dam) and her puppies. The <strong>Dog Pregnancy Calculator</strong> takes the guesswork out of canine reproduction. By simply inputting the date of mating or ovulation, our algorithm generates a precise timeline outlining the estimated whelping date, safe delivery windows, and key fetal developmental milestones.</p>
             <p>Canine pregnancy is remarkably short compared to humans, meaning physiological changes happen rapidly. Proper nutrition, timely veterinary care, and adequate whelping preparation are required at very specific intervals to prevent life-threatening complications like eclampsia or dystocia.</p>
 
-            <h2>How Long is a Dog Pregnant?</h2>
+            <h2 className="text-2xl font-bold mb-3">How Long is a Dog Pregnant?</h2>
             <p>The standard gestation period for a domestic dog is <strong>63 days</strong> (exactly 9 weeks) from the date of ovulation. However, unlike humans, the exact date of conception can be difficult to pinpoint because a female dog's eggs are not immediately mature upon ovulation, and sperm can live inside the female tract for up to a week.</p>
             <p>Because of this biological variable, the actual length of pregnancy measured from the date of mating can range anywhere from <strong>58 to 68 days</strong>. Our calculator uses the 63-day average to determine the primary Estimated Whelping Date, but it also provides a safe delivery window. If your dog surpasses day 68 without going into labor, it is considered a medical emergency and requires immediate veterinary intervention.</p>
 
-            <h2>Early Gestation (Days 1 to 21)</h2>
+            <h2 className="text-2xl font-bold mb-3">Early Gestation (Days 1 to 21)</h2>
             <p>During the first three weeks of pregnancy, you will likely notice no physical or behavioral changes in your dog. The fertilized embryos are spending this time floating down the fallopian tubes toward the uterus. Around Day 16, they finally embed into the uterine lining.</p>
             <p>It is crucial during this phase to feed the mother her normal, high-quality maintenance diet. Do not increase her food intake or switch to puppy food yet. Overfeeding in the first three weeks can cause unnecessary weight gain, which actually increases the risk of dystocia (difficult labor) later on. Keep her exercise routine normal, but avoid extremely strenuous activities or high-stress environments.</p>
 
-            <h2>Mid-Gestation and Veterinary Checks (Days 22 to 45)</h2>
+            <h2 className="text-2xl font-bold mb-3">Mid-Gestation and Veterinary Checks (Days 22 to 45)</h2>
             <p>By Week 4, the pregnancy becomes medically detectable. At this stage, the fetuses are developing vital organs and facial features. Between Day 28 and Day 35, you should schedule your first prenatal veterinary visit.</p>
             <p>During this visit, the vet has two primary ways to confirm the pregnancy. First, they can perform abdominal palpation, feeling the uterus for amniotic sacs that feel roughly the size of ping-pong balls. Second, they can perform an ultrasound to visually detect the fetal heartbeats. While an ultrasound is excellent for confirming viability, it is highly inaccurate for counting the total number of puppies, as fetuses can easily hide behind one another.</p>
 
-            <h2>Late Gestation and Fetal Counting (Days 46 to 63)</h2>
+            <h2 className="text-2xl font-bold mb-3">Late Gestation and Fetal Counting (Days 46 to 63)</h2>
             <p>The final phase of pregnancy is focused on rapid fetal weight gain. The mother's abdomen will swell significantly, and her caloric needs will double or even triple. You must slowly transition her diet to a high-calorie, calcium-rich puppy formulation to support the rapid growth.</p>
             <p>Around Day 45 to Day 50, the fetal skeletons calcify. This is the optimal time to return to the vet for an abdominal X-ray (radiograph). Counting the fetal skulls and spines on the X-ray is the only accurate way to determine litter size. Knowing exactly how many puppies are inside the mother is critical; if the X-ray shows 6 puppies but she stops labor after delivering 5, you know she needs emergency veterinary help.</p>
 
-            <h2>Preparing the Whelping Box</h2>
+            <h2 className="text-2xl font-bold mb-3">Preparing the Whelping Box</h2>
             <p>About two weeks before the estimated whelping date, you must introduce the mother to her <strong>Whelping Box</strong>. This is a secure, quiet, and warm enclosure where she will give birth and nurse the puppies. The box should have low sides to allow the mother to easily step over, but high enough to prevent the blind, deaf newborn puppies from crawling out.</p>
             <p>Line the box with several layers of clean newspaper or washable whelping pads. Place it in a quiet, low-traffic area of your home, away from other pets and loud noises. If the mother is not comfortable with the location, she may attempt to move the puppies after birth, which is highly dangerous.</p>
 
-            <h2>Recognizing the Signs of Labor</h2>
+            <h2 className="text-2xl font-bold mb-3">Recognizing the Signs of Labor</h2>
             <p>As the whelping window opens, you should begin taking the mother's rectal temperature twice a day. A dog's normal temperature is between 101°F and 102.5°F. The single most reliable indicator that labor is imminent is a sudden temperature drop. When her temperature drops below 99°F, Stage 1 labor will commence within 12 to 24 hours.</p>
             <p>During Stage 1 labor, the cervix dilates. The mother will appear restless, pant heavily, shiver, and begin nesting—digging at the blankets in the whelping box. She will likely refuse all food and may vomit. This phase can last anywhere from 6 to 12 hours.</p>
 
-            <h2>The Delivery (Stage 2 Labor)</h2>
+            <h2 className="text-2xl font-bold mb-3">The Delivery (Stage 2 Labor)</h2>
             <p>Stage 2 labor involves strong abdominal contractions and the actual delivery of the puppies. Puppies can be born head-first or tail-first; both are completely normal in dogs. Typically, a puppy is born every 45 to 60 minutes, though the mother may rest for a few hours halfway through the litter.</p>
             <p>Normally, the mother will instinctively break the amniotic sac, sever the umbilical cord with her teeth, and vigorously lick the puppy to stimulate its breathing. If she fails to do this within the first minute, you must immediately step in. Tear the sac open near the puppy's head, clear the fluid from its nose and mouth with a bulb syringe, and rub the puppy vigorously with a warm towel until it cries.</p>
 
-            <h2>When to Call the Emergency Veterinarian</h2>
+            <h2 className="text-2xl font-bold mb-3">When to Call the Emergency Veterinarian</h2>
             <p>Whelping is a natural process, but complications can turn fatal very quickly. You must contact an emergency veterinarian immediately if you observe any of the following:</p>
             <ul>
               <li>The mother experiences strong, active contractions for over 30 minutes without producing a puppy.</li>

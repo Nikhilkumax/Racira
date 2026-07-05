@@ -299,31 +299,31 @@ export default function StepCountToCalorieBurnCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Translating Raw Steps into Thermodynamic Energy</h2>
+            <h2 className="text-2xl font-bold mb-3">Translating Raw Steps into Thermodynamic Energy</h2>
             <p>Every smartphone and smart watch on the market today features a built-in pedometer, constantly tracking your daily steps in the background. We are constantly told to aim for the magical "10,000 steps" to improve our health. However, a raw step count tells you almost nothing about the actual physical "work" your body performed. A step is not a universal measurement of energy. The <strong>Step Count to Calorie Burn Calculator</strong> bridges this gap. By factoring in your body mass to calculate mechanical resistance, and your pacing intensity to determine stride length and heart rate, it translates your raw pedometer data into a highly accurate, biologically sound caloric expenditure.</p>
 
-            <h2>Why Your Pace Changes Everything</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Your Pace Changes Everything</h2>
             <p>One of the biggest flaws in cheap pedometers is that they assume 10,000 steps of casual grocery shopping burns the exact same amount of calories as 10,000 steps of running. This is mathematically and biologically impossible.</p>
             <p>When you walk slowly, your stride is very short. 10,000 slow steps might only cover 4 miles of total distance. Your heart rate remains near baseline, and your body is highly efficient. When you run, your stride length drastically increases to cover ground quickly. 10,000 running steps might cover 6 or 7 miles of total distance.</p>
             <p>Because you physically traveled a further distance when running, you performed significantly more mechanical "work" against gravity. Furthermore, running requires a "flight phase" where both feet leave the ground, requiring explosive muscular force. This massive increase in mechanical demand and distance traveled means running 10,000 steps will burn drastically more absolute calories than walking 10,000 steps. Our calculator utilizes pacing data to adjust the stride mechanics and provide clinical precision.</p>
 
-            <h2>The Role of Body Weight in Walking Physics</h2>
+            <h2 className="text-2xl font-bold mb-3">The Role of Body Weight in Walking Physics</h2>
             <p>Once the pace is established, the next critical variable is your body mass. The physics of walking are incredibly simple: Work = Force × Distance. Your muscles must generate force to propel your mass across that distance.</p>
             <p>If a 250-pound man and a 120-pound woman both walk 10,000 brisk steps, the heavier man's quadriceps, hamstrings, and calves had to lift and propel 130 additional pounds with every single step. Because his larger body required vastly more physiological energy (ATP) to accomplish the exact same task, he will mathematically burn significantly more absolute calories. The calculator utilizes your exact mass to ensure the output is completely tailored to your biology.</p>
 
-            <h2>The Truth About the 10,000 Steps Rule</h2>
+            <h2 className="text-2xl font-bold mb-3">The Truth About the 10,000 Steps Rule</h2>
             <p>The "10,000 steps a day" rule is arguably the most famous fitness metric in history. However, its origins are entirely unscientific. It was created in 1965 by a Japanese clock manufacturer (Yamasa) leading up to the 1964 Tokyo Olympics. They released a pedometer called the "Manpo-kei," which literally translates to "10,000-steps meter." The number was chosen purely for marketing purposes because the Japanese character for 10,000 (万) visually resembles a person walking.</p>
             <p>Despite its marketing origins, modern medical science has retrospectively proven the number's validity. Extensive studies have shown that walking 8,000 to 10,000 steps per day drastically reduces all-cause mortality, lowers blood pressure, and significantly decreases the risk of cardiovascular disease. It is the optimal threshold for general human longevity.</p>
 
-            <h2>Is Walking Enough for Weight Loss?</h2>
+            <h2 className="text-2xl font-bold mb-3">Is Walking Enough for Weight Loss?</h2>
             <p>Walking is the ultimate sustainable exercise. Unlike heavy weightlifting or high-impact running, you can walk 10,000 steps every single day without needing a "recovery day" for your joints or central nervous system. It generates virtually zero orthopedic trauma.</p>
             <p>However, relying purely on walking for rapid fat loss is a losing battle. A 160-pound person walking 10,000 steps will burn roughly 400 calories. That entire 90-minute effort can be completely negated by eating a single donut or a large coffee drink. Fat loss occurs in the kitchen, not on the pavement. You must view walking as a tool for cardiovascular health and a way to increase your Total Daily Energy Expenditure (TDEE), but you must pair it with a strict, disciplined caloric deficit to actually force your body to oxidize stored fat.</p>
 
-            <h2>Why Smart Watches Get Confused</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Smart Watches Get Confused</h2>
             <p>Many people find that their Apple Watch or Fitbit gives them drastically different calorie counts for the exact same 10,000-step walk. This happens because smart watches overcomplicate the math by relying too heavily on heart rate monitors.</p>
             <p>If you drink a massive energy drink before your walk, or you are highly stressed about a work project, your heart rate will artificially elevate. The watch senses this elevated heart rate, assumes you are walking up a steep mountain, and wildly inflates the calories burned. Our calculator strips away the false heart rate data and relies entirely on the immutable laws of thermodynamics, providing a calculation that is completely immune to caffeine or stress.</p>
 
-            <h2>Conclusion: Track Your True Output</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Track Your True Output</h2>
             <p>Do not be satisfied with an arbitrary number on your pedometer. A step count is absolutely useless if you do not understand the thermodynamic energy behind it. By inputting your weight, steps, and pacing intensity into the Step Count to Calorie Burn Calculator, you can determine exactly how much energy you expended today, allowing you to seamlessly adjust your nutritional intake and achieve your weight management goals with mathematical precision.</p>
           </article>
           

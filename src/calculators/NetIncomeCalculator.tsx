@@ -162,46 +162,46 @@ export default function NetIncomeCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What is Net Income?</h2>
+            <h2 className="text-2xl font-bold mb-3">What is Net Income?</h2>
             <p>Net income (often referred to colloquially as <strong>take-home pay</strong>) is the precise amount of money you actually receive in your paycheck after all mandatory taxes, voluntary benefits, and retirement contributions have been deducted from your gross salary. While your gross salary is the impressive top-line number you negotiate during a job offer, your net income is the realistic bottom-line number that dictates your lifestyle, budgeting capacity, and true financial power.</p>
             <p>Understanding the vast chasm between gross income and net income is a rite of passage for every working professional. It is the difference between what you earn on paper and what you actually have available to spend, save, and invest. For businesses, net income represents pure profit after all expenses, taxes, and costs of goods sold are subtracted from total revenue. For individuals, however, it represents your actual disposable income. Mastering the calculation and optimization of your net income is the foundational step in personal financial planning.</p>
 
-            <h2>How It Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
             <p>The calculation from gross to net income involves subtracting a cascading series of taxes and deductions. The overarching formula is: <strong>Net Income = Gross Income – (Federal Taxes + State Taxes + Local Taxes + FICA + Pre-Tax Deductions + Post-Tax Deductions)</strong>.</p>
             <p>First, your employer deducts FICA taxes, which include Social Security and Medicare. This is a flat rate for most earners. Next, pre-tax deductions are subtracted. These are highly beneficial because they lower your taxable income. Common pre-tax deductions include traditional 401(k) contributions, health insurance premiums, and Health Savings Account (HSA) funding.</p>
             <p>After pre-tax deductions are removed, your remaining income is subject to Federal, State, and potentially Local income taxes based on your tax bracket. Finally, any post-tax deductions (such as Roth 401(k) contributions, union dues, or wage garnishments) are subtracted. The remaining balance is your true net income—the money deposited directly into your checking account.</p>
 
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>Our net income calculator provides a granular breakdown of exactly where your money is going, empowering you to make informed decisions about your paycheck.</p>
             <p><strong>Monthly and Bi-Weekly Take-Home:</strong> These are the most critical numbers for your personal budget. If you are paid bi-weekly, remember that two months out of the year you will receive three paychecks instead of two. Budgeting based on two paychecks per month builds an automatic savings buffer.</p>
             <p><strong>Effective Tax Rate:</strong> This is the actual percentage of your total income that goes toward taxes. Because the US tax system is progressive (you only pay higher rates on income that falls within higher brackets), your effective tax rate is always lower than your marginal (top) tax bracket.</p>
             <p><strong>Total Deductions:</strong> This aggregates all money taken from your check. It’s important to distinguish between "lost" money (like taxes) and "saved" money (like 401k contributions). High total deductions aren't necessarily bad if a large portion is going toward your retirement wealth.</p>
             <p><strong>Where Your Money Goes Chart:</strong> This visual breakdown quickly illustrates the ratio of your take-home pay versus taxes and benefits. Ideally, you want to optimize your benefits to maximize wealth-building deductions while minimizing unnecessary tax leakage.</p>
 
-            <h2>Key Factors</h2>
+            <h2 className="text-2xl font-bold mb-3">Key Factors</h2>
             <p>Several variables drastically impact the size of your final paycheck. Adjusting these factors can legally increase your net income.</p>
             <p><strong>Federal Withholding (W-4):</strong> Your W-4 form tells your employer how much federal tax to withhold. If you consistently receive massive tax refunds in April, it means your withholding is too high—you are giving the government a free loan. Adjusting your W-4 allows you to keep more of your net income in every paycheck throughout the year.</p>
             <p><strong>State and Local Taxes:</strong> Geography plays a massive role in your net income. Nine states currently levy zero state income tax (including Texas, Florida, and Nevada). Moving from a high-tax state like California or New York to a zero-tax state can act as an immediate and substantial raise to your net income, without changing your gross salary.</p>
             <p><strong>Benefit Selections:</strong> During open enrollment, your choice of health insurance heavily impacts your paycheck. A High Deductible Health Plan (HDHP) usually has much lower premiums than a PPO, leaving more net income in your check, provided you don't incur heavy medical expenses.</p>
             <p><strong>Retirement Contributions:</strong> Contributing heavily to a traditional 401(k) significantly reduces your net income today, but it also reduces your tax burden today, while building long-term wealth. It is a calculated trade-off between current cash flow and future financial independence.</p>
 
-            <h2>Advanced Features</h2>
+            <h2 className="text-2xl font-bold mb-3">Advanced Features</h2>
             <p>For those looking to deeply analyze their compensation package, advanced metrics provide further clarity on total compensation versus net pay.</p>
             <p>This calculator allows you to model out specific local taxes, which are often overlooked but can deduct an additional 1-3% from your gross pay in cities like New York or Philadelphia. Additionally, modeling different pre-tax versus post-tax retirement contributions (Traditional vs. Roth) lets you forecast not just your current net income, but your projected tax burden in retirement.</p>
             <p>By tweaking the exact percentages for 401(k) contributions and FICA, you can find the perfect "sweet spot" that maximizes employer matches while maintaining enough monthly net income to cover your living expenses and lifestyle goals.</p>
 
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <p>To see how drastically location and choices affect net income, consider two professionals earning the exact same gross salary of $100,000.</p>
             <p><strong>Example A: The High-Tax Resident.</strong> Mark lives in New York City. He earns $100,000. He pays federal tax, New York State tax, and NYC local tax. He contributes 10% to his 401(k) and pays $200/month for health insurance. After FICA and all taxes, his effective tax burden is nearly 30%. His total deductions are roughly $40,000. His net income is only $60,000 a year, or $5,000 a month.</p>
             <p><strong>Example B: The Zero-Tax Resident.</strong> Sarah lives in Austin, Texas. She also earns $100,000 and contributes 10% to her 401(k) and pays $200/month for health insurance. Because Texas has no state or local income tax, her tax burden is significantly lower. Her total deductions are roughly $32,000. Her net income is $68,000 a year, or $5,666 a month. Simply by living in a different state, Sarah takes home over $8,000 more per year on the exact same salary.</p>
 
-            <h2>Tips & Best Practices</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
             <p>Maximizing your net income isn't just about earning a higher gross salary; it's about efficient tax planning and strategic benefit selection.</p>
             <p>First, perform an annual W-4 checkup. The IRS provides an online withholding estimator. Ensure you are withholding exactly what you owe—no more, no less. A $3,600 tax refund is not a windfall; it is $300 a month that was missing from your net income all year long.</p>
             <p>Second, utilize tax-advantaged accounts to the absolute maximum. HSAs (Health Savings Accounts) are triple-tax-advantaged. Contributions go in pre-tax (lowering your tax burden and technically reducing current net income but increasing total wealth), grow tax-free, and come out tax-free for medical expenses.</p>
             <p>Third, regularly review your health insurance usage. If you are young, healthy, and rarely visit the doctor, paying high premiums for a "gold" tier health plan is unnecessarily bleeding your net income. Switch to a lower premium plan and invest the difference.</p>
 
-            <h2>Benefits</h2>
+            <h2 className="text-2xl font-bold mb-3">Benefits</h2>
             <p>Knowing your exact net income is the absolute bedrock of personal finance. You cannot build a realistic budget, get out of debt, or invest for the future using your gross salary. Gross salary is a vanity metric; net income is reality.</p>
             <p>By regularly using a net income calculator, you gain precise control over your cash flow. You will understand exactly how a raise, a move to a new state, or a change in retirement contributions will affect your daily life, allowing you to make strategic career and financial decisions with complete confidence.</p>
           </article>

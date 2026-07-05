@@ -196,22 +196,22 @@ const CompoundInterestCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Compound Interest Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Compound Interest Calculator?</h2>
             <p>A compound interest calculator computes how an investment grows when interest is earned on both the initial principal and the accumulated interest from previous periods. This "interest on interest" effect — compounding — is the most powerful force in personal finance. Pre-filled with $10,000 invested at 7% for 20 years with $200/month contributions, the calculator shows the final balance, the breakdown of principal vs contributions vs interest, and a growth chart showing how the balance accelerates over time.</p>
             <p>Understanding compound interest is essential for retirement planning, savings goal-setting, loan comparison, and investment analysis. Albert Einstein allegedly called compound interest "the eighth wonder of the world" — whether or not the quote is authentic, the math is undeniably powerful.</p>
-            <h2>The Compound Interest Formula</h2>
+            <h2 className="text-2xl font-bold mb-3">The Compound Interest Formula</h2>
             <p><strong>Without contributions:</strong> A = P × (1 + r/n)^(n×t)</p>
             <p><strong>With regular contributions:</strong> A = P(1 + r/n)^(nt) + C × [(1 + r/n)^(nt) − 1] / (r/n)</p>
             <p>Where P = principal, r = annual rate (decimal), n = compounds per year, t = years, C = contribution per period. For the default: A = 10000(1 + 0.07/12)^240 + 200 × [(1.00583)^240 − 1] / 0.00583 ≈ $152,000+.</p>
-            <h2>The Rule of 72</h2>
+            <h2 className="text-2xl font-bold mb-3">The Rule of 72</h2>
             <p>A quick mental math shortcut: divide 72 by your annual interest rate to estimate the years needed to double your money. At 7%: 72/7 ≈ 10.3 years. At 10%: 72/10 = 7.2 years. At 1% (savings account): 72/1 = 72 years. This approximation works because ln(2) ≈ 0.693, and at typical interest rates, the continuous compounding formula simplifies to this ratio.</p>
-            <h2>Compound Frequency Comparison</h2>
+            <h2 className="text-2xl font-bold mb-3">Compound Frequency Comparison</h2>
             <p>More frequent compounding produces higher effective yields. $10,000 at 7% for 20 years: Annual (n=1): $38,697. Quarterly (n=4): $39,858. Monthly (n=12): $40,064. Daily (n=365): $40,136. The effective annual yield (APY) for 7% monthly compounded: (1 + 0.07/12)^12 − 1 = 7.229%. The difference between monthly and daily compounding is less than $75 over 20 years — frequency matters most when you compare annual vs monthly.</p>
-            <h2>The Power of Regular Contributions</h2>
+            <h2 className="text-2xl font-bold mb-3">The Power of Regular Contributions</h2>
             <p>The contribution term in the formula grows explosively. With $10,000 at 7% for 20 years (no contributions): ~$40,000. Add $200/month: ~$152,000. The $48,000 in contributions ($200 × 240 months) generates over $60,000 in interest — more than the original $10,000 principal generated. Starting early matters even more: $200/month for 30 years at 7% grows to over $242,000.</p>
-            <h2>Real-World Applications</h2>
+            <h2 className="text-2xl font-bold mb-3">Real-World Applications</h2>
             <p><strong>Retirement planning:</strong> A 25-year-old investing $500/month at 7% for 40 years accumulates over $1.3 million. A 35-year-old investing the same amount for 30 years accumulates only $567,000 — the 10-year head start more than doubles the outcome. <strong>Emergency fund:</strong> Keeping $10,000 in a 4.5% high-yield savings account for 5 years grows to about $12,462. <strong>Debt payoff:</strong> The same formula works in reverse for credit card debt at 20% APR. Pair with the <a href="/calculator/loan-calculator">loan calculator</a> for debt analysis.</p>
-            <h2>Tips for Using This Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips for Using This Calculator</h2>
             <p>Use the frequency toggle to compare compounding intervals. Adjust the contribution field to model different savings scenarios. The orange dashed line on the chart marks your initial principal, showing clearly when the compounding effect begins to dominate. For retirement-specific planning including employer match and tax-advantaged accounts, see the <a href="/calculator/retirement-calculator">retirement calculator</a>.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/compound-interest-calculator" />

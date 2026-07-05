@@ -476,46 +476,46 @@ export default function BikeLoanCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Bike Loan Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Bike Loan Calculator</h2>
             <p>Buying a motorcycle is often an emotional decision driven by passion, freedom, and the open road. However, financing that motorcycle is a purely mathematical endeavor. An <strong>Motorcycle Loan Calculator</strong> is a critical financial planning tool designed specifically for riders. It helps you navigate the unique lending environment of recreational vehicles, allowing you to estimate your monthly payments, factor in riding gear, and understand the true cost of your new bike before you ever set foot inside a dealership.</p>
             <p>Dealership finance offices are notoriously adept at masking high interest rates by extending the loan term to hit your desired monthly payment. By using this calculator, you take the power back. You can clearly visualize the amortization schedule, analyze the impact of different down payments, and uncover exactly how much interest you will be paying over the life of the loan.</p>
 
-            <h2>How Motorcycle Amortization Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How Motorcycle Amortization Works</h2>
             <p>A motorcycle loan functions identically to a standard auto loan. It is a fixed-rate, amortizing installment loan. "Amortization" means that your monthly payment stays exactly the same every month, but the way that payment is divided between Principal (the actual cost of the bike) and Interest (the lender's profit) changes over time.</p>
             <p>The standard formula used to calculate your fixed payment is:</p>
             <p><strong>M = P [ r(1 + r)^n ] / [ (1 + r)^n – 1 ]</strong></p>
             <p>In this equation, <em>M</em> is the monthly payment, <em>P</em> is the total principal loan amount, <em>r</em> is the monthly interest rate (APR divided by 12), and <em>n</em> is the loan term in months. Early in the loan, a large chunk of your payment goes to interest. As the balance drops, more of your payment goes toward paying off the motorcycle.</p>
 
-            <h2>Analyzing Your Calculator Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Analyzing Your Calculator Results</h2>
             <p>Our Bike Loan Calculator provides a comprehensive breakdown of your financial obligation. Here is how to interpret the results:</p>
             <p><strong>Estimated Monthly Payment:</strong> This is the exact amount you will owe the bank every month. It is the most important number for your day-to-day budgeting.</p>
             <p><strong>Total Cost Breakdown:</strong> This table reveals the invisible costs of financing. It separates the sticker price of the motorcycle from the interest you are paying the bank. Many riders are shocked to discover that an 8% loan stretched over 60 months can add thousands of dollars to the final cost of their bike.</p>
             <p><strong>Cost Distribution Chart:</strong> A visual pie chart that quickly illustrates how much of your total expenditure is actually going toward the motorcycle, versus how much is being lost to interest, taxes, and dealer fees.</p>
 
-            <h2>Unique Variables in Motorcycle Financing</h2>
+            <h2 className="text-2xl font-bold mb-3">Unique Variables in Motorcycle Financing</h2>
             <p>Financing a bike is different from financing a car. Lenders view motorcycles as recreational vehicles, which carry a higher risk of default and a higher risk of total-loss accidents. Because of this, the lending variables differ slightly.</p>
             <p><strong>Higher Interest Rates:</strong> You will almost always pay a higher interest rate on a motorcycle than a car. Even with top-tier credit, expect rates to be 1% to 3% higher than standard automotive rates. Our calculator defaults to 8.5% to reflect this reality, but you should adjust it based on current market conditions.</p>
             <p><strong>Financing Gear and Accessories:</strong> Unlike cars, riding a motorcycle requires expensive safety gear. A quality helmet, jacket, boots, and gloves can easily cost $1,000 or more. Furthermore, riders often add exhaust systems or luggage immediately upon purchase. Dealerships frequently allow you to roll the cost of these accessories directly into the loan. Our Advanced Options suite includes an "Accessories & Gear" input to model this accurately.</p>
 
-            <h2>The Danger of Long Loan Terms</h2>
+            <h2 className="text-2xl font-bold mb-3">The Danger of Long Loan Terms</h2>
             <p>The loan term is the length of time you have to pay back the loan. Standard terms for motorcycles are 36, 48, and 60 months. Recently, 72-month loans have become common for expensive touring bikes.</p>
             <p>Extending the loan term is a double-edged sword. Yes, it lowers your monthly payment. However, motorcycles depreciate rapidly—often faster than cars. If you take out a 72-month loan with a small down payment, you will almost certainly be "underwater" (owing more than the bike is worth) for the first three to four years. If you decide to sell the bike or trade it in before the loan is paid off, you will have to pay the bank out of your own pocket to cover the difference.</p>
 
-            <h2>Advanced Features: Taxes and Trade-Ins</h2>
+            <h2 className="text-2xl font-bold mb-3">Advanced Features: Taxes and Trade-Ins</h2>
             <p>Our calculator features advanced toggles to simulate a true dealership transaction.</p>
             <p><strong>Trade-In Equity:</strong> If you are trading in your old bike, the calculator will subtract its value from the new purchase price. Furthermore, it accounts for negative equity. If you owe $5,000 on your old bike, but the dealer only gives you $3,000 for it, that $2,000 difference is added to your new loan.</p>
             <p><strong>Sales Tax Optimization:</strong> In most US states, trading in a vehicle gives you a massive tax break. You only pay sales tax on the difference between the new bike's price and your trade-in value. The calculator automatically computes this tax advantage, showing you exactly why trading in at the dealer can sometimes be financially superior to selling the bike privately.</p>
 
-            <h2>Practical Examples of Bike Financing</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples of Bike Financing</h2>
             <p><strong>Example 1: The Gear Trap.</strong> You buy a $10,000 motorcycle and decide to finance $1,500 worth of gear and an extended warranty into the loan. At 9% APR for 60 months, your total loan is $11,500. Your monthly payment is $239. Over 5 years, you pay $2,820 in interest. That $1,500 gear package ultimately cost you nearly $1,900 due to the added interest. Paying cash for accessories is always the smarter move.</p>
             <p><strong>Example 2: 36 Months vs. 60 Months.</strong> You are financing a $15,000 cruiser at 7% APR. A 60-month loan gives you a comfortable $297 monthly payment, but costs $2,820 in total interest. If you aggressively choose a 36-month loan, your payment jumps to $463, but your total interest drops to just $1,675. You save over $1,100 simply by paying the bike off two years faster.</p>
 
-            <h2>Tips and Best Practices</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips and Best Practices</h2>
             <p><strong>Get Pre-Approved at a Credit Union:</strong> Credit unions frequently offer the best interest rates for recreational vehicles. Before visiting a dealership, secure a pre-approval from a local credit union. Dealerships will often mark up the interest rate to make a profit. Having a pre-approval gives you the leverage to force the dealer to beat your rate.</p>
             <p><strong>Put 20% Down:</strong> To protect yourself against rapid initial depreciation, aim for a down payment of at least 20%. This ensures you have instant equity in the motorcycle and protects you if you need to sell the bike suddenly.</p>
             <p><strong>Don't Forget Insurance:</strong> Remember that if you finance a motorcycle, the lender will require you to carry full-coverage insurance. Full coverage on a motorcycle—especially sports bikes—can be incredibly expensive. Use this calculator to find your monthly payment, but ensure you get an insurance quote before finalizing your budget.</p>
 
-            <h2>Conclusion</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion</h2>
             <p>A motorcycle is an investment in your lifestyle and happiness, but it should never become a financial burden. By utilizing this Motorcycle Loan Calculator, you strip away the sales tactics and focus purely on the mathematics. Running different scenarios allows you to find the perfect balance between the bike you want, the monthly payment you need, and the long-term financial security you deserve.</p>
           </article>
           

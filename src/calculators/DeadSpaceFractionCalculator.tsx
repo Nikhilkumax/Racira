@@ -311,10 +311,10 @@ export default function DeadSpaceFractionCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Dead Space Fraction (Vd/Vt) Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Dead Space Fraction (Vd/Vt) Calculator</h2>
             <p>Mechanical ventilation is a life-saving intervention, but managing a patient on a ventilator requires deep insight into pulmonary mechanics. One of the most critical metrics of lung efficiency is the <strong>Dead Space Fraction (Vd/Vt)</strong>. Our Dead Space Fraction Calculator uses the classic Bohr-Enghoff equation to determine exactly how much of a patient's breathing is "wasted" ventilation. By inputting the arterial CO2 (PaCO2) and the mixed expired CO2 (PeCO2), clinicians can rapidly assess the severity of ventilation-perfusion (V/Q) mismatch, guide ventilator weaning strategies, and predict patient mortality in severe respiratory failure.</p>
 
-            <h2>What is Pulmonary Dead Space?</h2>
+            <h2 className="text-2xl font-bold mb-3">What is Pulmonary Dead Space?</h2>
             <p>In a perfectly efficient lung, every milliliter of air inhaled would reach an alveolus that is surrounded by a rushing capillary of blood, allowing for perfect oxygen and carbon dioxide exchange. In reality, the human respiratory system is not perfectly efficient. <strong>Dead space</strong> refers to the volume of air that enters the respiratory tract but does not participate in gas exchange.</p>
             <p>Dead space is broken down into two components:</p>
             <ul>
@@ -323,13 +323,13 @@ export default function DeadSpaceFractionCalculator() {
             </ul>
             <p><strong>Physiological Dead Space</strong> is the sum of both Anatomic and Alveolar dead space. The Dead Space Fraction (Vd/Vt) tells us what percentage of a single breath (Tidal Volume, or Vt) is trapped in this physiological dead space.</p>
 
-            <h2>The Bohr-Enghoff Equation Explained</h2>
+            <h2 className="text-2xl font-bold mb-3">The Bohr-Enghoff Equation Explained</h2>
             <p>In the late 1800s, Christian Bohr recognized that if a patient exhales air that contains very little CO2 compared to the CO2 in their blood, it means a large portion of their breath never interacted with the blood. His original equation required measuring the CO2 exactly at the alveolar level, which is clinically impractical.</p>
             <p>In 1938, Henrik Enghoff modified the equation to use the Arterial partial pressure of CO2 (PaCO2), which can be easily obtained from a standard Arterial Blood Gas (ABG) draw. The modern equation is:</p>
             <p><code>Vd/Vt = (PaCO2 - PeCO2) / PaCO2</code></p>
             <p>This simple mathematical ratio compares the CO2 trapped in the bloodstream (PaCO2) to the CO2 successfully exhaled by the patient over time (PeCO2). The wider the gap between the two numbers, the higher the dead space fraction.</p>
 
-            <h2>Clinical Interpretations of Vd/Vt</h2>
+            <h2 className="text-2xl font-bold mb-3">Clinical Interpretations of Vd/Vt</h2>
             <p>A normal, healthy, spontaneously breathing adult has a Vd/Vt ratio of approximately <strong>0.20 to 0.33 (20% to 33%)</strong>. This means roughly a third of every breath is spent filling the trachea and bronchi. When this fraction rises, it signals profound pulmonary pathology.</p>
 
             <h3>1. Moderate Elevation (35% to 50%)</h3>
@@ -338,11 +338,11 @@ export default function DeadSpaceFractionCalculator() {
             <h3>2. Severe Elevation (&gt;50%)</h3>
             <p>A Vd/Vt greater than 0.50 is a hallmark of severe respiratory failure. This is classic for massive pulmonary embolisms (where a blood clot entirely blocks blood flow to a lung segment) or severe ARDS. In these states, the lungs are so inefficient that the patient must breathe twice or three times as fast just to clear their baseline CO2 production. This immense "Work of Breathing" rapidly fatigues the diaphragm. Patients with a Vd/Vt &gt; 0.60 almost universally fail attempts to be weaned off the ventilator and extubated.</p>
 
-            <h2>Why is PeCO2 Difficult to Obtain?</h2>
+            <h2 className="text-2xl font-bold mb-3">Why is PeCO2 Difficult to Obtain?</h2>
             <p>While an ABG provides PaCO2 easily, getting a true PeCO2 (Mixed Expired CO2) is technologically challenging. PeCO2 is not the same as End-Tidal CO2 (EtCO2), which is the CO2 concentration at the very end of a single exhaled breath. PeCO2 is the average CO2 concentration of the <em>entire</em> exhaled volume over several minutes.</p>
             <p>Historically, this required having the patient breathe into a massive physical bag (a Douglas Bag) for several minutes, and then analyzing the captured gas. Today, advanced modern mechanical ventilators feature "volumetric capnography." These machines continuously measure breath-by-breath flow and CO2 concentration simultaneously, integrating the data to automatically display the PeCO2, allowing clinicians to input the values directly into our calculator at the bedside.</p>
 
-            <h2>Conclusion</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion</h2>
             <p>The Dead Space Fraction is a powerful prognostic indicator in critical care medicine. It provides a direct mathematical window into the efficiency of pulmonary gas exchange. By calculating Vd/Vt, intensivists can objectively measure the severity of ARDS, optimize ventilator settings to minimize alveolar over-distension, and accurately assess whether a recovering patient possesses the respiratory efficiency required to successfully breathe on their own.</p>
           </article>
           

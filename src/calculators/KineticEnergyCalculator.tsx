@@ -141,26 +141,26 @@ const KineticEnergyCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Kinetic Energy Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Kinetic Energy Calculator?</h2>
             <p>A kinetic energy calculator computes the energy of motion for any moving object using the formula KE = ½mv². It is one of the most fundamental quantities in classical mechanics. This calculator instantly converts your mass (kg) and velocity (m/s) inputs into kinetic energy in Joules, kilojoules, or megajoules — and shows how KE scales as speed changes. Pre-filled with a typical passenger car (1,200 kg) traveling at 100 km/h (27.78 m/s), you can see immediately how much energy must be dissipated when braking.</p>
             <p>Engineers use kinetic energy calculations in vehicle crash safety testing, rollercoaster design, projectile analysis, sports equipment testing, and turbine design. The dramatic square relationship between speed and KE makes these calculations critical for safety planning across all engineering disciplines.</p>
 
-            <h2>The Kinetic Energy Formula</h2>
+            <h2 className="text-2xl font-bold mb-3">The Kinetic Energy Formula</h2>
             <p><strong>KE = ½ × m × v²</strong> where m = mass in kilograms and v = velocity in meters per second. The result is in Joules (J). Key observations from this formula: (1) KE is always positive since v² is always positive. (2) Doubling the mass doubles KE linearly. (3) Doubling the velocity quadruples KE — the square relationship makes speed much more important than mass in safety contexts.</p>
             <p>For the default example: KE = 0.5 × 1200 kg × (27.78 m/s)² = 0.5 × 1200 × 771.7 = 463,020 J ≈ 463 kJ. This is the energy that disc brakes, tire friction, and air resistance must absorb to bring the car to a stop.</p>
 
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>The primary result card displays energy in the most readable unit (J, kJ, or MJ depending on magnitude). The breakdown table shows all inputs, unit conversions, and momentum (p = mv). The bar chart shows how KE scales at ¼ speed, ½ speed, ¾ speed, full speed, and double speed — dramatically illustrating the v² relationship. Notice the bar for 2× speed is 4× taller than the full-speed bar.</p>
 
-            <h2>Kinetic Energy in Real-World Contexts</h2>
+            <h2 className="text-2xl font-bold mb-3">Kinetic Energy in Real-World Contexts</h2>
             <p><strong>Vehicle safety:</strong> A 100 kg motorcyclist at 60 km/h (16.67 m/s) has KE = 0.5 × 100 × 277.9 = 13,889 J. At 120 km/h, KE = 55,556 J — four times as much energy for only double the speed, which is why highway crashes are so much more severe.</p>
             <p><strong>Bullet:</strong> A 9mm bullet (7.5 g) at 370 m/s has KE = 0.5 × 0.0075 × 136,900 = 513 J. Despite its small mass, the extremely high velocity generates lethal energy levels.</p>
             <p><strong>Wind turbine:</strong> Wind kinetic energy per unit time (power) = ½ρAv³, where ρ is air density and A is rotor area. The cubic relationship means doubling wind speed increases power by 8×.</p>
 
-            <h2>Kinetic vs Potential Energy</h2>
+            <h2 className="text-2xl font-bold mb-3">Kinetic vs Potential Energy</h2>
             <p>In a closed mechanical system, the total mechanical energy (KE + PE) is conserved. A roller coaster at the top of a hill has maximum PE = mgh and minimum KE. At the bottom, all PE converts to KE. In reality, friction converts some mechanical energy to heat, so final KE is less than initial PE. This energy accounting is performed with the <a href="/calculator/potential-energy-calculator">potential energy calculator</a>.</p>
 
-            <h2>Tips for Using This Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips for Using This Calculator</h2>
             <p>Convert km/h to m/s by dividing by 3.6 before entering velocity. For mph, multiply by 0.447. Enter mass in kilograms — convert pounds by multiplying by 0.4536. The bar chart showing KE at different speeds is particularly useful for engineers and safety analysts comparing scenarios. Pair with the <a href="/calculator/acceleration-calculator">acceleration calculator</a> to compute force (F = ma) and with the <a href="/calculator/momentum-calculator">momentum calculator</a> for collision analysis.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/kinetic-energy-calculator" />

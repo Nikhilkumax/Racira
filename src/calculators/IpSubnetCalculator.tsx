@@ -214,14 +214,14 @@ const IpSubnetCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding IPv4 Subnetting</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding IPv4 Subnetting</h2>
             <p>At its core, a computer network is like a city postal system. The IP address is the exact street address of a house, but the post office needs to know which city the house is in. A <strong>Subnet Mask</strong> acts as the dividing line, cutting an IP address into two distinct parts: the Network (the city) and the Host (the specific house).</p>
 
-            <h2>Why We Use CIDR Notation</h2>
+            <h2 className="text-2xl font-bold mb-3">Why We Use CIDR Notation</h2>
             <p>Writing out subnet masks like <code>255.255.255.0</code> is tedious. Network engineers use <strong>CIDR (Classless Inter-Domain Routing)</strong> shorthand. Because an IPv4 address is mathematically just 32 bits of binary (1s and 0s), a subnet mask simply turns on the first sequence of bits to "mask" the network.</p>
             <p>If you see an IP address written as <code>192.168.1.100 /24</code>, the <code>/24</code> means that the first 24 bits of the subnet mask are 1s. If you convert 24 1s into decimal format, you get exactly 255.255.255.0. This tells the router that the first three blocks (192.168.1) belong to the Network, leaving the final 8 bits (the last block) available for Hosts (devices).</p>
 
-            <h2>The -2 Host Rule</h2>
+            <h2 className="text-2xl font-bold mb-3">The -2 Host Rule</h2>
             <p>If you allocate 8 bits for host addresses, binary math dictates you have 256 total combinations (2^8 = 256). However, you can never assign 256 devices to this network. Why? Because the IPv4 protocol permanently reserves two specific addresses in every single subnet:</p>
             <ul>
               <li><strong>The Network Address:</strong> The very first address in the block (e.g., .0) is used to mathematically identify the entire network itself. It cannot be assigned to a computer.</li>

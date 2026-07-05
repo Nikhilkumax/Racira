@@ -296,31 +296,31 @@ export default function SportSpecificCalorieCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Mathematics of Athletic Competition</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of Athletic Competition</h2>
             <p>For many people, the idea of running on a treadmill for 45 minutes is a form of psychological torture. Staring at a digital timer while jogging in place is incredibly monotonous. However, if you put those same people on a basketball court or a tennis court, they will happily sprint, jump, and sweat for two hours without complaining once. This is the power of gamifying fitness. But how does playing a sport actually compare to traditional gym cardio? The <strong>Sport Specific Calorie Calculator</strong> utilizes clinical Metabolic Equivalent (MET) formulas to mathematically prove that competitive sports are often vastly superior to steady-state cardio for burning massive amounts of energy.</p>
 
-            <h2>Continuous vs. Stop-and-Go Energy Systems</h2>
+            <h2 className="text-2xl font-bold mb-3">Continuous vs. Stop-and-Go Energy Systems</h2>
             <p>To understand the caloric burn of sports, you must understand how your body produces energy. There are two primary physical demands in athletics: continuous output and stop-and-go (anaerobic) output.</p>
             <p>Sports like soccer require continuous output. A soccer pitch is massive (over 100 yards long), and players are required to maintain a steady jog or sprint for almost the entirety of a 45-minute half. Because the heart rate never drops and oxygen demand remains constantly high, soccer carries a staggering MET value of 10.0.</p>
             <p>Sports like basketball and tennis are stop-and-go. In basketball, you sprint hard down a 94-foot court, but then you stop to set up a play, wait for free throws, or stand out of bounds. This allows the heart rate to drop momentarily. However, these sports require explosive, anaerobic movements—jumping for a rebound or violently changing directions to hit a tennis forehand. These explosive fast-twitch movements demand massive bursts of ATP energy, keeping the overall average MET value incredibly high (roughly 8.0), despite the brief rest periods.</p>
 
-            <h2>The Trap of Overestimating "Gym Time"</h2>
+            <h2 className="text-2xl font-bold mb-3">The Trap of Overestimating "Gym Time"</h2>
             <p>The single biggest mistake people make when tracking their calories in sports is confusing "Total Time" with "Active Time." This calculator features a prominent warning specifically to address this flaw.</p>
             <p>If you go to a local park to play pickup basketball for two hours, you are not burning calories for 120 minutes. You might play a 15-minute game to 11 points, and then your team loses. You sit on the bleachers for 20 minutes waiting for the next game. Over the course of 2 hours, your actual, active sprinting and jumping time might only be 45 minutes. If you plug "120 minutes" into a fitness watch or calculator, it will assume you were sprinting non-stop for two hours and will wildly overestimate your calorie burn. You must only calculate the time the ball was actually in play.</p>
 
-            <h2>Why Walking Golf Burns So Many Calories</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Walking Golf Burns So Many Calories</h2>
             <p>Many people are shocked to see the caloric output of golf. To an observer, golf looks like a leisurely walk in a polo shirt. However, the physics tell a different story.</p>
             <p>If you ride in a motorized golf cart, the physical exertion is minimal. But if you walk a full 18-hole course while carrying your own clubs, it becomes a rigorous thermodynamic task. You are walking 4 to 6 miles across uneven, hilly terrain. More importantly, you are carrying a bag that weighs 20 to 30 pounds on your back. Your legs must propel your own body weight PLUS the weight of those clubs over a massive distance. This high volume of mechanical work forces the MET value up to 4.8, allowing a 4-hour round of golf to easily burn over 1,000 absolute calories.</p>
 
-            <h2>The Role of Body Weight in Sports</h2>
+            <h2 className="text-2xl font-bold mb-3">The Role of Body Weight in Sports</h2>
             <p>Like all activities performed on your feet, your overall mass heavily influences your total caloric expenditure during a game. The physics formula is immutable: Force = Mass × Acceleration.</p>
             <p>If a 240-pound man and a 160-pound man both play an hour of intense singles tennis, the heavier man's leg muscles had to perform drastically more mechanical "work" to violently stop and change directions. His body had to decelerate and accelerate an extra 80 pounds of mass hundreds of times during the match. Because his larger body required vastly more physiological energy to accomplish the exact same task, he will mathematically burn significantly more absolute calories during the match.</p>
 
-            <h2>The Afterburn Effect (EPOC)</h2>
+            <h2 className="text-2xl font-bold mb-3">The Afterburn Effect (EPOC)</h2>
             <p>Because sports like soccer, basketball, and tennis require violent, explosive movements, they trigger a physiological response known as Excess Post-Exercise Oxygen Consumption (EPOC), or the "Afterburn Effect."</p>
             <p>Sprinting and jumping create microscopic tears in your muscle fibers and deplete your anaerobic energy stores. After the game ends, your body cannot immediately return to normal. It must consume extra oxygen and burn additional calories for up to 14 to 24 hours just to repair the muscle tissue, clear lactic acid, and restore homeostasis. This means your pickup basketball game continues to burn bonus calories while you are sleeping.</p>
 
-            <h2>Conclusion: Play Your Way to Fat Loss</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Play Your Way to Fat Loss</h2>
             <p>You do not need to be strapped to a treadmill to lose weight. The human body is designed to sprint, jump, and play. By engaging in competitive sports, you distract your brain from the pain of exercise, allowing you to push yourself much harder and longer than you would in a traditional gym setting. Use the Sport Specific Calorie Calculator to track your true active time, maintain a caloric deficit in the kitchen, and let the thrill of competition forge a leaner, more athletic physique.</p>
           </article>
           

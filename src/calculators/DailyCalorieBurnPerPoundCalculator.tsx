@@ -306,30 +306,30 @@ export default function DailyCalorieBurnPerPoundCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Mathematics of the Cellular Engine</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of the Cellular Engine</h2>
             <p>One of the most profound mistakes people make when analyzing their metabolism is looking exclusively at the total number of calories they burn in a day (TDEE). They see their Apple Watch register a burn of 3,000 calories and immediately assume they have a "fast" metabolism. However, thermodynamics is entirely relative to the mass of the organism. A 350-pound man burning 3,000 calories is effectively in a highly sedentary state, while a 120-pound gymnast burning 3,000 calories is operating at the absolute razor's edge of human cardiovascular capacity. The <strong>Metabolic Energy Density Calculator</strong> solves this discrepancy by dividing your total energy output by your physical mass, revealing the exact calorie-per-pound efficiency of your cellular engine.</p>
 
-            <h2>Why Bigger Bodies Burn More Calories</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Bigger Bodies Burn More Calories</h2>
             <p>To understand energy density, you must understand the physics of maintaining biological mass. A heavier body requires a significantly larger, more powerful engine simply to exist. A 300-pound individual has a larger heart, more blood volume, larger lungs, and massive amounts of extra cellular tissue that all require constant ATP (energy) just to stay alive.</p>
             <p>Therefore, when a heavy person sits completely motionless on a couch for 24 hours, their Basal Metabolic Rate (BMR) will naturally burn thousands of calories. This is not because they have a "fast" metabolism; it is because their massive physical architecture is incredibly expensive to maintain. If you want to know if a person is truly active and metabolically efficient, you cannot look at their total burn. You must look at their burn per pound.</p>
 
-            <h2>The "Sedentary 11" Rule of Thumb</h2>
+            <h2 className="text-2xl font-bold mb-3">The "Sedentary 11" Rule of Thumb</h2>
             <p>In clinical dietetics, there is a fundamental mathematical rule of thumb: a highly sedentary human being requires approximately 10 to 11 calories per pound of body weight to maintain their mass.</p>
             <p>If you weigh 200 pounds, and you spend your day sitting at a desk, driving in a car, and watching television on the couch, your body will burn roughly 2,200 calories (11 x 200). If you plug your numbers into this calculator and your result is below 12 calories per pound, it mathematically proves that your lifestyle is fundamentally devoid of significant cardiovascular or resistance training. You are surviving entirely on your basal resting burn.</p>
 
-            <h2>The Hyper-Metabolic State of the Athlete</h2>
+            <h2 className="text-2xl font-bold mb-3">The Hyper-Metabolic State of the Athlete</h2>
             <p>As you increase your physical activity, your energy density score skyrockets. When you run, lift weights, or engage in high-intensity interval training (HIIT), you are forcing your cells to rapidly oxidize fuel far beyond their resting baseline.</p>
             <p>An individual who engages in moderate daily exercise (like a 45-minute jog or a hard weightlifting session) will typically push their engine efficiency into the 14 to 16 calories per pound range. Professional endurance athletes (like marathon runners and Olympic swimmers) will routinely push their engine into the 20 to 25 calories per pound range during intense training blocks. This is a hyper-metabolic state, requiring massive, continuous consumption of carbohydrates just to prevent the body from cannibalizing its own muscle tissue for fuel.</p>
 
-            <h2>The Danger of the "Metabolic Ceiling"</h2>
+            <h2 className="text-2xl font-bold mb-3">The Danger of the "Metabolic Ceiling"</h2>
             <p>While an athlete can push their energy density incredibly high, the human body has a strict physiological limit. Studies on elite endurance athletes (like those competing in the Tour de France) have shown that the human digestive tract physically cannot process more than roughly 2.5 times the body's resting basal metabolic rate over a sustained period.</p>
             <p>If a person tries to sustain a burn rate of 30+ calories per pound for weeks at a time without consuming thousands of perfectly timed calories, the body will initiate a severe stress response. It will shut down non-essential hormonal production (crashing testosterone and estrogen), severely weaken the immune system, and begin violently destroying skeletal muscle tissue to harvest amino acids for survival. More is not always better.</p>
 
-            <h2>How Muscle Density Alters the Equation</h2>
+            <h2 className="text-2xl font-bold mb-3">How Muscle Density Alters the Equation</h2>
             <p>Not all mass is created equal. The composition of your body radically alters how efficiently it burns calories at rest. Adipose tissue (fat) is biologically lazy; it requires very little energy to sustain. Skeletal muscle tissue, however, is a highly volatile, metabolically expensive tissue.</p>
             <p>A pound of dense muscle burns up to three times more calories at rest than a pound of fat. Therefore, a 200-pound competitive bodybuilder with 8% body fat will naturally have a significantly higher "calories per pound" baseline than a 200-pound sedentary man with 35% body fat, even if they both sit perfectly still in a room all day. If you want to permanently increase your metabolic engine efficiency without doing hours of cardio, your only biological option is to aggressively build more skeletal muscle.</p>
 
-            <h2>Conclusion: Upgrade Your Engine</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Upgrade Your Engine</h2>
             <p>Stop tracking total calories and start tracking cellular efficiency. If your output is stuck in the sedentary baseline, no amount of 'fat-burner' supplements will save you. You must introduce mechanical stress to the body through resistance training and cardiovascular output. Use the Metabolic Energy Density Calculator to identify your exact thermodynamic classification, and purposefully drive your score into the "Active" zone to trigger the biological cascade of fat oxidation and metabolic longevity.</p>
           </article>
           

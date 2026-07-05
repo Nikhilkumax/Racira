@@ -197,7 +197,7 @@ const MarriageTaxCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Marriage and the IRS: How Your Filing Status Affects Your Taxes</h2>
+              <h2 className="text-2xl font-bold mb-3">Marriage and the IRS: How Your Filing Status Affects Your Taxes</h2>
               <p>For most couples, getting married is a significant financial event. The "marriage bonus" or "marriage penalty" is the difference between what a couple pays in taxes as a married unit versus what they would have paid as two single individuals. Understanding how these calculations work can help you choose the best filing status every year.</p>
 
               <h3>What is a Marriage Bonus?</h3>
@@ -223,7 +223,7 @@ const MarriageTaxCalculator = () => {
                 <li>The Credit for the Elderly or the Disabled.</li>
               </ol>
 
-              <h2>Planning Your Strategy</h2>
+              <h2 className="text-2xl font-bold mb-3">Planning Your Strategy</h2>
               <p>For the vast majority of taxpayers, the "Married Filing Jointly" status is the clear winner. This calculator provides a high-level estimate of the federal tax impact, but we recommend running your actual numbers through professional tax software before making a final decision, especially if you have significant deductions, credits, or state tax considerations.</p>
             </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/marriage-tax-calculator" />

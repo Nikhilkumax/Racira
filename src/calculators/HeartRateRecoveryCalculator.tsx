@@ -173,17 +173,17 @@ const HeartRateRecoveryCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Heart Rate Recovery Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Heart Rate Recovery Calculator?</h2>
             <p>A heart rate recovery (HRR) calculator measures how quickly your heart rate drops after peak exercise — a powerful indicator of cardiovascular fitness and autonomic nervous system health. Pre-filled with a peak heart rate of 175 bpm dropping to 150 bpm at 1 minute, the 25-bpm recovery is rated "Excellent." Slower recovery indicates reduced parasympathetic (vagal) tone and may warrant medical evaluation.</p>
-            <h2>The Clinical Significance of HRR</h2>
+            <h2 className="text-2xl font-bold mb-3">The Clinical Significance of HRR</h2>
             <p>The landmark 1999 New England Journal of Medicine study by Cole et al. demonstrated that a 1-minute HRR below 12 bpm (during active cool-down) was an independent predictor of mortality — patients with abnormal HRR had a 4-fold increase in 6-year mortality risk. This finding has been replicated across diverse populations and is now a standard component of exercise stress testing interpretation in cardiology.</p>
-            <h2>How Heart Rate Recovery Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How Heart Rate Recovery Works</h2>
             <p>During exercise, the sympathetic nervous system accelerates heart rate. After exercise stops, the parasympathetic (vagus) nerve rapidly reactivates to slow the heart. A healthy autonomic system creates a sharp, rapid decline in HR. Impaired vagal reactivation — seen in heart failure, diabetes, chronic inflammation, and physical deconditioning — results in sluggish recovery. The speed of this transition directly reflects autonomic balance and cardiovascular reserve.</p>
-            <h2>Interpreting Multi-Minute Recovery</h2>
+            <h2 className="text-2xl font-bold mb-3">Interpreting Multi-Minute Recovery</h2>
             <p>1-Minute Drop: The most clinically validated timepoint. ≥12 bpm is normal, ≥25 bpm is excellent. 2-Minute Drop: A drop ≥42 bpm is considered normal. Abnormal 2-minute recovery independently predicts mortality. 3-Minute Drop: Less standardized, but provides additional context. Elite athletes often recover to within 20 bpm of resting by 3 minutes. The recovery curve should be steadily declining — a plateau or secondary rise may indicate arrhythmia.</p>
-            <h2>Factors Affecting Heart Rate Recovery</h2>
+            <h2 className="text-2xl font-bold mb-3">Factors Affecting Heart Rate Recovery</h2>
             <p>Cardiovascular fitness (most important), age (HRR decreases with age), medications (beta-blockers dramatically improve HRR, while anticholinergics impair it), chronic conditions (heart failure, diabetes, COPD reduce HRR), overtraining syndrome, dehydration, and ambient temperature all affect recovery speed. Serial HRR measurements over weeks provide more reliable assessment than single measurements.</p>
-            <h2>Improving Your Heart Rate Recovery</h2>
+            <h2 className="text-2xl font-bold mb-3">Improving Your Heart Rate Recovery</h2>
             <p>Regular aerobic exercise improves HRR within 4–12 weeks. HIIT (high-intensity interval training) is particularly effective at enhancing autonomic function. Additional strategies: adequate sleep (7–9 hours), meditation and deep breathing exercises (directly stimulate vagal tone), weight management, smoking cessation, moderate alcohol consumption, and avoiding chronic psychological stress. Elite endurance athletes exhibit HRR drops of 30–50+ bpm at 1 minute, reflecting superior vagal tone.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/heart-rate-recovery-calculator" />

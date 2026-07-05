@@ -185,7 +185,7 @@ const CapitalGainsTaxCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>How Capital Gains Taxes Work</h2>
+              <h2 className="text-2xl font-bold mb-3">How Capital Gains Taxes Work</h2>
               <p>When you sell an investment for more than you paid for it, the profit is considered a "capital gain." The IRS taxes these gains differently depending on how long you owned the asset. Understanding these rules can help you time your sales to minimize your tax bill.</p>
 
               <h3>Short-Term vs. Long-Term Gains</h3>
@@ -215,7 +215,7 @@ const CapitalGainsTaxCalculator = () => {
                 <li><strong>Donate to Charity:</strong> Donating appreciated stock directly to a non-profit allows you to avoid capital gains tax entirely while still getting a full deduction for the market value.</li>
               </ol>
 
-              <h2>Special Assets</h2>
+              <h2 className="text-2xl font-bold mb-3">Special Assets</h2>
               <p>Be aware that some assets don't follow the 0/15/20 rules. Collectibles (like art, stamps, or vintage cars) are taxed at a maximum rate of 28%. Real estate gains resulting from depreciation deductions taken in previous years (depreciation recapture) are taxed at 25%.</p>
             </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/capital-gains-tax-calculator" />

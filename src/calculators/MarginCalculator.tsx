@@ -323,7 +323,7 @@ export default function MarginCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding Margin vs. Markup</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Margin vs. Markup</h2>
             <p>
               In pricing strategies and business operations, the terms <strong>margin</strong> and <strong>markup</strong> are often used interchangeably. However, they describe two distinct viewpoints of profitability, and confusing them can lead to major pricing errors and financial deficits.
             </p>
@@ -332,7 +332,7 @@ export default function MarginCalculator() {
               <li><strong>Markup</strong> compares profit to the <em>cost price</em>. It answers: "How much did we add to the original purchase price of the item?"</li>
             </ul>
 
-            <h2>Formulas and Conversions</h2>
+            <h2 className="text-2xl font-bold mb-3">Formulas and Conversions</h2>
             <p>
               The equations for margin and markup are:
             </p>

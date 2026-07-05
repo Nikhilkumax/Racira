@@ -312,19 +312,19 @@ export default function CarDownPaymentCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Why Use a Car Down Payment Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Use a Car Down Payment Calculator?</h2>
             <p>A Car Down Payment Calculator allows you to visualize the direct mathematical impact of bringing cash to the closing table. Many buyers fixate entirely on the monthly payment negotiated at the dealership without realizing the massive downstream effects of a down payment. Dropping cash upfront doesn't just lower your monthly bill; it drastically reduces the total amount of interest you will pay to the bank over the life of the loan.</p>
 
-            <h2>The 20% Down Payment Rule</h2>
+            <h2 className="text-2xl font-bold mb-3">The 20% Down Payment Rule</h2>
             <p>Financial experts universally recommend a 20% down payment when purchasing a new car. Why 20%? Vehicles are heavily depreciating assets. A new car loses roughly 10% of its value the second you drive it off the lot, and another 10% by the end of its first year. If you finance the entire car ($0 down), you will immediately be "underwater" (owing more than the car is worth). A 20% down payment acts as a protective equity buffer. It ensures that if you are in a crash and the car is totaled, the insurance payout will cover your remaining loan balance.</p>
 
-            <h2>How Down Payments Attack Interest</h2>
+            <h2 className="text-2xl font-bold mb-3">How Down Payments Attack Interest</h2>
             <p>Interest is calculated as a percentage of your principal balance. By making a large down payment, you slash the principal balance before the interest meter even starts ticking. For example, if you finance a $40,000 car at 8% over 60 months with $0 down, you will pay over $8,600 in pure interest. If you put 20% down ($8,000), your total interest drops to $6,900. Your $8,000 upfront investment just yielded a guaranteed return of $1,700 in saved interest.</p>
 
-            <h2>Trading In vs. Cash Down</h2>
+            <h2 className="text-2xl font-bold mb-3">Trading In vs. Cash Down</h2>
             <p>A trade-in vehicle acts identically to a cash down payment. If you own a car outright that is worth $10,000, that $10,000 is applied directly against the principal of the new car. Even better, in most states, trading in a vehicle reduces your sales tax burden. If you buy a $30,000 car and trade in a $10,000 car, you are only taxed on the $20,000 difference. This double-benefit makes trade-ins an incredibly powerful form of down payment.</p>
 
-            <h2>Should You Empty Your Savings?</h2>
+            <h2 className="text-2xl font-bold mb-3">Should You Empty Your Savings?</h2>
             <p>While a large down payment is mathematically optimal, it shouldn't come at the cost of your emergency fund. If putting 20% down drains your entire bank account, it is a bad move. You are transferring liquid cash into an illiquid, depreciating asset. If an emergency strikes, you cannot easily extract cash from a car. Aim for the 20% mark, but ensure you retain 3 to 6 months of living expenses in a high-yield savings account.</p>
           </article>
           

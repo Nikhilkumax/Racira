@@ -143,21 +143,21 @@ const ZeroCouponBondCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Zero Coupon Bond Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Zero Coupon Bond Calculator?</h2>
             <p>A zero coupon bond calculator computes the present value (purchase price) of a zero coupon bond given its face value, yield to maturity, and years to maturity. Zero coupon bonds pay no periodic interest — instead, they are issued at a steep discount and redeemed at full face value at maturity. The profit is simply the difference: face value minus purchase price. Pre-filled at $10,000 face value, 5% yield, 10 years, the purchase price is $6,139.13 — delivering $3,860.87 total profit over a decade.</p>
             <p>Zero coupon bonds (also called ZCBs, discount bonds, or pure discount bonds) are used by individual investors, pension funds, and governments. US Treasury STRIPS are the most widely traded zero coupon instruments, derived by separating ("stripping") the principal and interest components of Treasury notes and bonds.</p>
-            <h2>The Zero Coupon Bond Pricing Formula</h2>
+            <h2 className="text-2xl font-bold mb-3">The Zero Coupon Bond Pricing Formula</h2>
             <p><strong>PV = FV / (1 + r)^n</strong></p>
             <p>Where PV = present value (purchase price), FV = face value (par value), r = annual yield to maturity as a decimal, n = years to maturity. For our default values: PV = $10,000 / (1.05)^10 = $10,000 / 1.6289 = $6,139.13. The bar chart shows how the bond's intrinsic value grows each year — a smooth exponential curve from $6,139 to $10,000.</p>
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>The purchase price is what you pay today. The discount (profit) is the difference between face value and purchase price — this is your total return. Unlike coupon bonds, no reinvestment of interest is required, so the YTM you see is the YTM you get. Duration equals maturity for ZCBs, meaning a 10-year ZCB has a duration of 10 years — double the duration of a typical 10-year coupon bond.</p>
-            <h2>Key Factors in Zero Coupon Bond Pricing</h2>
+            <h2 className="text-2xl font-bold mb-3">Key Factors in Zero Coupon Bond Pricing</h2>
             <p><strong>Yield:</strong> Small yield changes have large price impacts because of the long duration. A 1% increase in yield on a 10-year ZCB decreases its price by approximately 10%. <strong>Maturity:</strong> Longer maturity = lower purchase price = higher total dollar return. A $10,000 face value ZCB at 5% for 20 years costs only $3,769 — less than half the 10-year price. <strong>Credit Quality:</strong> Investment-grade ZCBs offer lower yields; high-yield (junk) ZCBs offer higher returns but carry default risk.</p>
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <p><strong>College Savings:</strong> A parent invests in $50,000 face value ZCBs maturing in 18 years at 4% yield. Purchase price: $50,000 / (1.04)^18 = $24,697. Perfect match for college enrollment date with no reinvestment guesswork. <strong>Retirement Planning:</strong> A 30-year ZCB at 5% with $100,000 face value costs $23,138 today. <strong>Tax-Exempt Municipal ZCB:</strong> Same math applies but interest accumulation is tax-free for state residents, effective after-tax yield is higher.</p>
-            <h2>Tips & Best Practices</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
             <p>Use ZCBs when you have a known future cash need (college, retirement, liability). Avoid holding taxable ZCBs in taxable accounts due to annual OID tax on phantom income — hold them in IRAs or 401(k)s instead. Compare the YTM on ZCBs to the compound interest rate on savings accounts or CDs for the same term. See also: <a href="/calculator/bond-yield-calculator">bond yield calculator</a>, <a href="/calculator/yield-to-maturity-calculator">yield to maturity calculator</a>, and <a href="/calculator/compound-interest-calculator">compound interest calculator</a>.</p>
-            <h2>Benefits of Using This Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Benefits of Using This Calculator</h2>
             <p>The zero coupon bond pricing formula involves exponents that are tedious to compute by hand. This calculator handles all computations instantly, shows the year-by-year growth chart, and breaks down your total profit and return. Use it to compare different ZCB scenarios and find the best fit for your investment timeline.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/zero-coupon-bond-calculator" />

@@ -218,12 +218,12 @@ export default function CholesterolRatioCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Why "Total Cholesterol" is a Flawed Metric</h2>
+            <h2 className="text-2xl font-bold mb-3">Why "Total Cholesterol" is a Flawed Metric</h2>
             <p>For decades, physicians focused almost entirely on a patient's Total Cholesterol number, pushing patients to aggressively lower it below 200 mg/dL. Modern lipidology has revealed that Total Cholesterol is actually a relatively poor predictor of cardiovascular events when viewed in isolation.</p>
             <p>Cholesterol is not an inherently dangerous toxin; it is a vital structural component of every cell membrane in your body and the precursor to essential hormones like testosterone and estrogen. It travels through your bloodstream inside protein "boats" known as lipoproteins. The clinical danger arises not from having cholesterol, but from the <em>type</em> of lipoproteins carrying it.</p>
             <p>Your Total Cholesterol is simply a mathematical sum: <code>HDL + LDL + (Triglycerides ÷ 5)</code>. If your Total Cholesterol is "high" strictly because you have massive amounts of highly protective HDL, you are actually at a very low risk of heart disease. To understand your true risk profile, you must calculate the mathematical ratios between these different particles using this <strong>Cholesterol Ratio Calculator</strong>.</p>
 
-            <h2>1. The Total / HDL Ratio</h2>
+            <h2 className="text-2xl font-bold mb-3">1. The Total / HDL Ratio</h2>
             <p>This is the primary ratio utilized by the American Heart Association (AHA). It compares your total lipid load against your protective, "garbage-collecting" HDL particles. HDL works via a process called <em>Reverse Cholesterol Transport</em>, actively pulling dangerous plaque out of the arterial walls and returning it to the liver for disposal.</p>
             <p>If your ratio is 5.0, it means you have 5 atherogenic (plaque-forming) particles for every 1 protective HDL particle trying to clean them up. This indicates the "garbage" is accumulating faster than the trucks can haul it away.</p>
             <ul>
@@ -232,7 +232,7 @@ export default function CholesterolRatioCalculator() {
               <li><strong>High Risk:</strong> Greater than 5.0</li>
             </ul>
 
-            <h2>2. The Triglyceride / HDL Ratio (Insulin Resistance Marker)</h2>
+            <h2 className="text-2xl font-bold mb-3">2. The Triglyceride / HDL Ratio (Insulin Resistance Marker)</h2>
             <p>Many modern cardiologists consider the TG/HDL ratio to be the single most powerful predictor of a future heart attack on a standard lipid panel. This ratio is a highly accurate surrogate marker for <strong>Insulin Resistance</strong> and <strong>Pattern B LDL</strong>.</p>
             <p>Triglycerides are fat particles floating in your blood, heavily driven by your consumption of refined carbohydrates, sugars, and alcohol. If you have high triglycerides and low HDL, your ratio will skyrocket. A high ratio strongly correlates with having small, dense LDL particles ("Pattern B"). These microscopic particles easily burrow through the endothelial lining of your arteries to form hard plaque. Conversely, a low ratio correlates with large, buoyant LDL particles ("Pattern A") that bounce harmlessly off the arterial walls.</p>
             <ul>
@@ -241,7 +241,7 @@ export default function CholesterolRatioCalculator() {
               <li><strong>High Risk (Severe Insulin Resistance):</strong> Greater than 3.0</li>
             </ul>
 
-            <h2>3. Understanding Non-HDL Cholesterol</h2>
+            <h2 className="text-2xl font-bold mb-3">3. Understanding Non-HDL Cholesterol</h2>
             <p>Standard LDL is often called the "bad" cholesterol. However, there are other plaque-forming particles in your blood that a standard LDL test misses, such as VLDL (Very Low-Density Lipoprotein) and IDL (Intermediate-Density Lipoprotein).</p>
             <p>To get a complete picture of your cardiovascular risk load, doctors calculate <strong>Non-HDL Cholesterol</strong> by simply subtracting your HDL from your Total. The resulting number represents the sum total of <em>every single</em> atherogenic, plaque-forming particle circulating in your bloodstream. Current clinical guidelines suggest keeping Non-HDL at least 30 points lower than your Total Cholesterol target.</p>
           </article>

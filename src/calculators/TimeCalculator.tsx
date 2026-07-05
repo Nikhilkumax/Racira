@@ -197,14 +197,14 @@ const TimeCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Base-60 Problem</h2>
+            <h2 className="text-2xl font-bold mb-3">The Base-60 Problem</h2>
             <p>If you try to add 2 hours and 45 minutes to 3 hours and 30 minutes using a standard desk calculator, you might type <code>2.45 + 3.30</code>. The calculator will output <code>5.75</code>. This is mathematically correct in the Base-10 decimal system, but it is entirely incorrect for calculating time. 5.75 hours is not 5 hours and 75 minutes. Because time rolls over at 60, the correct answer is 6 hours and 15 minutes.</p>
 
-            <h2>Why do we use Base-60?</h2>
+            <h2 className="text-2xl font-bold mb-3">Why do we use Base-60?</h2>
             <p>The modern world uses the metric system (Base-10) for almost every scientific measurement: length, weight, and volume. The major exception is Time. The division of hours into 60 minutes, and minutes into 60 seconds, is a remnant of the Sexagesimal numeral system invented by the ancient Sumerians roughly 5,000 years ago, and later passed down to the Babylonians.</p>
             <p>Why did they choose 60? The number 60 is a "highly composite" number. It can be divided evenly into whole numbers by 1, 2, 3, 4, 5, 6, 10, 12, 15, 20, 30, and 60. Before the invention of the decimal point, ancient astronomers and mathematicians needed a system that allowed them to easily break things into simple fractions. A third of an hour is a clean 20 minutes. A quarter of an hour is a clean 15 minutes. Try dividing 100 into a clean third, and you will see the genius of the Babylonian system.</p>
 
-            <h2>How Time Addition Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How Time Addition Works</h2>
             <p>To accurately add or subtract time, computers bypass the Base-60 problem entirely by converting everything into a single, massive pool of <strong>Seconds</strong>. For example, 1 hour and 1 minute is converted into 3,660 seconds. The computer then adds the seconds together using standard decimal math. Once the final number of seconds is calculated, the computer physically packages those seconds back up, dividing them into blocks of 86,400 to find days, blocks of 3,600 to find hours, and blocks of 60 to find minutes.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/time-calculator" />

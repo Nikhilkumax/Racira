@@ -96,9 +96,7 @@ const DebtConsolidationCalculator = () => {
                 <InputField id="cterm" label="Consolidation Term (Months)" value={consolidationTerm} onChange={setConsolidationTerm} />
               </div>
               <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">
-                  <CreditCard className="h-5 w-5" /> Analyze Consolidation
-                </button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground">
+                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">Calculate</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground">
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
@@ -131,7 +129,7 @@ const DebtConsolidationCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>When Does Consolidation Make Sense?</h2>
+              <h2 className="text-2xl font-bold mb-3">When Does Consolidation Make Sense?</h2>
               <p>Debt consolidation is beneficial when you can secure a consolidation loan at a meaningfully lower interest rate than your current debts. It simplifies your finances into a single monthly payment and can reduce total interest costs significantly.</p>
               <h3>Watch Out for Longer Terms</h3>
               <p>A lower monthly payment can be misleading. If your consolidation loan has a very long term, you might pay more interest in total even at a lower rate. Always compare the total cost of the loan, not just the monthly payment.</p>

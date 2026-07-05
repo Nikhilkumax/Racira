@@ -147,23 +147,23 @@ const BonusCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Understanding Bonus Taxes: Why Your Net is Lower Than Expected</h2>
+              <h2 className="text-2xl font-bold mb-3">Understanding Bonus Taxes: Why Your Net is Lower Than Expected</h2>
               <p>Receiving a bonus is always exciting, but the excitement often turns to confusion when you see the final amount on your paycheck. It's a common observation: "My bonus was taxed at 40%!" In reality, while bonuses might be *withheld* at a higher rate, they are eventually taxed as regular income when you file your annual return. This guide explains how the withholding math works and how you can plan for it.</p>
               
-              <h2>Supplemental Wages: The IRS Definition</h2>
+              <h2 className="text-2xl font-bold mb-3">Supplemental Wages: The IRS Definition</h2>
               <p>The IRS classifies bonuses as "supplemental wages"—compensation paid in addition to your regular salary. Because supplemental wages are often irregular, the IRS provides employers with specific methods for calculating withholding to ensure enough tax is collected throughout the year.</p>
               
-              <h2>The Two Methods of Bonus Withholding</h2>
+              <h2 className="text-2xl font-bold mb-3">The Two Methods of Bonus Withholding</h2>
               <p>Your employer will typically choose one of two methods to calculate your bonus taxes:</p>
               <ol>
                 <li><strong>The Percentage Method:</strong> If your employer pays your bonus separately from your regular salary, they can simply withhold a flat 22% for federal income tax (for bonuses under $1 million). This is the most common and predictable method.</li>
                 <li><strong>The Aggregate Method:</strong> If your bonus is included in your regular paycheck, the employer combines the two and calculates withholding based on the total. Because the IRS tables assume you earn that combined amount every period, it can push you into a much higher withholding bracket, making it look like your bonus was taxed at 30% or more.</li>
               </ol>
 
-              <h2>Payroll Taxes (FICA)</h2>
+              <h2 className="text-2xl font-bold mb-3">Payroll Taxes (FICA)</h2>
               <p>Unlike federal income tax, which is based on your total annual earnings, FICA taxes (Social Security and Medicare) are flat rates applied to every dollar you earn. You will pay 6.2% for Social Security and 1.45% for Medicare on your bonus, regardless of which withholding method your employer uses. Note that Social Security tax stops once you reach the annual wage base limit ($168,600 for 2024).</p>
 
-              <h2>Strategies to Keep More of Your Bonus</h2>
+              <h2 className="text-2xl font-bold mb-3">Strategies to Keep More of Your Bonus</h2>
               <p>While you can't avoid taxes entirely, you can influence how much cash you take home in the short term:</p>
               <ul>
                 <li><strong>Increase 401(k) Contributions:</strong> Contributing to a traditional 401(k) or 403(b) is done on a pre-tax basis. By increasing your contribution percentage for your bonus, you reduce the taxable portion of the bonus, lowering the amount withheld for federal and state income tax.</li>
@@ -171,7 +171,7 @@ const BonusCalculator = () => {
                 <li><strong>Timing:</strong> If you have the choice, receiving a bonus in a year where you expect to have lower overall income (or higher deductions) can help you keep more of the money after you file your tax return.</li>
               </ul>
 
-              <h2>Withholding vs. Actual Tax Liability</h2>
+              <h2 className="text-2xl font-bold mb-3">Withholding vs. Actual Tax Liability</h2>
               <p>It is crucial to understand that **withholding is not the same as the final tax.** If your employer withholds 22% but your actual marginal tax rate is only 12%, you will get that extra 10% back as a tax refund when you file your return the following year. Conversely, if you are in the 37% tax bracket, you will owe the difference when you file. Using a bonus calculator helps you avoid surprises during tax season.</p>
             </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/bonus-calculator" />

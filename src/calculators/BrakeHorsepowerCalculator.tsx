@@ -227,10 +227,10 @@ export default function BrakeHorsepowerCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Why Calculate Brake Horsepower?</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Calculate Brake Horsepower?</h2>
             <p>If you take your modified car to a performance shop and run it on a chassis dynamometer (dyno), the computer will print out a graph showing your <strong>Wheel Horsepower (WHP)</strong>. However, the automotive industry does not use WHP for marketing; they use <strong>Brake Horsepower (BHP)</strong>, which is measured at the engine crank. If your dyno sheet says 400 WHP, and you want to know how that compares to a brand-new 480 BHP Mustang GT, you must mathematically convert your WHP back into BHP using this calculator.</p>
 
-            <h2>The Math of Reverse Drivetrain Loss</h2>
+            <h2 className="text-2xl font-bold mb-3">The Math of Reverse Drivetrain Loss</h2>
             <p>A common mathematical mistake in the automotive community is simply taking the WHP number and adding the loss percentage directly to it. This is mathematically incorrect. Because drivetrain loss is a percentage of the <em>total engine output</em>, not the wheel output, you must divide the WHP by the remaining efficiency percentage.</p>
             <ul>
               <li><strong>Incorrect Math:</strong> If you have 400 WHP and 20% loss: 400 * 1.20 = 480 BHP.</li>
@@ -238,7 +238,7 @@ export default function BrakeHorsepowerCalculator() {
             </ul>
             <p>Our calculator automatically applies the correct mathematical formula to ensure your estimates are perfectly accurate.</p>
 
-            <h2>Where Does Drivetrain Loss Come From?</h2>
+            <h2 className="text-2xl font-bold mb-3">Where Does Drivetrain Loss Come From?</h2>
             <p>The gap between BHP and WHP is entirely caused by mechanical friction and rotational mass. When an engine generates power, it must physically spin a massive array of heavy metal components to move the car forward:</p>
             <ul>
               <li><strong>Transmission:</strong> The torque converter (in automatics) and the meshing of heavy steel gears consume significant energy.</li>
@@ -247,7 +247,7 @@ export default function BrakeHorsepowerCalculator() {
               <li><strong>Wheels & Tires:</strong> Heavy unsprung rotational mass that the engine must fight against to accelerate.</li>
             </ul>
 
-            <h2>Is the 15% / 18% / 25% Rule Perfect?</h2>
+            <h2 className="text-2xl font-bold mb-3">Is the 15% / 18% / 25% Rule Perfect?</h2>
             <p>No, these percentages are industry-standard estimations used as a general baseline. Real-world power loss is incredibly nuanced. A highly efficient modern 10-speed automatic transmission might only lose 12% in a rear-wheel-drive car. Conversely, an older, heavy all-wheel-drive system might lose closer to 28%. The type of dyno used (Mustang vs. Dynojet) also heavily skews the initial WHP reading, making BHP calculation a helpful estimation rather than an exact science.</p>
           </article>
           

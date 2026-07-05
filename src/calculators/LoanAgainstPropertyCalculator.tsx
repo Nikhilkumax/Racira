@@ -428,42 +428,42 @@ export default function LoanAgainstPropertyCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Loan Against Property Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Loan Against Property Calculator</h2>
             <p>Your real estate is likely your most valuable asset. When you need significant capital—to expand a business, fund a child's higher education abroad, pay for a wedding, or consolidate high-interest debt—selling the property is often not ideal. A <strong>Loan Against Property (LAP)</strong> allows you to leverage the equity in your home or commercial building to secure a large amount of cash without giving up ownership. Our LAP Calculator is designed to help you quickly understand the borrowing power of your real estate, the strict Loan-to-Value (LTV) limits lenders enforce, and the long-term amortization schedule of your repayment.</p>
             <p>A Loan Against Property acts very differently from an unsecured personal loan. Because it is backed by a hard asset, the underwriting process is more complex, but the financial rewards for the borrower are substantial. By inputting your property's market value and your desired loan amount into this calculator, you can instantly see if your request aligns with standard banking guidelines and map out your monthly Equated Monthly Installment (EMI).</p>
 
-            <h2>LAP vs. Personal Loans: Why Collateral Matters</h2>
+            <h2 className="text-2xl font-bold mb-3">LAP vs. Personal Loans: Why Collateral Matters</h2>
             <p>To understand the power of a LAP, you must understand how banks view risk. An unsecured personal loan relies entirely on your credit score and salary. If you lose your job and default, the bank has no asset to seize. To compensate for this high risk, personal loans are capped at relatively low amounts (often $50,000 max), have very short repayment terms (1 to 5 years), and carry high interest rates (12% to 24%).</p>
             <p>A Loan Against Property is a secured loan. If you default, the bank forecloses on your property, sells it, and recovers their money. Because the bank's risk is virtually zero, they reward you with drastically better terms. A LAP allows you to borrow hundreds of thousands (or even millions) of dollars, extends the repayment term up to 15 or 20 years, and offers interest rates that are typically just a few percentage points higher than a standard home mortgage (usually 8% to 11%). The total interest paid over time is higher due to the long term, but the monthly cash flow burden is vastly reduced.</p>
 
-            <h2>The Crucial Metric: Loan-to-Value (LTV)</h2>
+            <h2 className="text-2xl font-bold mb-3">The Crucial Metric: Loan-to-Value (LTV)</h2>
             <p>The most important variable in a Loan Against Property is the Loan-to-Value ratio. Banks will never lend you 100% of your property's market value. They must leave a massive safety buffer to account for real estate market crashes, foreclosure legal fees, and depreciation.</p>
             <p>For residential properties, lenders typically cap the LTV at 60% to 75%. For commercial properties (which are riskier to liquidate), the LTV is usually capped at 50% to 60%. Our calculator includes an LTV safety limit. If you input a $500,000 property and ask for a $450,000 loan (90% LTV), the calculator will automatically flag the loan as ineligible and adjust your approved amount down to the maximum allowable limit (e.g., $350,000 at a 70% LTV cap).</p>
 
-            <h2>Analyzing Your Calculator Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Analyzing Your Calculator Results</h2>
             <p>Our LAP Calculator generates a complete amortization and cost analysis. Here is how to interpret the numbers to make an informed borrowing decision:</p>
             <p><strong>Approved Loan Amount:</strong> This is the actual principal you will be lent. If your requested amount exceeded the LTV limits, this number will reflect the lender's maximum offer.</p>
             <p><strong>Monthly EMI:</strong> This is the fixed cash amount you must pay the bank every month. Because LAP terms can stretch to 15 years, this EMI is usually highly affordable compared to a short-term personal loan. However, you must ensure this EMI fits comfortably into your monthly budget, as failing to pay puts your property at risk of foreclosure.</p>
             <p><strong>Total Interest Paid:</strong> Because the loan term is so long, the interest accumulates significantly. Borrowing $200,000 at 9.5% over 15 years will result in over $175,000 in interest charges. Looking at the "Cost Distribution" pie chart helps visualize just how much of your total payback is going toward bank profits rather than principal reduction.</p>
 
-            <h2>The Role of the Property Valuation</h2>
+            <h2 className="text-2xl font-bold mb-3">The Role of the Property Valuation</h2>
             <p>You might believe your property is worth $1,000,000, but the bank will not take your word for it. Before approving a LAP, the lender will send a third-party professional appraiser to conduct a physical inspection of the property.</p>
             <p>The appraiser will look at the size, condition, age, and location of the property, as well as "comparable sales" (recent sales of similar properties in your neighborhood). The bank will use the appraiser's number—not yours—as the "Property Value" to calculate the LTV limit. Furthermore, the lender's legal team will conduct a strict title search to ensure the property is free of liens, disputes, and multiple owners who have not consented to the loan.</p>
 
-            <h2>Advanced Features: Processing Fees</h2>
+            <h2 className="text-2xl font-bold mb-3">Advanced Features: Processing Fees</h2>
             <p>Secured loans require extensive paperwork, appraisals, and legal checks. Therefore, lenders charge an upfront processing fee (sometimes called an origination fee). This is usually between 0.5% and 2% of the loan amount.</p>
             <p>Our calculator includes an input for this fee to show you the true cost of financing. For a $300,000 loan, a 1% processing fee is $3,000. Lenders will typically deduct this fee directly from the loan disbursement. This means if you are approved for $300,000, the bank will only wire $297,000 into your account. You must account for this "missing" cash if you need an exact amount for a business transaction.</p>
 
-            <h2>Practical Examples of Property Financing</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples of Property Financing</h2>
             <p><strong>Example 1: The Debt Consolidation Strategy.</strong> A homeowner has $80,000 in credit card debt and personal loans, averaging an 18% interest rate. The monthly payments are crushing them ($2,000/mo). They own a $400,000 home outright. They take a LAP for $80,000 at a 9% interest rate over 15 years. Their new monthly EMI drops to just $811. They use the LAP to instantly pay off all the high-interest debt, freeing up nearly $1,200 a month in cash flow.</p>
             <p><strong>Example 2: The Business Expansion.</strong> A small business owner needs $250,000 to buy new machinery. A commercial loan is too expensive or requires impossible revenue history. They pledge their $500,000 residential home. At a 70% LTV, they qualify for up to $350,000. They take the $250,000 at 10% over 10 years. The EMI is manageable ($3,300), and the machinery generates $8,000 a month in new profit, easily covering the loan while aggressively growing the business.</p>
 
-            <h2>Tips and Best Practices</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips and Best Practices</h2>
             <p><strong>Avoid Over-Leveraging:</strong> Just because the calculator says you are eligible for a $500,000 loan doesn't mean you should take it. Only borrow exactly what you need. Remember, your home is on the line. Over-leveraging your primary residence for a risky business venture is a common path to bankruptcy.</p>
             <p><strong>Understand Prepayment Penalties:</strong> If you plan to pay off the LAP early (perhaps you are waiting for a large business payout), read the fine print. Many lenders charge a "Prepayment Penalty" (often 2% to 4% of the outstanding balance) if you pay off the loan before the term ends to recoup their lost interest.</p>
             <p><strong>Compare Fixed vs. Floating Rates:</strong> LAP loans are often offered with floating (variable) interest rates tied to a central bank index. While a floating rate might start lower than a fixed rate, it can increase over the 15-year term, raising your EMI. Ensure you can afford the EMI even if the interest rate spikes by 2% or 3%.</p>
 
-            <h2>Conclusion</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion</h2>
             <p>A Loan Against Property is a highly efficient way to unlock the dormant equity in your real estate. It provides massive liquidity, long repayment windows, and interest rates that unsecured loans simply cannot match.</p>
             <p>By utilizing this Loan Against Property Calculator, you can approach lenders with confidence. By understanding your LTV limits, modeling the amortization schedule, and factoring in processing fees, you ensure that you are leveraging your property safely and securing the capital you need to achieve your broader financial goals without risking the roof over your head.</p>
           </article>

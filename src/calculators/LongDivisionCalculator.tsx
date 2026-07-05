@@ -254,10 +254,10 @@ const LongDivisionCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding Long Division</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Long Division</h2>
             <p><strong>Long division</strong> is a foundational mathematical algorithm that breaks down the division of large numbers into a sequence of simpler, more manageable steps. By addressing the number piece by piece from left to right, we can efficiently find how many times one number (the divisor) fits into another (the dividend).</p>
 
-            <h2>The Terminology of Division</h2>
+            <h2 className="text-2xl font-bold mb-3">The Terminology of Division</h2>
             <p>To use the long division calculator effectively, it helps to know the correct terminology for the parts of a division equation:</p>
             <ul>
               <li><strong>Dividend:</strong> The number you are starting with, which is being divided or split up. (e.g., in 48 ÷ 12, 48 is the dividend).</li>
@@ -266,7 +266,7 @@ const LongDivisionCalculator = () => {
               <li><strong>Remainder:</strong> The amount left over after dividing as evenly as possible. If the divisor fits perfectly into the dividend, the remainder is zero.</li>
             </ul>
 
-            <h2>The Four Steps of Long Division (DMSB)</h2>
+            <h2 className="text-2xl font-bold mb-3">The Four Steps of Long Division (DMSB)</h2>
             <p>Our calculator models its step-by-step breakdown on the classic "DMSB" method taught in schools worldwide. A common mnemonic device to remember this sequence is "Does McDonald's Sell Burgers?" or "Divide, Multiply, Subtract, Bring down."</p>
             <ol>
               <li><strong>Divide (D):</strong> Look at the first digit (or digits) of the dividend. Determine how many times the divisor can go into that number without exceeding it. Write this number on top as the first digit of your quotient.</li>
@@ -275,7 +275,7 @@ const LongDivisionCalculator = () => {
               <li><strong>Bring Down (B):</strong> Bring down the next digit from the original dividend and place it next to your subtraction result. This forms your new working number. Repeat steps 1-4 until you run out of digits.</li>
             </ol>
 
-            <h2>Why Show the Remainder?</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Show the Remainder?</h2>
             <p>While calculating decimals is useful for precise mathematical applications, remainders are highly practical in everyday scenarios. For instance, if you have 50 cookies (dividend) to split among 12 children (divisor), the decimal result is 4.166. However, in reality, you give each child 4 whole cookies (quotient), and you have 2 cookies left over in the jar (remainder). Long division beautifully illustrates this real-world distribution logic.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/long-division-calculator" />

@@ -288,15 +288,15 @@ export default function FleetFuelCostCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Hidden Danger of Fleet Scaling</h2>
+            <h2 className="text-2xl font-bold mb-3">The Hidden Danger of Fleet Scaling</h2>
             <p>When a logistics or service business is small (1 or 2 vans), fuel is just a frustrating weekly expense. However, as a fleet scales up to 10, 20, or 50 vehicles, fuel costs silently transform into a massive liability capable of destroying a company's entire profit margin overnight.</p>
             <p>Unlike rent or insurance, which are fixed, predictable costs, fuel is a highly volatile commodity traded on the global market. A geopolitical conflict on the other side of the world can spike diesel prices by $1.00 a gallon in a matter of days. If your fleet burns 50,000 gallons of fuel a year, that sudden $1.00 spike just instantly erased $50,000 from your company's bottom line.</p>
 
-            <h2>Why Idling is the Ultimate Profit Killer</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Idling is the Ultimate Profit Killer</h2>
             <p>When analyzing fleet fuel efficiency, most owners focus on the vehicles themselves (e.g., upgrading older trucks to newer, more aerodynamic models). However, studies show that changing driver behavior yields significantly higher returns on investment. The biggest culprit is idling.</p>
             <p>A heavy-duty diesel delivery truck burns roughly half a gallon of fuel for every hour it spends idling. If a driver leaves the truck running while filling out paperwork, eating lunch, or waiting at a loading dock for 2 hours a day, that driver is burning an extra 5 gallons of fuel per week doing absolutely zero work. Across a 20-truck fleet, that single bad habit costs the company thousands of dollars a year in purely wasted fuel.</p>
 
-            <h2>Protecting Your Margin: Fuel Surcharges</h2>
+            <h2 className="text-2xl font-bold mb-3">Protecting Your Margin: Fuel Surcharges</h2>
             <p>Successful logistics companies do not absorb the risk of volatile fuel prices; they pass that risk onto the customer using a <strong>Fuel Surcharge</strong>. </p>
             <p>When a trucking company signs a 12-month contract to haul freight, they base their rate on the current price of diesel (the "baseline"). They include a mathematical clause in the contract stating that if the national average price of diesel rises above that baseline, a surcharge percentage is automatically added to the customer's invoice. This ensures that the fleet's profit margin remains perfectly intact, regardless of what the oil market does.</p>
           </article>

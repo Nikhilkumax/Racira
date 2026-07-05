@@ -313,7 +313,7 @@ export default function NetProfitMarginCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Net Profit Margin</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Net Profit Margin</h2>
             <p>
               The <strong>Net Profit Margin</strong> stands as the ultimate indicator of a firm's bottom-line profitability. While other metrics like gross profit or operating earnings tell a story about manufacturing efficiency or sales control, the net profit margin reports the percentage of revenue that remains as actual cash that can be distributed to equity owners or reinvested in corporate expansion.
             </p>

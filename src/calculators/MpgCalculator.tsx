@@ -118,7 +118,7 @@ const MpgCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Understanding Fuel Economy</h2>
+              <h2 className="text-2xl font-bold mb-3">Understanding Fuel Economy</h2>
               <p>Fuel economy is a measure of how far a vehicle can travel with a specific amount of fuel. In the United States and the United Kingdom, this is expressed in Miles Per Gallon (MPG). In most other parts of the world, efficiency is measured as Liters per 100 Kilometers (L/100km).</p>
               <h3>Why MPG Matters</h3>
               <p>Besides the environmental impact of burning more fossil fuels, poor fuel economy directly affects your wallet. Over a 100,000-mile ownership period, the difference between a car that gets 20 MPG and one that gets 40 MPG can amount to over $10,000 in fuel savings (at $4/gallon).</p>

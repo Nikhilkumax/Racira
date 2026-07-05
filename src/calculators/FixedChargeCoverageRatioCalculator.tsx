@@ -182,22 +182,22 @@ export default function FixedChargeCoverageRatioCalculator() {
 
         {/* SEO Content */}
         <div className="max-w-[1180px] mt-12 prose prose-slate dark:prose-invert">
-          <h2>What Is the Fixed Charge Coverage Ratio (FCCR)?</h2>
+          <h2 className="text-2xl font-bold mb-3">What Is the Fixed Charge Coverage Ratio (FCCR)?</h2>
           <p>The Fixed-Charge Coverage Ratio (FCCR) measures a firm's ability to pay all of its fixed charges or expenses with its income before interest and income taxes. It is a critical solvency metric used by banks to determine if a business can comfortably take on additional debt.</p>
           
-          <h2>How It Works</h2>
+          <h2 className="text-2xl font-bold mb-3">How It Works</h2>
           <p>The standard formula is: <strong>FCCR = (EBIT + Fixed Charges Before Tax) / (Fixed Charges Before Tax + Interest Expense)</strong>. Fixed charges primarily include lease payments and principal debt repayments. Adding lease payments back into EBIT provides a more accurate picture of total available cash flow before fixed obligations are paid.</p>
 
-          <h2>Understanding Your Results</h2>
+          <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
           <p>A ratio of exactly 1.0x means your business generates exactly enough cash to pay its fixed bills—leaving $0 for growth, reinvestment, or dividends. A ratio of 1.25x or higher is generally required by commercial lenders, indicating a 25% "cushion" of safety.</p>
           
-          <h2>Key Factors</h2>
+          <h2 className="text-2xl font-bold mb-3">Key Factors</h2>
           <p>Unlike the Interest Coverage Ratio, which only looks at interest payments, the FCCR includes lease payments and (sometimes) principal repayments. This makes it a much stricter and more comprehensive measure of financial health, especially for businesses that lease lots of equipment or real estate.</p>
           
-          <h2>Practical Examples</h2>
+          <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
           <p>If a retail business has $250,000 in EBIT, $50,000 in lease payments, and $30,000 in interest expense: Their available income is $300,000, and their fixed charges are $80,000. Their FCCR is 300,000 / 80,000 = 3.75x. This is an extremely healthy ratio.</p>
           
-          <h2>Benefits</h2>
+          <h2 className="text-2xl font-bold mb-3">Benefits</h2>
           <p>Monitoring your FCCR helps you proactively manage cash flow and prevents you from over-leveraging your business with expensive equipment leases or new debt facilities.</p>
         </div>
 

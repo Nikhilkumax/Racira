@@ -215,14 +215,14 @@ export default function CaloricExpenditureCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Mathematics of Weight Loss: Understanding TDEE</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of Weight Loss: Understanding TDEE</h2>
             <p>Every fad diet on the market—from Keto and Paleo to Intermittent Fasting and Weight Watchers—ultimately works through the exact same biological mechanism: a caloric deficit. If you consume fewer calories than your body burns, your body is forced to oxidize stored fat tissue to make up the missing energy difference. To create that precise deficit, you must first calculate your <strong>Total Daily Energy Expenditure (TDEE)</strong>.</p>
             <p>This calculator uses the <strong>Mifflin-St Jeor Equation</strong>, the clinical formula used by registered dietitians worldwide to calculate human energy expenditure. It is significantly more accurate than the older Harris-Benedict equation, which notoriously overestimates caloric burn.</p>
 
-            <h2>Step 1: Basal Metabolic Rate (BMR)</h2>
+            <h2 className="text-2xl font-bold mb-3">Step 1: Basal Metabolic Rate (BMR)</h2>
             <p>Your caloric expenditure is made up of two distinct parts. The first part is your BMR. Think of BMR as the absolute minimum energy required to keep your biological lights on. If you were lying perfectly still in a dark room all day, your body still needs massive amounts of energy to keep your heart pumping blood, your lungs expanding, your liver filtering toxins, and your brain firing neurons. For most people, BMR accounts for roughly 60% to 70% of all calories burned in a day.</p>
             
-            <h2>Step 2: Activity Multipliers</h2>
+            <h2 className="text-2xl font-bold mb-3">Step 2: Activity Multipliers</h2>
             <p>The second part of the equation is your movement. To calculate your final TDEE, the formula takes your BMR and multiplies it by an Activity Multiplier based on your daily routine:</p>
             <ul>
               <li><strong>Sedentary (1.2):</strong> You work a desk job and do not engage in intentional exercise. You drive to work, sit at a desk, and sit on the couch at home.</li>
@@ -232,12 +232,12 @@ export default function CaloricExpenditureCalculator() {
               <li><strong>Extra Active (1.9):</strong> You have a grueling physical labor job (roofing, construction) or you are a professional athlete training twice a day.</li>
             </ul>
 
-            <h2>How to Use Your TDEE to Lose Weight</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Use Your TDEE to Lose Weight</h2>
             <p>Once you know your TDEE, weight loss becomes a simple, predictable math equation. One pound of human body fat stores approximately <strong>3,500 calories</strong> of energy.</p>
             <p>If you want to lose 1 pound of pure fat per week, you need to create a deficit of 3,500 calories per week. By dividing 3,500 by 7 days, you arrive at a daily deficit of exactly <strong>500 calories</strong>.</p>
             <p>Therefore, if the calculator says your TDEE is 2,500 calories, you simply set your daily food target to 2,000 calories. If you track your food accurately and hit that 2,000 calorie target every single day, the laws of thermodynamics guarantee that you will lose exactly 1 pound of fat per week.</p>
 
-            <h2>Why You Shouldn't Over-Restrict</h2>
+            <h2 className="text-2xl font-bold mb-3">Why You Shouldn't Over-Restrict</h2>
             <p>A common mistake is trying to lose weight too fast by eating drastically below your TDEE (e.g., eating 1,200 calories when your TDEE is 2,800). This is clinically dangerous and biologically counterproductive. Severe caloric restriction spikes cortisol (a stress hormone that causes water retention), causes the body to cannibalize muscle tissue for fast energy, and eventually suppresses your BMR as the body attempts to prevent starvation. A moderate 500-calorie deficit from your TDEE is the scientifically proven sweet spot for sustainable, long-term fat loss while preserving lean muscle mass.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/caloric-expenditure-calculator" />

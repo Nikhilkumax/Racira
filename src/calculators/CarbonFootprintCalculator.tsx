@@ -175,7 +175,7 @@ const CarbonFootprintCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>The Global Challenge</h2>
+              <h2 className="text-2xl font-bold mb-3">The Global Challenge</h2>
               <p>To avoid the worst effects of climate change, the average global carbon footprint per year needs to drop to under 2 tons by 2050. Currently, the global average is closer to 4 tons per person.</p>
               <h3>Why Small Changes Matter</h3>
               <p>While large-scale systemic change is necessary, individual actions aggregate to significant impacts. For example, switching to LED lighting in your entire home can save over 500kg of CO2 per year, which is more than many short-haul flights.</p>

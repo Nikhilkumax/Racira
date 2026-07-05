@@ -182,7 +182,7 @@ const LedSavingsCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>The LED Revolution</h2>
+              <h2 className="text-2xl font-bold mb-3">The LED Revolution</h2>
               <p>Switching to LED (Light Emitting Diode) lighting is one of the fastest, easiest, and most profitable energy-saving investments you can make for your home or business.</p>
               
               <h3>Incredible ROI</h3>

@@ -312,29 +312,29 @@ export default function TotalCarCostPerMileCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Cost Per Mile Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Cost Per Mile Calculator?</h2>
             <p>A Total Car Cost Per Mile Calculator breaks down the massive, terrifying annual expense of owning a vehicle into a simple, microscopic metric: exactly how much money it costs you to drive one single mile. Many drivers think driving is cheap because they only look at the cost of gas. But gas is just the tip of the iceberg. Every mile you drive incurs invisible costs in depreciation, maintenance, insurance, and financing. Understanding your true cost per mile is crucial for budgeting, deciding whether to drive or fly on a trip, or determining if taking a gig-economy job (like Uber or Doordash) is actually profitable.</p>
 
-            <h2>How It Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
             <p>Our algorithm aggregates all of your vehicle-related expenses into an annual snapshot. The primary formula is simple: <code>Cost Per Mile = Total Annual Cost / Annual Miles Driven</code>. The complexity lies in calculating the Total Annual Cost. We sum your fixed costs (insurance, registration, loan payments) and your variable costs (fuel, maintenance). We also estimate your annual depreciation by taking a standard 15% reduction of your vehicle's current value. By combining these, we find exactly how much cash is leaving your pocket every year to support the car, and divide it by the miles you drive.</p>
 
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>The <strong>True Cost Per Mile</strong> is the headline number. If your result is $0.65, it means that driving 10 miles to a restaurant and back doesn't just cost you $1.50 in gas—it actually costs you $6.50 in total vehicle expenses. <strong>Annual Cost</strong> shows the frightening reality of how much of your yearly income goes entirely to transportation. <strong>Monthly and Daily Costs</strong> break this down further, revealing that you might be spending $25 a day just to have a car sitting in your driveway.</p>
 
-            <h2>Key Factors</h2>
+            <h2 className="text-2xl font-bold mb-3">Key Factors</h2>
             <p><strong>Annual Miles Driven</strong> heavily skews the result. Because fixed costs (like insurance and loan payments) stay the same regardless of mileage, driving more miles spreads those costs out, lowering your per-mile rate (even though your total out-of-pocket cash increases). <strong>Car Value</strong> dictates depreciation, which is usually the largest hidden expense. <strong>Loan Payments</strong> represent a massive cashflow drain that significantly spikes the cost per mile for anyone financing a newer vehicle.</p>
 
-            <h2>Advanced Features</h2>
+            <h2 className="text-2xl font-bold mb-3">Advanced Features</h2>
             <p>The calculator allows you to input exact figures for Annual Insurance, Maintenance, and Registration Fees. Getting these numbers exact is vital for an accurate reading. A sports car might have cheap payments but exorbitant insurance, drastically increasing its per-mile cost compared to an economy sedan.</p>
 
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <p><strong>Example 1: The Commuter.</strong> John has a $20,000 sedan, pays $350 a month on his loan, and drives 15,000 miles a year. With $1,000 in insurance and $3/gal gas, his total annual cost is around $9,500. His cost per mile is roughly $0.63.</p>
             <p><strong>Example 2: The Garage Queen.</strong> Sarah has a $50,000 luxury SUV. She pays $800 a month on her loan, but works from home and only drives 5,000 miles a year. Her depreciation is massive ($7,500), and her fixed costs are high. Her total annual cost is $18,000. Because she barely drives, her cost per mile is a staggering $3.60.</p>
 
-            <h2>Tips & Best Practices</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
             <p>If you want to lower your cost per mile, the absolute best strategy is to pay off your vehicle loan. Eliminating that $500/month payment instantly slashes your annual transportation budget by $6,000. Second, buy reliable vehicles that hold their value well to minimize the invisible thief of depreciation. Finally, perform preventative maintenance; skipping a $50 oil change can lead to a $5,000 engine replacement, which ruins your per-mile metrics for years.</p>
 
-            <h2>Benefits</h2>
+            <h2 className="text-2xl font-bold mb-3">Benefits</h2>
             <p>Knowing your exact cost per mile empowers you to make hyper-rational transportation decisions. If you are considering driving for a rideshare app, you can compare your earnings against your True Cost Per Mile to see if you are actually turning a profit or just liquidating your car's equity. It also helps you accurately compare the cost of road-tripping versus flying, factoring in the true wear-and-tear on your vehicle.</p>
           </article>
           

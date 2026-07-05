@@ -160,7 +160,7 @@ const WaterFootprintCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>The Three Colors of Water</h2>
+              <h2 className="text-2xl font-bold mb-3">The Three Colors of Water</h2>
               <p>Water footprints are divided into three categories to help understand the source and impact of consumption:</p>
               <ul>
                 <li><strong>Blue Water:</strong> Surface and groundwater used for irrigation, industry, and domestic use.</li>

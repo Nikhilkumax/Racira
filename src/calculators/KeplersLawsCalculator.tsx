@@ -170,17 +170,17 @@ const KeplersLawsCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>{"What Is a Kepler's Laws Calculator?"}</h2>
+            <h2 className="text-2xl font-bold mb-3">{"What Is a Kepler's Laws Calculator?"}</h2>
             <p>{"A Kepler's Laws calculator applies Johannes Kepler's Third Law of Planetary Motion (T² ∝ a³) to compute orbital periods from semi-major axes or vice versa. Pre-filled with Earth's orbit around the Sun (a = 1.496×10⁸ km, e = 0.0167), the calculated period is 365.25 days — exactly one year. The calculator also computes perihelion/aphelion distances and orbital velocities using Kepler's First and Second Laws."}</p>
-            <h2>{"Kepler's Three Laws"}</h2>
+            <h2 className="text-2xl font-bold mb-3">{"Kepler's Three Laws"}</h2>
             <p><strong>First Law (Ellipses):</strong> Every planet moves in an elliptical orbit with the Sun at one focus. The eccentricity determines how elongated the ellipse is. <strong>Second Law (Equal Areas):</strong> A line connecting a planet to the Sun sweeps out equal areas in equal times. Planets move faster near perihelion and slower near aphelion. <strong>Third Law (Harmonics):</strong> T² = (4π²/GM)a³ — the period squared is proportional to the semi-major axis cubed.</p>
-            <h2>Orbital Eccentricity</h2>
+            <h2 className="text-2xl font-bold mb-3">Orbital Eccentricity</h2>
             <p>Eccentricity measures orbital shape: 0 = circle, approaching 1 = highly elongated ellipse. Earth: 0.0167 (nearly circular, only 3.3% variation in Sun distance). Mars: 0.0934 (more elliptical). Mercury: 0.2056 (most eccentric planet). Pluto: 0.2488. {"Halley's Comet: 0.967 (extremely elongated, perihelion 0.59 AU, aphelion 35.1 AU)."}</p>
-            <h2>Perihelion and Aphelion Velocities</h2>
+            <h2 className="text-2xl font-bold mb-3">Perihelion and Aphelion Velocities</h2>
             <p>{"From Kepler's Second Law and conservation of angular momentum, orbital velocity varies with distance. At perihelion: v_p = √(GM(1+e)/(a(1−e))). At aphelion: v_a = √(GM(1−e)/(a(1+e))). For Earth: v_perihelion ≈ 30.29 km/s (January), v_aphelion ≈ 29.29 km/s (July). The velocity ratio equals the inverse distance ratio: v_p/v_a = (1+e)/(1−e)."}</p>
-            <h2>{"Newton's Generalization"}</h2>
+            <h2 className="text-2xl font-bold mb-3">{"Newton's Generalization"}</h2>
             <p>{"Newton proved that Kepler's empirical laws are mathematical consequences of inverse-square gravitational force (F = GMm/r²). Newton also generalized the laws: they apply to any two-body system — binary stars, planet-moon systems, artificial satellites. The generalized Third Law: T² = 4π²a³/(G(M₁+M₂)) accounts for the orbiting body's mass, important when both bodies have comparable masses."}</p>
-            <h2>Applications in Modern Astronomy</h2>
+            <h2 className="text-2xl font-bold mb-3">Applications in Modern Astronomy</h2>
             <p>{"Exoplanet detection: Kepler's Third Law is used to calculate exoplanet orbital radii from measured periods (transit method). Satellite deployment: determining correct orbits for GPS, communications, and Earth observation. Binary star masses: measuring orbital periods and separations gives total system mass. Galaxy dynamics: deviations from Keplerian orbits provide evidence for dark matter."}</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/keplers-laws-calculator" />

@@ -278,20 +278,20 @@ export default function BackdoorRothIraCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What is a Backdoor Roth IRA?</h2>
+            <h2 className="text-2xl font-bold mb-3">What is a Backdoor Roth IRA?</h2>
             <p>The IRS imposes income limits on who can contribute directly to a Roth IRA. In 2024, if you are single and earn over $161,000 (or Married Filing Jointly and earn over $240,000), you are barred from making direct contributions. However, the "Backdoor Roth" strategy allows high earners to legally bypass these limits.</p>
             
-            <h2>How the Backdoor Roth Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How the Backdoor Roth Works</h2>
             <p>The process involves two steps: First, you make a "non-deductible" contribution to a Traditional IRA. Unlike direct Roth contributions, there are no income limits for contributing to a Traditional IRA (though your income dictates whether you can deduct it from your taxes). Second, you immediately convert that Traditional IRA balance into a Roth IRA. Because you already paid taxes on the initial non-deductible contribution, the conversion is tax-free.</p>
             
-            <h2>The Pro-Rata Rule Trap</h2>
+            <h2 className="text-2xl font-bold mb-3">The Pro-Rata Rule Trap</h2>
             <p>The biggest pitfall of the Backdoor Roth strategy is the IRS <strong>Pro-Rata rule</strong>. When you execute a Roth conversion, the IRS looks at the aggregate total of <em>all</em> your Traditional, SEP, and SIMPLE IRAs across all brokerages as of December 31st of that year. You are not allowed to choose to only convert your "after-tax" money.</p>
             <p>If you have $93,000 of old pre-tax 401(k) money rolled into a Traditional IRA, and you make a new $7,000 non-deductible contribution, your total IRA balance is $100,000. That balance is 93% pre-tax and 7% after-tax. When you convert $7,000 to a Roth IRA, the IRS dictates that the conversion must also be 93% taxable and 7% tax-free. You will owe income tax on 93% of the converted amount, defeating the purpose of the strategy.</p>
             
-            <h2>How to Avoid the Pro-Rata Rule</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Avoid the Pro-Rata Rule</h2>
             <p>To successfully execute a tax-free backdoor Roth conversion, your total pre-tax IRA balance on December 31st must be $0. The most common way to achieve this is to do a "reverse rollover," where you roll all your existing pre-tax Traditional IRA balances into your current employer's active 401(k) plan. 401(k) balances are completely ignored by the pro-rata rule calculation.</p>
             
-            <h2>Important Deadlines</h2>
+            <h2 className="text-2xl font-bold mb-3">Important Deadlines</h2>
             <p>While you can make prior-year IRA contributions up until Tax Day (usually April 15th), a Roth <em>conversion</em> is strictly tied to the calendar year it is performed in. Furthermore, the IRS checks your Traditional IRA balance for the pro-rata calculation on December 31st of the year the conversion takes place.</p>
           </article>
           

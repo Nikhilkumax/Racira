@@ -235,10 +235,10 @@ const BinaryCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Foundation of Computing</h2>
+            <h2 className="text-2xl font-bold mb-3">The Foundation of Computing</h2>
             <p>Every digital device—from your smartphone to supercomputers—operates fundamentally on <strong>binary code</strong>. The binary numeral system (Base-2) uses only two symbols: <code>0</code> and <code>1</code>. In physical hardware, a 1 represents a microscopic transistor being "ON" (allowing electricity to flow), while a 0 represents it being "OFF." By stringing millions of these binary switches together, computers can perform complex arithmetic and logic instantly.</p>
 
-            <h2>Arithmetic Operations</h2>
+            <h2 className="text-2xl font-bold mb-3">Arithmetic Operations</h2>
             <p>Binary arithmetic works identically to standard decimal (Base-10) math, but with fewer digits.</p>
             <ul>
               <li><strong>Addition (+):</strong> <code>0+0=0</code>, <code>1+0=1</code>, <code>0+1=1</code>. The only trick is <code>1+1=10</code> (Write down 0, carry the 1 to the next column).</li>
@@ -246,7 +246,7 @@ const BinaryCalculator = () => {
               <li><strong>Multiplication (×):</strong> Extremely simple in binary. You multiply by 1 (copy the number) or multiply by 0 (write zeros). Then add the staggered results together.</li>
             </ul>
 
-            <h2>Bitwise Logic Operations</h2>
+            <h2 className="text-2xl font-bold mb-3">Bitwise Logic Operations</h2>
             <p>Instead of doing arithmetic, computers often use Logic Gates to compare binary numbers bit-by-bit. This is the core of computer programming and networking (like subnet masking).</p>
             <ul>
               <li><strong>AND:</strong> Compares two bits. The result is 1 <em>only</em> if both bits are 1. Otherwise, it is 0.</li>
@@ -255,7 +255,7 @@ const BinaryCalculator = () => {
               <li><strong>NOT:</strong> A unary operation that simply flips the bits. Every 1 becomes a 0, and every 0 becomes a 1.</li>
             </ul>
 
-            <h2>Bit Shifting</h2>
+            <h2 className="text-2xl font-bold mb-3">Bit Shifting</h2>
             <p>Bit shifting literally moves the entire binary string left or right.</p>
             <ul>
               <li><strong>Left Shift (&lt;&lt;):</strong> Moves bits to the left, appending a 0 to the right. Mathematically, this is a highly efficient way to multiply an integer by 2. (e.g., <code>0011</code> [3 in decimal] shifted left becomes <code>0110</code> [6 in decimal]).</li>

@@ -132,7 +132,7 @@ const IncomeTaxCalculatorIndia = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Compare Tax Regimes</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
           </div>
 
@@ -175,7 +175,7 @@ const IncomeTaxCalculatorIndia = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Income Tax Slabs FY 2024-25 (New Regime)</h2>
+              <h2 className="text-2xl font-bold mb-3">Income Tax Slabs FY 2024-25 (New Regime)</h2>
               <ul>
                 <li>Up to ₹3,00,000 — Nil</li>
                 <li>₹3,00,001 to ₹7,00,000 — 5%</li>
@@ -185,7 +185,7 @@ const IncomeTaxCalculatorIndia = () => {
                 <li>Above ₹15,00,000 — 30%</li>
               </ul>
 
-              <h2>Income Tax Slabs FY 2024-25 (Old Regime)</h2>
+              <h2 className="text-2xl font-bold mb-3">Income Tax Slabs FY 2024-25 (Old Regime)</h2>
               <ul>
                 <li>Up to ₹2,50,000 — Nil (₹3L for seniors, ₹5L for super seniors)</li>
                 <li>₹2,50,001 to ₹5,00,000 — 5%</li>
@@ -193,7 +193,7 @@ const IncomeTaxCalculatorIndia = () => {
                 <li>Above ₹10,00,000 — 30%</li>
               </ul>
 
-              <h2>Key Deductions in Old Regime</h2>
+              <h2 className="text-2xl font-bold mb-3">Key Deductions in Old Regime</h2>
               <ul>
                 <li><strong>Section 80C (₹1.5L):</strong> PPF, ELSS, EPF, LIC, NSC, SCSS, 5-yr FD, tuition fees</li>
                 <li><strong>Section 80D:</strong> Health insurance — ₹25K (self), ₹25K (parents), ₹50K for senior citizen parents</li>
@@ -203,7 +203,7 @@ const IncomeTaxCalculatorIndia = () => {
                 <li><strong>Standard Deduction:</strong> ₹50,000 from salary income</li>
               </ul>
 
-              <h2>When to Choose Old vs New Regime</h2>
+              <h2 className="text-2xl font-bold mb-3">When to Choose Old vs New Regime</h2>
               <p>As a thumb rule, if your total deductions (80C + 80D + HRA + others) exceed approximately ₹3.75 lakh, the old regime is likely better. With fewer deductions, the new regime's lower slab rates and higher standard deduction (₹75,000) make it more beneficial.</p>
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> Tax slabs and rules are for FY 2024-25 (AY 2025-26). Surcharge and marginal relief are not included. Consult a CA for precise calculation.</p>

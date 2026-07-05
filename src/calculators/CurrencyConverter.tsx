@@ -89,7 +89,7 @@ const CurrencyConverter = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>How Currency Conversion Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How Currency Conversion Works</h2>
             <p>Currency conversion calculates how much of one currency you receive when exchanging another. This converter uses fixed reference rates relative to the US Dollar (USD) as a base currency.</p>
             <h3>Understanding Exchange Rates</h3>
             <p>An exchange rate tells you how much of one currency you can buy with another. For example, if 1 USD = 0.92 EUR, then $100 converts to approximately €92.</p>

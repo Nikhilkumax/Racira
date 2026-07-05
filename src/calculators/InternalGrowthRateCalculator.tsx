@@ -256,7 +256,7 @@ export default function InternalGrowthRateCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Internal Growth Rate (IGR)</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Internal Growth Rate (IGR)</h2>
             <p>
               In corporate finance, the <strong>Internal Growth Rate (IGR)</strong> represents the maximum rate of sales and operational growth that a business can achieve without requiring any external funding. This means the firm does not issue new shares (equity financing) or take on new loans or notes (debt financing). Instead, all expansion in assets is financed strictly using the company's retained cash flow from operations.
             </p>
@@ -264,7 +264,7 @@ export default function InternalGrowthRateCalculator() {
               Analyzing the IGR is crucial for businesses that want to maintain total independence from capital markets or want to avoid diluting current shareholders and taking on heavy leverage. Knowing a firm's IGR helps management understand its organic expansion limits and identify when strategic capital-raising activities will become necessary.
             </p>
 
-            <h2>The Mathematical Formula for IGR</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematical Formula for IGR</h2>
             <p>
               The Internal Growth Rate relies on two key inputs: the Return on Assets (ROA) and the Retention Ratio (b). The formula is:
             </p>
@@ -279,7 +279,7 @@ export default function InternalGrowthRateCalculator() {
               <li><strong>Retention Ratio (b):</strong> The portion of net profits kept in the business. Calculated as 1 minus (Dividends / Net Income). If a firm pays out 30% of its income as dividends, its retention ratio is 70% (0.70).</li>
             </ul>
 
-            <h2>Why Policy Matters for IGR</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Policy Matters for IGR</h2>
             <p>
               A company can actively influence its internal growth rate by adjusting its dividend payout policy. If a company stops paying dividends entirely (retention ratio of 100%), it maximizes its IGR. As shown in our sensitivity chart, increasing the retention ratio directly translates to a higher organic growth capability because more profits are recycled back into the asset base.
             </p>

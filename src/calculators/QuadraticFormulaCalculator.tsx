@@ -160,21 +160,21 @@ const QuadraticFormulaCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is the Quadratic Formula Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is the Quadratic Formula Calculator?</h2>
             <p>This quadratic formula calculator solves any quadratic equation of the form ax² + bx + c = 0 using the quadratic formula, plots the parabola, and shows the vertex, discriminant, and nature of the roots. Pre-filled with x² − 5x + 6 = 0 (which factors as (x−2)(x−3) = 0, giving roots x=2 and x=3), the calculator demonstrates a clean example with two positive real roots.</p>
             <p>Quadratic equations appear in physics (projectile motion), engineering (structural analysis), economics (profit maximization), and geometry (area and distance problems). The quadratic formula provides a universal solution — working for any quadratic regardless of whether it factors easily.</p>
-            <h2>The Quadratic Formula</h2>
+            <h2 className="text-2xl font-bold mb-3">The Quadratic Formula</h2>
             <p><strong>x = (−b ± √(b² − 4ac)) / (2a)</strong></p>
             <p>The ± symbol means there are generally two solutions: one using + and one using −. For x² − 5x + 6 = 0 (a=1, b=−5, c=6): Discriminant = (−5)² − 4(1)(6) = 25 − 24 = 1. x = (5 ± √1) / 2 = (5 ± 1) / 2. So x₁ = 3 and x₂ = 2.</p>
-            <h2>The Discriminant: Nature of Roots</h2>
+            <h2 className="text-2xl font-bold mb-3">The Discriminant: Nature of Roots</h2>
             <p>The discriminant D = b² − 4ac determines what kind of roots the equation has without actually solving it. <strong>D &gt; 0:</strong> Two distinct real roots — the parabola crosses the x-axis at two points. <strong>D = 0:</strong> One repeated real root — the parabola is tangent to the x-axis. <strong>D &lt; 0:</strong> Two complex conjugate roots — the parabola never crosses the x-axis.</p>
-            <h2>The Vertex and Parabola</h2>
+            <h2 className="text-2xl font-bold mb-3">The Vertex and Parabola</h2>
             <p>The vertex is the turning point of the parabola at x = −b/(2a). For our example: x_vertex = −(−5)/(2×1) = 2.5. y_vertex = 1(2.5)² − 5(2.5) + 6 = 6.25 − 12.5 + 6 = −0.25. The vertex (2.5, −0.25) is the minimum point (since a &gt; 0). The axis of symmetry is x = 2.5 — note that the two roots 2 and 3 are symmetric around 2.5.</p>
-            <h2>Completing the Square</h2>
+            <h2 className="text-2xl font-bold mb-3">Completing the Square</h2>
             <p>An alternative solution method: rewrite ax² + bx + c = 0 as (x + b/2a)² = (b² − 4ac)/(4a²). Taking the square root of both sides gives the quadratic formula. Completing the square is also used to convert the standard form to vertex form: y = a(x − h)² + k where (h, k) is the vertex.</p>
-            <h2>Applications of Quadratic Equations</h2>
+            <h2 className="text-2xl font-bold mb-3">Applications of Quadratic Equations</h2>
             <p><strong>Projectile motion:</strong> Height h = −½gt² + v₀t + h₀. Setting h=0 and solving for t gives the time of landing. <strong>Area problems:</strong> If a rectangle has perimeter 20m and area 21m², the dimensions satisfy x(10−x) = 21, or x²−10x+21 = 0, giving x=3 and x=7. <strong>Break-even analysis:</strong> Revenue and cost functions often intersect at quadratic solutions. Pair with the <a href="/calculator/break-even-calculator">break-even calculator</a> for business applications.</p>
-            <h2>Tips for This Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips for This Calculator</h2>
             <p>Enter a ≠ 0 (if a=0, the equation is linear, not quadratic). The parabola graph shows the function with green dashed vertical lines at real roots. The vertex is clearly identified. For complex roots, the parabola does not cross the x-axis — this is visible in the graph. Combine with the <a href="/calculator/polynomial-calculator">polynomial calculator</a> for higher-degree equations.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/quadratic-formula-calculator" />

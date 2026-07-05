@@ -94,14 +94,14 @@ const InflationCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>What Is an Inflation Calculator?</h2>
+              <h2 className="text-2xl font-bold mb-3">What Is an Inflation Calculator?</h2>
               <p>An inflation calculator helps you understand how the purchasing power of money changes over time due to inflation. It can show you what today's money will be worth in the future, or what a past amount would be equivalent to today.</p>
               <p>Understanding inflation is crucial for financial planning. Whether you're saving for retirement, negotiating a salary, or evaluating an investment, knowing how inflation erodes purchasing power helps you make better decisions.</p>
 
-              <h2>How Inflation Is Calculated</h2>
+              <h2 className="text-2xl font-bold mb-3">How Inflation Is Calculated</h2>
               <p>The basic inflation formula is: Future Value = Present Value × (1 + inflation rate)^years. For example, at 3% annual inflation, $1,000 today will need to be $1,343.92 in 10 years to have the same purchasing power.</p>
 
-              <h2>The Three Calculation Modes</h2>
+              <h2 className="text-2xl font-bold mb-3">The Three Calculation Modes</h2>
               <h3>Forward Inflation</h3>
               <p>Shows how much you'll need in the future to maintain the same purchasing power as a given amount today. Use this when planning future expenses like college tuition or retirement income.</p>
               <h3>Backward Inflation</h3>
@@ -109,10 +109,10 @@ const InflationCalculator = () => {
               <h3>Purchasing Power</h3>
               <p>Shows how much purchasing power a given amount loses over time. This mode is useful for understanding the hidden cost of holding cash or keeping money in low-interest savings accounts.</p>
 
-              <h2>Historical Inflation Context</h2>
+              <h2 className="text-2xl font-bold mb-3">Historical Inflation Context</h2>
               <p>The United States has experienced varying inflation rates throughout history. The post-World War II era saw moderate inflation averaging 3-4%. The 1970s experienced high inflation (reaching 14.8% in 1980), while the 2010s saw historically low inflation under 2%. Recent years have seen elevated inflation, reminding savers and investors of this important economic force.</p>
 
-              <h2>Protecting Your Wealth from Inflation</h2>
+              <h2 className="text-2xl font-bold mb-3">Protecting Your Wealth from Inflation</h2>
               <ul>
                 <li><strong>Invest in equities:</strong> Stocks have historically returned 7-10% annually, well above inflation.</li>
                 <li><strong>Real estate:</strong> Property values and rents tend to rise with or above inflation.</li>

@@ -206,10 +206,10 @@ const GcfCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Greatest Common Factor (GCF)</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Greatest Common Factor (GCF)</h2>
             <p>The <strong>Greatest Common Factor (GCF)</strong>, which is entirely synonymous with the Greatest Common Divisor (GCD) and Highest Common Factor (HCF), is the largest integer that divides two or more numbers perfectly, leaving a remainder of zero. For example, the factors of 12 are 1, 2, 3, 4, 6, and 12. The factors of 16 are 1, 2, 4, 8, and 16. The common factors they share are 1, 2, and 4. The <em>greatest</em> of these is 4, making 4 the GCF.</p>
 
-            <h2>Methods for Finding the GCF</h2>
+            <h2 className="text-2xl font-bold mb-3">Methods for Finding the GCF</h2>
             <p>While listing out all the factors manually works for small numbers, it becomes tedious and error-prone for larger numbers like 180 and 48. Mathematicians use two primary methods to find the GCF efficiently.</p>
 
             <h3>1. The Prime Factorization Method</h3>
@@ -232,7 +232,7 @@ const GcfCalculator = () => {
               <li>Because the remainder is 0, the last non-zero remainder (12) is the GCF.</li>
             </ul>
 
-            <h2>Why Do We Need the GCF?</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Do We Need the GCF?</h2>
             <p>In applied mathematics, the GCF is the crucial tool for <strong>simplifying fractions</strong>. If you have the fraction 48/180 and you need to reduce it to its lowest terms, finding the GCF (12) allows you to divide both the top and bottom number by 12 in a single step, instantly arriving at the simplified fraction 4/15.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/gcf-calculator" />

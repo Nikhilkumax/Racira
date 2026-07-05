@@ -151,13 +151,13 @@ export default function RetirementCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Retirement Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Retirement Calculator?</h2>
             <p>A <strong>retirement calculator</strong> projects your portfolio at retirement, estimates monthly income from all sources (investments, Social Security, pension), compares it against your planned expenses, and tells you whether you&apos;re on track or need to save more. This comprehensive planner integrates the 4% safe withdrawal rate framework with multi-source income analysis.</p>
-            <h2>How Retirement Income Is Calculated</h2>
+            <h2 className="text-2xl font-bold mb-3">How Retirement Income Is Calculated</h2>
             <p>Portfolio at Retirement = Current Savings × (1+r)^n + Annual Savings × [(1+r)^n − 1] / r. Investment Income (4% SWR) = Portfolio × 4% ÷ 12 (monthly). Total Income = Investment Income + Social Security + Pension. Surplus/Deficit = Total Income − Monthly Expenses. A positive surplus means you&apos;re on track; negative means you need to save more or plan to spend less.</p>
-            <h2>The Three Pillars of Retirement Income</h2>
+            <h2 className="text-2xl font-bold mb-3">The Three Pillars of Retirement Income</h2>
             <p>Social Security: replaces ~40% of pre-retirement income at FRA. Delay to 70 for maximum benefit. Personal savings (401k, IRA, Roth): your largest controllable pillar. Aim for 25x annual expenses. Pension: increasingly rare in private sector. If you have one, it significantly reduces required portfolio size.</p>
-            <h2>Sequence of Returns Risk</h2>
+            <h2 className="text-2xl font-bold mb-3">Sequence of Returns Risk</h2>
             <p>The biggest risk in retirement isn&apos;t low average returns — it&apos;s a market crash in the first 5–10 years. A 30% drop in Year 1 of retirement that forces selling assets at lows can permanently impair a portfolio. Mitigation: maintain 1–2 years of cash reserves, bucket strategy (short/mid/long-term buckets), flexible spending (spend less in down markets).</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/retirement-calculator" />

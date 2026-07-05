@@ -120,10 +120,10 @@ const BMRCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>What Is BMR?</h2>
+              <h2 className="text-2xl font-bold mb-3">What Is BMR?</h2>
               <p>Basal Metabolic Rate (BMR) represents the minimum number of calories your body needs to function while at complete rest. This includes essential processes like breathing, blood circulation, nutrient processing, and cell production. BMR typically accounts for 60-75% of your total daily calorie expenditure.</p>
 
-              <h2>BMR Formulas Explained</h2>
+              <h2 className="text-2xl font-bold mb-3">BMR Formulas Explained</h2>
               <h3>Mifflin-St Jeor (Recommended)</h3>
               <p><strong>Men:</strong> BMR = 10 × weight(kg) + 6.25 × height(cm) - 5 × age - 5</p>
               <p><strong>Women:</strong> BMR = 10 × weight(kg) + 6.25 × height(cm) - 5 × age - 161</p>
@@ -136,7 +136,7 @@ const BMRCalculator = () => {
               <p><strong>Both:</strong> BMR = 370 + 21.6 × lean body mass(kg)</p>
               <p>This formula is most accurate when body fat percentage is known, as it uses lean body mass rather than total weight.</p>
 
-              <h2>Factors That Affect BMR</h2>
+              <h2 className="text-2xl font-bold mb-3">Factors That Affect BMR</h2>
               <ul>
                 <li><strong>Age:</strong> BMR decreases ~1-2% per decade after 20</li>
                 <li><strong>Gender:</strong> Males typically have 5-10% higher BMR</li>

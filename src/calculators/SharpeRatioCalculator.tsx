@@ -81,11 +81,11 @@ export default function SharpeRatioCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Understanding the Sharpe Ratio</h2>
+              <h2 className="text-2xl font-bold mb-3">Understanding the Sharpe Ratio</h2>
               <p>The Sharpe Ratio, developed by Nobel laureate William F. Sharpe in 1966, is the most widely used metric for measuring risk-adjusted investment performance. Its central insight is that return alone is a meaningless number — what matters is return per unit of risk taken. A portfolio returning 15% with enormous volatility may be inferior to one returning 12% with much lower volatility, once risk is properly accounted for.</p>
-              <h2>The Sharpe Ratio Formula</h2>
+              <h2 className="text-2xl font-bold mb-3">The Sharpe Ratio Formula</h2>
               <p><strong>Sharpe Ratio = (Portfolio Return – Risk-Free Rate) ÷ Standard Deviation of Portfolio Returns</strong>. The numerator (excess return or "risk premium") measures how much the portfolio outperforms a riskless asset like Treasury bills. The denominator (standard deviation) measures the total volatility of returns — both up and down swings.</p>
-              <h2>Interpreting the Sharpe Ratio</h2>
+              <h2 className="text-2xl font-bold mb-3">Interpreting the Sharpe Ratio</h2>
               <p>The higher the Sharpe Ratio, the better the risk-adjusted return:</p>
               <ul>
                 <li><strong>Below 0:</strong> The portfolio underperforms the risk-free rate — you'd be better off in Treasury bills.</li>
@@ -94,11 +94,11 @@ export default function SharpeRatioCalculator() {
                 <li><strong>2 to 3:</strong> Very Good — strong risk-adjusted performance, typical of top-quartile funds.</li>
                 <li><strong>Above 3:</strong> Excellent — exceptional performance, though it should be verified for data integrity.</li>
               </ul>
-              <h2>The Role of the Risk-Free Rate</h2>
+              <h2 className="text-2xl font-bold mb-3">The Role of the Risk-Free Rate</h2>
               <p>The risk-free rate is a critical input because it defines the "baseline" return you can earn without taking any investment risk. In the United States, this is typically the yield on 3-month Treasury bills or 10-year Treasury bonds. As interest rates rise, the bar for earning a positive Sharpe Ratio also rises, which is why many hedge funds and funds struggle in high-rate environments.</p>
-              <h2>Limitations of the Sharpe Ratio</h2>
+              <h2 className="text-2xl font-bold mb-3">Limitations of the Sharpe Ratio</h2>
               <p>The Sharpe Ratio assumes that investment returns follow a normal distribution (a bell curve). In reality, financial returns often exhibit "fat tails" — extreme events occur more frequently than a normal distribution predicts. This limitation makes the Sharpe Ratio less reliable for strategies with non-linear payoffs, such as options selling, where returns appear stable until a catastrophic loss occurs.</p>
-              <h2>Sharpe vs. Sortino vs. Calmar Ratios</h2>
+              <h2 className="text-2xl font-bold mb-3">Sharpe vs. Sortino vs. Calmar Ratios</h2>
               <p>Several ratios build on the Sharpe Ratio concept. The <strong>Sortino Ratio</strong> only penalizes downside volatility, rewarding upside volatility. The <strong>Calmar Ratio</strong> uses maximum drawdown instead of standard deviation. The <strong>Information Ratio</strong> compares a portfolio to a benchmark rather than the risk-free rate. Each metric highlights different aspects of risk-adjusted performance.</p>
             </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/sharpe-ratio-calculator" />

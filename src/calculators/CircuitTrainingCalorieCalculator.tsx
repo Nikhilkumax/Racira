@@ -282,10 +282,10 @@ export default function CircuitTrainingCalorieCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Caloric Power of Circuit Training</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Caloric Power of Circuit Training</h2>
             <p>If you have ever felt completely exhausted after just 20 minutes of a high-intensity workout class, you have experienced the brutal efficiency of circuit training. While traditional weightlifting requires long rest periods and steady-state cardio requires long time commitments, circuit training perfectly marries the two into a hyper-efficient, massive calorie-burning protocol. The <strong>Circuit Training Calorie Calculator</strong> bypasses inaccurate fitness watch estimates by utilizing clinical Metabolic Equivalent (MET) formulas. By factoring in your specific body mass and the intensity of your rest periods, it calculates the exact thermodynamic cost of your session.</p>
 
-            <h2>What Exactly is Circuit Training?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Exactly is Circuit Training?</h2>
             <p>Circuit training is a workout methodology designed specifically to maximize work volume in the shortest possible time. Instead of performing 3 sets of push-ups, resting for two minutes between each set, and then moving to squats, you perform a "circuit."</p>
             <p>A typical circuit might look like this:</p>
             <ul>
@@ -296,12 +296,12 @@ export default function CircuitTrainingCalorieCalculator() {
             </ul>
             <p>The defining characteristic of a circuit is the <strong>absence of rest</strong>. You move immediately from Station 1 to Station 2. Because you are constantly moving, your heart rate never has a chance to return to its baseline. It stays drastically elevated for the entire duration of the circuit. Once you complete all the stations, you take a brief 60 to 90-second rest, and then repeat the entire sequence multiple times.</p>
 
-            <h2>Why It Burns More Calories Than Traditional Lifting</h2>
+            <h2 className="text-2xl font-bold mb-3">Why It Burns More Calories Than Traditional Lifting</h2>
             <p>A common complaint among gym-goers whose primary goal is weight loss is that they lift heavy weights for an hour but don't seem to lose body fat. The problem lies in their heart rate.</p>
             <p>If you are performing traditional powerlifting or bodybuilding routines, you might lift an incredibly heavy barbell for 15 seconds, but then you sit on a bench and rest for 3 minutes. During a 60-minute session, you may only be actively "working" for 10 or 15 minutes total. The rest of the time, your heart rate is low and your caloric burn is minimal. </p>
             <p>Circuit training flips this math upside down. Because you are resting for only 10 to 15 seconds between stations, you are actively working for 45 minutes out of a 50-minute session. Your cardiovascular system is forced to continuously pump blood to rapidly alternating muscle groups. This constant cardiovascular demand results in a MET value of 8.0 (Moderate) to 10.0 (Vigorous), meaning you are burning calories at 8 to 10 times your resting rate—drastically outpacing standard weightlifting.</p>
 
-            <h2>The Three Tiers of Circuit Intensity</h2>
+            <h2 className="text-2xl font-bold mb-3">The Three Tiers of Circuit Intensity</h2>
             <p>Our calculator asks you to define the intensity of your circuit. This is the single most critical variable in determining your caloric output:</p>
             <ul>
               <li><strong>Light Intensity (MET 6.0):</strong> You are moving between stations, but the weights are light and you are taking 30 to 45 seconds of rest between exercises. You are breathing heavily, but you are not gasping for air. This is an excellent zone for beginners or active recovery days.</li>
@@ -309,16 +309,16 @@ export default function CircuitTrainingCalorieCalculator() {
               <li><strong>Vigorous / HIIT (MET 10.0):</strong> This is the realm of CrossFit metcons, heavy kettlebell flows, and true High-Intensity Interval Training. You are performing explosive movements (box jumps, burpees, heavy thrusters) with virtually zero rest. You are pushed into the anaerobic zone (85-95% of max heart rate) where lactic acid builds up rapidly. It is physically agonizing and results in the highest possible caloric burn per minute.</li>
             </ul>
 
-            <h2>The Secret Weapon: The Afterburn Effect (EPOC)</h2>
+            <h2 className="text-2xl font-bold mb-3">The Secret Weapon: The Afterburn Effect (EPOC)</h2>
             <p>If you select "Vigorous" on the calculator, the total calories burned during the session is only half the story. High-intensity circuits trigger a massive physiological response known as <strong>Excess Post-Exercise Oxygen Consumption (EPOC)</strong>, widely referred to as the "Afterburn Effect."</p>
             <p>When you perform explosive, anaerobic exercises with minimal rest, your body cannot pull in enough oxygen to meet the immediate muscular demand. This creates a severe "oxygen debt." Furthermore, your muscle fibers suffer micro-tears, and your blood becomes saturated with lactic acid. </p>
             <p>Once the workout ends and you go home, your body must repay that debt. It must rapidly consume oxygen, synthesize proteins to repair muscle tissue, clear the lactic acid, and bring your elevated core temperature back down. All of these physiological repairs require energy. Because of EPOC, your body will continue to burn "bonus" calories at an elevated rate for up to 14 to 24 hours after a vigorous circuit. Traditional low-intensity cardio (like walking on a treadmill) generates almost zero EPOC.</p>
 
-            <h2>Circuit Training vs. Pure Muscle Hypertrophy</h2>
+            <h2 className="text-2xl font-bold mb-3">Circuit Training vs. Pure Muscle Hypertrophy</h2>
             <p>While circuit training is the undisputed king of caloric efficiency and fat loss, it is important to understand its limitations. If your primary goal is to build massive, bulky muscles (hypertrophy), circuit training is not the optimal path.</p>
             <p>Muscle hypertrophy requires you to lift weights that are heavy enough to push the muscle to absolute failure within 6 to 10 repetitions. Because circuit training utilizes such short rest periods, your muscles are never fully recovered when you start the next set. Therefore, you are forced to use much lighter weights. While this lighter weight is fantastic for building muscular <em>endurance</em> and burning fat (which makes existing muscles look "toned" and visible), it does not provide enough raw mechanical tension to trigger massive muscle growth.</p>
 
-            <h2>Conclusion: The Ultimate Time-Saver</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: The Ultimate Time-Saver</h2>
             <p>In modern society, "lack of time" is the number one reason people fail to achieve their fitness goals. Circuit training entirely destroys this excuse. By utilizing the Circuit Training Calorie Calculator, you can easily see that a grueling, 30-minute high-intensity circuit can easily burn more calories than an hour of walking on a treadmill, all while simultaneously strengthening your muscles and spiking your cardiovascular endurance. Design a circuit, keep your rest periods strictly timed, and watch your metabolic rate skyrocket.</p>
           </article>
           

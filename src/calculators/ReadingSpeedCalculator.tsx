@@ -151,7 +151,7 @@ const ReadingSpeedCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>The Mechanics of Reading</h2>
+              <h2 className="text-2xl font-bold mb-3">The Mechanics of Reading</h2>
               <p>Reading is a complex neurological process that involves vision, language, and memory. While we often think of it as a single skill, it's actually a collection of many sub-skills working in harmony.</p>
               
               <h3>Factors That Influence Speed</h3>

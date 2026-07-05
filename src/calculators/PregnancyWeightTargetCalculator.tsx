@@ -438,30 +438,30 @@ export default function PregnancyWeightTargetCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Mathematics of Gestation</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of Gestation</h2>
             <p>Pregnancy is a masterclass in structural biology. For 40 weeks, the female body acts as a hyper-efficient construction zone, synthesizing complex neurological networks, skeletal structures, and a temporary organ (the placenta) from scratch. Because this process is so biologically demanding, the medical community established strict guidelines for how much raw mass a woman must acquire to support it safely. However, this process is not linear. Gaining 10 pounds in the first trimester is a massive medical red flag, whereas gaining 10 pounds in the third trimester is perfectly normal. The <strong>Pregnancy Weight Gain Trajectory Calculator</strong> maps your weekly progress against the exact biological curve established by the American College of Obstetricians and Gynecologists (ACOG), ensuring your body is scaling correctly.</p>
 
-            <h2>The First Trimester Anomaly</h2>
+            <h2 className="text-2xl font-bold mb-3">The First Trimester Anomaly</h2>
             <p>The most common point of failure in pregnancy weight management occurs between weeks 1 and 13. When women discover they are pregnant, they often immediately succumb to the "eating for two" fallacy, drastically increasing their caloric intake.</p>
             <p>Biologically, this is absurd. During the first trimester, the fetus is growing from a microscopic organism into something roughly the size of a peach. The total caloric demand of the fetus is negligible (zero additional calories are required per day). Therefore, the ACOG guidelines dictate that a healthy woman should only gain a total of 1 to 4 pounds during the entire first trimester. If a mother gains 15 pounds by week 12, the mathematics are undeniable: she did not build 15 pounds of "baby weight." She built 15 pounds of pure maternal visceral and subcutaneous fat, placing enormous, unnecessary strain on her cardiovascular system.</p>
 
-            <h2>The Second and Third Trimester Acceleration</h2>
+            <h2 className="text-2xl font-bold mb-3">The Second and Third Trimester Acceleration</h2>
             <p>At week 14, the rules change entirely. The pregnancy enters the second trimester, and fetal construction accelerates rapidly. The baby begins developing dense bone, the placenta expands significantly, and the mother's body begins desperately hoarding fluid, effectively doubling her internal blood volume to support the massive vascular network required by the womb.</p>
             <p>Because of this massive biological demand, the target curve shifts from a flat line to a strict linear trajectory. A mother starting with a "Normal" BMI is medically mandated to gain approximately 1 pound per week until delivery. An "Overweight" mother is mandated to gain 0.6 pounds per week. This linear growth is absolutely critical. If the weekly weight gain suddenly stops or reverses in the third trimester, it is a severe medical warning sign indicating potential intrauterine growth restriction (the baby has stopped developing).</p>
 
-            <h2>Why is 'Exceeding Target' So Dangerous?</h2>
+            <h2 className="text-2xl font-bold mb-3">Why is 'Exceeding Target' So Dangerous?</h2>
             <p>If your calculator result flashes red with "Exceeding Target," it means your body is acquiring mass much faster than the biological apparatus can utilize it. This excess mass is converted into maternal fat.</p>
             <p>Maternal obesity during pregnancy acts as a catalyst for a cascade of systemic failures. The massive accumulation of adipose tissue rapidly degrades insulin sensitivity, triggering <strong>Gestational Diabetes</strong>. This toxic, sugar-rich blood crosses the placenta, forcing the fetus to produce massive amounts of its own insulin, which causes the baby to grow unnaturally large (Macrosomia). An oversized baby drastically increases the probability of a traumatic vaginal delivery, severe maternal hemorrhaging, and the necessity of an emergency Cesarean section. Exceeding the curve is not a cosmetic issue; it is a profound clinical threat.</p>
 
-            <h2>The Risks of Falling 'Below Target'</h2>
+            <h2 className="text-2xl font-bold mb-3">The Risks of Falling 'Below Target'</h2>
             <p>While excess weight is the primary focus of modern obstetrics, falling "Below Target" carries its own terrifying risks, specifically for women who entered the pregnancy with a "Normal" or "Underweight" BMI.</p>
             <p>If a mother does not consume enough calories to support the immense thermodynamic cost of fetal construction, the body must steal energy from the mother's own skeleton and organs. The fetus will physically leech calcium from the mother's teeth and bones, and strip protein from her muscle tissue. Despite this survival mechanism, extreme maternal caloric restriction frequently leads to preterm labor, critically low infant birth weights, and severe developmental deficits in the child's neurological system.</p>
 
-            <h2>How Starting BMI Dictates the Rules</h2>
+            <h2 className="text-2xl font-bold mb-3">How Starting BMI Dictates the Rules</h2>
             <p>The ACOG curve is not identical for every woman. The trajectory is strictly governed by the mother's starting Body Mass Index (BMI). This calculator automatically adjusts the acceptable mathematical channel based on your starting size.</p>
             <p>An underweight mother requires a very steep trajectory, gaining up to 40 pounds total, because she must build both the baby and the essential maternal fat stores required to survive the exhausting process of breastfeeding. An obese mother requires a very flat trajectory, gaining a maximum of 20 pounds. Because an obese mother already possesses hundreds of thousands of calories in stored adipose fat, the fetus can easily siphon that existing energy. The 20 pounds gained by the obese mother should consist entirely of the baby, the blood, and the fluid—zero new maternal fat should be synthesized.</p>
 
-            <h2>Conclusion: Trust the Curve</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Trust the Curve</h2>
             <p>Do not attempt to blindly manage your pregnancy weight by guessing. Use the Pregnancy Weight Gain Trajectory Calculator weekly to verify that your velocity of mass accumulation is locked safely inside the ACOG biological channel. By hitting the mathematical targets, you actively protect yourself from the horrors of preeclampsia and gestational diabetes, ensuring a safer delivery and a healthier foundation for your child's life.</p>
           </article>
           

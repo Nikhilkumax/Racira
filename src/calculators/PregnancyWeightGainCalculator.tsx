@@ -118,7 +118,7 @@ const PregnancyWeightGainCalculator = () => {
                 </div>
               </div>
               <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2"><Activity className="h-5 w-5" /> Analyze Weight Gain</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">Calculate</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground"><RotateCcw className="h-5 w-5" /></button>
               </div>
           </div>
 
@@ -149,7 +149,7 @@ const PregnancyWeightGainCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Why Tracking Matters</h2>
+              <h2 className="text-2xl font-bold mb-3">Why Tracking Matters</h2>
               <p>Gaining the right amount of weight during pregnancy is crucial. Gaining too little can result in a low birth weight baby, while gaining too much increases the risk of gestational diabetes, high blood pressure, and complications during delivery.</p>
               <h3>Trimester Breakdown</h3>
               <p>During the first trimester, very little extra energy is needed. Most guidelines suggest gaining only 1 to 4 pounds total during the first 13 weeks. In the second and third trimesters, the baby grows rapidly, and steady weight gain (usually around 1 pound per week for a normal BMI) is expected.</p>

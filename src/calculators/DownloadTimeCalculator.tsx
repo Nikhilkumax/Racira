@@ -133,7 +133,7 @@ const DownloadTimeCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Speed Up Your Downloads</h2>
+              <h2 className="text-2xl font-bold mb-3">Speed Up Your Downloads</h2>
               <p>Download speed is the rate at which data is transferred from the internet to your local machine. It is the most common metric used by ISPs to market their services.</p>
               <h3>Practical Tips</h3>
               <ul>

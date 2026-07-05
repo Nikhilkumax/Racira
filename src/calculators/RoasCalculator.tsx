@@ -94,7 +94,7 @@ const RoasCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Scaling Your Business with ROAS</h2>
+              <h2 className="text-2xl font-bold mb-3">Scaling Your Business with ROAS</h2>
               <p>ROAS is the primary compass for e-commerce brands. If you know that every dollar you put into Facebook Ads returns five dollars in sales, you can scale your budget with confidence.</p>
               <h3>The Break-Even ROAS</h3>
               <p>It is vital to know your 'Break-Even ROAS'. This is the point where your ad revenue covers both the ad spend and the cost of the goods sold. For many businesses, a ROAS below 2.5x is a signal to stop or optimize the campaign.</p>

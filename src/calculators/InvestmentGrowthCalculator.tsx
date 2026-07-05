@@ -111,13 +111,13 @@ export default function InvestmentGrowthCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>How This Investment Growth Calculator Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How This Investment Growth Calculator Works</h2>
             <p>This calculator uses the Future Value of Annuity formula to model the growth of regular investment contributions combined with compound interest. It computes: FV = P(1+r)ⁿ + C × [(1+r)ⁿ − 1] / r, where P = initial investment, C = monthly contribution, r = monthly rate, n = months. Results are displayed year-by-year showing the split between your contributions and compound growth.</p>
-            <h2>The Power of Starting Early</h2>
+            <h2 className="text-2xl font-bold mb-3">The Power of Starting Early</h2>
             <p>$500/month at 10% starting at age 25 → $3.16M at 65. Starting at 35 → $1.13M. Starting at 45 → $380K. The compounding snowball effect becomes extreme over decades. The first 10 years of investing creates the foundation on which all future gains compound — this is why financial advisors consistently emphasize starting immediately, even with small amounts.</p>
-            <h2>Tax-Advantaged Accounts</h2>
+            <h2 className="text-2xl font-bold mb-3">Tax-Advantaged Accounts</h2>
             <p>Max-fund tax-advantaged accounts first: 401(k) pre-tax reduces current taxable income (Traditional) or grows tax-free (Roth). IRA: $7,000/year (2024), same Traditional vs. Roth choice. HSA: triple tax advantaged — deductible contributions, tax-free growth, tax-free medical withdrawals. After maxing tax-advantaged accounts, invest in taxable brokerage using tax-efficient index funds (low turnover = lower capital gains distributions).</p>
-            <h2>Index Fund Investing</h2>
+            <h2 className="text-2xl font-bold mb-3">Index Fund Investing</h2>
             <p>Low-cost index funds (VTSAX, VTI, SPY, VOO) capture broad market returns with minimal fees. Vanguard, Fidelity, and Schwab offer index funds with 0.03–0.04% expense ratios — vs. 0.5–1.5% for active funds. Over 30 years, a 1% fee difference on $500K costs you approximately $380,000 in foregone compounding. Keep costs as low as possible for maximum compounding efficiency.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/investment-growth-calculator" />

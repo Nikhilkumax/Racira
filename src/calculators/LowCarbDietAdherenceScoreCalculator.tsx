@@ -379,11 +379,11 @@ export default function LowCarbDietAdherenceScoreCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Low-Carb Diet Adherence Score</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Low-Carb Diet Adherence Score</h2>
             <p>The Low-Carbohydrate Diet (LCD) Adherence Score is a quantitative tool originally developed by nutritional epidemiologists to study dietary patterns over time. Unlike a simple "yes/no" checklist of whether you are eating low-carb, this scoring system evaluates the precise ratio of macronutrients—carbohydrates, fats, and proteins—in your daily caloric intake. Our <strong>Low-Carb Diet Adherence Score Calculator</strong> adapts this clinical methodology into an accessible tool to help you instantly determine how closely your eating habits align with your specific nutritional goals.</p>
             <p>Whether your objective is metabolic flexibility, managing insulin resistance, weight loss, or achieving therapeutic ketosis, understanding the exact percentage breakdown of your macronutrients is critical. A high adherence score indicates that your body is being optimally fueled by dietary fats while carbohydrate restriction is tightly maintained.</p>
 
-            <h2>The Mathematics of Macronutrients</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of Macronutrients</h2>
             <p>To calculate an adherence score, we must first convert raw grams into caloric energy. The human body derives energy from the three primary macronutrients at different rates of efficiency:</p>
             <ul>
               <li><strong>Carbohydrates:</strong> Provide 4 kilocalories per gram.</li>
@@ -392,33 +392,33 @@ export default function LowCarbDietAdherenceScoreCalculator() {
             </ul>
             <p>If you consume 20g of carbohydrates, 100g of protein, and 150g of fat, your total caloric intake is not simply the sum of those numbers. It is (20 * 4) + (100 * 4) + (150 * 9) = 1,830 total calories. Our calculator automatically handles this conversion, ensuring that your final percentages accurately reflect your metabolic energy sources, not just the physical weight of your food.</p>
 
-            <h2>The Three Tiers of Low-Carb Diets</h2>
+            <h2 className="text-2xl font-bold mb-3">The Three Tiers of Low-Carb Diets</h2>
             <p>There is no single "Low-Carb Diet." The scientific community recognizes several distinct protocols, each with its own therapeutic applications and macronutrient thresholds. Our calculator allows you to select your target protocol to ensure your score reflects your specific physiological goals:</p>
             <p><strong>1. Strict Ketogenic Diet (&lt;5% Carbohydrates):</strong> The most restrictive form of low-carb eating. The primary goal is to force the liver to produce ketone bodies from fat to use as the brain's primary energy source. To achieve this, carbohydrates must generally remain below 5% of total calories (typically 20g to 30g per day), while fats must make up 70% to 80% of your energy intake.</p>
             <p><strong>2. Moderate Low-Carb (&lt;15% Carbohydrates):</strong> This protocol allows for more flexibility, typically permitting up to 50g to 70g of carbohydrates per day. It is often utilized by individuals aiming for sustainable weight loss and improved glycemic control without the strict requirement of deep nutritional ketosis.</p>
             <p><strong>3. Liberal Low-Carb (&lt;25% Carbohydrates):</strong> Allowing up to 100g to 130g of carbohydrates per day, this approach is often recommended for athletes, highly active individuals, or those in a weight-maintenance phase. While it prevents extreme blood sugar spikes, it relies heavily on glucose rather than ketones for fuel.</p>
 
-            <h2>How the Algorithm Scores Adherence</h2>
+            <h2 className="text-2xl font-bold mb-3">How the Algorithm Scores Adherence</h2>
             <p>Our scoring algorithm utilizes a 100-point scale designed to heavily penalize carbohydrate overconsumption while rewarding proper fat optimization.</p>
             <p><strong>The Carbohydrate Metric (50 Points):</strong> The most crucial aspect of any low-carb diet is carbohydrate restriction. Half of your total score depends on hitting your target carb percentage. If your goal is Strict Keto (5%) and your intake is 4%, you receive the maximum 50 points. If your intake drifts up to 12%, your score drops significantly, reflecting the likelihood that you have exited ketosis.</p>
             <p><strong>The Fat Metric (30 Points):</strong> When you remove carbohydrates (energy) from your diet, you must replace them with fats to prevent starvation and severe metabolic downregulation. Failing to consume enough dietary fat is the most common reason people fail on low-carb diets. Maintaining fat ratios above 70% (for Keto) ensures a high score in this category.</p>
             <p><strong>The Protein Metric (20 Points):</strong> Protein is vital for maintaining lean muscle mass, but excessive consumption can be counterproductive. Through a process called <em>gluconeogenesis</em>, the liver can convert excess amino acids into glucose, raising blood sugar levels. A perfect score requires maintaining moderate protein intake (typically 15% to 25% of total calories).</p>
 
-            <h2>Analyzing Your Score</h2>
+            <h2 className="text-2xl font-bold mb-3">Analyzing Your Score</h2>
             <p>Once you input your daily grams, the calculator will place you into one of several adherence categories:</p>
             <p><strong>Excellent Adherence (90 - 100):</strong> You have mastered your macro ratios. Your carbohydrate restriction is tight, and your fat intake provides ample cellular energy. If your goal is ketosis, you are highly likely to be in a fat-adapted state.</p>
             <p><strong>Good Adherence (70 - 89):</strong> You are generally following the principles of LCHF eating, but minor macro 'creep' is occurring. Often, this happens when individuals consume too much protein or unintentionally eat hidden carbs in sauces or packaged foods.</p>
             <p><strong>Moderate to Poor Adherence (&lt; 70):</strong> You are likely experiencing the "Low-Carb Limbo." Your carbs are too low to provide sustained glucose energy, but too high to allow for efficient ketone production. This state often causes fatigue, brain fog, and the "keto flu." Significant macro adjustments are required.</p>
 
-            <h2>The Danger of the "Low-Carb Limbo"</h2>
+            <h2 className="text-2xl font-bold mb-3">The Danger of the "Low-Carb Limbo"</h2>
             <p>A low adherence score often reveals a dangerous dietary pattern. Many individuals attempt to "eat low carb" by simply removing bread and pasta from their diet, but they fail to replace those calories with healthy fats. The result is a diet that is very high in protein, moderately high in carbs (from vegetables and hidden sugars), and low in fat.</p>
             <p>Physiologically, this is a disaster. The body is starved of its preferred fast-acting fuel (glucose) but is not provided the raw materials (dietary fat) to switch to its alternative fuel system (ketosis). Using our adherence calculator daily can quickly highlight this error, guiding you to increase fat intake (e.g., olive oil, avocados, butter) to achieve metabolic balance.</p>
 
-            <h2>Net Carbs vs. Total Carbs</h2>
+            <h2 className="text-2xl font-bold mb-3">Net Carbs vs. Total Carbs</h2>
             <p>When using this calculator, it is highly recommended to input your <strong>Net Carbohydrates</strong> rather than total carbohydrates. Net carbs are calculated by taking total carbohydrates and subtracting dietary fiber (and sometimes sugar alcohols). Because the human digestive system lacks the enzymes to break down fiber, it does not elicit an insulin response or raise blood sugar.</p>
             <p>For example, if you eat an avocado containing 12g of total carbohydrates and 10g of fiber, your body only metabolizes 2g of net carbs. Tracking net carbs provides a far more accurate representation of your actual metabolic adherence.</p>
 
-            <h2>Conclusion</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion</h2>
             <p>Nutritional success is rarely accidental; it requires measurement and feedback. The Low-Carb Diet Adherence Score Calculator provides an objective, mathematical analysis of your daily habits, stripping away the guesswork.</p>
             <p>By consistently evaluating your macronutrient ratios, you can quickly identify macro creep, prevent the physiological trap of low-carb limbo, and ensure that your daily food intake is perfectly aligned with your long-term metabolic health goals.</p>
           </article>

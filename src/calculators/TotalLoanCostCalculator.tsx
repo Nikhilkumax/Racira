@@ -303,20 +303,20 @@ const TotalLoanCostCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is the Total Loan Cost Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is the Total Loan Cost Calculator?</h2>
             <p>The Total Loan Cost Calculator reveals the true, all-in price of borrowing. Instead of focusing only on the monthly payment, it sums every dollar you will pay across the life of a loan — the principal, all interest charges, and any fees — so you can compare loans on equal footing and understand what borrowing really costs you.</p>
             <p>Borrowers often fixate on the monthly payment and discover too late that a longer term doubled their interest cost. This calculator makes the full cost obvious up front, with a per-component breakdown, an annual amortization schedule, and an effective APR that includes fees. It works for any fixed-rate amortizing loan.</p>
 
-            <h2>How It Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
             <p>The monthly payment on a fixed-rate loan follows the standard amortization formula:</p>
             <p><strong>M = P × r(1+r)<sup>n</sup> / ((1+r)<sup>n</sup> − 1)</strong></p>
             <p>where P is the principal, r is the monthly interest rate (APR ÷ 12), and n is the total number of monthly payments. Multiplying that payment by n gives the total of all scheduled payments. The principal portion of those payments equals P (you pay back exactly what you borrowed), and the remainder is interest. Adding any upfront fees produces the total loan cost.</p>
             <p>The effective APR expresses (interest + fees) as an annualized percentage of the principal, giving you an apples-to-apples comparison rate that includes the cost of fees. A loan with a low stated APR but high fees can have a surprisingly high effective APR.</p>
 
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>The primary result card shows the total loan cost in dollars. The 3-stat bar splits that figure into principal, interest, and fees so you can see which component dominates. The breakdown table expresses each component as a per-month and total figure, then totals everything. The donut chart visualizes the share of each component in the total. The yearly amortization schedule shows how each year's payments split between principal and interest — useful for understanding why the balance drops slowly early in the loan.</p>
 
-            <h2>Key Factors That Drive the Total Cost</h2>
+            <h2 className="text-2xl font-bold mb-3">Key Factors That Drive the Total Cost</h2>
             <ul>
               <li><strong>Principal:</strong> The amount you borrow. Every additional dollar borrowed accrues interest, so borrow only what you need.</li>
               <li><strong>APR:</strong> The annual interest rate. Lower APRs dramatically reduce total cost. Even a 1% difference on a $25,000 five-year loan can change the total cost by $700+.</li>
@@ -325,10 +325,10 @@ const TotalLoanCostCalculator = () => {
               <li><strong>Documentation / application fees:</strong> Sometimes optional and negotiable. Paying these upfront rather than financing them avoids paying interest on the fees themselves.</li>
             </ul>
 
-            <h2>Advanced Features</h2>
+            <h2 className="text-2xl font-bold mb-3">Advanced Features</h2>
             <p>The Advanced Options panel exposes origination and documentation fees. Lenders quote these in different ways — flat dollar amounts, percentages of the loan, or both — so the calculator accepts dollar figures for flexibility. If your lender charges a percentage, multiply it by the loan amount and enter the dollar equivalent.</p>
 
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <h3>Example 1: A typical auto loan</h3>
             <p>A $25,000 auto loan at 8.4% APR for 60 months has a monthly payment of about $512. Over five years you pay $30,720 in total payments — $5,720 of interest on top of the $25,000 principal. Adding a $400 documentation fee brings the total cost to $31,120, with an effective APR of about 8.7%.</p>
             <h3>Example 2: Term comparison</h3>
@@ -336,7 +336,7 @@ const TotalLoanCostCalculator = () => {
             <h3>Example 3: Fee-heavy personal loan</h3>
             <p>A $10,000 personal loan at 11% APR for 36 months with a 6% origination fee ($600) plus a $75 documentation fee has a stated APR of 11% but an effective APR closer to 14.6% once fees are annualized. The total cost climbs from roughly $11,770 (no fees) to $12,445 with fees included.</p>
 
-            <h2>Tips & Best Practices</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
             <ul>
               <li><strong>Compare total cost, not just monthly payment.</strong> A lower payment often hides a higher total cost via a longer term.</li>
               <li><strong>Negotiate or avoid fees.</strong> Origination and documentation fees are sometimes waived, especially at credit unions.</li>
@@ -346,7 +346,7 @@ const TotalLoanCostCalculator = () => {
               <li><strong>Pre-qualify to compare rates without dinging your credit.</strong> Soft-pull pre-qualification lets you see real offers before committing.</li>
             </ul>
 
-            <h2>Benefits of Using This Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Benefits of Using This Calculator</h2>
             <p>By surfacing the full lifetime cost of borrowing, this calculator protects you from payment-focused marketing traps. It lets you compare loans on equal footing (effective APR), see how term and fees change the bottom line, and decide confidently whether a given loan fits your budget and goals. Combined with the Early Loan Payoff Calculator, it gives you a complete picture of both the cost of taking a loan and the savings of paying it off early.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/total-loan-cost-calculator" />

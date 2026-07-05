@@ -141,7 +141,7 @@ const MatrixCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Matrix Operations</h2>
+              <h2 className="text-2xl font-bold mb-3">Matrix Operations</h2>
               <p>Matrices are rectangular arrays of numbers used in linear algebra. This calculator supports addition, multiplication, determinant calculation, and transposition for 2×2 and 3×3 matrices.</p>
             </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/matrix-calculator" />

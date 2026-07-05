@@ -108,7 +108,7 @@ const MonitorDpiCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Why Pixel Density Matters</h2>
+              <h2 className="text-2xl font-bold mb-3">Why Pixel Density Matters</h2>
               <p>When buying a monitor, resolution is only half the story. A "1080p" resolution looks sharp on a 24-inch screen but will look blurry on a 32-inch screen because the pixels are stretched further apart. This is why **PPI (Pixels Per Inch)** is the best way to compare screen clarity.</p>
               <h3>Ideal PPI for Desktop</h3>
               <p>For most users, a PPI between **90 and 110** is considered the "sweet spot" for Windows desktop usage. At this density, text is readable without scaling, and the image is sharp enough for work and gaming. If you go much higher (e.g., 4K at 27-inch / 163 PPI), you will likely need to use Windows OS scaling (125% or 150%) to read comfortably.</p>

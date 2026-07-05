@@ -245,17 +245,17 @@ export default function VehicleWeightCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding Vehicle Weight Limits</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Vehicle Weight Limits</h2>
             <p>Every vehicle on the road, from a tiny Smart car to a massive commercial semi-truck, operates within strict weight boundaries designed by structural engineers. Ignoring these boundaries does not just cause accelerated wear and tear on your vehicle; it introduces catastrophic safety hazards. Overloading a vehicle causes brakes to overheat and fail, tires to blow out due to excessive sidewall pressure, and suspension components to snap.</p>
 
-            <h2>The Three Primary Weight Metrics</h2>
+            <h2 className="text-2xl font-bold mb-3">The Three Primary Weight Metrics</h2>
             <ul>
               <li><strong>Curb Weight:</strong> This is the baseline. Curb weight is the physical weight of your vehicle exactly as it rolled out of the factory, fully fueled and filled with all necessary operating fluids (coolant, oil, etc.). It represents the weight of the vehicle sitting empty at the curb.</li>
               <li><strong>GVWR (Gross Vehicle Weight Rating):</strong> This is the absolute legal and physical limit of the vehicle. If you were to drive your fully loaded vehicle onto a commercial truck scale, the total number on the screen must never exceed the GVWR. This rating is permanently stamped on the metal placard inside the driver's side door jamb.</li>
               <li><strong>Payload Capacity:</strong> This is the functional difference between the GVWR and the Curb Weight. It represents exactly how much weight you are allowed to add to the vehicle. </li>
             </ul>
 
-            <h2>The Hidden Danger of Payload</h2>
+            <h2 className="text-2xl font-bold mb-3">The Hidden Danger of Payload</h2>
             <p>The most common mistake drivers make is assuming "Payload" only refers to luggage in the trunk or dirt in the bed of a pickup truck. In reality, Payload Capacity must account for <em>everything</em> added to the vehicle after it leaves the factory.</p>
             <p>This includes:</p>
             <ul>

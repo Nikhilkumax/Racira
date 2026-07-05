@@ -7,6 +7,7 @@ import FAQSection from "@/components/FAQSection";
 import InputField from "@/components/calculator/InputField";
 import ResultDisplay from "@/components/calculator/ResultDisplay";
 import { RotateCcw, Activity } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from "recharts";
 
 const AdjustedBodyWeightCalculator = () => {
   const [actualWeight, setActualWeight] = useState("220");
@@ -102,13 +103,13 @@ const AdjustedBodyWeightCalculator = () => {
             {showResults && results && (
               <>
                 <h2 className="text-2xl font-bold mb-3">Body Weight Results</h2>
-                <div className="grid sm:grid-cols-2 gap-6 mb-8">
-                  <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
-                    <p className="text-sm font-bold text-primary uppercase tracking-widest mb-1">Adjusted Body Weight</p>
-                    <p className="text-5xl font-black text-foreground">{results.abw.toFixed(1)} {unitSystem === 'imperial' ? 'lb' : 'kg'}</p>
+                <div className="grid sm:grid-cols-2 gap-4 mb-4">
+                  <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative">
+                    <p className="text-xs uppercase tracking-wide text-muted-foreground font-bold mb-1">Adjusted Body Weight</p>
+                    <p className="text-4xl font-black text-primary">{results.abw.toFixed(1)} {unitSystem === 'imperial' ? 'lb' : 'kg'}</p>
                   </div>
-                  <div className="p-6 rounded-2xl bg-secondary/5 border border-secondary/10 text-center flex flex-col justify-center">
-                    <p className="text-sm font-bold text-muted-foreground uppercase tracking-widest mb-1">Ideal Body Weight</p>
+                  <div className="card-calculator p-5 border border-border bg-card shadow-sm flex flex-col justify-center">
+                    <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1">Ideal Body Weight</p>
                     <p className="text-3xl font-black text-foreground">{results.ibw.toFixed(1)} {unitSystem === 'imperial' ? 'lb' : 'kg'}</p>
                   </div>
                 </div>
@@ -117,6 +118,26 @@ const AdjustedBodyWeightCalculator = () => {
                   { label: "Weight Status", value: 0, textValue: results.isOverweight ? "Over 120% of IBW" : "Within 120% of IBW" },
                   { label: "Recommendation", value: 0, textValue: results.isOverweight ? "Use ABW for dosing/nutrition" : "Use Actual Weight or IBW" },
                 ]} />
+                
+                <div className="card-calculator !p-4 border border-border bg-card mt-4">
+                  <h3 className="font-semibold text-sm mb-3">Weight Comparison</h3>
+                  <div className="h-[200px]">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <BarChart data={[
+                        { name: 'Ideal Weight', weight: parseFloat(results.ibw.toFixed(1)), fill: '#10b981' },
+                        { name: 'Adjusted Weight', weight: parseFloat(results.abw.toFixed(1)), fill: '#3b82f6' },
+                        { name: 'Actual Weight', weight: parseFloat(actualWeight), fill: '#f59e0b' }
+                      ]} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                        <XAxis dataKey="name" tick={{ fontSize: 11 }} />
+                        <YAxis tick={{ fontSize: 11 }} />
+                        <Tooltip contentStyle={{ borderRadius: "8px", fontSize: "13px" }} cursor={{fill: "transparent"}} />
+                        <Bar dataKey="weight" radius={[4, 4, 0, 0]}>
+                          {[ '#10b981', '#3b82f6', '#f59e0b' ].map((c, i) => <Cell key={i} fill={c} />)}
+                        </Bar>
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
               </>
             )}
           </div>
@@ -125,12 +146,21 @@ const AdjustedBodyWeightCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Clinical Uses of Body Weight Calculations</h2>
-              <p>In clinical settings, using a patient's actual weight can lead to overdosing or overfeeding if the patient is obese. Using their ideal body weight can lead to underdosing or underfeeding.</p>
-              <h3>Why Use ABW?</h3>
-              <p>Fat tissue has a lower metabolic rate and lower water content than lean muscle tissue. Therefore, someone weighing 300 lbs does not need twice the calories or twice the medication dose as someone weighing 150 lbs of the same height.</p>
-              <h3>When to Apply the Formula</h3>
-              <p>Standard clinical practice suggests using Adjusted Body Weight when a patient's actual weight is greater than 120% or 130% of their Ideal Body Weight, depending on the specific hospital protocol or medication.</p>
+              <h2 className="text-2xl font-bold mb-3">Understanding Adjusted Body Weight (ABW)</h2>
+              <p>In the fields of clinical pharmacology and medical dietetics, accurately estimating a patient's metabolic and spatial requirements is paramount for safe treatment. When a patient's actual body mass heavily exceeds the clinical average for their physical stature, medical professionals must adapt their mathematical models to account for the unique physiological properties of excess adipose tissue (fat). This is where the concept of Adjusted Body Weight (ABW) becomes critical. Adipose tissue is vastly different from lean muscle mass or organ tissue; it contains significantly less intracellular water and requires far less metabolic energy to sustain on a daily basis. Therefore, if a physician were to dose a highly potent, water-soluble medication based entirely on a heavily obese patient's actual total body weight, they would likely administer a massive, potentially toxic overdose. Conversely, if they strictly utilized the patient's Ideal Body Weight (IBW)—which entirely ignores the extra mass the patient is carrying—they would likely under-dose the medication, rendering it entirely ineffective against the infection or condition they are attempting to treat.</p>
+              
+              <h2 className="text-2xl font-bold mb-3">The Mathematics of the ABW Formula</h2>
+              <p>To safely bridge this dangerous gap between actual weight and ideal weight, clinicians utilize the Adjusted Body Weight formula. The mathematical logic behind this formula is both elegant and highly practical. First, it requires the calculation of the patient's Ideal Body Weight, which is universally determined using the Devine formula (established in 1974). For adult males, the Devine formula establishes a baseline of 50 kilograms for the first 5 feet (60 inches) of height, adding 2.3 kilograms for every additional inch. For adult females, the baseline is slightly lower at 45.5 kilograms for the first 5 feet, also adding 2.3 kilograms per additional inch.</p>
+
+              <p>Once the Ideal Body Weight is established, the ABW formula calculates the difference between the patient's Actual Body Weight and their Ideal Body Weight to determine exactly how much excess mass they are carrying. The core assumption of the ABW formula is that roughly 40 percent of this excess adipose tissue is metabolically active or contributes to the volume of distribution for hydrophilic (water-soluble) drugs. Therefore, the formula takes 40 percent of the excess weight and adds it back to the Ideal Body Weight. The final, universally accepted clinical formula reads as follows: Adjusted Body Weight = Ideal Body Weight + 0.4 × (Actual Body Weight - Ideal Body Weight).</p>
+              
+              <h2 className="text-2xl font-bold mb-3">Clinical Application and Thresholds</h2>
+              <p>It is crucial to understand that the Adjusted Body Weight formula is not applied to every single patient in a hospital setting. For patients whose actual weight closely matches their ideal weight, the ABW calculation is completely unnecessary and mathematically redundant. Standard clinical protocols across the globe dictate that ABW should only be calculated and utilized when a patient's actual body weight exceeds their ideal body weight by more than 20 percent (or, in some specific hospital protocols, 30 percent). This 120-percent threshold acts as the standard definition for clinical obesity in the context of pharmacokinetics.</p>
+
+              <p>If a patient is under this 120-percent threshold, medical professionals will almost always use the actual body weight for dosing calculations, as the proportion of excess fat is not significant enough to skew the distribution of the medication. Our calculator is specifically programmed to automatically detect this clinical threshold. When you input the patient's height and weight, the tool instantly calculates the IBW, compares it against the actual weight, and explicitly alerts you if the patient is over the 120-percent threshold, providing a clear clinical recommendation on which weight metric (Actual, Ideal, or Adjusted) should be utilized for subsequent medical calculations.</p>
+
+              <h2 className="text-2xl font-bold mb-3">Pharmacological Importance of ABW</h2>
+              <p>The most common, life-saving application of the Adjusted Body Weight formula is in the dosing of aminoglycoside antibiotics, such as gentamicin, tobramycin, and amikacin. These are incredibly powerful drugs used to combat severe, often life-threatening bacterial infections. However, they are also highly hydrophilic, meaning they strictly distribute into the body's water compartments and do not penetrate fat tissue well. Furthermore, they possess an incredibly narrow therapeutic index, meaning the difference between a dose that cures the infection and a dose that causes irreversible kidney failure or permanent hearing loss is dangerously small. If a clinician doses gentamicin based on a severely obese patient's actual weight, the massive dose will not absorb into the fat tissue; instead, it will aggressively concentrate in the blood plasma and organs, almost guaranteeing severe toxicity. By utilizing the Adjusted Body Weight calculator, pharmacists and physicians can rapidly determine the precise, safe dosage required to eradicate the infection without destroying the patient's vital organs.</p>
             </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/adjusted-body-weight" />
           <PopularCalculators exclude="/calculator/adjusted-body-weight-calculator" />

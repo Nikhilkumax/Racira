@@ -268,13 +268,13 @@ const CarInsuranceSavingsFromSafetyFeaturesCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is the Safety Feature Insurance Savings Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is the Safety Feature Insurance Savings Calculator?</h2>
             <p>This calculator estimates how much you can save on car insurance premiums by having safety features installed on your vehicle. Most major insurers offer discounts of 3–15% for each qualifying safety feature, and the savings stack. Combined with a clean driving record and multi-policy bundle, you can reduce your premium by 30–60%.</p>
 
-            <h2>How It Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
             <p>Enter your current annual premium and check the safety features your vehicle has. The calculator applies each feature's typical discount percentage, caps stacked feature discounts at 30%, and adds optional good-driver (20%) and multi-policy bundle (15%) discounts. Total savings are capped at 60% of your base premium.</p>
 
-            <h2>Which Safety Features Get the Biggest Discounts?</h2>
+            <h2 className="text-2xl font-bold mb-3">Which Safety Features Get the Biggest Discounts?</h2>
             <ul>
               <li><strong>Automatic Emergency Braking (AEB):</strong> 10–15% — insurers love this feature because it prevents the most common type of crash (rear-end collisions).</li>
               <li><strong>Forward Collision Warning (FCW):</strong> 10% — alerts drivers to impending collisions.</li>
@@ -285,10 +285,10 @@ const CarInsuranceSavingsFromSafetyFeaturesCalculator = () => {
               <li><strong>Anti-theft Alarm:</strong> 5% — deters break-ins.</li>
             </ul>
 
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>The primary result shows your annual savings and total discount percentage. The 3-stat bar compares old premium, new premium, and 5-year savings. The breakdown table itemizes each applied discount with its dollar savings. The horizontal bar chart visualizes which features contribute the most.</p>
 
-            <h2>How to Maximize Your Savings</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Maximize Your Savings</h2>
             <ul>
               <li><strong>Document every feature.</strong> Provide your insurer with a complete list — they don't always apply discounts automatically.</li>
               <li><strong>Bundle home + auto.</strong> Multi-policy discounts can save 10–25% on auto insurance.</li>
@@ -297,10 +297,10 @@ const CarInsuranceSavingsFromSafetyFeaturesCalculator = () => {
               <li><strong>Shop around annually.</strong> Different insurers weight safety features differently — you may find 10–15% more savings by switching.</li>
             </ul>
 
-            <h2>Practical Example</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Example</h2>
             <p>A driver with a $1,800 annual premium, automatic emergency braking (15%), airbags (10%), forward collision warning (10%), good driver (20%), and home bundle (15%) could save $1,080/year — reducing the premium to $720. Over 5 years, that's $5,400 in savings.</p>
 
-            <h2>Benefits of Using This Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Benefits of Using This Calculator</h2>
             <p>This tool reveals savings most drivers overlook. By understanding which features generate the largest discounts, you can make smarter vehicle purchase decisions, prioritize aftermarket safety upgrades, and ensure your current insurer is applying all eligible discounts to your policy.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/car-insurance-savings-from-safety-features-calculator" />

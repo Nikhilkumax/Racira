@@ -88,9 +88,7 @@ const InvestmentPropertyCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">
-                  <Building className="h-5 w-5" /> Analyze Property
-                </button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground">
+                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">Calculate</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground">
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
@@ -127,7 +125,7 @@ const InvestmentPropertyCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Investing in Real Estate</h2>
+              <h2 className="text-2xl font-bold mb-3">Investing in Real Estate</h2>
               <p>Real estate is one of the most reliable ways to build long-term wealth, but not every property is a good investment. Running the numbers is the difference between a profitable asset and a "money pit."</p>
               <h3>Cash Flow is King</h3>
               <p>While appreciation (the increase in property value) is a great bonus, professional investors focus on cash flow. Monthly cash flow is the money left over after all expenses, including the mortgage, have been paid. Positive cash flow provides a safety net for repairs and allows you to reinvest in more properties.</p>

@@ -138,7 +138,7 @@ const MortgageAffordabilityCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Being "House Poor"</h2>
+              <h2 className="text-2xl font-bold mb-3">Being "House Poor"</h2>
               <p>Just because a bank approves you for a massive loan does not mean you should take it. Lenders look at your gross income (before taxes) when calculating your Debt-to-Income (DTI) ratio. They do not factor in your groceries, childcare, retirement savings, or lifestyle costs.</p>
               <h3>The 28/36 Rule</h3>
               <p>Financial experts widely recommend keeping your housing costs below 28% of your gross income, and your total debts (housing + everything else) below 36%. If you push your DTI to the absolute maximum allowed by lenders (43-50%), you will likely struggle to afford everyday emergencies or basic vacations.</p>

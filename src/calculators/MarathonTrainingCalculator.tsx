@@ -202,11 +202,11 @@ export default function MarathonTrainingCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Mastering Marathon Training Paces</h2>
+            <h2 className="text-2xl font-bold mb-3">Mastering Marathon Training Paces</h2>
             <p>This <strong>Marathon Training Pace Calculator</strong> takes your goal finish time and reverse-engineers the exact paces you need to run during your weekly training blocks. Whether you are aiming for a sub-3 hour Boston Qualifier or looking to finish your first race under 4 hours, strictly adhering to these varied training zones is the key to preventing injury and building endurance.</p>
-            <h2>The 80/20 Rule of Distance Running</h2>
+            <h2 className="text-2xl font-bold mb-3">The 80/20 Rule of Distance Running</h2>
             <p>The biggest mistake amateur runners make is running their easy runs too fast and their hard runs too slow, creating a "junk mile" gray zone. Elite athletes follow the 80/20 rule (polarized training): 80% of your weekly mileage should be run at an incredibly slow, conversational <strong>Easy Pace</strong>. This builds your aerobic base, increases mitochondrial density, and allows your legs to recover. Only 20% of your miles should be run at the strenuous <strong>Tempo</strong> or <strong>Interval</strong> paces.</p>
-            <h2>Why Your Easy Pace Must Be Slow</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Your Easy Pace Must Be Slow</h2>
             <p>If your marathon goal is 3:30:00 (an 8:00/mile pace), this calculator will suggest an Easy Pace of roughly 10:00/mile. For many, this feels agonizingly slow. However, if you run your easy miles at an 8:45 pace, you are generating excess lactic acid and residual fatigue. When Wednesday's Tempo workout arrives, your legs will be too heavy to hit the required speeds. Slow down on your easy days so you can actually run fast on your hard days. Related tools: <a href="/calculator/calories-burned-walking">Walking Calorie Calculator</a>, <a href="/calculator/cycling-calories-calculator">Cycling Calculator</a>.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/marathon-training-calculator" />

@@ -134,7 +134,7 @@ const ProteinIntakeCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Why Protein Matters</h2>
+              <h2 className="text-2xl font-bold mb-3">Why Protein Matters</h2>
               <p>Protein is the building block of muscle, skin, enzymes, and hormones. Unlike fats and carbohydrates, the body does not store protein effectively, meaning you need a consistent daily intake.</p>
               <h3>Protein and Fat Loss</h3>
               <p>When in a caloric deficit (eating fewer calories than you burn), higher protein intake is essential. It prevents the body from burning muscle tissue for energy and provides a high level of satiety, keeping you fuller for longer compared to carbs or fats.</p>

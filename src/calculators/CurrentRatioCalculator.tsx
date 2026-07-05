@@ -142,20 +142,20 @@ export default function CurrentRatioCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10"/>
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is the Current Ratio?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is the Current Ratio?</h2>
             <p>The current ratio is a liquidity ratio that measures a company&apos;s ability to pay its short-term obligations with its short-term assets. It is the most basic and widely cited liquidity metric in financial statement analysis, appearing in credit agreements, loan covenants, and equity research reports worldwide.</p>
-            <h2>Current Ratio Formula</h2>
+            <h2 className="text-2xl font-bold mb-3">Current Ratio Formula</h2>
             <p><strong>Current Ratio = Current Assets ÷ Current Liabilities</strong></p>
             <p>Current assets include cash, marketable securities, accounts receivable, inventory, and prepaid expenses — all items expected to convert to cash within 12 months. Current liabilities include accounts payable, accrued expenses, short-term debt, and the current portion of long-term debt.</p>
-            <h2>Interpreting the Current Ratio</h2>
+            <h2 className="text-2xl font-bold mb-3">Interpreting the Current Ratio</h2>
             <p>A ratio above 1.0 means current assets cover current liabilities. The commonly accepted "safe" range is 1.5–2.0. A ratio below 1.0 signals that the company cannot fully cover its near-term obligations from existing assets alone — a potential liquidity red flag. However, some business models (notably large retailers) routinely operate below 1.0 without distress due to their fast cash-collection cycles.</p>
-            <h2>Current Ratio vs. Quick Ratio vs. Cash Ratio</h2>
+            <h2 className="text-2xl font-bold mb-3">Current Ratio vs. Quick Ratio vs. Cash Ratio</h2>
             <p>The three ratios form a liquidity spectrum from most to least inclusive. The current ratio is the broadest. The quick ratio removes inventory (formula: (Current Assets − Inventory) ÷ Current Liabilities), providing a stricter test. The cash ratio is the most conservative, using only cash and short-term investments. For capital-intensive or inventory-heavy industries, the quick ratio is often more meaningful.</p>
-            <h2>Working Capital and Operational Liquidity</h2>
+            <h2 className="text-2xl font-bold mb-3">Working Capital and Operational Liquidity</h2>
             <p>Working capital = Current Assets − Current Liabilities. Positive working capital funds day-to-day operations. Negative working capital occurs in fast-collection businesses (Amazon, Walmart) where customers pay instantly but suppliers extend credit — creating a self-financing "float." This is a structural advantage, not a danger sign, when driven by strong negotiating power over suppliers.</p>
-            <h2>Industry Benchmarks</h2>
+            <h2 className="text-2xl font-bold mb-3">Industry Benchmarks</h2>
             <p>Typical current ratios by sector: Retail/Grocery: 0.8–1.2. Manufacturing: 1.5–2.5. Technology (asset-light): 2.0–4.0. Utilities: 0.8–1.3. Healthcare: 1.5–2.5. Always compare a company&apos;s current ratio to its direct peers rather than using a universal benchmark.</p>
-            <h2>Limitations of the Current Ratio</h2>
+            <h2 className="text-2xl font-bold mb-3">Limitations of the Current Ratio</h2>
             <p>The current ratio is a point-in-time snapshot and can be easily manipulated near reporting dates (window dressing). It does not reflect cash flow quality, the liquidity of receivables, or the age of inventory. A high ratio with slow-moving inventory and uncollectible receivables may be worse than a lower ratio with high-quality liquid assets.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/current-ratio-calculator"/>

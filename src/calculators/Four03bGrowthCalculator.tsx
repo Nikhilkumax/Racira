@@ -434,7 +434,7 @@ export default function Four03bGrowthCalculator() {
 
         {/* SEO CONTENT SECTION */}
         <div className="max-w-[800px] mt-16 prose prose-slate dark:prose-invert">
-          <h2>What is a 403(b) Growth Calculator?</h2>
+          <h2 className="text-2xl font-bold mb-3">What is a 403(b) Growth Calculator?</h2>
           <p>
             A 403(b) Growth Calculator is a specialized financial planning tool designed to forecast the future value of a 403(b) retirement account. By taking into account your current savings, ongoing payroll contributions, employer match (if applicable), and an expected rate of return, it provides a clear picture of how compound interest will build your retirement nest egg over time.
           </p>
@@ -442,7 +442,7 @@ export default function Four03bGrowthCalculator() {
             A 403(b) plan, often referred to as a tax-sheltered annuity (TSA) plan, is essentially the public sector and non-profit equivalent of a 401(k). These plans are offered by public schools, universities, hospitals, churches, and 501(c)(3) organizations. The tax advantages and contribution limits are nearly identical to those of a 401(k), but the investment options sometimes differ, traditionally leaning toward annuities, though mutual funds are very common today.
           </p>
 
-          <h2>The Math of Compounding in a 403(b)</h2>
+          <h2 className="text-2xl font-bold mb-3">The Math of Compounding in a 403(b)</h2>
           <p>
             The true power of any retirement account lies in compound interest. This means you earn interest not only on the money you contribute but also on the interest that money has already earned. Over decades, this snowball effect is what turns consistent, modest monthly savings into a multi-million dollar portfolio.
           </p>
@@ -455,7 +455,7 @@ export default function Four03bGrowthCalculator() {
             <li><strong>Interest Earned:</strong> The sharply curving, exponential area that eventually dominates the entire chart. After 20 to 30 years, the vast majority of your retirement wealth will consist entirely of compound interest.</li>
           </ol>
 
-          <h2>Special Rules for 403(b) Contributions</h2>
+          <h2 className="text-2xl font-bold mb-3">Special Rules for 403(b) Contributions</h2>
           <p>
             While 403(b) plans share the standard contribution limits with 401(k)s (e.g., $23,000 in 2024, plus a $7,500 catch-up for those 50 and older), 403(b)s have a unique "15-Year Rule" that sets them apart.
           </p>
@@ -463,7 +463,7 @@ export default function Four03bGrowthCalculator() {
             If you have worked for the same eligible employer (such as a school district or hospital) for 15 years or more, and your previous contributions averaged less than $5,000 per year, you may be allowed to contribute up to $3,000 extra per year, up to a lifetime maximum of $15,000. This is an incredibly valuable catch-up provision for long-tenured educators and healthcare workers who may not have been able to save aggressively early in their careers.
           </p>
 
-          <h2>Dealing with 403(b) Fees</h2>
+          <h2 className="text-2xl font-bold mb-3">Dealing with 403(b) Fees</h2>
           <p>
             One crucial factor to consider when estimating your "Expected Return" is the impact of fees. Historically, many 403(b) plans—particularly in K-12 school districts—have been heavily populated by high-fee variable annuities sold by insurance brokers.
           </p>
@@ -471,7 +471,7 @@ export default function Four03bGrowthCalculator() {
             If your investments are charging you 2% to 3% annually in administrative and mortality fees, you must subtract that from your expected gross market return. For example, if the market returns 8%, but your fees are 2.5%, your actual return is only 5.5%. Over 30 years, that difference will cost you hundreds of thousands of dollars in lost compounding. It is highly recommended to seek out low-cost index mutual funds within your 403(b) lineup whenever possible.
           </p>
 
-          <h2>Benefits of Using This Calculator</h2>
+          <h2 className="text-2xl font-bold mb-3">Benefits of Using This Calculator</h2>
           <p>
             For teachers, nurses, and non-profit employees, pension plans are often a major part of the retirement picture. However, pensions rarely replace 100% of your pre-retirement income. Using a 403(b) Growth Calculator helps you understand exactly how much supplemental income you are building to bridge that gap. By seeing the mathematical reality of your savings rate today, you can make informed adjustments to secure the comfortable, stress-free retirement you have earned through your service.
           </p>

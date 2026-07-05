@@ -141,7 +141,7 @@ const SubscriptionCostCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>The Hidden Cost of 'Small' Monthly Fees</h2>
+              <h2 className="text-2xl font-bold mb-3">The Hidden Cost of 'Small' Monthly Fees</h2>
               <p>In the digital economy, everything has moved to a subscription model. While $10 or $20 a month feels insignificant, these recurring costs act like a 'leak' in your bucket of wealth. Over 10 years, a simple $15/mo Netflix subscription costs you $1,800—and that's without considering what that money could have earned if invested.</p>
               <h3>Auditing Your Subscriptions</h3>
               <p>We recommend a 'Subscription Audit' every 6 months. Cancel anything you haven't used in the last 30 days. Most services allow you to restart your subscription instantly if you ever need it again, so there is no risk in pausing unused accounts.</p>

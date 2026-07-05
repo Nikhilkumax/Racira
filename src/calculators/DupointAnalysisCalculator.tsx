@@ -136,20 +136,20 @@ export default function DupointAnalysisCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is DuPont Analysis?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is DuPont Analysis?</h2>
             <p>DuPont Analysis is a fundamental equity research framework that decomposes Return on Equity (ROE) into three operational and financial components: profitability, asset efficiency, and financial leverage. Developed by the DuPont Corporation in the 1920s, it remains one of the most powerful diagnostic tools in financial statement analysis, revealing not just how much return a company earns for shareholders, but precisely why that return exists and whether it is sustainable.</p>
-            <h2>The 3-Factor DuPont Formula</h2>
+            <h2 className="text-2xl font-bold mb-3">The 3-Factor DuPont Formula</h2>
             <p><strong>ROE = Net Profit Margin × Asset Turnover × Equity Multiplier</strong></p>
             <p>Expanding each: ROE = (Net Income ÷ Revenue) × (Revenue ÷ Total Assets) × (Total Assets ÷ Equity). Note that Revenue and Total Assets cancel algebraically to give Net Income ÷ Equity — the simple ROE formula. The power of DuPont is that it preserves these components for diagnostic insight before cancellation.</p>
-            <h2>Interpreting Each Component</h2>
+            <h2 className="text-2xl font-bold mb-3">Interpreting Each Component</h2>
             <p><strong>Net Profit Margin:</strong> How much of each revenue dollar becomes profit. High margins indicate pricing power, efficient cost management, or favorable industry economics. Software companies often have 20–30% margins; grocery retailers operate at 1–3%. <strong>Asset Turnover:</strong> How many revenue dollars are generated per dollar of assets. Asset-heavy industries (steel, utilities) have low turnover; service businesses have high turnover. <strong>Equity Multiplier:</strong> Total Assets ÷ Equity — a measure of financial leverage. A multiplier of 2.0 means $2 of assets for every $1 of equity, implying $1 of debt financing.</p>
-            <h2>ROE Quality Analysis</h2>
+            <h2 className="text-2xl font-bold mb-3">ROE Quality Analysis</h2>
             <p>Two companies with identical ROE may have dramatically different quality. Company A: 20% ROE = 10% margin × 2.0× turnover × 1.0× multiplier (no leverage — earned entirely through operations). Company B: 20% ROE = 5% margin × 2.0× turnover × 2.0× multiplier (half the operational efficiency, doubled with leverage). Company A&apos;s ROE is more sustainable and less risky. DuPont analysis makes this distinction explicit.</p>
-            <h2>Industry Benchmarks</h2>
+            <h2 className="text-2xl font-bold mb-3">Industry Benchmarks</h2>
             <p>Technology (software): High margin (20–30%), moderate turnover (0.6–1.0×), low leverage. Retail: Low margin (1–5%), high turnover (2–4×), moderate leverage. Banking: Very thin operating margin, very low turnover, very high leverage (10–15×). Manufacturing: Moderate margin (5–15%), moderate turnover (0.8–1.5×), moderate leverage. Always compare DuPont components to industry peers rather than universal benchmarks.</p>
-            <h2>Using DuPont for Investment Decisions</h2>
+            <h2 className="text-2xl font-bold mb-3">Using DuPont for Investment Decisions</h2>
             <p>Improving ROE via margin expansion (better pricing, cost cuts) is the highest quality improvement signal. Improving ROE via turnover (more efficient asset use, faster inventory) is healthy. Improving ROE via leverage increases financial risk and may mask operational deterioration. Investors should reward margin and turnover-driven ROE expansion and scrutinize leverage-driven ROE improvements carefully, especially in rising interest rate environments.</p>
-            <h2>The Extended 5-Factor DuPont Model</h2>
+            <h2 className="text-2xl font-bold mb-3">The Extended 5-Factor DuPont Model</h2>
             <p>The 5-factor model further decomposes margin into: Tax Burden (Net Income ÷ Pre-Tax Income) × Interest Burden (Pre-Tax Income ÷ EBIT) × EBIT Margin (EBIT ÷ Revenue) × Asset Turnover × Equity Multiplier. This granular breakdown isolates the effects of taxes, interest expense, and operating efficiency separately — useful for analyzing how changes in tax policy or debt structure impact ROE.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/dupont-analysis-calculator" />

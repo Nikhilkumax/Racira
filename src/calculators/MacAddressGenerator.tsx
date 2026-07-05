@@ -155,7 +155,7 @@ const MacAddressGenerator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>How MAC Addresses Work</h2>
+              <h2 className="text-2xl font-bold mb-3">How MAC Addresses Work</h2>
               <p>MAC addresses operate at the Data Link layer (Layer 2) of the OSI model. While IP addresses route traffic across global networks, MAC addresses are responsible for delivering data packets to the correct physical device on a local network segment (like your home Wi-Fi or office LAN).</p>
               
               <h3>Structure of a MAC Address</h3>

@@ -115,7 +115,7 @@ const OneRepMaxCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Using Your 1RM for Training</h2>
+              <h2 className="text-2xl font-bold mb-3">Using Your 1RM for Training</h2>
               <p>Almost all professional strength and hypertrophy programs base your daily working weights on a percentage of your One Rep Max. Instead of guessing how much weight to put on the bar, you use precise percentages to target different physiological adaptations.</p>
               <h3>Training Zones</h3>
               <ul>

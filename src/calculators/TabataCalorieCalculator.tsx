@@ -296,10 +296,10 @@ export default function TabataCalorieCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Mathematics of Maximum Effort: The Tabata Protocol</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of Maximum Effort: The Tabata Protocol</h2>
             <p>In 1996, Dr. Izumi Tabata, a researcher at the National Institute of Fitness and Sports in Tokyo, sought to find a way to improve the cardiovascular conditioning of the Japanese Olympic speed skating team. His research resulted in the discovery of arguably the most brutal and thermodynamically efficient interval protocol ever created: the 20/10 ratio. Today, the word "Tabata" is thrown around loosely in commercial gyms, but very few people understand the strict mathematics and physiological demands required to perform it correctly. The <strong>Tabata Calorie Calculator</strong> bypasses generic fitness watch estimations by utilizing clinical Metabolic Equivalent (MET) formulas to calculate the exact thermodynamic cost of pushing the human body into a state of severe oxygen debt.</p>
 
-            <h2>Understanding the 4-Minute Cycle</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the 4-Minute Cycle</h2>
             <p>Unlike traditional steady-state cardio (like jogging for 45 minutes) or standard High-Intensity Interval Training (where you might sprint for 1 minute and rest for 2 minutes), a true Tabata cycle is astonishingly short and mathematically rigid. </p>
             <p>One Tabata cycle lasts exactly <strong>4 minutes</strong>. It is comprised of 8 identical rounds:</p>
             <ul>
@@ -308,11 +308,11 @@ export default function TabataCalorieCalculator() {
             </ul>
             <p>Because the 10-second rest period is mathematically too short for your heart rate to recover and for your blood to clear the building lactic acid, the physical suffering compounds exponentially with each round. By round 6, your cardiovascular system is operating near its absolute maximum threshold.</p>
 
-            <h2>Why Tabata Burns More Calories Than Jogging</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Tabata Burns More Calories Than Jogging</h2>
             <p>If you jog on a treadmill for 4 minutes, you might burn 40 calories. Your body is operating aerobically—it is pulling in enough oxygen to comfortably fuel your muscles. Your heart rate remains at a steady, moderate plateau.</p>
             <p>A 4-minute Tabata completely destroys this efficiency. Because you are forcing your body to output explosive energy faster than your lungs can supply oxygen, you cross the "anaerobic threshold." Your muscles must rapidly break down stored glycogen (sugar) without oxygen, resulting in a massive spike in heart rate and lactic acid accumulation. This massive internal stress forces the heart to pump at maximum capacity, resulting in a MET value (up to 14.5) that dwarfs standard running. From a purely mathematical standpoint, those 4 minutes of absolute agony will burn significantly more calories per minute than almost any other exercise on earth.</p>
 
-            <h2>The Difference Between "True" Tabata and "Modified" Tabata</h2>
+            <h2 className="text-2xl font-bold mb-3">The Difference Between "True" Tabata and "Modified" Tabata</h2>
             <p>A common mistake in the fitness industry is slapping the word "Tabata" onto any 20/10 interval workout. Our calculator differentiates between these intensities using precise MET values:</p>
             <ul>
               <li><strong>Moderate Effort (MET 10.0):</strong> You are performing bodyweight squats, push-ups, or jumping jacks using the 20/10 timer. While difficult, these exercises do not allow you to reach 100% cardiovascular failure. Your muscles will likely burn out before your lungs do. This is highly effective for burning fat, but it is not a true Tabata.</li>
@@ -320,15 +320,15 @@ export default function TabataCalorieCalculator() {
               <li><strong>True Tabata Max (MET 14.5):</strong> You are on an air bike (like an Assault Bike) or a rowing machine, sprinting at 100% maximum output for all 20 seconds. By the end of the 4 minutes, you are physically unable to continue and likely lying on the floor. This generates the absolute highest mathematically possible calorie burn per minute.</li>
             </ul>
 
-            <h2>Physics and Body Mass</h2>
+            <h2 className="text-2xl font-bold mb-3">Physics and Body Mass</h2>
             <p>Like all bodyweight-driven calisthenics, your overall mass heavily influences your total caloric expenditure during a Tabata cycle. The physics formula is immutable: Force = Mass × Acceleration.</p>
             <p>If a 240-pound athlete and a 140-pound athlete both perform a 4-minute Tabata of burpees, the 240-pound athlete had to perform drastically more mechanical "work." Their leg and chest muscles had to propel an extra 100 pounds of mass off the floor and into the air repeatedly. Because their larger body requires more physiological energy (ATP) to perform the exact same movements, they will mathematically burn a significantly higher absolute number of calories.</p>
 
-            <h2>The Real Magic: The Afterburn Effect (EPOC)</h2>
+            <h2 className="text-2xl font-bold mb-3">The Real Magic: The Afterburn Effect (EPOC)</h2>
             <p>If a 4-minute Tabata only burns 60 to 80 absolute calories during the actual workout, how can it be good for weight loss? The answer is <strong>Excess Post-Exercise Oxygen Consumption (EPOC)</strong>, commonly known as the "Afterburn Effect."</p>
             <p>Dr. Tabata's research proved that pushing the body so deeply into an anaerobic state creates a massive oxygen debt. After the 4 minutes are over and you return to the locker room, your body cannot immediately return to normal. It must rapidly consume oxygen and burn additional calories for up to 14 to 24 hours just to repair the micro-tears in your muscles, clear the massive lactic acid buildup, and restore your core temperature. A true Tabata continues to burn "bonus" calories long after you have stopped sweating.</p>
 
-            <h2>Conclusion: Quality Over Quantity</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Quality Over Quantity</h2>
             <p>More is not always better. If you can perform 10 Tabata cycles (40 minutes) in a row, you are not doing Tabata; you are doing moderate-intensity circuit training. The goal of this protocol is absolute cardiovascular devastation in the shortest time possible. Stop relying on inaccurate wrist trackers that misread your heart rate spikes. Use the Tabata Calorie Calculator to track your true 4-minute outputs, maintain a disciplined caloric deficit in your kitchen, and watch your cardiovascular engine transform.</p>
           </article>
           

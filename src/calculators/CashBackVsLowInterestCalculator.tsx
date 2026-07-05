@@ -272,35 +272,35 @@ export default function CashBackVsLowInterestCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is the Cash Back vs Low Interest Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is the Cash Back vs Low Interest Calculator?</h2>
             <p>When financing a vehicle purchase, dealers often offer two mutually exclusive incentives: a cash rebate or a subsidized interest rate. This cash back vs low interest calculator helps you determine which incentive saves you more money over the life of your loan. The right choice depends on the loan amount, term length, rate differential, and how long you plan to keep the financing in place.</p>
             <p>This tool is used by car buyers, fleet managers, and personal finance planners who want to make an informed financing decision rather than relying on the dealer's recommendation.</p>
 
-            <h2>How It Works — The Formulas</h2>
+            <h2 className="text-2xl font-bold mb-3">How It Works — The Formulas</h2>
             <p>Both options are compared using the standard amortization formula: M = P × [r(1+r)^n] / [(1+r)^n − 1], where P is the principal, r is the monthly interest rate, and n is the number of payments.</p>
             <p><strong>Cash Back Option:</strong> The rebate reduces your loan principal. You finance (Vehicle Price − Down Payment − Cash Rebate) at the standard market rate. Total interest = (Monthly Payment × n) − Reduced Principal.</p>
             <p><strong>Low Interest Option:</strong> No rebate is applied; you finance the full (Vehicle Price − Down Payment) at the promotional rate. Total interest = (Monthly Payment × n) − Full Principal.</p>
             <p>The <strong>break-even point</strong> is calculated by dividing the cash rebate by the monthly payment difference between the two options. If you plan to pay off the loan before the break-even, cash back is likely better.</p>
 
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>The primary result card highlights the winning option — the one that results in lower total interest paid. The savings figures represent how much each option saves compared to financing at the full standard rate with no incentive. The break-even months indicate when the two options are equivalent in total cost.</p>
 
-            <h2>Key Factors Explained</h2>
+            <h2 className="text-2xl font-bold mb-3">Key Factors Explained</h2>
             <p><strong>Vehicle Price:</strong> The MSRP or negotiated purchase price. Both rebate and interest savings scale with this number.</p>
             <p><strong>Standard Rate:</strong> The benchmark financing rate without any incentives, typically 6–9% for new vehicles. This is what you would pay if you took the cash-back option.</p>
             <p><strong>Low Interest Rate:</strong> The promotional rate offered by the manufacturer, ranging from 0% to 3.9% in typical campaigns.</p>
             <p><strong>Cash Back Percentage:</strong> The rebate expressed as a percentage of the vehicle price. Common rebates range from 1% to 5%.</p>
             <p><strong>Loan Term:</strong> Longer terms (72 months) favor low interest because the rate difference compounds over more periods. Short terms (24 months) often favor cash back.</p>
 
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <p><strong>Example 1 — Short Term:</strong> $35,000 vehicle, 36-month term, 7.9% vs 1.9% with 2% cash back ($700). Cash back wins because the short term limits interest accumulation.</p>
             <p><strong>Example 2 — Long Term:</strong> Same vehicle at 72 months. The low interest rate saves far more total interest, making 1.9% financing the clear winner.</p>
             <p><strong>Example 3 — High Rebate:</strong> A 5% cash back on a $40,000 vehicle ($2,000 rebate) at 60 months may beat a 0.9% rate if the standard rate is high enough to create large interest savings on the reduced balance.</p>
 
-            <h2>Tips and Best Practices</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips and Best Practices</h2>
             <p>Always negotiate the vehicle price before discussing financing — dealers sometimes inflate prices when buyers focus on the monthly payment. Check if the promotional rate has income or credit score requirements. In some cases, a bank loan at a competitive rate combined with the cash rebate beats both dealer options. If you plan to refinance early, lean toward cash back. Consider the opportunity cost: cash back is immediate value, while interest savings accrue over time.</p>
 
-            <h2>Benefits of Using This Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Benefits of Using This Calculator</h2>
             <p>This calculator eliminates guesswork from one of the most common automotive financing decisions. It performs precise amortization math in real time, calculates your break-even point, and delivers a clear winner with a quantified advantage — giving you negotiating confidence at the dealership.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/cash-back-vs-low-interest-calculator" />

@@ -420,10 +420,10 @@ export default function MacronutrientCalorieDistributionCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Macronutrient Calorie Distribution Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Macronutrient Calorie Distribution Calculator</h2>
             <p>In the hierarchy of nutritional importance, Total Calories dictate whether you will gain or lose weight. However, your <strong>Macronutrients (Macros)</strong> dictate your body composition—specifically, whether that weight gained or lost comes from muscle or fat. "If It Fits Your Macros" (IIFYM) is a scientifically validated dieting approach that ignores restrictive food rules (like "no eating after 8 PM" or "no white bread") and focuses entirely on hitting specific daily targets of Protein, Carbohydrates, and Fats. The <strong>Macronutrient Calorie Distribution Calculator</strong> acts as the architectural blueprint for your diet, taking your raw calorie target and converting it into physical, trackable grams.</p>
 
-            <h2>The Mathematics of Macros (4-4-9 Rule)</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of Macros (4-4-9 Rule)</h2>
             <p>To use this calculator effectively, you must understand the immutable mathematical laws of human digestion. All food and drink containing energy is composed of one or more of the three macronutrients. Each macronutrient yields a specific amount of energy (measured in kilocalories) per gram:</p>
             <ul>
               <li><strong>Protein:</strong> Yields exactly <strong>4 kilocalories</strong> per gram.</li>
@@ -433,7 +433,7 @@ export default function MacronutrientCalorieDistributionCalculator() {
             <p>(Note: Alcohol is a pseudo-macronutrient that yields 7 kilocalories per gram, but it offers zero nutritional value and is treated as a toxin by the liver, thus it is excluded from macro planning).</p>
             <p>This "4-4-9" reality is why fatty foods are so much more calorically dense than lean foods. A 100-gram piece of chicken breast (mostly protein) might contain 160 calories. A 100-gram scoop of peanut butter (mostly fat) contains over 600 calories. Because fat contains more than double the energy density of carbs and protein, your fat macro percentage in the calculator translates to a much smaller physical gram allowance.</p>
 
-            <h2>The Big Three: Roles and Requirements</h2>
+            <h2 className="text-2xl font-bold mb-3">The Big Three: Roles and Requirements</h2>
             <p>Each macronutrient performs a drastically different biological function in the human body. An optimized diet ensures all three are present in specific ratios.</p>
 
             <h3>1. Protein (The Builder)</h3>
@@ -445,7 +445,7 @@ export default function MacronutrientCalorieDistributionCalculator() {
             <h3>3. Dietary Fats (The Regulator)</h3>
             <p>During the fat-phobia craze of the 1990s, the fitness industry believed that eating dietary fat caused you to gain body fat. This is entirely false. Dietary fat is a critical macronutrient required to absorb fat-soluble vitamins (A, D, E, and K) and, most importantly, to synthesize hormones like testosterone and estrogen. If your fat intake drops below roughly 0.3 grams per pound of body weight, your hormonal profile will crash, leading to zero libido, depression, and severe fatigue.</p>
 
-            <h2>Decoding the Distribution Strategies</h2>
+            <h2 className="text-2xl font-bold mb-3">Decoding the Distribution Strategies</h2>
             <p>The calculator provides several scientifically validated distribution presets designed for different physiological goals.</p>
 
             <h3>The Bodybuilding Split (40p / 40c / 20f)</h3>
@@ -460,11 +460,11 @@ export default function MacronutrientCalorieDistributionCalculator() {
             <h3>The Balanced / Zone Diet (30p / 40c / 30f)</h3>
             <p>This is the most sustainable approach for the average human being who wants to look good, feel energetic, and maintain their sanity. Popularized by the Zone Diet, it avoids extremes. It provides enough protein to maintain a great physique, enough carbs to feel energized in the gym, and enough fat to make meals taste delicious (allowing for items like avocado, olive oil, and cheese).</p>
 
-            <h2>How to Track Your Macros in the Real World</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Track Your Macros in the Real World</h2>
             <p>Once the calculator provides your targets (e.g., 180g Protein, 200g Carbs, 60g Fat), the execution phase begins. You must use a digital food scale and a tracking application (like MyFitnessPal or MacroFactor) to log the physical weight of everything you eat. If you eat 100 grams of raw chicken breast, the app will log roughly 23 grams of protein and 1 gram of fat toward your daily targets.</p>
             <p>The beauty of IIFYM is its absolute flexibility. If you have 40 grams of Carbohydrates and 15 grams of Fat left at 9:00 PM, you can technically eat a Snickers bar to hit those targets. Your body will process the macronutrients exactly the same way mathematically. (Though, of course, doing this every day will leave you deficient in micronutrients and vitamins).</p>
 
-            <h2>Conclusion: Precision Yields Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Precision Yields Results</h2>
             <p>The most elite physiques in the world are not built by "eating clean" and guessing portion sizes; they are built through mathematical precision. Use the Macronutrient Calorie Distribution Calculator to generate your personalized blueprint, hit your targets with a +/- 5 gram variance every single day, and watch your body transform predictably and consistently.</p>
           </article>
           

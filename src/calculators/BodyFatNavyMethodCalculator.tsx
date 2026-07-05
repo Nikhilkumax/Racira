@@ -401,30 +401,30 @@ export default function BodyFatNavyMethodCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Limitations of the Bathroom Scale</h2>
+            <h2 className="text-2xl font-bold mb-3">The Limitations of the Bathroom Scale</h2>
             <p>One of the most psychologically damaging aspects of the modern fitness industry is our total obsession with the bathroom scale. We have been conditioned to believe that the number on the scale is the ultimate arbiter of our health and aesthetic progress. However, from a clinical perspective, total body weight is an incredibly ignorant metric. The scale cannot tell the difference between a pound of heavy, metabolically active muscle and a pound of deadly visceral fat. A 220-pound professional athlete and a 220-pound sedentary office worker look identical to a bathroom scale, but their biological realities could not be more different. The <strong>Body Fat Percentage Calculator (Navy Method)</strong> solves this problem by completely bypassing raw weight and using anatomical geometry to isolate your true body composition.</p>
 
-            <h2>What is Body Composition?</h2>
+            <h2 className="text-2xl font-bold mb-3">What is Body Composition?</h2>
             <p>Body composition is the science of dividing your entire physical mass into two distinct categories: Lean Body Mass (LBM) and Fat Mass.</p>
             <p><strong>Lean Body Mass</strong> is everything in your body that is not fat. It includes your skeletal structure, your internal organs (heart, liver, lungs), your blood volume, the water inside your cells, and crucially, your skeletal muscle tissue. This is the functional, life-sustaining weight of your body.</p>
             <p><strong>Fat Mass</strong> is purely the weight of your adipose tissue. While a small amount of essential fat is required to protect the central nervous system and regulate hormones, the vast majority of this tissue is simply stored thermodynamic energy. Your true fitness goal should never be "weight loss"; it should be "fat loss" while aggressively preserving or increasing your Lean Body Mass.</p>
 
-            <h2>The Science Behind the US Navy Method</h2>
+            <h2 className="text-2xl font-bold mb-3">The Science Behind the US Navy Method</h2>
             <p>In 1984, the United States Department of Defense faced a massive logistical problem. They needed to accurately assess the physical readiness and body composition of millions of military personnel, but it was financially impossible to put every soldier into a million-dollar DEXA scanner or a hydrostatic weighing tank. They needed a method that was fast, incredibly cheap, and highly accurate.</p>
             <p>The result was the Navy Body Fat algorithm. By taking tens of thousands of subjects, scanning them in a lab, and running regression models against their physical measurements, scientists discovered a profound mathematical correlation between bone structure, fat storage patterns, and total body fat percentage. Because the human body rarely stores massive amounts of fat on the neck, the neck circumference serves as a highly accurate proxy for overall skeletal size. By comparing the neck measurement against areas where the body actively hoards fat (the waist for men; the waist and hips for women), the algorithm can accurately estimate the total volume of fat on the frame within a 3% to 4% margin of error.</p>
 
-            <h2>Why Men and Women Have Different Formulas</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Men and Women Have Different Formulas</h2>
             <p>The mathematical formulas for men and women are fundamentally different due to the biological reality of sex hormones.</p>
             <p>Men are testosterone-dominant. Genetically, men are predisposed to store almost all of their excess energy as visceral fat directly in the central abdomen (the "beer belly"). Because men rarely store large amounts of fat in their legs or hips, the male equation only requires a waist measurement. Women, however, are estrogen-dominant. For evolutionary reasons designed to support pregnancy and childbirth, women are genetically programmed to store essential fat in the lower body (hips, thighs, and glutes). To accurately calculate a woman's fat mass, the formula must incorporate a hip measurement to capture this unique, biologically mandated storage pattern.</p>
 
-            <h2>The Danger of "Essential" Fat Levels</h2>
+            <h2 className="text-2xl font-bold mb-3">The Danger of "Essential" Fat Levels</h2>
             <p>A common misconception in the fitness world is that having 0% body fat is the ultimate goal. This is biologically impossible and instantly lethal. Your brain is composed of nearly 60% fat, and fat is required to synthesize the myelin sheaths that insulate your nervous system.</p>
             <p>If a man drops below 5% body fat, his testosterone production crashes, his libido vanishes, and his immune system begins to fail. If a woman drops below 14% body fat, she risks severe hormonal disruption. The body realizes it does not have enough energy reserves to sustain a pregnancy and will often shut down the menstrual cycle entirely (amenorrhea), which triggers a cascade of issues including severe bone density loss (osteoporosis). Professional bodybuilders who step on stage at 4% body fat are in a state of extreme, dangerous physiological distress, and they only hold that condition for a few days.</p>
 
-            <h2>The "Skinny Fat" Epidemic</h2>
+            <h2 className="text-2xl font-bold mb-3">The "Skinny Fat" Epidemic</h2>
             <p>The Navy Method is the ultimate tool for diagnosing the "Skinny Fat" condition (clinically known as Normal Weight Obesity). A person can weigh 150 pounds and look perfectly thin in clothing. However, if they never lift weights and eat a terrible diet, they may possess very little dense muscle tissue and a shockingly high volume of visceral fat. The scale tells them they are healthy, but the Navy Method will reveal that their body fat percentage is dangerously high (e.g., 30%+), placing them at severe risk for Type 2 Diabetes and cardiovascular disease despite their "thin" appearance.</p>
 
-            <h2>Conclusion: Track What Actually Matters</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Track What Actually Matters</h2>
             <p>If you want to permanently transform your physique, you must throw out the bathroom scale and start tracking your composition. Use the Body Fat Percentage Calculator (Navy Method) once every two weeks. As long as your Lean Body Mass is stable or increasing, and your Fat Mass is decreasing, you are successfully altering the architecture of your body—regardless of what the raw weight on the scale says.</p>
           </article>
           

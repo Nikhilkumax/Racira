@@ -283,15 +283,15 @@ const TileCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Mathematics of Flooring</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of Flooring</h2>
             <p>Laying a tile floor seems like a simple math problem: calculate the square footage of the room, calculate the square footage of a single tile, and divide. However, performing this calculation without accounting for the realities of construction will leave you short on materials every time. The two critical factors you must include are the <strong>Grout Joint</strong> and the <strong>Waste Margin</strong>.</p>
 
-            <h2>Why Calculate the Grout Joint?</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Calculate the Grout Joint?</h2>
             <p>Tiles are almost never laid edge-to-edge. They are installed using small plastic spacers (usually 1/8 to 1/4 of an inch) to leave an intentional gap between every single tile. Once the adhesive dries, this gap is filled with grout.</p>
             <p>Grout serves two vital purposes: it prevents liquid water from seeping between the tiles and rotting the wooden subfloor beneath, and it provides a microscopic cushion. Houses expand and contract with seasonal temperature changes. If rigid ceramic tiles were laid touching each other, that expansion pressure would cause the tiles to buckle and crack.</p>
             <p>Mathematically, if you are laying 12x12 inch tiles with a 1/4 inch grout joint, the actual physical footprint of the installed tile is 12.25 x 12.25 inches. Over the span of a large room, failing to account for the grout will severely throw off your material count.</p>
 
-            <h2>Understanding the Waste Margin</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Waste Margin</h2>
             <p>Rooms are rarely perfectly square, and tiles are rarely perfectly cut. When laying a floor, you will inevitably have to cut tiles to fit against the walls, around doorways, or around plumbing fixtures like a toilet. Many of these cut off-cuts will be completely unusable scraps. Furthermore, ceramic and porcelain tiles are fragile; you will almost certainly break a few while scoring them or dropping them.</p>
             <p>To compensate, industry standard practice dictates you must over-order materials.</p>
             <ul>
@@ -299,7 +299,7 @@ const TileCalculator = () => {
               <li><strong>15% Waste (Diagonal / Complex):</strong> If you are laying the tile in a diagonal (diamond) pattern, you will have to cut an angle into almost every single tile that touches a wall, creating massive amounts of scrap waste. You should also use 15% for complex bathrooms with many fixtures.</li>
             </ul>
 
-            <h2>Why is Tile Sold by the Box?</h2>
+            <h2 className="text-2xl font-bold mb-3">Why is Tile Sold by the Box?</h2>
             <p>Because tile is heavy and extremely fragile, it is shipped from the factory tightly packed in heavy corrugated cardboard boxes to prevent movement and cracking. For this reason, hardware stores rarely allow you to break open a box to buy individual tiles. If your mathematical calculation determines you need 112 tiles, and the tiles are sold in boxes of 10, you cannot buy 11.2 boxes. You must round up and purchase exactly 12 full boxes.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/tile-calculator" />

@@ -155,13 +155,13 @@ export default function CollegeSavingsCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a College Savings Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a College Savings Calculator?</h2>
             <p>A <strong>college savings calculator</strong> projects the future cost of higher education (accounting for historical tuition inflation of 5–7% annually) and calculates the exact monthly savings needed to fund your child&apos;s education. It factors in your current savings, investment returns, and tuition inflation to give you a realistic, actionable savings target.</p>
-            <h2>Why Tuition Inflation Matters</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Tuition Inflation Matters</h2>
             <p>College costs have risen 5–7% annually for decades — roughly double general inflation. A $35,000/year program today will cost ~$88,000/year in 18 years at 5% inflation, or ~$100,000 at 6% inflation. The earlier you start saving, the less you need to save monthly because your investments grow alongside (or faster than) tuition increases.</p>
-            <h2>The 529 Plan Advantage</h2>
+            <h2 className="text-2xl font-bold mb-3">The 529 Plan Advantage</h2>
             <p>529 plans offer federal tax-free growth and withdrawals for qualified education expenses. Many states offer income tax deductions for contributions. 2024 SECURE 2.0 addition: up to $35,000 can be rolled to a Roth IRA after 15 years, eliminating the "what if they don&apos;t attend college" risk. Start a 529 immediately — even small contributions benefit from decades of tax-free compounding.</p>
-            <h2>Maximizing College Savings</h2>
+            <h2 className="text-2xl font-bold mb-3">Maximizing College Savings</h2>
             <p>Open a 529 at birth. Contribute regularly even if small. Ask grandparents to contribute to the 529 instead of holiday gifts. Apply for FAFSA even if you think you won&apos;t qualify. Consider community college for the first 2 years, then transfer. Explore merit scholarships early — many are available to high school freshmen and sophomores.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/college-savings-calculator" />

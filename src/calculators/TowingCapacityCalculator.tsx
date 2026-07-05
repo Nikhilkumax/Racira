@@ -229,10 +229,10 @@ export default function TowingCapacityCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Myth of "Max Towing Capacity"</h2>
+            <h2 className="text-2xl font-bold mb-3">The Myth of "Max Towing Capacity"</h2>
             <p>If you watch a truck commercial, the manufacturer will proudly display a massive number: <em>"Maximum Towing Capacity: 12,000 lbs!"</em> However, this number is a marketing myth. It is a theoretical maximum calculated under impossible conditions. To achieve that 12,000 lb rating, the manufacturer assumes the truck is completely empty, holding absolutely zero cargo, and being driven by a single 150-pound person.</p>
 
-            <h2>The GCWR is the Only Number That Matters</h2>
+            <h2 className="text-2xl font-bold mb-3">The GCWR is the Only Number That Matters</h2>
             <p>In reality, the only true limit for your vehicle is the <strong>Gross Combined Weight Rating (GCWR)</strong>. This is the absolute maximum weight that the engine, transmission, and brakes can safely move down the road. It includes the physical weight of the truck, the physical weight of the trailer, and everything inside them.</p>
             <p>If your truck has a GCWR of 15,000 lbs, and the empty truck weighs 5,000 lbs, you have 10,000 lbs remaining to split between Payload (people/cargo in the truck) and the Trailer. It is a zero-sum game.</p>
             <ul>
@@ -240,10 +240,10 @@ export default function TowingCapacityCalculator() {
               <li>If you load the truck with a family of four, three large dogs, a cooler, and firewood (totaling 1,000 lbs of Payload), the physical weight of the truck increases to 6,000 lbs. Because the GCWR never changes, you must subtract that 1,000 lbs from your trailer limit. You can now only tow an 9,000 lb trailer.</li>
             </ul>
 
-            <h2>Why is Overloading So Dangerous?</h2>
+            <h2 className="text-2xl font-bold mb-3">Why is Overloading So Dangerous?</h2>
             <p>Engineers design the GCWR primarily around the braking system and the transmission cooling system. If you exceed the GCWR, your vehicle will still physically pull the trailer—engines are incredibly strong. However, when you attempt to stop that massive amount of kinetic energy from 65 MPH, the brakes will overheat, boil the brake fluid, and fail completely.</p>
 
-            <h2>The Hidden Hitch Limit: Tongue Weight</h2>
+            <h2 className="text-2xl font-bold mb-3">The Hidden Hitch Limit: Tongue Weight</h2>
             <p>Even if you are under your GCWR limit, you must also be aware of Tongue Weight. A trailer does not just pull backward on the truck; it pushes straight down onto the rear hitch. A 7,000 lb trailer will drop roughly 700 to 1,000 lbs of physical force directly onto the back of your truck. This force counts entirely against your truck's internal Payload Capacity. If you have a massive trailer, the tongue weight alone can overload the truck's rear suspension, causing the front tires to lift slightly, resulting in a terrifying loss of steering control.</p>
           </article>
           

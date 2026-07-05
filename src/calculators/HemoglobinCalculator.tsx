@@ -243,11 +243,11 @@ export default function HemoglobinCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding Your Hemoglobin (Hb) Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Hemoglobin (Hb) Results</h2>
             <p>A Complete Blood Count (CBC) is one of the most common laboratory tests performed in medicine. Within that test, Hemoglobin is arguably the most critical metric. Hemoglobin is the iron-rich protein residing inside your red blood cells that is solely responsible for carrying oxygen from your lungs to the rest of your body.</p>
             <p>This <strong>Hemoglobin Calculator</strong> analyzes your blood test results, automatically cross-referencing your value against the exact clinical ranges established for your specific demographic (age, biological sex, and pregnancy status).</p>
 
-            <h2>What is Anemia? (Low Hemoglobin)</h2>
+            <h2 className="text-2xl font-bold mb-3">What is Anemia? (Low Hemoglobin)</h2>
             <p>If your hemoglobin falls below the green target range, you are clinically classified as having Anemia. Because your blood lacks the physical capacity to transport adequate oxygen, your organs essentially begin to suffocate at a microscopic level. The severity of the symptoms correlates directly with how low your hemoglobin drops.</p>
             <ul>
               <li><strong>Mild Anemia (Just below normal to 10 g/dL):</strong> You may feel slightly more fatigued than usual, particularly during exercise. Often caused by mild iron deficiency or a heavy menstrual cycle.</li>
@@ -255,11 +255,11 @@ export default function HemoglobinCalculator() {
               <li><strong>Severe Anemia (Below 8.0 g/dL):</strong> This is a medical emergency. Organs can begin to fail due to hypoxia. Doctors will often order an immediate blood transfusion.</li>
             </ul>
 
-            <h2>What is Polycythemia? (High Hemoglobin)</h2>
+            <h2 className="text-2xl font-bold mb-3">What is Polycythemia? (High Hemoglobin)</h2>
             <p>A hemoglobin level that is significantly above the normal range is less common but equally dangerous. It means your blood is too thick. Blood that is viscous and sludge-like cannot flow easily through the microscopic capillaries in your brain and heart, drastically increasing your risk of suffering a spontaneous stroke or heart attack.</p>
             <p>High hemoglobin is most frequently caused by chronic dehydration, heavy cigarette smoking (the body produces more red blood cells to compensate for the carbon monoxide in smoke), or living at very high altitudes. In rare cases, it is caused by a bone marrow cancer known as Polycythemia Vera.</p>
 
-            <h2>The Clinical Rule of Three</h2>
+            <h2 className="text-2xl font-bold mb-3">The Clinical Rule of Three</h2>
             <p>You will often see both Hemoglobin (Hb) and Hematocrit (Hct) reported next to each other on a blood test. Hematocrit is the percentage of your total blood volume that consists of red blood cells.</p>
             <p>In a healthy patient with normal-shaped red blood cells, a mathematical constant known as the <em>Rule of Three</em> applies: your Hematocrit percentage should be almost exactly three times your Hemoglobin value in g/dL. If you have a hemoglobin of 15 g/dL, your hematocrit should be roughly 45%. Hematologists use this rule to quickly spot laboratory errors or identify structural abnormalities in the red blood cells.</p>
           </article>

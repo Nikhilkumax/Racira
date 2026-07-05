@@ -325,11 +325,11 @@ export default function CalorieDeficitForWeightLossCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Calorie Deficit Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Calorie Deficit Calculator</h2>
             <p>The diet industry generates billions of dollars annually by complicating the simple. They sell detox teas, complicated fasting protocols, "fat-burning" supplements, and highly restrictive food rules (like banning carbohydrates or fats). However, the underlying mechanism behind every single successful diet in human history is exactly the same: <strong>The Calorie Deficit</strong>.</p>
             <p>The First Law of Thermodynamics dictates that energy cannot be created or destroyed, only transferred. If you consume fewer calories (energy) from your diet than your body requires to function, the missing energy must be sourced from somewhere. The body's primary storage tank for excess energy is adipose tissue (body fat). By entering a caloric deficit, you force your body to metabolize its own fat to keep your heart beating and your lungs inflating. The <strong>Calorie Deficit Calculator</strong> allows you to strip away the marketing noise, input your exact mathematical deficit, and project your fat loss across a concrete timeline.</p>
 
-            <h2>The 3,500 Calorie Rule</h2>
+            <h2 className="text-2xl font-bold mb-3">The 3,500 Calorie Rule</h2>
             <p>The foundation of this calculator relies on a deeply established physiological heuristic: One pound of human body fat stores roughly <strong>3,500 kilocalories</strong> of usable energy. (For those using the metric system, one kilogram of body fat equates to roughly 7,700 kilocalories).</p>
             <p>This simple mathematical reality makes fat loss highly predictable:</p>
             <ul>
@@ -339,16 +339,16 @@ export default function CalorieDeficitForWeightLossCalculator() {
             </ul>
             <p>If you know your Total Daily Energy Expenditure (maintenance calories) is 2,500, and you eat exactly 2,000 calories a day for 7 days, you will lose one pound of fat. It is a mathematical certainty.</p>
 
-            <h2>Why Bigger Deficits Are Not Always Better</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Bigger Deficits Are Not Always Better</h2>
             <p>Upon learning the 3,500-calorie rule, a beginner's immediate instinct is to create a massive deficit. <em>"If a 500-calorie deficit loses one pound, I will eat a 1,500-calorie deficit and lose three pounds a week!"</em> This logic invariably leads to diet failure, muscle loss, and metabolic crash.</p>
             <p>The human body is an incredibly robust survival machine. It views a massive caloric deficit not as a "diet," but as a famine. When the deficit becomes too severe, the body triggers evolutionary defense mechanisms. First, it realizes that muscle tissue is metabolically expensive (it takes a lot of calories just to maintain muscle). To conserve energy, the body begins cannibalizing muscle tissue for fuel instead of fat. Second, it drastically down-regulates your Basal Metabolic Rate (BMR) and Non-Exercise Activity Thermogenesis (NEAT). You will subconsciously stop fidgeting, feel freezing cold, and become incredibly lethargic, all of which artificially drops your daily calorie burn.</p>
             <p>A "Gold Standard" sustainable deficit is generally between 300 and 600 calories a day. It is small enough that the body doesn't panic, but large enough to yield consistent, motivating results on the scale.</p>
 
-            <h2>Fat Loss vs. Weight Loss (The Water Weight Trap)</h2>
+            <h2 className="text-2xl font-bold mb-3">Fat Loss vs. Weight Loss (The Water Weight Trap)</h2>
             <p>One of the most frustrating aspects of dieting is trusting the math while the scale refuses to cooperate. It is highly common to maintain a perfect 500-calorie daily deficit for a week, step on the scale on Sunday, and see that your weight has not changed—or has even gone up. This leads many people to quit, claiming their "metabolism is broken."</p>
             <p>You must separate <em>Weight</em> from <em>Fat</em>. The scale measures everything: bone, muscle, organs, stomach contents, and most importantly, water. If you ate a carbohydrate-heavy or sodium-heavy meal the night before, your body will temporarily retain 2 to 4 pounds of water. That water completely masks the 1 pound of fat you successfully burned that week. If you are tracking your calories accurately and are mathematically in a deficit, the fat is gone. Do not let water weight convince you to abandon the mathematics.</p>
 
-            <h2>How to Create Your Deficit</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Create Your Deficit</h2>
             <p>There are two primary levers you can pull to create your daily deficit: Diet (Input) and Exercise (Output). The most successful and sustainable fat loss protocols utilize a combination of both.</p>
             <p>Let's say your goal is a 500-calorie daily deficit. You can achieve this by:</p>
             <ol>
@@ -357,12 +357,12 @@ export default function CalorieDeficitForWeightLossCalculator() {
               <li><strong>The Hybrid Approach:</strong> Eating 250 calories less than maintenance, and burning an additional 250 calories via a 30-minute brisk walk. This is universally considered the best approach. It creates the 500-calorie deficit without severely restricting your food or burning you out in the gym.</li>
             </ol>
 
-            <h2>Metabolic Adaptation and Diminishing Returns</h2>
+            <h2 className="text-2xl font-bold mb-3">Metabolic Adaptation and Diminishing Returns</h2>
             <p>When looking at the 6-month projection chart generated by this calculator, it assumes your deficit remains perfectly static. In reality, you will encounter <em>Metabolic Adaptation</em>.</p>
             <p>As you lose weight, you become a smaller human being. A 200-pound person requires more calories to maintain their body weight than a 180-pound person. Therefore, if you start your diet with a TDEE of 2,500 and a daily intake of 2,000 (a 500 deficit), that math will work beautifully for the first two months. However, once you drop to 180 pounds, your new TDEE might only be 2,200. If you are still eating 2,000 calories, your deficit has shrunk from 500 to a mere 200. Your weight loss will slow to a crawl.</p>
             <p>To continue losing weight at the same rate, you must periodically recalculate your maintenance calories and adjust your intake downward to preserve the size of the deficit.</p>
 
-            <h2>Conclusion: Trust the Math</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Trust the Math</h2>
             <p>Fat loss is an agonizingly slow biological process, but it is a guaranteed one. By utilizing the Calorie Deficit Calculator, you remove the emotion, the frustration, and the guesswork from dieting. Calculate your maintenance baseline, establish a sustainable daily deficit, hit your macro targets, and trust the 6-month mathematical projection. Consistency, not intensity, is the ultimate driver of body transformation.</p>
           </article>
           

@@ -234,21 +234,21 @@ export default function SocialSecurityBenefitsCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-            <h2>How Social Security Benefits Are Calculated</h2>
+            <h2 className="text-2xl font-bold mb-3">How Social Security Benefits Are Calculated</h2>
             <p>The Social Security Administration (SSA) calculates your benefit using a three-step process. First, your actual earnings history is indexed for inflation to create a consistent comparison across years. Second, the SSA takes your 35 highest-earning years (after indexing) and averages them to compute your Average Indexed Monthly Earnings (AIME). If you have fewer than 35 years of covered employment, zeros are included for missing years, lowering your AIME. Third, the AIME is run through a progressive bend-point formula to calculate your Primary Insurance Amount (PIA) — the benefit you receive if you claim exactly at your Full Retirement Age (FRA).</p>
             <p>The bend point formula for 2024: 90% of the first $1,115 of AIME, plus 32% of AIME from $1,115-$6,721, plus 15% of AIME above $6,721. This progressive structure means lower earners receive a higher replacement rate of their pre-retirement income — typically 55-65% for low earners vs 25-35% for high earners.</p>
 
-            <h2>When Should You Claim Social Security?</h2>
+            <h2 className="text-2xl font-bold mb-3">When Should You Claim Social Security?</h2>
             <p>The claiming age decision is one of the most consequential financial choices of your retirement. You can claim as early as 62 (with reduced benefits) or delay up to 70 (with enhanced benefits). Claiming before your Full Retirement Age (66-67 depending on birth year) permanently reduces your monthly check. Delaying past FRA increases it by 8% per year — a guaranteed, inflation-adjusted return that's hard to beat in any other investment.</p>
             <p>The break-even analysis compares when delayed benefits overtake early benefits in lifetime total. Claiming at 62 vs 70: you need to survive to approximately age 80-81 for the age-70 strategy to pay off in lifetime dollars. Given average life expectancy of ~78-79, it's a close call — but for anyone in good health, delaying often maximizes lifetime benefits.</p>
 
-            <h2>Spousal and Survivor Benefits</h2>
+            <h2 className="text-2xl font-bold mb-3">Spousal and Survivor Benefits</h2>
             <p>Married couples have additional Social Security strategies available. Spousal benefits allow a spouse who worked less (or not at all) to receive up to 50% of their partner's PIA. Survivor benefits are 100% of the deceased spouse's benefit. These provisions create powerful planning opportunities: the higher-earning spouse delaying to 70 maximizes both their own benefit AND the survivor benefit the surviving spouse will collect potentially for decades.</p>
 
-            <h2>Taxes on Social Security Benefits</h2>
+            <h2 className="text-2xl font-bold mb-3">Taxes on Social Security Benefits</h2>
             <p>Up to 85% of Social Security benefits may be subject to federal income tax depending on your "combined income" (adjusted gross income + nontaxable interest + 50% of Social Security benefits). If combined income exceeds $34,000 (single) or $44,000 (married filing jointly), up to 85% of benefits are taxable. 13 states also tax Social Security to varying degrees. This makes Roth IRA conversions before claiming Social Security attractive for some retirees, as Roth distributions don't count toward combined income thresholds.</p>
 
-            <h2>Maximizing Your Social Security Benefits</h2>
+            <h2 className="text-2xl font-bold mb-3">Maximizing Your Social Security Benefits</h2>
             <p>Work at least 35 years to avoid zero-income years pulling down your AIME. Maximize earnings during your peak earning years — each additional dollar of earnings up to the Social Security wage base ($168,600 in 2024) increases your eventual benefit. If you stop working before 62, consider whether working a few additional years would meaningfully raise your 35-year earnings average. For married couples, coordinate claiming ages strategically — often the lower earner claims early while the higher earner delays to 70. Review your Social Security earnings record annually at ssa.gov for errors that can permanently reduce your benefit.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/social-security-benefits-calculator" />

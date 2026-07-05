@@ -167,17 +167,17 @@ export default function DepreciationRecaptureCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding Depreciation Recapture</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Depreciation Recapture</h2>
             <p>If you own an investment property, the IRS requires you to depreciate the building over 27.5 years (residential) or 39 years (commercial). This non-cash deduction saves you thousands of dollars in ordinary income tax every year you own the property. However, this tax break is technically a deferral, not a freebie.</p>
             <p>When you sell the property for a profit, the IRS "recaptures" the depreciation you claimed. Your cost basis is reduced by the amount of depreciation taken, which mathematically increases your taxable gain on the sale.</p>
-            <h2>How the Math Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How the Math Works</h2>
             <p>Suppose you buy a house for $200,000, take $50,000 in depreciation over several years, and sell it for $300,000. Your adjusted basis is now $150,000 ($200k - $50k). Your total gain is $150,000 ($300k - $150k).</p>
             <p>That $150,000 gain is split into two buckets:</p>
             <ol>
               <li><strong>The Recapture Bucket:</strong> The first $50,000 of gain matches the depreciation you took. This is taxed as Unrecaptured Section 1250 Gain, capped at a maximum rate of 25%.</li>
               <li><strong>The Capital Gains Bucket:</strong> The remaining $100,000 of gain is pure market appreciation. This is taxed at the lower long-term capital gains rate (typically 15%).</li>
             </ol>
-            <h2>The "Allowed or Allowable" Trap</h2>
+            <h2 className="text-2xl font-bold mb-3">The "Allowed or Allowable" Trap</h2>
             <p>A massive mistake novice real estate investors make is choosing not to claim depreciation to avoid the recapture tax later. Under IRS rules, you owe recapture tax on depreciation that was "allowed or allowable." This means if you <em>could</em> have claimed it, the IRS will tax you as if you <em>did</em> claim it, meaning you get hit with the tax penalty without ever receiving the tax benefit.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/depreciation-recapture-calculator" />

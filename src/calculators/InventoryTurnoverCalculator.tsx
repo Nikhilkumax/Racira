@@ -200,10 +200,10 @@ export default function InventoryTurnoverCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding Inventory Turnover</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Inventory Turnover</h2>
             <p>Inventory turnover is a fundamental efficiency ratio that measures how many times a business sells and replaces its physical inventory over a given period (usually a year). It acts as an indicator of product demand and warehouse supply-chain efficiency. A high turnover ratio suggests strong customer demand and optimal inventory levels, while a low ratio warns of excess stock, slow-moving items, or obsolescence.</p>
             
-            <h2>Why Inventory Turnover Differs by Sector</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Inventory Turnover Differs by Sector</h2>
             <p>Because businesses operate on different business models, turnover benchmarks vary dramatically. Grocery stores operate on narrow margins with highly perishable stock, meaning they must turn over inventory 15 to 20 times a year to remain profitable. Conversely, an auto retailer or high-end watch store sells fewer products at much higher gross margins, yielding a low turnover ratio (2x to 4x) but generating high dollars of gross profit per transaction.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/inventory-turnover-calculator" />

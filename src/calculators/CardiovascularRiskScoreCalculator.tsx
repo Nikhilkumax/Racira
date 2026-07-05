@@ -420,42 +420,42 @@ export default function CardiovascularRiskScoreCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding Your ASCVD Risk Score</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your ASCVD Risk Score</h2>
             <p>Atherosclerotic Cardiovascular Disease (ASCVD) remains the leading cause of death globally. It is an umbrella term that encompasses conditions caused by the buildup of cholesterol plaque in the arteries, most notably leading to acute myocardial infarctions (heart attacks) and ischemic strokes. Because atherosclerosis is a silent disease that progresses over decades without symptoms, physicians cannot rely on how a patient "feels" to assess their danger. Instead, they rely on mathematics.</p>
             <p>The <strong>10-Year ASCVD Risk Score Calculator</strong> implements the official Pooled Cohort Equations developed by the American College of Cardiology (ACC) and the American Heart Association (AHA) in 2013. By inputting your age, sex, race, lipid profile, and medical history, this algorithm calculates the exact percentage probability that you will suffer a fatal or non-fatal cardiovascular event within the next ten years.</p>
 
-            <h2>Why is 7.5% the Magic Number?</h2>
+            <h2 className="text-2xl font-bold mb-3">Why is 7.5% the Magic Number?</h2>
             <p>When you calculate your results, you will notice that the medical recommendations change drastically once your score crosses the 7.5% threshold. In the medical community, a 10-year risk score of &ge; 7.5% is classified as <strong>Intermediate Risk</strong>.</p>
             <p>Clinical trials involving hundreds of thousands of patients have proven that once a person crosses the 7.5% threshold, the statistical benefits of taking a statin medication (such as Atorvastatin or Rosuvastatin) heavily outweigh the potential risks or side effects. If your score is above 7.5%, current clinical guidelines strongly recommend initiating moderate-to-high intensity statin therapy to artificially lower your cholesterol and stabilize the plaque inside your arteries.</p>
             <p>If your score exceeds <strong>20% (High Risk)</strong>, you are in immediate danger. High-intensity statin therapy is virtually mandatory, alongside aggressive lifestyle interventions and potentially additional medications to lower blood pressure or manage diabetes.</p>
 
-            <h2>Breaking Down the Variables: Age, Sex, and Race</h2>
+            <h2 className="text-2xl font-bold mb-3">Breaking Down the Variables: Age, Sex, and Race</h2>
             <p>The ASCVD algorithm is heavily weighted by demographics. Age is the single strongest predictor of cardiovascular disease. The older you get, the longer your arteries have been exposed to cholesterol, oxidative stress, and blood pressure shear forces. Consequently, an 80-year-old with perfect cholesterol will almost always have a higher risk score than a 30-year-old with terrible cholesterol.</p>
             <p>Biological sex is also a massive factor. Premenopausal women are significantly protected against ASCVD due to the presence of estrogen, which keeps blood vessels flexible and promotes higher levels of HDL (good) cholesterol. Men, lacking this protective effect, generally develop heart disease a full decade earlier than women. However, after menopause, a woman's risk accelerates rapidly to match a man's risk.</p>
             <p>Finally, race is included in the equation because massive epidemiological studies (such as the Atherosclerosis Risk in Communities study) demonstrated that African Americans have a higher baseline risk of hypertension and stroke compared to non-Hispanic Whites, even when lipid numbers are identical.</p>
 
-            <h2>The Lipid Profile: Total Cholesterol vs. HDL</h2>
+            <h2 className="text-2xl font-bold mb-3">The Lipid Profile: Total Cholesterol vs. HDL</h2>
             <p>Your blood test results (lipid panel) provide the raw fuel for the ASCVD equation. The calculator requires two numbers: Total Cholesterol and HDL Cholesterol.</p>
             <p><strong>Total Cholesterol:</strong> This measures the total amount of lipid circulating in your blood. A higher number increases your risk because it indicates there is more raw material available to form plaque.</p>
             <p><strong>HDL (High-Density Lipoprotein):</strong> This is the "good" cholesterol. Think of HDL as the garbage trucks of your circulatory system. HDL particles travel through your arteries, pick up excess bad cholesterol, and transport it back to the liver to be disposed of. Therefore, a higher HDL number actively <em>lowers</em> your ASCVD risk score. The optimal HDL target is generally above 50 mg/dL for women and above 40 mg/dL for men.</p>
 
-            <h2>The Silent Killer: Systolic Blood Pressure</h2>
+            <h2 className="text-2xl font-bold mb-3">The Silent Killer: Systolic Blood Pressure</h2>
             <p>Systolic blood pressure is the "top number" on your blood pressure reading. It measures the physical force that blood exerts against the walls of your arteries when your heart beats. Normal systolic pressure is strictly defined as less than 120 mmHg.</p>
             <p>When systolic pressure remains elevated (hypertension), the excessive force physically damages the delicate inner lining of the arteries (the endothelium). This damage creates microscopic tears where cholesterol plaque can easily become embedded. Even a small drop in systolic blood pressure—such as moving from 140 mmHg to 130 mmHg—can massively reduce your 10-year risk of suffering a stroke.</p>
             <p>Interestingly, the calculator asks if you are <em>treated</em> for high blood pressure. If you input a blood pressure of 130 mmHg, the algorithm will generate a higher risk score if you checked "Yes" to medication. Why? Because if medication is keeping your pressure at 130, your natural biological pressure is likely 150 or 160. The presence of the medication indicates underlying cardiovascular pathology that increases your baseline risk.</p>
 
-            <h2>The Risk Multipliers: Smoking and Diabetes</h2>
+            <h2 className="text-2xl font-bold mb-3">The Risk Multipliers: Smoking and Diabetes</h2>
             <p>Checking the box for either Smoking or Diabetes acts as a massive multiplier to your ASCVD risk score.</p>
             <ul>
               <li><strong>Smoking:</strong> Combustible tobacco smoke introduces thousands of toxic chemicals into the bloodstream that cause massive oxidative stress, immediately hardening the arteries and promoting blood clots. A smoker's 10-year risk is often double or triple that of a non-smoker with identical lipid numbers.</li>
               <li><strong>Diabetes:</strong> Type 2 Diabetes is classified as a "cardiovascular risk equivalent." Chronic high blood sugar damages blood vessels over time, making them stiff and highly susceptible to plaque buildup. If you are a diabetic between the ages of 40 and 75, medical guidelines recommend statin therapy regardless of what your actual cholesterol numbers are.</li>
             </ul>
 
-            <h2>Comparing Your Risk to 'Optimal' Risk</h2>
+            <h2 className="text-2xl font-bold mb-3">Comparing Your Risk to 'Optimal' Risk</h2>
             <p>One of the most psychologically impactful features of this calculator is the bar chart comparing your actual risk to an "Optimal Risk." The Optimal Risk represents a theoretical patient who is exactly your age, sex, and race, but possesses perfect clinical numbers: a Total Cholesterol of 170, an HDL of 50, a Systolic BP of 110, untreated, non-smoking, and non-diabetic.</p>
             <p>If your actual risk is 15% and the optimal risk for your age is 3%, the calculator will inform you that your risk is 5x higher than it should be. This "Relative Risk Multiple" is a powerful tool to understand how much your lifestyle choices are impacting your longevity.</p>
 
-            <h2>Conclusion: Reversing the Trajectory</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Reversing the Trajectory</h2>
             <p>An ASCVD risk score is not a death sentence; it is a roadmap. If your score places you in the Borderline, Intermediate, or High-Risk categories, you have the power to intervene. You cannot change your age, but you can quit smoking today. You can adopt a Mediterranean-style diet to lower your Total Cholesterol and raise your HDL. You can begin a cardiovascular exercise routine to drop your systolic blood pressure.</p>
             <p>By making these changes and partnering with a physician to initiate statin or anti-hypertensive therapy, you can force the mathematics in your favor, drastically lowering your risk and protecting your heart for decades to come.</p>
           </article>

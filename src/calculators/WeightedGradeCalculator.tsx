@@ -132,7 +132,7 @@ const WeightedGradeCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Understanding Weighted Grading</h2>
+              <h2 className="text-2xl font-bold mb-3">Understanding Weighted Grading</h2>
               <p>Most college and high school courses use weighted grading systems to ensure that significant assessments, like midterms and finals, contribute more to your final mark than smaller assignments like daily homework or participation.</p>
               
               <h3>The Calculation Formula</h3>

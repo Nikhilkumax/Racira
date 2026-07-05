@@ -127,18 +127,18 @@ export default function SpeedConverter() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Complete Guide to Speed Unit Conversion</h2>
+            <h2 className="text-2xl font-bold mb-3">Complete Guide to Speed Unit Conversion</h2>
             <p>Speed is defined as the rate at which an object covers distance over time. Different fields and regions use different speed units, making conversions essential for science, transportation, sports, and engineering. This converter handles all major speed units: meters per second (m/s), kilometers per hour (km/h), miles per hour (mph), knots (kn), feet per second (ft/s), and Mach numbers.</p>
             <p>The SI base unit for speed is meters per second (m/s). However, km/h is the most commonly used unit globally for road speeds and weather, mph is standard in the United States and United Kingdom, and knots are used universally in aviation and maritime navigation. Mach numbers are used for supersonic and high-altitude flight where the speed of sound is a critical reference point.</p>
-            <h2>Meters per Second (m/s) — The SI Unit</h2>
+            <h2 className="text-2xl font-bold mb-3">Meters per Second (m/s) — The SI Unit</h2>
             <p>The meter per second is the SI-derived unit of speed, defined as the distance in meters an object travels in one second. It is the standard unit in physics and scientific calculations. Common reference speeds: light in vacuum = 299,792,458 m/s; sound in air at sea level ≈ 340 m/s; a typical car on a highway ≈ 28 m/s (100 km/h); a human sprinter ≈ 10 m/s; and a pedestrian ≈ 1.4 m/s.</p>
-            <h2>Kilometers per Hour (km/h)</h2>
+            <h2 className="text-2xl font-bold mb-3">Kilometers per Hour (km/h)</h2>
             <p>Kilometers per hour is the most widely used speed unit globally for road transportation. Nearly every country outside the United States displays road speed limits in km/h. The conversion is: 1 km/h = 1000/3600 m/s ≈ 0.2778 m/s. Common reference speeds: urban speed limit = 50 km/h; highway = 100–130 km/h; high-speed rail = 300–350 km/h; commercial aircraft cruising = 850–900 km/h.</p>
-            <h2>Miles per Hour (mph)</h2>
+            <h2 className="text-2xl font-bold mb-3">Miles per Hour (mph)</h2>
             <p>Miles per hour is the standard road speed unit in the United States, United Kingdom, and a few other countries. 1 mph = 0.44704 m/s = 1.60934 km/h. Road speed limits in the US are typically 25 mph in urban areas, 55–65 mph on highways, and 75–80 mph on interstates. NASCAR speeds reach 200+ mph on superspeedways.</p>
-            <h2>Knots — Aviation and Maritime Standard</h2>
+            <h2 className="text-2xl font-bold mb-3">Knots — Aviation and Maritime Standard</h2>
             <p>The knot is defined as one nautical mile per hour = 1.852 km/h = 0.514444 m/s. It is the universal standard in aviation and maritime contexts because nautical miles relate directly to Earth's coordinate system. Commercial aircraft cruise at 450–500 knots true airspeed. Container ships travel at 20–24 knots. The America's Cup sailing competition features vessels exceeding 50 knots.</p>
-            <h2>Mach Number — Supersonic Flight</h2>
+            <h2 className="text-2xl font-bold mb-3">Mach Number — Supersonic Flight</h2>
             <p>The Mach number expresses speed as a ratio to the local speed of sound. At sea level and 15°C, Mach 1 = 340.29 m/s = 1,225 km/h = 761 mph. At 30,000 ft altitude (cruise altitude for jets), Mach 1 ≈ 295 m/s because cold air slows sound propagation. Commercial aircraft cruise at Mach 0.78–0.85. The Concorde cruised at Mach 2. The SR-71 Blackbird reconnaissance aircraft reached Mach 3.3.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/speed-converter" />

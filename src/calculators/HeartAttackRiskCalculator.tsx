@@ -307,11 +307,11 @@ export default function HeartAttackRiskCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the 10-Year ASCVD Risk Score</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the 10-Year ASCVD Risk Score</h2>
             <p>Cardiovascular disease remains the leading cause of death globally. However, heart attacks and strokes rarely occur without warning. They are the climax of a slow, multi-decade process of plaque buildup in the arteries known as atherosclerosis.</p>
             <p>This <strong>Heart Attack Risk Calculator</strong> implements the exact algorithms used by the American College of Cardiology (ACC) and the American Heart Association (AHA). These algorithms, known as the <em>Pooled Cohort Equations</em>, do not guess your future; they calculate your absolute statistical probability of experiencing a "hard" atherosclerotic cardiovascular disease (ASCVD) event within the next 10 years. A "hard event" is strictly defined as a non-fatal heart attack, a non-fatal stroke, or cardiovascular death.</p>
 
-            <h2>How to Interpret Your Risk Category</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Interpret Your Risk Category</h2>
             <p>The calculation will yield a specific percentage. Clinical guidelines categorize this percentage into four tiers of risk to help doctors dictate treatment plans:</p>
             <ul>
               <li><strong>Low Risk (Less than 5%):</strong> Your 10-year risk is statistically low. The primary medical recommendation is to maintain healthy lifestyle choices (diet, exercise, stress reduction) to keep the risk low as you age.</li>
@@ -320,7 +320,7 @@ export default function HeartAttackRiskCalculator() {
               <li><strong>High Risk (20% or greater):</strong> A 1 in 5 chance of suffering a heart attack or stroke in the next decade. Aggressive risk reduction is required, typically involving high-intensity statin therapy and strict blood pressure management.</li>
             </ul>
 
-            <h2>The Science Behind the Variables</h2>
+            <h2 className="text-2xl font-bold mb-3">The Science Behind the Variables</h2>
             <p>The Pooled Cohort Equations require 9 specific data points. Why are these exact variables chosen, and why are others (like weight) excluded?</p>
 
             <h3>Age, Sex, and Race</h3>
@@ -335,7 +335,7 @@ export default function HeartAttackRiskCalculator() {
             <h3>Diabetes and Smoking</h3>
             <p>These two variables act as massive multipliers for cardiovascular risk. Cigarette smoke contains chemicals that actively strip the protective lining (endothelium) off your blood vessels, triggering immediate inflammation and clotting. Diabetes causes elevated blood sugar, which physically damages blood vessels and alters cholesterol particles, making them stickier and more atherogenic. Having diabetes effectively doubles your cardiovascular risk profile.</p>
 
-            <h2>Why is Weight/BMI Excluded?</h2>
+            <h2 className="text-2xl font-bold mb-3">Why is Weight/BMI Excluded?</h2>
             <p>Patients are often confused why a Heart Attack Risk Calculator doesn't ask for their weight or Body Mass Index (BMI). In the complex statistical models used by the AHA, obesity is not an <em>independent</em> predictor of 10-year risk. Obesity causes high blood pressure, low HDL, and diabetes. Because those three specific downstream effects are already measured in the calculator, adding weight into the equation would result in "double counting" the risk and mathematically inflating the score.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/heart-attack-risk-calculator" />

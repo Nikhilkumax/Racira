@@ -130,11 +130,11 @@ export default function InheritanceTaxCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding Estate and Inheritance Taxes</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Estate and Inheritance Taxes</h2>
             <p>Estate taxes and inheritance taxes are two different ways governments tax wealth transfer after death. The federal government only imposes an estate tax, which is calculated based on the total net value of the deceased's estate before any money is distributed. It is paid by the estate itself.</p>
-            <h2>The High Federal Exemption</h2>
+            <h2 className="text-2xl font-bold mb-3">The High Federal Exemption</h2>
             <p>For the vast majority of Americans, federal estate tax is a non-issue. The 2017 Tax Cuts and Jobs Act essentially doubled the exemption amount. In 2024, an individual can leave up to $13.61 million to heirs without paying a single dime in federal estate tax. For married couples, this amount is portable, meaning a couple can shield over $27.2 million from federal taxation. However, these elevated limits are scheduled to expire at the end of 2025 unless renewed.</p>
-            <h2>Watch Out for State Taxes</h2>
+            <h2 className="text-2xl font-bold mb-3">Watch Out for State Taxes</h2>
             <p>While you may easily avoid the federal estate tax, state taxes are a different story. Twelve states have an estate tax, often with exemptions much lower than the federal level. For example, Massachusetts and Oregon tax estates valued over just $1 million. Additionally, six states have an inheritance tax, which is paid by the heir receiving the money. The rate usually depends on the relationship to the deceased—spouses and children are often exempt, while more distant relatives or friends pay higher rates.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/inheritance-tax-calculator" />

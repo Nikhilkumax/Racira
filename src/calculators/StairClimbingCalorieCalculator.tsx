@@ -290,30 +290,30 @@ export default function StairClimbingCalorieCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Brutal Mathematics of the Stepmill</h2>
+            <h2 className="text-2xl font-bold mb-3">The Brutal Mathematics of the Stepmill</h2>
             <p>Walk into any commercial gym in the world, and you will notice a stark difference between the people on the treadmills and the people on the Stepmills (StairMasters). The people on the treadmills are often watching TV or casually scrolling on their phones. The people on the Stepmills are dripping with sweat, gasping for air, and staring blankly at the timer, praying for the workout to end. This is not a coincidence. From a purely thermodynamic and physiological perspective, stair climbing is one of the most mechanically devastating exercises a human being can perform. The <strong>Stair Climbing Calorie Calculator</strong> utilizes clinical Metabolic Equivalent (MET) formulas to mathematically explain exactly why the Stepmill obliterates flat-ground cardio.</p>
 
-            <h2>Why Stair Climbing is Not Walking</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Stair Climbing is Not Walking</h2>
             <p>When you walk on a treadmill, the motor is literally doing the work for you. The belt physically pulls the ground out from under your feet; you are simply lifting your feet up to prevent yourself from falling backward. Furthermore, you are moving horizontally. Your center of gravity remains perfectly level, requiring very little muscular effort or cardiovascular strain.</p>
             <p>A Stepmill completely destroys this horizontal efficiency. A Stepmill is essentially an endless escalator moving downward, forcing you to perform continuous, unbroken single-leg squats to stay upright. With every single step, your glutes and quadriceps must fire to dead-lift your entire body weight straight up against the brutal resistance of gravity. Because this mechanical demand is so extreme, your muscles rapidly deplete their immediate oxygen stores. Your heart rate instantly spikes to pump fresh blood to your legs. It is not walking; it is a continuous, high-intensity resistance workout.</p>
 
-            <h2>The Physics of Body Weight</h2>
+            <h2 className="text-2xl font-bold mb-3">The Physics of Body Weight</h2>
             <p>Like all bodyweight-driven exercises, your overall mass heavily influences your total caloric expenditure on the stairs. The physics formula is immutable: Force = Mass × Acceleration.</p>
             <p>If a 240-pound man and a 140-pound woman both climb the Stepmill for 30 minutes at the exact same speed, the heavier man's quadriceps had to generate drastically more mechanical "work" to lift an extra 100 pounds against gravity with every single step. Because his larger body required vastly more physiological energy (ATP) to accomplish the exact same task, he will mathematically burn significantly more absolute calories. Our calculator strictly relies on your body mass to ensure the clinical MET multipliers are perfectly tailored to your biology.</p>
 
-            <h2>The Handrail Warning: Do Not Cheat the Physics</h2>
+            <h2 className="text-2xl font-bold mb-3">The Handrail Warning: Do Not Cheat the Physics</h2>
             <p>The single biggest mistake people make on the Stepmill is gripping the side handrails, locking their elbows, and supporting their upper body weight. If you do this, you are mathematically destroying the calculation.</p>
             <p>If you weigh 180 pounds, the calorie calculator assumes your legs are lifting 180 pounds against gravity. If you lean on the rails, your arms are artificially supporting up to 50 pounds of that weight. Your legs are now only lifting 130 pounds, and your core stabilizers are completely disengaged. The machine's monitor will falsely reward you with an inflated calorie burn because it does not know you are cheating the physics. To get an accurate reading from this calculator, your hands must swing freely or rest gently on the sensors purely for balance—they cannot bear weight.</p>
 
-            <h2>Real Stairs vs. the Stepmill</h2>
+            <h2 className="text-2xl font-bold mb-3">Real Stairs vs. the Stepmill</h2>
             <p>While the Stepmill is a phenomenal tool, it still operates at a controlled, steady pace. It lacks a true "flight phase." If you go to a local high school stadium and run real concrete stairs, the caloric burn skyrockets even higher.</p>
             <p>Running real stairs requires explosive plyometric power. Your fast-twitch muscle fibers must fire violently to launch your body weight up and forward, and then instantly absorb the brutal shock of landing on the next concrete step. This explosive speed and impact trauma force the heart rate to its absolute maximum threshold, pushing the MET value to a staggering 15.0—more than double the intensity of a slow Stepmill session.</p>
 
-            <h2>The Afterburn Effect (EPOC)</h2>
+            <h2 className="text-2xl font-bold mb-3">The Afterburn Effect (EPOC)</h2>
             <p>Because stair climbing is so intense, it triggers a massive physiological response known as <strong>Excess Post-Exercise Oxygen Consumption (EPOC)</strong>, commonly called the "Afterburn Effect."</p>
             <p>Because you are working in a highly aerobic or anaerobic state, you create a severe oxygen deficit in your body. After the 30-minute session is over and you step off the machine, your body cannot immediately return to normal. It must rapidly consume oxygen and burn additional calories for up to 14 to 24 hours just to repair the micro-tears in your massive leg muscles, clear lactic acid, and restore your core temperature. Your stair session continues to burn "bonus" calories while you are sitting at your desk later that afternoon.</p>
 
-            <h2>Conclusion: Embrace the Grind</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Embrace the Grind</h2>
             <p>The Stepmill is mentally and physically grueling, but the mathematical rewards are unmatched. It builds dense, powerful muscle in the glutes and hamstrings while simultaneously stripping away body fat at an astonishing rate. Stop holding onto the handrails, stop relying on inaccurate machine monitors, and use the Stair Climbing Calorie Calculator to track your true, unassisted thermodynamic output.</p>
           </article>
           

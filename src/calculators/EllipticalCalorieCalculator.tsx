@@ -310,18 +310,18 @@ export default function EllipticalCalorieCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Elliptical Calorie Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Elliptical Calorie Calculator</h2>
             <p>Walk into any commercial gym in the world, and you will find the cardio section dominated by elliptical trainers. Since its invention in the 1990s, the elliptical machine has revolutionized cardiovascular training by offering a unique, suspended-pedal design that mimics the natural motion of running without subjecting the skeletal system to harsh impact forces. However, estimating the true energy expenditure on these machines is notoriously difficult. The <strong>Elliptical Calorie Calculator</strong> bypasses inaccurate gym console readouts by utilizing established Metabolic Equivalent (MET) formulas. By factoring in your exact body mass, duration, and cardiovascular effort level, it provides a highly accurate, biologically sound estimate of your caloric burn.</p>
 
-            <h2>The Mechanics of Zero-Impact Training</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mechanics of Zero-Impact Training</h2>
             <p>To understand why the elliptical is so effective, you must understand the physics of traditional running. When you run on a treadmill or asphalt, your foot strikes the ground with an impact force equivalent to two to three times your body weight. This shockwave travels up through your ankles, into your knees, hips, and lower back. Over time, this repetitive trauma degrades cartilage, leading to stress fractures, shin splints, and joint pain.</p>
             <p>The elliptical eliminates this impact phase entirely. Because your feet never leave the suspended pedals, your joints are never subjected to blunt-force shock. Instead, you push against magnetic or mechanical resistance in a smooth, continuous fluid motion. This allows individuals who are severely overweight, recovering from injuries, or simply suffering from chronic joint pain to sustain highly elevated heart rates for extended periods of time, maximizing caloric expenditure without risking orthopedic damage.</p>
 
-            <h2>Why You Shouldn't Trust the Machine's Display</h2>
+            <h2 className="text-2xl font-bold mb-3">Why You Shouldn't Trust the Machine's Display</h2>
             <p>If you have ever finished a 30-minute elliptical workout and felt a surge of pride when the machine's console told you that you burned 600 calories, you may want to temper your expectations. Exercise physiologists widely agree that commercial cardio machines notoriously overestimate calorie burn by 15% to 30%.</p>
             <p>This inaccuracy stems from several factors. First, many machines use generic, outdated algorithms that assume an "average" weight (usually a 150-pound male) if you do not input your specific statistics. Second, the machines frequently fail to subtract your Resting Metabolic Rate (RMR). Even if you were sitting perfectly still on a couch for 30 minutes, you would burn roughly 40 calories just keeping your organs functioning. The machine often rolls those "free" calories into your workout total, falsely inflating the number of calories you actively burned through exercise. Our calculator strictly isolates the active energy expenditure based on clinical MET values.</p>
 
-            <h2>How Intensity Drives Caloric Burn</h2>
+            <h2 className="text-2xl font-bold mb-3">How Intensity Drives Caloric Burn</h2>
             <p>The total number of calories you burn on an elliptical is dictated by the amount of physical <em>work</em> you do, which is directly controlled by the machine's resistance setting and your pedal RPM (Revolutions Per Minute).</p>
             <ul>
               <li><strong>Light Intensity (MET 4.5):</strong> You are pedaling at a leisurely pace with very little resistance. Your breathing is slightly elevated, but you can easily hold a full conversation without gasping for air. This is an excellent zone for active recovery or warming up.</li>
@@ -329,16 +329,16 @@ export default function EllipticalCalorieCalculator() {
               <li><strong>Vigorous Intensity (MET 8.0+):</strong> The resistance is dialed up heavily, forcing your leg muscles to strain against the pedals. Your heart rate is nearing its maximum, and you are breathing too heavily to talk. This zone generates a massive caloric burn per minute and triggers the "afterburn effect," though it can only be sustained for short bursts (like HIIT intervals).</li>
             </ul>
 
-            <h2>The Secret Weapon: Dual-Action Handles</h2>
+            <h2 className="text-2xl font-bold mb-3">The Secret Weapon: Dual-Action Handles</h2>
             <p>One of the primary biological advantages of the elliptical over a standard treadmill or stationary bike is the inclusion of dual-action, moving arm handles. By actively pushing and pulling these handles, you engage your pectorals, latissimus dorsi, biceps, and triceps.</p>
             <p>Because you are recruiting large upper-body muscle groups simultaneously with your quadriceps, hamstrings, and glutes, your heart must pump significantly more oxygenated blood throughout your entire body. This massive systemic blood flow demand drastically elevates your heart rate. Studies show that actively engaging the upper body on an elliptical can increase total caloric expenditure by 10% to 15% compared to using your legs alone. However, you must actually <em>push and pull</em> the handles; passively letting your arms ride along for the motion provides zero added metabolic benefit.</p>
 
-            <h2>Fuel Sources: Fat Oxidation vs. Glycogen</h2>
+            <h2 className="text-2xl font-bold mb-3">Fuel Sources: Fat Oxidation vs. Glycogen</h2>
             <p>Our calculator features an exclusive chart detailing your estimated fuel oxidation. The human body uses two primary fuel tanks during exercise: stored body fat (adipose tissue) and stored carbohydrates (glycogen).</p>
             <p>When you exercise at a Light or Moderate intensity on the elliptical, your oxygen intake easily meets the demands of your muscles. Because oxygen is plentiful, your body has the necessary chemical resources to slowly oxidize and burn stored fat. Therefore, at moderate intensities, up to 50% to 60% of the calories you burn come directly from fat.</p>
             <p>When you push the elliptical to Vigorous intensity, your muscles demand explosive energy faster than your lungs can supply oxygen. The body panics and immediately switches to burning glycogen (sugar), because carbohydrates can be metabolized anaerobically (without oxygen). In this state, up to 70% of the calories burned come from sugar, not fat. However, vigorous intensity burns so many more <em>total</em> calories that the absolute volume of fat burned is often higher, even if the percentage is lower.</p>
 
-            <h2>Conclusion: Maximizing Your Elliptical Sessions</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Maximizing Your Elliptical Sessions</h2>
             <p>The elliptical is an incredibly powerful tool for fat loss and cardiovascular health, provided you use it correctly. To maximize your caloric expenditure, stop leaning heavily on the stationary center console (which effectively turns off your core muscles). Stand up straight, actively push and pull the moving handles, and focus on increasing the resistance to challenge your leg muscles. By using the Elliptical Calorie Calculator to track your exact energy expenditure, you can design a precise, zero-impact cardio routine that perfectly aligns with your daily nutritional goals.</p>
           </article>
           

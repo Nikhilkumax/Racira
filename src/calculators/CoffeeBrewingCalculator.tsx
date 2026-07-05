@@ -161,13 +161,13 @@ const CoffeeBrewingCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>The Art of the Brew Ratio</h2>
+              <h2 className="text-2xl font-bold mb-3">The Art of the Brew Ratio</h2>
               <p>Coffee brewing is a delicate science where the ratio of coffee to water is the most critical variable. By controlling this ratio, you control the strength and extraction of your coffee. A lower ratio (like 1:12) will result in a heavy, intense cup, while a higher ratio (like 1:18) will be lighter and more tea-like.</p>
               
-              <h2>Why Grams Matter</h2>
+              <h2 className="text-2xl font-bold mb-3">Why Grams Matter</h2>
               <p>In the world of specialty coffee, we always measure in grams. Volume measurements (like tablespoons or cups) are unreliable because different coffees have different sizes and weights. A dark, oily roast might take up much more volume than a dense, light-roasted bean, even if they weigh exactly the same.</p>
 
-              <h2>Standard Ratios by Method</h2>
+              <h2 className="text-2xl font-bold mb-3">Standard Ratios by Method</h2>
               <ul>
                 <li><strong>Pour Over (V60, Chemex):</strong> 1:15 to 1:17. This is the sweet spot for clarity and balance.</li>
                 <li><strong>French Press:</strong> 1:14 to 1:15. A slightly tighter ratio compensates for the immersion brewing and provides more body.</li>
@@ -175,7 +175,7 @@ const CoffeeBrewingCalculator = () => {
                 <li><strong>Espresso:</strong> 1:1.5 to 1:2.5. Extremely concentrated pressure-brewed coffee.</li>
               </ul>
 
-              <h2>Refining Your Brew</h2>
+              <h2 className="text-2xl font-bold mb-3">Refining Your Brew</h2>
               <p>If your coffee tastes too bitter, try using a coarser grind or a slightly higher ratio (more water). If it tastes sour or thin, try a finer grind or a tighter ratio (less water). Remember, the best cup of coffee is the one that tastes best to you — use this calculator as a reliable starting point for your own experimentation.</p>
             </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/coffee-brewing" />

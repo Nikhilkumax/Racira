@@ -300,28 +300,28 @@ export default function Plan529Calculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a 529 Plan?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a 529 Plan?</h2>
             <p>A 529 plan is a tax-advantaged savings plan designed to encourage saving for future education costs. Sponsored by states, state agencies, or educational institutions, these plans are legally known as "qualified tuition programs." There are two main types of 529 plans: education savings plans and prepaid tuition plans. This calculator focuses on the more common education savings plans, which allow you to open an investment account to save for the beneficiary's future qualified higher education expenses.</p>
             
-            <h2>How It Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
             <p>Contributions to a 529 plan are invested in options like mutual funds and ETFs. The account grows tax-deferred, meaning you don't pay annual taxes on investment gains. When money is withdrawn for qualified education expenses, the withdrawal is completely tax-free at the federal level, and usually at the state level as well. Our calculator uses compound interest to project future value: <code>Future Value = P * (1 + r/n)^(n*t) + PMT * [((1 + r/n)^(n*t) - 1) / (r/n)]</code>, where P is initial principal, r is annual rate, n is compounding periods, t is years, and PMT is monthly contribution.</p>
             
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>The <strong>Total College Cost</strong> shows the estimated future cost of college after accounting for inflation over the years until enrollment. The <strong>529 Plan Balance</strong> is your projected savings at the start of college. The <strong>Shortfall / Surplus</strong> indicates whether you are on track or falling behind your goal. The <strong>Monthly Required</strong> figure calculates the exact monthly contribution needed from today to fully fund the total college cost by the time the student enrolls.</p>
             
-            <h2>Key Factors</h2>
+            <h2 className="text-2xl font-bold mb-3">Key Factors</h2>
             <p>College inflation is often higher than general economic inflation, typically averaging 4% to 6% per year. When selecting an expected return, a common estimate for a diversified portfolio heavily weighted in stocks is 7% to 8%, though this should shift to more conservative, lower-yielding investments as the college enrollment date approaches.</p>
             
-            <h2>Advanced Features</h2>
+            <h2 className="text-2xl font-bold mb-3">Advanced Features</h2>
             <p>The advanced options allow you to input current annual college costs, the duration of college, and a specific college cost inflation rate. By default, it assumes a typical 4-year degree with a baseline cost and standard inflation, but adjusting these allows you to tailor the projection to specific institutions, whether public, private, in-state, or out-of-state.</p>
             
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <p>If you start with $10,000 when your child is born (18 years to college) and contribute $300 a month with an expected 7% return, your plan will grow to over $150,000 by the time they start college. However, if you wait until they are 10 years old, you would need to contribute nearly $1,000 a month to reach that same $150,000 goal, demonstrating the power of compound interest over time.</p>
             
-            <h2>Tips & Best Practices</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
             <p>Start saving as early as possible to maximize compound growth. Many state plans offer "age-based" or "target-date" portfolios that automatically adjust from aggressive to conservative investments as your child gets closer to college age. Also, consider front-loading contributions if possible, as federal gift tax laws allow you to contribute a lump sum equivalent to five years of gifts at once without triggering gift taxes.</p>
             
-            <h2>Benefits</h2>
+            <h2 className="text-2xl font-bold mb-3">Benefits</h2>
             <p>Using a 529 plan calculator helps you set realistic savings goals and track your progress. It takes the guesswork out of planning for education expenses, ensuring you understand exactly what it takes to fund your child's future without resorting entirely to burdensome student loans.</p>
           </article>
           

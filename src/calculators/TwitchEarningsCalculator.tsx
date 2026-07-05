@@ -109,7 +109,7 @@ const TwitchEarningsCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>How Twitch Streamers Make Money</h2>
+              <h2 className="text-2xl font-bold mb-3">How Twitch Streamers Make Money</h2>
               <p>Streaming on Twitch can be a lucrative career, but it requires building a loyal community. Unlike YouTube, where ad revenue is the primary driver, Twitch relies heavily on direct support from viewers.</p>
               <h3>The Three Pillars of Twitch Income</h3>
               <ul>

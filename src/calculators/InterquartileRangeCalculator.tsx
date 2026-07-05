@@ -137,17 +137,17 @@ const InterquartileRangeCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is an IQR Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is an IQR Calculator?</h2>
             <p>An IQR calculator computes the Interquartile Range — the spread of the middle 50% of a dataset — along with the full five-number summary, Tukey outlier fences, and identified outliers. Pre-filled with {"{7, 15, 36, 39, 40, 41}"}, the IQR is 25 (Q3=40 − Q1=15). The five-number summary chart visualizes Min, Q1, Median, Q3, and Max.</p>
-            <h2>IQR Formula</h2>
+            <h2 className="text-2xl font-bold mb-3">IQR Formula</h2>
             <p><strong>IQR = Q3 − Q1</strong>. Q1 = 25th percentile (lower quartile), Q3 = 75th percentile (upper quartile). This calculator uses linear interpolation to compute quartiles, consistent with Excel{"'"}s QUARTILE.INC function. The IQR measures variability in the central half of the data, making it robust against outliers that inflate the standard deviation.</p>
-            <h2>Outlier Detection with Tukey Fences</h2>
+            <h2 className="text-2xl font-bold mb-3">Outlier Detection with Tukey Fences</h2>
             <p>Mild outliers: below Q1 − 1.5×IQR, or above Q3 + 1.5×IQR. Extreme outliers: below Q1 − 3×IQR, or above Q3 + 3×IQR. In a normal distribution, Tukey fences capture 99.3% of data within 1.5×IQR of Q1/Q3. Only 0.7% of data in a normal distribution would be flagged as mild outliers. Extreme outlier fences capture 99.9999% — anything beyond is almost certainly a measurement error or legitimate anomaly.</p>
-            <h2>Box Plots and the IQR</h2>
+            <h2 className="text-2xl font-bold mb-3">Box Plots and the IQR</h2>
             <p>A box plot visually encodes the five-number summary. The box spans Q1 to Q3 (width = IQR). The line inside = median. Whiskers extend to the most extreme values within 1.5×IQR of Q1/Q3. Points beyond whiskers are individual outlier markers. Side-by-side box plots are the most efficient way to compare distributions across multiple groups simultaneously.</p>
-            <h2>IQR in Robust Statistics</h2>
+            <h2 className="text-2xl font-bold mb-3">IQR in Robust Statistics</h2>
             <p>Robust statistics resist the influence of outliers. The IQR has a breakdown point of 25% — up to 25% of data can be extreme outliers without affecting the IQR. Standard deviation has a 0% breakdown point — even one outlier can distort it drastically. For real-world data with measurement errors, contamination, or heavy-tailed distributions, IQR-based methods (median, MAD, IQR) are preferred over mean-based methods.</p>
-            <h2>Applications</h2>
+            <h2 className="text-2xl font-bold mb-3">Applications</h2>
             <p>Finance: VaR calculations often exclude outlier days using IQR methods. Healthcare: clinical reference ranges typically exclude the top and bottom 2.5% (similar spirit to IQR). Quality control: IQR-based control charts for non-normal processes. Machine learning: feature scaling using IQR (RobustScaler in scikit-learn). Data cleaning: automatically flag potential data entry errors using outlier fences.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/interquartile-range-calculator" />

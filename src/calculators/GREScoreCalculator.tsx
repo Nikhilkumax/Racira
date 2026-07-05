@@ -137,7 +137,7 @@ const GREScoreCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>The New, Shorter GRE</h2>
+              <h2 className="text-2xl font-bold mb-3">The New, Shorter GRE</h2>
               <p>In September 2023, ETS (Educational Testing Service) introduced a shorter version of the GRE General Test. The new test is under two hours long—nearly half the length of the previous version. While the format changed, the score scale of 130-170 remains the same.</p>
               
               <h3>Section Composition</h3>

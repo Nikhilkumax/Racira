@@ -375,18 +375,18 @@ const AutoLoanVsLeaseComparisonCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is the Auto Loan vs Lease Comparison Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is the Auto Loan vs Lease Comparison Calculator?</h2>
             <p>The Auto Loan vs Lease Comparison Calculator helps you decide whether financing the purchase of a vehicle or leasing it will cost less over the same term. It runs both scenarios on the same vehicle, same term, and same annual mileage, then reports the net cost of each — including the equity you keep when you buy versus the fees and mileage penalties you face when you lease.</p>
             <p>This side-by-side view removes the marketing spin that surrounds both options. Dealers quote low lease payments and low purchase APRs in isolation, but the only fair comparison is total dollars out of pocket over the term you actually intend to keep the car. This calculator does exactly that.</p>
 
-            <h2>How It Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
             <p><strong>Buy path:</strong> The loan amount is MSRP minus the down payment. The monthly payment uses the standard amortization formula M = P × r(1+r)<sup>n</sup> / ((1+r)<sup>n</sup> − 1). Total cost = down payment + sales tax + all monthly payments. We then subtract the vehicle's estimated market value at the end of the term (from a depreciation curve) to get the <em>net</em> cost — because when you buy, you own an asset worth real money.</p>
             <p><strong>Lease path:</strong> The monthly payment is the sum of (1) the depreciation portion — (capitalized cost − residual) ÷ term — and (2) the finance charge — (cap cost + residual) × money factor. Money factor = APR ÷ 2400. Total cost = upfront costs (down + acquisition fee) + all monthly payments + mileage overage + disposition fee. There is no equity at the end.</p>
 
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>The primary result declares the lower-cost option and the dollar gap. The 3-stat bar shows the two net costs side by side. The breakdown table itemizes every cost component for both paths so you can see exactly where the difference comes from. The stacked bar chart visualizes the relative sizes of upfront versus ongoing costs. The summary recaps every key input and output.</p>
 
-            <h2>Key Factors That Drive the Difference</h2>
+            <h2 className="text-2xl font-bold mb-3">Key Factors That Drive the Difference</h2>
             <ul>
               <li><strong>Residual value:</strong> Higher residuals lower lease payments dramatically because you only pay for depreciation. Luxury cars often lease well because they hold residuals; quickly-depreciating cars lease poorly.</li>
               <li><strong>Term length:</strong> Short terms favor leasing (less depreciation to finance); long horizons favor buying because you keep using an owned asset after the loan ends.</li>
@@ -396,10 +396,10 @@ const AutoLoanVsLeaseComparisonCalculator = () => {
               <li><strong>Disposition and acquisition fees:</strong> Unique to leases, these add $700–$1,500 to total lease cost and have no equivalent in a purchase.</li>
             </ul>
 
-            <h2>Advanced Features</h2>
+            <h2 className="text-2xl font-bold mb-3">Advanced Features</h2>
             <p>The Advanced Options panel exposes every lease-specific input: acquisition fee, disposition fee, lease mileage allowance, per-mile overage rate, and annual mileage. Default values reflect typical real-world charges. Adjust them to match the exact lease offer you are evaluating from a dealer worksheet.</p>
 
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <h3>Example 1: Mainstream sedan, 36 months</h3>
             <p>A $35,000 sedan with a 58% residual over 36 months typically shows lease payments around $425/month and a buy payment of $940/month at 6.9% APR. But once you net out the roughly $19,000 of equity you keep with the purchase, the buy's net cost over the 36 months is often only $2,000–$4,000 more than the lease — and you still own the car. Leasing wins on monthly cash flow; buying wins on long-term economics.</p>
             <h3>Example 2: High-mileage driver</h3>
@@ -407,7 +407,7 @@ const AutoLoanVsLeaseComparisonCalculator = () => {
             <h3>Example 3: Subsidized lease</h3>
             <p>A manufacturer offering a 1% money factor on a vehicle with a 62% residual can make a 24-month lease genuinely cheaper than buying, even after fees. These subsidized leases are common at model-year-end and worth comparing.</p>
 
-            <h2>Tips & Best Practices</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
             <ul>
               <li><strong>Compare the same term and mileage.</strong> Mixing terms makes any comparison meaningless.</li>
               <li><strong>Negotiate the capitalized cost on a lease.</strong> The "selling price" of a lease is negotiable just like a purchase; don't focus only on the monthly payment.</li>
@@ -417,7 +417,7 @@ const AutoLoanVsLeaseComparisonCalculator = () => {
               <li><strong>Model multiple cycles.</strong> If you replace cars every 3 years, run the calculator for a 9-year horizon by chaining 3 leases vs one buy kept for 9 years.</li>
             </ul>
 
-            <h2>Benefits of Using This Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Benefits of Using This Calculator</h2>
             <p>By calculating the true net cost of both options on identical terms, this calculator replaces dealer marketing with hard math. You see exactly how much each option costs in total dollars, where the differences come from, and which choice leaves you better off. Use it before every car-shopping trip to negotiate from a position of clarity rather than monthly-payment confusion.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/auto-loan-vs-lease-comparison-calculator" />

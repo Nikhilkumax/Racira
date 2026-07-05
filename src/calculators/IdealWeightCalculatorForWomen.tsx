@@ -391,14 +391,14 @@ export default function IdealWeightCalculatorForWomen() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Ideal Weight Calculator for Women</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Ideal Weight Calculator for Women</h2>
             <p>Every day, millions of women step onto the bathroom scale and feel intense frustration because their weight does not match an arbitrary number they saw in a magazine. Society often conflates a "model physique" with a "healthy physique," leading to dangerous eating disorders and unrealistic expectations. The <strong>Ideal Weight Calculator for Women</strong> strips away cosmetic societal pressures and relies entirely on cold, hard medical science. It utilizes four heavily researched clinical algorithms—developed by physicians—to determine the exact mathematical baseline weight required to ensure optimal cardiovascular health, organ function, and joint longevity based exclusively on your biological height and bone structure.</p>
 
-            <h2>The History of Ideal Body Weight (IBW)</h2>
+            <h2 className="text-2xl font-bold mb-3">The History of Ideal Body Weight (IBW)</h2>
             <p>The concept of "Ideal Body Weight" was not created by dietitians or fitness trainers. It was created by anesthesiologists and pharmacists. In the mid-20th century, doctors realized that dosing incredibly dangerous medications based on total body weight was killing people.</p>
             <p>If a morbidly obese patient came into the hospital, dosing anesthesia based on their 350-pound weight would result in a fatal overdose, because fat tissue does not absorb certain drugs the way muscle and water do. Doctors needed a mathematical formula that predicted what a person <em>should</em> weigh based purely on their height and frame, assuming zero excess fat. This led to the creation of the clinical formulas that form the foundation of our calculator today.</p>
 
-            <h2>Deconstructing the Four Clinical Algorithms</h2>
+            <h2 className="text-2xl font-bold mb-3">Deconstructing the Four Clinical Algorithms</h2>
             <p>Because human biology is incredibly complex, no single mathematical formula is perfect. Our calculator aggregates the four most widely accepted clinical models in modern medicine to provide a smoothed, highly accurate average.</p>
 
             <h3>1. The Hamwi Formula (1964)</h3>
@@ -413,11 +413,11 @@ export default function IdealWeightCalculatorForWomen() {
             <h3>4. The Miller Formula (1983)</h3>
             <p>Published in the same year as Robinson, Dr. D.R. Miller created a formula that starts with an even heavier baseline for a 5-foot woman (117 pounds / 53.1 kg), but adds less weight per subsequent inch. This formula tends to yield higher healthy weights for shorter women, and lower healthy weights for very tall women, attempting to fix statistical outliers.</p>
 
-            <h2>The Crucial Importance of Frame Size</h2>
+            <h2 className="text-2xl font-bold mb-3">The Crucial Importance of Frame Size</h2>
             <p>The biggest flaw in the original 1964 formulas was the assumption that all women of the same height had the exact same skeletal structure. This is biologically false. Two women can both be exactly 5'6", but one might have incredibly narrow shoulders, thin wrists, and small hips, while the other might have broad shoulders, thick ankles, and wide hips. Forcing the broad-shouldered woman to diet down to the exact weight of the narrow-shouldered woman is dangerous and unhealthy.</p>
             <p>Our calculator implements a crucial clinical fix: the <strong>Frame Size Modifier</strong>. If you determine you have a "Small" frame, the algorithm automatically deducts 10% from all the formulas, acknowledging that your lighter skeletal structure does not require as much mass. If you have a "Large" frame, the calculator adds a 10% premium, ensuring you do not starve yourself trying to hit a number your skeleton was never designed to reach.</p>
 
-            <h2>How to Determine Your Skeletal Frame Size</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Determine Your Skeletal Frame Size</h2>
             <p>You cannot guess your frame size by looking in the mirror. You must measure it. The fastest, most clinically accepted method is the <strong>Wrist Circumference Test</strong>. Because very little fat is stored directly over the wrist joint, it provides a highly accurate proxy for total skeletal thickness.</p>
             <ul>
               <li><strong>The Finger Method:</strong> Wrap your thumb and middle finger around your opposite wrist. If your fingers easily overlap, you have a Small frame. If the tips perfectly touch, you have a Medium frame. If your fingers cannot touch, you have a Large frame.</li>
@@ -425,11 +425,11 @@ export default function IdealWeightCalculatorForWomen() {
               <li><strong>The Tape Measure Method (For a woman 5'2" to 5'5"):</strong> Under 6.0 inches is Small. 6.0 to 6.25 is Medium. Over 6.25 is Large.</li>
             </ul>
 
-            <h2>The Blind Spot: Muscle Mass</h2>
+            <h2 className="text-2xl font-bold mb-3">The Blind Spot: Muscle Mass</h2>
             <p>You must interpret your results with one massive caveat: these clinical formulas were designed in the 1960s and 1970s. During that era, very few women engaged in heavy resistance training. Therefore, the algorithms assume the vast majority of your weight comes from organs, bones, and normal fat levels.</p>
             <p>If you are a modern woman who lifts heavy weights, does CrossFit, or competes in athletics, you possess a massive amount of dense, heavy skeletal muscle that the creators of these formulas could not have anticipated. Muscle is significantly denser than fat. A healthy, muscular female athlete might safely weigh 15 to 25 pounds more than her "Ideal Weight" output from this calculator. If you lift weights, treat the output as an absolute minimum baseline, not a maximum ceiling.</p>
 
-            <h2>Conclusion: A Baseline, Not a Bible</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: A Baseline, Not a Bible</h2>
             <p>The Ideal Weight Calculator for Women is a powerful diagnostic tool, but it should never override common sense or how you feel in your own body. If your current weight is vastly higher than the calculated output, it serves as a clinical warning that you may be carrying excess visceral fat, placing you at risk for type 2 diabetes and joint degradation. However, if you are strong, energetic, possess a healthy body fat percentage, and your weight is 10 pounds above the calculated average, you are perfectly healthy. Use the science to guide your journey, but do not let a mathematical equation dictate your self-worth.</p>
           </article>
           

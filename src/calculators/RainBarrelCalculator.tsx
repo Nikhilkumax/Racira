@@ -106,7 +106,7 @@ const RainBarrelCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Rainwater Harvesting</h2>
+              <h2 className="text-2xl font-bold mb-3">Rainwater Harvesting</h2>
               <p>Rainwater harvesting is an ancient practice that is seeing a modern resurgence. By catching water before it hits the ground, you reduce local runoff (which carries pollutants to streams) and decrease your reliance on treated municipal water for landscaping.</p>
               <h3>How to Measure Your Roof Area</h3>
               <p>For this calculation, you only need the 'footprint' area of the roof that drains into your collection system. You don't need to account for the pitch (slope) of the roof; a 1,000 sq ft flat roof and a 1,000 sq ft steep roof catch the same amount of vertical rainfall.</p>

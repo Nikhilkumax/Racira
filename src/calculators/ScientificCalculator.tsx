@@ -269,10 +269,10 @@ const ScientificCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Online Scientific Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">The Online Scientific Calculator</h2>
             <p>A <strong>scientific calculator</strong> goes far beyond the capabilities of a basic arithmetic tool. It is engineered to solve complex mathematical, engineering, and scientific problems. Unlike basic calculators that process equations linearly as you type them, a scientific calculator strictly adheres to the mathematical order of operations (PEMDAS/BODMAS), allowing you to input complex, multi-layered equations exactly as they appear in a textbook.</p>
 
-            <h2>Key Scientific Functions Explained</h2>
+            <h2 className="text-2xl font-bold mb-3">Key Scientific Functions Explained</h2>
             <p>This calculator includes a comprehensive suite of advanced mathematical functions:</p>
             <ul>
               <li><strong>Trigonometry (sin, cos, tan):</strong> Crucial for geometry and physics. The calculator supports both Degrees and Radians. Use the RAD/DEG toggle to match your specific problem's requirements.</li>
@@ -283,11 +283,11 @@ const ScientificCalculator = () => {
               <li><strong>Factorials (!):</strong> Instantly calculate the product of an integer and all the integers below it, frequently used in probability and combinatorics.</li>
             </ul>
 
-            <h2>Why Order of Operations Matters</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Order of Operations Matters</h2>
             <p>One of the primary reasons to use a scientific calculator over a basic one is its ability to parse an entire expression before solving. If you input <code>5 + 2 × 3</code>, this scientific calculator will correctly identify the multiplication and solve it first, yielding <code>11</code>. A basic sequential calculator would read it as <code>(5 + 2) × 3</code> and yield <code>21</code>.</p>
             <p>Furthermore, the inclusion of parentheses <code>()</code> allows you to manually override the standard order of operations when necessary, creating complex nested equations like <code>3 × (4 + (2^3))</code>.</p>
 
-            <h2>Tips for Efficient Use</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips for Efficient Use</h2>
             <p>For students and professionals working rapidly, this tool supports full physical keyboard integration. You can type numbers directly and use standard keyboard symbols (like <code>^</code> for exponents). The calculator will dynamically build your equation string on the screen, allowing you to review the entire formula for syntax errors before hitting equals.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/scientific-calculator" />

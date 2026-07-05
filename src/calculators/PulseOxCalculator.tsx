@@ -240,11 +240,11 @@ export default function PulseOxCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding Pulse Oximetry (SpO2)</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Pulse Oximetry (SpO2)</h2>
             <p>A pulse oximeter is a small, non-invasive medical device that clips onto your finger to measure the oxygen saturation level of your blood (SpO2). It works by shining specialized wavelengths of light through your skin and nail bed, analyzing how much of that light is absorbed by the hemoglobin in your blood. Fully oxygenated blood absorbs light differently than oxygen-depleted blood.</p>
             <p>This <strong>Pulse Ox Triage Calculator</strong> provides immediate clinical context for your reading, distinguishing between normal healthy ranges and the specialized ranges required for patients with severe chronic lung disease.</p>
 
-            <h2>Standard Guidelines for Healthy Adults</h2>
+            <h2 className="text-2xl font-bold mb-3">Standard Guidelines for Healthy Adults</h2>
             <p>For individuals without chronic respiratory diseases, the body is incredibly efficient at extracting oxygen from the air, even at high altitudes.</p>
             <ul>
               <li><strong>Normal (95% to 100%):</strong> Your lungs are functioning perfectly. The vast majority of healthy adults sit consistently between 97% and 99%.</li>
@@ -252,7 +252,7 @@ export default function PulseOxCalculator() {
               <li><strong>Severe Hypoxemia (90% or lower):</strong> This is a severe medical emergency. At this saturation level, critical organs like the heart and brain are being starved of oxygen, which can cause permanent tissue death within minutes. Immediate emergency room care is required.</li>
             </ul>
 
-            <h2>The COPD Paradox: Why 100% is Dangerous</h2>
+            <h2 className="text-2xl font-bold mb-3">The COPD Paradox: Why 100% is Dangerous</h2>
             <p>If you have healthy lungs, your brain monitors the buildup of carbon dioxide (CO2) in your blood. When CO2 gets too high, your brain forces you to take a breath. This is your primary respiratory drive.</p>
             <p>However, patients with severe COPD (Chronic Obstructive Pulmonary Disease) cannot fully exhale, meaning CO2 is chronically trapped in their blood. Over time, their brains become numb to high CO2 levels. To survive, their brain switches to a backup system: <em>Hypoxic Drive</em>. The brain begins monitoring oxygen levels instead, only forcing a breath when oxygen drops.</p>
             <p>Because of this biological switch, the target oxygen range for severe COPD patients is intentionally lowered to <strong>88% to 92%</strong>. If you place a COPD patient on high-flow supplemental oxygen and force their SpO2 up to 98%, their brain assumes they have plenty of oxygen and simply stops sending the signal to breathe. The patient will quietly suffocate from CO2 poisoning while their pulse ox reads 98%.</p>

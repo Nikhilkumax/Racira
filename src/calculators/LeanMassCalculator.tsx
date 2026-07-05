@@ -105,7 +105,7 @@ const LeanMassCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Beyond the Scale</h2>
+              <h2 className="text-2xl font-bold mb-3">Beyond the Scale</h2>
               <p>Your total body weight only tells part of the story. Two people can weigh 200 pounds, but one may be an elite athlete with 10% body fat, while the other may be sedentary with 35% body fat. Lean mass tracking helps you understand what your weight is actually composed of.</p>
               <h3>The Importance of Muscle</h3>
               <p>Muscle tissue is more metabolically active than fat tissue. This means that having a higher lean body mass increases your Basal Metabolic Rate (BMR) — the number of calories your body burns at rest. Building lean mass through resistance training is one of the most effective ways to manage weight long-term.</p>

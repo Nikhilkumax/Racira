@@ -145,7 +145,7 @@ const DebtSnowballCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>How the Debt Snowball Works</h2>
+              <h2 className="text-2xl font-bold mb-3">How the Debt Snowball Works</h2>
               <p>The Snowball method is a psychologically powerful debt payoff strategy. By targeting the smallest debt first, you get a quick win that builds momentum and confidence for tackling larger debts.</p>
               <h3>The Rolling Effect</h3>
               <p>Once debt #1 is paid off, you take its minimum payment and add it to your payment for debt #2. This creates a growing "snowball" of payments. By the time you hit your largest debt, you're throwing a massive payment at it every month.</p>

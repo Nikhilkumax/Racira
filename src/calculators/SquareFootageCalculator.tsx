@@ -190,18 +190,18 @@ const SquareFootageCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Mathematics of Area Measurement</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of Area Measurement</h2>
             <p>Whether you are buying real estate, ordering flooring, or applying fertilizer to a lawn, almost everything related to physical land or structure is measured in two-dimensional area. In the United States, the fundamental unit of this measurement is the <strong>Square Foot</strong>.</p>
             <p>If you have a tape measure, you are measuring a single line (one-dimensional length). To get square footage, you are multiplying two perpendicular lines (Length × Width) to calculate the size of the flat surface between them.</p>
 
-            <h2>Deconstructing Complex Rooms</h2>
+            <h2 className="text-2xl font-bold mb-3">Deconstructing Complex Rooms</h2>
             <p>Very few rooms in a house are perfect, unbroken rectangles. Most rooms have closets jutting into them, hallways attached, or bay windows bumping out of the wall. You cannot measure a complex room in a single mathematical step.</p>
             <p>The secret is <strong>Decomposition</strong>. You must mentally break the complex room down into smaller, perfect rectangles. If you have an "L" shaped living room, imagine a line cutting the "L" into two separate rectangles. Measure the Length x Width of the first block, then measure the Length x Width of the second block. Add those two numbers together, and you have the exact square footage of the entire complex room.</p>
 
-            <h2>When to use Square Yards?</h2>
+            <h2 className="text-2xl font-bold mb-3">When to use Square Yards?</h2>
             <p>While hardwood flooring and tile are sold by the square foot, wall-to-wall carpeting and artificial turf are historically sold by the <strong>Square Yard</strong>. Because a yard is 3 feet long, a square yard is a 3 ft by 3 ft block, meaning it contains exactly 9 square feet. If your living room is 300 square feet, you must divide by 9 to know you need to order 33.3 square yards of carpet.</p>
 
-            <h2>Acres vs. Square Feet</h2>
+            <h2 className="text-2xl font-bold mb-3">Acres vs. Square Feet</h2>
             <p>When measuring vast plots of land, square feet becomes an unwieldy number (a standard city block would be hundreds of thousands of square feet). Instead, real estate uses the <strong>Acre</strong>.</p>
             <p>An acre is exactly <strong>43,560 square feet</strong>. If a developer tells you a suburban housing lot is "a quarter acre," they mean the lot contains exactly 10,890 square feet of land (usually roughly 100 feet deep and 100 feet wide).</p>
           </article>

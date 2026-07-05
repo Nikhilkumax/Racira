@@ -243,11 +243,11 @@ export default function NutrientTimingCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Science of Nutrient Timing</h2>
+            <h2 className="text-2xl font-bold mb-3">The Science of Nutrient Timing</h2>
             <p>In the hierarchy of sports nutrition, total daily calorie intake and total daily macronutrient targets are the undisputed king and queen. If you are not eating enough protein over a 24-hour period, or if you are not in a caloric deficit, no amount of precise meal timing will save your physique. However, once those foundational elements are dialed in, <strong>Nutrient Timing</strong> becomes the crucial final layer for optimizing physical performance, delaying systemic fatigue, and maximizing muscular recovery.</p>
             <p>Nutrient timing specifically refers to the strategic manipulation of macronutrients (primarily carbohydrates and protein) directly around your training window. This period is scientifically referred to as the "Peri-Workout Window," which encompasses your pre-workout, intra-workout, and post-workout nutrition.</p>
 
-            <h2>Pre-Workout Nutrition: The Fueling Phase</h2>
+            <h2 className="text-2xl font-bold mb-3">Pre-Workout Nutrition: The Fueling Phase</h2>
             <p>The primary goal of the pre-workout meal is to top off muscle glycogen stores (your body's preferred fuel source for high-intensity exercise) and provide circulating amino acids to prevent muscle breakdown during training.</p>
             <p>The composition of this meal depends entirely on <em>when</em> you eat it.</p>
             <h3>Eating 2 to 3 Hours Before Training</h3>
@@ -255,7 +255,7 @@ export default function NutrientTimingCalculator() {
             <h3>Eating 30 to 45 Minutes Before Training</h3>
             <p>If you are eating a quick snack right before you train, the rules change drastically. You must actively <strong>avoid dietary fat and fiber</strong>. Fat and fiber physically slow down gastric emptying. If you eat a high-fat snack right before training, the food will literally sit in your stomach while you lift, pulling blood flow away from your working muscles and causing severe stomach cramps. Stick to fast-digesting carbohydrates (like rice cakes, a banana, or Gatorade) and a liquid protein source (like whey isolate) that will clear your stomach rapidly.</p>
 
-            <h2>Intra-Workout Nutrition: Delaying Fatigue</h2>
+            <h2 className="text-2xl font-bold mb-3">Intra-Workout Nutrition: Delaying Fatigue</h2>
             <p>Do you need to drink a neon-colored sports drink while you lift weights? For the vast majority of people doing standard 45-to-60-minute gym sessions, the answer is no. Plain water is perfectly fine, and you have enough stored glycogen to power through the session.</p>
             <p>However, intra-workout nutrition becomes absolutely critical in two specific scenarios:</p>
             <ol>
@@ -263,14 +263,14 @@ export default function NutrientTimingCalculator() {
               <li><strong>High-Volume Bodybuilders:</strong> If you are undergoing grueling, high-volume hypertrophy sessions lasting 90 to 120 minutes, sipping on highly branched cyclic dextrin (a fast carb) and essential amino acids (EAAs) can prevent excessive muscle catabolism late in the workout.</li>
             </ol>
 
-            <h2>Post-Workout Nutrition: The Recovery Phase</h2>
+            <h2 className="text-2xl font-bold mb-3">Post-Workout Nutrition: The Recovery Phase</h2>
             <p>The post-workout period is famous for the "Anabolic Window." For decades, gym-goers believed that if they didn't consume protein within exactly 30 minutes of finishing their last set, they would lose all their gains. We now know this is a myth. Muscle protein synthesis remains elevated for 24 to 48 hours after resistance training.</p>
             <p>However, that does not mean post-workout timing is irrelevant. Consuming protein and fast-digesting carbohydrates within 1 to 2 hours of finishing your workout is highly optimal. Why? Because intense training puts your body in a catabolic (muscle-breakdown) state. The rapid influx of carbohydrates spikes insulin, which aggressively halts the catabolic process and begins shuttling the protein directly into the damaged muscle cells to jumpstart the repair process.</p>
 
             <h3>The 3:1 Carbohydrate to Protein Ratio</h3>
             <p>For endurance athletes who train multiple times a day or have back-to-back events, rapidly replenishing glycogen is their highest priority. Clinical studies have shown that consuming carbohydrates with a small amount of protein (typically a 3:1 or 4:1 ratio) increases glycogen resynthesis rates significantly faster than consuming carbohydrates alone. The protein acts as an amplifier for the insulin response, pulling the carbs into the muscle cells more efficiently.</p>
 
-            <h2>What About Training Fasted?</h2>
+            <h2 className="text-2xl font-bold mb-3">What About Training Fasted?</h2>
             <p>Training completely fasted (e.g., waking up and immediately running or lifting weights) is a popular trend, particularly for fat loss. Fasted cardio can slightly increase the percentage of calories burned directly from fat <em>during</em> the actual session. However, long-term clinical studies show it does not lead to greater overall body fat loss over a 24-hour period compared to fed cardio. Total caloric deficit dictates fat loss.</p>
             <p>For resistance training (lifting weights), working out completely fasted is almost always suboptimal. Lifting weights requires high neural drive and glycogen. Doing it fasted noticeably decreases your performance output and increases muscle catabolism. If you must train first thing in the morning, consuming a small, fast-digesting protein shake (20g of whey) before you lift is highly recommended to protect your muscle tissue without causing stomach upset.</p>
           </article>

@@ -282,19 +282,19 @@ export default function DynoCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Mathematics of a Dyno</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of a Dyno</h2>
             <p>If you strap your car to a dynamometer (a "dyno"), it does not directly measure horsepower. A dyno is physically only capable of measuring two things: <strong>Torque</strong> (the twisting force of the tires against the rollers) and <strong>Engine Speed</strong> (RPM). Once the dyno captures these two variables, its internal computer uses a strict mathematical formula to calculate your Horsepower.</p>
 
-            <h2>Horsepower vs. Torque: What is the difference?</h2>
+            <h2 className="text-2xl font-bold mb-3">Horsepower vs. Torque: What is the difference?</h2>
             <p><strong>Torque</strong> is a measurement of physical force. If you use a 1-foot-long wrench and apply 100 pounds of force to the end of it, you are generating 100 lb-ft of torque. In an engine, torque is the raw, explosive force of the piston pushing down on the crankshaft. It is what pushes you back into your seat when you launch from a red light.</p>
             <p><strong>Horsepower</strong> is a measurement of work done over time. It answers the question: "How fast can you apply that torque?" If two cars both make 400 lb-ft of torque, but Car A can maintain that torque at 7,000 RPM while Car B chokes out at 4,000 RPM, Car A is doing significantly more work per second. Therefore, Car A has much more Horsepower and will win the race.</p>
 
-            <h2>The 5252 RPM Crossover Rule</h2>
+            <h2 className="text-2xl font-bold mb-3">The 5252 RPM Crossover Rule</h2>
             <p>Look at the chart provided by our Dyno Calculator. You will notice that the Horsepower line and the Torque line perfectly intersect at exactly 5,252 RPM. This is not a coincidence; it is a mathematical law of physics originally established by James Watt.</p>
             <p>The formula for Horsepower is: <code>(Torque × RPM) / 5252</code></p>
             <p>If your engine is running at exactly 5,252 RPM, the formula becomes: <code>(Torque × 5252) / 5252</code>. The two 5252s cancel each other out, leaving Horsepower perfectly equal to Torque. If you ever look at a dyno graph from a tuning shop and the lines cross at 4,000 RPM or 6,000 RPM, the graph is either incorrectly scaled or completely fake.</p>
 
-            <h2>Why Diesel Engines Feel So Different</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Diesel Engines Feel So Different</h2>
             <p>Diesel trucks are famous for generating massive amounts of torque (e.g., 1,000+ lb-ft) but relatively low horsepower (e.g., 400 HP). Why? Because diesel engines physically cannot spin fast. A heavy-duty diesel engine might hit its redline at just 3,200 RPM. Because the RPM variable in the horsepower formula is so low, the resulting horsepower number remains low, despite the sheer twisting force being generated.</p>
           </article>
           

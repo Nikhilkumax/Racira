@@ -133,13 +133,13 @@ export default function CreditCardPayoffCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Credit Card Debt Payoff Strategies</h2>
+            <h2 className="text-2xl font-bold mb-3">Credit Card Debt Payoff Strategies</h2>
             <p>This calculator models both the Debt Avalanche and Debt Snowball strategies across multiple credit cards simultaneously. Enter your cards&apos; balances, APRs, and minimum payments, then add any extra monthly payment you can allocate. The calculator shows exact payoff timelines, total interest cost, and compares your chosen strategy against minimum-payment-only (revealing exactly how much you save by being aggressive).</p>
-            <h2>Debt Avalanche — The Mathematically Optimal Method</h2>
+            <h2 className="text-2xl font-bold mb-3">Debt Avalanche — The Mathematically Optimal Method</h2>
             <p>The avalanche method directs all extra payments to the card with the highest interest rate. After that card is paid off, its payment is added to the next-highest-rate card (the &quot;avalanche&quot; effect). This minimizes total interest paid and total time in debt. For high-rate credit cards (20–30% APR), the interest savings are substantial — often thousands of dollars over minimum payments alone.</p>
-            <h2>Debt Snowball — The Motivational Method</h2>
+            <h2 className="text-2xl font-bold mb-3">Debt Snowball — The Motivational Method</h2>
             <p>The snowball method targets the smallest balance first. Each paid-off card provides a psychological win that maintains motivation for the longer journey. Research by behavioral economists (Haisley et al.) shows many people successfully pay off debt faster using snowball because motivation and consistency outweigh mathematical efficiency. Choose the method you will actually stick with.</p>
-            <h2>Balance Transfer and Consolidation</h2>
+            <h2 className="text-2xl font-bold mb-3">Balance Transfer and Consolidation</h2>
             <p>0% APR balance transfer cards can dramatically accelerate payoff by eliminating interest for 15–21 months. Key considerations: transfer fee (typically 3–5% of balance), must pay off before the promotional period ends (or interest often applies retroactively), and requires good credit to qualify (700+ typically). A personal loan consolidation at 10–15% APR can save 10–15 percentage points vs. credit card rates while simplifying to a single payment with a definite payoff date.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/credit-card-payoff-calculator" />

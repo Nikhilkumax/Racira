@@ -111,7 +111,7 @@ const OvulationCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Maximizing Your Chances of Conception</h2>
+              <h2 className="text-2xl font-bold mb-3">Maximizing Your Chances of Conception</h2>
               <p>Timing intercourse correctly is the most important factor in getting pregnant. The egg only survives for a short window (12-24 hours), so waiting until you ovulate is often too late.</p>
               <h3>The Luteal Phase</h3>
               <p>The time between ovulation and your next period is called the luteal phase. While total cycle length varies wildly among women (from 21 to 35 days), the luteal phase is remarkably consistent, almost always lasting exactly 14 days. This is why ovulation is calculated backwards from your next expected period.</p>

@@ -120,10 +120,10 @@ const StampDutyCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>What Is Stamp Duty?</h2>
+              <h2 className="text-2xl font-bold mb-3">What Is Stamp Duty?</h2>
               <p>Stamp duty is a legal tax imposed by state governments on property transactions. It must be paid before or at the time of executing a sale deed, and the property registration is incomplete without it. The rates vary significantly across states and are influenced by factors like property type, location, buyer's gender, and property value.</p>
 
-              <h2>Stamp Duty Rates Across India (2024-25)</h2>
+              <h2 className="text-2xl font-bold mb-3">Stamp Duty Rates Across India (2024-25)</h2>
               <ul>
                 <li><strong>Maharashtra:</strong> 6% (men), 5% (women) + 1% registration. Additional 1% metro cess in Mumbai.</li>
                 <li><strong>Delhi:</strong> 6% (men), 4% (women) + 1% registration.</li>
@@ -133,7 +133,7 @@ const StampDutyCalculator = () => {
                 <li><strong>Telangana:</strong> 6% + 0.5% registration.</li>
               </ul>
 
-              <h2>How to Save on Stamp Duty</h2>
+              <h2 className="text-2xl font-bold mb-3">How to Save on Stamp Duty</h2>
               <ul>
                 <li><strong>Register in a woman's name:</strong> Many states offer 1-2% lower rates for female buyers.</li>
                 <li><strong>Joint ownership:</strong> If jointly owned with a woman, lower rates may apply.</li>
@@ -141,7 +141,7 @@ const StampDutyCalculator = () => {
                 <li><strong>Check for concessions:</strong> Some states offer reduced rates for affordable housing, first-time buyers, or properties below a certain value.</li>
               </ul>
 
-              <h2>Documents Required for Property Registration</h2>
+              <h2 className="text-2xl font-bold mb-3">Documents Required for Property Registration</h2>
               <ul>
                 <li>Sale deed / agreement to sell</li>
                 <li>Identity proof (Aadhaar, PAN) of buyer and seller</li>

@@ -110,14 +110,14 @@ const PPFCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>What Is a PPF Calculator?</h2>
+              <h2 className="text-2xl font-bold mb-3">What Is a PPF Calculator?</h2>
               <p>A PPF calculator helps you estimate the maturity value of your Public Provident Fund account based on annual deposits, interest rate, and tenure. PPF is one of the safest investment options in India, backed by the Government of India.</p>
 
-              <h2>How PPF Interest Is Calculated</h2>
+              <h2 className="text-2xl font-bold mb-3">How PPF Interest Is Calculated</h2>
               <p>PPF interest is compounded annually. The interest for each year is calculated on the balance at the end of the previous year plus the current year's deposit. The formula is:</p>
               <p><strong>Balance(n) = [Balance(n-1) + Deposit] × (1 + r)</strong></p>
 
-              <h2>PPF Key Features</h2>
+              <h2 className="text-2xl font-bold mb-3">PPF Key Features</h2>
               <ul>
                 <li><strong>Tax Benefits:</strong> EEE status — deduction under 80C, tax-free interest, tax-free maturity.</li>
                 <li><strong>Lock-in:</strong> 15-year minimum, extendable in 5-year blocks.</li>

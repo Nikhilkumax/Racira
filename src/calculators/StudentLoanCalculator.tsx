@@ -209,11 +209,11 @@ export default function StudentLoanCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>How to Calculate Student Loan Payments</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Calculate Student Loan Payments</h2>
             <p>This <strong>student loan calculator</strong> uses the standard amortization formula: Monthly Payment = P × [r(1+r)^n] ÷ [(1+r)^n − 1], where P = loan principal, r = monthly interest rate (APR ÷ 12), and n = number of monthly payments. The key insight: interest charges are heaviest in the early years when the balance is highest. Extra payments in the first 2–3 years have the highest impact on total interest savings.</p>
-            <h2>2024–2025 Federal Loan Rates</h2>
+            <h2 className="text-2xl font-bold mb-3">2024–2025 Federal Loan Rates</h2>
             <p>Undergraduate Direct Loans: 6.53%. Graduate Direct Loans: 8.08%. PLUS Loans (grad/parent): 9.08%. These are fixed for the life of each loan. Private student loan rates range from 4–15% based on creditworthiness. The average American student loan borrower owes $37,338 (as of 2024), with typical monthly payments under Standard Repayment of $350–450/month.</p>
-            <h2>Repayment Strategies</h2>
+            <h2 className="text-2xl font-bold mb-3">Repayment Strategies</h2>
             <p>Avalanche method: pay minimums on all loans, target extra payments to highest interest rate first — minimizes total interest. Snowball method: target lowest balance first — provides psychological momentum. Hybrid: target high-interest loans above a threshold first. For federal loans, consider income-driven repayment if monthly payments strain your budget — SAVE Plan caps undergrad loan payments at 5% of discretionary income and forgives balances after 20–25 years. Related tools: <a href="/calculator/debt-payoff-calculator">Debt Payoff Calculator</a>, <a href="/calculator/refinance-calculator">Refinance Calculator</a>.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/student-loan-calculator" />

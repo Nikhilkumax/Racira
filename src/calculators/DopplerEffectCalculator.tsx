@@ -185,17 +185,17 @@ const DopplerEffectCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Doppler Effect Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Doppler Effect Calculator?</h2>
             <p>A Doppler effect calculator computes the observed frequency shift when a wave source and observer are in relative motion. Supporting both sound and light waves, this calculator applies the classical Doppler formula for sound and the relativistic formula for light. Pre-filled with a 440 Hz source (musical note A4) approaching at 30 m/s in air, the observed frequency is approximately 482 Hz — a clearly audible pitch increase.</p>
-            <h2>Classical Doppler Formula (Sound)</h2>
+            <h2 className="text-2xl font-bold mb-3">Classical Doppler Formula (Sound)</h2>
             <p><strong>f_obs = f₀ × (v_medium / (v_medium ∓ v_source))</strong>. For an approaching source, the denominator decreases, increasing frequency. For a receding source, the denominator increases, decreasing frequency. At v_source = v_medium (Mach 1), the formula gives infinite frequency — corresponding to the sonic boom shock wave.</p>
-            <h2>Relativistic Doppler Formula (Light)</h2>
+            <h2 className="text-2xl font-bold mb-3">Relativistic Doppler Formula (Light)</h2>
             <p><strong>f_obs = f₀ × √((1 ± β) / (1 ∓ β))</strong>, where β = v/c. This formula incorporates both the classical Doppler shift and relativistic time dilation. Unlike sound, there is no preferred reference frame for light — the shift depends only on the relative velocity between source and observer. At β = 0.5: approaching frequency doubles, receding frequency halves.</p>
-            <h2>Applications in Astronomy</h2>
+            <h2 className="text-2xl font-bold mb-3">Applications in Astronomy</h2>
             <p>Spectral line redshift measures recession velocity of galaxies, confirming the expanding universe. Edwin Hubble discovered that redshift is proportional to distance ({"Hubble's Law: v = H₀d"}). The cosmic microwave background radiation is redshifted by z ≈ 1100, from its original ~3000K to 2.725K. Exoplanet detection via the radial velocity method uses Doppler shifts of stellar spectra to find orbiting planets.</p>
-            <h2>Medical and Engineering Applications</h2>
+            <h2 className="text-2xl font-bold mb-3">Medical and Engineering Applications</h2>
             <p>Doppler ultrasound measures blood flow velocity through vessels — critical for detecting blockages, valve disorders, and fetal heart monitoring. Police radar guns measure vehicle speed by bouncing microwaves off cars and measuring the return frequency shift. Weather Doppler radar detects precipitation movement and rotation (tornado detection). Satellite communications apply Doppler compensation to maintain signal quality.</p>
-            <h2>Sonic Booms and Shock Waves</h2>
+            <h2 className="text-2xl font-bold mb-3">Sonic Booms and Shock Waves</h2>
             <p>When a source exceeds the speed of sound (Mach 1), it outruns its own sound waves. The wavefronts pile up into a conical shock wave — the sonic boom. The Mach cone half-angle θ = arcsin(1/Mach). At Mach 2: θ = 30°. The boom is heard as a sharp double crack (from leading and trailing edges of the aircraft). Concorde cruised at Mach 2.04 — its sonic boom was a major factor limiting overland supersonic flight.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/doppler-effect-calculator" />

@@ -123,7 +123,7 @@ const PaceCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Training with Pace</h2>
+              <h2 className="text-2xl font-bold mb-3">Training with Pace</h2>
               <p>Understanding your pace is the foundation of endurance training. Whether you are training for a 5K, a half-marathon, or a full marathon, knowing exactly how fast you are running per mile or kilometer allows you to pace yourself so you don't burn out early.</p>
               <h3>Pacing Strategies</h3>
               <p>For long races, a "negative split" strategy is often recommended. This means running the second half of the race slightly faster than the first half. It requires extreme discipline to run slower than you feel you can at the beginning.</p>

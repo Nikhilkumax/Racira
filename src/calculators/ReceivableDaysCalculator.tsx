@@ -127,20 +127,20 @@ export default function ReceivableDaysCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10"/>
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is Days Sales Outstanding (DSO)?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is Days Sales Outstanding (DSO)?</h2>
             <p>Days Sales Outstanding (DSO) is a financial ratio that measures the average number of days a company takes to collect payment after a sale has been made on credit. It is a key accounts receivable efficiency metric used by finance teams, credit analysts, and investors to assess collection effectiveness and working capital management quality.</p>
-            <h2>DSO Formula</h2>
+            <h2 className="text-2xl font-bold mb-3">DSO Formula</h2>
             <p><strong>DSO = (Average Accounts Receivable ÷ Revenue) × 365</strong></p>
             <p>Where Average AR = (Beginning AR + Ending AR) ÷ 2. Equivalently: DSO = 365 ÷ Receivables Turnover. The receivables turnover ratio = Revenue ÷ Average AR, measuring how many times receivables are collected per year.</p>
-            <h2>Why DSO Matters for Cash Flow</h2>
+            <h2 className="text-2xl font-bold mb-3">Why DSO Matters for Cash Flow</h2>
             <p>Revenue recognized on an accrual basis does not equal cash received. DSO quantifies the gap between revenue recognition and cash collection. A high DSO means capital is locked in unpaid invoices, increasing the need for working capital financing. Every 10-day improvement in DSO releases cash equal to (Annual Revenue ÷ 36.5), which can be used to fund growth, reduce debt, or return to shareholders.</p>
-            <h2>DSO by Industry</h2>
+            <h2 className="text-2xl font-bold mb-3">DSO by Industry</h2>
             <p>Government/defense contractors: 70–90 days (long payment cycles). Professional services B2B: 45–60 days. Manufacturing: 40–55 days. Technology SaaS: 30–45 days. Retail (B2C): near 0 (cash/card sales). Healthcare: 40–60 days due to insurance reimbursement cycles. Wholesale distribution: 35–50 days.</p>
-            <h2>Bad Debt and DSO Quality</h2>
+            <h2 className="text-2xl font-bold mb-3">Bad Debt and DSO Quality</h2>
             <p>High DSO can mask bad debt risk. A rising DSO alongside rising revenue could indicate relaxed credit standards to boost sales — recording revenue that will never be collected. Monitor the allowance for doubtful accounts as a percentage of AR alongside DSO. A shrinking allowance despite rising DSO is a red flag in financial statement analysis.</p>
-            <h2>Reducing DSO — Practical Strategies</h2>
+            <h2 className="text-2xl font-bold mb-3">Reducing DSO — Practical Strategies</h2>
             <p>Invoice immediately upon delivery or completion. Offer 2/10 net 30 early-payment discounts. Use automated AR platforms (Bill.com, Stripe Invoicing) with built-in reminders. Enforce credit limits and conduct credit checks on new customers. Escalate overdue accounts systematically: email at day 15, call at day 30, collections at day 60. Consider invoice factoring or dynamic discounting platforms for persistent slow-payers.</p>
-            <h2>DSO and Revenue Quality</h2>
+            <h2 className="text-2xl font-bold mb-3">DSO and Revenue Quality</h2>
             <p>Rapidly increasing DSO in a high-growth company may indicate channel stuffing — shipping product to distributors that is not yet sold through to end customers. This artificially inflates revenue while AR bloats. Forensic accountants often track DSO alongside inventory turnover as part of revenue quality assessments during due diligence or fraud investigations.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/receivable-days-calculator"/>

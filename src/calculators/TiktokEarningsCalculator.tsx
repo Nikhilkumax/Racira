@@ -122,7 +122,7 @@ export default function TiktokEarningsCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>The New Era of TikTok Monetization</h2>
+              <h2 className="text-2xl font-bold mb-3">The New Era of TikTok Monetization</h2>
               <p>TikTok has evolved from a lip-syncing app into one of the most powerful wealth-creation platforms for the creator economy. Unlike YouTube, which relies heavily on long-form ad revenue, TikTok offers a multi-faceted monetization ecosystem that rewards viral reach, niche community building, and direct social commerce. This TikTok Earnings Calculator helps you navigate these different income streams to understand your true market value.</p>
 
               <h3>1. From Creator Fund to Creator Rewards Program</h3>

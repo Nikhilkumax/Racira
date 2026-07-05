@@ -257,11 +257,11 @@ const ProbabilityCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding Probability Basics</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Probability Basics</h2>
             <p><strong>Probability</strong> is the mathematical measurement of how likely an event is to occur. It is expressed as a number between 0 and 1 (or 0% and 100%). A probability of 0% means the event is impossible, while a probability of 100% means the event is absolutely certain. Everything in between represents varying degrees of likelihood.</p>
             <p>When calculating probability manually using fractions, the formula is simple: divide the number of <em>favorable outcomes</em> by the total number of <em>possible outcomes</em>. For example, rolling a 4 on a standard six-sided die has a probability of 1/6, or ~16.66%.</p>
 
-            <h2>Independent vs. Dependent Events</h2>
+            <h2 className="text-2xl font-bold mb-3">Independent vs. Dependent Events</h2>
             <p>Before calculating the combined probability of multiple events, you must determine their relationship:</p>
             <ul>
               <li><strong>Independent Events:</strong> The outcome of one event does not affect the outcome of the other. Flipping a coin and rolling a die are independent. The coin landing on Heads doesn't change the physical properties of the die.</li>
@@ -269,11 +269,11 @@ const ProbabilityCalculator = () => {
             </ul>
             <p><em>Note: This calculator is designed specifically for calculating Independent Events.</em></p>
 
-            <h2>The "AND" Rule (Multiplication)</h2>
+            <h2 className="text-2xl font-bold mb-3">The "AND" Rule (Multiplication)</h2>
             <p>If you want to know the probability of Event A <strong>AND</strong> Event B happening together (assuming they are independent), you multiply their probabilities. </p>
             <p>Example: What is the probability of flipping Heads (50%) AND rolling a 6 on a die (16.66%)? <br/><code>0.50 × 0.1666 = 0.0833</code>, or an 8.33% chance.</p>
 
-            <h2>The "OR" Rule (Addition)</h2>
+            <h2 className="text-2xl font-bold mb-3">The "OR" Rule (Addition)</h2>
             <p>If you want to know the probability of Event A <strong>OR</strong> Event B happening, you add their probabilities. However, you must be careful about <strong>Mutually Exclusive</strong> events.</p>
             <ul>
               <li><strong>Mutually Exclusive (Cannot happen together):</strong> Drawing a Heart OR a Spade from a deck. You simply add them: P(A) + P(B).</li>

@@ -343,25 +343,25 @@ export default function HorseCalorieCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding Equine Dietary Requirements</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Equine Dietary Requirements</h2>
             <p>Feeding a 1,200-pound animal is a complex science. A horse's digestive system is a marvel of evolutionary engineering, designed to constantly trickle-feed on low-quality, fibrous roughage for 16 to 18 hours a day. When we remove horses from open pasture and place them into stalls, domesticating them for athletic competition, we completely disrupt this natural balance. The <strong>Horse Calorie Calculator</strong> is designed to help owners bridge the gap between nature and domestication by providing precise, mathematically sound feeding guidelines based on the National Research Council (NRC) equations.</p>
             <p>This tool translates complex veterinary nutritional data—such as Digestible Energy (DE) and Megacalories (Mcal)—into actionable figures. By understanding exactly how much energy your horse requires based on their weight and workload, you can prevent both the severe metabolic consequences of obesity and the dangerous performance drops associated with malnutrition.</p>
 
-            <h2>Megacalories vs. Kilocalories</h2>
+            <h2 className="text-2xl font-bold mb-3">Megacalories vs. Kilocalories</h2>
             <p>If you look at the nutritional label on a human protein bar, you will see it listed in "Calories" (which are technically kilocalories, or kcal). Because horses are massive hindgut fermenters, their energy requirements are exponentially larger than ours. If we used standard kilocalories to measure a horse's diet, the numbers would be wildly unmanageable—a typical horse eats between 15,000 and 35,000 kcal per day.</p>
             <p>To simplify this, equine nutritionists use the <strong>Megacalorie (Mcal)</strong>. One Megacalorie is equal to 1,000 kilocalories. When using our calculator, you will notice that an average 1,100-pound pleasure horse requires roughly 16.6 Mcal per day to maintain its weight. This is the equivalent of 16,600 human calories!</p>
 
-            <h2>The Foundation: Forage First</h2>
+            <h2 className="text-2xl font-bold mb-3">The Foundation: Forage First</h2>
             <p>The golden rule of equine nutrition is "Forage First." A horse is a monogastric herbivore with a massive fermentation vat called the cecum. The microbes in the cecum require constant fiber to stay alive and produce volatile fatty acids, which the horse uses for energy.</p>
             <p>If a horse's stomach is empty for too long, the continuous production of gastric acid will quickly burn holes in the stomach lining, leading to Equine Gastric Ulcer Syndrome (EGUS). To prevent this, a horse <strong>must consume an absolute minimum of 1.5% of its body weight in long-stem forage (hay or pasture) every single day</strong>. Ideally, this number should be closer to 2.0%.</p>
             <p>Our calculator explicitly outputs this "Minimum Hay Requirement." If your horse weighs 1,000 pounds, they must eat at least 15 pounds of hay daily, regardless of what concentrates or supplements they are receiving. Failure to meet this baseline will almost certainly result in colic or ulcers.</p>
 
-            <h2>When Do Horses Need Grain?</h2>
+            <h2 className="text-2xl font-bold mb-3">When Do Horses Need Grain?</h2>
             <p>Walk through any boarding barn at dinner time, and you will hear the clanking of grain buckets. There is a persistent myth in the equestrian community that every horse needs a scoop of sweet feed or pelleted grain to be healthy. This is mathematically and biologically false.</p>
             <p>Most horses at maintenance (those not being ridden) or in "Light Work" (ridden 1-3 times a week) can meet 100% of their Digestible Energy requirements through good quality hay or pasture alone. Adding calorie-dense grain to the diet of a horse that does not need it is the primary cause of Equine Metabolic Syndrome (EMS) and laminitis—a devastating, often fatal hoof disease.</p>
             <p><strong>Grain (concentrates) should only be fed when the horse's caloric requirements exceed what they can physically consume in hay.</strong> A horse can only comfortably eat about 2.5% of its body weight in hay per day. If a racehorse requires 35 Mcal a day, it would have to eat nearly 40 pounds of hay to meet that need—which is physically impossible. In these scenarios, grain is added to provide a concentrated energy source without overwhelming the gut capacity.</p>
 
-            <h2>Decoding Workloads</h2>
+            <h2 className="text-2xl font-bold mb-3">Decoding Workloads</h2>
             <p>Accurately assessing your horse's workload is the most common area where owners make mistakes. It is human nature to overestimate how hard our horses are working. The NRC defines workloads rigidly:</p>
             <ul>
               <li><strong>Maintenance:</strong> The horse is living in a pasture or stall and is not being ridden or driven. They are merely maintaining their vital organs and body temperature.</li>
@@ -372,15 +372,15 @@ export default function HorseCalorieCalculator() {
             </ul>
             <p>Be honest when selecting the workload in the calculator. Selecting "Heavy Work" for a horse that is only ridden an hour a day will result in a massive caloric surplus and rapid, dangerous weight gain.</p>
 
-            <h2>The Importance of Hay Testing</h2>
+            <h2 className="text-2xl font-bold mb-3">The Importance of Hay Testing</h2>
             <p>Our calculator uses a default value of 0.9 Mcal per pound of hay, which is the national average for standard grass hay (like Timothy or Coastal Bermuda). However, hay is an agricultural crop, and its nutritional value varies wildly depending on soil quality, weather, and when it was harvested.</p>
             <p>Late-maturity hay (cut after it has gone to seed) is highly fibrous but low in calories, sometimes dropping to 0.7 Mcal/lb. Conversely, early-cut Alfalfa (a legume) is incredibly rich and can exceed 1.1 Mcal/lb. If you feed 20 pounds of Alfalfa instead of 20 pounds of late-cut Timothy, you are feeding an extra 8 Megacalories a day—the equivalent of 8,000 extra kilocalories! If you manage a barn, it is highly recommended to send a core sample of your hay to an agricultural lab for nutritional testing, then input that exact Mcal value into our calculator for perfect precision.</p>
 
-            <h2>Managing the "Easy Keeper"</h2>
+            <h2 className="text-2xl font-bold mb-3">Managing the "Easy Keeper"</h2>
             <p>Certain breeds—such as Quarter Horses, Morgans, Mustangs, and ponies—are genetically predisposed to survive on sparse, nutrient-poor terrain. In the modern world, where they are fed high-quality hay and rich pasture, they become what equestrians call "Easy Keepers." These horses become obese very quickly.</p>
             <p>If you own an easy keeper, you must select "Maintenance - Minimum" in the calculator. You may also need to utilize slow-feed hay nets to make their minimum 1.5% hay requirement last longer throughout the day, preventing them from eating it all in an hour and standing with an empty stomach.</p>
 
-            <h2>Conclusion</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion</h2>
             <p>Equine nutrition does not have to be a guessing game based on how many "scoops" the previous owner fed. By applying the scientific principles of Digestible Energy, strictly enforcing the 1.5% minimum forage rule, and accurately assessing your horse's workload, you can create a diet that supports optimal gut health, peak athletic performance, and long-term metabolic stability.</p>
           </article>
           

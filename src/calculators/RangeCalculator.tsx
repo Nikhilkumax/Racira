@@ -126,17 +126,17 @@ const RangeCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Range Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Range Calculator?</h2>
             <p>A range calculator computes the spread of a dataset from its minimum to maximum value (Range = Max − Min), along with a full suite of dispersion metrics: IQR, standard deviation, coefficient of variation, quartiles, and midrange. Pre-filled with 9 values from a sample dataset, the range is 17 (max 19 − min 2). The sorted distribution chart includes a reference line at the mean.</p>
-            <h2>Range Formula</h2>
+            <h2 className="text-2xl font-bold mb-3">Range Formula</h2>
             <p><strong>Range = Maximum − Minimum</strong>. Simple to compute, but sensitive to outliers. For {"{2, 4, 6, 8, 11, 13, 14, 18, 19}"}: Range = 19 − 2 = 17. Adding one outlier — say 200 — inflates range to 198, misleadingly suggesting enormous spread despite 9 of 10 values being under 20.</p>
-            <h2>Interquartile Range (IQR)</h2>
+            <h2 className="text-2xl font-bold mb-3">Interquartile Range (IQR)</h2>
             <p>IQR = Q3 − Q1. Covers the middle 50% of data. Outlier rule: values below Q1 − 1.5×IQR or above Q3 + 1.5×IQR are potential outliers (Tukey fences). IQR is used in box-and-whisker plots to define whisker lengths. It is the preferred spread measure for skewed distributions and datasets with outliers.</p>
-            <h2>Standard Deviation vs Range</h2>
+            <h2 className="text-2xl font-bold mb-3">Standard Deviation vs Range</h2>
             <p>Standard deviation uses every value in the dataset — it measures average distance from the mean. Range only uses two values (min and max) and ignores everything in between. For quality control with known distribution shapes (normal), standard deviation is more informative. For quick initial data exploration, range provides an instant bounds check. Both are reported here for complete analysis.</p>
-            <h2>Coefficient of Variation</h2>
+            <h2 className="text-2xl font-bold mb-3">Coefficient of Variation</h2>
             <p>CV = (σ/μ) × 100% allows comparing variability between datasets with different scales. Comparing investment volatility: Portfolio A (mean return 10%, σ = 2%) has CV = 20%. Portfolio B (mean return 3%, σ = 1%) has CV = 33% — despite smaller absolute standard deviation, B is proportionally more volatile. CV is dimensionless, making it ideal for cross-dataset comparisons.</p>
-            <h2>Range in Quality Control</h2>
+            <h2 className="text-2xl font-bold mb-3">Range in Quality Control</h2>
             <p>Control charts (R-charts) track the range across subgroups of production samples to monitor process variability. If range exceeds control limits (D₄R̄ or falls below D₃R̄), the process shows unusual variation requiring investigation. Process capability (Cpk) uses both range and specification limits to measure how well a process meets requirements. Manufacturing tolerances are essentially acceptable ranges.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/range-calculator" />

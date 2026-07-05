@@ -88,15 +88,15 @@ export default function CertificateOfDepositCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Understanding Certificates of Deposit</h2>
+              <h2 className="text-2xl font-bold mb-3">Understanding Certificates of Deposit</h2>
               <p>A Certificate of Deposit (CD) is a time deposit savings product that offers a guaranteed fixed interest rate in exchange for committing your money for a specified period. CDs have been a cornerstone of conservative investing for decades, offering FDIC-insured safety with returns that typically exceed those of standard savings accounts. In the elevated interest rate environment of 2023-2025, CDs have become especially attractive, with many institutions offering 5%+ APY on 1-year terms.</p>
-              <h2>The CD Ladder Strategy</h2>
+              <h2 className="text-2xl font-bold mb-3">The CD Ladder Strategy</h2>
               <p>Rather than putting all your savings into a single CD, many savvy investors use a "CD ladder." This involves splitting your investment across multiple CDs with staggered maturity dates. For example, investing $20,000 as four $5,000 CDs maturing in 6 months, 1 year, 18 months, and 2 years. As each CD matures, you reinvest the proceeds into a new 2-year CD, maintaining a portion of funds available every 6 months while still capturing higher long-term rates.</p>
-              <h2>How CD Interest Is Compounded</h2>
+              <h2 className="text-2xl font-bold mb-3">How CD Interest Is Compounded</h2>
               <p>The compounding frequency significantly impacts your actual earnings. Daily compounding generates more interest than monthly, quarterly, or annual compounding at the same stated rate. The relationship is captured by the effective APY formula: <strong>Effective APY = (1 + r/n)^n - 1</strong>, where r is the annual rate and n is compounding periods per year. When comparing CDs, always compare effective APYs rather than nominal rates.</p>
-              <h2>Early Withdrawal Penalties</h2>
+              <h2 className="text-2xl font-bold mb-3">Early Withdrawal Penalties</h2>
               <p>The guaranteed rate on a CD comes at the cost of liquidity. Most CDs impose substantial early withdrawal penalties, commonly expressed as months of interest. A typical 1-year CD might penalize 3-6 months of interest for early withdrawal. For a 5-year CD, the penalty might be 12-18 months of interest. In rare cases, if you withdraw very early and the penalty exceeds your earned interest, you could actually lose a portion of your principal.</p>
-              <h2>No-Penalty CDs: The Best of Both Worlds?</h2>
+              <h2 className="text-2xl font-bold mb-3">No-Penalty CDs: The Best of Both Worlds?</h2>
               <p>Some banks offer "no-penalty" or "liquid" CDs that allow you to withdraw your funds without penalty after a brief lock-up period (typically 7 days). These instruments offer the guaranteed rate advantage of traditional CDs with the flexibility closer to a savings account. However, they typically offer lower APYs than standard CDs of the same term. They're worth considering when you want a guaranteed rate but aren't certain you can commit for the full term.</p>
             </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/certificate-of-deposit-calculator" />

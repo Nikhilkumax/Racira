@@ -255,7 +255,7 @@ export default function InflationAdjustedReturnCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Power of Real Returns</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Power of Real Returns</h2>
             <p>
               In wealth management and investing, the numerical increase in your portfolio is referred to as the <strong>nominal return</strong>. While seeing a 10% gain on paper is positive, it does not represent your actual wealth growth unless it is contrasted with price inflation. The <strong>inflation-adjusted return</strong>, or <strong>real return</strong>, accounts for this erosion by measuring how much additional purchasing power your investments have acquired.
             </p>
@@ -263,7 +263,7 @@ export default function InflationAdjustedReturnCalculator() {
               If your investments grew by 8% last year, but the consumer price index (CPI) increased by 3%, your nominal growth is 8%. However, because goods and services cost 3% more, you cannot buy 8% more things. Instead, your actual purchasing power increased by a net of 4.85%. This compounding difference is what determines the long-term success of retirement funds and college savings plans.
             </p>
 
-            <h2>The Fisher Equation: How Real Returns are Calculated</h2>
+            <h2 className="text-2xl font-bold mb-3">The Fisher Equation: How Real Returns are Calculated</h2>
             <p>
               Many investors use a simple subtraction formula to approximate real returns (Nominal Return - Inflation Rate = Real Return). However, this is only a rough estimation. The exact mathematical standard is established by the **Fisher Equation**, named after economist Irving Fisher:
             </p>

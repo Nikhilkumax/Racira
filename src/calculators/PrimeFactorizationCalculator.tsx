@@ -210,17 +210,17 @@ const PrimeFactorizationCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What is Prime Factorization?</h2>
+            <h2 className="text-2xl font-bold mb-3">What is Prime Factorization?</h2>
             <p><strong>Prime Factorization</strong> is the mathematical process of breaking down a composite number into a series of prime numbers that, when multiplied together, equal the original composite number. You can think of prime numbers as the fundamental "building blocks" of all other numbers in mathematics.</p>
             <p>For example, the number 12 is a composite number. It can be factored into 3 × 4. However, 4 is not a prime number, so we must break it down further into 2 × 2. Therefore, the complete prime factorization of 12 is <strong>2 × 2 × 3</strong>.</p>
 
-            <h2>The Fundamental Theorem of Arithmetic</h2>
+            <h2 className="text-2xl font-bold mb-3">The Fundamental Theorem of Arithmetic</h2>
             <p>Why do we care about prime factorization? It is governed by one of the most important theorems in mathematics: The Fundamental Theorem of Arithmetic. This theorem states that every integer greater than 1 either is a prime number itself, or can be represented as the product of prime numbers. More importantly, this representation is <strong>100% unique</strong> to that number (ignoring the order of the factors). Like a fingerprint, no two different composite numbers share the exact same prime factorization.</p>
 
-            <h2>Expanded vs. Exponential Form</h2>
+            <h2 className="text-2xl font-bold mb-3">Expanded vs. Exponential Form</h2>
             <p>When factoring larger numbers, you often end up with the same prime number repeated multiple times. For instance, the expanded prime factorization of 72 is <code>2 × 2 × 2 × 3 × 3</code>. To make this easier to read and write, mathematicians use <strong>exponential form</strong>. We group the identical numbers and raise them to the power of their count. Thus, the exponential form of 72 is written cleanly as <code>2³ × 3²</code>.</p>
 
-            <h2>Real-World Applications</h2>
+            <h2 className="text-2xl font-bold mb-3">Real-World Applications</h2>
             <p>While prime factoring might seem like a purely academic exercise done in middle school math classes, it is actually the foundation of modern cybersecurity. The encryption that protects your bank account, your private text messages, and all secure internet traffic (such as the RSA algorithm) relies heavily on prime factorization. These systems multiply two incredibly massive prime numbers together to create a public "key". Hackers cannot crack the code without finding the original two prime numbers, and currently, there is no known algorithm that can prime-factor a 600-digit number fast enough to be useful to a hacker—even using supercomputers.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/prime-factorization-calculator" />

@@ -329,26 +329,26 @@ export default function FuelEconomyCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Fuel Economy Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Fuel Economy Calculator?</h2>
             <p>A Fuel Economy Calculator is a universal conversion and efficiency tool that bridges the gap between different global measurement systems. While the United States measures fuel efficiency in <strong>Miles Per Gallon (US MPG)</strong>, Europe and much of the world use <strong>Liters per 100 Kilometers (L/100km)</strong>, and the United Kingdom uses the slightly different <strong>Imperial MPG (UK MPG)</strong>. This calculator instantly processes your raw trip data (distance and fuel burned) and converts it across all these formats simultaneously.</p>
 
-            <h2>Understanding the Different Metrics</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Different Metrics</h2>
             <p>There are two fundamentally different ways to express fuel efficiency. The US and UK use the "Distance per Volume" method (MPG). In this system, a higher number is always better, because you are driving further on the same amount of fuel. Europe uses the "Volume per Distance" method (L/100km). In this system, a lower number is better, because it means you consumed fewer liters of fuel to travel a fixed 100-kilometer distance.</p>
 
-            <h2>Why US MPG and UK MPG are Different</h2>
+            <h2 className="text-2xl font-bold mb-3">Why US MPG and UK MPG are Different</h2>
             <p>It is a common point of confusion when Americans and Britons compare car efficiencies online. A British driver might boast that their car gets 40 MPG, while the exact same car in America is rated for 33 MPG. Neither is lying. The Imperial Gallon (used in the UK) contains exactly 4.54609 liters of fluid. The US Liquid Gallon contains only 3.78541 liters. Because the UK gallon is 20% physically larger, a car will always drive 20% further on a UK gallon than a US gallon.</p>
 
-            <h2>How to Use This Tool</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Use This Tool</h2>
             <p>Simply enter the distance you drove and the amount of fuel you burned. You do not need to do any conversions yourself. If you rented a car in Germany and drove 400 kilometers and put in 35 liters of gas, enter those exact numbers. The calculator will tell you that you achieved 8.75 L/100km, which translates to exactly 26.8 US MPG.</p>
 
-            <h2>The Cost of Fuel</h2>
+            <h2 className="text-2xl font-bold mb-3">The Cost of Fuel</h2>
             <p>By utilizing the Advanced Options, you can enter the price you paid for fuel (either per Gallon or per Liter). The calculator will immediately output your <strong>Total Trip Cost</strong> and your <strong>Cost per Mile (or KM)</strong>. This is incredibly useful for splitting gas money on a road trip or expensing mileage for business purposes.</p>
 
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <p><strong>Example 1: The European Vacation.</strong> You rent a car in France. The dashboard says you are getting 6.5 L/100km. You want to know what that means in American terms. You input a theoretical 100 km distance and 6.5 liters of fuel. The calculator immediately reveals this is a highly efficient 36.1 US MPG.</p>
             <p><strong>Example 2: The Canadian Commute.</strong> You live in Canada, where distance is measured in kilometers but cars are often still discussed in MPG due to US influence. You drive 500 kilometers and fill up with 45 liters of gas. The calculator shows you used 11.88 US Gallons and achieved 26.1 US MPG.</p>
 
-            <h2>Tips & Best Practices</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
             <p>To get the most accurate baseline for your car, perform the calculation over a long distance (e.g., an entire tank of gas rather than a 10-mile trip). Small variations in how the gas pump clicks off can skew your results significantly on short trips. Furthermore, use this calculator to verify your car's dashboard computer. Many modern vehicles will display an estimated L/100km or MPG on the screen, but these digital estimates are notoriously optimistic compared to hard math at the pump.</p>
           </article>
           

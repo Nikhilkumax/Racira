@@ -145,20 +145,20 @@ const SimpleInterestCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Simple Interest Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Simple Interest Calculator?</h2>
             <p>A simple interest calculator computes the interest earned or paid on a principal amount using the formula I = Prt, where interest grows linearly — the same fixed amount each year. Unlike compound interest, simple interest does not earn interest on accumulated interest. Pre-filled with $5,000 at 8% for 3 years, the result is $1,200 in interest ($400/year) for a total of $6,200.</p>
             <p>Simple interest is used for short-term personal loans, some auto financing, US Treasury bills, pawnshop loans, and as a baseline for comparing more complex financial products. Understanding simple interest is the first step toward mastering personal finance math.</p>
-            <h2>The Simple Interest Formula</h2>
+            <h2 className="text-2xl font-bold mb-3">The Simple Interest Formula</h2>
             <p><strong>I = P × r × t</strong> (Interest = Principal × Rate × Time)</p>
             <p><strong>A = P + I = P(1 + rt)</strong> (Total Amount)</p>
             <p>For $5,000 at 8% for 3 years: I = 5000 × 0.08 × 3 = $1,200. Total = $5,000 + $1,200 = $6,200. The interest grows at exactly $400 per year — this linear growth is the key characteristic of simple interest.</p>
-            <h2>Simple vs Compound Interest</h2>
+            <h2 className="text-2xl font-bold mb-3">Simple vs Compound Interest</h2>
             <p>The same $5,000 at 8% for 3 years under monthly compounding: A = 5000 × (1 + 0.08/12)^36 = $6,348.67 — $148.67 more than simple interest. Over longer periods, the gap widens dramatically. Over 30 years: simple interest A = $5,000 × (1 + 2.4) = $17,000. Monthly compound: $5,000 × (1.00667)^360 = $54,911. The compound result is more than 3× the simple interest result. See the <a href="/calculator/compound-interest-calculator">compound interest calculator</a> for direct comparison.</p>
-            <h2>Real-World Applications</h2>
+            <h2 className="text-2xl font-bold mb-3">Real-World Applications</h2>
             <p><strong>Auto loans:</strong> Many auto loans use simple interest — interest is charged daily on the outstanding balance. Making early or extra payments reduces the principal faster, directly reducing the total interest paid. <strong>Treasury bills:</strong> US T-bills are sold at a discount and mature at face value; the return is computed as simple interest on the purchase price. <strong>Short-term loans:</strong> A 90-day bridge loan at 12% annual simple interest charges: 12% × (90/365) = 2.96% for the period.</p>
-            <h2>Solving for Other Variables</h2>
+            <h2 className="text-2xl font-bold mb-3">Solving for Other Variables</h2>
             <p>The simple interest formula can be rearranged: <strong>P = I / (rt)</strong> — find how much you need to invest to earn a target interest amount. <strong>r = I / (Pt)</strong> — find the rate given principal, interest, and time. <strong>t = I / (Pr)</strong> — find how long it takes to earn a target amount.</p>
-            <h2>Tips for Using This Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips for Using This Calculator</h2>
             <p>Enter fractional years for partial-year calculations (e.g., 0.5 for 6 months, 0.25 for a quarter). The bar chart shows the linearly growing balance — compare this visually to the exponential curve in the compound interest calculator to see the dramatic difference. For borrowing, simple interest is usually better; for investing, compound interest is always preferable.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/simple-interest-calculator" />

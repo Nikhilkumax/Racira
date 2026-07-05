@@ -206,7 +206,7 @@ const W4WithholdingCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>How to Use This W-4 Calculator</h2>
+              <h2 className="text-2xl font-bold mb-3">How to Use This W-4 Calculator</h2>
               <p>The goal of tax withholding is to pay exactly what you owe to the government—no more and no less. This calculator helps you see if your current paycheck withholding is on track to meet your annual tax liability or if you need to make an adjustment to avoid a surprise bill in April.</p>
 
               <h3>Step-by-Step Optimization</h3>
@@ -234,7 +234,7 @@ const W4WithholdingCalculator = () => {
                 <li><strong>Bonus/Raise:</strong> A large bonus might be withheld at a flat 22% rate, which could be higher or lower than your actual marginal rate.</li>
               </ul>
 
-              <h2>Final Recommendation</h2>
+              <h2 className="text-2xl font-bold mb-3">Final Recommendation</h2>
               <p>Aim for a slight over-withholding (a refund of $100-$300). This provides a small safety margin for unexpected income while ensuring you keep the majority of your hard-earned money in your own pocket throughout the year.</p>
             </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/w4-withholding-calculator" />

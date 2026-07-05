@@ -138,7 +138,7 @@ const MeatlessDietImpactCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>The Environmental Impact of Diet</h2>
+              <h2 className="text-2xl font-bold mb-3">The Environmental Impact of Diet</h2>
               <p>The foods we choose to eat have a profound impact on the environment. Animal agriculture is heavily resource-intensive compared to plant-based agriculture. Even a slight reduction in meat consumption, such as participating in "Meatless Mondays," can yield significant environmental benefits.</p>
               
               <h3>Water Scarcity and Agriculture</h3>

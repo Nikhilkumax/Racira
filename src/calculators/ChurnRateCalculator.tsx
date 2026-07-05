@@ -187,13 +187,13 @@ export default function ChurnRateCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is Churn Rate?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is Churn Rate?</h2>
             <p><strong>Churn rate</strong> measures the percentage of customers who cancel or stop using a service in a given period. For subscription businesses and SaaS companies, churn is the single most important metric after growth — even a small churn rate compounds into massive customer base erosion over time. This <strong>churn rate calculator</strong> computes monthly churn, customer lifetime, LTV, and revenue at risk.</p>
-            <h2>Churn Rate Formulas</h2>
+            <h2 className="text-2xl font-bold mb-3">Churn Rate Formulas</h2>
             <p>Monthly Churn Rate = (Customers Lost ÷ Starting Customers) × 100. Average Customer Lifetime = 1 ÷ Monthly Churn Rate. Customer LTV = (ARPU × Gross Margin %) ÷ Monthly Churn Rate. Revenue Churn = (MRR Lost ÷ Starting MRR) × 100.</p>
-            <h2>The Compounding Impact of Churn</h2>
+            <h2 className="text-2xl font-bold mb-3">The Compounding Impact of Churn</h2>
             <p>A 2% monthly churn means losing 22% of customers per year. At 5% monthly churn, you lose 46% annually. This means you must acquire nearly half your customer base every year just to stay flat. Reducing churn by 1 percentage point often has more financial impact than a 20% increase in new customer acquisition.</p>
-            <h2>Net Revenue Retention (NRR)</h2>
+            <h2 className="text-2xl font-bold mb-3">Net Revenue Retention (NRR)</h2>
             <p>The best SaaS companies achieve NRR above 120% — meaning existing customers spend more over time through upsells and expansion even as some churn. This creates a flywheel where organic growth from existing customers supplements new customer acquisition. Companies with NRR above 130% include Snowflake, Twilio, and Datadog at their peaks.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/churn-rate-calculator" />

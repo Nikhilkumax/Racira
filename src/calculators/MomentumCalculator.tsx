@@ -134,18 +134,18 @@ const MomentumCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Momentum Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Momentum Calculator?</h2>
             <p>A momentum calculator computes the linear momentum of an object — the product of its mass and velocity (p = mv). Momentum is one of the most fundamental quantities in physics, directly tied to Newton's Second Law and the conservation laws governing all physical interactions. Pre-filled with 75 kg at 10 m/s (a person sprinting), the momentum is 750 kg⋅m/s.</p>
-            <h2>The Momentum Formula</h2>
+            <h2 className="text-2xl font-bold mb-3">The Momentum Formula</h2>
             <p><strong>p = m × v</strong></p>
             <p>Where: p = momentum in kg⋅m/s (or N⋅s), m = mass in kilograms, v = velocity in meters per second. For 75 kg at 10 m/s: p = 750 kg⋅m/s. The momentum vector points in the direction of velocity.</p>
-            <h2>Conservation of Momentum</h2>
+            <h2 className="text-2xl font-bold mb-3">Conservation of Momentum</h2>
             <p>The law of conservation of momentum states that the total momentum of a closed system remains constant. In any collision: m₁v₁ + m₂v₂ = m₁v₁' + m₂v₂'. This applies to elastic collisions (billiard balls), inelastic collisions (car crashes), and perfectly inelastic collisions (objects sticking together). It is the basis for understanding rocket propulsion, recoil, and particle physics experiments.</p>
-            <h2>Impulse-Momentum Theorem</h2>
+            <h2 className="text-2xl font-bold mb-3">Impulse-Momentum Theorem</h2>
             <p>Impulse (J) equals the change in momentum: J = FΔt = Δp. This explains why: airbags reduce injury (increase Δt, decrease F). Martial artists follow through with strikes (increase Δt of force application). Catching a ball with soft hands hurts less (longer deceleration time). Crumple zones in cars absorb energy by extending the collision time.</p>
-            <h2>Momentum vs Kinetic Energy</h2>
+            <h2 className="text-2xl font-bold mb-3">Momentum vs Kinetic Energy</h2>
             <p>Both describe moving objects, but they differ fundamentally. Momentum (mv) is a vector — it has direction and is always conserved. Kinetic energy (½mv²) is a scalar — it has no direction and is only conserved in elastic collisions. In a perfectly inelastic collision, all kinetic energy can be lost to heat and deformation, but momentum is still perfectly conserved.</p>
-            <h2>Real-World Momentum Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Real-World Momentum Examples</h2>
             <p>Walking person: 75 × 1.5 = 112.5 kg⋅m/s. Sprinting athlete: 75 × 10 = 750 kg⋅m/s. Car at highway speed: 1,500 × 30 = 45,000 kg⋅m/s. Bullet: 0.01 × 700 = 7 kg⋅m/s (much less than a car, but concentrated force). Freight train: 100,000 × 15 = 1,500,000 kg⋅m/s. The massive momentum of trains and ships explains why they require enormous distances to stop.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/momentum-calculator" />

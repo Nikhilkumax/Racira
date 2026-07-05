@@ -89,7 +89,7 @@ const DownPaymentCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Planning Your Home Purchase</h2>
+              <h2 className="text-2xl font-bold mb-3">Planning Your Home Purchase</h2>
               <p>One of the biggest barriers to homeownership is saving the necessary cash. Most buyers underestimate the total needed because they focus on the down payment and forget about closing costs, moving expenses, and initial repairs.</p>
               <h3>The 20% Threshold</h3>
               <p>A 20% down payment eliminates Private Mortgage Insurance (PMI), which typically costs 0.5-1.5% of the loan annually. On a $400,000 loan, that's $2,000-$6,000 per year in avoidable cost. It also often results in a lower interest rate.</p>

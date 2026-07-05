@@ -201,17 +201,17 @@ const FreeFallCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Free Fall Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Free Fall Calculator?</h2>
             <p>A free fall calculator computes the time, velocity, or height of an object falling under gravity with no air resistance. Pre-filled with a 50-meter drop on Earth (g = 9.81 m/s²), the fall takes approximately 3.19 seconds with an impact velocity of 31.3 m/s (113 km/h). Select different planets to see how gravity affects free fall — a 50m drop on the Moon takes 7.86 seconds.</p>
-            <h2>Free Fall Equations</h2>
+            <h2 className="text-2xl font-bold mb-3">Free Fall Equations</h2>
             <p><strong>h = ½gt²</strong> — height fallen after time t. <strong>t = √(2h/g)</strong> — time to fall height h. <strong>v = gt</strong> — velocity at time t. <strong>v = √(2gh)</strong> — impact velocity from height h. All assume starting from rest (v₀ = 0) with no air resistance.</p>
-            <h2>Galileo's Discovery</h2>
+            <h2 className="text-2xl font-bold mb-3">Galileo's Discovery</h2>
             <p>Galileo Galilei demonstrated that all objects fall at the same rate regardless of mass (in the absence of air resistance). This was revolutionary — Aristotle had taught for 2,000 years that heavier objects fall faster. Galileo used inclined planes to slow motion for measurement. The famous Leaning Tower of Pisa experiment may be apocryphal, but the physics is unquestionable.</p>
-            <h2>Air Resistance and Terminal Velocity</h2>
+            <h2 className="text-2xl font-bold mb-3">Air Resistance and Terminal Velocity</h2>
             <p>In real-world free fall, air resistance (drag) opposes motion: F_drag = ½ρv²C_d A. As velocity increases, drag increases until it equals gravitational force. At terminal velocity, net force = 0 and acceleration stops. Skydiver (belly-down): ~55 m/s. Skydiver (head-down): ~90 m/s. Baseball: ~42 m/s. Raindrop: ~9 m/s. This calculator gives vacuum free-fall values.</p>
-            <h2>Planetary Free Fall</h2>
+            <h2 className="text-2xl font-bold mb-3">Planetary Free Fall</h2>
             <p>This calculator supports 8 celestial bodies. On the Moon (g = 1.62), a 50m drop takes 7.86s vs 3.19s on Earth. On Jupiter (g = 24.79), just 2.01s. These differences are critical for space mission design — landing on Mars requires less deceleration thrust than Earth but more than the Moon. Astronauts on the ISS experience continuous free fall (0g) while orbiting at 7.7 km/s.</p>
-            <h2>Energy in Free Fall</h2>
+            <h2 className="text-2xl font-bold mb-3">Energy in Free Fall</h2>
             <p>As an object falls, potential energy converts to kinetic energy: mgh → ½mv². Total mechanical energy is conserved in a vacuum. Impact kinetic energy per unit mass = gh. For 50m on Earth: 490.5 J/kg. This energy must be absorbed or dissipated on impact — explaining why falls from height are so dangerous.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/free-fall-calculator" />

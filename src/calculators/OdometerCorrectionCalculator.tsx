@@ -273,17 +273,17 @@ export default function OdometerCorrectionCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Mathematics of Mileage</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of Mileage</h2>
             <p>Your vehicle's dashboard does not use GPS satellites to track how many miles you have driven. Instead, it relies on a very simple piece of math: counting wheel rotations. When your vehicle leaves the factory, its central computer is permanently programmed with the physical circumference of the stock tires. The computer knows exactly how many times the axles must rotate to cover exactly one mile. If you change the size of the tires, you break that mathematical formula.</p>
 
-            <h2>Installing Larger Tires (Trucks & Off-Road)</h2>
+            <h2 className="text-2xl font-bold mb-3">Installing Larger Tires (Trucks & Off-Road)</h2>
             <p>If you own a Jeep Wrangler or a Ford F-150 and you upgrade from the factory 30-inch tires to massive 35-inch mud tires, the physical circumference of the tire increases drastically. Because the new tire is physically larger, it covers more ground during a single rotation. </p>
             <p>However, the vehicle's computer doesn't know this. It is still counting rotations based on the small 30-inch tire. Therefore, your vehicle will physically travel 100 miles down the highway, but the odometer might only click off 85 miles. Your car is accumulating "ghost miles" that are never recorded on the dashboard.</p>
 
-            <h2>Installing Smaller Tires (Sports Cars)</h2>
+            <h2 className="text-2xl font-bold mb-3">Installing Smaller Tires (Sports Cars)</h2>
             <p>The inverse is true for sports cars. If you install smaller, low-profile tires to lower the vehicle's center of gravity, the tire's circumference shrinks. The smaller tire must complete significantly more rotations just to cover a single mile. The computer, still thinking the tires are full-sized, will see this rapid spinning and assume you are traveling incredibly fast. Your odometer will rack up miles much faster than you are actually driving, artificially aging your vehicle and killing its resale value.</p>
 
-            <h2>The Real-World Consequences</h2>
+            <h2 className="text-2xl font-bold mb-3">The Real-World Consequences</h2>
             <p>An inaccurate odometer causes several cascading issues beyond just a false reading on the dashboard. Because the speedometer uses the exact same rotational data, your speedometer will also be incorrect. If you install larger tires, your speedometer will say you are driving 65 MPH when you are actually traveling 75 MPH, making it incredibly easy to get a speeding ticket. Furthermore, because your vehicle's MPG computer uses the odometer data to calculate efficiency, your dashboard will incorrectly tell you that your fuel economy has plummeted.</p>
           </article>
           

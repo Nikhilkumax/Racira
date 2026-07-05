@@ -327,14 +327,14 @@ export default function SportsDrinkCarbConcentrationCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Sports Drink Carb Concentration Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Sports Drink Carb Concentration Calculator</h2>
             <p>For endurance athletes—marathon runners, triathletes, and long-distance cyclists—nutrition is not just about daily macros; it is about intra-workout execution. When you are exercising continuously for over 90 minutes, your body drastically depletes its muscular glycogen stores. If those stores empty completely, you will "bonk" or "hit the wall," resulting in a catastrophic drop in athletic performance. To prevent this, athletes must ingest carbohydrates during the event. However, the human digestive system is highly sensitive under physical stress. The <strong>Sports Drink Carb Concentration Calculator</strong> is an essential sports science tool used to formulate hydration mixes that deliver maximum energy without triggering devastating gastrointestinal (GI) distress.</p>
 
-            <h2>The Science of Gastric Emptying</h2>
+            <h2 className="text-2xl font-bold mb-3">The Science of Gastric Emptying</h2>
             <p>When you drink fluids during a race, they do not immediately enter your bloodstream. They first enter your stomach. The speed at which fluid leaves the stomach and enters the small intestine (where carbohydrates are actually absorbed) is called the <strong>Gastric Emptying Rate</strong>. This rate is strictly governed by osmolality—the concentration of dissolved particles (like sugars and electrolytes) in the fluid.</p>
             <p>If you drink pure water (0% concentration), the stomach empties it rapidly. If you drink a thick, sugary syrup (20% concentration), the stomach recognizes that the fluid is too dense to safely pass into the delicate intestines. The stomach essentially shuts its lower valve and holds the fluid, waiting for the body to pull water out of the bloodstream and into the gut to dilute the syrup. This severely delays hydration and often leads to cramps, nausea, and vomiting. To optimize performance, athletes must perfectly balance the concentration of their drinks.</p>
 
-            <h2>The Three Zones of Osmolality</h2>
+            <h2 className="text-2xl font-bold mb-3">The Three Zones of Osmolality</h2>
             <p>Our calculator analyzes the ratio of carbohydrates to water and classifies your drink into one of three distinct clinical zones:</p>
 
             <h3>1. Isotonic Solutions (4% to 8%) - "The Goldilocks Zone"</h3>
@@ -346,15 +346,15 @@ export default function SportsDrinkCarbConcentrationCalculator() {
             <h3>3. Hypertonic Solutions (Over 8%) - Danger Zone</h3>
             <p>A hypertonic solution is highly concentrated. Examples include pure fruit juice, standard sodas, or simply mixing too many scoops of carbohydrate powder into a small water bottle. When this dense fluid hits the stomach, it causes a reverse osmotic gradient. The body is forced to excrete water into the stomach to dilute the sugars. This completely halts the delivery of energy, actively dehydrates the athlete, causes the stomach to visibly bloat, and is the leading cause of "runner's trots" (severe diarrhea) during races.</p>
 
-            <h2>How to Use the Calculator in Training</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Use the Calculator in Training</h2>
             <p>Modern endurance athletes frequently purchase pure bulk carbohydrate powders (like Maltodextrin or Cluster Dextrin) to mix their own customized race-day nutrition, saving money and allowing for granular control. The calculator is used to verify the math before mixing.</p>
             <p><strong>Example Scenario:</strong> You plan to carry a standard 500ml cycling flask. You want to consume 60 grams of carbohydrates per hour. You dump 60g of powder into the 500ml flask. The calculator reveals that this yields a <strong>12% concentration (Hypertonic)</strong>. If you drink this on the bike, you will almost certainly suffer GI distress. To fix this, the calculator forces you to realize you must either: A) drop the powder to 35g (achieving a safe 7% concentration), or B) mix the 60g of powder into a much larger 800ml bottle to dilute it into the safe zone.</p>
 
-            <h2>The Role of Multiple Transport Carbohydrates</h2>
+            <h2 className="text-2xl font-bold mb-3">The Role of Multiple Transport Carbohydrates</h2>
             <p>While concentration dictates how fast the drink leaves the stomach, another biological bottleneck exists in the intestines: carbohydrate transporters. If a sports drink is made of 100% pure glucose, the intestinal transporters max out at absorbing roughly 60 grams per hour. If you drink 90 grams of glucose, 30 grams will sit rotting in your gut, again causing GI distress.</p>
             <p>To bypass this, elite formulations use a 2:1 ratio of Glucose to Fructose. Because fructose uses a completely different intestinal transporter than glucose, combining them allows the body to absorb up to 90 (and sometimes 120) grams of carbohydrates per hour. When formulating your drinks, ensure you are utilizing mixed-source carbohydrates.</p>
 
-            <h2>Conclusion: Do Not Guess Your Nutrition</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Do Not Guess Your Nutrition</h2>
             <p>You would never run a marathon wearing untested shoes, and you should never race using an uncalculated sports drink. Measuring scoops by eye is a recipe for gastric disaster. Use the Sports Drink Carb Concentration Calculator to mathematically verify your hydration strategy. Keep your mixes in the Isotonic (6-8%) sweet spot for optimal energy delivery, train your gut with these exact concentrations during practice runs, and execute your race with perfect metabolic precision.</p>
           </article>
           

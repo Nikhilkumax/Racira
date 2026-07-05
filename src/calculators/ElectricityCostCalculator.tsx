@@ -202,10 +202,10 @@ const ElectricityCostCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>How Is Electricity Billed?</h2>
+            <h2 className="text-2xl font-bold mb-3">How Is Electricity Billed?</h2>
             <p>Unlike water or gas, which are billed by physical volume, electricity is billed by <strong>Energy</strong> over time. The standard unit of measurement used by utility companies worldwide is the <strong>Kilowatt-Hour (kWh)</strong>. This unit does not mean "kilowatts per hour." Rather, it means exactly 1,000 watts of power sustained for exactly one hour. For instance, running a 1,500-watt space heater for two hours consumes 3 kWh (1.5 kW × 2h = 3 kWh).</p>
 
-            <h2>Finding Your Power Consumption (Watts)</h2>
+            <h2 className="text-2xl font-bold mb-3">Finding Your Power Consumption (Watts)</h2>
             <p>To accurately estimate the cost of running an appliance, you must know its power draw. Almost all consumer electronics have a specification sticker on the back or bottom. Look for a number followed by "W" (Watts). Typical examples include:</p>
             <ul>
               <li><strong>LED Light Bulb:</strong> 10W</li>
@@ -216,11 +216,11 @@ const ElectricityCostCalculator = () => {
             </ul>
             <p>If the sticker does not list Watts, it will list Amps (A) and Volts (V). In North America, standard wall outlets are 120V. You can easily find the wattage using Ohm's Law: <strong>Watts = Volts × Amps</strong>. So, a device drawing 5 Amps on a 120V circuit consumes 600 Watts.</p>
 
-            <h2>Finding Your Electricity Rate</h2>
+            <h2 className="text-2xl font-bold mb-3">Finding Your Electricity Rate</h2>
             <p>Electricity rates fluctuate based on where you live, the time of year, and even the time of day. In the United States, the average cost is around $0.15 per kWh, but this ranges from $0.10 in states with cheap hydroelectric power to over $0.35 in states like Hawaii or California.</p>
             <p>To find your exact rate, grab your latest electrical bill. Do not just look at the rate they advertise (often called the "generation rate"). You must also account for transmission and delivery fees. The most accurate way to find your true rate is to take the <strong>Total Cost of the Bill</strong> and divide it by the <strong>Total kWh Used</strong> that month.</p>
 
-            <h2>Beware of "Always On" Appliances</h2>
+            <h2 className="text-2xl font-bold mb-3">Beware of "Always On" Appliances</h2>
             <p>When using this calculator, be realistic about "Usage Time." A television might draw 100W, but you only watch it for 4 hours a day. Conversely, a device in "standby mode" (like a cable box or a TV waiting for a remote signal) might only draw 10W, but because it draws that power 24 hours a day, 365 days a year, it can cost you over $10 a year to do absolutely nothing!</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/electricity-cost-calculator" />

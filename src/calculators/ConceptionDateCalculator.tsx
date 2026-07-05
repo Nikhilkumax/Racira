@@ -213,18 +213,18 @@ export default function ConceptionDateCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Mathematics of Conception</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of Conception</h2>
             <p>Determining the exact date a child was conceived requires working backward using a set of clinical averages. While an ultrasound is the most accurate way to date a pregnancy, this <strong>Conception Date Calculator</strong> uses standard obstetric algorithms to reverse-engineer the timeline based on either your known Due Date or your Last Menstrual Period.</p>
 
-            <h2>Method 1: Reverse-Engineering the Due Date</h2>
+            <h2 className="text-2xl font-bold mb-3">Method 1: Reverse-Engineering the Due Date</h2>
             <p>If you have already had an ultrasound (often called a 'dating scan' in the first trimester), your doctor has provided you with an Estimated Due Date (EDD). This is the most accurate method for calculation.</p>
             <p>By medical definition, human gestation lasts precisely <strong>266 days (38 weeks)</strong> from the exact moment of conception. The calculator simply takes your ultrasound-confirmed due date and subtracts 266 days to pinpoint the day biological fertilization occurred.</p>
 
-            <h2>Method 2: The Last Menstrual Period (LMP)</h2>
+            <h2 className="text-2xl font-bold mb-3">Method 2: The Last Menstrual Period (LMP)</h2>
             <p>If you have just discovered you are pregnant and haven't had an ultrasound yet, doctors use the LMP method. This method assumes that you ovulate 14 days before your next period.</p>
             <p>However, this method is fundamentally flawed if you do not have a textbook 28-day cycle. If a woman has a 35-day cycle, she ovulates around Day 21. If the doctor uses the standard 28-day math, the conception date will be miscalculated by a full week. Our calculator allows you to input your exact cycle length to correct this mathematical error, providing a much more accurate conception date.</p>
 
-            <h2>The 'Intercourse Window' vs. Conception Date</h2>
+            <h2 className="text-2xl font-bold mb-3">The 'Intercourse Window' vs. Conception Date</h2>
             <p>It is critical to understand that the date of conception is <strong>not necessarily the date you had intercourse</strong>.</p>
             <p>A human egg (ovum) only survives for 12 to 24 hours after being released by the ovary. However, healthy sperm are remarkably resilient. Sperm can survive inside the female reproductive tract (specifically in the cervical crypts and fallopian tubes) for up to <strong>5 days</strong> waiting for the egg to be released.</p>
             <p>Therefore, if you had intercourse on a Friday, but did not ovulate until Tuesday, the actual 'Conception Date' is Tuesday. The calculator provides a 6-day 'Intercourse Window' representing all possible days where intercourse could have resulted in a pregnancy on the calculated conception date.</p>

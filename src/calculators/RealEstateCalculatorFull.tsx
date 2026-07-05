@@ -234,22 +234,22 @@ export default function RealEstateCalculatorFull() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-            <h2>How to Analyze a Real Estate Investment</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Analyze a Real Estate Investment</h2>
             <p>Real estate investment analysis requires evaluating multiple metrics simultaneously to understand both cash flow and total return potential. This calculator computes the key metrics that experienced real estate investors use: cap rate, cash-on-cash return, net operating income, gross yield, break-even occupancy, and equity buildup over time. Understanding each metric's meaning and limitations is essential for making sound investment decisions.</p>
             <p>The starting point is always the <strong>Net Operating Income (NOI)</strong>: annual rent × (1 − vacancy rate) minus all operating expenses (taxes, insurance, maintenance, management fees). NOI is the income the property generates before debt service — it's independent of your financing, making it useful for comparing properties.</p>
 
-            <h2>Key Real Estate Investment Metrics Explained</h2>
+            <h2 className="text-2xl font-bold mb-3">Key Real Estate Investment Metrics Explained</h2>
             <p><strong>Cap Rate</strong> (NOI / Property Value) is the financing-independent return metric. It tells you what a property would return if bought all-cash. A $350,000 property with $21,000 NOI has a 6% cap rate. Higher cap rates generally indicate higher risk or slower-appreciating markets. Cap rates compress (fall) when property values rise faster than rents.</p>
             <p><strong>Cash-on-Cash Return</strong> measures your actual dollar return relative to your cash invested. After accounting for your mortgage payment, how much cash flows to you annually as a percentage of your down payment? A $70,000 down payment yielding $5,600 annual cash flow = 8% cash-on-cash. This is directly comparable to stock market returns.</p>
             <p><strong>Break-Even Occupancy</strong> is the minimum occupancy percentage needed to cover all costs including mortgage. If your break-even is 75%, any occupancy above 75% generates positive cash flow. Lower break-even rates provide a larger safety margin against vacancies and unexpected expenses.</p>
 
-            <h2>The 50% Rule and 1% Rule</h2>
+            <h2 className="text-2xl font-bold mb-3">The 50% Rule and 1% Rule</h2>
             <p>Two quick screening rules used by investors: The <strong>50% rule</strong> estimates that 50% of gross rent goes to operating expenses (excluding mortgage). Gross rent of $2,400/month means approximately $1,200/month in expenses — so your NOI is roughly $1,200/month. The <strong>1% rule</strong> suggests monthly rent should be at least 1% of purchase price — a $300,000 property should rent for $3,000/month. Properties meeting this threshold are more likely to cash-flow positively with typical financing. Most high-cost urban markets don't meet these rules, making them better suited for appreciation plays than cash-flow investing.</p>
 
-            <h2>Total Return: Cash Flow + Appreciation + Principal Paydown</h2>
+            <h2 className="text-2xl font-bold mb-3">Total Return: Cash Flow + Appreciation + Principal Paydown</h2>
             <p>Real estate total return has three components: (1) Cash flow from rent after all expenses and debt service; (2) Appreciation — the property's value increase over time; (3) Loan paydown — each mortgage payment builds equity even if the property doesn't appreciate. A property with neutral cash flow might still be an excellent investment if it appreciates at 5%/year and tenants are paying down $10,000+/year in principal. This three-dimensional return is what makes real estate uniquely powerful compared to stocks (which only have price appreciation and dividends).</p>
 
-            <h2>Real Estate Investment Risks</h2>
+            <h2 className="text-2xl font-bold mb-3">Real Estate Investment Risks</h2>
             <p>Real estate investing involves significant risks: illiquidity (you can't sell a fraction of a property overnight), leverage risk (borrowed money amplifies losses), vacancy risk, tenant damage, unexpected maintenance costs (a new HVAC unit can cost $5,000-$15,000), local market risk, regulatory risk (rent control, eviction moratoriums), and interest rate risk if using adjustable-rate financing. Successful real estate investors maintain cash reserves (typically 3-6 months of gross rent) and properly vet tenants to minimize vacancies and damage.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/real-estate-calculator" />

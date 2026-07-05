@@ -363,30 +363,30 @@ export default function DailyCalorieBurnCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Mathematics of Your Metabolism</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of Your Metabolism</h2>
             <p>The fitness industry is flooded with fad diets, magic pills, and "fat-burning" supplements. We are constantly sold the lie that weight loss is a mysterious biological process dependent on eating specific superfoods or avoiding carbohydrates after 6:00 PM. In reality, human metabolism is governed by the unbreakable laws of thermodynamics. If you consume more energy (calories) than your body requires, it stores the excess as fat. If you consume less energy than your body requires, it is forced to burn stored fat to survive. It is a strict mathematical equation. The <strong>Daily Calorie Burn Calculator</strong> utilizes clinical algorithms to determine your exact metabolic baseline, giving you the mathematical key to manipulating your body composition.</p>
 
-            <h2>BMR: The Engine of Human Life</h2>
+            <h2 className="text-2xl font-bold mb-3">BMR: The Engine of Human Life</h2>
             <p>The foundation of this calculator is your Basal Metabolic Rate (BMR). Most people drastically misunderstand how they burn calories. They believe that they only burn calories when they are sweating on a treadmill.</p>
             <p>If you were to fall into a coma and lie perfectly still in a hospital bed for 24 hours, your body would still require a massive amount of energy just to keep you alive. Your heart must pump thousands of gallons of blood, your lungs must continuously expand, and your brain requires massive amounts of glucose just to fire neurons. This life-sustaining energy requirement is your BMR. For the average adult, BMR accounts for an astonishing 60% to 70% of their total daily caloric expenditure. You burn the vast majority of your daily calories simply by existing.</p>
 
-            <h2>TDEE: The Maintenance Line</h2>
+            <h2 className="text-2xl font-bold mb-3">TDEE: The Maintenance Line</h2>
             <p>While BMR is what you burn in a coma, you are actively living your life. You walk to your car, you digest food, you fidget at your desk, and you occasionally go to the gym. To account for this movement, exercise physiologists take your BMR and multiply it by an "Activity Multiplier." The resulting number is your Total Daily Energy Expenditure (TDEE).</p>
             <p>Your TDEE is arguably the most important number in all of fitness. It is your "maintenance line." If your TDEE is 2,500 calories, and you eat exactly 2,500 calories every day for the rest of your life, your body weight will remain identical. The scale will never move. If you want to change your physique, you must mathematically deviate from your TDEE.</p>
 
-            <h2>The 500-Calorie Deficit Rule</h2>
+            <h2 className="text-2xl font-bold mb-3">The 500-Calorie Deficit Rule</h2>
             <p>If your goal is to lose fat, you must operate in a caloric deficit. But how large should that deficit be? The clinical gold standard is a 500-calorie daily deficit.</p>
             <p>The math is elegantly simple. One pound of human body fat contains approximately 3,500 kilocalories of stored energy. If you subtract exactly 500 calories from your TDEE every day, over the course of seven days, you will have accumulated a weekly deficit of 3,500 calories (500 × 7). Because your body lacked 3,500 calories of fuel from food, it was forced to violently open your fat cells and burn exactly one pound of stored fat to make up the difference. A 500-calorie deficit guarantees a mathematical fat loss of one pound per week, which is the optimal rate for preserving muscle tissue while stripping away fat.</p>
 
-            <h2>The Danger of Starvation Diets</h2>
+            <h2 className="text-2xl font-bold mb-3">The Danger of Starvation Diets</h2>
             <p>When people learn the math of fat loss, they often make a catastrophic error: "If a 500-calorie deficit burns one pound a week, I will just eat 1,000 total calories a day and burn three pounds a week!"</p>
             <p>This is a catastrophic metabolic error known as crash dieting. If you drastically starve the human body, it triggers an evolutionary survival mechanism. The brain senses a severe famine. To keep you alive, the body will aggressively down-regulate your metabolism—making you chronically lethargic to save energy. Worse, because muscle is highly metabolically expensive to maintain, the starving body will actually break down your own muscle tissue for fuel, while hoarding body fat as a last resort. You will lose weight on the scale, but you will destroy your metabolism, look "skinny fat," and immediately gain all the weight back the moment you resume normal eating.</p>
 
-            <h2>Why Men and Taller People Burn More</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Men and Taller People Burn More</h2>
             <p>You may notice that entering a male gender or a taller height drastically increases the BMR. This is not arbitrary; it is biology.</p>
             <p>Taller individuals have larger skeletons, longer blood vessels, and more physical surface area. It physically requires a larger, more powerful heart and more total energy just to pump blood through a 6-foot-4 frame compared to a 5-foot-2 frame. Similarly, men naturally carry a significantly higher ratio of dense, metabolically active muscle mass compared to women, who naturally carry a higher percentage of essential body fat for reproductive health. Because muscle requires constant energy to maintain while fat is relatively dormant, the male BMR is mathematically higher.</p>
 
-            <h2>Conclusion: Stop Guessing, Start Measuring</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Stop Guessing, Start Measuring</h2>
             <p>Weight loss is not a mystery, and it does not require purchasing expensive supplements or detox teas. It requires data. By using the Daily Calorie Burn Calculator to establish your exact TDEE, you remove all the guesswork from your diet. You now have the exact mathematical formula required to force your body to burn fat or build muscle. Track your intake, honor the math, and watch your physique transform with clinical precision.</p>
           </article>
           

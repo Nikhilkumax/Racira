@@ -186,19 +186,19 @@ const PostpartumWeightLossCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Postpartum Weight Loss Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Postpartum Weight Loss Calculator?</h2>
             <p>A postpartum weight loss calculator tracks your progress from delivery weight back to your pre-pregnancy weight, estimates your weekly loss rate, and projects a realistic timeline to reach your goal. Pre-filled with 165 lbs pre-pregnancy, 195 lbs at delivery (30 lbs gained), and 180 lbs at 6 weeks postpartum (15 lbs lost), the calculator shows 50% of pregnancy weight already lost — right on track with typical postpartum progression.</p>
-            <h2>Normal Postpartum Weight Loss Timeline</h2>
+            <h2 className="text-2xl font-bold mb-3">Normal Postpartum Weight Loss Timeline</h2>
             <p>Week 0–1: Immediate loss of 10–14 lbs from baby, placenta, and amniotic fluid. Weeks 1–6: Additional 5–8 lbs lost as excess blood volume and retained fluid are expelled. Week 6–6 months: Fat stores are gradually lost through diet, activity, and (for breastfeeding mothers) the caloric demands of milk production. Most women reach their pre-pregnancy weight between 6–12 months postpartum, though individual variation is enormous.</p>
-            <h2>Breastfeeding and Weight Loss</h2>
+            <h2 className="text-2xl font-bold mb-3">Breastfeeding and Weight Loss</h2>
             <p>Breastfeeding burns approximately 300–500 extra calories per day, equivalent to 45–70 minutes of walking. However, many breastfeeding mothers experience increased hunger that partially offsets this caloric expenditure. The net effect varies widely. Crucially, breastfeeding mothers should not restrict calories below 1,800 kcal/day — severe restriction reduces milk supply, decreases milk fat content, and can release environmental toxins stored in adipose tissue into breast milk. Conservative, sustainable weight loss of 0.5–1 lb/week is the recommended approach.</p>
-            <h2>Safe Postpartum Weight Loss Rate</h2>
+            <h2 className="text-2xl font-bold mb-3">Safe Postpartum Weight Loss Rate</h2>
             <p>ACOG recommends: Wait until 6 weeks postpartum to begin intentional weight loss. Target no more than 1–1.5 lbs per week (non-breastfeeding). For breastfeeding mothers: 0.5–1 lb per week. Avoid skipping meals, very low calorie diets, or eliminating entire food groups. Adequate nutrition is essential for postpartum recovery, hormonal regulation, and mental health. Postpartum depression and anxiety, which affect 10–15% of new mothers, are worsened by severe caloric restriction and excessive exercise stress.</p>
-            <h2>Exercise After Delivery</h2>
+            <h2 className="text-2xl font-bold mb-3">Exercise After Delivery</h2>
             <p>Exercise recommendations by delivery type: Vaginal delivery: Light walking within days 1–3. Gentle yoga and swimming after 2–3 weeks (if comfortable). Full exercise clearance typically at 6-week appointment. Cesarean section: Walking only for 4–6 weeks. No lifting above 15 lbs. Full activity clearance typically at 8–12 weeks. All mothers: Pelvic floor exercises (Kegels) can begin within 24 hours. Core exercises should be approved by a provider to avoid worsening diastasis recti — a separation of the abdominal muscles affecting up to 60% of women postpartum.</p>
-            <h2>Realistic Goal Setting</h2>
+            <h2 className="text-2xl font-bold mb-3">Realistic Goal Setting</h2>
             <p>Research shows that retaining more than 11 lbs (5 kg) of pregnancy weight at 6 months postpartum is associated with long-term obesity risk. However, "bouncing back" quickly is not a health goal — it's a cultural pressure. The most important health metric is sustainable, gradual progress toward your pre-pregnancy weight within the 6–18 month postpartum window, while maintaining energy for infant care, work, and recovery. Many women find their body composition changes permanently after pregnancy, with muscle and fat redistribution that doesn't fully revert — and this is entirely normal and healthy.</p>
-            <h2>Nutrition Priorities Postpartum</h2>
+            <h2 className="text-2xl font-bold mb-3">Nutrition Priorities Postpartum</h2>
             <p>Key nutrients for postpartum recovery: Iron (lost during delivery; found in lean red meat, lentils, fortified cereals). Calcium (essential for bone density during breastfeeding). Omega-3 DHA (critical for infant brain development; found in fatty fish, algae-based supplements). Protein (1.2–1.7 g/kg body weight to support muscle recovery and satiety). Continue taking a prenatal vitamin or postnatal supplement during breastfeeding. Hydration is especially critical during breastfeeding — breast milk is ~87% water.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/postpartum-weight-loss-calculator" />

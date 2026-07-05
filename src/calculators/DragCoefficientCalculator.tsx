@@ -285,21 +285,21 @@ export default function DragCoefficientCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Invisible Wall: Aerodynamic Drag</h2>
+            <h2 className="text-2xl font-bold mb-3">The Invisible Wall: Aerodynamic Drag</h2>
             <p>When you drive down the road, your vehicle is physically ramming into billions of air molecules. At low speeds, air easily parts and flows around the car. However, air behaves like a fluid. As you drive faster, the air resists being moved out of the way, creating immense backward pressure against the front bumper and windshield. This invisible wall of air is known as Aerodynamic Drag Force. Our calculator uses fluid dynamics equations to show exactly how much horsepower your engine is wasting just to slice through the air.</p>
 
-            <h2>Why Speed Kills Fuel Economy</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Speed Kills Fuel Economy</h2>
             <p>Look at the HP Required chart provided by the calculator; it is not a straight line. The formula for drag force dictates that drag increases with the <strong>square of your velocity</strong>. This means if you double your speed from 35 MPH to 70 MPH, the air resistance does not double—it quadruples. </p>
             <p>Worse still, the engine horsepower required to overcome that drag increases with the <strong>cube of your velocity</strong>. If it takes 20 horsepower to cruise at 50 MPH, it will require 160 horsepower to cruise at 100 MPH. This is why fuel economy drops so violently when driving above 65 MPH on the highway.</p>
 
-            <h2>Drag Coefficient vs. Frontal Area</h2>
+            <h2 className="text-2xl font-bold mb-3">Drag Coefficient vs. Frontal Area</h2>
             <p>The total drag on a vehicle is determined by two major factors multiplying against each other: Drag Coefficient (Cd) and Frontal Area (A).</p>
             <ul>
               <li><strong>Drag Coefficient (Cd):</strong> This measures how "slippery" the shape is. A raindrop has an incredibly low Cd. A boxy Jeep Wrangler has a very high Cd because the flat windshield catches the air like a parachute.</li>
               <li><strong>Frontal Area:</strong> This is the physical size of the hole you are punching in the air (width × height). A massive semi-truck and a modern sports car might technically have the exact same aerodynamic Drag Coefficient (0.35), but because the truck is physically five times larger, it will experience five times more drag force.</li>
             </ul>
 
-            <h2>Why Top Speed is So Hard to Increase</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Top Speed is So Hard to Increase</h2>
             <p>This calculator perfectly demonstrates why building a 200 MPH supercar is so difficult. If a car maxes out at 150 MPH using 300 horsepower, you cannot simply add another 100 horsepower to reach 200 MPH. Because of the cubic relationship between speed and drag, you would likely need well over 700 horsepower just to push through that extra 50 MPH of dense air resistance.</p>
           </article>
           

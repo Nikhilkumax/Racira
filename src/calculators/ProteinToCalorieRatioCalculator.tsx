@@ -316,11 +316,11 @@ export default function ProteinToCalorieRatioCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Protein to Calorie Ratio</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Protein to Calorie Ratio</h2>
             <p>Hitting your daily protein target while staying inside a caloric deficit is the hardest mathematical challenge in fitness. Many people fail because they are tricked by deceptive marketing on the front of food packaging. A box of cereal might claim "10g of Protein!" in huge letters, but if that serving also contains 400 calories of sugar, it is actively destroying your fat loss goals. The <strong>Protein to Calorie Ratio (PCR) Calculator</strong> cuts through the marketing noise by giving you the only metric that actually matters: <em>How many grams of protein are you getting for every 100 calories you consume?</em></p>
             <p>By standardizing all foods to a 100-calorie baseline, you can easily compare a massive 800-calorie steak dinner to a 150-calorie protein shake on an even, mathematical playing field. This is the ultimate tool for evaluating macronutrient density and building a diet that supports lean muscle growth without unnecessary fat accumulation.</p>
 
-            <h2>The Thermodynamics of Pure Protein</h2>
+            <h2 className="text-2xl font-bold mb-3">The Thermodynamics of Pure Protein</h2>
             <p>To use this calculator effectively, you must understand the absolute physical limits of food. The human body derives energy from three macronutrients:</p>
             <ul>
               <li><strong>Protein:</strong> 4 kilocalories per gram.</li>
@@ -329,30 +329,30 @@ export default function ProteinToCalorieRatioCalculator() {
             </ul>
             <p>Because protein yields 4 calories per gram, the absolute theoretical maximum Protein-to-Calorie Ratio is <strong>25 grams per 100 calories</strong> (25g x 4 kcal = 100 total kcal). If a food achieved a perfect 25 ratio, it would mean it is 100% pure protein with absolutely zero trace fats or carbohydrates. This is practically impossible to find in nature. Even ultra-refined whey protein isolate powders usually max out around 22g or 23g per 100 calories because of trace flavoring or binding agents.</p>
 
-            <h2>Decoding the Quality Grades</h2>
+            <h2 className="text-2xl font-bold mb-3">Decoding the Quality Grades</h2>
             <p>When you input your numbers, the calculator assigns a "Quality Grade" based on the ratio. Here is exactly what those benchmarks mean for your diet:</p>
             <p><strong>Elite Source (15g to 25g per 100 kcal):</strong> Foods in this category are essentially pure protein. They contain almost zero fats or carbs. Examples include egg whites, skinless chicken breast, white fish (like cod or tilapia), and high-quality protein powder. If you are a bodybuilder weeks away from a competition, or someone trying to lose fat aggressively, your diet must be anchored by Elite sources.</p>
             <p><strong>Excellent Source (10g to 15g per 100 kcal):</strong> This is the "sweet spot" for sustainable fat loss. These foods are highly protein-dense but contain enough trace fats or carbs to actually taste good and keep you full. Examples include 93% lean ground turkey, non-fat plain Greek yogurt, and low-fat cottage cheese.</p>
             <p><strong>Good Source (6g to 10g per 100 kcal):</strong> Foods in this tier provide a solid dose of protein, but it comes packaged with a significant amount of dietary fat or carbohydrates. Whole eggs, whole milk, and fattier cuts of steak fall here. These are fantastic for maintenance diets or muscle-building phases (bulking), but they make cutting very difficult.</p>
             <p><strong>Moderate to Poor Sources (&lt; 6g per 100 kcal):</strong> These foods should not be considered protein sources. For example, a standard serving of peanut butter has 190 calories and 7g of protein, yielding a miserable ratio of 3.7g per 100 kcal. Peanut butter is an excellent source of healthy fats, but eating it to hit your protein goal will result in massive caloric surpluses and rapid fat gain.</p>
 
-            <h2>Exposing "High Protein" Junk Food</h2>
+            <h2 className="text-2xl font-bold mb-3">Exposing "High Protein" Junk Food</h2>
             <p>The fitness industry has weaponized the phrase "High Protein" to sell junk food. Walk down the aisle of any grocery store, and you will see protein cookies, protein chips, and protein donuts. </p>
             <p>Let's look at a popular "High Protein" cookie. The label proudly boasts 16 grams of protein. However, checking the back reveals it contains 420 calories. If we input that into the calculator, it yields a PCR of just <strong>3.8g per 100 calories</strong>. This means the cookie is actually 85% fat and sugar, and only 15% protein. You would be better off eating an actual dessert and drinking a whey shake separately.</p>
 
-            <h2>Applying PCR to Your Daily Diet</h2>
+            <h2 className="text-2xl font-bold mb-3">Applying PCR to Your Daily Diet</h2>
             <p>While evaluating individual foods is helpful, the PCR is most powerful when applied to your entire day of eating. If you weigh 200 lbs and want to eat 200g of protein a day while losing fat on a 2,000-calorie diet, your "Daily Target PCR" is <strong>10g per 100 calories</strong>.</p>
             <p>This means that, on average, every single thing you eat must hit that "Excellent" benchmark. If you eat a slice of pizza for lunch (which has a PCR of about 4g per 100 kcal), you have severely dragged down your daily average. To hit your 200g goal without going over 2,000 calories, you will be forced to eat nothing but dry chicken breast and egg whites (Elite sources) for dinner to balance the mathematical equation.</p>
 
-            <h2>Protein Percentage vs. PCR</h2>
+            <h2 className="text-2xl font-bold mb-3">Protein Percentage vs. PCR</h2>
             <p>The calculator outputs both the PCR and the Protein Percentage. They are two sides of the exact same mathematical coin. If a food has a PCR of 10g per 100 calories, that means 40 of those 100 calories are protein (10g x 4kcal = 40kcal). Therefore, the food is 40% protein. </p>
             <p>Some people prefer thinking in percentages (e.g., "I want my diet to be 40% protein, 40% carbs, 20% fat"). However, many athletes find the PCR (grams per 100 cals) much easier to visualize when standing in the grocery store reading a nutrition label.</p>
 
-            <h2>Why Does the Calculator Give Me an Error?</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Does the Calculator Give Me an Error?</h2>
             <p>If you type in the numbers straight from a nutrition label and the calculator flashes a red error, do not panic. The calculator is enforcing thermodynamic law. Because protein yields 4 kcal/g, you cannot mathematically have a food with 100 total calories and 30 grams of protein (30g x 4 = 120 calories).</p>
             <p>If a label causes this error, the manufacturer is either aggressively rounding the numbers (which the FDA allows in small increments) or they are committing fraud via "amino spiking." In either case, the label is mathematically impossible and cannot be trusted.</p>
 
-            <h2>Conclusion</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion</h2>
             <p>Dieting does not have to be an emotional struggle; it is simply an accounting problem. By utilizing the Protein to Calorie Ratio Calculator, you can instantly strip away deceptive marketing and analyze the cold, hard mathematics of the foods you eat. By anchoring your meals with "Elite" and "Excellent" ratio foods, hitting your protein targets while maintaining a caloric deficit becomes a near certainty.</p>
           </article>
           

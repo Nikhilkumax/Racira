@@ -143,29 +143,29 @@ const CombinationsCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Combinations Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Combinations Calculator?</h2>
             <p>A combinations calculator computes C(n, r) — the number of ways to choose r items from a group of n items without regard to the order of selection. Also called "n choose r" and written nCr or C(n,r), this is one of the most-used formulas in probability, statistics, card games, lottery analysis, genetics, and computer science. This calculator simultaneously computes both combinations and permutations so you can compare the two at a glance.</p>
             <p>For example, choosing 3 members for a committee from 10 candidates: the order in which they are chosen doesn't matter, so we use combinations. C(10, 3) = 120 means there are exactly 120 distinct possible committees.</p>
 
-            <h2>How Combinations Are Calculated</h2>
+            <h2 className="text-2xl font-bold mb-3">How Combinations Are Calculated</h2>
             <p>The formula is: <strong>C(n, r) = n! / (r! × (n − r)!)</strong></p>
             <p>For C(10, 3): C(10,3) = 10! / (3! × 7!) = 3,628,800 / (6 × 5,040) = 3,628,800 / 30,240 = 120.</p>
             <p>The key distinction from permutations: P(n, r) = n! / (n − r)! = 720 for P(10, 3). The relationship is C(n,r) = P(n,r) / r!, which means permutations count each combination r! times (once for each ordering of the r items).</p>
 
-            <h2>Combinations vs Permutations</h2>
+            <h2 className="text-2xl font-bold mb-3">Combinations vs Permutations</h2>
             <p><strong>Use combinations when order does NOT matter:</strong> Lottery numbers (1-2-3-4-5 is the same as 5-4-3-2-1), committee selection, poker hands (the order of dealing doesn't matter), choosing pizza toppings, selecting items from a menu.</p>
             <p><strong>Use permutations when order DOES matter:</strong> Race rankings (1st, 2nd, 3rd are different), PIN codes, arranging books on a shelf, selecting officers from a club (President ≠ Vice President), anagrams.</p>
             <p>The ratio P/C = r! tells you how many times more permutations there are than combinations. For r = 3: P/C = 6. So for every 1 combination, there are 6 ordered permutations.</p>
 
-            <h2>Applications of Combinations</h2>
+            <h2 className="text-2xl font-bold mb-3">Applications of Combinations</h2>
             <p><strong>Lottery probability:</strong> Powerball selects 5 numbers from 69. The number of possible tickets is C(69, 5) = 11,238,513. With the additional Powerball from 26, total combinations = 292,201,338. Your probability of winning: 1 in 292 million.</p>
             <p><strong>Poker hands:</strong> A 5-card hand from a 52-card deck: C(52, 5) = 2,598,960 possible hands. The probability of a royal flush is C(4,1)/C(52,5) = 4/2,598,960 ≈ 1 in 649,740.</p>
             <p><strong>Genetics:</strong> The number of ways to inherit r traits from n possible traits — genetic diversity calculations use combinations extensively in population genetics.</p>
 
-            <h2>Pascal's Triangle and Combinations</h2>
+            <h2 className="text-2xl font-bold mb-3">Pascal's Triangle and Combinations</h2>
             <p>Pascal's Triangle is a triangular array where entry C(n, r) appears at row n, position r (both 0-indexed). Each entry equals the sum of the two entries directly above it: C(n,r) = C(n−1,r−1) + C(n−1,r). This recursive property makes Pascal's Triangle useful for expanding binomial expressions: (a+b)^n = Σ C(n,k) × a^(n-k) × b^k.</p>
 
-            <h2>Tips for This Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips for This Calculator</h2>
             <p>Enter n (total items) and r (items to choose) as non-negative integers with r ≤ n. The maximum supported is n = 20 due to integer overflow at larger factorials. For very large values, use logarithms or Stirling's approximation. Pair with the <a href="/calculator/permutations-calculator">permutations calculator</a> for order-sensitive counting, or the <a href="/calculator/probability-calculator">probability calculator</a> for full probability distributions.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/combinations-calculator" />

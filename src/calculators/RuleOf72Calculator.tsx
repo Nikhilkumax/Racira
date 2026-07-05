@@ -195,20 +195,20 @@ export default function RuleOf72Calculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is the Rule of 72?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is the Rule of 72?</h2>
             <p>The Rule of 72 is one of the most useful mental shortcuts in personal finance and investing. It provides a quick, accurate estimate of how long it takes for an investment to double in value, given a fixed annual rate of return. Simply divide 72 by the annual interest rate percentage, and the result is the approximate number of years to double your money.</p>
             <p>For example: at 8% annual return, your money doubles in approximately 72 ÷ 8 = 9 years. At 6%, it takes 12 years. At 12%, it takes just 6 years. The simplicity is stunning — no calculator or complex formula needed, just a single division. Yet the result is remarkably accurate for most everyday investment rates (between 4% and 20%).</p>
 
-            <h2>The Math Behind the Rule of 72</h2>
+            <h2 className="text-2xl font-bold mb-3">The Math Behind the Rule of 72</h2>
             <p>The exact doubling time formula uses natural logarithms: t = ln(2) / ln(1 + r) ≈ 0.6931 / r (for small r, where r is expressed as a decimal). Multiplying top and bottom by 100 gives t ≈ 69.3 / r%. The Rule of 72 uses 72 instead of 69.3 for three reasons: 72 is divisible by more numbers (1, 2, 3, 4, 6, 8, 9, 12, 18, 24, 36), making mental math easier; the slight overestimate at lower rates cancels out the underestimate at higher rates within the common investment range; and tradition — it's been used for centuries, first appearing in Luca Pacioli's 1494 mathematics text.</p>
 
-            <h2>Applying the Rule of 72 to Debt</h2>
+            <h2 className="text-2xl font-bold mb-3">Applying the Rule of 72 to Debt</h2>
             <p>The Rule of 72 is equally powerful for understanding debt growth — and the results are often alarming. Credit card debt at 18% APR doubles in 4 years. A $10,000 balance ignored for 16 years becomes $160,000. Payday loans at 390% APR theoretically "double" in under 2.5 months (though most payday loans are short-term). Student loans at 6% double in 12 years. This application of the Rule of 72 powerfully illustrates why paying off high-interest debt is the best guaranteed "investment" most people can make.</p>
 
-            <h2>Inflation and Purchasing Power</h2>
+            <h2 className="text-2xl font-bold mb-3">Inflation and Purchasing Power</h2>
             <p>The Rule of 72 applies to inflation too. At 3% inflation, purchasing power halves in 24 years. At 7% inflation (as seen in 2022), purchasing power halves in just over 10 years. This means if you hold cash without investing it, you're losing half its real value roughly every decade during periods of elevated inflation. Conversely, an investment that merely keeps pace with inflation provides no real growth — your money needs to grow faster than inflation to actually increase your purchasing power.</p>
 
-            <h2>The Rule of 72 in Practice: Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">The Rule of 72 in Practice: Examples</h2>
             <p>Stock market (7–10% historical average): Money doubles every 7.2–10.3 years. High-yield savings (4–5%): Doubles every 14.4–18 years. Typical mortgage rate (6–7%): Outstanding debt doubles without extra payments every 10.3–12 years. CD rate (3–5%): Doubles every 14.4–24 years. Cryptocurrency (hypothetical 20%): Could double every 3.6 years (with extreme risk). These examples make tangible why starting to invest early and targeting higher returns (within appropriate risk tolerance) dramatically accelerates wealth building.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/rule-of-72-calculator" />

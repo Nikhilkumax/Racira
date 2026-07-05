@@ -142,17 +142,17 @@ const EPFCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>What Is an EPF Calculator?</h2>
+              <h2 className="text-2xl font-bold mb-3">What Is an EPF Calculator?</h2>
               <p>An EPF calculator estimates your Employee Provident Fund corpus at retirement based on your current salary, contribution rates, expected salary increments, and EPF interest rate. It helps you plan for retirement by projecting how your monthly EPF contributions will grow over time.</p>
 
-              <h2>Understanding EPF Contributions</h2>
+              <h2 className="text-2xl font-bold mb-3">Understanding EPF Contributions</h2>
               <p>Both employee and employer contribute to EPF:</p>
               <ul>
                 <li><strong>Employee:</strong> 12% of basic salary + DA goes entirely to EPF.</li>
                 <li><strong>Employer:</strong> 12% of basic salary + DA, split as 3.67% to EPF and 8.33% to EPS (capped at ₹15,000 basic).</li>
               </ul>
 
-              <h2>EPF Tax Benefits</h2>
+              <h2 className="text-2xl font-bold mb-3">EPF Tax Benefits</h2>
               <ul>
                 <li><strong>Section 80C:</strong> Employee contribution qualifies for ₹1.5L deduction.</li>
                 <li><strong>Tax-Free Interest:</strong> Interest is tax-free up to ₹2.5L annual contribution (excess taxable since FY 2021-22).</li>

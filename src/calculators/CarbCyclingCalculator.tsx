@@ -375,15 +375,15 @@ export default function CarbCyclingCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Carb Cycling Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Carb Cycling Calculator</h2>
             <p>Traditional diets operate on a linear model: you eat the exact same amount of food and the exact same macronutrient ratios every single day until you reach your goal. While this works mathematically, it ignores a fundamental biological reality—your energy expenditure is not linear. On a Tuesday, you might endure a brutal 90-minute weightlifting session that drains your muscular glycogen. On a Wednesday, you might sit at a desk for nine hours and do nothing.</p>
             <p>If you eat a massive amount of carbohydrates on Wednesday (your rest day), those excess carbs have nowhere to go; your glycogen tanks are already full from sitting, so the excess energy is highly likely to be stored as body fat. Conversely, if you eat a low-carb diet on Tuesday (your heavy training day), you will suffer from terrible gym performance and risk muscle catabolism. <strong>Carb Cycling</strong> solves this by periodizing your nutrition to match your physical output. Our Carb Cycling Calculator allows you to map your carbohydrate intake directly to your weekly training intensity.</p>
 
-            <h2>The Biological Mechanisms of Carb Cycling</h2>
+            <h2 className="text-2xl font-bold mb-3">The Biological Mechanisms of Carb Cycling</h2>
             <p>Carbohydrates are the body's preferred source of fast-acting energy. When you consume carbs (like rice, potatoes, or fruit), your digestive system breaks them down into glucose. The pancreas then releases insulin, a highly anabolic storage hormone, to shuttle that glucose out of the bloodstream and into your muscle cells and liver, where it is stored as <em>glycogen</em>.</p>
             <p>This process is fantastic for building muscle and fueling heavy lifts. However, insulin is a double-edged sword. When insulin levels are high, <strong>fat oxidation (fat burning) is biologically halted</strong>. Your body will not burn stored body fat if it has readily available glucose in the bloodstream. Carb cycling exploits this mechanism by creating distinct hormonal environments on different days.</p>
 
-            <h2>The Triad of Carb Cycling Days</h2>
+            <h2 className="text-2xl font-bold mb-3">The Triad of Carb Cycling Days</h2>
             <p>A standard carb cycling protocol utilizes three distinct types of days. The specific gram targets for each day are calculated based on your body weight and primary goal (fat loss vs. muscle gain).</p>
 
             <h3>1. The High Carb Day (The Refeed)</h3>
@@ -398,7 +398,7 @@ export default function CarbCyclingCalculator() {
             <p>Low Carb days are the engine of fat loss in this protocol. By drastically restricting carbohydrate intake, you force your body to deplete its remaining glycogen stores. Once glycogen is low, insulin levels plummet. In this low-insulin environment, the body is forced to shift its primary fuel source, opening the fat cells and oxidizing stored body fat for energy.</p>
             <p><strong>When to use:</strong> Low days should be strictly reserved for complete rest days or days where you only perform low-intensity steady-state (LISS) cardiovascular exercise (like walking). Because you are not lifting heavy weights, you do not need fast-acting glucose.</p>
 
-            <h2>How to Manipulate Protein and Fat</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Manipulate Protein and Fat</h2>
             <p>The Carb Cycling Calculator provides your precise carbohydrate targets, but to execute the protocol correctly, you must also manipulate your Protein and Fats to keep your overall calories in check.</p>
             <p><strong>Protein remains constant:</strong> Regardless of whether it is a High, Medium, or Low day, your protein intake must remain high and stable (roughly 1 gram per pound of body weight). This ensures constant muscle repair.</p>
             <p><strong>Fat operates inversely to Carbs:</strong></p>
@@ -407,7 +407,7 @@ export default function CarbCyclingCalculator() {
               <li><strong>On Low Carb Days:</strong> Because you have eliminated carbs, your calories will plummet. To provide satiety (fullness) and prevent starvation, you increase your dietary fats significantly (e.g., 80-100 grams). This is the day to eat avocado, eggs, and fattier cuts of meat.</li>
             </ul>
 
-            <h2>Customizing the Protocol for Your Goal</h2>
+            <h2 className="text-2xl font-bold mb-3">Customizing the Protocol for Your Goal</h2>
             <p>The calculator alters the multipliers based on your selected goal to ensure you hit your net weekly caloric targets.</p>
 
             <h3>Fat Loss (Deficit)</h3>
@@ -419,7 +419,7 @@ export default function CarbCyclingCalculator() {
             <h3>Muscle Gain (Bulking)</h3>
             <p>A standard dirty bulk often results in massive fat gain because insulin is constantly elevated 24/7. By carb cycling during a bulk, you maintain insulin sensitivity. Your High days are massive (often 3g+ per pound), flooding the muscles with nutrients. However, inserting a Low day (1g/lb) on your rest days prevents "spillover"—stopping the body from storing excess energy as fat when you are simply recovering on the couch.</p>
 
-            <h2>Conclusion: Advanced Nutritional Strategy</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Advanced Nutritional Strategy</h2>
             <p>Carb cycling is an advanced protocol. It requires meticulous tracking, digital food scales, and a solid understanding of macronutrients. It is not recommended for absolute beginners who have never tracked a calorie. However, for intermediate and advanced athletes who are dealing with diet fatigue, stalled fat loss, or poor gym performance on a standard cut, Carb Cycling is an incredibly powerful tool to break through plateaus and optimize body composition.</p>
           </article>
           

@@ -338,38 +338,38 @@ export default function CalorieToNutrientDensityRatioCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding Nutrient Density</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Nutrient Density</h2>
             <p>In the modern world of fitness and dieting, there is a massive obsession with macronutrients (proteins, carbs, and fats) and raw calorie counting. This approach, colloquially known as "If It Fits Your Macros" (IIFYM), has led many people to believe that 500 calories of potato chips is biologically equivalent to 500 calories of grilled chicken and broccoli, so long as the math balances out at the end of the day. This is a fundamentally flawed understanding of human biology.</p>
             <p>The human body does not just require raw energy (calories) to survive; it requires microscopic instructions in the form of vitamins, minerals, and amino acids to repair DNA, balance hormones, and fight off disease. This is where the concept of <strong>Nutrient Density</strong> comes in. The <strong>Calorie to Nutrient Density Ratio Calculator</strong> is designed to look past the raw calorie count and algorithmically determine exactly how much actual <em>nutrition</em> a food provides per calorie consumed.</p>
 
-            <h2>The Mathematics of the Density Score</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of the Density Score</h2>
             <p>Our algorithm is heavily inspired by the Nutrient Rich Foods (NRF) Index, a scientifically validated model used by dietitians globally to rank the quality of foods. The math is simple but highly revealing:</p>
             <p>First, the calculator analyzes the <strong>Beneficial Nutrients</strong>. It looks at the grams of protein and dietary fiber, calculating what percentage of your daily recommended value you are receiving. These are the "good points."</p>
             <p>Next, it analyzes the <strong>Harmful Additives</strong>. It evaluates the amount of Added Sugars, Saturated Fat, and Sodium, calculating their percentage of the daily maximum limits. These are the "negative points."</p>
             <p>Finally, the calculator subtracts the negative points from the positive points and divides the resulting number by the total calories. This ensures that foods cannot "cheat" the system by simply having massive serving sizes. The result is normalized on a clean 0 to 100 scale, giving you a definitive, objective grade of the food's quality.</p>
 
-            <h2>The Danger of "Empty Calories" (Score 0 - 24)</h2>
+            <h2 className="text-2xl font-bold mb-3">The Danger of "Empty Calories" (Score 0 - 24)</h2>
             <p>If your food scores in the red zone, it is classified as containing "Empty Calories." This is the hallmark of ultra-processed food (UPF). Examples include soda, candy, standard potato chips, and commercial pastries.</p>
             <p>Empty calories are incredibly dangerous for two reasons. First, they provide zero satiety. Because they lack fiber and protein, they do not trigger the stretch receptors in your stomach or the release of leptin (the fullness hormone) in your brain. You can easily consume 1,000 empty calories of soda and chips and still feel physically starving an hour later.</p>
             <p>Second, metabolizing these foods actually <em>depletes</em> your body's existing vitamin stores. To process and digest massive amounts of refined sugar, your body must pull B-vitamins and calcium from your bones and tissues. Empty calories do not just fail to provide nutrition; they actively steal it.</p>
 
-            <h2>Low Density to Moderate Density (Score 25 - 79)</h2>
+            <h2 className="text-2xl font-bold mb-3">Low Density to Moderate Density (Score 25 - 79)</h2>
             <p>This massive middle ground contains the bulk of the modern Western diet. A food scoring in the 30s or 40s is usually a "mixed" food—perhaps a frozen pizza or a fast-food hamburger. It provides a decent amount of protein, but it brings along a massive payload of saturated fat, sodium, and refined carbohydrate calories.</p>
             <p>Foods scoring in the 60s and 70s are generally solid, balanced meals. A home-cooked plate of spaghetti with meat sauce, or a peanut butter and jelly sandwich on whole wheat bread, will land here. These foods are the bedrock of a maintenance diet. They provide the energy and macronutrients required to get through a busy day or fuel a workout without overwhelming the body with toxic additives.</p>
 
-            <h2>The Power of Superfoods (Score 80 - 100)</h2>
+            <h2 className="text-2xl font-bold mb-3">The Power of Superfoods (Score 80 - 100)</h2>
             <p>If a food scores in the 80s or 90s, it is classified as a "High-Density Superfood." These are the cheat codes of human nutrition. Examples include spinach, kale, broccoli, lean chicken breast, egg whites, and lentils.</p>
             <p>Superfoods possess a unique mathematical property: they max out the positive scoring (massive amounts of fiber, vitamins, and protein) while having virtually zero negative points (no sugar, no sat fat) and an incredibly low caloric footprint. You can eat an entire pound of broccoli for roughly 150 calories. It will physically stretch your stomach, eliminating hunger entirely, while flooding your bloodstream with antioxidants and micronutrients. If your goal is aggressive fat loss, your diet must be built around foods scoring in this tier.</p>
 
-            <h2>Why is Fiber the Ultimate Metric?</h2>
+            <h2 className="text-2xl font-bold mb-3">Why is Fiber the Ultimate Metric?</h2>
             <p>When you look at the Radar Chart visualization, you will notice that Fiber holds significant weight in determining the shape of the polygon. This is intentional. In the modern food ecosystem, fiber is the ultimate litmus test for whether a food is natural or ultra-processed.</p>
             <p>In nature, sugar is almost always packaged with massive amounts of fiber. Think of an apple or a beet. The fiber acts as a biological net, slowing down the digestion of the sugar so your liver is not overwhelmed, preventing an insulin spike. Food manufacturers mechanically strip the fiber out of foods to increase shelf life and make the food hyper-palatable (so it melts in your mouth). If a carbohydrate-heavy food has zero fiber, it has been ultra-processed and will wreck your metabolic health.</p>
 
-            <h2>Sodium: The Silent Inflammatory</h2>
+            <h2 className="text-2xl font-bold mb-3">Sodium: The Silent Inflammatory</h2>
             <p>Another major factor in the algorithm is Sodium. While athletes who sweat heavily need sodium, the average sedentary human consumes vastly more than the recommended 2,300 mg limit per day. High sodium intake pulls water into the bloodstream, increasing blood volume and placing massive mechanical stress on the walls of the arteries (high blood pressure).</p>
             <p>More insidiously, ultra-processed foods use massive amounts of sodium to mask the taste of chemical preservatives. If a frozen meal or canned soup scores terribly on our calculator, it is almost always because the sodium levels are astronomical.</p>
 
-            <h2>Conclusion: Quality Over Quantity</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Quality Over Quantity</h2>
             <p>Weight loss is dictated by the quantity of calories you consume, but your longevity, energy levels, and disease risk are dictated entirely by the quality of those calories. By utilizing the Calorie to Nutrient Density Ratio Calculator, you can train your brain to look past flashy marketing claims. You will begin to view food not just as a source of energy, but as a vehicle for complex, life-sustaining nutrition.</p>
           </article>
           

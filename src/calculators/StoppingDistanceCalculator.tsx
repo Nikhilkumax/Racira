@@ -286,21 +286,21 @@ export default function StoppingDistanceCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Two Halves of Stopping</h2>
+            <h2 className="text-2xl font-bold mb-3">The Two Halves of Stopping</h2>
             <p>Most drivers assume that "stopping distance" refers only to how strong their car's brakes are. In reality, a vehicle's total stopping distance is comprised of two completely separate phases: <strong>Reaction Distance</strong> (the human element) and <strong>Braking Distance</strong> (the mechanical element). Our Stopping Distance Calculator analyzes both to give you a true, real-world estimate of how much space you need to avoid an accident.</p>
 
-            <h2>Phase 1: Reaction Distance</h2>
+            <h2 className="text-2xl font-bold mb-3">Phase 1: Reaction Distance</h2>
             <p>If a deer jumps into the road, your car does not immediately begin to slow down. First, your eyes must see the deer. Then, your brain must process the danger. Finally, your brain must send a signal to your leg to lift off the gas pedal and slam onto the brake pedal. This is called Perception-Reaction Time. </p>
             <p>Traffic engineers universally agree that the average, sober, alert driver takes roughly 1.5 seconds to react. While 1.5 seconds sounds incredibly fast, a car traveling at 60 MPH covers 88 feet every single second. This means your car will travel over 130 feet forward—more than a third of a football field—before your foot even touches the brake pedal.</p>
 
-            <h2>Phase 2: Braking Distance and Kinetic Energy</h2>
+            <h2 className="text-2xl font-bold mb-3">Phase 2: Braking Distance and Kinetic Energy</h2>
             <p>Once the brake pads clamp onto the rotors, the mechanical braking phase begins. This is where physics takes over. According to the laws of kinetic energy, the energy required to stop a moving object squares with its velocity. This means that if you double your speed, your braking distance does not double; it quadruples.</p>
             <ul>
               <li>At 30 MPH, a typical car on dry pavement might need 45 feet to physically brake.</li>
               <li>At 60 MPH, that same car will need over 180 feet to stop.</li>
             </ul>
 
-            <h2>The Danger of Wet and Icy Roads</h2>
+            <h2 className="text-2xl font-bold mb-3">The Danger of Wet and Icy Roads</h2>
             <p>Your brakes do not stop the car; your tires stop the car. The brakes simply stop the wheels from spinning. The entire system relies on the friction between your rubber tires and the asphalt. If the road is wet, water acts as a lubricant, reducing the coefficient of friction by almost half. If the road is covered in snow or ice, friction is nearly eliminated, causing the braking distance to explode to terrifying lengths, regardless of how advanced your Anti-Lock Braking System (ABS) is.</p>
           </article>
           

@@ -169,24 +169,24 @@ export default function VatCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is VAT (Value Added Tax)?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is VAT (Value Added Tax)?</h2>
             <p>Value Added Tax (VAT) is a consumption-based tax levied on the value added to goods and services at each stage of production and distribution. Unlike a simple sales tax collected only at the point of final sale, VAT is charged incrementally throughout the supply chain, with each business able to reclaim the VAT it paid on its own purchases (input tax) and remitting only the net VAT on the value it added. This mechanism creates a self-auditing chain that reduces tax evasion significantly compared to traditional sales taxes.</p>
             <p>Over 170 countries worldwide use VAT or a closely related system (called GST — Goods and Services Tax — in countries like Australia, Canada, and India). The EU mandates VAT across all member states. The UK retained its VAT system after Brexit. The United States remains one of the few major economies without a federal VAT, relying instead on state-level sales taxes.</p>
 
-            <h2>How to Calculate VAT: The Two Core Formulas</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Calculate VAT: The Two Core Formulas</h2>
             <p><strong>Adding VAT (tax-exclusive to tax-inclusive):</strong> Gross Price = Net Price × (1 + VAT Rate ÷ 100). Example: $1,000 at 20% = $1,200. VAT = $200.</p>
             <p><strong>Removing VAT (reverse VAT):</strong> Net Price = Gross Price ÷ (1 + VAT Rate ÷ 100). Example: $1,200 ÷ 1.20 = $1,000. The common mistake is to simply subtract the percentage from the gross price — this gives an incorrect result. Always divide by the VAT factor.</p>
 
-            <h2>VAT Rates Around the World</h2>
+            <h2 className="text-2xl font-bold mb-3">VAT Rates Around the World</h2>
             <p>Standard rates vary significantly: EU countries range from 17% (Luxembourg) to 27% (Hungary). UK: 20% standard, 5% reduced. Australia: 10% GST. India: tiered GST at 5%, 12%, 18%, or 28%. UAE: 5%. Canada: 5% federal GST plus provincial taxes. Most countries also apply zero rates to exports and reduced rates to essential goods such as food, medicine, and children's products.</p>
 
-            <h2>VAT for Businesses: Input Tax and Output Tax</h2>
+            <h2 className="text-2xl font-bold mb-3">VAT for Businesses: Input Tax and Output Tax</h2>
             <p>VAT-registered businesses charge output tax on their sales and pay input tax on their purchases. The net VAT — output tax minus input tax — is remitted to the tax authority on a periodic return (typically quarterly). If input tax exceeds output tax (common for exporters), the business receives a VAT refund. This input tax credit mechanism means that VAT is effectively borne only by the final consumer, making it economically neutral for businesses in the supply chain.</p>
 
-            <h2>When Must You Register for VAT?</h2>
+            <h2 className="text-2xl font-bold mb-3">When Must You Register for VAT?</h2>
             <p>Mandatory registration is triggered once taxable turnover exceeds the national threshold: UK £90,000 (2024), varying EU thresholds from €25,000 to €100,000, Australia AUD 75,000, Canada CAD 30,000. Voluntary registration is also possible below the threshold, which is beneficial for businesses with significant input VAT (e.g., startups with heavy capital expenditure) or those primarily selling to other VAT-registered businesses who can reclaim the VAT anyway.</p>
 
-            <h2>Zero-Rated vs. Exempt Supplies</h2>
+            <h2 className="text-2xl font-bold mb-3">Zero-Rated vs. Exempt Supplies</h2>
             <p>Understanding this distinction is critical for businesses. Zero-rated supplies (0% VAT) allow full input tax recovery — common examples include food, children's clothing, books, and exports. Exempt supplies (no VAT charged and no input VAT recovery) include financial services, healthcare, and education in most jurisdictions. Businesses with both taxable and exempt supplies must carefully apportion their input tax claims, which adds significant compliance complexity.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/vat-calculator" />

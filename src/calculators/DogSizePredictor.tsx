@@ -137,9 +137,7 @@ const DogSizePredictor = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">
-                  <Bone className="h-5 w-5" /> Predict Adult Size
-                </button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground">
+                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">Calculate</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground">
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
@@ -173,7 +171,7 @@ const DogSizePredictor = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>How Puppies Grow: The Science of Canine Development</h2>
+              <h2 className="text-2xl font-bold mb-3">How Puppies Grow: The Science of Canine Development</h2>
               <p>Puppy growth follows a predictable curve that varies significantly by breed size. Understanding this curve is essential for new dog owners who want to plan for food costs, crate size, harness upgrades, and even apartment requirements.</p>
 
               <h3>The Growth Fraction Method</h3>

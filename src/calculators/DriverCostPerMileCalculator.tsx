@@ -319,16 +319,16 @@ export default function DriverCostPerMileCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Mathematics of Fleet Profitability</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of Fleet Profitability</h2>
             <p>If you own a logistics, trucking, or delivery company, you do not sell physical products; you sell distance. The only way your company makes money is by charging a customer a specific rate to move freight from Point A to Point B. This rate is heavily negotiated and usually breaks down to a specific dollar amount per mile.</p>
             <p>To ensure your company doesn't go bankrupt, you must know exactly how much it costs you to drive that mile. This is known as the <strong>Cost Per Mile (CPM)</strong>. A fleet's Total CPM is made up of several buckets: Fuel CPM, Maintenance CPM, Equipment CPM, and the largest controllable bucket: <strong>Driver CPM</strong>.</p>
 
-            <h2>Why Driver CPM Fluctuates</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Driver CPM Fluctuates</h2>
             <p>Unlike fuel, which you buy exactly when you need it, human labor is largely a fixed time-based cost. You pay your driver by the hour (or by a salary), regardless of how fast they are driving.</p>
             <p>If you pay a driver $25 an hour, and they drive down an open highway at 60 MPH for one hour, they just covered 60 miles. The labor cost for those miles is incredibly cheap ($25 / 60 miles = $0.41 per mile).</p>
             <p>However, if that same driver hits terrible city traffic and crawls at 15 MPH for an hour, they still get paid $25, but they only covered 15 miles. The labor cost for those miles skyrockets ($25 / 15 miles = $1.66 per mile). If you only charged the customer $1.50 per mile for the freight, your company just lost money on that segment of the trip because of traffic.</p>
 
-            <h2>The Hidden Costs of Labor</h2>
+            <h2 className="text-2xl font-bold mb-3">The Hidden Costs of Labor</h2>
             <p>When calculating Driver CPM, rookie fleet managers often just divide the driver's paycheck by the miles driven. This is a fatal mathematical error.</p>
             <p>When you hire an employee, the government mandates that you (the employer) pay taxes on top of their salary. This includes a matching portion of Social Security and Medicare (FICA), which automatically adds 7.65% to the labor cost. You must also factor in State Unemployment Taxes, extremely expensive commercial Worker's Compensation Insurance, and any company benefits (like health insurance or 401k matching). An employee who "makes" $60,000 a year actually costs the company closer to $75,000 a year.</p>
           </article>

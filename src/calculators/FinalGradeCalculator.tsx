@@ -129,7 +129,7 @@ const FinalGradeCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Planning for Your Final Exam</h2>
+              <h2 className="text-2xl font-bold mb-3">Planning for Your Final Exam</h2>
               <p>The "Final Grade" calculation is a rite of passage for students everywhere. As the semester ends, knowing exactly what score you need can help you prioritize your study time effectively.</p>
               
               <h3>The Impact of Weighting</h3>

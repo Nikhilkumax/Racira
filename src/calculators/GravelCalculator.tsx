@@ -198,19 +198,19 @@ const GravelCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Mathematics of Landscaping</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of Landscaping</h2>
             <p>One of the most difficult parts of landscaping is visualizing exactly how much material you need. Unlike water, rock and dirt do not level themselves perfectly, and it is incredibly easy to vastly underestimate the volume required to fill a garden bed.</p>
             <p>To accurately calculate gravel, you must convert three-dimensional space into the universal landscaping unit: the <strong>Cubic Yard</strong>.</p>
 
-            <h2>What is a Cubic Yard?</h2>
+            <h2 className="text-2xl font-bold mb-3">What is a Cubic Yard?</h2>
             <p>A cubic yard is a volumetric measurement representing a block of space that is exactly 3 feet long, 3 feet wide, and 3 feet tall. Because 3 × 3 × 3 = 27, there are exactly <strong>27 cubic feet in one cubic yard</strong>.</p>
             <p>When you call a bulk landscape supplier, they will only sell dirt, mulch, and rock by the cubic yard. A standard pickup truck bed can physically hold about 1.5 to 2.0 cubic yards of material before it starts spilling over the sides.</p>
 
-            <h2>Volume vs. Weight (The Density Trap)</h2>
+            <h2 className="text-2xl font-bold mb-3">Volume vs. Weight (The Density Trap)</h2>
             <p>Calculating the volume is easy, but ignoring the physical weight of the rock is a dangerous mistake. Different materials have vastly different densities. While 1 cubic yard of mulch might only weigh 600 lbs, 1 cubic yard of crushed granite gravel weighs a massive <strong>2,800 lbs (1.4 Tons)</strong>.</p>
             <p>A standard "half-ton" pickup truck (like a Ford F-150) typically has a maximum payload capacity of roughly 1,500 to 2,000 lbs. If you tell the tractor operator at the supply yard to dump 2 cubic yards of gravel into the back of your half-ton truck, the 5,600-pound load will instantly crush your suspension, blow your tires, and permanently damage the vehicle's frame. <strong>Never overload a truck based on volume; always check the calculated tonnage first.</strong></p>
 
-            <h2>Why Depth Matters</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Depth Matters</h2>
             <p>The depth of your rock layer completely dictates its functionality.</p>
             <ul>
               <li><strong>2 Inches (Decorative):</strong> This is the absolute minimum depth for landscape beds. It provides enough coverage to hide the dirt below and suppress minor weed growth, assuming you have laid professional weed barrier fabric underneath.</li>

@@ -380,11 +380,11 @@ export default function ThyroidRiskScoreCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Thyroid Risk Score Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Thyroid Risk Score Calculator</h2>
             <p>The thyroid is a small, butterfly-shaped gland located at the base of your neck. Despite its small size, it acts as the master control center for your entire body's metabolism. It regulates how fast your heart beats, how quickly you burn calories, how you regulate body temperature, and even how your brain functions. When this gland malfunctions, the physical and psychological symptoms can be devastating.</p>
             <p>The <strong>Thyroid Risk Score Calculator</strong> is an educational clinical profiling tool designed to help you quantify your symptoms. Because thyroid disease shares symptoms with many other common conditions (such as aging, menopause, stress, or depression), it is frequently misdiagnosed or ignored for years. By algorithmically weighting your demographics against the classic presentation of both overactive and underactive thyroid states, this calculator provides a clear visual risk profile to discuss with your endocrinologist.</p>
 
-            <h2>Hypothyroidism: The Sluggish Engine</h2>
+            <h2 className="text-2xl font-bold mb-3">Hypothyroidism: The Sluggish Engine</h2>
             <p>Hypothyroidism occurs when the thyroid gland is underactive and fails to produce enough thyroid hormones (T3 and T4). Without these hormones, every system in your body slows down. You can think of it as an engine running without enough oil. The most common cause of hypothyroidism in the developed world is <strong>Hashimoto's Thyroiditis</strong>, an autoimmune condition where the body's immune system mistakenly attacks and destroys the thyroid tissue.</p>
             <p>The classic symptoms of hypothyroidism (which are heavily weighted in our calculator) include:</p>
             <ul>
@@ -395,7 +395,7 @@ export default function ThyroidRiskScoreCalculator() {
               <li><strong>Physical Changes:</strong> Dry skin, brittle nails, severe hair thinning, and chronic constipation.</li>
             </ul>
 
-            <h2>Hyperthyroidism: The Overheated Engine</h2>
+            <h2 className="text-2xl font-bold mb-3">Hyperthyroidism: The Overheated Engine</h2>
             <p>Conversely, Hyperthyroidism occurs when the gland is overactive, pumping massive amounts of hormone into the bloodstream. This throws the body into overdrive. The most common cause is <strong>Graves' Disease</strong>, another autoimmune condition that binds to the thyroid and forces it to overproduce.</p>
             <p>The classic symptoms of hyperthyroidism include:</p>
             <ul>
@@ -406,16 +406,16 @@ export default function ThyroidRiskScoreCalculator() {
               <li><strong>Digestive Issues:</strong> Frequent bowel movements or diarrhea due to hyper-motility.</li>
             </ul>
 
-            <h2>Why Demographics Matter in Thyroid Disease</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Demographics Matter in Thyroid Disease</h2>
             <p>When you input your data into our calculator, you will notice that biological sex and age immediately alter your baseline risk. This is because thyroid disease is highly discriminatory.</p>
             <p><strong>Women are five to eight times more likely to develop thyroid disease than men.</strong> The primary trigger for autoimmune thyroid conditions is massive hormonal fluctuation, which is why onset frequently occurs during puberty, postpartum (after giving birth), or during perimenopause. If you are a woman over the age of 60, your risk of hypothyroidism is roughly 20%, which is why age is a heavily weighted factor in the clinical algorithm.</p>
             <p><strong>Family history</strong> is another critical factor. Because Hashimoto's and Graves' diseases are autoimmune disorders, they run heavily in families. If your mother, sister, or grandmother required thyroid medication, your genetic risk is exponentially higher.</p>
 
-            <h2>The Danger of the "Mixed/Complex" Profile</h2>
+            <h2 className="text-2xl font-bold mb-3">The Danger of the "Mixed/Complex" Profile</h2>
             <p>Our calculator may output a "Mixed/Complex Risk" result if you check multiple boxes for both hyperthyroid and hypothyroid symptoms. While this might seem contradictory, it is actually a common clinical presentation during the early stages of Hashimoto's Thyroiditis.</p>
             <p>As the immune system attacks the thyroid gland, the dying thyroid cells rupture. When they rupture, they dump all of their stored thyroid hormone into the bloodstream at once. This causes a temporary, severe hyperthyroid "flare"—resulting in anxiety, palpitations, and weight loss. Once that dumped hormone is metabolized, the gland is now damaged and cannot produce enough hormone, causing the patient to crash into deep hypothyroidism (fatigue, weight gain). This rollercoaster of symptoms is the hallmark of autoimmune thyroid destruction.</p>
 
-            <h2>Why TSH Testing is Not Enough</h2>
+            <h2 className="text-2xl font-bold mb-3">Why TSH Testing is Not Enough</h2>
             <p>If your calculator results indicate a high risk, the immediate next step is to request a blood test. However, the standard medical protocol is deeply flawed. Most primary care doctors will only order a single test: TSH (Thyroid Stimulating Hormone).</p>
             <p>TSH is a pituitary hormone, not a thyroid hormone. Relying solely on TSH can completely miss early-stage autoimmune disease or problems with cellular hormone conversion. You must advocate for a <strong>Full Thyroid Panel</strong>, which includes:</p>
             <ul>
@@ -425,10 +425,10 @@ export default function ThyroidRiskScoreCalculator() {
               <li><strong>TPOAb and TgAb (Antibodies):</strong> To determine if your immune system is actively attacking the gland (confirming Hashimoto's).</li>
             </ul>
 
-            <h2>The Impact on Cardiovascular Health</h2>
+            <h2 className="text-2xl font-bold mb-3">The Impact on Cardiovascular Health</h2>
             <p>Ignoring a high thyroid risk score can have devastating consequences for your heart. Hyperthyroidism (an overactive thyroid) forces the heart to beat too fast and too hard, which can lead to Atrial Fibrillation (a dangerous irregular heartbeat) and eventual congestive heart failure. Conversely, Hypothyroidism (an underactive thyroid) causes LDL (bad) cholesterol levels to skyrocket and weakens the heart muscle, significantly increasing the risk of a major heart attack.</p>
 
-            <h2>Conclusion: Taking Control of Your Endocrine Health</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Taking Control of Your Endocrine Health</h2>
             <p>The Thyroid Risk Score Calculator is your first step toward diagnosis and recovery. Thyroid disorders are insidious; they creep up slowly, stealing your energy, altering your physical appearance, and destroying your mental health. Do not allow a medical professional to dismiss your symptoms as "just getting older" or "just stress."</p>
             <p>If your risk score points toward dysfunction, print these results, schedule an appointment with an endocrinologist, and demand comprehensive blood testing. With the correct diagnosis and proper hormone replacement therapy, thyroid disease is highly manageable, and you can fully reclaim your quality of life.</p>
           </article>

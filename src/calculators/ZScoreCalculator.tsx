@@ -154,19 +154,19 @@ const ZScoreCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Z-Score Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Z-Score Calculator?</h2>
             <p>A z-score calculator computes the standard score — how many standard deviations a particular value lies from the mean of a distribution. Pre-filled with a test score of 75 from a class where the mean is 60 and the standard deviation is 10, it shows z = (75−60)/10 = 1.5. This means the score is 1.5 standard deviations above average, placing it at the 93.32nd percentile — better than 93% of students.</p>
             <p>Z-scores are fundamental to statistics, research, quality control, finance, and any field that compares values to a reference distribution. This calculator also computes the cumulative probability from a standard normal table, eliminating the need to look up z-tables by hand.</p>
-            <h2>The Z-Score Formula</h2>
+            <h2 className="text-2xl font-bold mb-3">The Z-Score Formula</h2>
             <p><strong>Z = (x − μ) / σ</strong> where x = your value, μ = population mean, σ = population standard deviation.</p>
             <p>For our example: Z = (75 − 60) / 10 = 15/10 = 1.5. A positive z-score means the value is above the mean; negative means below. Z = 0 means the value equals the mean exactly.</p>
-            <h2>Z-Score to Percentile Conversion</h2>
+            <h2 className="text-2xl font-bold mb-3">Z-Score to Percentile Conversion</h2>
             <p>The cumulative distribution function (CDF) of the standard normal distribution converts a z-score to a percentile. This requires numerical integration or table lookup — this calculator uses the Abramowitz and Stegun approximation (accurate to 7 decimal places). Key z-score benchmarks: z = −1.645 → 5th percentile. z = −1.282 → 10th. z = 0 → 50th. z = 1.282 → 90th. z = 1.645 → 95th. z = 1.960 → 97.5th. z = 2.576 → 99.5th.</p>
-            <h2>Applications of Z-Scores</h2>
+            <h2 className="text-2xl font-bold mb-3">Applications of Z-Scores</h2>
             <p><strong>Standardized testing:</strong> SAT, ACT, GRE, and GMAT scores are scaled using z-scores. An SAT score in the 90th percentile corresponds to z ≈ 1.28 above the test-takers' mean. <strong>Quality control:</strong> Six Sigma aims for z ≥ 6 for defect rates, corresponding to fewer than 3.4 defects per million opportunities. <strong>Finance:</strong> The Black-Scholes formula for option pricing uses z-scores of the normal distribution (the d1 and d2 terms). <strong>Medical research:</strong> Clinical trials compare treatment and control groups using z-tests when sample sizes are large.</p>
-            <h2>Hypothesis Testing with Z-Scores</h2>
+            <h2 className="text-2xl font-bold mb-3">Hypothesis Testing with Z-Scores</h2>
             <p>In a one-sample z-test, calculate z = (x̄ − μ₀) / (σ/√n) where x̄ is the sample mean, μ₀ is the hypothesized mean, σ is the known population SD, and n is sample size. If |z| exceeds the critical value (1.96 for 95% confidence, 2.576 for 99%), reject the null hypothesis. The p-value = 2 × P(Z &gt; |z|) for a two-tailed test — this calculator computes P(Z &gt; z) directly in the "Percent above" row.</p>
-            <h2>Tips for This Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips for This Calculator</h2>
             <p>Use a positive value for "above the mean" and negative for "below." The standard deviation must be positive (enter 0 in the SD field and the calculator will not compute). For sample-based z-scores where the population SD is unknown, use the <a href="/calculator/t-test-calculator">t-test calculator</a> instead. For raw data, first compute SD with the <a href="/calculator/standard-deviation-calculator">standard deviation calculator</a>, then use those values here.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/z-score-calculator" />

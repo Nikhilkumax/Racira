@@ -96,19 +96,19 @@ const AverageCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is an Average Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is an Average Calculator?</h2>
             <p>An average calculator computes descriptive statistics — mean, median, mode, range, sum, minimum, and maximum — for any list of numbers you provide. The arithmetic mean is the single number most people call "the average," but a complete statistical summary requires several measures to describe a dataset accurately.</p>
             <p>This calculator is useful for students computing class averages, analysts summarizing data, athletes tracking performance metrics, businesses calculating sales averages, and scientists summarizing experimental results.</p>
-            <h2>How Averages Are Calculated</h2>
+            <h2 className="text-2xl font-bold mb-3">How Averages Are Calculated</h2>
             <p><strong>Arithmetic Mean:</strong> Sum of all values ÷ count of values. For [10, 20, 30, 40, 50]: Mean = 150 ÷ 5 = 30.</p>
             <p><strong>Median:</strong> Sort values, then take the middle value. For 5 values: median = 3rd value = 30. For even counts, average the two middle values.</p>
             <p><strong>Mode:</strong> The most frequently occurring value. A dataset with all unique values is considered "no mode" or every value is a mode.</p>
             <p><strong>Range:</strong> Maximum − Minimum = 50 − 10 = 40. Measures spread.</p>
-            <h2>Mean vs Median: When to Use Each</h2>
+            <h2 className="text-2xl font-bold mb-3">Mean vs Median: When to Use Each</h2>
             <p>The mean works well for symmetric, bell-shaped distributions without extreme outliers. The median is preferred for skewed data or data with outliers — for example, household income statistics use median income because a few billionaires would inflate the mean dramatically. In practice, always compare both to understand your data.</p>
-            <h2>Applications of Averages</h2>
+            <h2 className="text-2xl font-bold mb-3">Applications of Averages</h2>
             <p>Averages are fundamental in education (GPA, test scores), finance (average returns, moving averages), weather (average temperature, rainfall), sports (batting averages, ERA), manufacturing (average defect rates), and healthcare (average blood pressure readings). Any field that collects repeated measurements uses averages for summarization.</p>
-            <h2>Tips for Accurate Averages</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips for Accurate Averages</h2>
             <p>Always check for outliers before interpreting the mean. Use the median for skewed distributions. When data has natural groupings, consider the weighted average instead. For percentage data, the geometric mean is often more appropriate than the arithmetic mean.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/average-calculator" />

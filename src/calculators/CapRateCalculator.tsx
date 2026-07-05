@@ -186,13 +186,13 @@ export default function CapRateCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is Cap Rate in Real Estate?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is Cap Rate in Real Estate?</h2>
             <p>The <strong>capitalization rate (cap rate)</strong> is the most widely used metric in commercial real estate valuation. It measures a property&apos;s annual return based on its net operating income relative to its market value — independent of financing. This <strong>cap rate calculator</strong> also computes gross rental yield, cash-on-cash return, and gross rent multiplier for complete investment analysis.</p>
-            <h2>Cap Rate Formula</h2>
+            <h2 className="text-2xl font-bold mb-3">Cap Rate Formula</h2>
             <p>Cap Rate = (Net Operating Income ÷ Property Value) × 100. NOI = Effective Gross Income − Operating Expenses. Effective Gross Income = Gross Potential Rent × (1 − Vacancy Rate). Operating expenses exclude mortgage payments but include taxes, insurance, maintenance, management fees, and utilities.</p>
-            <h2>Interpreting Cap Rates</h2>
+            <h2 className="text-2xl font-bold mb-3">Interpreting Cap Rates</h2>
             <p>Below 4%: typical for prime urban gateway markets; low risk, low yield. 4–6%: suburban core markets; balanced risk-return. 6–8%: secondary markets and value-add properties. Above 8%: tertiary markets or higher-risk properties. Cap rate also equals the discount rate in a no-growth scenario, making it a direct measure of investment risk.</p>
-            <h2>Cap Rate vs. Other Metrics</h2>
+            <h2 className="text-2xl font-bold mb-3">Cap Rate vs. Other Metrics</h2>
             <p>Cap rate measures unlevered yield — it ignores financing. Cash-on-cash return measures actual return on invested equity after debt payments. GRM is a quick screening multiple. For full analysis, also calculate IRR (internal rate of return) accounting for appreciation and exit cap rate assumptions.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/cap-rate-calculator" />

@@ -265,26 +265,26 @@ export default function MilesPerGallonCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is an MPG Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is an MPG Calculator?</h2>
             <p>A Miles Per Gallon (MPG) Calculator is the most fundamental tool for tracking the health, efficiency, and operating cost of an internal combustion engine vehicle. It tells you exactly how many miles your car travels for every single gallon of gasoline it burns. While most modern cars have a digital dashboard that displays an estimated MPG, those onboard computers are notoriously inaccurate, often overestimating efficiency by 5% to 10% to make the driver feel better. This calculator relies on hard math based on actual fuel consumption.</p>
 
-            <h2>How It Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
             <p>The calculation is stunningly simple: <strong>MPG = Total Distance Driven / Gallons Used</strong>. To use this effectively, you must employ the "Fill-Up Method." First, you fill your gas tank until the pump clicks off. You reset your trip odometer to zero. You drive until the tank is nearly empty. You return to the gas station and fill the tank until the pump clicks off again. The number of gallons displayed on the pump is exactly how much fuel you burned. The distance on your trip odometer is exactly how far you drove. Divide the distance by the gallons, and you have your true, real-world MPG.</p>
 
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>The <strong>Fuel Economy</strong> number is your baseline. If your car is rated for 25 MPG but you are only getting 18 MPG, there is a problem with either your driving habits or the vehicle's mechanics. We also calculate your <strong>Cost Per Mile</strong>. If gas is $3.50 a gallon and you get 20 MPG, it costs you roughly $0.17 every time your odometer ticks up one mile. This allows you to accurately budget for long road trips and daily commutes.</p>
 
-            <h2>Key Factors That Destroy MPG</h2>
+            <h2 className="text-2xl font-bold mb-3">Key Factors That Destroy MPG</h2>
             <p><strong>Speed and Aerodynamics:</strong> Drag increases exponentially with speed. Driving 75 mph instead of 65 mph can reduce your fuel economy by over 15% because the engine has to work significantly harder to push the vehicle through the air. <strong>Aggressive Driving:</strong> Flooring the accelerator at green lights and slamming the brakes dumps raw fuel into the engine cylinders for maximum power, destroying efficiency. <strong>Maintenance Issues:</strong> Under-inflated tires increase rolling resistance. A clogged engine air filter starves the engine of oxygen, forcing it to burn more fuel to maintain power.</p>
 
-            <h2>Advanced Features</h2>
+            <h2 className="text-2xl font-bold mb-3">Advanced Features</h2>
             <p>By entering your <strong>Total Fuel Tank Capacity</strong> in the Advanced Options, the calculator will extrapolate your <strong>Max Tank Range</strong>. If you average 25 MPG and have a 16-gallon tank, your theoretical maximum range is 400 miles. Understanding this number is critical for planning road trips through desolate areas where gas stations are scarce. Never push your car to its absolute theoretical limit, as fuel pumps rely on the gasoline surrounding them to stay cool; running the tank completely dry can permanently damage the fuel pump.</p>
 
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <p><strong>Example 1: The Daily Commute.</strong> John drives 300 miles a week. He fills up his tank, and the pump says 12 gallons. His math is 300 / 12 = 25 MPG. If gas is $3.50, his weekly commute costs him $42.00, or about $0.14 per mile.</p>
             <p><strong>Example 2: The Cross-Country Road Trip.</strong> Sarah is planning a 1,200-mile road trip. She drives a large SUV that gets 15 MPG. She knows gas averages $3.80 along her route. Because she knows her exact MPG, she can budget precisely: (1,200 / 15) * $3.80 = $304.00 in fuel costs.</p>
 
-            <h2>Tips & Best Practices</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
             <p>Do not trust your car's dashboard computer. Always manually calculate your MPG every few fill-ups. A sudden, unexplained drop in MPG is often the very first warning sign of a mechanical failure, such as a dying oxygen sensor, a stuck brake caliper, or an engine misfire. If your MPG drops by 10% or more and your driving habits haven't changed, take the car to a mechanic immediately.</p>
           </article>
           

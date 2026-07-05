@@ -117,10 +117,10 @@ const TDSCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>What Is a TDS Calculator?</h2>
+              <h2 className="text-2xl font-bold mb-3">What Is a TDS Calculator?</h2>
               <p>A TDS (Tax Deducted at Source) calculator helps you estimate the tax that will be deducted from various types of payments. TDS is the Indian government's mechanism to collect tax at the point of income generation.</p>
 
-              <h2>Common TDS Rates</h2>
+              <h2 className="text-2xl font-bold mb-3">Common TDS Rates</h2>
               <ul>
                 <li><strong>Salary (Section 192):</strong> Based on applicable income tax slab rates.</li>
                 <li><strong>FD Interest (Section 194A):</strong> 10% if above ₹40,000 threshold (₹50,000 for senior citizens).</li>
@@ -129,7 +129,7 @@ const TDSCalculator = () => {
                 <li><strong>Commission (Section 194H):</strong> 5% if payment exceeds ₹15,000.</li>
               </ul>
 
-              <h2>How to Avoid Excess TDS</h2>
+              <h2 className="text-2xl font-bold mb-3">How to Avoid Excess TDS</h2>
               <ul>
                 <li>Submit Form 15G/15H if your total income is below taxable limit.</li>
                 <li>Apply for lower TDS certificate (Section 197) if tax liability is lower than standard TDS.</li>

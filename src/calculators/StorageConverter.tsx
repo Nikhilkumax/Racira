@@ -171,15 +171,15 @@ const StorageConverter = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Great Storage Discrepancy</h2>
+            <h2 className="text-2xl font-bold mb-3">The Great Storage Discrepancy</h2>
             <p>Every year, millions of consumers buy a brand-new 1 Terabyte (TB) external hard drive, plug it into their Windows PC, and are furious to discover the computer says the drive only holds 931 Gigabytes. Did the manufacturer steal 69 Gigabytes of space? No, this discrepancy is the result of an industry-wide mathematical disagreement between hardware manufacturers and software developers.</p>
 
-            <h2>Hardware vs Software (Base-10 vs Base-2)</h2>
+            <h2 className="text-2xl font-bold mb-3">Hardware vs Software (Base-10 vs Base-2)</h2>
             <p>Hard drive manufacturers (like Western Digital and Seagate) use the standard metric system (Decimal, Base-10). In the metric system, "Kilo" means 1,000. Therefore, they define 1 Kilobyte as exactly 1,000 bytes. By their math, a 1 Terabyte drive contains exactly 1,000,000,000,000 bytes.</p>
             <p>Computers, however, do not think in decimals; they think in binary (Base-2). In the binary system, memory is allocated in powers of 2. The closest power of 2 to one thousand is 1,024 (2^10). Therefore, software developers defined 1 Kilobyte as exactly 1,024 bytes. Microsoft Windows strictly uses this binary math.</p>
             <p>When you plug a 1,000,000,000,000-byte hard drive into Windows, the operating system divides that massive number by 1,024 (not 1,000) to find the Kilobytes, then divides by 1,024 again for Megabytes, and again for Gigabytes. This mathematically shrinks the visible number down to 931 GB. <strong>The physical storage space is entirely there; it is simply being measured with a different mathematical ruler.</strong></p>
 
-            <h2>The Attempted Fix: Kibibytes</h2>
+            <h2 className="text-2xl font-bold mb-3">The Attempted Fix: Kibibytes</h2>
             <p>To end the confusion, the International Electrotechnical Commission created new prefixes in 1998. The decimal standard (1,000) kept the names Kilobyte (KB) and Megabyte (MB). The binary standard (1,024) was given the names Kibibyte (KiB) and Mebibyte (MiB).</p>
             <p>Apple adopted this standard. If you plug a 1TB drive into a Mac, macOS uses base-10 decimal math and correctly reports a full 1TB of space. However, Microsoft refused to adopt the standard. Windows still uses binary math (1,024) but continues to display the old 'KB' and 'GB' abbreviations, causing endless confusion for consumers to this day.</p>
           </article>

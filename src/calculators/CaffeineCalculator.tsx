@@ -267,11 +267,11 @@ export default function CaffeineCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Track Your True Caffeine Intake</h2>
+            <h2 className="text-2xl font-bold mb-3">Track Your True Caffeine Intake</h2>
             <p>This <strong>Caffeine Calculator</strong> helps you quantify your total daily caffeine consumption across coffee, tea, energy drinks, and supplements. It compares your intake against FDA safety limits (400mg for adults, 200mg for pregnant women) and calculates your caffeine "half-life" to determine how much stimulant remains active in your bloodstream when you try to sleep.</p>
-            <h2>The Half-Life Problem (Sleep Disruption)</h2>
+            <h2 className="text-2xl font-bold mb-3">The Half-Life Problem (Sleep Disruption)</h2>
             <p>Caffeine has an average half-life of 5 hours. This means 5 hours after drinking a 160mg energy drink, 80mg remains in your system. Ten hours later, 40mg is still active. Many people unknowingly suffer from "caffeine-induced insomnia" — not because they can't fall asleep, but because the residual caffeine circulating in their brain prevents them from entering deep, restorative sleep stages. If your results show more than 30-50mg of caffeine remaining at your bedtime, you should implement a caffeine curfew (e.g., no caffeine after 2 PM).</p>
-            <h2>Genetic Sensitivity and Toxicity</h2>
+            <h2 className="text-2xl font-bold mb-3">Genetic Sensitivity and Toxicity</h2>
             <p>Some people metabolize caffeine rapidly, while others process it slowly due to variations in the CYP1A2 gene. If you are a slow metabolizer (high sensitivity), your half-life might stretch to 8 hours, meaning a morning coffee can still disrupt your sleep. Conversely, extreme doses of caffeine (often from pre-workout powders or pills) can lead to caffeine toxicity. Lethal doses are generally estimated at 150mg per kilogram of body weight, which requires massive ingestion, but uncomfortable toxicity symptoms (palpitations, vomiting) can begin around 1,000mg. Related tools: <a href="/calculator/macro-calculator">Macro Calculator</a>, <a href="/calculator/blood-pressure-calculator">Blood Pressure Calculator</a>.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/caffeine-calculator" />

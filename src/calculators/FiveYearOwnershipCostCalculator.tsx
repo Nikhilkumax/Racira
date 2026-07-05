@@ -273,17 +273,17 @@ const FiveYearOwnershipCostCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is the 5-Year Ownership Cost Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is the 5-Year Ownership Cost Calculator?</h2>
             <p>The 5-Year Ownership Cost Calculator estimates the total cost of owning a vehicle over five years — the most common ownership period in the United States. It goes beyond the purchase price to include depreciation, financing interest, insurance, fuel, maintenance, registration, and parking. The result is the true dollar amount you will spend over 60 months of ownership.</p>
             <p>Five years is a natural evaluation horizon because it aligns with the typical auto loan term and marks the point where the steepest depreciation has already occurred.</p>
 
-            <h2>How It Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
             <p>The calculator uses the standard accelerated depreciation model (20% first year, 15% per year after) to estimate your car's resale value after 5 years. Loan interest is computed via amortization on the financed amount. Annual costs for insurance, fuel, maintenance, registration, and parking are summed over 5 years. The total represents every dollar out of pocket, excluding the resale value which is already accounted for via depreciation.</p>
 
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>The primary result shows the total 5-year cost. The 3-stat bar converts this to annual, monthly, and per-mile figures. The breakdown table shows each cost category as annual and 5-year totals. The donut chart reveals the proportional split — depreciation typically takes the largest slice at 35–50%.</p>
 
-            <h2>Key Factors in 5-Year Cost</h2>
+            <h2 className="text-2xl font-bold mb-3">Key Factors in 5-Year Cost</h2>
             <ul>
               <li><strong>Depreciation:</strong> The single largest cost. On a $35,000 car, expect $15,000–$18,000 in value loss over 5 years.</li>
               <li><strong>Loan interest:</strong> A 5-year loan at 7% on $28,000 adds about $5,300 in interest.</li>
@@ -292,10 +292,10 @@ const FiveYearOwnershipCostCalculator = () => {
               <li><strong>Maintenance:</strong> Rises from $500/year (new) to $1,000+/year as the car ages.</li>
             </ul>
 
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <p>A $35,000 sedan over 5 years: ~$45,000 total ($9,000/year, $0.60/mile). A $25,000 compact: ~$32,000 total ($6,400/year, $0.43/mile). A $50,000 luxury SUV: ~$62,000 total ($12,400/year, $0.83/mile).</p>
 
-            <h2>Tips to Reduce Your 5-Year Cost</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips to Reduce Your 5-Year Cost</h2>
             <ul>
               <li><strong>Buy vehicles with strong resale value</strong> — this alone can save $5,000–$8,000 over 5 years.</li>
               <li><strong>Pay cash or use a short loan term</strong> to minimize interest.</li>
@@ -304,7 +304,7 @@ const FiveYearOwnershipCostCalculator = () => {
               <li><strong>Consider fuel efficiency</strong> — a 10 MPG improvement saves $3,500 over 5 years.</li>
             </ul>
 
-            <h2>Benefits of Using This Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Benefits of Using This Calculator</h2>
             <p>This tool gives you the complete financial picture for a 5-year ownership horizon — the period most people actually keep their cars. Use it before purchasing to compare vehicles honestly and budget accurately for the full cost, not just the monthly payment.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/5-year-ownership-cost-calculator" />

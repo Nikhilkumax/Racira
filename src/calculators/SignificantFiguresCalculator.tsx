@@ -243,10 +243,10 @@ const SignificantFiguresCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding Significant Figures</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Significant Figures</h2>
             <p><strong>Significant figures</strong> (often called "sig figs" or "significant digits") are the digits in a measured or calculated number that carry reliable, meaningful information about the precision of that measurement. In science, chemistry, and engineering, no measurement is perfectly exact. Significant figures ensure that the mathematical results of a calculation do not imply a false sense of precision that wasn't present in the original data.</p>
 
-            <h2>The Core Rules of Significant Figures</h2>
+            <h2 className="text-2xl font-bold mb-3">The Core Rules of Significant Figures</h2>
             <p>Determining how many significant figures are in a number comes down to a few standardized rules. Our calculator applies these rules instantly to any number you input:</p>
             <ul>
               <li><strong>Rule 1: Non-zero digits.</strong> Every digit from 1 to 9 is always considered significant. In the number <code>456</code>, there are 3 significant figures.</li>
@@ -256,10 +256,10 @@ const SignificantFiguresCalculator = () => {
               <li><strong>Rule 5: Trailing zeros without a decimal.</strong> If a number ends in zeros but does not have a decimal point, those trailing zeros are generally considered not significant; they are just placeholders for scale. In <code>4500</code>, there are only 2 significant figures.</li>
             </ul>
 
-            <h2>Why Scientific Notation Matters</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Scientific Notation Matters</h2>
             <p>The ambiguity of Rule 5 (trailing zeros without a decimal) is exactly why scientists prefer <strong>scientific notation</strong>. If a researcher measures exactly 4,500 meters and wants to prove that those trailing zeros are precise measurements, not just estimates, they would write it as <code>4.500 × 10³</code>. In scientific notation, all digits written in the coefficient (the front part) are always significant.</p>
 
-            <h2>Applying Sig Figs in Calculations</h2>
+            <h2 className="text-2xl font-bold mb-3">Applying Sig Figs in Calculations</h2>
             <p>When performing math with measured numbers, the result cannot be more precise than your least precise measurement. When multiplying or dividing, the final answer must be rounded to the same number of significant figures as the measurement with the <em>fewest</em> significant figures. When adding or subtracting, the result is rounded to the same number of <em>decimal places</em> as the measurement with the fewest decimal places.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/significant-figures-calculator" />

@@ -404,33 +404,33 @@ export default function WaistToHeightRatioCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Waist-to-Height Ratio (WtHR) Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Waist-to-Height Ratio (WtHR) Calculator</h2>
             <p>For over 150 years, the medical establishment has leaned heavily on the Body Mass Index (BMI) as the primary indicator of obesity and health risk. However, modern cardiology and metabolic science have definitively proven that BMI is fundamentally flawed. BMI only measures your total gravitational pull (weight) against your height. It cannot differentiate between a pound of dense, healthy skeletal muscle and a pound of dangerous, toxic fat. More critically, BMI cannot tell doctors <em>where</em> your fat is located. The <strong>Waist-to-Height Ratio (WtHR) Calculator</strong> bypasses the flaws of the scale entirely. By directly comparing the circumference of your abdomen to your height, it zeroes in on the single most lethal type of fat in the human body, providing a vastly superior, highly accurate predictor of cardiovascular disease and metabolic syndrome.</p>
 
-            <h2>The Two Types of Body Fat</h2>
+            <h2 className="text-2xl font-bold mb-3">The Two Types of Body Fat</h2>
             <p>To understand why WtHR is so critical, you must understand the biological differences in how the human body stores energy. Not all fat is created equal.</p>
             <ul>
               <li><strong>Subcutaneous Fat:</strong> This is the fat located directly beneath your skin. It is the fat you can pinch on your arms, legs, and lower belly. While carrying excessive amounts of it can strain your joints, it is relatively inert. It simply sits there storing energy.</li>
               <li><strong>Visceral Fat:</strong> This is the fat that WtHR actively measures. Visceral fat is stored deep inside the abdominal cavity. It does not sit under the skin; it aggressively wraps itself around your vital internal organs—your liver, pancreas, intestines, and heart.</li>
             </ul>
 
-            <h2>The Danger of Visceral Fat</h2>
+            <h2 className="text-2xl font-bold mb-3">The Danger of Visceral Fat</h2>
             <p>Unlike subcutaneous fat, visceral fat is highly biologically active. It functions almost like a toxic, rogue organ. It continuously secretes massive amounts of inflammatory proteins (cytokines) and free fatty acids directly into the portal vein and liver. This relentless chemical bombardment is the direct, primary cause of insulin resistance (leading to Type 2 Diabetes), hyperlipidemia (high cholesterol), and systemic arterial inflammation (leading to atherosclerosis, heart attacks, and strokes).</p>
             <p>Because visceral fat pushes the abdominal wall outward, measuring your waist circumference is the fastest, cheapest, and most accurate non-invasive way to measure how much visceral fat you are carrying. This is why a large waist is infinitely more dangerous than large thighs or a large chest.</p>
 
-            <h2>The "Golden Rule" of 0.50</h2>
+            <h2 className="text-2xl font-bold mb-3">The "Golden Rule" of 0.50</h2>
             <p>The beauty of the Waist-to-Height Ratio lies in its elegant simplicity. In the early 2000s, global health organizations analyzed data from hundreds of thousands of patients. They discovered a universal mathematical threshold that applies across almost all ages, genders, and ethnicities:</p>
             <p><strong>"Keep your waist circumference to less than half your height."</strong></p>
             <p>If your WtHR is 0.49 or lower, your risk of suffering a catastrophic cardiovascular event or developing metabolic syndrome is statistically incredibly low. The moment your ratio crosses 0.50, your risk begins climbing exponentially. A ratio of 0.60 or higher places you in a critical clinical danger zone requiring immediate medical and lifestyle intervention.</p>
 
-            <h2>Why BMI Fails the "Skinny Fat" Demographic</h2>
+            <h2 className="text-2xl font-bold mb-3">Why BMI Fails the "Skinny Fat" Demographic</h2>
             <p>One of the most dangerous phenomena in modern health is the "Normal Weight Obese" or "Skinny Fat" individual. These are people who have a perfectly healthy BMI (e.g., 22.0) and look relatively slender in clothing. However, because they eat a diet high in processed sugars and do not exercise, they have virtually no muscle mass and carry a dangerous pocket of visceral fat entirely in their belly.</p>
             <p>If a doctor only checks their BMI, they are told they are healthy. However, if that same person is 5'8" (68 inches) and has a protruding 36-inch waist, their WtHR is 0.53. The WtHR calculator immediately flags them as high-risk, exposing the hidden visceral fat that the BMI scale completely missed.</p>
 
-            <h2>Why BMI Fails Athletes</h2>
+            <h2 className="text-2xl font-bold mb-3">Why BMI Fails Athletes</h2>
             <p>Conversely, the BMI scale routinely penalizes athletes and bodybuilders. A 6'0" professional NFL linebacker might weigh 240 pounds with only 10% body fat. The BMI scale classifies him as clinically "Obese" and at high risk for heart disease simply because he is heavy. However, his waist might only be 32 inches. When you run his numbers through the WtHR calculator, his ratio is a phenomenal 0.44 (Healthy Slender). The WtHR correctly identifies that his weight comes from healthy muscle, not dangerous organ fat.</p>
 
-            <h2>How to Measure Your Waist Accurately</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Measure Your Waist Accurately</h2>
             <p>For the calculator to provide clinical accuracy, your input must be precise. Do not use your pant size. Clothing manufacturers use "vanity sizing," meaning a size 34 pair of jeans often measures 36 or 37 physical inches. To measure correctly:</p>
             <ol>
               <li>Use a flexible tailor's measuring tape.</li>
@@ -440,7 +440,7 @@ export default function WaistToHeightRatioCalculator() {
               <li>Keep the tape parallel to the floor, snug against the skin but not digging into it.</li>
             </ol>
 
-            <h2>Conclusion: A Call to Action</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: A Call to Action</h2>
             <p>The Waist-to-Height Ratio is a harsh, unforgiving metric, but it is one of the most vital health numbers you can track. You cannot hide visceral fat from this calculation. If your ratio exceeds 0.50, you must view it as an urgent biological warning siren. Begin implementing a caloric deficit, significantly reduce your intake of refined carbohydrates, sugars, and alcohol (which heavily drive visceral fat storage), and prioritize cardiovascular exercise to shrink your waistline back into the healthy zone.</p>
           </article>
           

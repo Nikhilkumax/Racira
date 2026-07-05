@@ -179,13 +179,13 @@ export default function BusinessLoanCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Business Loan Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Business Loan Calculator?</h2>
             <p>A <strong>business loan calculator</strong> estimates your monthly payment, total interest, and true borrowing cost for commercial financing. Whether you&apos;re funding equipment, inventory, expansion, or working capital, understanding the full cost of a business loan is critical for cash flow planning and profitability analysis.</p>
-            <h2>How Business Loan Payments Are Calculated</h2>
+            <h2 className="text-2xl font-bold mb-3">How Business Loan Payments Are Calculated</h2>
             <p>Monthly Payment = P × [r(1+r)^n] ÷ [(1+r)^n − 1]. Where P = loan principal, r = monthly interest rate (annual ÷ 12), n = term in months. The effective APR accounts for origination fees by solving for the rate that makes the payment stream equal the net loan proceeds received.</p>
-            <h2>Types of Business Loans</h2>
+            <h2 className="text-2xl font-bold mb-3">Types of Business Loans</h2>
             <p>SBA 7(a) loans offer the lowest rates (government-backed) for amounts up to $5M. Equipment financing uses the equipment as collateral. Business lines of credit provide revolving access to funds. Invoice financing advances against outstanding receivables. Each has different rate structures, terms, and qualification requirements.</p>
-            <h2>Qualifying for the Best Rates</h2>
+            <h2 className="text-2xl font-bold mb-3">Qualifying for the Best Rates</h2>
             <p>Credit score 700+: qualifies for prime rates. 2+ years in business: most banks require this. $100K+ annual revenue: minimum for most term loans. Debt service coverage ratio (DSCR) above 1.25: net operating income must exceed debt payments by 25%.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/business-loan-calculator" />

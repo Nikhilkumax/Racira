@@ -120,13 +120,13 @@ export default function RetirementSavingsCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>How Much Do You Need to Retire?</h2>
+            <h2 className="text-2xl font-bold mb-3">How Much Do You Need to Retire?</h2>
             <p>This retirement calculator uses the 4% safe withdrawal rule and compound interest projection to determine your retirement nest egg target and whether current savings and contributions are sufficient. The target nest egg = (Desired Monthly Income × 12 × Inflation Adjustment) ÷ 0.04. The 4% rule suggests withdrawing no more than 4% of your portfolio annually to ensure it lasts 30+ years.</p>
-            <h2>Inflation and Its Impact on Retirement Planning</h2>
+            <h2 className="text-2xl font-bold mb-3">Inflation and Its Impact on Retirement Planning</h2>
             <p>Inflation is the silent destroyer of retirement planning. $5,000/month today becomes equivalent to $8,100+/month in 30 years at 3% annual inflation. This is why our calculator adjusts your target income for inflation before computing the nest egg requirement. Always plan for inflation-adjusted needs, not today&apos;s dollars — the difference over 30 years is enormous.</p>
-            <h2>Sequence-of-Returns Risk</h2>
+            <h2 className="text-2xl font-bold mb-3">Sequence-of-Returns Risk</h2>
             <p>The biggest threat to retirement security isn&apos;t low average returns — it&apos;s poor returns in the early retirement years. Withdrawing from a declining portfolio accelerates depletion. Mitigation strategies: maintain 2–3 years of expenses in cash/bonds to avoid selling equities during downturns, use a dynamic withdrawal strategy (reduce withdrawals in down markets), delay Social Security to maximize guaranteed income, and consider annuities for baseline income certainty.</p>
-            <h2>The Power of Catching Up</h2>
+            <h2 className="text-2xl font-bold mb-3">The Power of Catching Up</h2>
             <p>IRS catch-up contributions allow those 50+ to contribute an extra $7,500/year to 401(k) and $1,000/year to IRA in 2024. For a 50-year-old in the 24% tax bracket, maxing a 401(k) saves $7,320 in federal taxes while adding $23,000 to retirement savings. 15 years of maximum 401(k) contributions at 8% return adds approximately $630,000 to a retirement portfolio.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/retirement-savings-calculator" />

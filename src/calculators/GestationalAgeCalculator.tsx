@@ -260,11 +260,11 @@ export default function GestationalAgeCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding Your Gestational Age</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Gestational Age</h2>
             <p>This <strong>Gestational Age Calculator</strong> precisely tracks how far along you are in your pregnancy based on multiple clinical dating methods. It determines your exact week and day count (e.g., 20 weeks, 3 days), calculates your Estimated Due Date (EDD), and tracks your progress through the three trimesters.</p>
-            <h2>The Medical "Two Week" Oddity</h2>
+            <h2 className="text-2xl font-bold mb-3">The Medical "Two Week" Oddity</h2>
             <p>The most confusing aspect of gestational age is how the medical community counts it. Your pregnancy is not dated from the moment of conception. Instead, it is dated from the first day of your Last Menstrual Period (LMP). This means that during the first two weeks of "pregnancy" (Gestational Weeks 1 and 2), you are not actually pregnant yet—your body is merely preparing to ovulate. When an embryo implants at Gestational Week 3, the embryo itself is only 1 week old.</p>
-            <h2>Why Adjusting for Cycle Length Matters</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Adjusting for Cycle Length Matters</h2>
             <p>Standard pregnancy wheels assume every woman has a perfect 28-day cycle with ovulation occurring exactly on day 14. If you have a longer cycle (e.g., 35 days), you likely ovulate around day 21. If you use a standard 28-day calculator, your baby will incorrectly measure a week "behind" at the first ultrasound, causing unnecessary panic. This calculator dynamically adjusts Naegele's rule based on your actual cycle length, preventing this false lag.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/gestational-age-calculator" />

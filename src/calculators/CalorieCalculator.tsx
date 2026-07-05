@@ -348,11 +348,11 @@ const CalorieCalculator = () => {
 
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is the Losertown Calorie Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is the Losertown Calorie Calculator?</h2>
             <p>The <strong>Losertown calorie calculator</strong> is a free, science-backed tool that estimates how many calories you need each day to lose weight, maintain your current weight, or build muscle. It calculates your <strong>Basal Metabolic Rate (BMR)</strong> — the energy your body burns at complete rest — then multiplies it by an activity factor to produce your Total Daily Energy Expenditure (TDEE). Pre-filled with a 25-year-old male, 180 cm, 65 kg, moderate activity: TDEE ≈ 2,510 Cal/day.</p>
             <p>Unlike generic "2,000 Cal/day" guidance, the <strong>Losertown calculator calorie</strong> approach gives you a personalized target based on your actual body and lifestyle. Whether you're cutting, bulking, or just trying to understand your energy balance, this tool gives you the numbers you need in seconds — in Calories or Kilojoules, Metric or US units.</p>
 
-            <h2>How the Losertown Calorie Calculator Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How the Losertown Calorie Calculator Works</h2>
             <p>The <strong>Losertown calorie calculator</strong> uses a two-step formula. First, it calculates your BMR — the calories burned just staying alive (breathing, circulation, organ function). Three validated formulas are supported:</p>
             <ul>
               <li><strong>Mifflin-St Jeor (1990):</strong> Male BMR = 10W + 6.25H − 5A + 5. Female BMR = 10W + 6.25H − 5A − 161. Most accurate for the general population.</li>
@@ -361,12 +361,12 @@ const CalorieCalculator = () => {
             </ul>
             <p>Second, your BMR is multiplied by an activity factor ranging from 1.2 (sedentary) to 2.0 (extra active) to produce your TDEE. The result is your maintenance calorie level — eat below it to lose weight, above it to gain.</p>
 
-            <h2>How Accurate Is the Losertown Calorie Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">How Accurate Is the Losertown Calorie Calculator?</h2>
             <p>Yes — within the expected range of any population-level formula. The Mifflin-St Jeor equation (the default in our <strong>Losertown calorie calculator</strong>) estimates TDEE within 10% for ~82% of tested subjects in controlled studies. That's as accurate as any non-invasive method gets without metabolic chamber testing.</p>
             <p>Where variance creeps in: individual metabolic differences, hormonal factors, gut microbiome, and muscle-to-fat ratio. If the calculator's output isn't producing expected weight change after 3–4 weeks of consistent tracking, adjust by ±100–200 Cal/day. Use the <a href="/calculator/bmr-calculator">BMR Calculator</a> and the <a href="/calculator/calorie-deficit-calculator">Calorie Deficit Calculator</a> together for a complete picture.</p>
             <p>Compared with other tools: Cronometer, MyFitnessPal, and calculator.net all use the same underlying Mifflin-St Jeor equation. The difference between tools is UX, not math. Our <strong>Losertown calorie calculator</strong> adds multi-formula support and real-time kJ conversion that most competitors lack.</p>
 
-            <h2>Calories Burned in Different Activities</h2>
+            <h2 className="text-2xl font-bold mb-3">Calories Burned in Different Activities</h2>
             <p>Your TDEE is only one side of the equation. Understanding how many calories specific activities burn helps you build a smarter deficit strategy.</p>
             <h3>Cycling Calories Burned</h3>
             <p>Cycling is one of the most efficient calorie-burning exercises. The <strong>most accurate cycling calorie calculator</strong> factors in body weight, speed, terrain, and duration. At a moderate pace (12–14 mph), a 70 kg person burns approximately 400–600 Cal/hour. At intense race pace (20+ mph), this jumps to 800–1,000+ Cal/hour. Use your <a href="/calculator/calorie-calculator">Losertown calorie calculator</a> baseline alongside cycling estimates to set an accurate daily target.</p>
@@ -377,19 +377,19 @@ const CalorieCalculator = () => {
             <h3>DeskCycle Calories Burned</h3>
             <p>The <strong>deskcycle calorie calculator</strong> estimates 150–300 Cal/hour depending on resistance and pedaling speed. DeskCycles (under-desk pedal machines) are ideal for sedentary office workers who want to increase daily TDEE without traditional workouts. Adding a DeskCycle session to your workday could shift your activity multiplier from Sedentary (×1.2) to Light (×1.375), adding ~275 Cal/day to your TDEE without setting foot in a gym.</p>
 
-            <h2>How Sauna Calorie Calculators Work</h2>
+            <h2 className="text-2xl font-bold mb-3">How Sauna Calorie Calculators Work</h2>
             <p>When you use a <strong>calories burned in a sauna calculator</strong>, the estimate is based on elevated heart rate during heat exposure. Saunas raise core body temperature, triggering cardiovascular responses similar to light exercise (heart rate 100–150 bpm). The formula used to <strong>calculate calories burned in sauna</strong> is derived from MET (Metabolic Equivalent of Task) values: sauna MET ≈ 1.5–2.0, versus rest at MET 1.0.</p>
             <p>The <strong>infrared sauna calories calculator</strong> assigns slightly higher MET values because far-infrared wavelengths cause deeper tissue heating, maintaining elevated metabolic demand longer post-session. However, most immediate weight loss in a sauna is water weight — not fat. To count sauna calories in your <strong>Losertown calorie calculator</strong> total, add them only to weekly activity burn, not daily TDEE, since sessions are irregular.</p>
             <p>Also see: <a href="/calculator/bmr-calculator">BMR Calculator</a> and <a href="/calculator/protein-calculator">Protein Calculator</a> for a complete weight management toolkit.</p>
 
-            <h2>Tips to Improve Weight Loss Accuracy</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips to Improve Weight Loss Accuracy</h2>
             <p><strong>1. Track food consistently.</strong> TDEE estimates are meaningless if calorie intake isn't logged. Use a food scale and an app for at least 2 weeks to calibrate your real intake vs. your estimate. Studies show people underestimate intake by 20–40% on average.</p>
             <p><strong>2. Be honest about activity level.</strong> The single biggest error in using the <strong>Losertown calorie calculator</strong> is selecting "Active" when real-world behavior is "Light." When in doubt, go one level down and adjust after 2–3 weeks of data.</p>
             <p><strong>3. Prioritize sleep.</strong> Poor sleep elevates ghrelin (hunger hormone) and suppresses leptin (satiety hormone), causing 20–30% higher calorie intake on sleep-deprived days. Even a perfectly calculated calorie deficit is undermined by chronic poor sleep.</p>
             <p><strong>4. Stay hydrated.</strong> Dehydration is often misread as hunger. Drinking 2–3 litres of water daily can reduce unnecessary calorie intake by 100–200 Cal/day. Also, adequate hydration improves the accuracy of body weight measurements used in the <strong>Losertown calculator calorie</strong> formula.</p>
             <p><strong>5. Recalculate regularly.</strong> TDEE decreases as you lose weight. For every 10 lbs lost, your TDEE drops by approximately 50–100 Cal/day. Run the <strong>Losertown calorie calculator</strong> again at every significant milestone to keep your deficit on track. Use the <a href="/calculator/tdee-calculator">TDEE Calculator</a> for ongoing monitoring.</p>
 
-            <h2>Comparison: Losertown Calorie Calculator vs Other Tools</h2>
+            <h2 className="text-2xl font-bold mb-3">Comparison: Losertown Calorie Calculator vs Other Tools</h2>
             <table className="w-full text-sm border-collapse mt-2 mb-4">
               <thead><tr className="bg-muted/40">
                 <th className="text-left p-2 border border-border">Feature</th>
@@ -409,7 +409,7 @@ const CalorieCalculator = () => {
               </tbody>
             </table>
 
-            <h2>Benefits of Using the Losertown Calorie Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Benefits of Using the Losertown Calorie Calculator</h2>
             <p>Using the <strong>Losertown calorie calculator</strong> removes guesswork from your nutrition strategy. Instead of following one-size-fits-all advice, you get a number calibrated to your body size, age, gender, and actual activity. This is the same methodology used by registered dietitians in clinical settings — just packaged as a free, instant online tool.</p>
             <p>Whether your goal is fat loss, muscle gain, or simply understanding your energy balance, the <strong>Losertown calculator calorie</strong> output gives you an actionable starting point. Pair it with the <a href="/calculator/protein-calculator">Protein Calculator</a> and <a href="/calculator/calorie-deficit-calculator">Calorie Deficit Calculator</a> to build a complete, data-driven nutrition plan.</p>
           </article>

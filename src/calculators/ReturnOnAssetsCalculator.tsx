@@ -160,16 +160,16 @@ export default function ReturnOnAssetsCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is Return on Assets (ROA)?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is Return on Assets (ROA)?</h2>
             <p>Return on Assets (ROA) is an essential financial metric that measures how effectively a company uses its assets to generate profits. It shows the relationship between a company's earnings and the capital invested in its infrastructure, inventory, machinery, and other physical or intellectual properties. In simple terms: for every dollar in assets a business owns, how many cents of net profit does it produce?</p>
             <p>A higher ROA indicates that a company is more efficient and productive with its resources, while a lower ROA indicates potential mismanagement, underutilized assets, or excessive capital expenditures that are not translating into earnings growth. Investors and analysts use ROA to compare companies within the same industry to evaluate operational performance.</p>
 
-            <h2>The Return on Assets Formula</h2>
+            <h2 className="text-2xl font-bold mb-3">The Return on Assets Formula</h2>
             <p>The standard formula for ROA is:</p>
             <p><code>Return on Assets (ROA) = (Net Income ÷ Average Total Assets) × 100</code></p>
             <p>Average assets are calculated as: <code>(Beginning Total Assets + Ending Total Assets) ÷ 2</code>. Using average assets is vital because a company's asset balance changes over the course of a fiscal year, making a single year-end snapshot inaccurate.</p>
 
-            <h2>Why ROA Varies by Industry</h2>
+            <h2 className="text-2xl font-bold mb-3">Why ROA Varies by Industry</h2>
             <p>Because ROA depends heavily on the size of the asset base, it is not useful for comparing businesses in entirely different sectors. Capital-intensive industries (like rail transportation, oil and gas, telecommunications, and utilities) must invest billions in infrastructure. Even highly profitable utility companies might display an ROA of only 3% to 5% because their asset denominators are massive. Conversely, tech startups or service organizations require few physical assets, often achieving ROAs above 15%.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/return-on-assets-calculator" />

@@ -80,11 +80,11 @@ export default function PERatioCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Understanding the Price-to-Earnings (P/E) Ratio</h2>
+              <h2 className="text-2xl font-bold mb-3">Understanding the Price-to-Earnings (P/E) Ratio</h2>
               <p>The Price-to-Earnings (P/E) ratio is the most widely used valuation metric in stock market investing. It answers the fundamental question: "How much am I paying for each dollar of this company's earnings?" A P/E of 20 means investors pay $20 for every $1 of annual profit the company generates.</p>
-              <h2>The P/E Ratio Formula</h2>
+              <h2 className="text-2xl font-bold mb-3">The P/E Ratio Formula</h2>
               <p><strong>P/E Ratio = Share Price ÷ Earnings Per Share (EPS)</strong>. For example, if a stock trades at $100 and its annual EPS is $5, the P/E is 20. EPS can be trailing (last 12 months actual) or forward (next 12 months estimated).</p>
-              <h2>How to Interpret the P/E Ratio</h2>
+              <h2 className="text-2xl font-bold mb-3">How to Interpret the P/E Ratio</h2>
               <p>Context is everything. A P/E of 30 might be reasonable for a high-growth technology company doubling revenue annually, but expensive for a mature utility. Compare P/E to the company's own history, direct competitors, and industry sector averages.</p>
               <ul>
                 <li><strong>Low P/E (below 15):</strong> May indicate undervaluation or declining earnings expectations.</li>
@@ -92,11 +92,11 @@ export default function PERatioCalculator() {
                 <li><strong>High P/E (above 25):</strong> Indicates high growth expectations — the stock must grow into its valuation.</li>
                 <li><strong>Negative P/E:</strong> Company is loss-making; P/E analysis doesn't apply.</li>
               </ul>
-              <h2>The Earnings Yield</h2>
+              <h2 className="text-2xl font-bold mb-3">The Earnings Yield</h2>
               <p>Earnings Yield = (EPS / Price) × 100. A P/E of 20 means a 5% earnings yield. This enables direct comparison to bond yields. If a Treasury bond yields 4.5% and a stock yields 5%, the equity risk premium is modest.</p>
-              <h2>The PEG Ratio</h2>
+              <h2 className="text-2xl font-bold mb-3">The PEG Ratio</h2>
               <p>PEG Ratio = P/E ÷ Earnings Growth Rate. A PEG below 1.0 is often considered undervalued. This metric accounts for the fact that faster-growing companies deserve higher P/E multiples.</p>
-              <h2>Limitations of the P/E Ratio</h2>
+              <h2 className="text-2xl font-bold mb-3">Limitations of the P/E Ratio</h2>
               <p>The P/E ratio doesn't account for debt, cash flows, or accounting differences between companies. Always combine P/E analysis with Price-to-Book, EV/EBITDA, and Free Cash Flow yield for a complete valuation picture.</p>
             </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/pe-ratio-calculator" />

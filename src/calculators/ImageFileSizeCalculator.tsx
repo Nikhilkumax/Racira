@@ -148,7 +148,7 @@ const ImageFileSizeCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Digital Image Architecture</h2>
+              <h2 className="text-2xl font-bold mb-3">Digital Image Architecture</h2>
               <p>Understanding how image file sizes are calculated requires knowledge of resolution and color depth. A digital image is essentially a grid of pixels, where each pixel stores a specific color value.</p>
               
               <h3>Uncompressed vs. Compressed</h3>

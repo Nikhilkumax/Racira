@@ -134,17 +134,17 @@ const OrbitalVelocityCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is an Orbital Velocity Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is an Orbital Velocity Calculator?</h2>
             <p>An orbital velocity calculator computes the speed required for an object to maintain a stable circular orbit around a celestial body at a given altitude. Pre-filled with Earth at 400 km altitude (the ISS orbit), the orbital velocity is approximately 7.67 km/s (27,600 km/h or Mach 22). This calculator supports 7 celestial bodies from the Moon to the Sun.</p>
-            <h2>The Orbital Velocity Formula</h2>
+            <h2 className="text-2xl font-bold mb-3">The Orbital Velocity Formula</h2>
             <p><strong>v = √(GM/r)</strong> where G = 6.674 × 10⁻¹¹ N⋅m²/kg² (gravitational constant), M = mass of central body (kg), r = orbital radius = body radius + altitude (m). For Earth at 400 km: v = √(6.674e-11 × 5.972e24 / 6.771e6) = 7,672 m/s. The formula derives from equating gravitational force (GMm/r²) with centripetal force (mv²/r).</p>
-            <h2>Orbital Mechanics Fundamentals</h2>
+            <h2 className="text-2xl font-bold mb-3">Orbital Mechanics Fundamentals</h2>
             <p>Kepler and Newton established that orbital velocity decreases with altitude: v ∝ 1/√r. Low orbits are fast but experience atmospheric drag. High orbits are slower but more stable. The sweet spot for many applications is medium Earth orbit (MEO, 2,000-35,786 km) — used by GPS satellites (20,200 km altitude, ~3.87 km/s).</p>
-            <h2>Types of Earth Orbits</h2>
+            <h2 className="text-2xl font-bold mb-3">Types of Earth Orbits</h2>
             <p>Low Earth Orbit (LEO, 200-2,000 km): ISS, Hubble, Starlink. Period 88-127 min. Medium Earth Orbit (MEO, 2,000-35,786 km): GPS, Galileo. Geostationary (GEO, 35,786 km): Communications, weather. Period exactly 24h. High Earth Orbit (HEO): Highly elliptical orbits for specialized missions. Each orbit type has distinct velocity, period, and application characteristics.</p>
-            <h2>Escape Velocity vs Orbital Velocity</h2>
+            <h2 className="text-2xl font-bold mb-3">Escape Velocity vs Orbital Velocity</h2>
             <p>Escape velocity is exactly √2 times orbital velocity at the same altitude: v_escape = √2 × v_orbital. At Earth's surface: orbital velocity ≈ 7.9 km/s, escape velocity ≈ 11.2 km/s. To leave Earth entirely requires 41% more velocity than to orbit. This relationship holds for any celestial body.</p>
-            <h2>Practical Applications</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Applications</h2>
             <p>Satellite deployment: rockets must accelerate payloads to orbital velocity. Space debris tracking: knowing orbital velocities helps predict collision risks. Spacecraft rendezvous: matching orbits requires precise velocity adjustments (delta-v). Planetary missions: calculating transfer orbits between planets requires knowing orbital velocities at departure and arrival.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/orbital-velocity-calculator" />

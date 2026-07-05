@@ -149,7 +149,7 @@ const HourlyToSalaryCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Converting Hourly to Salary: The Full Picture</h2>
+              <h2 className="text-2xl font-bold mb-3">Converting Hourly to Salary: The Full Picture</h2>
               <p>Whether you are negotiating a new job offer or looking to switch from hourly to salaried status, understanding the relationship between these two figures is essential. While the math is simple, there are several "hidden" factors that can make one option more valuable than the other.</p>
               <h3>The Standard Formula</h3>
               <p>For most professionals in the United States, the work year is calculated as 2,080 hours (40 hours/week × 52 weeks/year).</p>

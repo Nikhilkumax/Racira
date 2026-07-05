@@ -419,28 +419,28 @@ export default function RestaurantMealCalorieEstimator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Restaurant Meal Calorie Estimator</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Restaurant Meal Calorie Estimator</h2>
             <p>One of the most frustrating obstacles for anyone attempting to lose weight or track their macronutrients is dining out. When you cook at home, you have total control over the exact weight of your chicken, the exact grams of rice, and—most importantly—the exact amount of cooking oil used in the pan. When you order a meal at a restaurant, you surrender that control. Even "healthy" looking options are often engineered to taste incredible, which usually means they are saturated with invisible calories. The <strong>Restaurant Meal Calorie Estimator</strong> is designed to help you deconstruct these untracked meals, component by component, to reveal their true caloric impact and prevent a single dinner from destroying your weekly deficit.</p>
 
-            <h2>The Illusion of "Healthy" Restaurant Food</h2>
+            <h2 className="text-2xl font-bold mb-3">The Illusion of "Healthy" Restaurant Food</h2>
             <p>A massive fallacy in the diet industry is confusing "healthy ingredients" with "low calories." A perfect example is the standard restaurant chicken salad. A diner might order this assuming they are making a highly responsible dietary choice. However, the chicken is likely pan-fried in canola oil (adding 150 calories of pure fat). The salad is topped with candied walnuts, dried cranberries, and avocado (adding another 400 calories of fat and sugar). Finally, it is tossed in three tablespoons of vinaigrette (adding 300 calories of oil). That "healthy" salad can easily exceed 1,200 calories—more than a double cheeseburger.</p>
             <p>By forcing you to itemize the components of your meal in our calculator (separating the protein, the carbs, the fats, and the sauces), you train your brain to see past the marketing and recognize the actual macronutrient architecture of the dish.</p>
 
-            <h2>The "Hidden Oil" Tax: Why Your Estimation is Wrong</h2>
+            <h2 className="text-2xl font-bold mb-3">The "Hidden Oil" Tax: Why Your Estimation is Wrong</h2>
             <p>The single biggest reason people fail to lose weight while eating out is the failure to account for commercial cooking methods. Restaurants are not health spas; they are businesses tasked with making food hyper-palatable so that you return. The cheapest and most effective way to make food taste amazing is to utilize massive amounts of fat and sodium.</p>
             <p>If you grill a 6-ounce chicken breast at home on a non-stick pan, it is roughly 250 calories. If a diner grills a 6-ounce chicken breast on a flat-top grill, they will often squirt a massive ring of cheap soybean oil onto the surface to prevent sticking, and finish the breast with a knob of butter to give it a glossy shine. The physical piece of meat is identical, but the restaurant version has absorbed an additional 200 to 300 calories of pure fat.</p>
             <p>Our calculator mitigates this user error by applying an automated "Hidden Oil Tax." By selecting the type of restaurant (Low, Medium, or High oil usage), the algorithm automatically injects the invisible calories of cooking oils and finishing butters into the final total, drastically improving the accuracy of the estimation.</p>
 
-            <h2>The Danger of Sauces and Dressings</h2>
+            <h2 className="text-2xl font-bold mb-3">The Danger of Sauces and Dressings</h2>
             <p>If cooking oils are the invisible enemy, sauces are the highly visible enemy that diners simply choose to ignore. Most popular restaurant sauces (Mayonnaise, Aioli, Ranch dressing, Secret Burger Sauces) are emulsions built almost entirely on a base of liquid fat (usually soybean or canola oil).</p>
             <p>Because dietary fat yields 9 kilocalories per physical gram (more than double the energy density of carbs and protein), these sauces are atomic caloric bombs. Just two tablespoons of garlic aioli on a sandwich adds 200 calories to the meal. The meat and the bread might only equal 400 calories combined. The sauce alone increases the total caloric load of the meal by 50% without providing any actual satiety (fullness).</p>
             <p>When using the calculator, be brutally honest about your sauce intake. If you dipped your fries in ranch dressing, add the sauce component. It is mathematically critical.</p>
 
-            <h2>Liquid Calories: The Silent Saboteurs</h2>
+            <h2 className="text-2xl font-bold mb-3">Liquid Calories: The Silent Saboteurs</h2>
             <p>The final component of a restaurant meal that often destroys a diet is the beverage. The human brain does not register calories consumed via liquids in the same way it registers solid food. If you eat 300 calories of potatoes, the fiber physically stretches your stomach and sends a signal to your brain that you are full. If you drink 300 calories of sweet tea or alcohol, your stomach does not stretch, and your brain does not trigger satiety.</p>
             <p>A standard restaurant meal paired with two margaritas or two craft beers will add an immediate 400 to 500 calories of pure carbohydrates and alcohol to the ledger. This is why the calculator includes a dedicated "Drink" module. Removing liquid calories (swapping soda for diet soda, or beer for water) is the single easiest modification you can make to lower the caloric density of a dining experience.</p>
 
-            <h2>How to Mitigate the Damage When Dining Out</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Mitigate the Damage When Dining Out</h2>
             <p>You do not need to become an antisocial hermit to achieve your fitness goals. You simply need to navigate restaurant menus defensively. Here are the cardinal rules for keeping your estimated calories low:</p>
             <ol>
               <li><strong>Prioritize Lean Protein:</strong> Build your meal around lean meats (chicken breast, sirloin steak, white fish) rather than fatty meats (ribeye steak, pork belly, sausage).</li>
@@ -449,7 +449,7 @@ export default function RestaurantMealCalorieEstimator() {
               <li><strong>Beware the Sides:</strong> Restaurants serve massive portions of cheap carbohydrates (fries, mashed potatoes) because they have high profit margins. Swap these out for a side salad or steamed broccoli to slash hundreds of calories off the plate.</li>
             </ol>
 
-            <h2>Conclusion: Estimation is Better Than Ignorance</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Estimation is Better Than Ignorance</h2>
             <p>Unless you walk into the kitchen with a food scale, you will never know the exact macros of a restaurant meal. However, using the Restaurant Meal Calorie Estimator forces you to acknowledge the physics of the plate in front of you. By deconstructing the meal, taxing the hidden oils, and accounting for the sauces, you replace willful ignorance with an educated estimation. This allows you to adjust the rest of your daily meals accordingly, keeping your weekly caloric balance perfectly on track while still enjoying a night out.</p>
           </article>
           

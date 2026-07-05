@@ -243,23 +243,23 @@ export default function InsulinToCarbRatioCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Insulin-to-Carb Ratio Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Insulin-to-Carb Ratio Calculator</h2>
             <p>For individuals managing Type 1 Diabetes or insulin-dependent Type 2 Diabetes, precision is the difference between optimal health and dangerous glycemic extremes. Modern diabetes management relies heavily on Intensive Insulin Therapy (IIT), also known as "basal-bolus" therapy. This strategy mimics a healthy pancreas by providing a steady baseline of insulin (basal) and sharp spikes of insulin (bolus) specifically to cover the carbohydrates eaten at meals. To successfully bolus for a meal, you must know your exact <strong>Insulin-to-Carb Ratio (ICR)</strong>. Our calculator uses established clinical algorithms to provide you with your baseline ICR and your Insulin Sensitivity Factor (ISF).</p>
 
-            <h2>What is Total Daily Dose (TDD)?</h2>
+            <h2 className="text-2xl font-bold mb-3">What is Total Daily Dose (TDD)?</h2>
             <p>Every calculation regarding your insulin sensitivity stems from your Total Daily Dose. Your TDD is simply the total sum of all the insulin you inject over a 24-hour period. This includes your long-acting basal insulin (like Lantus, Levemir, or Tresiba) plus all the rapid-acting bolus insulin (like Humalog or Novolog) you took for meals and high blood sugar corrections.</p>
             <p>For example, if you take 20 units of Lantus every night, and you typically take 5 units of Humalog before breakfast, 7 units before lunch, and 8 units before dinner, your TDD is exactly 40 units (20 + 5 + 7 + 8). When you input this TDD into our calculator, the algorithm understands your body's overall systemic insulin resistance.</p>
 
-            <h2>The Rule of 500 (Calculating ICR)</h2>
+            <h2 className="text-2xl font-bold mb-3">The Rule of 500 (Calculating ICR)</h2>
             <p>Your Insulin-to-Carb Ratio tells you how many grams of carbohydrates will be metabolized by 1 unit of insulin. The clinical standard for estimating this ratio is the <strong>Rule of 500</strong>.</p>
             <p>The math is straightforward: divide the constant number 500 by your TDD. If your TDD is 50 units, 500 ÷ 50 = 10. Your ratio is 1:10. This means for every 10 grams of carbohydrates on your plate, you must inject 1 unit of rapid-acting insulin.</p>
             <p>If you are eating a meal consisting of a sandwich and an apple containing 60 grams of total carbohydrates, you divide 60 by your ratio of 10. You need exactly 6 units of insulin to cover that specific meal. <em>Note: If you are using older Regular insulin (like Humulin R), the formula shifts slightly to the Rule of 450 to account for its slower pharmacokinetic profile.</em></p>
 
-            <h2>The Rule of 1800 (Calculating Correction Factor)</h2>
+            <h2 className="text-2xl font-bold mb-3">The Rule of 1800 (Calculating Correction Factor)</h2>
             <p>Carbohydrates are only half the battle. What happens if your blood sugar is already high before you even sit down to eat? You must apply a "Correction Factor," also known as an Insulin Sensitivity Factor (ISF). This number tells you exactly how many points (mg/dL) your blood sugar will drop in response to 1 unit of insulin.</p>
             <p>We calculate this using the <strong>Rule of 1800</strong>. Divide 1800 by your TDD. If your TDD is 40 units, 1800 ÷ 40 = 45. Your correction factor is 45. One unit of insulin drops your blood sugar by 45 points. If your target blood sugar is 100 mg/dL, but your current reading is 190 mg/dL, you are 90 points over target. Since 1 unit drops you by 45 points, you need exactly 2 units of insulin to "correct" back to baseline.</p>
 
-            <h2>Combining Carb Ratios and Corrections</h2>
+            <h2 className="text-2xl font-bold mb-3">Combining Carb Ratios and Corrections</h2>
             <p>The true power of these metrics is realized when they are combined. Imagine you are about to eat a 45-gram carbohydrate meal, but your pre-meal blood sugar is elevated at 190 mg/dL (target 100). Assuming a TDD of 40 (ICR of 1:12, ISF of 45):</p>
             <ul>
               <li><strong>Carb Coverage:</strong> 45g ÷ 12 (ICR) = 3.75 units to cover the food.</li>
@@ -267,7 +267,7 @@ export default function InsulinToCarbRatioCalculator() {
               <li><strong>Total Bolus:</strong> 3.75 + 2.0 = <strong>5.75 units</strong> total injection required before the meal.</li>
             </ul>
 
-            <h2>Fine-Tuning Your Baselines</h2>
+            <h2 className="text-2xl font-bold mb-3">Fine-Tuning Your Baselines</h2>
             <p>It is vital to understand that the Rule of 500 and the Rule of 1800 provide <em>estimates</em> based on population averages. They are excellent, safe starting points. However, insulin resistance is fluid. If you are highly active, you may find your true ICR is 1:15 (you need less insulin). If you are stressed or sick, your ratio might drop to 1:8 (you need more insulin). Always work closely with your endocrinologist to track post-meal blood sugars and fine-tune these mathematical starting points to fit your unique biological needs.</p>
           </article>
           

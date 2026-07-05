@@ -239,25 +239,25 @@ const CAGRCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>What Is CAGR?</h2>
+              <h2 className="text-2xl font-bold mb-3">What Is CAGR?</h2>
               <p>CAGR, or Compound Annual Growth Rate, is one of the most important metrics in finance and investing. It represents the rate at which an investment would have grown if it grew at a steady rate each year over the specified period. CAGR is a smoothed-out growth rate that eliminates the volatility of year-to-year returns, making it ideal for comparing investments across different time horizons.</p>
               <p>Unlike simple average annual return, CAGR accounts for the compounding effect — meaning it reflects the actual end-to-end performance of an investment including the reinvestment of gains. This makes it the preferred metric for evaluating mutual funds, stocks, business revenue growth, and any metric that changes over time.</p>
 
-              <h2>The CAGR Formula</h2>
+              <h2 className="text-2xl font-bold mb-3">The CAGR Formula</h2>
               <p>The CAGR formula is: <strong>CAGR = [(Final Value / Initial Value)^(1/n) − 1] × 100</strong>, where n is the number of years.</p>
               <p>To find the future value using a known CAGR: <strong>FV = PV × (1 + CAGR/100)^n</strong></p>
               <p>To find years required at a given CAGR: <strong>n = log(FV/PV) / log(1 + CAGR/100)</strong></p>
 
-              <h2>How to Use This CAGR Calculator</h2>
+              <h2 className="text-2xl font-bold mb-3">How to Use This CAGR Calculator</h2>
               <p>Use Find CAGR mode when you know both the starting and ending values and want to determine the implied annual growth rate. Use Find Future Value to project what an investment will be worth at a given CAGR over a number of years. Use Find Years to determine how long it will take to reach a target value at a specific growth rate. Each mode provides a year-by-year breakdown table for full transparency.</p>
 
-              <h2>Real-World CAGR Examples</h2>
+              <h2 className="text-2xl font-bold mb-3">Real-World CAGR Examples</h2>
               <p>Apple's revenue grew from approximately $65 billion in 2010 to $394 billion in 2022, a 12-year CAGR of about 15.6%. Amazon's stock price went from around $2 in 2001 to $3,400 in 2021 (before splits), a 20-year CAGR of approximately 38%. The S&P 500 index has delivered a historical CAGR of approximately 10% annually including dividends, making it the standard benchmark for equity investment performance.</p>
 
-              <h2>CAGR vs Simple Average Return</h2>
+              <h2 className="text-2xl font-bold mb-3">CAGR vs Simple Average Return</h2>
               <p>Consider a fund that returned: +50% in Year 1, −33% in Year 2. Simple average = (+50 − 33)/2 = 8.5% — sounds great! But CAGR = [(1.5 × 0.67)^(1/2) − 1] × 100 = 0% — the investment broke even. CAGR reveals the true picture because it accounts for the compounding effect of losses and gains. Always compare investments using CAGR, not simple averages.</p>
 
-              <h2>Tips for Interpreting CAGR</h2>
+              <h2 className="text-2xl font-bold mb-3">Tips for Interpreting CAGR</h2>
               <p>A higher CAGR doesn't always mean a better investment — consider risk and volatility too. Compare CAGR to a relevant benchmark (e.g., S&P 500 for equity funds). A fund with a 15% CAGR but extreme volatility may be riskier than one with a 12% CAGR and smooth growth. Also note that CAGR is backward-looking — past performance doesn't guarantee future results. Use CAGR alongside Sharpe ratio and maximum drawdown for a complete picture of investment quality.</p>
             </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/cagr-calculator" />

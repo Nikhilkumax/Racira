@@ -300,16 +300,16 @@ const CostPerMileCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is the Cost Per Mile Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is the Cost Per Mile Calculator?</h2>
             <p>The Cost Per Mile Calculator determines exactly how much each mile you drive costs in total ownership expenses. Unlike MPG or fuel cost per mile, this metric captures the full picture — depreciation, financing, insurance, maintenance, fuel, registration, and parking — expressed as a single dollar amount per mile. It's the most honest way to compare vehicles and evaluate whether driving is cheaper than rideshare, transit, or other alternatives.</p>
 
-            <h2>How It Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
             <p>Enter your vehicle's purchase details, annual operating costs, annual mileage, and ownership period. The calculator computes total ownership cost using the amortization and depreciation formulas, then divides by total miles driven (annual miles × ownership years). The result is your true cost per mile — typically $0.40–$0.70 for most drivers.</p>
 
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>The primary result is your cost per mile in large bold text. The 3-stat bar converts to annual, monthly, and daily cost. The breakdown table shows per-mile cost for each category — depreciation typically contributes $0.15–$0.30/mile, fuel $0.10–$0.20/mile, insurance $0.08–$0.15/mile. The donut chart shows the proportional split. Quick comparisons benchmark your cost against rideshare prices and the IRS mileage rate.</p>
 
-            <h2>Cost Per Mile Benchmarks</h2>
+            <h2 className="text-2xl font-bold mb-3">Cost Per Mile Benchmarks</h2>
             <ul>
               <li><strong>Under $0.35/mile:</strong> Excellent — economy car, cash purchase, long ownership, low insurance area.</li>
               <li><strong>$0.35–$0.55/mile:</strong> Good — mid-range sedan, typical financing, 5–7 year ownership.</li>
@@ -317,7 +317,7 @@ const CostPerMileCalculator = () => {
               <li><strong>Over $0.80/mile:</strong> High — luxury vehicle, short ownership, heavy insurance and parking costs.</li>
             </ul>
 
-            <h2>How to Lower Your Cost Per Mile</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Lower Your Cost Per Mile</h2>
             <ul>
               <li><strong>Drive more miles.</strong> Fixed costs (depreciation, insurance, registration) are spread over more miles. Going from 10,000 to 15,000 miles/year can lower CPM by 15–20%.</li>
               <li><strong>Keep the car longer.</strong> Depreciation flattens over time, dramatically lowering annual and per-mile cost.</li>
@@ -326,10 +326,10 @@ const CostPerMileCalculator = () => {
               <li><strong>Park for free when possible.</strong> Urban parking adds $0.02–$0.05/mile in major metros.</li>
             </ul>
 
-            <h2>Practical Example</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Example</h2>
             <p>A $35,000 sedan driven 15,000 miles/year for 5 years with typical costs: total ownership = $48,000. Total miles = 75,000. Cost per mile = $0.64. Compare to Uber at $1.20/mile — owning saves $0.56/mile or $8,400/year vs full-time rideshare.</p>
 
-            <h2>Benefits of Using This Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Benefits of Using This Calculator</h2>
             <p>Cost per mile is the single best metric for evaluating transportation decisions. Use it to compare vehicles objectively, decide between owning and ridesharing, set per-mile budgets for business travel, and understand the true cost of your daily commute in dollars.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/cost-per-mile-calculator" />

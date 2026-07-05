@@ -224,14 +224,14 @@ const HeatIndexCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Science of the Heat Index</h2>
+            <h2 className="text-2xl font-bold mb-3">The Science of the Heat Index</h2>
             <p>During the summer, you will frequently hear meteorologists say, <em>"The temperature is 90°F, but the Heat Index makes it feel like 105°F."</em> This <strong>Heat Index</strong> (often called the apparent temperature) is the summer equivalent to the winter's Wind Chill factor. It calculates how hot it actually feels on human skin when relative humidity is combined with the air temperature.</p>
 
-            <h2>Why Humidity Makes Us Feel Hotter</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Humidity Makes Us Feel Hotter</h2>
             <p>The human body is an engine that generates heat. To prevent overheating, the body has a built-in cooling system: <strong>sweating</strong>. As sweat physically evaporates off your skin and turns into a gas, it pulls heat energy away from your body, cooling you down.</p>
             <p>However, evaporation depends entirely on the surrounding air. When the <strong>Relative Humidity</strong> is high, it means the air is already heavily saturated with water vapor. Because the air is "full," it cannot easily absorb any more water. Therefore, your sweat cannot evaporate. Because the sweat stays on your skin, your body's primary cooling mechanism shuts down. This causes your core temperature to rise, making you "feel" significantly hotter than the thermometer reads.</p>
 
-            <h2>Heat Index Danger Levels</h2>
+            <h2 className="text-2xl font-bold mb-3">Heat Index Danger Levels</h2>
             <p>The National Weather Service (NWS) categorizes Heat Index values to warn the public of the physical dangers of heat exposure. Prolonged exposure or physical activity in high heat index conditions can lead to severe medical emergencies:</p>
             <ul>
               <li><strong>80°F - 90°F (Caution):</strong> Fatigue is possible with prolonged exposure and physical activity.</li>
@@ -240,7 +240,7 @@ const HeatIndexCalculator = () => {
               <li><strong>125°F or higher (Extreme Danger):</strong> Heat stroke is highly likely with continued exposure. This is a medical emergency.</li>
             </ul>
 
-            <h2>Crucial Caveats of the Heat Index</h2>
+            <h2 className="text-2xl font-bold mb-3">Crucial Caveats of the Heat Index</h2>
             <p>It is important to remember two critical rules about the Heat Index:</p>
             <ol>
               <li>The official formula (the Rothfusz regression equation) assumes you are resting in the <strong>shade</strong> with a light breeze. If you are standing in direct, full sunshine, the heat index value can actually increase by up to 15°F.</li>

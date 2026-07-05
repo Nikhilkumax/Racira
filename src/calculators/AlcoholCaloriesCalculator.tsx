@@ -224,31 +224,23 @@ export default function AlcoholCaloriesCalculator() {
               <div ref={printRef} className="flex flex-col gap-4 animate-fade-in-up">
                 
                 {/* Primary Metric Grid */}
-                <div className="grid grid-cols-2 gap-4">
-                  {/* Monthly Box */}
-                  <div className="bg-slate-900 border border-slate-800 text-white rounded-lg p-5 shadow-sm relative overflow-hidden">
-                    <div className="relative z-10">
-                      <div className="text-slate-400 text-[10px] font-bold uppercase tracking-wider mb-1">Monthly Liquid Calories</div>
-                      <div className="flex items-baseline gap-1">
-                        <div className="text-4xl font-extrabold">{results.monthlyCalories.toLocaleString()}</div>
-                        <div className="text-sm font-medium text-slate-400">kcal</div>
-                      </div>
-                      <div className="text-xs font-medium text-slate-500 mt-1">~{results.caloriesPerDrink} kcal per drink</div>
-                    </div>
-                    <Beer className="absolute -bottom-4 -right-4 h-24 w-24 opacity-5" />
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative mb-4">
+                  <p className="text-xs uppercase tracking-wide text-muted-foreground font-bold mb-1">Yearly Potential Fat Gain</p>
+                  <div className="text-4xl font-black text-primary mb-2">
+                    +{results.yearlyFatGainedLbs.toLocaleString()} <span className="text-xl text-muted-foreground font-semibold">LBS</span>
                   </div>
-
-                  {/* Fat Gained Box */}
-                  <div className="bg-gradient-to-br from-rose-600 to-red-800 text-white rounded-lg p-5 shadow-sm relative overflow-hidden">
-                    <div className="relative z-10">
-                      <div className="text-white/80 text-[10px] font-bold uppercase tracking-wider mb-1">Yearly Potential Fat Gain</div>
-                      <div className="flex items-baseline gap-1">
-                        <div className="text-4xl font-extrabold">+{results.yearlyFatGainedLbs.toLocaleString()}</div>
-                        <div className="text-sm font-medium text-white/80">LBS</div>
-                      </div>
-                      <div className="text-xs font-medium text-white/90 mt-1">If not burned via exercise</div>
-                    </div>
-                    <TrendingUp className="absolute -bottom-4 -right-4 h-24 w-24 opacity-10" />
+                  <p className="text-sm text-muted-foreground font-medium">If not burned via exercise</p>
+                </div>
+                
+                <div className="grid grid-cols-2 gap-4 mb-4">
+                  <div className="card-calculator p-4 text-center border border-border bg-card shadow-sm">
+                    <p className="text-[10px] text-muted-foreground mb-1 uppercase tracking-widest font-bold">Monthly Liquid Calories</p>
+                    <p className="text-xl font-black">{results.monthlyCalories.toLocaleString()} kcal</p>
+                    <p className="text-xs text-muted-foreground mt-1">~{results.caloriesPerDrink} kcal per drink</p>
+                  </div>
+                  <div className="card-calculator p-4 text-center border border-border bg-card shadow-sm">
+                    <p className="text-[10px] text-muted-foreground mb-1 uppercase tracking-widest font-bold">Yearly Calories</p>
+                    <p className="text-xl font-black">{results.yearlyCalories.toLocaleString()} kcal</p>
                   </div>
                 </div>
 
@@ -289,30 +281,30 @@ export default function AlcoholCaloriesCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Silent Saboteur of Weight Loss</h2>
+            <h2 className="text-2xl font-bold mb-3">The Silent Saboteur of Weight Loss</h2>
             <p>Every year, millions of people dedicate themselves to strict diets and punishing gym routines. They carefully weigh their chicken breast, they refuse to eat bread, and they spend hours on the treadmill. Yet, their weight on the scale refuses to budge. Frustrated, they blame their genetics or their age. In reality, the culprit is often sitting quietly in a glass on Friday night. The <strong>Alcohol Calories Calculator</strong> is designed to expose the hidden, massive thermodynamic debt created by casual weekend drinking, proving mathematically why you can never out-train liquid calories.</p>
 
-            <h2>The Thermodynamics of Ethanol</h2>
+            <h2 className="text-2xl font-bold mb-3">The Thermodynamics of Ethanol</h2>
             <p>To understand why alcohol causes such rapid weight gain, we must look at the caloric density of macronutrients. </p>
             <p>Protein and Carbohydrates both contain 4 calories per gram. Dietary Fat is incredibly dense, containing 9 calories per gram. Alcohol (ethanol) sits right in the middle, containing 7 calories per gram. It is almost twice as calorically dense as pure sugar. A standard 12-ounce craft IPA can easily contain over 200 calories. If you drink just three of these beers while watching a football game, you have ingested 600 calories of pure energy in under two hours. To burn off those 600 calories, a 180-pound person would have to run continuously on a treadmill for over 45 minutes.</p>
 
-            <h2>The Metabolic Blockade: Why Fat Loss Stops</h2>
+            <h2 className="text-2xl font-bold mb-3">The Metabolic Blockade: Why Fat Loss Stops</h2>
             <p>The sheer number of calories in alcohol is only half of the problem; the real issue is how your body metabolizes it. </p>
             <p>Your body is incredibly efficient. It views carbohydrates as quick fuel, and it views body fat as long-term storage fuel. However, your body views alcohol as a toxic poison. Because the body has no physical mechanism to store alcohol for later use, the liver must drop absolutely everything else it is doing to prioritize the elimination of the ethanol. This creates a massive metabolic blockade. The moment alcohol hits your bloodstream, your liver completely shuts down fat oxidation (fat burning). While the alcohol is being processed, you cannot physically burn body fat. Any food you eat during this time—like late-night pizza or bar snacks—is heavily partitioned directly into adipose tissue (fat stores) because the body is too busy dealing with the poison to burn the food.</p>
 
-            <h2>The Empty Calorie Problem</h2>
+            <h2 className="text-2xl font-bold mb-3">The Empty Calorie Problem</h2>
             <p>Nutritionists frequently refer to alcohol as "empty calories," but few people understand what that actually means. When you eat 200 calories of chicken breast, your body uses the amino acids to repair torn muscle tissue and build cellular structures. When you eat 200 calories of sweet potatoes, your muscles store the glucose as glycogen to fuel your next workout.</p>
             <p>When you drink 200 calories of vodka, your body receives 7 calories per gram of pure energy, but absolutely zero building blocks. There are no vitamins, no minerals, no amino acids, and no essential fats. It is biologically useless energy. Because the body cannot use it to build anything, the energy must be immediately burned through physical activity, or it will be shuttled directly into fat cells.</p>
 
-            <h2>The Sugar Trap of Cocktails</h2>
+            <h2 className="text-2xl font-bold mb-3">The Sugar Trap of Cocktails</h2>
             <p>While straight liquor and dry wines are bad purely because of the ethanol, mixed cocktails are catastrophically worse. A shot of tequila is roughly 100 calories. However, when a bartender makes a Margarita, they add agave syrup, triple sec, and sour mix. These mixers are nothing but pure, liquid fructose (sugar).</p>
             <p>By combining the 7 calories per gram of the alcohol with the massive carbohydrate load of the liquid sugar, the calorie count skyrockets. A single restaurant-style Margarita or Mai Tai can easily contain 400 to 500 calories. Drinking two of these at dinner is the thermodynamic equivalent of eating an entire large pepperoni pizza by yourself, entirely destroying a week's worth of caloric deficit.</p>
 
-            <h2>The Compound Interest of Weekend Drinking</h2>
+            <h2 className="text-2xl font-bold mb-3">The Compound Interest of Weekend Drinking</h2>
             <p>The interactive area chart in this calculator perfectly illustrates the danger of consistent weekend drinking. Let's assume you eat perfectly from Monday to Thursday, maintaining a 300-calorie daily deficit. By Friday afternoon, you are down 1,200 calories for the week.</p>
             <p>Friday night, you drink 4 beers (600 calories). Saturday night, you go to dinner and drink 3 glasses of wine (400 calories). By Sunday morning, you have consumed 1,000 liquid calories, almost entirely wiping out four days of brutal dieting and gym sessions. You break even. The scale never moves. Over the course of a year, if you do not compensate for these drinks, the calculator demonstrates how those weekend habits compound into 10, 15, or even 20 pounds of pure fat accumulation.</p>
 
-            <h2>Conclusion: Track Your Liquid Debt</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Track Your Liquid Debt</h2>
             <p>You cannot cheat the laws of thermodynamics, and you certainly cannot out-train the caloric density of ethanol. If your goal is to dramatically alter your body composition and lose body fat, alcohol is the single biggest obstacle in your path. Use the Alcohol Calories Calculator to confront the mathematical reality of your weekend habits, strip away the empty calories, and finally allow your body to tap into its stored fat reserves.</p>
           </article>
           

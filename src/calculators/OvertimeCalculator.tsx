@@ -93,7 +93,7 @@ const OvertimeCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Overtime Pay Explained</h2>
+              <h2 className="text-2xl font-bold mb-3">Overtime Pay Explained</h2>
               <p>Overtime compensation is a legal protection for workers, ensuring that employers pay a premium for demanding extra hours. Understanding your overtime rights and potential earnings is essential for every hourly worker.</p>
               <h3>The FLSA and Overtime Rules</h3>
               <p>The Fair Labor Standards Act (FLSA) requires all non-exempt employees to receive at least 1.5x their regular rate for hours worked over 40 per workweek. This is a federal minimum — many states have additional protections.</p>

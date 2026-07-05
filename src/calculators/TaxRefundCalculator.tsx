@@ -204,7 +204,7 @@ export default function TaxRefundCalculator() {
             
             <div className="flex items-center gap-2 mb-1">
               <Receipt className="h-5 w-5 text-primary" />
-              <h2 className="text-lg font-bold text-foreground m-0">Income & Withholding</h2>
+              <h2 className="text-2xl font-bold mb-3">Income & Withholding</h2>
             </div>
             
             <CompactInput id="gross" label="Annual Gross Income" value={grossIncome} onChange={setGrossIncome} prefix="$" />
@@ -214,7 +214,7 @@ export default function TaxRefundCalculator() {
             
             <div className="flex items-center gap-2 mb-1">
               <UserPlus className="h-5 w-5 text-primary" />
-              <h2 className="text-lg font-bold text-foreground m-0">Filing & Family</h2>
+              <h2 className="text-2xl font-bold mb-3">Filing & Family</h2>
             </div>
             
             <div className="flex flex-col">

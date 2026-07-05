@@ -162,23 +162,23 @@ const QuickRatioCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Quick Ratio Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Quick Ratio Calculator?</h2>
             <p>A quick ratio calculator measures a company's short-term liquidity by comparing its most liquid assets to its current liabilities. Also known as the acid-test ratio, the quick ratio is a stricter version of the current ratio because it excludes inventory and prepaid expenses — assets that cannot always be quickly converted to cash. Pre-filled with $50,000 cash, $30,000 securities, $80,000 receivables, and $100,000 in current liabilities, the quick ratio is 1.60x — indicating excellent liquidity.</p>
             <p>Financial analysts, investors, creditors, and business owners use the quick ratio to assess whether a company can meet its short-term obligations without relying on selling inventory or raising new capital. It is one of the primary financial ratios used in credit analysis and business valuation.</p>
-            <h2>The Quick Ratio Formula</h2>
+            <h2 className="text-2xl font-bold mb-3">The Quick Ratio Formula</h2>
             <p><strong>Quick Ratio = (Cash + Marketable Securities + Accounts Receivable) / Current Liabilities</strong></p>
             <p>Equivalently: Quick Ratio = (Current Assets – Inventory – Prepaid Expenses) / Current Liabilities. For our defaults: Quick Ratio = ($50,000 + $30,000 + $80,000) / $100,000 = $160,000 / $100,000 = 1.60x. This means the company has $1.60 in liquid assets for every $1.00 of current liabilities.</p>
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>A ratio above 1.0 means the company can cover all current liabilities with liquid assets — a positive sign. The pie chart shows the composition of quick assets: how much comes from cash (most liquid), marketable securities (very liquid), and accounts receivable (liquid but dependent on customer payment timing). The coverage surplus/shortfall tells you exactly how much buffer or deficit exists. For example, a 1.60x ratio on $100,000 current liabilities means a $60,000 surplus — comfortable headroom for unexpected expenses.</p>
-            <h2>Key Components of the Quick Ratio</h2>
+            <h2 className="text-2xl font-bold mb-3">Key Components of the Quick Ratio</h2>
             <p><strong>Cash and Cash Equivalents:</strong> Bank deposits, Treasury bills, money market funds — the most liquid assets. High cash holdings boost the quick ratio but may indicate inefficient capital deployment. <strong>Marketable Securities:</strong> Short-term investments easily converted to cash: Treasury notes, commercial paper, short-term bonds. <strong>Accounts Receivable:</strong> Money owed by customers. Quality depends heavily on receivable aging — 90-day-old receivables are less reliable than 30-day receivables. <strong>Current Liabilities:</strong> Obligations due within 12 months: accounts payable, short-term debt, accrued expenses, current portion of long-term debt.</p>
-            <h2>Industry Benchmarks and Interpretations</h2>
+            <h2 className="text-2xl font-bold mb-3">Industry Benchmarks and Interpretations</h2>
             <p>Quick ratio benchmarks vary significantly by industry. Technology and software companies often maintain ratios of 2.0x+ due to minimal inventory. Retail companies (Walmart, Target) may have ratios of 0.2–0.4x — acceptable because inventory turns over rapidly. Manufacturing companies typically target 0.5–1.0x. Banking regulations require minimum liquidity ratios under Basel III. The healthcare industry averages around 1.0–1.5x. Always compare a company's quick ratio to its direct peers and historical trend rather than an absolute threshold.</p>
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <p><strong>Small Business:</strong> A restaurant has $15,000 cash, $5,000 receivables, and $40,000 in current liabilities. Quick ratio = 0.50x — concerning, as food inventory cannot be liquidated instantly. <strong>Tech Startup:</strong> $500,000 cash, $200,000 receivables, $300,000 liabilities. Quick ratio = 2.33x — excellent, typical for subscription software businesses. <strong>Manufacturer:</strong> $100,000 cash, $150,000 receivables, $200,000 securities, $350,000 liabilities. Quick ratio = 1.29x — healthy for manufacturing sector.</p>
-            <h2>Quick Ratio vs Current Ratio</h2>
+            <h2 className="text-2xl font-bold mb-3">Quick Ratio vs Current Ratio</h2>
             <p>The current ratio = Current Assets / Current Liabilities includes inventory and prepaid expenses. It is a broader measure of liquidity but less conservative. If a company's current ratio is 2.0x but quick ratio is 0.8x, it means most of its current assets are tied up in inventory — a potential red flag if inventory is hard to liquidate quickly. See also: <a href="/calculator/current-ratio-calculator">current ratio calculator</a>, <a href="/calculator/cash-ratio-calculator">cash ratio calculator</a>, and <a href="/calculator/working-capital-calculator">working capital calculator</a>.</p>
-            <h2>Benefits of Using This Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Benefits of Using This Calculator</h2>
             <p>The quick ratio calculation is simple but the interpretation requires context. This calculator provides instant computation with a color-coded rating system, pie chart visualization of asset composition, and surplus/shortfall analysis — making it easy to assess and communicate a company's liquidity position to investors, lenders, or management teams.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/quick-ratio-calculator" />

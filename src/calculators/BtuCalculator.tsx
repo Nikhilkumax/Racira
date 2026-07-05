@@ -248,15 +248,15 @@ const BtuCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What is a BTU?</h2>
+            <h2 className="text-2xl font-bold mb-3">What is a BTU?</h2>
             <p><strong>BTU</strong> stands for British Thermal Unit. It is the international standard for measuring the power of heating and air conditioning systems. Scientifically, one BTU is the exact amount of energy required to raise the temperature of one pound of liquid water by 1 degree Fahrenheit.</p>
             <p>In the HVAC industry, when you buy an "8,000 BTU Air Conditioner," it technically means the unit has the capacity to remove 8,000 BTUs of heat from the air <em>per hour</em>.</p>
 
-            <h2>Why Proper Sizing is Critical</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Proper Sizing is Critical</h2>
             <p>A very common consumer mistake is buying the largest, most powerful air conditioner they can afford, assuming "bigger is better." In HVAC, oversized equipment is a massive problem.</p>
             <p>Air conditioners do two things simultaneously: they lower the air temperature, and they pull humidity (water) out of the air. If you put a massive 15,000 BTU AC in a small bedroom, it will blast the room with freezing air, hitting your target temperature in 3 minutes, and then shut off. Because it ran for such a short time, it never had a chance to dehumidify the air. The room will feel cold, but incredibly clammy and uncomfortable. You must buy an AC unit that closely matches your BTU calculation so it runs long enough to pull the water out of the air.</p>
 
-            <h2>Factors That Alter BTU Requirements</h2>
+            <h2 className="text-2xl font-bold mb-3">Factors That Alter BTU Requirements</h2>
             <p>Calculating BTUs strictly by square footage is a flawed method because it ignores critical environmental factors. A professional "Manual J" HVAC calculation accounts for:</p>
             <ul>
               <li><strong>Volume (Ceiling Height):</strong> A room with 12-foot vaulted ceilings contains 50% more air than a room with 8-foot ceilings, requiring significantly more BTUs to cool, despite having the exact same floor footprint.</li>

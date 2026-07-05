@@ -305,13 +305,13 @@ const EvTaxCreditBenefitCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is the EV Tax Credit Benefit Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is the EV Tax Credit Benefit Calculator?</h2>
             <p>This calculator estimates the total financial benefit of buying an electric vehicle, combining the federal tax credit, state incentives, utility rebates, and fuel savings over your ownership period. It also checks federal eligibility based on MSRP, vehicle class, income, and filing status under the Inflation Reduction Act rules.</p>
 
-            <h2>How It Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
             <p>Enter the vehicle MSRP, class, and condition (new/used), plus your household income and filing status. The calculator determines federal credit eligibility (up to $7,500 new, $4,000 used) and adds any state/utility incentives. The optional fuel comparison computes annual savings vs a comparable gas vehicle based on EV efficiency, electricity price, gas MPG, and gas price.</p>
 
-            <h2>Federal EV Tax Credit Rules (2024+)</h2>
+            <h2 className="text-2xl font-bold mb-3">Federal EV Tax Credit Rules (2024+)</h2>
             <ul>
               <li><strong>New vehicles:</strong> Up to $7,500 credit. MSRP caps: $55K sedans, $80K SUVs/trucks/vans.</li>
               <li><strong>Used vehicles:</strong> Up to $4,000 (30% of sale price). Sale price must be under $25,000.</li>
@@ -321,16 +321,16 @@ const EvTaxCreditBenefitCalculator = () => {
               <li><strong>Leased vehicles:</strong> The full $7,500 typically applies (commercial credit loophole).</li>
             </ul>
 
-            <h2>State and Utility Incentives</h2>
+            <h2 className="text-2xl font-bold mb-3">State and Utility Incentives</h2>
             <p>States like California ($2,000–$4,500 CVRP), Colorado ($5,000–$7,500), New York ($2,000), and Massachusetts ($3,500) offer additional rebates on top of the federal credit. Local utilities frequently add $500–$2,500 rebates or free charger installation. Stacking all incentives can reduce an EV's effective price by $10,000–$15,000.</p>
 
-            <h2>Fuel Savings Calculation</h2>
+            <h2 className="text-2xl font-bold mb-3">Fuel Savings Calculation</h2>
             <p>EVs cost roughly 60–70% less to fuel than gas cars. At $0.16/kWh and 3.5 mi/kWh, an EV costs $0.046/mile. A 28 MPG gas car at $3.50/gallon costs $0.125/mile. Over 15,000 miles/year, that's $1,180/year in savings — $7,000+ over 6 years of ownership.</p>
 
-            <h2>Practical Example</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Example</h2>
             <p>A $47,000 new SUV with $2,000 state incentive and $1,000 utility rebate, owned 6 years with 15,000 miles/year: federal credit $7,500 + state $2,000 + utility $1,000 = $10,500 upfront. Plus $7,080 in fuel savings over 6 years = $17,580 total benefit. Net vehicle cost: $36,500.</p>
 
-            <h2>How to Claim Your EV Benefits</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Claim Your EV Benefits</h2>
             <ul>
               <li><strong>Federal credit:</strong> Transfer to dealer at point-of-sale (2024+) for instant savings, or claim on your tax return.</li>
               <li><strong>State incentives:</strong> Apply through your state's energy office or DMV — some are point-of-sale, others are rebates.</li>
@@ -338,7 +338,7 @@ const EvTaxCreditBenefitCalculator = () => {
               <li><strong>Check eligibility:</strong> Use the IRS Qualified Manufacturer list and your state's EV incentive database before purchasing.</li>
             </ul>
 
-            <h2>Benefits of Using This Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Benefits of Using This Calculator</h2>
             <p>This tool reveals the complete financial picture of EV ownership — not just the federal credit but every dollar of incentive plus ongoing fuel savings. Use it to compare EVs against gas vehicles on a total-cost basis and to ensure you're capturing every available incentive before purchase.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/ev-tax-credit-benefit-calculator" />

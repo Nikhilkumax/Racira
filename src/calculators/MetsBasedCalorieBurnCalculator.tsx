@@ -306,11 +306,11 @@ export default function MetsBasedCalorieBurnCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Universal Language of Energy: What is a MET?</h2>
+            <h2 className="text-2xl font-bold mb-3">The Universal Language of Energy: What is a MET?</h2>
             <p>If you ask a bodybuilder, a marathon runner, and a physical therapist how many calories are burned during a 30-minute workout, you will likely get three completely different answers. The fitness industry is plagued by misinformation, exaggerated claims, and wildly inaccurate smart watch algorithms. To solve this, clinical science required a standardized, immutable system to measure human energy expenditure. Enter the <strong>Metabolic Equivalent of Task (MET)</strong>.</p>
             <p>The <strong>METs Based Calorie Burn Calculator</strong> is the ultimate clinical tool. It bypasses marketing hype and fitness industry guesswork by utilizing the exact mathematical formulas used by physicians and sports scientists worldwide, providing you with a biologically accurate measurement of your thermodynamic output.</p>
 
-            <h2>Understanding the Baseline: 1.0 MET</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Baseline: 1.0 MET</h2>
             <p>The entire MET system is built on a single, fundamental baseline: 1.0 MET. One MET is defined as the exact amount of oxygen your body consumes (and therefore the calories you burn) while sitting perfectly still at rest. It represents the baseline energy required simply to keep your organs functioning and your heart beating.</p>
             <p>Every single physical activity a human being can perform is measured as a multiple of this resting rate. For example:</p>
             <ul>
@@ -319,23 +319,23 @@ export default function MetsBasedCalorieBurnCalculator() {
               <li>If an activity has a MET of 10.0 (like jumping rope), your body is working 10 times harder than baseline.</li>
             </ul>
 
-            <h2>The Mathematics of the MET Formula</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of the MET Formula</h2>
             <p>The beauty of the MET system lies in its mathematical simplicity and biological accuracy. The formula does not care about your heart rate, how much you are sweating, or how sore your muscles feel. It relies entirely on physics: Force = Mass × Acceleration.</p>
             <p>The standardized clinical formula is: <strong>Total Calories = MET Value × Body Weight (in kg) × Duration (in hours)</strong>.</p>
             <p>Notice the critical inclusion of body weight. Because you must physically propel your mass through space against gravity, a heavier person requires drastically more physiological energy (ATP) to perform the exact same physical task. If a 200-pound man and a 120-pound woman both jog at a MET of 8.0 for 30 minutes, the 200-pound man will mathematically burn significantly more absolute calories because he performed significantly more mechanical "work." Our calculator automatically handles these weight conversions and applies the clinical multiplier.</p>
 
-            <h2>Why You Must Stop Trusting Your Fitness Watch</h2>
+            <h2 className="text-2xl font-bold mb-3">Why You Must Stop Trusting Your Fitness Watch</h2>
             <p>In the modern era, millions of people rely exclusively on wrist-based fitness trackers (like Apple Watches and Fitbits) to dictate their caloric intake. This is a massive mistake for weight loss.</p>
             <p>Fitness trackers estimate calories primarily by monitoring your heart rate. While this works reasonably well for steady-state jogging, it fails spectacularly for almost everything else. If you drink two cups of strong coffee, your heart rate will elevate. If you lift a heavy barbell, your blood pressure spikes, causing your heart rate to jump. If you are stressed at work, your heart rate climbs. The fitness watch assumes these heart rate spikes mean you are sprinting on a track, and it will falsely reward you with hundreds of phantom calories you did not actually burn. The MET system ignores these false positives and provides a cold, hard thermodynamic calculation.</p>
 
-            <h2>The Compendium of Physical Activities</h2>
+            <h2 className="text-2xl font-bold mb-3">The Compendium of Physical Activities</h2>
             <p>You might wonder where these specific MET values come from. They are not guessed. They are derived from the <em>Compendium of Physical Activities</em>, originally developed by Dr. Bill Haskell at Stanford University in 1993.</p>
             <p>Researchers placed athletes in highly controlled laboratory environments, attached masks to their faces to measure exact oxygen consumption, and had them perform hundreds of different activities—from vacuuming the floor to running a 5-minute mile. This exhaustive clinical database is updated regularly and serves as the gold standard for global health organizations, including the American College of Sports Medicine (ACSM).</p>
 
-            <h2>Using the Calculator for Fat Loss</h2>
+            <h2 className="text-2xl font-bold mb-3">Using the Calculator for Fat Loss</h2>
             <p>To successfully utilize this calculator for fat loss, you must be ruthlessly honest about your intensity and your duration. The most common error is inputting total gym time rather than active time. If you are at the gym for 60 minutes, but you spend 15 minutes stretching and 15 minutes talking to a friend, your active duration is only 30 minutes. Entering "60 minutes" into the calculator will mathematically double your burn rate and destroy your caloric deficit.</p>
 
-            <h2>Conclusion: Precision is Power</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Precision is Power</h2>
             <p>Weight loss is not a mystery; it is a mathematical equation. To solve the equation, you need precise data. Stop guessing your energy output based on how exhausted you feel, and stop relying on commercial algorithms designed to make you feel good about your workout. Use the METs Based Calorie Burn Calculator to track your exact thermodynamic output, maintain a disciplined caloric deficit in the kitchen, and achieve your physical goals with scientific certainty.</p>
           </article>
           

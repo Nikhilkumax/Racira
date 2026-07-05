@@ -180,8 +180,8 @@ export default function AdjustableRateMortgageCalculator() {
                   </button>
                 </div>
                 
-                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
-                  <div className="text-xs uppercase tracking-wide text-muted-foreground">Initial Monthly Payment</div>
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative">
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground font-bold mb-1">Initial Monthly Payment</div>
                   <div className="text-4xl font-bold text-primary">${results.initialPayment.toLocaleString("en-US", { maximumFractionDigits: 2 })}</div>
                   <div className="text-sm text-muted-foreground mt-1">Maximum Payment: ${results.maxPayment.toLocaleString("en-US", { maximumFractionDigits: 2 })}</div>
                 </div>
@@ -270,30 +270,26 @@ export default function AdjustableRateMortgageCalculator() {
         </div>
 
         {/* SEO Content */}
-        <div className="max-w-[1180px] mt-12 prose prose-slate dark:prose-invert">
-          <h2>What Is an Adjustable Rate Mortgage (ARM) Calculator?</h2>
-          <p>An adjustable-rate mortgage (ARM) calculator helps homebuyers understand how their monthly payments might change over time. Unlike a fixed-rate mortgage where the interest rate remains constant, an ARM has an initial fixed period followed by adjustments based on market conditions.</p>
-          
-          <h2>How It Works</h2>
-          <p>The calculation uses the standard amortization formula for the initial fixed period: <strong>M = P[r(1+r)^n] / [(1+r)^n - 1]</strong>. After the fixed period, the remaining balance is re-amortized over the remaining term using the new interest rate.</p>
+        <div className="max-w-[1180px] mt-12">
+          <article className="prose-finance text-[15.75px]">
+            <h2 className="text-2xl font-bold mb-3">Understanding the Adjustable Rate Mortgage (ARM)</h2>
+            <p>An adjustable-rate mortgage (ARM) is a dynamic financial instrument that fundamentally differs from the traditional, rigid 30-year fixed-rate mortgage. In a standard fixed-rate loan, the interest rate remains locked in for the entire duration of the term, providing complete certainty regarding the monthly principal and interest payment. By contrast, an adjustable-rate mortgage operates in two distinct phases. It begins with a "fixed period," during which the interest rate is locked at a highly competitive, introductory level that is almost always significantly lower than prevailing fixed-rate mortgages. Once this introductory period expires, the loan enters its "adjustment period." During this second phase, the interest rate becomes variable, floating up or down at predetermined intervals based on a specific financial index tied to the broader economy. Because this variability shifts the risk of rising interest rates from the lender to the borrower, lenders incentivize ARMs by offering that ultra-low initial rate.</p>
+            
+            <p>Our Adjustable Rate Mortgage Calculator is engineered to help prospective homebuyers and real estate investors rigorously analyze the mechanical structure of an ARM. By modeling both the guaranteed initial fixed period and projecting potential rate adjustments based on your specific assumptions, this tool demystifies the financial mechanics of variable debt. It calculates your exact initial monthly payment, projects your worst-case maximum monthly payment based on your stated rate caps, and generates a comprehensive year-by-year amortization schedule to illustrate how your loan balance will respond to fluctuating interest rates.</p>
 
-          <h2>Understanding Your Results</h2>
-          <p>The calculator provides your initial monthly payment and estimates your maximum possible payment based on the rate cap you specify. The chart visually demonstrates how your payments could escalate over time if interest rates rise steadily.</p>
-          
-          <h2>Key Factors</h2>
-          <p>Important variables include the initial fixed period (typically 5, 7, or 10 years), the expected adjustment per period (e.g., 0.25%), and the lifetime rate cap, which protects you from astronomical rate hikes.</p>
-          
-          <h2>Advanced Features</h2>
-          <p>Our calculator allows you to model worst-case scenarios by setting the expected adjustment to a high value until it hits the rate cap, giving you a clear picture of potential financial risk.</p>
-          
-          <h2>Practical Examples</h2>
-          <p>For example, a 5/1 ARM starts with a fixed rate for 5 years, then adjusts every 1 year. If the initial rate is lower than fixed-rate options, it can save you money if you plan to move before the 5 years are up.</p>
-          
-          <h2>Tips & Best Practices</h2>
-          <p>Only consider an ARM if you have a solid plan to sell the property or refinance before the fixed period ends, or if you can comfortably afford the maximum possible payment.</p>
-          
-          <h2>Benefits</h2>
-          <p>Using an ARM calculator ensures you are fully prepared for payment shock and can make an informed decision between fixed and adjustable-rate mortgages.</p>
+            <h2 className="text-2xl font-bold mb-3">The Anatomy of an ARM</h2>
+            <p>To accurately model an adjustable-rate mortgage, you must understand the specific nomenclature used by banks. An ARM is typically advertised using two numbers separated by a slash, such as a "5/1 ARM" or a "7/6 ARM." The first number represents the duration of the initial fixed-rate period in years. In a 5/1 ARM, your interest rate is guaranteed not to change for exactly five years. The second number dictates how frequently the interest rate can adjust after the fixed period ends. In a 5/1 ARM, the "1" means the rate will adjust once every single year. If you have a 7/6 ARM, the rate is fixed for seven years, and then it adjusts every six months.</p>
+
+            <p>When the loan reaches an adjustment date, the new interest rate is determined by adding a fixed "margin" to a fluctuating "index." The margin is a percentage set by your lender in your mortgage contract and never changes (for example, 2.25%). The index is a variable benchmark interest rate, such as the Secured Overnight Financing Rate (SOFR) or the Cost of Funds Index (COFI). If, on your adjustment date, the SOFR index is sitting at 3.00%, your new interest rate would be 5.25% (3.00% index plus 2.25% margin). If the index rises to 4.00% by your next adjustment date, your mortgage rate climbs to 6.25%.</p>
+
+            <h2 className="text-2xl font-bold mb-3">Understanding Rate Caps and Payment Shock</h2>
+            <p>Because unchecked variable rates could easily trigger mass defaults during periods of hyperinflation, consumer protection laws require ARMs to feature strict interest rate caps. These caps dictate exactly how high your interest rate can climb, effectively providing a ceiling on your maximum potential monthly payment. There are three types of caps you must understand: the initial adjustment cap, the subsequent adjustment cap, and the lifetime cap. An ARM might be structured with a "2/2/5" cap structure. This means your rate cannot increase by more than 2% at the very first adjustment, it cannot increase by more than 2% at any subsequent adjustment, and the absolute maximum rate over the 30-year life of the loan can never exceed 5% above your initial starting rate.</p>
+            
+            <p>Our calculator allows you to input your lifetime rate cap and your expected adjustment per period. By intentionally setting the "Expected Adj/Period" to a high number, you force the calculator to simulate a worst-case scenario where interest rates skyrocket immediately after your fixed period ends. The calculator will aggressively drive the simulated interest rate up until it hits your designated rate cap, allowing you to clearly see the "Payment Shock"—the severe, sudden increase in your monthly obligation. Understanding your absolute maximum payment is the most critical step in determining whether you can truly afford an adjustable-rate loan.</p>
+
+            <h2 className="text-2xl font-bold mb-3">Strategic Applications for Adjustable Mortgages</h2>
+            <p>Despite the inherent risks associated with variable rates, ARMs remain incredibly popular tools for savvy borrowers with specific strategic timelines. Because the initial rate on a 5/1 or 7/1 ARM is lower than a 30-year fixed loan, it allows buyers to purchase more home for the same monthly payment or dramatically increase their cash flow during the first half-decade of homeownership. The mathematical reality is that the vast majority of homeowners either sell their property or completely refinance their mortgage within the first seven to ten years. If you are a military family knowing you will relocate in five years, or a young professional purchasing a "starter home" you intend to outgrow, paying a premium for a 30-year fixed rate that you will never actually use is mathematically inefficient. In these specific scenarios, an ARM allows you to capitalize on the heavily discounted introductory rate, strictly containing the loan within the guaranteed fixed period and exiting the mortgage long before the first variable adjustment can ever take effect.</p>
+          </article>
         </div>
 
         <FAQSection pageUrl="https://racira.com/calculator/adjustable-rate-mortgage-calculator" faqs={[

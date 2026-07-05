@@ -185,32 +185,32 @@ export default function CapitalGainsYieldCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is Capital Gains Yield?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is Capital Gains Yield?</h2>
             <p>Capital Gains Yield (CGY) is a key return metric for any investment that appreciates in price — stocks, real estate, bonds, or alternative assets. It measures the percentage price increase from your purchase price to your selling price, isolating the price appreciation component of your total investment return. For investors focused on growth rather than income, CGY is the primary performance metric.</p>
             <p>Our calculator uses a realistic example: a stock purchased at $150, sold at $185, with $4.50 in dividends received during the holding period. This produces a Capital Gains Yield of 23.33%, a Dividend Yield of 3.00%, and a Total Return of 26.33% — a strong performance representing approximately 2.5× the typical annual stock market return.</p>
 
-            <h2>The Capital Gains Yield Formula</h2>
+            <h2 className="text-2xl font-bold mb-3">The Capital Gains Yield Formula</h2>
             <p><strong>Capital Gains Yield = (Selling Price − Purchase Price) ÷ Purchase Price × 100</strong></p>
             <p>For our example: CGY = ($185 − $150) ÷ $150 × 100 = $35 ÷ $150 × 100 = 23.33%. The absolute capital gain is simply the dollar difference: $185 − $150 = $35 per share. If you held 100 shares, your capital gain is $3,500. CGY is scale-independent — it tells you the return percentage regardless of position size, making it useful for comparing different investments regardless of their price levels.</p>
 
-            <h2>Total Return: Combining CGY and Dividend Yield</h2>
+            <h2 className="text-2xl font-bold mb-3">Total Return: Combining CGY and Dividend Yield</h2>
             <p><strong>Total Return = Capital Gains Yield + Dividend Yield</strong></p>
             <p><strong>Total Return = [(P1 − P0) + Dividends] ÷ P0</strong></p>
             <p>Total return is the complete measure of investment performance, combining both price appreciation and any income received. For our stock: Total Return = ($35 + $4.50) ÷ $150 = $39.50 ÷ $150 = 26.33%. This is the number to use when comparing across different investment types — a real estate investment with 8% CGY and 4% rental yield produces a 12% total return, identical to a stock with 12% CGY and no dividend.</p>
 
-            <h2>Capital Gains Tax: How It Works</h2>
+            <h2 className="text-2xl font-bold mb-3">Capital Gains Tax: How It Works</h2>
             <p>The US tax treatment of capital gains creates powerful incentives. Short-term capital gains (assets held one year or less) are taxed as ordinary income at your marginal rate — potentially 22–37% for middle and high earners. Long-term capital gains (assets held more than one year) are taxed at special rates: 0% for taxable income below $47,025 (single filer, 2024), 15% for most middle-income earners, and 20% for high earners above $518,900. The difference between short-term and long-term rates can be dramatic: a $35,000 capital gain taxed at 35% (short-term) vs. 15% (long-term) saves $7,000 in tax — just by waiting 12 months. For most investors, maximizing after-tax total return by managing the mix of long-term vs. short-term gains is one of the most impactful tax strategies available.</p>
 
-            <h2>CGY Across Different Asset Classes</h2>
+            <h2 className="text-2xl font-bold mb-3">CGY Across Different Asset Classes</h2>
             <p>Different asset classes have historically delivered very different capital gains yields. US Equities (S&P 500): approximately 7–8% CGY annually, plus 1.5–2% dividend yield. Growth stocks (FAANG, etc.): 15–30%+ CGY in strong years, minimal dividends. Value stocks: 5–10% CGY with 3–5% dividend yields. Real estate: 3–5% annual price appreciation (national average) plus 4–8% rental yield. Bonds: minimal CGY in stable rate environments; CGY is negative when interest rates rise. Gold: 0% cash yield but 3–4% long-run price appreciation. Cryptocurrency: highly volatile CGY with no income yield. For most long-term wealth builders, diversified equity exposure through index funds delivers the most consistent positive CGY over 10+ year periods.</p>
 
-            <h2>Unrealized vs. Realized Capital Gains</h2>
+            <h2 className="text-2xl font-bold mb-3">Unrealized vs. Realized Capital Gains</h2>
             <p>An unrealized capital gain exists when your investment has appreciated in value but you haven't sold it yet. You "own" the gain on paper but owe no taxes until you sell. Unrealized gains can be deferred indefinitely — this is one of the most powerful features of equity investing. Warren Buffett's Berkshire Hathaway holds tens of billions in unrealized gains on positions like Coca-Cola and Apple, deferring taxes for decades. A realized capital gain occurs at the moment of sale, triggering a taxable event. Tax-loss harvesting — deliberately selling losing positions to realize losses that offset realized gains — is a powerful year-end strategy to reduce your tax liability on capital gains while maintaining similar market exposure.</p>
 
-            <h2>Step-Up in Cost Basis</h2>
+            <h2 className="text-2xl font-bold mb-3">Step-Up in Cost Basis</h2>
             <p>One of the most significant estate planning advantages of long-term investing is the step-up in cost basis at death. When an investor dies, their heirs receive the inherited assets with a cost basis stepped up to the fair market value at the date of death. All unrealized capital gains accumulated during the decedent's lifetime are permanently wiped out for tax purposes. This makes holding appreciated assets until death a powerful estate planning strategy — the "buy, hold, and die" strategy eliminates capital gains tax on a lifetime of investment appreciation for heirs who receive the stepped-up basis.</p>
 
-            <h2>Price-to-Earnings and CGY Expectations</h2>
+            <h2 className="text-2xl font-bold mb-3">Price-to-Earnings and CGY Expectations</h2>
             <p>Expected capital gains yield and current valuations are inversely related. The Shiller P/E (CAPE) ratio provides a valuation context: when CAPE is high (above 30), historical evidence suggests future 10-year CGY will be below average (perhaps 3–5%). When CAPE is low (below 15), future CGY tends to be stronger (8–12%). Current CAPE (2024) at approximately 35 suggests below-average forward equity returns, though this doesn't predict short-term movements. Earnings growth is the fundamental driver of long-run CGY — stocks follow earnings over long periods. A company growing earnings per share at 10% per year will likely deliver roughly 10% CGY over many years, assuming stable valuation multiples.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/capital-gains-yield-calculator" />

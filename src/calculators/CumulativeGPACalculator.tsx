@@ -164,7 +164,7 @@ const CumulativeGPACalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Mastering Your GPA</h2>
+              <h2 className="text-2xl font-bold mb-3">Mastering Your GPA</h2>
               <p>Maintaining a strong GPA is often a requirement for scholarships, graduate school admissions, and even certain job opportunities. A cumulative GPA provides a birds-eye view of your entire academic performance, but it can be surprisingly difficult to move once you've accumulated a large number of credits.</p>
               
               <h3>The Weight of History</h3>

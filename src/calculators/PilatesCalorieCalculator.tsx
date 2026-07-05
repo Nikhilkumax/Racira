@@ -282,14 +282,14 @@ export default function PilatesCalorieCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Caloric Demand of Pilates</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Caloric Demand of Pilates</h2>
             <p>Developed in the early 20th century by Joseph Pilates for rehabilitating bedridden soldiers, "Contrology" (now known globally as Pilates) has become one of the most popular functional fitness modalities in the world. It is highly revered for building exceptional core strength, improving posture, and increasing flexibility. However, because it is low-impact and often lacks the rapid, heavy breathing associated with cardio, calculating the exact energy expended can be confusing. The <strong>Pilates Calorie Calculator</strong> removes the guesswork. By applying clinically established Metabolic Equivalent (MET) formulas to your specific body mass and the type of equipment you are using, it provides a mathematically precise estimate of your caloric burn.</p>
 
-            <h2>The Physiology of Core Activation</h2>
+            <h2 className="text-2xl font-bold mb-3">The Physiology of Core Activation</h2>
             <p>To understand how Pilates burns calories, you must understand how it recruits muscle. Unlike traditional weightlifting (which primarily focuses on concentric contractions, or shortening the muscle), Pilates relies heavily on <strong>eccentric contractions</strong> and <strong>isometric holds</strong>. An eccentric contraction occurs when a muscle is lengthened while under tension (for example, slowly lowering your legs toward the floor without letting them drop).</p>
             <p>More importantly, Pilates demands continuous, grueling activation of the deep core musculature, specifically the <em>Transverse Abdominis</em> and the pelvic floor. These muscles act as an internal corset that stabilizes your entire spine. Keeping these massive, deep muscles fully contracted while simultaneously performing precise limb movements requires a surprisingly high volume of oxygen and energy, which directly translates to a steady, continuous caloric burn.</p>
 
-            <h2>Mat Pilates vs. Reformer: The Caloric Difference</h2>
+            <h2 className="text-2xl font-bold mb-3">Mat Pilates vs. Reformer: The Caloric Difference</h2>
             <p>One of the most frequent debates in the fitness community is whether Mat Pilates or Reformer Pilates provides a better workout. From a strict caloric expenditure perspective, the answer lies in the intensity level and your relationship with gravity.</p>
             <ul>
               <li><strong>Beginner/Intermediate Mat Pilates (MET 3.0):</strong> This is the foundation of the discipline. You are on the floor, focusing heavily on breathwork and foundational core stability (like "The Hundred"). The cardiovascular demand is low, and the caloric burn is similar to a moderate walk.</li>
@@ -297,19 +297,19 @@ export default function PilatesCalorieCalculator() {
               <li><strong>Advanced Mat Pilates (MET 4.0):</strong> This often surprises people. Advanced Mat Pilates actually burns <em>more</em> calories than the Reformer. Why? Because the Reformer carriage physically supports a large portion of your body weight. In an Advanced Mat flow, you are entirely unsupported. You must constantly fight gravity to hold 100% of your body weight in extreme, unstable positions. This demands maximum cardiovascular effort and generates the highest calorie burn of traditional Pilates styles.</li>
             </ul>
 
-            <h2>Why Your Body Weight Dictates the Burn</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Your Body Weight Dictates the Burn</h2>
             <p>Because Pilates is predominantly a bodyweight exercise, the laws of physics apply directly to your caloric expenditure. The heavier you are, the more energy your body must expend to perform the movements.</p>
             <p>If you weigh 180 pounds, your core must generate significantly more force to hold your legs at a 45-degree angle or to perform a "Roll Up" from the floor compared to someone who weighs 120 pounds. The mechanical "work" required is greater. Therefore, if two individuals take the exact same 60-minute Pilates class, the heavier individual will mathematically burn a higher number of absolute calories. The calculator factors in your specific weight (in pounds or kilograms) to ensure your estimate is biologically accurate.</p>
 
-            <h2>Can Pilates Make Your Stomach Flatter?</h2>
+            <h2 className="text-2xl font-bold mb-3">Can Pilates Make Your Stomach Flatter?</h2>
             <p>Pilates is famous for creating the illusion of a significantly flatter stomach, but it is critical to understand the biomechanics behind this phenomenon. You cannot "spot reduce" fat. Doing 1,000 core exercises a day will not burn the fat off your stomach; fat loss only occurs through a sustained daily caloric deficit.</p>
             <p>However, Pilates drastically tightens and strengthens the <em>Transverse Abdominis</em>. If your deep core muscles are weak, your internal organs literally push outward against your abdominal wall, creating a "pooch" or distended stomach, even if your body fat percentage is relatively low. By strengthening this internal corset, Pilates physically pulls the abdominal wall inward and perfectly aligns your pelvis and spine. This muscular restructuring makes the stomach look significantly flatter and more toned, independent of actual fat loss.</p>
 
-            <h2>The Muscle-Building Benefit (Hypertrophy)</h2>
+            <h2 className="text-2xl font-bold mb-3">The Muscle-Building Benefit (Hypertrophy)</h2>
             <p>While Pilates does not burn as many calories per minute as a high-intensity spin class, it offers a crucial metabolic advantage: resistance training. Particularly when using the heavy springs on a Reformer or a Cadillac machine, Pilates forces your muscles to adapt to resistance, leading to the development of lean muscle mass.</p>
             <p>Muscle tissue is highly metabolically active. The more lean muscle mass you have on your body, the higher your Resting Metabolic Rate (RMR) becomes. By consistently practicing Pilates and building core, glute, and leg strength, you are literally training your body to burn more calories passively while you are sleeping or sitting at your desk.</p>
 
-            <h2>Conclusion: Incorporating Pilates into Your Routine</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Incorporating Pilates into Your Routine</h2>
             <p>Pilates should not be viewed primarily as a rapid calorie-burning tool. If your sole goal is to burn 500 calories as fast as possible, you should go for a run. Instead, use the Pilates Calorie Calculator to accurately log your sessions, but value the discipline for its true clinical benefits: bulletproofing your spine, eliminating lower back pain, correcting your posture, and building an incredibly strong, functional core that will dramatically improve your performance in every other sport or activity you undertake.</p>
           </article>
           

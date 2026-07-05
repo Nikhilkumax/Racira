@@ -100,7 +100,7 @@ const CarbCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>The Role of Carbohydrates</h2>
+              <h2 className="text-2xl font-bold mb-3">The Role of Carbohydrates</h2>
               <p>Carbohydrates are the body's primary and preferred energy source. When digested, they are broken down into glucose, which fuels your brain, muscles, and organs.</p>
               <h3>Carbs and Exercise</h3>
               <p>If you are highly active, especially in endurance sports or high-intensity interval training, you need more carbohydrates. Muscle glycogen (stored carbs) is rapidly depleted during intense exercise, and replenishing it is essential for recovery.</p>

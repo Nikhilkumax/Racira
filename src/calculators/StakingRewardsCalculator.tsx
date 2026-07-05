@@ -206,11 +206,11 @@ export default function StakingRewardsCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>How Staking Rewards Work</h2>
+            <h2 className="text-2xl font-bold mb-3">How Staking Rewards Work</h2>
             <p>Crypto staking earns rewards for participating in proof-of-stake (PoS) blockchain network validation. This <strong>staking rewards calculator</strong> computes daily, monthly, and annual rewards, and projects compounded growth over your holding period. The compound staking formula: <strong>A = P × (1 + r/n)^(nt)</strong>, where P = principal staked, r = APR, n = compound frequency, t = years.</p>
-            <h2>APR vs. APY in Staking</h2>
+            <h2 className="text-2xl font-bold mb-3">APR vs. APY in Staking</h2>
             <p>APR (Annual Percentage Rate) is the base rate without compounding. APY (Annual Percentage Yield) = (1 + APR/n)^n − 1, where n = number of compound periods per year. At 8% APR: Monthly compounding APY = 8.30%; Daily compounding APY = 8.33%. Platforms advertising "APY" have already factored in the compounding benefit — compare like-for-like when evaluating protocols.</p>
-            <h2>Compound Staking Strategy</h2>
+            <h2 className="text-2xl font-bold mb-3">Compound Staking Strategy</h2>
             <p>The compounding advantage accelerates dramatically over time. At 8% APR over 10 years: Simple staking yields $8,000 in rewards on $10,000 principal. Monthly compounding yields $12,202 — an extra $4,202. Over 20 years: simple = $16,000, compounded = $49,268. The key is reinvesting rewards promptly. On networks with high gas fees, batch reinvestment (weekly or monthly) is more cost-efficient than daily. Related tools: <a href="/calculator/crypto-profit-calculator">Crypto Profit Calculator</a>, <a href="/calculator/compound-interest-calculator">Compound Interest Calculator</a>.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/staking-rewards-calculator" />

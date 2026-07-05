@@ -188,33 +188,33 @@ export default function CompoundAnnualGrowthRateCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is CAGR (Compound Annual Growth Rate)?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is CAGR (Compound Annual Growth Rate)?</h2>
             <p>CAGR, or Compound Annual Growth Rate, is the single most important metric for measuring investment performance over time. It represents the rate at which an investment would have grown each year if it had grown at a perfectly steady rate — factoring in the effect of compounding. Unlike simple average returns, CAGR eliminates volatility from the picture, giving you a clean, comparable number that tells you exactly what your investment delivered annually, year after year.</p>
             <p>Our calculator is pre-filled with a common investment scenario: $10,000 growing to $18,500 over 6 years — producing a CAGR of 10.80% per year. This is close to the historical S&P 500 average, illustrating what a decade of consistent index fund investing looks like in practice.</p>
 
-            <h2>The CAGR Formula Explained</h2>
+            <h2 className="text-2xl font-bold mb-3">The CAGR Formula Explained</h2>
             <p><strong>CAGR = (Ending Value ÷ Beginning Value)^(1 ÷ Number of Years) − 1</strong></p>
             <p>Breaking this down step by step for our example: Step 1: Divide ending by beginning: $18,500 ÷ $10,000 = 1.85. Step 2: Raise to the power of 1/n (where n = 6 years): 1.85^(1/6) = 1.85^0.1667 = 1.1080. Step 3: Subtract 1: 1.1080 − 1 = 0.1080 = 10.80% CAGR. This means your investment grew at the equivalent of 10.80% per year, compounded annually.</p>
 
-            <h2>CAGR vs. Simple Average Return: A Critical Difference</h2>
+            <h2 className="text-2xl font-bold mb-3">CAGR vs. Simple Average Return: A Critical Difference</h2>
             <p>Suppose an investment gains 100% in year 1 (doubles from $10,000 to $20,000) then loses 50% in year 2 (falls back to $10,000). Simple average return = (100% + −50%) ÷ 2 = 25%. But you ended where you started — the actual CAGR is 0%. This example illustrates why simple averages are misleading for multi-year investments. CAGR uses the geometric mean, which always accounts for compounding and path dependence, making it the only accurate way to compare returns across different time horizons.</p>
 
-            <h2>What CAGR Tells You About Investment Quality</h2>
+            <h2 className="text-2xl font-bold mb-3">What CAGR Tells You About Investment Quality</h2>
             <p>Historical benchmarks for CAGR by asset class: US Stock Market (S&P 500): ~10.5% per year since 1926, ~7.5% after inflation. Real Estate: ~4–6% before inflation. Corporate Bonds: ~4–5%. Government Bonds: ~3–4%. Gold: ~3–4% long-term. Cash/CDs: ~1–2%. A personal investment with a CAGR significantly above the relevant benchmark suggests active outperformance — either through skill, luck, or higher risk-taking. Any CAGR comparison must account for risk: a small-cap growth fund might show 15% CAGR but with 30% annual volatility, while an S&P 500 index fund at 10.5% CAGR has 15% volatility — often the better risk-adjusted choice.</p>
 
-            <h2>The Power of Compounding at Different CAGR Rates</h2>
+            <h2 className="text-2xl font-bold mb-3">The Power of Compounding at Different CAGR Rates</h2>
             <p>Starting with $10,000, here's what different CAGR rates produce over 20 years: 5% CAGR → $26,533. 7% CAGR → $38,697. 10% CAGR → $67,275. 12% CAGR → $96,463. 15% CAGR → $163,665. 20% CAGR → $383,376. The gap between 10% and 15% is nearly $100,000 on a $10,000 initial investment over 20 years — demonstrating why even a 5% difference in annual return compounds into an enormous wealth gap. This is why minimizing investment fees (which directly reduce CAGR) is so critical for long-term wealth building.</p>
 
-            <h2>Using CAGR to Evaluate Business Growth</h2>
+            <h2 className="text-2xl font-bold mb-3">Using CAGR to Evaluate Business Growth</h2>
             <p>CAGR applies equally to business metrics: Revenue CAGR, customer base CAGR, profit CAGR, or market share CAGR. A company growing revenue at 20%+ CAGR over 5+ years is typically classified as a high-growth company and commands premium valuation multiples. Revenue CAGR is a key metric in pitch decks and investor presentations. To calculate it: use the company's first-year revenue as beginning value and most recent year's revenue as ending value. Consistent CAGR above 15% for 5+ years puts a company in the top tier of growth performance.</p>
 
-            <h2>CAGR and the Rule of 72</h2>
+            <h2 className="text-2xl font-bold mb-3">CAGR and the Rule of 72</h2>
             <p>The Rule of 72 is a mental math shortcut: divide 72 by the annual growth rate to estimate years to double. At 10.80% CAGR: 72 ÷ 10.80 = 6.67 years to double. The actual precise calculation gives 6.76 years — the Rule of 72 is accurate within 1–2% for rates between 2% and 25%. Use it for quick back-of-envelope calculations: if your portfolio has a 7% CAGR, it doubles in approximately 10 years. At 12% CAGR, it doubles in 6 years. At 3% (inflation), purchasing power halves in 24 years — which is why investing above inflation rate is essential for real wealth preservation.</p>
 
-            <h2>Limitations of CAGR and How to Complement It</h2>
+            <h2 className="text-2xl font-bold mb-3">Limitations of CAGR and How to Complement It</h2>
             <p>CAGR has three important limitations. First, it ignores risk and volatility: two investments with identical 10% CAGR can have wildly different risk profiles. Always pair CAGR with standard deviation, maximum drawdown, or Sharpe Ratio. Second, CAGR is sensitive to endpoints: measuring from a market peak to a trough (or vice versa) produces misleading CAGR figures. Use rolling CAGR across multiple periods for robustness. Third, CAGR doesn't account for cash flows: if you made additional investments during the period, use IRR (Internal Rate of Return) instead. IRR is the cash-flow-aware version of CAGR for investments with multiple inflows and outflows.</p>
 
-            <h2>How to Use This CAGR Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Use This CAGR Calculator</h2>
             <p>Enter your Beginning Value (your initial investment or starting metric), Ending Value (final value after the period), and Number of Years. The calculator instantly computes your CAGR, total return in dollars and percent, simple average annual return for comparison, and the Rule of 72 doubling time. The growth chart projects your investment forward at the calculated CAGR rate, showing the compounding curve visually. Use this to set realistic expectations: a $50,000 investment at 8% CAGR becomes $107,946 in 10 years — more than doubling, but not the explosive growth seen in speculative assets.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/compound-annual-growth-rate-calculator" />

@@ -215,16 +215,16 @@ export default function BlendedRateMortgageCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Golden Handcuffs Dilemma</h2>
+            <h2 className="text-2xl font-bold mb-3">The Golden Handcuffs Dilemma</h2>
             <p>During periods of historically low interest rates, millions of homeowners locked in mortgages at 3% or 4%. Fast forward a few years, and those same homeowners may need cash for home improvements, tuition, or debt consolidation. If current market rates have risen to 7% or 8%, a traditional cash-out refinance forces them to surrender their low primary rate on the entire balance — replacing a 3% loan with a 7% loan on $350,000 is a punishing monthly payment increase. The blended rate calculation exists precisely to model the alternative.</p>
 
-            <h2>How a Blended Rate Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How a Blended Rate Works</h2>
             <p>Instead of refinancing the primary mortgage, the homeowner can leave it completely untouched and take out a second mortgage or Home Equity Line of Credit at the prevailing market rate. The blended rate is the weighted average interest cost across both loans. The formula is straightforward: multiply each loan balance by its respective interest rate, add the two products, then divide by the total combined balance. For example, a $300,000 loan at 3% generates $9,000 of annual interest, and a $50,000 HELOC at 9% generates $4,500. Together, $13,500 of annual interest on $350,000 of total debt equals a blended rate of just 3.86% — far below the 7% a full refinance would cost.</p>
 
-            <h2>Blended Rate vs. Cash-Out Refinance</h2>
+            <h2 className="text-2xl font-bold mb-3">Blended Rate vs. Cash-Out Refinance</h2>
             <p>Once you know your blended rate, the decision is clear. If the blended rate is lower than the rate being offered for a cash-out refinance, you are better off leaving the primary mortgage alone and using the second mortgage or HELOC. If the blended rate exceeds the refinance rate — which could happen if the second loan is very large relative to the first — consolidating into a single new primary mortgage makes more financial sense. The calculator above computes this comparison instantly.</p>
 
-            <h2>Don't Overlook Closing Costs</h2>
+            <h2 className="text-2xl font-bold mb-3">Don't Overlook Closing Costs</h2>
             <p>While the blended rate comparison tells the pure interest story, closing costs often tip the decision in favor of the second mortgage even when the rates are close. A cash-out refinance on a $350,000 balance typically carries closing costs of 2% to 5% — potentially $10,000 to $17,500 in fees. By contrast, many HELOCs and home equity loans come with minimal or even waived closing costs. If the blended rate and the refinance rate are within a fraction of a percent of each other, the avoided closing costs alone usually make the second mortgage the financially superior choice.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/blended-rate-mortgage-calculator" />

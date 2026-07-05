@@ -314,11 +314,11 @@ export default function UltraProcessedFoodPercentageCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Ultra-Processed Food Percentage Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Ultra-Processed Food Percentage Calculator</h2>
             <p>For decades, nutritional science was heavily focused on macronutrients (proteins, carbohydrates, and fats) and raw calorie counting. This led to the creation of "diet foods"—such as 100-calorie snack packs or sugar-free cookies—that perfectly fit macro targets but contained absolutely zero natural ingredients. In recent years, a massive paradigm shift has occurred in dietary science. Researchers realized that it is not just the <em>amount</em> of calories we eat that dictates our health, but the <em>level of industrial processing</em> those calories have undergone. The <strong>Ultra-Processed Food (UPF) Percentage Calculator</strong> is designed to help you quantify exactly how much of your daily diet is derived from these industrially manufactured foods.</p>
             <p>Recent epidemiological studies have shown that diets high in UPFs are strongly correlated with an increased risk of obesity, Type 2 diabetes, cardiovascular disease, and certain types of cancer. By tracking your UPF percentage, you can slowly transition your diet away from the factory floor and back to the farm.</p>
 
-            <h2>The NOVA Food Classification System</h2>
+            <h2 className="text-2xl font-bold mb-3">The NOVA Food Classification System</h2>
             <p>To understand what constitutes a "UPF," the scientific community utilizes the NOVA classification system, developed by researchers at the University of São Paulo. The NOVA system ignores macronutrients entirely and categorizes food based solely on the extent and purpose of its processing. There are four groups:</p>
             
             <p><strong>NOVA Group 1: Unprocessed or Minimally Processed Foods.</strong><br/>
@@ -333,15 +333,15 @@ export default function UltraProcessedFoodPercentageCalculator() {
             <p><strong>NOVA Group 4: Ultra-Processed Foods (UPFs).</strong><br/>
             These are industrial formulations made entirely or mostly from substances extracted from foods (oils, fats, sugar, starch, and proteins). They undergo chemical processing and contain cosmetic additives (flavors, colors, emulsifiers) to make them hyper-palatable. If the ingredient list contains words you would never find in a home kitchen—like high-fructose corn syrup, hydrogenated oils, maltodextrin, or soy lecithin—it is a UPF. Examples: Fast food, soda, packaged cookies, mass-produced bread, flavored yogurt, and most protein bars.</p>
 
-            <h2>The Dangers of the Standard American Diet (SAD)</h2>
+            <h2 className="text-2xl font-bold mb-3">The Dangers of the Standard American Diet (SAD)</h2>
             <p>If your calculator results indicate a UPF percentage above 50%, you are eating the Standard American Diet. According to recent dietary surveys, over 57% of the total caloric intake of the average American adult comes from NOVA Group 4 foods. For children and adolescents, that number climbs to an alarming 67%.</p>
             <p>Why is this dangerous? UPFs are engineered by food scientists to hit the "bliss point"—the perfect ratio of salt, sugar, and fat that bypasses the brain's natural satiety signals. When you eat an apple (Group 1), the fiber physically stretches your stomach, and the slow release of fructose triggers hormones that tell your brain you are full. When you drink an apple-flavored soda (Group 4), those natural roadblocks are removed. You consume 200 calories instantly without triggering any fullness, leading directly to caloric surplus and weight gain.</p>
 
-            <h2>The 80/20 Rule: A Realistic Approach</h2>
+            <h2 className="text-2xl font-bold mb-3">The 80/20 Rule: A Realistic Approach</h2>
             <p>While the health risks of UPFs are severe, attempting to eliminate them entirely (achieving a 0% UPF score) is incredibly difficult in modern society. Unless you grow all your own food and never eat at a restaurant, you will encounter ultra-processed ingredients.</p>
             <p>Nutritionists recommend aiming for the <strong>80/20 Rule</strong>. If 80% or more of your daily calories come from Whole/Minimally Processed foods (NOVA 1-3), your body is receiving the complex matrix of vitamins, fiber, and micronutrients it needs to maintain a robust metabolism and clear out inflammation. Leaving 10% to 20% of your caloric budget for UPFs (like a slice of commercial cake at a birthday party, or a protein shake after a workout) allows for psychological flexibility and prevents the development of restrictive eating disorders like orthorexia.</p>
 
-            <h2>Common UPF "Health Traps"</h2>
+            <h2 className="text-2xl font-bold mb-3">Common UPF "Health Traps"</h2>
             <p>The food industry is highly aware that consumers are seeking healthier options, which has led to "health-washing" ultra-processed foods. Many products that appear healthy are actually NOVA Group 4 items. Be highly suspicious of:</p>
             <ul>
               <li><strong>Flavored Yogurts:</strong> While plain, whole-milk yogurt is a Group 1 food, commercial strawberry-flavored yogurt is often packed with artificial flavors, stabilizers, and massive amounts of refined sugar, classifying it as a UPF.</li>
@@ -350,11 +350,11 @@ export default function UltraProcessedFoodPercentageCalculator() {
               <li><strong>Plant-Based Meat Alternatives:</strong> Many imitation meats undergo extreme industrial processing involving protein isolates, refined seed oils, and chemical flavorings to mimic the texture of meat.</li>
             </ul>
 
-            <h2>How to Lower Your UPF Percentage</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Lower Your UPF Percentage</h2>
             <p>Lowering your UPF percentage does not require eating boring, bland food; it simply requires moving back down the NOVA classification chain. Here are a few simple swaps to drastically improve your ratio:</p>
             <p>Instead of buying commercial fruit juices or sodas (UPF), buy fresh oranges (NOVA 1) or squeeze them yourself. Instead of buying boxed macaroni and cheese with powdered synthetic cheese sauce (UPF), buy dry pasta (NOVA 1) and make a sauce using real butter and block cheese (NOVA 2 & 3). Instead of eating a fast-food hamburger (UPF) filled with preservatives and seed oils, make a burger at home using ground beef (NOVA 1) and a sourdough bun from a local bakery.</p>
 
-            <h2>Conclusion</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion</h2>
             <p>Your health is ultimately dictated by the structural integrity of the food you consume. By using the Ultra-Processed Food Percentage Calculator, you can audit your dietary habits and expose hidden UPFs. By prioritizing single-ingredient, whole foods, you provide your body with the natural metabolic instructions it needs to thrive, naturally reducing hunger, lowering inflammation, and effortlessly shedding excess body fat.</p>
           </article>
           

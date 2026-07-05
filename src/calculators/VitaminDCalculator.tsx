@@ -251,11 +251,11 @@ export default function VitaminDCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Global Vitamin D Epidemic</h2>
+            <h2 className="text-2xl font-bold mb-3">The Global Vitamin D Epidemic</h2>
             <p>Vitamin D is not actually a vitamin—it is a powerful pro-hormone that controls the expression of over 1,000 genes throughout the human body. Every single cell in your immune system, from T-cells to macrophages, contains Vitamin D receptors. Without adequate levels, your immune system cannot activate effectively to fight off viruses, your bones cannot absorb calcium, and your brain struggles to regulate mood-stabilizing neurotransmitters like serotonin.</p>
             <p>Despite its critical importance, we are facing a global deficiency epidemic. Because modern humans spend the vast majority of their lives indoors, and heavily apply sunscreen when outdoors, over 40% of the population is clinically deficient in Vitamin D, with another 30% hovering in the "insufficient" range. This calculator is designed to help you determine the exact daily dosage required to pull yourself out of deficiency and into the optimal range.</p>
 
-            <h2>Understanding The 25(OH)D Blood Test</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding The 25(OH)D Blood Test</h2>
             <p>To accurately dose Vitamin D, you must first know your baseline. The only way to determine this is through a specific blood test called the <strong>25-hydroxyvitamin D test</strong>, abbreviated as 25(OH)D. This test measures the stable, storage form of the vitamin circulating in your liver.</p>
             <p>The Endocrine Society defines the following clinical thresholds (measured in nanograms per milliliter, ng/mL):</p>
             <ul>
@@ -265,7 +265,7 @@ export default function VitaminDCalculator() {
               <li><strong>Potentially Toxic:</strong> Above 100 ng/mL. Prolonged levels this high can lead to hypercalcemia (calcium buildup in the blood), causing kidney stones and arterial damage.</li>
             </ul>
 
-            <h2>How The Calculator Determines Your Dosage</h2>
+            <h2 className="text-2xl font-bold mb-3">How The Calculator Determines Your Dosage</h2>
             <p>Calculating your required daily dosage is highly individualized. A standard "one size fits all" gummy vitamin containing 400 IU is mathematically incapable of correcting a deficiency in an adult. The calculator uses four primary biological factors:</p>
 
             <h3>1. Your Current Blood Level (The Deficit)</h3>
@@ -280,11 +280,11 @@ export default function VitaminDCalculator() {
             <h3>4. Daily Sun Exposure</h3>
             <p>If you work outdoors in construction in Texas, you are likely synthesizing 10,000+ IU of Vitamin D a day naturally, and require zero supplementation. If you work in an office in Seattle and wear sunscreen on the weekends, your natural production is effectively zero, and you must rely 100% on oral supplements.</p>
 
-            <h2>Loading Dose vs. Maintenance Dose</h2>
+            <h2 className="text-2xl font-bold mb-3">Loading Dose vs. Maintenance Dose</h2>
             <p>If the calculator flags you as "Deficient," your doctor will likely not prescribe a daily pill. Trying to fix a severe deficiency with 2,000 IU a day is like trying to fill a swimming pool with a garden hose. Instead, doctors use a <strong>Loading Dose</strong> protocol.</p>
             <p>The standard medical protocol is to prescribe a massive 50,000 IU capsule to be taken once a week for 8 straight weeks. This floods the system and rapidly brings the blood levels up to 40 ng/mL. Once the 8 weeks are over, the patient is transitioned to a <strong>Maintenance Dose</strong> (typically 2,000 to 4,000 IU daily) to keep the "pool" full indefinitely. Never attempt a high-dose loading protocol without direct supervision and regular blood testing from a physician.</p>
 
-            <h2>Crucial Co-Factors: Vitamin K2 and Magnesium</h2>
+            <h2 className="text-2xl font-bold mb-3">Crucial Co-Factors: Vitamin K2 and Magnesium</h2>
             <p>You should never take high doses of Vitamin D in isolation. Vitamin D works synergistically with two critical co-factors.</p>
             <p><strong>Magnesium:</strong> Every enzyme involved in metabolizing Vitamin D in the liver and kidneys requires magnesium to function. If you are magnesium deficient (and roughly 50% of the population is), taking high doses of Vitamin D will rapidly deplete your remaining magnesium stores, leading to muscle cramps, heart palpitations, and anxiety.</p>
             <p><strong>Vitamin K2:</strong> As mentioned, Vitamin D vastly increases your body's absorption of dietary calcium. If that calcium is not directed into your bones, it will float in your bloodstream and calcify your soft tissues and arteries. Vitamin K2 acts as the "traffic cop," activating the proteins that shuttle calcium directly into the bone matrix. Always look for a supplement that pairs Vitamin D3 with Vitamin K2 (specifically the MK-7 variant) to ensure long-term cardiovascular safety.</p>

@@ -398,7 +398,7 @@ export default function FreeCashFlowToEquityCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding Free Cash Flow to Equity (FCFE)</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Free Cash Flow to Equity (FCFE)</h2>
             <p>
               Free Cash Flow to Equity (FCFE) represents the actual amount of liquid cash a business generates that is fully available to be distributed back to its common stock owners or equity shareholders. This distribution can take multiple forms, including direct dividend payouts, share buyback programs (treasury shares repurchase), or simply being retained in the equity segment of the balance sheet for future growth.
             </p>
@@ -406,7 +406,7 @@ export default function FreeCashFlowToEquityCalculator() {
               Unlike Net Income, which is heavily subject to accounting standards, accrual conventions, and non-cash write-offs (like amortization and depreciation), FCFE isolates the true physical movement of cash into and out of the firm. It stands as one of the most critical elements in corporate finance and equity analysis, serving as the mathematical backbone for dividend sustainability checks and discounted cash flow (DCF) equity valuations.
             </p>
 
-            <h2>FCFE Formulas and Calculation Methods</h2>
+            <h2 className="text-2xl font-bold mb-3">FCFE Formulas and Calculation Methods</h2>
             <p>
               Depending on the available financial statements, FCFE is calculated using two primary methods:
             </p>
@@ -437,7 +437,7 @@ export default function FreeCashFlowToEquityCalculator() {
               Because the Operating Cash Flow (CFO) already integrates Net Income, non-cash additions (D&A), and short-term working capital changes, you only need to subtract CapEx and adjust for net debt financing to arrive at the final FCFE.
             </p>
 
-            <h2>Interpreting FCFE Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Interpreting FCFE Results</h2>
             <p>
               A high, growing, and positive FCFE suggests that a company is financially robust, generating ample cash to fund its internal operations, pay down its creditors, and still leave significant margins for equity distribution. Firms with strong FCFE can sustain dividends, execute opportunistically timed stock buybacks, and navigate economic downturns without needing to dilute shareholders by issuing new stock.
             </p>

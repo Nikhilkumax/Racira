@@ -224,13 +224,13 @@ export default function WheelHorsepowerCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What is Wheel Horsepower?</h2>
+            <h2 className="text-2xl font-bold mb-3">What is Wheel Horsepower?</h2>
             <p>When you buy a car, the manufacturer advertises the engine's power output. For example, a Ford Mustang GT is advertised with 480 horsepower. However, this is <strong>Brake Horsepower (BHP)</strong>, measured directly at the engine's crankshaft in a laboratory setting with no transmission attached. Wheel Horsepower (WHP) is the amount of power that actually makes it down to the asphalt. Our Wheel Horsepower Calculator converts factory marketing numbers into realistic, road-ready figures.</p>
 
-            <h2>Understanding Drivetrain Power Loss</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Drivetrain Power Loss</h2>
             <p>Between the engine and the road sits a massive amount of heavy machinery: the transmission, the driveshaft, differentials, axles, and heavy wheels. Every time gears mesh and heavy metal shafts are forced to spin, energy is consumed by friction and rotational mass. This parasitic drag is known as "drivetrain loss."</p>
 
-            <h2>Industry Standard Loss Percentages</h2>
+            <h2 className="text-2xl font-bold mb-3">Industry Standard Loss Percentages</h2>
             <p>Drivetrain loss is not a fixed number; it scales as a percentage of total engine output. The automotive industry generally accepts the following baseline estimates:</p>
             <ul>
               <li><strong>Front-Wheel Drive (FWD) - 15% Loss:</strong> The most efficient layout. The engine is mounted transversely directly above the drive axles. The power only has to make a short trip through the transaxle.</li>
@@ -238,7 +238,7 @@ export default function WheelHorsepowerCalculator() {
               <li><strong>All-Wheel Drive (AWD) - 25% Loss:</strong> The least efficient layout. Power is sent through the transmission, into a central transfer case, down two separate driveshafts, and through two heavy differentials. The massive amount of friction easily robs a quarter of the engine's power.</li>
             </ul>
 
-            <h2>Why Dynos Read Different Numbers</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Dynos Read Different Numbers</h2>
             <p>If you strap your car to a chassis dynamometer (a "dyno"), it will measure your true Wheel Horsepower. However, different brands of dynos read differently. A Mustang Dyno is notorious for reading very low ("heartbreaker dyno") because it actively loads the rollers to simulate aerodynamic drag and vehicle weight. A Dynojet is an inertia-based dyno that spins freely, resulting in much higher, more flattering WHP numbers.</p>
           </article>
           

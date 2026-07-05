@@ -156,23 +156,23 @@ const TipCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Tip Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Tip Calculator?</h2>
             <p>A tip calculator instantly computes the tip amount and total bill for any service, with easy bill splitting for groups. Pre-filled with an $85 restaurant bill at 18% tip split 4 ways, it shows a $15.30 tip ($100.30 total) with each person paying $25.08. Quick-select buttons for 10%, 15%, 18%, 20%, and 25% match the most common tipping conventions, and you can enter any custom percentage.</p>
             <p>Tip calculators are essential for dining out, managing group expenses, calculating service charges for delivery and rideshare, and understanding tipping conventions across different service industries. This calculator also shows the per-person breakdown of bill and tip separately — useful when some people in a group ordered more expensive dishes and want to split proportionally.</p>
-            <h2>The Tip Formula</h2>
+            <h2 className="text-2xl font-bold mb-3">The Tip Formula</h2>
             <p><strong>Tip Amount = Bill × (Tip% / 100)</strong></p>
             <p><strong>Total = Bill + Tip Amount</strong></p>
             <p><strong>Per Person = Total / Number of People</strong></p>
             <p>For $85 at 18%: Tip = $85 × 0.18 = $15.30. Total = $100.30. For 4 people: $100.30 / 4 = $25.08 each. Each person contributes $21.25 toward the bill and $3.83 toward the tip.</p>
-            <h2>Standard Tipping Guidelines</h2>
+            <h2 className="text-2xl font-bold mb-3">Standard Tipping Guidelines</h2>
             <p>Tipping customs vary significantly by country and service type. In the US, restaurant tipping is expected and forms a substantial part of server income. <strong>10%:</strong> Below expectations — typically for poor service. <strong>15%:</strong> Adequate service minimum. <strong>18%:</strong> Standard for good service — the most common benchmark. <strong>20%:</strong> Excellent service — increasingly considered the standard minimum. <strong>25%+:</strong> Exceptional service or high-end establishments.</p>
-            <h2>Mental Math Tip Tricks</h2>
+            <h2 className="text-2xl font-bold mb-3">Mental Math Tip Tricks</h2>
             <p><strong>20% tip:</strong> Move the decimal left one place, then double. $85 → $8.50 × 2 = $17.00. <strong>15% tip:</strong> Find 10% then add half. $85: 10% = $8.50, half = $4.25, total = $12.75. <strong>18% tip:</strong> Find 20% then subtract 10% of that. $85: 20% = $17, 10% of $17 = $1.70, subtract: $15.30. These mental shortcuts work for any bill amount once you get comfortable with decimal movement.</p>
-            <h2>Tipping for Different Services</h2>
+            <h2 className="text-2xl font-bold mb-3">Tipping for Different Services</h2>
             <p><strong>Sit-down restaurants:</strong> 15–25% on the pre-tax amount. <strong>Delivery:</strong> 10–20% with a $3–5 minimum. <strong>Rideshare (Uber/Lyft):</strong> 15–20%, especially for long rides or great service. <strong>Hair salons:</strong> 15–20% for stylists, $5–10 for assistants. <strong>Hotel housekeeping:</strong> $2–5 per night, left daily. <strong>Bartenders:</strong> $1–2 per drink or 15–20% of tab. <strong>Pizza delivery:</strong> $3–5 minimum or 10–15%.</p>
-            <h2>Should You Tip on Pre- or Post-Tax?</h2>
+            <h2 className="text-2xl font-bold mb-3">Should You Tip on Pre- or Post-Tax?</h2>
             <p>Etiquette traditionally recommends tipping on the pre-tax bill. Servers provide service on the food and drink, not the government's portion. However, for simplicity many people tip on the total including tax. On a $100 pre-tax bill with 8% tax ($108 total), the difference between 20% on $100 ($20) versus 20% on $108 ($21.60) is $1.60 — a minor difference that you can resolve based on the quality of service.</p>
-            <h2>Tips for Using This Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips for Using This Calculator</h2>
             <p>Use the quick-select buttons to instantly switch between standard percentages. The pie chart shows the bill-to-tip ratio at a glance. For unequal splits (where people ordered different amounts), use the per-person breakdown to settle the difference. Combine with the <a href="/calculator/sales-tax-calculator">sales tax calculator</a> to compute the full pre-tax amount if you only know the total, or with the <a href="/calculator/percentage-calculator">percentage calculator</a> for other service charge needs.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/tip-calculator" />

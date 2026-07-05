@@ -348,25 +348,25 @@ const GPACalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>What Is a GPA Calculator?</h2>
+              <h2 className="text-2xl font-bold mb-3">What Is a GPA Calculator?</h2>
               <p>A GPA (Grade Point Average) calculator converts your letter grades and credit hours into a numerical GPA on the standard 4.0 scale. It's an essential tool for students planning their academic paths, checking honor roll eligibility, preparing graduate school applications, and monitoring academic progress throughout their college career.</p>
               <p>Our advanced calculator offers three modes: Semester GPA for calculating your current term's GPA, Cumulative GPA for updating your overall GPA after a new semester, and Needed GPA for finding exactly what grades you need in remaining courses to reach a target GPA by graduation.</p>
 
-              <h2>How GPA Is Calculated</h2>
+              <h2 className="text-2xl font-bold mb-3">How GPA Is Calculated</h2>
               <p>GPA is calculated using weighted averages based on credit hours. Each course's grade is converted to grade points (A = 4.0, B+ = 3.3, etc.), then multiplied by the number of credit hours for that course. All weighted grade points are summed and divided by total credit hours to give the GPA.</p>
               <p>Formula: <strong>GPA = Σ(Grade Points × Credit Hours) / Σ(Credit Hours)</strong></p>
               <p>Example: A (4.0) × 3 credits + B+ (3.3) × 3 credits + B (3.0) × 4 credits = (12 + 9.9 + 12) / (3 + 3 + 4) = 33.9 / 10 = 3.39 GPA</p>
 
-              <h2>How to Use This GPA Calculator</h2>
+              <h2 className="text-2xl font-bold mb-3">How to Use This GPA Calculator</h2>
               <p>For Semester GPA, enter each course name, select the letter grade from the dropdown (including +/- grades), and enter the credit hours. Add additional courses with the Add Course button. For Cumulative GPA mode, first enter your existing cumulative GPA and completed credits, then add your new semester courses. For Needed GPA, enter your current GPA, completed credits, target GPA, and remaining credits to see exactly what GPA you need in upcoming terms.</p>
 
-              <h2>The 4.0 GPA Scale Explained</h2>
+              <h2 className="text-2xl font-bold mb-3">The 4.0 GPA Scale Explained</h2>
               <p>The standard US academic GPA scale converts letter grades to numerical values. A+ and A both equal 4.0 (at most institutions). A- = 3.7, B+ = 3.3, B = 3.0, B- = 2.7, C+ = 2.3, C = 2.0, C- = 1.7, D+ = 1.3, D = 1.0, D- = 0.7, and F = 0.0. Withdrawn courses (W) typically don't count toward GPA. Plus/minus grading allows more nuance — a B+ (3.3) significantly outperforms a B (3.0) in GPA contribution, especially in high-credit courses.</p>
 
-              <h2>Example Scenario</h2>
+              <h2 className="text-2xl font-bold mb-3">Example Scenario</h2>
               <p>James is a junior with a 3.2 cumulative GPA after 90 credits. He wants to graduate with a 3.5 GPA and has 30 credits remaining. Using the Needed GPA calculator: Required GPA = (3.5 × 120 − 3.2 × 90) / 30 = (420 − 288) / 30 = 132 / 30 = 4.4. This exceeds 4.0, meaning James cannot reach 3.5 cumulative. The calculator immediately flags this as unachievable, helping James set a realistic target like 3.35 instead.</p>
 
-              <h2>Tips for Improving Your GPA</h2>
+              <h2 className="text-2xl font-bold mb-3">Tips for Improving Your GPA</h2>
               <p>Take advantage of grade replacement policies at schools that allow retaking courses. Focus extra effort on high-credit courses where grades have a proportionally larger impact on GPA. Use incomplete/withdrawal options strategically rather than taking a failing grade. Attend office hours — research shows students who attend office hours receive on average 0.5 GPA points higher than those who don't. Balance your course load to avoid taking multiple difficult courses simultaneously.</p>
             </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/gpa-calculator" />

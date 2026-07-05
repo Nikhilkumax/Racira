@@ -237,14 +237,14 @@ const GasMileageCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Mathematics of Fuel Efficiency</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of Fuel Efficiency</h2>
             <p>With gas prices constantly fluctuating, knowing your vehicle's exact fuel efficiency is crucial for budgeting a road trip or deciding if it's time to buy a new car. The gold standard for measuring fuel efficiency in the United States is <strong>Miles Per Gallon (MPG)</strong>. It is a simple calculation: how many miles can the car travel on a single gallon of gasoline?</p>
 
-            <h2>Why Your Dashboard MPG is Lying to You</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Your Dashboard MPG is Lying to You</h2>
             <p>If you own a car built in the last two decades, you likely have a digital readout on your dashboard displaying your current MPG. You should completely ignore this number if you want true accuracy.</p>
             <p>The car's computer does not physically measure the volume of gasoline burning in real time. Instead, it measures how long the fuel injectors stay open (the pulse width) and uses an algorithm to guess the fuel consumption. Because automakers want you to feel good about your vehicle purchase, these algorithms are notoriously optimistic. It is incredibly common for a dashboard to display 25 MPG, while the true mathematical efficiency is actually 23 MPG.</p>
 
-            <h2>The Only True Way to Calculate MPG</h2>
+            <h2 className="text-2xl font-bold mb-3">The Only True Way to Calculate MPG</h2>
             <p>To find your vehicle's actual, indisputable fuel efficiency, you must calculate it manually at the gas pump using physical measurements.</p>
             <ol>
               <li>Go to a gas station and fill your tank completely until the pump clicks off. (Do not "top it off").</li>
@@ -256,7 +256,7 @@ const GasMileageCalculator = () => {
               <li>Divide the Distance by the Fuel (340 ÷ 14.2 = 23.94 MPG).</li>
             </ol>
 
-            <h2>Why is Metric Efficiency Backwards?</h2>
+            <h2 className="text-2xl font-bold mb-3">Why is Metric Efficiency Backwards?</h2>
             <p>If you travel outside the United States, fuel efficiency is measured using the metric system. However, they don't just swap miles for kilometers and gallons for liters; they completely invert the mathematical concept.</p>
             <p>In the US, we ask: <em>"How far can I go on one unit of fuel?"</em> (MPG). Because of this, a higher number is better.</p>
             <p>In the metric system, they ask: <em>"How much fuel do I need to travel a set distance of 100 kilometers?"</em> (L/100km). Because of this, a <strong>lower</strong> number is better. A car that gets 5 L/100km is incredibly efficient (roughly 47 MPG), while a truck that gets 15 L/100km is a massive gas guzzler (roughly 15 MPG).</p>

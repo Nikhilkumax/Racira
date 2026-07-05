@@ -165,17 +165,17 @@ const BindingEnergyCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Binding Energy Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Binding Energy Calculator?</h2>
             <p>A nuclear binding energy calculator computes the energy holding a nucleus together — the energy required to completely separate all protons and neutrons. Pre-filled with Helium-4 (the alpha particle), the total binding energy is 28.22 MeV with 7.06 MeV per nucleon. This calculator uses precise atomic masses and {"Einstein's"} mass-energy equivalence (E = mc²) to derive binding energies for 8 common isotopes plus custom inputs.</p>
-            <h2>Mass-Energy Equivalence</h2>
+            <h2 className="text-2xl font-bold mb-3">Mass-Energy Equivalence</h2>
             <p><strong>E = Δm × c²</strong>, where Δm is the mass defect in atomic mass units (amu). 1 amu = 931.494 MeV/c². The mass defect is the difference between the sum of individual nucleon masses and the actual nuclear mass. This {"'missing'"} mass has been converted to binding energy — the {"'glue'"} holding the nucleus together via the strong nuclear force.</p>
-            <h2>The Binding Energy Curve</h2>
+            <h2 className="text-2xl font-bold mb-3">The Binding Energy Curve</h2>
             <p>The binding energy per nucleon curve peaks at Iron-56/Nickel-62 (~8.79 MeV/nucleon). Light nuclei (H, He, Li) have lower BE/nucleon and release energy through fusion (moving up the curve). Heavy nuclei (U, Pu) also have lower BE/nucleon and release energy through fission (moving down toward iron). This curve explains why iron is the endpoint of stellar nucleosynthesis and the most abundant heavy element in the universe.</p>
-            <h2>Nuclear Fusion</h2>
+            <h2 className="text-2xl font-bold mb-3">Nuclear Fusion</h2>
             <p>Fusion combines light nuclei to form heavier, more tightly bound nuclei. The most energetically favorable reaction: 4¹H → ⁴He + 2e⁺ + 2ν + 26.7 MeV. This powers the Sun and all main-sequence stars. Hydrogen bombs use the D-T reaction: ²H + ³H → ⁴He + n + 17.6 MeV. Controlled fusion reactors (ITER, tokamaks) aim to harness this reaction for clean energy production.</p>
-            <h2>Nuclear Fission</h2>
+            <h2 className="text-2xl font-bold mb-3">Nuclear Fission</h2>
             <p>Fission splits heavy nuclei into lighter, more tightly bound fragments. U-235 + n → fission products + 2-3n + ~200 MeV. The released neutrons can trigger chain reactions — the basis of nuclear reactors and weapons. Each U-235 fission releases ~200 MeV vs ~4 eV per chemical reaction — nuclear energy is ~50 million times more energy-dense than chemical energy per atom.</p>
-            <h2>Stellar Nucleosynthesis</h2>
+            <h2 className="text-2xl font-bold mb-3">Stellar Nucleosynthesis</h2>
             <p>Stars fuse progressively heavier elements: H → He (main sequence), He → C,O (red giant), then C → Ne → O → Si → Fe in massive stars. Each stage releases energy because BE/nucleon increases. Fusion beyond iron requires energy input, so iron accumulates in the core. When the iron core exceeds the Chandrasekhar limit (~1.4 solar masses), it collapses — triggering a supernova that synthesizes all elements heavier than iron via rapid neutron capture (r-process).</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/binding-energy-calculator" />

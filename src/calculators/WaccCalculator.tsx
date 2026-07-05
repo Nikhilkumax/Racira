@@ -215,10 +215,10 @@ export default function WaccCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding Weighted Average Cost of Capital (WACC)</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Weighted Average Cost of Capital (WACC)</h2>
             <p>The Weighted Average Cost of Capital (WACC) is a financial metric used to calculate a company's cost of capital. It represents the minimum rate of return a company must earn on its existing asset base to satisfy its creditors, owners, and other providers of capital. If a company's investments yield returns below its WACC, it is destroying corporate value.</p>
             
-            <h2>The WACC Formula</h2>
+            <h2 className="text-2xl font-bold mb-3">The WACC Formula</h2>
             <p>WACC is calculated by multiplying the cost of each capital component (equity and debt) by its proportional weight in the overall capital structure, and summing the results:</p>
             <p><code>WACC = (E/V × Re) + (D/V × Rd × (1 − T))</code></p>
             <p>Where E is the market value of equity, D is the market value of debt, V is the total capital (E + D), Re is the cost of equity, Rd is the pre-tax cost of debt, and T is the corporate tax rate.</p>

@@ -236,11 +236,11 @@ export default function CoolingSystemCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Physics of an Internal Combustion Engine</h2>
+            <h2 className="text-2xl font-bold mb-3">The Physics of an Internal Combustion Engine</h2>
             <p>An internal combustion engine is not really a machine designed to create motion; it is a machine designed to create controlled explosions. When a spark plug ignites the gasoline and air mixture inside the cylinder, it creates a massive fireball. This fireball expands violently, pushing the piston downward. This downward force turns the crankshaft, which ultimately spins the wheels.</p>
             <p>However, the laws of thermodynamics dictate that this process is incredibly inefficient. A typical gasoline engine is only about 30% to 35% thermally efficient. This means that if you buy a gallon of gasoline, only one-third of that gasoline actually moves the car forward. The other two-thirds is instantly converted into raw, violent heat.</p>
 
-            <h2>The Rule of Thirds</h2>
+            <h2 className="text-2xl font-bold mb-3">The Rule of Thirds</h2>
             <p>To calculate the required size of a radiator and water pump, mechanical engineers use a standard baseline known as the "Rule of Thirds." When fuel is burned at Maximum Wide Open Throttle (WOT), the resulting energy is split three ways:</p>
             <ul>
               <li><strong>33% Mechanical Energy:</strong> This is the usable force pushing the pistons down. We measure this on a dyno as Horsepower.</li>
@@ -248,7 +248,7 @@ export default function CoolingSystemCalculator() {
               <li><strong>33% Block Heat:</strong> This is the dangerous heat. It is absorbed directly into the metal walls of the cylinders and engine block. If this heat is not removed immediately, the oil will boil, the pistons will expand, and the engine will physically weld itself together (seize) within minutes.</li>
             </ul>
 
-            <h2>Why Horsepower Dictates Radiator Size</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Horsepower Dictates Radiator Size</h2>
             <p>Because of the Rule of Thirds, the amount of heat absorbed by the engine block is roughly equal to the amount of mechanical horsepower being produced. If you have a factory 200 HP engine, the radiator only needs to dissipate roughly 200 HP worth of heat. But if you bolt on a supercharger and double the engine's output to 400 HP, you are now burning twice as much fuel per second. You have simultaneously doubled the amount of heat being dumped into the engine block. The factory radiator will instantly boil over under heavy acceleration, requiring an upgrade to a thicker aluminum core radiator to handle the increased thermal load.</p>
           </article>
           

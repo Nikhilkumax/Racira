@@ -203,15 +203,15 @@ const TimeZoneConverter = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>World Time Zones Explained</h2>
+              <h2 className="text-2xl font-bold mb-3">World Time Zones Explained</h2>
               <p>The Earth is divided into 24 primary time zones, each roughly 15° of longitude wide — corresponding to one hour of Earth's rotation. In practice, political boundaries create 38 distinct zones ranging from UTC−12 (Baker Island) to UTC+14 (Line Islands, Kiribati).</p>
               <p>Several zones use half-hour or 45-minute offsets. India (UTC+5:30), Iran (UTC+3:30), Nepal (UTC+5:45), and parts of Australia (UTC+9:30) are the most notable examples. Our converter supports all major offsets.</p>
 
-              <h2>Daylight Saving Time (DST)</h2>
+              <h2 className="text-2xl font-bold mb-3">Daylight Saving Time (DST)</h2>
               <p>Approximately 70 countries observe daylight saving time, shifting clocks forward by one hour in spring and back in autumn. DST transitions typically occur at 2:00 AM local time. Because different countries transition on different dates, the offset between two cities can change multiple times per year.</p>
               <p>For the most accurate conversion during DST transitions, verify which offset each location is currently observing and select the corresponding UTC offset manually.</p>
 
-              <h2>Tips for International Scheduling</h2>
+              <h2 className="text-2xl font-bold mb-3">Tips for International Scheduling</h2>
               <ul>
                 <li><strong>Use UTC as the anchor:</strong> When coordinating across 3+ time zones, express the meeting time in UTC first, then let each participant convert locally.</li>
                 <li><strong>Respect business hours:</strong> Avoid scheduling before 9 AM or after 6 PM in any participant's zone when possible.</li>

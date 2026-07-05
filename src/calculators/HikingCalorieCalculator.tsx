@@ -302,18 +302,18 @@ export default function HikingCalorieCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Hidden Physics of Hiking</h2>
+            <h2 className="text-2xl font-bold mb-3">The Hidden Physics of Hiking</h2>
             <p>To the untrained observer, hiking appears to be nothing more than walking outdoors. From a physiological and thermodynamic perspective, however, it is an entirely different mechanical beast. Walking on a flat, paved sidewalk is a highly efficient form of transportation; hiking up a mountain with a loaded backpack is a grueling, multi-hour resistance training session that demands massive cardiovascular output. The <strong>Hiking Calorie Calculator</strong> bypasses the inaccurate generalizations of fitness trackers by utilizing clinical Metabolic Equivalent (MET) formulas. By mathematically combining your specific body mass with the dead weight of your pack, and factoring in the vertical severity of the terrain, it provides an exact measurement of the energy required to conquer the trail.</p>
 
-            <h2>Why Hiking Obliterates Walking for Fat Loss</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Hiking Obliterates Walking for Fat Loss</h2>
             <p>If you walk 3 miles on a paved road, your body establishes a perfectly efficient rhythm. Your center of gravity never changes, your feet land on perfectly level ground, and your forward momentum does most of the physical work. Your body requires very little oxygen to sustain this.</p>
             <p>Hiking destroys this efficiency entirely. First, the terrain is uneven. With every step on dirt, rocks, or mud, your ankle stabilizers, knees, and deep core muscles must forcefully fire just to keep you upright. This continuous isometric stabilization requires significant energy. Second, trails are not flat. When you step up onto a 12-inch rock, you are essentially performing a single-leg weighted squat. You are forcing your glutes and quadriceps to lift your entire body weight straight up against gravity. Doing this thousands of times over several hours creates a massive oxygen demand, drastically spiking the calories burned per minute compared to standard walking.</p>
 
-            <h2>The Mathematics of the Backpack</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of the Backpack</h2>
             <p>One of the most critical variables in hiking physics is your backpack. Your leg muscles cannot differentiate between biological fat and nylon gear; they only recognize the total <strong>mass</strong> they must propel against gravity.</p>
             <p>If you weigh 150 pounds and strap on a 30-pound multi-day hiking pack, you have just forced your body to do the mechanical work of a 180-pound person. This 20% increase in mass requires a massive increase in physiological energy (ATP) to move. Every single step requires your heart to pump harder to deliver oxygen to your strained quadriceps. By strictly adding your pack weight to your body weight before applying the MET multiplier, our calculator ensures that your total load is mathematically accounted for, preventing the massive underestimations seen in standard walking calculators.</p>
 
-            <h2>Understanding Terrain Grade and METs</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Terrain Grade and METs</h2>
             <p>Exercise physiologists measure physical effort using METs (Metabolic Equivalents). One MET is the energy you burn while sitting still. In hiking, the MET value is dictated almost entirely by the steepness of the terrain:</p>
             <ul>
               <li><strong>Flat / Gentle Trails (MET 5.0):</strong> You are hiking on relatively level dirt paths with minimal elevation gain. The uneven surface requires more energy than pavement, burning roughly 5 times your resting metabolic rate.</li>
@@ -321,15 +321,15 @@ export default function HikingCalorieCalculator() {
               <li><strong>Steep Incline / Scrambling (MET 7.3):</strong> This is the most grueling phase of hiking. You are navigating switchbacks, steep stair-steps, or using your hands to scramble over boulders. Your heart rate is pushed into the high aerobic zone. You are burning over 7 times your resting metabolic rate—a caloric burn rate that easily rivals intense jogging, but sustained over several hours.</li>
             </ul>
 
-            <h2>The Downhill Trap: Eccentric Muscle Damage</h2>
+            <h2 className="text-2xl font-bold mb-3">The Downhill Trap: Eccentric Muscle Damage</h2>
             <p>Many hikers assume they stop burning calories on the hike down because their heart rate drops and they stop breathing heavily. While the immediate cardiovascular demand decreases, the mechanical damage skyrockets.</p>
             <p>Hiking downhill forces your quadriceps into "eccentric" contractions. This means the muscle is lengthening while it is under tension, acting as a brutal brake to prevent gravity from pulling you down the mountain. Eccentric contractions cause massive microscopic tearing in the muscle tissue (which is why your legs are severely sore the next day). Repairing this massive muscular trauma requires significant calories (via the Afterburn Effect, or EPOC) over the next 24 to 48 hours. Your hike continues to burn calories long after you have reached the parking lot.</p>
 
-            <h2>Hiking as the Ultimate LISS Cardio</h2>
+            <h2 className="text-2xl font-bold mb-3">Hiking as the Ultimate LISS Cardio</h2>
             <p>In the fitness world, "LISS" stands for Low-Intensity Steady State cardio. While high-intensity interval training (HIIT) burns glycogen (sugar) rapidly, LISS cardio burns fat. Because hiking keeps your heart rate elevated in a moderate, steady zone for 2 to 6 hours at a time, your body primarily oxidizes stored body fat to fuel the long, slow effort.</p>
             <p>Furthermore, hiking produces very low central nervous system fatigue compared to heavy weightlifting or sprinting. You can hike for 4 hours, burn 2,000 calories, and still function the next day. If combined with a disciplined, protein-rich diet to ensure a caloric deficit, hiking is arguably one of the most enjoyable and effective fat-loss protocols in existence.</p>
 
-            <h2>Conclusion: Conquer the Mountain</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Conquer the Mountain</h2>
             <p>A smart watch cannot accurately sense the 20-pound pack on your back, nor can it perfectly account for the uneven mud pulling at your boots. It relies entirely on heart rate, which often leads to wildly inaccurate estimations. Stop relying on generic technology. Use the Hiking Calorie Calculator to input your exact mass, load, and terrain data. Track your true energy expenditure, pack the correct amount of nutritional fuel, and conquer your next summit with mathematical precision.</p>
           </article>
           

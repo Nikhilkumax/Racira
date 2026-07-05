@@ -371,14 +371,14 @@ export default function TwinPregnancyWeightGainCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding Twin Pregnancy Weight Gain Guidelines</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Twin Pregnancy Weight Gain Guidelines</h2>
             <p>Finding out that you are pregnant with twins is a life-altering moment. Almost immediately, the medical care required shifts from standard obstetrics to specialized, high-risk Maternal-Fetal Medicine (MFM). One of the most immediate, critical conversations you will have with your healthcare provider revolves around maternal nutrition and weight gain. Carrying multiples demands a drastically different physiological environment than a singleton pregnancy. The <strong>Twin Pregnancy Weight Gain Calculator</strong> utilizes the official, peer-reviewed guidelines published by the Institute of Medicine (IOM) to provide you with a mathematically precise target range designed to maximize fetal growth while protecting maternal health.</p>
 
-            <h2>Why Twins Require Massively Different Guidelines</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Twins Require Massively Different Guidelines</h2>
             <p>The math is simple, but the biology is incredibly complex. In a singleton pregnancy, maternal weight gain accounts for the baby, one placenta, expanded blood volume, amniotic fluid, and maternal fat stores for lactation. In a twin gestation, that math is amplified.</p>
             <p>A mother carrying twins must grow two entirely separate fetuses. Furthermore, she must construct and maintain either one massive shared placenta (monochorionic) or two entirely separate placentas (dichorionic). The maternal cardiovascular system undergoes extreme hypertrophy, expanding blood volume by over 50% just to maintain adequate uterine perfusion for two fetuses. There is also double the volume of amniotic fluid, and the body must lay down significantly more dense fat tissue to prepare for the massive metabolic demand of tandem breastfeeding. All of these biological necessities equate to a much higher, non-negotiable scale of weight gain.</p>
 
-            <h2>The BMI Framework: Setting Your Target</h2>
+            <h2 className="text-2xl font-bold mb-3">The BMI Framework: Setting Your Target</h2>
             <p>The Institute of Medicine does not issue a "one-size-fits-all" weight gain recommendation. Instead, the guidelines are strictly tiered based on a mother's starting <strong>Body Mass Index (BMI)</strong> immediately prior to conception. The rationale is simple: women who enter pregnancy with lower fat reserves (low BMI) must gain significantly more weight to provide adequate fuel for fetal growth, while women who enter pregnancy with large fat reserves (high BMI) can safely draw upon those stores to partially fuel the pregnancy.</p>
 
             <p>The official IOM guidelines for a twin pregnancy are as follows:</p>
@@ -389,20 +389,20 @@ export default function TwinPregnancyWeightGainCalculator() {
               <li><strong>Obese (BMI 30.0 and above):</strong> 25 to 42 pounds (11.3 to 19.1 kg). The lowest target bracket, tightly controlled to prevent gestational diabetes and severe preeclampsia while still ensuring twin viability.</li>
             </ul>
 
-            <h2>The Critical Importance of Early Weight Gain</h2>
+            <h2 className="text-2xl font-bold mb-3">The Critical Importance of Early Weight Gain</h2>
             <p>In a standard singleton pregnancy, women are often told that the majority of their weight gain will occur in the third trimester. <strong>This logic does not apply to twin pregnancies.</strong></p>
             <p>Because the human uterus has a physical capacity limit, twin pregnancies almost universally run out of room far earlier than singletons. The average twin pregnancy delivers prematurely at roughly 35 to 36 weeks (compared to 40 weeks for a singleton). Because the delivery timeline is heavily compressed, the window for maximizing fetal growth is significantly shorter.</p>
             <p>Maternal-Fetal Medicine specialists place extreme emphasis on aggressive maternal weight gain between weeks 20 and 24. Studies overwhelmingly prove that early maternal weight gain in twin pregnancies is the strongest predictor of higher infant birth weights. By aggressively front-loading maternal nutrition during the second trimester, you give the twins the absolute best chance of crossing the critical 5.5-pound threshold before space restrictions force an early delivery.</p>
 
-            <h2>The Risks of Inadequate Nutrition</h2>
+            <h2 className="text-2xl font-bold mb-3">The Risks of Inadequate Nutrition</h2>
             <p>Failure to meet the IOM minimum weight gain targets in a twin gestation carries severe, scientifically documented risks. The most prominent danger is <strong>Intrauterine Growth Restriction (IUGR)</strong>, where one or both fetuses fail to grow at the expected rate due to a lack of maternal nutrients or poor placental perfusion.</p>
             <p>Inadequate weight gain also drastically increases the statistical likelihood of extreme preterm labor. Twins born prematurely at very low birth weights (under 3.5 pounds) face grueling, extended stays in the Neonatal Intensive Care Unit (NICU). They frequently require mechanical ventilation for underdeveloped lungs, feeding tubes because they lack the reflex to swallow, and constant thermal regulation in incubators. Adequate maternal nutrition is the primary preventative measure against prolonged NICU admissions.</p>
 
-            <h2>Caloric Needs: How to Actually Gain the Weight</h2>
+            <h2 className="text-2xl font-bold mb-3">Caloric Needs: How to Actually Gain the Weight</h2>
             <p>Gaining 40 to 50 pounds in a compressed timeframe is exceptionally difficult, especially when the massive size of the expanding uterus physically crushes the mother's stomach, leading to rapid satiety and severe acid reflux.</p>
             <p>To hit these targets, a mother carrying twins generally needs an additional <strong>600 calories per day</strong> above her pre-pregnancy maintenance level. However, simply eating "junk food" to hit caloric goals will lead to maternal gestational diabetes and poor fetal bone density. The focus must be on hyper-caloric, nutrient-dense foods: avocados, full-fat Greek yogurt, nut butters, salmon, eggs, and heavy complex carbohydrates like sweet potatoes and quinoa. Because the stomach cannot hold massive meals, the mother must transition to eating 5 or 6 small, high-calorie meals throughout the day.</p>
 
-            <h2>Conclusion: Trust the Process and Your Doctor</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Trust the Process and Your Doctor</h2>
             <p>Watching the scale climb rapidly during a twin pregnancy can be psychologically jarring, especially in a society hyper-fixated on thinness. However, in the context of a multiple gestation, that weight gain is literally building human life and protecting against catastrophic prematurity. Use the Twin Pregnancy Weight Gain Calculator to establish your mathematical baseline, and then work aggressively alongside your high-risk OB/GYN to construct a daily nutritional protocol that ensures you and your babies reach the finish line as safely and healthily as possible.</p>
           </article>
           

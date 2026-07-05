@@ -280,18 +280,18 @@ export default function FeverCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Medical Reality of Fevers</h2>
+            <h2 className="text-2xl font-bold mb-3">The Medical Reality of Fevers</h2>
             <p>One of the most common reasons for emergency room visits and panicked calls to pediatricians is a fever. However, there is widespread misunderstanding about what a fever actually is. A fever is not a disease; it is a highly evolved, biological defense mechanism. When your immune system detects a viral or bacterial invader, the hypothalamus (the brain's thermostat) intentionally raises your core body temperature. Why? Because most pathogens replicate very poorly in high heat, and your immune cells operate more efficiently at higher temperatures.</p>
 
-            <h2>When is a Fever Dangerous?</h2>
+            <h2 className="text-2xl font-bold mb-3">When is a Fever Dangerous?</h2>
             <p>For children over the age of 6 months and healthy adults, the height of the fever is rarely a cause for panic. A temperature of 103°F (39.4°C) sounds scary, but the brain has internal fail-safes that prevent the body from raising its own temperature past 106°F. Therefore, a fever caused by an infection will almost never cause brain damage.</p>
             <p>Doctors are much more concerned with the patient's <strong>behavior and appearance</strong>. If a child has a 103°F fever but is sitting up, drinking juice, and watching cartoons, they are likely fine. If a child has a 100.5°F fever but is completely unresponsive, refusing all fluids, and has a stiff neck, that is a medical emergency.</p>
 
-            <h2>The Exception: The First 90 Days of Life</h2>
+            <h2 className="text-2xl font-bold mb-3">The Exception: The First 90 Days of Life</h2>
             <p>The rules change entirely for newborns (0 to 3 months of age). In this specific age group, <strong>any temperature of 100.4°F (38.0°C) or higher is an absolute medical emergency.</strong></p>
             <p>Newborns do not have fully formed immune systems, and their blood-brain barrier is incomplete. If a newborn catches a seemingly minor bacterial infection (like a UTI), that bacteria can replicate exponentially, breach the blood-brain barrier, and cause meningitis or full-body sepsis in a matter of hours. Because newborns cannot localize or fight off these infections, emergency room doctors must aggressively treat any newborn fever with blood cultures, spinal taps, and broad-spectrum IV antibiotics until the exact cause is identified.</p>
 
-            <h2>Febrile Seizures in Toddlers</h2>
+            <h2 className="text-2xl font-bold mb-3">Febrile Seizures in Toddlers</h2>
             <p>Between the ages of 6 months and 5 years, some children may experience a febrile seizure when their temperature spikes rapidly. Witnessing a child convulse and lose consciousness is terrifying for parents. However, neurological studies have definitively proven that simple febrile seizures are benign. They do not cause brain damage, they do not lower intelligence, and they do not mean the child has epilepsy. If a seizure lasts longer than 5 minutes, call 911.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/fever-calculator" />

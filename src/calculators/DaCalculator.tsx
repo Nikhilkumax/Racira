@@ -95,14 +95,14 @@ const DACalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>What Is a DA Calculator?</h2>
+              <h2 className="text-2xl font-bold mb-3">What Is a DA Calculator?</h2>
               <p>A Dearness Allowance (DA) calculator helps government employees and pensioners estimate their DA component based on their basic pay and the applicable DA rate. DA is revised semi-annually by the central government to compensate for rising cost of living.</p>
 
-              <h2>How Is DA Calculated?</h2>
+              <h2 className="text-2xl font-bold mb-3">How Is DA Calculated?</h2>
               <p>The formula is straightforward: <strong>DA = Basic Pay × DA Rate ÷ 100</strong>. For central government employees under the 7th CPC, the DA percentage is determined using the All India Consumer Price Index (AICPI) with 2001 as the base year.</p>
               <p>The formula used by the government: <strong>DA% = ((Average of AICPI for last 12 months – 115.76) / 115.76) × 100</strong></p>
 
-              <h2>DA Rate History (7th CPC)</h2>
+              <h2 className="text-2xl font-bold mb-3">DA Rate History (7th CPC)</h2>
               <ul>
                 <li><strong>Jan 2024:</strong> 50%</li>
                 <li><strong>Jul 2023:</strong> 46%</li>
@@ -111,10 +111,10 @@ const DACalculator = () => {
                 <li><strong>Jan 2022:</strong> 34%</li>
               </ul>
 
-              <h2>DA for Pensioners</h2>
+              <h2 className="text-2xl font-bold mb-3">DA for Pensioners</h2>
               <p>Pensioners also receive DA at the same rate as serving employees. The DA is calculated on the basic pension amount. For pre-2016 retirees who haven't opted for 7th CPC revision, a different DA rate applies.</p>
 
-              <h2>Impact of DA on Other Allowances</h2>
+              <h2 className="text-2xl font-bold mb-3">Impact of DA on Other Allowances</h2>
               <ul>
                 <li><strong>HRA:</strong> Not directly affected by DA, but when DA crosses 25% or 50%, HRA classification may change.</li>
                 <li><strong>Transport Allowance:</strong> Gets a DA component added to it.</li>

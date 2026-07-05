@@ -193,7 +193,7 @@ const PayrollTaxCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Understanding Payroll Taxes</h2>
+              <h2 className="text-2xl font-bold mb-3">Understanding Payroll Taxes</h2>
               <p>Payroll taxes are taxes imposed on employers and employees and are usually calculated as a percentage of the salaries that employers pay their staff. These taxes fund essential social insurance programs, including Social Security and Medicare.</p>
 
               <h3>The Hidden Costs of Hiring</h3>
@@ -212,7 +212,7 @@ const PayrollTaxCalculator = () => {
               <h3>Income Tax Withholding</h3>
               <p>While FICA taxes are fixed percentages, Federal Income Tax withholding is based on the information provided on your Form W-4. This calculator uses a simplified effective rate to estimate this withholding, but your actual take-home pay may vary based on your specific deductions and credits.</p>
 
-              <h2>Managing Payroll for Small Businesses</h2>
+              <h2 className="text-2xl font-bold mb-3">Managing Payroll for Small Businesses</h2>
               <p>If you are a new employer, managing these taxes can be complex. We recommend using a professional payroll service (like Gusto, ADP, or Paychex) to ensure that all taxes are calculated correctly, withheld from paychecks, and paid to the appropriate government agencies on time. Missing a payroll tax deadline can lead to some of the most severe penalties issued by the IRS.</p>
             </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/payroll-tax-calculator" />

@@ -145,7 +145,7 @@ const FlightEmissionsCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Aviation and the Climate</h2>
+              <h2 className="text-2xl font-bold mb-3">Aviation and the Climate</h2>
               <p>Air travel is one of the most carbon-intensive activities an individual can perform. A single long-haul flight can produce more CO2 emissions than many people produce in an entire year through other activities.</p>
               <h3>The Radiative Forcing Index (RFI)</h3>
               <p>When you burn fuel at high altitudes, the impact is different than burning it at sea level. Contrails and other gases trap more heat. Most scientists agree that the total warming effect of aviation is about twice as high as the CO2 emissions alone. This calculator includes an RFI of 1.9 to provide a more honest picture of your impact.</p>

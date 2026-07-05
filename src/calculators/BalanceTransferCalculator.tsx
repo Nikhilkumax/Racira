@@ -410,7 +410,7 @@ const BalanceTransferCalculator = () => {
         <div className="max-w-[1180px] mt-12">
           <AdPlaceholder className="mb-8" />
           <article className="prose prose-slate max-w-none lg:prose-lg dark:prose-invert">
-            <h2>What Is a Balance Transfer Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Balance Transfer Calculator?</h2>
             <p>
               A <strong>Balance Transfer Calculator</strong> is a strategic financial tool used to determine whether shifting high-interest credit card debt to a new credit card with a promotional 0% APR (Annual Percentage Rate) will actually save you money. 
             </p>
@@ -418,7 +418,7 @@ const BalanceTransferCalculator = () => {
               Credit card debt is notoriously expensive, with average APRs frequently exceeding 24%. When you are trapped in this cycle, the vast majority of your monthly payment goes toward simply treading water—paying the interest—rather than reducing the principal balance. A balance transfer allows you to pause the interest clock, but it is rarely free. This calculator analyzes the friction costs (transfer fees) against the projected interest savings to give you a definitive answer on whether a transfer is a smart financial move.
             </p>
 
-            <h2>How the Mathematical Model Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How the Mathematical Model Works</h2>
             <p>
               Calculating the true value of a balance transfer requires running two parallel amortization schedules. We do not use generic estimates; our calculator mathematically simulates every payment month-by-month.
             </p>
@@ -431,7 +431,7 @@ const BalanceTransferCalculator = () => {
               The <strong>Net Savings</strong> is derived by subtracting the total cost of Scenario 2 (Upfront Fee + Any Post-Promo Interest) from the total cost of Scenario 1 (Current Total Interest).
             </p>
 
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>
               Our right-hand panel provides a comprehensive suite of metrics designed to give you total clarity over your debt payoff journey:
             </p>
@@ -442,7 +442,7 @@ const BalanceTransferCalculator = () => {
               <li><strong>Debt Payoff Trajectory Chart:</strong> A visual representation of your declining balance over time. You will notice the blue line (Transfer) drops much steeper than the red line (Current) because 100% of your payment is attacking the principal during the 0% period.</li>
             </ul>
 
-            <h2>Key Factors That Influence Balance Transfers</h2>
+            <h2 className="text-2xl font-bold mb-3">Key Factors That Influence Balance Transfers</h2>
             <p>
               Three main variables dictate the success of a balance transfer strategy:
             </p>
@@ -456,12 +456,12 @@ const BalanceTransferCalculator = () => {
               <strong>3. Your Monthly Payment:</strong> A 0% APR offer is useless if you only make the minimum payments. The goal is to aggressively pay down the balance. To find the optimal monthly payment, divide your total transfer balance (including the fee) by the number of promotional months.
             </p>
 
-            <h2>Advanced Features: Post-Promotional APR</h2>
+            <h2 className="text-2xl font-bold mb-3">Advanced Features: Post-Promotional APR</h2>
             <p>
               Many consumers fail to pay off their entire balance before the 0% promotional period ends. Our calculator includes a "Post-Promo APR" field in the Advanced Options to simulate exactly what happens if you carry a balance into month 19 or 22. When the promo ends, the interest rate often skyrockets back to standard credit card levels. The calculator accurately models this jump, ensuring you have realistic expectations of your long-term costs.
             </p>
 
-            <h2>Practical Examples of Balance Transfers</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples of Balance Transfers</h2>
             <p>
               Let's look at a realistic scenario. You have $8,000 in debt at 24.9% APR. You plan to pay $400 a month.
             </p>
@@ -474,7 +474,7 @@ const BalanceTransferCalculator = () => {
               <strong>Net Savings:</strong> You save 6 months of your life and $2,107 in cash.
             </p>
 
-            <h2>Tips & Best Practices for Getting Out of Debt</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips & Best Practices for Getting Out of Debt</h2>
             <p>
               <strong>Do Not Use the Old Card:</strong> The fatal flaw of a balance transfer is freeing up the credit limit on your old card and immediately running up new debt. Put the old card in a drawer or cut it up.
             </p>
@@ -485,7 +485,7 @@ const BalanceTransferCalculator = () => {
               <strong>Avoid New Purchases on the Transfer Card:</strong> The 0% APR usually only applies to the transferred balance. If you make new purchases on the card, those purchases will accrue interest at the regular rate, creating an accounting nightmare.
             </p>
 
-            <h2>Benefits of Using Our Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Benefits of Using Our Calculator</h2>
             <p>
               Financial institutions rely on consumers misunderstanding the math behind balance transfer fees and post-promotional rates. By using our robust algorithmic calculator, you take the guesswork out of debt repayment. The interactive charts and precise amortization schedules empower you to mathematically verify that a transfer is beneficial, allowing you to execute a disciplined strategy to achieve financial freedom.
             </p>

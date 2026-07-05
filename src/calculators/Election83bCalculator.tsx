@@ -288,28 +288,28 @@ export default function Election83bCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is an 83(b) Election?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is an 83(b) Election?</h2>
             <p>An 83(b) election is a letter you send to the Internal Revenue Service (IRS) informing them that you'd like to be taxed on your equity, such as restricted stock, on the date the equity was granted to you rather than on the date the equity vests. This provision under Section 83(b) of the Internal Revenue Code is particularly popular among startup founders and early employees who receive stock when the company's valuation is very low.</p>
             
-            <h2>How It Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
             <p>By default, the IRS taxes restricted stock as ordinary income at the time it vests. The taxable amount is the Fair Market Value (FMV) of the stock on the vesting date minus the amount you paid for it. With an 83(b) election, you choose to be taxed at the time of the grant based on the current FMV. Since early-stage startups often have an FMV close to $0 (or equal to the nominal purchase price), the initial tax burden is negligible.</p>
             
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>The <strong>Total Tax with 83(b)</strong> represents your initial ordinary income tax paid at grant plus the long-term capital gains tax paid when you eventually sell the stock. The <strong>Total Tax without 83(b)</strong> represents the ordinary income tax paid at vesting (when the stock has theoretically increased in value) plus capital gains on any further increase. The <strong>Tax Savings</strong> highlights the potential net financial benefit of locking in the lower valuation at grant and paying the lower capital gains rate on subsequent appreciation.</p>
             
-            <h2>Key Factors</h2>
+            <h2 className="text-2xl font-bold mb-3">Key Factors</h2>
             <p>The primary driver of the tax savings is the difference between your Ordinary Income Tax Rate (which can be as high as 37% federally plus state taxes) and the Long-Term Capital Gains Rate (typically 15% or 20%). The larger the expected increase in the stock's Fair Market Value between grant and vesting, the more advantageous the 83(b) election becomes, as you are shifting that appreciation from being taxed as ordinary income to being taxed as capital gains.</p>
             
-            <h2>Advanced Features</h2>
+            <h2 className="text-2xl font-bold mb-3">Advanced Features</h2>
             <p>The calculator allows you to input an expected Fair Market Value at the time of an eventual sale or liquidation event. This provides a complete picture of your total tax liability across the lifecycle of the equity—from grant, to vesting, to a final exit. You can also customize your specific expected tax brackets to get a more accurate estimation.</p>
             
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <p>Imagine receiving 100,000 shares of restricted stock. At grant, the FMV is $0.01 per share. You pay $0.01 per share ($1,000 total). If you file an 83(b) election, your "gain" at grant is $0, meaning $0 in ordinary income tax. Four years later, the stock vests at an FMV of $5.00 per share. Without an 83(b), you would recognize $499,000 of ordinary income upon vesting, resulting in a massive tax bill (e.g., $174,650 at a 35% rate) before you've even sold any shares. With an 83(b), you pay nothing at vesting.</p>
             
-            <h2>Tips & Best Practices</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
             <p>The deadline to file an 83(b) election is <strong>30 days from the date of grant</strong>. There are no exceptions, and missing this deadline means you forfeit the ability to make the election. You must mail a physical copy to the IRS (ideally via certified mail with a return receipt) and provide a copy to your employer. Always consult with a qualified tax professional or CPA before making the election, as it cannot be easily revoked once filed.</p>
             
-            <h2>Benefits and Risks</h2>
+            <h2 className="text-2xl font-bold mb-3">Benefits and Risks</h2>
             <p>The benefit is potentially massive tax savings and avoiding "phantom income" (owing taxes on illiquid stock that has vested but cannot yet be sold). The primary risk is overpaying taxes: if you pay tax based on the grant value and the company subsequently goes out of business, or you leave before the stock vests and forfeit the shares, you cannot claim a tax refund for the ordinary income taxes already paid.</p>
           </article>
           

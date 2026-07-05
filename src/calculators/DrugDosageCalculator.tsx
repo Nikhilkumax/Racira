@@ -246,14 +246,14 @@ export default function DrugDosageCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Mathematics of Weight-Based Dosing</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of Weight-Based Dosing</h2>
             <p>Administering medication to pediatric patients or underweight adults requires absolute mathematical precision. Unlike standard adult medications which often come in fixed, universal pill sizes (e.g., "take two 200mg capsules"), pediatric medications must be dynamically scaled. This <strong>Drug Dosage Calculator</strong> automates the clinical pharmacology equations required to safely convert a prescribed mg/kg target into an exact liquid milliliter (mL) volume for syringe administration.</p>
 
-            <h2>Why Children Require Milligrams Per Kilogram (mg/kg)</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Children Require Milligrams Per Kilogram (mg/kg)</h2>
             <p>In pharmacology, children are not treated as miniature adults. A child's internal organ systems—specifically the liver and kidneys, which are responsible for metabolizing and clearing drugs from the bloodstream—operate at vastly different physiological rates than adult organs. Furthermore, a child has a significantly smaller total volume of blood and tissue distribution space.</p>
             <p>If you were to administer a standard adult dose of antibiotics or acetaminophen to a 30-pound child, the concentration of the drug within their small blood volume would immediately spike into dangerously toxic territory, potentially causing organ failure. Conversely, severely under-dosing a child with antibiotics leads to treatment failure and drug-resistant bacteria. Therefore, the global clinical standard is to prescribe drugs based on <strong>mg/kg</strong> (milligrams of drug per kilogram of patient body weight).</p>
 
-            <h2>Understanding the Three Core Variables</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Three Core Variables</h2>
             <p>To safely calculate a liquid dosage volume, you must have three exact pieces of data. If any of these are incorrect, a medication error will occur.</p>
 
             <h3>1. Accurate Patient Weight (Converted to kg)</h3>
@@ -265,11 +265,11 @@ export default function DrugDosageCalculator() {
             <h3>3. The Liquid Concentration (mg/mL)</h3>
             <p>Knowing that the child needs 400 mg is useless if you are staring at a bottle of pink liquid. You must convert milligrams (mass) into milliliters (volume). To do this, you must read the concentration printed on the exact bottle you are holding. For example, if the bottle says <strong>250 mg / 5 mL</strong>, it means there are 250 milligrams of active drug floating in every 5 milliliters of liquid. The calculator uses this ratio to determine exactly how far to pull back the plunger on an oral syringe to deliver exactly 400 mg.</p>
 
-            <h2>The "Adult Maximum" Safety Cap</h2>
+            <h2 className="text-2xl font-bold mb-3">The "Adult Maximum" Safety Cap</h2>
             <p>There is a biological threshold where weight-based dosing must stop. As an adolescent child grows heavier, multiplying their large body weight by the mg/kg factor will eventually result in a number that is drastically higher than a standard adult dose. For example, a 180-pound 14-year-old taking ibuprofen at 10 mg/kg/dose would mathematically calculate to roughly 816 mg per dose. However, the standard adult max single dose for ibuprofen is 800 mg.</p>
             <p>For safety, almost all pediatric medications have a hard <strong>"Adult Maximum Limit."</strong> Once the weight-based calculation hits this ceiling, the math stops, and the patient is simply given the adult maximum. This calculator includes a programmable cap to simulate this safety check, preventing theoretical overdoses on heavy patients.</p>
 
-            <h2>A Critical Warning on Kitchen Spoons</h2>
+            <h2 className="text-2xl font-bold mb-3">A Critical Warning on Kitchen Spoons</h2>
             <p><strong>Never use household kitchen spoons to measure or administer liquid medications.</strong> The term "teaspoon" in medical pharmacology refers to an exact, calibrated volume of 5.0 mL. However, the actual metal spoons in your kitchen drawer are not standardized. A spoon you eat cereal with might hold anywhere from 3 mL to 9 mL of liquid. Using them can easily result in under-dosing by 40% or overdosing by 80%. Always use the calibrated plastic oral syringe or measuring cup provided by the pharmacy.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/drug-dosage-calculator" />

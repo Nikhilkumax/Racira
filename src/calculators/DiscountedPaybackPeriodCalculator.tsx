@@ -185,15 +185,15 @@ export default function DiscountedPaybackPeriodCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is the Discounted Payback Period?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is the Discounted Payback Period?</h2>
             <p>The Discounted Payback Period (DPP) is a capital budgeting metric that calculates how long it takes to recover an initial investment using the present value of future cash flows. Unlike the simple payback period, DPP accounts for the time value of money — a dollar received in the future is worth less than a dollar today, and DPP quantifies this rigorously by discounting every cash flow at your required rate of return before accumulating them.</p>
             <p>This makes DPP a more conservative and realistic measure of investment recovery. A project that recovers its cost in 3 years on a simple basis may take 3.8 years on a discounted basis at a 10% rate. The difference matters enormously for capital allocation decisions in corporations, private equity, and real estate development.</p>
-            <h2>How to Calculate the Discounted Payback Period</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Calculate the Discounted Payback Period</h2>
             <p>Step 1: Identify your initial investment (Year 0 outflow). Step 2: Discount each future cash flow: DCF_t = CF_t / (1 + r)^t where r is your discount rate and t is the year. Step 3: Accumulate discounted cash flows, starting at −(Initial Investment). Step 4: The DPP is the year when this running total first crosses zero, interpolated for precision.</p>
             <p>This calculator automates all steps and produces a full year-by-year discounted schedule. Rows highlighted in green indicate the payback threshold has been crossed. The chart visually identifies the break-even point where the cumulative line crosses the zero axis.</p>
-            <h2>Reading the Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Reading the Results</h2>
             <p>The <strong>Net Present Value (NPV)</strong> tells you the total value created or destroyed in today's dollars — positive NPV means the project is worth doing at your discount rate. The <strong>IRR</strong> is the discount rate at which NPV equals zero — compare it to your cost of capital. The <strong>Profitability Index (PI)</strong> of 1.0 means you get exactly your investment back in present value terms; above 1.0 means value creation. Use all four metrics together for a complete capital budgeting decision.</p>
-            <h2>Practical Applications</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Applications</h2>
             <p>Manufacturing facilities use DPP to evaluate equipment purchases and assess how quickly capital is recovered in a capital-intensive environment. Real estate developers use DPP to compare project timelines when credit lines have time-sensitive covenants. Tech companies evaluating software projects use DPP alongside NPV to balance speed-to-recovery with total value. Private equity investors use DPP when evaluating add-on acquisitions with defined hold periods.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/discounted-payback-period-calculator" />

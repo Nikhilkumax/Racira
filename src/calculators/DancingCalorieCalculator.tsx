@@ -284,14 +284,14 @@ export default function DancingCalorieCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Cardiovascular Power of Dance</h2>
+            <h2 className="text-2xl font-bold mb-3">The Cardiovascular Power of Dance</h2>
             <p>For many people, the thought of strapping on running shoes and jogging on a treadmill for 60 minutes is an exercise in pure mental torture. Enter dance cardio. Over the last two decades, structured dance classes have exploded as a mainstream fitness alternative, offering a highly engaging, music-driven way to achieve massive cardiovascular benefits. But exactly how many calories are you burning while having all that fun? The <strong>Dancing Calorie Calculator</strong> removes the guesswork. By applying clinically validated Metabolic Equivalent (MET) formulas to your specific body mass and the type of dance you are performing, it provides a mathematically precise measurement of your thermodynamic output.</p>
 
-            <h2>Why Dancing Burns Massive Calories</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Dancing Burns Massive Calories</h2>
             <p>From a biomechanical standpoint, dancing is one of the most complex physical activities a human can perform. When you run or cycle, you are generally moving in a single, sagittal plane (straight forward). Your body becomes highly efficient at this repetitive motion, eventually burning fewer calories as it adapts.</p>
             <p>Dancing obliterates this efficiency. It requires constant movement across all three planes of motion: sagittal (forward/backward), frontal (side-to-side), and transverse (rotational twisting). You are constantly changing directions, explosively jumping, dropping into deep squats, and swinging your arms. This unpredictability forces your central nervous system to recruit a massive array of stabilizing muscles—specifically in the core, obliques, and inner thighs—that are almost entirely ignored during a standard jog. The sheer volume of total muscle fiber recruitment combined with a constantly elevated heart rate results in a massive overall caloric expenditure.</p>
 
-            <h2>Understanding METs in Different Dance Styles</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding METs in Different Dance Styles</h2>
             <p>Not all dance styles require the same physiological effort. Exercise physiologists measure this effort using METs (Metabolic Equivalents). One MET is the energy you burn while sitting perfectly still. If a dance style has a MET of 6.0, you are burning calories at exactly six times your resting rate.</p>
             <ul>
               <li><strong>Ballroom / Slow Waltz (MET 3.0):</strong> This is highly technical but physically gentle. Your heart rate remains relatively low, comparable to a brisk walk. It is excellent for mobility and balance, but it is not a high-calorie fat burner.</li>
@@ -300,19 +300,19 @@ export default function DancingCalorieCalculator() {
               <li><strong>Zumba / Aerobics (MET 7.3):</strong> This is the undisputed king of dance cardio. The music never stops, and neither do you. Because your heart rate is pushed into the upper aerobic zones and sustained there for an entire hour, Zumba yields a massive, steady-state caloric burn.</li>
             </ul>
 
-            <h2>Physics on the Dance Floor: Why Weight Matters</h2>
+            <h2 className="text-2xl font-bold mb-3">Physics on the Dance Floor: Why Weight Matters</h2>
             <p>Our calculator requires your exact body weight because dancing is purely a form of calisthenics (bodyweight resistance). Newton's Second Law of Motion dictates that Force equals Mass times Acceleration. </p>
             <p>If a 200-pound person and a 120-pound person both jump six inches off the ground to the exact same beat of a song, the 200-pound person had to generate drastically more mechanical force in their quadriceps and calves to achieve the same height. Furthermore, their muscles had to absorb significantly more shock when they landed. Because their body is doing more mechanical "work" to execute the choreography, heavier individuals will universally burn a mathematically higher number of calories during the exact same dance class.</p>
 
-            <h2>Dancing for Weight Loss: The Reality</h2>
+            <h2 className="text-2xl font-bold mb-3">Dancing for Weight Loss: The Reality</h2>
             <p>If your primary goal is rapid weight loss, high-intensity dance cardio (like Zumba or Hip Hop) is one of the most effective tools available—often burning between 400 and 700 calories in a single hour. This easily rivals the caloric burn of the elliptical machine or steady-state running.</p>
             <p>However, you cannot out-dance a bad diet. A grueling, 60-minute Zumba class might burn 500 calories, which is the exact caloric equivalent of a single blended Frappuccino or two slices of pizza. To actually lose body fat, you must combine the high caloric expenditure of dance cardio with a disciplined, nutrient-dense diet that keeps you in a daily caloric deficit.</p>
 
-            <h2>The Hidden Benefit: Core Strength and Agility</h2>
+            <h2 className="text-2xl font-bold mb-3">The Hidden Benefit: Core Strength and Agility</h2>
             <p>While the caloric burn gets all the attention, the hidden benefits of dance are perhaps more valuable. Unlike running, which only strengthens muscles in a linear path, dancing builds incredible lateral stability. You are strengthening the gluteus medius, inner thighs, and obliques—muscles that protect your knees and lower back from injury.</p>
             <p>Furthermore, because you must rapidly memorize choreography and sync your body to an external rhythm, dancing requires immense cognitive processing. Studies show that complex dance routines drastically improve neuroplasticity and are one of the most effective physical activities for preventing cognitive decline and diseases like Alzheimer's.</p>
 
-            <h2>Conclusion: Find Your Rhythm</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Find Your Rhythm</h2>
             <p>The best exercise in the world is the one you will actually stick to consistently. If you hate the treadmill, force yourself to use it, and quit after two weeks, the caloric burn of that treadmill is mathematically zero. Dance offers an infectious, community-driven, musical environment that keeps people coming back week after week. Use the Dancing Calorie Calculator to track your exact energy output, sync it with your daily dietary goals, and dance your way to a leaner, healthier body.</p>
           </article>
           

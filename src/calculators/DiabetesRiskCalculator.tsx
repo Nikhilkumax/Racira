@@ -285,11 +285,11 @@ export default function DiabetesRiskCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Silent Epidemic: Undiagnosed Diabetes</h2>
+            <h2 className="text-2xl font-bold mb-3">The Silent Epidemic: Undiagnosed Diabetes</h2>
             <p>According to the CDC, over 37 million Americans have diabetes, but an estimated <strong>1 in 5 do not know they have it</strong>. Even more alarming, over 96 million adults have <em>prediabetes</em>, a condition where blood sugar is chronically elevated but not yet high enough for a formal diabetes diagnosis. More than 80% of those people are completely unaware.</p>
             <p>Type 2 diabetes is often called a "silent disease" because the early symptoms (fatigue, increased thirst, frequent urination) are mild and easily dismissed. Unfortunately, while it remains undiagnosed, chronically high blood sugar slowly causes irreversible microscopic damage to your blood vessels, kidneys, retinas, and nerves. This is why screening is absolutely critical.</p>
 
-            <h2>The Science Behind the ADA Risk Score</h2>
+            <h2 className="text-2xl font-bold mb-3">The Science Behind the ADA Risk Score</h2>
             <p>This <strong>Diabetes Risk Calculator</strong> implements the official scoring system developed by the American Diabetes Association (ADA). It uses 7 scientifically validated variables to assess your statistical risk. If your score reaches <strong>5 points or higher</strong>, it is a clinical indicator that you need formal blood testing. Here is why the algorithm weights these specific factors:</p>
 
             <h3>1. Body Mass Index (BMI)</h3>
@@ -304,7 +304,7 @@ export default function DiabetesRiskCalculator() {
             <h3>4. High Blood Pressure and Inactivity</h3>
             <p>Hypertension (high blood pressure) is incredibly common in prediabetic patients because the two conditions share the same root cause: metabolic syndrome. If you have been diagnosed with high blood pressure, you receive 1 point. Additionally, physical activity is one of the only ways to force your muscles to absorb glucose from the blood <em>without</em> needing insulin. A sedentary lifestyle (receiving 1 point) robs your body of this natural blood sugar control mechanism.</p>
 
-            <h2>What to do if your score is 5 or Higher</h2>
+            <h2 className="text-2xl font-bold mb-3">What to do if your score is 5 or Higher</h2>
             <p>Do not panic. A high score is not a diagnosis; it is simply a statistical flag indicating that you need data. Your immediate next step should be scheduling an appointment with your primary care physician to request a simple blood test.</p>
             <ul>
               <li><strong>Hemoglobin A1C:</strong> This test measures the percentage of your red blood cells that have sugar attached to them. It provides a highly accurate 3-month average of your blood sugar levels. An A1C of 5.7% to 6.4% indicates prediabetes, while 6.5% or higher indicates diabetes.</li>

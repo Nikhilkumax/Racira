@@ -69,9 +69,7 @@ const TeaSteepingCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">
-                  <Timer className="h-5 w-5" /> Get Brewing Guide
-                </button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset">
+                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset">
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
@@ -113,13 +111,13 @@ const TeaSteepingCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>The Importance of Temperature</h2>
+              <h2 className="text-2xl font-bold mb-3">The Importance of Temperature</h2>
               <p>Not all tea leaves are created equal. Black teas are fully oxidized and can withstand (and often require) boiling water to extract their deep flavors. Green and white teas, however, are delicate. Using boiling water on green tea "cooks" the leaves, resulting in a bitter, grassy taste rather than the sweet, nutty profile intended.</p>
               
-              <h2>Steeping Time vs. Strength</h2>
+              <h2 className="text-2xl font-bold mb-3">Steeping Time vs. Strength</h2>
               <p>If you want a stronger cup of tea, don't steep it for longer. Instead, use more tea leaves. Steeping beyond the recommended time will only release more bitter tannins without adding significant flavor or caffeine.</p>
 
-              <h2>Water Quality</h2>
+              <h2 className="text-2xl font-bold mb-3">Water Quality</h2>
               <p>Since tea is 99% water, the quality of your water matters. Use filtered water if possible, and avoid re-boiling water, as this removes dissolved oxygen which helps release the tea's aromatics.</p>
             </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/tea-steeping" />

@@ -131,17 +131,17 @@ const HarmonicMeanCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Harmonic Mean Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Harmonic Mean Calculator?</h2>
             <p>A harmonic mean calculator computes HM = n / Σ(1/xᵢ) and compares it against the geometric mean (GM) and arithmetic mean (AM). Pre-filled with the geometric sequence {"{1, 2, 4, 8, 16}"}: HM ≈ 2.581, GM = 4.0, AM = 6.2 — demonstrating the AM≥GM≥HM inequality. The reciprocals table shows exactly how each value contributes to the calculation.</p>
-            <h2>The Harmonic Mean Formula</h2>
+            <h2 className="text-2xl font-bold mb-3">The Harmonic Mean Formula</h2>
             <p><strong>HM = n / (1/x₁ + 1/x₂ + ... + 1/xₙ)</strong>. Equivalently: HM = n / Σ(1/xᵢ). For two values a and b: HM = 2ab/(a+b). The harmonic mean is the reciprocal of the arithmetic mean of the reciprocals. This gives smaller values more weight — essential when averaging rates where the denominator matters.</p>
-            <h2>The AM-GM-HM Inequality</h2>
+            <h2 className="text-2xl font-bold mb-3">The AM-GM-HM Inequality</h2>
             <p>For any set of positive numbers: Arithmetic Mean ≥ Geometric Mean ≥ Harmonic Mean. Equality holds only when all values are equal. This inequality has deep mathematical significance — it appears in optimization, information theory, and geometry. The geometric mean sits exactly between AM and HM on a multiplicative scale.</p>
-            <h2>Speed Averaging: The Classic Example</h2>
+            <h2 className="text-2xl font-bold mb-3">Speed Averaging: The Classic Example</h2>
             <p>You drive 100 km at 60 km/h and return 100 km at 100 km/h. Average speed = HM(60, 100) = 2×60×100/(60+100) = 75 km/h. Verify: time out = 100/60 = 1.667h, time back = 100/100 = 1h, total 200 km in 2.667h = 75 km/h ✓. Always use harmonic mean for equal-distance averaging. Use arithmetic mean for equal-time averaging.</p>
-            <h2>The F₁ Score in Machine Learning</h2>
+            <h2 className="text-2xl font-bold mb-3">The F₁ Score in Machine Learning</h2>
             <p>F₁ = 2 × (Precision × Recall) / (Precision + Recall) = harmonic mean of precision and recall. Using the harmonic mean instead of arithmetic mean ensures that a high F₁ score requires both precision AND recall to be high. A model with precision=1.0 and recall=0.01 would get AM=0.505 (misleadingly high) but F₁=0.0198 (correctly low). This makes F₁ the standard binary classification metric.</p>
-            <h2>P/E Ratio Aggregation</h2>
+            <h2 className="text-2xl font-bold mb-3">P/E Ratio Aggregation</h2>
             <p>For an equal-dollar-weighted portfolio, the correct aggregate P/E is the harmonic mean: HM P/E = n / Σ(1/P/Eᵢ). If you invest $10,000 each in 3 stocks with P/E of 10, 20, 30: each dollar buys different amounts of earnings. HM P/E = 3/(0.1+0.05+0.033) = 3/0.183 = 16.4, not the arithmetic mean of 20. Many financial databases incorrectly report arithmetic P/E averages, understating value.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/harmonic-mean-calculator" />

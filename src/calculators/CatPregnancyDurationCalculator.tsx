@@ -325,27 +325,27 @@ export default function CatPregnancyDurationCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Feline Gestation Period</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Feline Gestation Period</h2>
             <p>If you suspect your cat is expecting, understanding the timeline of feline gestation is critical for her health and the survival of the kittens. The <strong>Cat Pregnancy Calculator</strong> is designed to remove the guesswork from this 9-week journey. By simply inputting the date of mating, the calculator algorithm maps out a precise timeline, giving you an estimated due date, a safe delivery window, and a week-by-week breakdown of essential fetal developmental milestones.</p>
             <p>A queen (an unspayed female cat) can become pregnant relatively easily. Cats are "induced ovulators," meaning the act of mating stimulates the release of eggs from the ovaries. Because of this biological mechanism, if mating occurs, the chance of conception is exceptionally high.</p>
 
-            <h2>How Long is a Cat Pregnant?</h2>
+            <h2 className="text-2xl font-bold mb-3">How Long is a Cat Pregnant?</h2>
             <p>The standard gestation period for a domestic cat is roughly <strong>63 to 65 days</strong> (or about 9 weeks). However, normal biological variance means that any delivery between 60 and 69 days can be considered within the healthy range. Our calculator uses an average of 64 days to determine the primary Estimated Queening Date, while also providing you with the full min-max delivery window.</p>
             <p>If your cat reaches day 69 and has not gone into labor, it is imperative to contact a veterinarian immediately. Prolonged gestation can be a sign of fetal distress, a single oversized kitten blocking the birth canal, or an underlying maternal health issue that requires emergency intervention (such as a C-section).</p>
 
-            <h2>Early Signs of Feline Pregnancy (Weeks 1 to 3)</h2>
+            <h2 className="text-2xl font-bold mb-3">Early Signs of Feline Pregnancy (Weeks 1 to 3)</h2>
             <p>During the first two to three weeks of pregnancy, you will likely notice zero physical or behavioral changes in your cat. This is because the fertilized eggs are still traveling down the fallopian tubes and implanting into the uterine lining.</p>
             <p>The first reliable physical sign of pregnancy occurs around Day 21. This phenomenon is known as <strong>"pinking up."</strong> The queen's nipples will become slightly enlarged, protrude more, and turn a distinct rosy-pink color. Around this same time, the queen may experience a brief period of "morning sickness" characterized by a slight loss of appetite or occasional vomiting. If you take your cat to the vet at the end of Week 3, an experienced practitioner can perform an ultrasound and visibly detect the fetal heartbeats.</p>
 
-            <h2>Mid-Gestation Development (Weeks 4 to 6)</h2>
+            <h2 className="text-2xl font-bold mb-3">Mid-Gestation Development (Weeks 4 to 6)</h2>
             <p>As the pregnancy enters its second phase, the kittens begin to develop rapidly. By Week 4 (Day 28), the fetuses are roughly the size of large grapes. At this stage, a veterinarian can often perform abdominal palpation—carefully feeling the cat's belly from the outside to detect the amniotic sacs. <em>(Note: Never attempt to palpate the abdomen yourself, as improper technique can damage the fetuses or cause a miscarriage).</em></p>
             <p>During Weeks 5 and 6, the queen's abdomen will noticeably swell. Her appetite will increase dramatically; she will require high-quality kitten food to provide the massive amount of calories and calcium needed to grow the kittens' bones. By Day 42 (Week 6), the fetal skeletons have calcified enough to show up on an X-ray. This is the optimal time to ask your vet for a radiograph, as it is the only accurate method to count exactly how many kittens to expect.</p>
 
-            <h2>Late Gestation and Queening Prep (Weeks 7 to 9)</h2>
+            <h2 className="text-2xl font-bold mb-3">Late Gestation and Queening Prep (Weeks 7 to 9)</h2>
             <p>In the final weeks of pregnancy, the kittens are fully formed and are primarily gaining weight and developing their lung capacity. You may be able to feel or see the kittens moving if you gently place your hand on the mother's abdomen while she rests.</p>
             <p>Behaviorally, the queen will enter the <strong>Nesting Phase</strong>. She will become restless, seeking out dark, quiet, and secluded areas of the house—such as the back of a closet or under a bed. To prevent her from giving birth in an undesirable location, you must introduce a <strong>Whelping Box</strong>. This should be a clean, low-sided cardboard or wooden box lined with soft, washable towels or puppy pads, placed in a warm, low-traffic room.</p>
 
-            <h2>Signs That Labor is Imminent</h2>
+            <h2 className="text-2xl font-bold mb-3">Signs That Labor is Imminent</h2>
             <p>As the Estimated Queening Date approaches, you must monitor the queen closely for the following signs that labor (Stage 1) has begun:</p>
             <ul>
               <li><strong>Temperature Drop:</strong> A cat's normal body temperature is around 101.5°F. About 12 to 24 hours before labor begins, her rectal temperature will drop below 100°F.</li>
@@ -354,11 +354,11 @@ export default function CatPregnancyDurationCalculator() {
               <li><strong>Licking:</strong> She will excessively groom her genital area as the cervical plug dissolves and fluid is released.</li>
             </ul>
 
-            <h2>The Delivery Process (Queening)</h2>
+            <h2 className="text-2xl font-bold mb-3">The Delivery Process (Queening)</h2>
             <p>Feline labor is generally a natural process that requires zero human intervention. Stage 2 labor involves active abdominal contractions and the delivery of the kittens. Typically, a kitten is born every 30 to 60 minutes, though the queen may take a "rest period" of several hours halfway through the litter.</p>
             <p>The mother will instinctively tear the amniotic sac off the kitten's face to allow it to breathe, bite the umbilical cord to sever it, and vigorously lick the kitten to stimulate respiration. Your job is simply to observe from a distance. If the mother ignores a newborn kitten and fails to remove the sac, you must step in immediately to clear the airway with a clean towel.</p>
 
-            <h2>When to Call the Emergency Vet</h2>
+            <h2 className="text-2xl font-bold mb-3">When to Call the Emergency Vet</h2>
             <p>While most cats queen without complications, dystocia (difficult birth) requires immediate veterinary intervention. You must rush the cat to an emergency clinic if:</p>
             <ul>
               <li>She has been actively pushing with strong contractions for over 30 minutes without producing a kitten.</li>

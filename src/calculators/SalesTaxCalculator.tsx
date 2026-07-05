@@ -86,15 +86,15 @@ const SalesTaxCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>What Is a Sales Tax Calculator?</h2>
+              <h2 className="text-2xl font-bold mb-3">What Is a Sales Tax Calculator?</h2>
               <p>A sales tax calculator helps you determine the amount of sales tax on a purchase, or reverse-calculate the pre-tax price from a total that includes tax. It's useful for budgeting, price comparisons across states, and verifying receipts.</p>
               <p>Our calculator offers two modes: forward calculation (add tax to a pre-tax price) and reverse calculation (extract tax from a total amount). Simply enter the price and your local tax rate to get instant results.</p>
 
-              <h2>How Sales Tax Works</h2>
+              <h2 className="text-2xl font-bold mb-3">How Sales Tax Works</h2>
               <p>Sales tax is a consumption tax imposed by state and local governments on retail transactions. The rate varies by jurisdiction and can range from 0% to over 10% when combining state and local rates.</p>
               <p>The forward formula is straightforward: Total = Price × (1 + Tax Rate). For reverse calculation: Pre-tax Price = Total ÷ (1 + Tax Rate).</p>
 
-              <h2>US Sales Tax Overview</h2>
+              <h2 className="text-2xl font-bold mb-3">US Sales Tax Overview</h2>
               <p>The United States has a complex sales tax system where rates vary by state, county, and city. Some key points:</p>
               <ul>
                 <li><strong>No federal sales tax:</strong> Unlike many countries, the US has no national sales tax or VAT.</li>
@@ -103,7 +103,7 @@ const SalesTaxCalculator = () => {
                 <li><strong>Exemptions:</strong> Many states exempt groceries, medicine, and clothing from sales tax.</li>
               </ul>
 
-              <h2>Sales Tax vs. VAT</h2>
+              <h2 className="text-2xl font-bold mb-3">Sales Tax vs. VAT</h2>
               <p>Sales tax (used in the US) is collected only at the point of final sale. Value Added Tax (VAT), used in most other countries, is collected at every stage of production and distribution. While both ultimately tax consumption, the mechanism and compliance requirements differ significantly.</p>
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> This calculator provides estimates. Actual tax rates vary by location and product category. Verify rates with your local tax authority.</p>

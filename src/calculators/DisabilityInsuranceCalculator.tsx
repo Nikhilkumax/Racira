@@ -215,11 +215,11 @@ export default function DisabilityInsuranceCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Why Disability Insurance Matters</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Disability Insurance Matters</h2>
             <p>This <strong>disability insurance calculator</strong> estimates your monthly benefit, premium costs, and total potential payout from a long-term disability policy. The Social Security Administration reports that 1 in 4 of today's 20-year-olds will become disabled before retirement. Despite this, disability insurance is the most commonly overlooked form of protection — many working professionals have life insurance but no individual DI. Your ability to earn income is your most valuable financial asset.</p>
-            <h2>How Disability Premiums Are Determined</h2>
+            <h2 className="text-2xl font-bold mb-3">How Disability Premiums Are Determined</h2>
             <p>Premiums depend on: (1) Benefit amount — higher monthly benefit = higher premium; (2) Occupation class — professional knowledge workers (class 5A) pay significantly less than manual laborers (class 1A); (3) Age — younger age = lower premium for same coverage; (4) Elimination period — longer wait = lower premium; (5) Benefit period — to-age-65 costs more than 2-year benefit; (6) Definition of disability (own-occ vs. any-occ); (7) Optional riders (COLA, future increase, residual benefits). Expected premiums for individual long-term DI are typically 2–4% of annual income.</p>
-            <h2>Key Policy Features to Understand</h2>
+            <h2 className="text-2xl font-bold mb-3">Key Policy Features to Understand</h2>
             <p>Non-cancellable and guaranteed renewable: the insurer cannot cancel your policy or raise premiums as long as you pay. Own-occupation definition: you receive benefits if unable to perform your specific occupation — critical for specialists and high earners. Residual/partial disability: provides partial benefits if you can work reduced hours or earn less than pre-disability income. COLA rider: benefits increase with inflation during a claim. Future increase option (FIO): lets you increase coverage as income grows without new underwriting. Related tools: <a href="/calculator/term-life-vs-whole-life-calculator">Term vs. Whole Life Calculator</a>, <a href="/calculator/health-insurance-calculator">Health Insurance Calculator</a>.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/disability-insurance-calculator" />

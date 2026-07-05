@@ -225,11 +225,11 @@ export default function HomeInsuranceCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-            <h2>How to Use This Home Insurance Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Use This Home Insurance Calculator</h2>
             <p>This home insurance calculator provides an estimated annual premium and recommended coverage levels based on your home's characteristics and location. Enter your home's current market value, age, square footage, state, construction type, and roof age to generate a tailored estimate. The calculator adjusts rates based on real state-by-state insurance cost data and applies standard underwriting factors like roof age, pool presence, and deductible selection.</p>
             <p>Note that this is an estimate for budgeting purposes. Actual premiums vary by insurer, claims history, credit score, local fire ratings, and individual underwriting guidelines. Always get at least 3 competitive quotes from licensed insurers before purchasing or renewing a homeowners policy.</p>
 
-            <h2>Understanding Homeowners Insurance Coverage Types</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Homeowners Insurance Coverage Types</h2>
             <p><strong>Coverage A (Dwelling):</strong> Pays to repair or rebuild your home's structure after a covered loss (fire, wind, hail, etc.). Should equal your home's full rebuild cost, not its market value. Get a replacement cost estimate from a contractor or appraiser.</p>
             <p><strong>Coverage B (Other Structures):</strong> Covers detached structures like garages, fences, sheds, and guest houses. Typically 10% of Coverage A.</p>
             <p><strong>Coverage C (Personal Property):</strong> Covers your belongings — furniture, electronics, clothing, appliances — inside or temporarily away from home. Standard is 50-70% of dwelling coverage. Consider a home inventory for expensive items.</p>
@@ -237,11 +237,11 @@ export default function HomeInsuranceCalculator() {
             <p><strong>Coverage E (Liability):</strong> Protects you if someone is injured on your property or you accidentally damage others' property. Standard is $100,000 minimum; $300,000+ recommended for most homeowners.</p>
             <p><strong>Coverage F (Medical Payments):</strong> Pays small medical bills for guests injured on your property, regardless of fault. Typically $1,000-$5,000.</p>
 
-            <h2>Home Insurance Rates by State</h2>
+            <h2 className="text-2xl font-bold mb-3">Home Insurance Rates by State</h2>
             <p>State location is the single biggest factor in home insurance pricing. Texas has some of the nation's highest rates (averaging 2.25% of home value annually) due to hurricane, hail, and tornado risk. Florida is also expensive (2.0%) due to hurricane exposure. Oklahoma and Kansas face high tornado frequency. California, Washington, and Hawaii have lower rates despite natural disaster risks, partly because certain perils (earthquake, flood) are excluded from standard policies.</p>
             <p>Low-risk states like Utah, Nevada, and Hawaii often have premiums half those of high-risk Midwest and Gulf Coast states. This geographic variation makes it essential to check state-specific rates rather than relying on national averages.</p>
 
-            <h2>How to Lower Your Home Insurance Premium</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Lower Your Home Insurance Premium</h2>
             <p>The most impactful savings strategy is <strong>increasing your deductible</strong>. Moving from a $500 to a $2,500 deductible can reduce your premium 15-25%. Only raise the deductible to an amount you can comfortably pay out-of-pocket. <strong>Bundling</strong> home and auto insurance with the same carrier saves 10-25% on both policies. <strong>Home hardening</strong> — hurricane shutters, impact-resistant roofing, smoke detectors, security systems — earns discounts in most states. Maintaining a <strong>claims-free record</strong> is essential; even small claims can raise premiums significantly for 3-5 years.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/home-insurance-calculator" />

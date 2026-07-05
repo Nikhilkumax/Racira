@@ -354,31 +354,31 @@ export default function BodyMassIndexCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Foundation of Modern Health Metrics</h2>
+            <h2 className="text-2xl font-bold mb-3">The Foundation of Modern Health Metrics</h2>
             <p>If you visit any physician in the developed world, before they check your blood pressure or draw your blood, they will measure your height and weight to calculate your Body Mass Index (BMI). Despite intense criticism from the fitness community, BMI remains the undisputed foundation of global health tracking. It is a simple, universal ratio that compares your total physical mass to your structural height. The <strong>Body Mass Index (BMI) Calculator</strong> instantly computes this crucial metric, placing you within the standard clinical classifications established by the World Health Organization (WHO).</p>
 
-            <h2>Why the Fitness Industry Hates BMI</h2>
+            <h2 className="text-2xl font-bold mb-3">Why the Fitness Industry Hates BMI</h2>
             <p>If you ask a professional bodybuilder or a competitive CrossFit athlete about BMI, they will likely tell you it is completely useless. And for them, it is.</p>
             <p>The BMI formula suffers from one massive, undeniable flaw: it cannot differentiate between tissue types. The mathematical equation assumes that all body weight is identical. It does not know if you are carrying 50 pounds of dense, highly metabolic muscle tissue or 50 pounds of dangerous visceral fat. A 5-foot-10 NFL running back who weighs 220 pounds with 8% body fat will be classified by this calculator as "Obese." Because he carries a massive amount of incredibly heavy muscle tissue, the formula incorrectly assumes he is dangerously overweight. For athletes, bodybuilders, and heavy weightlifters, BMI is a biologically ignorant metric.</p>
 
-            <h2>Why Doctors Continue to Use It</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Doctors Continue to Use It</h2>
             <p>If BMI is so flawed, why is it the gold standard in every hospital on Earth? Because hospitals operate on statistics, and statistically, the vast majority of the human population does not participate in heavy resistance training.</p>
             <p>If a sedentary office worker steps on the scale and registers a BMI of 32 (Obese), the doctor knows with near-absolute certainty that the excess weight is not muscle; it is adipose tissue (fat). For 95% of the general public, BMI is an incredibly fast, non-invasive, and totally free predictor of disease. To perfectly measure a patient's true body composition requires a DEXA scan or hydrostatic weighing, which are highly expensive and take up massive amounts of clinical time. BMI provides immediate, actionable data that correlates perfectly with the risk of Type 2 Diabetes, hypertension, and cardiovascular disease.</p>
 
-            <h2>Understanding the "Normal" Range</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the "Normal" Range</h2>
             <p>The BMI scale dictates that a "Normal" and healthy weight falls between 18.5 and 24.9. This range is not arbitrary; it is built on decades of mortality data. Epidemiological studies involving millions of people consistently prove that individuals within this BMI range experience the lowest rates of chronic disease and have the highest life expectancy.</p>
             <p>When you use the calculator, it also generates your "Ideal Clinical Weight Range." This shows you the exact poundage you need to achieve to fall inside that 18.5 to 24.9 window. If you are currently sitting at a BMI of 30, you do not need to guess how many pounds you need to lose; the calculator gives you the exact numerical target required to clear the clinical danger zone.</p>
 
-            <h2>The Three Tiers of Obesity</h2>
+            <h2 className="text-2xl font-bold mb-3">The Three Tiers of Obesity</h2>
             <p>Many people are shocked to learn that there are three distinct classifications of obesity. Not all excess weight carries the same immediate biological threat.</p>
             <p>A BMI of 30.0 to 34.9 is Class I Obesity. While it increases your risk factors, the body can often compensate, and the risks can be mitigated with mild dietary changes. A BMI of 35.0 to 39.9 is Class II Obesity, where the sheer volume of adipose tissue begins to severely impact hormonal regulation and insulin sensitivity.</p>
             <p>A BMI of 40 or higher is Class III Obesity (historically referred to as Morbid Obesity). This is a physiological emergency. At this level, the body's mechanical structure is compromised. The weight crushes the cartilage in the knees and hips, the excess mass on the chest severely restricts lung expansion (leading to Obstructive Sleep Apnea), and the heart is forced to work at a frantic, exhausting pace just to pump blood through the massive vascular network required by the fat tissue.</p>
 
-            <h2>The Danger of Being Underweight</h2>
+            <h2 className="text-2xl font-bold mb-3">The Danger of Being Underweight</h2>
             <p>Society is so focused on obesity that it often ignores the opposite end of the spectrum. A BMI below 18.5 is classified as Underweight, and it carries its own set of terrifying clinical risks.</p>
             <p>When the body does not have enough mass to sustain itself, it begins to shut down non-essential biological processes. In women, this frequently results in amenorrhea (the complete cessation of the menstrual cycle), which rapidly destroys bone density and leads to early-onset osteoporosis. In both sexes, being severely underweight destroys the immune system, making the body highly susceptible to severe infections, and causes chronic lethargy as the metabolism slows to a crawl to conserve what little energy is left.</p>
 
-            <h2>Conclusion: Know Your Baseline</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Know Your Baseline</h2>
             <p>Unless you can squat 400 pounds, you should not ignore your BMI. It is the fundamental baseline upon which all other health metrics are built. Use the Body Mass Index Calculator to find your current classification. If you fall into the Overweight or Obese categories, use the generated Target Range to establish your exact weight-loss goals, and immediately begin the process of pulling your body back into the zone of statistical longevity.</p>
           </article>
           

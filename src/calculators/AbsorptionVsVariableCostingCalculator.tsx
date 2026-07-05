@@ -262,7 +262,7 @@ export default function AbsorptionVsVariableCostingCalculator() {
                 </div>
 
                 {/* 1. Primary Result Card */}
-                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative">
                   <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Difference in Net Income</div>
                   <div className="text-4xl font-bold text-primary mb-2">
                     ${Math.abs(results.incomeDifference).toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
@@ -399,56 +399,68 @@ export default function AbsorptionVsVariableCostingCalculator() {
         </div>
 
         {/* SEO CONTENT SECTION */}
-        <div className="max-w-[800px] mt-16 prose prose-slate dark:prose-invert">
-          <h2>Absorption Costing vs Variable Costing</h2>
+        <div className="max-w-[1180px] mt-8">
+          <article className="prose-finance text-[15.75px]">
+          <h2 className="text-2xl font-bold mb-3">Absorption Costing vs Variable Costing</h2>
           <p>
-            In managerial accounting, there are two primary methods used to assign costs to inventory and calculate net income: <strong>Absorption Costing</strong> and <strong>Variable Costing</strong>. While both methods result in similar long-term financial pictures, they treat fixed manufacturing overhead very differently, which can lead to vastly different net income figures in a single period.
+            In managerial accounting and corporate finance, there are two primary methods used to assign manufacturing costs to inventory and calculate net income for a specific period: <strong>Absorption Costing</strong> and <strong>Variable Costing</strong>. While both methods ultimately account for the exact same total costs over the entire lifecycle of a business, they treat fixed manufacturing overhead very differently in the short term. This fundamental difference in cost classification can lead to vastly different net income figures in a single reporting period, which can significantly influence management decisions, executive compensation bonuses, and external investor perceptions. Understanding the intricate mechanical differences between these two costing systems is essential for anyone studying accounting, managing a production facility, or analyzing corporate financial statements.
           </p>
 
-          <h3>What is Absorption Costing?</h3>
+          <h2 className="text-2xl font-bold mb-3">What is Absorption Costing?</h2>
           <p>
-            Absorption costing (also known as full costing) assigns <em>all</em> manufacturing costs to the product. This includes direct materials, direct labor, variable manufacturing overhead, and <strong>fixed manufacturing overhead</strong>.
+            Absorption costing, which is frequently referred to as full costing, dictates that all costs associated with the manufacturing process must be attached to the products being produced. Under this method, the unit product cost includes direct materials, direct labor, variable manufacturing overhead, and critically, a precisely allocated portion of <strong>fixed manufacturing overhead</strong>. 
           </p>
           <p>
-            Because fixed manufacturing overhead (like factory rent or manager salaries) is assigned to individual units, some of those fixed costs get "absorbed" into inventory. If a unit is produced but not sold, the fixed cost attached to that unit sits on the balance sheet as an asset (Inventory) rather than being expensed on the income statement as Cost of Goods Sold.
+            Because fixed manufacturing overhead—which includes massive expenses like factory rent, depreciation on manufacturing equipment, and salaries of factory supervisors—is assigned to individual units of production, some of those fixed costs get "absorbed" into the physical inventory. If a unit is produced but not immediately sold during that same accounting period, the fixed cost attached to that specific unit is not expensed on the income statement. Instead, it sits on the balance sheet capitalized as an asset within the Inventory account. It will only be expensed as Cost of Goods Sold (COGS) when the unit is finally sold to a customer.
           </p>
           <p>
-            <strong>GAAP Requirement:</strong> Generally Accepted Accounting Principles (GAAP) require external financial statements to be prepared using absorption costing.
-          </p>
-
-          <h3>What is Variable Costing?</h3>
-          <p>
-            Variable costing (also known as direct costing) assigns only <em>variable</em> manufacturing costs to the product. Direct materials, direct labor, and variable manufacturing overhead are treated as product costs.
-          </p>
-          <p>
-            Under variable costing, <strong>fixed manufacturing overhead is treated as a period cost</strong>. This means the entire lump sum of fixed overhead is expensed on the income statement in the period it occurs, regardless of how many units were actually sold.
-          </p>
-          <p>
-            <strong>Managerial Use:</strong> Variable costing is strictly used internally for management decision-making, cost-volume-profit (CVP) analysis, and performance evaluation, as it perfectly separates fixed and variable behaviors.
+            <strong>GAAP and IRS Requirement:</strong> It is important to note that Generally Accepted Accounting Principles (GAAP) in the United States and the Internal Revenue Service (IRS) strictly require external financial statements and tax returns to be prepared using the absorption costing method. This is because absorption costing perfectly adheres to the matching principle, ensuring that all costs incurred to create a product are matched against the revenue generated by selling that product in the exact same period.
           </p>
 
-          <h2>Why Does Net Income Differ?</h2>
+          <h2 className="text-2xl font-bold mb-3">What is Variable Costing?</h2>
           <p>
-            The difference in net income between the two methods comes down to exactly one factor: <strong>changes in inventory levels</strong>. Specifically, it is the fixed manufacturing overhead deferred in (or released from) inventory under absorption costing.
-          </p>
-          <ul>
-            <li><strong>Production &gt; Sales (Inventory Increases):</strong> Absorption costing net income will be HIGHER than variable costing. This is because some fixed overhead is "trapped" in unsold inventory on the balance sheet, deferring the expense to a future period.</li>
-            <li><strong>Sales &gt; Production (Inventory Decreases):</strong> Absorption costing net income will be LOWER than variable costing. This is because previously trapped fixed overhead is finally released from inventory and expensed as COGS, alongside the current period's fixed overhead.</li>
-            <li><strong>Production = Sales:</strong> Net income will be exactly the same under both methods because no fixed overhead is deferred in or released from inventory.</li>
-          </ul>
-
-          <h2>The Danger of Absorption Costing</h2>
-          <p>
-            While required for external reporting, absorption costing creates a dangerous incentive for managers: <strong>producing for inventory</strong>.
+            Variable costing, which is sometimes referred to as direct costing or marginal costing, takes a fundamentally different philosophical approach to product costs. Under variable costing, only those manufacturing costs that actually change in direct proportion to the volume of production are assigned to the product. Therefore, the unit product cost consists solely of direct materials, direct labor, and variable manufacturing overhead.
           </p>
           <p>
-            Because producing more units spreads the fixed overhead across a larger number of units, the unit product cost decreases. This lowers the Cost of Goods Sold (COGS) and artificially inflates Net Income for the period, even if sales remain completely flat. A manager looking to secure a year-end bonus might instruct the factory to overproduce, creating massive stockpiles of inventory simply to make the income statement look better. Variable costing prevents this illusion by expensing all fixed overhead immediately.
+            Under variable costing, <strong>fixed manufacturing overhead is treated entirely as a period cost</strong>. This means the entire lump sum of fixed overhead incurred during the month or year is immediately expensed in full on the income statement, regardless of how many units were actually produced or sold. Not a single penny of fixed overhead is deferred into inventory on the balance sheet.
+          </p>
+          <p>
+            <strong>Managerial Use Case:</strong> Variable costing is strictly used internally by management for critical decision-making processes. Because it perfectly separates fixed and variable cost behaviors, it is the required foundation for Cost-Volume-Profit (CVP) analysis, break-even calculations, and evaluating the true profitability of specific product lines or divisions. External reporting using variable costing is prohibited by GAAP.
           </p>
 
-          <h2>Benefits of Using This Calculator</h2>
+          <h2 className="text-2xl font-bold mb-3">Why Does Net Income Differ Between the Two Methods?</h2>
           <p>
-            For accounting students and business managers, reconciling absorption and variable costing can be a mathematically tedious task. Our calculator automatically generates the distinct unit product costs, distinct income statements, and distinct ending inventory valuations for both methods simultaneously. By adjusting the "Units Produced" versus "Units Sold" inputs, you can instantly observe how inventory fluctuations directly manipulate absorption net income while leaving variable costing net income tied purely to sales performance.
+            The difference in net income reported by absorption costing versus variable costing comes down to exactly one isolated factor: <strong>changes in inventory levels</strong>. More specifically, the difference is driven entirely by the amount of fixed manufacturing overhead that is deferred in (or released from) inventory under the rules of absorption costing. You can easily predict which method will show higher income by looking at production and sales volumes:
           </p>
+          <p>
+            <strong>When Production Exceeds Sales (Inventory Increases):</strong> Absorption costing net income will be HIGHER than variable costing net income. This occurs because some of the current period's fixed overhead is "trapped" in the unsold inventory sitting on the balance sheet, effectively deferring that expense to a future period. Variable costing, however, expenses all fixed overhead immediately, dragging its net income down.
+          </p>
+          <p>
+            <strong>When Sales Exceed Production (Inventory Decreases):</strong> Absorption costing net income will be LOWER than variable costing net income. This happens because the company is selling units from prior periods. The fixed overhead that was previously trapped in that older inventory is finally released and expensed as COGS, punishing the current period's income. Variable costing ignores this and only expenses the current period's fixed overhead.
+          </p>
+          <p>
+            <strong>When Production Equals Sales (Inventory Remains Flat):</strong> Net income will be exactly identical under both methods. Because the number of units produced matches the number sold, all fixed overhead assigned to units under absorption costing is expensed immediately as COGS, perfectly matching the total lump-sum expense taken under variable costing.
+          </p>
+
+          <h2 className="text-2xl font-bold mb-3">The Hidden Danger of Absorption Costing</h2>
+          <p>
+            While absorption costing is legally required for external reporting, it creates a very dangerous and well-documented behavioral incentive for factory managers: the temptation of <strong>producing for inventory</strong> to artificially inflate profits.
+          </p>
+          <p>
+            Because producing more units spreads the same total fixed overhead across a larger denominator of units, the per-unit product cost actually decreases. This artificially lowers the Cost of Goods Sold (COGS) per unit sold, which directly inflates the Gross Margin and Net Income for the period, even if actual sales revenue remains completely stagnant. A manager whose year-end bonus is tied to net income might instruct the factory to run at maximum capacity and overproduce, creating massive, unnecessary stockpiles of inventory simply to make the income statement look more profitable on paper. 
+          </p>
+          <p>
+            Variable costing completely eliminates this illusion by expensing all fixed overhead immediately. Under variable costing, producing excess inventory has absolutely no impact on net income, forcing managers to focus on actual sales generation rather than accounting manipulation.
+          </p>
+
+          <h2 className="text-2xl font-bold mb-3">Benefits of Using This Comparison Calculator</h2>
+          <p>
+            For accounting students preparing for the CPA exam and business managers attempting to parse their internal financials, manually reconciling absorption and variable costing can be a mathematically tedious and error-prone task. Our dual-method calculator automatically generates the distinct unit product costs, distinct income statements, and distinct ending inventory valuations for both accounting methods simultaneously. 
+          </p>
+          <p>
+            By dynamically adjusting the "Units Produced" versus "Units Sold" inputs, you can instantly observe how inventory fluctuations directly manipulate absorption net income while leaving variable costing net income tied purely to the company's actual sales performance. This tool is invaluable for demonstrating the mechanical flow of fixed overhead through the balance sheet and income statement.
+          </p>
+          </article>
         </div>
 
         <FAQSection faqs={[

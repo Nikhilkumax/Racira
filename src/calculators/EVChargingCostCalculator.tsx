@@ -318,26 +318,26 @@ export default function EVChargingCostCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is an EV Charging Cost Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is an EV Charging Cost Calculator?</h2>
             <p>An EV Charging Cost Calculator takes the mystery out of "fueling" an electric vehicle. Unlike gas cars, where you look at a giant sign that clearly states $3.50 per gallon, the cost to charge an EV is largely invisible. It depends on your home utility rate, the size of your car's battery, and the efficiency of the vehicle itself. This calculator converts the abstract concepts of kilowatts and electrical efficiency into concrete dollars, cents, and miles, allowing you to accurately budget your transportation costs and compare them directly against gasoline.</p>
 
-            <h2>How It Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
             <p>The calculation is based on simple physics. We determine the amount of energy you need by looking at your battery size and your target charge percentage. For example, charging a 75 kWh battery from 20% to 80% requires filling 60% of the battery, which is 45 kWh. We then apply a <strong>Charging Loss Penalty</strong>. Because converting AC power from your house into DC power for the battery generates waste heat, you actually pull more electricity from the wall than makes it into the battery. We multiply that total grid energy by your local <strong>Electricity Rate ($/kWh)</strong> to find your total cost.</p>
 
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>The <strong>Total Cost to Charge</strong> is the amount added to your monthly utility bill for this single charging session. <strong>Cost Per Mile</strong> is the ultimate metric for comparing EVs to gas cars. A highly efficient EV charging on a cheap overnight rate might cost $0.03 per mile. A standard gas car often costs $0.14 per mile. The <strong>Savings vs Gas</strong> metric calculates exactly how much money you kept in your pocket during this specific charging session by avoiding the gas pump.</p>
 
-            <h2>Key Factors</h2>
+            <h2 className="text-2xl font-bold mb-3">Key Factors</h2>
             <p>Your <strong>Electricity Rate</strong> is the most critical variable. In the US, the national average is roughly $0.16/kWh. However, in places like California, rates can spike to $0.40/kWh or more during peak hours, significantly diminishing the cost advantages of an EV. <strong>Vehicle Efficiency (mi/kWh)</strong> is the EV equivalent of MPG. An aerodynamic Tesla Model 3 might achieve 4.5 mi/kWh, while a massive electric pickup truck might only achieve 2.0 mi/kWh, meaning the truck costs twice as much to drive the exact same distance.</p>
 
-            <h2>Advanced Features</h2>
+            <h2 className="text-2xl font-bold mb-3">Advanced Features</h2>
             <p>By opening the Advanced Options, you can model charging time. <strong>Charger Power</strong> dictates speed. A standard wall outlet (Level 1) provides a trickle of 1.4 kW, which could take 40 hours to charge a car. A dedicated 240V home charger (Level 2) provides 9.6 kW, completing the charge overnight. A public Supercharger (Level 3) can provide up to 250 kW, finishing the job in 30 minutes. You can also adjust your local <strong>Gas Price</strong> to ensure the "Savings vs Gas" calculation accurately reflects your specific city.</p>
 
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <p><strong>Example 1: The Cheap Night Rate.</strong> Mark has a 75 kWh battery. He charges from 20% to 80%. His utility company offers a cheap overnight EV rate of $0.08/kWh. Accounting for a 10% charging loss, he pulls 50 kWh from the grid. His total cost is just $4.00, and he gains 180 miles of range. That same 180 miles in a 25 MPG gas car at $3.50/gal would cost $25.20. Mark saves $21 in a single night.</p>
             <p><strong>Example 2: The Expensive Supercharger.</strong> Sarah is on a road trip. She stops at a public fast charger that bills at a premium rate of $0.48/kWh. She charges that same 20% to 80% on her 75 kWh battery. Because she is paying a premium for speed, her charging session costs $24.00. While still slightly cheaper than gas, her cost advantage is vastly reduced compared to charging at home.</p>
 
-            <h2>Tips & Best Practices</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
             <p>To maximize your savings, check if your local utility provider offers a "Time of Use" (TOU) or specific EV charging rate. These programs offer incredibly cheap electricity if you schedule your car to charge automatically at 1:00 AM when grid demand is lowest. Also, avoid using expensive public fast chargers for your daily commute; they are designed for road trips and charge massive premiums for the convenience of speed.</p>
           </article>
           

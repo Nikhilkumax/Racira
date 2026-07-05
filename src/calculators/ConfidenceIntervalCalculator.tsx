@@ -230,7 +230,7 @@ export default function ConfidenceIntervalCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding Confidence Intervals and Margins of Error</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Confidence Intervals and Margins of Error</h2>
             <p>Confidence intervals are vital to statistical inference. They provide a range of values likely to contain the true population parameter rather than a single point estimate. The width of the interval is determined by sample standard deviation, sample size, and confidence level choice.</p>
             <p>Using critical value multipliers derived from normal probability distributions ($z^*$), the margin of error bounds standard error on both sides of the sample statistic, indicating uncertainty boundary thresholds.</p>
           </article>

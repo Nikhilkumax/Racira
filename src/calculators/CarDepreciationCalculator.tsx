@@ -338,29 +338,29 @@ export default function CarDepreciationCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is Car Depreciation?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is Car Depreciation?</h2>
             <p>Car depreciation is the financial reality that a vehicle loses value over time. It is the single largest hidden expense of car ownership. While most people focus on their monthly loan payment, insurance, and gas, the thousands of dollars the vehicle sheds in market value every year quietly dwarfs those other costs. A Car Depreciation Calculator is an essential tool for buyers who want to understand the true cost to own a vehicle before signing the paperwork.</p>
 
-            <h2>How It Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
             <p>Our calculator uses historical industry depreciation curves to project future value. The standard curve assumes a massive 20% drop in Year 1, followed by roughly 10-15% drops in subsequent years. The formula applies exponential decay based on the selected vehicle tier (Standard, Luxury, Reliable) and adjusts for your projected annual mileage. If you drive over 15,000 miles a year, a penalty factor reduces the curve further because high-mileage cars command less on the used market.</p>
 
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>The <strong>Estimated Value</strong> represents what you could reasonably expect to sell or trade the vehicle for at the end of your ownership period. <strong>Total Loss</strong> is the raw dollar amount that vanished into thin air while you owned the car. For example, if you buy a $40,000 car and sell it 5 years later for $18,000, your total loss is $22,000. <strong>Average Annual Loss</strong> breaks this down, showing you that the car cost you $4,400 a year just in lost value, regardless of repairs or fuel.</p>
 
-            <h2>Key Factors</h2>
+            <h2 className="text-2xl font-bold mb-3">Key Factors</h2>
             <p><strong>Depreciation Type</strong> is the most critical variable. Luxury cars (BMW, Mercedes) and EVs depreciate like rocks, often losing 60% of their value in 5 years. Standard cars (Ford, Chevy) lose about 50%. Exceptionally reliable cars (Toyota Tacoma, Honda CR-V) might only lose 30-40%. <strong>Current Age</strong> also dictates the curve; a brand-new car takes the steepest hit, while a 5-year-old car has already "flattened out" and will depreciate much slower.</p>
 
-            <h2>Advanced Features</h2>
+            <h2 className="text-2xl font-bold mb-3">Advanced Features</h2>
             <p>The calculator dynamically adjusts the depreciation curve based on <strong>Annual Mileage</strong>. The used car market heavily penalizes vehicles that exceed the standard 12,000 to 15,000 miles per year. By inputting your specific driving habits, the algorithm ensures you aren't overestimating the final trade-in value, preventing negative equity surprises when you go to sell the car.</p>
 
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <p><strong>Example 1: Buying New.</strong> Mark buys a brand new $50,000 luxury SUV. In Year 1, he loses $15,000 in value immediately. After 5 years, the SUV is worth just $17,500. He lost $32,500 in depreciation, or $6,500 per year.</p>
             <p><strong>Example 2: Buying Used.</strong> Sarah buys the exact same luxury SUV, but she buys it when it is 4 years old for $22,000. She keeps it for 5 years. Because the steepest part of the curve has passed, the SUV is worth $10,000 when she sells it. Her total depreciation is only $12,000, or $2,400 per year.</p>
 
-            <h2>Tips & Best Practices</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
             <p>To minimize depreciation, buy slightly used vehicles (3-5 years old) where the original owner has already absorbed the massive early-year losses. Hold onto vehicles as long as possible; keeping a car for 10 years flattens the curve to near zero in the final years. Choose colors that are universally appealing (white, black, silver) and maintain meticulous service records, as condition heavily impacts the actual real-world trade-in value.</p>
 
-            <h2>Benefits</h2>
+            <h2 className="text-2xl font-bold mb-3">Benefits</h2>
             <p>Using this calculator before purchasing a car forces you to look beyond the monthly payment. By visualizing the massive loss in value, you can make smarter decisions—such as opting for a gently used vehicle or choosing a brand known for retaining its value—ultimately saving you tens of thousands of dollars over your lifetime.</p>
           </article>
           

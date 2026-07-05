@@ -88,7 +88,7 @@ const AttendanceCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Check Status</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors"><RotateCcw className="h-5 w-5" /></button>
               </div>
           </div>
 
@@ -111,7 +111,7 @@ const AttendanceCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Sidebar Ad" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Managing Your Academic Attendance</h2>
+              <h2 className="text-2xl font-bold mb-3">Managing Your Academic Attendance</h2>
               <p>Maintaining a minimum attendance percentage is a common hurdle for students worldwide. Whether due to illness, family emergencies, or extracurricular activities, it's easy to fall behind the required threshold.</p>
               <h3>Why 75%?</h3>
               <p>The 75% rule is widely used because it balances the need for classroom instruction with a reasonable margin for unavoidable absences. It ensures that students engage with at least three-quarters of the curriculum delivered in person.</p>

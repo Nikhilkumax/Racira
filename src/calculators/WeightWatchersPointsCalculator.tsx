@@ -225,40 +225,40 @@ export default function WeightWatchersPointsCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is the Weight Watchers Points Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is the Weight Watchers Points Calculator?</h2>
             <p>The <strong>Weight Watchers (WW) Points Calculator</strong> is an estimation tool designed to help you determine your daily points budget based on the core methodologies of the famous WW program. For decades, Weight Watchers has been one of the most successful commercial weight loss programs in the world. Its success stems from a simple premise: counting calories is tedious and mathematically flawed because not all calories are processed by the body in the same way. 100 calories of salmon is fundamentally different from 100 calories of jellybeans.</p>
             <p>To solve this, WW created a proprietary "Points" algorithm. This algorithm assigns a single numerical value to every food based on its nutritional profile, heavily penalizing sugar and saturated fats while rewarding lean proteins and fiber. Simultaneously, the program assigns you a daily points budget based on your height, weight, age, and sex. Your goal is simply to eat whatever you want, provided you stay under your daily points limit.</p>
 
-            <h2>How the Algorithm Calculates Your Daily Budget</h2>
+            <h2 className="text-2xl font-bold mb-3">How the Algorithm Calculates Your Daily Budget</h2>
             <p>Your daily points budget is not arbitrary; it is a calculation of your Basal Metabolic Rate (BMR) adjusted for your weight loss goals. The calculator processes your inputs through a series of metabolic steps.</p>
             <p>First, it establishes a <strong>Base Rate</strong>. The absolute minimum points budget WW historically allows is 23 points. This ensures that no matter how small you are, you are receiving enough energy to sustain vital organ functions without entering starvation mode.</p>
             <p>Second, it applies <strong>Biological Modifiers</strong>. Because males generally possess a higher percentage of lean muscle mass than females, they naturally burn more calories at rest. Therefore, males receive an automatic bonus to their base points (typically +8 points). Age is also factored in; younger individuals have faster metabolisms and receive additional points, which scale down as you enter your 30s, 40s, and 50s.</p>
             <p>Third, it scales for <strong>Height and Weight</strong>. The taller and heavier you are, the more energy it takes simply to move your body through space. You receive approximately 1 extra point for every 10 pounds of body weight, and additional points based on your height.</p>
             <p>Finally, it adds an <strong>Activity Bonus</strong>. If you input that you are highly active, the calculator grants you extra points to fuel that physical exertion. The resulting number is your highly personalized Daily SmartPoints Budget.</p>
 
-            <h2>Understanding The "Zero Point" Foods</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding The "Zero Point" Foods</h2>
             <p>The genius of the WW system lies in its "Zero Point" foods. To prevent members from feeling starved while restricting their daily budget, WW designated over 200 nutritionally dense foods as costing zero points. You can eat as much of them as you want without tracking them.</p>
             <p>This list includes nearly all fresh fruits, non-starchy vegetables, eggs, skinless chicken breast, turkey breast, most fish and shellfish, beans, lentils, tofu, and plain non-fat Greek yogurt.</p>
             <p>Why are they zero points? Because they are incredibly satiating. It is very difficult to binge-eat plain chicken breast and broccoli. The high protein and fiber content signals to your brain that you are full long before you can consume enough calories to derail your weight loss. Zero Point foods act as the foundation of your diet, allowing you to save your actual points budget for complex carbs, healthy fats, or evening treats.</p>
 
-            <h2>The Weekly Flex Points System</h2>
+            <h2 className="text-2xl font-bold mb-3">The Weekly Flex Points System</h2>
             <p>Rigid diets fail because they don't account for real life. If a diet requires you to eat exactly 1,500 calories every single day, what happens when you attend a wedding on Saturday? You break the diet, feel guilty, and often quit entirely.</p>
             <p>WW solves this psychological trap by giving every member a bank of <strong>49 Weekly Flex Points</strong>. This is an additional pool of points completely separate from your daily budget. You can use them however you see fit. You can ignore them entirely to accelerate fat loss, spread them out by adding 7 extra points to your dinner every night, or save all 49 of them to drink wine and eat pizza guilt-free on Saturday night. The flex points absorb the shock of real-world eating, making the diet sustainable long-term.</p>
 
-            <h2>Practical Examples: How to Eat on WW</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples: How to Eat on WW</h2>
             <p>To understand how liberating the points system can be, let's look at how a person with a 25-point daily budget might structure their day.</p>
             <p><strong>Breakfast:</strong> A three-egg omelet loaded with spinach, tomatoes, and onions (0 points), alongside a massive bowl of mixed berries (0 points). Total cost: 0 points. You are completely full and haven't touched your budget.</p>
             <p><strong>Lunch:</strong> A large salad with grilled chicken breast (0 points). You add a generous serving of high-calorie Caesar dressing (5 points) and croutons (2 points). Total cost: 7 points.</p>
             <p><strong>Snack:</strong> Plain Greek yogurt (0 points) mixed with a handful of almonds (4 points). Total cost: 4 points.</p>
             <p><strong>Dinner:</strong> You have 14 points remaining. You eat baked salmon (0 points) and asparagus (0 points), but you use 5 points for a serving of olive oil to roast the vegetables. You use 5 points for a serving of pasta on the side. Total cost: 10 points. You still have 4 points left over to roll into your weekly flex bank, or use on a small dessert, having eaten massive, filling meals all day.</p>
 
-            <h2>Tips & Best Practices</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
             <p>To maximize your success using a points-based weight loss system, follow these proven best practices.</p>
             <p>First, build every single meal around a Zero Point food. If you are hungry, eat protein or fiber first. Never spend your points on a snack until you have eaten an apple or a hard-boiled egg. If you are still hungry 20 minutes later, then spend the points.</p>
             <p>Second, beware of liquid calories. Because the WW algorithm heavily penalizes sugar and lack of fiber, sodas, fruit juices, and alcohol cost an astronomical amount of points relative to how full they make you feel. A single large sugary coffee drink can cost 15 points—more than half a woman's daily budget. Drink water, black coffee, or zero-calorie sodas.</p>
             <p>Third, weigh and measure your "pointed" foods. It is incredibly easy to accidentally use 3 tablespoons of peanut butter when you thought you only used 1. Because fat is calorically dense, that small error can cost you 6 to 8 points. Buy a cheap digital food scale and use it religiously for anything that isn't on the Zero Point list.</p>
 
-            <h2>Benefits</h2>
+            <h2 className="text-2xl font-bold mb-3">Benefits</h2>
             <p>Utilizing a Points Calculator shifts the focus of weight loss from deprivation to optimization. It gamifies nutrition, encouraging you to "spend" your budget wisely while relying on healthy, filling foods to carry you through the day.</p>
             <p>By understanding your daily budget, mastering the Zero Point list, and utilizing your weekly flex points to navigate social events, you can lose significant amounts of weight without ever feeling like you are trapped on a restrictive diet.</p>
           </article>

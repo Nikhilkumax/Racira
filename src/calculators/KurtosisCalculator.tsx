@@ -155,15 +155,15 @@ const KurtosisCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Kurtosis Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Kurtosis Calculator?</h2>
             <p>A kurtosis calculator measures the tailedness of a distribution — how prone the data is to producing extreme outliers. Pre-filled with 13 values that cluster around the center, the calculator computes population and sample kurtosis, excess kurtosis, classifies the distribution (leptokurtic/mesokurtic/platykurtic), and shows a distribution histogram.</p>
-            <h2>Kurtosis vs Excess Kurtosis</h2>
+            <h2 className="text-2xl font-bold mb-3">Kurtosis vs Excess Kurtosis</h2>
             <p><strong>Kurtosis</strong> (raw, 4th standardized moment): κ = E[(X−μ)⁴]/σ⁴. A normal distribution has κ = 3. <strong>Excess kurtosis</strong> = κ − 3, zeroed at the normal distribution. Most software (R, Python, Excel KURT) reports excess kurtosis. Positive excess means heavier tails than normal; negative means lighter tails.</p>
-            <h2>Leptokurtic, Mesokurtic, Platykurtic</h2>
+            <h2 className="text-2xl font-bold mb-3">Leptokurtic, Mesokurtic, Platykurtic</h2>
             <p><strong>Leptokurtic</strong> (excess &gt; 0): heavy tails, sharp peak. More probability in the tails than normal — extreme events are more likely. Examples: stock returns, income, insurance claims. <strong>Mesokurtic</strong> (excess ≈ 0): similar to normal. <strong>Platykurtic</strong> (excess &lt; 0): light tails, flat top. Bounded data with few extremes. Example: uniform distribution (excess = −1.2).</p>
-            <h2>Kurtosis in Risk Management</h2>
+            <h2 className="text-2xl font-bold mb-3">Kurtosis in Risk Management</h2>
             <p>Financial returns are leptokurtic: the S&amp;P 500 has excess kurtosis around 2–4 on daily returns. This means market crashes and extreme gains are far more frequent than a normal model predicts. Standard VaR calculations using normal assumptions underestimate risk. Fat-tailed models (Student{"'"}s t-distribution, extreme value theory) provide more accurate tail risk estimates.</p>
-            <h2>The Jarque-Bera Normality Test</h2>
+            <h2 className="text-2xl font-bold mb-3">The Jarque-Bera Normality Test</h2>
             <p>JB = (n/6) × [S² + (K²/4)], where S = skewness, K = excess kurtosis. Under H₀ (normality): JB ~ χ²(2). Large JB → reject normality. This test efficiently combines both shape measures. A dataset with skewness = 0.5 and excess kurtosis = 1.5 with n=100 gives JB = 100/6 × (0.25 + 0.5625) ≈ 13.5, rejecting normality at the 1% level (critical value ≈ 9.21).</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/kurtosis-calculator" />

@@ -134,7 +134,7 @@ const LinearEquationCalculator = () => {
               )}
 
               <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Solve</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
               </div>
           </div>
 
@@ -169,7 +169,7 @@ const LinearEquationCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Solving Linear Equations</h2>
+              <h2 className="text-2xl font-bold mb-3">Solving Linear Equations</h2>
               <p>Linear equations are the foundation of algebra. This calculator solves single-variable equations (ax + b = 0) and systems of 2 or 3 equations using Cramer's rule with determinants.</p>
             </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/linear-equation-calculator" />

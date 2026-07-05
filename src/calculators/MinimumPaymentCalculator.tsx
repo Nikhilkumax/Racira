@@ -188,7 +188,7 @@ const MinimumPaymentCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>The Danger of Minimum Payments</h2>
+              <h2 className="text-2xl font-bold mb-3">The Danger of Minimum Payments</h2>
               <p>Minimum payments are one of the most effective ways for credit card companies to maximize their profits. While they allow you to avoid late fees and keep your account active, they are mathematically structured to keep you in debt for as long as possible—often decades.</p>
 
               <h3>How Lenders Calculate the Minimum</h3>
@@ -200,7 +200,7 @@ const MinimumPaymentCalculator = () => {
               <h3>The CARD Act Warning</h3>
               <p>Since 2009, credit card issuers have been required to show you a 'Minimum Payment Warning' on your monthly statement. This table shows you two scenarios: how long it will take to pay off the balance making only minimum payments, and how much you would need to pay each month to be debt-free in exactly three years. Most people are shocked to see that paying just a little bit more each month can save them thousands of dollars and years of time.</p>
 
-              <h2>Strategies to Escape the Minimum Payment Cycle</h2>
+              <h2 className="text-2xl font-bold mb-3">Strategies to Escape the Minimum Payment Cycle</h2>
               <p>If you find yourself only making minimum payments, here are three ways to break the cycle:</p>
               <ol>
                 <li><strong>The 'Fixed Payment' Strategy:</strong> Instead of letting your payment drop as your balance drops, keep paying the same amount you paid in month one. This effectively turns your credit card into an amortizing loan.</li>

@@ -135,20 +135,20 @@ export default function InventoryDaysCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10"/>
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is the Days in Inventory Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is the Days in Inventory Calculator?</h2>
             <p>Days in Inventory (DIO), also known as Days Sales of Inventory (DSI) or Days Inventory Outstanding, measures how many days on average a company holds inventory before selling it. It is a critical operational efficiency metric used by CFOs, supply chain managers, and equity analysts to assess working capital management.</p>
-            <h2>DIO Formula</h2>
+            <h2 className="text-2xl font-bold mb-3">DIO Formula</h2>
             <p><strong>DIO = (Average Inventory ÷ COGS) × 365</strong></p>
             <p>Where Average Inventory = (Beginning Inventory + Ending Inventory) ÷ 2. Equivalently: DIO = 365 ÷ Inventory Turnover Ratio, where Inventory Turnover = COGS ÷ Average Inventory.</p>
-            <h2>Why COGS and Not Revenue?</h2>
+            <h2 className="text-2xl font-bold mb-3">Why COGS and Not Revenue?</h2>
             <p>COGS is used rather than revenue because both inventory and COGS are measured at cost. Using revenue would mix cost-basis inventory with selling-price revenue, producing a misleading ratio. This ensures the numerator and denominator are on the same accounting basis.</p>
-            <h2>DIO and the Cash Conversion Cycle</h2>
+            <h2 className="text-2xl font-bold mb-3">DIO and the Cash Conversion Cycle</h2>
             <p>DIO is one of three components in the Cash Conversion Cycle (CCC): <strong>CCC = DIO + DSO − DPO</strong> (where DSO = Days Sales Outstanding and DPO = Days Payable Outstanding). A lower CCC means faster conversion of operating investments to cash — a hallmark of capital-efficient businesses. Companies like Amazon achieve a negative CCC, effectively using supplier credit to fund operations.</p>
-            <h2>Industry Benchmarks</h2>
+            <h2 className="text-2xl font-bold mb-3">Industry Benchmarks</h2>
             <p>DIO varies enormously by sector. Food retail: 10–20 days. Apparel: 60–100 days. Automotive: 40–70 days. Electronics retail: 30–50 days. Aerospace: 100–200 days. Compare your DIO to direct competitors to identify whether inventory management is a competitive strength or weakness.</p>
-            <h2>Strategies to Reduce DIO</h2>
+            <h2 className="text-2xl font-bold mb-3">Strategies to Reduce DIO</h2>
             <p>Implement demand forecasting to align procurement with actual sales velocity. Adopt just-in-time (JIT) inventory practices. Segment inventory into ABC categories (A=high value/high velocity, C=low value/low velocity) and prioritize active management of A items. Use vendor-managed inventory (VMI) where suppliers maintain optimal stock levels. Regularly review and clear slow-moving or obsolete inventory through markdowns or liquidation.</p>
-            <h2>Risks of Overly Low DIO</h2>
+            <h2 className="text-2xl font-bold mb-3">Risks of Overly Low DIO</h2>
             <p>While reducing DIO is generally beneficial, extreme reduction creates stockout risk — empty shelves leading to lost sales and customer churn. The optimal DIO balances inventory carrying costs (storage, insurance, obsolescence) against the cost of stockouts (lost revenue, expediting charges). Safety stock calculations should inform the floor below which DIO should not fall.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/inventory-days-calculator"/>

@@ -147,18 +147,18 @@ const MeanArterialPressureCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Mean Arterial Pressure Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Mean Arterial Pressure Calculator?</h2>
             <p>A mean arterial pressure (MAP) calculator computes the average blood pressure during a complete cardiac cycle from your systolic and diastolic readings. MAP is the single best indicator of organ perfusion pressure — the force driving blood through your kidneys, brain, and other vital organs. Pre-filled with 120/80 mmHg (normal blood pressure), the MAP is 93 mmHg — well within the healthy range of 70–100 mmHg.</p>
-            <h2>The MAP Formula</h2>
+            <h2 className="text-2xl font-bold mb-3">The MAP Formula</h2>
             <p><strong>MAP = Diastolic BP + ⅓ × (Systolic BP − Diastolic BP)</strong></p>
             <p>Equivalently: MAP = (2 × DBP + SBP) / 3. The formula weights diastolic pressure more heavily because the heart spends approximately 2/3 of each cardiac cycle in diastole. For 120/80: MAP = 80 + (120−80)/3 = 80 + 13.3 = 93.3 mmHg.</p>
-            <h2>Clinical Significance</h2>
+            <h2 className="text-2xl font-bold mb-3">Clinical Significance</h2>
             <p>MAP is the primary hemodynamic target in critical care medicine. In septic shock, the Surviving Sepsis Campaign guidelines recommend maintaining MAP ≥ 65 mmHg using fluids and vasopressors. Below 60 mmHg, organ perfusion becomes compromised — the kidneys begin to fail (acute kidney injury), cerebral autoregulation breaks down, and tissue ischemia develops. Chronically elevated MAP (&gt;100 mmHg) damages blood vessel walls and accelerates atherosclerosis.</p>
-            <h2>Pulse Pressure</h2>
+            <h2 className="text-2xl font-bold mb-3">Pulse Pressure</h2>
             <p>Pulse pressure (PP = Systolic − Diastolic) is an independent cardiovascular risk marker. Normal PP is 30–50 mmHg. Wide PP (&gt;60 mmHg) indicates: arterial stiffness (aging/atherosclerosis), aortic regurgitation, hyperthyroidism, or anemia. Narrow PP (&lt;25 mmHg) may indicate: heart failure, cardiac tamponade, aortic stenosis, or hypovolemic shock. PP widens naturally with age as arteries lose compliance.</p>
-            <h2>MAP and Cerebral Perfusion</h2>
+            <h2 className="text-2xl font-bold mb-3">MAP and Cerebral Perfusion</h2>
             <p>The brain requires a cerebral perfusion pressure (CPP) of 60–70 mmHg for adequate oxygenation. CPP = MAP − Intracranial Pressure (ICP). In traumatic brain injury management, MAP is carefully targeted to maintain CPP above 60 mmHg while controlling ICP. Too high MAP with elevated ICP can worsen brain edema, while too low MAP causes cerebral ischemia. This is why MAP monitoring is continuous in neurocritical care units.</p>
-            <h2>MAP in Anesthesia</h2>
+            <h2 className="text-2xl font-bold mb-3">MAP in Anesthesia</h2>
             <p>During surgery, anesthesiologists monitor MAP continuously and maintain it within 20% of the patient's baseline to prevent organ damage. A MAP drop below 65 mmHg for more than 10 minutes during surgery is associated with myocardial injury, acute kidney injury, and 30-day mortality. Vasopressors (phenylephrine, ephedrine) and fluid boluses are titrated to maintain MAP targets.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/mean-arterial-pressure-calculator" />

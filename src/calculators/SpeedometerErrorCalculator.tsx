@@ -299,19 +299,19 @@ export default function SpeedometerErrorCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Causes Speedometer Error?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Causes Speedometer Error?</h2>
             <p>Your vehicle's speedometer is calibrated at the factory to match the exact circumference of the original equipment (OEM) tires. When you drive, a speed sensor located in the transmission or wheel hub counts the number of revolutions per minute. The vehicle's computer multiplies these revolutions by the factory tire circumference to calculate your speed. If you replace your tires with a different size, you alter the circumference, completely destroying the mathematical foundation of your speedometer's accuracy. Our Speedometer Error Calculator instantly reveals how far off your dash reading is from reality.</p>
 
-            <h2>The Danger of Oversized Tires</h2>
+            <h2 className="text-2xl font-bold mb-3">The Danger of Oversized Tires</h2>
             <p>If you install larger (taller) tires than what came from the factory—a common modification for trucks, Jeeps, and SUVs—your new tires have a larger circumference. This means they travel farther across the asphalt with every single revolution. The speed sensor counts the same number of revolutions, but you are physically covering more ground. As a result, your speedometer will read <strong>slower</strong> than you are actually traveling. You might think you are cruising exactly at the 65 mph speed limit, but a radar gun will show you doing 72 mph, leading to an expensive speeding ticket.</p>
 
-            <h2>The Effect of Undersized Tires</h2>
+            <h2 className="text-2xl font-bold mb-3">The Effect of Undersized Tires</h2>
             <p>Conversely, if you install smaller (shorter) tires—or low-profile tires without increasing wheel size—the tires have a smaller circumference. They must rotate more times to cover the same distance. Your computer counts extra revolutions and thinks you are driving fast. Your speedometer will read <strong>faster</strong> than you are actually traveling. While this won't get you a speeding ticket, it is incredibly frustrating for highway driving and artificially inflates the mileage recorded on your odometer.</p>
 
-            <h2>How Speedometer Error Scales</h2>
+            <h2 className="text-2xl font-bold mb-3">How Speedometer Error Scales</h2>
             <p>Speedometer error is not a fixed number; it is a percentage. If your new tires are 10% larger in circumference, your speedometer is off by 10%. At 10 mph, you are only off by 1 mph. However, at 70 mph, that same 10% error means you are physically traveling 77 mph. As you drive faster, the absolute error gap widens significantly, which is clearly visualized in our Speedometer Deviation Curve chart.</p>
 
-            <h2>How to Fix Your Speedometer Calibration</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Fix Your Speedometer Calibration</h2>
             <p>You do not have to live with a broken speedometer. Modern vehicles use electronic speed sensors rather than mechanical cables. An automotive shop, dealership, or even a handheld aftermarket tuner (like a Flashcal) can plug into your vehicle's OBD-II diagnostic port. They simply update the Tire Size parameter in the Engine Control Unit (ECU) with the new circumference data, instantly restoring the accuracy of both your speedometer and odometer, and ensuring your Anti-lock Braking System (ABS) functions safely.</p>
           </article>
           

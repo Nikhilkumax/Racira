@@ -143,7 +143,7 @@ const StudentLoanPayoffCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>The Power of Extra Payments</h2>
+              <h2 className="text-2xl font-bold mb-3">The Power of Extra Payments</h2>
               <p>Student loans are structured as amortized debt, meaning your monthly payment is split between interest and principal. In the early years of your loan, a large portion of your payment goes toward interest. By adding even a small amount to your monthly payment, you directly reduce the principal balance.</p>
               
               <h3>Bypassing Compound Interest</h3>

@@ -204,11 +204,11 @@ export default function BmiPrimeCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is BMI Prime?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is BMI Prime?</h2>
             <p>The standard Body Mass Index (BMI) is a cornerstone of global preventative medicine, but it suffers from a major psychological flaw: the numbers mean absolutely nothing without referencing a medical chart. If a doctor tells a patient their BMI is 27.3, the patient doesn't intuitively know if that is slightly overweight or dangerously obese. They have to memorize that 25 is the cutoff for "normal" and 30 is the cutoff for "obese."</p>
             <p>To solve this communication barrier, medical researchers developed <strong>BMI Prime</strong>. BMI Prime is a simple mathematical ratio that converts your standard BMI into a fraction of your maximum optimal weight. Instead of dealing with abstract medical scales, BMI Prime expresses your body mass as a clean, intuitive percentage relative to the upper boundary of health.</p>
 
-            <h2>How The Calculations Work</h2>
+            <h2 className="text-2xl font-bold mb-3">How The Calculations Work</h2>
             <p>The mathematics behind a BMI Prime Calculator are elegantly simple, requiring only two steps.</p>
             <p>First, the calculator determines your standard <strong>Body Mass Index</strong> using the universal formula: <code>Weight in Kilograms / (Height in Meters)²</code>.</p>
             <p>Second, it calculates your <strong>BMI Prime Ratio</strong> by dividing your standard BMI by the upper limit of the optimal healthy BMI range. For the vast majority of the global population, the World Health Organization sets this upper optimal limit at a BMI of 25. Therefore, the formula is: <code>BMI Prime = Actual BMI / 25</code>.</p>
@@ -216,7 +216,7 @@ export default function BmiPrimeCalculator() {
             <h3>The Asian Population Adjustment</h3>
             <p>Extensive clinical research has proven that individuals of East Asian and South Asian descent accumulate visceral fat and develop metabolic diseases (such as type 2 diabetes and hypertension) at much lower body weights than Caucasian populations. Because of this genetic difference, the WHO recommends lowering the upper healthy limit for these populations from 25 to 23. If you select the Asian population standard on this calculator, the formula dynamically shifts to: <code>BMI Prime = Actual BMI / 23</code>.</p>
 
-            <h2>Interpreting Your BMI Prime Score</h2>
+            <h2 className="text-2xl font-bold mb-3">Interpreting Your BMI Prime Score</h2>
             <p>The power of BMI Prime lies in its instant readability. The number 1.0 represents the exact upper boundary of a healthy weight. Any number above 1.0 represents the exact percentage of excess mass you are carrying.</p>
             
             <h3>Score &lt; 0.74: Underweight</h3>
@@ -231,18 +231,18 @@ export default function BmiPrimeCalculator() {
             <h3>Score &gt; 1.20: Obese</h3>
             <p>If your score exceeds 1.20, you are carrying over 20% more mass than the clinical upper limit of health. At this stage, the mechanical stress on your joints and the metabolic stress on your heart and liver increase exponentially. A score above 1.20 strongly warrants a consultation with a medical professional to develop a safe, sustainable weight loss strategy.</p>
 
-            <h2>Understanding Your Results Dashboard</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results Dashboard</h2>
             <p>When you execute a calculation, this tool provides five distinct analytical sections designed to give you total visibility into your body composition.</p>
             <p><strong>Primary Score Card:</strong> This boldly displays your calculated BMI Prime ratio (e.g., 1.12), immediately color-coded for fast comprehension (Green for optimal, Orange for overweight, Red for obese).</p>
             <p><strong>3-Stat Diagnostic Bar:</strong> This section clearly defines your standard BMI alongside your BMI Prime, and explicitly states your percentage variance (e.g., "12.0% above optimal limit").</p>
             <p><strong>Calculation Breakdown Table:</strong> A transparent, line-by-line accounting that tracks exactly which upper limit was used (25 vs 23) and how the final ratio was generated.</p>
             <p><strong>BMI Prime Spectrum Chart:</strong> A visual horizontal bar chart that maps the clinical thresholds (Underweight, Optimal, Overweight, Obese), placing a precise marker exactly where your BMI Prime score sits on that spectrum. It clearly illustrates how far you are from the safety of the 1.0 limit.</p>
 
-            <h2>The Benefits of Using BMI Prime</h2>
+            <h2 className="text-2xl font-bold mb-3">The Benefits of Using BMI Prime</h2>
             <p>The primary benefit of BMI Prime is its psychological impact on goal setting. Telling someone they need to drop their BMI from 28.5 to 24.9 feels abstract and overwhelming. Telling someone their BMI Prime is 1.14 (meaning they are 14% over their limit), and their goal is to simply get that number below 1.0, gives them a concrete, percentage-based target to track.</p>
             <p>It provides a universal language for weight management. A 5-foot-tall woman and a 6-foot-tall man can compare their BMI Prime scores instantly. If they both have a score of 1.08, they are both exactly 8% over their respective optimal weight limits, despite having vastly different heights and raw weights.</p>
 
-            <h2>Critical Limitations</h2>
+            <h2 className="text-2xl font-bold mb-3">Critical Limitations</h2>
             <p>Because BMI Prime is derived directly from the standard BMI formula, it inherits all of the exact same clinical limitations.</p>
             <p><strong>It cannot measure body fat.</strong> The formula only registers total mass relative to height. It assumes all mass is identical. If you are a dedicated weightlifter, a collegiate sprinter, or someone who performs heavy manual labor, your dense muscle tissue will increase your total mass. You may register a BMI Prime of 1.15 (15% Overweight), but that 15% excess mass may be pure, healthy muscle tissue.</p>
             <p><strong>It ignores fat distribution.</strong> Two people can have a perfect optimal BMI Prime of 0.95. One person may store their fat evenly across their subcutaneous layer (safe fat), while the other may store a small amount of fat exclusively around their waist, wrapping around their organs (dangerous visceral fat). The person with visceral fat is at a much higher risk for heart disease, despite having a "perfect" BMI Prime score.</p>

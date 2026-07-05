@@ -335,10 +335,10 @@ export default function BlackScholesCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Black-Scholes Option Pricing Model</h2>
+            <h2 className="text-2xl font-bold mb-3">The Black-Scholes Option Pricing Model</h2>
             <p>Developed by Fischer Black, Myron Scholes, and Robert Merton in 1973, the Black-Scholes model revolutionized modern finance by providing a mathematical framework for pricing options contracts. It is widely considered one of the most important concepts in financial engineering and earned its creators the Nobel Prize in Economics.</p>
             
-            <h2>How the Formula Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How the Formula Works</h2>
             <p>The model prices a theoretical European call or put option by creating a risk-neutral portfolio. It asserts that you can perfectly hedge an option by buying and selling the underlying asset in specific proportions. The formula inputs five key variables:</p>
             <ul>
               <li><strong>Spot Price (S):</strong> The current market price of the underlying asset.</li>
@@ -348,7 +348,7 @@ export default function BlackScholesCalculator() {
               <li><strong>Risk-Free Rate (r):</strong> The theoretical return of an investment with zero risk, often represented by the yield on US Treasury Bills.</li>
             </ul>
             
-            <h2>Understanding "The Greeks"</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding "The Greeks"</h2>
             <p>While the Black-Scholes formula gives you the fair value of an option, traders heavily rely on the derivatives of the formula, known as "The Greeks," to manage risk in their portfolios:</p>
             <ul>
               <li><strong>Delta (Δ):</strong> Measures the rate of change of the option's price with respect to a $1 change in the underlying asset's price. A call delta of 0.50 means if the stock goes up $1, the call option goes up $0.50.</li>
@@ -358,7 +358,7 @@ export default function BlackScholesCalculator() {
               <li><strong>Rho (ρ):</strong> Measures sensitivity to interest rate changes. It is the least used Greek for short-term retail trading but matters for long-term options (LEAPS).</li>
             </ul>
             
-            <h2>Limitations of the Model</h2>
+            <h2 className="text-2xl font-bold mb-3">Limitations of the Model</h2>
             <p>While foundational, the Black-Scholes model has known limitations. It assumes that stock prices follow a lognormal distribution (a random walk), which implies that extreme market crashes are mathematically impossible, despite them happening in reality (fat tails). It also assumes that volatility and the risk-free rate remain perfectly constant over the life of the option, and it does not account for the early exercise premium of American options.</p>
           </article>
           

@@ -284,15 +284,15 @@ export default function FloorsClimbedCalorieCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Physics of Vertical Displacement</h2>
+            <h2 className="text-2xl font-bold mb-3">The Physics of Vertical Displacement</h2>
             <p>Every fitness tracker on the market gamifies the concept of "closing your rings" by telling you to stand up and walk. However, walking on flat ground is a highly efficient movement that barely challenges the human cardiovascular system. If you want to force your body to expend a massive amount of energy in a very short amount of time, you must wage war against the most powerful force on Earth: gravity.</p>
             <p>The <strong>Floors Climbed Calorie Calculator</strong> bypasses the inaccurate generalizations of wrist pedometers by utilizing pure Newtonian physics. By mathematically determining the exact mechanical force required to propel your specific body mass straight up into the air, it provides a flawless calculation of the thermodynamic energy your muscles were forced to expend.</p>
 
-            <h2>Why 10 Minutes of Stairs Destroys 10 Minutes of Walking</h2>
+            <h2 className="text-2xl font-bold mb-3">Why 10 Minutes of Stairs Destroys 10 Minutes of Walking</h2>
             <p>When you walk on a perfectly flat sidewalk, your body establishes a highly efficient rhythm. Your center of gravity remains perfectly level. The only resistance you are overcoming is the slight friction of the pavement. Because it is so efficient, your heart rate barely elevates above its resting baseline, and you burn very few calories per minute.</p>
             <p>Climbing a flight of stairs violently destroys this efficiency. You are no longer moving horizontally; you are moving vertically. With every single step, your glutes and quadriceps are forced to perform a single-leg squat, dead-lifting your entire body weight straight up against the brutal resistance of gravity. Because this mechanical demand is so extreme, your muscles rapidly deplete their immediate oxygen stores. Your heart rate instantly spikes to pump fresh blood to your legs, and you find yourself breathless within 30 seconds. Climbing stairs is not walking—it is an explosive, high-intensity resistance workout.</p>
 
-            <h2>The Mathematics of the Calculation</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of the Calculation</h2>
             <p>Unlike standard cardio calculators that rely on heart rate or estimated time domains, stair climbing can be calculated using hard physics. The formula for mechanical Work is: <strong>Joules = Mass × Gravity × Height</strong>.</p>
             <ul>
               <li><strong>Height:</strong> In standard architecture, an average floor is approximately 3 meters (or 10 feet) tall, consisting of about 15 individual stairs. We multiply the number of floors by 3 meters to get your total vertical displacement.</li>
@@ -301,15 +301,15 @@ export default function FloorsClimbedCalorieCalculator() {
             </ul>
             <p>Once we have the total Joules of mechanical work performed, we convert them into kilocalories. Finally, we must account for human biomechanics. The human body is only about 20% efficient at climbing stairs—meaning 80% of the energy you generate is lost as body heat rather than direct upward movement. We divide by this efficiency metric to give you your true, gross caloric expenditure.</p>
 
-            <h2>Why Heavier Individuals Burn So Much More</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Heavier Individuals Burn So Much More</h2>
             <p>One of the most fascinating aspects of stair climbing is how drastically it penalizes body weight. Your leg muscles are completely blind; they do not know the difference between 50 pounds of excess body fat and a 50-pound weighted backpack. They only recognize the total mass they must push upwards.</p>
             <p>If a 240-pound man and a 130-pound woman both climb 10 flights of stairs, the heavier man had to perform nearly double the mechanical "work." He had to generate the explosive force to lift an extra 110 pounds up a 100-foot vertical wall. Because his larger body required vastly more physiological energy (ATP) to accomplish the exact same task, he will mathematically burn significantly more absolute calories. The interactive chart in this calculator perfectly illustrates this Mass Resistance Curve.</p>
 
-            <h2>The Downhill Trap: Eccentric Muscle Damage</h2>
+            <h2 className="text-2xl font-bold mb-3">The Downhill Trap: Eccentric Muscle Damage</h2>
             <p>A common mistake people make is trying to count the calories burned while walking down the stairs. From a purely cardiovascular standpoint, descending stairs burns very few calories because gravity is doing almost all of the work for you. Your heart rate plummets.</p>
             <p>However, descending stairs creates a massive amount of mechanical damage. To prevent you from falling face-first down the steps, your quadriceps are forced into "eccentric" contractions. This means the muscle is physically lengthening while it is under tension, acting as a powerful brake. Eccentric contractions cause massive microscopic tearing in the muscle fibers—which is exactly why your legs get intensely sore two days after a heavy hike or a stair workout. Repairing this massive muscular trauma requires significant calories (via the Afterburn Effect, or EPOC) over the next 48 hours.</p>
 
-            <h2>Conclusion: Skip the Elevator</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Skip the Elevator</h2>
             <p>If your goal is to lose weight and drastically improve your cardiovascular conditioning, flat-ground walking is not enough. You must introduce mechanical resistance. Climbing stairs is one of the most brutal, efficient, and accessible forms of high-intensity interval training (HIIT) on the planet. Stop relying on gamified watch rings. Use the Floors Climbed Calorie Calculator to track the true physics of your output, embrace the burn in your legs, and always take the stairs.</p>
           </article>
           

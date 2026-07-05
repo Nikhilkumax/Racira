@@ -298,7 +298,7 @@ const ApyCalculator = () => {
         <div className="max-w-[1180px] mt-12">
           <AdPlaceholder className="mb-8" />
           <article className="prose prose-slate max-w-none lg:prose-lg dark:prose-invert">
-            <h2>What Is an APY Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is an APY Calculator?</h2>
             <p>
               An <strong>APY Calculator</strong> (Annual Percentage Yield Calculator) is an essential financial tool that helps consumers determine the actual, effective return on their savings or investments. While banks frequently advertise a "nominal interest rate," that rate does not tell the whole story if the interest is compounded over time. The APY calculation takes into account the magical effect of compounding—where you earn interest not only on your initial deposit but also on the accumulated interest from previous periods.
             </p>
@@ -306,7 +306,7 @@ const ApyCalculator = () => {
               Whether you are opening a high-yield savings account, purchasing a Certificate of Deposit (CD), or investing in a money market account, knowing your exact APY allows you to make precise, apples-to-apples comparisons between competing financial institutions and maximize the growth of your wealth.
             </p>
 
-            <h2>How the APY Formula Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How the APY Formula Works</h2>
             <p>
               The difference between the nominal rate (APR) and the yield (APY) lies entirely in the mathematics of compounding. A nominal rate is just the stated percentage without considering frequency. 
             </p>
@@ -327,7 +327,7 @@ const ApyCalculator = () => {
               This mathematically proves that daily compounding yields a higher return than simple interest.
             </p>
 
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>
               When you use our calculator, the results provide an in-depth look at your financial trajectory. Here is how to interpret the outputs:
             </p>
@@ -338,7 +338,7 @@ const ApyCalculator = () => {
               <li><strong>Chart (Compounding vs Simple):</strong> This visual comparison highlights the "free money" generated specifically by compounding, separating it from the linear growth of simple interest.</li>
             </ul>
 
-            <h2>Key Factors That Influence APY</h2>
+            <h2 className="text-2xl font-bold mb-3">Key Factors That Influence APY</h2>
             <p>
               Two primary variables dictate the power of your Annual Percentage Yield:
             </p>
@@ -355,12 +355,12 @@ const ApyCalculator = () => {
               </ul>
             </p>
 
-            <h2>Advanced Features: Continuous Compounding</h2>
+            <h2 className="text-2xl font-bold mb-3">Advanced Features: Continuous Compounding</h2>
             <p>
               While daily compounding is the standard for modern banking, the mathematical limit of compounding is known as "continuous compounding" — where interest is calculated at every infinitely small fraction of a second. The formula for continuous compounding is <strong>APY = e^r - 1</strong> (where 'e' is Euler's number). While fascinating mathematically, the actual monetary difference between daily compounding and continuous compounding on a $10,000 balance at 5% is a mere fraction of a cent per year.
             </p>
 
-            <h2>Practical Examples of APY in Action</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples of APY in Action</h2>
             <p>
               Consider a scenario where you have $50,000 to invest and two banks are competing for your business:
             </p>
@@ -378,7 +378,7 @@ const ApyCalculator = () => {
               Bank B is actually the superior choice. The daily compounding pushes the effective yield higher than Bank A's superficially higher nominal rate.
             </p>
 
-            <h2>Tips & Best Practices for Savers</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips & Best Practices for Savers</h2>
             <p>
               <strong>Beware of Account Fees:</strong> A fantastic APY can be instantly destroyed by a $12 monthly maintenance fee. A $5,000 balance earning 5% APY generates about $20 a month in interest. If the bank charges a $15 fee, your true return is drastically slashed.
             </p>
@@ -389,7 +389,7 @@ const ApyCalculator = () => {
               <strong>Tax Implications:</strong> Remember that interest earned in standard savings accounts and CDs is taxable as ordinary income. Your 'after-tax APY' will be lower depending on your federal and state tax brackets.
             </p>
 
-            <h2>Benefits of Using Our Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Benefits of Using Our Calculator</h2>
             <p>
               Calculating APY by hand, especially when adjusting for daily or continuous compounding, is mathematically tedious. Our tool provides instantaneous, pinpoint-accurate conversions that empower you to outsmart banking marketing tactics. By utilizing the 5-year growth schedules and visual charts, you can clearly see the long-term impact of your financial decisions and optimize your passive income strategy with absolute confidence.
             </p>

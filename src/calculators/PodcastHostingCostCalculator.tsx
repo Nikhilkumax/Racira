@@ -125,7 +125,7 @@ export default function PodcastHostingCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>The Hidden Economics of Podcast Hosting</h2>
+              <h2 className="text-2xl font-bold mb-3">The Hidden Economics of Podcast Hosting</h2>
               <p>Choosing a podcast host is one of the first and most critical technical decisions for any creator. While it might seem like a simple matter of uploading an MP3 file, the infrastructure required to serve high-fidelity audio to thousands of listeners simultaneously is complex and costly. This calculator helps you understand exactly where your money is going and how your costs will scale as your show grows.</p>
 
               <h3>1. The Monthly Platform Fee</h3>

@@ -127,20 +127,20 @@ export default function PayableDaysCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10"/>
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is the Days Payable Outstanding (DPO) Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is the Days Payable Outstanding (DPO) Calculator?</h2>
             <p>Days Payable Outstanding (DPO) measures how many days on average a company takes to pay its trade creditors. It is the supplier-side counterpart to Days Sales Outstanding (DSO) and is a critical component of the Cash Conversion Cycle. Higher DPO means the business retains cash longer before paying suppliers — effectively using supplier credit as free short-term financing.</p>
-            <h2>DPO Formula</h2>
+            <h2 className="text-2xl font-bold mb-3">DPO Formula</h2>
             <p><strong>DPO = (Average Accounts Payable ÷ COGS) × 365</strong></p>
             <p>Where Average AP = (Beginning AP + Ending AP) ÷ 2. COGS is used as a proxy for total purchases since detailed purchase data is rarely publicly disclosed. Equivalently: DPO = 365 ÷ Payables Turnover Ratio (COGS ÷ Average AP).</p>
-            <h2>DPO and the Cash Conversion Cycle</h2>
+            <h2 className="text-2xl font-bold mb-3">DPO and the Cash Conversion Cycle</h2>
             <p>CCC = DIO + DSO − DPO. A higher DPO reduces the CCC, meaning the business converts operational investments to cash faster. Walmart achieves a DPO of ~40–45 days, Amazon ~75–90 days. Large retailers use their purchasing scale to negotiate extended payment terms, creating structural working capital advantages that smaller competitors cannot replicate.</p>
-            <h2>Optimal DPO Range</h2>
+            <h2 className="text-2xl font-bold mb-3">Optimal DPO Range</h2>
             <p>The ideal DPO aligns with negotiated supplier payment terms. If your standard terms are net-30, a DPO of 28–35 days is optimal. Net-45 terms warrant a 42–50 day DPO. Paying well ahead of terms foregoes interest-free credit. Paying well beyond terms risks supply disruption and relationship damage. Dynamic discounting programs allow capturing early-payment discounts while managing DPO strategically.</p>
-            <h2>Strategies to Optimize DPO</h2>
+            <h2 className="text-2xl font-bold mb-3">Strategies to Optimize DPO</h2>
             <p>Negotiate extended payment terms with key suppliers — especially when you represent a large portion of their revenue. Centralize accounts payable to leverage scale. Implement automated AP workflows that approve invoices quickly but schedule payment at the optimal due date. Use supply chain finance platforms that allow suppliers to receive early payment from a financial institution while you maintain extended terms.</p>
-            <h2>DPO Risks and Supplier Relationship Management</h2>
+            <h2 className="text-2xl font-bold mb-3">DPO Risks and Supplier Relationship Management</h2>
             <p>Excessively extending DPO beyond agreed terms creates legal risk (breach of contract), reputational damage, and supply chain vulnerability. Suppliers may place the company on credit hold, delay shipments, or deprioritize orders during high-demand periods. The optimal DPO strategy maximizes cash retention within ethical and contractual boundaries while investing in supplier relationships through transparency, consistent communication, and honoring commitments.</p>
-            <h2>DPO in Financial Statement Analysis</h2>
+            <h2 className="text-2xl font-bold mb-3">DPO in Financial Statement Analysis</h2>
             <p>Rising DPO alongside declining margins can signal a company struggling to pay bills. Rising DPO with stable or improving margins suggests deliberate, strategic cash management. Compare DPO trends year-over-year and against industry peers. A company with DPO far above industry average should be examined carefully — it may reflect superior negotiating power or a warning sign of payment difficulties.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/payable-days-calculator"/>

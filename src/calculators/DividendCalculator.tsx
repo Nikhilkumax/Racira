@@ -229,11 +229,11 @@ export default function DividendCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>How Dividend Income Is Calculated</h2>
+            <h2 className="text-2xl font-bold mb-3">How Dividend Income Is Calculated</h2>
             <p>This <strong>dividend calculator</strong> computes your current income and projects future portfolio value and dividend income using compounding growth assumptions. Annual Dividend = Portfolio Value × Dividend Yield. With DRIP enabled, dividends purchase additional shares at each payment, creating a compounding cycle where each reinvestment generates its own future dividends. Over 20 years, DRIP can add 40–60% more total return compared to taking dividends as cash.</p>
-            <h2>The Power of Dividend Growth Investing</h2>
+            <h2 className="text-2xl font-bold mb-3">The Power of Dividend Growth Investing</h2>
             <p>A stock paying 3.5% today with 5% annual dividend growth provides a yield-on-cost of 5.7% after 10 years and 9.3% after 20 years — based on original purchase price. This is why long-term dividend investors focus on dividend growth rate as much as current yield. Dividend Aristocrats (S&P 500 companies with 25+ consecutive years of dividend increases) average approximately 8–10% annual dividend growth over the long term.</p>
-            <h2>DRIP vs. Cash Dividends</h2>
+            <h2 className="text-2xl font-bold mb-3">DRIP vs. Cash Dividends</h2>
             <p>DRIP is most powerful in: tax-advantaged accounts (Roth IRA, 401k — no tax on dividends), bear markets (reinvesting buys more shares at lower prices — dollar-cost averaging). Cash dividends are preferred for: income-dependent retirees needing cash flow, taxable accounts during high-income years (avoiding additional dividend tax), or when you want to deploy dividends to other investment opportunities. Most dividend-focused investors under 60 should strongly consider DRIP to maximize compounding. Related tools: <a href="/calculator/compound-interest-calculator">Compound Interest Calculator</a>, <a href="/calculator/investment-calculator">Investment Calculator</a>.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/dividend-calculator" />

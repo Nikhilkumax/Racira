@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
@@ -8,6 +8,7 @@ import FAQSection from "@/components/FAQSection";
 import InputField from "@/components/calculator/InputField";
 import ResultDisplay from "@/components/calculator/ResultDisplay";
 import { RotateCcw, BarChart3, MousePointer2, TrendingUp, DollarSign, Calculator, Eye } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 
 export default function AdsenseRevenueCalculator() {
   const [dailyPageViews, setDailyPageViews] = useState("5000");
@@ -83,26 +84,46 @@ export default function AdsenseRevenueCalculator() {
             {showResults && (
               <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
                 <h2 className="text-2xl font-bold mb-3">Earnings Projections</h2>
-                <div className="grid sm:grid-cols-3 gap-4 mb-8">
-                  <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
-                    <p className="text-xs font-bold text-primary uppercase tracking-widest mb-1">Daily Income</p>
-                    <p className="text-3xl font-black text-foreground">${results.daily.toFixed(2)}</p>
+                
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative mb-2">
+                  <p className="text-xs uppercase tracking-wide text-muted-foreground font-bold mb-1">Estimated Monthly Revenue</p>
+                  <p className="text-4xl font-black text-primary">${results.monthly.toLocaleString(undefined, { maximumFractionDigits: 0 })}</p>
+                  <p className="text-sm text-muted-foreground mt-1">Based on {Number(dailyPageViews).toLocaleString()} daily views at {ctr}% CTR</p>
+                </div>
+                
+                <div className="grid grid-cols-2 gap-4 mb-4">
+                  <div className="card-calculator p-4 text-center border border-border bg-card shadow-sm flex flex-col justify-center">
+                    <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1">Daily Income</p>
+                    <p className="text-2xl font-black text-foreground">${results.daily.toFixed(2)}</p>
                   </div>
-                  <div className="p-6 rounded-2xl bg-secondary/5 border border-secondary/10 text-center">
-                    <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-1">Monthly Income</p>
-                    <p className="text-3xl font-black text-foreground">${results.monthly.toLocaleString(undefined, { maximumFractionDigits: 0 })}</p>
-                  </div>
-                  <div className="p-6 rounded-2xl bg-green-500/5 border border-green-500/10 text-center">
-                    <p className="text-xs font-bold text-green-600 uppercase tracking-widest mb-1">Yearly Income</p>
-                    <p className="text-3xl font-black text-foreground">${results.yearly.toLocaleString(undefined, { maximumFractionDigits: 0 })}</p>
+                  <div className="card-calculator p-4 text-center border border-border bg-card shadow-sm flex flex-col justify-center">
+                    <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1">Yearly Income</p>
+                    <p className="text-2xl font-black text-foreground">${results.yearly.toLocaleString(undefined, { maximumFractionDigits: 0 })}</p>
                   </div>
                 </div>
+
                 <ResultDisplay items={[
                   { label: "Effective Page RPM", value: 0, textValue: `$${results.effectiveRPM.toFixed(2)}`, highlight: true },
                   { label: "Annual Page Views", value: 0, textValue: (parseFloat(dailyPageViews) * 365).toLocaleString() },
                   { label: "Ad Impressions (Est.)", value: 0, textValue: (parseFloat(dailyPageViews) * 2).toLocaleString() },
                 ]} />
-              
+
+                <div className="card-calculator !p-4 border border-border bg-card mt-2">
+                  <h3 className="font-semibold text-sm mb-3">Monthly Revenue by CTR Scenario</h3>
+                  <div className="h-[200px]">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <BarChart data={[0.5, 1.0, 1.5, 2.0, 2.5, 3.0].map(c => ({
+                        ctr: `${c.toFixed(1)}%`,
+                        monthly: (parseFloat(dailyPageViews) || 0) * (c / 100) * (parseFloat(cpc) || 0) * 30.42
+                      }))} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                        <XAxis dataKey="ctr" tick={{ fontSize: 11 }} />
+                        <YAxis tickFormatter={(val) => `$${val}`} tick={{ fontSize: 11 }} />
+                        <Tooltip formatter={(val: number) => `$${val.toFixed(2)}`} contentStyle={{ borderRadius: "8px", fontSize: "13px" }} cursor={{fill: "transparent"}} />
+                        <Bar dataKey="monthly" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
               </div>
             )}
           </div>
@@ -111,28 +132,20 @@ export default function AdsenseRevenueCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Mastering the Math of AdSense Revenue</h2>
-              <p>Google AdSense remains the most accessible way for bloggers, news sites, and niche publishers to monetize their content. However, success with AdSense is a game of statistics. To build a sustainable income, you need to understand how the three pillars of revenue — Traffic, CTR, and CPC — interact to determine your final payout. This calculator is designed to help you run 'what-if' scenarios to find the most efficient path to your income goals.</p>
-
-              <h3>1. Traffic: The Raw Material</h3>
-              <p>Page views are the foundation of your revenue, but not all page views are created equal. High-intent traffic from search engines (organic traffic) typically converts at a higher rate than social media traffic. Furthermore, the length of time a user stays on your page (dwell time) affects how many ads they see and how likely they are to engage with them.</p>
-
-              <h3>2. CTR (Click-Through Rate): The Engagement Metric</h3>
-              <p>CTR is the percentage of your visitors who actually click an ad. While a 1% CTR might sound low, it is actually the industry standard for many niches. You can influence CTR through 'Ad Placement Optimization.' Placing ads near the top of the content (above the fold) or within the natural flow of text usually yields the highest CTR. However, you must balance this with user experience — too many ads will drive users away, hurting your long-term traffic.</p>
-
-              <h3>3. CPC (Cost Per Click): The Value of the Niche</h3>
-              <p>CPC is determined by how much advertisers are willing to bid in an auction to show their ads on your site. This is where your choice of niche matters most. In competitive industries like <strong>Law, Insurance, and Business Finance</strong>, advertisers are willing to pay $10, $20, or even $50 per click because a single lead can be worth thousands. In the entertainment or 'fun facts' niche, advertisers might only pay $0.05 per click. Choosing a high-CPC niche is the fastest way to increase your revenue without necessarily increasing your traffic.</p>
-
-              <h3>4. Page RPM: The Ultimate Benchmark</h3>
-              <p>Page RPM (Revenue Per Mille) represents how much you earn for every 1,000 page views. It is calculated by dividing your total earnings by total page views and multiplying by 1,000. RPM is the most useful metric for comparing the profitability of different websites or different sections of your own site. A site with 10,000 views and a $15 RPM is more valuable than a site with 50,000 views and a $2 RPM.</p>
-
-              <h3>5. Strategies for Increasing Your Revenue</h3>
-              <p>To maximize your AdSense earnings, focus on three strategies simultaneously:</p>
-              <ul>
-                <li><strong>Optimize for Tier 1 Traffic:</strong> Create content specifically for users in high-GDP countries to attract higher CPC ads.</li>
-                <li><strong>Improve User Intent:</strong> Focus on 'Commercial Intent' keywords where users are looking to buy or sign up for a service.</li>
-                <li><strong>Experiment with Ad Formats:</strong> Use Anchor ads, Vignette ads (which appear between page loads), and responsive display ads to find the combination that works best for your layout.</li>
-              </ul>
+              <h2 className="text-2xl font-bold mb-3">Mastering the Mathematics of Digital Advertising Revenue</h2>
+              <p>For independent digital publishers, bloggers, and specialized niche content creators, the Google AdSense platform frequently represents the most accessible, foundational method for monetizing web traffic. Despite its immense popularity, the actual mathematical mechanics governing how AdSense generates payouts remain deeply misunderstood by the vast majority of new publishers. Developing a highly profitable, sustainable digital publishing business is not merely about writing excellent content or securing viral traffic spikes; it is fundamentally a game of statistical optimization. To truly scale your digital income, you must intimately understand how the three core pillars of advertising revenue—Traffic Volume, Click-Through Rate (CTR), and Cost Per Click (CPC)—mathematically interact to determine your final monthly deposit.</p>
+              
+              <h2 className="text-2xl font-bold mb-3">Traffic Volume and User Intent</h2>
+              <p>Page views are the raw, unrefined material of your digital publishing business. However, the modern digital economy heavily discriminates between different sources of traffic. A million page views acquired through a viral, entertainment-focused social media post will almost universally generate significantly less revenue than a hundred thousand page views generated via organic search engine queries. The primary difference is user intent. When a user actively types a query into a search engine, they are actively seeking a specific solution, product, or piece of information. They possess high commercial intent. When they arrive on your page, they are far more likely to engage deeply with the content and subsequently click on highly relevant, targeted advertisements. Furthermore, the length of time a user remains engaged with your page—frequently referred to as dwell time—directly influences how many distinct ad impressions they trigger and how likely they are to eventually interact with those promotional placements.</p>
+              
+              <h2 className="text-2xl font-bold mb-3">Optimizing Your Click-Through Rate (CTR)</h2>
+              <p>The Click-Through Rate is the percentage of your total site visitors who actually click on an advertisement. In the broader context of digital publishing, a CTR of just one percent might sound remarkably low to an outsider, but it is entirely standard across many informational niches. However, publishers possess significant control over their CTR through aggressive Ad Placement Optimization. Strategically embedding advertisements near the very top of your content—an area universally known as 'above the fold'—ensures that every single visitor sees the ad before they begin scrolling, which reliably maximizes visibility and interaction. Integrating ad units naturally within the flow of your paragraphs also yields substantially higher interaction rates than pushing all promotional content into an isolated, easily ignored side column. The critical challenge for publishers is balancing this aggressive placement strategy against the user experience. Overloading a page with intrusive advertisements will invariably frustrate users, leading to sky-high bounce rates and long-term damage to your organic search engine rankings.</p>
+              
+              <h2 className="text-2xl font-bold mb-3">The Crucial Role of Cost Per Click (CPC)</h2>
+              <p>While publishers can optimize their layouts to improve CTR, the Cost Per Click is almost entirely dictated by the broader economic value of their chosen niche. The CPC represents exactly how much capital an advertiser is willing to bid in an automated auction to secure a click on your specific website. In highly competitive, high-margin industries such as corporate law, commercial insurance, enterprise software, and wealth management, acquiring a single new client can yield tens of thousands of dollars in profit. Consequently, advertisers in these sectors are routinely willing to bid anywhere from ten to fifty dollars for a single click. Conversely, in broad entertainment niches, casual gaming sites, or general news aggregation, advertisers are primarily paying for cheap brand awareness, resulting in CPCs that frequently hover around five to twenty cents. Choosing to operate in a high-CPC, financially lucrative niche is mathematically the most efficient way to scale your revenue without being forced to exponentially scale your traffic volume.</p>
+              
+              <h2 className="text-2xl font-bold mb-3">Tracking Performance with Page RPM</h2>
+              <p>To effectively evaluate the true profitability of your website, you must look beyond raw daily income and focus on Page RPM (Revenue Per Mille). Page RPM calculates exactly how much money your website generates for every one thousand page views it receives. It acts as the ultimate equalizer, allowing you to accurately compare the financial efficiency of a low-traffic financial blog against a high-traffic entertainment site. If a specialized technology blog generates fifty dollars for every thousand visitors, while a meme aggregation site generates only two dollars per thousand visitors, the technology blog is vastly more efficient and arguably possesses far more commercial potential, even if its absolute traffic numbers are currently lower.</p>
             </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/adsense-revenue-calculator" />
           <PopularCalculators exclude="/calculator/adsense-revenue-calculator" />

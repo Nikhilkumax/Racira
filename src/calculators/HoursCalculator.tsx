@@ -210,18 +210,18 @@ const HoursCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Mathematics of Payroll</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of Payroll</h2>
             <p>Tracking time for payroll is notoriously frustrating because clocks operate on a Base-60 mathematical system (60 minutes in an hour), but financial currency operates on a Base-10 system (100 cents in a dollar).</p>
             <p>If you work 8 hours and 15 minutes, and your wage is $20 an hour, you cannot simply multiply 8.15 * 20. The answer you get ($163) is legally incorrect, and doing so will result in massive payroll violations. You must first convert the sexagesimal time into a standardized decimal format.</p>
 
-            <h2>Converting Minutes to Decimals</h2>
+            <h2 className="text-2xl font-bold mb-3">Converting Minutes to Decimals</h2>
             <p>To convert time for payroll, you must take the number of minutes you worked and divide it by 60. For example, 15 minutes divided by 60 equals 0.25. Therefore, a shift of 8 hours and 15 minutes is mathematically <strong>8.25 Decimal Hours</strong>.</p>
             <p>Now, you can perform the financial calculation: 8.25 * $20 = $165. By properly converting to decimal time, you ensure you are paid the correct amount. This calculator handles the entire conversion automatically, subtracting your unpaid breaks and outputting the exact decimal format required by Human Resources.</p>
 
-            <h2>Overnight Shifts</h2>
+            <h2 className="text-2xl font-bold mb-3">Overnight Shifts</h2>
             <p>Another common issue with time calculation is the "graveyard" shift. If a nurse clocks in at 10:00 PM and clocks out at 6:00 AM, a basic subtraction formula (6 minus 10) results in a negative number (-4 hours). To solve this, payroll algorithms must detect that the end time is numerically smaller than the start time, and artificially add 24 hours to the end time to represent the next day. This calculator automatically detects overnight shifts and adjusts the math behind the scenes.</p>
 
-            <h2>Gross Pay vs Net Pay</h2>
+            <h2 className="text-2xl font-bold mb-3">Gross Pay vs Net Pay</h2>
             <p>It is important to remember that this calculator outputs your <strong>Gross Pay</strong>. This is the raw value of the time you sold to your employer. However, you will never see this full amount in your bank account. In the United States, employers are legally required to act as tax collectors for the federal government. Before writing your paycheck, they will automatically deduct 6.2% for Social Security, 1.45% for Medicare, and a sliding percentage for Federal and State Income Tax. Your final take-home amount is known as your <strong>Net Pay</strong>.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/hours-calculator" />

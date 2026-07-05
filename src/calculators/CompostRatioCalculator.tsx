@@ -128,7 +128,7 @@ const CompostRatioCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>The Science of Composting</h2>
+              <h2 className="text-2xl font-bold mb-3">The Science of Composting</h2>
               <p>Composting is a biological process where microorganisms convert organic material into a nutrient-rich soil amendment. The speed and quality of this process depend on four factors: Carbon, Nitrogen, Oxygen, and Water.</p>
               <h3>Why the Ratio Matters</h3>
               <p>Think of carbon as the energy source (carbohydrates) and nitrogen as the protein for the "compost microbes." If you provide only energy (dry leaves), they have no building blocks to grow their population. If you provide only protein (fresh grass), they burn through it too fast, creating heat and ammonia gas that escapes the pile.</p>

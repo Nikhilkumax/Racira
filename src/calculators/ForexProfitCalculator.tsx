@@ -183,17 +183,17 @@ export default function ForexProfitCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Forex Profit Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Forex Profit Calculator?</h2>
             <p>A forex profit calculator is an indispensable risk management tool for currency traders operating in the global foreign exchange market. Unlike trading physical stocks, where calculating profit is as simple as subtracting your buy price from your sell price, forex trading involves complex, leveraged contracts based on exchange rates and standardized lot sizes. Because currencies are traded in pairs (like EUR/USD or USD/JPY), calculating your exact monetary gain or loss requires a deep understanding of pip values, contract units, and margin requirements.</p>
             <p>This calculator removes the mathematical friction from trade planning. By instantly computing your total pip movement, your pip value based on your lot size, and your required margin based on your leverage ratio, it allows you to see the precise financial outcome of any trade scenario before you ever risk a single dollar in the live markets. It is the ultimate tool for enforcing strict position sizing and money management rules.</p>
 
-            <h2>How It Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
             <p>The mathematics behind forex profit calculations rely on determining the value of a single price movement (a pip) and multiplying it by the total size of your position. Here is how the calculator processes your inputs.</p>
             <p>First, it determines your <strong>Total Pips</strong>. A pip is the 4th decimal place for most major currency pairs (0.0001). The calculator subtracts your Entry Price from your Exit Price and divides by the pip size. Formula: <code>Total Pips = (Exit Price - Entry Price) / 0.0001</code>. If you buy EUR/USD at 1.08500 and sell at 1.09200, you have gained 70 pips.</p>
             <p>Next, it determines your <strong>Pip Value</strong>. The pip value is dictated by your Trade Size (Lots). A standard lot controls 100,000 units of currency. A mini lot controls 10,000 units, and a micro lot controls 1,000 units. For pairs where USD is the quote currency (like EUR/USD), the pip value is exactly $10 per standard lot. If you trade 0.5 lots (50,000 units), your pip value is $5.</p>
             <p>Finally, it calculates your <strong>Total Profit/Loss</strong> by multiplying the Total Pips by the Pip Value. Formula: <code>P&L = Total Pips * Pip Value</code>. In our example, 70 pips multiplied by a $10 pip value equals a $700 profit.</p>
 
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>When you execute a calculation, the tool provides five distinct analytical sections designed to give you total visibility into your trade's risk and reward profile.</p>
             <p><strong>Primary Result Card:</strong> This boldly displays your Estimated Profit or Loss. Crucially, it also displays your Return on Margin (the percentage return based specifically on the capital you had to lock up to open the trade, not the total leveraged exposure).</p>
             <p><strong>3-Stat Bar:</strong> This section highlights your Pip Value, the Margin Required to open the trade, and your Total Leveraged Exposure. Knowing your exposure is vital; controlling $100,000 of currency with a $1,000 account means a tiny 1% market swing equals a 100% swing in your account equity.</p>
@@ -201,28 +201,28 @@ export default function ForexProfitCalculator() {
             <p><strong>Capital Allocation Chart:</strong> A visual bar chart comparing your Margin Used against your Gross Profit/Loss. This instantly illustrates how much capital you are putting at risk relative to your expected return.</p>
             <p><strong>Summary Statistics:</strong> A fast, readable grid aggregating your risk metrics, prominently featuring your Risk/Reward (R:R) ratio if you utilized the advanced stop loss and take profit inputs.</p>
 
-            <h2>Key Factors: Leverage and Margin</h2>
+            <h2 className="text-2xl font-bold mb-3">Key Factors: Leverage and Margin</h2>
             <p>To successfully navigate the forex market, you must understand the double-edged sword of leverage and how it dictates your margin requirements.</p>
             <p><strong>Leverage:</strong> Leverage is essentially a loan from your broker that allows you to control a massive position with a tiny deposit. If your broker offers 100:1 leverage, it means for every $1 in your account, you can control $100 in the market. While leverage is necessary to make meaningful profits from tiny decimal movements in currency prices, it mathematically guarantees that losses will be amplified just as aggressively.</p>
             <p><strong>Required Margin:</strong> This is the exact dollar amount your broker will "lock" in your account to hold the trade open. Formula: <code>Required Margin = (Position Size * Exchange Rate) / Leverage Ratio</code>. If you buy 1 standard lot of EUR/USD (100,000 units) at 1.08500 with 100:1 leverage, the required margin is (100,000 * 1.08500) / 100 = $1,085. You cannot use this $1,085 to open other trades until you close this position.</p>
 
-            <h2>Advanced Features: Risk Management</h2>
+            <h2 className="text-2xl font-bold mb-3">Advanced Features: Risk Management</h2>
             <p>The Advanced Options tab elevates this calculator from a simple P&L tool into a professional risk assessment terminal by introducing Stop Loss and Take Profit modeling.</p>
             <p>By inputting your intended <strong>Stop Loss</strong> and <strong>Take Profit</strong> levels, the calculator computes your exact <strong>Risk/Reward (R:R) Ratio</strong>. This is the cornerstone of professional trading. If your stop loss is 20 pips away and your take profit is 60 pips away, your R:R ratio is 1:3. This means you are risking $1 to make $3.</p>
             <p>With a 1:3 ratio, you can lose 7 out of 10 trades and still be highly profitable. Amateur traders focus entirely on win rate; professional traders focus entirely on their Risk/Reward ratio and strict position sizing. This calculator forces you to visualize that ratio before you execute the trade.</p>
 
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <p>Let's look at how utilizing this calculator can prevent disastrous over-leveraging and ensure disciplined position sizing.</p>
             <p><strong>Example 1: The Amateur Gambler.</strong> You have a $2,000 account. You see EUR/USD moving up, so you buy 1 standard lot (100,000 units) at 1.08500. Your leverage is 100:1, requiring $1,085 in margin. The price drops against you by 50 pips to 1.08000. Because your pip value is $10, you are instantly down $500. You just lost 25% of your entire account balance on a single trade because your lot size was far too large for your account equity.</p>
             <p><strong>Example 2: The Disciplined Professional.</strong> You also have a $2,000 account. You want to buy EUR/USD at 1.08500, with a stop loss at 1.08000 (50 pips of risk). Your strict risk management rule dictates you never risk more than 2% of your account ($40) on a single trade. Using the calculator, you determine you must trade 0.08 lots (8,000 units). At 0.08 lots, your pip value is $0.80. If the trade hits your 50-pip stop loss, you lose exactly $40. You live to trade another day.</p>
 
-            <h2>Tips & Best Practices</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
             <p>Forex trading is inherently risky. Survival depends on mathematical discipline, not predicting the future. Follow these absolute best practices.</p>
             <p>First, never risk more than 1% to 2% of your total account equity on a single trade setup. Your stop loss distance should dictate your lot size, not the other way around. Decide where your stop loss belongs based on technical analysis, then use the calculator to shrink your lot size until that stop loss distance equals your 1% risk threshold.</p>
             <p>Second, always verify your broker's specific pip values for cross pairs (like GBP/JPY or EUR/AUD). While pairs ending in USD have a static $10 pip value per standard lot (if your account is in USD), cross pairs have fluctuating pip values based on the current exchange rate of the quote currency. The math changes dynamically.</p>
             <p>Third, beware of holding trades over the weekend or during major news events (like Non-Farm Payrolls or Central Bank rate decisions). Brokers can widen their spreads dramatically or "gap" prices past your stop loss, causing you to lose significantly more money than your calculated risk parameters.</p>
 
-            <h2>Benefits</h2>
+            <h2 className="text-2xl font-bold mb-3">Benefits</h2>
             <p>Utilizing a comprehensive Forex Profit Calculator bridges the gap between chaotic gambling and structured, professional trading. It removes the emotional component of market speculation by forcing you to confront the exact financial consequences of your actions.</p>
             <p>By defining your required margin, calculating your exact pip values, and enforcing strict Risk/Reward ratios, this tool empowers you to protect your capital, optimize your position sizing, and ultimately build a sustainable, mathematically sound trading career.</p>
           </article>

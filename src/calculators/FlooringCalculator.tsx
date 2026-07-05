@@ -206,14 +206,14 @@ const FlooringCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Secret to Estimating Hard Floors</h2>
+            <h2 className="text-2xl font-bold mb-3">The Secret to Estimating Hard Floors</h2>
             <p>Whether you are laying traditional hardwood, laminate, or modern waterproof Luxury Vinyl Plank (LVP), accurately estimating flooring is not just about finding the area of a rectangle. You must account for how the material is physically cut, laid, and packaged by the manufacturer.</p>
 
-            <h2>Why is the Waste Margin Mandatory?</h2>
+            <h2 className="text-2xl font-bold mb-3">Why is the Waste Margin Mandatory?</h2>
             <p>Flooring planks are manufactured in long strips (usually 3 to 4 feet long). When you start laying a row against a wall and reach the opposite wall, the last plank in the row will almost certainly be too long to fit. You have to cut it. While you can sometimes use the cut-off scrap piece to start the very next row, many cuts—especially complex angled cuts around doorways, heating vents, or kitchen islands—result in useless scrap.</p>
             <p>Furthermore, laminate and LVP rely on delicate "click-lock" tongues and grooves machined into the edges. These interlocking edges are easily broken if dropped or forced too hard during installation, rendering the entire plank useless. <strong>Always factor in a 10% waste margin for simple square rooms, and 15% for complex layouts.</strong></p>
 
-            <h2>Understanding "Per Box" Pricing</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding "Per Box" Pricing</h2>
             <p>The flooring industry advertises price per square foot (e.g., "$2.99 / sq ft") because it sounds cheap to the consumer. However, you cannot buy 1 square foot. You must buy the entire box.</p>
             <p>Because planks vary in width and length between brands, the coverage area inside a box also varies wildly. A dense hardwood might pack 18 sq ft per box, while a thin LVP might pack 24 sq ft per box. You must physically read the label on the product you want to buy to find the "Coverage per Carton."</p>
             <p>If your room (including the 10% waste margin) requires 300 square feet, and the boxes hold 24 square feet, you need 12.5 boxes. You will be forced to buy exactly 13 boxes, meaning the final cost will be slightly higher than simply multiplying the raw area by the per-square-foot price.</p>

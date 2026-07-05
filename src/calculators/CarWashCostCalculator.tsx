@@ -306,29 +306,29 @@ export default function CarWashCostCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Car Wash Cost Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Car Wash Cost Calculator?</h2>
             <p>A Car Wash Cost Calculator is a specialized budgeting tool designed to reveal the hidden annual expense of keeping your vehicle clean. While dropping $15 at an automatic car wash or paying $35 a month for a subscription might seem like a trivial expense at the time, these small recurring costs silently compound. When aggregated over a year or five years, car washing can easily rival the cost of vehicle maintenance or insurance. This calculator helps you compare different cleaning methods to optimize your budget.</p>
 
-            <h2>How It Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
             <p>Our algorithm breaks down car washing into three primary financial models: <strong>Pay-Per-Wash</strong>, <strong>Monthly Subscriptions</strong>, and <strong>At-Home Washing</strong>. If you select Pay-Per-Wash or At-Home, the calculator multiplies your stated wash frequency by the single-wash cost. If you select Subscription, it ignores wash frequency entirely (since the cost is fixed) and simply annualizes your monthly fee. It then aggregates these base costs with any sporadic high-ticket expenses, such as professional interior and exterior detailing.</p>
 
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>The <strong>Total Annual Cost</strong> strips away the illusion of cheap $15 washes by showing the yearly compounding effect. The <strong>5-Year Total</strong> is often the most shocking metric; many drivers unknowingly spend $2,000 to $4,000 keeping a depreciating asset clean over its lifespan. The <strong>Time Spent/Yr</strong> metric translates the physical act of washing (or waiting in line at the automatic wash) into raw hours, highlighting the often-ignored "time cost" of vehicle ownership.</p>
 
-            <h2>Key Factors</h2>
+            <h2 className="text-2xl font-bold mb-3">Key Factors</h2>
             <p>The <strong>Primary Wash Method</strong> heavily dictates your financial outcome. Monthly subscriptions are highly lucrative for car wash businesses because they rely on the "gym membership model"—people pay for it but rarely use it enough to break even. If your subscription is $40 a month and a single wash is $15, you must wash your car three times a month just to stop losing money. <strong>Detailing</strong> is another massive factor; a single $250 professional detail can instantly double your entire annual car wash budget.</p>
 
-            <h2>Advanced Features</h2>
+            <h2 className="text-2xl font-bold mb-3">Advanced Features</h2>
             <p>Using the Advanced Options, you can calculate the invisible burden of <strong>Time</strong>. If you spend 1.5 hours every Saturday hand-washing your car, that equates to a staggering 78 hours a year—nearly two full work weeks—dedicated solely to scrubbing metal. This feature helps buyers weigh the financial savings of at-home washing against the immense time cost it requires.</p>
 
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <p><strong>Example 1: The Subscription Trap.</strong> Mark pays $35 a month for an unlimited car wash subscription. He thinks it's a great deal, but he only goes twice a month. His annual cost is $420. If he had simply paid $12 per wash out-of-pocket for those same two washes, his annual cost would have been only $288. He is losing $132 a year to the subscription.</p>
             <p><strong>Example 2: The At-Home Detailer.</strong> Sarah buys $100 worth of premium soaps, buckets, and towels upfront. She washes her car every week. The chemical cost per wash is roughly $1.50. Her annual cost is just $78. However, she inputs 1 hour per wash into the calculator, revealing that she spends 52 hours a year washing her car.</p>
 
-            <h2>Tips & Best Practices</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
             <p>Do the math before signing up for a car wash subscription. If you do not realistically have the time or desire to wash your car every single week, you are better off paying per wash. Furthermore, avoid automatic "touch" car washes with spinning brushes. While they are fast and cheap, they act like sandpaper on your clear coat. You will eventually have to pay a professional detailer hundreds of dollars to polish out the heavy swirl marks, entirely destroying any money you saved.</p>
 
-            <h2>Benefits</h2>
+            <h2 className="text-2xl font-bold mb-3">Benefits</h2>
             <p>Using a Car Wash Cost Calculator stops financial leaks. It forces you to look at micro-transactions through an annualized lens. By understanding exactly how much money and time you are dedicating to vehicle aesthetics, you can make an informed decision on whether to cancel that unused subscription, start washing at home, or accept the cost as a necessary luxury.</p>
           </article>
           

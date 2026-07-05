@@ -184,7 +184,7 @@ const PasswordGenerator = () => {
           </div>
 
           <article className="prose-finance text-[15.75px]">
-            <h2>Why Strong Passwords Matter</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Strong Passwords Matter</h2>
             <p>In the age of frequent data breaches, your password is the first and sometimes only line of defense for your personal information. Reusing a simple password across multiple sites is the most common way accounts get compromised.</p>
             <h3>Best Practices for Security</h3>
             <p>We recommend using a password manager (like Bitwarden, 1Password, or Apple Keychain) to store these complex passwords. You should also enable Two-Factor Authentication (2FA) whenever possible, as it provides an additional layer of security even if your password is stolen.</p>

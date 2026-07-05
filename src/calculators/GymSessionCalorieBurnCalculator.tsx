@@ -313,31 +313,31 @@ export default function GymSessionCalorieBurnCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Mathematics of a Complete Gym Session</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of a Complete Gym Session</h2>
             <p>Walking into a gym and staying for exactly 60 minutes does not guarantee a specific caloric burn. The human body does not burn calories based on the clock on the wall; it burns calories based on the intensity of cardiovascular demand and muscular tension. Most people don't do just one thing at the gym; they warm up, lift weights, and finish with a cardio session. Because each of these activities has a drastically different metabolic demand, relying on a generic "1 Hour Workout" estimate is highly inaccurate. The <strong>Gym Session Calorie Burn Calculator</strong> solves this by breaking your workout down into distinct physiological segments, applying clinical Metabolic Equivalent (MET) formulas to each, and providing a highly accurate total energy expenditure.</p>
 
-            <h2>Why Lifting Weights Burns Fewer Calories Than You Think</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Lifting Weights Burns Fewer Calories Than You Think</h2>
             <p>One of the most disappointing truths in the fitness industry is the realization of how few calories traditional weightlifting actually burns. Many people assume that because lifting a 100-pound barbell is excruciatingly difficult, they must be burning massive amounts of energy.</p>
             <p>The problem lies in <strong>rest periods</strong>. Traditional resistance training (hypertrophy or powerlifting) requires you to perform a set of heavy repetitions for 20 to 40 seconds, and then sit on a bench and recover for 2 to 3 minutes. If you spend 60 minutes in the weight room, you may only be performing active, physical "work" for 12 to 15 minutes. The remaining 45 minutes are spent sitting, recovering, and changing weights on the bar. During those rest periods, your heart rate plummets and your caloric burn drops to near-baseline. Consequently, the MET value for standard resistance training is only 5.0, meaning a 170-pound person might only burn 200 to 250 calories in a full hour of heavy lifting.</p>
 
-            <h2>Cardio: The Undisputed King of Immediate Output</h2>
+            <h2 className="text-2xl font-bold mb-3">Cardio: The Undisputed King of Immediate Output</h2>
             <p>Conversely, steady-state cardiovascular training (running on a treadmill, cycling, or using the stair climber) lacks the heavy resistance of weights but completely eliminates the rest periods. If you step on a treadmill for 30 minutes, your heart rate elevates into the aerobic zone and stays there continuously for the entire duration.</p>
             <p>Because there is zero downtime, your lungs must continuously pull in massive amounts of oxygen to oxidize fat and carbohydrates to fuel the constant muscle contractions. Moderate steady-state cardio carries a MET value of 8.0 or higher. This is why a 20-minute post-workout cardio session will frequently burn more calories than the entire 45-minute weightlifting session that preceded it.</p>
 
-            <h2>The Hidden Value of Muscle: The Afterburn Effect</h2>
+            <h2 className="text-2xl font-bold mb-3">The Hidden Value of Muscle: The Afterburn Effect</h2>
             <p>If cardio burns so many more calories, why should anyone lift weights for weight loss? The answer lies in what happens to your body <em>after</em> you leave the gym.</p>
             <p>When you perform steady-state cardio, your calorie burn stops almost the exact minute you step off the treadmill. Your heart rate returns to normal, and the metabolic event is over. However, when you lift heavy weights to the point of muscular failure, you cause microscopic tears in your muscle fibers. Your body views this as severe trauma.</p>
             <p>Over the next 24 to 48 hours, your body must expend a significant amount of energy (calories) to synthesize new proteins and repair that muscle tissue, making it thicker and stronger. This phenomenon is known as <strong>Excess Post-Exercise Oxygen Consumption (EPOC)</strong>. While lifting weights may burn fewer calories <em>during</em> the session, it forces your body to continue burning bonus calories for days afterward.</p>
 
-            <h2>Increasing Your Resting Metabolic Rate (RMR)</h2>
+            <h2 className="text-2xl font-bold mb-3">Increasing Your Resting Metabolic Rate (RMR)</h2>
             <p>Furthermore, lifting weights is the only way to build lean muscle mass. Muscle is metabolically "expensive" tissue. Your body must burn calories just to keep muscle tissue alive, even when you are sleeping. Every pound of new muscle you add to your frame burns approximately 6 to 10 additional calories per day.</p>
             <p>While that doesn't sound like much, if you add 10 pounds of muscle over a year of training, your body will passively burn an extra 100 calories every single day, forever. This elevated Resting Metabolic Rate acts as an internal furnace, making it significantly easier to maintain a lean body fat percentage in the long term without having to rely on hours of exhausting cardio.</p>
 
-            <h2>The Optimal Workout Structure: Lift First, Cardio Last</h2>
+            <h2 className="text-2xl font-bold mb-3">The Optimal Workout Structure: Lift First, Cardio Last</h2>
             <p>Our calculator allows you to input minutes for both lifting and cardio. If you are doing both in the same session, exercise physiologists universally recommend <strong>lifting weights first</strong>, and saving your cardio for the end of the workout.</p>
             <p>Weightlifting requires maximum explosive power, which is fueled exclusively by glycogen (stored sugar in the muscles). If you perform 30 minutes of exhausting cardio before you lift, you will severely deplete those glycogen stores. When you finally pick up the dumbbells, your muscles will be starved of their primary fuel, resulting in a weak, fatiguing workout where you cannot recruit the fast-twitch muscle fibers required for growth. Always prioritize your heavy resistance training when your energy stores are completely full, and use your remaining stamina to burn calories on the treadmill afterward.</p>
 
-            <h2>Conclusion: Stop Trusting Fitness Watches</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Stop Trusting Fitness Watches</h2>
             <p>Do not rely on the calorie readout on your smart watch when lifting weights. Fitness trackers estimate caloric burn primarily through heart rate. When you lift a heavy barbell, your blood pressure spikes to push blood to the working muscles, which artificially spikes your heart rate. Your watch assumes this massive heart rate spike means you are sprinting at full speed, and it will falsely reward you with hundreds of phantom calories you did not actually burn. The Gym Session Calorie Burn Calculator ignores these false heart rate spikes and uses clinically validated thermodynamic math to provide you with the cold, hard truth of your energy expenditure.</p>
           </article>
           

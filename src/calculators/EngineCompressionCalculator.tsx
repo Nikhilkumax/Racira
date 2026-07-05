@@ -283,23 +283,23 @@ export default function EngineCompressionCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Why Engine Compression Ratio Matters</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Engine Compression Ratio Matters</h2>
             <p>The Static Compression Ratio is one of the most fundamental specifications of any internal combustion engine. It defines the mathematical relationship between the maximum volume of a cylinder (when the piston is at Bottom Dead Center) and the minimum volume (when the piston is at Top Dead Center). The higher the compression ratio, the more thermal energy the engine can extract from a single drop of fuel. High compression yields more horsepower, crisper throttle response, and better fuel efficiency.</p>
 
-            <h2>The Science of Detonation (Engine Knock)</h2>
+            <h2 className="text-2xl font-bold mb-3">The Science of Detonation (Engine Knock)</h2>
             <p>If high compression is good, why aren't all engines built with a 15.0:1 ratio? The limiting factor is the octane rating of pump gas. When you compress a gas, it rapidly heats up. If you squeeze the air-fuel mixture too tightly before the spark plug fires, the immense heat and pressure will cause the gasoline to spontaneously auto-ignite. This is known as detonation, pre-ignition, or "engine knock." Detonation sends violent shockwaves through the engine block that can shatter pistons and bend connecting rods in seconds. Therefore, engine builders must use a Compression Calculator to perfectly match the engine's ratio to the fuel octane it will run on.</p>
 
-            <h2>Swept Volume vs. Clearance Volume</h2>
+            <h2 className="text-2xl font-bold mb-3">Swept Volume vs. Clearance Volume</h2>
             <p>To calculate compression, you must understand two distinct volumes:</p>
             <ul>
               <li><strong>Swept Volume:</strong> The sheer volume of air displaced as the piston travels up and down the cylinder bore. This is calculated using only the Bore and Stroke.</li>
               <li><strong>Clearance Volume:</strong> The tiny pocket of dead space that remains when the piston is at the very top of its stroke. This volume is a complex sum of the combustion chamber in the cylinder head, the thickness of the head gasket, the space between the piston and the deck of the block, and the dish or dome carved into the piston itself.</li>
             </ul>
 
-            <h2>How Engine Builders Adjust Compression</h2>
+            <h2 className="text-2xl font-bold mb-3">How Engine Builders Adjust Compression</h2>
             <p>If a mechanic is building an engine and discovers the compression ratio is dangerously high for 93-octane street gas, they have several ways to lower it. They can install a thicker head gasket, which adds a few cubic centimeters of clearance volume. They can switch to "dished" pistons, which have a crater on top to increase volume. Or, they can physically grind away metal inside the cylinder head combustion chambers to make them larger.</p>
 
-            <h2>Turbochargers and Dynamic Compression</h2>
+            <h2 className="text-2xl font-bold mb-3">Turbochargers and Dynamic Compression</h2>
             <p>The ratio calculated by this tool is the <strong>Static</strong> Compression Ratio. It assumes the cylinder fills with air at normal atmospheric pressure. However, if you add a turbocharger or supercharger, you are forcibly cramming double or triple the amount of air into the cylinder. Because the cylinder is artificially overfilled, turbocharged engines must run much lower static compression ratios (e.g., 8.5:1) to prevent catastrophic detonation when the boost kicks in.</p>
           </article>
           

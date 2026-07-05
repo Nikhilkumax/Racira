@@ -292,14 +292,14 @@ export default function CrossFitWodCalorieCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Brutal Efficiency of CrossFit for Weight Loss</h2>
+            <h2 className="text-2xl font-bold mb-3">The Brutal Efficiency of CrossFit for Weight Loss</h2>
             <p>Walk into any CrossFit "box" (gym) around the world, and you will see athletes lying flat on their backs, gasping for air after a 12-minute workout. To an outsider who is used to spending an hour walking on a treadmill, a 12-minute workout sounds absurd. However, from a purely thermodynamic and physiological standpoint, CrossFit represents the absolute pinnacle of caloric efficiency. By combining heavy resistance training with maximal cardiovascular output and minimal rest, it forces the human body to expend a staggering amount of energy in a very short window. The <strong>CrossFit WOD Calorie Calculator</strong> bypasses inaccurate smart watch estimations by utilizing clinical Metabolic Equivalent (MET) formulas, translating your body weight, time domain, and WOD modality into mathematically precise expenditure data.</p>
 
-            <h2>Why CrossFit Burns More Calories Than Standard Lifting</h2>
+            <h2 className="text-2xl font-bold mb-3">Why CrossFit Burns More Calories Than Standard Lifting</h2>
             <p>If you perform a traditional bodybuilding workout at a commercial gym, you might do a heavy set of squats for 30 seconds and then sit on a bench and check your phone for 3 minutes. During that 3-minute rest, your heart rate plummets and your cardiovascular demand drops to near-baseline. Over a 60-minute session, you may only be performing active, physical "work" for 15 total minutes.</p>
             <p>CrossFit flips this math upside down by prioritizing "Work Capacity." A classic CrossFit WOD (Workout of the Day) like "Fran" involves performing 45 thrusters (a front squat combined with an overhead press) and 45 pull-ups as fast as humanly possible. There are no scheduled rest breaks. You are forced to continuously move heavy weight while your heart rate is redlined at 90%+ of its maximum capacity. Because your cardiovascular system is continuously maxed out while simultaneously recruiting every major muscle group in your body, the caloric burn per minute drastically outpaces traditional weightlifting.</p>
 
-            <h2>Understanding METs in Different WOD Modalities</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding METs in Different WOD Modalities</h2>
             <p>Not all WODs are created equal. Exercise physiologists measure intensity using METs (Metabolic Equivalents). One MET is the energy you burn while sitting still. Our calculator categorizes WODs into three primary physiological demands:</p>
             <ul>
               <li><strong>Heavy Strength WOD (MET 6.0):</strong> Many CrossFit classes dedicate time to finding a 1-Rep Max or lifting heavy loads (e.g., a 5x5 Deadlift). The muscular force is massive, but because you must rest between sets to recover your central nervous system, the continuous cardiovascular demand is lower. The caloric burn is moderate.</li>
@@ -307,19 +307,19 @@ export default function CrossFitWodCalorieCalculator() {
               <li><strong>MetCon / Anaerobic Sprint (MET 10.5):</strong> Metabolic Conditioning (MetCon) WODs involve moving external weight (kettlebells, barbells, wall balls) combined with high-output cardio (rowing, burpees) as fast as possible. This is pure anaerobic output. Your body rapidly builds up lactic acid, and you are burning over 10 times your resting metabolic rate—the absolute highest caloric burn per minute.</li>
             </ul>
 
-            <h2>The Danger of Overestimating: Active Time vs. Class Time</h2>
+            <h2 className="text-2xl font-bold mb-3">The Danger of Overestimating: Active Time vs. Class Time</h2>
             <p>The single biggest mistake CrossFit athletes make when tracking their calories is using their total class time. This is why our calculator features a prominent warning.</p>
             <p>A standard CrossFit class is 60 minutes long. However, the structure is highly segmented: 15 minutes of warmup, 20 minutes of strength work, and perhaps a 15-minute MetCon to finish the day. If you input "60 minutes" into a fitness watch while selecting a MetCon intensity, the watch will mathematically assume you performed thrusters and burpees for an hour straight without stopping, and it will falsely reward you with 1,200 calories burned. To get an accurate reading, you must only enter the exact minutes on the clock during the final WOD.</p>
 
-            <h2>Physics on the Rig: Why Body Weight Matters</h2>
+            <h2 className="text-2xl font-bold mb-3">Physics on the Rig: Why Body Weight Matters</h2>
             <p>Physics dictates that Force = Mass × Acceleration. Your body weight heavily influences your caloric expenditure during a WOD, particularly during gymnastics or bodyweight movements.</p>
             <p>If a 220-pound athlete and a 140-pound athlete both perform 50 pull-ups and 100 push-ups, the 220-pound athlete had to generate drastically more mechanical force to pull their heavy frame over the bar. Furthermore, when jumping onto a 24-inch plyo box, the heavier athlete's muscles must absorb significantly more shock upon landing. Because they performed vastly more physical work against gravity, the heavier athlete will mathematically burn a significantly higher absolute number of calories during the exact same WOD.</p>
 
-            <h2>The Afterburn Effect (EPOC)</h2>
+            <h2 className="text-2xl font-bold mb-3">The Afterburn Effect (EPOC)</h2>
             <p>The total calories burned during a 12-minute WOD is only half the story. High-intensity MetCons trigger a massive physiological response known as <strong>Excess Post-Exercise Oxygen Consumption (EPOC)</strong>, commonly called the "Afterburn Effect."</p>
             <p>Because you are working in an anaerobic state (where oxygen demand exceeds oxygen supply), you create a severe oxygen deficit in your body. After the WOD is over, your body must rapidly consume oxygen and burn additional calories for up to 14 to 24 hours just to repair the micro-tears in your muscles, clear lactic acid, and restore homeostasis. This means your brief 12-minute workout continues to burn "bonus" calories while you are sitting at your desk later that afternoon.</p>
 
-            <h2>Conclusion: Don't Rely on the Watch</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Don't Rely on the Watch</h2>
             <p>Fitness trackers are notoriously terrible at estimating caloric burn during CrossFit because they rely entirely on heart rate. When you perform heavy Olympic lifts, your blood pressure spikes to push blood to your muscles, which artificially spikes your heart rate. Your watch thinks you are sprinting and wildly overestimates the calories. Stop relying on inaccurate wrist trackers. Use the CrossFit WOD Calorie Calculator to track your active workout time, dial in your nutrition, and let the intensity of functional fitness forge a leaner, stronger physique.</p>
           </article>
           

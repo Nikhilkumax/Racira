@@ -175,9 +175,7 @@ export default function BiweeklyVsMonthlyLoanComparison() {
             <CompactInput id="loanTermYears" label="Loan Term" value={loanTermYears} onChange={setLoanTermYears} suffix="Years" />
 
             <div className="flex gap-2.5 mt-2">
-              <button type="button" onClick={handleCalculate} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm">
-                <Clock className="h-4 w-4" /> Compare Schedules
-              </button>
+              <button type="button" onClick={handleCalculate} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm">Calculate</button>
               <button type="button" onClick={reset} className="w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center focus:outline-none" aria-label="Reset">
                 <RotateCcw className="h-5 w-5" />
               </button>
@@ -253,16 +251,16 @@ export default function BiweeklyVsMonthlyLoanComparison() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Biweekly Payment Plan?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Biweekly Payment Plan?</h2>
             <p>Most standard loans — including mortgages, auto loans, and personal loans — are built around a monthly amortization schedule: one payment per month, twelve payments per year. A true biweekly payment plan changes that rhythm. Instead of paying once a month, you take your standard monthly payment, split it exactly in half, and submit that half-payment every two weeks. Because there are 52 weeks in a calendar year, a biweekly schedule produces exactly 26 half-payments annually.</p>
 
-            <h2>Where the Savings Come From</h2>
+            <h2 className="text-2xl font-bold mb-3">Where the Savings Come From</h2>
             <p>The arithmetic is straightforward. Twenty-six half-payments equal 13 full monthly payments per year — one more than the 12 you would make on a standard monthly schedule. That single extra payment is applied entirely to your principal balance, which immediately reduces the amount of interest accruing the following period. Over the lifespan of a standard 30-year mortgage, this one additional payment per year can shave four to five years off the term and save tens of thousands of dollars in total interest paid.</p>
 
-            <h2>Why You Should Not Pay for a Biweekly Program</h2>
+            <h2 className="text-2xl font-bold mb-3">Why You Should Not Pay for a Biweekly Program</h2>
             <p>Many mortgage lenders and third-party financial services companies offer to manage a biweekly payment plan for you, advertising the exact savings our calculator projects. They often charge an enrollment fee of up to $400 and a per-transaction fee for every payment processed. Do not pay for this service. You can replicate the identical mathematical result at no cost. The simplest approach is to divide your standard monthly payment by 12 and add that amount as extra principal with each bill. After twelve months you will have made one extra full payment. Alternatively, you can save the equivalent of one full payment over the course of the year and make a single lump-sum principal payment in December.</p>
 
-            <h2>Is a Biweekly Strategy Right for You?</h2>
+            <h2 className="text-2xl font-bold mb-3">Is a Biweekly Strategy Right for You?</h2>
             <p>A biweekly payment plan works especially well for individuals who receive their paychecks every two weeks, since it naturally aligns cash inflows with loan outflows. It enforces savings discipline and builds home equity faster with no extra out-of-pocket cost beyond the one additional annual payment. However, if your mortgage interest rate is historically low — say, under 4% — you may generate a better return by investing that extra payment in a diversified index fund rather than prepaying the loan. Use the comparison above to calculate exactly how much interest you stand to save, then weigh that guaranteed return against your other financial opportunities before deciding.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/biweekly-vs-monthly-loan-comparison" />

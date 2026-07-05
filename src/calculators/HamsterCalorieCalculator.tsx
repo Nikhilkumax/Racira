@@ -317,36 +317,36 @@ export default function HamsterCalorieCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Hamster Calorie Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Hamster Calorie Calculator</h2>
             <p>Hamsters are incredibly popular pets, yet their nutritional needs are frequently misunderstood. Because they are so small, it is remarkably easy to accidentally overfeed them, leading to severe obesity, diabetes (especially in dwarf species), and a significantly shortened lifespan. The <strong>Hamster Calorie Calculator</strong> is a veterinary-grade tool designed to strip the guesswork out of feeding your pocket pet. By utilizing standardized allometric scaling formulas, this tool calculates the exact resting and maintenance energy requirements for your specific hamster based on their weight and activity level.</p>
             <p>Whether you own a large 200-gram Syrian hamster or a tiny 30-gram Roborovski, understanding their exact daily caloric limit is the first step in providing responsible, ethical care. This calculator not only provides the raw caloric data but translates those numbers into actionable feeding portions in grams, ensuring you do not overfill the food bowl.</p>
 
-            <h2>The Mathematics of Small Mammal Metabolism</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of Small Mammal Metabolism</h2>
             <p>Metabolism does not scale linearly with body weight. A 100-gram hamster does not require exactly one-tenth the calories of a 1-kilogram rabbit. Smaller mammals have a much higher surface-area-to-volume ratio, meaning they lose body heat much faster than larger animals. To compensate, their basal metabolic rate (BMR) must run significantly faster just to keep them alive.</p>
             <p>Veterinarians calculate the <strong>Resting Energy Requirement (RER)</strong> for small exotics using an exponential formula: <code>70 × (Body Weight in kg)^0.75</code>. Our calculator performs this complex math instantly. It then applies an Activity Multiplier (usually 1.6x for an adult hamster with a properly sized running wheel) to determine the <strong>Maintenance Energy Requirement (MER)</strong>. This final number represents the total calories your hamster needs to consume daily to maintain their current body weight.</p>
 
-            <h2>The 10% Treat Rule: Avoiding Nutritional Deficiencies</h2>
+            <h2 className="text-2xl font-bold mb-3">The 10% Treat Rule: Avoiding Nutritional Deficiencies</h2>
             <p>One of the most critical metrics provided by this calculator is the <strong>Max Treat Allowance</strong>. Exotic veterinarians universally enforce the "10% Rule" for small mammals. This rule dictates that 90% of a hamster's daily caloric intake must come from a nutritionally complete, fortified staple diet (such as high-quality lab blocks or a perfectly balanced seed mix). The remaining 10% can be reserved for fresh vegetables, mealworms, or commercial treats.</p>
             <p>Why is this so strict? Hamsters require precise ratios of calcium to phosphorus, specific levels of protein (usually 15-19%), and essential vitamins. If you feed your hamster too many treats—even healthy treats like broccoli or carrots—they will fill up on the treats and refuse to eat their staple diet. Over time, this leads to severe nutritional deficiencies, metabolic bone disease, and organ failure. The calculator explicitly shows you the exact calorie limit for treats to prevent this dangerous imbalance.</p>
 
-            <h2>Translating Calories to Grams of Food</h2>
+            <h2 className="text-2xl font-bold mb-3">Translating Calories to Grams of Food</h2>
             <p>Knowing that your hamster needs "20 calories a day" is not very helpful when you are holding a bag of food. You need to know how much to put in the bowl. Our calculator bridges this gap by utilizing <strong>Food Energy Density</strong>.</p>
             <p>Standard high-quality hamster diets (like Oxbow Essentials or Mazuri Rat/Mouse blocks) typically contain about 3.5 kilocalories per gram. By dividing your hamster's 'Main Diet Allocation' by 3.5, the calculator tells you exactly how many grams of food to weigh out on your kitchen scale every evening. If your food bag lists a different caloric density in the Guaranteed Analysis section, you can input that number into the calculator for perfect precision.</p>
 
-            <h2>The Danger of Seed Mixes and Selective Feeding</h2>
+            <h2 className="text-2xl font-bold mb-3">The Danger of Seed Mixes and Selective Feeding</h2>
             <p>Walk into any major pet store, and you will see dozens of colorful hamster diets containing pellets, dried corn, sunflower seeds, and bright green puffs. While these look appealing, they present a massive hidden danger: <strong>Selective Feeding</strong>.</p>
             <p>Hamsters are notorious hoarders and picky eaters. If you fill their bowl with a seed mix, they will immediately pick out the high-fat, high-calorie items (like sunflower seeds and peanuts) and ignore the less tasty fortified pellets that actually contain the essential vitamins. They will stuff the healthy pellets into their cheek pouches and bury them under their bedding, tricking you into thinking they ate them. If you simply refill the bowl the next day, the cycle continues, and the hamster becomes obese and malnourished simultaneously.</p>
             <p>To combat this, many exotic veterinarians recommend either feeding a uniform pelleted diet (where every bite is nutritionally identical) or strictly enforcing "Bowl Emptying." If you feed a seed mix using the exact gram weight provided by our calculator, you must not refill the bowl until every single piece of food has been consumed. This forces the hamster to eat the healthy bits, not just the fatty seeds.</p>
 
-            <h2>Dwarf Hamsters and Diabetes Risk</h2>
+            <h2 className="text-2xl font-bold mb-3">Dwarf Hamsters and Diabetes Risk</h2>
             <p>If you have a dwarf hamster (specifically Campbell's Dwarf or Winter White/Djungarian hybrids), precise calorie and nutritional management is even more critical. These species have a genetic predisposition to Type 2 Diabetes.</p>
             <p>For these hamsters, completely eliminating high-sugar treats (such as yogurt drops, fruit, honey-coated seed sticks, and even sweet vegetables like carrots and corn) is heavily recommended. Their entire Treat Allowance should be fulfilled using high-protein, low-sugar options like freeze-dried chicken, mealworms, or leafy green vegetables (like spinach or cucumber).</p>
 
-            <h2>The Importance of the Running Wheel</h2>
+            <h2 className="text-2xl font-bold mb-3">The Importance of the Running Wheel</h2>
             <p>A hamster's metabolism and caloric needs are entirely dependent on their ability to exercise. In the wild, a Syrian hamster can run up to 5 miles a night foraging for food. In captivity, a running wheel is an absolute necessity, not a luxury.</p>
             <p>However, the wheel must be correctly sized. A Syrian hamster requires a wheel that is at least 11 to 12 inches in diameter. If the wheel is too small, the hamster must arch its back unnaturally to run, causing severe spinal pain. A hamster in pain will stop using the wheel, leading their activity level to plummet to "Inactive." If their diet is not immediately reduced using our calculator, they will rapidly gain fat.</p>
 
-            <h2>Conclusion</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion</h2>
             <p>Caring for a hamster involves much more than filling a bowl and forgetting about it. These complex, delicate animals require precise nutritional management to thrive. By utilizing a digital kitchen scale and the Hamster Calorie Calculator, you transform your care routine from reactive to proactive.</p>
             <p>Weigh your hamster weekly to track their baseline, use the 10% rule to safely provide enrichment treats, and never overfill the food bowl. Through strict adherence to caloric data, you can prevent obesity, avoid diabetes, and ensure your tiny companion lives the longest, healthiest life possible.</p>
           </article>

@@ -306,16 +306,16 @@ const FleetInsuranceCostCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is the Fleet Insurance Cost Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is the Fleet Insurance Cost Calculator?</h2>
             <p>This calculator estimates the total annual insurance cost for a fleet of vehicles — whether for a family with multiple cars, a small business, or a large commercial operation. It accounts for vehicle type, driver age, coverage level, annual mileage, multi-vehicle discounts, and commercial-use surcharges to produce an accurate per-vehicle and total-fleet premium estimate.</p>
 
-            <h2>How It Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
             <p>Each vehicle's base premium is determined by its type (sedan, SUV, truck, luxury, EV, etc.), then adjusted for driver age (under-25 surcharge), annual mileage, coverage level, and vehicle value. The optional multi-vehicle discount (15%) applies when 2+ vehicles are on the policy. Commercial use adds a 25% surcharge. The result shows per-vehicle premiums, total cost, and savings from bundling.</p>
 
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>The primary card shows total annual fleet insurance cost with monthly, per-mile, and vehicle count. The 3-stat bar converts to monthly, per-vehicle average, and multi-vehicle savings. The breakdown table itemizes each vehicle's base, discount, and final premium. The bar chart visualizes how each vehicle contributes to the total.</p>
 
-            <h2>What Drives Fleet Insurance Costs</h2>
+            <h2 className="text-2xl font-bold mb-3">What Drives Fleet Insurance Costs</h2>
             <ul>
               <li><strong>Vehicle type:</strong> Sports cars ($2,800+) and luxury vehicles ($2,400+) cost 2x more than sedans ($1,400).</li>
               <li><strong>Driver age:</strong> Under-25 drivers add 60% surcharge; under-30 adds 15%. Drivers 50+ get small discounts.</li>
@@ -325,7 +325,7 @@ const FleetInsuranceCostCalculator = () => {
               <li><strong>Multi-vehicle discount:</strong> 15% off when 2+ vehicles are on one policy.</li>
             </ul>
 
-            <h2>How to Reduce Fleet Insurance Costs</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Reduce Fleet Insurance Costs</h2>
             <ul>
               <li><strong>Bundle all vehicles on one policy</strong> for 10–25% multi-vehicle discounts.</li>
               <li><strong>Install telematics and GPS tracking</strong> — 5–15% discount for safer driving data.</li>
@@ -335,10 +335,10 @@ const FleetInsuranceCostCalculator = () => {
               <li><strong>Maintain a clean claims history</strong> — even one at-fault claim can raise rates 30–40%.</li>
             </ul>
 
-            <h2>Practical Example</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Example</h2>
             <p>A 3-vehicle fleet (sedan, SUV, truck) with standard drivers and full/standard coverage costs approximately $4,800/year total or $1,600/vehicle. The multi-vehicle discount saves $720/year. Adding commercial-use surcharge raises the total to $6,000/year.</p>
 
-            <h2>Benefits of Using This Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Benefits of Using This Calculator</h2>
             <p>This tool helps fleet managers, business owners, and multi-vehicle families estimate insurance costs accurately. By adjusting vehicle mix, driver ages, and coverage levels, you can find the configuration that minimizes total cost while maintaining adequate protection.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/fleet-insurance-cost-calculator" />

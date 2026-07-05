@@ -333,23 +333,23 @@ export default function MonthlyCarPaymentCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Monthly Car Payment Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Monthly Car Payment Calculator?</h2>
             <p>A Monthly Car Payment Calculator is a financial tool that simulates an auto loan amortization schedule. When you buy a car, the dealership negotiates based on the sticker price of the vehicle. However, your actual monthly obligation is determined by a combination of the vehicle price, state sales tax, dealership fees, your cash down payment, and the interest rate charged by the bank. This calculator synthesizes all of these variables into a single, accurate monthly payment figure.</p>
 
-            <h2>Understanding Amortization</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Amortization</h2>
             <p>Car loans are "amortized," meaning your monthly payment stays exactly the same for the entire duration of the loan, but the <em>composition</em> of that payment changes over time. In the first year of your loan, a large portion of your monthly payment goes toward paying off the interest charged by the bank. By the final year of your loan, almost your entire payment goes toward reducing the principal balance. Our <strong>Amortization Trajectory</strong> chart visually tracks this relationship, showing how your balance decays over time while your total interest paid accumulates.</p>
 
-            <h2>The Danger of the 72-Month Loan</h2>
+            <h2 className="text-2xl font-bold mb-3">The Danger of the 72-Month Loan</h2>
             <p>Dealerships frequently push buyers toward 72-month or 84-month loan terms. Stretching the loan out over 6 or 7 years artificially lowers the monthly payment, making expensive cars feel affordable. This is a financial trap for two reasons: First, longer loan terms carry higher interest rates, drastically increasing the <strong>Total Interest</strong> you pay. Second, cars are depreciating assets. If you take a 72-month loan, the value of the car will drop faster than your loan balance for the first four years. If you total the car or try to trade it in during this period, you will be "underwater" (owing the bank more than the car is worth).</p>
 
-            <h2>How Taxes and Fees Impact Your Loan</h2>
+            <h2 className="text-2xl font-bold mb-3">How Taxes and Fees Impact Your Loan</h2>
             <p>If you have a $30,000 budget and look at $30,000 cars, you will be unable to afford the vehicle. In most states, purchasing a car triggers a 6% to 8% sales tax, plus hundreds of dollars in mandatory state registration and dealership documentation fees. A $30,000 car easily becomes a $32,500 car "out-the-door." Our <strong>Advanced Options</strong> allow you to input your local tax rate and dealer fees so the calculator can accurately model your true Amount Financed.</p>
 
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <p><strong>Example 1: The Impact of Interest.</strong> John finances a $35,000 truck over 60 months at a high 9% APR. His payment is roughly $725 a month. When looking at the Yearly Breakdown, he realizes he will pay over $8,500 in pure interest to the bank by the end of the loan. The total cost of the truck is actually $43,500.</p>
             <p><strong>Example 2: The Power of a Down Payment.</strong> Sarah wants the same $35,000 truck but brings a $10,000 cash down payment and secures a 5% APR for 48 months. Her payment is slightly lower at $575, but because she borrowed less money for a shorter amount of time, she only pays $2,600 in total interest. The down payment saved her thousands of dollars in bank fees.</p>
 
-            <h2>Tips & Best Practices</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
             <p>Always secure financing from a local credit union or bank <em>before</em> walking into a dealership. Dealerships often act as middlemen, taking the bank's interest rate and adding 1% or 2% on top of it as pure profit for themselves. If you walk in with a pre-approved 5% rate from your bank, the dealer is forced to beat that rate to win your financing business. Furthermore, aim to put down at least 20% in cash or trade equity to protect yourself from immediate negative equity depreciation.</p>
           </article>
           

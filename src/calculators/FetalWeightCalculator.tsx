@@ -263,11 +263,11 @@ export default function FetalWeightCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>How Is Fetal Weight Estimated?</h2>
+            <h2 className="text-2xl font-bold mb-3">How Is Fetal Weight Estimated?</h2>
             <p>This <strong>Fetal Weight Calculator</strong> uses the Hadlock IV mathematical formula, the global clinical standard for estimating fetal weight from ultrasound measurements. During your anatomy scan or third-trimester growth scan, the sonographer takes four primary measurements: Biparietal Diameter (BPD), Head Circumference (HC), Abdominal Circumference (AC), and Femur Length (FL). These 2-dimensional measurements are plugged into the formula to estimate the baby's 3-dimensional mass.</p>
-            <h2>Understanding Percentiles</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Percentiles</h2>
             <p>The calculator outputs your baby's weight and places it on a growth curve (percentile). If your baby is in the 50th percentile, they weigh more than 50% of babies at that specific gestational week. Anything between the 10th and 90th percentile is generally considered "normal," though doctors look for a steady growth curve over multiple scans rather than focusing on a single number. A drop from the 70th to the 20th percentile is more concerning than consistently tracking at the 15th percentile.</p>
-            <h2>Margin of Error</h2>
+            <h2 className="text-2xl font-bold mb-3">Margin of Error</h2>
             <p>It's vital to remember that ultrasound weight estimates are exactly that—estimates. The formula has an inherent margin of error of roughly 10% to 15%. This means an estimate of 4,000 grams (about 8.8 lbs) could actually be a baby weighing 3,400 grams or 4,600 grams. Accuracy tends to decrease in the late third trimester as the baby drops lower into the pelvis, making accurate head measurements difficult. Related tools: <a href="/calculator/pregnancy-calculator">Pregnancy Calculator</a>.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/fetal-weight-calculator" />

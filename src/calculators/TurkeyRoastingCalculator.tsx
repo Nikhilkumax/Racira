@@ -153,19 +153,19 @@ const TurkeyRoastingCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Mastering the Holiday Roast</h2>
+              <h2 className="text-2xl font-bold mb-3">Mastering the Holiday Roast</h2>
               <p>Roasting a turkey can be intimidating, but with proper planning, it's a straightforward process. The most important step isn't the cooking—it's the thawing. A partially frozen turkey will cook unevenly, leaving some parts raw while others are dry. Always plan your thawing time several days in advance.</p>
               
-              <h2>Thawing Methods</h2>
+              <h2 className="text-2xl font-bold mb-3">Thawing Methods</h2>
               <ul>
                 <li><strong>Refrigerator Thawing (Recommended):</strong> The safest method. Keep the turkey in its original wrapper and place it on a tray to catch any drips. Allow 24 hours for every 4-5 pounds of turkey.</li>
                 <li><strong>Cold Water Thawing:</strong> Faster but requires more attention. Submerge the wrapped turkey in cold tap water, changing the water every 30 minutes. Allow 30 minutes per pound.</li>
               </ul>
 
-              <h2>Internal Temperature is King</h2>
+              <h2 className="text-2xl font-bold mb-3">Internal Temperature is King</h2>
               <p>Forget the 'plastic pop-up' timers that often come with turkeys—they are notoriously unreliable. Use a digital meat thermometer. Insert it into the thickest part of the thigh without touching the bone. Once it reaches 165°F (74°C), the turkey is safe to eat. Note that the temperature will continue to rise by about 5 degrees while the bird rests.</p>
 
-              <h2>Why You Must Rest the Bird</h2>
+              <h2 className="text-2xl font-bold mb-3">Why You Must Rest the Bird</h2>
               <p>Resistance is futile—you must let the turkey rest for at least 20 to 30 minutes after taking it out of the oven. This allows the juices to redistribute throughout the meat. If you carve it immediately, all those delicious juices will run out onto the cutting board, leaving the meat dry.</p>
             </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/turkey-roasting" />

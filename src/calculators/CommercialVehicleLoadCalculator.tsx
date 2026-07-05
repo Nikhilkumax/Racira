@@ -284,16 +284,16 @@ export default function CommercialVehicleLoadCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Complexity of Commercial Weight Limits</h2>
+            <h2 className="text-2xl font-bold mb-3">The Complexity of Commercial Weight Limits</h2>
             <p>If you rent a standard U-Haul moving truck, you only have to worry about one number: The GVWR (Gross Vehicle Weight Rating). As long as the total weight of the truck plus your furniture is under the limit, you are legally fine. However, for commercial trucks (like 26,000 lb Box Trucks or 80,000 lb Semi-Tractor Trailers), the rules are drastically more complex.</p>
             <p>The Department of Transportation (DOT) does not just weigh the entire truck at once. They force the truck to drive slowly over segmented scales that measure exactly how much weight is pushing down on the front tires (Steer Axle) and the rear tires (Drive Axles) individually.</p>
 
-            <h2>The Danger of Bad Cargo Distribution</h2>
+            <h2 className="text-2xl font-bold mb-3">The Danger of Bad Cargo Distribution</h2>
             <p>It is incredibly common for a commercial truck to be legally under its total GVWR limit, but illegally overweight on a specific axle. This happens due to poor cargo loading.</p>
             <p>Imagine a Box Truck with a 10,000 lb Steer Limit and a 19,000 lb Drive Limit. The driver loads a massive, heavy pallet of machinery into the truck and pushes it all the way to the front wall, directly behind the cab. While the total weight of the truck is fine, that massive weight is now pressing almost entirely down on the front Steer Axle, pushing it over its 10,000 lb legal limit.</p>
             <p>If this truck pulls into a DOT weigh station, the officer will immediately flag the overweight front axle. The driver will receive a massive fine and will be forced to physically climb into the back of the truck and slide the pallet backward until the weight shifts off the Steer Axle and onto the Drive Axles.</p>
 
-            <h2>Why Axle Limits Exist</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Axle Limits Exist</h2>
             <p>The DOT strictly enforces individual axle limits (via the Federal Bridge Formula) because concentrated weight destroys asphalt and bridge structures. If an 80,000 lb semi-truck has all of its weight perfectly distributed across 18 wheels, the road surface can handle it. If that same 80,000 lbs is concentrated entirely on the rear axles, it will physically crack the highway pavement and severely compromise bridge integrity.</p>
           </article>
           

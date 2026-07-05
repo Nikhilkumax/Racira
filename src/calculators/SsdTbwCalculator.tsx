@@ -71,9 +71,7 @@ const SsdTbwCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">
-                  <Cpu className="h-5 w-5" /> Estimate Lifespan
-                </button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground">
+                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">Calculate</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground">
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
@@ -107,7 +105,7 @@ const SsdTbwCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>How Long Will Your SSD Last?</h2>
+              <h2 className="text-2xl font-bold mb-3">How Long Will Your SSD Last?</h2>
               <p>Unlike traditional hard drives which have mechanical parts that wear out, SSDs use NAND flash memory cells that can only be written to a finite number of times. This is why manufacturers provide a <strong>TBW (Total Bytes Written)</strong> rating.</p>
               <h3>What is DWPD?</h3>
               <p>DWPD stands for <strong>Drive Writes Per Day</strong>. It describes how many times you can write the full capacity of the drive every single day during the warranty period (usually 5 years). A high DWPD is critical for enterprise servers, while a low DWPD is fine for home users.</p>

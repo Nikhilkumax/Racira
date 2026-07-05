@@ -319,16 +319,16 @@ export default function DogWalkCalorieBurnCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Dog Walk Calorie Burn Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Dog Walk Calorie Burn Calculator</h2>
             <p>Walking the dog is a daily ritual for millions of pet owners worldwide. It serves as a primary source of cardiovascular exercise and mental stimulation for the animal, while providing a consistent, low-impact workout for the owner. However, quantifying the exact physiological benefits of this activity can be difficult due to differences in weight, pace, and biomechanics. The <strong>Dog Walk Calorie Burn Calculator</strong> is designed to solve this problem by simultaneously calculating the metabolic energy expenditure of both you and your canine companion.</p>
             <p>By inputting basic metrics—your weight, your dog’s weight, the duration of the walk, and the intensity of the pace—the algorithm determines exactly how many calories were burned during the session. Furthermore, it contextualizes this data by displaying what percentage of your dog's daily maintenance diet was burned off, helping you manage their weight more effectively.</p>
 
-            <h2>The Biomechanics of Bipedal vs. Quadrupedal Walking</h2>
+            <h2 className="text-2xl font-bold mb-3">The Biomechanics of Bipedal vs. Quadrupedal Walking</h2>
             <p>One of the most surprising insights revealed by this calculator is the massive discrepancy between human and canine calorie burn. In almost all scenarios, the human owner will burn significantly more calories than the dog, even when walking at the exact same speed over the exact same distance. There are two primary biological reasons for this:</p>
             <p><strong>1. Mass Differences:</strong> Caloric burn is heavily dependent on mass. The heavier an object is, the more metabolic energy is required to move it through space. The average adult human weighs between 150 and 190 pounds, while a medium-sized dog weighs only 40 to 60 pounds. Moving 180 pounds requires vastly more energy than moving 50 pounds.</p>
             <p><strong>2. Quadrupedal Efficiency:</strong> Dogs are highly evolved quadrupedal athletes. Walking on four legs distributes weight and effort much more efficiently than walking on two. Bipedal walking (human walking) requires constant micro-adjustments in the core and lower body just to maintain balance. Because dogs do not have to fight gravity to stay upright in the same way, their base metabolic rate for locomotion is incredibly low.</p>
 
-            <h2>Decoding Walk Intensities</h2>
+            <h2 className="text-2xl font-bold mb-3">Decoding Walk Intensities</h2>
             <p>The pace of your walk radically alters the caloric outcome. Our calculator utilizes four distinct intensity profiles to provide accurate data:</p>
             <ul>
               <li><strong>The Sniffari (Slow):</strong> This is a decompressive walk where the dog sets the pace. It involves walking a few feet, stopping to thoroughly smell a fire hydrant or bush, and moving on. While physical calorie burn is very low (about 0.4 calories per pound per hour for the dog), the mental stimulation of processing complex olfactory data is actually quite exhausting for the animal.</li>
@@ -337,24 +337,24 @@ export default function DogWalkCalorieBurnCalculator() {
               <li><strong>Jogging/Running:</strong> Sustained running (5+ mph). This requires significant cardiovascular output from both parties. If you jog with your dog, you must ensure they are properly conditioned for it, as dogs overheat much faster than humans do.</li>
             </ul>
 
-            <h2>Managing Canine Obesity</h2>
+            <h2 className="text-2xl font-bold mb-3">Managing Canine Obesity</h2>
             <p>Canine obesity is an epidemic in the modern world. According to the Association for Pet Obesity Prevention, over 50% of domestic dogs are classified as overweight or obese. This excess weight leads to devastating health consequences, including osteoarthritis, diabetes, cruciate ligament tears, and a significantly shortened lifespan.</p>
             <p>Weight loss in dogs, just as in humans, requires a caloric deficit. You must ensure the dog is burning more energy than they are consuming. This calculator helps you manage that equation. For instance, if the calculator shows that a 45-minute walk only burns 60 calories, but you regularly give your dog a 120-calorie dental chew immediately after the walk, you are actually putting the dog in a caloric surplus. By tracking exact burn rates, you can adjust feeding portions accordingly.</p>
 
-            <h2>Is Walking Enough Exercise?</h2>
+            <h2 className="text-2xl font-bold mb-3">Is Walking Enough Exercise?</h2>
             <p>A common mistake among dog owners is assuming that a 30-minute daily walk fulfills the exercise requirements of all breeds. The truth depends entirely on genetics.</p>
             <p>If you own a low-energy or brachycephalic (flat-faced) breed—such as a Pug, English Bulldog, or Basset Hound—a moderate daily walk is often perfectly sufficient to keep them healthy. In fact, over-exercising these breeds can cause dangerous respiratory distress.</p>
             <p>However, if you own a high-drive working or sporting breed—such as a German Shepherd, Border Collie, Siberian Husky, or Vizsla—walking is merely a warm-up. These dogs were genetically engineered to run for miles or perform intense physical labor all day. A brisk walk will not tire them out. To prevent destructive behaviors (like chewing furniture or excessive barking), these breeds require high-intensity cardiovascular exercise, such as running off-leash, intense games of fetch, or agility training.</p>
 
-            <h2>The Psychological Importance of the Walk</h2>
+            <h2 className="text-2xl font-bold mb-3">The Psychological Importance of the Walk</h2>
             <p>While this tool focuses heavily on the physical metrics of walking, it is vital not to overlook the psychological aspects. For a dog, a walk is not just a treadmill session; it is their primary method of exploring the world.</p>
             <p>Dogs 'see' the world through their noses. When a dog stops to smell a patch of grass, they are essentially reading the neighborhood newspaper—gathering data on what other animals have passed by, their health status, and their gender. Denying a dog the opportunity to sniff during a walk is akin to placing a human on a beautiful hiking trail but forcing them to wear a blindfold. Therefore, a perfectly balanced canine fitness routine should include both "Brisk Walks" for physical cardiovascular health and "Sniffaris" for mental enrichment.</p>
 
-            <h2>Safety Considerations for Exercise</h2>
+            <h2 className="text-2xl font-bold mb-3">Safety Considerations for Exercise</h2>
             <p>When implementing a walking routine to burn calories, safety must come first. Dogs cannot sweat through their skin to cool down; they rely almost entirely on panting and releasing heat through their paw pads. Therefore, walking a dog on hot asphalt during the summer can lead to severe burns and heatstroke. Always press the back of your hand against the pavement for seven seconds; if it is too hot for your hand, it is too hot for your dog's paws.</p>
             <p>Additionally, puppies under the age of 12 to 18 months should not be forced into prolonged brisk walks or jogging routines. Their growth plates have not yet fused, and forced, repetitive impact on hard surfaces can cause permanent orthopedic damage.</p>
 
-            <h2>Conclusion</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion</h2>
             <p>The dog walk is the foundation of the human-canine bond. It provides necessary physical exertion, mental enrichment, and quality bonding time. By using the Dog Walk Calorie Burn Calculator, you can elevate this daily routine from a simple chore to a measurable, data-driven fitness activity that optimizes the health and longevity of both you and your best friend.</p>
           </article>
           

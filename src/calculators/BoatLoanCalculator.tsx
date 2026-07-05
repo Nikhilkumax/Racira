@@ -166,17 +166,17 @@ export default function BoatLoanCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Boat Loan Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Boat Loan Calculator?</h2>
             <p>A boat loan calculator is an essential financial tool designed specifically for marine financing. Purchasing a boat—whether it’s a small fishing vessel, a pontoon, or a luxury yacht—represents a significant capital expenditure. Unlike automotive loans, which typically span 3 to 7 years, boat loans operate in a unique space between auto loans and home mortgages, with terms frequently stretching from 10 to 20 years. This calculator helps prospective boat owners model different purchasing scenarios by factoring in the boat's price, down payment, trade-in value, interest rate, and term length. It goes beyond a simple monthly payment calculation by integrating critical out-the-door costs such as state sales tax and dealer registration fees, providing a transparent view of the true cost of boat ownership.</p>
             <p>Using this calculator allows you to confidently set a budget before visiting a marine dealership or negotiating with a private seller. By understanding the long-term amortization schedule and total interest accumulation, you can avoid the common trap of shopping based purely on a "monthly payment" and instead focus on securing the best overall financial deal for your nautical dreams.</p>
 
-            <h2>How It Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
             <p>The mathematics behind the boat loan calculator rely on standard loan amortization formulas, combined with state-specific tax logic. Here is the exact calculation process the tool uses to generate your results.</p>
             <p>First, the calculator determines your <strong>Taxable Amount</strong>. In most states, if you trade in a vessel, you only pay sales tax on the difference between the new boat price and the trade-in value. Formula: <code>Taxable Amount = Boat Price - Trade-In Value</code>.</p>
             <p>Next, it calculates the <strong>Total Loan Amount</strong>. This is the actual principal balance you will finance. It subtracts your cash down payment and trade-in, but adds back the calculated sales tax and any dealer or registration fees. Formula: <code>Loan Amount = Boat Price - Down Payment - Trade-In + Sales Tax + Dealer Fees</code>.</p>
             <p>Finally, it applies the amortization formula to determine the <strong>Monthly Payment</strong>. Formula: <code>M = P [ r(1 + r)^n ] / [ (1 + r)^n - 1 ]</code>, where P is the Loan Amount, r is the monthly interest rate (annual rate divided by 12), and n is the total number of months in the loan term. The calculator then multiplies the monthly payment by the term length to determine the Total Cost and Total Interest paid to the bank.</p>
 
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>Once you enter your variables and click calculate, the tool generates five distinct analytical components to help you understand your marine loan.</p>
             <p><strong>Primary Result Card:</strong> This highlights your exact Monthly Payment. This is the critical number you must fit into your monthly household budget alongside your mortgage, utilities, and groceries.</p>
             <p><strong>3-Stat Bar:</strong> This provides a quick snapshot of the three most important macro numbers: the Total Loan Amount (what you owe the bank on day one), the Total Interest (the bank's profit over the life of the loan), and the Total Cost (the absolute sum of all money leaving your pocket).</p>
@@ -184,30 +184,30 @@ export default function BoatLoanCalculator() {
             <p><strong>Principal vs. Interest Chart:</strong> This visual pie chart dramatically illustrates the cost of financing. For long-term loans (15-20 years), you will often see the interest slice of the pie consume 30% to 50% of the chart. It is a stark reminder of the cost of long-term borrowing.</p>
             <p><strong>Summary Statistics:</strong> This section aggregates the final data, including your estimated payoff date and the Interest/Loan Ratio, which tells you exactly how much interest you are paying relative to the principal borrowed.</p>
 
-            <h2>Key Factors</h2>
+            <h2 className="text-2xl font-bold mb-3">Key Factors</h2>
             <p>Several critical variables will dictate the affordability of your boat loan. Understanding how lenders view these factors is key to getting approved at a favorable rate.</p>
             <p><strong>Down Payment:</strong> Marine lenders are notoriously conservative. While you might buy a car with zero down, most boat loans require a minimum of 10% to 20% down. A larger down payment significantly reduces your monthly payment, decreases your total interest, and protects you from negative equity (being "upside down") if you need to sell the boat early.</p>
             <p><strong>Loan Term Length:</strong> This is the most dangerous variable in boat financing. Stretching a loan to 15 or 20 years makes the monthly payment incredibly attractive, but it causes total interest to skyrocket. Furthermore, boats depreciate. If you finance a boat for 20 years, it is highly likely that for the first 5 to 7 years, you will owe the bank far more than the boat is actually worth on the open market.</p>
             <p><strong>Credit Score and History:</strong> Because a boat is a discretionary luxury asset, lenders require higher credit scores than they do for essential assets like cars or homes. A tier-one credit score (typically 740+) is usually required to secure the advertised promotional interest rates.</p>
             <p><strong>Age and Condition of the Vessel:</strong> Lenders prefer new boats and offer the best rates and longest terms for them. If you are buying a used boat, the interest rate will likely be higher. Furthermore, if the boat is over 10-15 years old, many traditional banks will refuse to finance it altogether, forcing you to seek out specialized marine lenders.</p>
 
-            <h2>Advanced Features</h2>
+            <h2 className="text-2xl font-bold mb-3">Advanced Features</h2>
             <p>Our boat loan calculator includes an Advanced Options toggle designed to provide a highly accurate "out-the-door" calculation, replicating a dealer's finance office.</p>
             <p>By entering your local <strong>Sales Tax</strong> percentage, the calculator automatically computes the tax burden. Crucially, it applies the tax <em>after</em> the trade-in value is deducted (which is the law in most states), saving you from overestimating your tax bill. It also allows you to roll the sales tax directly into the loan amount, which is standard practice.</p>
             <p>The <strong>Dealer Fees</strong> input allows you to account for registration, title, doc fees, and freight/prep charges. On a new boat, freight and prep can easily add thousands of dollars to the advertised price. By including these in the calculator, you get a true representation of the final amount you will need to finance.</p>
 
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <p>To illustrate the massive impact of loan term length on your finances, let's look at two scenarios for buying the exact same boat.</p>
             <p><strong>Example 1: The Aggressive Payoff.</strong> You agree to buy a $60,000 wakeboard boat. You put $10,000 down and finance $50,000 at a 7.5% interest rate for a short term of <strong>5 years (60 months)</strong>. Your monthly payment is high at $1,001.90. However, over the 5 years, you pay only $10,114 in total interest. The total cost of the loan (principal + interest) is $60,114. By year 3, you have significant positive equity in the boat.</p>
             <p><strong>Example 2: The Long-Term Stretch.</strong> You buy the exact same $60,000 boat, put $10,000 down, and finance $50,000 at 7.5%. But this time, to get a lower payment, you choose a <strong>15-year (180 months)</strong> term. Your monthly payment drops beautifully to just $463.51. It seems like a great deal. However, over 15 years, you will pay a staggering $33,432 in interest. The total cost of the loan becomes $83,432. For the first 7 years of this loan, you will owe more than the boat is worth.</p>
 
-            <h2>Tips & Best Practices</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
             <p>Navigating the marine finance world requires caution. Keep these best practices in mind before signing loan documents.</p>
             <p>First, always get pre-approved from an independent bank or credit union before walking into a marine dealership. Dealerships often mark up the interest rate (a practice called holding points) to make a profit on the financing. Having a pre-approval in hand forces the dealer to beat your rate, saving you thousands.</p>
             <p>Second, be extraordinarily wary of 15 and 20-year loan terms on depreciating assets. If you must stretch the loan to 20 years just to afford the monthly payment, the harsh mathematical reality is that you cannot afford the boat. Aim to finance boats for no longer than 10 years.</p>
             <p>Third, remember that the loan payment is only a fraction of the cost of ownership. Industry experts suggest budgeting an additional 10% of the boat's purchase price <em>annually</em> for insurance, maintenance, slip fees, winter storage, and fuel. A $500 loan payment often requires a true monthly budget of $1,000 when all operational costs are factored in.</p>
 
-            <h2>Benefits</h2>
+            <h2 className="text-2xl font-bold mb-3">Benefits</h2>
             <p>Utilizing a comprehensive boat loan calculator transforms an emotional purchase into a rational financial decision. Boats are inherently emotional buys—they represent family time, recreation, and freedom. It is incredibly easy to let the excitement of a boat show blind you to the math.</p>
             <p>By running the numbers through this calculator, you strip away the sales pitch and confront the reality of the amortization schedule. You will know exactly how much interest the bank is charging you, when the boat will actually be paid off, and whether the true out-the-door cost aligns with your long-term wealth-building goals. This clarity allows you to buy the boat of your dreams without accidentally sinking your financial future.</p>
           </article>

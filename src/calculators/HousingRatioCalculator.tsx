@@ -257,25 +257,25 @@ export default function HousingRatioCalculator() {
 
         {/* SEO Content */}
         <div className="max-w-[1180px] mt-12 prose prose-slate dark:prose-invert">
-          <h2>What Is the Housing Ratio?</h2>
+          <h2 className="text-2xl font-bold mb-3">What Is the Housing Ratio?</h2>
           <p>The housing ratio, also known as the front-end ratio, is the percentage of your gross monthly income that goes toward paying your total housing costs. It is a critical metric used by mortgage lenders to determine how much home you can afford.</p>
           
-          <h2>How It Works</h2>
+          <h2 className="text-2xl font-bold mb-3">How It Works</h2>
           <p>The calculation is simple: <strong>Housing Ratio = (Total Monthly Housing Expenses / Gross Monthly Income) × 100</strong>. "Total Monthly Housing Expenses" is also known as PITI (Principal, Interest, Taxes, and Insurance) and must also include any HOA fees and Private Mortgage Insurance (PMI).</p>
 
-          <h2>Understanding Your Results</h2>
+          <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
           <p>The standard rule of thumb for mortgage underwriting is the "28/36 Rule". This means your housing ratio should not exceed 28% of your gross income, and your total debt-to-income ratio (including car loans and credit cards) should not exceed 36%.</p>
           
-          <h2>Key Factors</h2>
+          <h2 className="text-2xl font-bold mb-3">Key Factors</h2>
           <p>Gross income is your income <em>before</em> taxes are taken out. This is a common point of confusion for first-time buyers who often calculate their ratio using their take-home pay. Lenders always use your gross, pre-tax income.</p>
           
-          <h2>Practical Examples</h2>
+          <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
           <p>If you earn $120,000 per year, your gross monthly income is $10,000. Under the 28% rule, your maximum allowed housing payment (including taxes and insurance) is $2,800. If your proposed mortgage payment is $3,200, your ratio is 32%, which may make qualifying more difficult.</p>
           
-          <h2>Tips & Best Practices</h2>
+          <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
           <p>While some FHA and conventional loans allow housing ratios up to 43% (or higher in some automated underwriting scenarios), keeping your ratio below 28% is the safest way to ensure you don't become "house poor" and have enough cash leftover for emergencies and living expenses.</p>
           
-          <h2>Benefits</h2>
+          <h2 className="text-2xl font-bold mb-3">Benefits</h2>
           <p>By calculating your housing ratio before you start house hunting, you can set a realistic budget for your home search, ensuring you only look at houses that a bank will actually approve you to buy.</p>
         </div>
 

@@ -380,23 +380,23 @@ export default function AthleteBmiCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Fatal Flaw of the Standard BMI</h2>
+            <h2 className="text-2xl font-bold mb-3">The Fatal Flaw of the Standard BMI</h2>
             <p>If you have spent years lifting weights, playing sports, or engaging in intense physical training, you have likely experienced a frustrating moment at the doctor's office. You step on the scale, the nurse types your height and weight into a computer, and suddenly, you are officially classified as "Overweight" or "Obese." The problem? You have a visible six-pack and run 5 miles a week. How is this possible?</p>
             <p>The answer lies in the archaic formula of the Body Mass Index (BMI). Created in the 1830s by a Belgian mathematician (not a doctor), the formula is terrifyingly simplistic: Total Weight divided by Height squared. The fatal flaw of the BMI formula is that it cannot mathematically differentiate between a pound of fat and a pound of dense, metabolically active muscle. The <strong>Athlete BMI Calculator</strong> completely solves this paradox by utilizing your body fat percentage to extract your true Fat-Free Mass Index (FFMI), revealing your actual clinical composition.</p>
 
-            <h2>Muscle vs. Fat: The Density Dilemma</h2>
+            <h2 className="text-2xl font-bold mb-3">Muscle vs. Fat: The Density Dilemma</h2>
             <p>To understand why the BMI fails athletes so spectacularly, you must understand tissue density. Muscle tissue is approximately 15% denser than adipose (fat) tissue. This means that one pound of muscle takes up significantly less physical space in your body than one pound of fat. </p>
             <p>Consider a professional NFL running back. He might be 5'10" and weigh 225 pounds. Because he carries an astronomical amount of heavy, dense muscle on his frame, his raw weight is very high. If you plug those numbers into a standard BMI calculator, his score is 32.3—placing him strictly in the "Obese" category, alongside individuals with high risks for heart disease and diabetes. However, the running back likely has 8% body fat. He is in peak physical condition. The standard BMI formula blindly punishes athletes simply for being heavy, completely ignoring what that weight is actually made of.</p>
 
-            <h2>The Solution: Fat-Free Mass Index (FFMI)</h2>
+            <h2 className="text-2xl font-bold mb-3">The Solution: Fat-Free Mass Index (FFMI)</h2>
             <p>Because the standard BMI is virtually useless for anyone who lifts weights, clinical exercise physiologists use a much more advanced metric: the <strong>Fat-Free Mass Index (FFMI)</strong>.</p>
             <p>Instead of using your total, raw weight on the scale, FFMI uses your Lean Body Mass. By taking your total weight and mathematically subtracting your exact body fat percentage, we are left with only the weight of your muscles, bones, organs, and water. By dividing this Lean Body Mass by your height, we achieve a mathematically exact measurement of how much actual muscle mass you are carrying on your specific skeletal frame.</p>
 
-            <h2>The Kouri Study: Finding the "Natural Limit"</h2>
+            <h2 className="text-2xl font-bold mb-3">The Kouri Study: Finding the "Natural Limit"</h2>
             <p>In 1995, a landmark physiological study was conducted by Dr. Harrison Pope and Dr. Elena Kouri. They wanted to determine if there was a biological ceiling to how much muscle a human could build naturally. They calculated the FFMI of 157 male athletes, half of whom were confirmed steroid users and half of whom were verified natural athletes.</p>
             <p>The results fundamentally changed the fitness industry. They discovered a highly distinct biological limit. The absolute maximum normalized FFMI a human male can build naturally—assuming elite, top-tier genetics and years of flawless training and nutrition—is approximately <strong>25.0</strong>. The researchers noted that every single athlete in the study with an FFMI above 26.0 was using anabolic steroids (Performance Enhancing Drugs).</p>
 
-            <h2>Interpreting Your FFMI Score</h2>
+            <h2 className="text-2xl font-bold mb-3">Interpreting Your FFMI Score</h2>
             <p>Our calculator provides a normalized FFMI score (which adjusts the math slightly for very tall or very short individuals). Here is how to interpret your results (standardized for males):</p>
             <ul>
               <li><strong>18 to 20 (Average):</strong> This is the baseline for most sedentary individuals or casual gym-goers. You carry a normal amount of muscle for your frame.</li>
@@ -406,11 +406,11 @@ export default function AthleteBmiCalculator() {
               <li><strong>26+ (Suspicious):</strong> An FFMI at this level strongly indicates the use of exogenous androgens (steroids), as the human body naturally cannot produce enough testosterone to support this much lean mass.</li>
             </ul>
 
-            <h2>Why You Need an Accurate Body Fat Percentage</h2>
+            <h2 className="text-2xl font-bold mb-3">Why You Need an Accurate Body Fat Percentage</h2>
             <p>The entire FFMI calculation relies on knowing exactly how much fat you are carrying. If you guess your body fat, your FFMI score will be completely invalid. You cannot rely on cheap bathroom scales, which use electrical impedance that is easily skewed by how much water you drank that morning.</p>
             <p>To get clinical-grade accuracy, you should seek out a DEXA scan (a bone-density x-ray) or Hydrostatic (underwater) weighing. If those are unavailable, the next best option is having an experienced personal trainer or medical professional use high-quality skinfold calipers to measure your subcutaneous fat.</p>
 
-            <h2>Conclusion: Stop Worrying About BMI</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Stop Worrying About BMI</h2>
             <p>If you lift weights consistently, the standard BMI chart is no longer applicable to your life. The next time a doctor looks at a piece of paper and tells you that you need to lose weight because your BMI is 27, ask them what your body fat percentage is. If your body fat is in the athletic range (under 15% for men or 22% for women), you are not overweight; you are simply "over-muscled." Use the Athlete BMI Calculator to track your true Lean Body Mass, monitor your FFMI progression over the years, and celebrate the heavy, functional muscle you have worked so hard to build.</p>
           </article>
           

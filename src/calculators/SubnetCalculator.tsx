@@ -147,7 +147,7 @@ const SubnetCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Understanding Subnetting</h2>
+              <h2 className="text-2xl font-bold mb-3">Understanding Subnetting</h2>
               <p>In the early days of the Internet, IP addresses were assigned in large blocks called "classes" (Class A, B, and C). This was extremely wasteful, as many organizations received far more addresses than they needed. Subnetting was developed to allow for much more precise allocation of IP address space.</p>
               <h3>CIDR Notation</h3>
               <p>The slash notation (e.g., /24) is known as CIDR (Classless Inter-Domain Routing). It tells you how many bits of the 32-bit IP address are dedicated to the network prefix. A /24 mask means the first 24 bits are for the network, leaving 8 bits (2^8 = 256 addresses) for local hosts.</p>

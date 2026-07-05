@@ -132,13 +132,13 @@ export default function PersonalLoanPayoffCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Personal Loan Payoff Calculator Guide</h2>
+            <h2 className="text-2xl font-bold mb-3">Personal Loan Payoff Calculator Guide</h2>
             <p>This calculator computes your monthly payment, total repayment cost, total interest paid, and generates a full amortization schedule showing how each payment is split between principal and interest reduction over the life of the loan.</p>
-            <h2>How Loan Amortization Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How Loan Amortization Works</h2>
             <p>Each monthly payment is divided into two parts: interest (calculated as remaining balance × monthly rate) and principal reduction. In the early months, most of the payment is interest. As the balance decreases, interest shrinks and principal repayment accelerates. By the final payment, nearly the entire amount goes to principal. This is why making extra early payments has such a large impact — it eliminates future interest that would have been charged on that principal.</p>
-            <h2>Impact of Extra Payments</h2>
+            <h2 className="text-2xl font-bold mb-3">Impact of Extra Payments</h2>
             <p>Paying just $50 extra per month on a $25K, 7.5%, 5-year loan saves approximately $300 in interest and pays off the loan 3 months early. A $200 extra payment saves ~$1,100 and eliminates 12+ months. Always apply extra payments to principal, not future payments. Check your lender&apos;s policy for principal-directed extra payment procedures.</p>
-            <h2>Loan Shopping Tips</h2>
+            <h2 className="text-2xl font-bold mb-3">Loan Shopping Tips</h2>
             <p>Get pre-qualified from multiple lenders — pre-qualification uses a soft credit pull (no credit score impact). Compare APRs, not just interest rates — APR includes origination fees. Check for prepayment penalties before signing. Consider credit unions — they typically offer lower rates than banks. Fintech lenders (SoFi, LightStream, Marcus) often have competitive rates for excellent credit borrowers.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/personal-loan-payoff-calculator" />

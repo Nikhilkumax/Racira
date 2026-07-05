@@ -186,11 +186,11 @@ export default function NetWorthCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is Net Worth and How to Calculate It</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is Net Worth and How to Calculate It</h2>
             <p>This <strong>net worth calculator</strong> gives you a real-time snapshot of your financial position. Net Worth = Total Assets − Total Liabilities. It's the most comprehensive financial metric available — a high income with high debt produces low net worth, while a modest income with consistent saving builds strong net worth over time. Track it quarterly to see your true financial trajectory.</p>
-            <h2>US Net Worth Benchmarks by Age</h2>
+            <h2 className="text-2xl font-bold mb-3">US Net Worth Benchmarks by Age</h2>
             <p>Median net worth by age group (Federal Reserve 2022): Under 35: $39,000. Ages 35–44: $135,600. Ages 45–54: $247,200. Ages 55–64: $364,500. Ages 65–74: $409,900. These are medians — half of households have more, half have less. The primary drivers of net worth growth: consistent retirement contributions (tax-advantaged compounding), home equity accumulation (mortgage paydown + appreciation), and avoiding lifestyle inflation as income rises.</p>
-            <h2>Strategies to Grow Net Worth</h2>
+            <h2 className="text-2xl font-bold mb-3">Strategies to Grow Net Worth</h2>
             <p>Two levers: increase assets, decrease liabilities. Most impactful asset growth strategies: maximize tax-advantaged retirement accounts (401k, Roth IRA, HSA); invest consistently in low-cost index funds; build home equity through extra mortgage payments. Liability reduction: pay off high-interest debt first (Avalanche method); avoid new auto loans for depreciating assets; refinance to lower interest rates when rates fall. The formula for wealth: Income − Expenses = Savings → Investments → Net Worth Growth. Related tools: <a href="/calculator/budget-calculator">Budget Calculator</a>, <a href="/calculator/early-retirement-calculator">FIRE Calculator</a>.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/net-worth-calculator" />

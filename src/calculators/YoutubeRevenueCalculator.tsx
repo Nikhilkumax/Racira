@@ -153,17 +153,17 @@ export default function YoutubeRevenueCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a YouTube Revenue Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a YouTube Revenue Calculator?</h2>
             <p>A YouTube revenue calculator is an essential forecasting tool for content creators, digital marketers, and entrepreneurs looking to understand the financial viability of building a YouTube channel. YouTube has evolved from a simple video-sharing platform into a massive global economic engine, minting millionaires and providing sustainable, full-time careers for millions of creators worldwide. However, the actual mathematics behind how YouTube pays its creators is famously opaque and confusing for beginners.</p>
             <p>Because earnings fluctuate wildly based on dozens of algorithmic variables—from viewer demographics to video length—predicting your monthly AdSense payout can be frustrating. This calculator cuts through the complexity by isolating the two most critical metrics in the YouTube Partner Program: Traffic (Daily Views) and Revenue Per Mille (RPM). By adjusting these inputs, creators can mathematically determine exactly how much traffic they need to quit their day jobs, or how improving their niche to boost RPM could double their income without requiring a single new subscriber.</p>
 
-            <h2>How It Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
             <p>The mathematics behind YouTube AdSense forecasting rely on a standardized advertising formula. The core engine of this calculator processes your inputs using the following logic to project your earnings.</p>
             <p>First, it identifies your <strong>Monetized View Units</strong>. Because YouTube pays per 1,000 views, the calculator divides your Average Daily Views by 1,000. For example, if you generate 50,000 views a day, you have 50 monetized units.</p>
             <p>Next, it calculates your <strong>Daily Revenue</strong> by multiplying those units by your Estimated RPM (Revenue Per Mille). Formula: <code>Daily Revenue = (Daily Views / 1000) * RPM</code>. If your RPM is $5.00, those 50 units will generate $250.00 a day in pure profit.</p>
             <p>Finally, the calculator extrapolates this daily revenue out to find your Monthly and Yearly estimates by multiplying by 30.42 (the average days in a month) and 365, respectively. It also tracks the total volume of traffic required to hit those numbers, providing a stark reality check on the scale required to build a massive YouTube business.</p>
 
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>When you generate a calculation, the tool provides five distinct analytical sections designed to help you interpret your channel's monetization potential.</p>
             <p><strong>Primary Result Card:</strong> This highlights your Estimated Yearly Earnings. For full-time creators treating YouTube as a business, the annualized figure is the most critical for tax planning and determining a true salary equivalent.</p>
             <p><strong>3-Stat Bar:</strong> This section breaks down the sheer volume of traffic your channel is pushing, displaying your Daily, Monthly, and Yearly Views. Generating millions of views annually is often a prerequisite for a full-time income in low-RPM niches.</p>
@@ -171,33 +171,33 @@ export default function YoutubeRevenueCalculator() {
             <p><strong>Revenue Projection Chart:</strong> A visual bar chart that dramatically illustrates the compounding effect of daily earnings over a month and a year. It reinforces the concept that consistency (earning a small amount every single day) scales into massive annual revenue.</p>
             <p><strong>Summary Statistics:</strong> A comprehensive grid aggregating the most critical metrics, including advanced inputs like your Click-Through Rate (CTR) and upload frequency, which are vital for channel growth analysis.</p>
 
-            <h2>Key Factors: CPM vs RPM</h2>
+            <h2 className="text-2xl font-bold mb-3">Key Factors: CPM vs RPM</h2>
             <p>To successfully maximize your YouTube earnings, you must deeply understand the difference between CPM and RPM, and why RPM is the only metric you should focus on.</p>
             <p><strong>CPM (Cost Per Mille):</strong> This is the gross amount that an advertiser pays YouTube to display 1,000 ad impressions on your videos. If an advertiser bids a $10 CPM, they pay $10. However, you do not keep $10. YouTube takes a 45% revenue share, leaving 55% for the creator.</p>
             <p><strong>RPM (Revenue Per Mille):</strong> This is the net amount you actually earn and deposit into your bank account for every 1,000 views. RPM accounts for YouTube's 45% cut. Furthermore, it accounts for the fact that not every view is monetized (some viewers use ad-blockers, and sometimes YouTube simply doesn't have an ad to serve). RPM is your true, blended earning rate. If you want to forecast your income accurately, always use RPM, never CPM.</p>
 
-            <h2>The "Niche" Factor</h2>
+            <h2 className="text-2xl font-bold mb-3">The "Niche" Factor</h2>
             <p>One of the biggest shocks to new creators is that two channels with identical view counts can have vastly different incomes. This disparity is entirely driven by the channel's niche (subject matter).</p>
             <p>Advertisers bid aggressively for audiences with high commercial intent and disposable income. A personal finance channel discussing stocks or a software review channel discussing SaaS products might enjoy an RPM of $20 to $40. Why? Because a single customer acquired from those ads might be worth thousands of dollars to an advertiser.</p>
             <p>Conversely, general entertainment channels—like gaming, pranks, vlogs, or meme compilations—attract a younger, broader audience with less purchasing power. These channels often suffer from very low RPMs, ranging from $1 to $3. A finance channel might need 50,000 views to make $1,000, while a gaming channel might need 1,000,000 views to make that same $1,000.</p>
 
-            <h2>Advanced Features</h2>
+            <h2 className="text-2xl font-bold mb-3">Advanced Features</h2>
             <p>The Advanced Channel Metrics tab in this calculator provides deeper contextual data for creators actively managing their growth strategy.</p>
             <p>By inputting <strong>Uploads/Month</strong>, you can mentally align your production schedule with your revenue goals. If you need 500,000 views a month to hit your financial target, and you only upload 4 videos a month, you know each video must average 125,000 views.</p>
             <p>The <strong>Avg CTR (Click-Through Rate)</strong> input is a reminder of the most important growth metric on YouTube. Your CTR (how often people click your thumbnail) dictates your impressions. While CTR doesn't directly alter the mathematical revenue formula, a high CTR is the only way to generate the massive "Average Daily Views" required to fuel the revenue engine.</p>
 
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <p>Let's look at how the niche dictates the financial reality of two different YouTube channels.</p>
             <p><strong>Example 1: The Viral Gamer.</strong> You run a successful gaming channel generating a massive 100,000 daily views. However, because gaming has low advertiser demand, your RPM is only $1.50. You input these numbers. Your Daily Revenue is $150. Your Monthly Revenue is $4,563. Your Yearly Revenue is $54,750. Despite pushing 36 million views a year, the revenue is comparable to a standard entry-level salary.</p>
             <p><strong>Example 2: The B2B Tech Reviewer.</strong> You run a highly targeted channel reviewing business software. You only get 5,000 daily views. However, because software companies bid heavily for your audience, your RPM is a staggering $25.00. You input these numbers. Your Daily Revenue is $125. Your Monthly Revenue is $3,802. Your Yearly Revenue is $45,625. With only 5% of the traffic of the gaming channel, you are making nearly the same amount of money, requiring vastly less viral pressure.</p>
 
-            <h2>Tips & Best Practices</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
             <p>Relying solely on YouTube AdSense is risky. The most successful creators use AdSense as a baseline and build a diverse business around it.</p>
             <p>First, always push your videos past the 8-minute mark. Videos longer than 8 minutes are eligible for mid-roll ads. Adding mid-rolls can immediately double or triple your RPM because you are showing multiple ads to a single viewer during one watch session.</p>
             <p>Second, diversify your income. Brand sponsorships (direct deals where you promote a product in the video) often pay 3x to 5x more than AdSense for the same amount of views. Additionally, utilize affiliate marketing, channel memberships, and digital products (like courses or merchandise) to monetize your most loyal fans directly.</p>
             <p>Third, study your geography. Views from Tier 1 countries (US, UK, Canada, Australia) pay significantly more than views from emerging markets. Tailoring your content style, language, and cultural references to appeal to Tier 1 audiences is the fastest way to artificially inflate your RPM.</p>
 
-            <h2>Benefits</h2>
+            <h2 className="text-2xl font-bold mb-3">Benefits</h2>
             <p>Using a YouTube revenue calculator transforms your channel from a creative hobby into a predictable business model. It removes the mystery of the algorithm and replaces it with cold, actionable mathematics.</p>
             <p>By understanding exactly how Traffic and RPM interact, you can stop blindly chasing viral views and instead focus on strategic growth. You'll know exactly whether you need to increase your upload frequency to boost total views, or if you need to pivot your content into a more lucrative niche to raise your RPM, ultimately giving you a clear roadmap to becoming a full-time professional creator.</p>
           </article>

@@ -89,17 +89,17 @@ export default function DollarCostAveragingCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>What Is Dollar Cost Averaging?</h2>
+              <h2 className="text-2xl font-bold mb-3">What Is Dollar Cost Averaging?</h2>
               <p>Dollar Cost Averaging (DCA) is one of the most powerful — and psychologically comfortable — investment strategies available to individual investors. The concept is elegantly simple: invest a fixed dollar amount into a chosen asset at regular intervals (weekly, monthly, quarterly) regardless of what the market is doing. When prices are high, your fixed amount buys fewer shares. When prices are low, the same amount buys more shares. Over time, this results in a lower average cost per share than randomly timed purchases.</p>
-              <h2>The Math Behind DCA</h2>
+              <h2 className="text-2xl font-bold mb-3">The Math Behind DCA</h2>
               <p>Consider investing $500 per month for 3 months in a stock. In Month 1, the stock costs $50, so you buy 10 shares. In Month 2, it drops to $40 and you buy 12.5 shares. In Month 3, it rises to $60 and you buy 8.33 shares. You've invested $1,500 and own 30.83 shares. The average price paid ($1,500 ÷ 30.83 = $48.66) is lower than the simple average of the three prices ($50).</p>
-              <h2>The Power of Compound Interest Over Time</h2>
+              <h2 className="text-2xl font-bold mb-3">The Power of Compound Interest Over Time</h2>
               <p>DCA's true power emerges when combined with the miracle of compound interest. A person investing $500 per month for 30 years at a 10% annual return doesn't just end up with the $180,000 they invested — they end up with over $1.1 million. The difference — over $920,000 — is entirely from investment gains compounding on themselves year after year. The earlier you start, the more dramatic the effect.</p>
-              <h2>DCA vs. Lump Sum Investing</h2>
+              <h2 className="text-2xl font-bold mb-3">DCA vs. Lump Sum Investing</h2>
               <p>Academic research, including studies by Vanguard, consistently shows that lump-sum investing (investing all available capital immediately) outperforms DCA approximately two-thirds of the time in markets that trend upward over time. The rationale is simple: the longer your money is invested, the longer it can compound. However, DCA removes the stress of "what if I invest everything at the top?" and ensures consistent, disciplined investing behavior — which has its own enormous value.</p>
-              <h2>Automating Your DCA Strategy</h2>
+              <h2 className="text-2xl font-bold mb-3">Automating Your DCA Strategy</h2>
               <p>The most successful DCA practitioners automate their investments. By setting up automatic monthly transfers from your paycheck into a 401(k), IRA, or brokerage account, you eliminate the emotional component of investment decisions. You never have to agonize over whether "now is a good time" to invest. This "set it and forget it" approach is well-suited for busy professionals who want long-term wealth building without constant market monitoring.</p>
-              <h2>DCA During Market Downturns</h2>
+              <h2 className="text-2xl font-bold mb-3">DCA During Market Downturns</h2>
               <p>Market downturns are where DCA truly shines. While a lump-sum investor who put everything in at the peak watches their portfolio decline, a DCA investor continues buying at lower and lower prices, accumulating more shares for the same monthly dollar amount. When the inevitable recovery occurs, the DCA investor has a larger share count and often recovers their losses — and then some — much faster than the lump-sum investor who timed the market badly.</p>
             </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/dollar-cost-averaging-calculator" />

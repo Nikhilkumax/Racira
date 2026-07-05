@@ -169,14 +169,14 @@ const FactorCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Are Factors?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Are Factors?</h2>
             <p>In mathematics, <strong>factors</strong> are the numbers that you can multiply together to get another number. Put differently, a factor is an integer that divides evenly into a larger integer without leaving a remainder. For example, 5 is a factor of 20 because 20 divided by 5 equals exactly 4.</p>
 
-            <h2>Understanding Factor Pairs</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Factor Pairs</h2>
             <p>Because factors are determined through multiplication, they naturally come in sets of two, known as <strong>factor pairs</strong>. Every time you find one factor of a number, you automatically find another. If you know that 3 is a factor of 12, then the corresponding pair is 4 (because 3 × 4 = 12).</p>
             <p>A notable exception to visual pairs occurs with perfect squares. For the number 16, the factor pairs are (1, 16), (2, 8), and (4, 4). When creating the final list of unique factors, the number 4 is only written once: 1, 2, 4, 8, 16.</p>
 
-            <h2>How Do You Find the Factors of a Number?</h2>
+            <h2 className="text-2xl font-bold mb-3">How Do You Find the Factors of a Number?</h2>
             <p>When finding factors manually, the most efficient method is to test division starting from 1 and working upwards, creating your factor pairs as you go. You can stop testing once you reach the square root of your target number, because any factors larger than the square root would have already been discovered as the "pair" to a smaller number.</p>
             <ul>
               <li><strong>Find the factors of 36:</strong></li>
@@ -188,7 +188,7 @@ const FactorCalculator = () => {
               <li>6 × 6 = 36. Since we reached a number multiplying by itself (the square root), we can stop. The factors are 1, 2, 3, 4, 6, 9, 12, 18, and 36.</li>
             </ul>
 
-            <h2>Factors vs. Multiples</h2>
+            <h2 className="text-2xl font-bold mb-3">Factors vs. Multiples</h2>
             <p>A common point of confusion for students is the difference between factors and multiples. <strong>Factors</strong> are the numbers that fit <em>into</em> a target number (they are smaller than or equal to the target). <strong>Multiples</strong> are the numbers you get when you multiply the target number by 1, 2, 3, etc. (they are larger than or equal to the target). The factors of 8 are 1, 2, 4, and 8. The multiples of 8 are 8, 16, 24, 32, etc.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/factor-calculator" />

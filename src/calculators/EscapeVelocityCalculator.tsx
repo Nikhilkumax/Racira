@@ -350,29 +350,29 @@ const EscapeVelocityCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is an Escape Velocity Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is an Escape Velocity Calculator?</h2>
             <p>
               This escape velocity calculator computes two fundamental cosmic speeds: the <strong>First Cosmic Velocity (V₁)</strong> — the minimum speed to orbit just above a body{"'"}s surface — and the <strong>Escape Velocity (Vₑ)</strong> — the minimum speed to leave the body{"'"}s gravitational field entirely. Both are calculated from mass and radius using the universal law of gravitation. You can express mass in anything from kilograms to Earth masses and radius from meters to solar radii, with output in six velocity units including fractions of the speed of light.
             </p>
-            <h2>Formulas</h2>
+            <h2 className="text-2xl font-bold mb-3">Formulas</h2>
             <p>
               <strong>Escape Velocity:</strong> Vₑ = √(2GM / R)<br />
               <strong>First Cosmic Velocity:</strong> V₁ = √(GM / R) = Vₑ / √2<br />
               G = 6.674 × 10⁻¹¹ N·m²/kg² (gravitational constant). For Earth (M = 1 M⊕, R = 1 R⊕): Vₑ ≈ 11.186 km/s, V₁ ≈ 7.91 km/s.
             </p>
-            <h2>First Cosmic vs Escape Velocity</h2>
+            <h2 className="text-2xl font-bold mb-3">First Cosmic vs Escape Velocity</h2>
             <p>
               V₁ is the speed at which centripetal acceleration exactly equals gravitational acceleration at the surface: g = V₁² / R. At this speed, an object launched horizontally enters a circular orbit. Vₑ = √2 × V₁ — you need 41% more speed to escape entirely than to simply orbit. The ISS orbits at ~7.66 km/s, close to V₁ for its altitude.
             </p>
-            <h2>Escape Velocity Across the Solar System</h2>
+            <h2 className="text-2xl font-bold mb-3">Escape Velocity Across the Solar System</h2>
             <p>
               Moon: 2.38 km/s (easy to escape — explains its lack of atmosphere). Mars: 5.03 km/s. Earth: 11.19 km/s. Saturn: 35.5 km/s. Jupiter: 59.5 km/s. Sun: 617.5 km/s. These values assume launch from the surface. Launching from orbit adds the orbital velocity to the effective escape budget.
             </p>
-            <h2>Atmospheres and Escape Velocity</h2>
+            <h2 className="text-2xl font-bold mb-3">Atmospheres and Escape Velocity</h2>
             <p>
               A planet retains an atmosphere only if escape velocity significantly exceeds the root-mean-square thermal speed of gas molecules: v_rms = √(3kT/m). Earth retains N₂ and O₂ easily (v_rms ~ 500 m/s vs 11.2 km/s) but loses hydrogen slowly over geological time. The Moon (2.38 km/s) cannot retain any atmosphere. Titan (Saturn{"'"}s moon, 2.64 km/s) retains a thick N₂ atmosphere because it is very cold.
             </p>
-            <h2>Black Holes and the Schwarzschild Radius</h2>
+            <h2 className="text-2xl font-bold mb-3">Black Holes and the Schwarzschild Radius</h2>
             <p>
               A black hole forms when a body is compressed until Vₑ = c (speed of light). The critical radius is the Schwarzschild radius: R_s = 2GM/c². Plugging c = 299,792,458 m/s: for Earth, R_s ≈ 8.87 mm; for the Sun, R_s ≈ 2.95 km. At and inside R_s, not even light can escape — the event horizon. You can explore this using the calculator by setting the velocity output to {"'"}c{"'"} and adjusting mass/radius until Vₑ approaches 1 c.
             </p>

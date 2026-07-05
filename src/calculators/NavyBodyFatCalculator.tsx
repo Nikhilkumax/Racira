@@ -212,21 +212,21 @@ const NavyBodyFatCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Navy Body Fat Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Navy Body Fat Calculator?</h2>
             <p>The Navy Body Fat Calculator uses the U.S. Navy circumference method to estimate body fat percentage from simple tape measurements — height, neck, waist, and hip (women). Pre-filled with height 70 inches, neck 15 inches, and waist 33 inches for a male, the estimated body fat is approximately 18% — in the average fitness category. This method was developed by Hodgdon and Beckett in 1984 for the U.S. military and is still used by the Navy, Army, and Marine Corps for fitness standards compliance.</p>
-            <h2>The Navy Body Fat Formulas</h2>
+            <h2 className="text-2xl font-bold mb-3">The Navy Body Fat Formulas</h2>
             <p><strong>Men:</strong> BF% = 86.010 × log₁₀(waist − neck) − 70.041 × log₁₀(height) + 36.76</p>
             <p><strong>Women:</strong> BF% = 163.205 × log₁₀(waist + hip − neck) − 97.684 × log₁₀(height) − 78.387</p>
             <p>All measurements are in inches. The formula uses the difference between waist and neck (men) or the sum of waist and hip minus neck (women) to capture the contrast between abdominal circumference and upper body lean mass.</p>
-            <h2>How to Take Accurate Measurements</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Take Accurate Measurements</h2>
             <p><strong>Neck:</strong> Measure below the larynx (Adam's apple), perpendicular to the long axis of the neck. <strong>Waist (men):</strong> Horizontal measurement at the navel. <strong>Waist (women):</strong> At the narrowest point, typically between navel and bottom of ribs. <strong>Hip (women):</strong> At the widest point across the buttocks. Use a flexible measuring tape and take each measurement twice, rounding down to the nearest 0.5 inch. Measurements should be taken while standing and breathing normally.</p>
-            <h2>U.S. Military Body Fat Standards</h2>
+            <h2 className="text-2xl font-bold mb-3">U.S. Military Body Fat Standards</h2>
             <p>The U.S. Navy maximum body fat standards by age: Males 17–21: 22%, 22–29: 23%, 30–39: 24%, 40+: 26%. Females 17–21: 33%, 22–29: 34%, 30–39: 35%, 40+: 36%. Exceeding these thresholds can result in separation from military service, making the Navy formula both a personal health tool and a career-relevant measurement.</p>
-            <h2>Accuracy and Comparison to Other Methods</h2>
+            <h2 className="text-2xl font-bold mb-3">Accuracy and Comparison to Other Methods</h2>
             <p>The Navy method has a margin of error of approximately ±3–4% body fat compared to DEXA scanning. It overestimates body fat in very muscular individuals (larger neck circumference reduces the waist-neck differential) and may underestimate in those with unusual fat distribution. For most individuals, it provides a useful, accessible estimate without requiring laboratory equipment. DEXA scanning, hydrostatic weighing, and air displacement plethysmography (Bod Pod) offer greater precision for clinical or research use.</p>
-            <h2>Body Fat and Health Outcomes</h2>
+            <h2 className="text-2xl font-bold mb-3">Body Fat and Health Outcomes</h2>
             <p>Excess body fat — particularly visceral fat — is associated with insulin resistance, type 2 diabetes, cardiovascular disease, hypertension, certain cancers, and reduced longevity. The relationship between body fat and health outcomes is nonlinear: both very low body fat (below essential levels) and high body fat increase all-cause mortality risk. The healthiest ranges for most adults are 10–18% for men and 18–28% for women, representing the "fit" to "average" categories.</p>
-            <h2>How to Reduce Body Fat Percentage</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Reduce Body Fat Percentage</h2>
             <p>To reduce body fat: create a moderate caloric deficit (300–500 kcal/day) while maintaining adequate protein (1.6–2.2 g/kg body weight) to preserve lean mass. Combine resistance training (stimulates muscle protein synthesis) with aerobic exercise (expands caloric expenditure). Target 0.5–1% body fat reduction per month for sustainable, muscle-preserving fat loss. Aggressive deficits (1,000+ kcal/day) often result in significant muscle loss, especially without adequate protein and resistance training.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/navy-body-fat-calculator" />

@@ -147,7 +147,7 @@ const ReverseMortgageCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>How a Reverse Mortgage Works</h2>
+              <h2 className="text-2xl font-bold mb-3">How a Reverse Mortgage Works</h2>
               <p>A reverse mortgage is a financial tool designed specifically for older homeowners. Unlike a traditional mortgage where you make monthly payments to a lender, in a reverse mortgage, the lender provides you with funds based on your home equity. The interest is added to the loan balance over time, meaning the debt grows while your equity decreases.</p>
 
               <h3>Eligibility Requirements</h3>
@@ -178,7 +178,7 @@ const ReverseMortgageCalculator = () => {
               <h3>The Role of Counseling</h3>
               <p>Before you can apply for a HECM reverse mortgage, you are required by law to attend a counseling session with an independent, HUD-approved agency. This ensures you fully understand the risks, costs, and alternatives available to you.</p>
 
-              <h2>Pros and Cons of Reverse Mortgages</h2>
+              <h2 className="text-2xl font-bold mb-3">Pros and Cons of Reverse Mortgages</h2>
               <div className="grid sm:grid-cols-2 gap-6 my-6">
                 <div className="p-4 rounded-xl bg-emerald-500/5 border border-emerald-500/10">
                   <h4 className="text-emerald-700 font-bold mb-2">Benefits</h4>

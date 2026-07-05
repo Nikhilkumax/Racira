@@ -223,11 +223,11 @@ export default function FertilityWindowCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Mathematics of Conception</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of Conception</h2>
             <p>If you are Trying to Conceive (TTC), timing is absolutely everything. The human reproductive window is surprisingly narrow. Even young, healthy couples having well-timed intercourse only have about a 25% to 30% chance of successfully conceiving in any given cycle.</p>
             <p>This <strong>Fertility Window Calculator</strong> uses the clinical "Standard Days Method" to project exactly when your ovaries will release a mature egg, and maps out the 6-day biological window where intercourse can actually lead to pregnancy.</p>
 
-            <h2>Why is the Fertile Window Exactly 6 Days?</h2>
+            <h2 className="text-2xl font-bold mb-3">Why is the Fertile Window Exactly 6 Days?</h2>
             <p>The fertile window is a biological intersection of two lifespans: the sperm and the egg.</p>
             <ul>
               <li><strong>The Egg:</strong> Once ovulation occurs and the egg is released from the ovary into the fallopian tube, it begins to rapidly degrade. An unfertilized egg only survives for <strong>12 to 24 hours</strong>. If it is not fertilized within this incredibly short timeframe, it dissolves, and conception is biologically impossible until the next month.</li>
@@ -235,11 +235,11 @@ export default function FertilityWindowCalculator() {
             </ul>
             <p>Because sperm can "wait" in the fallopian tubes for the egg to arrive, the fertile window technically opens 5 days before ovulation, and completely closes 24 hours after ovulation.</p>
 
-            <h2>The Peak Days for Intercourse</h2>
+            <h2 className="text-2xl font-bold mb-3">The Peak Days for Intercourse</h2>
             <p>While the window is 6 days long, not all days are equal. Massive clinical studies analyzing thousands of pregnancies have proven that the highest probability of conception occurs if you have intercourse <strong>1 to 2 days before ovulation</strong>. Having intercourse on the day of ovulation itself actually carries a slightly lower probability, because the egg may degrade before the sperm can travel all the way up the reproductive tract.</p>
             <p>If you are actively trying to conceive, reproductive endocrinologists generally recommend having intercourse every other day starting at the beginning of your fertile window, and every day during your two peak days.</p>
 
-            <h2>Confirming Your Calendar Math</h2>
+            <h2 className="text-2xl font-bold mb-3">Confirming Your Calendar Math</h2>
             <p>It is vital to understand that this calculator provides a mathematical estimate based on averages. The human body is not a clock. High stress, poor sleep, travel, or minor illness can all cause the brain to delay the hormonal surge required to trigger ovulation.</p>
             <p>If you want to absolutely confirm that the dates provided by this calculator are correct for your unique body, you should pair this calendar with at-home tracking methods:</p>
             <ol>

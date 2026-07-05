@@ -152,20 +152,20 @@ export default function ProfitabilityIndexCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10"/>
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is the Profitability Index?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is the Profitability Index?</h2>
             <p>The Profitability Index (PI), also known as the Profit Investment Ratio (PIR) or Value Investment Ratio (VIR), is a capital budgeting metric that measures the value created per unit of investment. It extends NPV analysis by providing a relative measure of investment efficiency — essential when comparing projects of different sizes or allocating limited capital across multiple opportunities.</p>
-            <h2>Profitability Index Formula</h2>
+            <h2 className="text-2xl font-bold mb-3">Profitability Index Formula</h2>
             <p><strong>PI = PV of Future Cash Flows ÷ Initial Investment</strong></p>
             <p>Where PV of Future Cash Flows = Σ (CFt ÷ (1+r)^t) for t = 1 to n. r = discount rate (WACC). CFt = cash flow in period t. Equivalently: PI = 1 + (NPV ÷ Initial Investment).</p>
-            <h2>Interpreting the Profitability Index</h2>
+            <h2 className="text-2xl font-bold mb-3">Interpreting the Profitability Index</h2>
             <p>PI = 1.0: The project earns exactly the required rate of return (zero economic profit). PI &gt; 1.0: Accept — the project creates value above the cost of capital. PI &lt; 1.0: Reject — the project destroys value. For capital rationing, rank all projects by PI and fund in descending order until the capital budget is exhausted. This maximizes total NPV across the portfolio.</p>
-            <h2>PI vs. NPV — When Each Is Better</h2>
+            <h2 className="text-2xl font-bold mb-3">PI vs. NPV — When Each Is Better</h2>
             <p>NPV is superior for independent projects where the absolute value creation matters. PI is superior for mutually exclusive projects of different sizes and for capital rationing scenarios. Example: Project A has NPV=$100K, investment=$500K (PI=1.20). Project B has NPV=$80K, investment=$200K (PI=1.40). With a $200K budget, Project B creates more value per dollar despite lower absolute NPV.</p>
-            <h2>Discount Rate Selection</h2>
+            <h2 className="text-2xl font-bold mb-3">Discount Rate Selection</h2>
             <p>The discount rate represents the opportunity cost of capital — what your money could earn in a risk-equivalent alternative investment. Use WACC for projects aligned with the company&apos;s overall risk profile. Apply a risk premium (2–5%) for ventures more risky than typical operations. Use the risk-free rate plus equity risk premium for equity-financed projects without leverage.</p>
-            <h2>PI in Capital Rationing</h2>
+            <h2 className="text-2xl font-bold mb-3">PI in Capital Rationing</h2>
             <p>When a firm cannot fund all positive-NPV projects (due to budget constraints, credit limits, or strategic priorities), PI ranking enables optimal capital allocation. Sort available projects by PI in descending order. Fund from the top until the budget is exhausted. This algorithm maximizes total NPV across the funded portfolio — a fundamental result in corporate finance theory.</p>
-            <h2>Limitations of the Profitability Index</h2>
+            <h2 className="text-2xl font-bold mb-3">Limitations of the Profitability Index</h2>
             <p>PI assumes cash flows are known with certainty — use sensitivity analysis to stress-test key assumptions. It does not account for project interdependencies (e.g., two projects that share infrastructure). PI can be misleading for mutually exclusive projects of the same size — in that case, NPV provides the correct ranking. Always use PI alongside IRR and payback period for a complete capital investment evaluation.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/profitability-index-calculator"/>

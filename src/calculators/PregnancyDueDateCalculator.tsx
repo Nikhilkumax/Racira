@@ -359,10 +359,10 @@ export default function PregnancyDueDateCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Pregnancy Due Date Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Pregnancy Due Date Calculator</h2>
             <p>Discovering you are pregnant is one of the most monumental moments in a woman's life. Almost instantly, the single most pressing question becomes: "When is the baby arriving?" For decades, modern obstetrics has relied on a specific mathematical algorithm to predict exactly when a full-term pregnancy will reach its natural conclusion. The <strong>Pregnancy Due Date Calculator</strong> utilizes this globally accepted medical standard—the Modified Naegele's Rule—to provide you with an incredibly precise Estimated Date of Delivery (EDD), alongside a comprehensive timeline of your gestational milestones.</p>
 
-            <h2>The Mathematics of Naegele's Rule</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of Naegele's Rule</h2>
             <p>In the early 19th century, a German obstetrician named Franz Karl Naegele formulated the standard rule for calculating pregnancy duration. A standard, healthy, full-term human pregnancy lasts exactly 280 days (or precisely 40 weeks) calculated from the first day of the Last Menstrual Period (LMP).</p>
             <p>The original, and still widely used, formula is devastatingly simple:</p>
             <ul>
@@ -373,17 +373,17 @@ export default function PregnancyDueDateCalculator() {
             </ul>
             <p>For example, if your LMP was July 1st, 2024: Add 7 days (July 8th). Subtract 3 months (April 8th). Add 1 year. Your Estimated Due Date is April 8th, 2025. This mathematical sequence is simply a shortcut for adding exactly 280 days to a calendar.</p>
 
-            <h2>Why is the Menstrual Cycle Length Important?</h2>
+            <h2 className="text-2xl font-bold mb-3">Why is the Menstrual Cycle Length Important?</h2>
             <p>The standard Naegele's Rule operates on one massive assumption: that the woman has a perfectly regimented 28-day menstrual cycle and ovulates exactly on Day 14. In reality, human biology is vastly more diverse. Many healthy women have cycles lasting 32 days, while others have rapid 24-day cycles.</p>
             <p>If you have a 32-day cycle, you likely ovulate around Day 18, not Day 14. This means conception actually occurred 4 days later than the standard formula assumes. If a doctor blindly uses the 28-day rule on a woman with a 32-day cycle, her due date will be calculated 4 days too early. This leads to massive anxiety and unnecessary medical interventions (such as chemical inductions) when the baby is incorrectly deemed "past due."</p>
             <p>The Racira Pregnancy Due Date Calculator utilizes the <strong>Modified Naegele's Rule</strong>. By inputting your actual, average cycle length, the algorithm mathematically adjusts the 280-day constant, shifting your due date forward or backward to align with your true biological ovulation window. This yields a far more accurate clinical timeline.</p>
 
-            <h2>Understanding Gestational Age vs. Fetal Age</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Gestational Age vs. Fetal Age</h2>
             <p>One of the most confusing aspects of early pregnancy is understanding how doctors date the pregnancy. When your doctor tells you that you are "4 weeks pregnant," the embryo itself is actually only 2 weeks old.</p>
             <p>This discrepancy exists because the exact date of conception (when the sperm fertilizes the egg) is notoriously difficult to pinpoint. However, the first day of a woman's Last Menstrual Period is a highly objective, easily recordable physical event. Therefore, the medical community universally decided to start the "Pregnancy Clock" on the first day of the LMP. During the first two weeks of your "pregnancy," you are not actually pregnant—your body is simply preparing the uterine lining and maturing the egg that is about to be fertilized.</p>
             <p>This is why a full-term pregnancy is considered 40 weeks of <em>Gestational Age</em>, even though the <em>Fetal Age</em> (the actual age of the baby) is only 38 weeks.</p>
 
-            <h2>The Three Trimesters of Pregnancy</h2>
+            <h2 className="text-2xl font-bold mb-3">The Three Trimesters of Pregnancy</h2>
             <p>A full-term 40-week pregnancy is divided into three distinct phases, known as trimesters. The calculator automatically projects the dates when you will cross these critical thresholds:</p>
             <ul>
               <li><strong>First Trimester (Weeks 1 through 13):</strong> This is the period of rapid embryonic development. Major organ systems, the neural tube, and the heartbeat are formed. It is also the period where maternal symptoms (nausea, fatigue) are typically most severe due to massive surges in Human Chorionic Gonadotropin (hCG) and progesterone.</li>
@@ -391,11 +391,11 @@ export default function PregnancyDueDateCalculator() {
               <li><strong>Third Trimester (Weeks 28 through 40):</strong> The period of rapid fetal weight gain and brain maturation. The maternal body prepares for labor and delivery. Physical discomfort, back pain, and shortness of breath increase as the rapidly growing uterus displaces maternal organs.</li>
             </ul>
 
-            <h2>When Are You Actually Considered "Full Term"?</h2>
+            <h2 className="text-2xl font-bold mb-3">When Are You Actually Considered "Full Term"?</h2>
             <p>Despite the heavy emphasis placed on the exact due date, only roughly 4% to 5% of babies are born on that exact day. The "Due Date" is simply the 40-week median mark.</p>
             <p>The American College of Obstetricians and Gynecologists (ACOG) classifies a pregnancy as <strong>Early Term</strong> between 37 weeks and 38 weeks and 6 days. It is considered <strong>Full Term</strong> between 39 weeks and 40 weeks and 6 days. Finally, it is <strong>Late Term</strong> up to 41 weeks and 6 days. Therefore, a baby born at 38 weeks is perfectly healthy, completely developed, and not considered premature. Do not fixate on the exact day; instead, prepare for the 5-week "delivery window."</p>
 
-            <h2>LMP Dating vs. Ultrasound Dating</h2>
+            <h2 className="text-2xl font-bold mb-3">LMP Dating vs. Ultrasound Dating</h2>
             <p>While the LMP calculation is the gold standard for initiating prenatal care, modern obstetrics relies heavily on ultrasound technology to verify the due date. During the first trimester (typically between 8 and 12 weeks), the doctor will perform an early dating ultrasound to measure the Crown-Rump Length (CRL) of the fetus.</p>
             <p>During the first trimester, embryos grow at a shockingly uniform, predictable rate across all human genetics. If the ultrasound measurement indicates a due date that is more than 5 to 7 days different from your LMP-calculated due date, your obstetrician will likely discard the LMP date entirely and make the Ultrasound Date your new, official Estimated Date of Delivery. This is highly common for women with irregular cycles who may have ovulated much later than they realized.</p>
           </article>

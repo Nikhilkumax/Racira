@@ -290,22 +290,22 @@ export default function AnnualRecurringRevenueCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is Annual Recurring Revenue (ARR)?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is Annual Recurring Revenue (ARR)?</h2>
             <p>Annual Recurring Revenue (ARR) is a key metric used by subscription-based businesses, particularly SaaS (Software as a Service) companies, to measure their predictable and recurring revenue over a 12-month period. It represents the annualized value of active subscriptions and is the most common metric used to value SaaS companies.</p>
             
-            <h2>How It Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
             <p>The standard formula for ARR is incredibly simple: <code>ARR = MRR * 12</code>. To find your MRR (Monthly Recurring Revenue), you sum the monthly fees paid by all active subscribers. If a customer pays an annual fee upfront, you divide that fee by 12 to find their MRR contribution. You should explicitly exclude one-time fees, setup costs, professional services, and non-recurring hardware sales from your ARR calculations.</p>
             
-            <h2>Understanding Net MRR Growth</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Net MRR Growth</h2>
             <p>To project future ARR, you must understand your Net MRR Growth. This is calculated as: <strong>New Business MRR + Expansion MRR - Churned MRR - Contraction MRR</strong>. New Business comes from brand new customers. Expansion comes from existing customers upgrading their plans. Churn is when customers cancel, and Contraction is when they downgrade. If your Net MRR Growth is positive, your ARR is growing.</p>
             
-            <h2>Net Retention Rate (NRR)</h2>
+            <h2 className="text-2xl font-bold mb-3">Net Retention Rate (NRR)</h2>
             <p>Net Retention Rate is arguably the second most important metric after ARR. It measures what percentage of revenue you retained from your existing customer base over a period, factoring in both upgrades and cancellations. An NRR of exactly 100% means that expansions perfectly offset churn. Elite SaaS companies often have an NRR above 120%, meaning their existing customer base grows significantly over time without acquiring any new logos.</p>
             
-            <h2>Why ARR Matters</h2>
+            <h2 className="text-2xl font-bold mb-3">Why ARR Matters</h2>
             <p>Predictability is highly valued by investors. Because ARR is recurring by nature, a company with $10M in ARR is generally much more valuable than a traditional company with $10M in one-time product sales. Investors apply "revenue multiples" (often 5x to 15x or more) to a company's ARR to determine its overall enterprise valuation. Tracking ARR helps founders gauge business health, align sales targets, and raise capital.</p>
             
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <p>If you have 100 customers paying $500 per month, your MRR is $50,000, making your ARR $600,000. Next month, you acquire 5 new customers (+$2,500 MRR), 2 existing customers upgrade (+$1,000 MRR), and 1 customer cancels (-$500 MRR). Your Net MRR Growth is $3,000. Your new MRR is $53,000, making your new ARR $636,000.</p>
           </article>
           

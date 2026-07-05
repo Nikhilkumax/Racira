@@ -135,17 +135,17 @@ const WorkingCapitalCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>What Is Working Capital?</h2>
+              <h2 className="text-2xl font-bold mb-3">What Is Working Capital?</h2>
               <p>Working capital is a measure of a company's short-term financial health and operational efficiency. It represents the difference between current assets (cash, receivables, inventory) and current liabilities (payables, short-term debt). Positive working capital means the company can fund its day-to-day operations and invest in growth.</p>
 
-              <h2>Working Capital Formulas</h2>
+              <h2 className="text-2xl font-bold mb-3">Working Capital Formulas</h2>
               <ul>
                 <li><strong>Working Capital = Current Assets − Current Liabilities</strong></li>
                 <li><strong>Current Ratio = Current Assets ÷ Current Liabilities</strong></li>
                 <li><strong>Quick Ratio = (Cash + Receivables) ÷ Current Liabilities</strong></li>
               </ul>
 
-              <h2>Interpreting the Ratios</h2>
+              <h2 className="text-2xl font-bold mb-3">Interpreting the Ratios</h2>
               <table className="w-full text-sm mb-4">
                 <thead><tr><th className="text-left py-1">Ratio</th><th className="text-left">Value</th><th className="text-left">Meaning</th></tr></thead>
                 <tbody>
@@ -156,7 +156,7 @@ const WorkingCapitalCalculator = () => {
                 </tbody>
               </table>
 
-              <h2>Improving Working Capital</h2>
+              <h2 className="text-2xl font-bold mb-3">Improving Working Capital</h2>
               <ul>
                 <li><strong>Accelerate receivables:</strong> Offer early payment discounts, tighten credit terms</li>
                 <li><strong>Optimize inventory:</strong> Reduce excess stock, use just-in-time systems</li>

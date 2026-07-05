@@ -136,13 +136,13 @@ export default function PropertyTaxCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Property Tax Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Property Tax Calculator?</h2>
             <p>A <strong>property tax calculator</strong> estimates your annual and monthly property tax bill based on your home&apos;s market value, local assessment ratio, mill rate, and applicable exemptions. Property taxes vary enormously by location — from under 0.3% in Hawaii to over 2.5% in New Jersey — making this calculator essential for home buyers evaluating total ownership cost.</p>
-            <h2>How Property Tax Is Calculated</h2>
+            <h2 className="text-2xl font-bold mb-3">How Property Tax Is Calculated</h2>
             <p>Property Tax = (Market Value × Assessment Ratio − Exemptions) × Mill Rate ÷ 1,000. Mill rate (or millage rate) is the tax per $1,000 of taxable value set by local governments. One mill = $1 per $1,000. A 15 mill rate on $300,000 taxable value = $4,500 annual tax.</p>
-            <h2>Understanding Assessment Ratios</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Assessment Ratios</h2>
             <p>Not all states assess at 100% of market value. Assessment ratios vary: California, Texas, Florida: 100%. New York (residential): ~6% of market value (though nominal rates are higher). Illinois: 33.33%. This is why comparing raw mill rates across states is misleading — you must compare effective rates (tax ÷ market value × 100).</p>
-            <h2>Reducing Your Property Tax Bill</h2>
+            <h2 className="text-2xl font-bold mb-3">Reducing Your Property Tax Bill</h2>
             <p>Apply for all available exemptions — homestead, senior (age 65+), veteran, disability, agricultural. Appeal if assessment is above market value — file before the appeal deadline (typically 30–90 days after assessment notice). Verify property record for errors. Attend local budget meetings to understand and influence mill rate decisions.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/property-tax-calculator" />

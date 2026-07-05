@@ -141,17 +141,17 @@ const EBITDACalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>What Is EBITDA?</h2>
+              <h2 className="text-2xl font-bold mb-3">What Is EBITDA?</h2>
               <p>EBITDA (Earnings Before Interest, Taxes, Depreciation, and Amortization) is a widely used measure of core profitability. By excluding financing costs, tax rates, and non-cash accounting charges, EBITDA reveals a company's operational performance independent of its capital structure and accounting decisions.</p>
 
-              <h2>EBITDA Formulas</h2>
+              <h2 className="text-2xl font-bold mb-3">EBITDA Formulas</h2>
               <ul>
                 <li><strong>From Revenue:</strong> EBITDA = Revenue − COGS − Operating Expenses + Depreciation + Amortization</li>
                 <li><strong>From Net Income:</strong> EBITDA = Net Income + Interest + Taxes + Depreciation + Amortization</li>
                 <li><strong>EBITDA Margin = EBITDA ÷ Revenue × 100</strong></li>
               </ul>
 
-              <h2>EBITDA in Business Valuation</h2>
+              <h2 className="text-2xl font-bold mb-3">EBITDA in Business Valuation</h2>
               <p>EBITDA is the foundation of the most common valuation metric: <strong>EV/EBITDA</strong> (Enterprise Value to EBITDA). Industry-typical multiples:</p>
               <ul>
                 <li><strong>Software/SaaS:</strong> 15-30× EBITDA</li>
@@ -161,14 +161,14 @@ const EBITDACalculator = () => {
                 <li><strong>Restaurants:</strong> 4-7× EBITDA</li>
               </ul>
 
-              <h2>EBITDA vs Other Metrics</h2>
+              <h2 className="text-2xl font-bold mb-3">EBITDA vs Other Metrics</h2>
               <ul>
                 <li><strong>EBITDA vs Net Income:</strong> Net income includes all expenses. EBITDA strips out non-operating items for operational comparison.</li>
                 <li><strong>EBITDA vs EBIT:</strong> EBIT includes D&A. Use EBITDA for capital-intensive businesses to remove asset depreciation impact.</li>
                 <li><strong>EBITDA vs Cash Flow:</strong> EBITDA approximates cash generation but ignores working capital changes and capital expenditures. Free Cash Flow is more accurate.</li>
               </ul>
 
-              <h2>Limitations of EBITDA</h2>
+              <h2 className="text-2xl font-bold mb-3">Limitations of EBITDA</h2>
               <ul>
                 <li>Ignores capital expenditure needs — a company may need heavy reinvestment</li>
                 <li>Can be manipulated through aggressive revenue recognition</li>

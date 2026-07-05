@@ -186,22 +186,22 @@ const YieldToMaturityCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Yield to Maturity Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Yield to Maturity Calculator?</h2>
             <p>A yield to maturity calculator determines the total annualized return on a bond if held until its maturity date. YTM is the single most important metric for bond valuation — it accounts for the bond's current price, face value, coupon payments, and time to maturity. Pre-filled with a $1,000 face value bond priced at $950 with a 6% coupon and 10 years to maturity, the YTM is approximately 6.71% — higher than the 6% coupon because the investor benefits from the $50 capital gain at maturity.</p>
             <p>The yield to maturity calculator is used by bond investors, portfolio managers, financial advisors, and corporate treasurers to evaluate fixed-income securities. It helps compare bonds with different coupon rates, maturities, and prices on a level playing field.</p>
-            <h2>How YTM Is Calculated</h2>
+            <h2 className="text-2xl font-bold mb-3">How YTM Is Calculated</h2>
             <p>YTM solves for r in: <strong>Price = Σ[C/(1+r)^t] + FV/(1+r)^n</strong>, where C = periodic coupon payment, FV = face value, n = total periods, r = periodic yield. There is no direct algebraic solution — YTM must be found iteratively. This calculator uses the Newton-Raphson numerical method, converging to the answer in under 200 iterations with precision to 10 decimal places.</p>
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>The price-yield chart shows the inverse relationship between bond price and yield — as yields rise, prices fall, and vice versa. The dashed reference line marks your current bond's YTM. The curve's steepness reflects the bond's duration — longer maturity bonds have steeper curves (more price sensitivity). Current yield (annual coupon / price) only measures income; YTM includes capital gain/loss at maturity for the full picture.</p>
-            <h2>Key Factors Affecting YTM</h2>
+            <h2 className="text-2xl font-bold mb-3">Key Factors Affecting YTM</h2>
             <p><strong>Market Price:</strong> Lower price → higher YTM (discount bond). Higher price → lower YTM (premium bond). <strong>Coupon Rate:</strong> Higher coupon payments increase income component of YTM. <strong>Time to Maturity:</strong> Longer maturity magnifies the capital gain/loss effect on YTM. A $50 discount on a 1-year bond has a much larger YTM impact than on a 30-year bond. <strong>Payment Frequency:</strong> More frequent payments compound more favorably; semi-annual is the US market standard.</p>
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <p><strong>Discount Bond:</strong> 10-year, 5% coupon, $950 price → YTM = 5.58%. The extra 0.58% compensates for the $50 capital gain. <strong>Premium Bond:</strong> 10-year, 8% coupon, $1,050 price → YTM = 7.44%. The high coupon is partially offset by the $50 capital loss at maturity. <strong>Par Bond:</strong> When price = face value exactly, YTM = coupon rate.</p>
-            <h2>YTM vs Other Yield Measures</h2>
+            <h2 className="text-2xl font-bold mb-3">YTM vs Other Yield Measures</h2>
             <p>Current yield = Annual Coupon / Price. Simple measure, ignores capital gain/loss. YTM = Comprehensive annualized return assuming held to maturity. Yield to Call (YTC) = YTM calculated to the call date instead of maturity date. Yield to Worst (YTW) = The lowest of YTM and all possible YTCs — the most conservative measure for callable bonds.</p>
-            <h2>Tips & Best Practices</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
             <p>Always compare bonds using YTM, not coupon rate or current yield alone. Use the price-yield chart to visualize interest rate risk — steeper curves mean higher duration and more interest rate sensitivity. For callable bonds, also calculate yield to call. See also: <a href="/calculator/bond-price-calculator">bond price calculator</a>, <a href="/calculator/yield-to-call-calculator">yield to call calculator</a>, and <a href="/calculator/bond-duration-calculator">bond duration calculator</a>.</p>
-            <h2>Benefits of Using This Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Benefits of Using This Calculator</h2>
             <p>YTM calculation by hand requires iterative trial and error that can take hours for an unpracticed investor. This yield to maturity calculator delivers the answer in milliseconds, including a price-yield sensitivity chart that reveals your bond's interest rate risk at a glance.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/yield-to-maturity-calculator" />

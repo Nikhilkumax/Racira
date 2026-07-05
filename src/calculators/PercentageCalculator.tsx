@@ -134,22 +134,22 @@ const PercentageCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Percentage Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Percentage Calculator?</h2>
             <p>A percentage calculator solves all common percentage problems in one place: finding a percentage of a number, increasing or decreasing a value by a percentage, finding what percentage one number is of another, and working backwards to find the whole. Pre-filled with 15% of 250, the calculator shows 37.5 along with all related calculations including increase (287.5) and decrease (212.5) results.</p>
             <p>Percentage calculations are among the most frequently needed in everyday life: calculating tips and discounts, understanding tax rates, tracking investment returns, analyzing test scores, interpreting statistics, and comparing quantities across different scales.</p>
-            <h2>The Core Percentage Formula</h2>
+            <h2 className="text-2xl font-bold mb-3">The Core Percentage Formula</h2>
             <p><strong>Percentage of a Number: Result = (P / 100) × N</strong></p>
             <p>For 15% of 250: (15/100) × 250 = 0.15 × 250 = 37.5. The multiplier 0.15 is the decimal form of 15%. This calculator shows the multiplier-based approach that makes mental math faster — "15% off" means multiply by 0.85, "25% more" means multiply by 1.25.</p>
-            <h2>Percentage Change Formula</h2>
+            <h2 className="text-2xl font-bold mb-3">Percentage Change Formula</h2>
             <p><strong>Percentage Change = ((New − Old) / |Old|) × 100</strong></p>
             <p>For a stock rising from $80 to $100: ((100 − 80) / 80) × 100 = 25% increase. For a salary cut from $60,000 to $54,000: ((54,000 − 60,000) / 60,000) × 100 = −10% decrease.</p>
-            <h2>Reverse Percentage: Finding the Original</h2>
+            <h2 className="text-2xl font-bold mb-3">Reverse Percentage: Finding the Original</h2>
             <p>If a discounted price is $85 after a 15% reduction, what was the original? Original = $85 / (1 − 0.15) = $85 / 0.85 = $100. This "reverse percentage" calculation is essential for verifying advertised discounts and working out pre-tax prices from tax-inclusive amounts.</p>
-            <h2>Percentage Points vs Percentages</h2>
+            <h2 className="text-2xl font-bold mb-3">Percentage Points vs Percentages</h2>
             <p>This distinction trips up many people. If unemployment rises from 5% to 8%, that is an increase of 3 percentage points, but a 60% relative increase ((8−5)/5 × 100 = 60%). Politicians and media often confuse or deliberately conflate these two measures. "The interest rate doubled" (from 1% to 2%) sounds more dramatic than "the interest rate increased by 1 percentage point."</p>
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <p><strong>Restaurant tip:</strong> 15% tip on $250 bill: 0.15 × 250 = $37.50. Total with tip: $287.50. Quick mental math: 10% = $25, add half of that ($12.50) = $37.50. <strong>Sales tax:</strong> 8% tax on $250 purchase: 250 × 1.08 = $270. Tax amount = $20. <strong>Investment return:</strong> Portfolio grows from $10,000 to $12,500. Return: ((12,500 − 10,000) / 10,000) × 100 = 25%. Use the <a href="/calculator/investment-calculator">investment calculator</a> for compound return analysis.</p>
-            <h2>Tips for Using This Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips for Using This Calculator</h2>
             <p>The breakdown table solves six common percentage problems simultaneously so you don&apos;t need to run separate calculations for each scenario. The bar chart visually compares the base value, percentage-of value, increased value, and decreased value for quick comprehension. Pair with the <a href="/calculator/discount-calculator">discount calculator</a> for shopping scenarios or the <a href="/calculator/tip-calculator">tip calculator</a> for restaurant math.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/percentage-calculator" />

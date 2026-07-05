@@ -140,18 +140,18 @@ const PotentialEnergyCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Potential Energy Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Potential Energy Calculator?</h2>
             <p>A potential energy calculator computes the gravitational potential energy stored in an object due to its position above a reference point in a gravitational field. PE = mgh, where m is mass, g is gravitational acceleration, and h is height. Pre-filled with 10 kg at 5 meters on Earth (g = 9.81 m/s²), the potential energy is 490.5 joules — the energy that would be released as kinetic energy if the object were dropped.</p>
-            <h2>The Potential Energy Formula</h2>
+            <h2 className="text-2xl font-bold mb-3">The Potential Energy Formula</h2>
             <p><strong>PE = m × g × h</strong></p>
             <p>Where: m = mass in kilograms, g = gravitational acceleration (9.81 m/s² on Earth), h = height above reference point in meters. Result is in joules (J). The formula assumes a uniform gravitational field — valid for heights much less than Earth's radius (6,371 km). For astronomical distances, use PE = −GMm/r.</p>
-            <h2>Conservation of Energy</h2>
+            <h2 className="text-2xl font-bold mb-3">Conservation of Energy</h2>
             <p>When an object falls, potential energy converts to kinetic energy: PE → KE. At any point during the fall, Total Energy = PE + KE = constant (ignoring air resistance). At the top: all PE, zero KE. At the bottom: zero PE, maximum KE. Impact velocity: v = √(2gh). For 5 meters: v = √(2 × 9.81 × 5) = 9.90 m/s (35.6 km/h).</p>
-            <h2>Applications of Potential Energy</h2>
+            <h2 className="text-2xl font-bold mb-3">Applications of Potential Energy</h2>
             <p>Hydroelectric power: Water stored behind a dam has enormous PE that converts to electrical energy as it flows through turbines. Roller coasters: PE at the top converts to KE on descents. Pendulums: Continuous PE ↔ KE oscillation. Pumped-storage energy: Excess electricity pumps water uphill (storing PE), then releases it during demand. Space launches: Rockets must overcome Earth's gravitational PE (approximately 63 MJ/kg to reach orbit).</p>
-            <h2>Planetary Gravity Comparison</h2>
+            <h2 className="text-2xl font-bold mb-3">Planetary Gravity Comparison</h2>
             <p>Gravitational acceleration varies by celestial body: Moon (1.62 m/s²), Mars (3.71 m/s²), Venus (8.87 m/s²), Earth (9.81 m/s²), Jupiter (24.79 m/s²), Sun (274 m/s²). A 10 kg object at 5 m on Jupiter has PE = 1,239.5 J vs 490.5 J on Earth — 2.5× more. Adjust the gravity field in this calculator to explore interplanetary PE scenarios.</p>
-            <h2>Energy Unit Conversions</h2>
+            <h2 className="text-2xl font-bold mb-3">Energy Unit Conversions</h2>
             <p>1 joule = 1 kg⋅m²/s². 1 kJ = 1,000 J. 1 kcal (food calorie) = 4,184 J. 1 kWh = 3,600,000 J. 1 BTU = 1,055 J. 1 eV = 1.602 × 10⁻¹⁹ J. Context: a 70 kg person climbing 10 meters expends about 6,867 J (1.6 kcal) of gravitational PE — a negligible fraction of daily caloric expenditure, which is why stair-climbing alone is not an efficient weight-loss strategy.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/potential-energy-calculator" />

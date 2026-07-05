@@ -154,14 +154,14 @@ const GSTCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>What Is a GST Calculator?</h2>
+              <h2 className="text-2xl font-bold mb-3">What Is a GST Calculator?</h2>
               <p>A GST (Goods and Services Tax) calculator helps you add or remove GST from any amount. It's essential for businesses and consumers in India and other countries that use the GST system. Our calculator provides a complete breakdown including CGST, SGST, and IGST splits.</p>
               <p>Whether you're preparing invoices, checking bills, or calculating the tax component of a purchase, this tool gives you instant, accurate results with an invoice-ready format.</p>
 
-              <h2>Understanding GST in India</h2>
+              <h2 className="text-2xl font-bold mb-3">Understanding GST in India</h2>
               <p>India implemented GST on July 1, 2017, unifying dozens of central and state taxes into a single, comprehensive indirect tax system. GST is levied at every stage of the supply chain, with input tax credits preventing cascading (tax-on-tax) effects.</p>
 
-              <h2>GST Rate Slabs</h2>
+              <h2 className="text-2xl font-bold mb-3">GST Rate Slabs</h2>
               <ul>
                 <li><strong>0% (Exempt):</strong> Essential items like fresh food, milk, bread, and healthcare services.</li>
                 <li><strong>5%:</strong> Common goods like packaged food, economy transport, and some textiles.</li>
@@ -170,10 +170,10 @@ const GSTCalculator = () => {
                 <li><strong>28%:</strong> Luxury and sin goods like automobiles, tobacco, and aerated drinks.</li>
               </ul>
 
-              <h2>CGST, SGST, and IGST Explained</h2>
+              <h2 className="text-2xl font-bold mb-3">CGST, SGST, and IGST Explained</h2>
               <p>For transactions within the same state (intra-state), GST is split equally between CGST (Central GST, going to the central government) and SGST (State GST, going to the state government). For transactions across state borders (inter-state), IGST (Integrated GST) applies at the full rate, with the revenue later distributed between central and destination state governments.</p>
 
-              <h2>Using GST Calculator for Business</h2>
+              <h2 className="text-2xl font-bold mb-3">Using GST Calculator for Business</h2>
               <p>Businesses use GST calculators for invoice preparation, pricing decisions, and tax compliance. When quoting prices to customers, you can start with your desired net amount and add GST to determine the total invoice value. When receiving invoices, you can extract the tax component for input tax credit claims.</p>
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> This calculator provides estimates for general purposes. GST rules are complex and subject to change. For official tax compliance, consult a chartered accountant or tax professional.</p>

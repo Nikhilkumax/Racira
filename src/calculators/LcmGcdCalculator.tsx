@@ -100,15 +100,15 @@ export default function LcmGcdCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Understanding GCD and LCM</h2>
+              <h2 className="text-2xl font-bold mb-3">Understanding GCD and LCM</h2>
               <p>Greatest Common Divisor (GCD) and Least Common Multiple (LCM) are two of the most fundamental concepts in number theory. They appear in everything from simplifying fractions to scheduling systems and cryptography. Understanding these concepts is essential for any student of mathematics.</p>
-              <h2>The Euclidean Algorithm for GCD</h2>
+              <h2 className="text-2xl font-bold mb-3">The Euclidean Algorithm for GCD</h2>
               <p>The Euclidean algorithm is the most efficient method for computing GCD. It is based on the principle that GCD(a, b) = GCD(b, a mod b). For example, GCD(48, 18): GCD(48, 18) = GCD(18, 12) = GCD(12, 6) = GCD(6, 0) = 6. This algorithm runs in O(log(min(a,b))) time — extraordinarily efficient for large numbers.</p>
-              <h2>Computing LCM from GCD</h2>
+              <h2 className="text-2xl font-bold mb-3">Computing LCM from GCD</h2>
               <p>The relationship LCM(a, b) = (a × b) / GCD(a, b) allows efficient LCM computation. For example, LCM(12, 18) = (12 × 18) / GCD(12, 18) = 216 / 6 = 36. This approach avoids the need for full prime factorization.</p>
-              <h2>Prime Factorization Method</h2>
+              <h2 className="text-2xl font-bold mb-3">Prime Factorization Method</h2>
               <p>An alternative approach uses prime factorization: write each number as a product of primes. GCD uses common factors with the minimum exponent; LCM uses all factors with the maximum exponent. For 12 = 2² × 3 and 18 = 2 × 3²: GCD = 2¹ × 3¹ = 6; LCM = 2² × 3² = 36.</p>
-              <h2>Real-World Applications</h2>
+              <h2 className="text-2xl font-bold mb-3">Real-World Applications</h2>
               <p>LCM is used to find common denominators when adding fractions. If adding 1/12 + 1/18, the LCM (36) becomes the common denominator. LCM also solves scheduling problems: if event A occurs every 12 days and event B every 18 days, they coincide every 36 days. GCD is used to simplify fractions to lowest terms and in cryptographic algorithms like RSA.</p>
             </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/lcm-gcd-calculator" />

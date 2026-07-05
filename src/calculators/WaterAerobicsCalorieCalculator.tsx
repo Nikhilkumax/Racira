@@ -291,18 +291,18 @@ export default function WaterAerobicsCalorieCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Physics of Fluid Resistance</h2>
+            <h2 className="text-2xl font-bold mb-3">The Physics of Fluid Resistance</h2>
             <p>For decades, water aerobics was mistakenly viewed as a "light" or "easy" workout reserved exclusively for the elderly or those recovering from injuries. To a casual observer, the slow, buoyant movements in the pool look effortless compared to the heavy breathing and heavy sweating seen in a CrossFit gym or on a treadmill. However, from a purely thermodynamic and biomechanical perspective, exercising in water is one of the most mechanically demanding tasks the human body can perform. The <strong>Water Aerobics Calorie Calculator</strong> bypasses the visual illusion of "easy movement" by utilizing clinical Metabolic Equivalent (MET) formulas to calculate the massive energy required to displace high-density fluid.</p>
 
-            <h2>Air vs. Water: The Density Dilemma</h2>
+            <h2 className="text-2xl font-bold mb-3">Air vs. Water: The Density Dilemma</h2>
             <p>To understand why water aerobics burns so many calories, you must understand the physics of density. Water is roughly 800 times denser than air.</p>
             <p>When you stand in a gym and perform a jumping jack, the only resistance you face is the moment your feet push off the ground. Swinging your arms out to the side requires almost zero energy because the air parts effortlessly around your hands. When you perform that exact same jumping jack in chest-deep water, the physics change entirely. You must forcefully push the heavy mass of the water out of the way to move your arms and legs. You are essentially lifting weights in 360 degrees. This constant, omnidirectional fluid resistance forces your muscles to fire continuously throughout the entire range of motion, significantly increasing the oxygen required and the calories burned per minute.</p>
 
-            <h2>The Buoyancy Factor: Zero Impact, High Burn</h2>
+            <h2 className="text-2xl font-bold mb-3">The Buoyancy Factor: Zero Impact, High Burn</h2>
             <p>The greatest danger of land-based cardio (like jogging) is gravity. With every step on a treadmill, your joints must absorb an impact force equal to three times your body weight. Over time, this leads to severe degradation of the knees, hips, and lower back.</p>
             <p>Water completely neutralizes this destructive force through buoyancy. If you stand in chest-deep water, the pool physically supports approximately 80% of your body weight. A 200-pound man suddenly feels like he weighs 40 pounds. This allows individuals to perform vigorous cardiovascular movements—like running, jumping, and aggressive twisting—with virtually zero orthopedic trauma. You get the massive caloric burn of a high-intensity interval session without any of the joint damage, making it the ultimate tool for sustainable, pain-free weight loss.</p>
 
-            <h2>Understanding the MET Values of Aquatic Exercise</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the MET Values of Aquatic Exercise</h2>
             <p>Exercise physiologists measure physical effort using METs (Metabolic Equivalents). One MET is the energy you burn while sitting still. Our calculator breaks water aerobics down into three distinct clinical intensities:</p>
             <ul>
               <li><strong>Light / Therapy (MET 4.0):</strong> This involves slow, controlled stretching, walking slowly across the shallow end, and gentle range-of-motion therapy. Despite the slow speed, the resistance of the water still requires 4 times your resting metabolic rate.</li>
@@ -310,14 +310,14 @@ export default function WaterAerobicsCalorieCalculator() {
               <li><strong>Vigorous / Deep Water (MET 6.8):</strong> This involves wearing a flotation belt and "running" in the deep end where your feet cannot touch the bottom. Because you have no solid ground to push off of, you must rely entirely on the muscular force of your legs and core dragging against the fluid resistance to keep you moving. This requires massive fast-twitch muscle fiber recruitment, pushing the MET value into high-aerobic territory.</li>
             </ul>
 
-            <h2>Why You Don't Sweat or Feel Exhausted</h2>
+            <h2 className="text-2xl font-bold mb-3">Why You Don't Sweat or Feel Exhausted</h2>
             <p>The primary reason people underestimate the caloric burn of water aerobics is the lack of sweat. On a treadmill, you sweat profusely, and your skin gets hot, which your brain interprets as "working hard."</p>
             <p>Water is a phenomenal conductor of heat. When you exercise in a pool, the water immediately draws the metabolic heat away from your working muscles, keeping your core temperature perfectly regulated. Because your body does not have to waste energy sweating and desperately trying to cool down, you feel much more comfortable and less fatigued than you would performing the exact same mechanical effort on a track. Do not confuse thermal comfort with a lack of exertion; your muscles are still performing massive mechanical work against the water.</p>
 
-            <h2>Is Water Aerobics Enough to Lose Weight?</h2>
+            <h2 className="text-2xl font-bold mb-3">Is Water Aerobics Enough to Lose Weight?</h2>
             <p>Because water aerobics burns a significant amount of calories while protecting your joints, it is a phenomenal tool to increase your Total Daily Energy Expenditure (TDEE). A 180-pound person doing 45 minutes of moderate water aerobics can burn over 300 calories. However, you cannot out-swim a bad diet. That entire 45-minute effort can be erased by eating a single slice of pizza. To actually lose body fat, you must combine the high-burn, zero-impact benefits of the pool with a strict, disciplined caloric deficit in the kitchen.</p>
 
-            <h2>Conclusion: Respect the Water</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Respect the Water</h2>
             <p>Do not let the lack of sweat fool you into thinking you didn't work hard. By leveraging the immense density of water, you are performing a rigorous, full-body resistance and cardiovascular workout simultaneously. Use the Water Aerobics Calorie Calculator to track your exact thermodynamic output, understand the power of fluid resistance, and achieve your weight loss goals without punishing your joints.</p>
           </article>
           

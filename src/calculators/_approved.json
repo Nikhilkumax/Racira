@@ -48,6 +48,22 @@
     "CarInsuranceCalculator",
     "BondYieldCalculator",
     "HighYieldSavingsCalculator",
-    "TaxRefundCalculator"
+    "TaxRefundCalculator",
+    "AbsoluteValueCalculator",
+    "AbsorptionVsVariableCostingCalculator",
+    "AccelerationCalculator",
+    "AccountsReceivableCalculator",
+    "AcSizeCalculator",
+    "ActivationEnergyCalculator",
+    "ActiveMetabolicRateCalculator",
+    "ACTScoreCalculator",
+    "AdjustableRateMortgageCalculator",
+    "AdjustedBodyWeightCalculator",
+    "AdolescentBmiCalculator",
+    "AdsenseRevenueCalculator_test",
+    "AgeCalculator",
+    "AirFreightCostEstimator",
+    "AlcoholCaloriesCalculator",
+    "AlcoholUnitCalculator"
   ]
 }

@@ -273,9 +273,7 @@ export default function UsedCarValueCalculator() {
             </div>
 
             <div className="flex gap-2.5 mt-2.5">
-              <button type="button" onClick={handleCalculate} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm">
-                <Search className="h-4 w-4" /> Estimate Value
-              </button>
+              <button type="button" onClick={handleCalculate} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm">Calculate</button>
               <button type="button" onClick={handleReset} className="w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center focus:outline-none">
                 <RotateCcw className="h-4 w-4" />
               </button>
@@ -401,22 +399,22 @@ export default function UsedCarValueCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Used Car Value Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Used Car Value Calculator?</h2>
             <p>A Used Car Value Calculator is a financial modeling tool that estimates the current market value of an automobile by simulating its depreciation curve. Cars are depreciating assets, meaning they lose value every single day. This calculator takes the original sticker price (MSRP) of the vehicle when it was brand new and applies industry-standard depreciation logic based on its age, mileage, condition, and vehicle class to find its true current worth.</p>
 
-            <h2>Understanding the Depreciation Curve</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Depreciation Curve</h2>
             <p>Car depreciation is highly non-linear. The moment you drive a brand new car off a dealership lot, it transforms into a "used car" and instantly loses 10% to 20% of its total value. It continues to drop sharply for the first three years. However, around year five or six, the curve begins to flatten. A 10-year-old car might only lose a few hundred dollars a year in value, whereas a 1-year-old car is losing thousands of dollars a year. Our <strong>Depreciation Curve Projection</strong> chart visualizes this exact mathematical reality.</p>
 
-            <h2>How Mileage Affects Value</h2>
+            <h2 className="text-2xl font-bold mb-3">How Mileage Affects Value</h2>
             <p>The automotive industry assumes an average driver covers roughly 12,000 miles per year. If your car's odometer reads exactly 12,000 miles multiplied by its age, there is no mileage penalty. If you drive significantly more than that, the calculator applies a <strong>Mileage Penalty</strong>, deducting value to account for the excessive mechanical wear and tear. If you drive significantly less (e.g., a 5-year-old car with only 20,000 miles), the calculator applies a bonus, increasing the car's value above the baseline.</p>
 
-            <h2>Vehicle Categories Matter</h2>
+            <h2 className="text-2xl font-bold mb-3">Vehicle Categories Matter</h2>
             <p>Not all cars depreciate equally. A luxury European sedan might be packed with cutting-edge technology, but because out-of-warranty repairs are astronomically expensive, buyers on the used market refuse to pay high prices for them, resulting in a terrifyingly steep depreciation curve. Conversely, pickup trucks and economy cars (like a Honda Civic or Toyota Tacoma) are prized for utility and reliability, meaning they hold onto their value far better than average. The calculator adjusts the annual depreciation rate based on the <strong>Vehicle Category</strong> you select.</p>
 
-            <h2>Private Party vs Dealer Trade-In</h2>
+            <h2 className="text-2xl font-bold mb-3">Private Party vs Dealer Trade-In</h2>
             <p>The result provided by this calculator represents the <strong>Private Party Value</strong>—the amount you could expect to receive if you sold the car yourself to another individual via Craigslist or Facebook Marketplace. If you choose to trade the car in at a dealership, expect them to offer you 15% to 20% less than this number. The dealer must pay to inspect, clean, and fix the car, and then they must mark the price back up to turn a profit on their used lot.</p>
 
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <p><strong>Example 1: The High-Mileage Commuter.</strong> You have a 4-year-old standard car originally bought for $30,000. However, you commute heavily and have 80,000 miles on the odometer. The base age depreciation drops the value to roughly $15,600. But because you are 32,000 miles over the average (4 years x 12k = 48k), the calculator applies a massive $1,600 mileage penalty. Your car is only worth around $14,000.</p>
             <p><strong>Example 2: The Garage Queen.</strong> You bought a $50,000 luxury car 5 years ago, but you only drove it on weekends. It has a pristine 15,000 miles on the odometer. While luxury cars depreciate rapidly (dropping the base value to ~$17,000), your incredibly low mileage triggers a substantial bonus, pulling the final estimated value back up over $20,000.</p>
           </article>

@@ -291,16 +291,16 @@ export default function AutoLoanRefinanceSavingsCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Why Consider Auto Loan Refinancing?</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Consider Auto Loan Refinancing?</h2>
             <p>Auto loan refinancing involves taking out a new loan to pay off your existing car loan, typically to lower the interest rate, reduce the monthly payment, or shorten the term. Unlike a mortgage refinance — which can take weeks and cost thousands in closing fees — auto refinancing is fast, inexpensive, and can often be completed entirely online. If you bought your car through a dealership, there is a high probability you were subjected to a dealer markup on your rate. Dealerships routinely add 1% to 3% to the interest rate the bank actually approved you for as their commission. Refinancing directly with a credit union or online lender lets you bypass that markup.</p>
 
-            <h2>When Does Refinancing Make Sense?</h2>
+            <h2 className="text-2xl font-bold mb-3">When Does Refinancing Make Sense?</h2>
             <p>Three primary scenarios make auto loan refinancing a mathematically sound move. First, if your credit score has improved significantly since you bought the car — say, you had subprime credit at purchase and have since built a solid payment history — you may now qualify for a rate tier that cuts your interest costs by thousands. Second, if macroeconomic conditions have caused market interest rates to fall, the general rate environment may now be more favorable than when you took out the original loan. Third, if you are facing a cash-flow emergency, refinancing to a longer term can lower your required monthly payment and prevent a repossession, even if it costs more in total interest over the life of the loan.</p>
 
-            <h2>The Danger of Extending the Term</h2>
+            <h2 className="text-2xl font-bold mb-3">The Danger of Extending the Term</h2>
             <p>Our calculator computes "Net Savings" rather than just monthly payment difference — and that distinction is critical. Many lenders advertise a lower payment by simply extending your loan term, not by reducing your rate. If you have 36 months left on a $20,000 loan at 7%, your payment is roughly $617. A new 72-month loan at the same 7% drops the payment to $341, but you pay approximately $2,000 more in total interest and spend an extra three years in debt. Extending the term also dramatically increases the risk of going underwater, meaning you owe more than the depreciating car is worth.</p>
 
-            <h2>Understanding the Break-Even Point</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Break-Even Point</h2>
             <p>Auto refinance fees are low but rarely zero. You may owe state title transfer fees, registration fees, or a lender origination charge. The break-even point tells you exactly how many months of monthly savings are required to recover those upfront costs. If fees total $150 and you save $50 a month, you break even after 3 months. If you plan to sell or trade the car before that point, the refinance is a net loss. Always confirm the break-even period before signing and ensure you intend to keep the car long enough to benefit.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/auto-loan-refinance-savings-calculator" />

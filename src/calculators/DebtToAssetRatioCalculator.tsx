@@ -257,28 +257,28 @@ export default function DebtToAssetRatioCalculator() {
 
         {/* SEO Content */}
         <div className="max-w-[1180px] mt-12 prose prose-slate dark:prose-invert">
-          <h2>What Is the Debt to Asset Ratio?</h2>
+          <h2 className="text-2xl font-bold mb-3">What Is the Debt to Asset Ratio?</h2>
           <p>The Debt-to-Asset Ratio is a financial metric used to evaluate the overall leverage and financial health of an individual or a company. It indicates what percentage of your total assets are financed by debt. A lower ratio signifies financial stability and lower risk, while a higher ratio indicates higher leverage and potential financial distress during economic downturns.</p>
           
-          <h2>How It Works</h2>
+          <h2 className="text-2xl font-bold mb-3">How It Works</h2>
           <p>The formula is straightforward: <strong>Debt-to-Asset Ratio = (Total Liabilities / Total Assets) × 100</strong>. For example, if you have $200,000 in total debts (mortgage, car loan, credit cards) and $500,000 in total assets (home value, retirement accounts, cash), your ratio is 40%.</p>
 
-          <h2>Understanding Your Results</h2>
+          <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
           <p>This calculator outputs a percentage. If your ratio is 40%, it means that 40% of your assets are effectively "owned" by your creditors, while you own the remaining 60% free and clear (this 60% is your Net Worth or Equity).</p>
           
-          <h2>Key Factors</h2>
+          <h2 className="text-2xl font-bold mb-3">Key Factors</h2>
           <p>A ratio below 30% is generally considered excellent for individuals, providing a massive safety net. Ratios up to 60% are considered good or normal (especially for recent homeowners). Once the ratio exceeds 100%, it means you are insolvent—your debts exceed the value of everything you own.</p>
           
-          <h2>Advanced Features</h2>
+          <h2 className="text-2xl font-bold mb-3">Advanced Features</h2>
           <p>Use the "Detailed Breakdown" toggle to input your debts and assets line-by-line rather than calculating the totals manually. This feature helps you ensure no asset (like a secondary vehicle or small investment account) is accidentally left out of the calculation.</p>
           
-          <h2>Practical Examples</h2>
+          <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
           <p>If a business applies for a loan, the bank will heavily scrutinize its debt-to-asset ratio. A company with $2 million in assets and $1.5 million in debt has a 75% ratio. The bank might consider this too highly leveraged and deny the loan, or charge a much higher interest rate due to the risk.</p>
           
-          <h2>Tips & Best Practices</h2>
+          <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
           <p>If your ratio is high, focus on paying down high-interest, unsecured debt (like credit cards) first. This reduces your liabilities without necessarily forcing you to liquidate assets, slowly improving your ratio month by month.</p>
           
-          <h2>Benefits</h2>
+          <h2 className="text-2xl font-bold mb-3">Benefits</h2>
           <p>Tracking this metric annually provides a "big picture" view of your wealth accumulation. Even if your debts stay exactly the same, your ratio will improve if your assets (like your home or investment portfolio) appreciate in value.</p>
         </div>
 

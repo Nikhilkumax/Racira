@@ -193,15 +193,15 @@ export default function AnnuityCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is an Annuity?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is an Annuity?</h2>
             <p>An <strong>annuity</strong> is a financial product that provides a series of equal periodic payments over time. Used widely in retirement planning, insurance products, and loan structures, annuities offer predictable cash flows that help individuals plan their financial future. This <strong>annuity calculator</strong> computes both present value and future value based on your payment amount, interest rate, and investment horizon.</p>
-            <h2>How Annuity Calculations Work</h2>
+            <h2 className="text-2xl font-bold mb-3">How Annuity Calculations Work</h2>
             <p>Future Value: FV = PMT × [(1 + r)^n − 1] / r. Present Value: PV = PMT × [1 − (1 + r)^−n] / r. For annuity-due (payments at start of period), multiply the result by (1 + r). Where PMT = periodic payment, r = periodic rate (annual rate ÷ 12 for monthly), n = total periods.</p>
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>Future value shows the total amount your payments will grow to by the end of the investment period — including compound interest. Present value shows what that stream of payments is worth in today's dollars. The difference between future value and total contributions is pure interest earned through compounding.</p>
-            <h2>Key Factors That Affect Annuity Value</h2>
+            <h2 className="text-2xl font-bold mb-3">Key Factors That Affect Annuity Value</h2>
             <p>Interest rate has the largest impact over long periods. A 7% rate doubles roughly every 10 years. Payment amount and frequency directly scale the result. Time horizon amplifies compounding — starting 10 years earlier can more than double the final value. Payment timing (ordinary vs. due) affects value by one period of growth.</p>
-            <h2>Tips and Best Practices</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips and Best Practices</h2>
             <p>Compare annuity returns against index funds (historical 7–10% average) before purchasing insurance-based annuities. Max out tax-advantaged accounts (401k, IRA) before buying annuity products. Fixed annuities offer guaranteed rates; variable annuities carry market risk but higher potential returns.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/annuity-calculator" />

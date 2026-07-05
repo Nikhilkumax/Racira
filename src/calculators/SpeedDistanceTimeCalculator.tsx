@@ -187,21 +187,21 @@ const SpeedDistanceTimeCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Speed Distance Time Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Speed Distance Time Calculator?</h2>
             <p>A speed distance time calculator solves for any one of the three variables — speed, distance, or time — given the other two. Based on the fundamental kinematic relationship Speed = Distance ÷ Time, this calculator handles both metric (km) and imperial (miles) units and includes automatic unit conversions between km/h, mph, and m/s. Pre-filled with 150 km over 2 hours, it instantly shows the speed is 75 km/h (46.6 mph) and projects the distance covered at each hour mark.</p>
             <p>This tool is used by drivers planning road trips, runners tracking pace, cyclists computing split times, students solving physics problems, and pilots calculating flight time estimates. The three-mode toggle means you never need to rearrange the formula manually.</p>
-            <h2>The Speed Distance Time Formula</h2>
+            <h2 className="text-2xl font-bold mb-3">The Speed Distance Time Formula</h2>
             <p><strong>Speed = Distance / Time</strong> | <strong>Distance = Speed × Time</strong> | <strong>Time = Distance / Speed</strong></p>
             <p>All three are derived from the same relationship. Key rule: units must be consistent throughout. If speed is km/h, distance must be in km and time in hours. Mixing units (e.g., speed in mph, distance in km) produces incorrect results. This calculator handles the conversion automatically when you switch unit modes.</p>
-            <h2>Unit Conversions</h2>
+            <h2 className="text-2xl font-bold mb-3">Unit Conversions</h2>
             <p><strong>km/h to mph:</strong> multiply by 0.621371. <strong>mph to km/h:</strong> multiply by 1.60934. <strong>km/h to m/s:</strong> divide by 3.6. <strong>m/s to km/h:</strong> multiply by 3.6. Common benchmarks: 100 km/h = 62.14 mph. 60 mph = 96.56 km/h. 30 m/s = 108 km/h. The speed of light: 299,792 km/s = 1,079,252,848 km/h.</p>
-            <h2>Road Trip Planning</h2>
+            <h2 className="text-2xl font-bold mb-3">Road Trip Planning</h2>
             <p>For 600 km at 100 km/h: Time = 600/100 = 6 hours driving. Real-world road trips add 20–30% buffer for rest stops, fuel, traffic, and detours — so plan for 7–8 hours. For interstate driving at 65 mph (104.6 km/h): 400 miles takes approximately 6.15 hours (6h 9m). The bar chart in this calculator shows cumulative distance at each hour mark, making it easy to plan rest stop timing.</p>
-            <h2>Average vs Instantaneous Speed</h2>
+            <h2 className="text-2xl font-bold mb-3">Average vs Instantaneous Speed</h2>
             <p>This calculator computes average speed (total distance ÷ total time). Instantaneous speed is what your speedometer shows at any given moment. For a non-uniform journey where you accelerate, brake, and cruise, average speed will differ from the average of your instantaneous speeds. Example: driving 30 km/h for 1 hour then 90 km/h for 1 hour: average speed = 120 km / 2 h = 60 km/h — not the arithmetic mean of (30+90)/2 = 60 km/h (happens to be equal here but not always).</p>
-            <h2>Physics Applications</h2>
+            <h2 className="text-2xl font-bold mb-3">Physics Applications</h2>
             <p>In kinematics, this is the simplest motion formula — applicable to uniform (constant speed) motion. For accelerating objects, use the kinematic equations with the <a href="/calculator/acceleration-calculator">acceleration calculator</a>. For wave motion, sound travels at ~343 m/s in air (1234.8 km/h) and light at 299,792 km/s. Enter these into this calculator to find how far sound or light travels in a given time.</p>
-            <h2>Tips for This Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips for This Calculator</h2>
             <p>Toggle the "Solve For" selector to pick which unknown you need. Use decimal hours (1.5 = 1h 30m, 0.25 = 15 minutes) for fractional time inputs. Switch between km and miles — values auto-convert. The cumulative distance chart helps visualize long journeys: at 75 km/h for 5 hours, you cover 375 km total. Pair with the <a href="/calculator/fuel-cost-calculator">fuel cost calculator</a> for complete road trip planning.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/speed-distance-time-calculator" />

@@ -375,23 +375,23 @@ export default function CarPaymentAffordabilityCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Car Payment Affordability Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Car Payment Affordability Calculator?</h2>
             <p>A Car Payment Affordability Calculator is a reverse-engineering tool designed to protect car buyers from predatory dealership math. While a standard auto loan calculator asks "Here is the car price, what is my payment?", this affordability calculator asks "Here is my monthly budget, exactly how much car can I afford to buy?" It strips away the hidden costs by working backward, deducting taxes, fees, and interest from your total budget to reveal the true maximum vehicle sticker price you can negotiate for.</p>
 
-            <h2>How It Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
             <p>The mathematical logic behind this tool is complex because it must solve for a variable (the car's price) that is buried inside multiple compounding factors. First, we use your monthly budget, interest rate, and loan term to calculate the maximum amount the bank will lend you. Then, we add your cash down payment and trade-in value to find your total purchasing power. Crucially, we then mathematically strip out the sales tax and dealer fees. The number left over is the true maximum MSRP you can afford to pay on the lot.</p>
 
-            <h2>Why Dealership "Monthly Payment" Math is Dangerous</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Dealership "Monthly Payment" Math is Dangerous</h2>
             <p>When you walk into a dealership, the salesperson's first question is usually, "What monthly payment are you looking for?" <strong>Never answer this question.</strong> If you say $500, they will happily sell you a $25,000 car. But to hit your $500 payment, they will stretch the loan out to 72 or 84 months and pack the loan with hidden fees and warranties. You get your $500 payment, but you end up paying $42,000 for a $25,000 car over 7 years. Use this calculator to find your max price <em>before</em> you arrive, and negotiate strictly on the out-the-door price of the vehicle.</p>
 
-            <h2>The Impact of Negative Equity</h2>
+            <h2 className="text-2xl font-bold mb-3">The Impact of Negative Equity</h2>
             <p>If you owe more on your current car than the dealer is willing to give you for a trade-in, you have "negative equity" (also known as being underwater). For example, if you owe $15,000 but the car is only worth $10,000, you have $5,000 in negative equity. If you trade that car in, the dealer will take that $5,000 debt and roll it into your new car loan. This is catastrophic. It means you are paying interest on a car you no longer own, and it drastically reduces the price of the new car you can actually afford. Our advanced options allow you to model this exact scenario.</p>
 
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <p><strong>Example 1: The Illusion of Affordability.</strong> John has $500 a month and $3,000 down. He assumes he can afford a $33,000 car ($500 x 60 months + $3000). But when he uses the calculator (assuming a 7% interest rate and 7% sales tax), he realizes his true max car price is only $23,400. Nearly $10,000 of his budget will vanish to interest and taxes over the next 5 years.</p>
             <p><strong>Example 2: Changing the Loan Term.</strong> Sarah wants a $35,000 car but only has a $500 monthly budget. At 60 months, she can't afford it. She considers extending the loan to 84 months to make the payment fit. While the monthly payment drops, the calculator's pie chart shows her total interest paid skyrockets from $4,000 to over $8,500. She decides to buy a cheaper car instead.</p>
 
-            <h2>Tips & Best Practices</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
             <p>Follow the <strong>20/4/10 Rule</strong> of car buying. Put down at least 20% to avoid immediate negative equity due to depreciation. Finance the car for no more than 4 years (48 months); if you have to stretch the loan to 72 or 84 months to afford the payment, you cannot afford the car. Finally, ensure your total transportation costs (payment, insurance, fuel, and maintenance) do not exceed 10% of your gross monthly income.</p>
           </article>
           

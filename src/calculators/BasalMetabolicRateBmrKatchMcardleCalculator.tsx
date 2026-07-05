@@ -331,10 +331,10 @@ export default function BasalMetabolicRateBmrKatchMcardleCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Katch-McArdle BMR Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Katch-McArdle BMR Calculator</h2>
             <p>If you have ever attempted to track your macros or count calories, you have likely used a standard online calculator to find your Basal Metabolic Rate (BMR) or Total Daily Energy Expenditure (TDEE). The vast majority of these basic calculators use the Mifflin-St Jeor or Harris-Benedict formulas. While these equations are excellent for the "average" human being, they contain a massive mathematical flaw when applied to outliers: they only look at Total Body Weight. They assume that a pound of body fat and a pound of skeletal muscle burn calories at the exact same rate. This is biologically false. The <strong>Katch-McArdle Formula</strong> is an elite, clinical sports science calculation that corrects this flaw by basing your metabolism entirely on your <strong>Lean Body Mass</strong>.</p>
 
-            <h2>The Metabolic Difference: Muscle vs. Fat</h2>
+            <h2 className="text-2xl font-bold mb-3">The Metabolic Difference: Muscle vs. Fat</h2>
             <p>To understand why the Katch-McArdle formula is necessary, you must understand how human tissue utilizes energy. Skeletal muscle is highly "metabolically active." It requires a constant, heavy stream of calories simply to maintain its structural integrity, repair micro-tears, and keep the engine idling. Adipose tissue (body fat), on the other hand, is essentially a dormant storage tank. It is designed to hold energy for future famine; it requires almost no calories to maintain its existence.</p>
             <p>Imagine two men who both weigh 220 pounds and are the exact same height and age. Man A is a professional bodybuilder with 10% body fat. Man B is a sedentary office worker with 35% body fat.</p>
             <ul>
@@ -343,12 +343,12 @@ export default function BasalMetabolicRateBmrKatchMcardleCalculator() {
             </ul>
             <p>If both men use a standard BMR calculator (Mifflin-St Jeor), the calculator will output the <em>exact same metabolic rate</em> for both men because they weigh the same. This will severely under-feed the bodybuilder (causing muscle loss) and over-feed the sedentary man (causing further weight gain).</p>
 
-            <h2>How the Katch-McArdle Formula Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How the Katch-McArdle Formula Works</h2>
             <p>The Katch-McArdle formula bypasses the flaws of total body weight entirely. Instead, it requires you to input your Body Fat Percentage. The algorithm then strips away your fat mass, isolating your Lean Body Mass (LBM)—which includes your muscles, bones, organs, and bodily fluids.</p>
             <p>The formula is remarkably elegant: <strong>BMR = 370 + (21.6 x Lean Body Mass in kg)</strong>.</p>
             <p>Because the formula only looks at the tissue that is actually burning calories, it provides a pinpoint-accurate assessment of your baseline resting energy requirements, regardless of whether you are incredibly shredded or severely obese.</p>
 
-            <h2>Who MUST Use the Katch-McArdle Formula?</h2>
+            <h2 className="text-2xl font-bold mb-3">Who MUST Use the Katch-McArdle Formula?</h2>
             <p>While average individuals can use any BMR formula with relative success, two specific demographics must rely exclusively on Katch-McArdle to prevent dietary failure:</p>
 
             <h3>1. Athletes and Bodybuilders (Low Body Fat)</h3>
@@ -357,7 +357,7 @@ export default function BasalMetabolicRateBmrKatchMcardleCalculator() {
             <h3>2. Heavily Obese Individuals (High Body Fat)</h3>
             <p>Conversely, if an individual is severely overweight (e.g., 300 pounds with 45% body fat), standard formulas will see the 300-pound total weight and assume a massive metabolic engine. The formula will generate a BMR of perhaps 2,500 calories. However, 135 pounds of that weight is dormant fat tissue burning almost nothing. If this individual attempts to lose weight by eating 2,000 calories (thinking they are in a 500-calorie deficit), they will likely stall or even gain weight, because their true Lean Mass BMR is much lower. Katch-McArdle strips away the 135 pounds of fat and calculates the BMR solely on the 165 pounds of lean tissue, revealing the harsh reality of their true, lower caloric need.</p>
 
-            <h2>How to Determine Your Body Fat Percentage</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Determine Your Body Fat Percentage</h2>
             <p>The only downside to the Katch-McArdle formula is the barrier to entry: you must know your Body Fat Percentage to calculate your Lean Body Mass. You cannot guess this number wildly, or the formula will output garbage data. Here are the best ways to obtain it, ranked by accuracy:</p>
             <ol>
               <li><strong>DEXA Scan:</strong> The gold standard. A low-dose X-ray that maps your exact fat, muscle, and bone density. (Highly accurate, but expensive).</li>
@@ -367,10 +367,10 @@ export default function BasalMetabolicRateBmrKatchMcardleCalculator() {
               <li><strong>Visual Estimation:</strong> Comparing yourself to clinical reference photos online. (Good enough for general dieting if you are honest with yourself).</li>
             </ol>
 
-            <h2>Translating BMR to TDEE</h2>
+            <h2 className="text-2xl font-bold mb-3">Translating BMR to TDEE</h2>
             <p>Remember that your BMR is not the amount of calories you should eat in a day. It is the absolute bare minimum required for survival if you were in a coma. To find your actual maintenance calories (Total Daily Energy Expenditure or TDEE), you must multiply your Katch-McArdle BMR by an activity multiplier (e.g., 1.2 for sedentary, 1.55 for moderate exercise, 1.9 for extreme athletes).</p>
 
-            <h2>Conclusion: Precision Engineering</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Precision Engineering</h2>
             <p>If you are serious about optimizing your body composition, generic averages are no longer sufficient. You must treat your body like a high-performance machine. By securing an accurate body fat measurement and running it through the Basal Metabolic Rate (Katch-McArdle) Calculator, you strip away the metabolic dead weight and build your nutritional protocol on the exact mathematical requirements of your lean tissue.</p>
           </article>
           

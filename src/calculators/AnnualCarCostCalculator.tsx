@@ -321,17 +321,17 @@ const AnnualCarCostCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is the Annual Car Cost Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is the Annual Car Cost Calculator?</h2>
             <p>The Annual Car Cost Calculator computes the full yearly cost of owning a vehicle — not just the monthly payment, but every expense: depreciation, loan interest, insurance, fuel, maintenance, registration fees, and parking. By revealing the true cost per year and per mile, it helps you budget accurately, compare vehicles objectively, and decide whether a car upgrade is financially justified.</p>
             <p>Most car buyers focus on the monthly payment and dramatically underestimate total ownership cost. Studies consistently show that the average American spends $8,000–$10,000 per year on their vehicle, yet most people would guess half that figure. This calculator eliminates the guesswork.</p>
 
-            <h2>How It Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
             <p>Depreciation is computed as purchase price minus resale value. Loan interest uses the standard amortization formula M = P × r(1+r)^n / ((1+r)^n − 1) on the financed amount (price minus down payment). All other costs (insurance, fuel, maintenance, registration, parking) are annualized inputs multiplied by the ownership period. The total out-of-pocket cost is the sum of all components, and dividing by years gives the annual cost, by months gives monthly cost, and by total miles gives cost per mile.</p>
 
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>The primary result is your annual cost — typically $6,000–$12,000 for a mid-range vehicle. The 3-stat bar shows the same figure as a monthly payment and per-mile cost for easy comparison to rideshares, transit, or other vehicles. The breakdown table itemizes every cost category as annual and total. The donut chart shows the proportional split — depreciation usually dominates at 35–50% of the total. The summary recaps all inputs and outputs.</p>
 
-            <h2>Key Factors That Drive Annual Cost</h2>
+            <h2 className="text-2xl font-bold mb-3">Key Factors That Drive Annual Cost</h2>
             <ul>
               <li><strong>Depreciation:</strong> The single largest cost for most vehicles. A new car loses 15–20% in year 1 alone. Choosing a vehicle with strong resale value (Toyota, Honda, some luxury brands) dramatically reduces annual cost.</li>
               <li><strong>Fuel:</strong> Driven by fuel price, MPG, and annual miles. A 10 MPG improvement on a 15,000-mile/year vehicle saves $700–$1,000 annually at $3.50/gallon.</li>
@@ -341,10 +341,10 @@ const AnnualCarCostCalculator = () => {
               <li><strong>Loan interest:</strong> Minimized by shorter terms and lower APRs. A cash purchase eliminates this entirely.</li>
             </ul>
 
-            <h2>Advanced Features</h2>
+            <h2 className="text-2xl font-bold mb-3">Advanced Features</h2>
             <p>The Advanced Options panel exposes down payment, loan APR, loan term, resale value, registration, and parking. Use resale value from Kelley Blue Book for accuracy. Registration varies by state — check your DMV schedule. Parking is easy to overlook but adds thousands in cities.</p>
 
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <h3>Example 1: Mid-range sedan</h3>
             <p>A $35,000 sedan financed at 6.9% with $7,000 down, $1,800 insurance, $2,400 fuel, $800 maintenance, $400 registration, and $1,200 parking, sold after 5 years for $18,000, costs about $9,800/year or $0.65/mile. Depreciation ($3,400/yr) and parking ($1,200/yr) together exceed fuel.</p>
             <h3>Example 2: Compact economy car</h3>
@@ -352,7 +352,7 @@ const AnnualCarCostCalculator = () => {
             <h3>Example 3: Luxury SUV</h3>
             <p>A $55,000 luxury SUV with $11,000 down, $2,800 insurance, $3,200 fuel (20 MPG), $1,200 maintenance, $600 registration, $2,400 parking, sold after 5 years for $28,000, costs about $15,400/year or $1.03/mile — 2.5x the compact economy car.</p>
 
-            <h2>Tips & Best Practices</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
             <ul>
               <li><strong>Compare cost per mile, not sticker price.</strong> A cheaper car with poor fuel economy and rapid depreciation can cost more per mile than a more expensive efficient model.</li>
               <li><strong>Factor in all costs before buying.</strong> Use this calculator during the shopping process, not after.</li>
@@ -362,7 +362,7 @@ const AnnualCarCostCalculator = () => {
               <li><strong>Maintain on schedule.</strong> Neglecting maintenance leads to larger repair bills that exceed the cost of preventive care.</li>
             </ul>
 
-            <h2>Benefits of Using This Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Benefits of Using This Calculator</h2>
             <p>This calculator provides the complete, honest picture of car ownership cost — not just the payment the dealer wants you to see. By including depreciation and every running cost, it helps you make financially sound vehicle choices, set realistic budgets, and compare the true cost of ownership across vehicles. Use it before every vehicle purchase or lease decision.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/annual-car-cost-calculator" />

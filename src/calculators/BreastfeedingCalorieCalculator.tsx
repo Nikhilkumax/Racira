@@ -397,33 +397,33 @@ export default function BreastfeedingCalorieCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Metabolic Demands of Breastfeeding</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Metabolic Demands of Breastfeeding</h2>
             <p>From a biological perspective, exclusive breastfeeding is one of the most metabolically demanding processes the human female body will ever undergo. Synthesizing complex breast milk—which is heavily fortified with fat, proteins, antibodies, and carbohydrates (lactose)—requires a staggering amount of energy. To put it in perspective, the daily energy expenditure required to exclusively breastfeed an infant is roughly equivalent to running 5 to 7 miles every single day. The <strong>Breastfeeding Calorie Calculator</strong> is designed to help postpartum mothers navigate this extreme metabolic shift, ensuring they consume enough high-quality calories to sustain a robust milk supply without compromising their own physical recovery and health.</p>
 
-            <h2>The Mathematics Behind the "Lactation Tax"</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics Behind the "Lactation Tax"</h2>
             <p>According to the Centers for Disease Control and Prevention (CDC) and the American College of Obstetricians and Gynecologists (ACOG), the human body burns approximately <strong>670 additional calories per day</strong> to produce milk for an exclusively breastfed infant during the first six months of life.</p>
             <p>However, you are not generally required to eat an extra 670 calories. During the third trimester of pregnancy, the body naturally initiates lipogenesis (the accumulation of fat stores) specifically to prepare for lactation. The body biologically intends to slowly pull from these stored fat reserves to fund a portion of the milk production. Generally, about 170 calories per day are pulled from these fat stores, leaving a net dietary deficit of roughly <strong>500 calories</strong> that the mother must consume through food.</p>
             <p>If you are exclusively breastfeeding an infant between 0 and 6 months of age, your daily target is your standard maintenance calories (TDEE) <strong>plus 500 extra calories</strong>.</p>
 
-            <h2>How Needs Change Over Time (6 to 12 Months)</h2>
+            <h2 className="text-2xl font-bold mb-3">How Needs Change Over Time (6 to 12 Months)</h2>
             <p>As your infant reaches the 6-month milestone, significant dietary shifts occur. Pediatricians globally recommend the introduction of solid foods (purees, cereals, and eventually finger foods) at this stage. Because your baby is beginning to receive calories, iron, and nutrients from external food sources, their reliance on breast milk naturally, and slowly, begins to decrease.</p>
             <p>Because the total volume of milk demanded drops slightly, the caloric cost of lactation also decreases. For mothers exclusively providing breast milk (even alongside early solid foods) between 6 and 12 months, the recommended surplus drops from +500 to roughly <strong>+400 calories per day</strong>.</p>
             <p>If a mother is <em>partially</em> breastfeeding (supplementing heavily with baby formula), the caloric demand is cut in half across the board, equating to roughly +250 extra calories in the first 6 months, and +200 calories thereafter.</p>
 
-            <h2>The Danger of Severe Caloric Restriction Postpartum</h2>
+            <h2 className="text-2xl font-bold mb-3">The Danger of Severe Caloric Restriction Postpartum</h2>
             <p>Modern society places immense, unfair pressure on women to immediately "bounce back" to their pre-pregnancy bodies. This often leads to postpartum mothers aggressively cutting their daily calories while simultaneously burning massive amounts of energy through lactation. <strong>This is clinically dangerous and directly harms the breastfeeding relationship.</strong></p>
             <p>If you drop your caloric intake too low (typically below 1,500 - 1,800 total calories, depending on height), your brain perceives a state of biological famine. In an evolutionary survival response, the brain will drastically reduce the production of prolactin and oxytocin, abruptly halting milk production to save the mother from starvation. Severe caloric restriction will tank your milk supply almost instantly.</p>
             <p>Furthermore, if you are not consuming enough calories, your body will leach vital nutrients—such as calcium—directly from your own bones and teeth to fortify the breast milk, leading to long-term maternal health issues like early-onset osteoporosis.</p>
 
-            <h2>Postpartum Weight Loss: The Natural Method</h2>
+            <h2 className="text-2xl font-bold mb-3">Postpartum Weight Loss: The Natural Method</h2>
             <p>You can lose your pregnancy weight safely while maintaining a massive milk supply. The biological trick is to utilize the "lactation tax" to your advantage. Because your body is burning an extra 500 calories a day to make milk, you do not need to create a massive dietary deficit.</p>
             <p>If you simply eat at your normal, pre-pregnancy maintenance level (your base TDEE without the 500-calorie addition), you will naturally be placed in a 500-calorie daily deficit. Over the course of 7 days, a 500-calorie deficit equals 3,500 calories—which mathematically equals exactly <strong>1 pound of fat loss per week</strong>. This is the ACOG-approved maximum safe rate of weight loss for lactating mothers. It allows you to slowly and safely return to your baseline weight without ever risking your milk supply.</p>
 
-            <h2>Macronutrients and Hydration for Milk Production</h2>
+            <h2 className="text-2xl font-bold mb-3">Macronutrients and Hydration for Milk Production</h2>
             <p>Calories are the engine, but water and protein are the oil. Breast milk is comprised of approximately 87% water. Dehydration is the fastest and most common cause of a sudden drop in milk supply. The Institute of Medicine recommends that lactating women consume an absolute minimum of <strong>3.8 liters (about 128 ounces or one full gallon) of water per day</strong>.</p>
             <p>Protein is equally critical. The amino acids from dietary protein are required to synthesize the complex immunological proteins and antibodies present in breast milk, while simultaneously repairing maternal tissues damaged during childbirth. Lactating mothers should aim for approximately 1.5 grams of protein per kilogram of body weight, prioritizing lean meats, eggs, dairy, and legumes.</p>
 
-            <h2>Conclusion: Fuel the Machine</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Fuel the Machine</h2>
             <p>Breastfeeding is an incredible physical feat. It is not the time for crash diets, restrictive eating, or extreme caloric deficits. By using the Breastfeeding Calorie Calculator, you can determine exactly what your body needs to thrive during the postpartum period. Eat nutrient-dense whole foods, drink a massive amount of water, and ensure you are meeting your elevated caloric targets. Your body is doing the work of two; feed it accordingly.</p>
           </article>
           

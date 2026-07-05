@@ -71,9 +71,7 @@ const HpToKwCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">
-                  <Zap className="h-5 w-5" /> Convert Power
-                </button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground">
+                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">Calculate</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground">
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
@@ -106,7 +104,7 @@ const HpToKwCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>What is a Horsepower?</h2>
+              <h2 className="text-2xl font-bold mb-3">What is a Horsepower?</h2>
               <p>The term "horsepower" was coined by James Watt in the 18th century to compare the output of steam engines to the power of draft horses. Today, it remains the most popular unit for describing engine power in the automotive world.</p>
               <h3>Mechanical vs. Metric</h3>
               <p>Not all horsepower is created equal. <strong>Mechanical horsepower</strong> (used in the US) is defined as 550 foot-pounds per second. <strong>Metric horsepower</strong> (PS, CV, or pk) was developed in Germany and is slightly different, defined as the power required to raise a 75 kg mass against gravity at a speed of 1 meter per second.</p>

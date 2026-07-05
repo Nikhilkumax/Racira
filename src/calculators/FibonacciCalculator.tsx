@@ -120,30 +120,30 @@ const FibonacciCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is the Fibonacci Sequence?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is the Fibonacci Sequence?</h2>
             <p>The Fibonacci sequence is one of mathematics' most famous number patterns, appearing throughout nature, art, architecture, and finance. Each number in the sequence is the sum of the two numbers before it, starting with 0 and 1: 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144… This seemingly simple rule produces a sequence with profound mathematical properties and surprising real-world occurrences.</p>
             <p>Named after the Italian mathematician Leonardo Bonacci (circa 1170–1250), who introduced the sequence to Western mathematics in his book Liber Abaci, Fibonacci numbers have been studied for centuries and remain a rich area of mathematical research and application.</p>
 
-            <h2>How Fibonacci Numbers Are Calculated</h2>
+            <h2 className="text-2xl font-bold mb-3">How Fibonacci Numbers Are Calculated</h2>
             <p>The iterative definition: F(0) = 0, F(1) = 1, and for n ≥ 2: F(n) = F(n−1) + F(n−2). This gives us the sequence directly by addition. For a closed-form formula, Binet's equation computes any Fibonacci number directly without iteration:</p>
             <p><strong>F(n) = (φⁿ − ψⁿ) / √5</strong></p>
             <p>where φ = (1 + √5) / 2 ≈ 1.6180339887 (the golden ratio) and ψ = (1 − √5) / 2 ≈ −0.6180339887. For large n, ψⁿ approaches zero, so F(n) ≈ φⁿ / √5, rounded to the nearest integer.</p>
 
-            <h2>The Golden Ratio Connection</h2>
+            <h2 className="text-2xl font-bold mb-3">The Golden Ratio Connection</h2>
             <p>As you progress through the Fibonacci sequence, the ratio of consecutive terms converges to the golden ratio φ ≈ 1.618033: 1/1 = 1.000, 2/1 = 2.000, 3/2 = 1.500, 5/3 = 1.667, 8/5 = 1.600, 13/8 = 1.625, 21/13 = 1.615, 34/21 = 1.619, 55/34 = 1.618… The convergence is exponentially fast. By F(15)/F(14) = 610/377, the ratio is accurate to 5 decimal places.</p>
             <p>The golden ratio has been called the "most irrational number" because it is the hardest to approximate with fractions. This property makes it optimal for plant growth patterns — maximizing sunlight exposure by spacing leaves at φ-related angles around a stem.</p>
 
-            <h2>Fibonacci in Nature and Art</h2>
+            <h2 className="text-2xl font-bold mb-3">Fibonacci in Nature and Art</h2>
             <p>Fibonacci numbers appear throughout the natural world. Sunflower seeds arrange in two interlocking spiral families — clockwise and counterclockwise — with counts that are always consecutive Fibonacci numbers (typically 34 and 55, or 55 and 89). Pinecone scales, pineapple sections, and artichoke bracts follow the same pattern. Romanesco broccoli forms a fractal spiral that is a textbook example of Fibonacci growth.</p>
             <p>In art and architecture, the golden ratio and Fibonacci proportions have been used by artists from ancient Greece through the Renaissance and into modern design. Whether or not these applications are mathematically rigorous, the aesthetic appeal of Fibonacci proportions is widely recognized.</p>
 
-            <h2>Fibonacci in Finance and Trading</h2>
+            <h2 className="text-2xl font-bold mb-3">Fibonacci in Finance and Trading</h2>
             <p>Technical analysts use Fibonacci retracement levels to predict potential support and resistance zones in financial markets. The key retracement levels are 23.6%, 38.2%, 50%, 61.8%, and 78.6% — derived from ratios of Fibonacci numbers. For example, 38.2% ≈ 1 − 0.618 and 61.8% ≈ 1/1.618. Traders draw these levels between price highs and lows to identify where a trend might pause or reverse. Use this alongside the <a href="/calculator/percentage-calculator">percentage calculator</a> for retracement computation.</p>
 
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <p>With 15 terms (n=0 to 14): the sequence is 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377. The sum of these 15 terms is 992, and F(14)/F(13) = 377/233 ≈ 1.61802. With 20 terms, F(19) = 4,181 and the ratio reaches 6 decimal accuracy. These are commonly used in algorithm analysis where recursive programs have Fibonacci time complexity.</p>
 
-            <h2>Tips for Using This Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips for Using This Calculator</h2>
             <p>Enter a count between 2 and 40. The table shows the complete sequence (up to 20 terms displayed). The line chart shows the exponential growth curve clearly — even at 15 terms, the dramatic acceleration is visible. Combine with the <a href="/calculator/combinations-calculator">combinations calculator</a> or <a href="/calculator/factorial-calculator">factorial calculator</a> for combinatorics work. For financial applications, use Fibonacci retracements alongside technical analysis tools.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/fibonacci-calculator" />

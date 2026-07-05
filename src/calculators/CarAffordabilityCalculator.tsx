@@ -318,29 +318,29 @@ export default function CarAffordabilityCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Car Affordability Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Car Affordability Calculator?</h2>
             <p>A Car Affordability Calculator is an essential financial tool designed to help you determine exactly how much car you can afford based on your monthly budget, rather than getting tricked into a predatory loan at the dealership. Dealerships often manipulate the loan term to match a specific monthly payment, which can result in you paying thousands more in interest. By calculating your maximum purchase price beforehand, you can shop with confidence and negotiate strictly on the out-the-door price of the vehicle. This tool is perfect for anyone looking to finance a new or used vehicle while adhering to a strict monthly budget.</p>
 
-            <h2>How It Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
             <p>Our calculator reverses the standard loan amortization formula. The standard formula is <code>M = P * [r(1+r)^n] / [(1+r)^n - 1]</code>, where M is the monthly payment, P is the principal, r is the monthly interest rate, and n is the number of months. By reversing this, we solve for P (the principal): <code>P = M * [(1+r)^n - 1] / [r(1+r)^n]</code>. This calculates the maximum loan amount you can afford. We then add your upfront cash (down payment plus net trade-in value) and subtract any fees. Finally, we account for state sales tax by dividing this total buying power by <code>1 + Tax Rate</code> to find the maximum sticker price you should negotiate.</p>
 
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>The <strong>Maximum Purchase Price</strong> is the absolute highest sticker price you can agree to at the dealership without exceeding your budget. The <strong>Total Financed</strong> represents the actual loan you will take out from the bank, which includes the car price, taxes, and fees, minus your down payment and trade-in. The <strong>Total Interest</strong> shows the cost of borrowing this money over the loan term. Minimizing this number should be a key financial goal. <strong>Sales Tax</strong> is the mandatory state tax calculated on the vehicle price, which is often rolled into the loan if not paid in cash.</p>
 
-            <h2>Key Factors</h2>
+            <h2 className="text-2xl font-bold mb-3">Key Factors</h2>
             <p>Several inputs heavily influence your buying power. <strong>Monthly Budget</strong> is your starting point; be realistic and ensure it doesn't exceed 10% of your gross income. <strong>Interest Rate</strong> depends on your credit score; excellent credit can secure rates below 5%, while poor credit can push rates above 15%, drastically reducing affordability. <strong>Loan Term</strong> is crucial; while a 72-month loan increases buying power, it also increases total interest and the risk of negative equity. <strong>Down Payment</strong> and <strong>Trade-In Value</strong> add directly to your buying power dollar-for-dollar, shielding you from financing taxes and fees.</p>
 
-            <h2>Advanced Features</h2>
+            <h2 className="text-2xl font-bold mb-3">Advanced Features</h2>
             <p>By toggling the Advanced Options, you can include real-world hidden costs that dealerships love to sneak in. <strong>State Sales Tax</strong> varies wildly by state and can easily add thousands to the final price. <strong>Title & Registration Fees</strong> are mandatory state fees, plus the dealer's documentation fee. Most importantly, the <strong>Amount Owed on Trade</strong> field handles negative equity. If you owe more on your trade-in than the dealer offers, this deficit is rolled into your new loan, which immediately and severely reduces how much new car you can afford.</p>
 
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <p><strong>Example 1: The Responsible Buyer.</strong> Sarah wants to spend $400/month. She has $5,000 to put down and excellent credit (5% interest for 48 months). Sales tax is 6%. Her maximum purchase price is roughly $20,800. She will pay about $2,000 in interest.</p>
             <p><strong>Example 2: The Negative Equity Trap.</strong> John wants to spend $400/month. He has no down payment and wants to trade in a car worth $10,000, but he still owes $13,000 on it. With a 7% interest rate for 60 months, his maximum purchase price plummets to just $16,000, because $3,000 of his buying power is immediately consumed by paying off his old loan.</p>
 
-            <h2>Tips & Best Practices</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
             <p>Never negotiate a car based on the monthly payment. Always negotiate the total out-the-door price. Aim for a loan term of 48 months or less; anything longer means you are paying interest on a rapidly depreciating asset and will likely be underwater on the loan. Try to put down at least 20% to cover the initial depreciation hit that occurs the moment you drive off the lot. Shop for financing at a credit union or bank <em>before</em> going to the dealership, so you have a baseline interest rate to compare against the dealer's offer.</p>
 
-            <h2>Benefits</h2>
+            <h2 className="text-2xl font-bold mb-3">Benefits</h2>
             <p>Using this Car Affordability Calculator empowers you as a buyer. It strips away the smoke and mirrors of dealership financing, providing an accurate, mathematically sound budget. It saves you time by narrowing down your vehicle search to cars you can actually afford, and it saves you thousands of dollars by preventing you from rolling taxes and negative equity into a high-interest, long-term loan.</p>
           </article>
           

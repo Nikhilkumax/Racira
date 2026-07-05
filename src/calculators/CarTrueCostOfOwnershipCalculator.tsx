@@ -305,17 +305,17 @@ const CarTrueCostOfOwnershipCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is the True Cost of Car Ownership?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is the True Cost of Car Ownership?</h2>
             <p>The true cost of owning a car goes far beyond the sticker price or monthly payment. It encompasses every dollar you spend from the moment you purchase to the moment you sell — including depreciation (the silent wealth destroyer), financing interest, insurance premiums, fuel, maintenance, registration, parking, and taxes. For a typical mid-range sedan, the true cost over five years is $35,000–$55,000, yet most car buyers only consider the $400–$600/month payment.</p>
             <p>This calculator reveals the full picture so you can make informed decisions about which vehicle truly fits your budget and financial goals.</p>
 
-            <h2>How the Calculator Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How the Calculator Works</h2>
             <p>The Car True Cost of Ownership Calculator aggregates every cost component into a single, honest total. Depreciation is computed as the difference between purchase price and estimated resale value. Loan interest uses the standard amortization formula on the financed amount. Insurance, fuel, maintenance, registration, and parking are annualized and multiplied by the ownership period. Tax, title, and dealer fees are added as a one-time initial expense. The result is the true dollar cost of owning the vehicle — expressed as a total, monthly, and per-mile figure.</p>
 
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>The primary result card shows your true cost of ownership in bold. Below, three stats show monthly cost, per-mile cost, and the depreciation percentage. The breakdown table itemizes every cost category with its dollar amount and percentage of total — depreciation typically dominates at 35–50%. The bar chart visualizes the proportional split, and the depreciation curve shows your car's estimated market value at each year of ownership.</p>
 
-            <h2>Key Factors That Determine True Cost</h2>
+            <h2 className="text-2xl font-bold mb-3">Key Factors That Determine True Cost</h2>
             <ul>
               <li><strong>Depreciation:</strong> The largest hidden cost. New cars lose 20% in year one, then ~15% per year. Choosing a vehicle with strong resale value (Toyota, Honda, Porsche) can save $5,000–$10,000 over five years.</li>
               <li><strong>Financing:</strong> A 72-month loan at 7% APR on $28,000 costs $6,600 in interest. Paying cash or choosing a shorter term eliminates thousands in finance charges.</li>
@@ -324,7 +324,7 @@ const CarTrueCostOfOwnershipCalculator = () => {
               <li><strong>Maintenance:</strong> Budget $500/year for new cars under warranty, rising to $1,000–$1,500/year for vehicles over 100,000 miles.</li>
             </ul>
 
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <h3>Example 1: Mid-range sedan ($35,000)</h3>
             <p>A $35,000 sedan financed at 6.9% over 5 years with $7,000 down, $1,800 insurance, $2,400 fuel, $800 maintenance, $400 registration, $1,200 parking, and $2,500 in taxes/title fees, sold for $15,000 after 5 years, has a true cost of ownership of approximately $42,000 — or $8,400/year and $0.56/mile.</p>
             <h3>Example 2: Economy car ($22,000)</h3>
@@ -332,7 +332,7 @@ const CarTrueCostOfOwnershipCalculator = () => {
             <h3>Example 3: Luxury SUV ($55,000)</h3>
             <p>A $55,000 luxury SUV with $11,000 down, 7.5% APR over 5 years, $2,800 insurance, $3,200 fuel (18 MPG), $1,200 maintenance, $600 registration, $2,400 parking, $3,500 taxes/title, sold for $26,000 after 5 years — true cost is approximately $62,000, or $12,400/year and $1.03/mile.</p>
 
-            <h2>Tips to Reduce Your True Cost of Ownership</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips to Reduce Your True Cost of Ownership</h2>
             <ul>
               <li><strong>Keep cars longer.</strong> The steepest depreciation happens in years 1–3. Holding a car 8–10 years dramatically lowers annual cost.</li>
               <li><strong>Buy models with strong resale value.</strong> Toyota, Honda, and Subaru consistently retain value best.</li>
@@ -342,7 +342,7 @@ const CarTrueCostOfOwnershipCalculator = () => {
               <li><strong>Consider fuel efficiency.</strong> A 10 MPG improvement saves $700+ per year at average driving distances.</li>
             </ul>
 
-            <h2>Benefits of Using This Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Benefits of Using This Calculator</h2>
             <p>This calculator strips away the illusions of monthly payment marketing and reveals the honest, total cost of owning any vehicle. By seeing every cost component side-by-side, you can make smarter purchase decisions, budget realistically, and understand exactly how much your vehicle choice impacts your long-term finances. It transforms car shopping from a payment-focused exercise into a total-cost analysis.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/car-true-cost-of-ownership-calculator" />

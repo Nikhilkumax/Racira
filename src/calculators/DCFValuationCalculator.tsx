@@ -134,16 +134,16 @@ export default function DCFValuationCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What is DCF (Discounted Cash Flow) Analysis?</h2>
+            <h2 className="text-2xl font-bold mb-3">What is DCF (Discounted Cash Flow) Analysis?</h2>
             <p>DCF analysis is the fundamental valuation method in finance, used by investment banks, private equity firms, and value investors to determine a company&apos;s intrinsic value based on its future earnings power. The core principle: a dollar today is worth more than a dollar in the future due to time value of money and risk. By discounting projected future free cash flows back to present value, we determine what the business is worth today.</p>
-            <h2>DCF Formula</h2>
+            <h2 className="text-2xl font-bold mb-3">DCF Formula</h2>
             <p><strong>Intrinsic Value = Σ [FCFₜ / (1+r)ᵗ] + Terminal Value / (1+r)ⁿ</strong></p>
             <p>Where FCFₜ = Free Cash Flow in year t, r = discount rate (WACC), n = projection period. Terminal Value = FCFₙ × (1+g) / (r−g) where g = perpetual growth rate.</p>
-            <h2>Choosing the Right Discount Rate</h2>
+            <h2 className="text-2xl font-bold mb-3">Choosing the Right Discount Rate</h2>
             <p>The discount rate should reflect the riskiness of the investment. Large-cap US stocks with stable earnings: 8–10%. Mid-cap with moderate risk: 10–12%. Small-cap or growth: 12–15%. For consumer staples or utility-like businesses, 7–9% is appropriate. A common error is using too low a discount rate, which inflates intrinsic value and leads to overpaying. Warren Buffett reportedly uses the 30-year US Treasury rate as his discount rate — currently above 4% — ensuring significant margin of safety above that risk-free floor.</p>
-            <h2>Sensitivity Analysis</h2>
+            <h2 className="text-2xl font-bold mb-3">Sensitivity Analysis</h2>
             <p>Always model multiple scenarios. A 1% change in terminal growth rate changes intrinsic value by 20–50%. A 1% change in discount rate has even larger impacts. Build a sensitivity table: vary terminal growth from 1–4% on one axis, discount rate from 8–14% on another, and see the range of intrinsic values. Invest only when the stock price is below the conservative (pessimistic scenario) intrinsic value.</p>
-            <h2>Margin of Safety</h2>
+            <h2 className="text-2xl font-bold mb-3">Margin of Safety</h2>
             <p>Benjamin Graham&apos;s margin of safety principle: only buy when market price is significantly below estimated intrinsic value — typically 30–50% discount. This cushion protects against: overestimated growth assumptions, unexpected business deterioration, modeling errors, and market sentiment shifts. A 30% margin of safety means a stock worth $100 should only be purchased at $70 or below.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/dcf-valuation-calculator" />

@@ -234,11 +234,11 @@ export default function FitnessAgeCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is Fitness Age?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is Fitness Age?</h2>
             <p>Chronological age is a rigid, unchangeable number dictated by your birth certificate. However, biological age—specifically your <strong>Fitness Age</strong>—is a highly fluid metric that you can actively control. Fitness Age is a measurement of your body's cardiovascular capacity and metabolic health compared to the statistical averages of different age groups. If you are 55 years old but maintain the cardiovascular engine of a healthy 35-year-old, your body is biologically functioning 20 years younger than your chronological age.</p>
             <p>Pioneered by researchers at the Norwegian University of Science and Technology (NTNU) studying the longevity of over 50,000 individuals, the concept of Fitness Age has revolutionized preventative cardiology. The researchers discovered that a person's Fitness Age (derived from their VO2 Max) is a far more accurate predictor of long-term health, cardiovascular disease risk, and overall mortality than the year they were born.</p>
 
-            <h2>How The Calculations Work</h2>
+            <h2 className="text-2xl font-bold mb-3">How The Calculations Work</h2>
             <p>To determine your Fitness Age, the calculator must first estimate your <strong>VO2 Max</strong> (Maximal Oxygen Uptake). VO2 Max is the absolute gold standard for measuring cardiovascular fitness. It represents the maximum volume of oxygen your heart, lungs, and muscles can consume and utilize during intense exercise.</p>
             <p>In a clinical setting, testing VO2 Max requires running to absolute exhaustion on a treadmill while wearing an oxygen-measuring face mask. However, this calculator uses a highly validated non-exercise estimation model based on four critical biometric markers:</p>
             
@@ -248,14 +248,14 @@ export default function FitnessAgeCalculator() {
             <p><strong>4. Biological Sex & Age:</strong> Men and women naturally possess different lung capacities and hemoglobin levels, requiring separate statistical models. Furthermore, maximum heart rate naturally declines with chronological age, which is factored into the baseline equation.</p>
             <p>Once the calculator estimates your VO2 Max, it references statistical population tables to find the chronological age that matches your cardiovascular capacity, producing your final Fitness Age.</p>
 
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>When you execute a calculation, this tool provides a comprehensive metabolic dashboard designed to give you total visibility into your cardiovascular health.</p>
             <p><strong>Primary Diagnostic Card:</strong> This instantly delivers your calculated Fitness Age. The card is color-coded for immediate feedback: Green indicates you are biologically younger than your real age, Blue indicates you are exactly average, and Orange or Red indicates your cardiovascular system is aging faster than you are.</p>
             <p><strong>3-Stat Diagnostic Bar:</strong> This section displays your Fitness Age next to your real age, and prominently features your estimated VO2 Max (e.g., 42.5 ml/kg/min).</p>
             <p><strong>Metabolic Breakdown Table:</strong> A line-by-line comparison showing exactly how your estimated VO2 Max compares to the statistical average for your specific age and sex, culminating in a clear "Difference in Age" metric.</p>
             <p><strong>VO2 Max Age Decline Curve:</strong> A visual chart illustrating the natural, unavoidable decline of cardiovascular capacity as a human ages. Your specific estimated VO2 Max is plotted onto this curve, allowing you to visually see if you are operating "above the curve" (younger) or "below the curve" (older).</p>
 
-            <h2>How to Lower Your Fitness Age</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Lower Your Fitness Age</h2>
             <p>The most empowering aspect of Fitness Age is that it is reversible. If your Fitness Age is currently 10 years older than your chronological age, you are not trapped. The human cardiovascular system is incredibly adaptable. To lower your Fitness Age, you must focus on two specific physiological adaptations:</p>
             
             <h3>1. Increase Your VO2 Max via High-Intensity Interval Training (HIIT)</h3>
@@ -264,7 +264,7 @@ export default function FitnessAgeCalculator() {
             <h3>2. Reduce Visceral Fat</h3>
             <p>Because waist circumference is a primary driver in the calculation, losing belly fat will dramatically and immediately improve your Fitness Age. Visceral fat physically constricts organ function and increases systemic blood pressure. Reducing this fat through a caloric deficit and resistance training reduces the workload on the heart, subsequently lowering your resting heart rate and improving oxygen utilization.</p>
 
-            <h2>The Limitations of Non-Exercise Estimations</h2>
+            <h2 className="text-2xl font-bold mb-3">The Limitations of Non-Exercise Estimations</h2>
             <p>While this non-exercise estimation model is a fantastic screening tool and motivational metric, it is still a statistical approximation. If you have a naturally low resting heart rate due to genetics, the calculator may underestimate your Fitness Age. Conversely, if you are a heavily muscled powerlifter with a larger waist circumference (due to thick core musculature rather than fat), the calculator may overestimate your Fitness Age.</p>
             <p>For highly trained endurance athletes looking for precise pacing metrics, a clinical VO2 Max test in a sports laboratory is required. However, for the vast majority of the population, this calculator provides a highly accurate, accessible baseline to track the most important metric in longevity: the biological age of your heart.</p>
           </article>

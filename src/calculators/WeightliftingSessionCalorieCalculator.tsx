@@ -284,15 +284,15 @@ export default function WeightliftingSessionCalorieCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Mathematics of Resistance Training</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of Resistance Training</h2>
             <p>One of the most disappointing truths in the fitness industry is the realization of how few calories traditional weightlifting actually burns compared to steady-state cardiovascular exercise. Many people assume that because lifting a 300-pound barbell off the ground is excruciatingly difficult, they must be burning massive amounts of energy. However, the human body does not burn calories based on the weight on the bar; it burns calories based on continuous cardiovascular demand and oxygen consumption. The <strong>Weightlifting Session Calorie Calculator</strong> bypasses inaccurate fitness watch estimations by utilizing clinically validated Metabolic Equivalent (MET) formulas. By factoring in your specific body mass and your training style, it calculates the exact thermodynamic cost of your time in the weight room.</p>
 
-            <h2>The Illusion of Gym Time: Why Rest Periods Dictate the Math</h2>
+            <h2 className="text-2xl font-bold mb-3">The Illusion of Gym Time: Why Rest Periods Dictate the Math</h2>
             <p>If you are frustrated that an hour of heavy lifting does not seem to strip away body fat, the problem lies entirely in your rest periods.</p>
             <p>If you are performing traditional powerlifting or bodybuilding routines, you might lift an incredibly heavy weight for 20 to 30 seconds. This effort is entirely anaerobic—your muscles are burning ATP and glycogen for explosive power. However, after that 30-second set, you sit on a bench and rest for 2 to 3 minutes to allow your central nervous system to recover. </p>
             <p>During those long rest periods, your heart rate plummets and your caloric burn drops to near-baseline. If you spend 60 minutes in the weight room, you may only be performing active, physical "work" for 12 to 15 minutes total. The remaining 45 minutes are spent sitting, recovering, and changing weights on the bar. This massive amount of downtime drastically limits the total calories you can burn in an hour.</p>
 
-            <h2>Understanding METs in Different Lifting Styles</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding METs in Different Lifting Styles</h2>
             <p>Exercise physiologists measure physical effort using METs (Metabolic Equivalents). One MET is your resting metabolic rate. Because different lifting styles require different rest periods, they carry different MET values:</p>
             <ul>
               <li><strong>Light / Moderate (MET 3.5):</strong> You are using machines or light dumbbells. You are not pushing to failure, and you are taking long, comfortable rests between sets. This is excellent for beginners or active recovery, but burns very few calories (roughly 3.5 times your resting rate).</li>
@@ -300,19 +300,19 @@ export default function WeightliftingSessionCalorieCalculator() {
               <li><strong>Vigorous Bodybuilding (MET 6.0):</strong> This is high-volume training. You are performing 10 to 15 reps per set and resting strictly for 45 to 60 seconds. Because the rest periods are so short, your heart rate never fully recovers. It stays consistently elevated throughout the entire hour, resulting in the highest absolute caloric burn of any traditional lifting style.</li>
             </ul>
 
-            <h2>Why You Shouldn't Trust Your Apple Watch</h2>
+            <h2 className="text-2xl font-bold mb-3">Why You Shouldn't Trust Your Apple Watch</h2>
             <p>Wrist-based fitness trackers (like Apple Watches and Fitbits) estimate caloric burn primarily by reading your heart rate. When you lift a heavy barbell, your blood pressure spikes dramatically to push blood to the working muscles. This artificial blood pressure spike causes your heart rate to jump.</p>
             <p>The watch assumes this massive heart rate spike means you are sprinting at full speed on a track, and it will falsely reward you with hundreds of phantom calories you did not actually burn. The mathematical MET formula used in this calculator ignores these false heart rate spikes and provides a biologically accurate estimate based on the actual physical work performed.</p>
 
-            <h2>The Hidden Value of Muscle: The Afterburn Effect (EPOC)</h2>
+            <h2 className="text-2xl font-bold mb-3">The Hidden Value of Muscle: The Afterburn Effect (EPOC)</h2>
             <p>If lifting weights burns so few calories, why should anyone do it for fat loss? The answer lies in what happens to your body <em>after</em> you leave the gym.</p>
             <p>When you perform steady-state cardio (like running), your calorie burn stops almost the exact minute you step off the treadmill. However, when you lift heavy weights to the point of muscular failure, you cause microscopic tears in your muscle fibers. Your body views this as severe trauma. Over the next 24 to 48 hours, your body must expend a significant amount of energy to synthesize new proteins and repair that muscle tissue. This phenomenon is known as <strong>Excess Post-Exercise Oxygen Consumption (EPOC)</strong>. While lifting weights burns fewer calories <em>during</em> the session, it forces your body to continue burning bonus calories for days afterward.</p>
 
-            <h2>Increasing Your Resting Metabolic Rate (RMR)</h2>
+            <h2 className="text-2xl font-bold mb-3">Increasing Your Resting Metabolic Rate (RMR)</h2>
             <p>Furthermore, lifting weights is the only way to build lean muscle mass. Muscle is metabolically "expensive" tissue. Your body must burn calories just to keep muscle tissue alive, even when you are sleeping. Every pound of new muscle you add to your frame burns approximately 6 to 10 additional calories per day.</p>
             <p>If you add 10 pounds of muscle over a year of dedicated training, your body will passively burn an extra 100 calories every single day, forever. This elevated Resting Metabolic Rate acts as an internal furnace, making it significantly easier to maintain a lean body fat percentage in the long term without having to rely on hours of exhausting cardio.</p>
 
-            <h2>Conclusion: Train for Muscle, Eat for Fat Loss</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Train for Muscle, Eat for Fat Loss</h2>
             <p>Do not use the weight room as a primary calorie-burning tool. That is not what it is designed for. Use the weight room to build strength, increase your bone density, and sculpt your physique. Use the Weightlifting Session Calorie Calculator to get an accurate, realistic estimate of your expenditure so you don't overeat. Then, combine your lifting with a strict, disciplined caloric deficit in your diet to strip away the fat and reveal the muscle you have built.</p>
           </article>
           

@@ -174,7 +174,7 @@ const PomodoroCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Mastering the Pomodoro Technique</h2>
+              <h2 className="text-2xl font-bold mb-3">Mastering the Pomodoro Technique</h2>
               <p>The Pomodoro Technique is one of the most effective ways to maintain deep focus while preventing mental burnout. By breaking your day into small, manageable chunks, you can maintain high productivity throughout the entire day.</p>
               
               <h3>The Science of Breaks</h3>

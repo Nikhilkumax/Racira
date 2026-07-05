@@ -297,17 +297,17 @@ const MonthlyCarPaymentToAnnualCostCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is the Monthly Payment to Annual Cost Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is the Monthly Payment to Annual Cost Calculator?</h2>
             <p>This calculator converts your monthly car payment into the true annual cost of ownership. Most people look at their $550/month payment and think that's what their car costs. In reality, the annual cost is typically 1.5–2.5x the loan payment alone because it also includes insurance, fuel, maintenance, registration, parking, and interest.</p>
             <p>By starting from the monthly payment you already know, this calculator reverse-engineers the full financial picture — revealing exactly how much your car really costs you every year.</p>
 
-            <h2>How It Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
             <p>Given your monthly payment, loan term, and APR, the calculator first determines the loan principal by solving the payment formula in reverse: P = M × ((1+r)^n − 1) / (r × (1+r)^n). It then computes total interest paid over the life of the loan. Annual operating costs (insurance, fuel, maintenance, registration, parking) are summed and combined with the loan costs to produce the true annual cost.</p>
 
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>The primary result shows the true annual cost — typically $10,000–$15,000 for someone with a $500–$600/month payment. The 3-stat bar compares your payment-only annual cost vs the true annual cost vs total interest paid. The breakdown table shows each category as annual and total-over-loan figures. The donut chart shows where every dollar goes.</p>
 
-            <h2>The Hidden Costs Beyond the Payment</h2>
+            <h2 className="text-2xl font-bold mb-3">The Hidden Costs Beyond the Payment</h2>
             <ul>
               <li><strong>Insurance:</strong> $1,500–$2,500/year for most drivers, more for young drivers, sports cars, or high-crime areas.</li>
               <li><strong>Fuel:</strong> $1,800–$3,200/year depending on MPG, miles driven, and gas prices.</li>
@@ -317,10 +317,10 @@ const MonthlyCarPaymentToAnnualCostCalculator = () => {
               <li><strong>Interest:</strong> $800–$1,200/year on a typical 60-month auto loan.</li>
             </ul>
 
-            <h2>Practical Example</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Example</h2>
             <p>A $550/month, 60-month payment at 6.9% APR finances about $27,700. Total loan payments: $33,000, of which $5,300 is interest. Adding insurance ($1,800), fuel ($2,400), maintenance ($800), registration ($400), and parking ($600) gives a true annual cost of $12,200/year — $667/month total, which is 21% more than the loan payment alone.</p>
 
-            <h2>Tips to Lower Your True Annual Cost</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips to Lower Your True Annual Cost</h2>
             <ul>
               <li><strong>Refinance at a lower rate</strong> — even 1% APR reduction saves $500–$1,000 over the loan life.</li>
               <li><strong>Shop insurance every 6–12 months</strong> — carriers routinely increase renewal rates.</li>
@@ -329,7 +329,7 @@ const MonthlyCarPaymentToAnnualCostCalculator = () => {
               <li><strong>Bundle insurance</strong> with home/renters for multi-policy discounts of 10–25%.</li>
             </ul>
 
-            <h2>Benefits of Using This Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Benefits of Using This Calculator</h2>
             <p>This tool transforms a single monthly payment number into the complete financial picture. It helps you budget accurately, understand the true cost of your vehicle, compare different cars beyond just their payments, and make informed decisions about refinancing, early payoff, or vehicle replacement.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/monthly-car-payment-to-annual-cost-calculator" />

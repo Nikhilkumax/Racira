@@ -343,21 +343,21 @@ const EarlyLoanPayoffSavingsCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is the Early Loan Payoff Savings Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is the Early Loan Payoff Savings Calculator?</h2>
             <p>The Early Loan Payoff Savings Calculator shows you exactly how much money and time you can save by adding extra payments to an existing loan. Whether you have an auto loan, personal loan, student loan, or any other fixed-rate installment debt, this tool runs two complete amortization schedules — one with your scheduled payments and one with your extra contributions — and reports the interest savings, time savings, and new payoff date.</p>
             <p>Borrowers use this calculator to decide whether a tax refund, work bonus, or small monthly overpayment is worth applying to their loan. Even modest extra payments made early in the loan's life can eliminate thousands of dollars in interest, because every extra dollar reduces the principal balance that future interest is calculated against.</p>
 
-            <h2>How It Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
             <p>Installment loans use a standard amortization formula. Each scheduled payment is split between interest (charged on the remaining balance) and principal (which reduces the balance). At the start of a loan, most of each payment is interest; near the end, most is principal. The monthly payment for a fixed-rate loan is:</p>
             <p><strong>M = P × r(1+r)<sup>n</sup> / ((1+r)<sup>n</sup> − 1)</strong></p>
             <p>where P is the principal, r is the monthly interest rate (APR ÷ 12), and n is the number of remaining months. When you add an extra payment, that entire amount is applied to principal (after the scheduled interest is covered), so next month's interest is computed on a smaller balance — and the cycle repeats, snowballing your savings.</p>
             <p>This calculator builds the original schedule from your current balance and remaining term, then rebuilds it with your extra monthly payment and any one-time lump sum (applied at month 1). The difference in total interest between the two schedules is your <strong>interest saved</strong>. The difference in length is your <strong>time saved</strong>.</p>
 
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>The primary result card shows the total interest you will avoid paying by following your accelerated plan. The 3-stat bar beneath it translates that into the number of months you finish early, your new payoff timeline (years and months), and your total out-of-pocket savings — which includes both interest saved and principal you would have paid during the eliminated months.</p>
             <p>The breakdown table compares the two scenarios side-by-side so you can see exactly where the savings come from. The bar chart visualizes the dramatic gap in interest paid between the original schedule and the accelerated plan. Finally, the summary statistics recap every input and output in one place for easy reference.</p>
 
-            <h2>Key Factors That Drive Your Savings</h2>
+            <h2 className="text-2xl font-bold mb-3">Key Factors That Drive Your Savings</h2>
             <ul>
               <li><strong>Current balance:</strong> The larger the balance, the more interest every dollar of principal reduction saves you. High-balance loans benefit most from acceleration.</li>
               <li><strong>Interest rate (APR):</strong> Higher rates amplify savings because each principal dollar was being charged more interest. A 15% APR loan benefits roughly three times as much from extra payments as a 5% loan.</li>
@@ -367,10 +367,10 @@ const EarlyLoanPayoffSavingsCalculator = () => {
               <li><strong>Timing:</strong> An extra dollar paid in month 3 saves far more interest than the same dollar paid in month 50, because it has longer to compound.</li>
             </ul>
 
-            <h2>Advanced Features</h2>
+            <h2 className="text-2xl font-bold mb-3">Advanced Features</h2>
             <p>The Advanced Options panel lets you add a one-time lump sum on top of your recurring monthly extra. This models real-world situations like applying a tax refund, year-end bonus, or inheritance to the loan. The lump sum is applied at month 1 for maximum effect — if you plan to apply it later, your savings will be slightly lower, so use the calculator conservatively.</p>
 
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <h3>Example 1: Modest extra on an auto loan</h3>
             <p>Suppose you have a $18,000 auto loan balance at 7.2% APR with 54 months remaining. Your scheduled payment is about $378/month. Adding just $150/month extra and a $2,000 year-end bonus applied immediately saves roughly $1,500 in interest and finishes the loan about 11 months early. That is a remarkable return for less than $5/day.</p>
             <h3>Example 2: Lump sum on a personal loan</h3>
@@ -378,7 +378,7 @@ const EarlyLoanPayoffSavingsCalculator = () => {
             <h3>Example 3: Comparing strategies</h3>
             <p>If you have $200/month to spare, you can either pay it as a recurring extra or save it and apply a $2,400 lump sum at year-end. The recurring approach saves slightly more interest because each dollar reduces principal from the moment it is paid. This calculator lets you model both by toggling the inputs.</p>
 
-            <h2>Tips & Best Practices</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
             <ul>
               <li><strong>Confirm prepayment terms first.</strong> Most U.S. consumer loans have no prepayment penalty, but always verify with your lender before sending large payments.</li>
               <li><strong>Apply extras to principal, not next month's payment.</strong> Some servicers default to advancing your due date, which does not save interest. Specify &quot;apply to principal.&quot;</li>
@@ -387,7 +387,7 @@ const EarlyLoanPayoffSavingsCalculator = () => {
               <li><strong>Round up payments.</strong> Rounding a $378 payment up to $400 is painless and saves real money over the life of a loan.</li>
             </ul>
 
-            <h2>Benefits of Using This Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Benefits of Using This Calculator</h2>
             <p>This tool removes the guesswork from extra-payment decisions. Instead of wondering whether $100/month &quot;matters,&quot; you see the exact dollar figure saved and months eliminated. It runs instantly, works for any fixed-rate installment loan, and helps you make confident, math-backed choices about your debt. Used alongside a budget, it can shave years off your path to being debt-free.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/early-loan-payoff-savings-calculator" />

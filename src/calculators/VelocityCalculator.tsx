@@ -184,17 +184,17 @@ const VelocityCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Velocity Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Velocity Calculator?</h2>
             <p>A velocity calculator computes the speed of an object from distance and time, or solves for distance or time given the other two values. Velocity (v = d/t) is the fundamental kinematic quantity describing motion. Pre-filled with 100 meters covered in 10 seconds, the velocity is 10 m/s (36 km/h) — roughly the speed of an Olympic sprinter.</p>
-            <h2>The Velocity Formula</h2>
+            <h2 className="text-2xl font-bold mb-3">The Velocity Formula</h2>
             <p><strong>v = d / t</strong> — solve for velocity. <strong>d = v × t</strong> — solve for distance. <strong>t = d / v</strong> — solve for time. All three are rearrangements of the same relationship. Enter any two values and the calculator finds the third.</p>
-            <h2>Speed vs Velocity</h2>
+            <h2 className="text-2xl font-bold mb-3">Speed vs Velocity</h2>
             <p>Speed is a scalar (magnitude only). Velocity is a vector (magnitude + direction). If you drive 100 km north then 100 km south in 4 hours: average speed = 50 km/h, but average velocity = 0 (net displacement is zero). In everyday language, "speed" and "velocity" are used interchangeably, but in physics they are distinct concepts.</p>
-            <h2>Unit Conversions</h2>
+            <h2 className="text-2xl font-bold mb-3">Unit Conversions</h2>
             <p>1 m/s = 3.6 km/h = 2.237 mph = 1.944 knots = 3.281 ft/s. Common reference speeds: human walking ≈ 1.4 m/s, cycling ≈ 8 m/s, car on highway ≈ 30 m/s, commercial jet ≈ 250 m/s, speed of sound ≈ 343 m/s, speed of light = 299,792,458 m/s. This calculator shows all major unit conversions for your input velocity.</p>
-            <h2>Kinematic Equations for Accelerated Motion</h2>
+            <h2 className="text-2xl font-bold mb-3">Kinematic Equations for Accelerated Motion</h2>
             <p>When acceleration is involved: v = v₀ + at. d = v₀t + ½at². v² = v₀² + 2ad. d = ½(v₀ + v)t. These equations describe uniformly accelerated motion (constant acceleration). For non-constant acceleration, calculus (integration) is required: v = ∫a dt, x = ∫v dt.</p>
-            <h2>Relativistic Velocity</h2>
+            <h2 className="text-2xl font-bold mb-3">Relativistic Velocity</h2>
             <p>At velocities approaching the speed of light, Newtonian mechanics breaks down. Special relativity modifies the velocity addition rule: u = (v₁ + v₂) / (1 + v₁v₂/c²). At 90% of light speed, time dilation becomes significant: 1 second for the traveler = 2.29 seconds for a stationary observer. This calculator displays Mach number and fraction of c for context.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/velocity-calculator" />

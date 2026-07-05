@@ -401,23 +401,23 @@ export default function RangeAnxietyCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Range Anxiety Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Range Anxiety Calculator?</h2>
             <p>A Range Anxiety Calculator is a trip-planning tool that replaces panic with mathematics. When driving an electric vehicle, trusting the dashboard's "estimated miles remaining" display can lead to severe anxiety, because that computer cannot see the massive mountain pass or the 75 mph speed limit in your immediate future. This calculator strips away the guesswork. By inputting your current battery level, destination distance, and expected driving conditions, it predicts exactly what percentage your battery will be at when you arrive.</p>
 
-            <h2>How It Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
             <p>The calculation starts with your baseline energy: your car's EPA-rated full range multiplied by your current battery percentage. However, we immediately begin applying real-world penalties to this theoretical number. The most severe penalty is the <strong>Speed Penalty</strong>. Aerodynamic drag increases exponentially; pushing a car through the air at 80 mph drains a battery vastly faster than at 55 mph. Next, we apply a <strong>Temperature Penalty</strong> (cold weather slows battery chemistry) and an <strong>HVAC Penalty</strong> (running the heater drains massive amounts of power).</p>
 
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>The primary result is your <strong>Estimated Arrival Battery %</strong>. If this number is negative, you will be stranded on the side of the road. If the number is below 10%, you are in the "Danger Zone"—a single unexpected detour or strong headwind could ruin your trip. A healthy target is to arrive with a 15% safety buffer. The <strong>True Range Left</strong> metric tells you the absolute maximum distance you could drive under your specific current conditions before the car dies.</p>
 
-            <h2>The Impact of Elevation</h2>
+            <h2 className="text-2xl font-bold mb-3">The Impact of Elevation</h2>
             <p>In the Advanced Options, you can add <strong>Net Elevation Gain</strong>. EVs are heavy. Fighting gravity requires an immense amount of energy. If you are starting at sea level and driving to a ski resort at 6,000 feet, you will lose a massive percentage of your range just climbing the hill. The calculator deducts roughly 1.5 miles of range for every 100 feet of elevation gained. (Conversely, if you are driving downhill, the calculator adds range back via regenerative braking).</p>
 
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <p><strong>Example 1: The Safe Commute.</strong> You have 60% battery left. Your car gets 250 miles at 100%. You need to drive 110 miles. Your dashboard might say you have 150 miles of range left. But you are driving 75 mph in 45-degree weather with the heater on. The calculator reveals that these conditions will slash your true range to just 115 miles. You will arrive at your destination with a terrifyingly low 3% battery. You should slow down or stop to charge.</p>
             <p><strong>Example 2: Fixing the Problem.</strong> Using the same scenario above, you are worried about arriving with 3%. You use the calculator to simulate slowing down from 75 mph to 65 mph. The math instantly changes. By simply reducing your speed, your aerodynamic drag plummets, your true range jumps to 135 miles, and you will arrive with a comfortable 11% safety buffer.</p>
 
-            <h2>Tips & Best Practices</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
             <p>If you find yourself experiencing range anxiety on the highway, the absolute fastest way to extend your range is to <strong>slow down</strong>. Dropping your speed by just 10 mph can restore 15% to 20% of your range instantly. Secondly, turn off the cabin heater and use the seat heaters instead. Heating the air in a car requires a 3,000-watt electric heater. Heating a seat requires a 50-watt element. Finally, if you are driving into a massive headwind, draft safely behind a large semi-truck to reduce wind resistance.</p>
           </article>
           

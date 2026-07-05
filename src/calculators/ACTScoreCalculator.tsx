@@ -1,7 +1,7 @@
 "use client";
 import { RotateCcw, Book, GraduationCap, Calculator } from "lucide-react";
-
 import { useState, useEffect } from "react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, ReferenceLine } from "recharts";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import PopularCalculators from "@/components/PopularCalculators";
@@ -103,28 +103,50 @@ const ACTScoreCalculator = () => {
           <div className="flex flex-col gap-3">
             {showResults && results && (
               <>
-                <div className="card-calculator bg-primary/5 border-solid border-primary/20 text-center flex flex-col justify-center py-12 mb-6">
-                    <p className="text-sm font-bold text-primary uppercase tracking-widest mb-2">Estimated Composite Score</p>
-                    <p className="text-8xl font-black text-foreground">{results.composite}</p>
-                    <div className="mt-6 inline-flex items-center gap-2 px-4 py-2 bg-primary/10 text-primary rounded-full text-[10px] font-bold uppercase tracking-wider mx-auto">
-                      <GraduationCap className="h-4 w-4" /> Approx. {results.percentile} Percentile
-                    </div>
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative mb-4">
+                  <p className="text-xs uppercase tracking-wide text-muted-foreground font-bold mb-1">Estimated Composite Score</p>
+                  <p className="text-4xl font-black text-primary">{results.composite}</p>
+                  <p className="text-sm text-muted-foreground mt-1 flex items-center">
+                    <GraduationCap className="h-4 w-4 mr-1" /> Approx. {results.percentile} Percentile
+                  </p>
+                </div>
+
+                <div className="card-calculator !p-4 border border-border bg-card shadow-sm mb-4">
+                  <h3 className="font-semibold text-sm mb-3">Section Breakdown</h3>
+                  <div className="h-[200px]">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <BarChart data={[
+                        { name: 'English', score: results.eScaled, fill: '#3b82f6' },
+                        { name: 'Math', score: results.mScaled, fill: '#10b981' },
+                        { name: 'Reading', score: results.rScaled, fill: '#f59e0b' },
+                        { name: 'Science', score: results.sScaled, fill: '#8b5cf6' }
+                      ]} margin={{ top: 15, right: 10, left: -20, bottom: 0 }}>
+                        <XAxis dataKey="name" tick={{ fontSize: 11 }} />
+                        <YAxis domain={[0, 36]} tick={{ fontSize: 11 }} />
+                        <Tooltip contentStyle={{ borderRadius: "8px", fontSize: "13px" }} cursor={{fill: "transparent"}} />
+                        <ReferenceLine y={results.composite} stroke="hsl(var(--primary))" strokeDasharray="3 3" label={{ position: 'top', value: 'Composite', fill: 'hsl(var(--primary))', fontSize: 10 }} />
+                        <Bar dataKey="score" radius={[4, 4, 0, 0]}>
+                          {[ '#3b82f6', '#10b981', '#f59e0b', '#8b5cf6' ].map((c, i) => <Cell key={i} fill={c} />)}
+                        </Bar>
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </div>
                 </div>
 
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                   <div className="card-calculator p-4 text-center border-primary/10">
+                   <div className="card-calculator p-4 text-center border border-border bg-card shadow-sm">
                       <p className="text-[10px] font-bold text-muted-foreground uppercase mb-1">English</p>
                       <p className="text-2xl font-black text-foreground">{results.eScaled}</p>
                    </div>
-                   <div className="card-calculator p-4 text-center border-primary/10">
+                   <div className="card-calculator p-4 text-center border border-border bg-card shadow-sm">
                       <p className="text-[10px] font-bold text-muted-foreground uppercase mb-1">Math</p>
                       <p className="text-2xl font-black text-foreground">{results.mScaled}</p>
                    </div>
-                   <div className="card-calculator p-4 text-center border-primary/10">
+                   <div className="card-calculator p-4 text-center border border-border bg-card shadow-sm">
                       <p className="text-[10px] font-bold text-muted-foreground uppercase mb-1">Reading</p>
                       <p className="text-2xl font-black text-foreground">{results.rScaled}</p>
                    </div>
-                   <div className="card-calculator p-4 text-center border-primary/10">
+                   <div className="card-calculator p-4 text-center border border-border bg-card shadow-sm">
                       <p className="text-[10px] font-bold text-muted-foreground uppercase mb-1">Science</p>
                       <p className="text-2xl font-black text-foreground">{results.sScaled}</p>
                    </div>
@@ -137,19 +159,17 @@ const ACTScoreCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>The ACT Scoring System</h2>
-              <p>The ACT uses a unique scoring system that can be confusing for first-time test-takers. Unlike the SAT's 1600-point scale, the ACT focuses on a compact 1-36 range. Every question is worth the same amount of points, and there is no deduction for wrong answers.</p>
+              <h2 className="text-2xl font-bold mb-3">The Mathematical Architecture of the ACT Scoring System</h2>
+              <p>The ACT uses a highly specific, standardized scoring system that is frequently misunderstood by high school students and parents encountering it for the first time. Unlike high school grading systems, which operate on strict percentages out of 100, or the competing SAT, which utilizes a massive 1600-point scale, the ACT compresses all of its data into an incredibly tight 1-to-36 scale. Every single question across the entire exam is fundamentally worth the exact same amount of raw points, regardless of whether it is a simple grammar check or an advanced trigonometric proof. Even more importantly, the ACT employs a purely additive scoring model. There is absolutely no penalty or deduction for guessing an incorrect answer. If a student leaves a bubble blank, they earn zero points. If they guess completely randomly and get it wrong, they still earn zero points. Therefore, the mathematically optimal strategy is to ensure every single bubble on the answer sheet is filled in before time expires, even if the student is purely guessing on the final ten questions of a section.</p>
               
-              <h3>Section Breakdown</h3>
-              <ul>
-                 <li><strong>English (75 Questions):</strong> Focuses on grammar, punctuation, and sentence structure.</li>
-                 <li><strong>Math (60 Questions):</strong> Covers Algebra, Geometry, and Trigonometry.</li>
-                 <li><strong>Reading (40 Questions):</strong> Tests reading comprehension through four passages.</li>
-                 <li><strong>Science (40 Questions):</strong> Focuses on data interpretation and scientific reasoning rather than specific scientific facts.</li>
-              </ul>
-
-              <h3>How the Composite is Formed</h3>
-              <p>The composite score is the average of the four sections. If the average ends in a decimal of .5 or higher, it is rounded up to the next whole number. For example, if your average is 28.25, your composite is 28. If your average is 28.5, your composite is 29.</p>
+              <h2 className="text-2xl font-bold mb-3">Translating Raw Scores to Scaled Scores</h2>
+              <p>The testing process begins with the raw score, which is simply a direct tally of the number of questions a student answered correctly in a specific section. For instance, if a student answers 55 out of the 75 questions correctly in the English section, their raw score for that section is exactly 55. However, because different versions of the ACT (administered on different dates) vary slightly in their objective difficulty, the testing agency cannot use raw scores for college admissions. To ensure absolute fairness across all testing dates, the ACT organization employs a complex statistical process called "equating." Through equating, they map every possible raw score to a scaled score between 1 and 36. This scale ensures that a 30 achieved on a slightly harder test in April represents the exact same level of academic mastery as a 30 achieved on a slightly easier test in October. Our calculator uses a generalized, highly accurate linear curve model to simulate this equating process, providing students with immediate feedback on how their practice test performance translates to the standardized 1-36 scale.</p>
+              
+              <h2 className="text-2xl font-bold mb-3">Analyzing the Four Core Sections</h2>
+              <p>The total test is rigidly divided into four mandatory multiple-choice sections, each demanding a distinct cognitive skillset. The English section contains 75 questions to be answered in 45 minutes, heavily prioritizing speed and the rapid identification of grammatical errors, punctuation mistakes, and rhetorical sentence structures. The Math section contains 60 questions to be answered in 60 minutes, covering everything from pre-algebra to advanced geometry and trigonometry. It is the only section where the questions generally escalate in difficulty as you progress, with the final 10 questions consistently being the hardest on the entire exam. The Reading section contains 40 questions to be answered in 35 minutes, demanding intense reading comprehension skills across four dense literary and informational passages. Finally, the Science section contains 40 questions to be answered in 35 minutes. Despite its name, it rarely tests rote scientific memorization; instead, it aggressively tests a student's ability to interpret complex data tables, read intersecting graphs, and analyze conflicting scientific hypotheses under extreme time pressure.</p>
+              
+              <h2 className="text-2xl font-bold mb-3">Calculating the Master Composite Score</h2>
+              <p>Once the equating process has assigned a scaled score (1-36) to all four individual sections, the final step is generating the overarching Composite Score. The mathematics here are remarkably straightforward: the testing agency simply adds the four scaled section scores together and divides the sum by exactly four to find the mean average. The critical factor in this calculation is the rounding protocol. The ACT strictly adheres to traditional mathematical rounding rules. If the calculated average ends in a decimal fraction of .50 or higher, the score is rounded up to the next whole number. If the decimal fraction is less than .50, the score rounds down. For example, if a student scores a 29 in English, 28 in Math, 30 in Reading, and 28 in Science, the sum is 115. Dividing 115 by four yields 28.75. Because .75 is above the halfway threshold, this student's official ACT Composite Score rounds up to a 29. Understanding this rounding math is crucial, as raising a single section score by just one point can sometimes be enough to push the decimal average over the .50 threshold, thereby elevating the entire Composite Score and potentially qualifying the student for thousands of dollars in additional merit-based college scholarships.</p>
             </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/act-score" />
           <PopularCalculators exclude="/calculator/act-score-calculator" />

@@ -197,11 +197,11 @@ export default function BodyFrameSizeCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Body Frame Size Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Body Frame Size Calculator?</h2>
             <p>A Body Frame Size Calculator is a clinical tool used in physical anthropometry to categorize the mass and density of a person's skeletal structure. In the fitness and medical communities, individuals are generally classified into three frame sizes: Small, Medium, or Large. Determining your frame size is crucial because it heavily influences your baseline ideal body weight, your natural propensity to gain muscle mass, and how certain BMI thresholds apply to your specific physique.</p>
             <p>While height and weight provide a general overview of your body, two people who are both 180 cm tall and weigh 80 kg can look entirely different. One might look incredibly skinny (small frame, low muscle mass, high body fat), while the other looks powerfully built (large frame, high bone density, high muscle mass). Frame size provides the vital context that simple BMI calculations lack.</p>
 
-            <h2>How The Calculations Work (The r-Value)</h2>
+            <h2 className="text-2xl font-bold mb-3">How The Calculations Work (The r-Value)</h2>
             <p>Because bones do not shrink or expand based on caloric intake, we can determine frame size by measuring areas of the body that store virtually no fat. The most common and accessible location is the wrist.</p>
             <p>The calculator determines your frame size by computing the <strong>Height-to-Wrist Ratio (also known as the r-value)</strong>. The mathematical formula is simple: <code>Height / Wrist Circumference</code>. Both measurements must use the same unit (e.g., centimeters or inches).</p>
             <p>For example, if a man is 180 cm tall and has a wrist circumference of 17 cm, his r-value is 180 / 17 = 10.58. Because the wrist acts as the denominator, <strong>a smaller wrist produces a larger r-value</strong>, and a larger wrist produces a smaller r-value.</p>
@@ -213,7 +213,7 @@ export default function BodyFrameSizeCalculator() {
               <li><strong>Females:</strong> Small Frame (r &gt; 11.0), Medium Frame (r between 10.1 and 11.0), Large Frame (r &lt; 10.1).</li>
             </ul>
 
-            <h2>The Three Frame Sizes Explained</h2>
+            <h2 className="text-2xl font-bold mb-3">The Three Frame Sizes Explained</h2>
             
             <h3>Small Frame (Ectomorphic Tendencies)</h3>
             <p>Individuals with a small frame possess a lighter, narrower skeletal structure. They typically have long limbs, narrow shoulders, and delicate bone features. Genetically, they often align with the "Ectomorph" somatotype, meaning they naturally possess a faster metabolism and struggle to gain significant amounts of muscle mass or body fat. A person with a small frame will generally look much thinner than their BMI suggests.</p>
@@ -224,7 +224,7 @@ export default function BodyFrameSizeCalculator() {
             <h3>Large Frame (Endomorphic/Mesomorphic Tendencies)</h3>
             <p>Individuals with a large frame have a heavy, dense skeletal structure. They generally feature broad shoulders, a wide rib cage, and thick joints. Genetically, they are built to carry significant amounts of weight—whether that is muscle (Mesomorph) or body fat (Endomorph). Because their bones literally weigh more, they can easily trigger "Overweight" on a standard BMI chart even when they possess a completely healthy, low body fat percentage.</p>
 
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>When you execute a calculation, this tool provides five distinct analytical sections to help you interpret your skeletal genetics.</p>
             <p><strong>Primary Result Card:</strong> Highlights your definitive frame size (Small, Medium, or Large) and provides a brief summary of the physical tendencies associated with that skeletal structure.</p>
             <p><strong>3-Stat Diagnostic Bar:</strong> Displays your precise r-value, confirms your biological sex input, and provides the exact percentage adjustment you should apply to standard ideal weight tables.</p>
@@ -232,20 +232,20 @@ export default function BodyFrameSizeCalculator() {
             <p><strong>r-Value Spectrum Chart:</strong> A visual horizontal bar chart that maps the clinical thresholds (Large, Medium, Small) for your specific sex, placing a marker precisely where your r-value sits on the spectrum. This shows you how close you are to the boundaries of the next frame size.</p>
             <p><strong>Summary Statistics:</strong> A fast, readable grid aggregating your data, perfect for screenshotting or sharing with a personal trainer or dietitian.</p>
 
-            <h2>How to Adjust Your Ideal Body Weight</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Adjust Your Ideal Body Weight</h2>
             <p>The primary medical purpose of determining your frame size is to accurately adjust your Ideal Body Weight (IBW) targets. Because generic IBW formulas assume a medium frame, they can set dangerous or impossible targets for outliers.</p>
             <p><strong>If you have a Medium Frame:</strong> No adjustment is necessary. You can use standard BMI charts and ideal weight formulas exactly as they are written.</p>
             <p><strong>If you have a Small Frame:</strong> You must subtract 10% from standard ideal weight charts. If a generic formula says a woman of your height should weigh 60 kg, your true ideal weight is closer to 54 kg. If a small-framed person weighs 60 kg, they may actually be carrying excess adipose tissue despite the chart saying they are "healthy."</p>
             <p><strong>If you have a Large Frame:</strong> You must add 10% to standard ideal weight charts. If a formula says a man of your height should weigh 80 kg, your true ideal weight is closer to 88 kg. Large-framed individuals who attempt to reach generic weight targets often engage in extreme, dangerous dieting and lose significant amounts of muscle mass because their skeleton simply wasn't designed to be that light.</p>
 
-            <h2>Tips for Accurate Measurement</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips for Accurate Measurement</h2>
             <p>To ensure this calculator provides accurate results, you must measure your wrist correctly. Do not guess. Follow these simple steps:</p>
             <p>1. Use a flexible, soft measuring tape (like those used for sewing). If you do not have one, wrap a piece of string around your wrist, mark it with a pen, and then measure the string with a rigid ruler.</p>
             <p>2. Measure the wrist of your dominant hand. (If you are right-handed, measure your right wrist). The dominant arm is typically slightly thicker due to increased muscle and bone density from lifelong use.</p>
             <p>3. Wrap the tape just distal to the styloid process. This means you should measure exactly over the knobby bone on the outside of your wrist—precisely where you would secure a wristwatch.</p>
             <p>4. Pull the tape so it is snug against the skin, but do not pull so hard that it compresses the tissue or causes discomfort.</p>
 
-            <h2>Benefits of Knowing Your Frame Size</h2>
+            <h2 className="text-2xl font-bold mb-3">Benefits of Knowing Your Frame Size</h2>
             <p>Understanding your skeletal frame size provides immense psychological relief and practical direction for your fitness journey. It allows you to stop fighting your genetics. A large-framed person will never look like a runway model, and a small-framed person will struggle immensely to look like an NFL linebacker. By identifying your baseline skeletal structure, you can set realistic, healthy goals that align with your body's natural architecture, leading to a much more sustainable and satisfying approach to health and fitness.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/body-frame-size-calculator" />

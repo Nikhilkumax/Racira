@@ -312,34 +312,34 @@ export default function BloodGlucoseToCarbRatioEstimator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Blood Glucose-to-Carb Ratio Estimator</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Blood Glucose-to-Carb Ratio Estimator</h2>
             <p>Managing diabetes—whether Type 1 or insulin-dependent Type 2—is one of the most mathematically demanding clinical tasks a patient can undertake. Every meal, every snack, and every high blood sugar correction requires a precise mathematical calculation to determine exactly how much insulin is needed. Guessing is not an option; taking too little insulin leads to hyperglycemia and organ damage over time, while taking too much leads to acute hypoglycemia, which can be immediately life-threatening. The <strong>Blood Glucose-to-Carb Ratio Estimator</strong> utilizes universally accepted endocrinology formulas to provide you with mathematical starting points for two of the most critical numbers in diabetes management: your Insulin-to-Carb Ratio (ICR) and your Insulin Sensitivity Factor (ISF).</p>
 
-            <h2>What is the Insulin-to-Carb Ratio (ICR)?</h2>
+            <h2 className="text-2xl font-bold mb-3">What is the Insulin-to-Carb Ratio (ICR)?</h2>
             <p>The Insulin-to-Carb Ratio tells you exactly how many grams of carbohydrates will be metabolized (or "covered") by a single unit of rapid-acting or short-acting insulin. This is the number you use when calculating your dose for a meal.</p>
             <p>For example, if your ICR is calculated at <strong>1:12</strong>, it means you need 1 unit of insulin for every 12 grams of carbohydrates on your plate. If you are about to eat a plate of pasta containing 60 grams of carbohydrates, you divide 60 by 12, resulting in a required dose of 5 units of insulin just to cover the food.</p>
             <p>This ratio fluctuates widely from person to person. A highly insulin-sensitive athlete might have an ICR of 1:20 (needing very little insulin), while an individual with extreme insulin resistance might have an ICR of 1:5 (needing massive amounts of insulin for the same exact meal).</p>
 
-            <h2>What is the Insulin Sensitivity Factor (ISF)?</h2>
+            <h2 className="text-2xl font-bold mb-3">What is the Insulin Sensitivity Factor (ISF)?</h2>
             <p>The Insulin Sensitivity Factor (also frequently called the Correction Factor) is entirely separate from food. It dictates how powerfully your body reacts to a unit of insulin when your blood sugar is already too high and needs to be brought down to a target range.</p>
             <p>The ISF tells you exactly how many points (in mg/dL) one unit of insulin will lower your blood glucose. For example, if your ISF is <strong>40</strong>, one unit of insulin will drop your blood sugar by roughly 40 points.</p>
             <p>If your target blood sugar is 100 mg/dL, but you test at 220 mg/dL, you have a "gap" of 120 points that needs to be corrected. You divide that 120-point gap by your ISF of 40. The result is 3 units of insulin required to correct the high blood sugar.</p>
 
-            <h2>The Mathematics: Total Daily Dose (TDD)</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics: Total Daily Dose (TDD)</h2>
             <p>Both of these critical ratios are derived from a single vital metric: your <strong>Total Daily Dose (TDD)</strong> of insulin. Your TDD is the absolute sum of all insulin you take in a 24-hour period. This includes your basal insulin (long-acting insulin like Lantus or Tresiba, or the basal rates on your pump) PLUS all the bolus insulin you take for meals and corrections.</p>
             <p>Endocrinologists use the TDD as the mathematical anchor because it is the ultimate measure of your body's overall insulin resistance. If your pancreas is producing zero insulin and you only require 30 units a day (a low TDD), it proves your cells are highly sensitive. Therefore, the mathematical formulas will output a high Carb Ratio (meaning 1 unit covers a lot of food) and a high Correction Factor (meaning 1 unit drops your blood sugar significantly).</p>
 
-            <h2>The Rule of 500 (Calculating ICR)</h2>
+            <h2 className="text-2xl font-bold mb-3">The Rule of 500 (Calculating ICR)</h2>
             <p>For individuals using modern Rapid-Acting insulins (such as Humalog, Novolog, or Apidra), the global standard for estimating the Carb Ratio is the <strong>Rule of 500</strong>. The math is incredibly simple:</p>
             <p><strong>500 ÷ Total Daily Dose = Insulin-to-Carb Ratio</strong></p>
             <p>If your TDD is 50 units: 500 ÷ 50 = 10. Your ratio is 1 unit for every 10 grams of carbohydrates. (If you use older, Short-Acting Regular insulin, the less aggressive Rule of 450 is used).</p>
 
-            <h2>The Rule of 1800 (Calculating ISF)</h2>
+            <h2 className="text-2xl font-bold mb-3">The Rule of 1800 (Calculating ISF)</h2>
             <p>Similarly, to calculate the Correction Factor for Rapid-Acting insulin, endocrinologists utilize the <strong>Rule of 1800</strong>:</p>
             <p><strong>1800 ÷ Total Daily Dose = Insulin Sensitivity Factor</strong></p>
             <p>If your TDD is 50 units: 1800 ÷ 50 = 36. One unit of insulin will drop your blood sugar by approximately 36 mg/dL. (If using Short-Acting Regular insulin, the Rule of 1500 is used instead).</p>
 
-            <h2>Why These Numbers Are Only "Estimates"</h2>
+            <h2 className="text-2xl font-bold mb-3">Why These Numbers Are Only "Estimates"</h2>
             <p>It is absolutely critical to understand that the human body is not a perfectly calibrated machine. While the Rule of 500 and Rule of 1800 are the best mathematical starting points available to medical science, they are exactly that: starting points. Your actual insulin needs will fluctuate based on a massive array of biological variables:</p>
             <ul>
               <li><strong>Time of Day:</strong> Most people are significantly more insulin-resistant in the morning due to the "Dawn Phenomenon" (a surge of cortisol and growth hormone). You might need an ICR of 1:8 for breakfast, but a highly sensitive ICR of 1:15 for dinner.</li>
@@ -347,7 +347,7 @@ export default function BloodGlucoseToCarbRatioEstimator() {
               <li><strong>Stress and Illness:</strong> An infection or high-stress event triggers adrenaline and cortisol, which block insulin receptors. You will require significantly more insulin to cover meals and correct highs when sick.</li>
             </ul>
 
-            <h2>Conclusion: Working With Your Medical Team</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Working With Your Medical Team</h2>
             <p>The Blood Glucose-to-Carb Ratio Estimator empowers you to understand the foundational mathematics underlying your diabetes management protocol. If your insulin needs have drastically increased over the last year, running your new TDD through this calculator will show you exactly how your ratios need to shift to keep up with your changing resistance. However, you must always treat these numbers as a theoretical framework. Bring these calculations to your next endocrinology appointment, and use them to have a highly informed, data-driven conversation with your doctor to safely fine-tune your dosing strategy.</p>
           </article>
           

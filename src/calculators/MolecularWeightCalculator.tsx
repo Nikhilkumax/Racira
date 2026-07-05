@@ -226,14 +226,14 @@ const MolecularWeightCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding Molecular Weight (Molar Mass)</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Molecular Weight (Molar Mass)</h2>
             <p><strong>Molecular weight</strong> (more accurately called molar mass in modern chemistry) is a measure of the total mass of a single molecule or compound. It is a foundational metric in chemistry used to determine how much of a physical substance you need to measure out to ensure a reaction happens perfectly without leftover waste.</p>
 
-            <h2>The Concept of the "Mole"</h2>
+            <h2 className="text-2xl font-bold mb-3">The Concept of the "Mole"</h2>
             <p>Atoms are incomprehensibly small, making it impossible to weigh just one in a lab. To bridge the gap between atomic physics and real-world chemistry, scientists created the <strong>Mole</strong>. One Mole is exactly 6.022 × 10²³ particles (Avogadro's Number).</p>
             <p>The beauty of the Mole is that it directly links the atomic mass scale to standard grams. If you look at a Periodic Table, Carbon (C) has an atomic mass of roughly 12. This means that exactly one Mole of Carbon atoms weighs exactly 12 grams in the real world. The unit used for molecular weight is therefore <strong>g/mol</strong> (Grams per Mole).</p>
 
-            <h2>How to Calculate It</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Calculate It</h2>
             <p>To calculate the molecular weight of a compound, you simply add up the atomic weights of all the constituent atoms, multiplying by the quantity of each atom present in the formula.</p>
             <ul>
               <li><strong>Find the weight of Water (H2O):</strong></li>
@@ -243,7 +243,7 @@ const MolecularWeightCalculator = () => {
               <li>Calculation: <code>(2 × 1.008) + (1 × 15.999) = 18.015 g/mol</code>.</li>
             </ul>
 
-            <h2>Why is this calculation important?</h2>
+            <h2 className="text-2xl font-bold mb-3">Why is this calculation important?</h2>
             <p>In a chemical reaction, molecules react with each other based on their quantity (count), not their physical weight. For example, to make Water (H2O), you need exactly two Hydrogen atoms for every one Oxygen atom. However, Oxygen atoms are much heavier than Hydrogen atoms.</p>
             <p>If you walked into a lab and mixed 10 grams of Hydrogen with 10 grams of Oxygen, you wouldn't get a perfect reaction. You would have a massive amount of Hydrogen leftover, because 10 grams of Hydrogen contains vastly more atoms than 10 grams of Oxygen. By using Molar Mass, chemists know exactly how many grams of each substance to weigh out so the atom counts match the reaction requirements perfectly.</p>
           </article>

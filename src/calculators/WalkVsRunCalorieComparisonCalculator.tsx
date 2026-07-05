@@ -335,32 +335,32 @@ export default function WalkVsRunCalorieComparisonCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Great Debate: Walking vs. Running for Calorie Burn</h2>
+            <h2 className="text-2xl font-bold mb-3">The Great Debate: Walking vs. Running for Calorie Burn</h2>
             <p>One of the most pervasive myths in the fitness industry is the belief that moving a specific mass across a specific distance burns the exact same amount of energy, regardless of speed. People often say, "A mile is a mile; if you weigh 150 pounds, you'll burn 100 calories whether you walk it or run it." From a strict Newtonian physics perspective (Work = Force × Distance), this sounds logical. However, human biology does not operate like a simple machine. The <strong>Walk vs Run Calorie Comparison Calculator</strong> mathematically proves that the biomechanics and cardiovascular demands of running force your body to expend significantly more energy over the exact same distance compared to walking.</p>
 
-            <h2>Why Running Burns More Calories Per Mile</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Running Burns More Calories Per Mile</h2>
             <p>The difference in caloric burn comes down entirely to biomechanical efficiency and metabolic demand. Walking is an incredibly efficient mode of transportation. During a walk, one foot is almost always in contact with the ground, and your center of gravity moves forward in a smooth, relatively flat plane. Your body has evolved over millions of years to make walking as metabolically cheap as possible to conserve energy.</p>
             <p>Running is the exact opposite. Biomechanically, running is a series of continuous, explosive bounds. To run, your leg muscles must generate enough vertical force to propel your entire body weight completely off the ground (the "flight phase"). Upon landing, your muscles and tendons must absorb massive shock forces—often up to 3 times your body weight. This explosive lifting and harsh landing requires massive recruitment of fast-twitch muscle fibers, which burn energy at a highly inefficient, rapid rate. Because your body has to do so much vertical "work" to move forward, running a mile burns approximately <strong>20% to 30% more calories</strong> than walking that exact same mile.</p>
 
-            <h2>The Role of METs (Metabolic Equivalents)</h2>
+            <h2 className="text-2xl font-bold mb-3">The Role of METs (Metabolic Equivalents)</h2>
             <p>To accurately calculate calorie burn, exercise physiologists use a metric called METs (Metabolic Equivalent of Task). One MET is defined as the energy you burn while sitting perfectly still at rest. </p>
             <p>A brisk walk at 3.5 miles per hour has a MET value of roughly 4.3. This means that while walking, you are burning calories at 4.3 times your resting rate. Conversely, running at a moderate pace of 6.0 miles per hour has a MET value of 9.8. You are burning energy at nearly 10 times your resting rate. The calculator uses these exact, clinically established MET values, multiplied by your specific body weight and the duration of the activity, to output a highly accurate caloric comparison.</p>
 
-            <h2>Time Efficiency: The Ultimate Running Advantage</h2>
+            <h2 className="text-2xl font-bold mb-3">Time Efficiency: The Ultimate Running Advantage</h2>
             <p>While the difference in calories burned <em>per mile</em> is significant (roughly a 20-30% difference), the difference in calories burned <em>per minute</em> is absolutely massive. This is where running truly shines as a weight-loss tool for busy individuals.</p>
             <p>If you only have exactly 30 minutes to exercise before work, your choice of activity dictates your results. A 160-pound person walking at 3 mph for 30 minutes will cover 1.5 miles and burn roughly 125 calories. That same person running at 6 mph for 30 minutes will cover 3.0 miles and burn over 350 calories. In the exact same 30-minute time block, running yields almost triple the caloric burn. If your primary goal is maximizing energy expenditure in a limited timeframe, running is exponentially more efficient.</p>
 
-            <h2>The Afterburn Effect (EPOC)</h2>
+            <h2 className="text-2xl font-bold mb-3">The Afterburn Effect (EPOC)</h2>
             <p>The caloric gap between walking and running actually widens after the workout is completely finished due to a physiological phenomenon known as Excess Post-Exercise Oxygen Consumption (EPOC), commonly called the "Afterburn Effect."</p>
             <p>When you walk, you stay in a comfortable aerobic state. Your body consumes oxygen easily, and when you stop walking, your heart rate and metabolism return to baseline almost instantly. There is virtually zero EPOC.</p>
             <p>Running, however, pushes your cardiovascular system to its limits, causing micro-tears in your muscle fibers, depleting glycogen stores, and elevating your core temperature. To repair this massive physiological disruption and restore homeostasis, your body must rapidly consume oxygen and burn calories for hours after the run has ended. You might burn an additional 50 to 100 "bonus" calories while sitting on the couch recovering from a hard run, further cementing running's superiority for absolute caloric expenditure.</p>
 
-            <h2>Is Walking Better for "Fat Burning"?</h2>
+            <h2 className="text-2xl font-bold mb-3">Is Walking Better for "Fat Burning"?</h2>
             <p>You may have heard that low-intensity exercise like walking puts you in the "Fat Burning Zone." This is scientifically true, but highly misleading. When you walk, the intensity is so low that your body has plenty of time to convert stored body fat into energy via oxidation. Therefore, a higher <em>percentage</em> of the calories burned while walking come from fat.</p>
             <p>When you run, the intensity is so high that your body demands instant fuel. It cannot oxidize fat fast enough, so it switches to burning stored carbohydrates (glycogen). Therefore, a higher percentage of the calories burned while running come from sugar, not fat.</p>
             <p>However, total fat loss is dictated entirely by a 24-hour caloric deficit, not the specific fuel source used during a 30-minute workout. Because running burns so many more total calories overall, it creates a much larger daily caloric deficit. Ultimately, the person running will lose more total body fat over time than the person walking, assuming their diets are identical.</p>
 
-            <h2>The Case for Walking: Joint Health and Sustainability</h2>
+            <h2 className="text-2xl font-bold mb-3">The Case for Walking: Joint Health and Sustainability</h2>
             <p>If running burns more calories per mile, more calories per minute, and generates an afterburn effect, why should anyone walk? The answer lies in orthopedics and sustainability. </p>
             <p>Running is incredibly punishing on the human skeletal system. The repetitive impact can cause shin splints, stress fractures, plantar fasciitis, and severe knee cartilage degradation (runner's knee). If you weigh over 200 pounds, running can be downright dangerous for your joints. Walking, on the other hand, is a low-impact activity that causes virtually zero orthopedic trauma. You can walk 5 miles a day, every single day, without ever needing a "recovery day." For long-term, sustainable, injury-free weight management, walking is arguably the greatest exercise tool in existence. Use the calculator to balance your goals: run for time efficiency and cardiovascular power, or walk for joint health and sustainable daily volume.</p>
           </article>

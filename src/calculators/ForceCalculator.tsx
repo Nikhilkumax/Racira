@@ -125,7 +125,7 @@ const ForceCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Newton's Second Law of Motion</h2>
+              <h2 className="text-2xl font-bold mb-3">Newton's Second Law of Motion</h2>
               <p>Newton's Second Law is one of the most fundamental principles in classical mechanics. it describes the relationship between an object's mass and the amount of force needed to accelerate it.</p>
               
               <h3>The Formula</h3>

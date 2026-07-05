@@ -115,7 +115,7 @@ const PpiCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>PPI vs. Resolution</h2>
+              <h2 className="text-2xl font-bold mb-3">PPI vs. Resolution</h2>
               <p>Many people confuse resolution with pixel density. Resolution is simply the total count of pixels (e.g., 1920x1080), while PPI describes how tightly those pixels are packed together on a physical surface. A 50-inch 4K TV and a 5-inch 4K smartphone have the same resolution, but vastly different PPIs.</p>
               <h3>Viewing Distance Matters</h3>
               <p>The "required" PPI for a sharp image depends on how far away you are from the screen. Because you hold a phone closer to your face than a computer monitor, you need a higher PPI on the phone for the screen to look equally sharp.</p>

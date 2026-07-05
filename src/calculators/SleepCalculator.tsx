@@ -131,7 +131,7 @@ const SleepCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>The Science of Sleep Cycles</h2>
+              <h2 className="text-2xl font-bold mb-3">The Science of Sleep Cycles</h2>
               <p>Sleep is not a uniform state. Throughout the night, your brain cycles through different stages of activity. Waking up during deep sleep (Stage 3) leads to grogginess and disorientation, whereas waking up at the end of a cycle (during light sleep or REM) leaves you feeling alert.</p>
               <h3>How Long Should You Sleep?</h3>
               <p>Most adults need 5 or 6 full sleep cycles per night, which equates to 7.5 to 9 hours of actual sleep. However, individual needs vary based on genetics, daily physical exertion, and age.</p>

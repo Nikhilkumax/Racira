@@ -199,7 +199,7 @@ export default function ConstructionLoanDrawCalculator() {
             
             <div className="flex items-center gap-2 mb-1">
               <HardHat className="h-5 w-5 text-primary" />
-              <h2 className="text-lg font-bold text-foreground m-0">Loan Basics</h2>
+              <h2 className="text-2xl font-bold mb-3">Loan Basics</h2>
             </div>
             
             <CompactInput id="loan" label="Total Base Loan Amount" value={loanAmount} onChange={setLoanAmount} prefix="$" />
@@ -229,7 +229,7 @@ export default function ConstructionLoanDrawCalculator() {
             <div className="flex items-center justify-between mb-1">
               <div className="flex items-center gap-2">
                 <Calendar className="h-5 w-5 text-primary" />
-                <h2 className="text-lg font-bold text-foreground m-0">Draw Schedule</h2>
+                <h2 className="text-2xl font-bold mb-3">Draw Schedule</h2>
               </div>
               <button onClick={addDraw} className="flex items-center gap-1 text-xs font-bold text-primary hover:underline">
                 <Plus className="h-3 w-3" /> Add Draw

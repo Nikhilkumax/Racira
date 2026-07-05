@@ -189,22 +189,22 @@ const BMICalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a BMI Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a BMI Calculator?</h2>
             <p>A BMI (Body Mass Index) calculator computes a standardized score from height and weight to assess weight status relative to health guidelines. BMI is the most widely used screening tool for underweight, normal weight, overweight, and obesity in adults worldwide. This calculator uses the standard WHO BMI formula, adds an estimated body fat percentage using the Deurenberg formula, and computes your Basal Metabolic Rate (BMR) — the calories your body burns at rest.</p>
             <p>Pre-filled with a 30-year-old male at 175 cm (5&apos;9&quot;) and 77 kg (170 lbs), the calculator shows BMI = 25.1 — just above the normal-weight threshold, a common scenario for millions of adults navigating their health goals.</p>
-            <h2>The BMI Formula</h2>
+            <h2 className="text-2xl font-bold mb-3">The BMI Formula</h2>
             <p><strong>BMI = weight (kg) / height² (m²)</strong></p>
             <p>For imperial units: BMI = 703 × weight (lbs) / height² (inches²). For our default: BMI = 77 / (1.75)² = 77 / 3.0625 = 25.14.</p>
             <p>BMI categories (WHO): Underweight: BMI &lt; 18.5. Normal weight: 18.5 – 24.9. Overweight: 25.0 – 29.9. Obese Class I: 30.0 – 34.9. Obese Class II: 35.0 – 39.9. Obese Class III: ≥ 40.0.</p>
-            <h2>Body Fat Estimation</h2>
+            <h2 className="text-2xl font-bold mb-3">Body Fat Estimation</h2>
             <p>The Deurenberg formula estimates body fat from BMI, age, and sex: Body Fat % = (1.2 × BMI) + (0.23 × age) − (10.8 × sex) − 5.4, where sex = 1 for male, 0 for female. This is an approximation — DEXA scanning is the gold standard for body composition measurement.</p>
-            <h2>Basal Metabolic Rate (BMR)</h2>
+            <h2 className="text-2xl font-bold mb-3">Basal Metabolic Rate (BMR)</h2>
             <p>BMR is calculated using the Mifflin-St Jeor equation: For men: BMR = 10W + 6.25H − 5A + 5. For women: BMR = 10W + 6.25H − 5A − 161. Where W = weight in kg, H = height in cm, A = age in years. Multiply BMR by an activity factor (1.2 sedentary, 1.375 light, 1.55 moderate, 1.725 active, 1.9 very active) to get total daily calorie needs.</p>
-            <h2>Limitations of BMI</h2>
+            <h2 className="text-2xl font-bold mb-3">Limitations of BMI</h2>
             <p>BMI does not distinguish between muscle and fat mass. Athletes and bodybuilders often have high BMI despite low body fat. Elderly individuals may have normal BMI but high body fat due to muscle loss (sarcopenia). BMI also does not account for fat distribution — visceral fat (around abdominal organs) is more health-relevant than subcutaneous fat. Waist circumference greater than 102 cm (men) or 88 cm (women) indicates elevated metabolic risk independent of BMI.</p>
-            <h2>Healthy Weight Range</h2>
+            <h2 className="text-2xl font-bold mb-3">Healthy Weight Range</h2>
             <p>The calculator shows your healthy weight range — the weights that correspond to BMI 18.5–24.9 at your height. For a 175 cm male: healthy range = 18.5 × 1.75² to 24.9 × 1.75² = 56.6 kg to 76.3 kg (125 to 168 lbs). Use the <a href="/calculator/calorie-calculator">calorie calculator</a> alongside BMI tracking for comprehensive weight management planning.</p>
-            <h2>Tips for Using This Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips for Using This Calculator</h2>
             <p>Toggle between metric and imperial with the unit selector — values convert automatically. Age and gender improve the body fat estimate accuracy. The BMI category chart shows your score relative to all four categories. Remember that BMI is a screening tool, not a diagnostic measure — always consult a healthcare provider for personalized health assessment. Pair with the <a href="/calculator/ideal-weight-calculator">ideal weight calculator</a> for additional reference points.</p>
           </article>
           <FAQSection faqs={[

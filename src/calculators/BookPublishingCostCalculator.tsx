@@ -503,35 +503,35 @@ export default function BookPublishingCostCalculator() {
           <AdPlaceholder className="mb-10" />
           
           <article className="prose-finance text-[15.75px]">
-            <h2>Complete Guide to Book Publishing Costs</h2>
+            <h2 className="text-2xl font-bold mb-3">Complete Guide to Book Publishing Costs</h2>
             <h3>Understanding the True Cost of Publishing</h3>
             <p>Writing a book is free, but publishing a high-quality book that competes with traditional publishers requires a financial investment. Our Book Publishing Cost Calculator helps aspiring independent authors construct a realistic budget before launching their literary careers.</p>
             <p>Whether you are planning to self-publish via Amazon KDP (Kindle Direct Publishing), IngramSpark, or seeking hybrid publishing services, knowing where your money goes is crucial. The total cost is determined almost entirely by your manuscript's word count and the level of professional polish you desire. While some authors publish for exactly $0 using DIY methods, the industry average to professionally self-publish a 60,000-word novel is between $2,000 and $4,500.</p>
 
-            <h2>Editorial Costs (The Largest Expense)</h2>
+            <h2 className="text-2xl font-bold mb-3">Editorial Costs (The Largest Expense)</h2>
             <p>Editing should be the largest slice of your publishing budget. A beautiful cover will get a reader to buy the book, but poor editing will earn you 1-star reviews that kill all future sales. Editing is typically billed by the word, not by the hour.</p>
             <p>Proofreading (1 to 2 cents/word) provides the final polish, catching typos, double words, missing punctuation, and minor formatting errors. This is the bare minimum you should invest in. Copyediting (2 to 3 cents/word) focuses on sentence structure, flow, grammar, consistency, and passive voice. Developmental Editing (3 to 6 cents/word) is a big-picture structural edit that evaluates plot holes, character arcs, pacing, and overall story viability, which often requires major rewrites.</p>
 
-            <h2>Cover Design (The Most Important Marketing Tool)</h2>
+            <h2 className="text-2xl font-bold mb-3">Cover Design (The Most Important Marketing Tool)</h2>
             <p>Do not design your own cover unless you are a professional graphic designer with experience in book typography. Your cover must instantly convey the genre to a scrolling browser on Amazon. A thriller needs to look like a thriller; a romance must look like a romance.</p>
             <p>If you are on a tight budget, look for Premade Covers. Many talented designers sell pre-designed covers where they simply swap in your title and author name for $50 to $150. A standard Custom Cover using stock photography manipulation typically runs $300 to $800. Fully Illustrated Premium Covers (popular in Fantasy and Sci-Fi) often exceed $1,500.</p>
 
-            <h2>Interior Formatting & Typography</h2>
+            <h2 className="text-2xl font-bold mb-3">Interior Formatting & Typography</h2>
             <p>Formatting is taking your Microsoft Word document and turning it into a professional ePub file for Kindles and a PDF for print-on-demand paperbacks. Professional formatters ensure chapter headings start on the right page, handle drop caps, and eliminate widows and orphans.</p>
             <p>Many indie authors save money here by purchasing software like Vellum or Atticus for around $150 to $250, which allows unlimited DIY formatting with professional results. Hiring a professional formatter typically costs $150 to $400 depending on manuscript complexity.</p>
 
-            <h2>ISBNs and Administrative Costs</h2>
+            <h2 className="text-2xl font-bold mb-3">ISBNs and Administrative Costs</h2>
             <p>An ISBN is a unique identifier for your book. If you publish exclusively through Amazon KDP for ebooks, Amazon provides a free ASIN, and no ISBN is required. Amazon will also provide a free ISBN for your print book, but it lists Amazon as the publisher of record.</p>
             <p>If you want to be listed as your own publisher, or if you want to distribute to libraries and independent bookstores via IngramSpark, you must buy your own ISBN. In the US, Bowker holds the monopoly on ISBNs. One ISBN costs $125. Because you need a separate ISBN for every format, it is almost always more economical to buy a 10-pack for $295.</p>
 
-            <h2>Marketing and Launch Budgets</h2>
+            <h2 className="text-2xl font-bold mb-3">Marketing and Launch Budgets</h2>
             <p>"Build it and they will come" does not apply to publishing. Over 8,000 books are published on Amazon every single day. To gain visibility, you need a marketing budget. Common launch expenses include ARC Services ($50 - $200) to distribute Advanced Reader Copies in exchange for honest launch-day reviews, Newsletter Promos ($25 - $100+) to email your book to their subscribers, and PPC Ads. Beginners should budget at least $200–$500 to test ad copy and discover converting audiences.</p>
 
-            <h2>Traditional vs. Hybrid vs. Self-Publishing</h2>
+            <h2 className="text-2xl font-bold mb-3">Traditional vs. Hybrid vs. Self-Publishing</h2>
             <p>This calculator assumes you are Self-Publishing. If you secure a Traditional Publishing contract (via a literary agent), your cost is $0. The publisher pays for the editing, cover, and formatting, and pays you an advance. However, you surrender creative control and take a much smaller royalty percentage.</p>
             <p>Beware of Vanity Presses or predatory "Hybrid" publishers that charge you $5,000 to $10,000 to publish your book. They often outsource editing and design to the lowest bidder and keep a massive percentage of your royalties. You can almost always produce a higher quality book for half the price by hiring your own freelancers.</p>
 
-            <h2>How to Reduce Your Publishing Costs</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Reduce Your Publishing Costs</h2>
             <p>If your budget is tight, do not cut corners on the cover or the editing. Instead, join critique groups or find reliable beta readers to review your manuscript before sending it to a professional editor—the cleaner your draft, the less an editor may charge. Use DIY formatting software like Atticus, rely on pre-made covers from quality designers, and utilize free grassroots marketing on social media to build an organic audience before opening your wallet for paid advertising.</p>
           </article>
 

@@ -216,11 +216,11 @@ export default function HealthyWeightRangeCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Science Behind the Healthy Weight Range</h2>
+            <h2 className="text-2xl font-bold mb-3">The Science Behind the Healthy Weight Range</h2>
             <p>Weight is a highly emotional topic, but biologically, it is simply a metric of physical mass. The medical community uses the <strong>Healthy Weight Range</strong> to identify the optimal amount of mass your specific skeleton is designed to carry.</p>
             <p>This calculator reverse-engineers the standard Body Mass Index (BMI) formula. Instead of telling you your BMI score, it calculates the exact minimum and maximum pounds you can weigh before crossing the clinical threshold into elevated health risks.</p>
 
-            <h2>Why is the Range So Wide?</h2>
+            <h2 className="text-2xl font-bold mb-3">Why is the Range So Wide?</h2>
             <p>A common critique of height-weight charts is that they do not account for different body types. In reality, this is precisely why the "Healthy" bracket is so wide. For a person who is 5'10", the healthy range spans from roughly 129 pounds all the way to 173 pounds—a massive 44-pound swing.</p>
             <p>This wide bracket naturally accommodates the three main physiological variables:</p>
             <ul>
@@ -229,12 +229,12 @@ export default function HealthyWeightRangeCalculator() {
               <li><strong>Age-Related Fluctuations:</strong> As we age, our body composition naturally shifts. The wide range prevents minor age-related weight gain from immediately triggering an "Overweight" classification.</li>
             </ul>
 
-            <h2>The Danger Zones</h2>
+            <h2 className="text-2xl font-bold mb-3">The Danger Zones</h2>
             <p>Falling outside of the healthy range—in either direction—forces your organs to work harder than they were designed to.</p>
             <p><strong>Overweight / Obese:</strong> Every extra pound of fat tissue requires your body to create miles of new microscopic blood vessels to supply it with oxygen. This places a massive, chronic strain on your heart, raising blood pressure. The extra physical weight mechanically degrades the cartilage in your knees and hips, and excess visceral fat causes hormonal changes that trigger insulin resistance (Type 2 Diabetes).</p>
             <p><strong>Underweight:</strong> Being too light is equally dangerous. It deprives the body of the energy reserves required to fight off infections, leads to severe osteoporosis (brittle bones) due to lack of load-bearing mass, and can shut down reproductive functions as the body enters "starvation mode."</p>
 
-            <h2>When the Formula Fails</h2>
+            <h2 className="text-2xl font-bold mb-3">When the Formula Fails</h2>
             <p>The BMI formula is a statistical screening tool designed for the general population. It fails completely when applied to extreme edge cases. Professional bodybuilders, NFL linebackers, and heavyweight boxers are regularly classified as "Obese" by this calculator simply because muscle is so heavy. If you are a highly trained athlete with visible abs, you can safely ignore this metric and rely on Body Fat Percentage instead.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/healthy-weight-range-calculator" />

@@ -133,7 +133,7 @@ const VehicleEmissionsCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Transportation and CO2</h2>
+              <h2 className="text-2xl font-bold mb-3">Transportation and CO2</h2>
               <p>The transportation sector is one of the largest contributors to greenhouse gas emissions worldwide. For many households, the personal vehicle is the single largest source of their carbon footprint.</p>
               <h3>MPG Matters</h3>
               <p>The relationship between MPG and CO2 is non-linear. Improving from 15 MPG to 20 MPG saves much more fuel and CO2 than improving from 35 MPG to 40 MPG over the same distance. This is why replacing the most inefficient vehicles on the road provides the largest immediate environmental benefit.</p>

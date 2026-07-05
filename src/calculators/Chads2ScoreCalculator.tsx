@@ -205,15 +205,15 @@ export default function Chads2ScoreCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding Atrial Fibrillation & Stroke</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Atrial Fibrillation & Stroke</h2>
             <p>Atrial fibrillation (often called AFib) is the most common type of treated heart arrhythmia. In a healthy heart, electrical signals fire in a steady rhythm, causing the upper chambers (atria) to contract and pump blood efficiently into the lower chambers. In AFib, chaotic electrical signals cause the atria to quiver rapidly and irregularly.</p>
             <p>Because the atria are quivering rather than squeezing, they fail to empty all of their blood. This stagnant blood tends to pool in a small sac in the left atrium called the atrial appendage. Blood that sits still quickly coagulates into a solid clot. If that clot breaks free, it is pumped out of the heart, up the carotid artery, and directly into the brain, causing a devastating ischemic stroke.</p>
 
-            <h2>The Purpose of the CHADS2 Score</h2>
+            <h2 className="text-2xl font-bold mb-3">The Purpose of the CHADS2 Score</h2>
             <p>Not all patients with AFib have the same risk of forming clots. A healthy 40-year-old with AFib has a very different risk profile than an 80-year-old diabetic with high blood pressure.</p>
             <p>The <strong>CHADS2 score</strong> was developed as a rapid, empirical scoring system to help cardiologists quantify a patient's exact statistical risk of having a stroke over the next 12 months. This allows doctors to make informed decisions about whether to prescribe powerful blood-thinning medications.</p>
 
-            <h2>The Bleeding Risk Dilemma</h2>
+            <h2 className="text-2xl font-bold mb-3">The Bleeding Risk Dilemma</h2>
             <p>The solution to AFib strokes is prescribing anticoagulants (blood thinners) such as Warfarin or modern DOACs (Apixaban, Rivaroxaban). These medications thin the blood so effectively that clots cannot form. However, this creates a dangerous trade-off: if the blood cannot clot, the patient is at a high risk for life-threatening internal bleeding, particularly brain hemorrhages or gastrointestinal bleeds.</p>
             <p>Therefore, doctors must balance two competing risks: <strong>The risk of a clot vs. the risk of a bleed</strong>. If a patient's CHADS2 score is 0, their stroke risk is extremely low (about 1.9% per year). Giving them heavy blood thinners would actually introduce a higher statistical risk of them dying from an internal bleed. Conversely, if a patient's CHADS2 score is 4, their stroke risk is massive (8.5% per year), and the life-saving benefits of blood thinners heavily outweigh the bleeding risks.</p>
           </article>

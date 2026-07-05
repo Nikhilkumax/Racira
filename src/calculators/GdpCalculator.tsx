@@ -208,20 +208,20 @@ export default function GdpCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding GDP: The Expenditure Approach</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding GDP: The Expenditure Approach</h2>
             <p>The Gross Domestic Product (GDP) formula using the expenditure approach is: <strong>GDP = C + I + G + (X − M)</strong>. This is the most commonly used method for calculating GDP. Consumer spending (C) typically represents 65-70% of GDP in developed economies. Business investment (I) covers capital expenditure on equipment, structures, and inventories. Government spending (G) includes federal, state, and local expenditures on goods and services (but not transfer payments like Social Security). Net exports (X−M) is exports minus imports; a trade deficit produces a negative value that reduces GDP.</p>
             <p>The US GDP is approximately $28-29 trillion annually (2024), making it the world's largest economy. China is second at approximately $18 trillion, followed by Germany, Japan, and India. The EU as a bloc exceeds $18 trillion combined. GDP growth of 2-3% annually is considered healthy for a developed economy; emerging markets often target 5-7%.</p>
 
-            <h2>Nominal vs Real GDP</h2>
+            <h2 className="text-2xl font-bold mb-3">Nominal vs Real GDP</h2>
             <p>Nominal GDP measures economic output using current prices. This means it can rise simply due to inflation without any real increase in goods and services produced. Real GDP adjusts for inflation using a price index (the GDP deflator), giving a true measure of economic output growth. When economists discuss economic growth, they always mean real GDP growth — the US, for example, may show nominal GDP growth of 5-6% but real GDP growth of only 2-3% after accounting for 3%+ inflation.</p>
 
-            <h2>GDP Per Capita as a Welfare Measure</h2>
+            <h2 className="text-2xl font-bold mb-3">GDP Per Capita as a Welfare Measure</h2>
             <p>GDP per capita divides total GDP by population and provides a rough proxy for average living standards. The US GDP per capita of approximately $80,000+ ranks among the world's highest. However, GDP per capita says nothing about income distribution — a country could have high average GDP per capita while having extreme inequality where most wealth is concentrated in a small elite. Countries like Norway, Luxembourg, and Singapore consistently top GDP per capita rankings, reflecting high productivity, strong institutions, and skilled workforces.</p>
 
-            <h2>GDP Growth Drivers</h2>
+            <h2 className="text-2xl font-bold mb-3">GDP Growth Drivers</h2>
             <p>GDP growth is driven by four main factors: (1) Labor force growth — more workers produce more output; (2) Capital investment — more equipment and technology raises productivity; (3) Technological progress — innovation allows more output per input; (4) Education and human capital — a more skilled workforce is more productive. Long-run sustainable GDP growth in developed economies averages 2-3% annually. Recessions (two consecutive quarters of negative GDP growth) occur periodically due to demand shocks, supply disruptions, financial crises, or policy errors.</p>
 
-            <h2>GDP Limitations and Alternative Measures</h2>
+            <h2 className="text-2xl font-bold mb-3">GDP Limitations and Alternative Measures</h2>
             <p>GDP was never designed to be a measure of human welfare — it's a measure of economic activity. Environmental economists note that GDP treats environmental destruction as positive (cleanup costs add to GDP). Social economists observe that unpaid work (childcare, eldercare, volunteering) is excluded. Inequality economists note that GDP growth can leave most citizens worse off if gains accrue entirely to the wealthy. Alternative measures like the Human Development Index (HDI), which combines GDP per capita with health and education metrics, and the Genuine Progress Indicator (GPI), which adjusts for inequality and environmental costs, provide complementary perspectives on national wellbeing.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/gdp-calculator" />

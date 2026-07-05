@@ -265,21 +265,21 @@ export default function EnterpriseValueCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is Enterprise Value?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is Enterprise Value?</h2>
             <p>Enterprise Value (EV) is a financial metric that represents the total economic value of a business — the theoretical price an acquirer would pay to own the entire company, including its debt. Unlike market capitalization, which only reflects the equity holders' claim, enterprise value encompasses all stakeholders: equity shareholders, debt holders, preferred stockholders, and minority interest holders.</p>
             <p>The formula is: EV = Market Capitalization + Total Debt + Preferred Equity + Minority Interest − Cash & Cash Equivalents. The inclusion of debt makes EV capital-structure neutral, allowing fair comparisons between companies regardless of how they finance their operations.</p>
 
-            <h2>Why Enterprise Value Matters</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Enterprise Value Matters</h2>
             <p>Enterprise Value is the preferred metric for M&A analysis because it represents the total acquisition cost. When a buyer acquires a company, they inherit all its debt obligations but also receive all its cash. EV captures this economic reality better than market cap alone.</p>
             <p>EV-based multiples — particularly EV/EBITDA — are the gold standard for fundamental stock analysis and corporate valuation. They allow comparison across companies with vastly different capital structures, tax situations, and accounting policies. A company with $5B EV and $500M EBITDA trades at 10x EV/EBITDA, regardless of whether it's funded entirely with equity or 50% with debt.</p>
 
-            <h2>Understanding Each Component</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Each Component</h2>
             <p><strong>Market Capitalization:</strong> Share price × shares outstanding. This is the equity holders' current market value. <strong>Total Debt:</strong> All interest-bearing liabilities including long-term bonds, bank loans, and capital leases. <strong>Cash & Equivalents:</strong> Subtracted because an acquirer receives it immediately. <strong>Preferred Equity:</strong> Claims senior to common equity but junior to debt. <strong>Minority Interest:</strong> The portion of subsidiaries owned by outside shareholders, included because EV claims the entire consolidated entity.</p>
 
-            <h2>EV Multiples and Benchmarks</h2>
+            <h2 className="text-2xl font-bold mb-3">EV Multiples and Benchmarks</h2>
             <p>EV/EBITDA is the most widely used EV multiple. S&P 500 companies typically trade at 12–15x EV/EBITDA. High-growth technology companies may exceed 30x while mature industrials may trade at 7–10x. EV/Revenue is used for early-stage companies without EBITDA profitability, with typical SaaS companies trading at 5–15x revenue. EV/EBIT is preferred when depreciation differences between companies are meaningful.</p>
 
-            <h2>Practical Applications</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Applications</h2>
             <p>Investors use EV to screen for undervalued stocks by identifying companies trading at low EV multiples relative to peers. M&A advisors use EV to set takeover bid prices. Credit analysts use the debt-to-EV ratio to assess financial leverage. Venture capitalists use EV equivalents when pricing startup funding rounds. Understanding EV is foundational for any serious fundamental analysis of public or private companies.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/enterprise-value-calculator" />

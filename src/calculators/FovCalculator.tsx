@@ -121,7 +121,7 @@ const FovCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Why FOV Matters in Gaming</h2>
+              <h2 className="text-2xl font-bold mb-3">Why FOV Matters in Gaming</h2>
               <p>Field of View (FOV) determines how much of the game world you can see at once. While it seems simple, developers use different mathematical bases for their FOV sliders.</p>
               <h3>Source Engine Basis (4:3)</h3>
               <p>Games like Counter-Strike, Dota 2, and Team Fortress 2 use a 4:3 base. If you set your FOV to 90 on a 16:9 monitor, your actual horizontal FOV is **106.26°**. This calculator helps you translate that "feel" to other games or monitor setups.</p>

@@ -209,19 +209,19 @@ export default function GlasgowComaScaleCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Mathematics of Consciousness</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of Consciousness</h2>
             <p>Prior to the 1970s, measuring "consciousness" was entirely subjective. One doctor might chart a patient as "drowsy," while a nurse might chart them as "lethargic," leading to massive confusion regarding whether the patient's brain injury was actively worsening. In 1974, researchers at the University of Glasgow published the <strong>Glasgow Coma Scale (GCS)</strong> to solve this problem.</p>
             <p>The GCS removes the subjectivity. By assigning hard mathematical numbers to three distinct physical responses—Eye Opening (1-4), Verbal Response (1-5), and Motor Response (1-6)—medical professionals can instantly communicate the exact neurological status of a patient worldwide. The score is often communicated shorthand, for example: <em>"GCS 9: E2, V3, M4."</em></p>
 
-            <h2>Why is 'Motor Response' the Most Important?</h2>
+            <h2 className="text-2xl font-bold mb-3">Why is 'Motor Response' the Most Important?</h2>
             <p>While all three categories are vital, the <strong>Motor Response (M)</strong> is the most critical indicator of brainstem function and long-term prognosis. This is because physical movement relies on the central nervous system firing correctly.</p>
             <p>If a patient can "localize pain" (Score 5) by reaching up and swatting away a doctor's hand when pinched, it proves their brain is still processing spatial awareness and commanding targeted physical defense mechanisms. However, if the patient responds to pain with "abnormal extension" (Score 2, known as Decerebrate posturing), it indicates the brain's upper cortex has essentially shut down, and only the primitive brainstem is misfiring. This is a sign of catastrophic brain damage.</p>
 
-            <h2>The 'Magic Number' 8</h2>
+            <h2 className="text-2xl font-bold mb-3">The 'Magic Number' 8</h2>
             <p>In emergency medicine, the phrase <strong>"GCS less than 8, intubate"</strong> is a golden rule. When a person's neurological function degrades to an 8 or below, they are officially considered to be in a coma. At this level of unconsciousness, the brain no longer properly maintains the involuntary reflexes required to keep the airway open (like the gag reflex).</p>
             <p>Without these reflexes, a patient lying on their back can easily choke to death on their own saliva, blood, or vomit. Therefore, paramedics and doctors will immediately administer paralytics and insert an endotracheal tube (intubation) to physically secure the airway and connect the patient to a mechanical ventilator to breathe for them.</p>
 
-            <h2>Limitations of the Scale</h2>
+            <h2 className="text-2xl font-bold mb-3">Limitations of the Scale</h2>
             <p>While the GCS is universally adopted, it has a few notable flaws. It is impossible to assess the 'Verbal' score of a patient who has a breathing tube inserted, or who is deaf. Similarly, an intoxicated person might score a very low GCS simply because they are drunk, not because they have suffered a traumatic brain hemorrhage. Therefore, the GCS is always used in conjunction with a physical exam and CT scans.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/glasgow-coma-scale-calculator" />

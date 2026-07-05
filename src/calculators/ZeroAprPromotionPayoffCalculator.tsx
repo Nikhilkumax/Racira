@@ -404,7 +404,7 @@ export default function ZeroAprPromotionPayoffCalculator() {
 
         {/* SEO CONTENT SECTION */}
         <div className="max-w-[800px] mt-16 prose prose-slate dark:prose-invert">
-          <h2>What Is a 0% APR Promotion Payoff Calculator?</h2>
+          <h2 className="text-2xl font-bold mb-3">What Is a 0% APR Promotion Payoff Calculator?</h2>
           <p>
             A 0% APR Promotion Payoff Calculator is a specialized financial tool designed for credit card users who have transferred a balance or made a large purchase under a promotional 0% interest rate. It helps you determine exactly how much you need to pay each month to eliminate your debt before the promotional period expires, ensuring you never pay a dime in interest.
           </p>
@@ -412,7 +412,7 @@ export default function ZeroAprPromotionPayoffCalculator() {
             Many credit cards offer 12, 15, or even 21 months of 0% APR as an introductory offer. However, if the balance is not paid in full by the end of this period, the remaining amount will be subject to the standard, often high, Annual Percentage Rate (APR). In some cases, known as deferred interest promotions, failing to pay off the balance can result in being charged retroactive interest from the date of purchase.
           </p>
 
-          <h2>How It Works</h2>
+          <h2 className="text-2xl font-bold mb-3">How It Works</h2>
           <p>
             The mathematics behind the 0% APR payoff are relatively straightforward during the promotional period, but become standard amortization calculations once the promotion ends.
           </p>
@@ -427,7 +427,7 @@ export default function ZeroAprPromotionPayoffCalculator() {
             <code>Monthly Interest = Current Balance × (Standard APR / 100 / 12)</code>
           </p>
 
-          <h2>Understanding Your Results</h2>
+          <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
           <p>
             When you use the calculator, it provides several key metrics:
           </p>
@@ -438,7 +438,7 @@ export default function ZeroAprPromotionPayoffCalculator() {
             <li><strong>Required Payment:</strong> The exact monthly amount needed to guarantee zero interest charges.</li>
           </ul>
 
-          <h2>Key Factors to Consider</h2>
+          <h2 className="text-2xl font-bold mb-3">Key Factors to Consider</h2>
           <p>
             Several variables influence your payoff strategy:
           </p>
@@ -448,7 +448,7 @@ export default function ZeroAprPromotionPayoffCalculator() {
             <li><strong>Deferred Interest vs. 0% APR:</strong> With true 0% APR, you only pay interest on the remaining balance after the promo ends. With deferred interest (common in store financing), if you leave even $1 unpaid at the end of the promo, you are charged all the interest that would have accumulated since day one.</li>
           </ul>
 
-          <h2>Practical Examples</h2>
+          <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
           <p>
             <strong>Example 1: The Ideal Scenario</strong><br/>
             You transfer $6,000 to a card with 0% APR for 15 months. 
@@ -462,7 +462,7 @@ export default function ZeroAprPromotionPayoffCalculator() {
             Your remaining balance of $3,750 is now subject to a 24.99% standard APR. It will take you another 35 months to pay off the debt, costing you over $1,500 in interest charges.
           </p>
 
-          <h2>Tips & Best Practices</h2>
+          <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
           <ul>
             <li><strong>Automate Your Payments:</strong> Once you calculate the required payment to beat the promo expiration, set up an automatic transfer for that exact amount.</li>
             <li><strong>Add a Margin of Safety:</strong> Aim to pay off the balance one or two months before the actual expiration date to account for billing cycle delays or bank holidays.</li>
@@ -470,7 +470,7 @@ export default function ZeroAprPromotionPayoffCalculator() {
             <li><strong>Don't Miss Payments:</strong> Missing a single payment or paying late can instantly void your 0% APR promotion and trigger a penalty APR.</li>
           </ul>
 
-          <h2>Benefits of Using This Calculator</h2>
+          <h2 className="text-2xl font-bold mb-3">Benefits of Using This Calculator</h2>
           <p>
             Using a 0% APR payoff calculator empowers you to take control of your debt strategy. It removes the guesswork, showing you the exact financial reality of your current repayment plan. By visualizing the cost of carrying a balance past the promotional period, it provides the motivation and the exact mathematical roadmap needed to execute a successful balance transfer or financing strategy, potentially saving you thousands of dollars in unnecessary interest.
           </p>

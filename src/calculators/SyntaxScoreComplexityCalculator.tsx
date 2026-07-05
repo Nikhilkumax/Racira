@@ -382,15 +382,15 @@ export default function SyntaxScoreComplexityCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the SYNTAX Score Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the SYNTAX Score Calculator</h2>
             <p>Coronary artery disease (CAD) is not uniform. The complexity of blockages within the heart's blood vessels varies immensely from patient to patient. To create a standardized, objective method for evaluating this complexity, cardiovascular researchers developed the <strong>SYNTAX Score</strong>. Our SYNTAX Score Complexity Calculator is an educational tool designed to help medical professionals, students, and patients understand how this vital metric is calculated and how it influences major treatment decisions.</p>
             <p>The score analyzes the coronary anatomy based on a diagnostic angiogram. It weighs the location, severity, and morphological characteristics of every significant lesion (blockage) to generate a single number. This number is then used by the Heart Team to decide whether the patient would benefit more from Percutaneous Coronary Intervention (PCI, commonly known as stenting) or Coronary Artery Bypass Grafting (CABG, commonly known as open-heart bypass surgery).</p>
 
-            <h2>The Origin of the SYNTAX Score</h2>
+            <h2 className="text-2xl font-bold mb-3">The Origin of the SYNTAX Score</h2>
             <p>The SYNTAX Score was derived from the landmark <strong>SYNTAX trial</strong> (Synergy Between Percutaneous Coronary Intervention with TAXUS and Cardiac Surgery). This massive clinical trial aimed to answer a pivotal question: for patients with severe multi-vessel disease or Left Main disease, is it better to place stents or perform bypass surgery?</p>
             <p>The researchers realized they needed a way to mathematically grade the "hostility" of the coronary anatomy. They created an algorithmic tool that assigned points to various anatomical features. The trial's results fundamentally changed cardiology: they proved that for patients with highly complex anatomy (high SYNTAX scores), CABG offered significantly better long-term survival and fewer repeat procedures than PCI.</p>
 
-            <h2>How is the Score Calculated?</h2>
+            <h2 className="text-2xl font-bold mb-3">How is the Score Calculated?</h2>
             <p>Calculating a formal SYNTAX score is a complex process typically performed by an interventional cardiologist reviewing moving x-ray images (fluoroscopy). Our calculator approximates this process using the following core principles:</p>
             <p><strong>1. Coronary Dominance:</strong> The heart has two main arteries (Right and Left). Dominance refers to which artery supplies the posterior aspect of the heart. If a patient is Right Dominant, the right coronary artery (RCA) is given more anatomical weight. If they are Left Dominant, the circumflex artery (LCX) is weighted more heavily.</p>
             <p><strong>2. Segment Weighting:</strong> The coronary tree is divided into 16 distinct segments. Not all blockages are equal. A blockage in the Left Main (LM) coronary artery—the "widowmaker" that supplies 70% of the heart muscle—is assigned a massive baseline multiplier (e.g., x5 or x6). A blockage in a tiny, distal branch receives a much lower multiplier (e.g., x1).</p>
@@ -404,21 +404,21 @@ export default function SyntaxScoreComplexityCalculator() {
               <li><strong>Diffuse Disease:</strong> Disease that stretches continuously over a long segment of the artery (+1 point).</li>
             </ul>
 
-            <h2>Interpreting the Results: The Three Tiers</h2>
+            <h2 className="text-2xl font-bold mb-3">Interpreting the Results: The Three Tiers</h2>
             <p>Once all lesions are analyzed and the points are summed, the patient is placed into one of three risk categories based on the original SYNTAX trial guidelines:</p>
             <p><strong>Low Complexity (Score 0-22):</strong> The anatomy is relatively straightforward. For these patients, clinical data shows that PCI (stenting) provides excellent outcomes that are generally equivalent to CABG. Given that PCI is less invasive, it is usually the preferred method.</p>
             <p><strong>Intermediate Complexity (Score 23-32):</strong> The anatomy is challenging. In this "gray zone," a multidisciplinary Heart Team (cardiologist and surgeon) must review the case. The decision between PCI and CABG will depend heavily on the patient's individual factors, particularly whether they have diabetes (diabetics often do better with CABG) or if they are too frail for open-heart surgery.</p>
             <p><strong>High Complexity (Score 33+):</strong> The anatomy is extremely complex, often involving total occlusions, heavy calcification, and left main disease. For these patients, the data is clear: CABG provides a superior mortality benefit and a much lower rate of needing repeat procedures in the future. PCI is generally avoided unless the patient is completely inoperable.</p>
 
-            <h2>The Role of the Heart Team</h2>
+            <h2 className="text-2xl font-bold mb-3">The Role of the Heart Team</h2>
             <p>It is vital to understand that the SYNTAX Score is just one piece of the puzzle. It measures <em>anatomical</em> complexity, but it completely ignores <em>clinical</em> complexity. A patient might have a very high SYNTAX score of 45 (favoring surgery), but if they are 88 years old with severe lung disease and kidney failure, they may not survive the surgical operation. In that scenario, PCI might still be the only viable option.</p>
             <p>This is why modern cardiology guidelines mandate a "Heart Team" approach. The anatomical data (SYNTAX Score) is combined with clinical data (like the STS Score, which calculates surgical mortality risk) to make a tailored, patient-specific recommendation.</p>
 
-            <h2>Evolution: The SYNTAX Score II</h2>
+            <h2 className="text-2xl font-bold mb-3">Evolution: The SYNTAX Score II</h2>
             <p>Recognizing the limitations of relying purely on anatomy, researchers developed the SYNTAX Score II. This updated algorithmic model combines the original anatomical score with clinical variables such as Age, Creatinine Clearance (kidney function), Left Ventricular Ejection Fraction (heart pumping strength), presence of unprotected Left Main disease, peripheral vascular disease, female sex, and COPD.</p>
             <p>The SYNTAX Score II provides personalized 4-year mortality predictions for both CABG and PCI, offering a much more nuanced view than the rigid 33-point cutoff of the original score.</p>
 
-            <h2>Educational Value and Limitations</h2>
+            <h2 className="text-2xl font-bold mb-3">Educational Value and Limitations</h2>
             <p>Our online SYNTAX Score Complexity Calculator is an excellent tool for medical students and residents learning about coronary anatomy, or for patients trying to understand why their cardiologist recommended surgery over stenting.</p>
             <p>However, it is strictly an estimation tool. The exact interpretation of whether an artery is "severely tortuous" or "heavily calcified" requires clinical judgment and advanced imaging. Do not use this calculator to make diagnostic or treatment decisions. Always consult with a board-certified cardiovascular specialist regarding the management of coronary artery disease.</p>
           </article>

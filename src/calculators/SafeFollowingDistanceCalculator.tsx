@@ -280,18 +280,18 @@ export default function SafeFollowingDistanceCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Flaw of "Car Lengths"</h2>
+            <h2 className="text-2xl font-bold mb-3">The Flaw of "Car Lengths"</h2>
             <p>For decades, driving instructors taught students to leave "one car length of space for every 10 MPH of speed." While this sounds like decent advice, it is incredibly dangerous in practice for two reasons. First, human beings are terrible at judging absolute distances while moving. Estimating "six car lengths" on an empty highway is nearly impossible. Second, modern safety engineering has proven that the one-car-length rule simply does not provide enough physical space to stop at high speeds.</p>
 
-            <h2>Why the Time-Based Rule is Superior</h2>
+            <h2 className="text-2xl font-bold mb-3">Why the Time-Based Rule is Superior</h2>
             <p>Instead of trying to estimate distance, traffic safety organizations universally recommend a time-based system: <strong>The 3-Second Rule</strong>. </p>
             <p>The brilliance of a time-based rule is that it automatically scales with your velocity. If you are driving 30 MPH, a 3-second gap equals roughly 130 feet of space. If you speed up to 60 MPH, the 3-second gap automatically doubles to 264 feet. You never have to do complex math in your head or try to visualize car lengths; you simply maintain a 3-second buffer at all times.</p>
 
-            <h2>The Mathematics of a Rear-End Collision</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of a Rear-End Collision</h2>
             <p>To understand why 3 seconds is the magic number, we must look at the two phases of stopping: <strong>Reaction Time</strong> and <strong>Braking Time</strong>. </p>
             <p>When the car in front of you slams on its brakes, it takes the average, alert driver roughly 1.5 seconds just to process the danger and move their foot to the brake pedal. During this 1.5-second window, your car is hurtling forward completely unbraked. By leaving a 3-second gap, you dedicate half of that buffer (1.5s) to your reaction time, ensuring that by the time you press the brakes, you still have an adequate physical cushion to match the deceleration of the car in front of you.</p>
 
-            <h2>When to Increase the Gap</h2>
+            <h2 className="text-2xl font-bold mb-3">When to Increase the Gap</h2>
             <p>The 3-second rule assumes perfect conditions: dry pavement, good brakes, and an alert driver. You must increase this gap when conditions deteriorate:</p>
             <ul>
               <li><strong>4 Seconds:</strong> Use during rain, driving at night, or when you are fatigued. Water drastically reduces tire friction, increasing the physical braking distance required.</li>

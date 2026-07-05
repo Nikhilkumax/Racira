@@ -112,14 +112,14 @@ const LeaveEncashmentCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>What Is Leave Encashment?</h2>
+              <h2 className="text-2xl font-bold mb-3">What Is Leave Encashment?</h2>
               <p>Leave encashment is the process of converting unused (accumulated) leave into cash. This is typically done at the time of retirement, resignation, or superannuation. Some organizations also allow leave encashment during service, but the tax treatment differs.</p>
 
-              <h2>How Is Leave Encashment Calculated?</h2>
+              <h2 className="text-2xl font-bold mb-3">How Is Leave Encashment Calculated?</h2>
               <p>The formula is: <strong>Leave Encashment = (Basic Pay + DA) ÷ 30 × Number of accumulated leaves</strong></p>
               <p>For example, if your Basic + DA is ₹75,000/month and you have 300 accumulated leaves: ₹75,000 ÷ 30 × 300 = ₹7,50,000.</p>
 
-              <h2>Tax Exemption Rules (Section 10(10AA))</h2>
+              <h2 className="text-2xl font-bold mb-3">Tax Exemption Rules (Section 10(10AA))</h2>
               <ul>
                 <li><strong>Government employees:</strong> Leave encashment at retirement is fully tax-exempt with no upper limit.</li>
                 <li><strong>Private employees:</strong> Exempt amount is the LEAST of:
@@ -132,10 +132,10 @@ const LeaveEncashmentCalculator = () => {
                 </li>
               </ul>
 
-              <h2>Leave Encashment During Service vs Retirement</h2>
+              <h2 className="text-2xl font-bold mb-3">Leave Encashment During Service vs Retirement</h2>
               <p>Leave encashment received <strong>during service</strong> is fully taxable as salary income. The tax exemption under Section 10(10AA) applies only at the time of <strong>retirement or resignation</strong>. If you receive encashment from multiple employers, the cumulative exemption limit of ₹25,00,000 applies.</p>
 
-              <h2>Important Considerations</h2>
+              <h2 className="text-2xl font-bold mb-3">Important Considerations</h2>
               <ul>
                 <li>Only <strong>earned leave</strong> (EL/PL) is eligible for encashment, not casual leave or sick leave.</li>
                 <li>The maximum encashable leaves for tax purposes are 30 days × completed years of service.</li>

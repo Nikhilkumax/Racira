@@ -155,10 +155,10 @@ const TimeDurationCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>About Time Duration Calculator</h2>
+              <h2 className="text-2xl font-bold mb-3">About Time Duration Calculator</h2>
               <p>This tool calculates the precise duration between any two dates and times. It accounts for varying month lengths, leap years, and provides results in multiple units.</p>
 
-              <h2>Common Uses</h2>
+              <h2 className="text-2xl font-bold mb-3">Common Uses</h2>
               <ul>
                 <li><strong>Work hours:</strong> Calculate time spent on projects or shifts</li>
                 <li><strong>Event planning:</strong> Find exact time until or since an event</li>

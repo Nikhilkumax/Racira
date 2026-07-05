@@ -147,7 +147,7 @@ const DataStorageConverter = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Base-2 vs. Base-10</h2>
+              <h2 className="text-2xl font-bold mb-3">Base-2 vs. Base-10</h2>
               <p>In the tech industry, there is an ongoing discrepancy regarding how storage is measured. The International System of Units (SI) defines the prefix 'Kilo' as exactly 1,000. Under this system, 1 Kilobyte is 1,000 Bytes.</p>
               <p>However, computer architecture is inherently binary (base-2). Therefore, memory sizes naturally scale by powers of 2. Under the traditional binary system, 1 Kilobyte is 1,024 Bytes (2^10). To resolve this confusion, new prefixes like 'Kibibyte (KiB)' were introduced for base-2, but the industry generally still uses the old KB/MB nomenclature for both.</p>
             </article>

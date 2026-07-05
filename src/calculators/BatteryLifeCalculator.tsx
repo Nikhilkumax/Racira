@@ -283,18 +283,18 @@ export default function BatteryLifeCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding Battery Capacity (Amp-Hours)</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Battery Capacity (Amp-Hours)</h2>
             <p>Whether you are building a solar system for an RV, powering a portable fridge for overlanding, or setting up a trolling motor for a boat, your primary limitation is battery capacity. Deep cycle batteries are measured in <strong>Amp-Hours (Ah)</strong>. This metric tells you exactly how much electrical current the battery can hold. If a device draws 5 Amps of current, and you run it for 2 hours, you have consumed 10 Amp-Hours of battery capacity.</p>
 
-            <h2>The Lead-Acid 50% Rule</h2>
+            <h2 className="text-2xl font-bold mb-3">The Lead-Acid 50% Rule</h2>
             <p>The biggest mistake beginners make is assuming they can use all of the electricity inside their battery. If you own a traditional Lead-Acid battery (which includes Flooded, AGM, and Gel types), you can only use 50% of the battery's rated capacity.</p>
             <p>Why? Because of the internal chemistry. If you discharge a Lead-Acid battery below 50%, the chemical reaction inside the battery physically degrades the lead plates. The battery will permanently lose capacity and fail completely within a few months. Therefore, a massive, heavy 100Ah Lead-Acid battery only truly gives you 50Ah of usable power.</p>
 
-            <h2>Why Lithium (LiFePO4) is the New Standard</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Lithium (LiFePO4) is the New Standard</h2>
             <p>In recent years, Lithium Iron Phosphate (LiFePO4) batteries have become the gold standard for off-grid power. Lithium chemistry is vastly superior to Lead-Acid because it does not suffer from deep-discharge damage. You can safely discharge a Lithium battery down to 10% (or even 0%) hundreds of times without hurting the battery.</p>
             <p>This means a 100Ah Lithium battery provides 90Ah of usable power—nearly double the usable power of a Lead-Acid battery of the exact same size. Furthermore, Lithium batteries weigh roughly half as much, making them significantly better for RVs and boats where weight is a major concern.</p>
 
-            <h2>How to Calculate Total Device Draw</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Calculate Total Device Draw</h2>
             <p>If you have multiple devices running at the same time, simply add their Amperages together. For example, if your portable fridge draws 4 Amps, your LED lights draw 1 Amp, and your phone charger draws 2 Amps, your Total Device Draw is 7 Amps. You plug that number into the calculator to see exactly how many hours your system will survive before shutting down.</p>
           </article>
           

@@ -192,11 +192,11 @@ export default function GlycemicLoadCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding Glycemic Load</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Glycemic Load</h2>
             <p>Glycemic Load (GL) is a nutritional measure that combines the Glycemic Index (GI) of a food with the actual amount of carbohydrates consumed. While GI ranks how rapidly a carbohydrate food raises blood glucose compared to pure glucose, it doesn't account for portion size. GL corrects this limitation by incorporating both the quality and quantity of carbohydrates in a meal or food item.</p>
             <p>The formula is simple: GL = (GI × grams of net carbohydrates) ÷ 100. A GL of 10 or below is low, 11–19 is medium, and 20 or above is high. When looking at an entire day's eating, most nutrition experts recommend keeping total daily GL below 80 for optimal blood sugar management.</p>
 
-            <h2>Practical Application</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Application</h2>
             <p>Glycemic Load is most useful for people managing diabetes, insulin resistance, or metabolic syndrome, as well as anyone focused on sustained energy, weight management, or athletic performance. High-GL diets are associated with increased risk of type 2 diabetes, cardiovascular disease, and obesity. Low-GL eating patterns have been shown to improve insulin sensitivity, reduce inflammation, and support healthy weight maintenance.</p>
             <p>A key insight from GL research is that many high-GI foods can fit into a healthy diet if consumed in moderate portions. Conversely, eating large quantities of even moderate-GI foods can produce a substantial glycemic response. This is why GL is considered a superior practical tool compared to GI alone for everyday food decision-making.</p>
           </article>

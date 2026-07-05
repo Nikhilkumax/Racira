@@ -359,14 +359,14 @@ export default function OlympicLiftPercentageCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Olympic Lift Percentage Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Olympic Lift Percentage Calculator</h2>
             <p>If you observe a beginner attempting the Olympic lifts (the Snatch and the Clean & Jerk), you will immediately notice a chaotic disconnect between their strength and their technique. A massive powerlifter might be able to deadlift 600 pounds, but completely fail to Snatch 135 pounds due to a lack of speed and mobility. Conversely, a highly technical teenager might Snatch 185 pounds, but constantly fail standing up from the squat because they lack raw leg strength. The <strong>Olympic Lift Ratio Calculator</strong> uses decades of elite Russian and Soviet weightlifting data to diagnose exactly where your training is failing. By establishing an ideal mathematical ratio between your lifts, you can immediately identify whether you need to spend the next 12 weeks building raw strength or drilling technique.</p>
 
-            <h2>The Biomechanics of the Soviet Ratios</h2>
+            <h2 className="text-2xl font-bold mb-3">The Biomechanics of the Soviet Ratios</h2>
             <p>During the height of the Cold War, the Soviet sports machine collected millions of data points on their elite weightlifters. They discovered that perfect human biomechanics resulted in extremely consistent mathematical ratios between the major barbell lifts. These are not arbitrary numbers; they are biological laws dictated by leverage, gravity, and muscle mass distribution.</p>
             <p>The entire system is anchored to one absolute baseline: <strong>The Back Squat (100%)</strong>. The Back Squat is the ultimate measure of absolute lower-body and core strength. It requires very little technique compared to a Snatch. If your legs cannot press a certain amount of weight out of the bottom of a Back Squat, it is physically impossible for them to catch and stand up with that weight during an explosive Olympic lift.</p>
 
-            <h2>The Hierarchy of Lifts</h2>
+            <h2 className="text-2xl font-bold mb-3">The Hierarchy of Lifts</h2>
             <p>Once the Back Squat is established as the 100% baseline, all other lifts fall into a strict descending mathematical hierarchy:</p>
 
             <h3>1. The Front Squat (85% of Back Squat)</h3>
@@ -378,10 +378,10 @@ export default function OlympicLiftPercentageCalculator() {
             <h3>3. The Snatch (64% of Back Squat)</h3>
             <p>The Snatch is the most technically demanding, explosive movement in all of sports. You are taking a barbell from the floor to locked out overhead in a single continuous motion, catching it in a deep overhead squat. Because the grip is extremely wide and the bar path is so long, the sheer physics of the movement severely limit the amount of weight that can be moved. An elite lifter will Snatch exactly 80% of what they can Clean & Jerk, which correlates to roughly 64% of their absolute Back Squat strength.</p>
 
-            <h2>Power Variants vs. Full Lifts</h2>
+            <h2 className="text-2xl font-bold mb-3">Power Variants vs. Full Lifts</h2>
             <p>The calculator also includes the "Power" variations of the lifts (Power Clean at 68% and Power Snatch at 54%). In a "Power" lift, the lifter is not allowed to drop into a full, deep squat to catch the barbell. They must catch the bar with their hips above their knees (a partial squat). Because they are not dropping under the bar, they must pull the bar significantly higher into the air. Pulling a barbell higher requires exponentially more explosive force. Therefore, a Power Clean will always be roughly 15% lighter than a full Clean, simply because human beings cannot pull maximum weights to their collarbones.</p>
 
-            <h2>How to Use the Calculator for Diagnostics</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Use the Calculator for Diagnostics</h2>
             <p>The true power of this calculator lies in its diagnostic ability. It tells you exactly what to program for your next training block by exposing your imbalances.</p>
 
             <h3>Scenario A: The Strong, Slow Lifter</h3>
@@ -390,7 +390,7 @@ export default function OlympicLiftPercentageCalculator() {
             <h3>Scenario B: The Weak, Technical Lifter</h3>
             <p>You input your Snatch: <strong>200 lbs</strong>. The calculator reverse-engineers the math and states you must have a Back Squat of <strong>312 lbs</strong> to support this lift. However, your actual Back Squat is exactly <strong>315 lbs</strong>. You are perfectly balanced! Your technique is flawless, and you are extracting 100% efficiency out of your current leg strength. To increase your Snatch to 210 lbs, no amount of technique work will help. You have hit a strength wall. You must stop snatching and spend the next two months doing heavy Back Squats and drinking whole milk until your legs get stronger.</p>
 
-            <h2>Conclusion: Train the Weakness</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Train the Weakness</h2>
             <p>Olympic Weightlifting is a delicate balance of absolute strength, explosive power, extreme mobility, and surgical precision. If any one of these pillars falls out of alignment, the entire system crashes. Use the Olympic Lift Percentage Calculator to periodically audit your training. Let the cold, hard mathematics of the Soviet ratios dictate your programming, ensuring you are always training your weakest link rather than simply feeding your ego.</p>
           </article>
           

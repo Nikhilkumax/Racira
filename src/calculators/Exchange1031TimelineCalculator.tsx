@@ -276,7 +276,7 @@ export default function Exchange1031TimelineCalculator() {
 
         {/* SEO CONTENT SECTION */}
         <div className="max-w-[800px] mt-16 prose prose-slate dark:prose-invert">
-          <h2>What is a 1031 Exchange?</h2>
+          <h2 className="text-2xl font-bold mb-3">What is a 1031 Exchange?</h2>
           <p>
             A 1031 exchange, named after Section 1031 of the U.S. Internal Revenue Code, is a powerful wealth-building strategy that allows real estate investors to defer paying capital gains taxes on the sale of an investment property. By taking the proceeds from the sale and reinvesting them into a new "like-kind" property, the investor defers the tax liability, allowing their wealth to grow tax-free over time.
           </p>
@@ -284,7 +284,7 @@ export default function Exchange1031TimelineCalculator() {
             However, the IRS strictly regulates this process, particularly when it comes to the timeline. Missing these deadlines by even one minute can disqualify the entire exchange, resulting in a massive, immediate tax bill.
           </p>
 
-          <h2>The 45-Day Identification Period</h2>
+          <h2 className="text-2xl font-bold mb-3">The 45-Day Identification Period</h2>
           <p>
             The clock starts ticking on <strong>Day 0</strong>—the exact date you close on the sale of your relinquished property (the property you are selling).
           </p>
@@ -298,7 +298,7 @@ export default function Exchange1031TimelineCalculator() {
             <li><strong>The 95% Exception:</strong> If you identify more than three properties AND their total value exceeds 200%, the exchange is still valid if you actually acquire 95% of the total value of all identified properties.</li>
           </ul>
 
-          <h2>The 180-Day Exchange Period</h2>
+          <h2 className="text-2xl font-bold mb-3">The 180-Day Exchange Period</h2>
           <p>
             The second deadline is the 180-Day Exchange Period. You must close on the purchase of one or more of your formally identified replacement properties by midnight on the <strong>180th day</strong> after the sale of the relinquished property.
           </p>
@@ -306,7 +306,7 @@ export default function Exchange1031TimelineCalculator() {
             <em>Important Note:</em> The 180-day deadline is technically 180 days <strong>OR</strong> the due date of your income tax return (including extensions) for the tax year in which the relinquished property was sold, <strong>whichever comes first</strong>. If your closing happens late in the year (e.g., November), your tax return due date in April might arrive before day 180. In this case, you must file for a tax extension to get the full 180 days.
           </p>
 
-          <h2>Why Are Weekends and Holidays Not Exempt?</h2>
+          <h2 className="text-2xl font-bold mb-3">Why Are Weekends and Holidays Not Exempt?</h2>
           <p>
             One of the most common, and costly, mistakes investors make is assuming that if day 45 or day 180 falls on a Saturday, Sunday, or federal holiday, the deadline rolls over to the next business day. <strong>It does not.</strong>
           </p>
@@ -314,12 +314,12 @@ export default function Exchange1031TimelineCalculator() {
             The IRS rules for 1031 exchanges are absolute calendar days. If your 45th day falls on Thanksgiving or Christmas Day, your identification must still be delivered by midnight on that exact day. It is highly recommended to finalize your identification and purchases well in advance of the deadline to account for bank holidays, title company delays, or postal issues.
           </p>
 
-          <h2>The Role of a Qualified Intermediary (QI)</h2>
+          <h2 className="text-2xl font-bold mb-3">The Role of a Qualified Intermediary (QI)</h2>
           <p>
             To execute a valid 1031 exchange, you cannot ever touch the money from the sale. You must use an independent third party known as a Qualified Intermediary or Exchange Accommodator. The QI holds the funds in escrow from the sale of the relinquished property and wires them directly to the title company for the purchase of the replacement property.
           </p>
 
-          <h2>Benefits of Using This Calculator</h2>
+          <h2 className="text-2xl font-bold mb-3">Benefits of Using This Calculator</h2>
           <p>
             Calculating 45 and 180 days manually on a calendar is prone to human error, especially when crossing into different months. This 1031 Exchange Timeline Calculator removes the risk of miscounting days. By inputting your exact closing date, it provides the precise deadlines required by the IRS, allowing you to confidently plan your real estate transactions and ensure your tax-deferred status remains protected.
           </p>

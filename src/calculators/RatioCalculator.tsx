@@ -130,7 +130,7 @@ const RatioCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>How to Use the Ratio Calculator</h2>
+              <h2 className="text-2xl font-bold mb-3">How to Use the Ratio Calculator</h2>
               <p>A ratio compares two quantities. Use "Simplify" to reduce a ratio to its lowest terms, "Equivalent" to scale a ratio, or "Proportion" to find a missing value using cross-multiplication.</p>
             </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/ratio-calculator" />

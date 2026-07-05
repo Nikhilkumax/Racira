@@ -100,17 +100,17 @@ const GratuityCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>What Is a Gratuity Calculator?</h2>
+              <h2 className="text-2xl font-bold mb-3">What Is a Gratuity Calculator?</h2>
               <p>A gratuity calculator helps employees estimate the gratuity amount they are entitled to receive upon retirement, resignation, or completion of service. Gratuity is a lump sum payment made by employers as a gesture of gratitude for the employee's service.</p>
 
-              <h2>Gratuity Calculation Formula</h2>
+              <h2 className="text-2xl font-bold mb-3">Gratuity Calculation Formula</h2>
               <p><strong>For employees covered under the Gratuity Act:</strong></p>
               <p>Gratuity = (15 × Last Drawn Salary × Years of Service) / 26</p>
               <p><strong>For employees not covered:</strong></p>
               <p>Gratuity = (15 × Last Drawn Salary × Years of Service) / 30</p>
               <p>Here, "Last Drawn Salary" means Basic Salary + Dearness Allowance. The divisor 26 represents working days in a month.</p>
 
-              <h2>Gratuity Tax Rules</h2>
+              <h2 className="text-2xl font-bold mb-3">Gratuity Tax Rules</h2>
               <ul>
                 <li><strong>Government employees:</strong> Gratuity is fully exempt from tax.</li>
                 <li><strong>Private sector (Gratuity Act):</strong> Exempt up to ₹20,00,000.</li>

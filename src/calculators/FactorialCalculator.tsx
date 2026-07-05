@@ -128,11 +128,11 @@ const FactorialCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Factorial Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Factorial Calculator?</h2>
             <p>A factorial calculator computes n! — the product of every positive integer from 1 up to n. Factorials are foundational to combinatorics, probability theory, algebra, and calculus. They grow extraordinarily fast: 10! = 3,628,800 while 20! = 2,432,902,008,176,640,000. This calculator shows the result instantly alongside a complete table of all factorials from 0! through n! and a bar chart that visualizes the explosive growth pattern.</p>
             <p>Students use factorial calculators when working through permutations and combinations, educators use them to illustrate mathematical growth rates, and programmers use factorials in algorithms including sorting, hashing, and recursive function design.</p>
 
-            <h2>How Factorials Are Calculated</h2>
+            <h2 className="text-2xl font-bold mb-3">How Factorials Are Calculated</h2>
             <p>The definition is recursive: n! = n × (n−1)! with the base case 0! = 1. Expanded, this means:</p>
             <ul>
               <li>0! = 1</li>
@@ -144,24 +144,24 @@ const FactorialCalculator = () => {
             </ul>
             <p>The iterative formula multiplies integers sequentially: n! = 1 × 2 × 3 × … × n. Both approaches yield identical results. The growth rate is super-exponential — faster than any exponential function — which is why even 20! requires 19 digits.</p>
 
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>The primary result card shows n! formatted with comma separators for readability. The product expansion below shows each multiplication step. The factorial table lists every value from 0! to n!, letting you see the sequence at a glance. The bar chart reveals the dramatic growth — notice how the bars for small n are nearly invisible compared to the final bar, illustrating just how rapidly factorials increase.</p>
 
-            <h2>Key Properties of Factorials</h2>
+            <h2 className="text-2xl font-bold mb-3">Key Properties of Factorials</h2>
             <p><strong>Zero factorial:</strong> 0! = 1 by definition. This is not arbitrary — it ensures the combinatorics formula C(n, 0) = 1 works correctly and aligns with the gamma function. <strong>Recursive identity:</strong> n! = n × (n−1)! This recursive structure is used in dynamic programming algorithms. <strong>Prime factorization:</strong> Every factorial n! contains all primes up to n as factors. For example, 10! is divisible by 2, 3, 5, and 7. <strong>Trailing zeros:</strong> The number of trailing zeros in n! equals the number of times 5 divides n!, computed as ⌊n/5⌋ + ⌊n/25⌋ + ⌊n/125⌋ + …</p>
 
-            <h2>Applications of Factorials</h2>
+            <h2 className="text-2xl font-bold mb-3">Applications of Factorials</h2>
             <p><strong>Permutations:</strong> The number of ways to arrange n distinct objects in a sequence is n!. For example, 4 books can be arranged on a shelf in 4! = 24 ways. When selecting r items from n in order, the formula is nPr = n! / (n−r)!.</p>
             <p><strong>Combinations:</strong> The number of ways to choose r items from n without regard to order is nCr = n! / (r! × (n−r)!). This appears in binomial expansions and probability distributions.</p>
             <p><strong>Taylor series:</strong> Many functions are expressed as infinite series involving factorials in denominators. For example, e^x = 1 + x/1! + x²/2! + x³/3! + … The factorial denominators ensure convergence.</p>
             <p><strong>Probability distributions:</strong> The Poisson, binomial, and gamma distributions all involve factorials or the gamma function in their probability mass and density functions.</p>
 
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <p><strong>Scheduling:</strong> A manager needs to schedule 5 meetings in a day. The number of possible orderings is 5! = 120 schedules. With 8 meetings, there are 8! = 40,320 possible schedules.</p>
             <p><strong>Password combinations:</strong> A 4-digit PIN using each digit once has 10P4 = 10!/6! = 5,040 possible values. A 6-character password using all letters A–F exactly once has 6! = 720 arrangements.</p>
             <p><strong>Card games:</strong> A standard 52-card deck can be arranged in 52! ways — a number with 68 digits, larger than the estimated number of atoms in the observable universe.</p>
 
-            <h2>Tips for Using This Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips for Using This Calculator</h2>
             <p>Enter any integer from 0 to 20. Values above 20 exceed JavaScript's safe integer range (2⁵³ − 1). For larger factorials, use Stirling's approximation: n! ≈ √(2πn) × (n/e)^n, which is accurate to within 1% for n ≥ 10. Combine this calculator with the <a href="/calculator/combinations-calculator">combinations calculator</a> and the <a href="/calculator/permutations-calculator">permutations calculator</a> for complete combinatorics work.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/factorial-calculator" />

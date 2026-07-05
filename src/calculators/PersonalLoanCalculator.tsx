@@ -147,13 +147,13 @@ export default function PersonalLoanCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Personal Loan Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Personal Loan Calculator?</h2>
             <p>A <strong>personal loan calculator</strong> estimates your monthly payment, total interest, and effective APR for an unsecured personal loan. Whether you&apos;re consolidating credit card debt, financing a major purchase, or covering an emergency expense, understanding your true borrowing cost is critical. This calculator also factors in origination fees, which can significantly raise the effective APR above the stated interest rate.</p>
-            <h2>How Personal Loan Payments Are Calculated</h2>
+            <h2 className="text-2xl font-bold mb-3">How Personal Loan Payments Are Calculated</h2>
             <p>Monthly Payment = P × [r(1+r)^n] ÷ [(1+r)^n − 1]. Where P = loan principal, r = monthly rate (APR ÷ 12), n = term in months. Effective APR with fees: solve for the rate r where payment × n = net proceeds (loan minus origination fee). The effective APR is always higher than the stated rate when fees exist.</p>
-            <h2>Types of Personal Loans</h2>
+            <h2 className="text-2xl font-bold mb-3">Types of Personal Loans</h2>
             <p>Unsecured personal loans (most common): no collateral required, rate based on creditworthiness. Secured personal loans: backed by a savings account or CD, typically 2–4% lower rates. Debt consolidation loans: specifically for paying off multiple debts, often with autopay discounts. Credit union personal loans: typically 2–5% lower rates than banks for members.</p>
-            <h2>How to Get the Best Personal Loan Rate</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Get the Best Personal Loan Rate</h2>
             <p>Improve your credit score before applying — even small improvements matter. Get pre-qualified from multiple lenders (soft pull, no credit impact). Compare total cost, not just monthly payment. Enroll in autopay for 0.25–0.5% rate discount. Choose shortest term you can comfortably afford — less interest overall.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/personal-loan-calculator" />

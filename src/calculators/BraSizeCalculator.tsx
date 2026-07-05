@@ -211,7 +211,7 @@ const BraSizeCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Mathematics of Sizing</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of Sizing</h2>
             <p>It is estimated that over 70% of women are wearing the wrong size. This massive statistical error is not due to bad measurements, but rather terrible mathematics forced upon the market by major clothing retailers.</p>
             <p>The modern, mathematically accurate system (often referred to online as the <em>A Bra That Fits</em> method) relies on a simple +0 formula:</p>
             <ol>
@@ -219,7 +219,7 @@ const BraSizeCalculator = () => {
               <li><strong>Cup Size:</strong> The mathematical difference between your Bust and your Band. Every 1-inch difference is a cup letter (1" = A, 2" = B, 3" = C, 4" = D, 5" = DD).</li>
             </ol>
 
-            <h2>The "+4" Retail Scam</h2>
+            <h2 className="text-2xl font-bold mb-3">The "+4" Retail Scam</h2>
             <p>If the math is so simple, why is everyone wearing the wrong size? The answer is the outdated <strong>+4 Method</strong>. In the 1930s, fabrics did not have elastic or spandex. If your ribs measured 32 inches, and you put on a 32-inch band made of stiff, unyielding fabric, you wouldn't be able to breathe. To solve this, manufacturers told women to mathematically add 4 inches to their underbust measurement to create breathing room.</p>
             <p>Today, fabrics are incredibly stretchy. A modern 32-inch band can easily stretch to 34 or 35 inches. However, massive retail chains continue to use the +4 method in their fitting rooms. Why? Because it is cheaper for their supply chain. It is incredibly expensive to manufacture a massive matrix of sizes (from 28A to 40K). It is much cheaper to only manufacture sizes 32 to 38 in cups A to DD.</p>
             <p>If a woman walks into a store with a 28-inch underbust and a 34-inch bust, the +0 math says she is a <strong>28E</strong>. The store doesn't sell that size. So, the clerk uses the +4 method (28 + 4 = 32 band). Now the difference between the 34 bust and the 32 band is only 2 inches. The clerk sells her a <strong>32B</strong>. The store makes a sale, but the customer goes home with a band that is 4 inches too big and provides absolutely no support.</p>

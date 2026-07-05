@@ -261,18 +261,18 @@ export default function TrailerTongueWeightCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Physics of a Trailer</h2>
+            <h2 className="text-2xl font-bold mb-3">The Physics of a Trailer</h2>
             <p>Towing a trailer is an incredibly complex balancing act of physics. A trailer is essentially a giant seesaw balancing on its central axles. When you hook the front of the trailer (the tongue) onto the back of your truck (the hitch), the trailer pushes down on the truck. This downward force is called <strong>Tongue Weight</strong>, and it is the single most important factor determining whether you will arrive at your destination safely.</p>
 
-            <h2>The Danger of Low Tongue Weight (Trailer Sway)</h2>
+            <h2 className="text-2xl font-bold mb-3">The Danger of Low Tongue Weight (Trailer Sway)</h2>
             <p>If you load all of your heavy cargo in the back of the trailer, behind the axles, the trailer becomes tail-heavy. This lifts the tongue upward, pulling the rear end of your truck off the ground. </p>
             <p>When you reach highway speeds, a sudden gust of wind or a passing semi-truck will push the trailer slightly to the side. Because there is not enough weight pinning the tongue to the hitch, the trailer will begin to violently fishtail left and right. This is known as "Trailer Sway," and it is the number one cause of horrific towing accidents. Once sway begins, it acts like a pendulum, magnifying in violence until the trailer inevitably flips both itself and the truck.</p>
 
-            <h2>The Danger of High Tongue Weight (Suspension Crush)</h2>
+            <h2 className="text-2xl font-bold mb-3">The Danger of High Tongue Weight (Suspension Crush)</h2>
             <p>If you load all of your heavy cargo in the front of the trailer, the tongue becomes incredibly heavy. This massive downward force crushes the rear suspension of the truck. While this prevents trailer sway, it creates a new, equally terrifying problem.</p>
             <p>When the rear of the truck is pushed down, the front of the truck acts like a lever and lifts into the air. The front tires are responsible for 100% of your steering and roughly 70% of your braking power. With the front tires barely touching the asphalt, the truck will not turn when you turn the steering wheel, and it will not stop when you press the brakes.</p>
 
-            <h2>Finding the Sweet Spot</h2>
+            <h2 className="text-2xl font-bold mb-3">Finding the Sweet Spot</h2>
             <p>To tow safely, the tongue weight must be perfectly balanced.</p>
             <ul>
               <li><strong>Conventional (Bumper) Hitches:</strong> The tongue must hold between 10% and 15% of the total trailer weight. A 7,000 lb trailer MUST drop 700 to 1,050 lbs onto the hitch.</li>

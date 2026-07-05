@@ -237,22 +237,22 @@ export default function MetsCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Science of METs (Metabolic Equivalents)</h2>
+            <h2 className="text-2xl font-bold mb-3">The Science of METs (Metabolic Equivalents)</h2>
             <p>If you are attempting to lose body fat or track your daily energy expenditure, calculating exactly how many calories you burn during a workout is critical. However, most commercial fitness trackers provide highly inaccurate data. To get clinical-grade accuracy, nutritionists and sports scientists rely on the <strong>Metabolic Equivalent of Task (MET)</strong>.</p>
             <p>A MET is a standardized physiological measure expressing the energy cost (or caloric burn rate) of physical activities. <strong>One MET is defined as the exact amount of energy your body burns while sitting completely still on the couch.</strong> This baseline is your resting metabolic rate.</p>
             <p>The system is incredibly intuitive. If you perform an activity with a MET value of 5.0 (like brisk walking), it means your body is working exactly 5 times harder, and burning 5 times as many calories per minute, than it would if you were just sitting down. If you run at a speed of 10 mph (14.5 METs), you are forcing your body to work 14.5 times harder than its resting baseline.</p>
 
-            <h2>Why METs Are More Accurate Than Smartwatches</h2>
+            <h2 className="text-2xl font-bold mb-3">Why METs Are More Accurate Than Smartwatches</h2>
             <p>Millions of people rely on their Apple Watches, Fitbits, or Garmin devices to tell them how many calories they burned during a workout. Unfortunately, these devices are notoriously inaccurate, often overestimating caloric burn by 20% to 40%.</p>
             <p>Why? Because fitness trackers rely almost entirely on an optical <strong>Heart Rate Sensor</strong> to estimate calories. While heart rate is a decent proxy for cardiovascular exercise like running or cycling, it completely falls apart in other scenarios.</p>
             <p>For example, if you are lifting heavy weights, your heart rate will spike dramatically due to central nervous system stress and blood pressure changes, but your body is not actually consuming massive amounts of oxygen. Your smartwatch will see the 160 BPM heart rate and incorrectly tell you that you burned 600 calories in an hour of weightlifting, when the clinical reality is closer to 250 calories.</p>
             <p>METs solve this problem because they are not based on heart rate. METs are based on clinical laboratory measurements of actual <strong>oxygen consumption (VO2)</strong>. Biologically, the only way your body can burn a calorie is by combining fuel (food) with oxygen. By measuring exactly how much oxygen an activity requires, METs provide the gold standard for caloric burn accuracy.</p>
 
-            <h2>The Compendium of Physical Activities</h2>
+            <h2 className="text-2xl font-bold mb-3">The Compendium of Physical Activities</h2>
             <p>You cannot calculate a MET value yourself. It must be tested in a laboratory using respiratory masks that measure a subject's oxygen inhalation and carbon dioxide exhalation. The values used in this calculator are drawn directly from the <strong>Compendium of Physical Activities</strong>.</p>
             <p>Developed in the late 1980s by Dr. Bill Ainsworth and continuously updated by sports researchers, the Compendium is a massive database that standardizes the MET values for hundreds of human movements. It covers everything from sleeping (0.95 METs) to competitive soccer (10.0 METs) to shoveling heavy snow (7.5 METs).</p>
 
-            <h2>How The Calculator Determines Your Calorie Burn</h2>
+            <h2 className="text-2xl font-bold mb-3">How The Calculator Determines Your Calorie Burn</h2>
             <p>To determine your exact caloric expenditure, the calculator requires three specific variables: the MET value of the activity, your body weight, and the duration of the activity.</p>
             
             <h3>1. The Weight Multiplier</h3>
@@ -264,7 +264,7 @@ export default function MetsCalculator() {
             <p><code>Calories Burned per Minute = (METs × 3.5 × Body Weight in kg) ÷ 200</code></p>
             <p>Why the number 3.5? Because clinical testing has proven that 1 MET mathematically equals the physiological consumption of exactly 3.5 milliliters of oxygen per kilogram of body weight per minute. The formula calculates your total oxygen consumption and converts it into heat energy (calories).</p>
 
-            <h2>Limitations of the MET System</h2>
+            <h2 className="text-2xl font-bold mb-3">Limitations of the MET System</h2>
             <p>While the MET system is the clinical gold standard, it is not flawless. Its primary limitation is that it assumes every person has the exact same mechanical efficiency. </p>
             <p>For example, a professional marathon runner has highly efficient running mechanics. They do not bounce, they do not waste kinetic energy, and their stride is perfect. If they run at 8 mph alongside an amateur runner with terrible form who bounces and thrashes, the amateur runner will actually burn more calories (require more oxygen) to maintain that speed because they are mechanically inefficient. The MET tables provide a population average, but individual biomechanics can cause minor deviations in the final caloric burn.</p>
           </article>

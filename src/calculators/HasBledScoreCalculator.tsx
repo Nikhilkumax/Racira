@@ -232,15 +232,15 @@ export default function HasBledScoreCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Balancing Act of Cardiology</h2>
+            <h2 className="text-2xl font-bold mb-3">The Balancing Act of Cardiology</h2>
             <p>Treating atrial fibrillation is a delicate balancing act. On one hand, a doctor wants to prescribe a powerful blood thinner to ensure the patient does not suffer a catastrophic ischemic stroke. On the other hand, giving a patient a blood thinner dramatically increases their risk of suffering a spontaneous internal hemorrhage (a "major bleed").</p>
             <p>The <strong>HAS-BLED score</strong> was developed as the perfect counterbalance to the stroke risk calculators. Before writing a prescription for a blood thinner like Eliquis, Xarelto, or Warfarin, a doctor calculates the HAS-BLED score to quantify exactly how dangerous that prescription will be.</p>
 
-            <h2>Modifiable vs. Non-Modifiable Risks</h2>
+            <h2 className="text-2xl font-bold mb-3">Modifiable vs. Non-Modifiable Risks</h2>
             <p>One of the most important aspects of the HAS-BLED score is that it highlights "modifiable" risk factors. A non-modifiable risk factor is something the patient cannot change, such as their age (&gt;65 years) or the fact that they have a history of having a stroke. The doctor simply has to accept these risks.</p>
             <p>However, several points on the HAS-BLED score are entirely modifiable. If a patient has a highly dangerous score of 4, the doctor might notice that 3 of those points come from high blood pressure, taking daily Advil for knee pain, and drinking two glasses of wine every night. By prescribing blood pressure medication, switching the Advil to Tylenol (which doesn't thin the blood), and advising the patient to stop drinking, the doctor can instantly lower the score from a dangerous 4 to a safe 1.</p>
 
-            <h2>What is a "Major Bleed"?</h2>
+            <h2 className="text-2xl font-bold mb-3">What is a "Major Bleed"?</h2>
             <p>In medical terms, a major bleed is not a nosebleed or a cut on the arm from shaving. The HAS-BLED score calculates the risk of life-threatening events. A major bleed is defined clinically as:</p>
             <ul>
               <li>Intracranial hemorrhage (bleeding inside the skull or brain)</li>

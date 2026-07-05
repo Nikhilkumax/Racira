@@ -101,7 +101,7 @@ const DistanceCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Distance Between Two Points</h2>
+              <h2 className="text-2xl font-bold mb-3">Distance Between Two Points</h2>
               <p>The Euclidean distance formula is derived from the Pythagorean theorem. This calculator also computes the Manhattan distance (city-block distance) and the midpoint between the two points.</p>
             </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/distance-calculator" />

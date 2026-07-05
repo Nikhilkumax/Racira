@@ -207,7 +207,7 @@ const TaxBracketCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>How U.S. Tax Brackets Really Work</h2>
+              <h2 className="text-2xl font-bold mb-3">How U.S. Tax Brackets Really Work</h2>
               <p>One of the most common misconceptions about personal finance is how tax brackets work. Many people believe that moving into a higher bracket means their entire income is suddenly taxed at that higher rate. This is false. The United States uses a <strong>progressive tax system</strong>, which means your income is divided into "buckets," and each bucket is taxed at its own specific rate.</p>
 
               <h3>The Bucket Analogy</h3>
@@ -222,7 +222,7 @@ const TaxBracketCalculator = () => {
               <h3>Common Tax Brackets for 2024</h3>
               <p>While brackets are adjusted annually for inflation, the seven rates remain consistent: 10%, 12%, 22%, 24%, 32%, 35%, and 37%. As you earn more, each new dollar is taxed more heavily. This system is designed to place a larger relative tax burden on higher earners while protecting the basic living expenses of lower earners.</p>
 
-              <h2>Strategies for Tax Bracket Management</h2>
+              <h2 className="text-2xl font-bold mb-3">Strategies for Tax Bracket Management</h2>
               <p>If you find yourself at the very bottom of a higher bracket (e.g., earning $105,000 when the 24% bracket starts at $100,525), you can use tax-deferred investments to drop your taxable income back into the 22% bracket. This is a common strategy for high-earners to maximize their long-term wealth.</p>
             </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/tax-bracket-calculator" />

@@ -324,11 +324,11 @@ export default function CalorieToProteinRatioCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Calorie-to-Protein Ratio</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Calorie-to-Protein Ratio</h2>
             <p>If you are an athlete, a bodybuilder, or simply someone trying to lose fat while preserving lean muscle mass, your primary nutritional goal is likely hitting a high daily protein target. However, doing so while staying within a strict caloric deficit is a mathematical puzzle. The <strong>Calorie to Protein Ratio (CPR) Calculator</strong> is the ultimate tool for solving this puzzle. By instantly evaluating the macronutrient density of any food, meal, or daily diet plan, it reveals exactly how efficiently you are sourcing your protein.</p>
             <p>The Calorie-to-Protein Ratio answers a single, critical question: <em>"How many calories do I have to eat to get exactly one gram of protein from this food?"</em> A lower number indicates a highly efficient, lean protein source, while a higher number indicates a food that is heavily laden with fats and carbohydrates.</p>
 
-            <h2>The Mathematics of Protein Density</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of Protein Density</h2>
             <p>To understand the calculator's outputs, you must first understand the fundamental biochemistry of macronutrients. The human body derives energy from three primary sources:</p>
             <ul>
               <li><strong>Protein:</strong> Yields 4 kilocalories per gram.</li>
@@ -337,7 +337,7 @@ export default function CalorieToProteinRatioCalculator() {
             </ul>
             <p>Because protein inherently contains 4 calories per gram, the absolute theoretical "perfect" Calorie-to-Protein Ratio is <strong>4.0</strong>. This represents a food that is 100% pure protein with zero carbs and zero fats. In the real world, this is nearly impossible to find outside of highly refined whey protein isolate or pure amino acid powders. Everything else in nature contains at least trace amounts of fat or carbohydrates, which pushes the ratio higher.</p>
 
-            <h2>Decoding the Ratio Grades</h2>
+            <h2 className="text-2xl font-bold mb-3">Decoding the Ratio Grades</h2>
             <p>Our calculator assigns a specific "Density Grade" to your input based on the calculated ratio. Here is exactly what those grades mean for your diet:</p>
             <p><strong>Elite / Ultra-Lean (Ratio &lt; 8):</strong> This category is reserved for foods that are over 50% pure protein. Examples include chicken breast (ratio of ~5), egg whites (ratio of ~4.5), white fish like tilapia or cod (ratio of ~5), and high-quality protein powders. If you are in a deep caloric deficit (a severe "cut") for a bodybuilding show or weight-class sport, your diet must be anchored heavily in this category.</p>
             <p><strong>Excellent (Ratio 8 to 11):</strong> These foods are highly protein-dense but contain enough trace fats to improve flavor and satiety. Examples include 93% lean ground turkey, non-fat plain Greek yogurt, and low-fat cottage cheese. This is the sweet spot for a sustainable fat-loss diet.</p>
@@ -345,23 +345,23 @@ export default function CalorieToProteinRatioCalculator() {
             <p><strong>Moderate (Ratio 16 to 25):</strong> This is where many "health foods" hide. A typical protein bar might have 200 calories and 10g of protein, giving it a ratio of 20:1. While 10g of protein sounds good on the wrapper, you are consuming a massive amount of carbs and fats to get it.</p>
             <p><strong>Poor / Low Protein (Ratio &gt; 25):</strong> These foods should not be considered protein sources. If you try to hit a 150g daily protein target using foods with a 25:1 ratio, you will consume 3,750 calories to do it, resulting in massive fat gain.</p>
 
-            <h2>The Peanut Butter Myth</h2>
+            <h2 className="text-2xl font-bold mb-3">The Peanut Butter Myth</h2>
             <p>One of the most common nutritional mistakes made by beginners is viewing peanut butter as a primary protein source. The marketing surrounding nut butters heavily emphasizes their protein content, but the math tells a different story.</p>
             <p>A standard serving of peanut butter (2 tablespoons) contains roughly 190 calories and 7 grams of protein. If we input this into the calculator, it yields a Calorie-to-Protein Ratio of <strong>27.1</strong>, placing it firmly in the "Poor" category. Furthermore, the calculator shows that only 14.7% of the calories in peanut butter come from protein; the remaining 85% come from fats and carbohydrates. Peanut butter is an excellent, healthy fat source, but it is a terrible primary protein source.</p>
 
-            <h2>Applying the CPR to Your Daily Diet</h2>
+            <h2 className="text-2xl font-bold mb-3">Applying the CPR to Your Daily Diet</h2>
             <p>The beauty of the Calorie-to-Protein Ratio is that it can be applied to an entire day of eating, not just individual foods. If your daily macro targets are 2,000 calories and 160 grams of protein, your target "Daily CPR" is <strong>12.5</strong> (2000 / 160 = 12.5). </p>
             <p>This means that on average, every single item you put in your mouth throughout the day must have a ratio of 12.5. If you eat a donut for breakfast (ratio of 100+), you have severely skewed your daily average. To recover and hit your target, you will be forced to eat an "Elite" food—like pure chicken breast with a ratio of 5—for dinner just to balance the math.</p>
 
-            <h2>Protein Percentage vs. CPR</h2>
+            <h2 className="text-2xl font-bold mb-3">Protein Percentage vs. CPR</h2>
             <p>Our calculator provides both the CPR (like 10:1) and the Protein Percentage (like 40%). These are simply two different ways of looking at the exact same mathematical reality. Some nutritionists prefer percentages. If a food has a 10:1 CPR, it means it takes 10 calories to yield 1 gram of protein. Since that 1 gram of protein is worth 4 calories, 4 out of those 10 calories are protein (40%).</p>
             <p>A simple rule of thumb: If you are trying to lose body fat, aim for meals where at least <strong>30% to 40%</strong> of the total calories come directly from protein. High-protein meals trigger the release of leptin (the satiety hormone) much faster than high-carb meals, keeping you full longer and preventing diet-destroying snacking.</p>
 
-            <h2>Why Does the Calculator Give Me an Error?</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Does the Calculator Give Me an Error?</h2>
             <p>If you input data straight from a nutrition label and the calculator flashes a red mathematical error, do not panic. The calculator is simply enforcing the laws of thermodynamics. Because protein yields 4 kcal/g, you cannot have 50 grams of protein in a 100-calorie food (50g x 4 = 200 calories).</p>
             <p>If a label causes this error, the manufacturer is either rounding the numbers aggressively (which is legally allowed by the FDA in small increments) or they are actively lying about the macro profile of the product (a process known as "amino spiking"). In either case, the label cannot be trusted.</p>
 
-            <h2>Conclusion</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion</h2>
             <p>Macronutrient management does not have to rely on intuition or marketing buzzwords. By using the Calorie-to-Protein Ratio Calculator, you can instantly strip away the misleading "High Protein!" labels on the front of food packaging and analyze the cold, hard mathematics on the back. By anchoring your diet with "Elite" and "Excellent" ratio foods, hitting your daily protein targets while maintaining a caloric deficit becomes effortless.</p>
           </article>
           

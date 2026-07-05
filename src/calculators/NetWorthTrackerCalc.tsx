@@ -230,18 +230,18 @@ export default function NetWorthTrackerCalc() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is Net Worth and Why Does It Matter?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is Net Worth and Why Does It Matter?</h2>
             <p>Net worth is the cornerstone metric of personal finance — the single number that tells you exactly where you stand financially. It's calculated as Total Assets minus Total Liabilities. Everything you own minus everything you owe. While income matters for your standard of living today, net worth determines your long-term financial security, retirement readiness, and wealth legacy.</p>
             <p>Many people focus exclusively on income without tracking net worth, missing the bigger picture. A $200,000/year earner who spends everything has a lower net worth than a $70,000/year earner who saves and invests consistently. Wealth is built not by what you earn, but by what you keep and grow.</p>
 
-            <h2>How to Accurately Calculate Your Net Worth</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Accurately Calculate Your Net Worth</h2>
             <p>The challenge with net worth calculations is using accurate current values for both assets and liabilities. For real estate, use a current market estimate (Zillow Zestimate, Redfin estimate, or recent comparable sales) — not what you paid for it or what you think it's worth. For vehicles, use Kelley Blue Book or Edmunds private party value. For retirement accounts, use the current statement balance. For liabilities, always use current outstanding balances, not original loan amounts.</p>
             <p>Note that liquid assets (cash, brokerage accounts) and illiquid assets (home equity, retirement accounts) have very different practical values. $500,000 in a primary home is less financially flexible than $500,000 in a brokerage account, even though both count equally in the raw net worth calculation.</p>
 
-            <h2>Net Worth Milestones by Age</h2>
+            <h2 className="text-2xl font-bold mb-3">Net Worth Milestones by Age</h2>
             <p>Financial planners often use rough benchmarks for retirement readiness. By age 30: aim for 1× your annual salary in savings. By 40: 3× salary. By 50: 6× salary. By 60: 8× salary. By 67 (full retirement age): 10-12× salary. These targets assume a 4% safe withdrawal rate supporting 25-30 years of retirement. Your actual target depends on your planned retirement lifestyle, Social Security estimates, pension income, and healthcare needs.</p>
 
-            <h2>Building Net Worth: The Three Pillars</h2>
+            <h2 className="text-2xl font-bold mb-3">Building Net Worth: The Three Pillars</h2>
             <p><strong>Earn more:</strong> Increase income through career advancement, skills development, side income, or business ownership. <strong>Spend less:</strong> Track spending, eliminate waste, live below your means. Even a 5-10% savings rate improvement compounds dramatically over decades. <strong>Invest wisely:</strong> Put the difference to work in diversified, low-cost index funds, real estate, or other appreciating assets. The wealth-building formula is deceptively simple: Income &gt; Expenses, with the difference invested consistently over time.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/net-worth-tracker" />

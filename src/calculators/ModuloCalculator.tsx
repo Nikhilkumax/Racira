@@ -121,17 +121,17 @@ const ModuloCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Modulo Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Modulo Calculator?</h2>
             <p>A modulo calculator computes the remainder of integer division: a mod b. Pre-filled with 17 mod 5, the result is 2 (because 17 = 5 × 3 + 2). This calculator shows three mod variants — truncated remainder (C/JS), floor mod (Python), and Euclidean mod — along with a visual chart of remainders across divisors 1–12.</p>
-            <h2>The Division Algorithm</h2>
+            <h2 className="text-2xl font-bold mb-3">The Division Algorithm</h2>
             <p><strong>a = b × q + r</strong>, where q = quotient (integer part of a/b), r = remainder (a mod b). For any integers a, b (b ≠ 0), there exist unique q and r such that 0 ≤ r &lt; |b| (Euclidean definition). This is the foundation of modular arithmetic, number theory, and countless algorithms.</p>
-            <h2>Modulo in Programming</h2>
+            <h2 className="text-2xl font-bold mb-3">Modulo in Programming</h2>
             <p>The % operator in C, Java, JavaScript, and Go returns the truncated remainder (sign of dividend). Python{"'"}s % returns floor mod (sign of divisor). This difference matters for negative numbers: -17 % 5 = -2 in JavaScript but 3 in Python. This calculator displays both for comparison. Always test edge cases with negative numbers when using modulo.</p>
-            <h2>Applications of Modulo</h2>
+            <h2 className="text-2xl font-bold mb-3">Applications of Modulo</h2>
             <p>Even/odd: n % 2 === 0. Clock arithmetic: (hour + 5) % 12. Hash tables: key % bucketCount (distributes keys). Cryptography: RSA uses modular exponentiation (m^e mod n). Circular arrays: index % array.length. Check digits: ISBN, credit cards (Luhn algorithm). Random number generators: linear congruential method uses mod.</p>
-            <h2>Modular Arithmetic Properties</h2>
+            <h2 className="text-2xl font-bold mb-3">Modular Arithmetic Properties</h2>
             <p>Addition: (a + b) mod n = ((a mod n) + (b mod n)) mod n. Multiplication: (a × b) mod n = ((a mod n) × (b mod n)) mod n. Exponentiation: a^b mod n can be computed efficiently via repeated squaring. Division requires the modular inverse: a/b mod n = a × b⁻¹ mod n (where b⁻¹ exists only if gcd(b, n) = 1).</p>
-            <h2>Modulo in Cryptography</h2>
+            <h2 className="text-2xl font-bold mb-3">Modulo in Cryptography</h2>
             <p>RSA encryption: ciphertext = message^e mod n. Decryption: message = ciphertext^d mod n. The security relies on the difficulty of factoring n (product of two large primes). Diffie-Hellman key exchange: g^a mod p. Elliptic curve cryptography operates over finite fields defined by modular arithmetic. All modern secure communication depends fundamentally on modular arithmetic.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/modulo-calculator" />

@@ -188,12 +188,12 @@ export default function EquivalentAnnualAnnuityCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is the Equivalent Annual Annuity?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is the Equivalent Annual Annuity?</h2>
             <p>The Equivalent Annual Annuity (EAA), also called Annualized NPV, Annual Worth, or Annual Equivalent, converts a project's Net Present Value into a uniform annual cash flow. The formula is EAA = NPV × [r / (1 - (1+r)^-n)], where r is the discount rate and n is the project life. This metric is essential for comparing projects with different lifespans because it expresses value in comparable annual terms.</p>
             <p>Consider two machines: Machine A costs $300K, lasts 3 years, with NPV $80K. Machine B costs $500K, lasts 5 years, with NPV $100K. NPV comparison favors B — but Machine A lasts only 3 years. EAA normalizes this: Machine A EAA = $29K/yr, Machine B EAA = $26K/yr. Machine A is actually more efficient per year, which is the correct comparison when both machines will be replaced indefinitely.</p>
-            <h2>Capital Recovery Factor</h2>
+            <h2 className="text-2xl font-bold mb-3">Capital Recovery Factor</h2>
             <p>The term [r / (1 - (1+r)^-n)] is the Capital Recovery Factor (CRF). It converts a present value into a level annual payment. When you multiply NPV by CRF, you get the EAA. Equivalently, EAA = NPV / PVIFA, where PVIFA is the Present Value Interest Factor of an Annuity = (1 - (1+r)^-n) / r. Understanding this relationship is fundamental to engineering economics and financial analysis.</p>
-            <h2>When EAA Is Most Useful</h2>
+            <h2 className="text-2xl font-bold mb-3">When EAA Is Most Useful</h2>
             <p>EAA is most valuable in three scenarios: (1) Comparing mutually exclusive projects with different lives, assuming indefinite repetition (chain substitution). (2) Lease vs. buy analysis where costs must be compared over different contract periods. (3) Equipment replacement decisions where the optimal replacement cycle minimizes annual cost. For one-time, non-repeating projects, NPV remains the superior criterion.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/equivalent-annual-annuity-calculator" />

@@ -113,7 +113,7 @@ const MouseSensitivityCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Mastering Your Aim</h2>
+              <h2 className="text-2xl font-bold mb-3">Mastering Your Aim</h2>
               <p>In competitive gaming, consistency is everything. If you change your DPI or switch to a new game, your "feel" for the mouse might be ruined. Using an eDPI calculator ensures you maintain the same physical movement distance across different hardware and software settings.</p>
               <h3>Why cm/360 Matters</h3>
               <p>While eDPI is good for comparing within a single game, **cm/360** is the universal metric. It tells you exactly how many centimeters you need to move your mouse physically to do a full circle in the game. Professional players often have a cm/360 between 30cm and 50cm for tactical shooters like CS2 or Valorant.</p>

@@ -285,15 +285,15 @@ export default function HiitCalorieBurnCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Efficiency of High-Intensity Interval Training (HIIT)</h2>
+            <h2 className="text-2xl font-bold mb-3">The Efficiency of High-Intensity Interval Training (HIIT)</h2>
             <p>For decades, the fitness industry believed that the only way to lose weight and improve cardiovascular health was to jog at a moderate pace for 45 to 60 minutes on a treadmill. Then, the science of High-Intensity Interval Training (HIIT) emerged and completely disrupted the status quo. By alternating between short bursts of absolute maximum effort and brief periods of rest, researchers discovered that athletes could achieve drastically superior cardiovascular adaptations and fat-loss results in a fraction of the time. The <strong>HIIT Calorie Burn Calculator</strong> bypasses generic fitness watch estimations by utilizing clinical Metabolic Equivalent (MET) formulas based on your specific work-to-rest intervals, providing an exact mathematical measurement of your intense thermodynamic output.</p>
 
-            <h2>Why HIIT Obliterates Steady-State Cardio</h2>
+            <h2 className="text-2xl font-bold mb-3">Why HIIT Obliterates Steady-State Cardio</h2>
             <p>To understand the immense caloric power of HIIT, you must look at how the human body processes oxygen.</p>
             <p>When you jog at a comfortable, steady pace, your body is operating aerobically. Your heart pumps just enough blood, and your lungs pull in just enough oxygen, to perfectly fuel the working muscles. The body establishes a highly efficient rhythm. Because it is so efficient, the total calories burned per minute remains relatively moderate.</p>
             <p>HIIT deliberately destroys this efficiency. When you sprint on a bike for 30 seconds at maximum effort, your body cannot pull in enough oxygen to meet the explosive muscular demand. You cross the "anaerobic threshold." Your muscles are forced to rapidly break down stored glycogen (sugar) without oxygen. This causes a massive spike in heart rate and a heavy accumulation of lactic acid. Your cardiovascular system must essentially redline to keep you from collapsing. This massive internal stress, repeated over several intervals, pushes the total MET value exponentially higher than steady-state jogging.</p>
 
-            <h2>The Mathematics of the Work-to-Rest Ratio</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of the Work-to-Rest Ratio</h2>
             <p>The single most important variable in calculating the calories of a HIIT workout is your Work-to-Rest ratio. This ratio dictates how much actual physical "work" you are performing during the total duration, and how much your heart rate is allowed to recover. Our calculator groups these into three primary categories:</p>
             <ul>
               <li><strong>Standard 1:1 Ratio (MET 9.0):</strong> You work for 30 seconds and rest for 30 seconds. In a 20-minute workout, you are actively sprinting for 10 total minutes. The 50% rest ratio allows your heart rate to drop significantly between rounds, making it highly effective but manageable for most fitness levels.</li>
@@ -301,19 +301,19 @@ export default function HiitCalorieBurnCalculator() {
               <li><strong>Extreme 4:1 Ratio (MET 12.5):</strong> You work for 40 seconds and rest for only 10 seconds. You are active for 80% of the total time. The rest is mathematically too short to clear lactic acid or lower the heart rate. This is near-maximum human exertion, burning a massive amount of calories per minute.</li>
             </ul>
 
-            <h2>Physics and Body Weight in HIIT</h2>
+            <h2 className="text-2xl font-bold mb-3">Physics and Body Weight in HIIT</h2>
             <p>Like all bodyweight-driven exercises, your overall mass heavily influences your total caloric expenditure during a HIIT session. The physics formula is immutable: Force = Mass × Acceleration.</p>
             <p>If a 240-pound athlete and a 140-pound athlete both perform a 20-minute HIIT session of burpees and squat jumps, the 240-pound athlete had to perform drastically more mechanical "work." Their leg muscles had to propel an extra 100 pounds of mass off the floor and into the air repeatedly. Because their larger body requires more physiological energy (ATP) to perform the exact same movements, they will mathematically burn a significantly higher absolute number of calories.</p>
 
-            <h2>The Hidden Value: The Afterburn Effect (EPOC)</h2>
+            <h2 className="text-2xl font-bold mb-3">The Hidden Value: The Afterburn Effect (EPOC)</h2>
             <p>The calories burned <em>during</em> the 20-minute interval session are only half the story. The primary physiological benefit of HIIT is its ability to trigger <strong>Excess Post-Exercise Oxygen Consumption (EPOC)</strong>, widely known as the "Afterburn Effect."</p>
             <p>Because you are pushing your body so deeply into an anaerobic state, you create a severe oxygen deficit. After the 20 minutes are over and you return to the locker room, your body cannot immediately return to normal. It must rapidly consume massive amounts of oxygen and burn additional calories for up to 14 to 24 hours just to repair the micro-tears in your muscles, clear the massive lactic acid buildup, and restore your core temperature. A true HIIT session continues to burn "bonus" calories long after you have stopped sweating, making it the ultimate tool for fat loss.</p>
 
-            <h2>Why You Shouldn't Do HIIT Every Day</h2>
+            <h2 className="text-2xl font-bold mb-3">Why You Shouldn't Do HIIT Every Day</h2>
             <p>Because HIIT is so mathematically efficient at burning calories, many people mistakenly believe they should do it 6 days a week. This is a massive error that leads to overtraining.</p>
             <p>True HIIT is incredibly taxing on your central nervous system, joints, and tendons. If you do it every single day, your body will never have the opportunity to fully recover from the microscopic damage. This leads to chronic elevation of cortisol (a stress hormone that actually stores belly fat), severe joint pain, and inevitable injury. For optimal fat loss and cardiovascular health, you should perform true HIIT only 2 to 3 times per week, mixing in lower-intensity walking (LISS) on your recovery days.</p>
 
-            <h2>Conclusion: Quality Over Quantity</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Quality Over Quantity</h2>
             <p>Stop doing 60 minutes of mediocre cardio and hoping for the best. Stop relying on inaccurate fitness watches that get confused by your heart rate spikes. To maximize fat loss, you need intense, focused, mathematical output. Use the HIIT Calorie Burn Calculator to track your exact interval data, ensure you are resting exactly when the timer says to rest, and let the science of the Afterburn Effect strip away body fat in half the time.</p>
           </article>
           

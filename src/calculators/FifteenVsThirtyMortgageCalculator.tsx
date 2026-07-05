@@ -170,9 +170,7 @@ export default function FifteenVsThirtyMortgageCalculator() {
             </div>
 
             <div className="flex gap-2.5 mt-2">
-              <button type="button" onClick={handleCalculate} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm">
-                <Scale className="h-4 w-4" /> Compare Options
-              </button>
+              <button type="button" onClick={handleCalculate} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm">Calculate</button>
               <button type="button" onClick={reset} className="w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center focus:outline-none" aria-label="Reset">
                 <RotateCcw className="h-5 w-5" />
               </button>
@@ -239,19 +237,19 @@ export default function FifteenVsThirtyMortgageCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Classic Homebuyer's Dilemma</h2>
+            <h2 className="text-2xl font-bold mb-3">The Classic Homebuyer's Dilemma</h2>
             <p>When financing a home purchase, the most common decision borrowers face is choosing between a 15-year fixed-rate mortgage and a 30-year fixed-rate mortgage. The choice fundamentally dictates your monthly cash flow, the total cost of the home, and the speed at which you build equity. While the 30-year mortgage is the undisputed king of popularity in the United States — prized for its lower monthly payments — the 15-year mortgage offers a rapid path to debt freedom and massive interest savings. Our calculator lets you input your specific loan amounts and rates to see the exact mathematical divergence between these two paths.</p>
 
-            <h2>The 30-Year Mortgage</h2>
+            <h2 className="text-2xl font-bold mb-3">The 30-Year Mortgage</h2>
             <p>A 30-year mortgage spreads the repayment of the principal over 360 months. This elongated timeline significantly reduces your mandatory monthly payment and makes it easier to qualify for a larger home, since your Debt-to-Income ratio stays lower. Over three decades, inflation also erodes the value of the dollar, meaning you pay back the loan with progressively cheaper money in the final years. The trade-off is steep: you will pay tens or even hundreds of thousands of dollars more in total interest, and in the first decade the vast majority of each payment goes to interest rather than building equity. Lenders also price the longer duration into the rate, typically charging 0.5% to 1.0% more than on a 15-year product.</p>
 
-            <h2>The 15-Year Mortgage</h2>
+            <h2 className="text-2xl font-bold mb-3">The 15-Year Mortgage</h2>
             <p>A 15-year mortgage compresses repayment into 180 months. Because the bank receives its money back faster, it rewards you with a lower interest rate. Not only is the term cut in half, but the lower rate compounds the savings — from day one, a far greater share of each payment attacks the principal balance rather than servicing interest. You own the home free and clear in half the time, perfectly positioning yourself for early retirement or redirecting cash flow toward college savings. The cost is a monthly payment typically 50% to 60% higher than the equivalent 30-year loan, which constrains cash flow and sets a higher income bar for qualification.</p>
 
-            <h2>The Hybrid Strategy</h2>
+            <h2 className="text-2xl font-bold mb-3">The Hybrid Strategy</h2>
             <p>Many financial planners recommend a best-of-both-worlds approach: originate a 30-year mortgage to secure the low mandatory monthly payment, then voluntarily pay the amount a 15-year mortgage would require. This protects you in a job loss or emergency — you only have to pay the lower amount — while still dramatically accelerating payoff and reducing interest when cash flow allows. The downside is that you forgo the lower 15-year rate, so you pay somewhat more in interest compared to a true 15-year mortgage, and the strategy demands genuine discipline to sustain the overpayment rather than spending it.</p>
 
-            <h2>Making the Right Call</h2>
+            <h2 className="text-2xl font-bold mb-3">Making the Right Call</h2>
             <p>The correct choice depends entirely on your financial goals, risk tolerance, and income stability. If you prioritize absolute debt freedom and have comfortable income to cover the higher payments, the 15-year mortgage is unparalleled. If you prioritize liquidity, want to maximize market investments, or need to stretch your budget to enter an expensive housing market, the 30-year mortgage is the pragmatic choice. Use the comparison calculator above to quantify exactly what you are trading in either direction before you sign.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/15-year-vs-30-year-mortgage-comparison" />

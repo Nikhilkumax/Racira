@@ -147,7 +147,7 @@ const TargetHeartRateCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Why Train in Zones?</h2>
+              <h2 className="text-2xl font-bold mb-3">Why Train in Zones?</h2>
               <p>Heart rate zone training ensures you are working out at the right intensity to achieve your specific goals. If you want to run a faster 5K, you need to spend time in Zones 3 and 4. If you want to build endurance for a marathon or burn fat efficiently, you should spend the majority of your time in Zone 2.</p>
               <h3>The 80/20 Rule of Endurance Training</h3>
               <p>Elite endurance athletes spend about 80% of their training time in Zone 2 (easy, aerobic effort) and only 20% in Zones 4 and 5 (hard, anaerobic effort). Amateurs often make the mistake of running every run in Zone 3—too fast to recover, but too slow to build high-end speed.</p>

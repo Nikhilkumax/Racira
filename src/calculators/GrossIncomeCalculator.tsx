@@ -197,17 +197,17 @@ export default function GrossIncomeCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Gross Income Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Gross Income Calculator?</h2>
             <p>A gross income calculator is a foundational personal finance tool designed to convert your salary or hourly wages into various pay periods. Whether you are negotiating a job offer, applying for a mortgage, or trying to budget your monthly expenses, understanding your exact gross income across different timeframes is critical. "Gross income" refers to the raw, total amount of money you earn from your employer before any federal taxes, state taxes, Social Security, Medicare, or retirement contributions (like a 401k) are deducted from your paycheck.</p>
             <p>This calculator removes the mental gymnastics of converting an hourly wage into an annual salary, or figuring out exactly how much smaller a bi-weekly paycheck is compared to a semi-monthly paycheck. By standardizing your income into actionable data points, you can navigate financial decisions—from signing a lease to taking out an auto loan—with absolute confidence and precision.</p>
 
-            <h2>How It Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
             <p>The mathematics behind this calculator rely on standardizing your input into an annual figure, and then dividing that annual figure by industry-standard pay periods. Here is the logic the calculator uses.</p>
             <p>First, the tool converts your input into <strong>Annual Gross Income</strong>. If you input an hourly wage (e.g., $25/hour), the calculator looks at the advanced work schedule settings. By default, it uses the standard American full-time schedule: 40 hours a week for 52 weeks a year, which equals 2,080 working hours. Formula: <code>Annual Gross = Hourly Rate * Hours per Week * Weeks per Year</code>. ($25 * 40 * 52 = $52,000).</p>
             <p>Once the Annual Gross is established, the calculator works backwards to find your pay across different frequencies. For a <strong>Monthly</strong> breakdown, it divides the annual number by 12. For <strong>Weekly</strong>, it divides by 52. For <strong>Daily</strong>, it divides the weekly amount by your days worked per week.</p>
             <p>The calculation also handles the nuanced difference between <strong>Bi-Weekly</strong> (paid every two weeks, resulting in 26 paychecks per year) and <strong>Semi-Monthly</strong> (paid twice a month, resulting in exactly 24 paychecks per year).</p>
 
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>When you click calculate, the tool generates five specific analytical zones to help you fully visualize your earning power.</p>
             <p><strong>Primary Result Card:</strong> This highlights your Annual Gross Income. This is the "headline" number you will put on every credit card, loan, or apartment application you ever fill out.</p>
             <p><strong>3-Stat Bar:</strong> This section provides a quick snapshot of the three most common metrics people need when budgeting: your raw Monthly Gross, your Bi-Weekly pay (the most common payroll frequency in the US), and your Equivalent Hourly Rate.</p>
@@ -215,28 +215,28 @@ export default function GrossIncomeCalculator() {
             <p><strong>Income Distribution Chart:</strong> A visual bar chart that illustrates the scale of your income across the three most common budgeting periods (Monthly, Bi-Weekly, and Weekly), helping you visualize your cash flow.</p>
             <p><strong>Summary Statistics:</strong> A fast, readable grid aggregating your schedule metrics, reminding you exactly how many hours and weeks the calculation is based upon.</p>
 
-            <h2>Key Factors</h2>
+            <h2 className="text-2xl font-bold mb-3">Key Factors</h2>
             <p>Understanding how gross income is utilized by the financial system is just as important as knowing how to calculate it. Here is why this metric matters.</p>
             <p><strong>The Foundation of Credit:</strong> Every lender—from mortgage banks to auto financiers—uses your gross income, not your net (take-home) pay, to qualify you for a loan. They do this because tax deductions and health insurance premiums are highly variable and can be changed. Your gross income is the only stable metric of your earning capacity. Lenders apply a Debt-to-Income (DTI) ratio against your gross pay; typically, your total monthly debt payments cannot exceed 43% of your monthly gross income.</p>
             <p><strong>Negotiating Power:</strong> When moving from an hourly position to a salaried position, knowing your exact gross income equivalent is your strongest negotiating tool. If you currently make $30 an hour, and an employer offers you a salary of $55,000, this calculator instantly reveals that the salary offer is a pay cut (as $30/hr is $62,400 annually).</p>
             <p><strong>The "Extra Paycheck" Months:</strong> If you are paid Bi-Weekly (every two weeks), you receive 26 paychecks a year. Since most months have four weeks, you usually get two paychecks a month. However, two months out of the year, the calendar aligns so that you receive three paychecks. Understanding your bi-weekly gross helps you identify and plan for these "bonus" cash-flow months.</p>
 
-            <h2>Advanced Features</h2>
+            <h2 className="text-2xl font-bold mb-3">Advanced Features</h2>
             <p>The Advanced Work Schedule tab elevates this tool from a standard calculator into a highly customizable income analyzer, perfect for freelancers, part-time workers, and contractors.</p>
             <p>By default, the calculator assumes a 40-hour work week, 5 days a week, for 52 weeks a year. However, if you are a freelancer who only bills 30 hours a week, or a teacher who only works 40 weeks a year, you can adjust these inputs. Modifying the <strong>Weeks/Year</strong> input instantly recalculates your true annual gross, preventing you from overestimating your income based on a standard corporate calendar.</p>
 
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <p>Let's look at how utilizing this calculator can prevent massive financial miscalculations.</p>
             <p><strong>Example 1: The Part-Time Contractor.</strong> You are offered a contract position paying $50 an hour. It sounds incredible. However, the contract only guarantees 25 hours a week, and the project pauses for a month during the holidays (meaning you only work 48 weeks). You enter $50/hr, 25 hours/week, and 48 weeks/year into the calculator. Your Annual Gross is $60,000. It is a good income, but far less than the $104,000 you would make if you assumed standard full-time hours.</p>
             <p><strong>Example 2: The Semi-Monthly Surprise.</strong> You take a new job paying $80,000 a year. At your old job, you were paid Bi-Weekly, and your gross checks were $3,076. Your new job pays Semi-Monthly. You use the calculator and see your new gross checks will be $3,333. Because you only get 24 checks instead of 26, each individual check is larger, but you lose the two "three-paycheck" months you used to enjoy. You adjust your monthly budget accordingly.</p>
 
-            <h2>Tips & Best Practices</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
             <p>While calculating gross income is mathematically straightforward, applying it to your financial life requires discipline. Keep these best practices in mind.</p>
             <p>First, never budget based on your gross income. Your gross income is a phantom number used for taxes and loan qualification; you will never see that full amount in your bank account. Always build your household budget based on your Net Income (Take-Home Pay), which is usually 20% to 30% lower than your gross due to taxes and deductions.</p>
             <p>Second, remember the "2080 Rule" for quick mental math. If you want to know the annual salary of an hourly wage, multiply the wage by 2,000 (which is close to the 2,080 working hours in a year). If you make $20 an hour, $20 x 2,000 = $40,000. If you make $100,000 a year and want to know the hourly rate, divide by 2,000 ($100,000 / 2,000 = $50/hr).</p>
             <p>Third, keep track of supplemental income. If you regularly earn overtime, bonuses, or commissions, you must calculate these separately and add them to your base annual gross. However, if you are applying for a mortgage, be aware that lenders usually will not count this supplemental income toward your gross unless you can prove you have received it consistently for at least two years.</p>
 
-            <h2>Benefits</h2>
+            <h2 className="text-2xl font-bold mb-3">Benefits</h2>
             <p>Using a Gross Income Calculator provides absolute clarity regarding your earning power. It prevents you from accepting lowball salary offers by instantly revealing their hourly equivalent, and it stops you from overestimating your annual income if you work irregular hours.</p>
             <p>By translating a single pay rate into a comprehensive, annualized financial picture, this tool empowers you to negotiate better salaries, qualify for the right loans, and lay a mathematically sound foundation for your long-term personal finance goals.</p>
           </article>

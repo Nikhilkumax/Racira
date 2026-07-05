@@ -351,29 +351,29 @@ export default function TotalCostOfOwnershipCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is Total Cost of Ownership (TCO)?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is Total Cost of Ownership (TCO)?</h2>
             <p>Total Cost of Ownership (TCO) is the ultimate metric for understanding vehicle affordability. When buying a car, it is incredibly easy to focus solely on the sticker price or the monthly loan payment. However, these figures represent only a fraction of what the vehicle will actually cost you. TCO combines the direct costs (financing, taxes, fuel, insurance, and maintenance) with the indirect costs (depreciation) over a standard 5-year period. By calculating the TCO, you can accurately compare the long-term financial impact of different vehicles.</p>
 
-            <h2>How It Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
             <p>Our TCO algorithm breaks down the six pillars of car ownership. <strong>Depreciation</strong> is estimated at a standard 60% loss over 5 years. <strong>Financing</strong> calculates the total interest paid using the standard amortization formula <code>M = P * [r(1+r)^n] / [(1+r)^n - 1]</code>. <strong>Taxes and Fees</strong> multiply your state sales tax rate by the purchase price and add your annual registration fees. <strong>Fuel</strong> divides your total 5-year mileage by your MPG, then multiplies by the gas price. <strong>Insurance</strong> and <strong>Maintenance</strong> simply project your annual estimates over 5 years. These six pillars are summed to reveal your True Cost to Own.</p>
 
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>The <strong>5-Year True Cost to Own</strong> is a massive number that often shocks buyers—it is not uncommon for a $35,000 car to cost $50,000+ to own over 5 years. The <strong>Cost Per Month</strong> metric is crucial; while your bank loan might be $500/month, your TCO Cost Per Month (which includes gas, insurance, and depreciation) might be $900/month. This is the true impact on your monthly budget. <strong>Cost Per Mile</strong> tells you exactly how many cents evaporate from your wallet for every mile driven.</p>
 
-            <h2>Key Factors</h2>
+            <h2 className="text-2xl font-bold mb-3">Key Factors</h2>
             <p><strong>Depreciation</strong> is universally the largest expense for new cars. <strong>Fuel Economy (MPG)</strong> and <strong>Annual Miles</strong> work in tandem; a gas-guzzling truck driven 20,000 miles a year will have fuel costs that rival depreciation. <strong>Insurance</strong> varies wildly based on your age, driving record, and the specific vehicle model. <strong>Interest Rate</strong> and <strong>Down Payment</strong> control your financing costs; putting $0 down on a 7-year loan at 8% interest will result in devastating TCO increases.</p>
 
-            <h2>Advanced Features</h2>
+            <h2 className="text-2xl font-bold mb-3">Advanced Features</h2>
             <p>Under Advanced Options, you can fine-tune the mandatory state costs. <strong>Sales Tax</strong> is a major upfront cost that is often rolled into the loan, meaning you pay interest on your taxes. <strong>Registration Fee / Year</strong> accounts for states that charge exorbitant yearly fees based on the vehicle's value or weight. Accurate local inputs here will make your final TCO projection significantly more reliable.</p>
 
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <p><strong>Example 1: The Cheap Gas Guzzler.</strong> You buy a used V8 truck for $25,000. It seems affordable. However, it gets 14 MPG, and you drive 18,000 miles a year. Over 5 years, you spend $22,500 on gas alone, plus higher maintenance and insurance. Your 5-year TCO exceeds $55,000.</p>
             <p><strong>Example 2: The Expensive Hybrid.</strong> You buy a new hybrid sedan for $35,000. It feels expensive upfront. But it gets 50 MPG. Over 5 years, you only spend $6,300 on gas, maintenance is minimal, and insurance is cheap. Your 5-year TCO is $48,000. The "expensive" car is actually $7,000 cheaper to own over 5 years.</p>
 
-            <h2>Tips & Best Practices</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
             <p>To drastically lower your TCO, buy a slightly used car (3 years old) to avoid the 40% initial depreciation hit. Pay in cash or use a large down payment to eliminate financing interest. Research insurance rates for specific models <em>before</em> buying; sports cars and commonly stolen vehicles carry massive premiums. Finally, consider a hybrid or EV if you commute long distances, as the fuel savings will rapidly offset a higher purchase price.</p>
 
-            <h2>Benefits</h2>
+            <h2 className="text-2xl font-bold mb-3">Benefits</h2>
             <p>Using a Total Cost of Ownership Calculator protects you from buying a vehicle that will slowly drain your bank account. It shifts your perspective from short-term payment thinking to long-term wealth preservation. By understanding the true financial footprint of a vehicle, you can confidently choose a car that fits both your lifestyle and your long-term financial goals.</p>
           </article>
           

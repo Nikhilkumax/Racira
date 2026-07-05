@@ -389,7 +389,7 @@ export default function FourPercentRuleCalculator() {
 
         {/* SEO CONTENT SECTION */}
         <div className="max-w-[800px] mt-16 prose prose-slate dark:prose-invert">
-          <h2>What is the 4% Rule for Retirement?</h2>
+          <h2 className="text-2xl font-bold mb-3">What is the 4% Rule for Retirement?</h2>
           <p>
             The 4% Rule is a widely used rule of thumb in retirement planning that helps determine a safe withdrawal rate from your retirement savings. The rule states that you can comfortably withdraw 4% of your total retirement portfolio in your first year of retirement, and then adjust that dollar amount for inflation each subsequent year, without running out of money for at least 30 years.
           </p>
@@ -397,7 +397,7 @@ export default function FourPercentRuleCalculator() {
             This concept originated from the famous 1994 "Trinity Study" by William Bengen, a financial planner who analyzed historical stock and bond market returns dating back to 1926. He found that, even through the worst economic periods in modern history (including the Great Depression and the 1970s stagflation), a 50/50 stock-to-bond portfolio sustained a 4% inflation-adjusted withdrawal rate for 30 years without failing.
           </p>
 
-          <h2>How to Calculate Your Retirements Needs</h2>
+          <h2 className="text-2xl font-bold mb-3">How to Calculate Your Retirements Needs</h2>
           <p>
             Using the 4% rule, you can quickly estimate how much money you need to retire. The formula is simple:
           </p>
@@ -408,7 +408,7 @@ export default function FourPercentRuleCalculator() {
             Equivalently, you can multiply your desired annual income by 25. For example, if you want to generate $40,000 a year from your investments, you need a portfolio of $1,000,000 ($40,000 × 25 = $1,000,000).
           </p>
 
-          <h2>How the Annual Adjustments Work</h2>
+          <h2 className="text-2xl font-bold mb-3">How the Annual Adjustments Work</h2>
           <p>
             A common misconception is that you withdraw exactly 4% of your remaining balance every year. If you did that, your withdrawals would fluctuate wildly with the stock market, and you would technically never run out of money (because 4% of a tiny number is just a tinier number), but you would eventually starve.
           </p>
@@ -421,7 +421,7 @@ export default function FourPercentRuleCalculator() {
             <li><strong>Year 3:</strong> Inflation was 2%. You increase last year's amount ($41,200) by 2%. You withdraw $42,024.</li>
           </ul>
 
-          <h2>Is the 4% Rule Still Valid Today?</h2>
+          <h2 className="text-2xl font-bold mb-3">Is the 4% Rule Still Valid Today?</h2>
           <p>
             The 4% rule is an excellent starting point, but modern financial advisors often suggest modifications. Some factors that challenge the 4% rule today include:
           </p>
@@ -431,7 +431,7 @@ export default function FourPercentRuleCalculator() {
             <li><strong>Sequence of Returns Risk:</strong> The order in which you experience investment returns matters massively. If the stock market crashes during the first three years of your retirement, continuing to withdraw inflation-adjusted amounts will devastate your portfolio. This is why flexibility is key.</li>
           </ul>
 
-          <h2>Dynamic Withdrawal Strategies</h2>
+          <h2 className="text-2xl font-bold mb-3">Dynamic Withdrawal Strategies</h2>
           <p>
             To combat the rigidness of the strict 4% rule, many retirees adopt dynamic or flexible withdrawal strategies:
           </p>
@@ -441,7 +441,7 @@ export default function FourPercentRuleCalculator() {
             <li><strong>Cash Buffers:</strong> Keeping 1-2 years of living expenses in cash ensures you don't have to sell stocks while the market is down.</li>
           </ul>
 
-          <h2>Benefits of Using This Calculator</h2>
+          <h2 className="text-2xl font-bold mb-3">Benefits of Using This Calculator</h2>
           <p>
             Our 4% Rule Calculator allows you to visualize exactly how your money will behave over time under various economic conditions. By tweaking the expected return (ROI) and inflation rates, you can stress-test your retirement plan. Seeing the trajectory of your portfolio balance alongside your escalating withdrawal amounts provides a clear, mathematical foundation for your financial independence journey.
           </p>

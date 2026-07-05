@@ -193,18 +193,18 @@ const WindChillCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Science of Wind Chill</h2>
+            <h2 className="text-2xl font-bold mb-3">The Science of Wind Chill</h2>
             <p>During the winter, meteorologists will often say, <em>"The temperature is 30°F, but it feels like 15°F."</em> This phenomenon is known as the <strong>Wind Chill Factor</strong>. It explains why a calm, sunny day at 30°F feels tolerable, but a blustery, windy day at 30°F cuts right to the bone.</p>
 
-            <h2>How Does Wind Make You Colder?</h2>
+            <h2 className="text-2xl font-bold mb-3">How Does Wind Make You Colder?</h2>
             <p>The human body is constantly generating heat. When you are outside on a cold day with no wind, your body creates a thin, microscopic layer of warm air immediately surrounding your skin and clothes. This boundary layer acts like an invisible sweater, insulating you from the colder air slightly further away.</p>
             <p>When the wind blows, it rapidly strips this warm boundary layer away. Your body has to immediately burn more energy to heat up a new layer of air. If the wind is blowing constantly, your body can never build up that insulation, and heat is constantly sucked away from your skin. The faster the wind blows, the faster you lose heat, making the air <em>feel</em> significantly colder than it actually is.</p>
 
-            <h2>The Limitations of Wind Chill</h2>
+            <h2 className="text-2xl font-bold mb-3">The Limitations of Wind Chill</h2>
             <p>It is crucial to understand that wind chill is a <strong>biological effect</strong>, not a physical temperature drop. It only affects living things that generate heat. </p>
             <p>If you park your car outside and the temperature is 35°F with a massive wind chill of 10°F, <strong>your engine block and radiator fluid will only cool down to 35°F.</strong> Water pipes will not freeze under these conditions, because the physical air surrounding them is still above freezing. The wind only cools the object down to the ambient air temperature faster; it cannot cool the object <em>below</em> the ambient air temperature.</p>
 
-            <h2>Frostbite Danger</h2>
+            <h2 className="text-2xl font-bold mb-3">Frostbite Danger</h2>
             <p>The National Weather Service (NWS) updated the wind chill formula in 2001 to more accurately reflect human face heat loss. The NWS issues Wind Chill Advisories and Warnings because severe wind chill drastically accelerates the onset of frostbite. In extreme conditions (wind chill below -60°F), exposed flesh can freeze in under 5 minutes.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/wind-chill-calculator" />

@@ -395,30 +395,30 @@ export default function BodyFatSkinfoldCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Flaw in Modern Fitness Technology</h2>
+            <h2 className="text-2xl font-bold mb-3">The Flaw in Modern Fitness Technology</h2>
             <p>If you purchase a modern, $100 digital bathroom scale, it will likely claim to calculate your body fat percentage using Bioelectrical Impedance Analysis (BIA). You step on the metal plates, it shoots a small electrical current up your leg, and it spits out a number. The problem? That number is mathematically heavily dependent on your hydration levels. If you drink a gallon of water, or if you eat a salty meal that causes water retention, the electrical current moves faster, and the scale will instantly tell you your body fat has dropped by 3%. That is a biological impossibility. The <strong>Body Fat Percentage Calculator (Skinfold)</strong> bypasses digital gimmickry. By using physical calipers to measure the exact millimeter thickness of your subcutaneous tissue, it provides a clinical, hydration-immune view of your true body composition.</p>
 
-            <h2>Understanding Body Density</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Body Density</h2>
             <p>The mathematics of the Jackson/Pollock method do not immediately calculate body fat; they calculate Body Density. The human body is composed of materials with different physical densities. Lean tissue (muscle and bone) is extremely dense. Adipose tissue (fat) is much less dense (it floats in water). </p>
             <p>By measuring the thickness of the fat folds on your body, the algorithm mathematically reconstructs the overall density of your physical frame. Once your Body Density is established, the calculator runs it through the Siri Equation (a clinical formula developed in 1956) to translate that physical density into a universally understood percentage of fat mass.</p>
 
-            <h2>Why Measurement Sites Differ by Gender</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Measurement Sites Differ by Gender</h2>
             <p>If you look at the calculator inputs, you will notice that the physical sites you must pinch with the caliper change completely based on your biological sex. This is due to the immutable reality of hormonal fat distribution.</p>
             <p>Men are testosterone-dominant organisms. Genetically, men are predisposed to store almost all of their excess energy as visceral and subcutaneous fat directly in the central torso (the chest and abdomen). Therefore, the male 3-site formula requires measurements at the Chest, Abdomen, and Thigh. </p>
             <p>Women are estrogen-dominant organisms. For evolutionary reasons designed to sustain pregnancy and breastfeeding, women are genetically programmed to store essential fat in the lower body (hips, thighs) and the back of the arms. To accurately capture this unique physiological distribution, the female formula requires measurements at the Triceps, the Suprailiac (just above the hip bone), and the Thigh.</p>
 
-            <h2>The Danger of the "Skinny Fat" Epidemic</h2>
+            <h2 className="text-2xl font-bold mb-3">The Danger of the "Skinny Fat" Epidemic</h2>
             <p>The primary reason you must track your Body Fat Percentage rather than your weight is to identify the "Skinny Fat" condition, clinically known as Normal Weight Obesity.</p>
             <p>A person can stand 5'10" and weigh 160 pounds. According to the standard BMI chart, they are perfectly healthy. However, if that person survives entirely on highly processed food and never lifts weights, their internal architecture is a disaster. They possess very little dense, functional muscle tissue, but they carry a massive volume of internal visceral fat and subcutaneous fat. The scale tells them they are thin, but the skinfold caliper will reveal a Body Fat Percentage of 30% or higher. Despite their "thin" appearance, their metabolic profile is identical to that of an obese person, putting them at severe risk for Type 2 Diabetes and heart disease.</p>
 
-            <h2>How to Execute a Perfect Caliper Measurement</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Execute a Perfect Caliper Measurement</h2>
             <p>The Jackson/Pollock method is incredibly accurate, but only if the user executes the protocol correctly. A common mistake is measuring the left side of the body one week, and the right side the next. You must always measure the exact same side of the body (standard protocol dictates the right side) to ensure mathematical consistency.</p>
             <p>When you pinch the skin, you must pull it firmly away from the body. You want to capture the skin and the yellow subcutaneous fat beneath it, but you absolutely must ensure you are not pinching the red muscle tissue underneath. If you accidentally pinch the abdominal muscle, your caliper reading will be massively inflated. Once you have the fold, place the jaws of the caliper about one centimeter away from your fingers, let the caliper compress the fat for two seconds to stabilize, and read the millimeter marking.</p>
 
-            <h2>Preserving Lean Body Mass</h2>
+            <h2 className="text-2xl font-bold mb-3">Preserving Lean Body Mass</h2>
             <p>If you go on a severe crash diet, you might lose 12 pounds on the bathroom scale in a month. You will feel victorious. However, if you use this calculator and realize your Fat Mass only dropped by 3 pounds, it means you just destroyed 9 pounds of Lean Body Mass (water, bone density, and muscle tissue). By using calipers bi-weekly, you ensure that your weight loss is mathematically targeting the correct physiological compartment.</p>
 
-            <h2>Conclusion: Trust the Caliper, Not the Scale</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Trust the Caliper, Not the Scale</h2>
             <p>Stop letting hydration fluctuations dictate your mood. A $10 set of plastic skinfold calipers is vastly superior to a $100 digital smart scale. Use the Body Fat Percentage Calculator (Skinfold) to isolate your true Lean Body Mass, track the exact millimeter reduction of your adipose tissue, and sculpt your physique with clinical precision.</p>
           </article>
           

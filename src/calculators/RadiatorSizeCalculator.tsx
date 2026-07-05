@@ -262,15 +262,15 @@ export default function RadiatorSizeCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Mathematics of Cooling</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of Cooling</h2>
             <p>An internal combustion engine acts essentially as a massive heater. When you burn fuel to create horsepower, roughly one-third of the energy from that fuel is absorbed directly into the metal engine block as raw thermal heat. If you double the horsepower of an engine, you are burning twice as much fuel, which means you are dumping twice as much heat into the block.</p>
             <p>The radiator's only job is to act as a heat exchanger, pulling that heat out of the liquid coolant and dissipating it into the passing atmosphere. To dissipate more heat, you need a physically larger radiator.</p>
 
-            <h2>The Frontal Area Problem (Square Inches)</h2>
+            <h2 className="text-2xl font-bold mb-3">The Frontal Area Problem (Square Inches)</h2>
             <p>The primary factor determining how much heat a radiator can shed is its "Frontal Area"—the width multiplied by the height. The more square inches of metal that touch the passing air, the more heat is removed. A typical rule of thumb is that you need roughly 1.7 square inches of standard 1-row radiator core to effectively cool 1 unit of horsepower.</p>
             <p>If you build a 600 HP engine, you need a massive 1020 sq-in radiator (e.g., a massive 40-inch wide by 25-inch tall unit). However, most cars do not have a front grille large enough to fit a radiator that wide.</p>
 
-            <h2>The Solution: Adding Core Rows</h2>
+            <h2 className="text-2xl font-bold mb-3">The Solution: Adding Core Rows</h2>
             <p>If your engine bay is physically too small to fit a wider radiator, the only solution is to make the radiator thicker by adding rows of cooling tubes. A standard factory radiator is usually a 1-Row design. By stacking a second row of tubes behind the first (creating a 2-Row radiator), you increase the cooling capacity without making the radiator any wider or taller.</p>
             <p>However, there are diminishing returns. As outside air flows through the first row of tubes, the air heats up. By the time that same air hits the second row, it is already warm. By the time it hits a 3rd or 4th row, the air is scorching hot, meaning the back rows are vastly less efficient at extracting heat than the front row. Because of this, a 2-Row radiator only provides about 60% more cooling capacity than a 1-Row, not double.</p>
           </article>

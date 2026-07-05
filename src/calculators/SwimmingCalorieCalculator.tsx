@@ -116,13 +116,13 @@ export default function SwimmingCalorieCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>How Swimming Calories Are Calculated</h2>
+            <h2 className="text-2xl font-bold mb-3">How Swimming Calories Are Calculated</h2>
             <p>This swimming calorie calculator uses MET (Metabolic Equivalent of Task) values from the Compendium of Physical Activities (Ainsworth et al.) — the gold standard reference for exercise energy expenditure. Formula: Calories = MET × Body Weight (kg) × Duration (hours). Different strokes have different MET values because they engage different muscle groups with varying efficiency.</p>
-            <h2>Swimming vs. Other Cardio</h2>
+            <h2 className="text-2xl font-bold mb-3">Swimming vs. Other Cardio</h2>
             <p>Swimming burns comparable calories to running and cycling. A 75 kg person burns ~540 calories running for 45 minutes at 10 km/h, vs. ~470 calories swimming moderate freestyle. The key advantage of swimming is near-zero impact — making it ideal for injury recovery, older adults, and people with joint issues. Elite triathletes train all three disciplines for comprehensive cardiovascular development.</p>
-            <h2>Stroke Selection for Fitness Goals</h2>
+            <h2 className="text-2xl font-bold mb-3">Stroke Selection for Fitness Goals</h2>
             <p>Calorie burning: butterfly &gt; breaststroke &gt; freestyle &gt; backstroke. Upper body development: butterfly, freestyle, backstroke. Core strength: butterfly, breaststroke. Full-body conditioning: rotate strokes each workout. Beginners typically start with freestyle (most efficient) and add breaststroke for recovery laps. HIIT swimming alternates sprint intervals with easy recovery lengths for maximum calorie afterburn.</p>
-            <h2>Training Volume Guidelines</h2>
+            <h2 className="text-2xl font-bold mb-3">Training Volume Guidelines</h2>
             <p>Fitness swimming: 2,000–3,000m per session, 3–4 sessions/week. Competitive: 4,000–10,000m per session, 5–6 sessions/week. For weight management, 3× per week of 45-minute moderate-intensity swimming creates a significant caloric deficit over time. Track total weekly distance and gradually increase volume by no more than 10% per week.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/swimming-calorie-calculator" />

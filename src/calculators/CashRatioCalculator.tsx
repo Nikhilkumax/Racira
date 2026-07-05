@@ -175,17 +175,17 @@ export default function CashRatioCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is the Cash Ratio?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is the Cash Ratio?</h2>
             <p>The Cash Ratio is the most conservative liquidity ratio in financial analysis. <strong>Cash Ratio = (Cash + Cash Equivalents) ÷ Current Liabilities.</strong> Unlike the Current Ratio or Quick Ratio, it only counts the most liquid assets — actual cash and near-cash instruments like T-bills and money market funds — against short-term obligations.</p>
             <p>Our calculator is pre-filled with $120,000 cash + $30,000 equivalents against $200,000 current liabilities → Cash Ratio = 0.75×. This means the company can cover 75% of its short-term obligations with available cash.</p>
 
-            <h2>Interpreting the Cash Ratio</h2>
+            <h2 className="text-2xl font-bold mb-3">Interpreting the Cash Ratio</h2>
             <p>A ratio of 0.5–1.0 is generally healthy for most businesses. Above 1.0 means full cash coverage of all current liabilities — very conservative. Below 0.2 may signal liquidity risk. Most profitable companies operate at 0.2–0.5, supplemented by credit lines, because holding excess cash earns poor returns compared to deploying it in the business.</p>
 
-            <h2>Cash Ratio vs. Other Liquidity Ratios</h2>
+            <h2 className="text-2xl font-bold mb-3">Cash Ratio vs. Other Liquidity Ratios</h2>
             <p>The three standard liquidity ratios from most to least conservative: <strong>Cash Ratio</strong> (only cash + equivalents), <strong>Quick Ratio</strong> (adds receivables), <strong>Current Ratio</strong> (adds all current assets including inventory). Lenders and creditors evaluate all three together to assess short-term solvency from multiple angles.</p>
 
-            <h2>What Counts as Cash Equivalents?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Counts as Cash Equivalents?</h2>
             <p>Cash equivalents are instruments with original maturities of three months or less: US Treasury bills, money market mutual funds, commercial paper, and certificates of deposit (CDs) maturing within 90 days. They're reported alongside cash on the balance sheet and treated identically for liquidity analysis purposes.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/cash-ratio-calculator" />

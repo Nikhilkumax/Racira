@@ -345,25 +345,25 @@ export default function ChargingSpeedCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is an EV Charging Speed Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is an EV Charging Speed Calculator?</h2>
             <p>An EV Charging Speed Calculator is a specialized tool designed to estimate exactly how long it will take to charge an Electric Vehicle battery. Unlike filling a gas tank, which takes exactly 3 minutes regardless of how empty the tank is, charging a battery is an incredibly dynamic process. It depends on the size of the battery, the maximum output of the charger, and crucially, the battery's current State of Charge (SoC). This calculator factors in these complex variables to provide a realistic time estimate.</p>
 
-            <h2>How It Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
             <p>The core mathematical formula is simple: <strong>Time = Energy Needed / Charging Power</strong>. If you need 50 kWh of energy and plug into a 10 kW charger, it will take roughly 5 hours. However, real-world charging is not linear. Our algorithm simulates a "Charge Curve." If you are using a high-power DC Fast Charger, the calculator assumes your car will accept maximum power when the battery is low, but will begin to restrict (taper) that power as the battery fills up to prevent overheating.</p>
 
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>The <strong>Estimated Charge Time</strong> is the total hours and minutes you will be tethered to the charger. The <strong>Energy Added</strong> metric shows exactly how many kilowatt-hours (kWh) will be deposited into the battery, and the <strong>Miles Added</strong> converts that energy into practical driving distance based on your vehicle's efficiency.</p>
 
-            <h2>The 80% Rule</h2>
+            <h2 className="text-2xl font-bold mb-3">The 80% Rule</h2>
             <p>If you look at the <strong>Estimated Charge Curve</strong> chart, you will likely notice a severe drop in charging speed (kW) right around the 80% mark. This is intentional. Lithium-ion batteries accept electrons easily when empty, but as they reach capacity, it becomes harder to force energy into the cells without generating catastrophic heat. Therefore, the car's Battery Management System (BMS) steps in and drastically slows down the charge. This is why it often takes just as long to charge from 80% to 100% as it did to charge from 10% to 80%.</p>
 
-            <h2>Key Factors</h2>
+            <h2 className="text-2xl font-bold mb-3">Key Factors</h2>
             <p>Your <strong>Charger Power</strong> is the primary bottleneck. A standard Level 1 wall outlet delivers a microscopic 1.4 kW, taking days to fill a large battery. A Level 2 home charger delivers roughly 9.6 kW, completing the task overnight. A DC Fast Charger delivers 150+ kW, completing the task in under an hour. However, your car also has a maximum acceptance rate. Plugging a Chevy Bolt (max 55kW) into a 350kW Electrify America charger will not make it charge any faster; the car will still only pull 55kW.</p>
 
-            <h2>Advanced Features</h2>
+            <h2 className="text-2xl font-bold mb-3">Advanced Features</h2>
             <p>In the Advanced Options, you can adjust <strong>Battery Temperature</strong>. Cold weather is the enemy of fast charging. If you plug a freezing cold EV into a Supercharger without pre-conditioning (warming) the battery first, the car will severely limit the charging speed to protect the cold, brittle cells. The calculator simulates this thermal throttling if you select "Cold."</p>
 
-            <h2>Tips & Best Practices</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
             <p>On road trips, do not charge to 100% unless absolutely necessary to reach your next destination. Because charging slows to a crawl above 80%, it is significantly faster to unplug at 80%, drive to the next charger, and charge from 10% to 60% at maximum speed. Your total travel time will be much lower using this "hop-scotch" strategy rather than waiting for 100% at every stop.</p>
           </article>
           

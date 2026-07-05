@@ -397,7 +397,7 @@ export default function EightyThreeBElectionTaxCalculator() {
 
         {/* SEO CONTENT SECTION */}
         <div className="max-w-[800px] mt-16 prose prose-slate dark:prose-invert">
-          <h2>What is an 83(b) Election?</h2>
+          <h2 className="text-2xl font-bold mb-3">What is an 83(b) Election?</h2>
           <p>
             Section 83(b) of the Internal Revenue Code allows founders and startup employees to choose to be taxed on the fair market value (FMV) of restricted stock or options <em>at the time they are granted</em>, rather than waiting until the shares actually vest.
           </p>
@@ -408,7 +408,7 @@ export default function EightyThreeBElectionTaxCalculator() {
             By filing an 83(b) election, you preemptively tell the IRS, "Tax me on everything right now." Because the company is usually worth very little at the time of grant, the tax bill today is often zero or very small.
           </p>
 
-          <h2>Why the 83(b) Election is Crucial for Founders</h2>
+          <h2 className="text-2xl font-bold mb-3">Why the 83(b) Election is Crucial for Founders</h2>
           <p>
             The primary goal of an 83(b) election is to convert what would have been high-rate <strong>ordinary income</strong> into lower-rate <strong>long-term capital gains</strong>.
           </p>
@@ -419,7 +419,7 @@ export default function EightyThreeBElectionTaxCalculator() {
             With an 83(b) election, you lock in your ordinary income tax at the grant date (when FMV and purchase price are usually identical, resulting in $0 tax). From that point forward, all future growth of the company is categorized as capital gains. When you eventually sell the stock (assuming you held it for over a year), you will pay the much lower capital gains tax rate (usually 15% to 20%).
           </p>
 
-          <h2>The 30-Day Strict Deadline</h2>
+          <h2 className="text-2xl font-bold mb-3">The 30-Day Strict Deadline</h2>
           <p>
             This cannot be overstated: <strong>You must file your 83(b) election with the IRS within 30 days of the grant date.</strong>
           </p>
@@ -430,7 +430,7 @@ export default function EightyThreeBElectionTaxCalculator() {
             It is highly recommended to mail the election form via USPS Certified Mail with a Return Receipt Requested, so you have absolute proof of the date it was sent and received.
           </p>
 
-          <h2>The Risks of Filing an 83(b)</h2>
+          <h2 className="text-2xl font-bold mb-3">The Risks of Filing an 83(b)</h2>
           <p>
             While an 83(b) election is almost always a no-brainer for early-stage founders receiving stock for pennies, it does carry risks for later-stage employees:
           </p>
@@ -440,7 +440,7 @@ export default function EightyThreeBElectionTaxCalculator() {
             <li><strong>Company Failure:</strong> If the startup goes bankrupt and the shares become worthless, you cannot claim a tax deduction for the ordinary income taxes you paid upfront.</li>
           </ul>
 
-          <h2>Understanding the Calculator Results</h2>
+          <h2 className="text-2xl font-bold mb-3">Understanding the Calculator Results</h2>
           <p>
             This calculator demonstrates the mathematical power of the 83(b) election by modeling a hypothetical exit scenario.
           </p>
@@ -450,7 +450,7 @@ export default function EightyThreeBElectionTaxCalculator() {
             <li><strong>Total Exit Tax:</strong> The taxes you will pay when the company is acquired or goes public. Notice how the blue bar (Capital Gains) is much larger in the 83(b) scenario, representing the conversion of your wealth into the more favorable tax bracket.</li>
           </ul>
 
-          <h2>When Should You NOT File an 83(b)?</h2>
+          <h2 className="text-2xl font-bold mb-3">When Should You NOT File an 83(b)?</h2>
           <p>
             Generally, you might reconsider filing an 83(b) if:
           </p>

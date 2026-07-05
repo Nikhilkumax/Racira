@@ -231,10 +231,10 @@ export default function WheelOffsetCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Why Use a Wheel Offset Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Use a Wheel Offset Calculator?</h2>
             <p>Buying aftermarket wheels is one of the most popular and transformative modifications you can make to a vehicle. However, ensuring those new wheels actually fit without destroying your suspension or fenders is a mathematical headache. A Wheel Offset Calculator takes your factory wheel width and offset, compares it against your desired aftermarket specifications, and instantly tells you exactly how the new wheel will sit in the wheel well.</p>
 
-            <h2>Understanding Wheel Offset (ET)</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Wheel Offset (ET)</h2>
             <p>Offset (often stamped on wheels with the German abbreviation "ET" for <em>Einpresstiefe</em>) is the distance in millimeters from the absolute center line of the wheel barrel to the mounting pad where the wheel bolts to your car's hub.</p>
             <ul>
               <li><strong>Positive Offset (+):</strong> The mounting pad is closer to the outside of the wheel (the street side). This is standard for almost all modern front-wheel-drive and all-wheel-drive vehicles. It tucks the wheel deep under the fender.</li>
@@ -242,13 +242,13 @@ export default function WheelOffsetCalculator() {
               <li><strong>Negative Offset (-):</strong> The mounting pad is closer to the inside of the wheel (the suspension side). This creates a "deep dish" look and pushes the wheel far out past the fenders. This is common on lifted off-road trucks.</li>
             </ul>
 
-            <h2>The Danger of Inner Clearance Loss</h2>
+            <h2 className="text-2xl font-bold mb-3">The Danger of Inner Clearance Loss</h2>
             <p>If our calculator warns you of "LESS clearance on the strut side," pay close attention. Your suspension struts, control arms, and brake calipers live directly behind your wheels. If your new wheel pushes inward by 15mm and you only had 10mm of physical gap from the factory, your new wheel will violently crash into your suspension the moment you lower the car off the jack. You would need to add wheel spacers to correct this.</p>
 
-            <h2>The Risk of Fender Rubbing</h2>
+            <h2 className="text-2xl font-bold mb-3">The Risk of Fender Rubbing</h2>
             <p>If the calculator shows that your new setup "Extends FARTHER out," you are pushing the wheel toward the outer fender lip. A moderate increase (10-15mm) is often highly desirable in the car community to achieve a "flush" fitment where the wheel perfectly aligns with the fender line. However, push it too far (e.g., 30mm+), and your tires will smash into your metal fenders every time you hit a bump or turn the steering wheel sharply.</p>
 
-            <h2>How Wheel Width Complicates Offset</h2>
+            <h2 className="text-2xl font-bold mb-3">How Wheel Width Complicates Offset</h2>
             <p>Offset is not an absolute measurement; it is relative to the width of the wheel. You cannot assume a +40 offset wheel will fit just because your factory wheels are +40 offset. If your factory wheels are 8 inches wide and your new wheels are 10 inches wide, the new wheels are 2 inches wider overall. Even with the exact same +40 offset, the new wheel will stick out 1 inch further toward the fender AND reach 1 inch deeper toward the suspension. Our calculator handles this complex math automatically.</p>
           </article>
           

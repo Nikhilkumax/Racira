@@ -202,17 +202,17 @@ const WeddingBudgetCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Mathematics of a Wedding</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of a Wedding</h2>
             <p>Planning a wedding is effectively managing a large-scale event production. Many couples start planning with an arbitrary total budget in mind, only to be completely shocked when they receive their first quote from a caterer or venue. Understanding the mathematical breakdown of the event is crucial to avoid going deeply into debt before the honeymoon even begins.</p>
 
-            <h2>The 'Per Head' Reality</h2>
+            <h2 className="text-2xl font-bold mb-3">The 'Per Head' Reality</h2>
             <p>The single most important factor in a wedding budget is the guest count. In the wedding industry, almost everything is calculated "per head."</p>
             <p>If you invite 150 people, you don't just pay for 150 plates of food. You must rent 150 chairs. You need 15 tables to seat them. You need 15 expensive floral centerpieces to decorate those tables. You need a venue large enough to hold 150 people safely. You need to mail 75 heavy invitations. If you want to cut costs, <strong>do not try to save money by haggling with the florist. Save money by cutting the guest list.</strong> Reducing the guest list by just 20 people can instantly save thousands of dollars across multiple categories.</p>
 
-            <h2>Why is Food Half the Budget?</h2>
+            <h2 className="text-2xl font-bold mb-3">Why is Food Half the Budget?</h2>
             <p>When you combine the Venue rental and the Catering costs, you are looking at roughly 50% of your total budget. Feeding massive groups of people is incredibly labor-intensive. A standard catering quote doesn't just include chicken and steak; it includes the chef's labor, the kitchen equipment rental, the waitstaff to serve the food, the bartenders to pour the drinks, the alcohol itself, and the labor required to clean the dishes at the end of the night.</p>
 
-            <h2>The 5% Emergency Buffer</h2>
+            <h2 className="text-2xl font-bold mb-3">The 5% Emergency Buffer</h2>
             <p>Every professional event planner includes a buffer in their budget. A wedding has hundreds of moving parts, and things will inevitably change. You might forget to budget for vendor meals (you have to feed your photographer and DJ). You might need to pay overtime if the party runs late. You might have to pay a massive shipping fee for a dress alteration. Never allocate 100% of your money during the planning phase. Keep 5% locked away as an emergency fund.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/wedding-budget-calculator" />

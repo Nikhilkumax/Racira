@@ -386,13 +386,13 @@ export default function RpeToPercentageCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the RPE to Percentage Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the RPE to Percentage Calculator</h2>
             <p>For decades, professional strength athletes and powerlifters relied exclusively on strict, rigid percentage-based programming. If the spreadsheet said to lift 80% of your 1-Rep Maximum for 5 sets of 5 repetitions, you loaded exactly that weight onto the bar, regardless of how you felt. While effective in a vacuum, this rigid approach fails to account for human biology. You are not a machine. Your strength fluctuates daily based on sleep quality, caloric intake, accumulated systemic fatigue, and psychological stress. Enter <strong>Autoregulation</strong> and the <strong>Rate of Perceived Exertion (RPE)</strong> scale. The RPE to Percentage Calculator bridges the gap between rigid mathematics and subjective daily readiness, allowing you to fluidly adjust your training weights to match your actual physiological state.</p>
 
-            <h2>The History of the RPE Scale</h2>
+            <h2 className="text-2xl font-bold mb-3">The History of the RPE Scale</h2>
             <p>The concept of measuring exertion was originally developed in the 1970s by Dr. Gunnar Borg (The Borg Scale), which rated cardiovascular exertion from 6 to 20. However, this was useless for weightlifting. In the 2000s, elite powerlifter and coach Mike Tuchscherer (founder of Reactive Training Systems) revolutionized the industry by adapting the scale specifically for barbell training. He created a 1-to-10 scale explicitly tied to <strong>Reps in Reserve (RIR)</strong>. This transformed a subjective feeling ("that felt heavy") into an objective, measurable metric ("I could have done exactly two more reps").</p>
 
-            <h2>Decoding the Powerlifting RPE Scale</h2>
+            <h2 className="text-2xl font-bold mb-3">Decoding the Powerlifting RPE Scale</h2>
             <p>To use this calculator effectively, you must understand exactly what each number on the RPE scale means. It requires brutal honesty with yourself. If you rack the barbell because it "hurt," but your bar speed was fast and your technique was perfect, that was not an RPE 10. The scale measures mechanical failure, not psychological discomfort.</p>
             <ul>
               <li><strong>RPE 10 (0 Reps in Reserve):</strong> Absolute maximum effort. The bar speed was agonizingly slow. Your technique likely degraded slightly. If someone put a gun to your head, you could not have completed another half-repetition. You could not have added 5 pounds to the bar.</li>
@@ -403,19 +403,19 @@ export default function RpeToPercentageCalculator() {
               <li><strong>RPE 6 or below (4+ Reps in Reserve):</strong> Warmup weight. It is practically impossible to accurately judge the difference between 5 reps in reserve and 7 reps in reserve, so the scale effectively stops at 6 for programming purposes.</li>
             </ul>
 
-            <h2>How the Math Works: Bridging RPE and Percentages</h2>
+            <h2 className="text-2xl font-bold mb-3">How the Math Works: Bridging RPE and Percentages</h2>
             <p>The calculator utilizes a reverse-engineering process based on standard 1-Rep Max estimation formulas (such as the Brzycki equation). The logic relies on "Effective Repetitions."</p>
             <p>If you perform 5 repetitions at an RPE of 8, the math knows that you had 2 reps left in the tank (10 - 8 = 2). Therefore, if you had pushed to absolute failure (an RPE 10), you would have completed 7 total repetitions. The calculator takes those 7 "Effective Repetitions," runs them through the Brzycki formula, and determines that a 7-Rep Max correlates to roughly 81% of your true 1-Rep Max. Thus, 5 reps at RPE 8 equals 81%. This mathematical bridge allows you to translate any subjective feeling into a hard, programmable percentage.</p>
 
-            <h2>Why Autoregulation is Superior to Strict Percentages</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Autoregulation is Superior to Strict Percentages</h2>
             <p>Imagine you have a strict percentage program that dictates you must squat 315 lbs for 5 reps today. However, you only slept 4 hours last night and you skipped breakfast. Your true 1RM for <em>today specifically</em> has temporarily dropped due to fatigue.</p>
             <p>If you stubbornly force the 315 lbs, you will likely hit an RPE 10. You will grind the reps, risk catastrophic injury, and fry your CNS for the rest of the week. You failed the physiological intent of the program.</p>
             <p>If your program instead dictates "Squat 5 reps at an RPE 8," you autoregulate. You load 295 lbs instead. It feels exactly as hard (RPE 8) as 315 lbs would have felt on a good day. You secure the exact physiological stimulus required to build muscle and strength, without overtraining or risking injury. The RPE protocol automatically scales to your daily biological readiness.</p>
 
-            <h2>The Danger of "Overshooting"</h2>
+            <h2 className="text-2xl font-bold mb-3">The Danger of "Overshooting"</h2>
             <p>The biggest flaw of RPE training is the human ego. Many lifters lie to themselves. They hit an absolute grinding RPE 10, rack the bar, and log it in their journal as an "RPE 8" because they are embarrassed they couldn't lift heavier. This destroys the math. If you log an RPE 10 as an RPE 8, the calculator will assume you are much stronger than you actually are, and your subsequent training blocks will be programmed with weights that crush you. You must check your ego at the door to make the math work.</p>
 
-            <h2>Conclusion: Train Smarter, Not Harder</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Train Smarter, Not Harder</h2>
             <p>If you want to lift weights for the rest of your life without chronic joint pain and CNS fatigue, you must learn to listen to your body. The RPE scale is the language your body speaks; the RPE to Percentage Calculator translates that language into actionable data. By utilizing autoregulation, you ensure that every single set is perfectly tailored to your physiological state on that exact day. Stop grinding through bad days, capitalize on the good days, and use the math to build unbreakable strength.</p>
           </article>
           

@@ -125,16 +125,16 @@ const WaterBoilingTimeCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>The Physics of Boiling</h2>
+              <h2 className="text-2xl font-bold mb-3">The Physics of Boiling</h2>
               <p>Boiling water seems simple, but it's a fascinating thermodynamic process. To boil water, you must first raise its temperature to the boiling point (sensible heat) and then provide enough energy to convert it from liquid to gas (latent heat of vaporization). This calculator focuses on the first stage: reaching the boiling point.</p>
               
-              <h2>Efficiency of Heat Sources</h2>
+              <h2 className="text-2xl font-bold mb-3">Efficiency of Heat Sources</h2>
               <p>Where your heat comes from matters as much as how much you have. A 2000W gas burner might take longer to boil a pot than a 1500W electric kettle because a kettle's heating element is directly in the water, whereas a gas burner loses more than half its heat to the surrounding air.</p>
 
-              <h2>Cooking at High Altitudes</h2>
+              <h2 className="text-2xl font-bold mb-3">Cooking at High Altitudes</h2>
               <p>If you're in the mountains, you'll notice your water boils faster, but your food takes longer to cook. This is because the boiling water is at a lower temperature. Pasta or beans that require 100°C for optimal cooking will need significantly more time at 92°C (the boiling point at ~2,500m).</p>
 
-              <h2>Tips for Faster Boiling</h2>
+              <h2 className="text-2xl font-bold mb-3">Tips for Faster Boiling</h2>
               <ul>
                 <li><strong>Use a Lid:</strong> This traps heat and prevents evaporative cooling, saving up to 20% in energy and time.</li>
                 <li><strong>Start with Warm Water:</strong> Using warm tap water (if safe and filtered) reduces the temperature delta.</li>

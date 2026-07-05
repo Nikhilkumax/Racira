@@ -369,23 +369,23 @@ export default function CarInsuranceCostCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Car Insurance Cost Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Car Insurance Cost Calculator?</h2>
             <p>A Car Insurance Cost Calculator is a risk-assessment tool that simulates how automotive insurance underwriters determine your premium. Insurance companies use massive actuarial algorithms to predict how likely you are to file a claim. If you represent a high risk, they charge you a high premium. This tool breaks down those hidden risk factors—including your age, your driving record, and where you park the vehicle—to show you exactly why you pay what you pay.</p>
 
-            <h2>The Heaviest Penalty: Driver Age</h2>
+            <h2 className="text-2xl font-bold mb-3">The Heaviest Penalty: Driver Age</h2>
             <p>Statistically, teenagers and young adults (under the age of 25) are involved in significantly more car accidents than any other demographic. Because insurance companies operate purely on math, they levy massive <strong>Age Penalties</strong> on young drivers. If you are 18 years old, you can expect to pay double or even triple the premium of a 35-year-old with the exact same vehicle and driving record. Once you hit 25, premiums historically experience a sharp drop.</p>
 
-            <h2>Your Driving Record is Permanent (Mostly)</h2>
+            <h2 className="text-2xl font-bold mb-3">Your Driving Record is Permanent (Mostly)</h2>
             <p>Your driving record is the second largest variable. Insurance companies check your Motor Vehicle Report (MVR). A <strong>Minor Violation</strong>, like a speeding ticket, will generally trigger a 20% to 30% surcharge that stays on your record for 3 to 5 years. A <strong>Major Violation</strong>, such as an at-fault accident, can spike your rates by 50% or more. A severe violation, like a DUI, will classify you as a high-risk driver, forcing you into expensive specialized insurance pools and potentially tripling your premium overnight.</p>
 
-            <h2>Location, Location, Location</h2>
+            <h2 className="text-2xl font-bold mb-3">Location, Location, Location</h2>
             <p>Where you park your car at night dictates your <strong>Location Surcharge</strong>. If you live in a dense inner city, your car is statistically much more likely to be stolen, vandalized, or hit by another driver while parked. Therefore, city dwellers pay significantly more for insurance than people living in rural or suburban areas. Even moving one zip code over can change your insurance premium by hundreds of dollars a year.</p>
 
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <p><strong>Example 1: The Safe Driver.</strong> Sarah is 35 years old, has a perfectly clean driving record, and lives in the suburbs. She drives a $25,000 car and wants Full Coverage. The calculator estimates her annual premium at roughly $1,175, or just under $100 a month. She is the ideal, low-risk client for an insurance company.</p>
             <p><strong>Example 2: The High-Risk Youth.</strong> John is 19 years old, lives in the inner city, and has one speeding ticket on his record. He drives the exact same $25,000 car as Sarah. Because of his youth, his location, and his ticket, the calculator estimates his annual premium at a staggering $4,100, or roughly $340 a month. The insurance company views him as an extreme financial risk.</p>
 
-            <h2>Tips & Best Practices</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
             <p>The easiest way to lower your insurance premium without changing your driving habits is to raise your <strong>Deductible</strong>. By increasing your deductible from $500 to $1,000 or $2,000, you take on more of the financial risk in the event of a minor accident. The insurance company rewards this by lowering your monthly bill. Furthermore, never blindly renew your policy. Shop around with at least three different carriers every two years, as different companies use slightly different algorithms to price risk.</p>
           </article>
           

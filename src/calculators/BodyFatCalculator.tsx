@@ -141,15 +141,15 @@ const BodyFatCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>What Is Body Fat Percentage?</h2>
+              <h2 className="text-2xl font-bold mb-3">What Is Body Fat Percentage?</h2>
               <p>Body fat percentage is the proportion of your total body weight that is fat tissue. It's a better indicator of health and fitness than weight alone, as it distinguishes between fat mass and lean mass (muscle, bone, water, organs).</p>
 
-              <h2>US Navy Body Fat Formula</h2>
+              <h2 className="text-2xl font-bold mb-3">US Navy Body Fat Formula</h2>
               <p><strong>Men:</strong> BF% = 495 / (1.0324 − 0.19077 × log₁₀(waist − neck) + 0.15456 × log₁₀(height)) − 450</p>
               <p><strong>Women:</strong> BF% = 495 / (1.29579 − 0.35004 × log₁₀(waist + hip − neck) + 0.22100 × log₁₀(height)) − 450</p>
               <p>This method is validated against hydrostatic weighing and is accurate to within 1-3% for most individuals.</p>
 
-              <h2>Body Fat Categories</h2>
+              <h2 className="text-2xl font-bold mb-3">Body Fat Categories</h2>
               <table className="w-full text-sm mb-4">
                 <thead><tr><th className="text-left py-1">Category</th><th className="text-right">Men</th><th className="text-right">Women</th></tr></thead>
                 <tbody>
@@ -161,7 +161,7 @@ const BodyFatCalculator = () => {
                 </tbody>
               </table>
 
-              <h2>How to Reduce Body Fat</h2>
+              <h2 className="text-2xl font-bold mb-3">How to Reduce Body Fat</h2>
               <ul>
                 <li>Maintain a moderate caloric deficit (300-500 calories below TDEE)</li>
                 <li>Prioritize protein intake (1.6-2.2g per kg bodyweight)</li>

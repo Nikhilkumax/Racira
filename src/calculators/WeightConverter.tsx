@@ -202,7 +202,7 @@ const WeightConverter = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>What Is a Weight Converter?</h2>
+              <h2 className="text-2xl font-bold mb-3">What Is a Weight Converter?</h2>
               <p>
                 A weight converter is an online tool designed to instantly translate a measurement of weight or mass from one unit to another. Whether you need to know how many pounds are in 5 kilograms, how many grams are in an ounce, or how many stones you weigh based on your kilogram measurement, a weight converter eliminates manual calculation errors and saves time.
               </p>
@@ -210,7 +210,7 @@ const WeightConverter = () => {
                 Our weight converter supports seven of the most commonly used weight units: milligrams, grams, kilograms, metric tons (tonnes), ounces, pounds, and stones. It covers both the metric system (used in most of the world) and the imperial or US customary system (used primarily in the United States, United Kingdom, and a few other countries). After entering your value and selecting units, the tool displays the direct conversion and an all-units table in seconds.
               </p>
 
-              <h2>How Weight Is Measured</h2>
+              <h2 className="text-2xl font-bold mb-3">How Weight Is Measured</h2>
               <p>
                 Weight measurement systems have evolved over centuries, leading to the coexistence of metric and imperial units in the modern world. The metric system — adopted by most countries globally — is based on multiples of 10, making conversions between milligrams, grams, kilograms, and metric tons straightforward. One kilogram equals 1,000 grams; one metric ton equals 1,000 kilograms.
               </p>
@@ -227,7 +227,7 @@ const WeightConverter = () => {
                 <li><strong>Stone (st):</strong> 14 pounds or approximately 6.35 kilograms. Widely used in the UK and Ireland for body weight.</li>
               </ul>
 
-              <h2>How to Use This Calculator</h2>
+              <h2 className="text-2xl font-bold mb-3">How to Use This Calculator</h2>
               <p>
                 Using the weight converter is straightforward. Begin by entering the numeric value you want to convert into the "Weight Value" field. Next, select the unit you are converting <em>from</em> using the "From Unit" dropdown — for example, kilograms. Then select the unit you want to convert <em>to</em> using the "To Unit" dropdown — for example, pounds. Click the <strong>Convert</strong> button to see your result.
               </p>
@@ -238,7 +238,7 @@ const WeightConverter = () => {
                 To start a new conversion, click the reset button (↺) to clear all fields and return to the default settings. There is no limit to the number of conversions you can perform.
               </p>
 
-              <h2>Understanding Weight vs Mass</h2>
+              <h2 className="text-2xl font-bold mb-3">Understanding Weight vs Mass</h2>
               <p>
                 In everyday language, the terms "weight" and "mass" are used interchangeably — and for almost all practical purposes, this is perfectly acceptable. However, in physics, they refer to distinct concepts.
               </p>
@@ -252,7 +252,7 @@ const WeightConverter = () => {
                 For everyday contexts like weighing food, tracking body weight, or shipping packages, this distinction is irrelevant. Scales measure the gravitational force on your mass and display the result in kilograms or pounds, which we conventionally call your "weight." Our converter operates in this everyday sense, treating kg, lb, g, oz, and other units as measures of how heavy something is under standard Earth gravity.
               </p>
 
-              <h2>Example</h2>
+              <h2 className="text-2xl font-bold mb-3">Example</h2>
               <p>
                 Suppose you weigh yourself and the scale reads <strong>75 kilograms</strong>. You want to know what this is in pounds for a US-based health application, and also in stones for reference with a UK friend.
               </p>
@@ -268,7 +268,7 @@ const WeightConverter = () => {
                 Our converter performs all of these calculations simultaneously the moment you click Convert, saving you from needing to look up each conversion factor individually.
               </p>
 
-              <h2>Tips for Accurate Weight Measurement</h2>
+              <h2 className="text-2xl font-bold mb-3">Tips for Accurate Weight Measurement</h2>
               <p>
                 For the most reliable weight measurements in everyday life, keep these practical tips in mind:
               </p>

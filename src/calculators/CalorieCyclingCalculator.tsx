@@ -369,36 +369,36 @@ export default function CalorieCyclingCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Calorie Cycling Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Calorie Cycling Calculator</h2>
             <p>Traditional diet plans typically prescribe a "linear" or flat caloric target. For example, if your Total Daily Energy Expenditure (TDEE) is 2,500 calories and you want to lose fat, a standard diet might tell you to eat 2,000 calories every single day. While this mathematically guarantees fat loss, it ignores a fundamental reality of fitness: your energy demands are not the same every day.</p>
             <p>On a Sunday when you are sitting on the couch binge-watching television, your body does not require massive amounts of energy. However, on a Tuesday when you are performing heavy barbell squats, your central nervous system and muscular system demand significant fuel. If you eat a flat 2,000 calories on both days, you will feel perfectly fine on the couch, but you will feel lethargic, weak, and flat during your squat session. The <strong>Calorie Cycling Calculator</strong> (also known as zig-zag dieting) solves this problem by allocating your weekly caloric allowance strategically.</p>
 
-            <h2>The Mathematics of Net Weekly Calories</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of Net Weekly Calories</h2>
             <p>The human body does not operate on a strict 24-hour clock resetting precisely at midnight. Your metabolism functions over longer timelines. Because of this, <strong>Net Weekly Calories</strong> are far more important than any single daily total.</p>
             <p>Using our previous example of a 2,000-calorie daily cut, your Net Weekly Calorie Target is 14,000 calories (2,000 x 7). Calorie cycling simply takes that 14,000-calorie bucket and distributes it unevenly. You might eat 2,500 calories (maintenance) on the three days you train heavy, and drop to 1,625 calories on your four rest days. (3 x 2,500 = 7,500) + (4 x 1,625 = 6,500) = 14,000 weekly calories. The fat loss result is exactly the same, but the gym performance and muscle retention are vastly superior.</p>
 
-            <h2>Deficit Cycling (Cutting / Fat Loss)</h2>
+            <h2 className="text-2xl font-bold mb-3">Deficit Cycling (Cutting / Fat Loss)</h2>
             <p>When you select "Fat Loss" in the calculator, the algorithm implements a protocol specifically designed to preserve lean muscle mass while stripping away adipose tissue. During a cut, your body is in a state of starvation, making it prime to catabolize (break down) muscle tissue for energy.</p>
             <p>To combat this, the calculator sets your "High Days" equal to your TDEE (maintenance). By eating at maintenance on your heaviest training days, you provide the glycogen necessary to maintain strength and the protein necessary to signal muscle preservation. The entire fat loss deficit is generated on your "Low Days" (rest days), when the lack of calories won't negatively impact a workout. This forces the body to tap into stored fat on rest days while protecting muscle on training days.</p>
 
-            <h2>Surplus Cycling (Bulking / Muscle Gain)</h2>
+            <h2 className="text-2xl font-bold mb-3">Surplus Cycling (Bulking / Muscle Gain)</h2>
             <p>When the goal is building muscle ("Bulking"), a common mistake is eating in a massive surplus every single day. This "dirty bulk" approach leads to excessive, unnecessary fat gain. Muscle protein synthesis (the process of building new tissue) is elevated for roughly 24 to 48 hours after a workout. Eating a massive surplus on a day you haven't trained in 72 hours does not build muscle; it just stores fat.</p>
             <p>If you select "Muscle Gain", the calculator sets your Low Days at maintenance. This ensures you do not gain body fat on your rest days. It then concentrates the entire weekly caloric surplus into your High Days. By surrounding your workouts with a massive influx of calories (specifically carbohydrates and protein), you maximize the anabolic response exactly when your body is primed to utilize it.</p>
 
-            <h2>The Recomposition Protocol (Maintenance)</h2>
+            <h2 className="text-2xl font-bold mb-3">The Recomposition Protocol (Maintenance)</h2>
             <p>Body recomposition—the holy grail of fitness—involves losing fat and building muscle simultaneously. Traditional science argued this was impossible because fat loss requires a deficit and muscle gain requires a surplus. However, calorie cycling makes this possible by creating micro-cycles of deficits and surpluses within the same week.</p>
             <p>If you select "Recomposition", the calculator ensures your Net Weekly Calories exactly match your weekly TDEE. This means your weight on the scale will not change. However, on training days, it prescribes a moderate surplus (e.g., +300 calories) to fuel muscle growth. On rest days, it prescribes a deficit to force fat burning. Over several months, your body weight remains identical, but your body fat percentage drops while your muscle mass increases.</p>
 
-            <h2>How to Manipulate Your Macronutrients</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Manipulate Your Macronutrients</h2>
             <p>Calorie cycling is most effective when paired with Macronutrient Cycling (specifically Carb Cycling). While the total calories change drastically from a High Day to a Low Day, your protein and fat intake should remain relatively stable. The fluctuation should be driven almost entirely by carbohydrates.</p>
             <p><strong>On High Days:</strong> Keep protein at your standard target (e.g., 1g per pound of body weight). Keep fats low-to-moderate. Fill the massive remaining calorie gap entirely with carbohydrates (rice, potatoes, oats, pasta). This fills the intra-muscular glycogen stores required for heavy lifting.</p>
             <p><strong>On Low Days:</strong> Keep protein at your standard target. Increase healthy fats slightly to aid in hormone production and satiety. Drastically slash your carbohydrate intake. Because you are resting, you do not need fast-acting energy, and dropping carbs keeps insulin levels low, optimizing the fat-burning environment.</p>
 
-            <h2>Psychological Benefits of Zig-Zag Dieting</h2>
+            <h2 className="text-2xl font-bold mb-3">Psychological Benefits of Zig-Zag Dieting</h2>
             <p>Beyond the physiological benefits, calorie cycling provides a massive psychological advantage. Diet fatigue—the mental exhaustion of chronic caloric restriction—is the number one reason diets fail. Eating a flat 1,800 calories every single day for 12 weeks is soul-crushing.</p>
             <p>With calorie cycling, you are never more than a day or two away from a "High Day." If you are suffering through a grueling 1,500-calorie Low Day on a Sunday, you know that Monday is a training day where you get to eat a massive, satisfying 2,500-calorie meal. This light at the end of the tunnel dramatically improves dietary adherence and completely eliminates the desire to "cheat" on the diet.</p>
 
-            <h2>Conclusion: Advanced Nutritional Periodization</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Advanced Nutritional Periodization</h2>
             <p>Calorie cycling is not a magic trick; it still abides by the immutable laws of thermodynamics. However, it represents an advanced form of nutritional periodization. By aligning your energy intake with your actual physical output, you optimize hormones, preserve lean tissue, maximize gym performance, and drastically improve your relationship with food. Use the calculator above to map out your week, hit your net targets, and watch your physique transform.</p>
           </article>
           

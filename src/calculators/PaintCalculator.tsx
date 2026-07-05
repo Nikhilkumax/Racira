@@ -205,13 +205,13 @@ export default function PaintCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>How to Calculate Paint Needed for a Room</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Calculate Paint Needed for a Room</h2>
             <p>This <strong>paint calculator</strong> determines the exact amount of paint required for walls and ceiling of any room, accounting for doors, windows, number of coats, and a waste factor. The formula: Net Paintable Area = (2 × (Length + Width) × Height) − (Doors × 21 ft²) − (Windows × 15 ft²) + (Length × Width for ceiling). Multiply by coats and add 10% waste, then divide by 350 sq ft per gallon (standard coverage).</p>
-            <h2>Paint Coverage Rates</h2>
+            <h2 className="text-2xl font-bold mb-3">Paint Coverage Rates</h2>
             <p>Standard interior wall paint: 350–400 sq ft per gallon on smooth surfaces. Primer: 200–300 sq ft/gallon. Exterior paint: 250–350 sq ft/gallon. Spray application reduces coverage 20–30% due to overspray. Roller applies most efficiently. For rough or highly porous surfaces (brick, concrete block, heavily textured walls), reduce expected coverage by 20–30%.</p>
-            <h2>Choosing the Right Paint Finish</h2>
+            <h2 className="text-2xl font-bold mb-3">Choosing the Right Paint Finish</h2>
             <p>Flat/Matte: ceilings and low-traffic areas. Eggshell: living rooms, bedrooms — slight sheen, washable. Satin: kitchens, hallways, children's rooms — more durable. Semi-gloss: bathrooms, trim, cabinets — moisture resistant. Gloss: doors, furniture, trim — hardest, most durable. Higher sheen finishes are more cleanable but show surface imperfections more clearly.</p>
-            <h2>Professional vs. DIY Painting</h2>
+            <h2 className="text-2xl font-bold mb-3">Professional vs. DIY Painting</h2>
             <p>DIY painting saves $200–$600 in labor for an average bedroom. Materials for a 15×12 room: 2 gallons of quality paint ($60–$150), primer if needed ($15–$30), brushes/rollers ($15–$25), tape and drop cloths ($15–$25). Total DIY: $100–$230. Professional painting adds $300–$600 in labor. Related tools: <a href="/calculator/area-calculator">Area Calculator</a>, <a href="/calculator/square-footage-calculator">Square Footage Calculator</a>.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/paint-calculator" />

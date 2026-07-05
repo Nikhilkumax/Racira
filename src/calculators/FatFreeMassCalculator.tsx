@@ -195,20 +195,20 @@ const FatFreeMassCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Fat-Free Mass Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Fat-Free Mass Calculator?</h2>
             <p>A fat-free mass (FFM) calculator computes your total lean body mass — everything in your body except stored fat: muscle, bone, water, organs, and connective tissue. It also calculates the Fat-Free Mass Index (FFMI), which normalizes lean mass by height to enable fair comparison across different body sizes. Pre-filled with 185 lbs, 18% body fat, and 70 inches height for a male, the FFM is 68.8 kg (151.7 lbs) and the FFMI is 21.7 — classified as above-average muscularity.</p>
-            <h2>FFM and FFMI Formulas</h2>
+            <h2 className="text-2xl font-bold mb-3">FFM and FFMI Formulas</h2>
             <p><strong>FFM = Weight × (1 − Body Fat % / 100)</strong></p>
             <p><strong>FFMI = FFM (kg) / Height (m)²</strong></p>
             <p><strong>Adjusted FFMI = FFMI + 6.1 × (1.80 − Height in m)</strong></p>
             <p>The adjusted FFMI normalizes for height, making comparisons between individuals of different heights more meaningful. A 5'6" person and a 6'2" person with identical muscle development will have the same adjusted FFMI.</p>
-            <h2>The Natural Muscular Potential (Kouri Study)</h2>
+            <h2 className="text-2xl font-bold mb-3">The Natural Muscular Potential (Kouri Study)</h2>
             <p>The landmark 1995 study by Kouri, Pope, Katz, and Oliva found that among competitive natural male bodybuilders, FFMI rarely exceeded 25. The average FFMI of non-steroid-using competition bodybuilders was 22.8, while steroid users averaged 24.8. The researchers proposed FFMI of 25 as a reasonable upper boundary for natural male muscularity. This has become a widely referenced benchmark in the fitness and bodybuilding community.</p>
-            <h2>Why FFMI Matters More Than BMI for Athletes</h2>
+            <h2 className="text-2xl font-bold mb-3">Why FFMI Matters More Than BMI for Athletes</h2>
             <p>BMI classifies many athletes as "overweight" or "obese" because it cannot distinguish muscle from fat. FFMI solves this by isolating lean mass from body fat. A 200-lb male at 5'10" has BMI 28.7 (overweight). At 12% body fat, his FFMI is 24.9 (excellent muscularity). At 30% body fat, his FFMI is 19.8 (average). Same BMI, vastly different body compositions. FFMI reveals the truth that BMI obscures.</p>
-            <h2>How to Increase Your FFMI</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Increase Your FFMI</h2>
             <p>Building lean mass requires: progressive resistance training (2–5 sessions/week), adequate protein (1.6–2.2 g/kg/day — Schoenfeld &amp; Aragon, 2018), moderate caloric surplus (200–500 kcal above maintenance), sufficient sleep (7–9 hours for optimal growth hormone release), and training periodization. Realistic rates: beginners gain 1–2 lbs lean mass/month, intermediates 0.5–1 lb/month, advanced 0.25–0.5 lbs/month. Creatine monohydrate (3–5g/day) is the most evidence-based supplement for lean mass and strength gains.</p>
-            <h2>Body Recomposition: Losing Fat While Gaining Muscle</h2>
+            <h2 className="text-2xl font-bold mb-3">Body Recomposition: Losing Fat While Gaining Muscle</h2>
             <p>Simultaneously losing fat and gaining muscle (recomposition) is possible, especially for: beginners with high body fat, individuals returning to training after a break, overweight/obese individuals, and those using optimal protein intake. During recomposition, body weight may not change significantly, but body fat percentage decreases while FFM increases. Track progress with body fat measurements and FFMI rather than scale weight alone.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/fat-free-mass-calculator" />

@@ -300,19 +300,19 @@ const CarFinancingInterestCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is the Car Financing Interest Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is the Car Financing Interest Calculator?</h2>
             <p>The Car Financing Interest Calculator shows you exactly how much interest you will pay over the life of an auto loan, how the interest-to-principal ratio changes from year to year, and what the daily cost of borrowing really is. It provides a year-by-year amortization schedule and a first-year versus final-year comparison that makes the front-loaded nature of loan interest easy to understand.</p>
             <p>Whether you are comparing two loan offers, evaluating a refinance, or simply trying to understand the true cost of dealer financing, this tool gives you a clear, mathematically precise picture of every dollar of interest you will pay and when it accrues.</p>
 
-            <h2>How It Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
             <p>Auto loans use simple interest amortization. Each month, interest = balance × (APR ÷ 12). The remaining portion of your fixed payment goes to principal. Because the balance shrinks over time, the interest portion shrinks and the principal portion grows. The standard level-payment formula is:</p>
             <p><strong>M = P × r(1+r)<sup>n</sup> / ((1+r)<sup>n</sup> − 1)</strong></p>
             <p>where P is the loan principal, r is the monthly rate (APR ÷ 12), and n is the total number of payments. This calculator runs the full schedule, then extracts first-year and final-year figures, daily interest averages, and the overall interest-to-principal ratio.</p>
 
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>The primary card shows total interest in dollars plus the percentage of total payments that goes to interest and the equivalent daily cost. The 3-stat bar compares principal, interest, and monthly payment. The breakdown table highlights the dramatic difference between year 1 (where interest dominates) and the final year (where principal dominates). The pie chart shows the principal/interest split, and the yearly amortization table provides the full schedule.</p>
 
-            <h2>Key Factors That Affect Financing Interest</h2>
+            <h2 className="text-2xl font-bold mb-3">Key Factors That Affect Financing Interest</h2>
             <ul>
               <li><strong>APR:</strong> The single biggest factor. A 1% drop on a $28,000 five-year loan saves about $770 in total interest. Shop multiple lenders.</li>
               <li><strong>Loan term:</strong> Longer terms mean more months of interest accrual. A 72-month loan on $28,000 at 7.5% costs $2,600+ more in interest than a 48-month loan.</li>
@@ -322,10 +322,10 @@ const CarFinancingInterestCalculator = () => {
               <li><strong>New vs used:</strong> Used-car loans typically carry 1–3% higher APRs than new-car loans, reflecting the lender's higher risk on a depreciating asset.</li>
             </ul>
 
-            <h2>Advanced Features</h2>
+            <h2 className="text-2xl font-bold mb-3">Advanced Features</h2>
             <p>The Advanced Options panel exposes the sales tax rate. In most states, sales tax on a financed vehicle is either paid upfront or rolled into the loan amount. Either way, if the tax is financed, you pay interest on it — which this calculator captures by applying the tax to the loan principal.</p>
 
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <h3>Example 1: Typical mid-range auto loan</h3>
             <p>A $28,000 loan at 7.5% APR for 60 months carries a monthly payment of about $561 and total interest of $5,660. Interest is 16.8% of total payments, averaging $3.10/day. In year 1, you pay $1,960 in interest versus $4,770 in principal. By the final year, the ratio flips to $530 interest versus $6,195 principal.</p>
             <h3>Example 2: High-rate subprime loan</h3>
@@ -333,7 +333,7 @@ const CarFinancingInterestCalculator = () => {
             <h3>Example 3: Short term, low rate</h3>
             <p>A $28,000 loan at 4.9% for 36 months has a payment of $836 and total interest of $2,100. Interest is just 7.5% of total payments, averaging $1.94/day. Short terms with low rates are the cheapest financing available.</p>
 
-            <h2>Tips & Best Practices</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
             <ul>
               <li><strong>Pre-qualify with at least 3 lenders</strong> before visiting the dealer. Credit unions, online banks, and your personal bank may beat the dealer rate.</li>
               <li><strong>Make extra principal payments</strong> when possible. Even small extras early in the loan compound into significant interest savings.</li>
@@ -343,7 +343,7 @@ const CarFinancingInterestCalculator = () => {
               <li><strong>Consider refinancing</strong> if rates drop significantly after you purchase. Use this calculator with the new rate and remaining balance to compare.</li>
             </ul>
 
-            <h2>Benefits of Using This Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Benefits of Using This Calculator</h2>
             <p>This tool demystifies car loan interest by showing exactly when and how much interest accrues over the loan term. It makes the hidden cost of long terms and high rates tangible with the daily-interest metric, helps you compare offers on total interest rather than just monthly payment, and provides the amortization schedule you need to plan extra payments for maximum savings.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/car-financing-interest-calculator" />

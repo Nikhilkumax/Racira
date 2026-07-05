@@ -98,17 +98,17 @@ export default function BondPriceCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>How Bond Pricing Works</h2>
+              <h2 className="text-2xl font-bold mb-3">How Bond Pricing Works</h2>
               <p>A bond is essentially a loan from an investor to a borrower (typically a government or corporation). In exchange for the loan, the borrower promises to pay regular interest payments (coupons) and return the principal (face value) at maturity. The fair price of a bond equals the present value of all future cash flows, discounted at the current market interest rate (yield to maturity).</p>
-              <h2>The Inverse Relationship Between Price and Yield</h2>
+              <h2 className="text-2xl font-bold mb-3">The Inverse Relationship Between Price and Yield</h2>
               <p>The most important principle in bond investing is the inverse relationship between bond prices and interest rates. When prevailing interest rates rise, newly issued bonds offer higher coupons, making existing bonds with lower coupons less attractive. To compensate, the price of existing bonds falls until their yield matches the new market rate. Conversely, when rates fall, existing bonds with higher coupons become more valuable, and their prices rise.</p>
-              <h2>Discount vs. Premium Bonds</h2>
+              <h2 className="text-2xl font-bold mb-3">Discount vs. Premium Bonds</h2>
               <p>A bond sells at a <strong>discount</strong> when its coupon rate is lower than current market rates (YTM &gt; coupon). For example, a 4% coupon bond when market rates are 6% will trade below par. It sells at a <strong>premium</strong> when its coupon rate exceeds current market rates (YTM &lt; coupon). A 6% coupon bond when rates are 4% trades above par. As maturity approaches, the price converges toward face value — this is called "pull to par."</p>
-              <h2>Calculating Bond Price: The Formula</h2>
+              <h2 className="text-2xl font-bold mb-3">Calculating Bond Price: The Formula</h2>
               <p>Bond Price = Σ [Coupon / (1 + YTM/m)^t] + [Face Value / (1 + YTM/m)^(n×m)], where m is payments per year, n is years to maturity, and t runs from 1 to n×m. This sums the present value of each periodic coupon payment plus the present value of the lump-sum face value repayment at maturity.</p>
-              <h2>Duration and Interest Rate Sensitivity</h2>
+              <h2 className="text-2xl font-bold mb-3">Duration and Interest Rate Sensitivity</h2>
               <p>Duration is a measure of a bond's sensitivity to interest rate changes. A bond with a modified duration of 7 years will decrease in value by approximately 7% if interest rates rise by 1%. Longer maturity bonds have higher duration (more sensitive), and lower-coupon bonds have higher duration for the same maturity. Understanding duration is essential for managing fixed-income portfolio risk.</p>
-              <h2>Bond Yield Measures</h2>
+              <h2 className="text-2xl font-bold mb-3">Bond Yield Measures</h2>
               <p>There are multiple yield measures for bonds: <strong>Coupon Rate</strong> (stated annual interest as % of face value), <strong>Current Yield</strong> (annual coupon ÷ current price), <strong>Yield to Maturity (YTM)</strong> (total return if held to maturity), and <strong>Yield to Call (YTC)</strong> (return if the bond is called by the issuer before maturity). YTM is the most comprehensive and most widely used.</p>
             </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/bond-price-calculator" />

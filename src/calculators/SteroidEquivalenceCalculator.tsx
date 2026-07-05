@@ -282,11 +282,11 @@ export default function SteroidEquivalenceCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Steroid Equivalence Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Steroid Equivalence Calculator</h2>
             <p>Corticosteroids are powerful, life-saving medications used to treat severe inflammation, autoimmune diseases, asthma exacerbations, and severe allergic reactions. However, not all steroids are created equal. The <strong>Steroid Equivalence Calculator</strong> is a vital pharmacological tool used by physicians, pharmacists, and medical students to safely convert a patient's dose from one specific systemic corticosteroid to another.</p>
             <p>Switching steroid types is incredibly common in medicine. A patient might be admitted to the emergency room and given a massive dose of intravenous Methylprednisolone. When they are discharged three days later, they need a prescription for oral Prednisone. If the doctor simply writes the same milligram number on the prescription, it could result in a dangerous overdose or a failure to control the disease. This calculator ensures the anti-inflammatory potency remains perfectly matched across different drug molecules.</p>
 
-            <h2>The Concept of Relative Potency</h2>
+            <h2 className="text-2xl font-bold mb-3">The Concept of Relative Potency</h2>
             <p>To calculate equivalence, medical science uses a baseline standard. In endocrinology, <strong>Hydrocortisone</strong> is the gold standard because it most closely mimics the natural cortisol produced by the human adrenal glands. We assign Hydrocortisone an "Anti-Inflammatory Potency" score of 1. All other synthetic steroids are measured against this baseline.</p>
             <ul>
               <li><strong>Prednisone & Prednisolone:</strong> These are 4 times more potent than Hydrocortisone. Therefore, 5mg of Prednisone is equal in anti-inflammatory power to 20mg of Hydrocortisone.</li>
@@ -294,11 +294,11 @@ export default function SteroidEquivalenceCalculator() {
               <li><strong>Dexamethasone:</strong> This is a powerhouse synthetic steroid. It is 25 to 30 times more potent than Hydrocortisone. A mere 0.75mg of Dexamethasone provides the exact same anti-inflammatory effect as 20mg of Hydrocortisone.</li>
             </ul>
 
-            <h2>Anti-Inflammatory vs. Mineralocorticoid Effects</h2>
+            <h2 className="text-2xl font-bold mb-3">Anti-Inflammatory vs. Mineralocorticoid Effects</h2>
             <p>When converting steroids, it is crucial to understand that they impact the body in two distinct ways. Anti-inflammatory effects reduce swelling and suppress the immune system. <strong>Mineralocorticoid effects</strong> dictate how much the drug causes the kidneys to retain sodium (salt) and excrete potassium, which directly leads to fluid retention, swelling (edema), and high blood pressure.</p>
             <p>If a patient has severe congestive heart failure and cannot tolerate fluid buildup in their lungs, a doctor cannot prescribe Hydrocortisone (which has high mineralocorticoid effects). Instead, they use our calculator to find the equivalent dose of Dexamethasone or Methylprednisolone. These synthetic modifications have been chemically engineered to have massive anti-inflammatory power but virtually <em>zero</em> mineralocorticoid effects, keeping the patient's fluid levels safe.</p>
 
-            <h2>Biological Half-Life: Duration of Action</h2>
+            <h2 className="text-2xl font-bold mb-3">Biological Half-Life: Duration of Action</h2>
             <p>The half-life of a steroid dictates how long the drug actively suppresses the immune system after a single dose. Our calculator categorizes steroids into three distinct classes based on their duration of action:</p>
             <ul>
               <li><strong>Short-Acting (8-12 hours):</strong> Hydrocortisone and Cortisone. These clear the body quickly and often require dosing two or three times a day. They are frequently used for patients with Adrenal Insufficiency (Addison's Disease) to mimic the body's natural daily cortisol rhythm.</li>
@@ -306,11 +306,11 @@ export default function SteroidEquivalenceCalculator() {
               <li><strong>Long-Acting (36-54 hours):</strong> Dexamethasone and Betamethasone. These linger in the tissues for days. They are often used in neurosurgery to reduce brain swelling or administered as a single injection that continues working for days without requiring the patient to swallow pills.</li>
             </ul>
 
-            <h2>The Danger of HPA Axis Suppression</h2>
+            <h2 className="text-2xl font-bold mb-3">The Danger of HPA Axis Suppression</h2>
             <p>When you take external (exogenous) steroids, your brain senses the high hormone levels and signals your adrenal glands to stop producing natural cortisol. This is known as Hypothalamic-Pituitary-Adrenal (HPA) axis suppression. If you abruptly stop taking the medication, your adrenal glands cannot wake up fast enough to produce cortisol, leading to an adrenal crisis—a potentially fatal medical emergency involving severe low blood pressure and shock.</p>
             <p>This is why doctors use "steroid tapers," slowly reducing the dose over weeks. When converting a patient from a long-acting steroid like Dexamethasone to a short-acting one like Hydrocortisone to begin a taper, precise mathematical equivalence is non-negotiable. If the conversion is incorrect and the dose drops too sharply, the patient will suffer an adrenal crisis.</p>
 
-            <h2>Clinical Limitations</h2>
+            <h2 className="text-2xl font-bold mb-3">Clinical Limitations</h2>
             <p>While this calculator uses universally accepted pharmacological tables, clinical medicine is not always perfectly mathematical. Individual patient factors—such as liver function (which is required to metabolize Prednisone into its active form, Prednisolone), kidney function, and concurrent medications—can alter how a steroid behaves in the body.</p>
             <p>Furthermore, these equivalence ratios apply strictly to <strong>systemic</strong> steroids (oral tablets, IV, or IM injections). They cannot be used to calculate equivalent doses for topical steroid creams (used for eczema) or inhaled corticosteroids (used for asthma), as those delivery methods have entirely different absorption profiles and safety metrics.</p>
           </article>

@@ -379,29 +379,29 @@ export default function OilChangeIntervalCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is an Oil Change Interval Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is an Oil Change Interval Calculator?</h2>
             <p>An Oil Change Interval Calculator is a diagnostic tool designed to tell you exactly when your car is due for its next oil service. For decades, the automotive industry relentlessly pushed the "3 months or 3,000 miles" rule. Today, that rule is entirely obsolete. Thanks to advances in engine manufacturing tolerances and highly engineered synthetic oils, changing your oil too frequently is simply throwing money away. This calculator analyzes your oil type, driving habits, and engine specifics to provide a mathematically sound, customized maintenance schedule.</p>
 
-            <h2>How It Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
             <p>The calculator uses a baseline mileage based on your oil chemistry. Conventional oil defaults to 5,000 miles, synthetic blends to 7,500 miles, and full synthetic to 10,000 miles. However, the calculation does not stop there. It applies penalty modifiers based on your exact usage. If you select "Severe" driving conditions, the algorithm slashes the interval by 40%. It also factors in engine type (turbochargers degrade oil faster due to immense heat) and vehicle age (older engines allow more blow-by gasses to contaminate the oil).</p>
 
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>Your <strong>Next Recommended Oil Change</strong> is provided as both a specific odometer reading and a calendar date. You must change your oil whenever you hit <em>whichever metric comes first</em>. Even if a car sits in a garage and only drives 1,000 miles a year, the oil still degrades due to condensation and chemical breakdown, making the "months remaining" metric just as important as the mileage.</p>
 
-            <h2>Key Factors</h2>
+            <h2 className="text-2xl font-bold mb-3">Key Factors</h2>
             <p>The two biggest factors in oil life are <strong>Oil Type</strong> and <strong>Driving Conditions</strong>. Full synthetic oil contains fewer impurities and highly resilient additives that withstand heat and shear forces far better than conventional crude oil. However, even the best synthetic oil will fail early under "Severe" conditions. Severe driving is defined as extensive idling (traffic jams), short trips under 5 miles where the engine never reaches operating temperature, towing heavy loads, or driving in extreme dusty/sandy environments.</p>
 
-            <h2>Advanced Features</h2>
+            <h2 className="text-2xl font-bold mb-3">Advanced Features</h2>
             <p>By using the Advanced Options, you can fine-tune the algorithm. <strong>Engine Type</strong> matters immensely; a turbocharged engine uses the same engine oil to lubricate a turbine spinning at 150,000 RPM. If the oil degrades, the turbo fails—a $2,000+ repair. <strong>Vehicle Age</strong> is also included; as seals shrink and piston rings wear down, fuel and exhaust gases contaminate the crankcase oil faster, necessitating slightly shorter intervals on very old engines.</p>
 
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <p><strong>Example 1: The Highway Commuter.</strong> John drives a newer Honda Civic mostly on the highway. He uses full synthetic oil under normal conditions. His interval safely pushes to 10,000 miles or 12 months, saving him hundreds of dollars a year at the lube shop.</p>
             <p><strong>Example 2: The City Delivery Driver.</strong> Sarah drives a 10-year-old car for a food delivery app. She uses a synthetic blend. Because she drives in constant stop-and-go traffic and idles frequently (Severe Conditions), the algorithm violently cuts her interval down from 7,500 miles to just 4,500 miles to protect her aging engine from sludge buildup.</p>
 
-            <h2>Tips & Best Practices</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
             <p>Always check your dipstick once a month. No matter what your calculated interval is, if your engine naturally burns oil (common in some modern engines) and the dipstick reads low, you must add oil immediately. Furthermore, if you are unsure what oil to use, the owner's manual is the ultimate authority. Never use a thinner oil than recommended, though upgrading from conventional to synthetic in the same weight is always a safe and beneficial move.</p>
 
-            <h2>Benefits</h2>
+            <h2 className="text-2xl font-bold mb-3">Benefits</h2>
             <p>Using this calculator prevents two expensive mistakes: over-maintaining your car (wasting money on unnecessary oil changes) and under-maintaining your car (causing catastrophic engine failure due to sludge). It provides peace of mind by giving you a personalized, science-based schedule tailored to how you actually drive.</p>
           </article>
           

@@ -207,10 +207,10 @@ const CommissionCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>A Comprehensive Guide to Sales Commission Structures</h2>
+              <h2 className="text-2xl font-bold mb-3">A Comprehensive Guide to Sales Commission Structures</h2>
               <p>Commission is a powerful motivator in sales, aligning the interests of the salesperson with those of the company. However, not all commission structures are created equal. Whether you are a business owner designing a new comp plan or a sales professional trying to forecast your next paycheck, understanding the mechanics of these calculations is essential.</p>
               
-              <h2>Common Types of Commission Models</h2>
+              <h2 className="text-2xl font-bold mb-3">Common Types of Commission Models</h2>
               <p>Depending on the industry and the complexity of the product, companies use various models to reward their sales teams:</p>
               <ul>
                 <li><strong>Flat Rate Commission:</strong> The simplest model where a fixed percentage (e.g., 5%) is paid on every sale.</li>
@@ -220,16 +220,16 @@ const CommissionCalculator = () => {
                 <li><strong>Gross Margin Commission:</strong> Instead of paying on the total sale price, the company pays on the profit margin. This prevents salespeople from discounting too heavily just to "close the deal."</li>
               </ul>
 
-              <h2>How to Use This Commission Calculator</h2>
+              <h2 className="text-2xl font-bold mb-3">How to Use This Commission Calculator</h2>
               <p>To calculate your earnings, first enter your total sales volume for the period. If you receive a base salary, enter that amount as well. If your company uses a tiered structure, toggle to the "Tiered Rates" view and enter your specific brackets. The calculator will automatically apply the correct rates to each portion of your sales and provide a detailed breakdown of your total gross pay.</p>
 
-              <h2>The Psychology of Tiered Commission</h2>
+              <h2 className="text-2xl font-bold mb-3">The Psychology of Tiered Commission</h2>
               <p>Tiered structures (also known as "accelerators") are designed to push salespeople past their comfort zones. By offering a significantly higher rate once a "quota" or "threshold" is met, companies incentivize their top performers to keep selling even after they've had a successful month. For the salesperson, reaching that next tier can often double their paycheck with only a modest increase in effort.</p>
 
-              <h2>Gross Pay vs. Net Pay</h2>
+              <h2 className="text-2xl font-bold mb-3">Gross Pay vs. Net Pay</h2>
               <p>It is important to remember that the total pay calculated here is your **Gross Pay** before taxes and other deductions. Commission is generally taxed as "supplemental income," which means it might be withheld at a flat rate (often 22% in the US for federal tax) rather than your standard marginal tax bracket. Always consult with a tax professional to understand how your commissions will impact your final take-home pay.</p>
 
-              <h2>Negotiating Your Commission Plan</h2>
+              <h2 className="text-2xl font-bold mb-3">Negotiating Your Commission Plan</h2>
               <p>When starting a new sales role, don't just look at the percentage. Consider the following factors:</p>
               <ul>
                 <li><strong>Capping:</strong> Is there a limit to how much you can earn? High performers should avoid "capped" commission plans.</li>

@@ -125,13 +125,13 @@ const SWPCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>What Is an SWP Calculator?</h2>
+              <h2 className="text-2xl font-bold mb-3">What Is an SWP Calculator?</h2>
               <p>An SWP (Systematic Withdrawal Plan) calculator helps you plan regular withdrawals from your mutual fund investment. It shows how your corpus behaves over time as you withdraw fixed amounts while the remaining balance continues to earn returns.</p>
 
-              <h2>How SWP Works</h2>
+              <h2 className="text-2xl font-bold mb-3">How SWP Works</h2>
               <p>In an SWP, you invest a lump sum and withdraw a fixed amount monthly. The remaining corpus stays invested and earns returns. If returns exceed withdrawals, your corpus can actually grow. If withdrawals exceed returns, the corpus gradually depletes.</p>
 
-              <h2>SWP vs Fixed Deposit Interest</h2>
+              <h2 className="text-2xl font-bold mb-3">SWP vs Fixed Deposit Interest</h2>
               <ul>
                 <li><strong>SWP:</strong> Market-linked returns, potential for capital growth, tax-efficient (only gains are taxed).</li>
                 <li><strong>FD:</strong> Fixed returns, no capital growth, entire interest is taxable at slab rate.</li>

@@ -164,19 +164,19 @@ export default function CashConversionCycleCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is the Cash Conversion Cycle?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is the Cash Conversion Cycle?</h2>
             <p>The Cash Conversion Cycle (CCC) measures how many days it takes a company to convert its operational investments into cash flows from sales. It's the definitive metric for working capital efficiency. The formula: <strong>CCC = DIO + DSO − DPO</strong>.</p>
             <p>Pre-filled with DIO=45, DSO=38, DPO=30 days → CCC = 53 days. For a $1M/year company, this means ~$145,000 is continuously tied up in the operating cycle.</p>
 
-            <h2>The Three Components</h2>
+            <h2 className="text-2xl font-bold mb-3">The Three Components</h2>
             <p><strong>Days Inventory Outstanding (DIO)</strong> = (Average Inventory ÷ COGS) × 365. How long inventory sits before being sold. Grocery: 15 days. Manufacturer: 60–80 days.</p>
             <p><strong>Days Sales Outstanding (DSO)</strong> = (Accounts Receivable ÷ Net Sales) × 365. How fast customers pay. Target: under 30 days. Above 60 = collection problems.</p>
             <p><strong>Days Payable Outstanding (DPO)</strong> = (Accounts Payable ÷ COGS) × 365. How long you take to pay suppliers. Higher is better — Amazon's DPO exceeds 90 days.</p>
 
-            <h2>Negative CCC: The Holy Grail</h2>
+            <h2 className="text-2xl font-bold mb-3">Negative CCC: The Holy Grail</h2>
             <p>A negative CCC means the company collects customer cash before paying suppliers — an operational funding engine. Amazon, Costco, and McDonald's all run negative CCCs. Reducing your CCC by 10 days frees ~$27,400 per $1M in annual revenue. Multiply across a $100M business: that's $2.74M in freed cash — available for growth without additional financing.</p>
 
-            <h2>Strategies to Improve CCC</h2>
+            <h2 className="text-2xl font-bold mb-3">Strategies to Improve CCC</h2>
             <p>Reduce DIO: adopt just-in-time inventory and improve demand forecasting. Reduce DSO: offer 2/10 net 30 early payment discounts and automate collections. Increase DPO: negotiate extended terms with suppliers and leverage supply chain finance platforms.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/cash-conversion-cycle-calculator" />

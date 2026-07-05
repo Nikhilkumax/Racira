@@ -191,19 +191,19 @@ const FuelCostCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Hidden Costs of the American Road Trip</h2>
+            <h2 className="text-2xl font-bold mb-3">The Hidden Costs of the American Road Trip</h2>
             <p>The great American road trip is a classic vacation, but calculating the true cost of driving across the country can be deceiving. When choosing between driving 1,200 miles to a destination or buying a $300 airline ticket, many people vastly underestimate the cost of the drive because they only think about filling up the gas tank once.</p>
 
-            <h2>How Fuel Cost is Calculated</h2>
+            <h2 className="text-2xl font-bold mb-3">How Fuel Cost is Calculated</h2>
             <p>The math behind fuel cost is incredibly straightforward: calculate how much fuel you will physically burn, and multiply it by the price at the pump. To find the amount of fuel burned, divide your Total Distance by your vehicle's Fuel Efficiency.</p>
             <p>For example, if you are driving 1,000 miles in an SUV that gets 20 Miles Per Gallon (MPG), you will burn exactly 50 gallons of gas (1,000 ÷ 20 = 50). If gas costs $3.50 per gallon, the fuel cost for the trip is $175.</p>
             <p><strong>Crucial Reminder:</strong> Do not forget that vacations require a return trip! If you calculate the drive from New York to Florida is $175 in gas, the true budget for your vacation fuel is actually $350.</p>
 
-            <h2>The Deception of Dashboard MPG</h2>
+            <h2 className="text-2xl font-bold mb-3">The Deception of Dashboard MPG</h2>
             <p>If you rely on your car's digital dashboard to tell you your MPG, your budget is likely wrong. Car manufacturers program these computers to be highly optimistic. They often calculate efficiency based on fuel injector pulse widths under ideal conditions. In reality, factors like idling in traffic, running the air conditioner, under-inflated tires, and driving 80 MPH on the highway will absolutely destroy your actual fuel efficiency. Most dashboard MPG readouts are overestimating efficiency by 1 to 2 MPG.</p>
             <p>To find your true MPG, calculate it manually at the pump by dividing the miles on your trip odometer by the exact number of gallons it took to refill the tank.</p>
 
-            <h2>Aerodynamics: Why Speed Costs Money</h2>
+            <h2 className="text-2xl font-bold mb-3">Aerodynamics: Why Speed Costs Money</h2>
             <p>Because of aerodynamic drag, fuel efficiency is not linear. When you drive 60 MPH, your engine works to push the car through the air. When you accelerate to 80 MPH, the air resistance does not simply increase by 33%; it increases exponentially. Pushing a heavy SUV through the air at 80 MPH requires massive amounts of horsepower, which requires massive amounts of fuel. If your car gets 30 MPG at 65 MPH, it might only get 24 MPG at 80 MPH. Driving faster saves time, but it costs significantly more money.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/fuel-cost-calculator" />

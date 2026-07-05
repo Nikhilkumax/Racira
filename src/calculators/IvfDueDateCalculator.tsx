@@ -231,16 +231,16 @@ export default function IvfDueDateCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Unmatched Precision of IVF Pregnancy Dating</h2>
+            <h2 className="text-2xl font-bold mb-3">The Unmatched Precision of IVF Pregnancy Dating</h2>
             <p>In a standard, unassisted pregnancy, a woman must calculate her Estimated Due Date (EDD) using the first day of her Last Menstrual Period (LMP). This biological dating standard assumes that every woman operates on a perfect 28-day cycle and ovulates exactly on day 14. Because this is rarely true, natural pregnancy due dates are, at best, highly educated guesses.</p>
             <p>In Vitro Fertilization (IVF) fundamentally changes this. Because medical embryologists know the precise moment the egg was fertilized in the laboratory, and exactly how many hours it developed before being transferred into the uterus, IVF offers absolute mathematical precision. There is no guesswork regarding ovulation. Your Estimated Due Date is anchored to exact scientific events.</p>
 
-            <h2>Understanding the "Artificial LMP"</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the "Artificial LMP"</h2>
             <p>If IVF is so precise, why do reproductive endocrinologists still talk about your "LMP"?</p>
             <p>The entire global obstetrics system—from ultrasound machines and fetal growth charts to standard pregnancy tracking apps—is hardwired to date pregnancies based on the Last Menstrual Period. To make your high-tech IVF pregnancy fit neatly into this standard medical framework, your doctor will calculate an <strong>Artificial LMP</strong>.</p>
             <p>They do this by taking your exact retrieval/fertilization date and subtracting exactly 14 days. This artificially forces your pregnancy into a perfect 28-day cycle model. Because of this artificial dating system, on the morning of a Day 5 embryo transfer, you are already clinically considered to be <strong>2 weeks and 5 days pregnant</strong>, even though the embryo is only just entering your body.</p>
 
-            <h2>Day 3 vs. Day 5 Embryo Transfers</h2>
+            <h2 className="text-2xl font-bold mb-3">Day 3 vs. Day 5 Embryo Transfers</h2>
             <p>The math behind your due date shifts slightly depending on how long the embryo was allowed to grow in the laboratory before the transfer occurred.</p>
             
             <h3>Day 3 Transfers (Cleavage Stage)</h3>
@@ -252,14 +252,14 @@ export default function IvfDueDateCalculator() {
             <h3>What about a Day 6 Transfer?</h3>
             <p>Occasionally, an embryo takes slightly longer to reach the blastocyst stage and is transferred on Day 6. Do you subtract 6 days from the calculation? No. A Day 6 blastocyst is developmentally identical to a Day 5 blastocyst; it was simply a "slow grower" in the lab. Therefore, for clinical dating purposes, a Day 6 transfer is calculated identically to a Day 5 transfer.</p>
 
-            <h2>Fresh vs. Frozen Embryo Transfers (FET)</h2>
+            <h2 className="text-2xl font-bold mb-3">Fresh vs. Frozen Embryo Transfers (FET)</h2>
             <p>Many patients wonder if the calculation changes if they freeze their embryos and wait months (or years) before transferring them. The answer is no. The gestational clock pauses entirely while the embryo is cryopreserved. The only variables that matter for the due date calculation are the age of the embryo when it was frozen (Day 3 vs. Day 5) and the calendar date the Frozen Embryo Transfer (FET) actually takes place.</p>
 
-            <h2>Will the Doctor Change My Due Date Later?</h2>
+            <h2 className="text-2xl font-bold mb-3">Will the Doctor Change My Due Date Later?</h2>
             <p>In a standard pregnancy, a doctor will often adjust a woman's due date after her 8-week dating ultrasound if the fetus is measuring larger or smaller than the LMP calculation suggests. <strong>This rarely happens in an IVF pregnancy.</strong></p>
             <p>Because the exact fertilization date is absolutely known, an IVF due date is considered absolute. If an early ultrasound shows the fetus measuring a few days ahead or behind the IVF calculated date, doctors usually attribute this to natural growth variations or slight measurement errors by the ultrasound technician, rather than changing the due date itself.</p>
 
-            <h2>Tracking Your Critical IVF Milestones</h2>
+            <h2 className="text-2xl font-bold mb-3">Tracking Your Critical IVF Milestones</h2>
             <p>An IVF pregnancy comes with unique milestones that differ slightly from a standard pregnancy timeline:</p>
             <ul>
               <li><strong>The Wait (PUPO):</strong> Once the transfer is complete, you are considered "Pregnant Until Proven Otherwise" (PUPO). You will wait roughly 9 to 14 days for a Beta hCG blood test to confirm implantation.</li>

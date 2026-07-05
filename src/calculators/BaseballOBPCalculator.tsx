@@ -338,30 +338,30 @@ export default function BaseballOBPCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Mathematics of Moneyball</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of Moneyball</h2>
             <p>For over a century, the game of baseball operated under a deeply flawed mathematical assumption: the only way to measure a great hitter was by their Batting Average. If a player hit .300 (getting a hit 30% of the time), they were considered a superstar and were paid millions of dollars. If a player hit .240, they were considered a liability and benched. This massive mathematical blind spot ignored one of the most crucial elements of the game: the Walk. The <strong>Baseball On-Base Percentage (OBP) Calculator</strong> exposes the flaw of traditional Batting Average by measuring the only thing that actually prevents a team from losing: the ability to safely reach base.</p>
 
-            <h2>Why Batting Average is a Liar</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Batting Average is a Liar</h2>
             <p>To understand the genius of OBP, you must understand the failure of Batting Average. Batting Average is calculated by dividing Hits by At-Bats. It completely ignores Walks and Hit-By-Pitches. </p>
             <p>Imagine two players. Player A has 100 At-Bats and gets 30 Hits. He never walks. His Batting Average is .300. He made 70 outs for his team. Player B has 100 At-Bats and gets 25 Hits. But Player B has incredible plate discipline, forcing the pitcher into deep counts, and draws 20 Walks. Because walks do not count as At-Bats, Player B's Batting Average is .250. To a traditional baseball scout, Player A looks vastly superior. However, the mathematics tell a completely different story. Player A reached base 30 times. Player B reached base 45 times. Player B is mathematically a vastly superior offensive asset.</p>
 
-            <h2>The Anatomy of the OBP Formula</h2>
+            <h2 className="text-2xl font-bold mb-3">The Anatomy of the OBP Formula</h2>
             <p>On-Base Percentage fixes the blind spots of Batting Average by including all primary methods of safely reaching base. The formula is: <code>(Hits + Walks + Hit By Pitch) / (At Bats + Walks + Hit By Pitch + Sacrifice Flies)</code>.</p>
             <p>The numerator represents every time the player safely reached first base without relying on a fielding error or a fielder's choice. The denominator represents every time the player stepped into the batter's box with the intent to hit, including Sacrifice Flies. By combining these variables, OBP gives a pure, undistilled mathematical percentage of a player's ability to not make an out.</p>
 
-            <h2>The Value of the Walk</h2>
+            <h2 className="text-2xl font-bold mb-3">The Value of the Walk</h2>
             <p>In the early 2000s, Billy Beane and the Oakland Athletics revolutionized the sport by exploiting the financial gap between Batting Average and OBP. They realized that a walk is statistically identical to a single in its ability to put a runner on first base and prevent an out. However, players who walked frequently (but had low Batting Averages) were incredibly cheap to acquire in free agency.</p>
             <p>The Athletics built a team entirely focused on OBP. They instructed their batters to be intensely patient, never swinging at bad pitches, and intentionally drawing walks. They proved that a team of "average" hitters who walked constantly could mathematically generate just as many runs as a team of expensive superstars. This statistical revolution, famously documented in the book <em>Moneyball</em>, forever changed how professional sports teams evaluate talent.</p>
 
-            <h2>Why Sacrifice Flies Hurt Your OBP</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Sacrifice Flies Hurt Your OBP</h2>
             <p>Many amateur statisticians are confused by the inclusion of Sacrifice Flies (SF) in the denominator of the OBP equation. If a batter hits a deep fly ball, and a runner tags up from third base to score a run, it is considered a successful play for the team. Why does it lower the batter's OBP?</p>
             <p>Because OBP does not measure run production; it strictly measures base access. Even though the batter successfully helped the team score a run, the batter still made an out. They did not reach base safely. Because they consumed a plate appearance and resulted in an out, the mathematics dictate that their personal On-Base Percentage must decrease. (This is why teams also calculate OPS—On-Base Plus Slugging—to capture the full value of run-producing outs).</p>
 
-            <h2>Why Sacrifice Bunts Are Ignored</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Sacrifice Bunts Are Ignored</h2>
             <p>If a Sacrifice Fly lowers your OBP, why doesn't a Sacrifice Bunt? A Sacrifice Bunt is an intentional tactical decision ordered by the team's manager. The manager tells the batter to lay down a bunt, knowing the batter will almost certainly be thrown out at first base, simply to advance a runner to second.</p>
             <p>Because the batter was essentially ordered to execute an out by the coaching staff, statisticians decided it was mathematically unfair to penalize the batter's personal performance metrics. Therefore, Sacrifice Bunts are completely excluded from the Plate Appearance denominator.</p>
 
-            <h2>Conclusion: The Ultimate Out Prevention Metric</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: The Ultimate Out Prevention Metric</h2>
             <p>The fundamental rule of baseball is that a team is only granted 27 outs per game. The team that guards those outs the most fiercely will statistically win the most games. Stop looking at Batting Average. Use the Baseball On-Base Percentage Calculator to evaluate hitters based on their true objective value: their disciplined, relentless ability to reach base.</p>
           </article>
           

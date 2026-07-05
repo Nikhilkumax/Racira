@@ -272,16 +272,16 @@ const TenYearOwnershipCostCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is the 10-Year Ownership Cost Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is the 10-Year Ownership Cost Calculator?</h2>
             <p>The 10-Year Ownership Cost Calculator projects the full cost of owning a vehicle over a decade — the longest realistic ownership period for most drivers. It accounts for depreciation flattening over time, loan interest ending after the loan term, maintenance costs rising with age, and all annual operating expenses. This long view reveals the true cost efficiency of keeping a car versus replacing it.</p>
 
-            <h2>How It Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
             <p>Using the accelerated depreciation model (20% year 1, 15% annually after), the calculator estimates your car's value at year 10. Loan interest is computed for the loan term only (typically 5 years). Insurance, fuel, maintenance, registration, and parking are annualized over the full 10-year period. The result shows total, annual, monthly, and per-mile costs.</p>
 
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>The primary card shows the 10-year total cost. The 3-stat bar converts to annual, monthly, and per-mile. The breakdown table shows each category. The horizontal bar chart visualizes the proportional split — notice how depreciation still dominates but interest is a smaller portion compared to the 5-year view. The depreciation curve shows estimated value at each year.</p>
 
-            <h2>Why 10 Years Matters Financially</h2>
+            <h2 className="text-2xl font-bold mb-3">Why 10 Years Matters Financially</h2>
             <ul>
               <li><strong>Lowest annual cost:</strong> Years 7–10 typically have the lowest annual cost because the loan is paid off and depreciation has flattened.</li>
               <li><strong>Maintenance reality:</strong> Maintenance rises significantly after 100,000 miles — budget $1,000–$1,500/year for years 7–10.</li>
@@ -289,10 +289,10 @@ const TenYearOwnershipCostCalculator = () => {
               <li><strong>Diminishing returns:</strong> Beyond 10 years, rising maintenance may exceed the shrinking depreciation benefit.</li>
             </ul>
 
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <p>A $35,000 sedan over 10 years: ~$72,000 total ($7,200/year, $0.48/mile). The same car over only 5 years would be $45,000 ($9,000/year, $0.60/mile). The extra 5 years add $27,000 in cost but only $6,540/year — 27% less per year than the first 5 years.</p>
 
-            <h2>Tips for 10-Year Ownership</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips for 10-Year Ownership</h2>
             <ul>
               <li><strong>Choose reliable brands</strong> — Toyota, Honda, and Subaru are known to exceed 200,000 miles with proper maintenance.</li>
               <li><strong>Follow the maintenance schedule religiously</strong> — preventive care costs far less than major repairs.</li>
@@ -301,7 +301,7 @@ const TenYearOwnershipCostCalculator = () => {
               <li><strong>Monitor depreciation</strong> — if repair costs approach $3,000+/year, it may be time to replace.</li>
             </ul>
 
-            <h2>Benefits of Using This Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Benefits of Using This Calculator</h2>
             <p>This tool shows the financial benefits of long-term car ownership. By projecting costs over 10 years, it helps you decide whether to keep your current car, compare the lifetime cost of different vehicles, and understand when maintenance costs make replacement the better financial choice.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/10-year-ownership-cost-calculator" />

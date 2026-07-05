@@ -369,30 +369,30 @@ export default function BMIToBodyFatCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Flaw in the Body Mass Index (BMI)</h2>
+            <h2 className="text-2xl font-bold mb-3">The Flaw in the Body Mass Index (BMI)</h2>
             <p>The standard Body Mass Index (BMI) is the most widely used medical metric in the world, but it suffers from a massive, undeniable flaw: it is completely blind to tissue composition. The mathematical formula (weight divided by height squared) assumes that all physical mass is perfectly identical. It cannot differentiate between five pounds of dense, highly metabolic muscle tissue and five pounds of deadly, inflammatory visceral fat. Because of this blind spot, highly trained athletes are frequently misdiagnosed as "Obese," while sedentary individuals with dangerous levels of internal organ fat are praised for having a "Normal" BMI. The <strong>BMI to Body Fat Conversion Calculator</strong> attempts to correct this clinical failure by utilizing advanced regression algorithms to estimate your actual body fat percentage.</p>
 
-            <h2>The Science of the Deurenberg Equation</h2>
+            <h2 className="text-2xl font-bold mb-3">The Science of the Deurenberg Equation</h2>
             <p>In 1991, a team of clinical researchers led by Paul Deurenberg set out to bridge the gap between simple BMI measurements and expensive laboratory composition scans (like DEXA and hydrostatic weighing). They analyzed thousands of subjects, recording their BMI, and then placing them in underwater weighing tanks to determine their exact, absolute body fat percentage.</p>
             <p>By mapping this massive dataset, they discovered a highly predictable mathematical correlation between a person's raw BMI and their true fat mass, provided that the equation also accounted for two critical biological variables: chronological age and biological sex. The resulting formula—Body Fat % = (1.20 × BMI) + (0.23 × Age) - (10.8 × Sex) - 5.4—became the clinical standard for estimating body fat when physical calipers or laboratory scans are unavailable.</p>
 
-            <h2>Why Age Radically Alters Body Composition</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Age Radically Alters Body Composition</h2>
             <p>If you look at the Deurenberg formula, you will notice that age is a multiplier. Why does your body fat percentage mathematically increase as you get older, even if your weight and BMI stay exactly the same?</p>
             <p>The human body undergoes a terrifying biological process called Sarcopenia (age-related muscle loss). After the age of 30, adults naturally lose approximately 3% to 8% of their dense skeletal muscle mass every decade if they are not actively participating in heavy resistance training. As the heavy muscle tissue degrades, the body replaces that lost mass with lighter subcutaneous and visceral fat. Therefore, two men who are both 5'10" and 180 pounds will have identical BMIs. But if one man is 25 and the other is 65, the 65-year-old will have a drastically higher body fat percentage because a massive portion of his youth muscle tissue has been replaced by adipose fat.</p>
 
-            <h2>The Biological Mandate of Sex Hormones</h2>
+            <h2 className="text-2xl font-bold mb-3">The Biological Mandate of Sex Hormones</h2>
             <p>Biological sex is the final massive variable in the Deurenberg equation. If a man and a woman possess the exact same BMI and the exact same age, the formula will automatically deduct 10.8 points from the man's final body fat estimation. Why?</p>
             <p>Because hormones dictate biological architecture. Men are testosterone-dominant, a hormone that aggressively drives the synthesis of heavy skeletal muscle and high bone mineral density while keeping essential body fat relatively low (around 3% to 5%). Women are estrogen-dominant. For evolutionary reasons designed to sustain potential pregnancy and breastfeeding, female biology is genetically mandated to store essential fat in the hips, thighs, glutes, and breasts. A woman's essential body fat minimum is around 12% to 14%. The algorithm mathematically adjusts for this fundamental difference in baseline tissue architecture.</p>
 
-            <h2>The Danger of "Skinny Fat" (Normal Weight Obesity)</h2>
+            <h2 className="text-2xl font-bold mb-3">The Danger of "Skinny Fat" (Normal Weight Obesity)</h2>
             <p>The primary reason you must convert your BMI into an estimated Body Fat Percentage is to determine if you suffer from Normal Weight Obesity, commonly referred to as being "Skinny Fat."</p>
             <p>A sedentary office worker who never lifts weights might have a perfectly "Normal" BMI of 22. They look thin in their clothing, and their doctor tells them they are healthy. However, because their body has virtually zero dense muscle mass, almost all of their internal weight is composed of highly inflammatory visceral fat wrapping around their organs. When they run their numbers through the Deurenberg equation, they discover their estimated Body Fat Percentage is 35%—placing them at severe risk for Type 2 Diabetes and sudden cardiac events despite their "healthy" appearance.</p>
 
-            <h2>When the Algorithm Fails</h2>
+            <h2 className="text-2xl font-bold mb-3">When the Algorithm Fails</h2>
             <p>Like all mathematical estimations, the Deurenberg equation has limitations. It is designed for the "average" human population. If you are a statistical outlier, the formula will fail.</p>
             <p>If you are a professional bodybuilder or a dedicated powerlifter carrying massive amounts of unnatural muscle tissue, this calculator will drastically overestimate your body fat because it assumes your heavy weight is adipose tissue. Conversely, if you are suffering from a severe muscle-wasting disease, the calculator might underestimate your fat levels. For extreme athletes, physical skinfold calipers or clinical DEXA scans remain the only fully accurate method of tracking composition.</p>
 
-            <h2>Conclusion: Optimize for Composition, Not Weight</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Optimize for Composition, Not Weight</h2>
             <p>Stop starving yourself to force your raw weight down to an arbitrary BMI target. If you lose weight by destroying your own muscle tissue, your BMI will drop, but your health will be fundamentally shattered. Use the BMI to Body Fat Conversion Calculator to reorient your focus toward tissue composition. Prioritize heavy resistance training and adequate protein intake to build functional lean mass while slowly stripping away adipose fat, ensuring that you optimize for longevity rather than simply shrinking.</p>
           </article>
           

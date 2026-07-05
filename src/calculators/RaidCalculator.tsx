@@ -140,7 +140,7 @@ const RaidCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>A Guide to RAID Levels</h2>
+              <h2 className="text-2xl font-bold mb-3">A Guide to RAID Levels</h2>
               <p>Choosing the right RAID level is a tradeoff between three factors: <strong>Performance</strong>, <strong>Redundancy</strong>, and <strong>Cost</strong> (Capacity).</p>
               
               <h3>RAID 0 (Performance)</h3>

@@ -276,18 +276,18 @@ export default function BrakingDistanceCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Mathematics of Deceleration</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of Deceleration</h2>
             <p>Every time you press the brake pedal, you are engaging in a violent exercise of physics. A 4,000-pound vehicle traveling at 70 MPH possesses a massive amount of kinetic energy. The brakes must convert 100% of that kinetic energy into thermal energy (heat) in a matter of seconds. The physical distance the car travels while the brakes are working to dissipate this energy is known as the <strong>Braking Distance</strong>.</p>
 
-            <h2>The Exponential Danger of Speed</h2>
+            <h2 className="text-2xl font-bold mb-3">The Exponential Danger of Speed</h2>
             <p>Look at the exponential curve on the calculator's chart. Notice how the line rockets upward as speeds increase. This is due to the formula for kinetic energy: <code>KE = 1/2 × Mass × Velocity²</code>.</p>
             <p>Because velocity is <em>squared</em> in the equation, speed has an exponential impact on braking distance. If you are driving through a neighborhood at 20 MPH, your braking distance is a brief 19 feet. If you speed up to 40 MPH (double the speed), your braking distance does not double to 38 feet—it quadruples to 76 feet. If you are speeding on the highway at 80 MPH, you will need over 300 feet of clear asphalt to stop.</p>
 
-            <h2>Why Good Tires Matter More Than Good Brakes</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Good Tires Matter More Than Good Brakes</h2>
             <p>A common misconception in the automotive world is that installing massive, expensive "Big Brake Kits" will drastically reduce your stopping distance. This is false. A factory braking system on a modern Honda Civic is more than capable of locking up the wheels and triggering the Anti-Lock Braking System (ABS). Once the wheels lock, the brakes have done 100% of their job.</p>
             <p>At that point, the only thing stopping the car is the friction between the rubber tire and the road. If you have cheap, bald tires with a low friction coefficient, the car will slide. The absolute best way to decrease your braking distance is to buy high-quality, sticky tires. Big brake kits are designed to prevent heat fade during repeated, extreme track driving, not to shorten a single panic stop.</p>
 
-            <h2>The Weather Factor</h2>
+            <h2 className="text-2xl font-bold mb-3">The Weather Factor</h2>
             <p>The road surface coefficient of friction is the master variable in the braking equation. Dry asphalt provides an excellent coefficient of ~0.70. When it rains, a layer of water forms between the rubber and the road, dropping friction to ~0.40. Driving in the rain physically increases your braking distance by 75%. On ice, the friction coefficient drops near zero, rendering your brakes almost entirely useless.</p>
           </article>
           

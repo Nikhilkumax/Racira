@@ -165,13 +165,13 @@ const ProfessionalTaxCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>What Is Professional Tax?</h2>
+              <h2 className="text-2xl font-bold mb-3">What Is Professional Tax?</h2>
               <p>Professional Tax (PT) is a direct tax levied by state governments on individuals earning income through employment, trade, or profession. It is one of the oldest forms of taxation in India and is governed by Article 276 of the Indian Constitution, which caps it at ₹2,500 per year.</p>
 
-              <h2>How Is Professional Tax Calculated?</h2>
+              <h2 className="text-2xl font-bold mb-3">How Is Professional Tax Calculated?</h2>
               <p>Each state has its own slab structure based on monthly gross salary. The employer deducts PT from the employee's salary and deposits it with the state government. The slabs vary significantly — for example, Maharashtra charges ₹200/month for salaries above ₹10,000, while Tamil Nadu has a graduated structure reaching ₹1,095/half-year.</p>
 
-              <h2>Professional Tax Rates by State</h2>
+              <h2 className="text-2xl font-bold mb-3">Professional Tax Rates by State</h2>
               <ul>
                 <li><strong>Maharashtra:</strong> ₹175-200/month (₹300 in February to meet ₹2,500 cap)</li>
                 <li><strong>Karnataka:</strong> ₹200/month for salary above ₹15,000</li>
@@ -180,10 +180,10 @@ const ProfessionalTaxCalculator = () => {
                 <li><strong>Gujarat:</strong> ₹80-200/month</li>
               </ul>
 
-              <h2>Tax Benefits</h2>
+              <h2 className="text-2xl font-bold mb-3">Tax Benefits</h2>
               <p>Professional Tax paid during the financial year is <strong>deductible under Section 16(iii)</strong> of the Income Tax Act. This means it reduces your taxable salary income. The deduction is available in both old and new tax regimes.</p>
 
-              <h2>States Without Professional Tax</h2>
+              <h2 className="text-2xl font-bold mb-3">States Without Professional Tax</h2>
               <p>Several states and union territories do not levy Professional Tax, including Delhi, Uttar Pradesh, Rajasthan, Haryana, Uttarakhand, Punjab, Himachal Pradesh, and Jammu & Kashmir.</p>
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> PT rates vary by state and are subject to change. Some states have special rates for February. Verify with your employer or state government portal.</p>

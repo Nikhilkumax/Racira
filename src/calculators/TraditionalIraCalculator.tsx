@@ -76,9 +76,7 @@ const TraditionalIraCalculator = () => {
                 <InputField id="tax" label="Estimated Retirement Tax Rate (%)" value={taxRate} onChange={setTaxRate} />
               </div>
               <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">
-                  <PiggyBank className="h-5 w-5" /> Project Balance
-                </button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground">
+                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">Calculate</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground">
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
@@ -111,7 +109,7 @@ const TraditionalIraCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Tax-Deferred Growth Explained</h2>
+              <h2 className="text-2xl font-bold mb-3">Tax-Deferred Growth Explained</h2>
               <p>The Traditional IRA is built around a "pay taxes later" philosophy. By deferring taxes until retirement, your entire contribution — including the portion that would have gone to taxes — grows and compounds for decades.</p>
               <h3>Traditional vs. Roth IRA</h3>
               <p>The core trade-off is between current and future taxes. If you expect to be in a lower tax bracket in retirement, the Traditional IRA is often better. If you expect a higher tax rate in retirement (or simply want tax-free income), the Roth IRA is typically superior.</p>

@@ -169,15 +169,15 @@ const ArithmeticProgressionCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is an Arithmetic Progression Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is an Arithmetic Progression Calculator?</h2>
             <p>An arithmetic progression calculator finds the nth term, sum, and sequence of an AP given the first term, common difference, and number of terms. Pre-filled with a=2, d=5, n=10: the 10th term is 47, sum is 245, mean is 24.5. The linear term chart confirms that APs always form a straight line — their defining characteristic.</p>
-            <h2>Key Formulas</h2>
+            <h2 className="text-2xl font-bold mb-3">Key Formulas</h2>
             <p><strong>nth term:</strong> aₙ = a + (n−1)d. <strong>Sum of n terms:</strong> Sₙ = n/2 × (2a + (n−1)d) = n/2 × (a₁ + aₙ). <strong>Mean of AP:</strong> (a₁ + aₙ) / 2 = arithmetic mean. The mean of an AP equals the middle term (or average of two middle terms for even n). <strong>Common difference:</strong> d = aₙ − aₙ₋₁ (constant for any two adjacent terms).</p>
-            <h2>Gauss's Sum Formula</h2>
+            <h2 className="text-2xl font-bold mb-3">Gauss's Sum Formula</h2>
             <p>The sum formula Sₙ = n/2 × (a + l) was reportedly discovered by Carl Friedrich Gauss at age 9 when his teacher asked the class to sum 1 to 100. Gauss noticed: 1+100=101, 2+99=101, 3+98=101, ... 50 pairs each summing to 101. So S₁₀₀ = 50 × 101 = 5050. This pairing insight generalizes to any AP: pair the first and last terms, which always sum to a₁ + aₙ.</p>
-            <h2>APs vs Geometric Progressions</h2>
+            <h2 className="text-2xl font-bold mb-3">APs vs Geometric Progressions</h2>
             <p>An AP adds a constant (d) to each term; a GP multiplies by a constant (r). APs model linear phenomena: salary with fixed raises, simple interest, linear depreciation. GPs model exponential phenomena: compound interest, population growth, radioactive decay. The term chart of an AP is a straight line; a GP is exponential. Real-world data can often be classified by which fits better.</p>
-            <h2>Applications in Finance</h2>
+            <h2 className="text-2xl font-bold mb-3">Applications in Finance</h2>
             <p>Simple interest payments form an AP: if you borrow $10,000 at 5% simple interest, interest = $500/year, and total payments after n years = principal + n × $500. This contrasts with compound interest (geometric sequence). Annuities with equal payments and no growth are AP-based. Straight-line depreciation: asset loses $D per year, so book value after n years = original cost − n × D (an AP with negative d).</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/arithmetic-progression-calculator" />

@@ -135,15 +135,15 @@ export default function PortfolioRebalancingCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Why Portfolio Rebalancing Matters</h2>
+              <h2 className="text-2xl font-bold mb-3">Why Portfolio Rebalancing Matters</h2>
               <p>Portfolio rebalancing is one of the most important — yet most overlooked — aspects of disciplined investing. When you initially construct a portfolio, you assign target weights to different asset classes (e.g., 60% stocks, 30% bonds, 10% international) based on your risk tolerance and investment goals. Over time, as markets move, these weights drift. Stocks may surge, pushing your portfolio to 75% stocks without you making a single decision. This drift can expose you to far more risk than you intended.</p>
-              <h2>The Mathematics of Drift</h2>
+              <h2 className="text-2xl font-bold mb-3">The Mathematics of Drift</h2>
               <p>Consider a classic 60/40 portfolio starting with $100,000. If stocks return 30% and bonds return 5% in a year, stocks would now represent 65.3% of the portfolio and bonds just 34.7%. You've taken on more equity risk without any deliberate choice. If stocks then fall 40% in the following year, the more stock-heavy portfolio suffers a much larger loss than your intended 60/40 allocation would have.</p>
-              <h2>When to Rebalance</h2>
+              <h2 className="text-2xl font-bold mb-3">When to Rebalance</h2>
               <p>There are two primary rebalancing strategies. <strong>Calendar rebalancing</strong> triggers a review on a set schedule (quarterly, semi-annually, annually). <strong>Threshold rebalancing</strong> triggers action whenever an asset drifts by a predetermined percentage (typically 5%) from its target. Research suggests that threshold-based rebalancing is slightly more efficient, but both strategies are far better than no rebalancing at all.</p>
-              <h2>Tax-Smart Rebalancing</h2>
+              <h2 className="text-2xl font-bold mb-3">Tax-Smart Rebalancing</h2>
               <p>In taxable brokerage accounts, selling appreciated assets triggers capital gains taxes. Strategic investors can minimize this tax drag through several approaches: directing new contributions into underweight asset classes, using dividends and income to buy underweight assets, rebalancing inside tax-advantaged accounts (401k, IRA) where there are no tax consequences, and using tax-loss harvesting to offset capital gains.</p>
-              <h2>Asset Allocation by Life Stage</h2>
+              <h2 className="text-2xl font-bold mb-3">Asset Allocation by Life Stage</h2>
               <p>Your target allocation should shift over time. Young investors can tolerate higher equity allocations (80-100% stocks) because they have decades to recover from bear markets. As retirement approaches, gradually shifting toward more bonds and stable assets reduces volatility and preserves capital for near-term income needs. Target-date funds automate this process but may not perfectly match your personal risk tolerance.</p>
             </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/portfolio-rebalancing-calculator" />

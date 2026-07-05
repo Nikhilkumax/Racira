@@ -199,11 +199,11 @@ const SavingsCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>What Is a Savings Calculator?</h2>
+              <h2 className="text-2xl font-bold mb-3">What Is a Savings Calculator?</h2>
               <p>A savings calculator projects how much money you'll accumulate over time based on your initial deposit, regular contributions, interest rate, and compounding frequency. It's an essential planning tool for anyone building an emergency fund, saving for a down payment, funding a college education, or growing long-term wealth.</p>
               <p>Our advanced savings calculator goes beyond basic projections by including compounding frequency options (daily, monthly, quarterly, annually), optional inflation adjustment to show real purchasing power, and a complete year-by-year breakdown table that reveals exactly how compound interest and regular savings work together over time.</p>
 
-              <h2>How Savings Growth Is Calculated</h2>
+              <h2 className="text-2xl font-bold mb-3">How Savings Growth Is Calculated</h2>
               <p>Savings growth uses the future value formula for compound interest with regular contributions. The total future value is the sum of two parts:</p>
               <ul>
                 <li><strong>Initial deposit growth:</strong> FV = P × (1 + r/n)^(n×t), where P is principal, r is annual rate, n is compounds per year, and t is years</li>
@@ -211,16 +211,16 @@ const SavingsCalculator = () => {
               </ul>
               <p>The total future value is the sum of these two components. The interest earned is the difference between the total future value and all contributions made (initial + regular).</p>
 
-              <h2>How to Use This Calculator</h2>
+              <h2 className="text-2xl font-bold mb-3">How to Use This Calculator</h2>
               <p>Enter your initial deposit (can be $0 if starting fresh), your planned monthly contribution, the expected annual interest rate, and how many years you'll save. Select the compounding frequency matching your account — most savings accounts and investments compound monthly. Enable inflation adjustment to see what your future balance is worth in today's purchasing power. Click Calculate to see your full savings projection with the year-by-year growth table.</p>
 
-              <h2>The Power of Consistent Monthly Savings</h2>
+              <h2 className="text-2xl font-bold mb-3">The Power of Consistent Monthly Savings</h2>
               <p>Consider two investors: Investor A contributes $500/month starting at age 25. Investor B waits until age 35 to start. Both earn 7% annually and retire at 65. Investor A accumulates approximately $1.31 million. Investor B accumulates approximately $607,000 — less than half, despite only 10 fewer years of saving. The extra decade of compounding is worth over $700,000. Starting early is the single most powerful factor in savings accumulation.</p>
 
-              <h2>Example Scenario</h2>
+              <h2 className="text-2xl font-bold mb-3">Example Scenario</h2>
               <p>Emily wants to build a college fund for her newborn. She starts with $5,000 and adds $300/month to a 529 plan expecting 7% annual returns (monthly compounding). After 18 years: Initial deposit grows to $5,000 × (1.0058)^216 = $17,218. Monthly contributions grow to $300 × ((1.0058^216 − 1) / 0.0058) = $117,895. Total college fund: $135,113. Total contributions: $5,000 + ($300 × 216) = $69,800. Interest earned: $65,313 — nearly matching the total contributions.</p>
 
-              <h2>Savings Tips to Maximize Growth</h2>
+              <h2 className="text-2xl font-bold mb-3">Savings Tips to Maximize Growth</h2>
               <p>Automate contributions so you save before spending. Take advantage of tax-advantaged accounts (401k, Roth IRA, 529) to keep more of your returns. Reinvest all interest and dividends to maximize compound growth. Increase contributions by 1% each year or with every raise. Consider high-yield savings accounts (currently 4–5%) versus traditional banks (0.01–0.5%) — the difference is enormous over time. Keep emergency savings in liquid accounts; invest longer-term savings in diversified portfolios for better growth.</p>
             </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/savings-calculator" />

@@ -448,7 +448,7 @@ const ThreeDPrintTimeCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What is a 3D Print Time Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What is a 3D Print Time Calculator?</h2>
             <p>
               A <strong>3D Print Time Calculator</strong> is an advanced planning tool designed to estimate how long a 3D model will take to manufacture using Fused Deposition Modeling (FDM) or other additive manufacturing technologies. For hobbyists, engineers, and print farm operators, time is the ultimate bottleneck. This calculator uses volumetric flow algorithms, kinematic limits, and slicer approximations to give you a highly accurate preview of your print duration without needing to open resource-heavy slicing software like Cura or PrusaSlicer.
             </p>
@@ -456,7 +456,7 @@ const ThreeDPrintTimeCalculator = () => {
               Beyond just time, our calculator acts as a comprehensive cost-estimator. By evaluating your material usage (filament weight), electricity consumption, and printer efficiency, it calculates the true financial cost of your production run. Whether you are pricing a print job for a client or just wondering if your weekend project will finish before Monday, this tool provides the analytical insight needed to optimize your 3D printing workflow.
             </p>
 
-            <h2>Understanding the Mechanics of 3D Print Time</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Mechanics of 3D Print Time</h2>
             <p>
               3D printing is inherently slow because it creates objects one microscopic layer at a time. The time it takes to finish a print is dictated by the sheer volume of material being extruded and the physical speed limits of the machine's stepper motors. To calculate this mathematically, we look at the <strong>volumetric flow rate</strong>—the amount of plastic (in cubic millimeters per second) that the printer's hotend can melt and push through the nozzle.
             </p>
@@ -464,7 +464,7 @@ const ThreeDPrintTimeCalculator = () => {
               However, print time isn't just a simple equation of <code>Volume / Flow Rate</code>. The printer's toolhead must constantly slow down for corners, accelerate on straightaways, and stop completely to retract filament and travel across empty space. This is where <strong>acceleration and jerk (or square corner velocity)</strong> come into play. A printer might have a maximum speed of 300mm/s, but if its acceleration is low, it will never actually reach that speed on small models.
             </p>
 
-            <h2>Key Factors That Influence Print Time</h2>
+            <h2 className="text-2xl font-bold mb-3">Key Factors That Influence Print Time</h2>
             <p>
               If you want to speed up your 3D prints, you need to understand which levers to pull. Adjusting the following settings will have the most significant impact on your production time:
             </p>
@@ -489,7 +489,7 @@ const ThreeDPrintTimeCalculator = () => {
               Printing overhanging geometry requires support material. Generating, printing, and removing supports adds massive amounts of time and wastes plastic. Designing your models to print without supports (keeping overhangs below 45 degrees) is the best optimization. If supports are unavoidable, utilizing "Tree" or "Organic" supports instead of standard grid supports will save significant time and material.
             </p>
 
-            <h2>How to Interpret Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Interpret Your Results</h2>
             <p>
               When you generate an estimate using our calculator, you will receive a suite of analytics. Here is how to use them effectively:
             </p>
@@ -500,7 +500,7 @@ const ThreeDPrintTimeCalculator = () => {
               <li><strong>Cost Breakdown Table:</strong> This shows exactly where your money is going. While filament is usually the largest expense, if you are running a 50-hour print on a power-hungry machine in an area with high electricity rates, your power bill might surprise you.</li>
             </ul>
 
-            <h2>The Hidden Costs of 3D Printing</h2>
+            <h2 className="text-2xl font-bold mb-3">The Hidden Costs of 3D Printing</h2>
             <p>
               Many users dramatically underestimate the cost of 3D printing because they only look at the price of the plastic. Our calculator incorporates the hidden variables:
             </p>
@@ -510,7 +510,7 @@ const ThreeDPrintTimeCalculator = () => {
               <strong>Waste and Failure:</strong> Support material is pure waste. Furthermore, 3D printing is not perfect. Incorporating a "Failed Print Buffer" percentage ensures that when you quote a price to a client, you are protected against warped corners, clogged nozzles, or spaghetti failures that force a reprint.
             </p>
 
-            <h2>Advanced Optimization Techniques</h2>
+            <h2 className="text-2xl font-bold mb-3">Advanced Optimization Techniques</h2>
             <p>
               For users operating print farms or commercial businesses, maximizing throughput is the key to profitability. Use the Advanced Options panel to fine-tune your operations:
             </p>
@@ -524,7 +524,7 @@ const ThreeDPrintTimeCalculator = () => {
               <strong>Sequential Printing:</strong> If printing multiple small objects, use the "Print One at a Time" setting. Instead of completing layer 1 for all objects, the printer finishes object A completely before moving to object B. This drastically reduces travel time between parts and ensures that if the print fails halfway through, you still get half of your parts.
             </p>
 
-            <h2>Conclusion</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion</h2>
             <p>
               3D printing is a balancing act between speed, strength, and aesthetic quality. By using our 3D Print Time Calculator, you remove the guesswork from your manufacturing workflow. Tweak your layer heights, simulate a nozzle swap, and optimize your infill before you ever generate a G-code file, ensuring your printers are always running at peak efficiency.
             </p>

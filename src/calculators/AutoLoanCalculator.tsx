@@ -490,43 +490,43 @@ export default function AutoLoanCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Auto Loan Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Auto Loan Calculator</h2>
             <p>Buying a car is typically the second largest purchase an average consumer will make, following only the purchase of a home. Yet, while home buyers spend months analyzing mortgages, car buyers often make rushed decisions in the finance office of a dealership. An <strong>Auto Loan Calculator</strong> is your primary defense against overpaying. It is an essential financial tool that demystifies dealership mathematics, allowing you to accurately estimate your monthly payments and uncover the true, long-term cost of vehicle ownership before you sign a contract.</p>
             <p>Dealerships frequently negotiate based on the "monthly payment" rather than the total purchase price of the vehicle. This tactic obscures the actual cost. By stretching a loan over 72 or 84 months, a salesperson can hit your target monthly payment while quietly increasing the total vehicle price and inflating the interest charges by thousands of dollars. Our comprehensive Auto Loan Calculator prevents this by giving you the power to see the entire amortization schedule, factoring in trade-in values, local taxes, dealer fees, and manufacturer incentives.</p>
 
-            <h2>How Auto Loan Amortization Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How Auto Loan Amortization Works</h2>
             <p>An auto loan is a structured, amortizing debt. This means that your monthly payment remains fixed for the duration of the loan term, but the underlying composition of that payment shifts every single month. In the early stages of your loan, a substantial portion of your monthly payment goes toward the lender's interest charges. As you slowly chip away at the principal balance, the interest charges decrease, allowing more of your payment to pay down the actual vehicle debt.</p>
             <p>The mathematical formula used to calculate your fixed monthly payment is:</p>
             <p><strong>M = P [ r(1 + r)^n ] / [ (1 + r)^n – 1 ]</strong></p>
             <p>Where <em>M</em> is your monthly payment, <em>P</em> is the total principal loan amount, <em>r</em> is your monthly interest rate (your Annual Percentage Rate divided by 12), and <em>n</em> is the total number of months in your loan term.</p>
 
-            <h2>Analyzing Your Calculator Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Analyzing Your Calculator Results</h2>
             <p>Once you input your specific vehicle parameters, our calculator processes the data to generate a multi-faceted financial profile of your prospective purchase.</p>
             <p><strong>Estimated Monthly Payment:</strong> This is the headline number. It is the exact amount of cash you must pull from your bank account every month to avoid defaulting on the loan. It is critical that this number comfortably fits within your monthly household budget.</p>
             <p><strong>Total Cost Breakdown:</strong> This table is arguably more important than the monthly payment. It breaks down the total cost of the vehicle, separating the sticker price from the "invisible" costs of financing. It shows exactly how much money you are losing to interest payments over the life of the loan. This is the amount you pay for the privilege of borrowing the bank's money.</p>
             <p><strong>Cost Distribution Chart:</strong> A visual representation (pie chart) illustrating where your money is going. If the slice representing "Total Interest" looks aggressively large compared to the "Principal" slice, you may need to reconsider your loan term or secure a better interest rate.</p>
 
-            <h2>Critical Loan Variables</h2>
+            <h2 className="text-2xl font-bold mb-3">Critical Loan Variables</h2>
             <p>Understanding how different variables manipulate your loan is the key to mastering automotive finance.</p>
             <p><strong>Vehicle Price vs. Total Loan Amount:</strong> The sticker price of the car is rarely your loan amount. Your loan amount is the vehicle price, minus any down payments and trade-in equity, plus applicable state sales taxes and dealer documentation fees. A $30,000 car can quickly turn into a $34,000 loan if you finance the taxes and fees with zero money down.</p>
             <p><strong>The Interest Rate (APR):</strong> Your Annual Percentage Rate dictates the cost of borrowing. Auto loan rates are tied to the broader economic environment (the Federal Reserve) and your personal FICO credit score. An excellent credit score (750+) might secure a 4% APR, while a subprime score (below 600) might face punishing rates of 15% to 20%.</p>
             <p><strong>The Loan Term:</strong> The loan term is the length of the loan, measured in months. Standard terms are 36, 48, and 60 months. Recently, 72-month and 84-month terms have become prevalent. While extending the term from 60 to 84 months lowers your monthly payment, it drastically increases your total interest costs and exposes you to the massive risk of "negative equity."</p>
 
-            <h2>Advanced Features: Trade-Ins and Taxes</h2>
+            <h2 className="text-2xl font-bold mb-3">Advanced Features: Trade-Ins and Taxes</h2>
             <p>Our calculator includes an Advanced Options suite that models real-world dealership scenarios.</p>
             <p><strong>Negative Equity on Trade-Ins:</strong> If you owe $15,000 on your current car, but the dealer only offers you $10,000 for it as a trade-in, you have $5,000 in "negative equity" (also known as being underwater or upside-down). If you proceed with the trade-in, that $5,000 is added to your new car loan. You are effectively paying interest on a car you no longer drive.</p>
             <p><strong>Sales Tax Strategies:</strong> Most states charge sales tax on vehicle purchases. The advanced calculator allows you to toggle whether you want to "Include taxes and fees in the loan." Rolling taxes into the loan requires less cash upfront, but it means you are paying 5% to 10% interest on a tax bill for the next five years. Paying taxes in cash at signing is the superior financial move.</p>
 
-            <h2>Practical Examples of Auto Financing</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples of Auto Financing</h2>
             <p><strong>Example 1: The Danger of Long Terms.</strong> You want to buy a $40,000 SUV with no money down at an 8% APR. The dealer offers a 60-month term at $811 per month. You say that is too high. The dealer stretches the loan to 84 months, dropping the payment to a much more attractive $623. However, checking the calculator reveals the hidden cost: on the 60-month loan, you pay $8,600 in total interest. On the 84-month loan, you pay $12,300 in total interest. That lower monthly payment costs you nearly $4,000 extra.</p>
             <p><strong>Example 2: The Power of a Trade-In Tax Break.</strong> You live in a state with a 7% auto sales tax. You buy a $35,000 car and trade in an old vehicle worth $10,000. In many states, the sales tax is only applied to the difference ($25,000). Your tax bill drops from $2,450 to $1,750, instantly saving you $700 just by utilizing the trade-in.</p>
 
-            <h2>Tips and Best Practices</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips and Best Practices</h2>
             <p><strong>Secure Independent Financing:</strong> Never rely solely on the dealership for financing. Always secure a pre-approval letter from your local bank or credit union before walking onto the lot. Dealerships often mark up interest rates (a practice called "dealer reserve") to make a profit on the loan itself. A pre-approval forces the dealer to beat your bank's rate, or you walk.</p>
             <p><strong>Follow the 20/4/10 Rule:</strong> Financial experts universally recommend the 20/4/10 rule for car buying. Put down at least 20% (to absorb instant depreciation), finance the car for no more than 4 years (48 months), and ensure your total automotive expenses (payment, insurance, gas) do not exceed 10% of your gross monthly income.</p>
             <p><strong>Beware of the "Monthly Payment" Trap:</strong> When a salesperson asks, "What monthly payment are you looking for?", they are setting a trap. Once you give them a number, they will manipulate the loan term, interest rate, and down payment to hit that number, regardless of how bad the overall financial structure is for you. Always negotiate based on the "Out-the-Door" total price of the vehicle.</p>
 
-            <h2>Conclusion and Financial Benefits</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion and Financial Benefits</h2>
             <p>An automobile is a depreciating asset. Unlike a house, a car loses value every single day you own it. Therefore, minimizing the amount of interest you pay to finance that depreciating asset is paramount to your long-term wealth building.</p>
             <p>By rigorously utilizing this Auto Loan Calculator, you take control of the transaction. You transition from a passive buyer reacting to dealership numbers, into an informed consumer who dictates the terms of the deal. Running multiple scenarios—adjusting the down payment by $1,000 here, shortening the loan term by 12 months there—empowers you to find the exact financing structure that minimizes your costs and maximizes your financial security.</p>
           </article>

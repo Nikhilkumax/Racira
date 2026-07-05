@@ -177,14 +177,14 @@ export default function AssetTurnoverRatioCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is the Asset Turnover Ratio?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is the Asset Turnover Ratio?</h2>
             <p>The Asset Turnover Ratio is a fundamental efficiency metric that measures how effectively a company uses its total asset base to generate revenue. The formula is simple: Asset Turnover = Net Revenue / Average Total Assets. A ratio of 1.5x means the company generates $1.50 in revenue for every dollar of assets it owns. Higher ratios indicate greater operational efficiency — the company is squeezing more revenue from the same asset base.</p>
             <p>This metric is a cornerstone of the DuPont Analysis framework, which decomposes Return on Equity (ROE) into three components: net profit margin, asset turnover, and financial leverage. Understanding asset turnover allows investors to diagnose whether a company's ROE is driven by superior margins, efficient asset use, or financial leverage — a critical distinction for valuation and risk assessment.</p>
-            <h2>Why Average Assets Are Used</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Average Assets Are Used</h2>
             <p>Using the average of beginning and ending period assets smooths out the effect of major asset acquisitions or disposals during the year. A company that acquired a large factory in December would show an artificially low turnover if only the year-end figure were used. The average better represents the assets actually available throughout the operating period.</p>
-            <h2>Industry Context Is Critical</h2>
+            <h2 className="text-2xl font-bold mb-3">Industry Context Is Critical</h2>
             <p>Retail chains like Walmart achieve asset turnover of 2.0–2.5x because they generate enormous revenue relative to their store and inventory assets. Technology companies like Microsoft achieve 0.5–0.8x despite their asset-light model because their asset base includes massive cash holdings and intangibles. Electric utilities may achieve only 0.2–0.3x due to enormous infrastructure. Never interpret asset turnover in isolation — always compare within the same industry sector.</p>
-            <h2>Improving Asset Turnover</h2>
+            <h2 className="text-2xl font-bold mb-3">Improving Asset Turnover</h2>
             <p>Companies can improve asset turnover by increasing revenue through better sales and pricing, selling or leasing non-core assets to reduce the denominator, improving inventory management to reduce holding periods, optimizing accounts receivable collection cycles, and outsourcing capital-intensive operations. Each of these strategies reduces assets relative to revenue or grows revenue relative to assets.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/asset-turnover-ratio-calculator" />

@@ -311,23 +311,23 @@ export default function CarBuyingBudgetCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Car Buying Budget Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Car Buying Budget Calculator?</h2>
             <p>A Car Buying Budget Calculator is designed to tell you exactly how much car you can afford based on the monthly payment you are comfortable making. It takes the guesswork out of the financing process by working backward. You supply your maximum monthly budget, the amount of cash you have for a down payment, and the estimated interest rate, and the calculator mathematically strips away taxes, fees, and interest to reveal the exact sticker price you should target on the dealership lot.</p>
 
-            <h2>Why Work Backwards?</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Work Backwards?</h2>
             <p>Dealerships love it when buyers negotiate based solely on the monthly payment. If you walk in and say "I can afford $400 a month," the dealer will happily sell you a $25,000 car. They do this by stretching the loan out to 72 or 84 months, making the car appear affordable while trapping you in years of high-interest debt. By using this calculator to work backwards, you find your <strong>Max Recommended Budget</strong> beforehand. You can then negotiate the total out-the-door price of the vehicle, which is the only number that truly matters.</p>
 
-            <h2>The Impact of Taxes and Fees</h2>
+            <h2 className="text-2xl font-bold mb-3">The Impact of Taxes and Fees</h2>
             <p>Many buyers are shocked to learn that a $20,000 car does not actually cost $20,000. In most states, you must pay a 6% to 8% sales tax, plus hundreds of dollars in dealership documentation fees and state registration fees. These hidden costs can easily add $2,000 to the price of the vehicle. Our calculator automatically reserves a portion of your purchasing power to cover these mandatory fees, ensuring that your final budget is realistic and accurate.</p>
 
-            <h2>The Role of the Down Payment</h2>
+            <h2 className="text-2xl font-bold mb-3">The Role of the Down Payment</h2>
             <p>Your cash down payment is arguably the most important factor in buying a car safely. A larger down payment drastically increases your total purchasing power without increasing your monthly payment. More importantly, it protects you from negative equity. New cars depreciate by roughly 20% in the first year. If you finance 100% of the vehicle, you will owe the bank more than the car is worth the second you drive it off the lot. Putting down at least 15% to 20% absorbs this initial depreciation hit.</p>
 
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <p><strong>Example 1: The First-Time Buyer.</strong> Sarah wants to buy her first car. She has $3,000 saved and can afford $350 a month. She expects an 8% interest rate over 60 months. The calculator reveals that her total purchasing power is roughly $20,000. After backing out sales tax and fees, her true max car budget is about $18,000. If she looks at cars priced at $20,000 on the lot, she will be unable to afford the monthly payment.</p>
             <p><strong>Example 2: Upgrading the Commute.</strong> John has a $500 monthly budget and a trade-in worth $8,000. With a 5% interest rate over 48 months, his total purchasing power is massive. After fees, he can afford a $28,000 vehicle. The pie chart shows that because of his large trade-in and short loan term, very little of his money is wasted on interest.</p>
 
-            <h2>Tips & Best Practices</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
             <p>Never take a 72 or 84-month auto loan. If a 60-month loan pushes the monthly payment above your budget, it means you simply cannot afford the vehicle. Furthermore, try to secure financing from your local credit union or bank <em>before</em> you go to the dealership. Dealerships often markup the interest rate they get from the bank, pocketing the difference as extra profit. Having a pre-approved rate forces the dealer to beat it to win your business.</p>
           </article>
           

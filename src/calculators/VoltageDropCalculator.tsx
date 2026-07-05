@@ -231,14 +231,14 @@ const VoltageDropCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Physics of Voltage Drop</h2>
+            <h2 className="text-2xl font-bold mb-3">The Physics of Voltage Drop</h2>
             <p>No wire is a perfect conductor of electricity. Even highly conductive metals like copper and aluminum possess a small amount of internal resistance to the flow of electrons. When electrical current (Amperage) pushes through this resistance over a long distance, some of the electrical energy is converted into heat and lost to the surrounding environment. This loss of electrical "pressure" is known as <strong>Voltage Drop</strong>.</p>
             
-            <h2>Why is Voltage Drop Dangerous?</h2>
+            <h2 className="text-2xl font-bold mb-3">Why is Voltage Drop Dangerous?</h2>
             <p>If you plug a heavy-duty air compressor into a very long, thin extension cord, you will experience severe voltage drop. The compressor's motor requires 120 Volts to spin freely, but due to the drop, it might only receive 100 Volts. Because it is starved for pressure, the motor will struggle to turn, generating massive amounts of internal heat. This can quickly destroy the motor's windings or even cause a fire.</p>
             <p>For sensitive electronics, excessive voltage drop can cause computers to reboot randomly, screens to flicker, or power supplies to fail prematurely. This is why the National Electrical Code (NEC) strongly recommends keeping voltage drop below 3% for any single branch circuit.</p>
 
-            <h2>How to Reduce Voltage Drop</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Reduce Voltage Drop</h2>
             <p>If your calculation shows an unacceptable percentage drop, you have three primary ways to fix the circuit:</p>
             <ol>
               <li><strong>Increase the Wire Size:</strong> This is the most common solution. A thicker wire (which means a <em>lower</em> AWG number, like moving from 14 AWG to 10 AWG) acts like a wider pipe for water. It offers less resistance to the electrical flow, dramatically reducing the drop.</li>

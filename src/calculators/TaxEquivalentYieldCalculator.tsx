@@ -168,22 +168,22 @@ const TaxEquivalentYieldCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Tax Equivalent Yield Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Tax Equivalent Yield Calculator?</h2>
             <p>A tax equivalent yield (TEY) calculator converts the yield of a tax-exempt municipal bond into the equivalent pre-tax yield that a taxable bond would need to offer to match it on an after-tax basis. This comparison is essential for fixed-income investors choosing between corporate bonds, Treasury bonds, and tax-free municipal bonds. Pre-filled with a 4.00% muni yield, 24% federal rate, and 5% state rate, the TEY is 5.63% — meaning you would need a taxable bond yielding at least 5.63% to beat the muni bond after taxes.</p>
-            <h2>The Tax Equivalent Yield Formula</h2>
+            <h2 className="text-2xl font-bold mb-3">The Tax Equivalent Yield Formula</h2>
             <p><strong>TEY = Municipal Bond Yield / (1 − Combined Marginal Tax Rate)</strong></p>
             <p>The combined marginal tax rate includes both federal and applicable state income taxes. For defaults: TEY = 4.00% / (1 − 0.29) = 4.00% / 0.71 = 5.63%. The bar chart compares TEY across all seven federal income tax brackets so you can see how the advantage changes with your tax situation.</p>
-            <h2>When Does the Muni Bond Win?</h2>
+            <h2 className="text-2xl font-bold mb-3">When Does the Muni Bond Win?</h2>
             <p>The municipal bond wins when taxable alternatives yield less than the TEY. If you're in the 32% federal bracket with 5% state taxes and a 4% muni bond, your TEY = 4% / (1 − 0.37) = 6.35%. Any taxable bond yielding less than 6.35% is inferior on an after-tax basis for you. High-income investors in the 37% bracket benefit most dramatically from municipal bonds.</p>
-            <h2>State Tax Exemption Bonus</h2>
+            <h2 className="text-2xl font-bold mb-3">State Tax Exemption Bonus</h2>
             <p>Many states exempt municipal bonds issued within their borders from state income tax. For investors in high-tax states like California (13.3%), New York (10.9%), or New Jersey (10.75%), this can add enormous value. A California investor in the 37% federal bracket with 13.3% state tax on a 4% muni bond: TEY = 4% / (1 − 0.503) = 8.05% — remarkable advantage over taxable bonds.</p>
-            <h2>AMT Considerations</h2>
+            <h2 className="text-2xl font-bold mb-3">AMT Considerations</h2>
             <p>Some municipal bonds — particularly private activity bonds (PABs) used to fund airports, toll roads, and private hospitals — may be subject to the federal Alternative Minimum Tax (AMT). These bonds typically offer higher yields to compensate. Always verify a muni bond's AMT status before assuming full tax exemption.</p>
-            <h2>Municipal Bonds vs Treasury Bonds</h2>
+            <h2 className="text-2xl font-bold mb-3">Municipal Bonds vs Treasury Bonds</h2>
             <p>Treasury bonds are exempt from state income taxes but taxable at the federal level. For investors in low-tax states, Treasuries may be more advantageous than municipal bonds. For high-state-tax investors, double tax-exempt (DTE) municipal bonds — exempt from both federal and state taxes — frequently outperform Treasuries on an after-tax basis despite their lower stated yields.</p>
-            <h2>Credit Quality and Duration Risk</h2>
+            <h2 className="text-2xl font-bold mb-3">Credit Quality and Duration Risk</h2>
             <p>After confirming that a muni bond beats the TEY threshold, compare credit quality and duration risk. Municipal bonds range from AAA-rated state general obligation bonds to below-investment-grade revenue bonds. Higher yields often come with higher default risk. The muni bond default rate has historically been very low (well under 0.1% for investment-grade munis), but credit analysis remains essential.</p>
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <p><strong>Conservative retiree (22% bracket, 5% state):</strong> TEY on 4% muni = 4% / 0.73 = 5.48%. At this bracket, competitive taxable bonds may beat the muni. <strong>High-income professional (37% bracket, 9.3% CA):</strong> TEY on 4% muni = 4% / (1 − 0.463) = 7.45%. Municipal bonds are clearly superior. The TEY analysis should always be the first step in fixed-income portfolio construction for high-income investors.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/tax-equivalent-yield-calculator" />

@@ -137,7 +137,7 @@ const SolarEnergySavingsCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Solar: An Investment in Independence</h2>
+              <h2 className="text-2xl font-bold mb-3">Solar: An Investment in Independence</h2>
               <p>Installing solar panels is one of the few home improvements that actually pays for itself. Beyond the environmental benefits, it provides a hedge against rising electricity costs from traditional utility companies.</p>
               <h3>Understanding Net Metering</h3>
               <p>Most solar systems are grid-tied. Through "Net Metering," when your panels produce more electricity than you use (typically during the day), the excess is sent back to the grid, and your utility meter literally runs backward. You then use those credits at night when the sun isn't shining.</p>

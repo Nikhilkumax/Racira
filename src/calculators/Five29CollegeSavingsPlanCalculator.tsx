@@ -386,7 +386,7 @@ export default function Five29CollegeSavingsPlanCalculator() {
 
         {/* SEO CONTENT SECTION */}
         <div className="max-w-[800px] mt-16 prose prose-slate dark:prose-invert">
-          <h2>What is a 529 College Savings Plan?</h2>
+          <h2 className="text-2xl font-bold mb-3">What is a 529 College Savings Plan?</h2>
           <p>
             A 529 plan is a specialized, tax-advantaged investment account designed specifically to encourage saving for future education costs. Sponsored by states, state agencies, or educational institutions, these plans are legally known as "qualified tuition programs."
           </p>
@@ -394,7 +394,7 @@ export default function Five29CollegeSavingsPlanCalculator() {
             The primary draw of a 529 plan is its incredible tax benefits. While contributions are made with after-tax money (meaning you don't get a federal tax deduction when you put the money in), the investments grow <strong>completely tax-free</strong>. Furthermore, when you withdraw the money to pay for qualified education expenses, those withdrawals are also 100% exempt from federal and state income taxes.
           </p>
 
-          <h2>The Power of Tax-Free Compounding</h2>
+          <h2 className="text-2xl font-bold mb-3">The Power of Tax-Free Compounding</h2>
           <p>
             To understand the value of a 529 plan, you must understand tax drag. If you save for college in a standard brokerage account, you have to pay taxes on dividends and capital gains every year. These taxes act as a drag, slowing down the growth of your investments.
           </p>
@@ -402,7 +402,7 @@ export default function Five29CollegeSavingsPlanCalculator() {
             In a 529 plan, there is zero tax drag. Every penny of interest, dividends, and capital gains is automatically reinvested to compound upon itself. Over an 18-year period (from a child's birth to college enrollment), this tax-free environment can result in a final balance that is tens of thousands of dollars higher than what you would achieve in a taxable account with the exact same contributions.
           </p>
 
-          <h2>What Are "Qualified Education Expenses"?</h2>
+          <h2 className="text-2xl font-bold mb-3">What Are "Qualified Education Expenses"?</h2>
           <p>
             To keep your withdrawals tax-free, the money must be spent on qualified expenses. The IRS defines these broadly:
           </p>
@@ -415,7 +415,7 @@ export default function Five29CollegeSavingsPlanCalculator() {
             <li>Up to $10,000 (lifetime limit) to pay down student loans for the beneficiary or their sibling.</li>
           </ul>
 
-          <h2>What If My Child Doesn't Go to College?</h2>
+          <h2 className="text-2xl font-bold mb-3">What If My Child Doesn't Go to College?</h2>
           <p>
             This is the most common fear parents have about 529 plans, but it is largely unfounded due to the extreme flexibility of the accounts. If your child decides not to attend college, or receives a full scholarship, you have several options:
           </p>
@@ -426,12 +426,12 @@ export default function Five29CollegeSavingsPlanCalculator() {
             <li><strong>Non-Qualified Withdrawal:</strong> If you simply want the cash back for non-educational purposes, you can withdraw it. You will pay standard income tax and a 10% penalty <em>only on the earnings</em>, not on your original contributions.</li>
           </ul>
 
-          <h2>Superfunding a 529 Plan</h2>
+          <h2 className="text-2xl font-bold mb-3">Superfunding a 529 Plan</h2>
           <p>
             For high-net-worth families, 529 plans offer a unique estate planning benefit known as "superfunding." The IRS allows you to front-load five years' worth of the annual gift tax exclusion into a 529 plan at once. For example, in 2024, the annual gift exclusion is $18,000. A married couple could contribute $180,000 to a child's 529 plan in a single day without triggering gift taxes, removing that money from their taxable estate and giving it 18 years to compound tax-free.
           </p>
 
-          <h2>Benefits of Using This Calculator</h2>
+          <h2 className="text-2xl font-bold mb-3">Benefits of Using This Calculator</h2>
           <p>
             College costs are rising rapidly, often outpacing general inflation. By using a 529 College Savings Plan Calculator, parents and grandparents can set realistic expectations early. It visually separates your hard-earned contributions from the tax-free earnings, proving that time in the market is just as important as the amount of money you invest. By identifying potential shortfalls now, you can make small adjustments to your monthly contributions that will prevent the need for crippling student loans down the road.
           </p>

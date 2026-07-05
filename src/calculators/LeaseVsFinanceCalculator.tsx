@@ -269,9 +269,7 @@ export default function LeaseVsFinanceCalculator() {
             </div>
 
             <div className="flex gap-2.5 mt-2.5">
-              <button type="button" onClick={handleCalculate} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm">
-                <Key className="h-4 w-4" /> Compare Options
-              </button>
+              <button type="button" onClick={handleCalculate} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm">Calculate</button>
               <button type="button" onClick={handleReset} className="w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center focus:outline-none">
                 <RotateCcw className="h-4 w-4" />
               </button>
@@ -376,26 +374,26 @@ export default function LeaseVsFinanceCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Should You Lease or Finance Your Next Car?</h2>
+            <h2 className="text-2xl font-bold mb-3">Should You Lease or Finance Your Next Car?</h2>
             <p>The decision to lease or finance a vehicle is one of the most hotly debated topics in personal finance. A Lease vs Finance Calculator objectively compares the true cost of both options by analyzing monthly payments, interest rates, taxes, depreciation, and the equity you build. By projecting these variables over the exact same time horizon (typically 36 months), you can see mathematically which option drains less cash from your net worth.</p>
 
-            <h2>How Financing Works (Buying)</h2>
+            <h2 className="text-2xl font-bold mb-3">How Financing Works (Buying)</h2>
             <p>When you finance a car, you are taking out a loan to purchase the entire asset. Your monthly payments are generally higher than a lease because you are paying off the full MSRP of the car plus interest. However, every time you make a payment, a portion goes toward the principal balance, building <strong>Equity</strong>. At the end of 36 months, you might have paid $25,000 in cash, but the car is still worth $20,000 and you only owe $10,000 to the bank. That $10,000 in positive equity acts like a savings account, heavily reducing your true <strong>Net Cost</strong>.</p>
 
-            <h2>How Leasing Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How Leasing Works</h2>
             <p>Leasing is essentially renting a car long-term. You are not buying the car; you are only paying for the amount of value the car loses (depreciation) while you drive it. This is why lease payments are almost always cheaper than finance payments. At the end of the 36-month lease, you hand the keys back to the dealer. You have paid $15,000 in cash over three years, but you have $0 in equity. Your Net Cost is exactly equal to the cash you spent.</p>
 
-            <h2>Understanding the Variables</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Variables</h2>
             <ul>
               <li><strong>Money Factor:</strong> This is the interest rate of a lease. Dealerships express it as a tiny decimal to confuse buyers. Multiply the Money Factor by 2,400 to find the true APR percentage.</li>
               <li><strong>Residual Value:</strong> The estimated value of the car at the end of the lease. A car with a high residual value (like a Toyota Tacoma) will have incredibly cheap lease payments because you are paying for very little depreciation.</li>
               <li><strong>Lease Fees:</strong> Leasing involves hidden acquisition fees upfront and disposition fees at the end. These are factored into our Total Cost calculations.</li>
             </ul>
 
-            <h2>When Does Leasing Make Sense?</h2>
+            <h2 className="text-2xl font-bold mb-3">When Does Leasing Make Sense?</h2>
             <p>Mathematically, buying a car and keeping it for 10 years is always the cheapest option. However, if you are someone who trades in your car for a brand new model every 3 years regardless of logic, leasing is actually cheaper. When you buy and trade in every 3 years, you absorb the massive initial depreciation hit and you pay full sales tax on the entire vehicle multiple times. Leasing shields you from fluctuating used-car markets and limits your sales tax exposure.</p>
 
-            <h2>When Does Financing Make Sense?</h2>
+            <h2 className="text-2xl font-bold mb-3">When Does Financing Make Sense?</h2>
             <p>If you drive more than 15,000 miles a year, you must buy. Leases come with strict mileage limits, and the penalties for going over (often $0.25 per mile) will destroy any financial benefit the lease offered. Furthermore, if you plan to keep the car long after it is paid off, financing is the undisputed winner. Once the loan is gone, your monthly payment drops to $0, allowing you to maximize the value of the asset.</p>
           </article>
           

@@ -185,17 +185,17 @@ export default function PiotroskiFScoreCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is the Piotroski F-Score?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is the Piotroski F-Score?</h2>
             <p>The Piotroski F-Score is a 9-point accounting-based scoring system developed by Stanford accounting professor Joseph Piotroski in his seminal 2000 paper &quot;Value Investing: The Use of Historical Financial Statement Information to Separate Winners from Losers.&quot; It assesses a company&apos;s fundamental financial health using binary criteria across three dimensions: profitability, financial leverage/liquidity, and operating efficiency. Each criterion earns one point, producing a total score between 0 and 9.</p>
-            <h2>The 9 F-Score Criteria Explained</h2>
+            <h2 className="text-2xl font-bold mb-3">The 9 F-Score Criteria Explained</h2>
             <p><strong>Profitability (4 points):</strong> F1: ROA &gt; 0 (company is profitable). F2: Operating Cash Flow &gt; 0 (cash is actually being generated). F3: Change in ROA &gt; 0 (profitability is improving). F4: Accruals &lt; 0, meaning Operating CF &gt; Net Income (earnings are high quality, not accounting artifacts). <strong>Leverage/Liquidity (3 points):</strong> F5: Long-term debt ratio declined (less financial risk). F6: Current ratio improved (better short-term liquidity). F7: No new common shares issued (no dilution signal). <strong>Efficiency (2 points):</strong> F8: Gross margin improved (pricing power or cost control). F9: Asset turnover ratio improved (more efficient asset use).</p>
-            <h2>Investment Application</h2>
+            <h2 className="text-2xl font-bold mb-3">Investment Application</h2>
             <p>Piotroski&apos;s original research focused on high book-to-market (low P/B) value stocks. Within this universe, high F-score stocks (8–9) produced mean annual returns 7.5% higher than low F-score stocks (0–1) over the study period. The screening approach is straightforward: first screen for cheap stocks (low P/B, low P/E), then apply F-Score to identify those with improving fundamentals, and avoid those that are cheap because they are deteriorating.</p>
-            <h2>F-Score and Value Traps</h2>
+            <h2 className="text-2xl font-bold mb-3">F-Score and Value Traps</h2>
             <p>A "value trap" is a stock that appears cheap by traditional metrics (low P/E, low P/B) but never recovers because the business is genuinely deteriorating. Low F-score value stocks typically represent value traps — the market correctly prices them at a discount. High F-score value stocks represent overlooked opportunities where fundamental improvement hasn&apos;t yet been recognized in the stock price. F-Score is most effective as a value trap filter.</p>
-            <h2>Limitations and Considerations</h2>
+            <h2 className="text-2xl font-bold mb-3">Limitations and Considerations</h2>
             <p>F-Score was developed and backtested primarily on US equities from the 1970s–1990s. It is less applicable to financial companies (banks, insurance firms) due to their different balance sheet structures. Very early-stage or rapidly growing companies may score poorly despite strong prospects (e.g., investing in growth means higher leverage and lower current ratio). Use F-Score as one factor in a multi-dimensional framework, not as a standalone buy/sell signal.</p>
-            <h2>Combining F-Score with Other Factors</h2>
+            <h2 className="text-2xl font-bold mb-3">Combining F-Score with Other Factors</h2>
             <p>High F-Score + Low P/B: Piotroski&apos;s original strategy. High F-Score + Insider Buying: Strong signal of undervalued, improving companies. High F-Score + Low Short Interest: Reduces squeeze risk and confirms fundamental quality. High F-Score + Momentum: Combines quality/value improvement with price confirmation. Many quantitative funds incorporate F-Score as a quality factor in multi-factor models alongside value, momentum, and size factors.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/piotroski-f-score-calculator" />

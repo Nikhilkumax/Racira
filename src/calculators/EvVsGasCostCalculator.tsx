@@ -357,26 +357,26 @@ export default function EvVsGasCostCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is an EV vs Gas Cost Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is an EV vs Gas Cost Calculator?</h2>
             <p>An EV vs Gas Cost Calculator is a comparative financial model that determines whether an Electric Vehicle or an Internal Combustion Engine (Gas) car is mathematically cheaper over a specific period. While EVs are notorious for having higher upfront sticker prices, they counter this with significantly cheaper "fuel" (electricity), massive government tax rebates, and vastly reduced maintenance requirements. This tool simulates the total Total Cost of Ownership (TCO) for both vehicles simultaneously to reveal exactly when—and if—the EV becomes the better financial choice.</p>
 
-            <h2>How It Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
             <p>The calculator runs a side-by-side annual simulation. It starts with the purchase price of each vehicle, immediately subtracting the <strong>EV Tax Credit</strong> from the electric car. Then, for every year of ownership, it adds the <strong>Annual Fuel Cost</strong> (calculated via your annual miles, utility rate, and gas price) and the <strong>Annual Maintenance Cost</strong>. Crucially, it also factors in <strong>Depreciation</strong>. The total cost shown is not just the cash you spent; it includes the equity you lost as the car degraded in value over time.</p>
 
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>The <strong>Winner</strong> card instantly shows which vehicle drains less wealth over your stated ownership period. The <strong>Break-Even Point</strong> is a critical metric. Because an EV usually costs more upfront, the Gas car is mathematically cheaper on Day 1. However, every mile you drive, the EV saves you money. The break-even year is the exact moment the cumulative fuel and maintenance savings eclipse the higher initial purchase price.</p>
 
-            <h2>Key Factors</h2>
+            <h2 className="text-2xl font-bold mb-3">Key Factors</h2>
             <p><strong>Electricity Rate</strong> versus <strong>Gas Price</strong> is the primary battleground. If you live in an area with $5.00 gas and $0.10 electricity, the EV will break even incredibly fast. If you live somewhere with $3.00 gas and $0.35 electricity, the EV might never break even. <strong>Annual Miles</strong> accelerates the math; the more you drive, the faster the EV pays for itself because you are replacing expensive gas miles with cheap electric miles.</p>
 
-            <h2>Advanced Features</h2>
+            <h2 className="text-2xl font-bold mb-3">Advanced Features</h2>
             <p>By opening the Advanced Options, you can adjust <strong>Annual Depreciation Rates</strong>. Historically, early EVs depreciated faster than gas cars due to rapid advancements in battery tech and range. Setting the EV depreciation rate higher allows you to conservatively model the risk of battery obsolescence. You can also edit the <strong>Maintenance</strong> estimates, reflecting the fact that EVs have no oil changes or transmission services.</p>
 
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <p><strong>Example 1: The Commuter Win.</strong> John buys a $45,000 EV instead of a $35,000 gas car. He gets a $7,500 tax credit, lowering his effective EV price to $37,500. He drives 20,000 miles a year with cheap home electricity. Because he drives so much, he saves $2,000 a year on gas and maintenance. His break-even point is just Year 2. After 5 years, he has saved over $6,000 by going electric.</p>
             <p><strong>Example 2: The Low-Mileage Loss.</strong> Sarah buys a $60,000 luxury EV instead of a $45,000 gas SUV. She does not qualify for a tax credit. She only drives 5,000 miles a year and lives in California where electricity is expensive. Because she barely drives, she only saves $300 a year on fuel. Her break-even point is over 30 years. The EV is a catastrophic financial decision compared to the gas car.</p>
 
-            <h2>Tips & Best Practices</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
             <p>Do not buy an EV to save money if you cannot charge at home. Relying entirely on public fast chargers (which often cost 3x to 4x more than residential electricity) destroys the financial advantage of going electric. Furthermore, always verify if your chosen EV actually qualifies for the federal tax credit, as strict battery sourcing and income limits apply. Finally, keep your vehicles longer! The longer you own an EV, the more powerful the cumulative fuel savings become.</p>
           </article>
           

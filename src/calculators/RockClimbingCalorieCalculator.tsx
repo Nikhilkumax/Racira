@@ -294,18 +294,18 @@ export default function RockClimbingCalorieCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Physics and Physiology of Rock Climbing</h2>
+            <h2 className="text-2xl font-bold mb-3">The Physics and Physiology of Rock Climbing</h2>
             <p>Rock climbing is rapidly transitioning from a niche outdoor extreme sport to a mainstream fitness staple, thanks to the explosion of massive indoor climbing gyms worldwide. As a full-body workout, it is almost entirely unique; it demands the cardiovascular endurance of running combined with the explosive pulling power of heavy weightlifting. However, because climbers spend so much time resting between routes, estimating the true energy expenditure is notoriously difficult. The <strong>Rock Climbing Calorie Calculator</strong> solves this by using clinically validated Metabolic Equivalent (MET) formulas. By focusing strictly on your active time on the wall, it provides a mathematically precise measurement of the massive thermodynamic effort required to conquer gravity.</p>
 
-            <h2>Why Climbing Burns Massive Calories Per Minute</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Climbing Burns Massive Calories Per Minute</h2>
             <p>From a biomechanical standpoint, ascending a vertical wall is one of the most physically demanding tasks a human can perform. When you walk or run, you are primarily moving in a horizontal plane. Your legs (the strongest muscles in your body) carry your weight, and you have the mechanical advantage of momentum.</p>
             <p>When you rock climb, you are fighting Newton's laws of physics directly. You are pulling 100% of your body mass straight up against gravity. While good technique relies heavily on pushing with the legs, climbing still requires astronomical force generation from the latissimus dorsi (back), biceps, forearms, and finger flexors. Furthermore, because you are hanging in precarious, unstable positions, your deep core muscles must remain in a state of maximum isometric contraction just to keep your hips glued to the wall. This combination of heavy resistance pulling and relentless core tension demands massive amounts of oxygen, resulting in a staggering caloric burn rate while you are active.</p>
 
-            <h2>The Danger of Overestimating: Active Time vs. Total Time</h2>
+            <h2 className="text-2xl font-bold mb-3">The Danger of Overestimating: Active Time vs. Total Time</h2>
             <p>The single biggest mistake climbers make when tracking their calories is using their total gym time. If you go to the climbing gym with a partner for two hours, you do not climb for two hours.</p>
             <p>Rock climbing is fundamentally an interval sport. You tie in, climb a route for 3 to 5 minutes, and then you lower down. Once on the ground, you untie, belay your partner, study the next route, chalk your hands, and rest your forearms. In a standard two-hour gym session, a climber might only accumulate 25 to 40 minutes of actual, active time hanging on the wall. If you input "120 minutes" into a fitness watch, it will assume you performed sustained vertical ascension for two uninterrupted hours and will falsely tell you that you burned 1,500 calories. To get an accurate reading from our calculator, you must estimate the exact minutes your feet were off the ground.</p>
 
-            <h2>Understanding METs in Climbing Disciplines</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding METs in Climbing Disciplines</h2>
             <p>Exercise physiologists measure physical effort using METs (Metabolic Equivalents). One MET is the energy you burn while sitting at rest. Different climbing disciplines carry different MET values based on their cardiovascular demands:</p>
             <ul>
               <li><strong>Rappelling (MET 5.0):</strong> Descending a rope is relatively easy. Gravity is doing the work. You are simply using friction devices to control your speed and lightly bracing your core. The caloric burn is moderate.</li>
@@ -313,15 +313,15 @@ export default function RockClimbingCalorieCalculator() {
               <li><strong>Top Rope / Lead Climbing (MET 8.0):</strong> This is endurance climbing. You are scaling walls that are 40 to 60 feet tall. You must sustain continuous muscular tension and cardiovascular output for 3 to 6 solid minutes. This sustained oxygen demand pushes the MET value to 8.0, burning the most calories per active minute.</li>
             </ul>
 
-            <h2>Physics on the Wall: Why Weight Matters</h2>
+            <h2 className="text-2xl font-bold mb-3">Physics on the Wall: Why Weight Matters</h2>
             <p>More than almost any other sport, body weight dictates climbing performance and caloric expenditure. Climbing is pure calisthenics.</p>
             <p>If a 200-pound person and a 140-pound person climb the exact same 50-foot 5.9 route, the 200-pound person had to do drastically more mechanical "work" to get to the top. Their back and forearms had to lift 60 extra pounds against gravity with every single move. Because they performed more physical work, their bodies burned a mathematically higher number of calories. This is why lighter individuals naturally excel at climbing; their strength-to-weight ratio is inherently optimized for fighting gravity.</p>
 
-            <h2>Is Climbing Effective for Weight Loss?</h2>
+            <h2 className="text-2xl font-bold mb-3">Is Climbing Effective for Weight Loss?</h2>
             <p>Climbing is an incredible tool for building a lean, muscular, highly functional physique. However, as a primary engine for <em>rapid</em> fat loss, it is highly inefficient compared to running or cycling. </p>
             <p>The limitation is your forearms. Your cardiovascular system might be perfectly capable of climbing for 60 uninterrupted minutes, but your finger flexors and forearm muscles will completely fatigue (get "pumped") in a fraction of that time. Because your grip fails before your lungs do, you are forced to stop and rest, severely limiting the total volume of calories you can burn in a session. If your primary goal is massive caloric expenditure, a 45-minute sustained run will almost always burn more total calories than a 2-hour climbing session.</p>
 
-            <h2>Conclusion: Train for Strength, Eat for Fat Loss</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Train for Strength, Eat for Fat Loss</h2>
             <p>Use rock climbing for what it is best at: building incredible upper body strength, bulletproof core stability, and unmatched mental problem-solving skills. Do not obsess over the calories burned. Use the Rock Climbing Calorie Calculator to get an accurate estimate of your active expenditure, but understand that leaning out for climbing is achieved in the kitchen. Maintain a slight caloric deficit through diet, use climbing to build muscle, and watch your strength-to-weight ratio transform your performance on the wall.</p>
           </article>
           

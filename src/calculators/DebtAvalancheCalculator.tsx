@@ -150,7 +150,7 @@ const DebtAvalancheCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>The Mathematically Optimal Debt Strategy</h2>
+              <h2 className="text-2xl font-bold mb-3">The Mathematically Optimal Debt Strategy</h2>
               <p>The Avalanche method is the most efficient debt payoff strategy from a pure mathematics perspective. By targeting the highest interest rate first, you minimize the total amount of interest that accumulates across all your debts.</p>
               <h3>How It Saves You Money</h3>
               <p>Interest charges are your enemy. A 24% APR credit card costs you 2% of its balance every single month. By eliminating that debt first, you stop that bleeding as quickly as possible, freeing up resources to tackle the next highest rate.</p>

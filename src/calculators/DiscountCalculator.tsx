@@ -139,23 +139,23 @@ const DiscountCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Discount Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Discount Calculator?</h2>
             <p>A discount calculator computes the final price after applying a percentage discount to an original price. Enter the original price and discount percentage — the calculator instantly shows how much you save and what you actually pay. Pre-filled with a $120 item at 25% off, you immediately see the $30 savings and $90 final price, plus a pie chart showing the split between what you pay and what you save.</p>
             <p>Discount calculations are used everywhere: retail shopping, wholesale pricing, coupon redemption, seasonal sales, restaurant tipping (reverse), contractor pricing, and eCommerce. This calculator also shows the price multiplier — a quick way to mentally compute discounts on any price at the same percentage.</p>
-            <h2>How Discount Is Calculated</h2>
+            <h2 className="text-2xl font-bold mb-3">How Discount Is Calculated</h2>
             <p><strong>Discount Amount = Original Price × (Discount % / 100)</strong></p>
             <p><strong>Final Price = Original Price − Discount Amount</strong></p>
             <p><strong>Price Multiplier = 1 − (Discount % / 100)</strong></p>
             <p>For 25% off $120: Discount = $120 × 0.25 = $30. Final Price = $120 − $30 = $90. Multiplier = 0.75. So any item at 25% off costs exactly 75% of the original price. Once you know the multiplier, you can mentally calculate any price: $200 × 0.75 = $150.</p>
-            <h2>Reverse Discount: Finding Original Price</h2>
+            <h2 className="text-2xl font-bold mb-3">Reverse Discount: Finding Original Price</h2>
             <p>If you know the discounted price and the percentage off, find the original: Original = Final Price / (1 − Discount%). If a jacket costs $75 after a 40% discount: $75 / 0.60 = $125 original price. This is useful when a "sale tag" shows the final price but you want to verify the claimed discount.</p>
-            <h2>Stacking Multiple Discounts</h2>
+            <h2 className="text-2xl font-bold mb-3">Stacking Multiple Discounts</h2>
             <p>Multiple discounts do not add up linearly. A 20% discount followed by a 10% discount results in a 28% total discount, not 30%. The math: (1 − 0.20) × (1 − 0.10) = 0.80 × 0.90 = 0.72, meaning you pay 72% of the original (28% off). Retailers often advertise "20% off, plus an extra 10% off" to make the deal sound better than it is — the actual total is less than 30%.</p>
-            <h2>Discount with Sales Tax</h2>
+            <h2 className="text-2xl font-bold mb-3">Discount with Sales Tax</h2>
             <p>Apply the discount before calculating tax. For $120 at 25% off with 8% sales tax: Final Price = ($120 × 0.75) × 1.08 = $90 × 1.08 = $97.20. If tax is applied to the original price first: $120 × 1.08 = $129.60, then 25% off = $97.20. In practice, tax is applied to the post-discount price in most jurisdictions — the results are identical mathematically but the order matters for clarity.</p>
-            <h2>Common Discount Percentages Reference</h2>
+            <h2 className="text-2xl font-bold mb-3">Common Discount Percentages Reference</h2>
             <p>10% off: pay 90%, multiply by 0.90. 15% off: pay 85%, multiply by 0.85. 20% off: pay 80%, multiply by 0.80. 25% off: pay 75%, multiply by 0.75. 30% off: pay 70%, multiply by 0.70. 50% off: pay 50%, multiply by 0.50. 75% off: pay 25%, multiply by 0.25.</p>
-            <h2>Tips for Using This Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips for Using This Calculator</h2>
             <p>The pie chart visually splits the original price into "you pay" and "you save" segments — useful for quickly seeing the proportion at a glance. For markup instead of discount (increasing a price by a percentage), use the <a href="/calculator/markup-calculator">markup calculator</a>. To calculate sales tax on top of a discounted price, use the <a href="/calculator/sales-tax-calculator">sales tax calculator</a>.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/discount-calculator" />

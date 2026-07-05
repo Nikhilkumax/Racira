@@ -196,12 +196,12 @@ export default function WeightedAverageYieldCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is Weighted Average Yield?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is Weighted Average Yield?</h2>
             <p>Weighted Average Yield (WAY) is the portfolio-level yield that accounts for the relative market value of each holding. Unlike a simple arithmetic average, WAY assigns more influence to larger positions — accurately reflecting the true income-generating capacity of a portfolio. The formula is WAY = Σ(Yield_i × Market Value_i) / Total Portfolio Value.</p>
             <p>Fixed income portfolio managers, bond fund analysts, and institutional investors use WAY daily to measure portfolio income efficiency, compare against benchmark indices, and track yield trends over time. A rising WAY suggests the portfolio is being repositioned toward higher-yielding (typically higher-risk) instruments; a falling WAY suggests a flight to quality or interest rate decline.</p>
-            <h2>Yield Weighting vs Equal Weighting</h2>
+            <h2 className="text-2xl font-bold mb-3">Yield Weighting vs Equal Weighting</h2>
             <p>The difference between equal-weighted and value-weighted yield can be substantial. In a portfolio of 90% investment-grade bonds yielding 4% and 10% high-yield bonds yielding 9%, the equal-weighted average would be 6.5% — a misleading figure suggesting far more high-yield exposure than actually exists. The WAY of 4.5% correctly reflects the portfolio's income profile and risk character.</p>
-            <h2>Applications in Portfolio Management</h2>
+            <h2 className="text-2xl font-bold mb-3">Applications in Portfolio Management</h2>
             <p>WAY is used to benchmark against indices (e.g., Bloomberg US Aggregate Bond Index yield), measure pickup from switching between securities, monitor portfolio duration alongside yield, and report portfolio income to clients and stakeholders. Bond ladder managers use WAY to ensure they maintain target yield levels as bonds mature and are reinvested. ETF managers disclose WAY (as SEC 30-Day Yield) to enable investor comparisons.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/weighted-average-yield-calculator" />

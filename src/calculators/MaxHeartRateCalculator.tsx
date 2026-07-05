@@ -169,17 +169,17 @@ const MaxHeartRateCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Maximum Heart Rate Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Maximum Heart Rate Calculator?</h2>
             <p>A maximum heart rate (MHR) calculator estimates the highest number of heartbeats per minute your cardiovascular system can sustain during peak exercise. Pre-filled with age 35 and 65 bpm resting heart rate, the Tanaka formula gives a maximum heart rate of 183 bpm for men, with training zones ranging from 92 bpm (warm-up) to 183 bpm (maximum effort). MHR is the foundation of heart rate-based training and essential for designing effective workout programs.</p>
-            <h2>Heart Rate Formulas Compared</h2>
+            <h2 className="text-2xl font-bold mb-3">Heart Rate Formulas Compared</h2>
             <p>The classic <strong>Fox / Haskell formula (220 − Age)</strong> has been used since 1970 but was never based on rigorous research. The <strong>Tanaka formula (208 − 0.7 × Age)</strong>, published in 2001 in JAMA, was derived from a meta-analysis of 351 studies and 18,712 subjects — considered more accurate for most adults. The <strong>Gulati formula (206 − 0.88 × Age)</strong> was specifically developed from a study of 5,437 women and is more accurate for female athletes. This calculator uses the most appropriate formula by sex.</p>
-            <h2>Training Zones Explained</h2>
+            <h2 className="text-2xl font-bold mb-3">Training Zones Explained</h2>
             <p><strong>Zone 1 (50–60%):</strong> Warm-up and active recovery. Feels easy. Used before and after harder sessions. <strong>Zone 2 (60–70%):</strong> The "fat burning zone" — fat provides the primary fuel. Builds aerobic base. Ideal for long easy runs, cycling, and swimming. <strong>Zone 3 (70–80%):</strong> Aerobic conditioning. Improves cardiovascular efficiency. Sustainable for 30–90 minutes. <strong>Zone 4 (80–90%):</strong> Lactate threshold training. Builds race fitness. Hard but maintainable for 20–40 minutes. <strong>Zone 5 (90–100%):</strong> VO₂ max intervals. Maximum cardiovascular stress. Only sustainable 1–10 minutes. Used for peak performance training.</p>
-            <h2>The Karvonen Method</h2>
+            <h2 className="text-2xl font-bold mb-3">The Karvonen Method</h2>
             <p>The Karvonen formula uses your heart rate reserve (HRR = MHR − Resting HR) to calculate more personalized zones: Target HR = Resting HR + (HRR × % intensity). For a 35-year-old with resting HR of 65: HRR = 183 − 65 = 118 bpm. Fat burning zone (60–70% Karvonen): 65 + (118 × 0.60) = 136 bpm to 65 + (118 × 0.70) = 148 bpm. These Karvonen zones are more individualized than simple MHR percentage zones — especially valuable for people with unusually high or low resting heart rates.</p>
-            <h2>MHR Accuracy Limitations</h2>
+            <h2 className="text-2xl font-bold mb-3">MHR Accuracy Limitations</h2>
             <p>Formula-based MHR estimates have a standard deviation of ±10–12 bpm. Individual MHR can vary significantly from formulas due to genetics, fitness level, medications (beta-blockers lower MHR by 20–30%), caffeine, hydration, and heat. The most accurate MHR measurement requires a graded exercise stress test (VO₂ max test) in a laboratory or supervised clinical setting. Use formula estimates as starting points and adjust based on your actual perceived exertion during training.</p>
-            <h2>How Resting Heart Rate Affects Training</h2>
+            <h2 className="text-2xl font-bold mb-3">How Resting Heart Rate Affects Training</h2>
             <p>A lower resting heart rate is generally associated with higher aerobic fitness. Elite endurance athletes can have resting heart rates of 35–50 bpm, compared to the average of 60–80 bpm. Low resting heart rate increases heart rate reserve, which means more functional cardiovascular range and better ability to modulate intensity. The Karvonen method correctly accounts for this by centering zones around the available working range, not just maximum heart rate.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/max-heart-rate-calculator" />

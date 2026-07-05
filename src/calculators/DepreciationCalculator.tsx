@@ -89,7 +89,7 @@ const DepreciationCalculator = () => {
                 </div>
               </div>
               <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2"><TrendingDown className="h-5 w-5" /> Generate Schedule</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">Calculate</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground"><RotateCcw className="h-5 w-5" /></button>
               </div>
           </div>
 
@@ -125,7 +125,7 @@ const DepreciationCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Choosing a Depreciation Method</h2>
+              <h2 className="text-2xl font-bold mb-3">Choosing a Depreciation Method</h2>
               <p>The method you choose affects your financial statements and tax liability significantly. Each method is appropriate for different assets and goals.</p>
               <h3>Straight-Line: Simplicity and Consistency</h3>
               <p>Straight-Line depreciation charges the same amount each year. It's easy to calculate, provides consistent expense recognition, and is ideal for assets that wear out evenly over time (e.g., furniture, fixtures).</p>

@@ -196,22 +196,22 @@ export default function BloodVolumeCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Mathematics of Blood Volume</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of Blood Volume</h2>
             <p>Your blood is the body's primary transportation network. It delivers oxygen and nutrients to every cell while simultaneously removing carbon dioxide and waste products. But exactly how much of this fluid do you have?</p>
             <p>In clinical settings (such as preparing a patient for major surgery or dialysis), doctors cannot simply guess a patient's blood volume. Instead, they rely on the <strong>Nadler Equation</strong>. Developed in the 1960s, this complex mathematical formula accounts for the non-linear relationship between a person's height, weight, and biological sex to provide a highly accurate estimation of Total Blood Volume (TBV).</p>
 
-            <h2>Why Body Fat Reduces Relative Blood Volume</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Body Fat Reduces Relative Blood Volume</h2>
             <p>An interesting biological reality is that fat tissue is relatively "avascular"—meaning it does not require a large network of blood vessels to survive. Muscle tissue, on the other hand, is highly vascular and requires massive amounts of oxygen-rich blood.</p>
             <p>Therefore, a 250-pound professional athlete with 10% body fat will actually have a significantly higher total blood volume than a 250-pound sedentary person with 40% body fat. The Nadler Equation mathematically adjusts for this by heavily weighting height (which correlates to bone and muscle structure) over raw weight.</p>
 
-            <h2>The Two Halves of Blood</h2>
+            <h2 className="text-2xl font-bold mb-3">The Two Halves of Blood</h2>
             <p>If you were to take a test tube of your blood and spin it in a centrifuge, it would rapidly separate into two distinct layers:</p>
             <ul>
               <li><strong>The Top Layer (55%): Blood Plasma.</strong> This is a clear, yellowish fluid. It is 90% water, but contains critical dissolved proteins, glucose, mineral ions, hormones, and carbon dioxide. Plasma is what allows your blood to flow.</li>
               <li><strong>The Bottom Layer (45%): Formed Elements.</strong> This dark red layer contains all of the physical cells. The vast majority are Red Blood Cells (Erythrocytes) which carry oxygen. A tiny fraction is made of White Blood Cells (Leukocytes) that fight infection, and Platelets (Thrombocytes) that clot to stop bleeding.</li>
             </ul>
 
-            <h2>Hemorrhage: How Much Can You Lose?</h2>
+            <h2 className="text-2xl font-bold mb-3">Hemorrhage: How Much Can You Lose?</h2>
             <p>The human body is incredibly resilient to blood loss, up to a strict limit. The American College of Surgeons classifies hemorrhage into four classes:</p>
             <ul>
               <li><strong>Class I (Up to 15% loss):</strong> The amount lost during a standard blood donation. The body compensates perfectly. You may not even notice an increased heart rate.</li>

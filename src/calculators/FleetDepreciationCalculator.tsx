@@ -281,10 +281,10 @@ export default function FleetDepreciationCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Accounting of Aging Vehicles</h2>
+            <h2 className="text-2xl font-bold mb-3">The Accounting of Aging Vehicles</h2>
             <p>For a logistics or service company, commercial vehicles are typically the largest capital assets on the balance sheet. When a company purchases ten delivery trucks for $50,000 each (a $500,000 investment), they cannot simply deduct that entire half-million dollars from their taxes in the first year. The IRS and standard accounting principles require that the cost of these vehicles be spread out over their "useful life." This spreading out of the cost is known as <strong>Depreciation</strong>.</p>
 
-            <h2>Understanding Straight-Line Depreciation</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Straight-Line Depreciation</h2>
             <p>While there are complex, accelerated depreciation methods designed to maximize early tax breaks, the foundational method used by most small to medium businesses is <strong>Straight-Line Depreciation</strong>. This method is incredibly simple: it assumes the vehicle loses the exact same amount of value every single year until it is retired.</p>
             <p>To calculate it, you need three numbers:</p>
             <ul>
@@ -293,7 +293,7 @@ export default function FleetDepreciationCalculator() {
               <li><strong>Useful Life:</strong> How many years the company plans to use the vehicle before getting rid of it (e.g., 5 years).</li>
             </ul>
 
-            <h2>Why the Deduction is Critical for Business</h2>
+            <h2 className="text-2xl font-bold mb-3">Why the Deduction is Critical for Business</h2>
             <p>Depreciation is a unique financial metric because it is a "non-cash expense." If your annual fleet depreciation is $40,000, you do not write a $40,000 check to anyone at the end of the year. The money was already spent when you bought the trucks.</p>
             <p>However, you are legally allowed to claim that $40,000 as a business expense on your income statement. This lowers your company's taxable net income by $40,000, which drastically reduces the amount of corporate taxes you have to pay the government. Proper management of fleet depreciation is one of the most powerful tools a logistics company has to protect its cash flow.</p>
           </article>

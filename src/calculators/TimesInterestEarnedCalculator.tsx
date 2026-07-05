@@ -173,14 +173,14 @@ export default function TimesInterestEarnedCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is the Times Interest Earned Ratio?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is the Times Interest Earned Ratio?</h2>
             <p>The Times Interest Earned (TIE) ratio, also called the Interest Coverage Ratio, is one of the most fundamental solvency metrics in financial analysis. It answers a simple but critical question: how many times can a company pay its annual interest expense out of its operating earnings? The formula is TIE = EBIT / Interest Expense, where EBIT is Earnings Before Interest and Taxes.</p>
             <p>A TIE of 5.0x means the company generates five dollars of operating income for every dollar of interest owed — a strong position with significant cushion for earnings downturns. A TIE below 1.5x signals financial stress; below 1.0x, the company cannot cover interest from operations and must draw on cash reserves or borrow more, both unsustainable paths.</p>
-            <h2>Why TIE Matters to Investors and Lenders</h2>
+            <h2 className="text-2xl font-bold mb-3">Why TIE Matters to Investors and Lenders</h2>
             <p>Credit rating agencies like Moody's and S&P use TIE as a primary input for debt ratings. Investment-grade companies (BBB and above) typically maintain TIE of 3.0x or higher. High-yield ("junk") bonds often come from companies with TIE of 1.5–2.5x. Lenders include minimum TIE covenants in loan agreements, with breaches triggering technical defaults that can force debt repayment or restructuring even when the company hasn't missed payments.</p>
-            <h2>TIE vs. Debt Service Coverage Ratio (DSCR)</h2>
+            <h2 className="text-2xl font-bold mb-3">TIE vs. Debt Service Coverage Ratio (DSCR)</h2>
             <p>TIE measures only interest coverage. DSCR = EBITDA / (Interest + Principal Repayments) measures whether total debt service — including loan amortization — is covered by operating cash flow. DSCR is a stricter test and the preferred metric for banks evaluating commercial real estate loans and project finance. The typical minimum DSCR requirement is 1.25x, meaning cash flows must be 25% above total debt service to provide adequate safety margin.</p>
-            <h2>How to Improve Your TIE Ratio</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Improve Your TIE Ratio</h2>
             <p>Companies can improve TIE by growing EBIT (through revenue growth or cost cuts), refinancing high-interest debt at lower rates, paying down debt to reduce the interest obligation, or restructuring operations to improve margins. Cyclical businesses often track their minimum TIE across economic cycles to ensure they can service debt even in downturns.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/times-interest-earned-calculator" />

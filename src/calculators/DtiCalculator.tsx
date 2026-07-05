@@ -169,7 +169,7 @@ const DtiCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Understanding Your Debt-to-Income Ratio</h2>
+              <h2 className="text-2xl font-bold mb-3">Understanding Your Debt-to-Income Ratio</h2>
               <p>Your Debt-to-Income (DTI) ratio is one of the most important numbers in personal finance, especially when you are applying for a mortgage or a large loan. It is a simple mathematical comparison between how much money you earn and how much money you owe each month.</p>
 
               <h3>Why DTI Matters to Lenders</h3>

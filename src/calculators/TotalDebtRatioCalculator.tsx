@@ -159,48 +159,48 @@ export default function TotalDebtRatioCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is the Total Debt Ratio?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is the Total Debt Ratio?</h2>
             <p>The <strong>total debt ratio</strong>, frequently referred to in financial planning as the debt-to-asset ratio, is a fundamental metric used to evaluate a person's or a business's financial leverage. It measures the exact percentage of your total assets that are financed by creditors versus the percentage you own outright (your equity). Simply put, it answers the question: "How much of what I own is actually mine?" For individuals, this is one of the most critical indicators of long-term financial health and solvency.</p>
             <p>While income dictates your day-to-day cash flow and ability to pay bills, your total debt ratio reveals your true underlying wealth. High-income earners can still have a poor total debt ratio if they finance everything they own—from luxury vehicles and primary residences to vacation homes and credit card spending. Conversely, someone with a modest income who diligently pays down their mortgage and avoids consumer debt might boast an excellent total debt ratio. A lower ratio means you are significantly more financially secure, less vulnerable to economic downturns, and closer to achieving true financial independence.</p>
 
-            <h2>How It Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
             <p>The mechanics of the total debt ratio are straightforward but immensely powerful. To calculate it, you must aggregate all your liabilities and divide them by the sum of all your assets. The formula is universally expressed as: <strong>Total Debt Ratio = Total Liabilities (Debt) ÷ Total Assets</strong>.</p>
             <p>For example, let's break down a typical household's balance sheet. Suppose you have a mortgage balance of $300,000, an auto loan balance of $20,000, and outstanding credit card debt of $10,000. Your Total Debt (Liabilities) equals $330,000.</p>
             <p>Now, let's look at the asset side. Your home has a current market value of $400,000, your retirement accounts hold $100,000, and you have $20,000 in liquid cash savings. Your Total Assets equal $520,000.</p>
             <p>Applying the formula: $330,000 ÷ $520,000 = 0.634. Expressed as a percentage, your total debt ratio is 63.4%. This means that creditors effectively "own" 63.4% of your assets, while you possess equity in the remaining 36.6%. The calculator automates this math, allowing you to tweak individual variables to see how debt paydowns or asset growth affect your overall financial posture.</p>
 
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>Interpreting your total debt ratio is crucial for making informed financial decisions. The calculator provides several key outputs designed to give you a holistic view of your balance sheet.</p>
             <p><strong>Primary Debt Ratio:</strong> The headline number is your debt-to-asset percentage. This tells you your overall leverage. If this number is highlighted in green, your leverage is generally considered healthy. If it is red, it serves as a warning that your debt load may be disproportionately high compared to your assets.</p>
             <p><strong>Net Worth (Equity):</strong> The calculator subtracts your total debt from your total assets to reveal your net worth. This is the absolute dollar value of your wealth. A positive net worth means you own more than you owe; a negative net worth means your debts exceed your assets (technical insolvency).</p>
             <p><strong>Asset Composition Chart:</strong> The visual donut chart breaks down your asset base into the portion financed by debt versus your true equity. Watching the equity slice grow over time is a tangible visual representation of wealth accumulation.</p>
             <p><strong>Leverage Multiplier:</strong> This metric shows how magnified your financial position is. A 2.0x leverage multiplier means you control $2 of assets for every $1 of actual equity you hold. High leverage can accelerate wealth in a rising market but introduces severe risk in a declining one.</p>
 
-            <h2>Key Factors</h2>
+            <h2 className="text-2xl font-bold mb-3">Key Factors</h2>
             <p>Several distinct factors heavily influence your total debt ratio. Understanding these components helps you pinpoint where to focus your financial energy.</p>
             <p><strong>Real Estate Values vs. Mortgages:</strong> For most households, the primary residence is both the largest asset and the largest liability. Consequently, your home's market value and your outstanding mortgage balance exert the most significant gravitational pull on your ratio. In a hot housing market, your ratio might improve simply through property appreciation, even if you haven't paid down extra principal.</p>
             <p><strong>Consumer Debt Load:</strong> Credit cards, personal loans, and auto loans are toxic to your total debt ratio. Because these debts are either unsecured or backed by depreciating assets (like cars), they inflate your liabilities without providing a corresponding long-term boost to your assets. Aggressively eliminating this 'bad debt' is the fastest way to improve your score.</p>
             <p><strong>Investment Portfolios:</strong> The balances in your 401(k), IRA, brokerage accounts, and other investments are vital counterweights to your debt. As compound interest grows your investments, your total assets increase, driving your debt ratio down. This highlights why saving and investing are just as important as paying off debt.</p>
             <p><strong>Age and Career Stage:</strong> It is entirely normal for young adults and first-time homebuyers to have a high total debt ratio—often exceeding 70% or 80%. They have just taken on a massive mortgage but haven't had time to build equity or retirement savings. As you progress toward retirement, your ratio should systematically decrease. A healthy retiree often has a debt ratio close to zero.</p>
 
-            <h2>Advanced Features</h2>
+            <h2 className="text-2xl font-bold mb-3">Advanced Features</h2>
             <p>While the basic inputs provide a snapshot of your current financial health, a comprehensive assessment requires digging deeper into the advanced categorization of your balance sheet.</p>
             <p>Our calculator allows you to segment your debt into specific tranches: mortgages, auto loans, student loans, and credit cards. This granularity is essential because not all debt is created equal. A 50% debt ratio driven entirely by a low-interest mortgage is fundamentally safer than a 30% debt ratio driven by high-interest, revolving credit card debt.</p>
             <p>Similarly, the calculator allows you to segment your assets into real estate, liquid cash, and market investments. This is critical for assessing liquidity risk. You might have a fantastic total debt ratio on paper, but if 95% of your assets are locked in illiquid real estate and you have zero cash reserves, you are still financially fragile in an emergency.</p>
 
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <p>To contextualize how the total debt ratio operates in the real world, consider the following contrasting examples:</p>
             <p><strong>Example A: The High-Income Leverager.</strong> Sarah earns $250,000 a year. She recently purchased an $800,000 home with a $750,000 mortgage. She financed a $60,000 luxury car and owes $30,000 in student loans. Her total debt is $840,000. Her assets include the $800,000 home, $40,000 in a 401(k), and $10,000 in cash (Total Assets = $850,000). Her Total Debt Ratio is a staggering 98.8%. Despite her high income, Sarah is highly leveraged and financially vulnerable to any disruption in income or property values.</p>
             <p><strong>Example B: The Steady Saver.</strong> John earns $75,000 a year. He bought a modest $250,000 home years ago and currently owes $120,000 on the mortgage. He drives a paid-off, older car and carries no credit card debt. His retirement accounts total $180,000, and he has $25,000 in emergency savings. His total debt is $120,000. His total assets are $455,000. His Total Debt Ratio is a very healthy 26.3%. John has a much lower income than Sarah, but his balance sheet is fortress-like.</p>
 
-            <h2>Tips & Best Practices</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
             <p>Improving your total debt ratio requires disciplined action on both sides of the balance sheet. Here are proven strategies to optimize your financial leverage:</p>
             <p>First, attack high-interest consumer debt ruthlessly. Credit cards and personal loans destroy wealth. Use the debt avalanche (highest interest first) or debt snowball (smallest balance first) method to eliminate these liabilities entirely. Every dollar of consumer debt paid off is a dollar added directly to your net worth.</p>
             <p>Second, avoid financing depreciating assets. Vehicles lose value the moment you drive them off the lot. Financing a depreciating asset guarantees that your liabilities will temporarily outpace the asset's value, harming your ratio. Aim to buy cars with cash or utilize aggressive repayment schedules if financing is necessary.</p>
             <p>Third, automate your asset building. Set up automatic contributions to your retirement accounts and brokerage portfolios. Consistently buying income-producing assets inflates the denominator of the ratio equation, driving your overall leverage percentage down over time.</p>
             <p>Finally, don't obsess over paying off low-interest, fixed-rate mortgages if you have better investment opportunities. While paying down a 3% mortgage improves your debt ratio, investing that money to earn 7-10% in the stock market increases your total assets faster, ultimately leading to a more robust long-term financial position.</p>
 
-            <h2>Benefits</h2>
+            <h2 className="text-2xl font-bold mb-3">Benefits</h2>
             <p>Regularly monitoring your total debt ratio provides immense clarity and peace of mind. It strips away the illusion of wealth created by high incomes and luxury spending, forcing you to confront the reality of your balance sheet.</p>
             <p>By understanding your exact leverage position, you can make more rational decisions about taking on new debt, prioritizing payoffs, and allocating investments. A low, healthy total debt ratio ensures you can weather economic storms, handle unexpected emergencies without panic, and ultimately achieve the financial freedom to retire comfortably on your own terms.</p>
           </article>

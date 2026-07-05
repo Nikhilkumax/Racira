@@ -87,15 +87,15 @@ export default function EcommerceRevenueCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>The Ecommerce Revenue Formula</h2>
+              <h2 className="text-2xl font-bold mb-3">The Ecommerce Revenue Formula</h2>
               <p>Ecommerce revenue is fundamentally driven by three metrics: Traffic × Conversion Rate × Average Order Value = Gross Revenue. This simple formula has profound implications. A 10% increase in each metric alone doesn't just add 10% to revenue — if all three improve by 10% simultaneously, revenue increases by 33.1% (1.1 × 1.1 × 1.1 = 1.331). This multiplicative effect is why ecommerce growth strategies often focus on improving multiple metrics in parallel.</p>
-              <h2>Understanding Traffic Quality vs. Quantity</h2>
+              <h2 className="text-2xl font-bold mb-3">Understanding Traffic Quality vs. Quantity</h2>
               <p>Not all website visitors are equally valuable. Visitors from organic search terms with high purchase intent convert far better than social media traffic from a viral post with irrelevant demographics. A store with 5,000 highly targeted visitors from Google Shopping ads may generate more revenue than one with 50,000 visitors from a poorly targeted social media campaign. Conversion rate and traffic source are inseparable when analyzing ecommerce performance.</p>
-              <h2>Increasing Average Order Value</h2>
+              <h2 className="text-2xl font-bold mb-3">Increasing Average Order Value</h2>
               <p>AOV is one of the most powerful levers in ecommerce because it requires no additional traffic acquisition cost. Proven AOV optimization strategies include: product bundles and kits, volume discounts ("buy 3, save 15%"), complementary product cross-sells on the cart page, free shipping thresholds ("add $12 more for free shipping"), subscription upgrades, and extended warranties or protection plans.</p>
-              <h2>Return Rate: The Silent Profit Killer</h2>
+              <h2 className="text-2xl font-bold mb-3">Return Rate: The Silent Profit Killer</h2>
               <p>A 20% return rate doesn't just reduce revenue by 20% — it also incurs return shipping costs, restocking labor, inspection costs, and potential product write-downs if items can't be resold. In apparel, return rates of 30-40% are common, fundamentally reshaping unit economics. Reducing returns through better product descriptions, accurate sizing guides, and high-quality product photography pays dividends throughout the entire profit and loss statement.</p>
-              <h2>From Gross to Net Profit</h2>
+              <h2 className="text-2xl font-bold mb-3">From Gross to Net Profit</h2>
               <p>After COGS, ecommerce businesses must account for many more expense layers before arriving at net profit: customer acquisition costs (CAC), platform fees (Shopify, Amazon, etc.), payment processing fees (2.5-3.5%), warehouse and fulfillment costs, customer service overhead, and marketing/advertising spend. Healthy ecommerce businesses typically target 10-20% net profit margins after all operating expenses.</p>
             </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/ecommerce-revenue-calculator" />

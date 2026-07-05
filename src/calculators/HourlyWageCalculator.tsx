@@ -156,17 +156,17 @@ export default function HourlyWageCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Why Convert Salary to an Hourly Wage?</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Convert Salary to an Hourly Wage?</h2>
             <p>At first glance, converting an annual salary into an hourly wage might seem like a simple mathematical exercise. However, for professionals, it is a critical step in understanding the true, granular value of their time. Society often measures career success by the "headline" salary number—$70,000, $100,000, or $150,000. But that headline number hides the reality of how many hours of your life you are actually trading for that money.</p>
             <p>By converting your salary to an hourly wage, you uncover your "Effective Hourly Rate." This metric is essential for evaluating job offers, understanding the financial impact of unpaid overtime, and making better day-to-day spending decisions based on the time-value of your money.</p>
 
-            <h2>How It Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
             <p>The mathematics behind this calculator are straightforward but rely heavily on standardizing your work schedule. The core logic involves dividing your annual salary by the total number of hours you work in a year.</p>
             <p>First, the calculator determines your <strong>Total Annual Hours</strong>. By default, it uses the standard American full-time schedule: 40 hours a week for 52 weeks a year. Formula: <code>Total Hours = Hours per Week * Weeks per Year</code>. (40 * 52 = 2,080 hours).</p>
             <p>Next, it calculates your <strong>Hourly Wage</strong> by dividing your salary by those total hours. Formula: <code>Hourly Wage = Annual Salary / Total Annual Hours</code>. If you make $75,000 a year, the math is $75,000 / 2,080 = $36.06 per hour.</p>
             <p>The calculator then works backwards to provide your pay across different frequencies. Your <strong>Weekly Wage</strong> is your Annual Salary divided by your Weeks per Year. Your <strong>Daily Wage</strong> is your Weekly Wage divided by your Days per Week.</p>
 
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>When you execute a calculation, the tool provides five distinct analytical sections designed to help you fully visualize your earning power.</p>
             <p><strong>Primary Result Card:</strong> This highlights your exact Hourly Wage Equivalent. This is the amount of money you earn for every 60 minutes you spend at your desk.</p>
             <p><strong>3-Stat Bar:</strong> This section breaks down your daily and weekly earning rates, providing a micro-view of your cash flow. It also displays your standard monthly gross, which is the number you will use for housing budgets and loan applications.</p>
@@ -174,28 +174,28 @@ export default function HourlyWageCalculator() {
             <p><strong>Gross Income Chart:</strong> A visual bar chart that illustrates the scale of your income across the three most common budgeting periods (Monthly, Bi-Weekly, and Weekly).</p>
             <p><strong>Summary Statistics:</strong> A fast, readable grid aggregating your schedule metrics, reminding you exactly how many total hours the calculation is based upon (usually 2,080).</p>
 
-            <h2>Key Factors</h2>
+            <h2 className="text-2xl font-bold mb-3">Key Factors</h2>
             <p>Your effective hourly rate is highly sensitive to the hours you actually work. Understanding how salary structure impacts this rate is vital.</p>
             <p><strong>The Overtime Dilution Trap:</strong> The biggest danger of a salaried (exempt) position is unpaid overtime. If you earn $100,000 a year, your standard hourly rate is $48.08 (based on 40 hours). However, if your company culture demands 60-hour work weeks, you are now working 3,120 hours a year. Your effective hourly rate plummets to $32.05. You are making the same hourly rate as someone earning $66,000 working standard hours, but you have sacrificed your personal life to do it.</p>
             <p><strong>The Paid Time Off (PTO) Factor:</strong> Salaried employees are usually paid for 52 weeks a year, regardless of whether they take a two-week vacation. Because PTO is paid, you do not adjust the "Weeks / Year" input to 50; you leave it at 52 because you are still generating income during those weeks off.</p>
             <p><strong>Contract and Freelance Work:</strong> If you are transitioning from a salaried job to freelancing, you cannot just charge your salaried hourly rate. A $40/hour W-2 employee might need to charge $80/hour as a 1099 contractor to break even. This is because contractors must pay their own self-employment taxes (both halves of FICA), buy their own health insurance, fund their own retirement, and account for unbillable administrative time.</p>
 
-            <h2>Advanced Features</h2>
+            <h2 className="text-2xl font-bold mb-3">Advanced Features</h2>
             <p>The Advanced Work Schedule tab allows this calculator to adapt to non-standard work environments, which are becoming increasingly common.</p>
             <p>By adjusting the <strong>Hours/Week</strong> input, you can instantly see the dilution effect of mandatory overtime, or conversely, the massive hourly rate boost of a 4-day (32-hour) work week. By adjusting the <strong>Weeks/Year</strong> input, seasonal workers, contractors, and teachers (who often work 40-42 weeks but have their pay spread over 12 months) can determine their true hourly earning power while on the clock.</p>
 
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <p>Let's look at how utilizing this calculator can change your perspective on job offers and daily spending.</p>
             <p><strong>Example 1: The Counter-Offer Dilemma.</strong> You currently make $60,000 working a strict 40-hour week ($28.85/hr). A competing firm offers you $75,000, which sounds like a massive 25% raise. However, you know the new firm expects 55-hour weeks. You plug $75,000 and 55 hours into the calculator. The result? Your new hourly wage is $26.22/hr. You are actually taking an hourly pay cut to take on significantly more stress.</p>
             <p><strong>Example 2: The Time-Value of Spending.</strong> You make $85,000 a year, which the calculator translates to roughly $40.87 per hour (gross). You see a new jacket on sale for $250. Instead of just swiping your card, you divide $250 by $40.87. You realize that jacket costs you just over 6 hours of sitting at your desk. Framing the purchase in terms of "hours of your life" often curbs impulsive spending habits.</p>
 
-            <h2>Tips & Best Practices</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
             <p>Knowing your hourly rate is only useful if you apply it to your financial decisions. Keep these best practices in mind.</p>
             <p>First, always remember the difference between Gross and Net. This calculator, like all standard financial tools, calculates your Gross Hourly Wage (before taxes). To find your true "Take-Home" hourly wage, you generally need to subtract 20% to 30% from the result to account for federal, state, and payroll taxes.</p>
             <p>Second, memorize the "2080 Rule" for quick negotiations. If a recruiter asks for your hourly requirement and you want to make $90,000 a year, divide $90,000 by 2,000 (rounding down 2,080 for easy mental math). The answer is $45/hour. If an hourly job pays $35/hour, multiply by 2,000 to know it equates to roughly $70,000 a year.</p>
             <p>Third, use your hourly rate to justify outsourcing tasks. If your effective hourly rate is $60/hour, and you can hire a neighborhood kid to mow your lawn for $40, it is financially efficient to pay them and use that hour to either rest, work on a side hustle, or spend time with family.</p>
 
-            <h2>Benefits</h2>
+            <h2 className="text-2xl font-bold mb-3">Benefits</h2>
             <p>Using an Hourly Wage Calculator shifts your mindset from "salary-focused" to "time-focused." It strips away the illusion of a high salary if that salary is built on the back of excessive, unpaid overtime.</p>
             <p>By defining exactly what an hour of your professional life is worth, this tool empowers you to negotiate fiercely for better work-life balance, evaluate job transitions with mathematical precision, and make purchasing decisions that align with the true value of your time.</p>
           </article>

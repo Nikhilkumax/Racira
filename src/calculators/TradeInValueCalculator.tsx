@@ -292,23 +292,23 @@ export default function TradeInValueCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Trade-In Value Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Trade-In Value Calculator?</h2>
             <p>A Trade-In Value Calculator is a financial modeling tool that estimates exactly how much a dealership is willing to pay you for your used car. While most people know what their car is roughly worth on the open market (Private Party Value), dealership math operates differently. Dealerships are not buying your car to use it; they are buying it to re-sell it for a profit. This calculator reverse-engineers the dealership's profit margin and risk-assessment logic to provide you with a realistic negotiation target before you ever step foot on the lot.</p>
 
-            <h2>The Dealership Profit Margin</h2>
+            <h2 className="text-2xl font-bold mb-3">The Dealership Profit Margin</h2>
             <p>The core mechanic of a trade-in is the <strong>Dealer Margin</strong>. If your car is worth $20,000 to a normal buyer, a dealer cannot pay you $20,000 for it. They must pay you less (typically 15% to 20% less) so they can cover the costs of inspecting it, detailing it, repairing any hidden issues, and paying their salespeople, while still making a profit when they sell it. The worse the condition of your car, the higher the profit margin the dealer will demand, because they are taking on massive mechanical risk by buying a broken car.</p>
 
-            <h2>The Hidden Power of Tax Savings</h2>
+            <h2 className="text-2xl font-bold mb-3">The Hidden Power of Tax Savings</h2>
             <p>In the vast majority of US states, trading in a car at a dealership provides a massive, hidden financial benefit: <strong>Sales Tax Reduction</strong>. When you trade in a vehicle, you only pay sales tax on the <em>difference</em> between the new car and your trade-in. For example, if your state tax rate is 7% and you trade in a $15,000 car, you instantly save $1,050 in cash on the new car purchase. This tax benefit is often large enough to entirely erase the "loss" you took by accepting the lower dealer offer instead of selling it privately.</p>
 
-            <h2>Dealing with Loans and Negative Equity</h2>
+            <h2 className="text-2xl font-bold mb-3">Dealing with Loans and Negative Equity</h2>
             <p>If you still owe money on the car you are trading in, the dealer handles the payoff for you. Our <strong>Net Cash / Equity</strong> metric shows exactly how much money will actually go toward your new car. If you owe more on the loan than the dealer offers you for the trade-in, you have <strong>Negative Equity</strong> (being underwater). The dealer will happily take your car, but they will take that negative balance and roll it onto your new car loan, drastically increasing your new monthly payment.</p>
 
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <p><strong>Example 1: The Tax Advantage.</strong> John has a car worth $20,000 private party. The dealer offers him $17,000. He is angry and wants to sell it himself. But John lives in a state with 8% sales tax. By trading it in for $17,000, he avoids paying 8% tax on $17,000 of his new car purchase, saving him $1,360. His "Effective Value" is actually $18,360. Considering the hassle, time, and danger of selling a $20,000 car to a stranger on Craigslist, the trade-in offer is actually mathematically superior.</p>
             <p><strong>Example 2: The Negative Equity Trap.</strong> Sarah wants a new SUV. She trades in her sedan. The private party value is $15,000, and the dealer offers her $12,500. However, Sarah owes $18,000 to the bank. Because the offer is $12,500 and the debt is $18,000, she has -$5,500 in net equity. She does not receive any money for her trade-in; instead, the dealer adds $5,500 of pure debt to the loan of her new SUV.</p>
 
-            <h2>Tips & Best Practices</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
             <p>Never tell the salesperson you are trading in a vehicle until <em>after</em> you have successfully negotiated the final, out-the-door price of the new car. Dealerships often use the "Four Square" negotiation tactic, manipulating the price of the new car, the trade-in value, and the interest rate simultaneously to confuse you. Negotiate the new car price first. Then, pull out the keys to your old car and say, "I'd like to see what you will offer for a trade-in." Treat it as two completely separate financial transactions.</p>
           </article>
           

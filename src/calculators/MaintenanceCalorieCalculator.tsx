@@ -421,11 +421,11 @@ export default function MaintenanceCalorieCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Maintenance Calorie Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Maintenance Calorie Calculator</h2>
             <p>In the realm of nutritional science and body composition, every diet plan, every bulking protocol, and every fat-loss strategy begins with a single foundational number: your Maintenance Calories. Also known as your Total Daily Energy Expenditure (TDEE), this number represents the exact amount of energy (measured in kilocalories) your body burns in a 24-hour period. If you consume exactly this number of calories, your body weight will not change by a single ounce. The <strong>Maintenance Calorie Calculator</strong> uses clinically validated biological equations to pinpoint this number, allowing you to build an effective diet based on mathematical certainty rather than guesswork.</p>
             <p>Attempting to cut fat or build muscle without knowing your maintenance baseline is akin to driving a car with a blindfold on. You might arrive at your destination eventually, but you are far more likely to crash. By calculating your exact TDEE, you can dial in precise caloric deficits or surpluses to sculpt your physique efficiently and safely.</p>
 
-            <h2>The Four Pillars of TDEE</h2>
+            <h2 className="text-2xl font-bold mb-3">The Four Pillars of TDEE</h2>
             <p>Many people mistakenly believe that their metabolism is a single, static engine. In reality, your Total Daily Energy Expenditure is composed of four distinct biological components. Understanding these components is the key to manipulating your metabolism.</p>
 
             <h3>1. Basal Metabolic Rate (BMR)</h3>
@@ -446,17 +446,17 @@ export default function MaintenanceCalorieCalculator() {
             <h3>4. Exercise Activity Thermogenesis (EAT)</h3>
             <p>EAT represents the calories burned during structured, intentional exercise (e.g., lifting weights, running on a treadmill, or playing basketball). Surprisingly to many beginners, EAT accounts for the smallest portion of the daily calorie burn for the average person, usually only <strong>5% to 10%</strong>. A grueling 45-minute weightlifting session might only burn 250 calories. This underscores the classic fitness adage: <em>"You cannot out-train a bad diet."</em></p>
 
-            <h2>Decoding the Mathematical Formulas</h2>
+            <h2 className="text-2xl font-bold mb-3">Decoding the Mathematical Formulas</h2>
             <p>Our calculator provides three distinct formulas to estimate your BMR. Each has its own historical context and specific use case:</p>
             <p><strong>Mifflin-St Jeor (1990):</strong> This is the default formula and the most widely recommended by dietitians for the general population. It is highly accurate because it accounts for the obesity epidemic that was not present when earlier formulas were developed. It relies on age, height, weight, and biological sex.</p>
             <p><strong>Harris-Benedict (1984 Revised):</strong> Originally developed in 1919 and revised in 1984, this was the standard for decades. However, studies have shown it tends to overestimate baseline energy requirements in modern, sedentary individuals by about 5%. It is provided in our calculator primarily for historical continuity and for those comparing past medical records.</p>
             <p><strong>Katch-McArdle:</strong> This is the absolute gold standard for athletes and bodybuilders. Unlike the other formulas, it completely ignores biological sex, age, and height. Instead, it calculates BMR based exclusively on your <strong>Lean Body Mass</strong> (total weight minus fat weight). If you are a 220-pound bodybuilder with 10% body fat, Mifflin-St Jeor will vastly underestimate your metabolism because it assumes you are an overweight 220-pound man. Katch-McArdle corrects this by recognizing your massive, metabolically expensive muscle mass. You should only use this formula if you have an accurate DEXA scan or caliper reading of your body fat percentage.</p>
 
-            <h2>The Danger of Overestimating Activity Levels</h2>
+            <h2 className="text-2xl font-bold mb-3">The Danger of Overestimating Activity Levels</h2>
             <p>The most common error users make when utilizing a TDEE calculator is lying to themselves about their activity level. Many people will select "Highly Active" simply because they go to the gym for 45 minutes, five days a week.</p>
             <p>Consider the math: There are 168 hours in a week. If you sleep for 56 hours, sit at a desk for 40 hours, commute in a car for 10 hours, and sit on the couch watching Netflix for 30 hours, your lifestyle is overwhelmingly sedentary. Spending 4 hours a week in a gym does not negate 130 hours of sitting. If you work a desk job, you should almost always select "Sedentary" or "Lightly Active." It is far better to calculate a conservative TDEE and treat your gym calories as a bonus deficit, rather than overestimating your TDEE and failing to lose weight.</p>
 
-            <h2>How to Use Your TDEE Results</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Use Your TDEE Results</h2>
             <p>Once you have calculated your Maintenance Calories (TDEE), you hold the mathematical keys to your physique. From here, you must apply a specific modifier based on your goal:</p>
             <ul>
               <li><strong>To Lose Fat:</strong> Subtract 500 calories from your TDEE. This creates a 3,500-calorie weekly deficit, resulting in approximately one pound of fat loss per week.</li>
@@ -464,7 +464,7 @@ export default function MaintenanceCalorieCalculator() {
               <li><strong>To Recomp:</strong> Eat exactly at your TDEE. Focus on eating a massive amount of protein and lifting heavy weights. Over time, your body will burn fat to fuel the construction of new muscle, altering your body composition while keeping your weight static.</li>
             </ul>
 
-            <h2>Conclusion: The Science of Certainty</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: The Science of Certainty</h2>
             <p>Metabolism is not a mystery, nor is it "broken." It is a highly predictable biological engine governed by the laws of thermodynamics. By using the Maintenance Calorie Calculator, you remove the emotion and the guesswork from dieting. You now have a scientifically validated baseline. Track your food intake meticulously to hit this number, monitor the scale, and take total control of your health.</p>
           </article>
           

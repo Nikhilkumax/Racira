@@ -203,7 +203,7 @@ export default function NthRootCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is an Nth Root Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is an Nth Root Calculator?</h2>
             <p>
               An nth root calculator finds the value r such that r raised to the power n equals a given number x. Written mathematically: ⁿ√x = r, which means rⁿ = x. The most familiar examples are the square root (n = 2) and the cube root (n = 3), but the operation generalizes to any positive integer — or even fractional and decimal — root degree.
             </p>
@@ -211,7 +211,7 @@ export default function NthRootCalculator() {
               This calculator computes the <strong>principal nth root</strong> for any real number radicand and any positive root degree. It handles negative radicands with odd root degrees (producing a negative real result), detects perfect roots with full floating-point precision, and visualizes how root values change as the degree n increases.
             </p>
 
-            <h2>The Nth Root Formula</h2>
+            <h2 className="text-2xl font-bold mb-3">The Nth Root Formula</h2>
             <p>
               The nth root of x is defined by the exponential relationship:
             </p>
@@ -226,7 +226,7 @@ export default function NthRootCalculator() {
               This formula works because (x^(1/n))^n = x^(n/n) = x^1 = x, which satisfies the definition. The fractional exponent form is fundamental in algebra and is the method used by all digital calculators and computer systems.
             </p>
 
-            <h2>Square Root vs Cube Root vs Nth Root</h2>
+            <h2 className="text-2xl font-bold mb-3">Square Root vs Cube Root vs Nth Root</h2>
             <p>
               The square root (n=2) is the most commonly used radical operation. It finds a number that, when multiplied by itself once, gives x. The cube root (n=3) finds a number that, when multiplied by itself twice, gives x. Higher roots follow the same pattern:
             </p>
@@ -238,7 +238,7 @@ export default function NthRootCalculator() {
               <li><strong>10th Root (n=10):</strong> ¹⁰√1024 ≈ 2, since 2¹⁰ = 1024</li>
             </ul>
 
-            <h2>Negative Radicands and Even vs Odd Roots</h2>
+            <h2 className="text-2xl font-bold mb-3">Negative Radicands and Even vs Odd Roots</h2>
             <p>
               Whether an nth root of a negative number is real depends on whether n is odd or even:
             </p>
@@ -251,7 +251,7 @@ export default function NthRootCalculator() {
               </li>
             </ul>
 
-            <h2>Perfect Roots — When the Result Is Exact</h2>
+            <h2 className="text-2xl font-bold mb-3">Perfect Roots — When the Result Is Exact</h2>
             <p>
               A <strong>perfect nth root</strong> occurs when x is exactly an integer raised to the nth power, producing an exact integer result. Examples include:
             </p>
@@ -265,7 +265,7 @@ export default function NthRootCalculator() {
               When the root is not a perfect root (e.g., √2 ≈ 1.41421356...), the result is an <strong>irrational number</strong> — its decimal expansion is infinite and non-repeating.
             </p>
 
-            <h2>Fractional and Decimal Root Degrees</h2>
+            <h2 className="text-2xl font-bold mb-3">Fractional and Decimal Root Degrees</h2>
             <p>
               Root degree n does not have to be an integer. Fractional roots like the 1.5th root (equivalent to raising to the power 2/3) or the 2.5th root are valid mathematical operations. For example:
             </p>
@@ -274,7 +274,7 @@ export default function NthRootCalculator() {
               <li>27^(1/2.5) = 27^(2/5) ≈ 3.738</li>
             </ul>
 
-            <h2>Real-World Applications of Nth Roots</h2>
+            <h2 className="text-2xl font-bold mb-3">Real-World Applications of Nth Roots</h2>
             <p>Nth roots appear across science, engineering, finance, and everyday mathematics:</p>
             <ul>
               <li>
@@ -297,7 +297,7 @@ export default function NthRootCalculator() {
               </li>
             </ul>
 
-            <h2>Computing Nth Roots by Hand</h2>
+            <h2 className="text-2xl font-bold mb-3">Computing Nth Roots by Hand</h2>
             <p>
               While most nth root calculations require a calculator or computer, there are methods for hand computation:
             </p>
@@ -313,7 +313,7 @@ export default function NthRootCalculator() {
               </li>
             </ul>
 
-            <h2>How Root Value Changes with Degree</h2>
+            <h2 className="text-2xl font-bold mb-3">How Root Value Changes with Degree</h2>
             <p>
               As the root degree n increases for a fixed positive radicand x &gt; 1:
             </p>

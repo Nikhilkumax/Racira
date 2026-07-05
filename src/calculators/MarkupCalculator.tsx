@@ -125,17 +125,17 @@ const MarkupCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>What Is Markup?</h2>
+              <h2 className="text-2xl font-bold mb-3">What Is Markup?</h2>
               <p>Markup is the amount added to the cost of a product or service to determine its selling price. It is expressed as a percentage of the cost. Markup is one of the most fundamental pricing concepts in business, directly affecting profitability and competitiveness.</p>
 
-              <h2>Markup Formulas</h2>
+              <h2 className="text-2xl font-bold mb-3">Markup Formulas</h2>
               <ul>
                 <li><strong>Markup % = ((Selling Price − Cost) ÷ Cost) × 100</strong></li>
                 <li><strong>Selling Price = Cost × (1 + Markup% ÷ 100)</strong></li>
                 <li><strong>Cost = Selling Price ÷ (1 + Markup% ÷ 100)</strong></li>
               </ul>
 
-              <h2>Markup vs Margin Conversion Table</h2>
+              <h2 className="text-2xl font-bold mb-3">Markup vs Margin Conversion Table</h2>
               <table className="w-full text-sm mb-4">
                 <thead><tr><th className="text-left py-1">Markup</th><th className="text-right">Margin</th></tr></thead>
                 <tbody>
@@ -148,7 +148,7 @@ const MarkupCalculator = () => {
                 </tbody>
               </table>
 
-              <h2>Common Markup by Industry</h2>
+              <h2 className="text-2xl font-bold mb-3">Common Markup by Industry</h2>
               <ul>
                 <li><strong>Grocery:</strong> 10-30% markup</li>
                 <li><strong>Retail clothing:</strong> 50-100% (keystone markup)</li>

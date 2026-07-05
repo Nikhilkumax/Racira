@@ -475,43 +475,43 @@ export default function RvLoanCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the RV Loan Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the RV Loan Calculator</h2>
             <p>Purchasing a Recreational Vehicle (RV), whether it is a luxurious Class A motorhome, a versatile fifth wheel, or a compact travel trailer, is a massive financial commitment. For many people, buying an RV is financially equivalent to buying a second home. Because of the sheer size of the loan, understanding exactly what you are getting into before walking onto the dealership lot is crucial. An <strong>RV Loan Calculator</strong> is a specialized financial tool designed to help you model these massive loans, estimate your exact monthly payment, and visualize the total amount of interest you will pay over a 10 to 20-year term.</p>
             <p>RV dealerships are famous for focusing entirely on the "monthly payment." Because RV loans can be stretched out to 15 or 20 years, a dealer can make a $150,000 motorhome look highly affordable on a monthly basis. What they don't explicitly highlight is that spreading that loan over 20 years means you might end up paying $100,000 in pure interest. By using this calculator, you take control of the mathematics, ensuring that the dream of the open road does not become a financial nightmare.</p>
 
-            <h2>How RV Amortization Differs from Cars</h2>
+            <h2 className="text-2xl font-bold mb-3">How RV Amortization Differs from Cars</h2>
             <p>At its core, an RV loan uses the exact same mathematical formula as an auto loan or a home mortgage. It is a fixed-rate, amortizing installment loan. The fundamental formula is:</p>
             <p><strong>M = P [ r(1 + r)^n ] / [ (1 + r)^n – 1 ]</strong></p>
             <p>Where <em>M</em> is the monthly payment, <em>P</em> is the principal loan amount, <em>r</em> is the monthly interest rate, and <em>n</em> is the total number of payments in months.</p>
             <p>The massive difference lies in the <em>term length (n)</em>. While a car loan typically caps at 60 or 72 months, an RV loan regularly spans 120, 180, or 240 months (10, 15, or 20 years). Because the term is so long, the amortization schedule mimics a house. During the first few years of a 15-year RV loan, the vast majority of your monthly payment goes directly into the lender's pocket as interest. Only a tiny fraction pays down the actual principal balance of the RV.</p>
 
-            <h2>Analyzing Your Calculator Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Analyzing Your Calculator Results</h2>
             <p>Our RV Loan Calculator generates a comprehensive financial breakdown of your purchase. Understanding these numbers is vital for responsible borrowing.</p>
             <p><strong>Estimated Monthly Payment:</strong> This is your required monthly cash outflow. It is essential to ensure this number fits comfortably within your budget, keeping in mind that you still have to pay for RV insurance, storage fees, fuel, and campsite rentals.</p>
             <p><strong>Total Interest Paid:</strong> This is the most crucial number on the screen. It is the true cost of financing. Because RV loans are so large and the terms are so long, this number is often shockingly high. Seeing this number in red should encourage you to either increase your down payment or shorten the loan term.</p>
             <p><strong>Cost Distribution Chart:</strong> A visual pie chart that quickly illustrates the ratio of the principal to the interest and taxes. If the interest slice looks nearly as large as the principal slice, it indicates an inefficient loan structure.</p>
 
-            <h2>Critical RV Financing Variables</h2>
+            <h2 className="text-2xl font-bold mb-3">Critical RV Financing Variables</h2>
             <p>RVs are considered "recreational luxury items" by lenders, which changes the lending landscape significantly compared to buying a standard commuter car.</p>
             <p><strong>Higher Interest Rates:</strong> Because an RV is not a necessity, lenders view RV loans as inherently higher risk. If you lose your job, you will default on the RV loan long before you default on your primary home mortgage. To compensate for this risk, RV loan interest rates are typically 1% to 3% higher than standard auto rates, even for borrowers with pristine credit.</p>
             <p><strong>The Depreciation Problem:</strong> RVs are notorious for terrible depreciation. A brand new motorhome can lose 20% to 30% of its value the second you drive it off the dealership lot. If you finance the RV for 15 years with a very small down payment, you will immediately be "underwater" (owing more than the RV is worth). You could remain underwater for 5 to 7 years, meaning if you wanted to sell the RV, you would have to pay the bank cash out of your own pocket to clear the title.</p>
             <p><strong>Tax Deductibility:</strong> There is a unique silver lining to RV financing. The IRS states that if your RV has basic living accommodations—specifically sleeping facilities, cooking facilities, and a toilet—it can qualify as a "second home." This means the interest you pay on your RV loan might be tax-deductible on your federal tax returns, just like a mortgage. (Always consult a CPA regarding your specific situation).</p>
 
-            <h2>Advanced Features: Dealer Fees and Taxes</h2>
+            <h2 className="text-2xl font-bold mb-3">Advanced Features: Dealer Fees and Taxes</h2>
             <p>Our calculator features advanced toggles to simulate a true dealership transaction, which is critical because RV dealer fees can be exorbitant.</p>
             <p><strong>Dealer Prep Fees:</strong> Dealerships often charge "Prep Fees" or "Freight Fees" that can run from $500 to over $2,000 to cover the cost of getting the RV ready for sale. You can input these directly into our calculator to see how they impact your loan.</p>
             <p><strong>Sales Tax Strategies:</strong> An $80,000 RV subjected to a 7% state sales tax generates a massive $5,600 tax bill. The calculator allows you to roll this tax into the loan. However, rolling $5,600 into a 15-year loan at 8% APR means you will end up paying nearly $10,000 for that tax bill over the life of the loan. Paying taxes upfront in cash is highly advised.</p>
 
-            <h2>Practical Examples of RV Financing</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples of RV Financing</h2>
             <p><strong>Example 1: The Trap of the 20-Year Loan.</strong> You want to buy a $100,000 Fifth Wheel with $20,000 down, financing $80,000 at 7.5% APR. The dealer offers a 10-year term at $949 per month, or a 20-year term at just $644 per month. The 20-year term seems much more affordable. However, the calculator reveals the truth. The 10-year loan costs you $33,000 in total interest. The 20-year loan costs a staggering $74,000 in total interest. You are paying $41,000 extra just for the illusion of a lower monthly payment.</p>
             <p><strong>Example 2: The Power of a Trade-In.</strong> You live in a state with an 8% sales tax. You buy a $60,000 travel trailer and trade in your old pop-up camper for $10,000. Because the state only taxes the difference ($50,000), your tax bill drops from $4,800 to $4,000. You instantly save $800 in taxes, plus you lowered your principal loan amount by $10,000.</p>
 
-            <h2>Tips and Best Practices</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips and Best Practices</h2>
             <p><strong>Put at least 20% Down:</strong> To combat the brutal depreciation curve of a new RV, you must put down a minimum of 20%. This ensures you have immediate equity in the vehicle, protecting you if you need to sell the RV due to an emergency or lifestyle change.</p>
             <p><strong>Use a Specialized RV Lender:</strong> Standard banks often don't understand RV valuations and may offer poor terms or refuse to finance older RVs. Work with specialized RV lenders, credit unions, or brokers who understand the industry. They often offer longer terms and lower rates than standard auto lenders.</p>
             <p><strong>Budget for the Hidden Costs:</strong> Your loan payment is just the beginning. When budgeting for an RV, you must also calculate the cost of specialized RV insurance, off-season storage fees, routine maintenance (which is significantly more expensive than a car), and drastically lower fuel economy.</p>
 
-            <h2>Conclusion</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion</h2>
             <p>An RV is an incredible way to travel, offering unparalleled freedom and family memories. But because it requires taking on a mortgage-sized loan for a rapidly depreciating asset, it must be approached with mathematical caution.</p>
             <p>By rigorously utilizing this RV Loan Calculator, you transition from an emotional buyer to a calculated investor. Running multiple scenarios—adjusting the loan term from 15 years to 10 years, increasing your down payment, or rolling taxes in vs. paying them in cash—empowers you to find the exact financing structure that minimizes your interest costs and secures your financial future on the road.</p>
           </article>

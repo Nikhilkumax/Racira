@@ -145,7 +145,7 @@ const SelfEmploymentTaxCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>The Freelancer's Guide to Self-Employment Tax</h2>
+              <h2 className="text-2xl font-bold mb-3">The Freelancer's Guide to Self-Employment Tax</h2>
               <p>When you work as an employee, your employer pays half of your Social Security and Medicare taxes (FICA), and you pay the other half. When you are self-employed, you are both the employer and the employee, meaning you are responsible for the full 15.3% tax rate. This is known as the self-employment (SE) tax.</p>
 
               <h3>Breaking Down the 15.3% Rate</h3>
@@ -170,7 +170,7 @@ const SelfEmploymentTaxCalculator = () => {
                 <li><strong>Health Insurance:</strong> Premiums paid for yourself and your family are often 100% deductible.</li>
               </ul>
 
-              <h2>Next Steps After Calculating</h2>
+              <h2 className="text-2xl font-bold mb-3">Next Steps After Calculating</h2>
               <p>Once you have your estimated tax amount, we recommend:</p>
               <ol>
                 <li><strong>Open a Tax Savings Account:</strong> Transfer 25-30% of every payment you receive into a separate high-yield savings account so you aren't scrambling at tax time.</li>

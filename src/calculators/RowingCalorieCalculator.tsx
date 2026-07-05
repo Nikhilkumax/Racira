@@ -284,15 +284,15 @@ export default function RowingCalorieCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Unmatched Efficiency of the Rowing Machine</h2>
+            <h2 className="text-2xl font-bold mb-3">The Unmatched Efficiency of the Rowing Machine</h2>
             <p>For decades, the treadmill and the elliptical have dominated commercial gym cardio sections. However, in recent years, the indoor rowing machine (ergometer) has surged in popularity, largely driven by the rise of functional fitness and CrossFit. The reason is simple: efficiency. Rowing is one of the few cardiovascular exercises that simultaneously acts as full-body resistance training. But calculating exactly how many calories you are burning while pulling the chain is complex. The <strong>Rowing Calorie Calculator</strong> eliminates the generic estimations of gym consoles by utilizing clinical Metabolic Equivalent (MET) formulas. By factoring in your specific body mass and exact exertion level, it provides a highly accurate, biologically sound caloric burn estimate.</p>
 
-            <h2>Why Rowing Obliterates the Treadmill</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Rowing Obliterates the Treadmill</h2>
             <p>To understand why rowing burns so many calories, you must look at total muscle fiber recruitment. When you run on a treadmill or pedal a stationary bike, you are almost exclusively using the lower half of your body (quadriceps, hamstrings, and calves). Your upper body remains relatively static.</p>
             <p>Rowing is entirely different. A proper rowing stroke recruits <strong>86% of the muscles in the human body</strong>. The stroke begins with a massive, explosive leg press (the catch and drive). As the legs extend, the core must engage completely to transfer that power upward. Finally, the massive muscles of the back (latissimus dorsi and rhomboids) and the biceps contract to finish the pull. </p>
             <p>Because your heart is forced to pump oxygenated blood to both your upper and lower extremities simultaneously, the cardiovascular demand is astronomical. This massive systemic blood flow requirement results in a significantly higher caloric burn per minute compared to exercises that only isolate the legs.</p>
 
-            <h2>Understanding Intensity and METs</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Intensity and METs</h2>
             <p>Like all cardiovascular exercise, the calories you burn are dictated entirely by the physical "work" you perform. In rowing, this is controlled by how hard you push with your legs, not how fast you slide up and down the rail. Our calculator uses METs (Metabolic Equivalents) to measure this intensity:</p>
             <ul>
               <li><strong>Light Effort (MET 4.8):</strong> You are rowing at a casual pace, likely under 100 watts of power. Your breathing is elevated but comfortable. This is an excellent zone for warming up or active recovery.</li>
@@ -301,19 +301,19 @@ export default function RowingCalorieCalculator() {
               <li><strong>Racing / Sprints (MET 12.0):</strong> This is maximum anaerobic effort. You are rowing as if your life depends on it (200w+). Your body rapidly builds up lactic acid, and you will likely hit muscular failure within 2 to 4 minutes. This burns the highest amount of absolute calories per minute.</li>
             </ul>
 
-            <h2>Physics on the Erg: Why Body Weight Matters</h2>
+            <h2 className="text-2xl font-bold mb-3">Physics on the Erg: Why Body Weight Matters</h2>
             <p>Many people incorrectly assume that because you are sitting down while rowing, your body weight doesn't matter. This is false. A heavier person possesses a larger overall muscle mass.</p>
             <p>If a 220-pound man and a 140-pound woman both row at a moderate, steady-state pace for 30 minutes, the 220-pound man will mathematically burn more absolute calories. Because his body mass is larger, his heart must pump a larger volume of blood, his lungs must process more oxygen, and his larger muscles require more ATP (energy) to contract. The calculator strictly factors in your body mass (in pounds or kilograms) to ensure your caloric estimate is completely personalized to your biology.</p>
 
-            <h2>The "Afterburn Effect" of Heavy Rowing</h2>
+            <h2 className="text-2xl font-bold mb-3">The "Afterburn Effect" of Heavy Rowing</h2>
             <p>If you choose to perform Vigorous or Racing intervals on the rowing machine, you will trigger a massive physiological response known as <strong>Excess Post-Exercise Oxygen Consumption (EPOC)</strong>, commonly called the "Afterburn Effect."</p>
             <p>Because rowing involves heavy resistance (pulling against a fan or water flywheel), vigorous rowing creates micro-tears in your back, core, and leg muscles, while simultaneously throwing your body into an oxygen deficit. After the workout is over, your body must rapidly consume oxygen and burn additional calories for 12 to 24 hours to repair that muscle tissue and clear lactic acid from your bloodstream. A 20-minute HIIT rowing session can easily burn an additional 50-100 "bonus" calories while you are sitting on the couch recovering.</p>
 
-            <h2>Rowing for Fat Loss vs. Muscle Gain</h2>
+            <h2 className="text-2xl font-bold mb-3">Rowing for Fat Loss vs. Muscle Gain</h2>
             <p>Rowing is the ultimate hybrid exercise. From a fat-loss perspective, it is unmatched because of the sheer volume of calories it burns per minute. However, it is also a form of resistance training.</p>
             <p>While you won't build massive bodybuilder-style biceps on a rowing machine, the heavy pulling motion provides incredible muscular endurance and functional strength to the posterior chain (the muscles on the back of your body). Most modern office workers suffer from terrible posture because they sit hunched over a desk all day. Rowing actively counteracts this by aggressively strengthening the upper back, rear deltoids, and core, pulling the shoulders back and drastically improving posture while simultaneously incinerating body fat.</p>
 
-            <h2>Conclusion: Maximize the Machine</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Maximize the Machine</h2>
             <p>To get the most accurate results from this calculator, you must row with proper form. The most common mistake beginners make is keeping the resistance ("damper setting") at 10 and trying to row as fast as possible with their arms. This is wildly inefficient. Keep the damper at 4 or 5. Focus on a slow recovery, and explode backward using the massive strength of your legs. Track your sessions with the Rowing Calorie Calculator, dial in your nutrition, and watch as this single machine transforms your cardiovascular engine and your physique.</p>
           </article>
           

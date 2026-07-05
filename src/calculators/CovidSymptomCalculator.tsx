@@ -250,19 +250,19 @@ export default function CovidSymptomCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding COVID-19 Triage</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding COVID-19 Triage</h2>
             <p>COVID-19 affects different people in drastically different ways. While some individuals remain entirely asymptomatic, others can develop life-threatening respiratory failure within days. Understanding when to isolate at home and when to seek emergency medical care is the cornerstone of managing the virus safely.</p>
             <p>This <strong>COVID-19 Symptom Triage Checker</strong> is designed using the official symptom categorizations established by the Centers for Disease Control and Prevention (CDC) and the World Health Organization (WHO).</p>
 
-            <h2>The Difference Between "Symptoms" and "Emergencies"</h2>
+            <h2 className="text-2xl font-bold mb-3">The Difference Between "Symptoms" and "Emergencies"</h2>
             <p>It is perfectly normal for the human body to feel terrible when fighting off a virus. A fever of 101°F, intense muscle aches, and severe fatigue are signs that your immune system is actively fighting the infection. While highly uncomfortable, these are considered <strong>standard symptoms</strong> that can typically be managed at home with rest, hydration, and over-the-counter fever reducers.</p>
             <p>However, <strong>Emergency Warning Signs</strong> indicate that the virus is actively damaging critical organs (the lungs, heart, or brain). If you experience persistent pain in the chest, confusion, or lips turning blue (cyanosis), it indicates that your blood oxygen levels have dropped to a dangerous level. You must bypass urgent care and immediately call 911 or visit an emergency room.</p>
 
-            <h2>The Importance of High-Risk Factors</h2>
+            <h2 className="text-2xl font-bold mb-3">The Importance of High-Risk Factors</h2>
             <p>Age and underlying health conditions are the primary drivers of severe COVID-19 complications. If you are over the age of 65, or have conditions such as diabetes, chronic kidney disease, or an immunocompromised state (such as undergoing chemotherapy), your immune system cannot fight the virus as effectively.</p>
             <p>If you have high-risk factors and develop <em>any</em> symptoms, public health guidelines strongly recommend contacting your doctor immediately, even if your symptoms feel mild. Doctors can prescribe highly effective antiviral medications (such as Paxlovid), but these drugs must be started within the first 5 days of symptom onset to be effective.</p>
 
-            <h2>Isolation Guidelines</h2>
+            <h2 className="text-2xl font-bold mb-3">Isolation Guidelines</h2>
             <p>If you have symptoms of a respiratory virus (COVID-19, Flu, or RSV), you should isolate yourself from others to prevent spreading the disease. You can generally return to normal activities when, for at least 24 hours, both of the following are true:</p>
             <ol>
               <li>Your symptoms are getting consistently better overall.</li>

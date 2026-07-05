@@ -283,16 +283,16 @@ const GapInsuranceValueCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is the GAP Insurance Value Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is the GAP Insurance Value Calculator?</h2>
             <p>GAP (Guaranteed Asset Protection) insurance covers the difference between what you owe on your car loan and what the car is actually worth if it's totaled or stolen. This calculator determines whether GAP insurance is worth buying for your specific loan by comparing the cost of GAP coverage against the maximum potential payout over the life of your loan.</p>
 
-            <h2>How It Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
             <p>The calculator computes your loan balance at each year using standard amortization, then compares it against your vehicle's depreciated market value. Whenever the loan balance exceeds the vehicle value, you're "underwater" — GAP would pay the difference if the car were totaled. The tool sums potential payouts and compares them to the GAP premium cost.</p>
 
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>The primary card shows whether GAP is worth it based on your net benefit. The 3-stat bar shows maximum potential payout, GAP cost, and the year you break even (when you can cancel). The table shows year-by-year loan balance, vehicle value, and potential GAP payout. The line chart visualizes when your loan goes "underwater" — the red area between the lines is what GAP would cover.</p>
 
-            <h2>When Is GAP Insurance Worth It?</h2>
+            <h2 className="text-2xl font-bold mb-3">When Is GAP Insurance Worth It?</h2>
             <ul>
               <li><strong>Low down payment (under 20%)</strong> — you'll be underwater for years 1–3 minimum.</li>
               <li><strong>Long loan term (72+ months)</strong> — depreciation outpaces principal paydown.</li>
@@ -302,7 +302,7 @@ const GapInsuranceValueCalculator = () => {
               <li><strong>Negative equity from a trade-in</strong> — adds to the new loan balance.</li>
             </ul>
 
-            <h2>When Is GAP NOT Worth It?</h2>
+            <h2 className="text-2xl font-bold mb-3">When Is GAP NOT Worth It?</h2>
             <ul>
               <li><strong>20%+ down payment</strong> — equity protects you from being underwater.</li>
               <li><strong>Short loan term (48 months or less)</strong> — quick principal paydown.</li>
@@ -310,7 +310,7 @@ const GapInsuranceValueCalculator = () => {
               <li><strong>Vehicle with slow depreciation</strong> — Toyota, Honda, some trucks retain value well.</li>
             </ul>
 
-            <h2>How to Buy GAP Insurance Cheaply</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Buy GAP Insurance Cheaply</h2>
             <ul>
               <li><strong>Check your auto insurer first.</strong> Most offer GAP for $20–$40/year — total cost $100–$240 over the loan.</li>
               <li><strong>Avoid dealer GAP.</strong> Dealers charge $400–$1,000 and often finance it into the loan (adding interest).</li>
@@ -318,10 +318,10 @@ const GapInsuranceValueCalculator = () => {
               <li><strong>Cancel when no longer needed.</strong> Once your loan balance drops below vehicle value (year 3–4), cancel for a prorated refund.</li>
             </ul>
 
-            <h2>Practical Example</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Example</h2>
             <p>A $38,000 car with $5,000 down, 7% APR, 72-month loan, 7.5% sales tax, and $1,500 in fees means financing ~$37,000. In year 1, the car is worth ~$30,400 but you owe ~$32,000 — you're $1,600 underwater. By year 3, you may still be $500–$1,000 underwater. GAP costing $600 (from insurer over 6 years) protects against a potential $3,000–$5,000 payout — clearly worth it.</p>
 
-            <h2>Benefits of Using This Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Benefits of Using This Calculator</h2>
             <p>This tool takes the guesswork out of GAP insurance decisions. By showing exactly when you'll be underwater and how much GAP would pay, it helps you decide whether to buy GAP, where to buy it (insurer vs dealer), and when to cancel it for a refund.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/gap-insurance-value-calculator" />

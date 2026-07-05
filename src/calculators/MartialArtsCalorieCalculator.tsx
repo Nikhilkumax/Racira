@@ -294,14 +294,14 @@ export default function MartialArtsCalorieCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Massive Caloric Demand of Martial Arts</h2>
+            <h2 className="text-2xl font-bold mb-3">The Massive Caloric Demand of Martial Arts</h2>
             <p>From the explosive high kicks of Muay Thai to the grueling ground battles of Brazilian Jiu-Jitsu, martial arts represent one of the most physically exhausting forms of training in existence. They are entirely unique in the fitness world because they combine the heavy resistance of lifting weights (moving another human being) with the maximum heart rate spikes of sprinting. However, estimating the true energy expenditure of a dojo session is incredibly difficult because so much time is spent receiving instruction. The <strong>Martial Arts Calorie Calculator</strong> solves this by using clinically validated Metabolic Equivalent (MET) formulas based solely on your active drilling time, providing a mathematically precise measurement of your thermodynamic output.</p>
 
-            <h2>Why Combat Sports Burn More Than Running</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Combat Sports Burn More Than Running</h2>
             <p>When you jog on a treadmill, your body is highly efficient. You move in a straight line at a steady, unchanging pace. Your heart rate elevates to a moderate level and stays there. Your body quickly adapts to make the motion as metabolically "cheap" as possible to conserve energy.</p>
             <p>Martial arts destroy this efficiency entirely. First, they require movement across all three planes of motion. You are constantly pivoting, lunging, sprawling, and twisting. Second, they are completely unpredictable and anaerobic. When you are sparring or hitting pads, your central nervous system enters "fight or flight" mode. You must constantly react, slip, absorb impacts, and throw explosive combinations. This rapid acceleration and deceleration forces your heart into maximum overdrive. Finally, in grappling arts, you are locked in grueling isometric holds against another person's entire body weight. This combination of heavy resistance and massive cardiovascular output burns drastically more calories per minute than any steady-state aerobic exercise.</p>
 
-            <h2>Understanding METs Across Different Disciplines</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding METs Across Different Disciplines</h2>
             <p>Not all martial arts require the same physiological effort. Exercise physiologists measure this cardiovascular effort using METs (Metabolic Equivalents). One MET is your resting metabolic rate. Our calculator categorizes martial arts into four distinct physiological groups:</p>
             <ul>
               <li><strong>Tai Chi (MET 4.0):</strong> A slow, highly meditative, flowing practice. Your heart rate remains very close to baseline, and you are not fighting resistance. It is excellent for joint mobility and mental clarity, but it is not a high-calorie fat burner.</li>
@@ -310,19 +310,19 @@ export default function MartialArtsCalorieCalculator() {
               <li><strong>Muay Thai / Kickboxing (MET 10.5):</strong> High-impact striking is brutally exhausting. Throwing full-power kicks into heavy Thai pads requires explosive power from the calves, hips, and core. The continuous bouncing and rapid-fire anaerobic output result in the highest absolute caloric burn of any martial art.</li>
             </ul>
 
-            <h2>The Danger of Overestimating: Active Time vs. Class Time</h2>
+            <h2 className="text-2xl font-bold mb-3">The Danger of Overestimating: Active Time vs. Class Time</h2>
             <p>The single biggest mistake martial artists make when tracking their calories is using their total class time. This is why our calculator features a prominent warning.</p>
             <p>If you attend a 60-minute martial arts class, you do not physically exercise for 60 minutes. You spend 10 minutes stretching, 15 minutes watching the instructor demonstrate a technique, and 5 minutes bowing in and out. Your actual, physical drilling or sparring time might only be 30 minutes. If you input "60 minutes" into a fitness watch, it will falsely assume you were throwing kicks for an hour straight and will massively overestimate your calorie burn. To get an accurate, realistic number, you must only enter the exact minutes you were physically moving.</p>
 
-            <h2>Physics on the Mat: Why Body Weight Matters</h2>
+            <h2 className="text-2xl font-bold mb-3">Physics on the Mat: Why Body Weight Matters</h2>
             <p>Because martial arts are a form of calisthenics (bodyweight training), the laws of physics heavily dictate your caloric expenditure. Specifically, Force equals Mass times Acceleration.</p>
             <p>If a 220-pound heavyweight and a 140-pound lightweight both drill high kicks for exactly 15 minutes, the heavyweight will mathematically burn a significantly higher absolute number of calories. Why? Because the heavyweight has to propel an extra 80 pounds of mass into the air with every single kick, and their larger musculature requires drastically more oxygen and ATP to contract. Our calculator strictly factors in your specific mass to ensure your caloric estimate is biologically accurate.</p>
 
-            <h2>The Afterburn Effect (EPOC)</h2>
+            <h2 className="text-2xl font-bold mb-3">The Afterburn Effect (EPOC)</h2>
             <p>One of the greatest advantages of high-intensity martial arts (like Judo or Muay Thai) is their ability to trigger <strong>Excess Post-Exercise Oxygen Consumption (EPOC)</strong>, widely known as the "Afterburn Effect."</p>
             <p>Because live sparring pushes your body deep into an anaerobic state (where oxygen demand exceeds supply), it creates a severe oxygen deficit and builds up lactic acid in the muscles. After you step off the mat and go home, your body must rapidly consume oxygen and burn additional calories for up to 14 to 24 hours just to repair the micro-tears in your muscles, clear the lactic acid, and restore homeostasis. This means a grueling 30-minute sparring session continues to burn "bonus" calories long after you have left the dojo.</p>
 
-            <h2>Conclusion: Train Like a Fighter</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Train Like a Fighter</h2>
             <p>You do not need to compete in a cage to reap the incredible fat-burning benefits of martial arts. Hitting Thai pads with a coach or grappling with a safe partner provides an astronomical cardiovascular return on investment. Stop relying on inaccurate wrist trackers that get confused by the stop-and-go nature of a class. Use the Martial Arts Calorie Calculator to track your true active time, maintain a disciplined caloric deficit in your diet, and watch as combat training rapidly strips body fat and builds a lean, highly functional physique.</p>
           </article>
           

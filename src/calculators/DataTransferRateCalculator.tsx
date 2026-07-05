@@ -128,7 +128,7 @@ const DataTransferRateCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Megabits vs. Megabytes</h2>
+              <h2 className="text-2xl font-bold mb-3">Megabits vs. Megabytes</h2>
               <p>One of the most common points of confusion in technology is the difference between a bit and a byte. There are exactly <strong>8 bits in 1 byte</strong>. Because internet speeds are marketed in Megabits per second (Mbps), you should divide that number by 8 to see how many Megabytes per second (MB/s) you will actually see in your browser or download manager.</p>
               
               <h3>Factors That Slow Down Transfers</h3>

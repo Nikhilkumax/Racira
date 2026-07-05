@@ -285,15 +285,15 @@ export default function JumpRopeCalorieCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Unmatched Caloric Power of the Jump Rope</h2>
+            <h2 className="text-2xl font-bold mb-3">The Unmatched Caloric Power of the Jump Rope</h2>
             <p>For decades, the jump rope was viewed simply as a playground toy or a warm-up drill for professional boxers. However, modern exercise physiology has revealed the truth: from a purely thermodynamic standpoint, jumping rope is arguably the single most efficient cardiovascular exercise ever invented. It requires almost zero space, costs less than a fast-food meal, and yet, it reliably burns more calories per minute than running, swimming, or cycling. The <strong>Jump Rope Calorie Calculator</strong> eliminates the guesswork from your workouts by utilizing clinically validated Metabolic Equivalent (MET) formulas, translating your body weight, duration, and skipping pace into a mathematically precise measurement of your total energy expenditure.</p>
 
-            <h2>Why Jumping Rope Burns More Than Running</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Jumping Rope Burns More Than Running</h2>
             <p>When looking at the sheer caloric math, jumping rope routinely outpaces almost every other form of steady-state cardio. But why?</p>
             <p>The answer lies in biomechanics and muscle fiber recruitment. When you jog on a treadmill, your body operates in a highly efficient rhythm. One foot is always on the ground, and your momentum carries you forward. Your body is incredibly adept at making this movement as metabolically "cheap" as possible.</p>
             <p>Jumping rope completely destroys this efficiency. It is a continuous, rapid series of explosive bounds. To clear the rope, your calves, quadriceps, and hamstrings must contract with enough explosive force to propel 100% of your body weight completely into the air, over 100 times every single minute. Furthermore, your shoulders, forearms, and deep core stabilizers must remain in a state of constant isometric tension just to spin the rope and maintain your balance. Because you are recruiting vastly more muscle mass and performing explosive vertical work against gravity, your heart must pump massive amounts of oxygenated blood. This massive oxygen demand translates directly into a staggering caloric burn.</p>
 
-            <h2>Understanding the Mathematics of METs</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Mathematics of METs</h2>
             <p>Exercise physiologists measure the intensity of physical activity using METs (Metabolic Equivalents). One MET represents the amount of energy your body burns while sitting perfectly still at rest. The higher the MET value, the higher the intensity, and the more calories you burn per minute. Our calculator uses three primary pacing tiers:</p>
             <ul>
               <li><strong>Slow Pace (MET 8.8):</strong> You are skipping at fewer than 100 revolutions per minute. Even at this "slow" pace, you are burning nearly 9 times your resting metabolic rate. For context, this is equivalent to running at a 10-minute mile pace.</li>
@@ -301,19 +301,19 @@ export default function JumpRopeCalorieCalculator() {
               <li><strong>Fast Pace / Double Unders (MET 12.3+):</strong> You are exceeding 120 skips per minute or performing "Double Unders" (where the rope passes twice under your feet per jump). This is elite-level cardiovascular output, pushing your body into an anaerobic state where lactic acid builds up rapidly. It burns an absolutely astronomical amount of calories, but can only be sustained for very short intervals.</li>
             </ul>
 
-            <h2>Physics and Body Weight</h2>
+            <h2 className="text-2xl font-bold mb-3">Physics and Body Weight</h2>
             <p>Because jumping rope is purely a bodyweight exercise, the laws of physics heavily dictate your caloric expenditure. Specifically, Force equals Mass times Acceleration.</p>
             <p>If a 200-pound person and a 140-pound person jump rope side-by-side for 15 minutes at the exact same pace, the 200-pound person had to do drastically more mechanical "work" to achieve the same result. Their calf muscles had to lift an extra 60 pounds of mass into the air thousands of times, and their tendons had to absorb significantly more shock upon landing. Because they performed more physical work against gravity, the heavier body will mathematically burn a significantly higher absolute number of calories. The calculator strictly accounts for your specific mass to ensure biological accuracy.</p>
 
-            <h2>The "Afterburn Effect" (EPOC)</h2>
+            <h2 className="text-2xl font-bold mb-3">The "Afterburn Effect" (EPOC)</h2>
             <p>One of the greatest advantages of the jump rope is its ability to trigger <strong>Excess Post-Exercise Oxygen Consumption (EPOC)</strong>, widely known as the "Afterburn Effect."</p>
             <p>Because jumping rope pushes your heart rate incredibly high very quickly, it operates exactly like High-Intensity Interval Training (HIIT). When you jump rope vigorously, your body cannot pull in enough oxygen to meet the explosive demands of your muscles, creating a severe oxygen deficit. After you put the rope away and sit on the couch, your body must rapidly consume oxygen and burn "bonus" calories for up to 14 to 24 hours just to repair the micro-tears in your muscles, clear lactic acid, and restore your core temperature. Standard steady-state walking generates almost zero EPOC.</p>
 
-            <h2>Is Jumping Rope Bad for Your Knees?</h2>
+            <h2 className="text-2xl font-bold mb-3">Is Jumping Rope Bad for Your Knees?</h2>
             <p>A massive misconception in the fitness industry is that jumping rope will destroy your knees. In reality, jumping rope is significantly lower impact than running on asphalt, assuming you use the proper technique.</p>
             <p>When you run, you often strike the ground heel-first. Because there is no mechanical shock absorption in the human heel, a massive force wave shoots directly up the shin bone and into the knee joint. When you jump rope properly, you only jump 1 to 2 inches off the floor, and you land exclusively on the balls of your feet. The ball of the foot acts as a spring, loading the Achilles tendon and the massive calf muscles. These tissues act as biological shock absorbers, completely dissipating the impact force before it ever reaches your knees.</p>
 
-            <h2>Conclusion: The Ultimate Fat-Burning Tool</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: The Ultimate Fat-Burning Tool</h2>
             <p>If your primary goal is rapid weight loss and cardiovascular conditioning, and you are extremely short on time, the jump rope is the ultimate tool. You do not need to drive to a gym, and you do not need 60 minutes. A brutally intense 15-minute jump rope session can easily out-burn a 45-minute casual jog. Use the Jump Rope Calorie Calculator to track your sessions, start with short intervals to allow your calves to adapt, and watch your metabolic rate skyrocket.</p>
           </article>
           

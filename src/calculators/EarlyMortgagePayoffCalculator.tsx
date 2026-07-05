@@ -341,21 +341,21 @@ export default function EarlyMortgagePayoffCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Why Consider Paying Off Your Mortgage Early?</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Consider Paying Off Your Mortgage Early?</h2>
             <p>For many homeowners, the mortgage is their largest single debt. A standard 30-year mortgage front-loads the interest, meaning that for the first decade, the vast majority of your monthly payment goes toward the bank's profit rather than building your equity. By utilizing an early mortgage payoff calculator, you can visualize exactly how small additional payments applied directly to your principal can drastically alter the amortization schedule, saving you tens or even hundreds of thousands of dollars in interest over the life of the loan.</p>
             <p>Beyond the pure mathematical savings, paying off a home provides immense psychological benefits. Owning your property free and clear reduces your monthly overhead, provides security against economic downturns, and significantly accelerates your path to financial independence and early retirement.</p>
 
-            <h2>How Additional Principal Payments Work</h2>
+            <h2 className="text-2xl font-bold mb-3">How Additional Principal Payments Work</h2>
             <p>When you make your standard monthly mortgage payment, the bank splits the money into three main buckets: interest based on the current outstanding balance, principal to reduce the balance, and escrow for taxes and insurance. Because interest is calculated on the outstanding principal balance, reducing that balance faster than scheduled creates a compounding effect. If you pay an extra $100 toward the principal today, you won't be charged interest on that $100 next month, or the month after that, for the remainder of the 30-year term. This effectively means that every extra dollar paid toward principal provides a guaranteed, risk-free return equal to your mortgage interest rate.</p>
 
-            <h2>Strategies for Early Payoff</h2>
+            <h2 className="text-2xl font-bold mb-3">Strategies for Early Payoff</h2>
             <p>The most straightforward approach is simply adding a fixed dollar amount to your regular monthly payment and specifying to the lender that the overage must be applied to the principal balance. Bi-weekly payments are another highly effective method. Instead of paying once a month, you pay half your mortgage every two weeks. Because there are 52 weeks in a year, this results in 26 half-payments — the equivalent of 13 full payments per year. That single extra yearly payment can shave 4 to 5 years off a 30-year loan. You can also apply annual work bonuses, tax refunds, or inheritance windfalls directly to the principal. If you make a massive lump sum payment, you can additionally ask your lender to recast the loan, which keeps the original payoff date but recalculates and lowers your mandatory monthly payment based on the newly reduced principal balance.</p>
 
-            <h2>The Opportunity Cost: Investing vs. Paying Off</h2>
+            <h2 className="text-2xl font-bold mb-3">The Opportunity Cost: Investing vs. Paying Off</h2>
             <p>While being debt-free is a worthy goal, it is crucial to understand the opportunity cost of early mortgage payoff. The math is relatively simple: compare the after-tax interest rate of your mortgage to the expected after-tax return of your investments. If you secured a mortgage during a historically low-rate environment at 3%, paying it off early provides a 3% return on your money. Historical stock market returns average around 7% to 10% annually over long periods, meaning you would build more net worth by making minimum payments and investing the extra cash.</p>
             <p>However, if your mortgage rate is high — at 7% or 8% — the stock market's premium over your rate is much narrower, and the market carries risk. In a high-rate environment, locking in a guaranteed 7% return by eliminating the debt is a highly attractive and mathematically sound strategy.</p>
 
-            <h2>Prepayment Penalties</h2>
+            <h2 className="text-2xl font-bold mb-3">Prepayment Penalties</h2>
             <p>Before aggressively paying down your mortgage, check your loan documents for a prepayment penalty clause. While these are increasingly rare in modern conforming residential mortgages, some subprime loans, commercial loans, or specific portfolio loans still include them. A prepayment penalty is a fee the bank charges if you pay off the loan significantly ahead of schedule, usually within the first three to five years of origination. If your loan has such a penalty, it may negate the financial benefits of early payoff during that window, so always confirm the terms with your lender before beginning any accelerated payment strategy.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/early-mortgage-payoff-calculator" />

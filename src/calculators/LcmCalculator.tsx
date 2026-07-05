@@ -188,10 +188,10 @@ const LcmCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Least Common Multiple (LCM)</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Least Common Multiple (LCM)</h2>
             <p>The <strong>Least Common Multiple (LCM)</strong>, sometimes referred to as the Lowest Common Multiple, is a foundational mathematical concept used heavily when working with fractions. By definition, the LCM of two integers (let's say <em>a</em> and <em>b</em>) is the smallest positive integer that is perfectly divisible by both <em>a</em> and <em>b</em> without leaving a remainder.</p>
 
-            <h2>Methods for Finding the LCM</h2>
+            <h2 className="text-2xl font-bold mb-3">Methods for Finding the LCM</h2>
             <p>There are three primary methods for finding the LCM. While our calculator uses the fastest computational method behind the scenes, understanding the manual methods is critical for math students.</p>
 
             <h3>Method 1: Listing the Multiples (Best for small numbers)</h3>
@@ -216,7 +216,7 @@ const LcmCalculator = () => {
             <h3>Method 3: The GCD Formula (How this calculator works)</h3>
             <p>Computers calculate the LCM extremely fast using the Greatest Common Divisor (GCD) formula. The relationship between LCM and GCD is absolute: <code>LCM(a,b) = (a × b) ÷ GCD(a,b)</code>. The computer uses the Euclidean Algorithm to find the GCD almost instantly, and then applies this formula to yield the LCM without ever having to "list out" multiples or prime factors.</p>
 
-            <h2>The LCM and Fractions</h2>
+            <h2 className="text-2xl font-bold mb-3">The LCM and Fractions</h2>
             <p>You cannot add or subtract fractions unless their bottom numbers (denominators) match. The fastest way to make them match without inflating the numbers to unmanageable sizes is to find their Least Common Denominator (LCD). The LCD is exactly the same thing as the LCM of the bottom numbers.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/lcm-calculator" />

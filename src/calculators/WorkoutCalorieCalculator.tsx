@@ -119,13 +119,13 @@ export default function WorkoutCalorieCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>About the Workout Calorie Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">About the Workout Calorie Calculator</h2>
             <p>This workout calorie calculator covers 16 common gym and fitness activities using validated MET (Metabolic Equivalent of Task) values from the Compendium of Physical Activities (Ainsworth et al., 2011). It includes a custom MET option for activities not listed. Results include total calories, calorie rate per hour, and an estimate of fat mass burned.</p>
-            <h2>How MET Values Work</h2>
+            <h2 className="text-2xl font-bold mb-3">How MET Values Work</h2>
             <p>MET = the ratio of working metabolic rate to resting metabolic rate. MET 1 = resting (watching TV). MET 5 = moderate exercise (5× resting burn). MET 10 = vigorous exercise (10× resting burn). The formula Calories = MET × weight(kg) × duration(hr) is the industry-standard approach used in exercise science, clinical settings, and fitness technology.</p>
-            <h2>Calorie Burn for Weight Loss</h2>
+            <h2 className="text-2xl font-bold mb-3">Calorie Burn for Weight Loss</h2>
             <p>A 500-calorie daily deficit (diet + exercise) creates approximately 0.5 kg/week fat loss — the widely recommended sustainable rate. For a 75 kg person doing 45-minute moderate weight training (281 calories), combined with a 200-calorie dietary reduction creates the needed deficit. 3 sessions/week = ~843 exercise calories/week contributing to 1 kg loss approximately every 9 weeks from exercise alone.</p>
-            <h2>Resistance Training and Metabolic Rate</h2>
+            <h2 className="text-2xl font-bold mb-3">Resistance Training and Metabolic Rate</h2>
             <p>While resistance training burns fewer calories per session than cardio, it uniquely builds lean muscle mass. Each additional kilogram of muscle increases resting metabolic rate by approximately 13 kcal/day — compounding permanently. A 5 kg muscle gain adds 65 kcal/day resting burn — equivalent to a 20-minute jog daily without effort. This is why strength training is considered superior for long-term weight management.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/workout-calorie-calculator" />

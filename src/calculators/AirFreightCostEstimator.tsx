@@ -185,14 +185,14 @@ export default function AirFreightCostEstimator() {
             {results && (
               <div ref={printRef} className="flex flex-col gap-4">
                 
-                <div className={`border-l-4 rounded-lg p-5 relative bg-emerald-500/10 border-emerald-500/30`}>
-                  <button onClick={handlePrint} className="absolute top-4 right-4 text-muted-foreground hover:text-emerald-600 transition-colors print:hidden" aria-label="Print Results">
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative mb-4">
+                  <button onClick={handlePrint} className="absolute top-4 right-4 text-muted-foreground hover:text-primary transition-colors print:hidden" aria-label="Print Results">
                     <Printer className="h-4 w-4" />
                   </button>
-                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1 font-bold">
+                  <p className="text-xs uppercase tracking-wide text-muted-foreground font-bold mb-1">
                     Estimated Air Freight Cost
-                  </div>
-                  <div className={`text-4xl font-bold tracking-tighter mb-2 text-emerald-600`}>
+                  </p>
+                  <div className="text-4xl font-black text-primary mb-2">
                     ${results.estimatedCost.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                   </div>
                   <div className="text-sm text-muted-foreground font-medium flex items-center gap-2">
@@ -260,22 +260,21 @@ export default function AirFreightCostEstimator() {
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">What is Chargeable Weight in Air Freight?</h2>
-            <p>If you ship a box of feathers and a box of lead on an airplane, the box of feathers will take up the entire cargo hold before it reaches the weight limit, while the box of lead will hit the weight limit before it fills the space. Because an airplane has limited volume AND limited weight capacity, airlines developed the concept of <strong>Chargeable Weight</strong>.</p>
-            <p>Chargeable Weight dictates that you will be billed for whichever is greater: the <strong>Actual physical weight</strong> of the cargo, or the <strong>Volumetric (Dimensional) weight</strong>.</p>
-            
-            <h3>How to Calculate Volumetric Weight</h3>
-            <p>The International Air Transport Association (IATA) has established standard mathematical constants to calculate volumetric weight based on the dimensions of the cargo.</p>
-            <ul>
-              <li><strong>Standard Air Freight Divisor (6000):</strong> Used for general commercial cargo moving on passenger or freighter airlines. The formula is `(Length × Width × Height in cm) / 6000`.</li>
-              <li><strong>Express Courier Divisor (5000):</strong> Used by fast-parcel networks like DHL, FedEx, and UPS. The formula is `(Length × Width × Height in cm) / 5000`. Because they divide by a smaller number, express couriers charge significantly more for large, lightweight boxes.</li>
-            </ul>
+            <h2 className="text-2xl font-bold mb-3">The Mathematical Logistics of Global Air Freight Pricing</h2>
+            <p>In the highly complex, massively scaled world of international logistics, moving commercial cargo via commercial airlines is universally recognized as the fastest, most secure, and most expensive transportation method available. Unlike massive oceanic container ships, which boast almost unimaginable weight capacities and enormous physical dimensions, commercial aircraft operate under incredibly strict, inflexible constraints regarding both absolute weight and physical interior volume. The aerodynamic physics of flight mandate that an aircraft can only carry a precise maximum tonnage before it becomes unsafe to take off. Simultaneously, the cylindrical shape of an aircraft fuselage means that the available cargo hold volume is extremely limited and geometrically rigid. To mathematically balance these two competing physical constraints—weight and volume—the global aviation industry developed a standardized pricing mechanic known as Chargeable Weight. Understanding exactly how chargeable weight functions is absolutely critical for any importer, exporter, or e-commerce entrepreneur who wishes to maintain profitable supply chain margins without suffering devastating, unexpected freight bills.</p>
 
-            <h2 className="text-2xl font-bold mb-3">Why Your Freight Invoice May Be Higher Than Expected</h2>
-            <p>A very common mistake made by new importers/exporters is budgeting based on the physical weight listed on the commercial invoice. If you are shipping something large and lightweight (like apparel, plastic components, or furniture), it is almost guaranteed that the airline will charge you based on the Volumetric Weight, which can easily be double the physical weight.</p>
+            <h2 className="text-2xl font-bold mb-3">The Concept of Chargeable Weight Explained</h2>
+            <p>To fundamentally grasp why chargeable weight exists, you must consider the stark difference between shipping a pallet composed entirely of densely packed steel ball bearings versus shipping a pallet composed entirely of uncompressed goose down pillows. If an airline charged exclusively by physical weight, the pallet of steel ball bearings would generate massive revenue for the airline, but it would rapidly consume the aircraft's maximum takeoff weight capacity while barely taking up any physical space in the cargo hold. Conversely, the pallet of goose down pillows would take up an enormous amount of physical space in the cargo hold, potentially preventing other lucrative shipments from being loaded, while generating almost zero revenue because pillows weigh practically nothing. To solve this critical economic imbalance, airlines established a universal rule: the shipper will always be billed based on whichever mathematical value is greater between the actual physical weight of the cargo and its calculated volumetric weight. This higher, final value is universally referred to on freight invoices as the Chargeable Weight.</p>
             
-            <h2 className="text-2xl font-bold mb-3">How to Reduce Air Freight Costs</h2>
-            <p>If you are being charged based on Volumetric Weight, the only way to reduce your costs is to optimize your packaging. Eliminating empty space (voids) inside boxes, compressing apparel, and using custom-fit boxes can drastically reduce the dimensions, directly lowering the volumetric weight and your final bill.</p>
+            <h2 className="text-2xl font-bold mb-3">How Volumetric Weight is Calculated</h2>
+            <p>The International Air Transport Association (IATA) has meticulously established standard mathematical constants—frequently referred to as volumetric divisors—to calculate the theoretical weight of a package based entirely on its exterior dimensions. Calculating volumetric weight is a straightforward, two-step mathematical process. First, the shipper or freight forwarder must calculate the absolute total volume of the package by multiplying its maximum length, maximum width, and maximum height. It is crucial to understand that airlines always measure to the absolute furthest protruding point of a package or pallet, not just the flat surface. Once the total cubic volume is established, that massive number is divided by the standard industry volumetric constant.</p>
+
+            <p>For standard, general commercial air freight moving on passenger airlines or dedicated freighter networks, the universally accepted IATA divisor is six thousand cubic centimeters per kilogram. This means that for every six thousand cubic centimeters of space your cargo occupies, the airline assumes it should weigh at least one kilogram. However, the global logistics market is not entirely uniform. If you choose to ship your cargo through integrated express courier networks—such as DHL, FedEx, or UPS—the volumetric divisor is significantly more aggressive. Express couriers typically utilize a divisor of five thousand cubic centimeters per kilogram. Because they divide your cargo's total volume by a substantially smaller number, the resulting volumetric weight is mathematically forced significantly higher. This is a primary reason why shipping large, lightweight boxes via express courier services often results in shockingly high, seemingly disproportionate freight bills compared to standard forwarder air freight.</p>
+
+            <h2 className="text-2xl font-bold mb-3">Strategies for Reducing Your Air Freight Costs</h2>
+            <p>A remarkably common, highly expensive mistake made by newly established importers and amateur supply chain managers is budgeting their transportation costs based solely on the physical weight listed on the factory's commercial invoice. If a business is importing large, inherently lightweight products—such as winter apparel, injection-molded plastic components, plush toys, or unassembled furniture—it is almost mathematically guaranteed that the airline will disregard the actual weight and charge the company based entirely on the massive volumetric weight. In extreme cases, the volumetric weight can easily be double, triple, or even quadruple the actual physical weight, instantly destroying the product's profit margin before it even lands in the destination country.</p>
+
+            <p>If your cargo is consistently being billed on volumetric weight rather than physical weight, the absolute only method available to reduce your transportation costs is to aggressively optimize your packaging architecture. Shippers must work closely with their manufacturing partners to eliminate any empty space, commonly known as voids, inside their carton boxes. Utilizing vacuum sealing technology to compress apparel, redesigning retail packaging to fold flat during transit, and implementing custom-fit outer master cartons can drastically reduce the overall cubic dimensions of the shipment. By shrinking the physical footprint of the cargo without altering its actual weight, you directly lower the calculated volumetric weight, thereby forcing the chargeable weight downward and securing massive, permanent reductions in your international freight expenditures.</p>
           </article>
           <FAQSection faqs={[
             { question: "What if I use inches instead of centimeters?", answer: "If you measure in inches, the divisors change. For standard air freight, the divisor is usually 366 cubic inches per kg (or 166 cubic inches per pound). This calculator uses the global metric standard (cm/kg)." },

@@ -441,31 +441,31 @@ export default function MealFrequencyCalorieSplitCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Meal Frequency Calorie Split</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Meal Frequency Calorie Split</h2>
             <p>Once you have calculated your Total Daily Energy Expenditure (TDEE) and set a caloric target for cutting or bulking, you face the practical reality of execution: <em>How do I actually eat all this food?</em> Historically, the fitness industry was plagued by the myth that you had to eat six small meals a day to "stoke the metabolic fire." Modern science has thoroughly debunked this. The thermic effect of food is based entirely on the total caloric volume consumed, not how many times you sit down to eat.</p>
             <p>However, meal frequency and caloric distribution still matter massively for two critical reasons: <strong>Muscle Protein Synthesis (MPS)</strong> and <strong>Dietary Adherence</strong>. The <strong>Meal Frequency Calorie Split Calculator</strong> allows you to take your daily macroscopic targets and chop them up into a sustainable, scientifically optimized daily blueprint.</p>
 
-            <h2>The Science of Muscle Protein Synthesis (MPS)</h2>
+            <h2 className="text-2xl font-bold mb-3">The Science of Muscle Protein Synthesis (MPS)</h2>
             <p>While fat loss is dictated entirely by your 24-hour net caloric balance, building (and preserving) muscle tissue is highly dependent on meal timing. Muscle Protein Synthesis is a biological switch. To flip that switch "on," your body requires a specific threshold of the amino acid <em>leucine</em>, which typically requires consuming at least 25 to 30 grams of high-quality protein in a single sitting.</p>
             <p>If your daily protein target is 150 grams, and you split that into 6 meals of 25 grams each, you are "pulsing" the MPS switch 6 times a day. This is the classic <strong>"Even Split"</strong> bodybuilding approach. However, if you attempt to eat 6 meals a day but your daily protein target is only 90 grams (yielding 15 grams per meal), you will consistently fail to reach the leucine threshold, and your body will not build muscle optimally. In this scenario, the calculator will warn you, suggesting you condense your eating into 3 larger meals (yielding 30 grams of protein each) to trigger the anabolic response.</p>
 
-            <h2>Strategy 1: The Even Split (Classic Bodybuilding)</h2>
+            <h2 className="text-2xl font-bold mb-3">Strategy 1: The Even Split (Classic Bodybuilding)</h2>
             <p>The "Even Split" strategy takes your total calories and protein and divides them perfectly evenly across your selected meal count. For decades, this has been the gold standard for competitive bodybuilders and physique athletes.</p>
             <p><strong>The Pros:</strong> Eating a perfectly balanced meal every 3 to 4 hours keeps blood sugar incredibly stable. You will not experience massive insulin spikes or the subsequent crashes that lead to lethargy and cravings. Furthermore, by constantly supplying the bloodstream with amino acids, you theoretically keep the body in a perpetual state of anabolism (muscle building).</p>
             <p><strong>The Cons:</strong> It is incredibly tedious. Eating 5 or 6 times a day requires massive amounts of food preparation, carrying Tupperware everywhere, and living your life by the clock. If you work a standard 9-to-5 job with strict hours, this strategy is highly impractical.</p>
 
-            <h2>Strategy 2: Peri-Workout Prioritization (Performance Focused)</h2>
+            <h2 className="text-2xl font-bold mb-3">Strategy 2: Peri-Workout Prioritization (Performance Focused)</h2>
             <p>If you are an athlete, a powerlifter, or someone who engages in brutal, high-intensity workouts, your daily energy demands are heavily skewed toward your training window. The "Peri-Workout" strategy addresses this by funneling 50% of your total daily calories directly into your pre-workout and post-workout meals.</p>
             <p><strong>Pre-Workout Fuel:</strong> By allocating a massive chunk of calories (specifically carbohydrates) to the meal directly preceding your workout, you fill intra-muscular glycogen stores. This allows you to push heavier weight for more repetitions without 'bonking' (running out of energy).</p>
             <p><strong>Post-Workout Recovery:</strong> Training breaks down muscle tissue. By supplying a massive influx of protein and fast-digesting carbohydrates immediately after training, you slam the brakes on muscle catabolism and force nutrients into the depleted muscle cells via an insulin spike.</p>
             <p>The remaining meals in the day are kept relatively light, acting merely as maintenance fuel while you sit at a desk or recover on the couch.</p>
 
-            <h2>Strategy 3: Carb Backloading (Fat Loss and Fasting)</h2>
+            <h2 className="text-2xl font-bold mb-3">Strategy 3: Carb Backloading (Fat Loss and Fasting)</h2>
             <p>Carb Backloading is an advanced dietary protocol popularized by strength athletes looking to stay incredibly lean while still eating large, satisfying meals. This strategy flips traditional nutritional advice on its head by shifting the vast majority of your daily calories to the end of the day.</p>
             <p><strong>How it works:</strong> During the active part of your day (morning and afternoon), you eat very light meals consisting entirely of protein and healthy fats. By virtually eliminating carbohydrates during the day, your insulin levels remain flatline low. In the absence of insulin, your body is biologically forced to burn stored body fat for energy. Then, in the evening, you consume a massive "Feast" containing all of your daily carbohydrates.</p>
             <p><strong>The Benefits:</strong> For many people, eating a massive, carbohydrate-heavy meal at dinner improves sleep quality (by promoting serotonin release) and provides a massive psychological reward after a long day of disciplined eating. If you select "2 Meals" and "Carb Backloading" in our calculator, you are essentially mimicking the popular 16:8 Intermittent Fasting protocol, skipping breakfast and breaking your fast with a light lunch before a massive dinner.</p>
 
-            <h2>Which Frequency is Right For You?</h2>
+            <h2 className="text-2xl font-bold mb-3">Which Frequency is Right For You?</h2>
             <p>The best meal frequency is the one you can stick to effortlessly for the next 5 years. There is no magic pill.</p>
             <ul>
               <li><strong>2 Meals (Fasting):</strong> Perfect for busy professionals who hate cooking, want to save time in the morning, and enjoy eating massive, restaurant-sized meals while remaining in a caloric deficit.</li>
@@ -473,7 +473,7 @@ export default function MealFrequencyCalorieSplitCalculator() {
               <li><strong>5-6 Meals (The Competitor):</strong> Necessary only for massive individuals (250+ lbs) who must consume 4,000+ calories a day to maintain muscle mass. Eating 4,000 calories across 3 meals requires consuming over 1,300 calories per sitting, which causes severe digestive distress. Splitting it into 6 meals is simply a mechanical necessity to digest that volume of food.</li>
             </ul>
 
-            <h2>Conclusion: Consistency Trumps Optimization</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Consistency Trumps Optimization</h2>
             <p>Do not let the pursuit of the "perfect" meal schedule derail your progress. The hierarchy of nutritional importance is rigid: Total Calories dictate weight, Total Protein dictates muscle preservation, and Meal Frequency simply optimizes the process. Use the calculator to experiment with different distributions. If you find yourself starving and miserable on an even split, try carb backloading. If you lack energy in the gym, try peri-workout prioritization. Find the blueprint that fits your lifestyle, and execute it consistently.</p>
           </article>
           

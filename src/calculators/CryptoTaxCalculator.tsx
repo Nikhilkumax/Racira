@@ -239,11 +239,11 @@ export default function CryptoTaxCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>How Crypto Capital Gains Tax Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How Crypto Capital Gains Tax Works</h2>
             <p>This <strong>crypto tax calculator</strong> computes your 2024 US federal capital gains tax liability from cryptocurrency trading, using the current IRS tax brackets. Short-term gains (held ≤12 months) are taxed at ordinary income rates (10–37%); long-term gains (held 12+ months) at preferential rates (0%, 15%, 20%). Losses offset gains, and net losses up to $3,000/year reduce ordinary income.</p>
-            <h2>2024 Capital Gains Tax Rates</h2>
+            <h2 className="text-2xl font-bold mb-3">2024 Capital Gains Tax Rates</h2>
             <p>Short-term rates equal your income tax bracket: 10%, 12%, 22%, 24%, 32%, 35%, or 37%. Long-term rates: 0% (income under $47,025 single), 15% ($47,025–$518,900), 20% (above $518,900). High earners also face the 3.8% Net Investment Income Tax on top. The tax differential between short and long-term can be dramatic: the same gain taxed at 37% (short-term) vs. 20% (long-term) saves 17 cents per dollar — holding longer literally pays.</p>
-            <h2>Tax Loss Harvesting Without Wash Sales</h2>
+            <h2 className="text-2xl font-bold mb-3">Tax Loss Harvesting Without Wash Sales</h2>
             <p>Unlike stocks, US crypto is NOT subject to wash-sale rules (as of 2024). You can sell a loss position and immediately repurchase the same cryptocurrency to lock in the tax loss while maintaining market exposure. This makes crypto tax loss harvesting a powerful year-end strategy. Net capital losses beyond gains offset up to $3,000 of ordinary income per year, with additional losses carrying forward indefinitely. Related tools: <a href="/calculator/crypto-profit-calculator">Crypto Profit Calculator</a>, <a href="/calculator/income-tax-calculator">Income Tax Calculator</a>.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/crypto-tax-calculator" />

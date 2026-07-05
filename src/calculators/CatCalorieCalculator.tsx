@@ -143,7 +143,7 @@ const CatCalorieCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Understanding Your Cat's Caloric Needs</h2>
+              <h2 className="text-2xl font-bold mb-3">Understanding Your Cat's Caloric Needs</h2>
               <p>Feeding a cat the right amount is one of the most important things you can do for their long-term health. Unlike dogs, cats are <strong>obligate carnivores</strong> — their bodies are optimised to derive energy from animal protein and fat rather than carbohydrates. This has a direct impact on how their caloric needs are calculated.</p>
 
               <h3>Resting Energy Requirement (RER)</h3>

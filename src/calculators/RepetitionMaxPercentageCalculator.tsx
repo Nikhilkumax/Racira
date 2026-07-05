@@ -363,14 +363,14 @@ export default function RepetitionMaxPercentageCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the 1-Rep Max (1RM) Estimator</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the 1-Rep Max (1RM) Estimator</h2>
             <p>Every legitimate, science-based strength training program on earth—from Jim Wendler’s 5/3/1 to the legendary Smolov Squat Routine—requires you to know your 1-Repetition Maximum (1RM). Your 1RM is the absolute maximum amount of weight you can physically lift for a single, full repetition with proper form. It is the mathematical anchor point used to calculate the percentages for every warmup set, working set, and speed set in your entire program. However, actually performing a true 1RM test in the gym is exhausting, neurologically draining, and highly dangerous for amateur lifters. The <strong>Repetition Max Percentage Calculator</strong> provides a mathematically safe alternative, allowing you to convert a lighter, high-repetition set (e.g., 5 reps) into a highly accurate 1RM estimation using aggregated clinical formulas.</p>
 
-            <h2>The Danger of Testing a True 1RM</h2>
+            <h2 className="text-2xl font-bold mb-3">The Danger of Testing a True 1RM</h2>
             <p>Why shouldn't you just load up the barbell and test your max? If you are a competitive powerlifter peaking for a meet, you have to. But if you are a recreational lifter or a bodybuilder, the risk-to-reward ratio is terrible.</p>
             <p>When you attempt a true 100% maximal lift, your Central Nervous System (CNS) must fire every available motor unit simultaneously. This places extreme, unparalleled stress on your joints, tendons, and spine. More importantly, when an amateur lifter pushes to 100%, their technique almost always breaks down. The back rounds during a deadlift; the knees cave inward during a squat. This biomechanical breakdown under maximum load is the leading cause of herniated discs and torn muscles in the gym. By utilizing an estimation formula, you gain 98% of the mathematical accuracy required to program your workouts, but with 0% of the catastrophic injury risk.</p>
 
-            <h2>How the Clinical Formulas Work</h2>
+            <h2 className="text-2xl font-bold mb-3">How the Clinical Formulas Work</h2>
             <p>Sports scientists have spent decades analyzing the mathematical relationship between the weight on the bar and the number of repetitions a human can perform. The result is a series of non-linear equations. Our calculator does not rely on a single formula; it calculates the four most respected clinical equations in sports science and aggregates them to smooth out statistical outliers.</p>
 
             <h3>1. The Brzycki Formula</h3>
@@ -384,18 +384,18 @@ export default function RepetitionMaxPercentageCalculator() {
             <h3>3. The Lombardi and O'Conner Formulas</h3>
             <p>Lombardi utilizes an exponential curve (Reps raised to the power of 0.10) which helps correct estimations for athletes who are highly fast-twitch dominant. O'Conner uses a flat 2.5% linear regression per repetition. By averaging all four of these formulas together, the calculator neutralizes the individual weaknesses of each equation.</p>
 
-            <h2>The "5-Rep" Rule for Maximum Accuracy</h2>
+            <h2 className="text-2xl font-bold mb-3">The "5-Rep" Rule for Maximum Accuracy</h2>
             <p>To use this calculator correctly, you must understand its limitations. These mathematical formulas measure <strong>raw neurological strength</strong>. They assume that the reason you failed the set was that your muscles could not generate enough force to move the weight.</p>
             <p>If you perform a set of 3, 4, or 5 repetitions, you are testing pure strength. The math will be incredibly accurate. However, if you load a light weight and perform 15 or 20 repetitions, the math falls apart. At 20 repetitions, you did not fail because you lacked strength; you failed because your cardiovascular system gave out, or because the lactic acid burn in your muscles became too painful to tolerate. Because the biological mechanism of failure changed from "strength" to "endurance," the formula will generate a massively inaccurate, falsely inflated 1RM. <strong>Always use a 2 to 5 rep max for your inputs to ensure clinical accuracy.</strong></p>
 
-            <h2>Muscle Fiber Type Variances</h2>
+            <h2 className="text-2xl font-bold mb-3">Muscle Fiber Type Variances</h2>
             <p>Even with perfect inputs, you must understand your own body. Humans possess two primary types of muscle fibers: Fast-Twitch (Type II) and Slow-Twitch (Type I).</p>
             <ul>
               <li><strong>Fast-Twitch Dominant:</strong> These athletes are explosive but lack endurance. They might be able to Squat 400 lbs for a true 1RM, but drop the weight to 340 lbs (85%) and they can only manage 2 reps before exhausting. If they plug those 2 reps into the calculator, it might underestimate their true max.</li>
               <li><strong>Slow-Twitch Dominant:</strong> These athletes have insane endurance but lack top-end power. They might Squat 315 lbs for an incredible 10 reps. The calculator will tell them their 1RM is 420 lbs. But if they actually load 400 lbs on the bar, they will be crushed, because they lack the raw fast-twitch power required for maximal singles.</li>
             </ul>
 
-            <h2>Applying the Data to Your Program</h2>
+            <h2 className="text-2xl font-bold mb-3">Applying the Data to Your Program</h2>
             <p>Once the calculator generates your Estimated 1RM, you must secure it. Do not immediately go to the gym and try to lift it to prove the calculator right. Take that number, subtract 10% from it to create a "Training Max" (a conservative baseline that accounts for bad days and poor sleep), and plug that Training Max into your programming spreadsheet. This will ensure your Hypertrophy (75%), Strength (85%), and Peaking (95%) blocks are perfectly calibrated to your current physiological capability, guaranteeing steady, injury-free progress.</p>
           </article>
           

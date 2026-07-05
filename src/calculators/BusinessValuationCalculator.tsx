@@ -188,10 +188,10 @@ export default function BusinessValuationCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding Business Valuation</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Business Valuation</h2>
             <p>Business valuation is the process of determining the economic value of a whole business or company unit. It is used to establish the fair value of a business for sale, merger, acquisition, partner buyouts, tax reporting, or capital allocation. A thorough valuation typically employs multiple methodologies to establish a realistic valuation range rather than relying on a single approach.</p>
             
-            <h2>Valuation Methods Compared</h2>
+            <h2 className="text-2xl font-bold mb-3">Valuation Methods Compared</h2>
             <h3>1. Discounted Cash Flow (DCF) Method</h3>
             <p>The DCF method calculates the present value of the business's projected future cash flows. Projections are discounted using a rate that reflects the investment hurdle or risk. In addition, a terminal value is computed to estimate the value of the firm's cash flows beyond the projection window (e.g., Year 6 and onwards).</p>
 

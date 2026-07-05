@@ -454,38 +454,38 @@ export default function SubprimeLoanCostCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Subprime Loan Cost Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Subprime Loan Cost Calculator</h2>
             <p>The financial services industry operates on a strict system of risk assessment. When you apply for a loan—whether it is an auto loan, a personal loan, or a mortgage—the lender evaluates your credit score to determine how likely you are to default. If your credit score is below a certain threshold (typically sub-600 FICO), you fall into the "subprime" category. To compensate for the high risk of lending to you, banks impose a massive financial penalty via exorbitant interest rates and fees.</p>
             <p>Our <strong>Subprime Loan Cost Calculator</strong> is not a standard payment calculator. It is a forensic analytical tool designed to quantify the "Subprime Penalty." By comparing the exact trajectory of your high-interest loan against what a borrower with good credit would receive, this tool reveals the precise, dollar-for-dollar amount of wealth you are losing due to a low credit score.</p>
 
-            <h2>The Hidden Architecture of Subprime Lending</h2>
+            <h2 className="text-2xl font-bold mb-3">The Hidden Architecture of Subprime Lending</h2>
             <p>Subprime lending is highly profitable for financial institutions, but it relies on complex, front-loaded fee structures designed to trap borrowers. When using this calculator, it is critical to understand the three pillars of subprime cost:</p>
             <p><strong>1. The Inflated Interest Rate:</strong> The most obvious penalty is the interest rate. While a "prime" borrower with a 750 credit score might secure an auto loan at 6%, a subprime borrower might be offered 18%, 22%, or even 29.99%. Over a 5-year loan, this seemingly abstract percentage translates into thousands of dollars of pure profit for the lender.</p>
             <p><strong>2. Predatory Origination Fees:</strong> Prime borrowers often pay zero origination fees on personal or auto loans. Subprime lenders, however, frequently charge massive upfront fees (e.g., 5% to 10% of the loan amount) just for processing the application. Worse, these fees are usually rolled into the principal balance, meaning the lender charges you 20% interest on the fee itself for the next five years.</p>
             <p><strong>3. Monthly Administrative Fees:</strong> Many subprime loans (especially bad-credit personal installment loans) include hidden "$15/month administrative fees." While $15 sounds insignificant, over a 60-month loan, that is $900 completely removed from your principal repayment.</p>
 
-            <h2>Analyzing the "Total Subprime Penalty"</h2>
+            <h2 className="text-2xl font-bold mb-3">Analyzing the "Total Subprime Penalty"</h2>
             <p>The headline metric produced by this calculator is the <strong>Total Subprime Penalty</strong>. This is not the total cost of the loan; rather, it is the <em>difference</em> between what you are paying and what a prime borrower pays for the exact same loan amount.</p>
             <p>If you borrow $25,000 to buy a car, a prime borrower might pay a total of $29,000 over 5 years. A subprime borrower, burdened with an 18% rate and a 5% origination fee, might pay $40,000 over the same 5 years. The Subprime Penalty is $11,000. That is $11,000 of your labor, your cash flow, and your wealth legally extracted from you simply because of a three-digit credit score.</p>
 
-            <h2>Visualizing the Cost Trajectory</h2>
+            <h2 className="text-2xl font-bold mb-3">Visualizing the Cost Trajectory</h2>
             <p>The Area Chart in our calculator plots the cumulative cost of both the Prime and Subprime trajectories. Pay close attention to how the two curves diverge over time.</p>
             <p>In month one, the red subprime curve immediately jumps above the blue prime curve. This gap represents the upfront origination fees being injected into your debt. As the years progress, the gap between the curves accelerates. This exponential widening is caused by compound interest ravaging the subprime balance while the prime balance steadily amortizes toward zero. The space between those two curves is a visual representation of your lost wealth.</p>
 
-            <h2>The Mathematical Defense: The Refinance Strategy</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematical Defense: The Refinance Strategy</h2>
             <p>If you are forced into a subprime loan due to absolute necessity (e.g., your car breaks down, you need to get to work, and no prime lender will approve you), you are not permanently trapped. You must utilize the "Refinance Strategy."</p>
             <p><strong>Phase 1 (The Rebuild):</strong> Accept the subprime loan, but view it strictly as a temporary credit-repair tool. For 12 straight months, make every single payment flawlessly on time. Never be a day late. This establishes a perfect payment history, which makes up 35% of your FICO score. Your score will climb.</p>
             <p><strong>Phase 2 (The Escape):</strong> At month 13, do not stay in the loan. Approach a local credit union. Present your 12 months of flawless payment history and your newly improved credit score, and apply to refinance the remaining balance of the vehicle. By dropping your rate from 22% down to 8%, you instantly halt the aggressive red curve on our chart and switch your trajectory to the blue curve, saving yourself thousands in the final years of the loan.</p>
 
-            <h2>Opportunity Cost and Delayed Gratification</h2>
+            <h2 className="text-2xl font-bold mb-3">Opportunity Cost and Delayed Gratification</h2>
             <p>This calculator is a powerful tool for enforcing "Delayed Gratification." Before signing a subprime contract, input the numbers. If the Total Subprime Penalty is $8,000, ask yourself a critical question: "Is buying this asset today worth a guaranteed $8,000 loss?"</p>
             <p>If the loan is for a discretionary purchase—like a jet ski, a vacation, or an expensive wedding—the mathematical answer is definitively no. By delaying the purchase for one year, actively paying down old debts, and raising your credit score by 100 points, you keep that $8,000 in your own pocket rather than handing it to a high-risk lending syndicate.</p>
 
-            <h2>Warning: The Subprime Auto Industry Trap</h2>
+            <h2 className="text-2xl font-bold mb-3">Warning: The Subprime Auto Industry Trap</h2>
             <p>The most dangerous sector for subprime borrowing is the "Buy Here, Pay Here" auto dealership. These lots target desperate buyers. They use "Spot Delivery" to get you into a car quickly, mask the massive 25% interest rate behind low weekly payments, and install GPS kill-switches to remotely disable the vehicle if you miss a payment by one day.</p>
             <p>Worse, they frequently mandate that the origination fees and expensive "extended warranties" be rolled into the loan. Because the interest rate is so astronomical, the borrower mathematically cannot pay down the principal fast enough to keep up with the depreciation of the vehicle. This traps the borrower "underwater" (owing more than the car is worth), preventing them from trading it in or selling it to escape the subprime trap. Always secure financing from a credit union before stepping onto a high-risk auto lot.</p>
 
-            <h2>Conclusion</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion</h2>
             <p>Subprime loans are a brutal mathematical reality for millions of borrowers. However, ignorance is the lender's greatest weapon. By refusing to focus merely on the "affordable monthly payment," and instead demanding to see the Total Lifetime Cost, you strip the lender of their advantage.</p>
             <p>Use this Subprime Loan Cost Calculator to confront the mathematical reality of bad credit. Quantify your penalty, strategize a 12-month refinance escape plan, and ensure that your temporary credit missteps do not result in a permanent destruction of your long-term wealth.</p>
           </article>

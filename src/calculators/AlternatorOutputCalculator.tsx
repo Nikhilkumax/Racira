@@ -190,19 +190,19 @@ export default function AlternatorOutputCalculator() {
               <>
                 {/* 1. Primary Result Card */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className={`border-l-4 rounded-lg p-6 relative overflow-hidden shadow-sm ${results.isBatteryDrainingAtIdle ? 'bg-destructive/10 border-destructive ring-2 ring-destructive ring-offset-2 ring-offset-background' : 'bg-primary/10 border-primary'}`}>
-                    <div className={`text-xs uppercase tracking-wide mb-2 font-bold ${results.isBatteryDrainingAtIdle ? 'text-destructive/80' : 'text-muted-foreground'}`}>
+                  <div className={`bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative overflow-hidden shadow-sm mb-4 ${results.isBatteryDrainingAtIdle ? 'bg-destructive/10 border-destructive ring-2 ring-destructive ring-offset-2 ring-offset-background' : ''}`}>
+                    <div className={`text-xs uppercase tracking-wide mb-2 font-bold ${results.isBatteryDrainingAtIdle ? 'text-destructive/80' : 'text-primary'}`}>
                       {results.isBatteryDrainingAtIdle ? "WARNING: Battery Draining At Idle" : "Surplus Power At Idle"}
                     </div>
                     <div className="flex items-end gap-3 mb-1">
-                      <div className={`text-6xl font-black tracking-tighter ${results.isBatteryDrainingAtIdle ? 'text-destructive' : 'text-primary'}`}>
+                      <div className={`text-6xl font-black tracking-tighter ${results.isBatteryDrainingAtIdle ? 'text-destructive' : 'text-foreground'}`}>
                         {Math.abs(results.surplusAtIdle)}
                       </div>
-                      <div className={`text-2xl font-bold mb-1 ${results.isBatteryDrainingAtIdle ? 'text-destructive' : 'text-primary'}`}>Amps</div>
+                      <div className={`text-2xl font-bold mb-1 ${results.isBatteryDrainingAtIdle ? 'text-destructive' : 'text-muted-foreground'}`}>Amps</div>
                     </div>
                   </div>
 
-                  <div className="bg-card border border-border rounded-lg p-6 relative overflow-hidden shadow-sm">
+                  <div className="bg-card border border-border rounded-lg p-6 relative overflow-hidden shadow-sm mb-4">
                     <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Total System Draw</div>
                     <div className="flex items-end gap-3 mb-1">
                       <div className="text-5xl font-black text-foreground tracking-tighter">{results.totalDrawAmps}</div>
@@ -297,19 +297,25 @@ export default function AlternatorOutputCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Misunderstood Alternator</h2>
-            <p>Many drivers believe that the battery powers the car while driving. This is entirely false. The battery has exactly one job: to provide a massive burst of power to the starter motor for roughly three seconds to start the engine. Once the engine is running, the alternator takes over completely. The alternator powers the spark plugs, the headlights, the radio, the fuel pump, and simultaneously acts as a battery charger to replenish the power used during startup.</p>
+            <h2 className="text-2xl font-bold mb-3">The Misunderstood Alternator</h2>
+            <p>Many drivers harbor the fundamentally incorrect belief that the car battery physically powers the vehicle while driving. This is entirely false. In a traditional internal combustion vehicle, the battery serves exactly one highly specialized purpose: providing a massive, instantaneous burst of electrical power to the starter motor for roughly three to five seconds to physically crank the engine. Once the engine successfully starts and is running under its own power, the vehicle's alternator immediately takes over completely. The alternator is responsible for continuously powering the spark plugs, the headlights, the radio, the fuel pump, the climate control fans, and all onboard computer systems, while simultaneously acting as a dedicated battery charger to fully replenish the massive amount of power consumed during the engine startup process.</p>
 
-            <h2>The Idle Problem</h2>
-            <p>An alternator is a mechanical generator spun by a belt connected to the engine's crankshaft. Because it is mechanically linked, its power output is directly tied to engine speed. An alternator rated for 120 Amps only produces that 120 Amps when the engine is spinning fast (usually around 2,000 RPM). </p>
-            <p>When you are stopped at a red light (idling at 600 RPM), the alternator is barely spinning. At idle, an alternator only produces roughly 45% of its maximum power. Therefore, a 120A alternator is only generating about 54 Amps at a stoplight. If your factory car needs 40 Amps to run, you are perfectly fine.</p>
+            <h2 className="text-2xl font-bold mb-3">The Idle Problem</h2>
+            <p>An alternator is a purely mechanical generator that is physically spun by a serpentine belt connected directly to the engine's main crankshaft. Because the alternator is mechanically linked to the engine, its total electrical power output is absolutely dictated by the current engine speed. An alternator that is factory-rated for one hundred and twenty maximum Amps will only produce that peak output when the engine is spinning extremely fast, typically around two thousand revolutions per minute or higher, such as when accelerating onto a highway.</p>
+            <p>The critical vulnerability occurs when you are stopped at a red light or sitting in dense traffic, idling at roughly six hundred revolutions per minute. At this extremely low engine speed, the alternator is barely spinning. At idle, a standard automotive alternator typically produces roughly forty-five percent of its maximum rated power. Therefore, a one hundred and twenty Amp alternator is only generating approximately fifty-four Amps at a stoplight. If your factory vehicle requires forty Amps to keep the engine running and the lights on, you have a slight surplus and your system functions perfectly fine.</p>
 
-            <h2>Why Aftermarket Accessories Kill Batteries</h2>
-            <p>If you install a 1000-Watt subwoofer (which draws ~70 Amps) and a roof-mounted light bar (which draws ~15 Amps), your Total System Demand skyrockets to 125 Amps. </p>
-            <p>When you sit at a red light, your vehicle demands 125 Amps, but the alternator is only producing 54 Amps. The laws of physics dictate that the missing 71 Amps must come from somewhere—so the vehicle starts draining the battery. If the red light is long enough, the battery will drain to zero, the spark plugs will lose power, and the engine will instantly stall in the middle of the intersection. Upgrading to a larger battery will not fix this; you must install a High-Output Alternator capable of generating 125+ Amps at idle.</p>
+            <h2 className="text-2xl font-bold mb-3">Why Aftermarket Accessories Kill Batteries</h2>
+            <p>The delicate factory electrical balance is completely shattered when a vehicle owner begins installing heavy aftermarket accessories. If an enthusiast installs a massive one thousand Watt audio amplifier (which draws approximately seventy Amps) alongside a roof-mounted LED off-road light bar (which draws another fifteen Amps), the vehicle's Total System Demand instantly skyrockets to over one hundred and twenty-five Amps.</p>
+            <p>When this heavily modified vehicle stops at a red light, the entire vehicle demands one hundred and twenty-five Amps to remain operational, but the slowly spinning alternator is only physically capable of producing fifty-four Amps. The laws of physics dictate that the missing seventy-one Amps must come from somewhere, so the vehicle immediately begins siphoning the deficit directly from the starter battery. If the red light lasts long enough, or if the driver sits in stop-and-go traffic for thirty minutes, the battery will be systematically drained to zero. Once the battery dies, the spark plugs lose their electrical source, and the engine will instantly stall in the middle of the intersection. Upgrading to a larger, more expensive battery will absolutely not fix this underlying mechanical problem; you must install a specialized High-Output Alternator capable of mechanically generating one hundred and twenty-five Amps at engine idle.</p>
 
-            <h2>How to Convert Watts to Amps</h2>
-            <p>Most aftermarket accessories (like audio amplifiers and LED lights) are marketed in Watts, but alternators are rated in Amps. To convert Watts to Amps, you use Ohm's Law: <code>Amps = Watts ÷ Volts</code>. Because a healthy running alternator produces roughly 14.4 Volts, you divide the accessory's wattage by 14.4 to find its true Amperage draw.</p>
+            <h2 className="text-2xl font-bold mb-3">How to Convert Watts to Amps</h2>
+            <p>Most aftermarket automotive accessories, particularly high-end audio amplifiers and off-road lighting systems, are marketed to consumers based on their total Wattage. However, vehicle alternators are strictly rated in Amperage. To accurately determine if your alternator can support a new accessory, you must mathematically convert the marketed Watts into Amps using standard Ohm's Law principles. Because a healthy, running automotive electrical system operates at roughly fourteen point four Volts, you simply divide the accessory's stated wattage by fourteen point four to find its true, continuous Amperage draw.</p>
+
+            <h2 className="text-2xl font-bold mb-3">The Dangers of Voltage Drop</h2>
+            <p>When an alternator is severely overloaded and cannot supply the required Amperage, the entire electrical system suffers a massive drop in operating voltage. Instead of maintaining a healthy fourteen point four Volts, the system might crash down to eleven or twelve Volts. This severe voltage drop causes highly visible symptoms, such as the headlights rapidly dimming in time with heavy bass notes from the audio system. More importantly, operating sensitive electronic control units, fuel injectors, and aftermarket amplifiers at significantly reduced voltages causes them to run dangerously hot, dramatically reducing their operational lifespan and frequently leading to catastrophic, expensive hardware failures.</p>
+
+            <h2 className="text-2xl font-bold mb-3">The Big Three Wiring Upgrade</h2>
+            <p>Even if you purchase and install a massive High-Output alternator capable of generating three hundred Amps, your vehicle will still suffer electrical failures if the factory wiring cannot physically transport that amount of power. Factory wiring is extremely thin, designed strictly to handle the factory alternator's output. Pushing three hundred Amps through a thin factory wire will cause the wire to melt, potentially causing an engine fire. To fully utilize a High-Output alternator, installers must execute the "Big Three" wiring upgrade, replacing the primary charging wire, the engine grounding wire, and the chassis grounding wire with massive, zero-gauge oxygen-free copper cables capable of safely transmitting massive electrical loads without extreme resistance.</p>
           </article>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/alternator-output-calculator" />

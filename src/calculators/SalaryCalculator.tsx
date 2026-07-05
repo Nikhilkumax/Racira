@@ -138,18 +138,18 @@ const SalaryCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>What Is a Salary Calculator?</h2>
+              <h2 className="text-2xl font-bold mb-3">What Is a Salary Calculator?</h2>
               <p>A salary calculator converts your pay between different time periods — hourly, daily, weekly, bi-weekly, monthly, and annually. Whether you're evaluating a job offer, comparing different positions, or budgeting, understanding your salary across different timeframes is essential.</p>
               <p>Our calculator also accounts for paid holidays and vacation days, giving you a more accurate picture of your actual working hours and effective hourly rate.</p>
 
-              <h2>How Salary Conversions Work</h2>
+              <h2 className="text-2xl font-bold mb-3">How Salary Conversions Work</h2>
               <p>The standard conversions assume a typical full-time schedule: 40 hours per week, 52 weeks per year, yielding 2,080 working hours annually. From an annual salary, the hourly rate is simply annual ÷ 2,080.</p>
               <p>For example, a $52,000 annual salary translates to $25/hour, $200/day, $1,000/week, $2,000 bi-weekly, and $4,333.33 monthly.</p>
 
-              <h2>The Impact of Hours and Days Off</h2>
+              <h2 className="text-2xl font-bold mb-3">The Impact of Hours and Days Off</h2>
               <p>Standard calculations assume you work every scheduled day, but paid holidays and vacation reduce your actual working days. If you receive 10 holidays and 15 vacation days, you only work 235 out of 260 possible days. This means your effective hourly rate is higher than the standard calculation suggests.</p>
 
-              <h2>Tips for Salary Negotiation</h2>
+              <h2 className="text-2xl font-bold mb-3">Tips for Salary Negotiation</h2>
               <ul>
                 <li><strong>Know your market rate:</strong> Research salary ranges for your role and location.</li>
                 <li><strong>Consider total compensation:</strong> Benefits like health insurance, retirement matching, and equity can be worth 20-40% of base salary.</li>

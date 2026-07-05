@@ -108,28 +108,28 @@ export default function OptionsProfitCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Understanding Options Profit and Loss</h2>
+              <h2 className="text-2xl font-bold mb-3">Understanding Options Profit and Loss</h2>
               <p>Options trading offers investors a powerful way to profit from price movements in stocks, ETFs, and other securities with a defined and limited risk. Unlike buying shares outright, purchasing an option grants you the right — but not the obligation — to buy or sell an underlying asset at a predetermined price (the strike price) before a specified expiration date. This Options Profit Calculator helps you visualize the exact profit, loss, and break-even points for your trade before you commit capital.</p>
 
-              <h2>The Mechanics of a Call Option</h2>
+              <h2 className="text-2xl font-bold mb-3">The Mechanics of a Call Option</h2>
               <p>A call option is a bullish strategy. You buy a call when you believe the underlying stock price will rise above the strike price before expiration. For example, if a stock trades at $150 and you buy a call with a $155 strike for a $2.50 premium, your break-even is $157.50. Above that price, every dollar of stock appreciation translates to $100 of profit per contract (since each contract covers 100 shares). Below $157.50 at expiration, your maximum loss is the $250 premium paid.</p>
 
-              <h2>The Mechanics of a Put Option</h2>
+              <h2 className="text-2xl font-bold mb-3">The Mechanics of a Put Option</h2>
               <p>A put option is the bearish counterpart. You buy a put when you expect the stock to fall. If the same $150 stock has a $145 put with a $2.50 premium, your break-even is $142.50. Below that, the option gains value. The maximum profit for a put is capped at the strike price minus the premium (times 100 shares), occurring when the stock goes to zero. The maximum loss is again the premium paid.</p>
 
-              <h2>Risk Management with Options</h2>
+              <h2 className="text-2xl font-bold mb-3">Risk Management with Options</h2>
               <p>One of the most appealing features of buying options is that risk is defined and limited. Unlike short-selling a stock where losses can be theoretically infinite, an option buyer cannot lose more than the premium invested. This makes options an attractive tool for hedging an existing stock portfolio or speculating with limited downside. However, it's critical to understand that the probability of losing 100% of the premium is often higher than the probability of the trade being profitable.</p>
 
-              <h2>Time Decay: The Silent Killer</h2>
+              <h2 className="text-2xl font-bold mb-3">Time Decay: The Silent Killer</h2>
               <p>Options are wasting assets — they lose value every day simply due to the passage of time. This is called Theta decay. An option with 60 days left has more time value than one with 5 days left. For option buyers, time is the enemy. If the stock doesn't move in your direction quickly enough, time decay will erode your option's value even if you are eventually proven right about the direction.</p>
 
-              <h2>Implied Volatility and Its Impact</h2>
+              <h2 className="text-2xl font-bold mb-3">Implied Volatility and Its Impact</h2>
               <p>Implied Volatility (IV) represents the market's consensus on how much a stock's price will move. High IV means options are expensive; low IV means they are cheap. Buying options when IV is extremely high (e.g., right before an earnings announcement) is risky because the "volatility crush" after the event can destroy an option's value even if the stock moves in the right direction. This is why experienced options traders pay close attention to IV rank and IV percentile.</p>
 
-              <h2>Calculating Your True Cost</h2>
+              <h2 className="text-2xl font-bold mb-3">Calculating Your True Cost</h2>
               <p>Always think in terms of total cost, not per-share cost. A $2.50 premium might seem small, but one contract controls 100 shares and costs $250. If you buy 10 contracts, your total premium is $2,500. This total premium is your maximum possible loss. When calculating expected return, the percentage gain on the premium can be very high (e.g., 200-300%), but the absolute dollar amount must justify the risk.</p>
 
-              <h2>The Role of the Greeks in Options Trading</h2>
+              <h2 className="text-2xl font-bold mb-3">The Role of the Greeks in Options Trading</h2>
               <p>Beyond the basic P&L at expiration, options traders use "The Greeks" to measure sensitivity:</p>
               <ul>
                 <li><strong>Delta:</strong> How much the option price changes per $1 move in the stock (0 to 1 for calls, -1 to 0 for puts).</li>
@@ -139,7 +139,7 @@ export default function OptionsProfitCalculator() {
               </ul>
               <p>Understanding the Greeks allows traders to construct sophisticated multi-leg strategies like spreads, straddles, and iron condors that profit from specific market conditions.</p>
 
-              <h2>Common Options Strategies Beyond Simple Calls and Puts</h2>
+              <h2 className="text-2xl font-bold mb-3">Common Options Strategies Beyond Simple Calls and Puts</h2>
               <p>Once you master the basics, you can combine options contracts into complex strategies. A <strong>covered call</strong> involves owning 100 shares and selling a call against them to generate income. A <strong>protective put</strong> involves buying a put on shares you own to insure against downside. A <strong>bull call spread</strong> involves buying one call and selling another at a higher strike to reduce the cost of the trade, capping both your profit and loss.</p>
             </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/options-profit-calculator" />

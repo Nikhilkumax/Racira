@@ -259,25 +259,25 @@ export default function FirstHomeBuyerCalculator() {
 
         {/* SEO Content */}
         <div className="max-w-[1180px] mt-12 prose prose-slate dark:prose-invert">
-          <h2>What Is a First Home Buyer Calculator?</h2>
+          <h2 className="text-2xl font-bold mb-3">What Is a First Home Buyer Calculator?</h2>
           <p>Buying your first home can be intimidating because of the numerous hidden costs. A First Home Buyer Calculator is specifically designed to account for first-time buyer grants, low down payment options (like 3% conventional or 3.5% FHA), and the resulting Private Mortgage Insurance (PMI) required.</p>
           
-          <h2>How It Works</h2>
+          <h2 className="text-2xl font-bold mb-3">How It Works</h2>
           <p>The calculator uses standard mortgage amortization math for the loan itself but also integrates a "Cash to Close" breakdown. It totals your down payment and closing costs, then subtracts any first-time home buyer grants or seller credits to show you exactly how much cash you need in your bank account on closing day.</p>
 
-          <h2>Understanding Your Results</h2>
+          <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
           <p>The main result is your total estimated monthly payment, which is split in the pie chart into Principal & Interest, Property Taxes, Homeowners Insurance, and PMI. The secondary focus is the Cash to Close table, which ensures you aren't surprised by the thousands of dollars required for closing costs.</p>
           
-          <h2>Key Factors</h2>
+          <h2 className="text-2xl font-bold mb-3">Key Factors</h2>
           <p>As a first-time buyer, your <strong>down payment percentage</strong> and <strong>FHB Grant</strong> are critical. Many buyers assume they need 20% down, but first-time buyer programs allow as little as 3% down. However, putting down less than 20% triggers PMI, which is automatically estimated in this calculator.</p>
           
-          <h2>Practical Examples</h2>
+          <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
           <p>If you buy a $350,000 home with 3% down ($10,500), and you have $7,000 in closing costs, you normally need $17,500 in cash. But if you qualify for a $5,000 state first-time homebuyer grant, your required cash to close drops to a much more manageable $12,500.</p>
           
-          <h2>Tips & Best Practices</h2>
+          <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
           <p>Always research your state and local housing authority programs. Many states offer down payment assistance (DPA) loans or grants specifically for first-time buyers that can cover 3% to 5% of the purchase price, making homeownership accessible even with limited savings.</p>
           
-          <h2>Benefits</h2>
+          <h2 className="text-2xl font-bold mb-3">Benefits</h2>
           <p>By simulating your exact cash-to-close requirements and realistic monthly payments (including PMI and taxes), you can confidently enter the housing market knowing exactly what you can afford and what to expect on closing day.</p>
         </div>
 

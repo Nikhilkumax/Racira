@@ -225,11 +225,11 @@ export default function EarlyRetirementCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is the FIRE Movement?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is the FIRE Movement?</h2>
             <p>FIRE (Financial Independence, Retire Early) is a personal finance strategy based on extreme savings and disciplined investing to achieve financial independence decades before traditional retirement age. This <strong>FIRE calculator</strong> determines your FIRE number (portfolio needed to sustain your lifestyle) and projects how long it will take to get there based on your current savings rate and investment returns.</p>
-            <h2>The Math Behind FIRE</h2>
+            <h2 className="text-2xl font-bold mb-3">The Math Behind FIRE</h2>
             <p>FIRE Number = Annual Expenses ÷ Safe Withdrawal Rate. The 4% rule (from the Trinity Study) means: if your portfolio equals 25× your annual expenses, you can withdraw 4% annually and historically have a 95%+ chance of the portfolio lasting 30 years. For 50+ year retirements common in early retirement, many FIRE practitioners use 3–3.5% withdrawal rates (33–40× expenses). Your savings rate is the single biggest lever — each percentage point increase in savings rate meaningfully accelerates your FIRE timeline.</p>
-            <h2>Sequence of Returns Risk</h2>
+            <h2 className="text-2xl font-bold mb-3">Sequence of Returns Risk</h2>
             <p>The most dangerous risk in early retirement is a market crash in the first few years of withdrawals. Withdrawing from a declining portfolio locks in losses and permanently impairs long-term recovery. Mitigation strategies: Keep 1–2 years of expenses in cash; use flexible spending (spend less in down markets); maintain part-time income; consider the "rising equity glidepath" — start with more bonds and gradually increase equity allocation. Related tools: <a href="/calculator/retirement-calculator">Retirement Calculator</a>, <a href="/calculator/investment-calculator">Investment Calculator</a>, <a href="/calculator/compound-interest-calculator">Compound Interest Calculator</a>.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/early-retirement-calculator" />

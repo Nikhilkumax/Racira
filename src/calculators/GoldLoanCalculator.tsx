@@ -384,45 +384,45 @@ export default function GoldLoanCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Gold Loan Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Gold Loan Calculator</h2>
             <p>For thousands of years, gold has served as the ultimate store of value. However, holding physical gold does not pay your bills. When sudden financial emergencies arise—whether it is a medical bill, a business opportunity, or an unexpected repair—selling your family's precious heirlooms is an emotional and permanent decision. A gold loan offers an alternative. An <strong>Gold Loan Calculator</strong> is a specialized financial tool designed to help you unlock the liquidity trapped within your gold assets without forfeiting ownership of them.</p>
             <p>A gold loan is fundamentally different from a car loan or a personal loan. It is an asset-backed, fully secured credit line. Because the lender is holding an asset with universally recognized intrinsic value, the lending process is incredibly fast, and credit scores are largely irrelevant. By using this calculator, you can instantly estimate how much cash your jewelry or coins can generate, allowing you to compare lender terms before handing over your precious metals.</p>
 
-            <h2>The Mathematics of Gold Lending</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of Gold Lending</h2>
             <p>Calculating the eligible amount for a gold loan requires understanding three distinct variables: the gross weight of your item, the purity of the metal, and the Loan-to-Value (LTV) limits set by the lender or government regulations. Our calculator computes these variables seamlessly.</p>
             <p><strong>Step 1: Determining Pure Weight.</strong> Lenders do not loan money against copper or zinc; they only loan money against pure gold. Therefore, the Karat rating of your jewelry is mathematically converted into a purity multiplier. Pure 24-Karat gold has a multiplier of 1.0. The standard for high-quality jewelry, 22-Karat, is 91.6% pure (a multiplier of 0.916). 18-Karat gold is 75% pure (0.75). If you bring in 100 grams of 18K gold, the lender calculates your loan based strictly on 75 grams of pure gold.</p>
             <p><strong>Step 2: Determining Market Value.</strong> The calculator takes that pure weight and multiplies it by the current global spot price of 24K gold per gram. If your 75 pure grams are valued at $75 a gram, your total gold value is $5,625. This is the intrinsic collateral value.</p>
             <p><strong>Step 3: Applying the LTV Ratio.</strong> Lenders will never give you 100% of your gold's value in cash. They must protect themselves against market volatility. Most central banks regulate this by capping the Loan-to-Value (LTV) ratio at 75%. If your gold is worth $5,625, a 75% LTV means your maximum eligible loan is $4,218. The remaining 25% serves as the lender's safety margin.</p>
 
-            <h2>Analyzing Your Calculator Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Analyzing Your Calculator Results</h2>
             <p>Our Gold Loan Calculator generates a comprehensive financial breakdown of your asset. Understanding these numbers is vital for responsible borrowing.</p>
             <p><strong>Max Eligible Loan Amount:</strong> This is the headline number. It is the maximum amount of cash you can expect the lender to hand you before deducting processing fees. Note that you are not required to take the maximum amount; taking a smaller loan decreases your risk of a margin call.</p>
             <p><strong>Lender Margin (Risk Buffer):</strong> This number, visible in the Cost Breakdown table and chart, represents the equity you are leaving on the table. It is the difference between what your gold is actually worth and what the lender gave you. If you default on the loan, the lender will auction your gold, keep the loan amount and interest, and (theoretically) return this margin to you.</p>
             <p><strong>Monthly Interest:</strong> Unlike standard amortizing loans (like cars or houses), gold loans are usually simple-interest bullet loans. This means you do not pay down the principal every month. Instead, you just pay the flat monthly interest. At the end of the loan term, you pay back the entire principal in one lump sum. This number tells you exactly what that monthly "maintenance" cost will be.</p>
 
-            <h2>The Dangers of a Margin Call</h2>
+            <h2 className="text-2xl font-bold mb-3">The Dangers of a Margin Call</h2>
             <p>The single most important concept to understand when taking a gold loan is the "margin call." Gold is a globally traded commodity, and its price fluctuates every second. When you secure a loan, the lender relies on that 25% safety margin.</p>
             <p>If the global price of gold crashes, the market value of your collateral drops. Suddenly, that $4,200 loan might represent 90% of the gold's new value, violating the lender's risk parameters. When this happens, the lender will issue a margin call. You will receive a phone call demanding that you immediately deposit cash to pay down the loan balance, or physically bring in more gold to increase the collateral value. If you fail to meet a margin call within the specified timeframe (often just a few days), the lender has the legal right to liquidate (auction) your jewelry to recover their money.</p>
 
-            <h2>Credit Scores and Accessibility</h2>
+            <h2 className="text-2xl font-bold mb-3">Credit Scores and Accessibility</h2>
             <p>One of the primary benefits of a gold loan is its accessibility. Traditional personal loans require extensive credit checks, income verification, employment history, and debt-to-income ratio calculations. If you have poor credit, securing an unsecured personal loan is nearly impossible or comes with extortionate interest rates.</p>
             <p>Because a gold loan is fully secured by an incredibly liquid physical asset, the lender's risk is virtually zero. They already have the gold in their vault. If you don't pay, they sell the gold. Therefore, lenders rarely require a credit check or income verification for a gold loan. The transaction can often be completed in under an hour, making it an ideal solution for urgent, short-term liquidity crises.</p>
 
-            <h2>Advanced Features: Interest Rates and Fees</h2>
+            <h2 className="text-2xl font-bold mb-3">Advanced Features: Interest Rates and Fees</h2>
             <p>Our calculator features advanced toggles to simulate true financing costs, which is critical because interest rates and processing fees can vary wildly between lenders.</p>
             <p><strong>Interest Rates:</strong> While they are secured loans, gold loan interest rates are often higher than traditional secured loans like mortgages. Expect annual interest rates between 9% and 15%, depending on the lender and the LTV ratio chosen. Choosing a lower LTV (e.g., borrowing only 50% of the value) can sometimes secure a lower interest rate.</p>
             <p><strong>Processing Fees:</strong> Most lenders charge an upfront processing fee (or appraisal fee) to evaluate the purity of your gold and execute the loan paperwork. This is usually between 0.5% and 2% of the loan amount. Our calculator allows you to input this percentage to see exactly how much cash will be deducted from your final payout.</p>
 
-            <h2>Practical Examples of Gold Financing</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples of Gold Financing</h2>
             <p><strong>Example 1: The Short-Term Bridge.</strong> A small business owner needs $5,000 to purchase inventory for the holiday rush but won't be paid by clients for 60 days. They pledge a heavy 22K gold chain worth $8,000. At a 70% LTV, they receive a $5,600 loan. The interest rate is 12% annually (1% monthly). They pay $56 a month in interest for two months. Once their clients pay them, they hand the lender $5,600, get their necklace back, and the total cost of capital was only $112. This is a highly efficient use of a gold loan.</p>
             <p><strong>Example 2: The High LTV Trap.</strong> A borrower pledges $10,000 worth of gold and takes the absolute maximum 75% LTV, securing $7,500. Two months later, the gold market drops by 15%. The gold is now worth $8,500. The loan is now at an 88% LTV. The lender issues a margin call, demanding $1,100 in cash within 48 hours to restore the 75% ratio. The borrower doesn't have the cash, the gold is auctioned, and they permanently lose their family heirlooms over a market fluctuation.</p>
 
-            <h2>Tips and Best Practices</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips and Best Practices</h2>
             <p><strong>Only Borrow What You Need:</strong> Never take the maximum LTV just because it is offered. Borrowing only 50% of your gold's value creates a massive buffer against margin calls and often secures a better interest rate.</p>
             <p><strong>Understand the Appraisal Process:</strong> Unscrupulous lenders may attempt to under-appraise the karat purity of your gold or deduct excessive weight for stones and gems. Always know the exact weight and purity of your items before walking into a lending institution.</p>
             <p><strong>Have a Clear Repayment Plan:</strong> Gold loans are designed for short-term liquidity, not long-term debt. Because they are often bullet loans, you must have a concrete plan for generating the lump-sum cash required to retrieve your gold at the end of the term. If you do not have a plan, you are simply selling your gold to the lender at a 25% discount.</p>
 
-            <h2>Conclusion</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion</h2>
             <p>A gold loan is a powerful financial instrument that turns illiquid heirlooms into instant cash. When used responsibly, it is a fast, efficient bridge over temporary financial hurdles.</p>
             <p>By rigorously utilizing this Gold Loan Calculator, you protect yourself from unfavorable terms. Running multiple scenarios—adjusting the LTV to create a safety margin, factoring in processing fees, and comparing the monthly interest against your cash flow—empowers you to leverage your assets without risking the permanent loss of your precious metals.</p>
           </article>

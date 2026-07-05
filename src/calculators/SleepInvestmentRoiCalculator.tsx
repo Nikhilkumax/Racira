@@ -298,29 +298,29 @@ export default function SleepInvestmentRoiCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Mathematics of Exhaustion</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of Exhaustion</h2>
             <p>For decades, "hustle culture" has glorified sleep deprivation. Ambitious professionals proudly declare, "I'll sleep when I'm dead," treating a 5-hour night of sleep as a badge of honor and a sign of massive dedication to their careers. They believe that by staying awake for two extra hours at night, they are gaining two extra hours of valuable work. The <strong>Sleep Investment ROI Calculator</strong> utilizes modern neuroscience and clinical cognitive data to prove that this belief is a catastrophic mathematical error. Sacrificing sleep does not buy you more output; it simply forces you to produce lower-quality work at a much slower, more expensive rate.</p>
 
-            <h2>The Science of Toxic Buildup</h2>
+            <h2 className="text-2xl font-bold mb-3">The Science of Toxic Buildup</h2>
             <p>To understand why sleep deprivation destroys your productivity, you must understand what happens inside your skull during the day. When you are awake, your brain burns massive amounts of glucose to fire neurons and solve problems. This high-energy metabolic process produces a toxic cellular byproduct called <em>adenosine</em>.</p>
             <p>As adenosine builds up in your brain throughout the day, it physically inhibits neural pathways. This is the physiological sensation known as "sleep pressure"—that heavy, groggy feeling in your eyes at 10:00 PM. The human brain has no way to clear this toxic waste while you are awake. The only way to flush adenosine out of the brain is to enter deep, slow-wave sleep, where the brain's glymphatic system activates and physically washes the toxins away. If you only sleep 5 hours, you wake up with a brain that is still partially choked by yesterday's toxic waste.</p>
 
-            <h2>The Illusion of "Feeling Fine"</h2>
+            <h2 className="text-2xl font-bold mb-3">The Illusion of "Feeling Fine"</h2>
             <p>The most dangerous aspect of chronic sleep deprivation is that you lose the subjective ability to judge your own impairment. If you sleep 5 hours a night for a week, you will eventually declare, "I'm used to it. I feel fine."</p>
             <p>Clinical studies conducted by sleep researcher Matthew Walker demonstrate that this is a terrifying illusion. You "feel fine" because your brain has forgotten what optimal performance feels like; you have accepted a severely degraded baseline as your new normal. When researchers subject these "I feel fine" individuals to objective cognitive tests—like reaction times, memory retention, and logical problem solving—their scores plummet. Operating on 5 hours of sleep routinely produces cognitive test scores equivalent to someone who is legally intoxicated.</p>
 
-            <h2>The Financial Bleed of Brain Fog</h2>
+            <h2 className="text-2xl font-bold mb-3">The Financial Bleed of Brain Fog</h2>
             <p>In the modern knowledge economy, you are not paid to chop wood or dig ditches; you are paid for the sharpness of your attention and the quality of your decisions. If your brain is choked by adenosine, you experience "brain fog."</p>
             <p>Brain fog is the silent killer of financial output. When you are sleep-deprived, a complex spreadsheet or coding problem that should take you 30 minutes to solve suddenly takes 60 minutes. You find yourself staring blankly at the screen. You make typos that require you to go back and rewrite entire emails. You lack the emotional regulation to handle a stressful client call, potentially losing a massive deal. The calculator translates this exact drop in cognitive efficiency—roughly 15% to 25% for chronic short-sleepers—into raw dollars to expose exactly how much value you are bleeding out every single day.</p>
 
-            <h2>Sleep is a Time Multiplier</h2>
+            <h2 className="text-2xl font-bold mb-3">Sleep is a Time Multiplier</h2>
             <p>The true ROI of sleep lies in its ability to multiply the value of your waking hours. Sleeping 8 hours is not "losing" two hours of your day. It is an investment that yields a massive return during the remaining 16 hours.</p>
             <p>When you are fully rested, your prefrontal cortex operates with surgical precision. You enter "flow states" easily. You synthesize complex information instantly. By sleeping 8 hours, you create a physiological environment where you can accomplish 10 hours' worth of high-quality work in just 6 hours of actual desk time. You are literally working fewer hours but producing significantly more value.</p>
 
-            <h2>The Waistline Connection</h2>
+            <h2 className="text-2xl font-bold mb-3">The Waistline Connection</h2>
             <p>Beyond financial ruin, sleep deprivation is a primary driver of the modern obesity epidemic. Sleep dictates the two hormones that control human hunger: Ghrelin and Leptin. When you are sleep-deprived, Ghrelin (the hunger hormone) spikes violently, while Leptin (the fullness hormone) crashes. You become ravenously hungry, and because your tired brain is desperate for quick energy, you specifically crave highly processed, sugary carbohydrates. A 5-hour night of sleep practically guarantees that you will break your diet the following day.</p>
 
-            <h2>Conclusion: Close the Laptop</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Close the Laptop</h2>
             <p>Stop trying to hack your way to success by stealing hours from your pillow. Chronic exhaustion is not a competitive advantage; it is a profound biological weakness that destroys your productivity, your emotional intelligence, and your metabolic health. Use the Sleep Investment ROI Calculator to visualize the massive financial cost of your brain fog, prioritize 8 hours of sleep, and start arriving at your desk with a fully optimized, razor-sharp cognitive blade.</p>
           </article>
           

@@ -263,17 +263,17 @@ const CarOwnershipAnnualCostCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is the Car Ownership Annual Cost Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is the Car Ownership Annual Cost Calculator?</h2>
             <p>The Car Ownership Annual Cost Calculator computes your year-by-year cost of owning a vehicle over a 10-year horizon. Unlike simple annual cost estimates, this tool shows how costs evolve over time — high in year 1 due to steep depreciation, then declining as the loan pays off and depreciation flattens. It provides an average annual cost, per-mile cost, and a year-by-year breakdown with cumulative totals and estimated vehicle value.</p>
             <p>This long-term view is essential for understanding how long you should keep a car to minimize cost and when the optimal sell point occurs.</p>
 
-            <h2>How It Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
             <p>The calculator uses an accelerated depreciation model (20% in year 1, 15% per year after by default) to estimate your vehicle's market value at the end of each year. For each year from 1 to 10, it computes the full ownership cost including depreciation to that point, loan interest, insurance, fuel, maintenance, registration, and parking. The annual cost for each year is the total divided by the number of years owned, showing how per-year cost decreases the longer you hold the vehicle.</p>
 
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>The primary card shows your average annual cost over 10 years. The 3-stat bar compares Year 1, Year 5, and Year 10 costs — you'll typically see Year 1 is the most expensive due to the 20% first-year depreciation hit. The year-by-year table shows annual cost, cumulative spending, and estimated vehicle value. The line chart visualizes the annual cost trajectory (declining curve) alongside cumulative spending (rising curve).</p>
 
-            <h2>Why Annual Cost Declines Over Time</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Annual Cost Declines Over Time</h2>
             <ul>
               <li><strong>Depreciation flattens:</strong> The 20% first-year loss is a one-time hit. By year 5, annual depreciation is typically $2,000–$3,000 vs $7,000+ in year 1.</li>
               <li><strong>Loan interest ends:</strong> Once your loan is paid off (typically years 3–6), that entire cost component disappears.</li>
@@ -281,13 +281,13 @@ const CarOwnershipAnnualCostCalculator = () => {
               <li><strong>Maintenance rises, but less than depreciation drops:</strong> Maintenance typically increases $100–$200/year as the car ages, but this is usually offset by falling depreciation.</li>
             </ul>
 
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <h3>Example 1: $35,000 sedan, 5-year loan</h3>
             <p>Year 1 cost: ~$10,500 (heavy depreciation). Year 5: ~$7,800. Year 10: ~$5,200. Average over 10 years: ~$7,400/year. The cost drops 50% from year 1 to year 10.</p>
             <h3>Example 2: $25,000 compact, cash purchase</h3>
             <p>Year 1: ~$6,800. Year 5: ~$4,500. Year 10: ~$3,200. Average: ~$4,900/year. No loan interest means lower costs throughout.</p>
 
-            <h2>Tips for Reducing Annual Ownership Cost</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips for Reducing Annual Ownership Cost</h2>
             <ul>
               <li><strong>Keep the car 8–10 years.</strong> Annual cost drops significantly after the loan is paid off and depreciation flattens.</li>
               <li><strong>Pay cash or choose short loan terms.</strong> Eliminating interest saves $1,000–$2,000/year during the loan period.</li>
@@ -296,7 +296,7 @@ const CarOwnershipAnnualCostCalculator = () => {
               <li><strong>Maintain preventively.</strong> Following the maintenance schedule prevents expensive breakdowns.</li>
             </ul>
 
-            <h2>Benefits of Using This Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Benefits of Using This Calculator</h2>
             <p>This tool uniquely shows the time dimension of car ownership cost. By revealing how annual cost changes from year to year, it helps you decide the optimal ownership length for your vehicle, compare the true long-term cost of different vehicles, and understand exactly when the financial benefits of keeping your car outweigh the rising maintenance costs.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/car-ownership-annual-cost-calculator" />

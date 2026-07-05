@@ -167,7 +167,7 @@ const Vo2MaxCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Improving Your VO2 Max</h2>
+              <h2 className="text-2xl font-bold mb-3">Improving Your VO2 Max</h2>
               <p>While genetics play a significant role in your absolute potential, almost anyone can improve their VO2 Max through consistent training. The most effective way to increase it is through High-Intensity Interval Training (HIIT).</p>
               <h3>Why It Matters for Health</h3>
               <p>Beyond athletic performance, VO2 Max is one of the strongest independent predictors of longevity. A high cardiovascular capacity means your heart doesn't have to work as hard during daily activities, lowering your risk of cardiovascular disease.</p>

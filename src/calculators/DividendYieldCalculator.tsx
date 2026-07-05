@@ -199,16 +199,16 @@ export default function DividendYieldCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is Dividend Yield?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is Dividend Yield?</h2>
             <p><strong>Dividend Yield = Annual Dividend Per Share ÷ Current Stock Price × 100.</strong> It tells you the annual cash return from a stock relative to its price. Our pre-filled example: $3.80 annual dividend ÷ $95.00 stock price = 4.00% yield — meaning for every $95 invested, you receive $3.80 in cash per year, regardless of stock price movements.</p>
 
-            <h2>Trailing vs. Forward Dividend Yield</h2>
+            <h2 className="text-2xl font-bold mb-3">Trailing vs. Forward Dividend Yield</h2>
             <p><strong>Trailing Yield</strong> uses the last 12 months of actual dividends paid — the most commonly quoted figure. <strong>Forward Yield</strong> projects the next 12 months based on the most recent dividend announcement, annualized. If a company just raised its quarterly dividend from $0.90 to $0.95, the trailing yield reflects the old rate while the forward yield captures the new, higher payout. For growing dividend stocks, forward yield is more useful.</p>
 
-            <h2>Dividend Yield Benchmarks</h2>
+            <h2 className="text-2xl font-bold mb-3">Dividend Yield Benchmarks</h2>
             <p>S&P 500 average: ~1.5–2%. Consumer staples: 2.5–4%. Utilities: 3–5%. REITs: 4–7%. Energy MLPs: 6–9%. High-yield stocks (&gt;7%) warrant scrutiny — an unusually high yield often signals a dividend at risk of being cut, or a stock in distress. The dividend yield trap is real: a stock yielding 10% may look attractive until the company cuts its dividend and the stock drops 30%.</p>
 
-            <h2>Dividend Growth Investing</h2>
+            <h2 className="text-2xl font-bold mb-3">Dividend Growth Investing</h2>
             <p>The Dividend Growth Investing (DGI) strategy focuses on companies that consistently increase dividends — the "Dividend Aristocrats" (25+ years of consecutive increases) and "Dividend Kings" (50+ years). A stock bought at 4% yield that grows its dividend 6% annually sees your yield-on-cost rise to 7.2% in 10 years and 12.9% in 20 years — powerful income compounding over time. Reinvesting dividends (DRIP) accelerates compounding by buying additional shares with each payment.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/dividend-yield-calculator" />

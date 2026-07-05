@@ -270,7 +270,7 @@ export default function AverageReturnCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding Average Returns: Arithmetic vs. Geometric Mean</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Average Returns: Arithmetic vs. Geometric Mean</h2>
             <p>
               When evaluating the performance of stocks, mutual funds, or real estate assets over multiple years, investors frequently refer to "average returns." However, the term average can be highly misleading in finance because it can refer to two fundamentally different mathematical concepts: the <strong>Arithmetic Mean</strong> and the <strong>Geometric Mean</strong>.
             </p>
@@ -278,7 +278,7 @@ export default function AverageReturnCalculator() {
               While the arithmetic average return provides a quick, simple summary of annual performance, it fails to account for compounding. The geometric average return, on the other hand, factors in compounding growth over time and represents the true annual rate of return that an investor actually experienced.
             </p>
 
-            <h2>Formulas for Average Return</h2>
+            <h2 className="text-2xl font-bold mb-3">Formulas for Average Return</h2>
             
             <h3>Arithmetic Return Formula</h3>
             <p>
@@ -302,7 +302,7 @@ export default function AverageReturnCalculator() {
               Each return is converted to a multiplier (e.g., a 10% gain becomes 1.10, a 5% loss becomes 0.95), multiplied together, raised to the power of 1/n, and finally, 1 is subtracted.
             </p>
 
-            <h2>Why compounding and volatility matter: An example</h2>
+            <h2 className="text-2xl font-bold mb-3">Why compounding and volatility matter: An example</h2>
             <p>
               Suppose you start with an investment of $10,000. In Year 1, the market crashes and your portfolio loses 50%, leaving you with $5,000. In Year 2, the market recovers and gains 50%, lifting your balance to $7,500.
             </p>

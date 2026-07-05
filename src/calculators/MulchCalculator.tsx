@@ -166,15 +166,15 @@ const MulchCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Mathematics of Landscaping</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of Landscaping</h2>
             <p>One of the most difficult parts of landscaping is visualizing exactly how much material you need. Unlike water, mulch and dirt do not level themselves perfectly, and it is incredibly easy to vastly underestimate the volume required to fill a garden bed.</p>
             <p>To accurately calculate mulch, you must convert three-dimensional space into the universal landscaping unit: the <strong>Cubic Yard</strong>.</p>
 
-            <h2>What is a Cubic Yard?</h2>
+            <h2 className="text-2xl font-bold mb-3">What is a Cubic Yard?</h2>
             <p>A cubic yard is a volumetric measurement representing a block of space that is exactly 3 feet long, 3 feet wide, and 3 feet tall. Because 3 × 3 × 3 = 27, there are exactly <strong>27 cubic feet in one cubic yard</strong>.</p>
             <p>When you call a bulk landscape supplier, they will only sell dirt, mulch, and rock by the cubic yard. A standard pickup truck bed can physically hold about 1.5 to 2.0 cubic yards of material before it starts spilling over the sides.</p>
 
-            <h2>Why Depth Matters</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Depth Matters</h2>
             <p>The depth of your mulch layer completely dictates its functionality.</p>
             <ul>
               <li><strong>1 Inch (Cosmetic Only):</strong> Spreading mulch 1 inch thick looks nice for a week, but it will do absolutely nothing to suppress weeds. Sunlight will easily penetrate the thin layer of wood chips, and weeds will immediately grow through it.</li>

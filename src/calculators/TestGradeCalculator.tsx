@@ -136,7 +136,7 @@ const TestGradeCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Effective Grading for Teachers</h2>
+              <h2 className="text-2xl font-bold mb-3">Effective Grading for Teachers</h2>
               <p>Grading a stack of papers can be time-consuming. Using a test grade calculator allows you to quickly determine a student's percentage score without having to perform manual division for every single paper.</p>
               
               <h3>Standard Grading Scales</h3>

@@ -109,10 +109,10 @@ const NPSCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>What Is an NPS Calculator?</h2>
+              <h2 className="text-2xl font-bold mb-3">What Is an NPS Calculator?</h2>
               <p>An NPS calculator helps you estimate the retirement corpus from your National Pension System contributions. It projects your total accumulation, tax-free lump sum withdrawal, and estimated monthly pension from the annuity portion.</p>
 
-              <h2>How NPS Works</h2>
+              <h2 className="text-2xl font-bold mb-3">How NPS Works</h2>
               <p>NPS is a defined contribution pension scheme. You contribute monthly, choose your investment mix (equity, corporate bonds, government securities), and at retirement:</p>
               <ul>
                 <li><strong>Minimum 40%</strong> must be used to buy an annuity (monthly pension).</li>
@@ -120,7 +120,7 @@ const NPSCalculator = () => {
                 <li>If corpus is ≤ ₹5 lakh, 100% can be withdrawn.</li>
               </ul>
 
-              <h2>NPS Tax Benefits</h2>
+              <h2 className="text-2xl font-bold mb-3">NPS Tax Benefits</h2>
               <ul>
                 <li><strong>Section 80CCD(1):</strong> Up to 10% of salary (within ₹1.5L of 80C).</li>
                 <li><strong>Section 80CCD(1B):</strong> Additional ₹50,000 deduction (exclusive).</li>

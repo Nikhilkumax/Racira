@@ -205,15 +205,15 @@ const BandwidthCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Great Broadband Marketing Trick</h2>
+            <h2 className="text-2xl font-bold mb-3">The Great Broadband Marketing Trick</h2>
             <p>If you pay your Internet Service Provider (ISP) for a "100 Meg" internet connection, you might be furious when you download a video game and your browser says it is only downloading at 12 Megs. Are you being scammed? No, you are experiencing the most successful marketing trick in the technology industry: the difference between a Bit and a Byte.</p>
 
-            <h2>Bits vs. Bytes (The Rule of 8)</h2>
+            <h2 className="text-2xl font-bold mb-3">Bits vs. Bytes (The Rule of 8)</h2>
             <p>At the fundamental hardware level, computers communicate using binary code—a series of 1s and 0s. A single binary digit is called a <strong>Bit</strong> (short for Binary Digit). By standard convention, bits are represented with a lowercase 'b'.</p>
             <p>However, when computers store files on a hard drive, they group those bits into standardized packages. A package of exactly 8 bits is called a <strong>Byte</strong>. Bytes are represented with an uppercase 'B'.</p>
             <p>When an ISP advertises your speed, they use Megabits per second (Mbps). They do this simply because the number looks 8 times larger on a billboard. When your web browser downloads a file, it measures the speed in Megabytes per second (MB/s). <strong>To find your true download speed, you must divide your advertised internet speed by 8.</strong></p>
 
-            <h2>Understanding Gigabit Internet</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Gigabit Internet</h2>
             <p>Fiber optic infrastructure has brought "Gigabit" internet to many residential homes. 1 Gigabit per second (Gbps) equals 1,000 Megabits per second (Mbps). When divided by 8, a Gigabit connection provides a maximum theoretical download speed of 125 Megabytes per second (MB/s).</p>
             <p>While incredibly fast, you will rarely see a single file download at 125 MB/s. This is because bandwidth acts like a physical pipe. Just because your pipe is large enough to handle 125 MB/s of water doesn't mean the server you are downloading from has a pump strong enough to push the water that fast. Most web servers cap their upload speeds to individual users, meaning the real benefit of Gigabit internet is allowing a family of 5 to stream 4K video simultaneously without lagging, rather than accelerating a single download.</p>
           </article>

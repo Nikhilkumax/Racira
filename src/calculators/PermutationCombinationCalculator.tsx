@@ -123,13 +123,13 @@ export default function PermutationCombinationCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Permutations vs. Combinations</h2>
+            <h2 className="text-2xl font-bold mb-3">Permutations vs. Combinations</h2>
             <p>The fundamental distinction in counting: permutations count ordered selections; combinations count unordered selections. If you select 3 letters from {"{A, B, C}"}: Permutations = 6 (ABC, ACB, BAC, BCA, CAB, CBA). Combinations = 1 ({"{A, B, C}"}). The ratio between permutations and combinations is always r! — the number of ways to arrange the selected items.</p>
-            <h2>Permutation Formula: P(n, r) = n! / (n−r)!</h2>
+            <h2 className="text-2xl font-bold mb-3">Permutation Formula: P(n, r) = n! / (n−r)!</h2>
             <p>Read as &quot;n permute r.&quot; Represents the number of ways to arrange r items chosen from n distinct items where order matters. Example: How many 3-digit PINs from digits 1–9 with no repetition? P(9,3) = 9!/6! = 504.</p>
-            <h2>Combination Formula: C(n, r) = n! / (r! × (n−r)!)</h2>
+            <h2 className="text-2xl font-bold mb-3">Combination Formula: C(n, r) = n! / (r! × (n−r)!)</h2>
             <p>Read as &quot;n choose r.&quot; The binomial coefficient appears throughout mathematics. Pascal&apos;s Triangle: each entry is the sum of the two above, and every entry is C(n,r). The Binomial Theorem: (a+b)ⁿ = Σ C(n,k) × aᵏ × b^(n-k). These appear in probability, calculus, combinatorics, and algebra throughout secondary and university mathematics.</p>
-            <h2>Real-World Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Real-World Examples</h2>
             <p>Lottery odds: In a 6/49 lottery, C(49,6) = 13,983,816 possible combinations — odds of winning ≈ 1 in 14 million. Committee selection: Choosing a 5-person committee from 20 candidates = C(20,5) = 15,504 ways. Race outcomes: Number of possible 1st/2nd/3rd place finishes in a 10-horse race = P(10,3) = 720 ways. Password security: A 4-digit numeric PIN = 10⁴ = 10,000 (with repetition, not permutation since digits can repeat).</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/permutation-combination-calculator" />

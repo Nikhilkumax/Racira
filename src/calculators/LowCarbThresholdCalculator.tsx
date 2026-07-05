@@ -334,32 +334,32 @@ export default function LowCarbThresholdCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Low-Carb Threshold Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Low-Carb Threshold Calculator</h2>
             <p>The term "low-carb" is one of the most widely used and broadly misunderstood phrases in the health and fitness industry. To a competitive marathon runner eating 500 grams of carbohydrates a day, dropping to 250 grams feels incredibly "low-carb." To a strict Ketogenic dieter eating 20 grams a day, 250 grams is an astronomical carbohydrate overload. Because human metabolism operates on a continuous spectrum rather than binary switches, defining where you stand requires mathematical precision. The <strong>Low-Carb Threshold Calculator</strong> classifies your exact dietary protocol based on established clinical guidelines, helping you align your carbohydrate intake with your specific metabolic goals (whether that is deep ketosis, insulin stabilization, or simple weight maintenance).</p>
 
-            <h2>The Standard American Diet (The Baseline)</h2>
+            <h2 className="text-2xl font-bold mb-3">The Standard American Diet (The Baseline)</h2>
             <p>Before understanding what constitutes a "low" intake, it is necessary to establish the modern baseline. The Standard American Diet (SAD) is heavily dominated by refined sugars, high-fructose corn syrup, and heavily processed grains (breads, pastas, cereals). The average adult consuming this diet easily exceeds <strong>300 to 400 grams of carbohydrates</strong> per day. When carbohydrates are consumed in this massive volume without the physical exertion required to burn them off, they trigger continuous, chronically high levels of insulin. Over years, this leads to insulin resistance, metabolic syndrome, and severe weight gain. All low-carb strategies are fundamentally designed to lower this baseline to regain insulin sensitivity.</p>
 
-            <h2>Tier 1: The Ketogenic Diet (&lt;50g)</h2>
+            <h2 className="text-2xl font-bold mb-3">Tier 1: The Ketogenic Diet (&lt;50g)</h2>
             <p>The Ketogenic (Keto) diet is not merely a diet; it is a highly engineered metabolic state. The human brain requires a massive amount of energy to function (roughly 20% of your total daily caloric burn). Historically, the brain relies almost entirely on glucose (derived from carbohydrates). If you cut your carbohydrate intake to below <strong>50 grams per day</strong>, you starve the body of glucose. The liver completely empties its glycogen reserves.</p>
             <p>To prevent the brain from shutting down, a biological survival mechanism is triggered. The liver begins breaking down dietary fat and stored body fat into molecules called <strong>Ketones</strong>. These ketones cross the blood-brain barrier and serve as a highly efficient alternative fuel source. This metabolic shift is called <em>Ketosis</em>. It is celebrated for its incredible appetite-suppressing effects and rapid fat loss, but it requires extreme discipline. A single high-carb meal (like a plate of pasta) will instantly kick the body out of ketosis, requiring days of strict fasting or severe restriction to re-enter.</p>
 
-            <h2>Tier 2: Strict Low-Carb (50g to 100g)</h2>
+            <h2 className="text-2xl font-bold mb-3">Tier 2: Strict Low-Carb (50g to 100g)</h2>
             <p>For individuals who cannot tolerate the restrictiveness of the Ketogenic diet, the Strict Low-Carb tier (often called "Keto-lite") is the next best option. At 50 to 100 grams of carbohydrates a day, you are eating too many carbs to maintain deep ketosis. The body will primarily rely on glucose for fuel.</p>
             <p>However, this threshold is incredibly effective for fat loss and metabolic healing. By capping carbs at 100g, you eliminate almost all processed junk food, sugary sodas, and heavy pasta dishes. You are limited to getting your carbs from fibrous vegetables, berries, and perhaps a very small portion of oats or sweet potato. This keeps insulin levels incredibly flat throughout the day, preventing the "sugar crashes" and ravenous hunger spikes associated with high-carb diets.</p>
 
-            <h2>Tier 3: Liberal Low-Carb / Maintenance (100g to 150g)</h2>
+            <h2 className="text-2xl font-bold mb-3">Tier 3: Liberal Low-Carb / Maintenance (100g to 150g)</h2>
             <p>The 100g to 150g threshold is widely considered the ultimate, sustainable "sweet spot" for human nutrition. It is low enough to prevent chronic insulin resistance, but high enough to support a highly active, athletic lifestyle. While 150g might seem "high" to a Keto purist, it is still 50% lower than the Standard American Diet.</p>
             <p>This tier allows you to easily fuel intense 60-minute weightlifting sessions, run 5Ks, and occasionally enjoy a piece of fruit or a sensible portion of rice without feeling guilty or lethargic. It is the perfect maintenance threshold once you have finished a fat-loss phase and simply want to live a healthy, balanced life without obsessively tracking every gram of spinach.</p>
 
-            <h2>The Role of Total Calories (TDEE)</h2>
+            <h2 className="text-2xl font-bold mb-3">The Role of Total Calories (TDEE)</h2>
             <p>A critical feature of this calculator is the inclusion of your Total Daily Energy Expenditure (TDEE). While 50 grams of carbs is the absolute ceiling for ketosis, the <em>percentage</em> of your diet that comes from carbs matters significantly. If you are a massive bodybuilder with a TDEE of 4,000 calories, eating 150 grams of carbs (600 calories) means carbs only make up 15% of your diet. Your body will process that load very differently than a small sedentary individual with a TDEE of 1,500 calories eating the exact same 150 grams of carbs (making up 40% of their diet). Always view your carbohydrate intake through the lens of your total caloric budget.</p>
 
-            <h2>Net Carbs vs. Total Carbs</h2>
+            <h2 className="text-2xl font-bold mb-3">Net Carbs vs. Total Carbs</h2>
             <p>When operating in the Ketogenic or Strict Low-Carb tiers, accuracy is paramount. A massive debate within the community is whether to track "Total Carbs" or "Net Carbs."</p>
             <p><strong>Total Carbs</strong> include everything: starches, sugars, and fiber. <strong>Net Carbs</strong> are calculated by taking the Total Carbs and subtracting Dietary Fiber (and sometimes Sugar Alcohols). Because the human digestive system cannot break down dietary fiber into glucose, it does not spike insulin or provide caloric energy in the traditional sense. Therefore, most advanced low-carb dieters track Net Carbs. This allows them to eat massive amounts of leafy green vegetables (which are high in total carbs but almost entirely made of fiber) without getting kicked out of ketosis.</p>
 
-            <h2>Conclusion: Choose Your Threshold</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Choose Your Threshold</h2>
             <p>There is no single "best" carbohydrate threshold. The optimal tier depends entirely on your current metabolic health, your athletic goals, and your psychological ability to adhere to restriction. If you are deeply insulin-resistant and want rapid weight loss, the Ketogenic threshold (&lt;50g) is a powerful medical tool. If you are a healthy, active individual looking to stay lean year-round, the Liberal Low-Carb tier (100-150g) offers the perfect balance of metabolic health and dietary freedom. Use the calculator to establish your target, eliminate refined sugars, and stick to your chosen threshold.</p>
           </article>
           

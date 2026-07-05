@@ -480,42 +480,42 @@ export default function VaLoanCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the VA Loan Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the VA Loan Calculator</h2>
             <p>The Department of Veterans Affairs (VA) loan program is widely considered to be the single most powerful mortgage product available in the United States. Designed specifically to help active-duty service members, veterans, and eligible surviving spouses achieve the dream of homeownership, VA loans offer incredible financial leverage that simply does not exist in the conventional civilian market. Our <strong>VA Loan Calculator</strong> is specifically engineered to handle the unique quirks of VA financing, allowing you to accurately model your zero-down payment scenarios, calculate your VA Funding Fee, and visualize your true monthly housing costs.</p>
             <p>Standard mortgage calculators are inherently flawed when dealing with VA loans because they cannot process the capitalization of the Funding Fee, nor do they default to the absence of Private Mortgage Insurance (PMI). By using this specialized calculator, you bypass those errors, ensuring that the numbers you see on the screen precisely reflect the numbers you will see on your final Closing Disclosure at the title company.</p>
 
-            <h2>The Unmatched Power of Zero Down Payment</h2>
+            <h2 className="text-2xl font-bold mb-3">The Unmatched Power of Zero Down Payment</h2>
             <p>In the conventional mortgage market, buying a home requires cash. A traditional buyer must bring anywhere from 3% to 20% of the home's purchase price in cash to the closing table. For a $400,000 home, a 20% down payment is $80,000—a massive barrier to entry for many young families.</p>
             <p>The crown jewel of the VA loan program is the <strong>0% Down Payment Guarantee</strong>. The federal government backs a portion of the loan, mitigating the lender's risk and allowing them to finance 100% of the home's purchase price. This means you can keep your savings safely in your bank account for emergencies, renovations, or investments. While you can choose to make a down payment to lower your monthly payment and your Funding Fee, it is rarely mathematically required.</p>
 
-            <h2>The Absence of Private Mortgage Insurance (PMI)</h2>
+            <h2 className="text-2xl font-bold mb-3">The Absence of Private Mortgage Insurance (PMI)</h2>
             <p>If a civilian buyer purchases a home with less than 20% down, the bank forces them to pay for Private Mortgage Insurance (PMI). This is an insurance policy that protects the bank (not the borrower) in the event of a default. PMI can easily add $150 to $300 to a conventional monthly mortgage payment.</p>
             <p>VA loans <strong>never require PMI</strong>. Because the Department of Veterans Affairs guarantees the loan, the bank is already protected. This lack of PMI is a massive structural advantage. It means that even if a civilian and a veteran both buy the exact same $300,000 house with 0% down, the veteran's monthly payment will be hundreds of dollars cheaper simply because the PMI line item is completely erased.</p>
 
-            <h2>Understanding the VA Funding Fee</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the VA Funding Fee</h2>
             <p>While there is no monthly PMI, the VA loan program is not entirely free of administrative costs. To keep the program running for future generations of service members without relying heavily on taxpayer subsidies, the VA charges a one-time upfront cost known as the <strong>VA Funding Fee</strong>.</p>
             <p>This fee is calculated as a percentage of your total loan amount. The percentage varies based on three factors: your down payment amount, whether this is your first time using your VA loan benefit, and your military status. For a first-time user putting $0 down, the fee is typically 2.15%. If you are using the VA loan for a second or third time with $0 down, the fee jumps to 3.3%.</p>
             <p><em>Crucial Exemption:</em> If you are a veteran receiving VA compensation for a service-connected disability, you are entirely exempt from the VA Funding Fee. You pay 0%. You can select the "0.00% (Exempt)" option in our calculator to model this.</p>
 
-            <h2>Financing the Funding Fee vs. Paying Cash</h2>
+            <h2 className="text-2xl font-bold mb-3">Financing the Funding Fee vs. Paying Cash</h2>
             <p>A $400,000 loan with a 2.15% Funding Fee generates a bill of $8,600. Most borrowers do not want to write an $8,600 check at closing. The VA anticipates this and allows you to <strong>finance the fee</strong> by rolling it directly into the loan amount.</p>
             <p>If you choose to finance the fee (which is the default setting on our calculator), your starting loan balance becomes $408,600. The bank simply pays the $8,600 to the VA on your behalf, and you pay the bank back slowly over the next 30 years with interest. While this increases your monthly payment slightly and results in you paying interest on the fee itself, it preserves your upfront cash liquidity.</p>
 
-            <h2>Analyzing Your Calculator Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Analyzing Your Calculator Results</h2>
             <p>Our VA Loan Calculator breaks down your financial obligation into highly actionable data points. Here is how to interpret your results:</p>
             <p><strong>Total Monthly Payment:</strong> This is the exact amount of cash that will leave your bank account every month. It is known in the industry as PITI+HOA (Principal, Interest, Taxes, Insurance, and HOA dues). It is critical that this number fits comfortably within your civilian or military housing allowance (BAH) and overall budget.</p>
             <p><strong>Total Loan Financed:</strong> Notice that if you put $0 down and chose to finance the Funding Fee, this number is actually higher than the purchase price of the home. This means you are starting your homeownership journey with slight negative equity. Because of this, it is vital that you plan to stay in the home for at least a few years to allow market appreciation and principal paydown to build real equity before attempting to sell.</p>
 
-            <h2>Practical Examples of VA Financing</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples of VA Financing</h2>
             <p><strong>Example 1: The First-Time Buyer.</strong> An active-duty service member buys a $350,000 home near base. They use their VA benefit for the first time with $0 down. The 2.15% Funding Fee is $7,525. They roll it into the loan, making the starting balance $357,525. At a 6.25% interest rate for 30 years, their principal and interest payment is $2,201. Because there is zero PMI, they move into a $350,000 house with virtually zero cash out of pocket.</p>
             <p><strong>Example 2: Leveraging a Disability Rating.</strong> A veteran with a 30% service-connected disability rating buys a $400,000 forever home. Because of their disability rating, the VA Funding Fee is waived entirely (0%). They put $0 down. Their loan balance is exactly $400,000. They avoided $8,600 in upfront fees and save roughly $200 a month by not having PMI, making this the most efficient mortgage transaction mathematically possible.</p>
 
-            <h2>Tips and Best Practices for VA Borrowers</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips and Best Practices for VA Borrowers</h2>
             <p><strong>Obtain Your COE Immediately:</strong> The Certificate of Eligibility is the golden ticket. Before you even look at houses or talk to a lender, go to the eBenefits portal or contact your lender to secure your COE. Without it, you cannot get a VA loan.</p>
             <p><strong>Shop Multiple Lenders:</strong> The VA guarantees the loan, but they do not set the interest rate. Private banks and mortgage companies do. Interest rates and origination fees can vary wildly from one bank to another. Always get Loan Estimates from at least three different lenders on the same day to ensure you are getting the most competitive rate.</p>
             <p><strong>Beware of the "VA Loan Specialist" Trap:</strong> Some lenders aggressively market themselves as "military friendly" or "VA specialists," but then charge exorbitant origination fees or offer higher-than-average interest rates. Do not assume a lender is offering you a good deal just because their marketing uses camouflage and flags. Let the mathematics dictate your choice.</p>
 
-            <h2>Conclusion</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion</h2>
             <p>The VA loan is a profound, earned benefit that provides unparalleled leverage in the real estate market. By eliminating the down payment barrier and erasing the penalty of mortgage insurance, it allows those who have served to build generational wealth through property ownership far faster than their civilian counterparts.</p>
             <p>By rigorously utilizing this VA Loan Calculator, you can map out your exact financial trajectory. Whether you are buying a starter home near your first duty station or settling into your forever home after retirement, understanding the mechanics of your VA loan ensures that your financial future is as secure as the nation you defended.</p>
           </article>

@@ -368,15 +368,15 @@ export default function BulkingCalorieCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Bulking Calorie Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Bulking Calorie Calculator</h2>
             <p>Building muscle is a deeply un-natural and energy-expensive process for the human body. Unlike fat, which is the body's preferred survival mechanism for storing excess energy, muscle tissue requires massive amounts of calories just to be built, and even more calories to be sustained on a daily basis. To force your body to build muscle, you must give it a reason (heavy resistance training) and you must provide the raw materials (a caloric surplus). The <strong>Bulking Calorie Calculator</strong> is designed to determine exactly how large that surplus should be to maximize muscle growth while minimizing unwanted fat accumulation.</p>
             <p>A "bulk" is a deliberate, mathematically structured phase of eating in a caloric surplus. Unfortunately, because the body's ability to build muscle is strictly biologically capped, many athletes fall into the trap of eating too much, resulting in what is colloquially known as a "Dirty Bulk." Our calculator prevents this by scaling your surplus directly to your body weight and experience level.</p>
 
-            <h2>The Thermodynamics of Muscle Hypertrophy</h2>
+            <h2 className="text-2xl font-bold mb-3">The Thermodynamics of Muscle Hypertrophy</h2>
             <p>To understand bulking, you must understand the math behind the tissue. While it is universally accepted that one pound of stored fat equates to roughly 3,500 calories, the mathematics of muscle are slightly different. Skeletal muscle is mostly water (about 70%), with the remaining 30% composed of protein and trace amounts of glycogen and fat.</p>
             <p>However, the <em>process</em> of synthesizing that protein (muscle protein synthesis) is incredibly energy-intensive. It is generally estimated that building one pound of new muscle requires a surplus of roughly 2,500 to 2,800 calories. Because no bulk is 100% perfectly efficient (you will always gain a small fraction of fat alongside the muscle), the standard heuristic of a 3,500-calorie surplus per pound of body weight gained is still used to calculate the macro-level timeline.</p>
 
-            <h2>The Biological Limit of Muscle Growth</h2>
+            <h2 className="text-2xl font-bold mb-3">The Biological Limit of Muscle Growth</h2>
             <p>The single most important concept in bulking is understanding your biological limit. The human body is not capable of building infinite muscle simply because you eat infinite food. There is a hard cap on how much protein synthesis can occur in a given week, dictated by your genetics, testosterone levels, and training age.</p>
             <ul>
               <li><strong>Novice Lifters (Year 1):</strong> Can potentially build up to 0.5 pounds of pure muscle per week (roughly 2 pounds a month).</li>
@@ -385,22 +385,22 @@ export default function BulkingCalorieCalculator() {
             </ul>
             <p>Why does this matter? If your biological limit is 0.5 pounds of muscle per week, and you eat a massive 1,000-calorie daily surplus designed to make you gain 2 pounds per week, the remaining 1.5 pounds of weight you gain will be <strong>100% pure body fat</strong>. You cannot force the muscle-building machinery to run faster by over-fueling it. This is why scaling your rate of gain in the calculator is critical.</p>
 
-            <h2>Decoding the "Rate of Gain" Options</h2>
+            <h2 className="text-2xl font-bold mb-3">Decoding the "Rate of Gain" Options</h2>
             <p>When selecting your bulking aggression level, you must align your choice with your training experience:</p>
             <p><strong>0.15% - 0.25% (The Lean Bulk):</strong> This is the ideal zone for intermediate to advanced lifters. The caloric surplus is very small (often just +200 to +300 calories a day). Because the surplus is so tight, virtually all the weight gained will be muscle, keeping your body fat percentage extremely low. The drawback is that you must track your macros with absolute precision; miscounting by just 200 calories means you are no longer bulking.</p>
             <p><strong>0.50% (The Standard Bulk):</strong> This is the "Gold Standard" for beginners in their first year of training. A 160-pound novice selecting this rate will aim to gain 0.8 pounds a week (roughly a +400 calorie surplus). This provides enough excess energy to guarantee muscle growth and massive strength gains, with only a moderate, acceptable amount of fat accumulation.</p>
             <p><strong>1.00%+ (The Dirty Bulk):</strong> The calculator will flag this choice with a warning. A 1% weekly gain equates to over 6 pounds a month. Because your body cannot build 6 pounds of muscle in a month naturally, you are accepting that the majority of this weight will be fat. This is only recommended for severely underweight individuals (often high school athletes) who desperately need to move the scale regardless of body composition.</p>
 
-            <h2>Macronutrients During a Bulk</h2>
+            <h2 className="text-2xl font-bold mb-3">Macronutrients During a Bulk</h2>
             <p>Securing your caloric surplus from the calculator is only half the battle. If you eat a 500-calorie surplus comprised entirely of jelly beans, you will not build muscle; you will just get fat. To build tissue, those calories must be correctly partitioned across the three macronutrients.</p>
             <p><strong>1. Protein (The Building Block):</strong> Your body requires physical amino acids to construct new muscle fibers. During a bulk, you must consume a minimum of 1 gram of protein per pound of your goal body weight. (Some extreme bodybuilders push this to 1.5g). Without adequate protein, your surplus is useless.</p>
             <p><strong>2. Carbohydrates (The Fuel):</strong> Carbohydrates are the secret weapon of a successful bulk. Carbs are stored in your muscles as glycogen. When your muscles are full of glycogen, you can lift heavier weights for more repetitions, which triggers greater muscle hypertrophy. Furthermore, carbs trigger the release of insulin, the body's most highly anabolic (building) hormone. Once your protein target is met, fill the vast majority of your remaining surplus calories with clean carbohydrates like rice, oats, and potatoes.</p>
             <p><strong>3. Fats (The Regulator):</strong> Keep fats moderate. They are essential for producing testosterone, but dietary fat is very easily stored as body fat when you are in a massive caloric surplus. Keep them around 0.3 to 0.4 grams per pound of body weight.</p>
 
-            <h2>When to Stop Bulking</h2>
+            <h2 className="text-2xl font-bold mb-3">When to Stop Bulking</h2>
             <p>A bulk should not last forever. As your body fat percentage creeps higher, your body becomes less insulin sensitive, meaning it becomes worse at building muscle and better at storing fat. A general rule in the fitness community is to bulk until you hit roughly 15% to 18% body fat (for men) or 25% to 28% (for women). Once you hit that threshold, it is time to transition to a Cutting phase, strip off the accumulated fat, and reveal the new muscle you have built underneath.</p>
 
-            <h2>Conclusion: Trust the Process</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Trust the Process</h2>
             <p>Bulking requires immense patience. While fat can be lost rapidly (up to 2 pounds a week), muscle is built agonizingly slowly. Do not panic if the mirror doesn't change in the first three weeks. Do not artificially increase your calories just to force the scale to move faster, as that will only result in fat gain. Stick to the precise mathematical surplus provided by the Bulking Calorie Calculator, hit your protein targets, lift progressively heavier weights, and trust the biological process.</p>
           </article>
           

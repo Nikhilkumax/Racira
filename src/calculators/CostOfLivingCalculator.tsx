@@ -73,7 +73,7 @@ const CostOfLivingCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Compare Salaries</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors"><RotateCcw className="h-5 w-5" /></button>
               </div>
           </div>
 
@@ -102,7 +102,7 @@ const CostOfLivingCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Sidebar Ad" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Calculating Your Real Income</h2>
+              <h2 className="text-2xl font-bold mb-3">Calculating Your Real Income</h2>
               <p>Salary is a relative number. A $100,000 salary in San Francisco may provide a lower standard of living than a $60,000 salary in a smaller Midwest town. Understanding the cost of living index helps you compare "apples to apples" when evaluating job offers.</p>
               <h3>Why Housing Dominates</h3>
               <p>In most cost of living calculations, housing accounts for 30-40% of the total weight. While groceries and utilities may only vary by 10-15% between cities, housing costs can vary by 300% or more. This makes housing the primary driver of regional wealth differences.</p>

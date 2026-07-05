@@ -102,7 +102,7 @@ const PizzaSizeCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Compare Pizzas</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset">
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset">
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
@@ -155,13 +155,13 @@ const PizzaSizeCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>The Math of Pizza Value</h2>
+              <h2 className="text-2xl font-bold mb-3">The Math of Pizza Value</h2>
               <p>When you're ordering pizza, your eyes often deceive you. A 12-inch pizza might look only slightly smaller than a 14-inch pizza, but the math tells a different story. Because the area of a circle grows exponentially as the diameter increases, those extra two inches actually provide about 36% more pizza!</p>
               
-              <h2>Why Area Matters More Than Diameter</h2>
+              <h2 className="text-2xl font-bold mb-3">Why Area Matters More Than Diameter</h2>
               <p>A circle's area is πr². If you double the diameter, you quadruple the area. This is why "upsizing" for a few extra dollars is almost always the smarter financial move. You're getting significantly more food for a relatively small increase in price.</p>
 
-              <h2>Standard Pizza Sizes Comparison</h2>
+              <h2 className="text-2xl font-bold mb-3">Standard Pizza Sizes Comparison</h2>
               <ul>
                 <li><strong>10-inch (Small):</strong> ~78.5 square inches</li>
                 <li><strong>12-inch (Medium):</strong> ~113.1 square inches (44% more than Small)</li>
@@ -169,7 +169,7 @@ const PizzaSizeCalculator = () => {
                 <li><strong>18-inch (XL):</strong> ~254.5 square inches (almost 3.3x more than Small!)</li>
               </ul>
 
-              <h2>Tips for Savvy Ordering</h2>
+              <h2 className="text-2xl font-bold mb-3">Tips for Savvy Ordering</h2>
               <p>Always check for "BOGO" (Buy One Get One) deals on smaller sizes, but compare them against the price of one extra-large. Often, one 18-inch pizza contains more food than two 12-inch pizzas, and usually costs less. Use our calculator at the restaurant to ensure you're getting the most crust for your buck.</p>
             </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/pizza-size" />

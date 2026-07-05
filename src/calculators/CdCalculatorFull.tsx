@@ -217,27 +217,27 @@ export default function CdCalculatorFull() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a CD Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a CD Calculator?</h2>
             <p>A CD (Certificate of Deposit) calculator helps you determine exactly how much you'll earn by depositing a lump sum into a CD at a given Annual Percentage Yield (APY) for a specific term. CDs are one of the safest investments available — they're FDIC-insured up to $250,000 per depositor per institution — and typically offer significantly higher interest rates than standard savings accounts because you agree to leave your money untouched for the CD's term.</p>
             <p>Understanding CD math is critical for planning short-term savings goals: down payment funds, vacation savings, emergency fund top-up, or simply parking cash you won't need soon. This calculator handles all major compounding frequencies and shows you a year-by-year breakdown so you can see exactly how your money grows.</p>
 
-            <h2>How CD Interest Is Calculated</h2>
+            <h2 className="text-2xl font-bold mb-3">How CD Interest Is Calculated</h2>
             <p>CD interest uses the compound interest formula: <strong>A = P × (1 + r/n)^(n×t)</strong>, where A is the maturity value, P is the principal deposit, r is the annual rate (APR), n is the compounding frequency per year, and t is the term in years. Most CD rates are quoted as APY, which already reflects compounding effects.</p>
             <p>Daily compounding (n=365) produces the highest return for a given APR. A $10,000 CD at 4.85% APY compounded daily for 12 months yields $10,485 at maturity — exactly $485 in interest. The same deposit in a standard savings account at 0.50% APY earns only $50. That's nearly a 10x difference for the same FDIC protection level.</p>
 
-            <h2>Current CD Rate Environment</h2>
+            <h2 className="text-2xl font-bold mb-3">Current CD Rate Environment</h2>
             <p>As of 2024-2025, high-yield CDs at online banks offer rates between 4.5% and 5.5% APY, well above the long-term average of 2-3%. This is a historically attractive environment for CD investors. Brick-and-mortar banks typically offer much lower rates (0.5-2%) due to higher operating costs and less competition for deposits. Always compare rates at FDIC-insured online banks and credit unions before committing.</p>
 
-            <h2>CD Laddering Strategy</h2>
+            <h2 className="text-2xl font-bold mb-3">CD Laddering Strategy</h2>
             <p>Instead of putting all your savings in one long-term CD, consider laddering: divide your savings across 5 CDs maturing at 1, 2, 3, 4, and 5 years. Each year, the shortest CD matures, giving you liquidity. You reinvest that matured CD into a new 5-year CD. Over time, all your CDs are earning 5-year (higher) rates, but you get annual access to a portion of your funds.</p>
 
-            <h2>Choosing the Right CD Term</h2>
+            <h2 className="text-2xl font-bold mb-3">Choosing the Right CD Term</h2>
             <p>Match your CD term to when you'll need the money. For a home down payment in 18 months, use a 12 or 18-month CD. For retirement savings supplement, 2-5 year CDs may make sense. Don't lock funds away in long-term CDs if there's meaningful probability you'll need them — early withdrawal penalties typically cost 3-6 months of interest.</p>
 
-            <h2>CDs vs High-Yield Savings Accounts</h2>
+            <h2 className="text-2xl font-bold mb-3">CDs vs High-Yield Savings Accounts</h2>
             <p>Both are FDIC-insured and safe. HYSAs offer variable rates (can rise or fall) and unlimited withdrawals. CDs offer locked-in guaranteed rates for the term. In a rising rate environment, HYSAs outperform over time. In a stable or falling rate environment, locking in a good CD rate beats HYSA rates. Many savvy savers use both: HYSA for true emergency fund, CDs for medium-term savings goals.</p>
 
-            <h2>Tips for Maximizing CD Returns</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips for Maximizing CD Returns</h2>
             <p>Shop online banks and credit unions — they offer 3-5× higher rates than big banks. Compare APY, not APR. Check for bump-up CDs that let you raise your rate once if rates increase. Consider no-penalty CDs if flexibility matters. Use the FDIC limit of $250,000 per institution as a guide — spread large deposits across multiple banks for full insurance coverage. Always confirm FDIC or NCUA (for credit unions) insurance before depositing.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/cd-calculator" />

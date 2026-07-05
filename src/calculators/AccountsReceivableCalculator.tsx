@@ -315,7 +315,7 @@ export default function AccountsReceivableCalculator() {
                 
                 {result.dso !== null && result.arTurnover !== null && (
                   <>
-                    <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                    <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative">
                       <p className="text-xs uppercase tracking-wide text-muted-foreground font-bold mb-1">Days Sales Outstanding (DSO)</p>
                       <p className="text-4xl font-black text-primary">{fmt(result.dso, 1)} days</p>
                       <p className="text-sm text-muted-foreground mt-1">
@@ -519,61 +519,39 @@ export default function AccountsReceivableCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Mathematics of Accounts Receivable</h2>
-            <p>Managing accounts receivable (AR) effectively is one of the most critical components of maintaining healthy cash flow. Our calculator tracks every key metric related to your credit sales, providing you with exact formulas to understand the pace at which your business collects cash.</p>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of Accounts Receivable</h2>
+            <p>Managing accounts receivable (AR) effectively is one of the most critical components of maintaining healthy cash flow and ensuring the long-term solvency of any business that sells goods or services on credit. When a company makes a sale but allows the customer to pay at a later date, it creates an account receivable. While this represents revenue on the income statement, it does not immediately represent cash in the bank account. Until that invoice is actually paid by the customer, the business is effectively acting as a bank, providing a short-term, interest-free loan to its client. If this process is not managed with strict mathematical rigor, a business can easily find itself showing massive profits on paper while simultaneously going bankrupt because it has run out of the actual liquid cash needed to pay its own employees, suppliers, and operational expenses. Our calculator is engineered to track every single key metric related to your credit sales, providing you with exact formulas to understand the precise pace at which your business collects cash and how efficiently your working capital is being deployed.</p>
 
-            <h2>Average Accounts Receivable</h2>
+            <h2 className="text-2xl font-bold mb-3">Average Accounts Receivable</h2>
             <p><strong>Average AR = (Beginning AR + Ending AR) / 2</strong></p>
-            <p>Because AR fluctuates daily as new sales are made and old invoices are paid, measuring efficiency requires smoothing the data. We take your starting balance and ending balance and divide by two to establish the baseline average AR over the period.</p>
+            <p>Because the total balance of accounts receivable fluctuates violently on a daily basis as new sales are made and old invoices are paid, measuring collection efficiency using a single point in time is statistically flawed. If a massive customer happened to pay their invoice on the very last day of the month, your ending AR balance would look artificially low, making your collection process appear much better than it actually is. To correct this volatility, analysts must smooth the data. We take your starting balance at the beginning of the period, add it to your ending balance, and divide by two to establish the baseline average AR over the period. This average is the critical denominator used in almost all subsequent turnover calculations.</p>
 
-            <h2>AR Turnover Ratio</h2>
+            <h2 className="text-2xl font-bold mb-3">AR Turnover Ratio</h2>
             <p><strong>AR Turnover = Net Credit Sales / Average AR</strong></p>
-            <p>This ratio measures how many times your business completely collected its average accounts receivable balance over the measured period. A higher number indicates rapid collection and fewer funds tied up in unpaid invoices.</p>
+            <p>The Accounts Receivable Turnover Ratio is a fundamental efficiency metric that measures exactly how many times your business completely collected its average accounts receivable balance over the measured period. For example, an annual turnover ratio of 12 means that, on average, your company collects its entire outstanding receivables balance twelve times a year, or roughly once a month. A higher number indicates rapid collection, highly efficient credit policies, and fewer funds tied up in unpaid invoices. Conversely, a low turnover ratio suggests that your credit policies might be too lenient, your collection department is underperforming, or your customers are struggling financially.</p>
 
-            <h2>Days Sales Outstanding (DSO)</h2>
+            <h2 className="text-2xl font-bold mb-3">Days Sales Outstanding (DSO)</h2>
             <p><strong>DSO = Days in Period / AR Turnover</strong></p>
-            <p>Equivalently calculated as <em>(Average AR / Net Credit Sales) × Days in Period</em>, this is arguably the most important collection metric. It tells you exactly how many days, on average, a dollar of credit sales spends as an unpaid invoice before becoming cash in your bank account.</p>
+            <p>Equivalently calculated as <em>(Average AR / Net Credit Sales) × Days in Period</em>, Days Sales Outstanding (DSO) is arguably the single most important collection metric monitored by Chief Financial Officers (CFOs) worldwide. It translates the abstract turnover ratio into a concrete, easily understandable time metric. It tells you exactly how many days, on average, a single dollar of credit sales spends sitting as an unpaid invoice before finally becoming usable cash in your bank account. If your DSO is creeping upward month over month, it is a glaring red flag that your cash flow is deteriorating and immediate action must be taken by the collections team.</p>
 
-            <h2>Daily Credit Sales</h2>
+            <h2 className="text-2xl font-bold mb-3">Daily Credit Sales and 30-Day Projections</h2>
             <p><strong>Daily Credit Sales = Net Credit Sales / Days in Period</strong></p>
-            <p>This internal metric establishes the velocity of your sales on a daily basis, allowing us to project how much AR is generated in a 30-day window.</p>
+            <p>This internal metric establishes the absolute velocity of your sales on a daily basis. By dividing your total net credit sales by the number of days in the period, we determine exactly how much new AR is being generated every 24 hours. By taking this daily velocity and multiplying it by 30, we generate the <strong>30-Day AR Estimate</strong>. This represents the projected amount of new accounts receivable that will be generated in a standard 30-day billing window based entirely on your current sales momentum.</p>
 
-            <h2>30-Day AR Estimate</h2>
-            <p><strong>30-Day AR Estimate = Daily Credit Sales × 30</strong></p>
-            <p>This represents the projected AR generated per 30 days based on your current sales velocity.</p>
-
-            <h2>Net Change in AR</h2>
+            <h2 className="text-2xl font-bold mb-3">Net Change in AR and Cash Flow Impact</h2>
             <p><strong>Net Change in AR = Beginning AR − Ending AR</strong></p>
-            <p>This measures whether your AR balance grew or shrank over the period. If the result is positive, you collected more cash than you issued in new credit, releasing cash into your business. If negative, your outstanding credit grew, tying up more of your cash in unpaid invoices.</p>
+            <p>This simple subtraction measures whether your AR balance physically grew or shrank over the period, which has a massive, direct impact on your cash flow statement. If the result is positive, it means your ending balance is smaller than your beginning balance. You collected more old cash than you issued in new credit, effectively releasing cash back into your business operations. If the result is negative, it means your outstanding credit grew, tying up more of your liquid cash in unpaid invoices.</p>
 
-            <h2>Professional Mode Metrics</h2>
-            <p>By opening the Advanced Options panel, you unlock Tier 2 analytics for a deeper assessment of collection performance and working capital efficiency against industry benchmarks and your own stated credit terms.</p>
+            <h2 className="text-2xl font-bold mb-3">Professional Mode Metrics: Gap Analysis</h2>
+            <p>By opening the Advanced Options panel in our calculator, you unlock Tier 2 analytics for a much deeper assessment of your collection performance against both industry benchmarks and your own stated credit policies.</p>
+            
+            <p>The <strong>DSO vs. Credit Terms Gap</strong> reveals whether your customers are actually obeying the payment terms you legally extend to them. If you grant "Net 30" terms, but your DSO is 42, you have a gap of 12 days. This means you are collecting significantly slower than your stated terms, effectively providing a free 12-day grace period to your clients. The <strong>DSO vs. Industry Benchmark Gap</strong> compares your collection efficiency against peers in your specific industry, illustrating your competitive position regarding working capital management.</p>
 
-            <h2>DSO vs. Credit Terms (Gap)</h2>
-            <p><strong>Gap vs Terms (days) = DSO − Credit Terms</strong></p>
-            <p><strong>Gap vs Terms (%) = (Gap vs Terms (days) / Credit Terms) × 100</strong></p>
-            <p>This reveals whether your customers are actually obeying the payment terms you extend to them. A positive gap means you are collecting slower than your stated terms.</p>
+            <h2 className="text-2xl font-bold mb-3">Working Capital and Cash Release Potential</h2>
+            <p>The <strong>Working Capital Opportunity</strong> calculates the exact amount of cash you are effectively lending to your customers for free by allowing them to pay late. It represents the literal dollar amount of cash that would be immediately released into your bank account if every single customer simply paid on exactly the due date of their invoice. Similarly, the <strong>Cash Release Potential</strong> calculates the exact amount of cash that would be freed if you simply improved your collection processes to match the standard benchmark of your industry.</p>
 
-            <h2>DSO vs. Industry Benchmark (Gap)</h2>
-            <p><strong>Gap vs Benchmark (days) = DSO − Industry Benchmark DSO</strong></p>
-            <p><strong>Gap vs Benchmark (%) = (Gap vs Benchmark (days) / Industry Benchmark DSO) × 100</strong></p>
-            <p>This compares your collection efficiency against peers in your specific industry, illustrating your competitive position regarding working capital management.</p>
-
-            <h2>Cash Release Potential</h2>
-            <p><strong>Cash Release Potential = (DSO − Industry Benchmark DSO) × Daily Credit Sales</strong></p>
-            <p>This calculates the exact amount of cash that would be freed and injected back into your bank account if you improved your collection processes to match your industry benchmark. If your DSO is already better than the benchmark, this potential is zero.</p>
-
-            <h2>Working Capital Opportunity</h2>
-            <p><strong>Working Capital Opportunity = (DSO − Credit Terms) × Daily Credit Sales</strong></p>
-            <p>This calculates the cash you are effectively lending to your customers for free by allowing them to pay late. It represents the cash that would be immediately released if every customer simply paid on exactly the due date.</p>
-
-            <h2>Overdue AR Ratio</h2>
-            <p><strong>Overdue AR Ratio (%) = (Overdue Receivables / Average AR) × 100</strong></p>
-            <p>This ratio measures what percentage of your average accounts receivable balance is currently past due, directly feeding into the assessment of collection risk.</p>
-
-            <h2>Collection Risk Score</h2>
-            <p><strong>Collection Risk Score = (Bad Debt % × 0.5) + (Overdue AR Ratio × 0.5)</strong></p>
-            <p><em>Methodology:</em> This is a composite indicator calculated by Racira using a 50/50 weighting of Bad Debt % and Overdue Receivables as a share of Average AR. It is not a standardized accounting metric. The score is capped at 100 and banded into Low Risk (0–20), Moderate Risk (20–50), and High Risk (50–100) to provide a quick health check of your receivables portfolio.</p>
+            <h2 className="text-2xl font-bold mb-3">Collection Risk and Overdue Ratios</h2>
+            <p>Finally, the calculator evaluates portfolio health through the <strong>Overdue AR Ratio</strong>, which measures what percentage of your average accounts receivable balance is currently past its due date. This ratio directly feeds into the <strong>Collection Risk Score</strong>, a proprietary composite indicator calculated by Racira using a 50/50 weighting of your Bad Debt Percentage and your Overdue Receivables Ratio. The score is capped at 100 and banded into Low Risk (0–20), Moderate Risk (20–50), and High Risk (50–100) to provide an instant, at-a-glance health check of your entire receivables portfolio.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/accounts-receivable-calculator" />
           <PopularCalculators exclude="/calculator/accounts-receivable-calculator" />

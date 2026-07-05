@@ -307,29 +307,29 @@ export default function RoadTaxCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is Road Tax?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is Road Tax?</h2>
             <p>Road Tax, commonly referred to as Vehicle Registration Fees in the United States, is an annual tax levied by state and local governments. This tax is the legal requirement to operate your vehicle on public roads. The revenue generated is typically earmarked for maintaining state highways, funding local infrastructure projects, and supporting the operations of the Department of Motor Vehicles (DMV). Knowing your annual road tax is crucial for calculating the true Total Cost of Ownership of your vehicle.</p>
 
-            <h2>How It Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
             <p>Our Road Tax Calculator simulates the multi-layered fee structure used by most DMVs. It starts with a <strong>State Base Fee</strong>, which is a flat rate charged to all vehicles. Then, it assesses a <strong>Weight Surcharge</strong>. Since heavier vehicles cause exponentially more damage to roads, many states charge extra for vehicles over a certain threshold (our model assumes an extra $0.02 per pound over 4,000 lbs). Next, it applies an <strong>EV/Hybrid Surcharge</strong>. Because EVs do not pay the gas tax that traditionally funds road repairs, states now levy a flat fee ($50-$200) on electric and hybrid vehicles. Finally, <strong>Local Taxes</strong> and <strong>Other Fees</strong> (like vanity plates) are added to calculate the total annual bill.</p>
 
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>The <strong>Total Annual Road Tax</strong> is the amount you will need to write a check for every year to receive your registration sticker. We also provide a <strong>Monthly Equivalent</strong>—while you cannot pay road tax monthly, breaking it down helps you budget for this massive annual hit alongside your car loan and insurance. The <strong>10-Year Cost</strong> puts into perspective exactly how much "rent" you are paying the state simply to own a car over a decade.</p>
 
-            <h2>Key Factors</h2>
+            <h2 className="text-2xl font-bold mb-3">Key Factors</h2>
             <p>The most shocking factor for many modern buyers is the <strong>Engine Type</strong>. Buying a fully electric vehicle (EV) saves you money on gas, but you will be hit with a significant EV surcharge when registration is due. <strong>Vehicle Weight</strong> is also becoming a major factor as Americans shift from sedans to massive SUVs and trucks. A 6,500-pound heavy-duty truck will incur much higher weight surcharges than a 3,000-pound compact car.</p>
 
-            <h2>Advanced Features</h2>
+            <h2 className="text-2xl font-bold mb-3">Advanced Features</h2>
             <p>The calculator allows for the inclusion of <strong>Vanity Plate Fees</strong> and <strong>Emissions Surcharges</strong>. Personalized license plates often carry an additional $30 to $80 annual fee on top of the base registration. In certain counties with poor air quality, older gasoline vehicles may be hit with an emissions surcharge to discourage their use.</p>
 
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <p><strong>Example 1: The Gas Sedan.</strong> Mark drives a 3,200-pound gasoline Honda Civic. His state base fee is $50. He is under the weight limit, pays no EV surcharge, and has a $25 local county tax. His annual road tax is a very affordable $75.</p>
             <p><strong>Example 2: The Heavy EV.</strong> Sarah drives a 5,500-pound luxury electric SUV. Her state base fee is $50. Because it is so heavy, she gets hit with a $30 weight surcharge. Because it is an EV, she gets hit with a $150 EV surcharge to offset the lost gas tax. With her $25 local tax, her annual road tax skyrockets to $255.</p>
 
-            <h2>Tips & Best Practices</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
             <p>While you cannot avoid road tax, you can make smarter purchasing decisions. If you are debating between an SUV and a crossover, compare their weights; staying under your state's weight surcharge threshold can save you hundreds of dollars over the vehicle's lifespan. Furthermore, always budget for your registration fee—set aside 1/12th of the total cost every month so you aren't blindsided when the DMV bill arrives in the mail.</p>
 
-            <h2>Benefits</h2>
+            <h2 className="text-2xl font-bold mb-3">Benefits</h2>
             <p>Using a Road Tax Calculator prevents sticker shock at the DMV. It provides a realistic estimate of your annual vehicle holding costs. For buyers considering an EV, it clearly highlights the "hidden" electric vehicle surcharges that dealerships rarely mention, allowing you to accurately compare the long-term savings of electricity versus gasoline.</p>
           </article>
           

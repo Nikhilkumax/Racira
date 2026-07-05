@@ -349,10 +349,10 @@ export default function PercentageBasedVolumeCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Percentage-Based Volume Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Percentage-Based Volume Calculator</h2>
             <p>In the realm of strength training and bodybuilding, progression is often tracked by a single metric: adding more weight to the bar. While hitting a new 1-Rep Maximum (1RM) is incredibly satisfying, it is an incomplete picture of physiological adaptation. Elite strength coaches rarely judge a workout solely by the heaviest weight lifted. Instead, they track the absolute, total physical work completed by the athlete. This metric is known as <strong>Volume Load</strong> or <strong>Tonnage</strong>. The <strong>Percentage-Based Volume Calculator</strong> allows you to perfectly quantify the massive amounts of physical work your body is performing, providing an objective mathematical lens through which to view your muscle growth and recovery demands.</p>
 
-            <h2>The Mathematics of Tonnage</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of Tonnage</h2>
             <p>The concept of Volume Load is rooted in simple physics: Work = Force × Distance. In weightlifting, because the distance the barbell travels remains relatively constant per individual, we simplify the formula to measure total force exerted.</p>
             <p><strong>Volume Load = Sets × Repetitions × Weight Lifted</strong></p>
             <p>For example, if your 1RM is 300 lbs, and a percentage-based program assigns you 5 sets of 5 repetitions at 75% of your max:</p>
@@ -363,23 +363,23 @@ export default function PercentageBasedVolumeCalculator() {
             </ul>
             <p>During that single exercise, your central nervous system, joints, and musculature successfully moved nearly 3 tons of gravitational resistance. When you begin tracking these massive numbers week over week, you gain immense control over your programming.</p>
 
-            <h2>Why Volume Drives Hypertrophy (Muscle Growth)</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Volume Drives Hypertrophy (Muscle Growth)</h2>
             <p>If your primary goal is to build massive, thick muscle bellies (hypertrophy), Tonnage is the ultimate metric. Muscle growth is primarily triggered by two factors: Mechanical Tension (the physical pulling apart of the muscle fibers under heavy load) and Metabolic Stress (the buildup of lactic acid and blood inside the muscle during sustained effort).</p>
             <p>If you walk into the gym and do a single, grueling 1-rep max of 300 lbs, you have created maximum mechanical tension, but your total volume is only 300 lbs. There is zero metabolic stress, and therefore, very little muscle growth will occur. Conversely, if you execute the 5x5 at 225 lbs, moving 5,625 lbs of total volume, you have subjected the muscle to sustained tension and massive metabolic stress. High volume, executed at the correct percentage (70-80%), is the undisputed king of hypertrophy.</p>
 
-            <h2>The Trap of Junk Volume</h2>
+            <h2 className="text-2xl font-bold mb-3">The Trap of Junk Volume</h2>
             <p>A common mistake among novice lifters is assuming that "more volume is always better." This leads to the trap of Junk Volume. If you load an empty 45 lb barbell and do 100 repetitions, you have accumulated 4,500 lbs of volume. Mathematically, this looks impressive. Physiologically, it is garbage.</p>
             <p>Because the percentage of your 1RM is so incredibly low (likely under 20%), the mechanical tension is practically non-existent. Your body will adapt by increasing your cardiovascular endurance and capillary density, but it will not build strength or size. This is why our calculator specifically cross-references your Volume with your Target Percentage. Tonnage is only valuable if the percentage is high enough (generally above 65%) to recruit high-threshold motor units.</p>
 
-            <h2>Managing Central Nervous System (CNS) Fatigue</h2>
+            <h2 className="text-2xl font-bold mb-3">Managing Central Nervous System (CNS) Fatigue</h2>
             <p>As you use the calculator, you must be hyper-aware of the relationship between Tonnage and Intensity (Percentage). The human nervous system has a finite capacity for stress.</p>
             <p>If you attempt to accumulate 5,000 lbs of volume using 70% of your 1RM, your body will recover relatively easily within 48 hours. However, if you attempt to accumulate that same 5,000 lbs of volume using 95% of your 1RM (which would require doing roughly 17 brutal single repetitions), your CNS will crash. The neurological output required to fire maximum motor units repeatedly will leave you severely fatigued, potentially requiring an entire week to recover. Elite programming balances the scales: when the percentage goes up, the total volume must come down.</p>
 
-            <h2>Progressive Overload Without Heavy Weights</h2>
+            <h2 className="text-2xl font-bold mb-3">Progressive Overload Without Heavy Weights</h2>
             <p>The most profound use of the Percentage-Based Volume Calculator is planning progressive overload when you are stuck. Imagine your Bench Press has been stuck at 225 lbs for two months. You physically cannot lift 230 lbs. You are plateaued.</p>
             <p>Instead of stubbornly trying to lift heavier weight and failing, you can use Volume Load to progress. In Week 1, you bench 185 lbs for 3 sets of 8 reps (4,440 lbs of volume). In Week 2, the bar weight remains exactly the same (185 lbs), but you perform 4 sets of 8 reps (5,920 lbs of volume). You have successfully forced your body to do more physical work than it did the previous week. You have achieved progressive overload, and your body will adapt by getting stronger, eventually breaking your 225 lb plateau.</p>
 
-            <h2>Conclusion: Architecting the Workload</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Architecting the Workload</h2>
             <p>Strength training is not a chaotic guessing game of effort; it is applied mathematics and architectural design. By calculating the total tonnage of your training blocks, you protect yourself from overtraining while guaranteeing you are doing enough work to grow. Use the Percentage-Based Volume Calculator to audit your weekly routines. Ensure your hypertrophy blocks contain massive, grueling volume, and your strength peaks taper down into low-volume, high-percentage precision. Let the numbers dictate the effort.</p>
           </article>
           

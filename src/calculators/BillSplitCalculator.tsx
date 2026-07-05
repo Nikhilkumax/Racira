@@ -63,7 +63,7 @@ const BillSplitCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Split Bill</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors"><RotateCcw className="h-5 w-5" /></button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors"><RotateCcw className="h-5 w-5" /></button>
               </div>
           </div>
 
@@ -90,7 +90,7 @@ const BillSplitCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Sidebar Ad" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Sharing Expenses Without the Stress</h2>
+              <h2 className="text-2xl font-bold mb-3">Sharing Expenses Without the Stress</h2>
               <p>Dining out or traveling with friends is fun until the bill arrives. A bill split calculator removes the awkwardness and math errors from the table, ensuring everyone pays their fair share exactly.</p>
               <h3>When to Split Evenly</h3>
               <p>Splitting evenly is best for meals where everyone ordered similar items or for shared costs like a vacation rental or utility bill. If one person ordered significantly more expensive items, it's often more fair to calculate individual subtotals first.</p>

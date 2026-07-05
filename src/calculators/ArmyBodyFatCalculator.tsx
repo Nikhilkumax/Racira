@@ -227,19 +227,19 @@ const ArmyBodyFatCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is the Army Body Fat Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is the Army Body Fat Calculator?</h2>
             <p>The Army Body Fat Calculator uses the U.S. Army's official circumference-based method (AR 600-9) to estimate body fat percentage and evaluate compliance with U.S. Army fitness standards. Pre-filled with age 25, height 70 inches, neck 15.5 inches, and waist 33 inches for a male, the estimated body fat is approximately 17% — well within the Army standard of 22% for the 21–27 age group. This calculator is essential for soldiers, recruits, and fitness-conscious individuals tracking military fitness readiness.</p>
-            <h2>Army Body Fat Formula</h2>
+            <h2 className="text-2xl font-bold mb-3">Army Body Fat Formula</h2>
             <p>The formula is identical to the Navy method (Hodgdon &amp; Beckett, 1984): <strong>Men:</strong> BF% = 86.010 × log₁₀(waist − neck) − 70.041 × log₁₀(height) + 36.76. <strong>Women:</strong> BF% = 163.205 × log₁₀(waist + hip − neck) − 97.684 × log₁₀(height) − 78.387. The Army rounds all measurements to the nearest half-inch.</p>
-            <h2>AR 600-9 Body Fat Standards</h2>
+            <h2 className="text-2xl font-bold mb-3">AR 600-9 Body Fat Standards</h2>
             <p>Army Regulation 600-9 specifies maximum body fat percentages by age group: <strong>Males:</strong> Ages 17–20: 20%, 21–27: 22%, 28–39: 24%, 40+: 26%. <strong>Females:</strong> Ages 17–20: 30%, 21–27: 32%, 28–39: 34%, 40+: 36%. These standards allow for age-related increases in acceptable body fat, acknowledging natural physiological changes while maintaining operational readiness requirements.</p>
-            <h2>Army Body Composition Program (ABCP)</h2>
+            <h2 className="text-2xl font-bold mb-3">Army Body Composition Program (ABCP)</h2>
             <p>Soldiers who exceed body fat standards are placed in the Army Body Composition Program. Under ABCP, soldiers receive mandatory nutrition counseling, an exercise program, and are re-measured every 90 days. The program allows up to 6 months to reach compliance. Failure to meet standards can result in: bar to reenlistment, promotion denial, or administrative separation from service. However, the program also emphasizes health education and sustainable lifestyle changes.</p>
-            <h2>Measurement Protocol (AR 600-9)</h2>
+            <h2 className="text-2xl font-bold mb-3">Measurement Protocol (AR 600-9)</h2>
             <p>The Army specifies a precise measurement protocol: Three separate measurements of each site (neck, waist, hip for women) are taken. Each measurement is rounded down to the nearest 0.5 inch before recording. The average of the three measurements is calculated for each site. Neck measurements should slope upward to the back, taken just below the larynx. Waist measurements should be horizontal at the navel for men, at the natural waist for women.</p>
-            <h2>Formula Accuracy and Limitations</h2>
+            <h2 className="text-2xl font-bold mb-3">Formula Accuracy and Limitations</h2>
             <p>The circumference method has a standard error of approximately ±3–4% body fat compared to DEXA scanning. For very muscular soldiers, the formula may overestimate body fat (larger neck measurement reduces the differential). For soldiers with unusual fat distribution, it may underestimate. The Army acknowledges these limitations but uses the method due to its practicality, reproducibility, and low equipment requirements in field conditions.</p>
-            <h2>Army vs Navy vs Marine Corps Standards</h2>
+            <h2 className="text-2xl font-bold mb-3">Army vs Navy vs Marine Corps Standards</h2>
             <p>All three services use the same Hodgdon &amp; Beckett circumference formula. The differences are in standards and administrative procedures: Navy uses OPNAVINST 6110.1J with slightly higher thresholds in some age groups. Marine Corps uses a similar method with stricter standards (especially for younger males). Army uses AR 600-9, which is updated periodically. For 2024, the Army shifted focus toward overall body composition and fitness rather than body fat alone, incorporating ACFT (Army Combat Fitness Test) performance data alongside body fat measurements.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/army-body-fat-calculator" />

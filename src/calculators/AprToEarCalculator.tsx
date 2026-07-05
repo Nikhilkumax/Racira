@@ -247,17 +247,17 @@ export default function AprToEarCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-            <h2>APR vs EAR: Understanding the Difference</h2>
+            <h2 className="text-2xl font-bold mb-3">APR vs EAR: Understanding the Difference</h2>
             <p>The Annual Percentage Rate (APR) is the nominal interest rate expressed on an annual basis, without accounting for compounding within the year. The Effective Annual Rate (EAR), also called the Effective Annual Interest Rate (EAIR) or Annual Equivalent Rate (AER), represents the true cost of borrowing or the true return on investment once intra-year compounding is considered.</p>
             <p>This APR to EAR calculator is essential for comparing financial products that use different compounding frequencies. A savings account offering 5% APR compounded monthly is strictly better than one offering 5% APR compounded annually — and this tool quantifies exactly how much better, instantly.</p>
 
-            <h2>The Formula: APR to EAR Conversion</h2>
+            <h2 className="text-2xl font-bold mb-3">The Formula: APR to EAR Conversion</h2>
             <p>The standard conversion formula is: EAR = (1 + APR/n)^n − 1, where n is the number of compounding periods per year. Breaking this down: 8% APR compounded monthly gives EAR = (1 + 0.08/12)^12 − 1 = (1.006667)^12 − 1 = 0.08299 = 8.299%. This 0.3% difference may seem small but on a $100,000 loan represents $300/year in additional interest.</p>
 
-            <h2>Real-World Applications</h2>
+            <h2 className="text-2xl font-bold mb-3">Real-World Applications</h2>
             <p>Credit cards typically compound daily at 365 periods per year, making their EAR significantly higher than the stated APR. A credit card at 24% APR daily compounding has an EAR of 27.11%. Mortgages use monthly compounding. Bond yields are often quoted semi-annually. Savings accounts and CDs typically advertise APY (Annual Percentage Yield), which is mathematically identical to EAR — always the more meaningful rate for savers.</p>
 
-            <h2>Why This Matters for Borrowers and Investors</h2>
+            <h2 className="text-2xl font-bold mb-3">Why This Matters for Borrowers and Investors</h2>
             <p>Federal law (Truth in Lending Act) requires lenders to disclose APR, but for comparing financial products, EAR is a more honest metric. When evaluating two loans with the same stated APR but different compounding frequencies, the one with more frequent compounding costs more. Similarly, a savings account with more frequent compounding earns more. Always convert to EAR before making financial comparisons.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/apr-to-ear-calculator" />

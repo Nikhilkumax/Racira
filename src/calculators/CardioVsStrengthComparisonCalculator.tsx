@@ -319,26 +319,26 @@ export default function CardioVsStrengthComparisonCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Long-Term Reality of Fat Loss</h2>
+            <h2 className="text-2xl font-bold mb-3">The Long-Term Reality of Fat Loss</h2>
             <p>If you ask the average person on the street how to lose weight, 99% of them will say, "Eat less and go running." For decades, the fitness industry conditioned us to believe that the only path to a lean physique was endless hours of cardiovascular suffering. We were taught to obsess over the "Calories Burned" number on the treadmill screen. However, modern clinical exercise physiology has proven that this short-term, single-workout perspective is fundamentally flawed. The <strong>Cardio vs Strength Calorie Comparison Calculator</strong> zooms out. By analyzing your training over a full 30-day month, it reveals the massive thermodynamic secret that bodybuilders and fitness models have known for years: building muscle is the ultimate fat-loss hack.</p>
 
-            <h2>Why Cardio Wins the "Immediate Burn" Battle</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Cardio Wins the "Immediate Burn" Battle</h2>
             <p>To understand the debate, we must first concede where cardio is superior. If you look purely at a 45-minute window of time, cardiovascular exercise (like running or cycling) will mathematically burn significantly more absolute calories than weightlifting.</p>
             <p>When you jog on a treadmill for 45 minutes, your heart rate elevates and stays elevated for the entire duration. You are performing 45 solid minutes of continuous physical "work." Weightlifting, however, is highly segmented. If you spend 45 minutes in the weight room, you might do a heavy set of squats that takes 20 seconds, and then sit on a bench and rest for 3 minutes to let your central nervous system recover. Because you spent over 30 minutes resting during that session, the acute caloric burn is significantly lower than the treadmill. If you stop the clock exactly at the 45-minute mark, cardio wins the math equation.</p>
 
-            <h2>The Muscle Paradox: Building a Caloric Furnace</h2>
+            <h2 className="text-2xl font-bold mb-3">The Muscle Paradox: Building a Caloric Furnace</h2>
             <p>If cardio burns more acute calories, why do professional bodybuilders rely heavily on weightlifting to get their body fat down to 5%? The answer lies in Resting Metabolic Rate (RMR) and tissue density.</p>
             <p>Cardio burns calories only while you are actively doing it. Once you step off the treadmill, the burn effectively stops. Weightlifting, however, forces your body to adapt to the heavy stress by building new, lean muscle tissue. Muscle is highly metabolically active. It requires a constant supply of calories just to exist on your frame. For every pound of muscle you build, your body's baseline RMR increases. By lifting weights, you are physically expanding the size of your body's internal "engine." You begin to burn more calories 24 hours a day, 7 days a week—even while you are sitting at your desk or sleeping. Cardio does not build this engine; it merely burns the fuel currently in the tank.</p>
 
-            <h2>The 30-Day Monthly Yield</h2>
+            <h2 className="text-2xl font-bold mb-3">The 30-Day Monthly Yield</h2>
             <p>This calculator is unique because it projects your output over an entire month. Let's say you train 4 days a week.</p>
             <p>Over a month, those 16 cardio sessions will accumulate a massive amount of "Active Burn" calories. However, those 16 strength training sessions will trigger two incredible phenomena. First, they will trigger the Afterburn Effect (EPOC), forcing your body to consume massive amounts of oxygen for 24 hours after the workout just to repair the muscle damage. Second, the new muscle tissue you are actively building will require passive calories every single day of the month just to survive. When you add the Active Burn, the EPOC Afterburn, and the Passive Muscle BMR together over a 30-day period, the thermodynamic advantage of strength training becomes undeniable.</p>
 
-            <h2>The Danger of Being "Skinny Fat"</h2>
+            <h2 className="text-2xl font-bold mb-3">The Danger of Being "Skinny Fat"</h2>
             <p>If you only do cardio to lose weight, you will absolutely lose pounds on the scale. But there is a massive catch. Because you are not providing any resistance stimulus to your muscles, your body will happily burn away both fat and muscle tissue equally to drop the weight. The result is becoming a smaller, softer version of yourself—a condition often referred to in fitness circles as being "skinny fat."</p>
             <p>Weightlifting sends a powerful survival signal to your central nervous system: <em>"We need this muscle tissue to survive these heavy loads; do not burn it."</em> Consequently, when you are in a caloric deficit, weightlifting forces your body to spare the muscle and strictly oxidize stored body fat for fuel, resulting in a lean, toned, and highly athletic physique.</p>
 
-            <h2>Conclusion: Change Your Perspective</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Change Your Perspective</h2>
             <p>Stop judging the success of your workouts by the number on your Apple Watch after 45 minutes. Fat loss is a long-term architectural project, not a single-day event. Cardio is phenomenal for cardiovascular health, longevity, and mitochondrial density—you absolutely should do it. But strength training is the ultimate tool for permanently altering your metabolism. Use the Cardio vs Strength Calorie Comparison Calculator to project your 30-day monthly yield, combine both training styles, and let the science of body recomposition permanently transform your physique.</p>
           </article>
           

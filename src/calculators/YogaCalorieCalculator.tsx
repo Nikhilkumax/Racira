@@ -284,10 +284,10 @@ export default function YogaCalorieCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Caloric Demand of Yoga</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Caloric Demand of Yoga</h2>
             <p>For thousands of years, yoga has been utilized as a profound physical and spiritual discipline. In modern times, it has exploded in popularity as a mainstream fitness routine. However, a massive misconception persists in the fitness industry regarding how many calories a yoga class actually burns. Many practitioners believe that because they are sweating profusely and their muscles are trembling during a hold, they are burning a massive amount of calories. The <strong>Yoga Calorie Calculator</strong> cuts through the myths by utilizing established Metabolic Equivalent (MET) formulas, providing a mathematically accurate caloric burn based on your specific body weight and the exact style of yoga you are practicing.</p>
 
-            <h2>Not All Yoga is Created Equal</h2>
+            <h2 className="text-2xl font-bold mb-3">Not All Yoga is Created Equal</h2>
             <p>The single biggest mistake people make when estimating calorie burn is treating "yoga" as a single, uniform activity. From a cardiovascular and metabolic standpoint, a slow, deep-stretching Restorative class is as different from a rapid Ashtanga class as walking is from sprinting.</p>
             <p>Our calculator divides the discipline into four primary categories based on their distinct physiological demands:</p>
             <ul>
@@ -297,21 +297,21 @@ export default function YogaCalorieCalculator() {
               <li><strong>Bikram / Hot Yoga (MET 5.5):</strong> A specific 26-posture sequence performed in a room heated to 105°F with 40% humidity. The extreme thermal stress forces your cardiovascular system into overdrive just to cool your core temperature down. This massive spike in heart rate translates to the highest caloric burn per hour of any yoga style.</li>
             </ul>
 
-            <h2>Why Body Weight Drives the Math</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Body Weight Drives the Math</h2>
             <p>At its core, yoga is a form of <strong>calisthenics</strong>—resistance training using your own body weight. There are no dumbbells, barbells, or machines. Your body is the resistance.</p>
             <p>Because of this, the exact same 60-minute Vinyasa class will yield wildly different caloric burns for two different people. If you weigh 200 pounds, your chest and tricep muscles must generate a massive amount of force to lower your body into a <em>Chaturanga Dandasana</em> (low plank). If you weigh 120 pounds, the mechanical force required is drastically less. Newton's laws of physics apply directly to your yoga mat: moving a heavier mass requires more energy. Therefore, heavier individuals will inherently burn more calories during a yoga session than lighter individuals.</p>
 
-            <h2>Is Yoga Effective for Weight Loss?</h2>
+            <h2 className="text-2xl font-bold mb-3">Is Yoga Effective for Weight Loss?</h2>
             <p>This is a highly nuanced question. If you are comparing the total calories burned during a 60-minute Hatha yoga class against a 60-minute run on a treadmill, yoga loses terribly. An average 150-pound woman might burn 170 calories in Hatha yoga, compared to 600 calories running. From a strict, mathematical "calories burned per minute" perspective, yoga is a poor primary engine for rapid fat loss.</p>
             <p>However, successful, long-term weight loss is not just about burning calories on a treadmill; it is about hormonal balance and recovery. Chronic stress and elevated cortisol levels cause the human body to hoard abdominal fat and resist weight loss. The deep parasympathetic breathing practiced in yoga has been clinically proven to drastically lower serum cortisol levels.</p>
             <p>Furthermore, heavy weightlifting and intense cardio cause micro-tears in muscle tissue and inflammation in joints. Yoga acts as the ultimate "active recovery." By increasing blood flow to damaged tissues, improving joint mobility, and lengthening tight muscles, yoga allows you to recover faster. Faster recovery means you can perform better, lift heavier, and run faster during your intense workout days. Therefore, while yoga itself may not burn massive calories, it facilitates a healthier, stronger body that is far more capable of burning fat.</p>
 
-            <h2>The Sweat Myth of Hot Yoga</h2>
+            <h2 className="text-2xl font-bold mb-3">The Sweat Myth of Hot Yoga</h2>
             <p>It is crucial to address the specific mechanics of Bikram or "Hot" yoga. Many practitioners step out of a 90-minute hot yoga class completely drenched in sweat, step on a scale, and are thrilled to see they have "lost" 3 pounds. They mistakenly believe they have burned a massive amount of fat.</p>
             <p>That 3-pound drop on the scale is entirely <strong>water weight</strong>. The intense heat of the room causes massive fluid loss through perspiration. The moment you drink a large bottle of water to rehydrate, those 3 pounds will instantly return. Sweating is simply a thermal regulation mechanism; it is not a measure of fat oxidation.</p>
             <p>While Hot Yoga does burn slightly more calories than unheated yoga (due to the heart working harder to cool the skin), the difference is not astronomical. You cannot sweat fat out of your pores; fat must be metabolically oxidized and exhaled as carbon dioxide. Use Hot Yoga for flexibility and mental endurance, but do not rely on the post-class scale drop as an indicator of fat loss.</p>
 
-            <h2>Conclusion: Where Yoga Fits in Your Routine</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Where Yoga Fits in Your Routine</h2>
             <p>Stop viewing yoga purely as a calorie-burning mechanism. Use the Yoga Calorie Calculator to accurately log your energy expenditure so you can adjust your daily diet (TDEE) accordingly, but appreciate the discipline for what it truly is: a foundational pillar of longevity. Lift heavy weights to build muscle, run or cycle to build cardiovascular power, and practice yoga to ensure your joints, mind, and nervous system remain flexible, resilient, and healthy for decades to come.</p>
           </article>
           

@@ -189,30 +189,30 @@ export default function CapitalAssetPricingModelCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is the Capital Asset Pricing Model (CAPM)?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is the Capital Asset Pricing Model (CAPM)?</h2>
             <p>The Capital Asset Pricing Model (CAPM) is the foundational theory of modern finance for determining the required return on any investment. Developed by William Sharpe in 1964 (building on Harry Markowitz's portfolio theory), CAPM establishes that the expected return on an asset is proportional to its systematic risk — the risk that cannot be eliminated through diversification. This model underpins how trillions of dollars in capital are priced, valued, and allocated across global financial markets every day.</p>
             <p>Our calculator comes pre-filled with realistic 2024 values: a risk-free rate of 4.5% (approximating the 10-year US Treasury yield), beta of 1.2 (a moderately aggressive stock), and expected market return of 10.5% (close to the long-run S&P 500 average). The result: a required expected return of 11.7% per year.</p>
 
-            <h2>The CAPM Formula</h2>
+            <h2 className="text-2xl font-bold mb-3">The CAPM Formula</h2>
             <p><strong>E(R) = Rf + β × (Rm − Rf)</strong></p>
             <p>Where E(R) = Expected return on the asset. Rf = Risk-free rate (yield on government bonds, typically 10-year US Treasury). β (Beta) = Systematic risk of the asset relative to the market. Rm = Expected return of the overall market. (Rm − Rf) = Market Risk Premium — the extra return demanded for bearing market risk. Working through our example: E(R) = 4.5% + 1.2 × (10.5% − 4.5%) = 4.5% + 1.2 × 6% = 4.5% + 7.2% = 11.7%.</p>
 
-            <h2>Understanding Beta (β): The Risk Measure</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Beta (β): The Risk Measure</h2>
             <p>Beta is the cornerstone of CAPM — it measures how much an asset's returns move relative to the market. A beta of 1.0 means the asset moves in perfect lockstep with the market — it is as risky as the overall market (e.g., an S&P 500 index fund). A beta above 1.0 means the asset amplifies market movements: a beta of 1.5 means if the market rises 10%, the stock typically rises 15%; if the market falls 10%, the stock falls 15%. A beta below 1.0 means the asset is less volatile than the market. Utilities, consumer staples, and healthcare stocks often have betas of 0.4–0.8. A negative beta (rare) means the asset moves counter to the market — gold stocks and some volatility instruments can have slightly negative betas.</p>
 
-            <h2>The Security Market Line (SML)</h2>
+            <h2 className="text-2xl font-bold mb-3">The Security Market Line (SML)</h2>
             <p>The Security Market Line is the visual representation of CAPM — a line that plots expected return (y-axis) against beta (x-axis). Every point on the SML represents the CAPM-required expected return for a given beta. The y-intercept is the risk-free rate (beta = 0). The slope of the SML equals the market risk premium (Rm − Rf). Assets plotting above the SML are undervalued — they offer more return than CAPM requires for their risk level, representing positive alpha (α &gt; 0). Assets below the SML are overvalued — insufficient return for their risk. Active portfolio managers constantly seek assets above the SML.</p>
 
-            <h2>CAPM in Corporate Finance and Valuation</h2>
+            <h2 className="text-2xl font-bold mb-3">CAPM in Corporate Finance and Valuation</h2>
             <p>CAPM's most important practical application is calculating the cost of equity (Ke) for use in the Weighted Average Cost of Capital (WACC). WACC = (E/V) × Ke + (D/V) × Kd × (1−T). Where Ke is determined by CAPM. WACC is then used as the discount rate in DCF (Discounted Cash Flow) models to value businesses, projects, and acquisitions. A company with a beta of 1.2, risk-free rate of 4.5%, and market premium of 6% has a cost of equity of 11.7%. If this company has no debt, its WACC = 11.7%, and all future free cash flows are discounted at this rate to compute intrinsic value.</p>
 
-            <h2>Market Risk Premium: The Historical Perspective</h2>
+            <h2 className="text-2xl font-bold mb-3">Market Risk Premium: The Historical Perspective</h2>
             <p>The market risk premium (MRP) has averaged approximately 4.5–6% in the US historically, though it varies significantly by estimation method and time period. From 1926–2023, the equity risk premium (US large-cap stocks vs. Treasury bills) averaged approximately 7.7%. However, forward-looking estimates using dividend discount models or earnings yield approaches tend to produce lower estimates of 4–5.5%, reflecting current market valuations. Many practitioners use 5.5–6% as a reasonable MRP assumption for US equities in current market conditions.</p>
 
-            <h2>Limitations of CAPM and Alternative Models</h2>
+            <h2 className="text-2xl font-bold mb-3">Limitations of CAPM and Alternative Models</h2>
             <p>CAPM rests on several assumptions that don't fully hold in practice: Markets are perfectly efficient and all investors have identical beliefs. Investors can borrow and lend at the risk-free rate. Returns follow a normal distribution. Beta is stable and a complete measure of risk. Empirical research has identified systematic return anomalies that CAPM cannot explain: the size effect (small-cap stocks outperform), the value effect (high book-to-market stocks outperform), and the momentum effect (recent winners continue to outperform). The Fama-French Three-Factor Model adds size (SMB) and value (HML) factors to CAPM. The Carhart Four-Factor Model adds momentum. The Fama-French Five-Factor Model further adds profitability and investment factors.</p>
 
-            <h2>Using CAPM to Identify Alpha</h2>
+            <h2 className="text-2xl font-bold mb-3">Using CAPM to Identify Alpha</h2>
             <p>Alpha (α) = Actual Return − CAPM Expected Return. A portfolio manager delivering actual returns of 14% with a beta of 1.2 at Rf=4.5% and Rm=10.5% has generated alpha of 14% − 11.7% = 2.3%. This represents 2.3% of return unexplained by systematic risk — genuine skill or exploitation of market inefficiency. Over long periods, consistently positive alpha is extraordinarily rare; studies suggest fewer than 5% of active managers deliver statistically significant positive alpha net of fees. This is the empirical foundation for the passive index investing revolution led by Vanguard and Fidelity.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/capital-asset-pricing-model-calculator" />

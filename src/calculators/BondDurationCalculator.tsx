@@ -229,32 +229,32 @@ export default function BondDurationCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is Bond Duration?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is Bond Duration?</h2>
             <p>Bond duration is one of the most important concepts in fixed-income investing — yet it's frequently misunderstood. Duration is not simply the time until a bond matures. Rather, it is the weighted average time until all cash flows (coupons and principal repayment) are received, where each cash flow is weighted by its present value as a fraction of the total bond price. Duration measures both the average timing of a bond's cash flows and, critically, its sensitivity to interest rate changes.</p>
             <p>Our calculator is pre-filled with a typical investment-grade bond: $1,000 face value, 6% coupon, 10-year maturity, 5% yield to maturity, semi-annual payments. This produces a bond price of approximately $1,077 (premium bond since coupon &gt; yield) and a Macaulay Duration of about 7.8 years.</p>
 
-            <h2>Macaulay Duration Formula</h2>
+            <h2 className="text-2xl font-bold mb-3">Macaulay Duration Formula</h2>
             <p><strong>Macaulay Duration = Σ [t × PV(CFt)] ÷ Bond Price</strong></p>
             <p>Where t = time of each cash flow in years, PV(CFt) = present value of each cash flow discounted at the yield. Each coupon payment and the final principal repayment is discounted back to present value, then weighted by its time and divided by the bond's total price. The result is the effective weighted average maturity of the bond's cash flows, expressed in years.</p>
 
-            <h2>Modified Duration: The Interest Rate Sensitivity Measure</h2>
+            <h2 className="text-2xl font-bold mb-3">Modified Duration: The Interest Rate Sensitivity Measure</h2>
             <p><strong>Modified Duration = Macaulay Duration ÷ (1 + YTM/m)</strong></p>
             <p>Where m = number of coupon payments per year. Modified Duration is the most practically useful duration measure because it directly quantifies price sensitivity: a Modified Duration of 7.5 means that for each 1% (100 basis point) increase in interest rates, the bond's price falls approximately 7.5%. Conversely, if rates fall 1%, the price rises approximately 7.5%. This linear approximation works well for small rate changes; for larger moves, convexity adjustment is needed for greater accuracy.</p>
 
-            <h2>DV01: Dollar Value of One Basis Point</h2>
+            <h2 className="text-2xl font-bold mb-3">DV01: Dollar Value of One Basis Point</h2>
             <p><strong>DV01 = (Modified Duration × Bond Price) ÷ 10,000</strong></p>
             <p>DV01 translates duration into dollar terms per basis point (0.01%) yield change. If a bond has DV01 of $7.50, every 1bp rise in yields costs you $7.50 per bond. For a portfolio of 1,000 bonds, that's $7,500 per basis point. Professional bond traders and portfolio managers use DV01 to size hedges, manage risk limits, and ensure that their interest rate exposure is precisely controlled. Futures contracts on 10-year Treasury notes have DV01 of approximately $100 per contract, making them efficient hedging vehicles.</p>
 
-            <h2>What Determines a Bond's Duration?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Determines a Bond's Duration?</h2>
             <p>Three primary factors determine duration. First, maturity: all else equal, longer maturity = higher duration. A 30-year bond has much higher duration than a 5-year bond. Second, coupon rate: higher coupons return cash sooner (as periodic income), reducing the average time to receive cash flows. A zero-coupon bond's Macaulay Duration equals its maturity exactly, since all cash flows occur at maturity. As coupon rate increases, duration decreases. Third, yield: higher yields discount future cash flows more aggressively, making nearer-term cash flows (early coupons) proportionally more valuable — this slightly reduces duration. The relationship between yield and duration is smaller than the maturity and coupon effects.</p>
 
-            <h2>Duration and the Bond Price-Yield Relationship</h2>
+            <h2 className="text-2xl font-bold mb-3">Duration and the Bond Price-Yield Relationship</h2>
             <p>The fundamental rule of bond investing: when interest rates rise, bond prices fall, and vice versa. Duration quantifies exactly how much. A bond with Modified Duration of 8 loses approximately 8% of its value for every 1% rise in rates. During the 2022 rate cycle when the Federal Reserve raised rates by 4.25%, long-duration bonds with Modified Duration of 15–20 lost 60–80% of their value — larger drawdowns than many equity markets. Understanding duration is not optional for fixed-income investors — it is the primary driver of bond performance in a rising rate environment.</p>
 
-            <h2>Investment Strategies Using Duration</h2>
+            <h2 className="text-2xl font-bold mb-3">Investment Strategies Using Duration</h2>
             <p>Duration matching (immunization) aligns a portfolio's duration with the investor's time horizon. If you need funds in 8 years, building a bond portfolio with Macaulay Duration of 8 ensures that price and reinvestment rate risk offset each other, locking in the current yield regardless of rate movements. This is widely used by pension funds, insurance companies, and endowments. Barbell strategy involves holding short-duration and long-duration bonds but few intermediate. This provides liquidity (short-term) plus yield (long-term) while maintaining a target average duration. Active duration management involves extending duration before expected rate cuts (to profit from price appreciation) and shortening before expected hikes.</p>
 
-            <h2>Convexity: The Duration Refinement</h2>
+            <h2 className="text-2xl font-bold mb-3">Convexity: The Duration Refinement</h2>
             <p>Duration provides a linear approximation of price sensitivity that becomes less accurate for large rate moves. Convexity is the second-order correction. A bond with positive convexity benefits more from rate decreases than it suffers from equivalent rate increases — the price-yield relationship curves in the investor's favor. Callable bonds can have negative convexity: when rates fall, the issuer may call the bond, capping price appreciation. Mortgage-backed securities (MBS) are the classic negative convexity instrument. When comparing bonds with similar duration, prefer the one with higher convexity — it's a "free" enhancement in most scenarios.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/bond-duration-calculator" />

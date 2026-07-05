@@ -215,19 +215,19 @@ export default function GroceryBudgetCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>About the Grocery Budget Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">About the Grocery Budget Calculator</h2>
             <p>This grocery budget calculator gives you a clear picture of your household food spending across eight categories. Enter your typical spend per shopping trip and select your frequency — weekly, bi-weekly, or monthly — to see your projected weekly, monthly, and annual totals. The built-in cost-per-person-per-day metric benchmarks your spending against USDA dietary plans and national averages.</p>
-            <h2>How the Calculation Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How the Calculation Works</h2>
             <p>The calculator converts your trip spending to a weekly equivalent: weekly trips are taken at face value, bi-weekly totals are halved, and monthly totals are divided by 4.33 (average weeks per month). Annual spend = weekly spend × 52. Per-person-per-day = annual spend ÷ household size ÷ 365.</p>
-            <h2>Grocery Budget Benchmarks by Household Size</h2>
+            <h2 className="text-2xl font-bold mb-3">Grocery Budget Benchmarks by Household Size</h2>
             <p>The USDA publishes four food plan cost tiers: Thrifty, Low-Cost, Moderate-Cost, and Liberal. A family of four on the Thrifty plan spends roughly $900–$1,100 per month; the Liberal plan allows $1,600–$1,900. Single adults on the Thrifty plan average $250–$310/month. This calculator shows your spending relative to the "per person per day" metric to make benchmarking effortless.</p>
-            <h2>Category-by-Category Savings Strategies</h2>
+            <h2 className="text-2xl font-bold mb-3">Category-by-Category Savings Strategies</h2>
             <p><strong>Produce:</strong> Shop seasonal; buy frozen vegetables for non-seasonal produce. Visit farmers markets near closing time for discounts. <strong>Meat & Seafood:</strong> Buy in bulk and freeze portions; choose cheaper cuts; incorporate plant-based proteins 2–3 days per week. <strong>Dairy:</strong> Store brands often match name brands in quality at 20–30% less cost. <strong>Pantry:</strong> Buy staples (rice, beans, pasta, canned tomatoes) in bulk. <strong>Snacks:</strong> Limit impulse purchases; meal-prep snacks at home.</p>
-            <h2>The 10% Savings Rule</h2>
+            <h2 className="text-2xl font-bold mb-3">The 10% Savings Rule</h2>
             <p>Research consistently shows that households can reduce grocery spending by 10–20% simply by planning meals in advance, using a written shopping list, and reviewing weekly circulars before shopping. Our calculator shows your potential 10% savings as a concrete dollar amount to motivate behavioral change.</p>
-            <h2>Coupons, Loyalty Programs, and Cashback Apps</h2>
+            <h2 className="text-2xl font-bold mb-3">Coupons, Loyalty Programs, and Cashback Apps</h2>
             <p>Modern grocery savings extend beyond paper coupons. Loyalty programs (Kroger Plus, Safeway Club, Target Circle) offer significant per-item discounts. Cashback apps like Ibotta, Fetch, and Checkout 51 return $15–$50/month for regular shoppers. Credit cards with grocery category bonuses (3–5% back) add another layer of savings. Combining all three strategies can realistically cut annual grocery costs by 15–25%.</p>
-            <h2>Building a Sustainable Grocery Budget</h2>
+            <h2 className="text-2xl font-bold mb-3">Building a Sustainable Grocery Budget</h2>
             <p>Track actual spending for 4–6 weeks before setting firm targets. Most households underestimate grocery spending by 15–20%. Use this calculator after each shopping trip to update your estimates and identify category drift. Set a specific weekly budget and carry a running total on your phone while shopping to avoid over-spending at the store.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/grocery-budget-calculator" />

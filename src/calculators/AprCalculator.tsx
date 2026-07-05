@@ -311,7 +311,7 @@ const AprCalculator = () => {
         <div className="max-w-[1180px] mt-12">
           <AdPlaceholder className="mb-8" />
           <article className="prose prose-slate max-w-none lg:prose-lg dark:prose-invert">
-            <h2>What Is an APR Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is an APR Calculator?</h2>
             <p>
               An <strong>APR Calculator</strong> (Annual Percentage Rate Calculator) is a financial tool designed to reveal the true cost of borrowing money. While most lenders advertise an attractive "interest rate," this number rarely tells the whole story. The interest rate only accounts for the base cost of borrowing the principal amount. The APR, however, encompasses both the interest rate <em>and</em> any mandatory upfront fees, providing a standardized, mathematically accurate annualized cost.
             </p>
@@ -319,7 +319,7 @@ const AprCalculator = () => {
               By using an APR calculator, consumers can pierce through marketing jargon to compare loan offers on an apples-to-apples basis. Whether you are applying for a mortgage, an auto loan, or a personal loan, understanding your true APR ensures you aren't blindsided by hidden origination fees, closing costs, or processing charges that dramatically inflate your overall financial burden.
             </p>
 
-            <h2>How the APR Formula Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How the APR Formula Works</h2>
             <p>
               Unlike a simple interest calculation, computing APR requires solving for the internal rate of return (IRR) of a series of cash flows. In a standard installment loan, the borrower receives a lump sum upfront (the principal minus fees) and repays it in equal monthly installments over a specific term.
             </p>
@@ -334,7 +334,7 @@ const AprCalculator = () => {
               To find the APR, we must adjust the Principal (P) to the <em>Net Amount Received</em> (Principal - Fees). We then use a numerical method, typically the Newton-Raphson method, to iterate and find the new monthly rate (r_apr) that makes the present value of all monthly payments exactly equal to the Net Amount Received. Once r_apr is found, we multiply it by 12 and by 100 to get the annualized percentage. This mathematical complexity is why an automated APR calculator is essential.
             </p>
 
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>
               When you input your loan details into our calculator, the results panel provides several critical metrics. Understanding how to interpret each one is vital for making an informed financial decision:
             </p>
@@ -346,7 +346,7 @@ const AprCalculator = () => {
               <li><strong>Total Cost of Loan:</strong> The sum of your total interest and all upfront fees. This represents the absolute dollar amount it cost you to borrow the money.</li>
             </ul>
 
-            <h2>Key Factors That Influence APR</h2>
+            <h2 className="text-2xl font-bold mb-3">Key Factors That Influence APR</h2>
             <p>
               Several variables directly impact your final Annual Percentage Rate. Changing any of these factors will alter the true cost of your loan:
             </p>
@@ -360,12 +360,12 @@ const AprCalculator = () => {
               <strong>3. Loan Term:</strong> The length of the loan has a counterintuitive effect on APR. Because upfront fees are amortized over the life of the loan, a shorter loan term will cause the same flat fee to result in a <em>higher</em> APR compared to a longer term loan. However, shorter terms still result in less total interest paid overall.
             </p>
 
-            <h2>Advanced Features: Handling Multiple Fees</h2>
+            <h2 className="text-2xl font-bold mb-3">Advanced Features: Handling Multiple Fees</h2>
             <p>
               Our calculator includes an Advanced Options toggle to account for complex loan structures. While some lenders only charge a flat "origination fee," mortgages and auto loans often feature a barrage of line-item costs: processing fees, document preparation fees, underwriting fees, and broker fees. By summing these up and inputting them into the "Other Fees" field, the calculator accurately bundles the total friction cost of the loan into the final APR equation.
             </p>
 
-            <h2>Practical Examples of APR in Action</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples of APR in Action</h2>
             <p>
               To illustrate why APR matters, let's look at two competing $10,000 personal loan offers with a 36-month term:
             </p>
@@ -379,7 +379,7 @@ const AprCalculator = () => {
               By comparing APRs, it becomes mathematically obvious that Offer B is actually the cheaper loan, saving you money over the 3-year term.
             </p>
 
-            <h2>Tips & Best Practices for Borrowers</h2>
+            <h2 className="text-2xl font-bold mb-3">Tips & Best Practices for Borrowers</h2>
             <p>
               <strong>Always Ask for the APR:</strong> Lenders are legally required by the Truth in Lending Act (TILA) to disclose the APR. Never accept a loan quote based solely on the monthly payment or nominal interest rate.
             </p>
@@ -390,7 +390,7 @@ const AprCalculator = () => {
               <strong>Beware of 'Zero Percent' Tricks:</strong> Retailers and credit card companies frequently offer 0% APR promotions. Read the fine print to ensure there aren't hidden deferred interest clauses or balance transfer fees that retroactively apply a massive APR if the balance isn't paid in full before the promotional period ends.
             </p>
 
-            <h2>Benefits of Using Our Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Benefits of Using Our Calculator</h2>
             <p>
               Calculating APR by hand requires advanced calculus and iterative mathematical solving. Our tool performs thousands of calculations instantly, providing you with a high-fidelity look at your true borrowing costs. By leveraging the visual breakdowns, pie charts, and amortization summaries, you can confidently navigate lending offers, negotiate away junk fees, and secure the best possible financial terms for your future.
             </p>

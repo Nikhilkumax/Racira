@@ -156,7 +156,7 @@ const PointsBreakEvenCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>What Are Mortgage Discount Points?</h2>
+              <h2 className="text-2xl font-bold mb-3">What Are Mortgage Discount Points?</h2>
               <p>Mortgage discount points are essentially prepaid interest. By paying a lump sum at the closing of your home loan, you "buy down" the interest rate for the entire life of the mortgage. This is often referred to as "buying down the rate."</p>
 
               <h3>The Cost and the Benefit</h3>

@@ -136,17 +136,17 @@ const ModeCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Mode Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Mode Calculator?</h2>
             <p>A mode calculator finds the most frequently occurring value(s) in a dataset and builds a complete frequency distribution. Pre-filled with 15 numbers, the mode is 23 (appearing 4 times) — a clear unimodal distribution. The frequency chart highlights modes in amber for immediate visual identification, while also computing mean and median for comparison.</p>
-            <h2>Types of Mode Distributions</h2>
+            <h2 className="text-2xl font-bold mb-3">Types of Mode Distributions</h2>
             <p><strong>Unimodal:</strong> one clear peak — one mode. <strong>Bimodal:</strong> two peaks — two values tied for highest frequency. Often signals two subpopulations. <strong>Multimodal:</strong> three or more modes. <strong>No mode:</strong> all values appear equally often — applies when every value is unique. Real datasets with bimodal distributions often warrant splitting into separate sub-analyses.</p>
-            <h2>Mode in Grouped Data</h2>
+            <h2 className="text-2xl font-bold mb-3">Mode in Grouped Data</h2>
             <p>For continuous data grouped into class intervals, the modal class is the class with the highest frequency. The exact mode is estimated as: Mode = L + [(f₁−f₀)/(2f₁−f₀−f₂)] × h, where L = lower boundary of modal class, f₁ = modal class frequency, f₀ = frequency before modal class, f₂ = frequency after, h = class width. This is used in histograms and grouped frequency tables.</p>
-            <h2>Mode in Machine Learning</h2>
+            <h2 className="text-2xl font-bold mb-3">Mode in Machine Learning</h2>
             <p>Mode imputation: replacing missing categorical values with the most common value — a standard preprocessing technique. Modal class: the predicted class with highest probability in classification problems. K-modes clustering: an extension of K-means for categorical data that uses mode instead of mean as the cluster centroid. Mode is essential for any pipeline involving categorical features.</p>
-            <h2>Mode in Probability Theory</h2>
+            <h2 className="text-2xl font-bold mb-3">Mode in Probability Theory</h2>
             <p>For a probability distribution, the mode is the value at which the probability density function reaches its maximum. Normal distribution: mode = mean = median (symmetric). Exponential distribution: mode = 0 (always). Beta distribution: mode varies with shape parameters. Bimodal distributions — like the mixture of two Gaussians — have two probability peaks and arise naturally in many real-world phenomena.</p>
-            <h2>Practical Applications</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Applications</h2>
             <p>Retail: most popular shoe size, best-selling product (inventory planning). Education: most common grade, most frequently missed question. Quality control: most common defect type. Medicine: most frequent diagnosis, most common side effect. Meteorology: most common wind direction. Political science: plurality winner in elections (the candidate with the most votes, i.e., the mode).</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/mode-calculator" />

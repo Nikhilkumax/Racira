@@ -139,13 +139,13 @@ export default function RmdCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is an RMD Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is an RMD Calculator?</h2>
             <p>A <strong>Required Minimum Distribution (RMD) calculator</strong> computes the mandatory annual withdrawal from your Traditional IRA, 401(k), or other qualified retirement account, as required by the IRS. Using the official IRS Uniform Lifetime Table, it determines the exact distribution period for your age and calculates both your gross RMD and after-tax take-home amount.</p>
-            <h2>How RMDs Are Calculated</h2>
+            <h2 className="text-2xl font-bold mb-3">How RMDs Are Calculated</h2>
             <p>RMD = Prior Year-End Account Balance ÷ IRS Distribution Period (Uniform Lifetime Table). Distribution period decreases with age: 73 years = 26.5 distribution period. 80 years = 20.2. 90 years = 12.2. The percentage of your account you must withdraw increases every year — from about 3.77% at 73 to over 8% at 90.</p>
-            <h2>2024 RMD Rules (SECURE 2.0)</h2>
+            <h2 className="text-2xl font-bold mb-3">2024 RMD Rules (SECURE 2.0)</h2>
             <p>Starting age: 73 (increased from 72 in 2023 under SECURE 2.0). Missed RMD penalty: 25% of the missed amount (reduced from 50%). Penalty reduction: correcting within 2 years reduces the penalty to 10%. Roth IRAs: no RMDs during the owner&apos;s lifetime. Roth 401(k)s: also exempt from RMDs starting in 2024.</p>
-            <h2>RMD Tax Planning Strategies</h2>
+            <h2 className="text-2xl font-bold mb-3">RMD Tax Planning Strategies</h2>
             <p>Roth conversions before age 73 reduce future RMD size and tax burden. Qualified Charitable Distributions (QCDs) allow up to $105,000/year (2024) to go directly to charity, satisfying the RMD while excluding it from taxable income. Spread distributions across the year rather than taking a lump sum to manage withholding. Monitor Medicare IRMAA thresholds — higher income triggers surcharges on Part B and D premiums.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/required-minimum-distribution-calculator" />

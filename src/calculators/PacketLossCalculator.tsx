@@ -67,9 +67,7 @@ const PacketLossCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">
-                  <ShieldAlert className="h-5 w-5" /> Analyze Loss
-                </button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground">
+                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">Calculate</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground">
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
@@ -102,7 +100,7 @@ const PacketLossCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Understanding Packet Loss</h2>
+              <h2 className="text-2xl font-bold mb-3">Understanding Packet Loss</h2>
               <p>When you send data over the internet, it is broken down into small units called packets. If these packets don't arrive at their destination, the receiving computer must either ask for them to be resent (adding delay) or simply skip them (causing gaps in audio/video).</p>
               <h3>Why 1% Loss is a Big Deal</h3>
               <p>In many protocols like TCP, packet loss triggers a "congestion control" mechanism that drastically slows down your entire connection to prevent further loss. This is why even a small amount of packet loss can make a 1 Gbps connection feel like a dial-up modem.</p>

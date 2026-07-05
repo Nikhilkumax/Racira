@@ -176,7 +176,7 @@ const BalloonMortgageCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>What Is a Balloon Mortgage?</h2>
+              <h2 className="text-2xl font-bold mb-3">What Is a Balloon Mortgage?</h2>
               <p>A balloon mortgage is a unique type of financing that offers the low monthly payments of a long-term mortgage (like a 30-year fixed) but requires the borrower to pay off the entire remaining balance in one large "balloon" payment at the end of a much shorter term (typically 5, 7, or 10 years).</p>
 
               <h3>How the Calculations Work</h3>
@@ -200,7 +200,7 @@ const BalloonMortgageCalculator = () => {
               <h3>The Risks Involved</h3>
               <p>The greatest danger of a balloon mortgage is <strong>refinance risk</strong>. If interest rates rise significantly or your property value drops before the balloon payment is due, you might find it impossible to refinance the balance. If you cannot pay the balloon payment in cash and cannot refinance, you may face foreclosure.</p>
 
-              <h2>Strategies for Managing a Balloon Payment</h2>
+              <h2 className="text-2xl font-bold mb-3">Strategies for Managing a Balloon Payment</h2>
               <p>To safely navigate a balloon mortgage, consider these strategies:</p>
               <ul>
                 <li><strong>Refinance Early:</strong> Start looking for a traditional mortgage at least 6-12 months before the balloon date.</li>

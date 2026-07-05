@@ -260,21 +260,21 @@ export default function EbitdaMarginCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is EBITDA Margin?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is EBITDA Margin?</h2>
             <p>EBITDA Margin is one of the most widely used profitability metrics in corporate finance. It measures how much of a company's revenue becomes EBITDA — Earnings Before Interest, Taxes, Depreciation, and Amortization. The formula is: EBITDA Margin = EBITDA / Revenue × 100. This metric allows investors and analysts to compare operational profitability across companies with different capital structures, tax situations, and asset base sizes.</p>
             <p>EBITDA itself is derived by adding back non-cash charges (depreciation and amortization) and non-operating items (interest and taxes) to net income. This produces a measure that closely approximates operating cash flow, which is why private equity firms, investment bankers, and fundamental analysts use it as a primary valuation anchor.</p>
 
-            <h2>How to Calculate EBITDA</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Calculate EBITDA</h2>
             <p>Starting from the income statement: Revenue − COGS = Gross Profit. Gross Profit − Operating Expenses = EBIT (Earnings Before Interest & Taxes). EBIT + Depreciation + Amortization = EBITDA. Alternatively, start from Net Income: EBITDA = Net Income + Interest Expense + Taxes + Depreciation + Amortization.</p>
             <p>This calculator derives all profitability metrics simultaneously from a single income statement, giving you EBITDA, EBITDA margin, EBIT margin, gross margin, and net margin in one view — along with the EV/EBITDA multiple if you enter the enterprise value.</p>
 
-            <h2>Industry Benchmarks</h2>
+            <h2 className="text-2xl font-bold mb-3">Industry Benchmarks</h2>
             <p>EBITDA margins vary enormously by industry. Software companies (especially SaaS) typically achieve 20–40% EBITDA margins due to low cost of goods sold and scalable business models. Healthcare providers see 15–25%. Industrial manufacturers typically range from 8–15%. Retailers and food service companies often achieve only 3–7% due to thin margins and high cost of goods sold. Telecommunications companies can reach 30–40% due to high infrastructure amortization that boosts EBITDA relative to EBIT.</p>
 
-            <h2>Limitations of EBITDA Margin</h2>
+            <h2 className="text-2xl font-bold mb-3">Limitations of EBITDA Margin</h2>
             <p>EBITDA has notable limitations. It ignores capital expenditures — which are real cash costs for maintaining and growing the business. High-capex businesses (airlines, railroads, oil refineries) look more attractive on EBITDA than on free cash flow. Warren Buffett has famously criticized EBITDA as a misleading metric because "does management think the tooth fairy pays for capital expenditures?" Always supplement EBITDA analysis with free cash flow margin for a complete picture.</p>
 
-            <h2>EBITDA in M&A and Private Equity</h2>
+            <h2 className="text-2xl font-bold mb-3">EBITDA in M&A and Private Equity</h2>
             <p>In mergers and acquisitions, EBITDA is the universal valuation language. Leverage buyout (LBO) models are built around EBITDA multiples. When a private equity firm says they're buying a company at "8x," they mean 8x trailing 12-month EBITDA. This is why improving EBITDA margin is a primary value-creation strategy in PE-backed companies — every dollar of EBITDA improvement creates 8–12x that in enterprise value at exit.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/ebitda-margin-calculator" />

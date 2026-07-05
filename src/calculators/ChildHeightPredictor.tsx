@@ -220,19 +220,19 @@ export default function ChildHeightPredictor() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Genetics of Human Growth</h2>
+            <h2 className="text-2xl font-bold mb-3">The Genetics of Human Growth</h2>
             <p>Predicting exactly how tall a child will be is one of the most common questions pediatricians face. Human height is considered a "polygenic trait"—meaning it is controlled by hundreds of different genes interacting together. However, extensive clinical research has shown that approximately <strong>80% of a person's adult height is determined solely by genetics</strong>.</p>
             <p>Because genetics play such a dominant role, doctors use a mathematical shortcut known as the <strong>Mid-Parental Height (Tanner) Method</strong> to quickly establish a child's growth target.</p>
 
-            <h2>Understanding the "Target Window"</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the "Target Window"</h2>
             <p>While the calculator provides a single, precise number (e.g., 5'9"), this is merely the statistical center. In genetics, there is a concept known as "Regression to the Mean."</p>
             <p>If two parents are both extraordinarily tall, their child will likely be tall, but statistically, the child will be closer to the population average than the parents are. Conversely, very short parents will typically have children who are slightly taller than they are. The calculator provides a wide <strong>8-inch target window</strong> (4 inches above and below the predicted number) which captures 95% of all genetic outcomes. If your child's predicted height is 5'9", it is perfectly biologically normal for them to end up anywhere between 5'5" and 6'1".</p>
 
-            <h2>Why Nutrition is the Missing 20%</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Nutrition is the Missing 20%</h2>
             <p>If genetics control 80% of height, what controls the other 20%? Environmental factors, with <strong>childhood nutrition</strong> being the most critical.</p>
             <p>Your child's DNA provides the architectural blueprint for their maximum possible height. However, building that skeleton requires raw materials. If a child suffers from severe malnutrition, chronic calorie deficits, or specific vitamin deficiencies (especially Vitamin D and Calcium) during their critical growth spurts, their body will literally halt bone growth to conserve energy. This is known as "stunting." Once the growth plates in the long bones fuse at the end of puberty, that lost growth can never be recovered.</p>
 
-            <h2>Growth Plates and Puberty</h2>
+            <h2 className="text-2xl font-bold mb-3">Growth Plates and Puberty</h2>
             <p>A child's height increases because of specialized cartilage at the ends of their long bones (like the femur), known as <strong>epiphyseal plates</strong>. During childhood, these plates rapidly produce new bone tissue, pushing the bones longer.</p>
             <p>When a child enters puberty, the massive surge of sex hormones (estrogen and testosterone) triggers a final, explosive "growth spurt." However, these same hormones also signal the cartilage to begin turning into solid bone. Once this ossification process is complete (typically around age 15 for girls and 18 for boys), the growth plates are considered "fused." After fusion, no further upward growth is biologically possible, regardless of diet, stretching, or supplements.</p>
           </article>

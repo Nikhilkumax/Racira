@@ -298,26 +298,26 @@ export default function TennisFirstServeCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Ultimate Offensive Weapon</h2>
+            <h2 className="text-2xl font-bold mb-3">The Ultimate Offensive Weapon</h2>
             <p>In the sport of tennis, the player who dictates the baseline geometry of the point is almost always the player who wins the match. There is no greater tactical advantage than the First Serve. Because the rules of tennis grant the server two attempts to start the point without penalty, the first serve is essentially a "free swing." Players utilize this first attempt to strike the ball with maximum velocity, extreme spin, and aggressive placement, aiming for aces or weak returns. However, if that serve misses, the tactical advantage completely evaporates. The <strong>Tennis First Serve Percentage Calculator</strong> isolates this critical statistic, revealing whether you are successfully controlling your service games or surrendering the offensive initiative to your opponent.</p>
 
-            <h2>The Mathematics of the Second Serve Trap</h2>
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of the Second Serve Trap</h2>
             <p>To understand why the First Serve Percentage is so critical, you must understand the mathematical nightmare of the second serve. When a player faults on their first attempt, they are faced with a catastrophic penalty for missing the second attempt: a Double Fault, which results in the immediate loss of the point.</p>
             <p>Because the penalty is so severe, the server is forced to drastically reduce the velocity of their second serve and aim for the safe, central areas of the service box. This defensive maneuver completely flips the tactical dynamic. The receiver, knowing a slower, safer ball is coming, can step inside the baseline and aggressively attack the second serve. Statistical data from the ATP and WTA tours proves that professional players win roughly 75% of the points when their first serve goes in, but their win probability plummets to barely 50% when forced to hit a second serve.</p>
 
-            <h2>Analyzing the 60% Professional Benchmark</h2>
+            <h2 className="text-2xl font-bold mb-3">Analyzing the 60% Professional Benchmark</h2>
             <p>If the first serve is so advantageous, why don't professionals simply aim to hit 100% of their first serves in? This introduces the concept of the Risk/Reward Threshold.</p>
             <p>In professional tennis, the mathematical "sweet spot" for First Serve Percentage is universally recognized as being between 60% and 65%. Why not 85%? Because if a player is hitting 85% of their first serves in, it mathematically proves they are not hitting the ball hard enough. They have sacrificed offensive power and aggressive placement for safety. They are effectively hitting two "second serves," which allows their opponent to attack every single point. The 60-65% benchmark indicates that the server is taking maximum aggressive risks to generate aces and unreturnable serves, while still landing enough of them to win the majority of their service games.</p>
 
-            <h2>How Fatigue Destroys the Percentage</h2>
+            <h2 className="text-2xl font-bold mb-3">How Fatigue Destroys the Percentage</h2>
             <p>One of the most fascinating applications of First Serve Percentage is using it as an indicator of physical and mental fatigue. The tennis serve is one of the most complex kinetic chain movements in all of sports. It requires perfect timing, explosive leg drive, extreme core rotation, and precise shoulder snap.</p>
             <p>When a player becomes physically exhausted in the third or fifth set of a match, the first thing that deteriorates is the timing of their service motion. They stop bending their knees, their ball toss drops lower, and they attempt to compensate by "arming" the ball. Consequently, their First Serve Percentage will often plummet from 65% down to 45%. When a coach sees this percentage drop in real-time, it is a definitive mathematical indicator that the player's kinetic chain is breaking down due to fatigue.</p>
 
-            <h2>The Strategic Dilemma: Power vs. Placement</h2>
+            <h2 className="text-2xl font-bold mb-3">The Strategic Dilemma: Power vs. Placement</h2>
             <p>If you plug your numbers into this calculator and your percentage is consistently below 50%, you face a strategic dilemma: Do you take speed off the ball, or do you change your target?</p>
             <p>Amateur players often believe they must slow down their swing to increase their percentage. Elite coaches strongly advise against this. Decelerating the racket head actually reduces the topspin required to pull the ball down into the service box, frequently resulting in more errors. Instead of sacrificing racket speed, the mathematical solution is to adjust your target. Stop aiming for the physical lines of the service box. Aiming just two feet inside the lines allows you to maintain maximum aggressive racket speed while mathematically providing a much larger margin for error, instantly raising your First Serve Percentage.</p>
 
-            <h2>Conclusion: Control the Controllable</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Control the Controllable</h2>
             <p>Tennis is a sport defined by chaos: wind, court surface anomalies, and an unpredictable opponent. The service toss is the only moment in a tennis match where you have absolute, total control over the ball. Stop guessing how well you are executing this advantage. Use the Tennis First Serve Percentage Calculator after every match. Track your data. If your percentage consistently falls below 55%, you must head to the practice court and drill your mechanics until you can reliably execute the most important shot in the game.</p>
           </article>
           

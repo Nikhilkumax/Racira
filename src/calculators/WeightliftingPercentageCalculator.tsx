@@ -365,14 +365,14 @@ export default function WeightliftingPercentageCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Weightlifting Percentage Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Weightlifting Percentage Calculator</h2>
             <p>Walk into any commercial gym, and you will see amateur lifters wandering from machine to machine, guessing what weight they should use that day based purely on how they "feel." This approach almost guarantees plateaus. Professional strength athletes, powerlifters, and Olympic weightlifters do not guess. They use <strong>Percentage-Based Programming</strong>. Every single working set, repetition, and rest period is mathematically derived from a single anchor point: their 1-Repetition Maximum (1RM). The <strong>Weightlifting Percentage Calculator</strong> acts as the central intelligence engine for your training, breaking down your absolute ceiling into specific, actionable physiological zones.</p>
 
-            <h2>Why Ego is the Enemy of Progress</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Ego is the Enemy of Progress</h2>
             <p>The human Central Nervous System (CNS) is an incredibly sensitive electrical grid. If you attempt to lift 100% of your maximum capability every time you enter the gym, your CNS will rapidly burn out. You will experience severe neurological fatigue, your lifts will regress, and your risk of catastrophic joint injury skyrockets. True strength is built by accumulating volume at sub-maximal loads over a long period of time.</p>
             <p>Percentage-based training removes your ego from the equation. If your program dictates that today is a "Volume Day" consisting of 5 sets of 5 repetitions at 75% of your 1RM, you execute exactly that. You do not load 85% on the bar just because you feel energetic, because doing so would ruin the mathematical progression required for the following week. This calculator provides the exact numbers required to strictly follow professional programming templates (such as 5/3/1, Smolov, or the Texas Method).</p>
 
-            <h2>Decoding the Training Zones</h2>
+            <h2 className="text-2xl font-bold mb-3">Decoding the Training Zones</h2>
             <p>When you generate your matrix using the calculator, you will notice that different percentages trigger vastly different biological adaptations. A weight is not just a weight; the percentage dictates the stimulus.</p>
 
             <h3>The Hypertrophy Zone (65% to 80%)</h3>
@@ -384,19 +384,19 @@ export default function WeightliftingPercentageCalculator() {
             <h3>The Speed / Dynamic Zone (50% to 60%)</h3>
             <p>Lifting 50% of your max for sets of 10 might feel like a useless warmup, but it has a specific purpose in advanced programming: Speed. Powerlifters use these "Dynamic Effort" days to focus exclusively on acceleration. By lifting a light weight as explosively as humanly possible, you increase your Rate of Force Development (RFD), which translates directly to breaking through sticking points on heavier maximal lifts.</p>
 
-            <h2>The Importance of Plate Rounding</h2>
+            <h2 className="text-2xl font-bold mb-3">The Importance of Plate Rounding</h2>
             <p>A unique feature of this calculator is the "Plate Rounding Increment." Pure mathematical calculators are useless in a real-world gym environment. If your 1RM is 315 lbs, the pure math states that 82.5% is exactly 259.875 lbs. You cannot load 259.875 lbs onto an Olympic barbell.</p>
             <p>Standard commercial gyms use plates that increase in 5 lb increments (or 2.5 kg increments globally). Our calculator automatically rounds the theoretical math to the nearest physically loadable increment (e.g., rounding 259.875 to 260 lbs). If you belong to a specialized powerlifting gym equipped with micro-fractional plates, you can adjust the rounding increment to 1 lb for extreme precision during peaking blocks.</p>
 
-            <h2>How to Establish Your 1RM Safely</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Establish Your 1RM Safely</h2>
             <p>To use this calculator effectively, you must have an accurate 1-Repetition Maximum. However, performing a true 1RM test (loading the absolute heaviest weight you can lift for a single, grinding repetition) is highly taxing and potentially dangerous for beginners.</p>
             <p>If you are not an advanced lifter, do not perform a true 1RM test. Instead, perform an AMRAP (As Many Reps As Possible) test with a sub-maximal weight. For example, load a weight you know you can lift safely, and do it until technical failure. If you lift 225 lbs for 6 clean repetitions, you can use a Repetition Max conversion formula (like the Epley or Brzycki equations) to estimate that your true 1RM is roughly 260 lbs. You then plug that 260 lb estimate into this calculator to safely generate your entire programming matrix.</p>
 
-            <h2>The Role of the "Training Max" (TM)</h2>
+            <h2 className="text-2xl font-bold mb-3">The Role of the "Training Max" (TM)</h2>
             <p>One of the most profound secrets of elite programming (popularized by Jim Wendler's 5/3/1 program) is the concept of the <strong>Training Max</strong>. Instead of plugging your absolute, 100% true 1RM into the calculator, you plug in 90% of your true max. This artificially lowers every single number on your spreadsheet by 10%.</p>
             <p>Why do this? Because your true 1RM is heavily reliant on environmental factors: you slept 9 hours, ate a massive meal, had 300mg of caffeine, and your favorite song was playing. That is not your everyday reality. By generating your percentages based on a 90% Training Max, you guarantee that you can hit every required rep and set, every single day, even when you are fatigued, stressed, or under-recovered. It ensures constant, unbroken forward momentum without plateaus.</p>
 
-            <h2>Conclusion: Execute the Math</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Execute the Math</h2>
             <p>Strength training is applied physics and biology. Stop guessing your weights. Find your 1-Rep Maximum (or calculate an accurate Training Max), input it into the Weightlifting Percentage Calculator, and print your matrix. Walk into the gym with absolute mathematical certainty regarding what weight belongs on the bar for your hypertrophy blocks, your speed days, and your absolute strength peaks. Follow the math, execute the repetitions, and the results are guaranteed.</p>
           </article>
           

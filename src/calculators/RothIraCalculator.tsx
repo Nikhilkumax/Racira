@@ -76,9 +76,7 @@ const RothIraCalculator = () => {
                 <InputField id="return" label="Expected Annual Return (%)" value={annualReturn} onChange={setAnnualReturn} />
               </div>
               <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">
-                  <PiggyBank className="h-5 w-5" /> Project Balance
-                </button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground">
+                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">Calculate</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground">
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
@@ -112,7 +110,7 @@ const RothIraCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Why a Roth IRA is Powerful</h2>
+              <h2 className="text-2xl font-bold mb-3">Why a Roth IRA is Powerful</h2>
               <p>The Roth IRA is often considered one of the best retirement savings vehicles available. Its core advantage — tax-free growth — becomes increasingly powerful over a long investment horizon.</p>
               <h3>The Tax-Free Advantage</h3>
               <p>Imagine accumulating $1,000,000 in a Roth IRA. Every dollar of that, plus all future gains, can be withdrawn completely tax-free. In a Traditional IRA or 401(k), that same $1M would be subject to ordinary income taxes upon withdrawal, potentially losing 20-30% to taxes.</p>

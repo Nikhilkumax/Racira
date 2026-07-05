@@ -191,21 +191,21 @@ const YieldToCallCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Yield to Call Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Yield to Call Calculator?</h2>
             <p>A yield to call calculator determines the annualized return on a callable bond if the issuer redeems it on the earliest call date at the specified call price. Pre-filled with a $1,000 face value bond priced at $1,050 with an 8% coupon, $1,020 call price, and 5 years to call, the YTC is approximately 7.02% — meaningfully below the 8% coupon because the investor pays a premium and receives only $1,020 (not $1,000) at call. Callable bonds are common in corporate and municipal bond markets.</p>
             <p>When a bond trades at a premium, the issuer has financial incentive to call it and refinance at lower market rates. In such cases, yield to call is often a more realistic return expectation than yield to maturity. Our yield to call calculator helps bond investors assess call risk and true expected return.</p>
-            <h2>How YTC Is Calculated</h2>
+            <h2 className="text-2xl font-bold mb-3">How YTC Is Calculated</h2>
             <p><strong>Price = Σ[C/(1+r)^t] + CallPrice/(1+r)^n</strong></p>
             <p>Where C = periodic coupon payment, n = number of periods to the call date, CallPrice = the price the issuer will pay if the bond is called. This is solved iteratively using Newton-Raphson convergence. Unlike YTM, the terminal value is the call price (which may include a call premium), not the face value.</p>
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>The yield comparison chart shows three key yield metrics side by side: coupon rate (the stated interest rate), current yield (annual income / price), and yield to call (total annualized return to call date). For premium bonds, YTC is typically the lowest of the three — it reflects the capital loss from buying above call price. The call risk summary indicates HIGH risk when the bond trades above par, suggesting the issuer would benefit from calling the bond.</p>
-            <h2>Key Factors in Yield to Call Analysis</h2>
+            <h2 className="text-2xl font-bold mb-3">Key Factors in Yield to Call Analysis</h2>
             <p><strong>Call Price:</strong> A higher call premium (call price above par) partly compensates investors for early redemption risk. <strong>Time to Call:</strong> Shorter call periods compress income and magnify the price-vs-call-price differential in YTC. <strong>Market Price:</strong> The further above par a bond trades, the lower its YTC and the higher the call risk. <strong>Coupon Rate:</strong> High-coupon bonds issued in high-rate environments are most likely to be called when rates fall.</p>
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <p><strong>Corporate Bond:</strong> $1,000 par, 9% coupon, priced at $1,080, callable in 3 years at $1,030. YTC ≈ 6.5%. With a 6.5% YTC versus 9% coupon, the investor faces significant call risk if market rates drop further. <strong>Municipal Bond:</strong> Tax-exempt 5% coupon, priced at $1,020, callable in 5 years at par. YTC ≈ 4.56% — after taxes for a 30% bracket investor, the after-tax yield is still competitive with taxable alternatives.</p>
-            <h2>YTC vs YTM — When to Use Each</h2>
+            <h2 className="text-2xl font-bold mb-3">YTC vs YTM — When to Use Each</h2>
             <p>Use YTM for non-callable bonds or discount bonds unlikely to be called. Use YTC when the bond trades at a premium, the issuer is investment-grade with strong refinancing incentive, or market rates have fallen significantly since issuance. Always compute yield to worst (the minimum of YTM and all YTCs) for callable premium bonds. See also: <a href="/calculator/yield-to-maturity-calculator">yield to maturity calculator</a>, <a href="/calculator/bond-price-calculator">bond price calculator</a>, and <a href="/calculator/bond-duration-calculator">bond duration calculator</a>.</p>
-            <h2>Benefits of This Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Benefits of This Calculator</h2>
             <p>Manually computing YTC requires iterative trial-and-error calculations involving exponents. This yield to call calculator delivers precise results in milliseconds, with a clear visual comparison of all three yield metrics to help you quickly assess the trade-off between coupon income and call risk.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/yield-to-call-calculator" />

@@ -301,23 +301,23 @@ export default function AssetCoverageRatioCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is the Asset Coverage Ratio?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is the Asset Coverage Ratio?</h2>
             <p>The Asset Coverage Ratio is a financial solvency metric used by lenders and investors to determine how well a company can repay its debts by liquidating its assets. It provides a measure of downside protection. Specifically, it tells you how many times over the company's tangible assets can cover its total debt obligations in the event of bankruptcy.</p>
             
-            <h2>How It Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
             <p>The formula is: <code>Asset Coverage Ratio = ((Total Assets - Intangible Assets) - (Current Liabilities - Short-term Debt)) / Total Debt</code>.</p>
             <p>We start with Total Assets and immediately strip out Intangible Assets (like goodwill or patents). These assets rarely fetch their balance sheet value during a liquidation. Next, we subtract Current Liabilities minus Short-Term Debt. This isolates the operational liabilities (like accounts payable and wages) that must legally be paid off before bondholders and lenders can seize assets. The resulting number (Net Tangible Assets) is then divided by Total Debt to produce the ratio.</p>
             
-            <h2>Understanding Your Results</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>The resulting multiple (e.g., 2.5x) indicates that the company has $2.50 in tangible assets for every $1.00 of debt. The <strong>Solvency Status</strong> categorizes this ratio based on industry norms. A higher ratio means less risk for lenders, which often translates to a better credit rating and lower borrowing costs for the company.</p>
             
-            <h2>Key Factors and Industry Differences</h2>
+            <h2 className="text-2xl font-bold mb-3">Key Factors and Industry Differences</h2>
             <p>The "acceptable" threshold for this ratio varies wildly by industry. For a traditional industrial, manufacturing, or technology company, a ratio of 2.0x is generally considered the minimum safe standard. However, utility companies are evaluated differently. Because utilities operate in highly regulated environments with predictable, guaranteed cash flows, they are permitted to carry more debt. For a utility, a ratio of 1.5x is often considered perfectly adequate.</p>
             
-            <h2>Practical Examples</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <p>Consider an industrial company with $10M in Total Assets and $3M in Total Debt. If they have $1.5M in Intangibles, their Tangible Assets are $8.5M. If they have $2M in Current Liabilities and $500k of that is Short-Term Debt, their operational liabilities are $1.5M. Subtracting that from $8.5M leaves $7M in Net Tangible Assets. Dividing $7M by their $3M Total Debt gives an Asset Coverage Ratio of 2.33x, indicating a strong, solvent financial position.</p>
             
-            <h2>Limitations</h2>
+            <h2 className="text-2xl font-bold mb-3">Limitations</h2>
             <p>While useful, the Asset Coverage Ratio relies on the "book value" of assets as reported on the balance sheet. In a real-world liquidation scenario, heavy machinery, specialized inventory, or real estate might sell for drastically less than their recorded book value. Therefore, lenders often apply severe discounts (called "haircuts") to the book value of assets before calculating a true liquidation coverage ratio.</p>
           </article>
           

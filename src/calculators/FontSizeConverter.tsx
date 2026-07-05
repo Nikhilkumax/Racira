@@ -111,7 +111,7 @@ const FontSizeConverter = () => {
                 <p className="text-[10px] text-muted-foreground mt-1">Browser default is 16px.</p>
               </div>
               <div className="flex flex-col justify-end gap-2">
-                <button onClick={handleCalculate} className="btn-calculate">Convert</button>
+                <button onClick={handleCalculate} className="btn-calculate">Calculate</button>
                 <button onClick={() => { setBaseSize("16"); setInputValue("1"); setFromUnit("rem"); setToUnit("px"); }} className="p-2 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground flex items-center justify-center gap-2 text-sm font-medium">
                   <RotateCcw className="h-4 w-4" /> Reset
                 </button>
@@ -165,7 +165,7 @@ const FontSizeConverter = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Modern Web Typography Units</h2>
+            <h2 className="text-2xl font-bold mb-3">Modern Web Typography Units</h2>
             <p>In modern web development, absolute units like pixels (px) are generally discouraged. Responsive, accessible designs prioritize relative units like REM and EM.</p>
             <h3>The Power of REM</h3>
             <p>The rem unit is relative to the root HTML element font size. If a user sets their browser default to 20px, your entire layout scales proportionally.</p>

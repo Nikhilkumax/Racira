@@ -149,9 +149,7 @@ const DogChocolateToxicityCalculator = () => {
               </div>
 
               <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">
-                  <AlertTriangle className="h-5 w-5" /> Check Toxicity
-                </button>
+                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">Calculate</button>
                 <button onClick={reset} className="btn-reset flex items-center justify-center gap-2 px-4">
                   <RotateCcw className="h-5 w-5" />
                 </button>
@@ -180,7 +178,7 @@ const DogChocolateToxicityCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>The Science of Chocolate Toxicity in Dogs</h2>
+              <h2 className="text-2xl font-bold mb-3">The Science of Chocolate Toxicity in Dogs</h2>
               <p>Chocolate poisoning is one of the most common emergencies seen by veterinarians, particularly around holidays like Halloween, Christmas, and Easter. Understanding exactly why chocolate is dangerous and how different types vary in their potency can help pet owners respond appropriately.</p>
 
               <h3>What Makes Chocolate Toxic?</h3>

@@ -61,7 +61,7 @@ const PackingWeightCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>About the Packing Weight Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">About the Packing Weight Calculator</h2>
             <p>The Packing Weight Calculator helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.</p>
             <h3>How to Use</h3>
             <ol>

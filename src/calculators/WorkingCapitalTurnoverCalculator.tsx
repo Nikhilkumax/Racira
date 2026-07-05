@@ -126,15 +126,15 @@ export default function WorkingCapitalTurnoverCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is Working Capital Turnover?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is Working Capital Turnover?</h2>
             <p>Working Capital Turnover (WCT) measures how efficiently a company uses its net current assets (working capital) to generate revenue. A higher ratio indicates more revenue generated per dollar of working capital deployed — a hallmark of capital-efficient businesses. Formula: WCT = Net Revenue ÷ (Current Assets − Current Liabilities).</p>
-            <h2>Interpreting High vs. Low WCT</h2>
+            <h2 className="text-2xl font-bold mb-3">Interpreting High vs. Low WCT</h2>
             <p>High WCT (&gt;8×): The company generates substantial revenue from minimal net current assets — typically seen in retailers, service businesses, and fast-moving consumer goods companies. These businesses benefit from high inventory velocity and strong supplier payment terms. Low WCT (&lt;2×): The company maintains relatively large working capital for its revenue level — may indicate inventory build-up, slow collections, excess cash, or seasonal preparedness. Negative WCT: Current liabilities exceed current assets — common in large retailers with superior supplier leverage (e.g., Amazon ~−5× WCT).</p>
-            <h2>WCT and Business Models</h2>
+            <h2 className="text-2xl font-bold mb-3">WCT and Business Models</h2>
             <p>Asset-light services companies (consulting, SaaS) often have high WCT because they require minimal current assets to generate revenue. Capital-intensive manufacturers with large raw material inventories and slow-collecting B2B receivables have lower WCT. Retailers can achieve negative working capital through aggressive payables management — collecting cash from customers before paying suppliers, which effectively provides free financing for their operations.</p>
-            <h2>Relationship with Other Efficiency Metrics</h2>
+            <h2 className="text-2xl font-bold mb-3">Relationship with Other Efficiency Metrics</h2>
             <p>WCT is one component of broader efficiency analysis. Asset Turnover (Revenue ÷ Total Assets) is the broader measure including fixed assets. WCT specifically isolates the current asset portion. Together with DIO, DSO, and DPO (the cash conversion cycle components), WCT gives a complete picture of short-term capital efficiency. A company can have a good cash conversion cycle but still have low WCT if it maintains excessive liquid cash reserves.</p>
-            <h2>Improving Working Capital Turnover</h2>
+            <h2 className="text-2xl font-bold mb-3">Improving Working Capital Turnover</h2>
             <p>Reduce excess current assets: repatriate surplus cash via dividends or buybacks rather than holding idle balances. Optimize inventory: implement demand forecasting and JIT practices to reduce DIO. Accelerate collections: tighten credit terms and improve AR processes to reduce DSO. Extend payables: negotiate longer supplier payment terms to increase DPO. Revenue growth without proportional working capital growth directly improves WCT through the leverage effect of fixed working capital infrastructure.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/working-capital-turnover-calculator" />

@@ -219,7 +219,7 @@ const SteelWeightCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Importance of Calculating Steel Weight</h2>
+            <h2 className="text-2xl font-bold mb-3">The Importance of Calculating Steel Weight</h2>
             <p>Steel is the backbone of modern construction, from the framing of skyscrapers to the chassis of automobiles. However, steel is extraordinarily dense and heavy. A solid block of steel measuring just 1 foot by 1 foot by 1 foot (a cubic foot) weighs a massive <strong>490 pounds</strong>.</p>
             <p>Accurately calculating the weight of a steel component is absolutely critical for three main reasons:</p>
             <ol>
@@ -228,7 +228,7 @@ const SteelWeightCalculator = () => {
               <li><strong>Rigging Safety:</strong> Before a crane operator lifts a 40-foot I-Beam into the air, they must know exactly what it weighs to ensure they do not exceed the crane's maximum load rating or snap a rigging strap.</li>
             </ol>
 
-            <h2>How the Math Works</h2>
+            <h2 className="text-2xl font-bold mb-3">How the Math Works</h2>
             <p>Calculating the weight of any metal object requires two steps: calculating its physical volume, and then multiplying that volume by the metal's known density.</p>
             <ul>
               <li><strong>Step 1 (Volume):</strong> Use standard geometry. For a flat rectangular plate, the volume is Length × Width × Thickness. (e.g. 120" × 48" × 0.25" = 1,440 cubic inches).</li>
@@ -236,7 +236,7 @@ const SteelWeightCalculator = () => {
               <li><strong>Step 3 (Result):</strong> 1,440 × 0.2833 = 407.95 lbs. Therefore, a standard 4ft x 10ft sheet of 1/4" steel plate weighs roughly 408 pounds.</li>
             </ul>
 
-            <h2>Carbon Steel vs. Stainless vs. Aluminum</h2>
+            <h2 className="text-2xl font-bold mb-3">Carbon Steel vs. Stainless vs. Aluminum</h2>
             <p>It is important to select the right material multiplier. Carbon steel and Stainless steel are almost identical in weight (Stainless is technically about 1% heavier due to the Chromium and Nickel content). However, Aluminum is completely different. Aluminum is famously lightweight, with a density of roughly 0.098 lbs/in³. An identical volume of Aluminum weighs about one-third the weight of Steel.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/steel-weight-calculator" />

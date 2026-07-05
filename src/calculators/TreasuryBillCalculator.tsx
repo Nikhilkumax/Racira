@@ -79,15 +79,15 @@ export default function TreasuryBillCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>What Are U.S. Treasury Bills?</h2>
+              <h2 className="text-2xl font-bold mb-3">What Are U.S. Treasury Bills?</h2>
               <p>U.S. Treasury Bills (T-Bills) are short-term debt instruments issued by the U.S. Department of the Treasury to finance the national debt. Unlike bonds, T-Bills do not pay periodic interest. Instead, they are sold at a discount from their face value, and the investor receives the full face value at maturity. The difference between the purchase price and the face value represents the investor's return.</p>
-              <h2>How T-Bills Are Priced</h2>
+              <h2 className="text-2xl font-bold mb-3">How T-Bills Are Priced</h2>
               <p>T-Bills are priced using the bank discount yield method: <strong>Discount = Face Value × Discount Rate × (Days to Maturity ÷ 360)</strong>. The purchase price is then Face Value minus the Discount. For example, a $10,000 T-Bill with a 5% discount rate and 91 days to maturity has a discount of $10,000 × 0.05 × (91/360) = $126.39, so the purchase price is $9,873.61.</p>
-              <h2>Bank Discount Yield vs. Investment Yield</h2>
+              <h2 className="text-2xl font-bold mb-3">Bank Discount Yield vs. Investment Yield</h2>
               <p>The Bank Discount Yield (quoted in auctions) uses a 360-day year and face value as the base. The Investment Yield converts this to a 365-day basis using the actual purchase price, making it comparable to other interest-bearing investments. The Investment Yield is always slightly higher than the discount yield. The Bond Equivalent Yield (BEY) compares T-Bills to longer-term securities on a semi-annual basis.</p>
-              <h2>Why Investors Choose T-Bills</h2>
+              <h2 className="text-2xl font-bold mb-3">Why Investors Choose T-Bills</h2>
               <p>T-Bills are one of the most liquid investments in the world. Their safety (backed by the U.S. government), liquidity (actively traded in secondary markets), and tax treatment (exempt from state and local taxes) make them an essential tool for cash management. During periods of stock market uncertainty, the "flight to safety" into T-Bills often drives yields lower as demand surges.</p>
-              <h2>T-Bills in a Portfolio Context</h2>
+              <h2 className="text-2xl font-bold mb-3">T-Bills in a Portfolio Context</h2>
               <p>T-Bills serve important roles in investment portfolios: emergency fund reserve earning competitive yields, "dry powder" for opportunistic investing, cash sweep vehicles in brokerage accounts, and comparison benchmarks for the risk-free rate in financial models. In the post-2022 environment with interest rates above 5%, T-Bills have attracted enormous inflows from retail investors seeking safe, liquid alternatives to savings accounts offering far lower rates.</p>
             </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/treasury-bill-calculator" />

@@ -247,11 +247,11 @@ const BasicCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Basic Four-Function Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">The Basic Four-Function Calculator</h2>
             <p>Our <strong>online basic calculator</strong> provides a clean, distraction-free interface for standard arithmetic operations. It is designed to function exactly like a traditional physical desktop calculator, supporting the "Big Four" mathematical operations: addition, subtraction, multiplication, and division.</p>
             <p>Whether you are balancing a checkbook, splitting a dinner bill, or helping with elementary school homework, a fast, reliable basic calculator is an essential everyday tool.</p>
 
-            <h2>How to Use This Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Use This Calculator</h2>
             <p>This calculator was built with desktop and mobile efficiency in mind. You can interact with it using your mouse, touchscreen, or computer keyboard.</p>
             <ul>
               <li><strong>Keyboard Integration:</strong> Seamlessly type numbers using your numpad or number row. The <code>+</code>, <code>-</code>, <code>*</code>, and <code>/</code> keys map perfectly to their respective operations. Press <code>Enter</code> to calculate the result, and <code>Esc</code> to clear the board.</li>
@@ -259,10 +259,10 @@ const BasicCalculator = () => {
               <li><strong>History Log:</strong> Unlike a standard physical calculator, this digital version keeps a running tape of your last 5 calculations on the right side of the screen, so you never lose track of your work.</li>
             </ul>
 
-            <h2>Order of Operations Note</h2>
+            <h2 className="text-2xl font-bold mb-3">Order of Operations Note</h2>
             <p>It is important to note that <em>basic</em> calculators generally do not follow the standard mathematical order of operations (PEMDAS/BODMAS). They calculate sequentially based on user input. For example, if you type <code>2 + 3 × 4</code> on this calculator, it will first add 2 and 3 (getting 5), and then multiply by 4, resulting in 20. A scientific calculator following strict PEMDAS would calculate the multiplication first (3 × 4 = 12), then add 2, resulting in 14. If you need complex expression evaluation with parentheses and exponents, please use our <a href="/calculator/scientific-calculator">Scientific Calculator</a>.</p>
 
-            <h2>Understanding the Memory and Clear Functions</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Memory and Clear Functions</h2>
             <p>The <strong>C (Clear)</strong> button completely wipes the current session—it resets the display to zero and forgets any pending mathematical operations. The <strong>Backspace</strong> icon (located to the left of the zero) allows you to delete the last single digit you typed without clearing the entire number, preventing frustration during long entries.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/basic-calculator" />

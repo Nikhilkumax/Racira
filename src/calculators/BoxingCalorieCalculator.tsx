@@ -292,15 +292,15 @@ export default function BoxingCalorieCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The Brutal Efficiency of Boxing for Weight Loss</h2>
+            <h2 className="text-2xl font-bold mb-3">The Brutal Efficiency of Boxing for Weight Loss</h2>
             <p>Boxing is universally recognized as one of the most physically exhausting sports in the world. Ask any professional athlete from another sport—whether they are a marathon runner or a powerlifter—to step into a boxing ring and throw punches for just 3 minutes, and they will almost certainly collapse from cardiovascular failure. The sheer energy required to sustain full-body, explosive anaerobic movements is staggering. The <strong>Boxing Calorie Calculator</strong> bypasses inaccurate fitness watch estimations by utilizing clinically validated Metabolic Equivalent (MET) formulas. By factoring in your specific body mass and your exact training environment, it calculates the massive thermodynamic cost of the Sweet Science.</p>
 
-            <h2>Why Boxing Burns More Calories Than Running</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Boxing Burns More Calories Than Running</h2>
             <p>When you jog on a treadmill, your body is highly efficient. You move in a straight line at a steady, unchanging pace. Your heart rate elevates to a moderate level and stays there. Your body quickly adapts to make the motion as metabolically "cheap" as possible.</p>
             <p>Boxing destroys this efficiency. First, it is a full-body sport. A proper punch does not start in the arm; it starts with a forceful pivot in the calf, massive rotational torque in the hips, and a brutal isometric lock in the core to transfer power into the fist. You are simultaneously firing your legs, core, back, and shoulders. </p>
             <p>Second, boxing is entirely unpredictable and anaerobic. You do not move at a steady pace. You are constantly bouncing, slipping under punches, absorbing impacts, and throwing explosive combinations. This rapid acceleration and deceleration forces your heart into maximum overdrive, burning drastically more calories per minute than any steady-state cardiovascular exercise.</p>
 
-            <h2>The Three Tiers of Boxing Intensity</h2>
+            <h2 className="text-2xl font-bold mb-3">The Three Tiers of Boxing Intensity</h2>
             <p>Exercise physiologists measure this cardiovascular effort using METs (Metabolic Equivalents). One MET is your resting metabolic rate. Boxing is categorized into three distinct levels of intensity:</p>
             <ul>
               <li><strong>Heavy Bag & Mitt Drills (MET 5.5):</strong> Hitting a heavy bag is physically demanding, but it is a highly controlled environment. The bag does not hit back, and you control the pace. You can take a 5-second breath whenever you need it. This is an excellent zone for fat burning and technique, burning roughly 5.5 times your resting rate.</li>
@@ -308,19 +308,19 @@ export default function BoxingCalorieCalculator() {
               <li><strong>Competition / Match (MET 12.8):</strong> This is an all-out, maximum-effort fight. It represents the absolute pinnacle of human cardiovascular output. Your heart rate operates near its absolute maximum, and your muscles are flooded with lactic acid. You are burning nearly 13 times your resting metabolic rate—a level of exertion that can only be sustained for very short rounds.</li>
             </ul>
 
-            <h2>The Danger of Overestimating: Active Time vs. Total Gym Time</h2>
+            <h2 className="text-2xl font-bold mb-3">The Danger of Overestimating: Active Time vs. Total Gym Time</h2>
             <p>The single biggest mistake combat athletes make when calculating their calories is using their total gym time instead of their active time. This is why our calculator features a prominent warning.</p>
             <p>Boxing is an interval sport. You train in rounds—typically 3 minutes of work followed by 1 minute of rest. If you are at the boxing gym for 60 minutes, you might only spend 20 to 25 minutes actively hitting the bag or sparring. The remaining time is spent stretching, resting, drinking water, and listening to your coach. If you input "60 minutes" into a fitness watch, it will falsely assume you threw punches for an hour straight and tell you that you burned 1,000 calories. To get an accurate, realistic number, you must only enter the exact minutes you were actively fighting or drilling.</p>
 
-            <h2>Physics in the Ring: Why Body Weight Matters</h2>
+            <h2 className="text-2xl font-bold mb-3">Physics in the Ring: Why Body Weight Matters</h2>
             <p>Boxing is a calisthenic, bodyweight-driven sport. The laws of physics (Force = Mass × Acceleration) dictate your caloric expenditure.</p>
             <p>If a 220-pound heavyweight and a 140-pound lightweight both hit the heavy bag for exactly 15 minutes, the heavyweight will mathematically burn a significantly higher absolute number of calories. Why? Because the heavyweight has to propel an extra 80 pounds of mass across the ring with every step, and their larger musculature requires drastically more oxygen and ATP to throw a punch. Our calculator strictly factors in your specific mass to ensure your caloric estimate is biologically accurate.</p>
 
-            <h2>The Afterburn Effect (EPOC)</h2>
+            <h2 className="text-2xl font-bold mb-3">The Afterburn Effect (EPOC)</h2>
             <p>Because live sparring and competition push your body deep into an anaerobic state (where oxygen demand exceeds oxygen supply), boxing triggers a massive physiological response known as <strong>Excess Post-Exercise Oxygen Consumption (EPOC)</strong>, commonly called the "Afterburn Effect."</p>
             <p>After you take off your gloves and go home, your body must rapidly consume oxygen and burn additional calories for up to 24 hours just to repair the micro-tears in your muscles, clear lactic acid from your bloodstream, and restore homeostasis. This means a grueling 20-minute sparring session continues to burn "bonus" calories long after you have left the gym, making boxing one of the most brutally efficient fat-loss protocols in existence.</p>
 
-            <h2>Conclusion: Fight for Your Fitness</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Fight for Your Fitness</h2>
             <p>You do not need to take punches to the face to reap the incredible fat-burning benefits of boxing. Hitting the heavy bag or doing mitt-work with a trainer provides an astronomical cardiovascular return on investment. Stop relying on inaccurate wrist trackers. Use the Boxing Calorie Calculator to track your active rounds, maintain a disciplined caloric deficit in your diet, and watch as the Sweet Science rapidly strips body fat and builds a lean, bulletproof physique.</p>
           </article>
           

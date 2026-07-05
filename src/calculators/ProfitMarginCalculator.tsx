@@ -100,17 +100,17 @@ const ProfitMarginCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-              <h2>What Is Profit Margin?</h2>
+              <h2 className="text-2xl font-bold mb-3">What Is Profit Margin?</h2>
               <p>Profit margin measures how much of every dollar in revenue a company keeps as profit. It is one of the most important financial metrics for evaluating business performance, pricing strategy, and operational efficiency. There are three levels of profit margin, each revealing different aspects of financial health.</p>
 
-              <h2>Three Types of Profit Margin</h2>
+              <h2 className="text-2xl font-bold mb-3">Three Types of Profit Margin</h2>
               <ul>
                 <li><strong>Gross Margin = (Revenue − COGS) ÷ Revenue × 100</strong> — Shows production efficiency. How much profit remains after direct costs.</li>
                 <li><strong>Operating Margin = (Revenue − COGS − OpEx) ÷ Revenue × 100</strong> — Shows operational efficiency. Includes overhead and administration costs.</li>
                 <li><strong>Net Margin = (Revenue − All Expenses − Taxes) ÷ Revenue × 100</strong> — The bottom line. What percentage of revenue becomes actual profit.</li>
               </ul>
 
-              <h2>Profit Margin vs Markup</h2>
+              <h2 className="text-2xl font-bold mb-3">Profit Margin vs Markup</h2>
               <p>These are often confused but measure profit differently:</p>
               <ul>
                 <li><strong>Margin:</strong> Profit ÷ Revenue × 100 (percentage of selling price)</li>
@@ -118,7 +118,7 @@ const ProfitMarginCalculator = () => {
                 <li>Example: Cost $60, Price $100 → Margin = 40%, Markup = 66.7%</li>
               </ul>
 
-              <h2>Industry Benchmarks</h2>
+              <h2 className="text-2xl font-bold mb-3">Industry Benchmarks</h2>
               <ul>
                 <li><strong>Software/SaaS:</strong> 60-80% gross, 20-30% net</li>
                 <li><strong>Retail:</strong> 25-35% gross, 2-5% net</li>
@@ -127,7 +127,7 @@ const ProfitMarginCalculator = () => {
                 <li><strong>Restaurants:</strong> 55-65% gross, 3-9% net</li>
               </ul>
 
-              <h2>Improving Profit Margins</h2>
+              <h2 className="text-2xl font-bold mb-3">Improving Profit Margins</h2>
               <ul>
                 <li>Negotiate better supplier pricing to lower COGS</li>
                 <li>Increase prices strategically based on value delivered</li>

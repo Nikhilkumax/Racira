@@ -184,21 +184,21 @@ export default function FutureValueCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding Future Value</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Future Value</h2>
             <p>Future Value (FV) is the projected value of a current sum of money at a future date, assuming a specific rate of growth over time. It is one of the most important concepts in personal finance and investing, forming the mathematical backbone of retirement planning, college savings, investment analysis, and any goal that involves accumulating money over time.</p>
             <p>The core insight behind future value is the time value of money: money today is worth more than the same amount in the future because it can be invested to earn returns. Conversely, the future value calculation tells you exactly how much your current money will grow to — making it the essential tool for turning savings goals into concrete investment plans.</p>
 
-            <h2>The Future Value Formula</h2>
+            <h2 className="text-2xl font-bold mb-3">The Future Value Formula</h2>
             <p>For a single lump-sum investment: FV = PV × (1 + r/n)^(n×t), where PV = present value, r = annual rate, n = compounding periods per year, t = years. For regular periodic payments (annuity): FV = PMT × [(1 + r/n)^(n×t) − 1] / (r/n). When combining both an initial investment and regular contributions (our calculator handles this), the total FV is the sum of both formulas.</p>
 
-            <h2>The Power of Compound Interest</h2>
+            <h2 className="text-2xl font-bold mb-3">The Power of Compound Interest</h2>
             <p>Einstein reportedly called compound interest "the eighth wonder of the world." The magic lies in earning returns not just on your principal, but on all previously accumulated interest. This creates exponential rather than linear growth. Starting with $5,000 at 8% for 20 years with $200/month contributions grows to approximately $130,000+ — despite only investing $53,000 in principal. Over 60% of the final balance comes from compound growth alone.</p>
             <p>This compounding effect makes time the most powerful variable in wealth building. Starting 10 years earlier can literally double or triple your final balance — even if you save the same monthly amount. The calculator's growth chart makes this exponential curve visually compelling.</p>
 
-            <h2>Compounding Frequency Matters</h2>
+            <h2 className="text-2xl font-bold mb-3">Compounding Frequency Matters</h2>
             <p>The more frequently interest compounds, the more you earn. Daily compounding produces more than annual compounding, though the difference is modest for typical interest rates. The effective annual rate (EAR) captures this: at 8% nominal with monthly compounding, EAR = (1 + 0.08/12)^12 − 1 = 8.30%. Banks advertise APY (Annual Percentage Yield) which is the EAR, to help savers understand their true return.</p>
 
-            <h2>Practical Applications</h2>
+            <h2 className="text-2xl font-bold mb-3">Practical Applications</h2>
             <p>Retirement planning: Will my current 401(k) balance and monthly contributions be enough by age 65? College savings: How much do I need to invest monthly to have $200,000 in 18 years? Comparing investment options: Which account with different rates and compounding frequencies will grow more? Business projections: What will my capital equipment be worth in 5 years? Our future value calculator answers all these questions instantly.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/future-value-calculator" />

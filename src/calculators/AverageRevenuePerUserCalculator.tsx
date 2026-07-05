@@ -282,19 +282,19 @@ export default function AverageRevenuePerUserCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is ARPU?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is ARPU?</h2>
             <p>Average Revenue Per User (ARPU) is a highly tracked performance metric in the software, media, telecommunications, and digital services industries. It essentially breaks down your total revenue on a per-customer basis. By understanding how much revenue a single user generates on average, executives and investors can quickly gauge the profitability of the business model and the effectiveness of upselling strategies.</p>
             
-            <h2>How to Calculate ARPU</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Calculate ARPU</h2>
             <p>The standard formula is incredibly simple: <code>ARPU = Total Revenue / Total Active Users</code>. The time period must remain consistent. If you are using your Monthly Recurring Revenue (MRR), you will divide it by the number of active users in that month to get your monthly ARPU. If you are calculating an annual ARPU, you use the entire year's revenue divided by the average number of users across the year.</p>
             
-            <h2>Why ARPU is Crucial for Growth</h2>
+            <h2 className="text-2xl font-bold mb-3">Why ARPU is Crucial for Growth</h2>
             <p>ARPU is directly tied to a company's Customer Acquisition Cost (CAC) limit. If your monthly ARPU is $10 and your average customer stays for 12 months, the Lifetime Value (LTV) of a user is $120. That means you absolutely cannot spend more than $120 to acquire a customer. However, if you can raise your ARPU to $20 through premium features or add-ons, your LTV doubles to $240, unlocking larger marketing budgets and faster growth.</p>
             
-            <h2>ARPU vs. ARPPU</h2>
+            <h2 className="text-2xl font-bold mb-3">ARPU vs. ARPPU</h2>
             <p>In freemium business models (like mobile games or SaaS platforms with free tiers), many companies track ARPPU (Average Revenue Per <em>Paying</em> User) instead of ARPU. While a game might have 1,000,000 active users, only 50,000 might actually pay for in-app purchases. Calculating revenue across all 1M users results in an artificially low ARPU, whereas calculating it across the 50,000 paying users (ARPPU) gives a clearer picture of how much spenders are willing to pay.</p>
             
-            <h2>Strategies to Increase ARPU</h2>
+            <h2 className="text-2xl font-bold mb-3">Strategies to Increase ARPU</h2>
             <p>Increasing ARPU is often cheaper than acquiring new customers. The most common strategies include creating tiered pricing models (Good, Better, Best), cross-selling related services, usage-based billing (where customers who use the product more pay more), and straight price increases. A healthy SaaS company should see its ARPU steadily grow year over year as the product matures and provides more value.</p>
           </article>
           

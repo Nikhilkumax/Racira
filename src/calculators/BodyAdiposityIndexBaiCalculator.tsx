@@ -442,30 +442,30 @@ export default function BodyAdiposityIndexBaiCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Body Adiposity Index (BAI) Calculator</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Body Adiposity Index (BAI) Calculator</h2>
             <p>For over a century, the medical community has grappled with a massive problem: how do we easily and accurately measure how much fat a person is carrying? The Body Mass Index (BMI) has been the global standard, but it is deeply flawed because it relies heavily on total body weight. A dense, heavily muscled athlete will weigh the same as a severely obese, sedentary individual, causing BMI to falsely classify the athlete as unhealthy. In 2011, researchers at the University of Southern California developed a revolutionary new formula: The <strong>Body Adiposity Index (BAI) Calculator</strong>. The true genius of the BAI is that it completely ignores the scale. It estimates your body fat percentage using only two geometric measurements: your height and the circumference of your hips.</p>
 
-            <h2>The Science Behind the Math</h2>
+            <h2 className="text-2xl font-bold mb-3">The Science Behind the Math</h2>
             <p>How can a mathematical formula calculate fat without knowing how much you weigh? The USC researchers analyzed thousands of clinical DEXA scans (the gold standard for medical body fat testing) and cross-referenced them with dozens of physical measurements. They discovered a profound, direct correlation between the sheer size of a person’s hips relative to their height and their total adipose tissue (fat mass).</p>
             <p>Unlike the shoulders or the chest, which can be heavily skewed by skeletal muscle growth in weightlifters, the hip circumference is relatively stable. While glute muscles do grow, the vast majority of extreme expansion in the hip/buttocks region across the general population is driven by the accumulation of fat. By creating a complex ratio between the hips and the height (Hip in cm divided by Height in meters to the power of 1.5, minus 18), the researchers created a formula that spits out an astounding approximation of total body fat percentage.</p>
 
-            <h2>BAI vs. BMI: Solving the Athlete Problem</h2>
+            <h2 className="text-2xl font-bold mb-3">BAI vs. BMI: Solving the Athlete Problem</h2>
             <p>The primary advantage of the Body Adiposity Index is its ability to protect muscular individuals from false medical diagnoses. Consider a 5'10" professional bodybuilder weighing 240 pounds at 8% body fat.</p>
             <ul>
               <li><strong>The BMI Scale:</strong> Looks at his massive 240-pound weight, divides it by his height, and assigns him a BMI of 34.4. He is clinically diagnosed as "Morbidly Obese."</li>
               <li><strong>The BAI Scale:</strong> Ignores his weight entirely. It looks at his height (5'10") and his tight, lean waist and hips (e.g., 34 inches). The BAI formula outputs a score of approximately 10%. It perfectly identifies him as an elite, lean athlete, proving its superiority for athletic populations.</li>
             </ul>
 
-            <h2>The Biological Differences Between Genders</h2>
+            <h2 className="text-2xl font-bold mb-3">The Biological Differences Between Genders</h2>
             <p>Because the BAI outputs an estimated Body Fat Percentage, the healthy thresholds vary wildly between men and women. You must select your biological gender for the calculator to provide an accurate diagnosis.</p>
             <p>Women are biologically designed to carry significantly more essential body fat than men. This extra fat is crucial for maintaining estrogen production, protecting reproductive organs, and ensuring viable pregnancies. Therefore, a BAI score of 25% for a man would classify him as clinically "Overweight," while a BAI score of 25% for a woman classifies her as incredibly "Healthy and Lean." The calculator automatically adjusts the clinical risk spectrum based on these biological realities.</p>
 
-            <h2>Limitations and Accuracy</h2>
+            <h2 className="text-2xl font-bold mb-3">Limitations and Accuracy</h2>
             <p>While the BAI is a phenomenal tool, it is not perfect. No mathematical formula can beat an $80,000 medical DEXA scan. Clinical studies have shown that the BAI is remarkably accurate for the vast majority of the general population. However, it does have a slight failure rate at the absolute extremes:</p>
             <p><strong>Overestimation in Elite Athletes:</strong> For men with extremely low body fat (under 10%), the BAI often slightly overestimates their fat percentage. It might tell a shredded fitness model he is 12% when he is actually 8%.</p>
             <p><strong>Underestimation in Severe Obesity:</strong> For individuals carrying a massive amount of weight, the formula can sometimes slightly underestimate the true fat percentage, acting a bit too conservatively.</p>
 
-            <h2>How to Guarantee an Accurate Measurement</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Guarantee an Accurate Measurement</h2>
             <p>The entire formula lives or dies based on a single input: your Hip Circumference. If you measure this incorrectly, the calculator will give you a completely false body fat percentage.</p>
             <p><strong>Do not measure your waist.</strong> Do not measure where your belt sits or where your jeans rest. The clinical definition of the "Hip Circumference" for the BAI formula is the <em>maximum horizontal extension of the buttocks</em>.</p>
             <ol>
@@ -475,7 +475,7 @@ export default function BodyAdiposityIndexBaiCalculator() {
               <li>Ensure the tape is perfectly horizontal to the floor all the way around. Do not pull it tight; it should rest gently against the skin.</li>
             </ol>
 
-            <h2>Conclusion: Throw Away the Scale</h2>
+            <h2 className="text-2xl font-bold mb-3">Conclusion: Throw Away the Scale</h2>
             <p>If you have recently started a weightlifting program, you may notice that the scale is not moving. You might weigh 200 pounds on Day 1, and three months later, you still weigh 200 pounds. This causes immense frustration. However, if you use the Body Adiposity Index Calculator, you might find your hips have shrunk by 3 inches. The scale didn't move because you burned 10 pounds of fat and built 10 pounds of muscle. By relying on geometric proportions instead of gravity, the BAI provides a much clearer window into the true state of your physical transformation.</p>
           </article>
           

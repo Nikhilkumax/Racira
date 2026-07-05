@@ -115,7 +115,7 @@ const CreditUtilizationCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-              <h2>Why Credit Utilization Matters</h2>
+              <h2 className="text-2xl font-bold mb-3">Why Credit Utilization Matters</h2>
               <p>Credit utilization is the second most important factor in your FICO credit score, accounting for approximately 30% of the total. Understanding and managing it can lead to significant improvements in your creditworthiness.</p>
               <h3>The 30% Rule</h3>
               <p>The widely-cited rule is to keep utilization below 30%. However, research shows that those with the highest credit scores typically have utilization below 10%. The ideal target is as low as possible while still using your cards regularly.</p>

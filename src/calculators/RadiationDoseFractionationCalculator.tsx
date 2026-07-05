@@ -308,33 +308,33 @@ export default function RadiationDoseFractionationCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding Radiation Dose Fractionation (BED & EQD2)</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding Radiation Dose Fractionation (BED & EQD2)</h2>
             <p>In modern oncology, radiation therapy is a cornerstone of cancer treatment. However, prescribing radiation is not as simple as giving a patient a total physical dose (e.g., 60 Gray) all at once. Delivering massive amounts of radiation in a single burst causes catastrophic damage to healthy, normal tissues. To protect the patient, radiation oncologists use "fractionation"—splitting the total dose into small daily treatments (fractions) delivered over several weeks. Our <strong>Radiation Dose Fractionation Calculator</strong> uses the Linear-Quadratic (LQ) model to calculate the true biological effect of these altered schedules, generating the Biologically Effective Dose (BED) and the Equivalent Dose in 2 Gy fractions (EQD2).</p>
 
-            <h2>Why We Fractionate Radiation</h2>
+            <h2 className="text-2xl font-bold mb-3">Why We Fractionate Radiation</h2>
             <p>The success of radiotherapy relies on a biological loophole known as the "therapeutic index." Normal, healthy cells possess highly efficient DNA repair mechanisms. If you give a small dose of radiation (like 2 Gray), both the tumor and the surrounding healthy tissue will suffer DNA damage. However, within 24 hours, the healthy tissue will largely repair its sublethal DNA damage. The chaotic, rapidly dividing tumor cells have defective repair mechanisms, and the damage becomes permanent.</p>
             <p>By delivering small fractions of radiation every single day (typically Monday through Friday), we exploit this difference. The healthy tissue continually recovers, while the tumor accumulates lethal, unrepairable damage until it is eradicated.</p>
 
-            <h2>The Linear-Quadratic (LQ) Model</h2>
+            <h2 className="text-2xl font-bold mb-3">The Linear-Quadratic (LQ) Model</h2>
             <p>The LQ model is the mathematical foundation of modern radiobiology. It states that radiation causes cell death via two distinct mechanisms:</p>
             <ul>
               <li><strong>Alpha (Linear) Kill:</strong> A single, high-energy particle cleanly breaks both strands of DNA simultaneously. This is unrepairable and is directly proportional to the total dose, regardless of the fraction size.</li>
               <li><strong>Beta (Quadratic) Kill:</strong> Two separate, lower-energy particles break one strand each, close together in space and time, creating a double-strand break. This mechanism is highly dependent on the "density" or size of the daily dose fraction.</li>
             </ul>
 
-            <h2>The Alpha/Beta Ratio (α/β)</h2>
+            <h2 className="text-2xl font-bold mb-3">The Alpha/Beta Ratio (α/β)</h2>
             <p>The ratio of these two mechanisms (Alpha divided by Beta) is known as the α/β ratio, expressed in Grays (Gy). It tells us how sensitive a specific type of tissue is to the size of the daily fraction.</p>
             <p><strong>Tumors & Early Responding Tissues (α/β ≈ 10 Gy):</strong> Skin, mucous membranes, and most aggressive tumors have a high ratio. This means their cell death is driven mostly by the alpha mechanism. They are highly dependent on the total physical dose but are relatively insensitive to the size of the daily fraction.</p>
             <p><strong>Late Responding Normal Tissues (α/β ≈ 3 Gy):</strong> Spinal cord, brain, kidneys, and connective tissue have a low ratio. Their cell death is heavily dependent on the beta mechanism. These tissues are incredibly sensitive to the size of the daily dose. If you deliver large fractions (hypofractionation), these tissues will suffer massive, catastrophic late-stage damage (like paralysis or fibrosis) months or years after treatment.</p>
 
-            <h2>Biologically Effective Dose (BED)</h2>
+            <h2 className="text-2xl font-bold mb-3">Biologically Effective Dose (BED)</h2>
             <p>Because physical dose (total Gy) does not account for the biological repair between fractions, we use BED to compare the true "weight" of different schedules. For example, 60 Gy delivered in 30 fractions (2 Gy/day) has a BED of 72 Gy for a tumor. But if you try to deliver 60 Gy in just 3 massive fractions (20 Gy/day), the tumor BED skyrockets to 180 Gy. BED allows oncologists to mathematically ensure that a new, shorter treatment schedule will actually kill the tumor without exceeding the toxic limits of the surrounding organs.</p>
 
-            <h2>Equivalent Dose in 2 Gy Fractions (EQD2)</h2>
+            <h2 className="text-2xl font-bold mb-3">Equivalent Dose in 2 Gy Fractions (EQD2)</h2>
             <p>While BED is useful, the numbers are theoretical and abstract. For decades, the global standard for radiotherapy has been delivering 2 Gy per day. Therefore, oncologists know intuitively that a spinal cord can tolerate 50 Gy (delivered in 2 Gy fractions) before risking paralysis. But what if you are treating a patient with 8 Gy fractions? How do you know if the spinal cord is safe?</p>
             <p>The EQD2 formula translates any bizarre or hypofractionated schedule back into the familiar "2 Gy equivalent" language. By using our calculator, if a hypofractionated regimen yields an EQD2 of 45 Gy for normal tissue, the doctor knows immediately that the spinal cord is safe, because 45 is less than the known 50 Gy threshold.</p>
 
-            <h2>Clinical Uses: Hypofractionation and SBRT</h2>
+            <h2 className="text-2xl font-bold mb-3">Clinical Uses: Hypofractionation and SBRT</h2>
             <p>In the past, patients had to come to the clinic 5 days a week for 8 weeks (40 fractions) for prostate cancer. Today, using advanced imaging and robotics, we use Stereotactic Body Radiotherapy (SBRT) to deliver massive doses (like 8 Gy per day) in just 5 days. Our BED and EQD2 calculator is the exact mathematical tool physicists use to prove that these ultra-short, highly convenient 5-day schedules deliver the exact same biological tumor-killing power as the old 8-week regimens, fundamentally transforming modern cancer care.</p>
           </article>
           

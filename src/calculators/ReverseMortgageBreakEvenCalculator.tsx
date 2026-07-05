@@ -293,21 +293,21 @@ export default function ReverseMortgageBreakEvenCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>Understanding the Reverse Mortgage Structure</h2>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Reverse Mortgage Structure</h2>
             <p>A reverse mortgage, most commonly known as a Home Equity Conversion Mortgage (HECM) insured by the Federal Housing Administration, allows senior homeowners aged 62 and older to tap into their home equity without selling the home or taking on a new monthly mortgage payment. Instead of you paying the lender every month, the lender pays you — either as a lump sum, a line of credit, or monthly installments.</p>
             <p>However, the money received is not free. Every dollar drawn, along with substantial upfront closing costs, is added to the loan balance. Because you are not making monthly principal and interest payments, the loan balance experiences negative amortization — it grows steadily over time, compounded by the interest rate.</p>
 
-            <h2>What the Break-Even Point Actually Means</h2>
+            <h2 className="text-2xl font-bold mb-3">What the Break-Even Point Actually Means</h2>
             <p>In the context of a reverse mortgage, the break-even point — also called the crossover point — is the exact moment in the future when your exponentially growing loan balance overtakes the appreciating value of your home. At this juncture, your home equity mathematically drops to zero. Any further draws or interest accumulation pushes the loan balance higher than the home's current market value. Using our calculator, you can project precisely when this will happen based on your withdrawal rate, the loan's interest rate, and your assumed annual home appreciation.</p>
 
-            <h2>The Non-Recourse Guarantee</h2>
+            <h2 className="text-2xl font-bold mb-3">The Non-Recourse Guarantee</h2>
             <p>One of the most critical features of a federally insured HECM reverse mortgage is the non-recourse clause. When the loan eventually becomes due — usually because the last surviving borrower passes away or moves out permanently — the loan must be repaid. If the loan balance has grown larger than the home's appraised market value, neither you nor your heirs are personally liable for the difference. The lender sells the home, takes the proceeds, and the FHA insurance fund covers any remaining shortfall. Your estate cannot be forced to pay the excess from other assets.</p>
 
-            <h2>Hidden Risks You Must Understand</h2>
+            <h2 className="text-2xl font-bold mb-3">Hidden Risks You Must Understand</h2>
             <p>While non-recourse protection is excellent, reverse mortgages carry significant risks. HECMs require an initial Mortgage Insurance Premium equal to 2% of the home's appraised value, plus origination fees and standard closing costs. These are typically rolled into the loan balance immediately, meaning you owe thousands more than the cash you actually received. You must also continue paying property taxes, homeowners insurance, and any HOA fees — failure to do so gives the lender grounds to foreclose, forcing you out of the home.</p>
             <p>Because the loan balance grows rapidly through compound interest, it aggressively consumes home equity over time. If your goal is to leave a free-and-clear home to your children, a reverse mortgage works directly against that objective. Additionally, taking large lump sums can push your liquid asset balance over the threshold for needs-based benefit programs such as Medicaid or Supplemental Security Income, potentially disqualifying you from programs you depend on.</p>
 
-            <h2>Planning for the Long Term</h2>
+            <h2 className="text-2xl font-bold mb-3">Planning for the Long Term</h2>
             <p>A reverse mortgage can be a powerful tool to secure reliable cash flow in retirement, allowing seniors to age in place without the burden of a monthly mortgage payment. The key is understanding the trajectory before you commit. By using this Break-Even Calculator to map out exactly when your loan balance will overtake your home's value, you can make an informed decision, prepare your heirs for what to expect, and choose a draw strategy that balances your income needs against the equity you wish to preserve.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/reverse-mortgage-break-even-calculator" />

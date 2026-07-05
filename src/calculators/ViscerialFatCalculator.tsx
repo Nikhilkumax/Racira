@@ -206,21 +206,21 @@ export default function ViscerialFatCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is Visceral Fat?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is Visceral Fat?</h2>
             <p>Visceral fat is the fat that accumulates deep in the abdominal cavity, surrounding vital organs like the liver, pancreas, and intestines. Unlike subcutaneous fat — the soft fat you can pinch under your skin — visceral fat is metabolically active tissue that secretes inflammatory compounds, disrupts hormonal signals, and significantly raises the risk of chronic disease.</p>
             <p>Consumer-grade body composition monitors (like Tanita and InBody scales) express visceral fat as a level from 1 to 15 (or 1 to 30 in some systems). Levels below 4 are considered healthy. Levels above 9 represent very high risk and are associated with metabolic syndrome, elevated triglycerides, low HDL cholesterol, insulin resistance, and systemic inflammation.</p>
 
-            <h2>Why Waist Circumference Matters</h2>
+            <h2 className="text-2xl font-bold mb-3">Why Waist Circumference Matters</h2>
             <p>Waist circumference is the single most accessible way to proxy visceral fat without medical imaging. Unlike BMI, which can't distinguish between muscle and fat mass, waist circumference directly reflects central adiposity — fat concentrated around the midsection, which correlates strongly with visceral fat depots.</p>
             <p>International health organizations use the following waist circumference thresholds: Men — elevated risk above 94 cm (37 in), high risk above 102 cm (40 in). Women — elevated risk above 80 cm (31.5 in), high risk above 88 cm (34.5 in). These thresholds are adjusted downward for Asian populations, where metabolic complications arise at smaller waist circumferences.</p>
 
-            <h2>Waist-to-Height Ratio: A Better Single Metric</h2>
+            <h2 className="text-2xl font-bold mb-3">Waist-to-Height Ratio: A Better Single Metric</h2>
             <p>The waist-to-height ratio (WHtR) divides waist circumference by total height. A WHtR below 0.5 — "keep your waist less than half your height" — is a simple, universally applicable rule that performs better than BMI in predicting cardiometabolic risk across diverse ethnicities and age groups. A WHtR of 0.5–0.6 represents moderate risk; above 0.6 indicates high risk of cardiovascular and metabolic disease.</p>
 
-            <h2>Health Risks of Elevated Visceral Fat</h2>
+            <h2 className="text-2xl font-bold mb-3">Health Risks of Elevated Visceral Fat</h2>
             <p>Visceral fat is not merely storage — it is hormonally and immunologically active. It releases adipokines like leptin and resistin, drives systemic inflammation through cytokine secretion, and impairs the liver's ability to process insulin. High visceral fat levels are independently associated with type 2 diabetes, non-alcoholic fatty liver disease (NAFLD), cardiovascular disease, hypertension, sleep apnea, and certain cancers (particularly colorectal and breast cancer).</p>
 
-            <h2>How to Reduce Visceral Fat</h2>
+            <h2 className="text-2xl font-bold mb-3">How to Reduce Visceral Fat</h2>
             <p>Visceral fat is more responsive to lifestyle interventions than subcutaneous fat. The most evidence-backed strategies include: aerobic exercise (brisk walking, cycling, swimming — 150+ minutes/week), reducing ultra-processed foods and added sugars, improving sleep quality (7–9 hours/night — sleep deprivation increases cortisol, which promotes fat storage), stress management (cortisol directly promotes visceral fat accumulation), and a diet rich in fiber, lean protein, and healthy fats.</p>
             <p>Strength training improves insulin sensitivity and preserves muscle mass, creating a metabolic environment less conducive to fat storage. The combination of aerobic exercise and resistance training is more effective than either alone for reducing visceral fat levels.</p>
           </article>

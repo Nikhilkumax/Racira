@@ -157,22 +157,22 @@ const PriceToSalesCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is a Price to Sales Ratio Calculator?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Price to Sales Ratio Calculator?</h2>
             <p>A price-to-sales (P/S) ratio calculator compares a company's market capitalization to its total revenue, showing investors how much they are paying for each dollar of sales. Pre-filled with a $120 stock price, 50,000 shares, and $2,000,000 in annual revenue, the P/S ratio is 3.00x — typical for a mature company with predictable revenue streams.</p>
-            <h2>The P/S Ratio Formula</h2>
+            <h2 className="text-2xl font-bold mb-3">The P/S Ratio Formula</h2>
             <p><strong>P/S Ratio = Stock Price / Revenue Per Share = Market Capitalization / Annual Revenue</strong></p>
             <p>For our defaults: Market Cap = $120 × 50,000 = $6,000,000. Revenue Per Share = $2,000,000 / 50,000 = $40.00. P/S = $120 / $40.00 = 3.00x.</p>
-            <h2>Why P/S Matters for Growth Companies</h2>
+            <h2 className="text-2xl font-bold mb-3">Why P/S Matters for Growth Companies</h2>
             <p>The P/S ratio is especially valuable for early-stage and high-growth companies that are not yet profitable. Unlike the P/E ratio (which is undefined for loss-making companies), P/S can be calculated and compared even when earnings are negative. During the SaaS boom, companies like Salesforce and Shopify were consistently valued at 15–30x revenue, reflecting expectations of massive future profit margins.</p>
-            <h2>Industry Benchmarks</h2>
+            <h2 className="text-2xl font-bold mb-3">Industry Benchmarks</h2>
             <p>P/S ratios vary widely: Grocery retail: 0.1–0.5x (thin margins, high volume). Auto manufacturing: 0.3–1.0x. Banking: 1.0–3.0x. Consumer packaged goods: 2.0–5.0x. Software (SaaS): 5.0–20.0x. Pharmaceutical: 3.0–15.0x (unpredictable revenue from drug approvals). Biotech: can exceed 50x based on pipeline expectations.</p>
-            <h2>P/S and Gross Margin</h2>
+            <h2 className="text-2xl font-bold mb-3">P/S and Gross Margin</h2>
             <p>The P/S ratio must be evaluated alongside gross margin. A company with $1B revenue and 80% gross margins (software) is fundamentally different from one with 15% gross margins (hardware). High-margin businesses can support much higher P/S multiples because more of each revenue dollar eventually flows to the bottom line. A framework: P/S / Gross Margin = Price-to-Gross Profit, which normalizes the ratio for margin differences.</p>
-            <h2>The Rule of 40 Connection</h2>
+            <h2 className="text-2xl font-bold mb-3">The Rule of 40 Connection</h2>
             <p>For SaaS companies, the "Rule of 40" states that a healthy SaaS company should have Revenue Growth Rate + EBITDA Margin ≥ 40%. Companies exceeding Rule of 40 typically command P/S ratios of 10–20x or more. Below-Rule-of-40 companies are often valued at 3–8x revenue regardless of the absolute revenue size.</p>
-            <h2>Annualizing Quarterly Revenue</h2>
+            <h2 className="text-2xl font-bold mb-3">Annualizing Quarterly Revenue</h2>
             <p>When using the most recent quarterly revenue figure (as reported by public companies), multiply by 4 to get a run-rate annual estimate. This is common in equity research models but can distort seasonal businesses — retail companies may have very high Q4 revenue that doesn't represent a sustainable quarterly run rate. The checkbox option on this calculator automatically annualizes quarterly inputs for convenience.</p>
-            <h2>P/S vs EV/Revenue</h2>
+            <h2 className="text-2xl font-bold mb-3">P/S vs EV/Revenue</h2>
             <p>A more precise version of P/S uses Enterprise Value (EV = Market Cap + Debt − Cash) instead of market cap: EV/Revenue. This accounts for capital structure differences between companies — a company with $500M market cap but $2B debt is very differently leveraged than a pure-equity company with $500M market cap. EV/Revenue is the preferred metric in investment banking for M&A valuation.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/price-to-sales-calculator" />

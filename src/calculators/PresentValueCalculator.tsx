@@ -164,21 +164,21 @@ export default function PresentValueCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <article className="prose-finance text-[15.75px]">
-            <h2>What Is Present Value?</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is Present Value?</h2>
             <p>Present Value (PV) is one of the most fundamental concepts in finance and investing. It answers a simple but powerful question: how much is a future sum of money worth today? The answer depends on the discount rate — the rate of return you could earn if you invested that money right now.</p>
             <p>The principle behind present value is the time value of money: a dollar today is worth more than a dollar in the future. Why? Because money today can be invested to generate returns, while future money carries both inflation risk and opportunity cost. If you can earn 8% per year, receiving $10,000 in 10 years is equivalent to having $4,632 today — the present value at an 8% discount rate.</p>
 
-            <h2>The Present Value Formula Explained</h2>
+            <h2 className="text-2xl font-bold mb-3">The Present Value Formula Explained</h2>
             <p>The core formula for calculating present value is: PV = FV ÷ (1 + r/n)^(n×t). Where: FV = future value (the amount you'll receive in the future), r = annual discount/interest rate (as a decimal), n = number of compounding periods per year, t = time in years. The (1 + r/n)^(n×t) portion is called the discount factor or present value interest factor (PVIF).</p>
             <p>For example, to find the present value of $10,000 received in 10 years with an 8% annual rate compounded monthly: PV = $10,000 ÷ (1 + 0.08/12)^(12×10) = $10,000 ÷ (1.006667)^120 = $10,000 ÷ 2.2196 = $4,505.84.</p>
 
-            <h2>Choosing the Right Discount Rate</h2>
+            <h2 className="text-2xl font-bold mb-3">Choosing the Right Discount Rate</h2>
             <p>The discount rate is the critical variable in present value calculations. It should represent the opportunity cost of capital — the best available alternative return for that level of risk. Common choices include: risk-free rate (U.S. Treasury yield, currently around 4–5%), weighted average cost of capital (WACC) for business projects, expected market return (historically 7–10% for equities), or a risk-adjusted hurdle rate for specific investments. Higher discount rates produce lower present values, reflecting that high-return opportunities make future money less valuable today.</p>
 
-            <h2>Present Value in Real-World Decisions</h2>
+            <h2 className="text-2xl font-bold mb-3">Present Value in Real-World Decisions</h2>
             <p>PV analysis drives countless financial decisions: lottery winners choosing between lump sum and annuity payments, businesses evaluating capital projects using discounted cash flow (DCF), bond pricing (summing PV of all future coupon payments and principal), lease vs. buy comparisons, pension and retirement planning, real estate valuation, and insurance premium calculations. Any time you need to compare money received at different points in time, present value provides the common currency for comparison.</p>
 
-            <h2>Present Value vs Net Present Value</h2>
+            <h2 className="text-2xl font-bold mb-3">Present Value vs Net Present Value</h2>
             <p>Present Value discounts a single future cash flow. Net Present Value (NPV) extends this to multiple cash flows: it sums the present values of all future cash inflows and outflows, then subtracts the initial investment. A positive NPV means the investment creates value above the required return; a negative NPV destroys value. NPV is the gold standard for capital budgeting decisions.</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/present-value-calculator" />

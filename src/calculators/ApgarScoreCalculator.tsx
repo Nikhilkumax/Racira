@@ -231,15 +231,15 @@ export default function ApgarScoreCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <article className="prose-finance text-[15.75px]">
-            <h2>The History of the APGAR Score</h2>
+            <h2 className="text-2xl font-bold mb-3">The History of the APGAR Score</h2>
             <p>Prior to the 1950s, the medical community had no standardized way to evaluate the health of a newborn immediately after birth. Because babies were often born pale and unresponsive due to the heavy anesthetics given to mothers at the time, doctors frequently assumed the babies were stillborn or beyond saving, leading to tragic, preventable infant mortality.</p>
             <p>In 1952, Dr. Virginia Apgar, an anesthesiologist, invented a rapid 5-point scoring system to definitively force delivery room staff to assess the baby's vital signs and intervene immediately if necessary. Today, the APGAR score is used in every hospital worldwide and has saved millions of infant lives.</p>
 
-            <h2>The 1-Minute vs. 5-Minute Score</h2>
+            <h2 className="text-2xl font-bold mb-3">The 1-Minute vs. 5-Minute Score</h2>
             <p>The APGAR test is strictly performed twice. The <strong>1-minute score</strong> is essentially a report card on the birthing process itself. It tells the doctor how much the physical stress of labor (and any medications given to the mother) affected the baby. A low score at 1 minute is common and usually resolves quickly with basic stimulation and clearing of the airways.</p>
             <p>The <strong>5-minute score</strong> is significantly more important. It evaluates the baby's ability to transition to life outside the womb and function independently. If the 5-minute score remains below 7, doctors will aggressively intervene with oxygen or chest compressions, and will continue to reassess the baby every 5 minutes until the score improves.</p>
 
-            <h2>Why is 'Pulse' Scored Differently?</h2>
+            <h2 className="text-2xl font-bold mb-3">Why is 'Pulse' Scored Differently?</h2>
             <p>You may notice that a newborn heart rate of 90 beats per minute scores a '1', which seems abnormal compared to adults. In adults, a normal resting heart rate is between 60 and 100 bpm. However, newborns have incredibly fast metabolisms and require massive amounts of oxygen. A healthy newborn heart rate should be between <strong>110 and 160 beats per minute</strong>. If a newborn's heart rate drops below 100 bpm, it is a sign of clinical bradycardia, usually caused by oxygen deprivation (hypoxia).</p>
           </article>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/apgar-score-calculator" />
