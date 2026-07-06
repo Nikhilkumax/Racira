@@ -1,4 +1,4 @@
-import { Boxes, Layers, Sparkles, TrendingUp } from "lucide-react";
+import { Boxes, GitBranch, Sparkles, TrendingUp } from "lucide-react";
 
 const features = [
   {
@@ -7,14 +7,14 @@ const features = [
     desc: "Multiple tool categories, one seamless platform.",
   },
   {
-    icon: Layers,
-    title: "Consistent experience",
-    desc: "Same design across every tool.",
+    icon: GitBranch,
+    title: "Unified design system",
+    desc: "Every tool inherits the same spacing, typography, and interaction model.",
   },
   {
     icon: Sparkles,
     title: "Always improving",
-    desc: "New tools added continuously.",
+    desc: "New tools and categories ship regularly without breaking the experience you know.",
   },
   {
     icon: TrendingUp,

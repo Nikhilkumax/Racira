@@ -25,7 +25,7 @@ const Hero = () => {
 
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Button asChild variant="hero" size="lg">
-              <Link href="/calculator">
+              <Link href="/#categories">
                 Explore Platform <ArrowRight className="h-4 w-4" />
               </Link>
             </Button>

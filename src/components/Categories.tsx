@@ -44,42 +44,26 @@ function CategoryCard({ cat }: { cat: (typeof orderedCategories)[0] }) {
     <div
       className={cn(
         // h-full + flex-col lets this card stretch to the grid row height
-        "group relative flex flex-col h-full overflow-hidden rounded-xl border border-border bg-card p-4 shadow-soft transition-all duration-200",
+        "group relative flex flex-col h-full overflow-hidden rounded-xl border border-border bg-card p-4 md:p-5 lg:p-6 shadow-soft transition-all duration-200",
         active && "hover:-translate-y-1 hover:border-primary hover:shadow-glow"
       )}
     >
-      {/* Top row: icon + badge */}
-      <div className="flex items-start justify-between">
-        <div className="tool-card-icon h-10 w-10">
-          <Icon className="h-[18px] w-[18px] text-primary" strokeWidth={2} />
+      {/* ── Icon + title: side-by-side at ALL breakpoints ── */}
+      <div className="flex items-center gap-3 mb-3">
+        <div className="flex shrink-0 items-center justify-center rounded-xl bg-[hsl(var(--tool-icon-bg))] h-10 w-10 md:h-12 md:w-12">
+          <Icon className="h-5 w-5 md:h-6 md:w-6 text-primary" strokeWidth={2} />
         </div>
-        <span
-          className={cn(
-            "rounded-full border px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider",
-            active
-              ? "border-primary/20 bg-primary/10 text-primary"
-              : "border-border bg-muted text-muted-foreground"
-          )}
-        >
-          {active ? "Live" : "Soon"}
-        </span>
+        <h3 className="text-base md:text-lg leading-tight font-bold tracking-tight">{cat.title}</h3>
       </div>
 
-      {/*
-        Body: flex-col with flex-1 on the spacer so CTA always
-        pins to the bottom regardless of content length.
-      */}
-      <div className="mt-3 flex flex-col flex-1">
-        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-          {cat.tagline}
-        </p>
-        <h3 className="mt-1 text-lg font-bold tracking-tight">{cat.title}</h3>
-        <p className="mt-1.5 max-w-md text-sm text-muted-foreground leading-relaxed truncate">
+      {/* ── BODY: description + pills + CTA (shared, all breakpoints) ── */}
+      <div className="flex flex-col flex-1">
+        <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2">
           {cat.description}
         </p>
 
-        {/* max-h clamps to one pill row (~28px); overflow-hidden prevents wrap */}
-        <div className="mt-2.5 flex gap-1.5 overflow-hidden max-h-[28px]">
+        {/* Pills: hidden on mobile/tablet, shown on desktop */}
+        <div className="hidden md:flex flex-wrap gap-1.5 mt-2.5">
           {(PILL_OVERRIDES[cat.slug] ?? cat.highlights.slice(0, 3)).map((h) => (
             <span
               key={h}
@@ -156,7 +140,7 @@ export default function Categories() {
         On mobile (1-col / md:2-col), cards at index 4–7 are hidden
         when collapsed so mobile shows 4 cards = 2 complete rows of 2.
       */}
-      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+      <div className="grid gap-3 md:gap-4 md:grid-cols-2 xl:grid-cols-4">
         {visibleCards.map((cat, i) => (
           <div
             key={cat.slug}
@@ -182,7 +166,7 @@ export default function Categories() {
           transition: "height 500ms cubic-bezier(0.4, 0, 0.2, 1)",
         }}
       >
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4 [grid-auto-rows:auto] mt-4">
+        <div className="grid gap-3 md:gap-4 md:grid-cols-2 xl:grid-cols-4 [grid-auto-rows:auto] mt-3 md:mt-4">
           {hiddenCards.map((cat) => (
             <CategoryCard key={cat.slug} cat={cat} />
           ))}

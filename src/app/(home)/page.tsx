@@ -2,8 +2,6 @@ import { Metadata } from "next";
 import Hero from "@/components/Hero";
 import Categories from "@/components/Categories";
 import Features from "@/components/Features";
-import Ecosystem from "@/components/Ecosystem";
-import FutureExpansion from "@/components/FutureExpansion";
 
 export const metadata: Metadata = {
   title: "Racira | All Your Essential Tools. One Platform.",
@@ -34,8 +32,6 @@ export default function Home() {
       <Hero />
       <Categories />
       <Features />
-      <Ecosystem />
-      <FutureExpansion />
     </>
   );
 }

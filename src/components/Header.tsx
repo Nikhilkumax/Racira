@@ -16,9 +16,10 @@ export interface HeaderProps {
 
 const nav = [
   { href: "/calculator", label: "Calculator" },
-  { href: "/pdf-tools", label: "PDF" },
-  { href: "/image-tools", label: "Image" },
-  { href: "/voice", label: "Voice" },
+  { href: "/pdf", label: "PDF" },
+  { href: "/finance", label: "Finance" },
+  { href: "/image", label: "Image" },
+  { href: "/#categories", label: "All Categories" },
 ];
 
 const Header = ({ mode = "homepage", categoryName }: HeaderProps) => {
@@ -51,6 +52,7 @@ const Header = ({ mode = "homepage", categoryName }: HeaderProps) => {
           </span>
         </Link>
 
+        {/* Desktop nav */}
         {mode === "homepage" && (
           <nav className="hidden items-center gap-1 md:flex">
             {nav.map((item) => (
@@ -59,7 +61,7 @@ const Header = ({ mode = "homepage", categoryName }: HeaderProps) => {
                 href={item.href}
                 className={cn(
                   "rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-base hover:text-foreground",
-                  (pathname || "").startsWith(item.href) && "text-foreground",
+                  !item.href.startsWith("/#") && (pathname || "").startsWith(item.href) && "text-foreground",
                 )}
               >
                 {item.label}

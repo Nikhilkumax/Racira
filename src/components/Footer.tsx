@@ -24,9 +24,10 @@ const Footer = () => {
             </h3>
             <ul className="space-y-3 text-sm">
               <li><Link href="/calculator" className="text-foreground/80 hover:text-foreground">Calculator</Link></li>
-              <li><Link href="/pdf-tools" className="text-foreground/80 hover:text-foreground">PDF</Link></li>
-              <li><Link href="/image-tools" className="text-foreground/80 hover:text-foreground">Image</Link></li>
-              <li><Link href="/voice" className="text-foreground/80 hover:text-foreground">Voice</Link></li>
+              <li><Link href="/pdf" className="text-foreground/80 hover:text-foreground">PDF</Link></li>
+              <li><Link href="/finance" className="text-foreground/80 hover:text-foreground">Finance</Link></li>
+              <li><Link href="/image" className="text-foreground/80 hover:text-foreground">Image</Link></li>
+              <li><Link href="/#categories" className="text-foreground/80 hover:text-foreground">All Categories</Link></li>
             </ul>
           </div>
 
