@@ -4,10 +4,10 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Upload, Trash2 } from "lucide-react";
 import { toast } from "sonner";
-import { AdminShell } from "@/components/finance/admin/admin-shell";
+import { AdminShell } from "@/domains/finance/admin/admin-shell";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { listMedia, addMedia, deleteMedia } from "@/lib/finance/data/media";
+import { listMedia, addMedia, deleteMedia } from "@/domains/finance/data/media";
 
 export default function MediaPage() {
   const router = useRouter();

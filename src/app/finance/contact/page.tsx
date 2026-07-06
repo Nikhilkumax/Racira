@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import { PageShell } from "@/components/finance/page-shell";
+import { PageShell } from "@/domains/finance/blog/page-shell";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";

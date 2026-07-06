@@ -1,10 +1,10 @@
 ﻿import Link from "next/link";
 import { FileText, FolderTree, Tag, Image, Plus } from "lucide-react";
-import { AdminShell } from "@/components/finance/admin/admin-shell";
+import { AdminShell } from "@/domains/finance/admin/admin-shell";
 import { Button } from "@/components/ui/button";
-import { listPosts } from "@/lib/finance/data/posts";
-import { listCategories, listTags } from "@/lib/finance/data/taxonomy";
-import { listMedia } from "@/lib/finance/data/media";
+import { listPosts } from "@/domains/finance/data/posts";
+import { listCategories, listTags } from "@/domains/finance/data/taxonomy";
+import { listMedia } from "@/domains/finance/data/media";
 
 export default function Dashboard() {
   const all = listPosts();

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { subscribeNewsletter } from "@/lib/finance/newsletter.functions";
+import { subscribeNewsletter } from "@/domains/finance/lib/newsletter.functions";
 import { toast } from "sonner";
 
 export function NewsletterSignup({ compact = false }: { compact?: boolean }) {

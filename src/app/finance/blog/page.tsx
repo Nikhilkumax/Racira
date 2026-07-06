@@ -4,12 +4,12 @@ import Link from "next/link";
 import { useState, useMemo, Suspense } from "react";
 import { Search } from "lucide-react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { PageShell } from "@/components/finance/page-shell";
-import { PostCard } from "@/components/finance/post-card";
+import { PageShell } from "@/domains/finance/blog/page-shell";
+import { PostCard } from "@/domains/finance/blog/post-card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { listPosts } from "@/lib/finance/data/posts";
-import { listCategories } from "@/lib/finance/data/taxonomy";
+import { listPosts } from "@/domains/finance/data/posts";
+import { listCategories } from "@/domains/finance/data/taxonomy";
 
 const PAGE_SIZE = 9;
 

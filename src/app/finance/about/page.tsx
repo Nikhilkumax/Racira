@@ -1,6 +1,6 @@
 ﻿import { Metadata } from "next";
-import { PageShell } from "@/components/finance/page-shell";
-import { listAuthors } from "@/lib/finance/data/taxonomy";
+import { PageShell } from "@/domains/finance/blog/page-shell";
+import { listAuthors } from "@/domains/finance/data/taxonomy";
 
 export const metadata: Metadata = {
   title: "About — Racira Finance",

@@ -5,9 +5,9 @@ import { useRouter } from "next/navigation";
 import { Plus, Pencil, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
-import { AdminShell } from "@/components/finance/admin/admin-shell";
+import { AdminShell } from "@/domains/finance/admin/admin-shell";
 import { Button } from "@/components/ui/button";
-import { listPosts, deletePost } from "@/lib/finance/data/posts";
+import { listPosts, deletePost } from "@/domains/finance/data/posts";
 import type { PostStatus } from "@/types/finance/db";
 
 export default function PostsList() {

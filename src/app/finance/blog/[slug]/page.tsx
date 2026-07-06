@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Clock, Calendar, ArrowLeft } from "lucide-react";
-import { PageShell } from "@/components/finance/page-shell";
-import { PostCard } from "@/components/finance/post-card";
-import { NewsletterSignup } from "@/components/finance/newsletter-signup";
-import { getPostBySlug, getRelated } from "@/lib/finance/data/posts";
-import { renderMarkdown } from "@/lib/finance/markdown";
+import { PageShell } from "@/domains/finance/blog/page-shell";
+import { PostCard } from "@/domains/finance/blog/post-card";
+import { NewsletterSignup } from "@/domains/finance/blog/newsletter-signup";
+import { getPostBySlug, getRelated } from "@/domains/finance/data/posts";
+import { renderMarkdown } from "@/domains/finance/lib/markdown";
 import type { PostWithRelations, Tag } from "@/types/finance/db";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {

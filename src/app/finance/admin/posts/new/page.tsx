@@ -1,5 +1,5 @@
-﻿import { AdminShell } from "@/components/finance/admin/admin-shell";
-import { PostForm } from "@/components/finance/admin/post-form";
+﻿import { AdminShell } from "@/domains/finance/admin/admin-shell";
+import { PostForm } from "@/domains/finance/admin/post-form";
 
 export default function NewPostPage() {
   return (

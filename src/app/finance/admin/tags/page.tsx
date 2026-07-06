@@ -4,10 +4,10 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Plus, X } from "lucide-react";
 import { toast } from "sonner";
-import { AdminShell } from "@/components/finance/admin/admin-shell";
+import { AdminShell } from "@/domains/finance/admin/admin-shell";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { listTags, createTag, deleteTag } from "@/lib/finance/data/taxonomy";
+import { listTags, createTag, deleteTag } from "@/domains/finance/data/taxonomy";
 
 export default function TagsPage() {
   const router = useRouter();

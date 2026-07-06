@@ -12,7 +12,7 @@ import {
   media as seedMedia,
   posts as seedPosts,
   tags as seedTags,
-} from "@/lib/finance/mock/data";
+} from "@/domains/finance/data/mock/data";
 import type { Author, Category, MediaItem, Post, Subscriber, Tag } from "@/types/finance/db";
 
 type Store = {

@@ -1,11 +1,11 @@
 ﻿import Link from "next/link";
 import { ArrowRight, Clock, TrendingUp } from "lucide-react";
-import { PageShell } from "@/components/finance/page-shell";
-import { PostCard } from "@/components/finance/post-card";
-import { NewsletterSignup } from "@/components/finance/newsletter-signup";
+import { PageShell } from "@/domains/finance/blog/page-shell";
+import { PostCard } from "@/domains/finance/blog/post-card";
+import { NewsletterSignup } from "@/domains/finance/blog/newsletter-signup";
 import { Button } from "@/components/ui/button";
-import { listPosts, getFeaturedPost } from "@/lib/finance/data/posts";
-import { listCategories } from "@/lib/finance/data/taxonomy";
+import { listPosts, getFeaturedPost } from "@/domains/finance/data/posts";
+import { listCategories } from "@/domains/finance/data/taxonomy";
 
 export const metadata = {
   title: "Racira Finance — Clear-eyed writing on money & markets",

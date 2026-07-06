@@ -11,8 +11,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { RichTextEditor } from "./rich-text-editor";
-import { listAuthors, listCategories, listTags } from "@/lib/finance/data/taxonomy";
-import { createPost, updatePost, deletePost } from "@/lib/finance/data/posts";
+import { listAuthors, listCategories, listTags } from "@/domains/finance/data/taxonomy";
+import { createPost, updatePost, deletePost } from "@/domains/finance/data/posts";
 import type { Post, PostStatus, PostWithRelations } from "@/types/finance/db";
 
 function slugify(s: string) {

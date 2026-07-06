@@ -1,6 +1,6 @@
 ﻿import Link from "next/link";
-import { site } from "@/lib/finance/site";
-import { listCategories } from "@/lib/finance/data/taxonomy";
+import { site } from "@/domains/finance/lib/site";
+import { listCategories } from "@/domains/finance/data/taxonomy";
 
 export function SiteFooter() {
   const cats = listCategories().slice(0, 5);

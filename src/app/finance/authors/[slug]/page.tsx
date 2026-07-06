@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Twitter, Linkedin } from "lucide-react";
-import { PageShell } from "@/components/finance/page-shell";
-import { PostCard } from "@/components/finance/post-card";
-import { listPosts } from "@/lib/finance/data/posts";
-import { getAuthorBySlug } from "@/lib/finance/data/taxonomy";
+import { PageShell } from "@/domains/finance/blog/page-shell";
+import { PostCard } from "@/domains/finance/blog/post-card";
+import { listPosts } from "@/domains/finance/data/posts";
+import { getAuthorBySlug } from "@/domains/finance/data/taxonomy";
 import type { PostWithRelations } from "@/types/finance/db";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {

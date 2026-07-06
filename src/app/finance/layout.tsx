@@ -1,5 +1,5 @@
-import { ThemeProvider } from "@/components/finance/theme-provider";
-import { QueryProvider } from "@/components/finance/query-provider";
+import { ThemeProvider } from "@/domains/finance/blog/theme-provider";
+import { QueryProvider } from "@/domains/finance/blog/query-provider";
 import { Metadata, Viewport } from "next";
 
 export const viewport: Viewport = {
