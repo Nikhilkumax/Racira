@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ChevronRight, Calculator } from "lucide-react";
-import { calculatorRegistry } from "@/data/calculatorRegistry";
+import { calculatorRegistry } from "@/domains/calculator/registry";
 import { CATEGORY_SUMMARY } from "../../summaryData";
 import { toSlug } from "@/lib/utils/slug";
 

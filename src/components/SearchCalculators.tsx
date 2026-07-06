@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { Search, Calculator } from "lucide-react";
-import type { CalculatorDef } from "@/data/calculatorRegistry";
+import type { CalculatorDef } from "@/domains/calculator/registry";
 import { trackSearchImpression, trackComingSoonClick } from "@/lib/analytics";
 
 import { toSlug } from "@/lib/utils/slug";
@@ -26,7 +26,7 @@ const SearchCalculators = () => {
     if (registry.length > 0 || isLoading) return;
     setIsLoading(true);
     try {
-      const mod = await import("@/data/calculatorRegistry");
+      const mod = await import("@/domains/calculator/registry");
       setRegistry(mod.calculatorRegistry);
     } catch (e) {
       console.error("Failed to load calculator registry", e);

@@ -1,4 +1,4 @@
-import { calculatorRegistry } from "@/data/calculatorRegistry";
+import { calculatorRegistry } from "@/domains/calculator/registry";
 
 const activeCalculators = calculatorRegistry.filter(c => c.isBuilt);
 

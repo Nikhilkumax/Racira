@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { calculatorRegistry, getCategoryIcon } from "@/data/calculatorRegistry";
+import { calculatorRegistry, getCategoryIcon } from "@/domains/calculator/registry";
 
 const PopularCalculators = ({ exclude }: { exclude?: string }) => {
   const items = calculatorRegistry

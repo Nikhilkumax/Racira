@@ -17,11 +17,11 @@ import {
   GraduationCap,
   ChevronRight
 } from "lucide-react";
-import { calculatorRegistry } from "@/data/calculatorRegistry";
+import { calculatorRegistry } from "@/domains/calculator/registry";
 import { CATEGORY_SUMMARY } from "../summaryData";
 import { toSlug } from "@/lib/utils/slug";
-import CalculatorSkeleton from "@/components/calculators/CalculatorSkeleton";
-import ComingSoonCalculator from "@/components/calculators/ComingSoonCalculator";
+import CalculatorSkeleton from "@/domains/calculator/components/ui/CalculatorSkeleton";
+import ComingSoonCalculator from "@/domains/calculator/components/ui/ComingSoonCalculator";
 import { lazyComponents } from "@/app/calculator/lazyComponents";
 
 const categoryMap: Record<string, string> = {

@@ -1,4 +1,4 @@
-import { calculatorRegistry } from "@/data/calculatorRegistry";
+import { calculatorRegistry } from "@/domains/calculator/registry";
 import { CATEGORY_SUMMARY } from "@/app/calculator/summaryData";
 import { toSlug } from "@/lib/utils/slug";
 
