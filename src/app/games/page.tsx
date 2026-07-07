@@ -37,39 +37,29 @@ function HomeContent() {
   return (
     <div>
       {/* Hero */}
-      <section className="px-4 pb-10 pt-16 text-center sm:px-6 lg:px-8 lg:pt-24">
-        <h1 className="mx-auto max-w-4xl text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
-          Every Browser Game You Need —{" "}
-          <span className="bg-[image:var(--gradient-hero)] bg-clip-text text-transparent">
-            Free &amp; Instant
-          </span>
-        </h1>
-        <p className="mx-auto mt-5 max-w-2xl text-base text-muted-foreground sm:text-lg">
-          {total}+ free games across 18 categories — puzzles, word, arcade,
-          card, board, trivia and more. No signup required.
-        </p>
-
-        {/* Search */}
-        <div className="mx-auto mt-8 flex max-w-xl items-center gap-2 rounded-xl border border-border bg-card px-4 py-3 shadow-[var(--shadow-card)] focus-within:border-primary/50">
-          <Search className="h-5 w-5 shrink-0 text-muted-foreground" />
-          <input
-            type="text"
-            value={q}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search games, e.g. Sudoku, Chess, Tetris…"
-            className="w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground"
-            aria-label="Search games"
-          />
-          {isSearching && (
-            <button
-              type="button"
-              onClick={() => setQuery("")}
-              aria-label="Clear search"
-              className="shrink-0 text-muted-foreground hover:text-foreground"
-            >
-              <X className="h-4 w-4" />
-            </button>
-          )}
+            <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
+        <div className="racira-page-container text-center">
+          <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
+            10+ Free Games —{" "}
+            <span className="hero-gradient-text">Casual, Logic & Puzzles</span>
+          </h1>
+          <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
+            Relax with browser-based casual games, logic puzzles, and brain teasers. No signup required.
+          </p>
+          <div className="relative w-full max-w-xl mx-auto">
+            <div className="relative">
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4.5 w-4.5 text-muted-foreground pointer-events-none" />
+              <input
+                type="text"
+                placeholder="Search 10+ games..."
+                className="w-full h-11 pl-10 pr-16 rounded-lg border border-border bg-card text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/40 transition-shadow"
+                aria-label="Search Games"
+              />
+              <kbd className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none hidden sm:inline-flex items-center gap-0.5 rounded border border-border bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground">
+                ⌘K
+              </kbd>
+            </div>
+          </div>
         </div>
       </section>
 

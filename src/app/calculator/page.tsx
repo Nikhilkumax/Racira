@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { 
+import { Search,  
   DollarSign, 
   Briefcase, 
   Heart, 
@@ -13,7 +13,7 @@ import {
   Car, 
   HardHat, 
   GraduationCap 
-} from "lucide-react";
+ } from "lucide-react";
 import SearchCalculators from "@/components/SearchCalculators";
 import { CATEGORY_SUMMARY } from "./summaryData";
 import { toSlug } from "@/lib/utils/slug";

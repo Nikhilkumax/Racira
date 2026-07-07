@@ -32,24 +32,31 @@ export default function Home() {
 
   return (
     <Layout>
-      <section className="racira-page-container pt-16 pb-10 text-center">
-        <Badge variant="secondary" className="mb-6 bg-secondary text-primary">
-          <ShieldCheck className="mr-1 h-3 w-3" /> {totalTools} security & privacy tools
-        </Badge>
-        <h1 className="text-5xl md:text-6xl font-bold tracking-tight">
-          All Security Tools You Need — <span className="gradient-text">Private, Fast & Free</span>
-        </h1>
-        <p className="mt-6 text-lg text-muted-foreground max-w-2xl mx-auto">
-          Generate, encrypt, hash, decode, audit. {totalTools} free privacy & security tools running entirely in your browser. No signup, no servers.
-        </p>
-        <div className="mt-8 max-w-xl mx-auto relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-          <Input
-            value={q}
-            onChange={(e) => setQ(e.target.value)}
-            placeholder="Search tools (e.g. SHA-256, JWT, password)…"
-            className="pl-9 h-12"
-          />
+            <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
+        <div className="racira-page-container text-center">
+          <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
+            170+ Free Security Tools —{" "}
+            <span className="hero-gradient-text">Passwords, Hashes & Keys</span>
+          </h1>
+          <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
+            Generate secure passwords, hash data, and manage keys safely in your browser. No signup required.
+          </p>
+          <div className="relative w-full max-w-xl mx-auto">
+            <div className="relative">
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4.5 w-4.5 text-muted-foreground pointer-events-none" />
+              <input
+                value={q}
+                onChange={(e) => setQ(e.target.value)}
+                type="text"
+                placeholder="Search 170+ security tools..."
+                className="w-full h-11 pl-10 pr-16 rounded-lg border border-border bg-card text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/40 transition-shadow"
+                aria-label="Search Security Tools"
+              />
+              <kbd className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none hidden sm:inline-flex items-center gap-0.5 rounded border border-border bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground">
+                ⌘K
+              </kbd>
+            </div>
+          </div>
         </div>
       </section>
 

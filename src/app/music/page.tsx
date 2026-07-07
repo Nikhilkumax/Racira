@@ -1,3 +1,4 @@
+import { Search } from "lucide-react";
 ﻿import { SiteFooter } from "@/domains/music/components/site-chrome";
 import Header from "@/components/Header";
 import { ToolCard } from "@/domains/music/components/tool-card";
@@ -8,18 +9,31 @@ export default function HomePage() {
     <div className="flex min-h-screen flex-col">
       <Header mode="category" categoryName="Music" />
       <main className="flex-1">
-        <section className="racira-page-container pb-12 pt-16 text-center sm:px-6 sm:pt-24">
-          <h1 className="font-display text-5xl font-extrabold tracking-tight text-foreground sm:text-6xl md:text-7xl">
-            All Music Tools You Need —{" "}
-            <span className="bg-gradient-to-r from-primary to-fuchsia-500 bg-clip-text text-transparent">
-              Fast, Simple &amp; Free
-            </span>
+              <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
+        <div className="racira-page-container text-center">
+          <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
+            30+ Free Music Tools —{" "}
+            <span className="hero-gradient-text">BPM, Scales & Tuners</span>
           </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-base text-muted-foreground sm:text-lg">
-            Make beats, build chords, explore scales, design sounds and prep releases.{" "}
-            {totalTools}+ free music tools in your browser. No signup required.
+          <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
+            Essential tools for musicians including BPM counters, scale references, and online tuners. No signup required.
           </p>
-        </section>
+          <div className="relative w-full max-w-xl mx-auto">
+            <div className="relative">
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4.5 w-4.5 text-muted-foreground pointer-events-none" />
+              <input
+                type="text"
+                placeholder="Search 30+ music tools..."
+                className="w-full h-11 pl-10 pr-16 rounded-lg border border-border bg-card text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/40 transition-shadow"
+                aria-label="Search Music Tools"
+              />
+              <kbd className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none hidden sm:inline-flex items-center gap-0.5 rounded border border-border bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground">
+                ⌘K
+              </kbd>
+            </div>
+          </div>
+        </div>
+      </section>
 
         <div className="mx-auto max-w-6xl space-y-14 px-4 pb-24 sm:px-6">
           {categories.map((cat) => (

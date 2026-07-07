@@ -49,19 +49,30 @@ export default function Index() {
         </div>
       </header>
 
-      <section className="racira-page-container pt-20 pb-16 text-center">
-        <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs font-medium text-muted-foreground">
-          <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-          {totalTools}+ Maps & GIS tools — all free
+            <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
+        <div className="racira-page-container text-center">
+          <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
+            160+ Free Map Tools —{" "}
+            <span className="hero-gradient-text">Routes, Distance & Geo</span>
+          </h1>
+          <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
+            Explore geographical tools for route planning, distance measuring, and map coordinates. No signup required.
+          </p>
+          <div className="relative w-full max-w-xl mx-auto">
+            <div className="relative">
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4.5 w-4.5 text-muted-foreground pointer-events-none" />
+              <input
+                type="text"
+                placeholder="Search 160+ map tools..."
+                className="w-full h-11 pl-10 pr-16 rounded-lg border border-border bg-card text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/40 transition-shadow"
+                aria-label="Search Map Tools"
+              />
+              <kbd className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none hidden sm:inline-flex items-center gap-0.5 rounded border border-border bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground">
+                ⌘K
+              </kbd>
+            </div>
+          </div>
         </div>
-        <h1 className="text-balance text-5xl font-bold tracking-tight md:text-6xl">
-          All Maps & GIS Tools You Need —{" "}
-          <span className="text-primary">Fast, Simple & Free</span>
-        </h1>
-        <p className="mx-auto mt-6 max-w-2xl text-pretty text-base text-muted-foreground md:text-lg">
-          Convert coordinates, measure distances, view geodata, build maps and run spatial analysis.
-          Every tool runs right in your browser. No signup required.
-        </p>
       </section>
 
       <main id="tools" className="racira-page-container pb-24">

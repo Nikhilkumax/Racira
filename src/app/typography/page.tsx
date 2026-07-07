@@ -2,7 +2,7 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import { categories } from "@/data/typography/tools";
 import { SiteFooter } from "@/components/typography/site-header";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles, Search } from "lucide-react";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -20,33 +20,29 @@ export default function Index() {
     <div className="min-h-screen bg-background">
       <Header mode="category" categoryName="Typography" />
       <main>
-        <section className="mx-auto max-w-5xl px-6 pt-20 pb-16 text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-border bg-accent/40 px-3 py-1 text-xs font-medium text-accent-foreground">
-            <Sparkles className="h-3.5 w-3.5" />
-            {total}+ free typography tools
-          </div>
-          <h1 className="mt-6 text-5xl md:text-7xl font-bold tracking-tight text-foreground leading-[1.05]">
-            All Typography Tools You Need —{" "}
-            <span className="bg-gradient-to-r from-primary to-indigo-400 bg-clip-text text-transparent">
-              Fast, Simple &amp; Free
-            </span>
-          </h1>
-          <p className="mt-6 text-lg text-muted-foreground max-w-2xl mx-auto">
-            Preview, pair, scale, convert and inspect typography. {total}+ free typography tools in your browser. No signup required.
-          </p>
-          <div className="mt-8 flex items-center justify-center gap-3">
-            <Link
-              href="/tools/font-previewer"
-              className="inline-flex items-center gap-2 rounded-md bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
-            >
-              Try Font Previewer <ArrowRight className="h-4 w-4" />
-            </Link>
-            <a
-              href="#tools"
-              className="inline-flex items-center rounded-md border border-border bg-background px-5 py-2.5 text-sm font-medium hover:bg-accent transition-colors"
-            >
-              Browse all tools
-            </a>
+                <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
+          <div className="racira-page-container text-center">
+            <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
+              20+ Free Typography Tools —{" "}
+              <span className="hero-gradient-text">Fonts, Scales & Pairings</span>
+            </h1>
+            <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
+              Find perfect font pairings, generate modular scales, and preview typography instantly. No signup required.
+            </p>
+            <div className="relative w-full max-w-xl mx-auto">
+              <div className="relative">
+                <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4.5 w-4.5 text-muted-foreground pointer-events-none" />
+                <input
+                  type="text"
+                  placeholder="Search 20+ typography tools..."
+                  className="w-full h-11 pl-10 pr-16 rounded-lg border border-border bg-card text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/40 transition-shadow"
+                  aria-label="Search Typography Tools"
+                />
+                <kbd className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none hidden sm:inline-flex items-center gap-0.5 rounded border border-border bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground">
+                  ⌘K
+                </kbd>
+              </div>
+            </div>
           </div>
         </section>
 

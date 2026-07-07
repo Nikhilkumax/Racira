@@ -2,7 +2,7 @@ import Link from "next/link";
 import { CATEGORIES, TOTAL_TOOLS } from "@/domains/3d/registry";
 import { SiteShell } from "@/domains/3d/components/SiteShell";
 import {
-  Eye, Box, Printer, Layers, Droplet, Wallet, Palette, Film,
+  Search, Eye, Box, Printer, Layers, Droplet, Wallet, Palette, Film,
   Globe, FileText, Scan, ArrowRight, CheckCircle2,
 } from "lucide-react";
 
@@ -23,21 +23,28 @@ const CAT_ICONS: Record<string, typeof Eye> = {
 export default function Index() {
   return (
     <SiteShell>
-      <section className="px-4 sm:px-6 pt-16 pb-12 sm:pt-24 sm:pb-20">
-        <div className="mx-auto max-w-4xl text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs text-muted-foreground">
-            <span className="h-1.5 w-1.5 rounded-full bg-primary" /> {TOTAL_TOOLS} free tools in your browser
-          </div>
-          <h1 className="mt-6 text-4xl font-bold tracking-tight sm:text-6xl">
-            All 3D &amp; Print Tools You Need — <span className="text-primary">Fast, Simple &amp; Free</span>
+            <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
+        <div className="racira-page-container text-center">
+          <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
+            15+ Free 3D Tools —{" "}
+            <span className="hero-gradient-text">Viewers, Converters & Models</span>
           </h1>
-          <p className="mt-5 text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
-            Inspect, slice, plan, and prepare. {TOTAL_TOOLS} free 3D and print tools that run entirely in your browser. No signup required.
+          <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
+            Browser-based 3D model viewers, format converters, and spatial utilities. No signup required.
           </p>
-          <div className="mt-8 flex justify-center gap-3">
-            <a href="#3d-viewing-and-inspection" className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90">
-              Explore tools <ArrowRight className="h-4 w-4" />
-            </a>
+          <div className="relative w-full max-w-xl mx-auto">
+            <div className="relative">
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4.5 w-4.5 text-muted-foreground pointer-events-none" />
+              <input
+                type="text"
+                placeholder="Search 15+ 3D tools..."
+                className="w-full h-11 pl-10 pr-16 rounded-lg border border-border bg-card text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/40 transition-shadow"
+                aria-label="Search 3D Tools"
+              />
+              <kbd className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none hidden sm:inline-flex items-center gap-0.5 rounded border border-border bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground">
+                ⌘K
+              </kbd>
+            </div>
           </div>
         </div>
       </section>

@@ -193,7 +193,7 @@
   .racira-page-container {
     @apply mx-auto max-w-7xl px-6;
     width: 100%;
-    overflow-x: hidden;
+    overflow: visible;
   }
 
   /* Calculator page-specific classes */

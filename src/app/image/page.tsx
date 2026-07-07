@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, ImageIcon } from "lucide-react";
+import { ArrowRight, ImageIcon, Search } from "lucide-react";
 
 export const metadata = {
   title: "Racira Image — 80+ Free Image Tools in Your Browser",
@@ -34,20 +34,30 @@ export default function ImagePage() {
 
       <main className="mx-auto max-w-6xl px-6 pb-24">
         {/* Hero */}
-        <section className="pt-20 pb-16 text-center">
-          <div className="inline-flex items-center justify-center h-16 w-16 rounded-2xl bg-sky-500/10 text-sky-500 mb-6 mx-auto">
-            <ImageIcon className="h-8 w-8" />
+        <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
+          <div className="racira-page-container text-center">
+            <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
+              40+ Free Image Tools —{" "}
+              <span className="hero-gradient-text">Convert, Resize & Edit</span>
+            </h1>
+            <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
+              Essential utilities to convert formats, resize, crop, and compress your images instantly. No signup required.
+            </p>
+            <div className="relative w-full max-w-xl mx-auto">
+              <div className="relative">
+                <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4.5 w-4.5 text-muted-foreground pointer-events-none" />
+                <input
+                  type="text"
+                  placeholder="Search 40+ image tools..."
+                  className="w-full h-11 pl-10 pr-16 rounded-lg border border-border bg-card text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/40 transition-shadow"
+                  aria-label="Search Image Tools"
+                />
+                <kbd className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none hidden sm:inline-flex items-center gap-0.5 rounded border border-border bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground">
+                  ⌘K
+                </kbd>
+              </div>
+            </div>
           </div>
-          <h1 className="text-5xl sm:text-6xl md:text-7xl font-extrabold leading-[1.05]">
-            All Image Tools You Need —{" "}
-            <span className="bg-gradient-to-r from-sky-500 to-blue-600 bg-clip-text text-transparent">
-              Fast, Simple &amp; Free
-            </span>
-          </h1>
-          <p className="mt-6 text-lg text-muted-foreground max-w-2xl mx-auto">
-            Resize, compress, convert, edit and analyze images. {totalCount}+ free image tools that
-            run entirely in your browser. No signup. No upload limits.
-          </p>
         </section>
 
         {/* Category nav */}

@@ -1,28 +1,14 @@
-import type { Metadata } from "next";
 import Header from "@/components/Header";
-import { Providers } from "@/domains/colors/components/providers";
 
-
-export const metadata: Metadata = {
-  title: "Racira Colors",
-  description: "Racira Color Studio is a comprehensive application for color extraction, manipulation, and analysis.",
-};
-
-export default function RootLayout({
+export default function ColorsLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    
-      <>
-        <Providers>
-          <div className="min-h-screen bg-background text-foreground">
-            <Header mode="category" categoryName="Colors" />
-            {children}
-          </div>
-        </Providers>
-      </>
-    
+    <div className="min-h-screen bg-background flex flex-col">
+      <Header mode="category" categoryName="Colors" />
+      <div className="flex-1">{children}</div>
+    </div>
   );
 }

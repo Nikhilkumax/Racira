@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { categories, totalCount } from "@/domains/cad/registry";
 import {
-  Pencil, Ruler, Cog, Building2, CircuitBoard, Home, Wind,
+  Search, Pencil, Ruler, Cog, Building2, CircuitBoard, Home, Wind,
   Crosshair, Scissors, FileText, ArrowRight, Sparkles,
 } from "lucide-react";
 
@@ -92,32 +92,31 @@ function Header() {
 
 function Hero() {
   return (
-    <section className="racira-page-container py-20 text-center sm:py-28">
-      <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-6xl">
-        All CAD Tools You Need —{" "}
-        <span className="bg-gradient-to-r from-primary to-foreground bg-clip-text text-transparent">
-          Fast, Precise & Free
-        </span>
-      </h1>
-      <p className="mx-auto mt-6 max-w-2xl text-base text-muted-foreground sm:text-lg">
-        Draft, calculate, reference and check engineering work. {totalCount}+ free CAD
-        tools in your browser. No signup required.
-      </p>
-      <div className="mt-8 flex items-center justify-center gap-3">
-        <Link
-          href="/tools/2d-cad-sketch-tool"
-          className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-        >
-          Open 2D CAD Sketch <ArrowRight className="h-4 w-4" />
-        </Link>
-        <a
-          href="#2d-drafting"
-          className="rounded-lg border border-border bg-card px-5 py-2.5 text-sm font-medium text-foreground hover:bg-accent"
-        >
-          Browse tools
-        </a>
-      </div>
-    </section>
+          <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
+        <div className="racira-page-container text-center">
+          <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
+            3+ Free CAD Tools —{" "}
+            <span className="hero-gradient-text">Viewers, DXF & Measure</span>
+          </h1>
+          <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
+            Essential utilities for viewing, measuring, and converting CAD and DXF files. No signup required.
+          </p>
+          <div className="relative w-full max-w-xl mx-auto">
+            <div className="relative">
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4.5 w-4.5 text-muted-foreground pointer-events-none" />
+              <input
+                type="text"
+                placeholder="Search 3+ CAD tools..."
+                className="w-full h-11 pl-10 pr-16 rounded-lg border border-border bg-card text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/40 transition-shadow"
+                aria-label="Search CAD Tools"
+              />
+              <kbd className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none hidden sm:inline-flex items-center gap-0.5 rounded border border-border bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground">
+                ⌘K
+              </kbd>
+            </div>
+          </div>
+        </div>
+      </section>
   );
 }
 

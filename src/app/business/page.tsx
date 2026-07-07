@@ -1,8 +1,8 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 import Header from "@/components/Header";
 import { categories } from "@/domains/business/registry";
 import { SiteFooter } from "@/domains/business/components/SiteHeader";
-import { Wrench, Sparkles } from "lucide-react";
+import { Search, Wrench, Sparkles } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -25,16 +25,31 @@ export default function Landing() {
     <div className="min-h-screen flex flex-col">
       <Header mode="category" categoryName="Business" />
       <main className="flex-1">
-        <section className="racira-page-container pt-20 pb-16 text-center">
-          <h1 className="font-display text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.05]">
-            All Business Tools You Need —{" "}
-            <span className="text-primary">Fast, Simple &amp; Free</span>
+              <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
+        <div className="racira-page-container text-center">
+          <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
+            45+ Free Business Tools —{" "}
+            <span className="hero-gradient-text">ROI, Margin & Growth</span>
           </h1>
-          <p className="mt-6 text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
-            Plan, prioritize, and ship. 53 free business tools for HR, strategy,
-            sales, meetings, and startups — right in your browser. No signup required.
+          <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
+            Calculate ROI, profit margins, and track growth metrics to run your business effectively. No signup required.
           </p>
-        </section>
+          <div className="relative w-full max-w-xl mx-auto">
+            <div className="relative">
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4.5 w-4.5 text-muted-foreground pointer-events-none" />
+              <input
+                type="text"
+                placeholder="Search 45+ business tools..."
+                className="w-full h-11 pl-10 pr-16 rounded-lg border border-border bg-card text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/40 transition-shadow"
+                aria-label="Search Business Tools"
+              />
+              <kbd className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none hidden sm:inline-flex items-center gap-0.5 rounded border border-border bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground">
+                ⌘K
+              </kbd>
+            </div>
+          </div>
+        </div>
+      </section>
 
         <div className="racira-page-container pb-24 space-y-14">
           {categories.map((cat) => (

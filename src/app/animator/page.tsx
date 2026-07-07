@@ -1,22 +1,33 @@
 import { categories, totalCount } from "@/domains/animator/registry";
-import { Sparkles } from "lucide-react";
+import { Sparkles, Search } from "lucide-react";
 import Link from "next/link";
 
 export default function Index() {
   return (
     <main className="min-h-screen">
-      <section className="px-4 pt-20 pb-16 sm:pt-28 sm:pb-20">
-        <div className="mx-auto max-w-5xl text-center">
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs text-muted-foreground">
-            <Sparkles className="h-3 w-3 text-[#EC4899]" />
-            {totalCount} animation tools, no signup
-          </div>
-          <h1 className="text-4xl font-bold tracking-tight sm:text-6xl md:text-7xl">
-            All Animation Tools You Need — <span className="text-gradient-pink">Fast, Simple & Free</span>
+      <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
+        <div className="racira-page-container text-center">
+          <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
+            130+ Free Animation Tools —{" "}
+            <span className="hero-gradient-text">CSS, SVG & Keyframes</span>
           </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-base text-muted-foreground sm:text-lg">
-            Build, preview, export and audit animations. {totalCount} free animation tools in your browser. No signup required.
+          <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
+            Generate CSS animations, SVG paths, and keyframe sequences for your web projects. No signup required.
           </p>
+          <div className="relative w-full max-w-xl mx-auto">
+            <div className="relative">
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4.5 w-4.5 text-muted-foreground pointer-events-none" />
+              <input
+                type="text"
+                placeholder="Search 130+ animation tools..."
+                className="w-full h-11 pl-10 pr-16 rounded-lg border border-border bg-card text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/40 transition-shadow"
+                aria-label="Search Animation Tools"
+              />
+              <kbd className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none hidden sm:inline-flex items-center gap-0.5 rounded border border-border bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground">
+                ⌘K
+              </kbd>
+            </div>
+          </div>
         </div>
       </section>
 

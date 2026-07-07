@@ -21,29 +21,30 @@ export default function Home() {
     <div className="min-h-screen bg-background">
       <Header mode="category" categoryName="Photo" />
       <main>
-        <section className="border-b">
-          <div className="racira-page-container py-20 text-center">
-            <div className="inline-flex items-center gap-2 rounded-full border bg-accent/40 px-3 py-1 text-xs font-medium text-accent-foreground">
-              <Sparkles className="h-3 w-3 text-primary" /> 112 free photography tools
-            </div>
-            <h1 className="mt-6 text-5xl font-bold leading-[1.05] sm:text-6xl md:text-7xl">
-              Every photo tool you need —{" "}
-              <span className="bg-gradient-to-r from-primary to-amber-500 bg-clip-text text-transparent">
-                fast, simple &amp; free
-              </span>
+                <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
+          <div className="racira-page-container text-center">
+            <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
+              10+ Free Photo Tools —{" "}
+              <span className="hero-gradient-text">Filters, Retouch & Adjust</span>
             </h1>
-            <p className="mx-auto mt-6 max-w-2xl text-base text-muted-foreground sm:text-lg">
-              Process RAW, grade color, plan landscapes, analyze EXIF and prepare prints.
-              112 in-browser tools, no signup required.
+            <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
+              Apply filters, adjust lighting, and retouch your photos right in the browser. No signup required.
             </p>
-            <div className="mx-auto mt-8 flex max-w-xl items-center gap-2 rounded-xl border bg-card px-4 py-3 shadow-sm">
-              <Search className="h-4 w-4 text-muted-foreground" />
-              <input
-                value={q}
-                onChange={(e) => setQ(e.target.value)}
-                placeholder="Search 112 tools..."
-                className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground"
-              />
+            <div className="relative w-full max-w-xl mx-auto">
+              <div className="relative">
+                <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4.5 w-4.5 text-muted-foreground pointer-events-none" />
+                <input
+                  value={q}
+                  onChange={(e) => setQ(e.target.value)}
+                  type="text"
+                  placeholder="Search 10+ photo tools..."
+                  className="w-full h-11 pl-10 pr-16 rounded-lg border border-border bg-card text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/40 transition-shadow"
+                  aria-label="Search Photo Tools"
+                />
+                <kbd className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none hidden sm:inline-flex items-center gap-0.5 rounded border border-border bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground">
+                  ⌘K
+                </kbd>
+              </div>
             </div>
           </div>
         </section>

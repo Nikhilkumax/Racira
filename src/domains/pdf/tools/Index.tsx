@@ -1,18 +1,34 @@
 import { tools, categories } from "@/domains/pdf/registry/tools";
+import { Search } from "lucide-react";
 import ToolCard from "@/domains/pdf/components/ToolCard";
 
 const Index = () => {
   return (
     <main>
       {/* Hero */}
-      <section className="py-12 sm:py-16 text-center">
-        <div className="container max-w-3xl">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-foreground">
-            All PDF Tools You Need — <span className="text-primary">Fast, Simple & Free</span>
+      <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
+        <div className="racira-page-container text-center">
+          <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
+            175+ Free PDF Tools —{" "}
+            <span className="hero-gradient-text">Merge, Split & Compress</span>
           </h1>
-          <p className="mt-4 text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
-            Merge, split, compress, convert and secure PDFs in seconds. No signup required.
+          <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
+            Professional-grade tools to merge, split, compress, and edit PDF documents securely. No signup required.
           </p>
+          <div className="relative w-full max-w-xl mx-auto">
+            <div className="relative">
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4.5 w-4.5 text-muted-foreground pointer-events-none" />
+              <input
+                type="text"
+                placeholder="Search 175+ PDF tools..."
+                className="w-full h-11 pl-10 pr-16 rounded-lg border border-border bg-card text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/40 transition-shadow"
+                aria-label="Search PDF Tools"
+              />
+              <kbd className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none hidden sm:inline-flex items-center gap-0.5 rounded border border-border bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground">
+                ⌘K
+              </kbd>
+            </div>
+          </div>
         </div>
       </section>
 

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useMemo, useState } from "react";
 import Header from "@/components/Header";
@@ -30,28 +30,33 @@ export default function Index() {
     <>
       <Header mode="category" categoryName="Engineering" />
       <main className="racira-page-container pb-24 pt-12 sm:px-6 sm:pt-16">
-        <section className="mx-auto max-w-4xl text-center">
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
-            <span className="h-1.5 w-1.5 rounded-full bg-primary" /> {tools.length} engineering tools · {liveCount} live
-          </span>
-          <h1 className="mt-5 text-4xl font-bold leading-[1.05] tracking-tight sm:text-6xl">
-            All Engineering Tools You Need —{" "}
-            <span className="text-primary">Fast, Simple & Free</span>
+              <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
+        <div className="racira-page-container text-center">
+          <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
+            130+ Free Engineering Tools —{" "}
+            <span className="hero-gradient-text">Units, Forces & Materials</span>
           </h1>
-          <p className="mx-auto mt-5 max-w-2xl text-base text-muted-foreground sm:text-lg">
-            Calculate, convert, and reference across 12 disciplines. 128 free engineering tools right in your browser. No signup required.
+          <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
+            Technical calculators for unit conversions, material properties, and engineering formulas. No signup required.
           </p>
-
-          <div className="mx-auto mt-8 flex max-w-xl items-center gap-2 rounded-xl border border-border bg-card px-3 py-2 shadow-sm focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/30">
-            <Search className="h-4 w-4 text-muted-foreground" />
-            <input
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
-              placeholder="Search 128 tools…"
-              className="w-full bg-transparent py-1.5 text-sm focus:outline-none"
-            />
+          <div className="relative w-full max-w-xl mx-auto">
+            <div className="relative">
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4.5 w-4.5 text-muted-foreground pointer-events-none" />
+              <input
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                type="text"
+                placeholder="Search 130+ engineering tools..."
+                className="w-full h-11 pl-10 pr-16 rounded-lg border border-border bg-card text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/40 transition-shadow"
+                aria-label="Search Engineering Tools"
+              />
+              <kbd className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none hidden sm:inline-flex items-center gap-0.5 rounded border border-border bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground">
+                ⌘K
+              </kbd>
+            </div>
           </div>
-        </section>
+        </div>
+      </section>
 
         <div className="mt-10 flex flex-wrap items-center justify-center gap-2">
           <CategoryChip label="All" active={activeCat === "all"} onClick={() => setActiveCat("all")} />

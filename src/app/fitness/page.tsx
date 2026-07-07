@@ -1,4 +1,4 @@
-import { Dumbbell } from "lucide-react";
+import { Search, Dumbbell } from "lucide-react";
 import Header from "@/components/Header";
 import Link from "next/link";
 import { categories, FUNCTIONAL_SLUGS } from "@/domains/fitness/registry";
@@ -10,15 +10,31 @@ export default function Home() {
     <div className="min-h-screen bg-background">
       <Header mode="category" categoryName="Fitness" />
       <main className="mx-auto max-w-7xl px-6">
-        <section className="py-20 text-center">
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-foreground">
-            All Fitness Tools You Need —{" "}
-            <span className="text-brand">Strong, Simple &amp; Free</span>
+              <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
+        <div className="racira-page-container text-center">
+          <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
+            6+ Free Fitness Tools —{" "}
+            <span className="hero-gradient-text">BMI, Macros & Calories</span>
           </h1>
-          <p className="mt-6 text-muted-foreground max-w-2xl mx-auto text-lg">
-            Plan workouts, track progress, calculate macros and recover smarter. {total}+ free fitness &amp; nutrition tools in your browser. No signup required.
+          <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
+            Track your health with BMI calculators, macro trackers, and calorie estimators. No signup required.
           </p>
-        </section>
+          <div className="relative w-full max-w-xl mx-auto">
+            <div className="relative">
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4.5 w-4.5 text-muted-foreground pointer-events-none" />
+              <input
+                type="text"
+                placeholder="Search 6+ fitness tools..."
+                className="w-full h-11 pl-10 pr-16 rounded-lg border border-border bg-card text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/40 transition-shadow"
+                aria-label="Search Fitness Tools"
+              />
+              <kbd className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none hidden sm:inline-flex items-center gap-0.5 rounded border border-border bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground">
+                ⌘K
+              </kbd>
+            </div>
+          </div>
+        </div>
+      </section>
 
         <div className="space-y-12 pb-24">
           {categories.map((cat) => (

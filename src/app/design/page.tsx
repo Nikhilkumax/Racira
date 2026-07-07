@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { categories, totalCount } from "@/domains/design/registry";
-import { ArrowRight } from "lucide-react";
+import { Search, ArrowRight } from "lucide-react";
 
 export const metadata = {
   title: "Racira Design — 144 Free Design Tools in Your Browser",
@@ -16,18 +16,31 @@ export default function Index() {
     <div className="min-h-screen">
       <Header />
       <main className="racira-page-container pb-24">
-        <section className="pt-20 pb-16 text-center">
-          <h1 className="text-5xl sm:text-6xl md:text-7xl font-extrabold leading-[1.05]">
-            All Design Tools You Need —{" "}
-            <span className="bg-gradient-to-r from-primary to-fuchsia-400 bg-clip-text text-transparent">
-              Fast, Simple &amp; Free
-            </span>
+              <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
+        <div className="racira-page-container text-center">
+          <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
+            15+ Free Design Tools —{" "}
+            <span className="hero-gradient-text">Assets, Layouts & Mockups</span>
           </h1>
-          <p className="mt-6 text-lg text-muted-foreground max-w-2xl mx-auto">
-            Layout, icons, vectors, logos, UI kits, mockups, print, accessibility and more.
-            {" "}{totalCount} free design tools in your browser. No signup required.
+          <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
+            Generate mockups, extract assets, and perfect your layouts with our design utilities. No signup required.
           </p>
-        </section>
+          <div className="relative w-full max-w-xl mx-auto">
+            <div className="relative">
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4.5 w-4.5 text-muted-foreground pointer-events-none" />
+              <input
+                type="text"
+                placeholder="Search 15+ design tools..."
+                className="w-full h-11 pl-10 pr-16 rounded-lg border border-border bg-card text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/40 transition-shadow"
+                aria-label="Search Design Tools"
+              />
+              <kbd className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none hidden sm:inline-flex items-center gap-0.5 rounded border border-border bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground">
+                ⌘K
+              </kbd>
+            </div>
+          </div>
+        </div>
+      </section>
 
         <nav aria-label="Categories" className="mb-12 flex flex-wrap gap-2 justify-center">
           {categories.map((c) => (

@@ -45,29 +45,29 @@ export default function Index() {
         </div>
       </header>
 
-      <section className="px-5 pt-20 pb-12">
-        <div className="mx-auto max-w-4xl text-center">
-          <div className="mb-5 inline-flex items-center gap-1.5 rounded-full border border-border bg-primary-soft px-3 py-1 text-xs font-medium text-accent-foreground">
-            <Sparkles className="h-3.5 w-3.5" /> {totalToolCount} writing tools, all in one place
-          </div>
-          <h1 className="text-balance text-5xl font-bold leading-[1.05] tracking-tight sm:text-6xl md:text-7xl">
-            All Writing Tools You Need —{" "}
-            <span className="text-primary">Fast, Simple & Free</span>
+      <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
+        <div className="racira-page-container text-center">
+          <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
+            160+ Free Writing Tools —{" "}
+            <span className="hero-gradient-text">Grammar, Count & Format</span>
           </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-balance text-base text-muted-foreground sm:text-lg">
-            Draft, edit, summarize, cite and create. {totalToolCount} free writing
-            tools in your browser. No signup required.
+          <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
+            Enhance your writing with grammar checks, word counts, formatters, and text utilities. No signup required.
           </p>
-
-          <div className="mx-auto mt-10 max-w-xl">
+          <div className="relative w-full max-w-xl mx-auto">
             <div className="relative">
-              <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4.5 w-4.5 text-muted-foreground pointer-events-none" />
               <input
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search 138 writing tools…"
-                className="h-12 w-full rounded-xl border border-border bg-card pl-11 pr-4 text-sm outline-none transition focus:border-primary focus:ring-4 focus:ring-primary/15"
+                type="text"
+                placeholder="Search 160+ writing tools..."
+                className="w-full h-11 pl-10 pr-16 rounded-lg border border-border bg-card text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/40 transition-shadow"
+                aria-label="Search Writing Tools"
               />
+              <kbd className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none hidden sm:inline-flex items-center gap-0.5 rounded border border-border bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground">
+                ⌘K
+              </kbd>
             </div>
           </div>
         </div>

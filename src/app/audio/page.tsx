@@ -38,46 +38,30 @@ export default function HomePage() {
 
       <main className="flex-1">
         {/* Hero */}
-        <section className="relative overflow-hidden" style={{ backgroundImage: "var(--gradient-hero)" }}>
-          <div className="racira-page-container py-16 text-center sm:py-20">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
-              <Sparkles className="h-3.5 w-3.5" />
-              {totalToolCount}+ audio tools in one place
-            </span>
-            <h1 className="mt-5 text-4xl font-extrabold tracking-tight text-foreground sm:text-5xl">
-              All Audio Tools You Need
-              <span className="block bg-clip-text text-transparent" style={{ backgroundImage: "var(--gradient-primary)" }}>
-                Fast, Simple &amp; Free
-              </span>
+                <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
+          <div className="racira-page-container text-center">
+            <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
+              270+ Free Audio Tools —{" "}
+              <span className="hero-gradient-text">Trim, Merge & Convert</span>
             </h1>
-            <p className="mx-auto mt-4 max-w-2xl text-base text-muted-foreground">
-              Convert, trim, record, clean, analyze and generate audio — all directly in your browser.
-              No signups, no uploads, completely private.
+            <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
+              Edit, merge, trim, and convert audio files with professional-grade sound utilities. No signup required.
             </p>
-
-            {/* Search */}
-            <div className="mx-auto mt-8 flex max-w-xl items-center gap-2 rounded-xl border border-border bg-card px-4 py-3 shadow-[var(--shadow-card)] focus-within:border-primary/50 focus-within:ring-2 focus-within:ring-primary/20">
-              <Search className="h-5 w-5 shrink-0 text-muted-foreground" />
-              <input
-                type="search"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search 230+ audio tools…"
-                className="w-full bg-transparent text-sm text-foreground outline-none placeholder:text-muted-foreground"
-                aria-label="Search audio tools"
-              />
-            </div>
-
-            <div className="mx-auto mt-6 flex max-w-2xl flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-muted-foreground">
-              <span className="inline-flex items-center gap-1.5">
-                <ShieldCheck className="h-4 w-4 text-primary" /> 100% private &amp; browser-based
-              </span>
-              <span className="inline-flex items-center gap-1.5">
-                <Zap className="h-4 w-4 text-primary" /> No installs required
-              </span>
-              <span className="inline-flex items-center gap-1.5">
-                <AudioLines className="h-4 w-4 text-primary" /> {audioCategories.length} categories
-              </span>
+            <div className="relative w-full max-w-xl mx-auto">
+              <div className="relative">
+                <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4.5 w-4.5 text-muted-foreground pointer-events-none" />
+                <input
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  type="text"
+                  placeholder="Search 270+ audio tools..."
+                  className="w-full h-11 pl-10 pr-16 rounded-lg border border-border bg-card text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/40 transition-shadow"
+                  aria-label="Search Audio Tools"
+                />
+                <kbd className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none hidden sm:inline-flex items-center gap-0.5 rounded border border-border bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground">
+                  ⌘K
+                </kbd>
+              </div>
             </div>
           </div>
         </section>

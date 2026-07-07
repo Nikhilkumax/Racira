@@ -32,25 +32,31 @@ export default function Index() {
       <Header mode="category" categoryName="Crypto" />
       <main className="racira-page-container">
         {/* Hero */}
-        <section className="py-16 text-center md:py-24">
-          <h1 className="mx-auto max-w-4xl text-5xl font-extrabold tracking-tight text-foreground md:text-7xl">
-            All Crypto Tools You Need —{" "}
-            <span className="text-primary">Fast, Simple & Free</span>
+              <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
+        <div className="racira-page-container text-center">
+          <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
+            100+ Free Crypto Tools —{" "}
+            <span className="hero-gradient-text">Convert, Hash & Track</span>
           </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-base text-muted-foreground md:text-lg">
-            Validate addresses, decode ABIs, convert units, plan portfolios.
-            170 free crypto & blockchain tools in your browser. No signup required.
+          <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
+            Essential utilities for crypto conversion, hashing, and blockchain tracking. No signup required.
           </p>
-          <div className="mx-auto mt-8 flex max-w-xl items-center gap-2 rounded-xl border border-border bg-card px-4 py-3 shadow-sm">
-            <Search className="h-5 w-5 text-muted-foreground" />
-            <input
-              value={q}
-              onChange={(e) => setQ(e.target.value)}
-              placeholder="Search 170 crypto tools…"
-              className="w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground"
-            />
+          <div className="relative w-full max-w-xl mx-auto">
+            <div className="relative">
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4.5 w-4.5 text-muted-foreground pointer-events-none" />
+              <input
+                type="text"
+                placeholder="Search 100+ crypto tools..."
+                className="w-full h-11 pl-10 pr-16 rounded-lg border border-border bg-card text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/40 transition-shadow"
+                aria-label="Search Crypto Tools"
+              />
+              <kbd className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none hidden sm:inline-flex items-center gap-0.5 rounded border border-border bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground">
+                ⌘K
+              </kbd>
+            </div>
           </div>
-        </section>
+        </div>
+      </section>
 
         {/* Categories */}
         {CATEGORIES.map((cat) => {

@@ -25,48 +25,30 @@ export default function Index() {
       <Header mode="category" categoryName="Productivity" />
 
       {/* Hero */}
-      <section className="relative overflow-hidden">
-        <div
-          aria-hidden
-          className="absolute inset-0 -z-10 opacity-60"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at 20% 0%, color-mix(in oklch, var(--primary) 18%, transparent), transparent 50%), radial-gradient(circle at 80% 10%, color-mix(in oklch, var(--primary) 12%, transparent), transparent 45%)",
-          }}
-        />
-        <div className="racira-page-container pt-16 pb-12">
-          <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
-            <Sparkles className="h-3.5 w-3.5" />
-            {TOTAL_TOOLS} productivity tools · 1 live · {TOTAL_TOOLS - 1} coming soon
-          </div>
-          <h1 className="mt-5 font-display text-4xl sm:text-6xl font-bold tracking-tighter max-w-3xl">
-            Tools that{" "}
-            <span className="relative inline-block">
-              <span className="relative z-10">protect</span>
-              <span
-                aria-hidden
-                className="absolute inset-x-0 bottom-1 h-3 -z-0 bg-primary/60"
-              />
-            </span>{" "}
-            your attention.
+            <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
+        <div className="racira-page-container text-center">
+          <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
+            80+ Free Productivity Tools —{" "}
+            <span className="hero-gradient-text">Timers, Planners & Trackers</span>
           </h1>
-          <p className="mt-5 text-lg text-muted-foreground max-w-2xl">
-            Racira is a growing library of {TOTAL_TOOLS} free, no-login productivity tools — built for
-            people who care about deep work, calm planning, and shipping the right things.
+          <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
+            Boost your workflow with Pomodoro timers, planners, and task tracking utilities. No signup required.
           </p>
-          <div className="mt-8 flex flex-wrap items-center gap-3">
-            <Link
-              href="/tools/deep-work-session-planner"
-              className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm transition-transform hover:scale-[1.02]"
-            >
-              Open Deep Work Planner
-            </Link>
-            <a
-              href="#tools"
-              className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-5 py-2.5 text-sm font-semibold hover:bg-muted transition-colors"
-            >
-              Browse all tools
-            </a>
+          <div className="relative w-full max-w-xl mx-auto">
+            <div className="relative">
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4.5 w-4.5 text-muted-foreground pointer-events-none" />
+              <input
+                value={q}
+                onChange={(e) => setQ(e.target.value)}
+                type="text"
+                placeholder="Search 80+ productivity tools..."
+                className="w-full h-11 pl-10 pr-16 rounded-lg border border-border bg-card text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/40 transition-shadow"
+                aria-label="Search Productivity Tools"
+              />
+              <kbd className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none hidden sm:inline-flex items-center gap-0.5 rounded border border-border bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground">
+                ⌘K
+              </kbd>
+            </div>
           </div>
         </div>
       </section>

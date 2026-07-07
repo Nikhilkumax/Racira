@@ -1,4 +1,4 @@
-﻿import { HomeClient } from "@/domains/colors/components/home-client";
+import { HomeClient } from "@/domains/colors/components/home-client";
 
 export const metadata = {
   title: "Racira Colors — 100+ Free Color Tools",
@@ -10,5 +10,9 @@ export const metadata = {
 };
 
 export default function Home() {
-  return <HomeClient />;
+  return (
+    <>
+        <HomeClient />
+      </>
+  );
 }

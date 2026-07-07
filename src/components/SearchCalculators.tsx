@@ -136,7 +136,7 @@ const SearchCalculators = () => {
       </div>
 
       {open && results.length > 0 && (
-        <div className="absolute z-50 top-full mt-1.5 w-full rounded-lg border border-border bg-card shadow-lg overflow-hidden">
+        <div className="absolute z-50 top-full mt-1.5 w-full rounded-lg border border-border bg-card shadow-lg max-h-[400px] overflow-y-auto">
           {results.map(c => {
             const catSlug = toSlug(formatCategory(c.category));
             const subSlug = c.subcategory ? toSlug(c.subcategory) : "general";
