@@ -1,3 +1,5 @@
+import { ToolResult } from "@/components/CategorySearch";
+
 export interface AudioTool {
   id: string;
   name: string;
@@ -369,3 +371,14 @@ export const allTools: AudioTool[] = audioCategories.flatMap((cat) => cat.tools)
 export const totalToolCount = allTools.length;
 
 export const featuredTool = allTools.find((t) => t.id === "mp3-converter")!;
+
+export const SEARCH_REGISTRY: ToolResult[] = audioCategories.flatMap((cat) => 
+  cat.tools.map((tool) => ({
+    name: tool.name,
+    description: tool.description,
+    slug: tool.id,
+    href: `/audio/tools/${cat.slug}/${tool.id}`,
+    category: cat.name,
+    isBuilt: !tool.comingSoon
+  }))
+);

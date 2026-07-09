@@ -7,7 +7,7 @@ import { AudioLines, Zap, ShieldCheck, Sparkles } from "lucide-react";
 
 import { SiteFooter } from "@/components/audio/SiteFooter";
 import { ToolCard } from "@/components/audio/ToolCard";
-import { audioCategories, totalToolCount } from "@/data/audio/audioTools";
+import { audioCategories, totalToolCount, SEARCH_REGISTRY } from "@/data/audio/audioTools";
 import { cn } from "@/lib/utils";
 
 export default function HomePage() {
@@ -48,7 +48,7 @@ export default function HomePage() {
             <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
               Edit, merge, trim, and convert audio files with professional-grade sound utilities. No signup required.
             </p>
-            <CategorySearch categorySlug="audio" placeholder="Search 230+ audio tools..." registry={(Array.isArray(audioCategories) ? audioCategories.flatMap((cat: any) => (cat.tools || []).map((t: any) => ({ name: (t as any).name, description: (t as any).description || '', slug: (t as any).slug, href: ((t as any).slug || '').startsWith('/') ? (t as any).slug : `/audio/tools/${cat.slug}/${(t as any).slug}`, category: (cat as any).name || (cat as any).title || (cat as any).label || '', isBuilt: (t as any).built !== false }))) : [])} />
+            <CategorySearch categorySlug="audio" placeholder="Search 230+ audio tools..." registry={SEARCH_REGISTRY} />
           </div>
         </section>
 
