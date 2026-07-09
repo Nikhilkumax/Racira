@@ -28,7 +28,7 @@ export function CategorySection({
       </div>
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {tools.map((t) => (
-          <ToolCard key={t.slug} tool={t} icon={icon} />
+          <ToolCard key={(t as any).slug} tool={t} icon={icon} />
         ))}
       </div>
     </section>

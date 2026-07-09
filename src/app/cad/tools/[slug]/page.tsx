@@ -1,7 +1,8 @@
+import Header from "@/components/Header";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { findTool, findCategoryForTool, categories } from "@/domains/cad/registry";
-import { ArrowLeft, Construction, Sparkles } from "lucide-react";
+import { Construction, Sparkles } from "lucide-react";
 import { Metadata } from "next";
 import { SketchToolClient } from "@/domains/cad/components/tools/sketch-tool-client";
 
@@ -9,7 +10,7 @@ export async function generateStaticParams() {
   const slugs: { slug: string }[] = [];
   categories.forEach((c) => {
     c.tools.forEach((t) => {
-      slugs.push({ slug: t.slug });
+      slugs.push({ slug: (t as any).slug });
     });
   });
   return slugs;
@@ -18,7 +19,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const resolvedParams = await params;
   const t = findTool(resolvedParams.slug);
-  const title = t ? `${t.name} — Racira CAD` : "Tool — Racira CAD";
+  const title = t ? `${(t as any).name} — Racira CAD` : "Tool — Racira CAD";
   return {
     title,
     description: t?.desc ?? "Free CAD tool by Racira CAD.",
@@ -40,17 +41,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="sticky top-0 z-30 border-b border-border bg-background/85 backdrop-blur">
-        <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-6">
-          <Link href="/" className="flex items-center gap-2 text-lg font-bold tracking-tight">
-            <span className="text-primary">Racira</span>
-            <span className="text-foreground">CAD</span>
-          </Link>
-          <Link href="/" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
-            <ArrowLeft className="h-4 w-4" /> All tools
-          </Link>
-        </div>
-      </header>
+      <Header mode="category" categoryName="CAD" />
 
       <main className="racira-page-container py-8">
         <div className="mb-6">

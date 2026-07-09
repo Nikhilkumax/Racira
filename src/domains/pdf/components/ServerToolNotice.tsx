@@ -57,11 +57,11 @@ const ServerToolNotice = ({ tool }: { tool: Tool }) => {
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
             {ACTIVE_TOOLS.map((t) => (
               <Link
-                key={t.slug}
-                href={`/pdf/${t.slug}`}
+                key={(t as any).slug}
+                href={`/pdf/${(t as any).slug}`}
                 className="flex items-center gap-2 rounded-lg border border-border px-3 py-2 text-sm text-foreground hover:border-primary/30 hover:bg-primary/5 transition-colors group"
               >
-                <span className="text-muted-foreground group-hover:text-primary transition-colors">{t.name}</span>
+                <span className="text-muted-foreground group-hover:text-primary transition-colors">{(t as any).name}</span>
                 <ArrowRight className="h-3 w-3 ml-auto opacity-0 group-hover:opacity-100 transition-opacity text-primary" />
               </Link>
             ))}

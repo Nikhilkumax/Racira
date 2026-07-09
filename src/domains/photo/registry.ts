@@ -177,4 +177,4 @@ export const ALL_TOOLS: Array<Tool & { category: string; categorySlug: string }>
   c.tools.map((t) => ({ ...t, category: c.name, categorySlug: c.slug })),
 );
 
-export const findTool = (slug: string) => ALL_TOOLS.find((t) => t.slug === slug);
+export const findTool = (slug: string) => ALL_TOOLS.find((t) => (t as any).slug === slug);

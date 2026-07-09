@@ -1,3 +1,21 @@
+import { CategorySearch } from "@/components/CategorySearch";
+import Header from "@/components/Header";
+import Link from "next/link";
+import { categories, totalCount } from "@/domains/cad/registry";
+import {
+  Search, Pencil, Ruler, Cog, Building2, CircuitBoard, Home, Wind,
+  Crosshair, Scissors, FileText, ArrowRight, Sparkles,
+} from "lucide-react";
+
+const CATEGORY_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
+  "2d-drafting": Pencil,
+  "measurement-and-geometry": Ruler,
+  "mechanical-engineering-cad": Cog,
+  "structural-and-civil-cad": Building2,
+  "electrical-and-pcb-schematic": CircuitBoard,
+  "architecture-and-planning": Home,
+  "piping-and-hvac": Wind,
+  "gd-and-t-and-standards": Crosshair,
 import Link from "next/link";
 import { categories, totalCount } from "@/domains/cad/registry";
 import {
@@ -21,7 +39,7 @@ const CATEGORY_ICONS: Record<string, React.ComponentType<{ className?: string }>
 export default function Index() {
   return (
     <div className="min-h-screen bg-background">
-      <Header />
+      <Header mode="category" categoryName="CAD" />
       <main>
         <Hero />
         <section className="racira-page-container pb-24 space-y-16">
@@ -39,8 +57,8 @@ export default function Index() {
                 <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                   {c.tools.map((t) => (
                     <Link
-                      key={t.slug}
-                      href={`/tools/${t.slug}`}
+                      key={(t as any).slug}
+                      href={`/tools/${(t as any).slug}`}
                       className="tool-card group hover:-translate-y-[3px] hover:border-primary/40 hover:shadow-[0_8px_24px_hsl(var(--ring)/0.1)]"
                     >
                       {!t.active && (
@@ -52,10 +70,10 @@ export default function Index() {
                         <Icon className="h-5 w-5" />
                       </div>
                       <h3 className="font-semibold text-foreground leading-snug">
-                        {t.name}
+                        {(t as any).name}
                       </h3>
                       <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
-                        {t.desc}
+                        {(t as any).desc}
                       </p>
                     </Link>
                   ))}
@@ -70,26 +88,6 @@ export default function Index() {
   );
 }
 
-function Header() {
-  return (
-    <header className="sticky top-0 z-30 border-b border-border bg-background/85 backdrop-blur">
-      <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-6">
-        <Link href="/" className="flex items-center gap-2 text-lg font-bold tracking-tight">
-          <span className="text-primary">Racira</span>
-          <span className="text-foreground">CAD</span>
-        </Link>
-        <nav className="hidden gap-6 text-sm text-muted-foreground md:flex">
-          <a href="#2d-drafting" className="hover:text-foreground">Drafting</a>
-          <a href="#mechanical-engineering-cad" className="hover:text-foreground">Mechanical</a>
-          <a href="#electrical-and-pcb-schematic" className="hover:text-foreground">Electrical</a>
-          <a href="#architecture-and-planning" className="hover:text-foreground">Architecture</a>
-          <a href="#cnc-and-fabrication" className="hover:text-foreground">CNC</a>
-        </nav>
-      </div>
-    </header>
-  );
-}
-
 function Hero() {
   return (
           <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
@@ -101,20 +99,7 @@ function Hero() {
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
             Essential utilities for viewing, measuring, and converting CAD and DXF files. No signup required.
           </p>
-          <div className="relative w-full max-w-xl mx-auto">
-            <div className="relative">
-              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4.5 w-4.5 text-muted-foreground pointer-events-none" />
-              <input
-                type="text"
-                placeholder="Search 3+ CAD tools..."
-                className="w-full h-11 pl-10 pr-16 rounded-lg border border-border bg-card text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/40 transition-shadow"
-                aria-label="Search CAD Tools"
-              />
-              <kbd className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none hidden sm:inline-flex items-center gap-0.5 rounded border border-border bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground">
-                ⌘K
-              </kbd>
-            </div>
-          </div>
+          <CategorySearch categorySlug="cad" placeholder="Search 3+ CAD tools..." registry={(Array.isArray(categories) ? categories.flatMap((cat: any) => (cat.tools || []).map((t: any) => ({ name: (t as any).name, description: (t as any).description || '', slug: (t as any).slug, href: ((t as any).slug || '').startsWith('/') ? (t as any).slug : `/cad/tools/${(t as any).slug}`, category: (cat as any).name || (cat as any).title || (cat as any).label || '', isBuilt: (t as any).built !== false }))) : [])} />
         </div>
       </section>
   );

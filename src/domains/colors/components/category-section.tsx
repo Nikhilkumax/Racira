@@ -10,7 +10,7 @@ export function CategorySection({ category, tools }: { category: ToolCategory; t
       </h2>
       <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {tools.map((t) => (
-          <ToolCard key={t.slug} tool={t} />
+          <ToolCard key={(t as any).slug} tool={t} />
         ))}
       </div>
     </section>

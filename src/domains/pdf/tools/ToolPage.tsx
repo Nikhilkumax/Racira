@@ -50,7 +50,7 @@ import DefaultToolOptions from "@/domains/pdf/components/tool-options/DefaultToo
 const ToolPage = () => {
   const { slug } = useParams<{ slug: string }>();
   const router = useRouter();
-  const tool = tools.find((t) => t.slug === slug);
+  const tool = tools.find((t) => (t as any).slug === slug);
 
   const {
     files,

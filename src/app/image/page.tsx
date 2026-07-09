@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { ArrowRight, ImageIcon, Search } from "lucide-react";
+import Header from "@/components/Header";
+import { ArrowRight, Search } from "lucide-react";
 
 export const metadata = {
   title: "Racira Image — 80+ Free Image Tools in Your Browser",
@@ -21,16 +22,7 @@ function slugify(s: string) {
 export default function ImagePage() {
   return (
     <div className="min-h-screen">
-      {/* Header */}
-      <header className="sticky top-0 z-30 backdrop-blur-md bg-background/70 border-b border-border">
-        <div className="mx-auto max-w-6xl px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="text-xl font-extrabold tracking-tight">
-            <span className="bg-gradient-to-r from-sky-500 to-blue-600 bg-clip-text text-transparent">Racira</span>{" "}
-            <span className="text-foreground">Image</span>
-          </Link>
-          <div className="text-xs text-muted-foreground">{totalCount} tools</div>
-        </div>
-      </header>
+      <Header mode="category" categoryName="Image" />
 
       <main className="mx-auto max-w-6xl px-6 pb-24">
         {/* Hero */}

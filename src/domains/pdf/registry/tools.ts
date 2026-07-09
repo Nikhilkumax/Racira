@@ -345,4 +345,4 @@ export const tools: Tool[] = [
   { name: 'TTS Prep', slug: 'tts-prep', description: 'Prepare text for Text-to-Speech', icon: Volume2, category: 'pdf', subCategory: 'Utilities' },
   ];
 
-export const categories = Array.from(new Set(tools.map((t) => t.category)));
+export const categories = Array.from(new Set(tools.map((t) => (t as any).category)));

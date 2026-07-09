@@ -8,7 +8,7 @@ import { ToolRenderer } from "@/domains/crypto/components/tools/ToolRenderer";
 import type { Metadata } from "next";
 
 export function generateStaticParams() {
-  return TOOLS.map((t) => ({ slug: t.slug }));
+  return TOOLS.map((t) => ({ slug: (t as any).slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {

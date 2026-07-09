@@ -45,7 +45,7 @@ export default async function ToolPage({
   }
 
   const related = tools
-    .filter((t) => t.category === result.categoryName && t.slug !== resolvedParams.tool)
+    .filter((t) => (t as any).category === result.categoryName && (t as any).slug !== resolvedParams.tool)
     .slice(0, 4);
 
   const safeTool = { ...result.tool, icon: null } as unknown as typeof result.tool;

@@ -61,7 +61,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
             author: { "@type": "Person", name: post.author.name },
             publisher: { "@type": "Organization", name: "Racira Finance" },
             articleSection: post.category.name,
-            keywords: post.tags.map((t) => t.name).join(", "),
+            keywords: post.tags.map((t) => (t as any).name).join(", "),
           }),
         }}
       />
@@ -103,8 +103,8 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
           {post.tags.length > 0 && (
             <div className="mt-10 flex flex-wrap gap-2 border-t border-border/60 pt-6">
               {post.tags.map((t: Tag) => (
-                <Link key={t.id} href={`/tag/${t.slug}`} className="rounded-full bg-muted px-3 py-1 text-xs font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground">
-                  #{t.name}
+                <Link key={t.id} href={`/tag/${(t as any).slug}`} className="rounded-full bg-muted px-3 py-1 text-xs font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground">
+                  #{(t as any).name}
                 </Link>
               ))}
             </div>

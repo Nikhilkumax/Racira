@@ -179,8 +179,8 @@ export const categories: Category[] = [
 ];
 
 export const allTools: Tool[] = categories.flatMap((cat) => cat.tools);
-export const findTool = (slug: string) => allTools.find((t) => t.slug === slug);
+export const findTool = (slug: string) => allTools.find((t) => (t as any).slug === slug);
 export const findCategory = (slug: string) =>
-  categories.find((c) => c.tools.some((t) => t.slug === slug));
+  categories.find((c) => c.tools.some((t) => (t as any).slug === slug));
 
 export const FUNCTIONAL_SLUGS = new Set(["workout-planner"]);

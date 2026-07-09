@@ -1,5 +1,5 @@
-
 "use client";
+
 import { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";

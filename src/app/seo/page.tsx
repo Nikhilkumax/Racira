@@ -1,12 +1,10 @@
 "use client";
 
+import Header from "@/components/Header";
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import {
   Search,
-  Moon,
-  Sun,
-  ChevronDown,
   Key,
   FileSearch,
   Link2,
@@ -50,13 +48,6 @@ function iconFor(category: string) {
 
 export default function Home() {
   const [q, setQ] = useState("");
-  const [dark, setDark] = useState(false);
-
-  useEffect(() => {
-    const root = document.documentElement;
-    if (dark) root.classList.add("dark");
-    else root.classList.remove("dark");
-  }, [dark]);
 
   const filtered = useMemo(() => {
     const term = q.trim().toLowerCase();
@@ -70,25 +61,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      {/* Header */}
-      <header className="sticky top-0 z-30 border-b border-border bg-background/90 backdrop-blur">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          <Link href="/" className="flex items-baseline gap-1 text-xl font-bold tracking-tight">
-            <span className="text-primary">Racira</span>
-            <span className="text-foreground">SEO</span>
-          </Link>
-          <div className="flex items-center gap-4">
-            <ToolsDropdown />
-            <button
-              onClick={() => setDark((d) => !d)}
-              aria-label="Toggle theme"
-              className="grid h-9 w-9 place-items-center rounded-md text-muted-foreground transition hover:bg-muted hover:text-foreground"
-            >
-              {dark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-            </button>
-          </div>
-        </div>
-      </header>
+      <Header mode="category" categoryName="SEO" />
 
       {/* Hero */}
       <section className="relative overflow-hidden">
@@ -158,43 +131,6 @@ export default function Home() {
         © {new Date().getFullYear()} Racira SEO · {TOTAL_TOOLS} tools in one
         workspace.
       </footer>
-    </div>
-  );
-}
-
-function ToolsDropdown() {
-  const [open, setOpen] = useState(false);
-  return (
-    <div
-      className="relative"
-      onMouseLeave={() => setOpen(false)}
-    >
-      <button
-        onClick={() => setOpen((o) => !o)}
-        onMouseEnter={() => setOpen(true)}
-        className="inline-flex items-center gap-1 text-sm text-muted-foreground transition hover:text-foreground"
-      >
-        Tools <ChevronDown className="h-3.5 w-3.5" />
-      </button>
-      {open && (
-        <div className="absolute right-0 top-full z-40 mt-2 w-64 rounded-xl border border-border bg-popover p-2 shadow-lg">
-          <div className="max-h-[60vh] overflow-y-auto">
-            {CATEGORIES.map((cat) => (
-              <Link
-                key={cat.slug}
-                href={`#${cat.slug}`}
-                onClick={() => setOpen(false)}
-                className="flex items-center justify-between rounded-md px-3 py-2 text-sm text-foreground hover:bg-muted"
-              >
-                <span>{cat.name}</span>
-                <span className="text-xs text-muted-foreground">
-                  {cat.tools.length}
-                </span>
-              </Link>
-            ))}
-          </div>
-        </div>
-      )}
     </div>
   );
 }

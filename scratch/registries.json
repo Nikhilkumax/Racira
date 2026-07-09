@@ -1,49 +1,188 @@
 [
-  "src\\data\\developers\\tools.ts",
-  "src\\data\\presentation\\tools.ts",
-  "src\\data\\productivity\\tools.ts",
-  "src\\data\\tools.ts",
-  "src\\data\\typography\\tools.ts",
-  "src\\data\\video\\tools.ts",
-  "src\\domains\\3d\\components\\tools\\registry.ts",
-  "src\\domains\\3d\\registry.ts",
-  "src\\domains\\animator\\registry.ts",
-  "src\\domains\\business\\registry.ts",
-  "src\\domains\\cad\\registry.ts",
-  "src\\domains\\calculator\\registry\\business.ts",
-  "src\\domains\\calculator\\registry\\construction.ts",
-  "src\\domains\\calculator\\registry\\education.ts",
-  "src\\domains\\calculator\\registry\\engineering.ts",
-  "src\\domains\\calculator\\registry\\environment.ts",
-  "src\\domains\\calculator\\registry\\everyday-life.ts",
-  "src\\domains\\calculator\\registry\\finance.ts",
-  "src\\domains\\calculator\\registry\\health.ts",
-  "src\\domains\\calculator\\registry\\math.ts",
-  "src\\domains\\calculator\\registry\\orphans.ts",
-  "src\\domains\\calculator\\registry\\science.ts",
-  "src\\domains\\calculator\\registry\\technology.ts",
-  "src\\domains\\calculator\\registry\\transportation.ts",
-  "src\\domains\\calculator\\registry\\utilities.ts",
-  "src\\domains\\calculator\\registry.ts",
-  "src\\domains\\colors\\registry\\registry-meta.ts",
-  "src\\domains\\colors\\registry\\types.ts",
-  "src\\domains\\colors\\registry.ts",
-  "src\\domains\\crypto\\registry.ts",
-  "src\\domains\\design\\registry.ts",
-  "src\\domains\\education\\registry.ts",
-  "src\\domains\\engineering\\registry.ts",
-  "src\\domains\\fitness\\registry.ts",
-  "src\\domains\\flowchart\\registry.ts",
-  "src\\domains\\image\\registry.ts",
-  "src\\domains\\insight\\registry.ts",
-  "src\\domains\\maps\\registry.ts",
-  "src\\domains\\music\\registry.ts",
-  "src\\domains\\pdf\\registry\\tool-config.ts",
-  "src\\domains\\pdf\\registry\\tool-seo.ts",
-  "src\\domains\\pdf\\registry\\tools.ts",
-  "src\\domains\\photo\\registry.ts",
-  "src\\domains\\security\\registry.ts",
-  "src\\domains\\seo\\registry.ts",
-  "src\\domains\\travel\\registry.ts",
-  "src\\domains\\writing\\registry.ts"
+  {
+    "cat": "3d",
+    "fileToCheck": "src/domains/3d/components/SiteShell.tsx",
+    "foundToolsVar": null,
+    "importPath": null
+  },
+  {
+    "cat": "animator",
+    "fileToCheck": "src/app/animator/page.tsx",
+    "foundToolsVar": "categories",
+    "importPath": "@/domains/animator/registry"
+  },
+  {
+    "cat": "audio",
+    "fileToCheck": "src/app/audio/page.tsx",
+    "foundToolsVar": "ToolCard",
+    "importPath": "@/components/audio/ToolCard"
+  },
+  {
+    "cat": "business",
+    "fileToCheck": "src/domains/business/components/SiteHeader.tsx",
+    "foundToolsVar": null,
+    "importPath": null
+  },
+  {
+    "cat": "cad",
+    "fileToCheck": "src/app/cad/page.tsx",
+    "foundToolsVar": "categories",
+    "importPath": "@/domains/cad/registry"
+  },
+  {
+    "cat": "calculator",
+    "fileToCheck": "src/app/calculator/page.tsx",
+    "foundToolsVar": null,
+    "importPath": null
+  },
+  {
+    "cat": "colors",
+    "fileToCheck": "src/domains/colors/components/home-client.tsx",
+    "foundToolsVar": "TOOLS",
+    "importPath": "@/domains/colors/registry"
+  },
+  {
+    "cat": "crypto",
+    "fileToCheck": "src/app/crypto/page.tsx",
+    "foundToolsVar": "TOOLS",
+    "importPath": "@/domains/crypto/registry"
+  },
+  {
+    "cat": "design",
+    "fileToCheck": "src/app/design/page.tsx",
+    "foundToolsVar": "categories",
+    "importPath": "@/domains/design/registry"
+  },
+  {
+    "cat": "developers",
+    "fileToCheck": "src/app/developers/page.tsx",
+    "foundToolsVar": "tools",
+    "importPath": "@/data/developers/tools"
+  },
+  {
+    "cat": "education",
+    "fileToCheck": "src/app/education/page.tsx",
+    "foundToolsVar": "categories",
+    "importPath": "@/domains/education/registry"
+  },
+  {
+    "cat": "engineering",
+    "fileToCheck": "src/app/engineering/page.tsx",
+    "foundToolsVar": "ToolCard",
+    "importPath": "@/domains/engineering/components/tool-card"
+  },
+  {
+    "cat": "finance",
+    "fileToCheck": "src/app/finance/page.tsx",
+    "foundToolsVar": null,
+    "importPath": null
+  },
+  {
+    "cat": "fitness",
+    "fileToCheck": "src/app/fitness/page.tsx",
+    "foundToolsVar": "categories",
+    "importPath": "@/domains/fitness/registry"
+  },
+  {
+    "cat": "flowchart",
+    "fileToCheck": "src/app/flowchart/page.tsx",
+    "foundToolsVar": "CATEGORIES",
+    "importPath": "@/domains/flowchart/registry"
+  },
+  {
+    "cat": "games",
+    "fileToCheck": "src/app/games/page.tsx",
+    "foundToolsVar": null,
+    "importPath": null
+  },
+  {
+    "cat": "image",
+    "fileToCheck": "src/app/image/page.tsx",
+    "foundToolsVar": "categories",
+    "importPath": "@/domains/image/registry"
+  },
+  {
+    "cat": "insight",
+    "fileToCheck": "src/app/insight/page.tsx",
+    "foundToolsVar": "CATEGORIES",
+    "importPath": "@/domains/insight/registry"
+  },
+  {
+    "cat": "maps",
+    "fileToCheck": "src/app/maps/page.tsx",
+    "foundToolsVar": "totalTools",
+    "importPath": "@/domains/maps/registry"
+  },
+  {
+    "cat": "music",
+    "fileToCheck": "src/app/music/page.tsx",
+    "foundToolsVar": "ToolCard",
+    "importPath": "@/domains/music/components/tool-card"
+  },
+  {
+    "cat": "pdf",
+    "fileToCheck": "src/app/pdf/page.tsx",
+    "foundToolsVar": null,
+    "importPath": null
+  },
+  {
+    "cat": "photo",
+    "fileToCheck": "src/app/photo/page.tsx",
+    "foundToolsVar": "CATEGORIES",
+    "importPath": "@/domains/photo/registry"
+  },
+  {
+    "cat": "presentation",
+    "fileToCheck": "src/app/presentation/page.tsx",
+    "foundToolsVar": "categories",
+    "importPath": "@/data/presentation/tools"
+  },
+  {
+    "cat": "productivity",
+    "fileToCheck": "src/app/productivity/page.tsx",
+    "foundToolsVar": "CATEGORIES",
+    "importPath": "@/data/productivity/tools"
+  },
+  {
+    "cat": "security",
+    "fileToCheck": "src/domains/security/components/Layout.tsx",
+    "foundToolsVar": null,
+    "importPath": null
+  },
+  {
+    "cat": "seo",
+    "fileToCheck": "src/app/seo/page.tsx",
+    "foundToolsVar": "CATEGORIES",
+    "importPath": "@/domains/seo/registry"
+  },
+  {
+    "cat": "travel",
+    "fileToCheck": "src/domains/travel/components/site-chrome.tsx",
+    "foundToolsVar": null,
+    "importPath": null
+  },
+  {
+    "cat": "typography",
+    "fileToCheck": "src/app/typography/page.tsx",
+    "foundToolsVar": "categories",
+    "importPath": "@/data/typography/tools"
+  },
+  {
+    "cat": "video",
+    "fileToCheck": "src/app/video/page.tsx",
+    "foundToolsVar": "TOOLS",
+    "importPath": "@/data/video/tools"
+  },
+  {
+    "cat": "voice",
+    "fileToCheck": "src/app/voice/page.tsx",
+    "foundToolsVar": null,
+    "importPath": null
+  },
+  {
+    "cat": "writing",
+    "fileToCheck": "src/app/writing/page.tsx",
+    "foundToolsVar": "categories",
+    "importPath": "@/domains/writing/registry"
+  }
 ]

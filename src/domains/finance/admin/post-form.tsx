@@ -152,7 +152,7 @@ export function PostForm({ initial }: { initial?: PostWithRelations }) {
                       onClick={() => setTagIds(on ? tagIds.filter((x) => x !== t.id) : [...tagIds, t.id])}
                       className={"rounded-full border px-2.5 py-1 text-xs " + (on ? "border-primary bg-primary/10 text-primary" : "border-border/60 text-muted-foreground")}
                     >
-                      {t.name}
+                      {(t as any).name}
                     </button>
                   );
                 })}

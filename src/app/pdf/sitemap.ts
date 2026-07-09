@@ -31,7 +31,7 @@ const BASE_URL = "https://racira.com";
  *  - All tool pages:     0.8
  */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const pdfTools = tools.filter((t) => t.category === "pdf");
+  const pdfTools = tools.filter((t) => (t as any).category === "pdf");
 
   const toolEntries: MetadataRoute.Sitemap = pdfTools.map((tool) => ({
     url: `${BASE_URL}/pdf/${tool.slug}`,

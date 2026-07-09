@@ -385,13 +385,13 @@ export const TOOLS: ToolDef[] = [
 ];
 
 export const TOOLS_BY_SLUG: Record<string, ToolDef> = Object.fromEntries(
-  TOOLS.map((t) => [t.slug, t]),
+  TOOLS.map((t) => [(t as any).slug, t]),
 );
 
 export function toolsByCategory(): Record<string, ToolDef[]> {
   const out: Record<string, ToolDef[]> = {};
   for (const t of TOOLS) {
-    (out[t.category] ||= []).push(t);
+    (out[(t as any).category] ||= []).push(t);
   }
   return out;
 }

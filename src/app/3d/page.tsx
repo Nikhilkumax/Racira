@@ -1,3 +1,4 @@
+import { CategorySearch } from "@/components/CategorySearch";
 import Link from "next/link";
 import { CATEGORIES, TOTAL_TOOLS } from "@/domains/3d/registry";
 import { SiteShell } from "@/domains/3d/components/SiteShell";
@@ -26,26 +27,13 @@ export default function Index() {
             <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
         <div className="racira-page-container text-center">
           <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
-            15+ Free 3D Tools —{" "}
+            120+ Free 3D Tools —{" "}
             <span className="hero-gradient-text">Viewers, Converters & Models</span>
           </h1>
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
             Browser-based 3D model viewers, format converters, and spatial utilities. No signup required.
           </p>
-          <div className="relative w-full max-w-xl mx-auto">
-            <div className="relative">
-              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4.5 w-4.5 text-muted-foreground pointer-events-none" />
-              <input
-                type="text"
-                placeholder="Search 15+ 3D tools..."
-                className="w-full h-11 pl-10 pr-16 rounded-lg border border-border bg-card text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/40 transition-shadow"
-                aria-label="Search 3D Tools"
-              />
-              <kbd className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none hidden sm:inline-flex items-center gap-0.5 rounded border border-border bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground">
-                ⌘K
-              </kbd>
-            </div>
-          </div>
+          <CategorySearch categorySlug="3d" placeholder="Search 120+ 3D tools..." registry={(Array.isArray(CATEGORIES) ? CATEGORIES.flatMap((cat: any) => (cat.tools || []).map((t: any) => ({ name: (t as any).name, description: (t as any).description || '', slug: (t as any).slug, href: ((t as any).slug || '').startsWith('/') ? (t as any).slug : `/3d/tools/${(t as any).slug}`, category: (cat as any).name || (cat as any).title || (cat as any).label || '', isBuilt: (t as any).built !== false }))) : [])} />
         </div>
       </section>
 
@@ -53,7 +41,7 @@ export default function Index() {
         {CATEGORIES.map((cat) => {
           const Icon = CAT_ICONS[cat.name] ?? Box;
           const id = cat.name.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-          const builtCount = cat.tools.filter((t) => t.built).length;
+          const builtCount = cat.tools.filter((t) => (t as any).built).length;
           return (
             <section key={cat.name} id={id} className="scroll-mt-20">
               <div className="mb-5 flex items-center justify-between">

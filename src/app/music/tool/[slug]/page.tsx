@@ -52,7 +52,7 @@ export default async function ToolPage({ params }: Props) {
 
   const category = findCategoryOfTool(slug)!;
   const Icon = getToolIcon(tool);
-  const related = category.tools.filter((t: Tool) => t.slug !== tool.slug).slice(0, 4);
+  const related = category.tools.filter((t: Tool) => (t as any).slug !== tool.slug).slice(0, 4);
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -108,7 +108,7 @@ export default async function ToolPage({ params }: Props) {
             </h2>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {related.map((t: Tool) => (
-                <ToolCard key={t.slug} tool={t} />
+                <ToolCard key={(t as any).slug} tool={t} />
               ))}
             </div>
           </section>

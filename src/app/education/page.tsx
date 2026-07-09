@@ -1,8 +1,9 @@
 "use client";
 
+import Header from "@/components/Header";
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { Search, GraduationCap } from "lucide-react";
+import { Search } from "lucide-react";
 import { categories, allTools } from "@/domains/education/registry";
 import { Input } from "@/components/ui/input";
 
@@ -26,24 +27,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="border-b bg-background/80 backdrop-blur sticky top-0 z-30">
-        <div className="racira-page-container h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
-            <div className="h-8 w-8 rounded-lg bg-primary text-primary-foreground grid place-items-center">
-              <GraduationCap className="h-5 w-5" />
-            </div>
-            <span className="text-lg font-semibold">
-              <span className="text-primary">Racira</span> Education
-            </span>
-          </Link>
-          <a
-            href="#tools"
-            className="text-sm text-muted-foreground hover:text-foreground"
-          >
-            Browse tools
-          </a>
-        </div>
-      </header>
+      <Header mode="category" categoryName="Education" />
 
             <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
         <div className="racira-page-container text-center">

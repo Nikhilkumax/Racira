@@ -1,5 +1,6 @@
 "use client";
 
+import Header from "@/components/Header";
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { CATEGORIES, ACTIVE_SLUG, ALL_TOOLS } from "@/domains/flowchart/registry";
@@ -20,7 +21,7 @@ export default function FlowchartHomePage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
+      <Header mode="category" categoryName="Diagrams" />
       <main className="racira-page-container pb-24 pt-16">
               <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
         <div className="racira-page-container text-center">
@@ -86,25 +87,7 @@ export default function FlowchartHomePage() {
   );
 }
 
-function Header() {
-  return (
-    <header className="sticky top-0 z-30 border-b bg-background/80 backdrop-blur">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-        <Link href="/flowchart" className="flex items-center gap-2 text-lg font-extrabold">
-          <span className="flex h-7 w-7 items-center justify-center rounded-md bg-brand text-primary-foreground">
-            <Workflow className="h-4 w-4" />
-          </span>
-          <span>
-            <span className="text-brand">Racira</span> Diagrams
-          </span>
-        </Link>
-        <nav className="text-sm text-muted-foreground">
-          <a href="#" className="hover:text-foreground">190 Tools</a>
-        </nav>
-      </div>
-    </header>
-  );
-}
+
 
 function Footer() {
   return (

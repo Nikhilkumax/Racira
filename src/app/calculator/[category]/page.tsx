@@ -76,7 +76,7 @@ export async function generateStaticParams() {
 
   // 2. Add tool routes
   calculatorRegistry.forEach(t => {
-    const toolSlug = t.slug || toSlug(t.name);
+    const toolSlug = (t as any).slug || toSlug((t as any).name);
     if (!params.find(p => p.category === toolSlug)) {
       params.push({ category: toolSlug });
     }
@@ -98,7 +98,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   // Check if it's a tool
   const tool = calculatorRegistry.find(t => 
-    (t.slug === params.category || toSlug(t.name) === params.category)
+    ((t as any).slug === params.category || toSlug((t as any).name) === params.category)
   );
 
   if (tool) {
@@ -280,7 +280,7 @@ export default function PolymorphicPage({ params }: Props) {
 
   // 2. Is it a tool? (params.category contains the tool slug)
   const tool = calculatorRegistry.find(t => 
-    (t.slug === params.category || toSlug(t.name) === params.category)
+    ((t as any).slug === params.category || toSlug((t as any).name) === params.category)
   );
 
   if (tool) {

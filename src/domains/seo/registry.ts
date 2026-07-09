@@ -358,8 +358,8 @@ export const TOOLS: Tool[] = raw.flatMap((c) =>
   })
 );
 
-export const TOOL_BY_SLUG = new Map(TOOLS.map((t) => [t.slug, t]));
+export const TOOL_BY_SLUG = new Map(TOOLS.map((t) => [(t as any).slug, t]));
 export const TOOLS_BY_CATEGORY = (cat: string) =>
-  TOOLS.filter((t) => t.category === cat);
+  TOOLS.filter((t) => (t as any).category === cat);
 
 export const TOTAL_TOOLS = TOOLS.length;

@@ -1,9 +1,10 @@
 "use client";
 
+import Header from "@/components/Header";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { findTool, ACTIVE_SLUG } from "@/domains/flowchart/registry";
-import { ArrowLeft, Workflow } from "lucide-react";
+import { Workflow } from "lucide-react";
 import { FlowchartBuilder } from "@/domains/flowchart/components/FlowchartBuilder";
 
 interface ToolPageProps {
@@ -18,24 +19,7 @@ export default function ToolPage({ params }: ToolPageProps) {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="border-b bg-background/80 backdrop-blur">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          <Link
-            href="/flowchart"
-            className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground"
-          >
-            <ArrowLeft className="h-4 w-4" /> Back to all tools
-          </Link>
-          <Link href="/flowchart" className="flex items-center gap-2 text-base font-extrabold">
-            <span className="flex h-6 w-6 items-center justify-center rounded-md bg-brand text-primary-foreground">
-              <Workflow className="h-3.5 w-3.5" />
-            </span>
-            <span>
-              <span className="text-brand">Racira</span> Diagrams
-            </span>
-          </Link>
-        </div>
-      </header>
+      <Header mode="category" categoryName="Diagrams" />
 
       <main className="racira-page-container py-10">
         <div className="mb-6">

@@ -245,7 +245,7 @@ export const totalToolCount = allTools.length;
 export function findTool(slug: string) {
   for (const cat of categories) {
     const t = cat.tools.find((x) => x.slug === slug);
-    if (t) return { tool: t, category: cat.name };
+    if (t) return { tool: t, category: (cat as any).name || (cat as any).title || (cat as any).label || '' };
   }
   return null;
 }

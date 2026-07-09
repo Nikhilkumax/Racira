@@ -1,4 +1,4 @@
-import { Search } from "lucide-react";
+import { CategorySearch } from "@/components/CategorySearch";
 ﻿import { CATEGORY_ORDER, TOOLS, TOOLS_BY_CATEGORY } from "@/data/video/tools";
 import { ToolCard } from "@/components/video/ToolCard";
 import type { Metadata } from "next";
@@ -29,20 +29,7 @@ export default function Home() {
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
             Basic video utilities to trim, crop, and convert formats without heavy software. No signup required.
           </p>
-          <div className="relative w-full max-w-xl mx-auto">
-            <div className="relative">
-              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4.5 w-4.5 text-muted-foreground pointer-events-none" />
-              <input
-                type="text"
-                placeholder="Search 4+ video tools..."
-                className="w-full h-11 pl-10 pr-16 rounded-lg border border-border bg-card text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/40 transition-shadow"
-                aria-label="Search Video Tools"
-              />
-              <kbd className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none hidden sm:inline-flex items-center gap-0.5 rounded border border-border bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground">
-                ⌘K
-              </kbd>
-            </div>
-          </div>
+          <CategorySearch categorySlug="video" placeholder="Search 4+ video tools..." registry={(TOOLS || []).map((t: any) => ({ name: (t as any).name, description: (t as any).description || '', slug: (t as any).slug, href: ((t as any).slug || '').startsWith('/') ? (t as any).slug : `/video/tools/${(t as any).slug}`, category: (t as any).category, isBuilt: (t as any).built !== false }))} />
         </div>
       </section>
 

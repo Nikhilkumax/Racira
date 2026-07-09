@@ -62,7 +62,7 @@ export default function SubcategoryPage({ params }: Props) {
   if (!sub) notFound();
 
   const tools = calculatorRegistry.filter(t => {
-    const tCatSlug = toSlug(t.category || "");
+    const tCatSlug = toSlug((t as any).category || "");
     const tSubSlug = toSlug(t.subcategory || "General");
     return tCatSlug === params.category && tSubSlug === params.slug;
   });

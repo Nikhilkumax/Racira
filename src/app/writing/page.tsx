@@ -1,8 +1,9 @@
 "use client";
 
+import Header from "@/components/Header";
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { Search, PenLine, Sparkles, ArrowRight } from "lucide-react";
+import { Search, PenLine } from "lucide-react";
 import { categories, totalToolCount } from "@/domains/writing/registry";
 
 export default function Index() {
@@ -25,25 +26,7 @@ export default function Index() {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="sticky top-0 z-30 border-b border-border/70 bg-background/80 backdrop-blur">
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5">
-          <Link href="/" className="flex items-center gap-2 text-lg">
-            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-              <PenLine className="h-4 w-4" />
-            </span>
-            <span className="font-semibold tracking-tight">
-              <span className="text-primary">Racira</span>{" "}
-              <span className="text-foreground">Writing</span>
-            </span>
-          </Link>
-          <Link
-            href="/tools/distraction-free-writing-editor"
-            className="hidden items-center gap-1.5 rounded-md bg-primary px-3.5 py-2 text-sm font-medium text-primary-foreground transition hover:opacity-90 sm:inline-flex"
-          >
-            Open editor <ArrowRight className="h-4 w-4" />
-          </Link>
-        </div>
-      </header>
+      <Header mode="category" categoryName="Writing" />
 
       <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
         <div className="racira-page-container text-center">

@@ -11,10 +11,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const t = getTagBySlug(slug);
   if (!t) return {};
   return {
-    title: `#${t.name} — Racira Finance`,
-    description: `Articles tagged ${t.name} on Racira Finance.`,
+    title: `#${(t as any).name} — Racira Finance`,
+    description: `Articles tagged ${(t as any).name} on Racira Finance.`,
     openGraph: {
-      title: `#${t.name} — Racira Finance`,
+      title: `#${(t as any).name} — Racira Finance`,
       url: `/tag/${slug}`,
     },
     alternates: {

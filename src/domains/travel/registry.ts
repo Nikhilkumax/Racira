@@ -195,6 +195,6 @@ export const categories: Category[] = [
 export const allTools: Tool[] = categories.flatMap((c) => c.tools);
 export const totalCount = allTools.length;
 
-export const findTool = (slug: string) => allTools.find((t) => t.slug === slug);
+export const findTool = (slug: string) => allTools.find((t) => (t as any).slug === slug);
 export const findCategoryOfTool = (slug: string) =>
-  categories.find((c) => c.tools.some((t) => t.slug === slug));
+  categories.find((c) => c.tools.some((t) => (t as any).slug === slug));

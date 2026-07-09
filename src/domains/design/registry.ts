@@ -205,5 +205,5 @@ export const categories: Category[] = [
 ];
 
 export const allTools = categories.flatMap(c => c.tools.map(tool => ({ ...tool, category: c.name })));
-export const findTool = (slug: string) => allTools.find(t => t.slug === slug);
+export const findTool = (slug: string) => allTools.find(t => (t as any).slug === slug);
 export const totalCount = allTools.length;

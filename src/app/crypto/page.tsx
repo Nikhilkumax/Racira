@@ -1,4 +1,5 @@
 "use client";
+import { CategorySearch } from "@/components/CategorySearch";
 
 import Link from "next/link";
 import Header from "@/components/Header";
@@ -24,7 +25,7 @@ export default function Index() {
   const filtered = useMemo(() => {
     const term = q.trim().toLowerCase();
     if (!term) return TOOLS;
-    return TOOLS.filter((t) => t.name.toLowerCase().includes(term) || t.desc.toLowerCase().includes(term));
+    return TOOLS.filter((t) => (t as any).name.toLowerCase().includes(term) || (t as any).desc.toLowerCase().includes(term));
   }, [q]);
 
   return (
@@ -41,26 +42,13 @@ export default function Index() {
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
             Essential utilities for crypto conversion, hashing, and blockchain tracking. No signup required.
           </p>
-          <div className="relative w-full max-w-xl mx-auto">
-            <div className="relative">
-              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4.5 w-4.5 text-muted-foreground pointer-events-none" />
-              <input
-                type="text"
-                placeholder="Search 100+ crypto tools..."
-                className="w-full h-11 pl-10 pr-16 rounded-lg border border-border bg-card text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/40 transition-shadow"
-                aria-label="Search Crypto Tools"
-              />
-              <kbd className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none hidden sm:inline-flex items-center gap-0.5 rounded border border-border bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground">
-                ⌘K
-              </kbd>
-            </div>
-          </div>
+          <CategorySearch categorySlug="crypto" placeholder="Search 100+ crypto tools..." registry={(TOOLS || []).map((t: any) => ({ name: (t as any).name, description: (t as any).description || '', slug: (t as any).slug, href: ((t as any).slug || '').startsWith('/') ? (t as any).slug : `/crypto/tools/${(t as any).slug}`, category: (t as any).category, isBuilt: (t as any).built !== false }))} />
         </div>
       </section>
 
         {/* Categories */}
         {CATEGORIES.map((cat) => {
-          const items = filtered.filter((t) => t.category === cat);
+          const items = filtered.filter((t) => (t as any).category === cat);
           if (!items.length) return null;
           const Icon = CATEGORY_ICONS[cat] ?? Wrench;
           return (
@@ -74,8 +62,8 @@ export default function Index() {
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
                 {items.map((t) => (
                   <Link
-                    key={t.slug}
-                    href={`/tool/${t.slug}`}
+                    key={(t as any).slug}
+                    href={`/tool/${(t as any).slug}`}
                     className="tool-card group hover:-translate-y-[3px] hover:border-primary/40 hover:shadow-[0_8px_24px_hsl(var(--ring)/0.1)]"
                   >
                     {!t.implemented && (
@@ -87,9 +75,9 @@ export default function Index() {
                       <Icon className="h-5 w-5" />
                     </div>
                     <h3 className="font-semibold text-foreground leading-snug">
-                      {t.name}
+                      {(t as any).name}
                     </h3>
-                    <p className="mt-1 text-sm text-muted-foreground line-clamp-2">{t.desc}</p>
+                    <p className="mt-1 text-sm text-muted-foreground line-clamp-2">{(t as any).desc}</p>
                   </Link>
                 ))}
               </div>

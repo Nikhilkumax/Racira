@@ -27,7 +27,7 @@ export function deleteCategory(id: string): boolean {
 }
 
 export const listTags = (): Tag[] => getStore().tags.slice();
-export const getTagBySlug = (slug: string) => getStore().tags.find((t) => t.slug === slug) ?? null;
+export const getTagBySlug = (slug: string) => getStore().tags.find((t) => (t as any).slug === slug) ?? null;
 export function createTag(input: Omit<Tag, "id">): Tag {
   const t: Tag = { id: uid("t"), ...input };
   getStore().tags.push(t);

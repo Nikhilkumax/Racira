@@ -1,6 +1,6 @@
+import Header from "@/components/Header";
 import Link from "next/link";
 import { categories, totalCount } from "@/domains/design/registry";
-import { Search, ArrowRight } from "lucide-react";
 
 export const metadata = {
   title: "Racira Design — 144 Free Design Tools in Your Browser",
@@ -14,7 +14,7 @@ export const metadata = {
 export default function Index() {
   return (
     <div className="min-h-screen">
-      <Header />
+      <Header mode="category" categoryName="Design" />
       <main className="racira-page-container pb-24">
               <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
         <div className="racira-page-container text-center">
@@ -97,19 +97,7 @@ function slugify(s: string) {
   return s.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 }
 
-function Header() {
-  return (
-    <header className="sticky top-0 z-30 backdrop-blur-md bg-background/70 border-b border-border">
-      <div className="racira-page-container h-16 flex items-center justify-between">
-        <Link href="/" className="text-xl font-extrabold tracking-tight">
-          <span className="bg-gradient-to-r from-primary to-fuchsia-400 bg-clip-text text-transparent">Racira</span>{" "}
-          <span className="text-foreground">Design</span>
-        </Link>
-        <div className="text-xs text-muted-foreground">{totalCount} tools</div>
-      </div>
-    </header>
-  );
-}
+
 
 function Footer() {
   return (

@@ -1,19 +1,5 @@
-import {
-  MapPin, Globe, Mountain, Satellite, Map, Layers, Compass, Navigation,
-  Ruler, Square, Hexagon, Calculator, Search, Pin, Crosshair,
-  FileCode, FileText, Download, Upload, Repeat,
-  Activity, BarChart3, Filter, Target, Zap, Grid3x3, Waypoints,
-  Locate, Boxes, GitBranch, Wind, Droplets, Cloud,
-  Building2, TreePine, Camera, Share2, Code2, Box, Workflow,
-  Edit3, Palette, Tag, Type, Eye, CheckCircle2, Merge, Link2, Clock,
-  Flame, Triangle, Layers3, Grid2x2, Telescope, History,
-  Wifi, Radio, FileImage, FileType, Hash, Globe2,
-  Moon, Car, Bike, Ship, Image as ImageIcon, Move, PenTool,
-  Sparkles, Minimize2, GitCompare, Database, Shuffle, ArrowDownUp, Dna,
-  Gauge, Plane, Magnet, Sunrise, MapPinned, Trees, Waves, Lightbulb,
-  Film, HardDrive, CloudDownload, ScanLine, Wand2, Network,
-  AlertTriangle, Thermometer,
-} from "lucide-react";
+import Header from "@/components/Header";
+import { Search } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -32,22 +18,7 @@ import { sections, totalTools, type Tool } from "@/domains/maps/registry";
 export default function Index() {
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <header className="sticky top-0 z-30 border-b border-border bg-background/80 backdrop-blur">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          <a href="/" className="flex items-center gap-2 font-semibold tracking-tight">
-            <span className="grid h-8 w-8 place-items-center rounded-lg bg-primary text-primary-foreground">
-              <MapPin className="h-4 w-4" />
-            </span>
-            <span className="text-lg">
-              <span className="text-primary">Racira</span> Maps & GIS
-            </span>
-          </a>
-          <nav className="hidden items-center gap-6 text-sm text-muted-foreground md:flex">
-            <a href="#tools" className="hover:text-foreground">Tools</a>
-            <a href="#about" className="hover:text-foreground">About</a>
-          </nav>
-        </div>
-      </header>
+      <Header mode="category" categoryName="Maps & GIS" />
 
             <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
         <div className="racira-page-container text-center">

@@ -1,3 +1,4 @@
+import { CategorySearch } from "@/components/CategorySearch";
 import { Search, Dumbbell } from "lucide-react";
 import Header from "@/components/Header";
 import Link from "next/link";
@@ -19,20 +20,7 @@ export default function Home() {
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
             Track your health with BMI calculators, macro trackers, and calorie estimators. No signup required.
           </p>
-          <div className="relative w-full max-w-xl mx-auto">
-            <div className="relative">
-              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4.5 w-4.5 text-muted-foreground pointer-events-none" />
-              <input
-                type="text"
-                placeholder="Search 6+ fitness tools..."
-                className="w-full h-11 pl-10 pr-16 rounded-lg border border-border bg-card text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/40 transition-shadow"
-                aria-label="Search Fitness Tools"
-              />
-              <kbd className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none hidden sm:inline-flex items-center gap-0.5 rounded border border-border bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground">
-                ⌘K
-              </kbd>
-            </div>
-          </div>
+          <CategorySearch categorySlug="fitness" placeholder="Search 6+ fitness tools..." registry={(Array.isArray(categories) ? categories.flatMap((cat: any) => (cat.tools || []).map((t: any) => ({ name: (t as any).name, description: (t as any).description || '', slug: (t as any).slug, href: ((t as any).slug || '').startsWith('/') ? (t as any).slug : `/fitness/tools/${(t as any).slug}`, category: (cat as any).name || (cat as any).title || (cat as any).label || '', isBuilt: (t as any).built !== false }))) : [])} />
         </div>
       </section>
 
@@ -44,11 +32,11 @@ export default function Home() {
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {cat.tools.map((t) => {
-                  const active = FUNCTIONAL_SLUGS.has(t.slug);
+                  const active = FUNCTIONAL_SLUGS.has((t as any).slug);
                   return (
                     <Link
-                      key={t.slug}
-                      href={`/tools/${t.slug}`}
+                      key={(t as any).slug}
+                      href={`/tools/${(t as any).slug}`}
                       className="group relative flex flex-col rounded-2xl border border-border bg-card p-5 hover:-translate-y-[3px] hover:border-primary/40 hover:shadow-[0_8px_24px_hsl(var(--ring)/0.1)] transition-all"
                     >
                       {!active && (
@@ -60,9 +48,9 @@ export default function Home() {
                         <Dumbbell className="h-5 w-5" />
                       </div>
                       <h3 className="font-semibold text-foreground leading-snug">
-                        {t.name}
+                        {(t as any).name}
                       </h3>
-                      <p className="mt-1 text-sm text-muted-foreground line-clamp-2">{t.desc}</p>
+                      <p className="mt-1 text-sm text-muted-foreground line-clamp-2">{(t as any).desc}</p>
                     </Link>
                   );
                 })}

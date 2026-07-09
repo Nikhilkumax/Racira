@@ -211,5 +211,5 @@ export const CATEGORIES: Category[] = [
 }));
 
 export const ALL_TOOLS: Tool[] = CATEGORIES.flatMap((c) => c.tools);
-export const TOOLS_BY_SLUG = new Map(ALL_TOOLS.map((t) => [t.slug, t]));
+export const TOOLS_BY_SLUG = new Map(ALL_TOOLS.map((t) => [(t as any).slug, t]));
 export const TOTAL_TOOLS = ALL_TOOLS.length;

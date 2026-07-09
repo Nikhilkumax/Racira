@@ -1,4 +1,4 @@
-import { Search } from "lucide-react";
+import { CategorySearch } from "@/components/CategorySearch";
 import { TTSHero } from "@/domains/voice/components/tts-sections/TTSHero";
 import { StudioCard } from "@/domains/voice/components/tts/StudioCard";
 import { TTSFeatures } from "@/domains/voice/components/tts-sections/TTSFeatures";
@@ -31,20 +31,7 @@ export default function VoicePage() {
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
             Browser-based tools to record, change pitch, and modulate your voice securely. No signup required.
           </p>
-          <div className="relative w-full max-w-xl mx-auto">
-            <div className="relative">
-              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4.5 w-4.5 text-muted-foreground pointer-events-none" />
-              <input
-                type="text"
-                placeholder="Search 10+ voice tools..."
-                className="w-full h-11 pl-10 pr-16 rounded-lg border border-border bg-card text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/40 transition-shadow"
-                aria-label="Search Voice Tools"
-              />
-              <kbd className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none hidden sm:inline-flex items-center gap-0.5 rounded border border-border bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground">
-                ⌘K
-              </kbd>
-            </div>
-          </div>
+          <CategorySearch categorySlug="voice" placeholder="Search 10+ voice tools..." registry={[]} />
         </div>
       </section>
       

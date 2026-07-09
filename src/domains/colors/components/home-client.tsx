@@ -1,6 +1,5 @@
 "use client";
-import { Search } from "lucide-react";
-
+import { CategorySearch } from "@/components/CategorySearch";
 import { SiteFooter } from "@/domains/colors/components/site-footer";
 import { CategorySection } from "@/domains/colors/components/category-section";
 import { TOOLS } from "@/domains/colors/registry";
@@ -13,7 +12,7 @@ export function HomeClient() {
   ];
   const grouped = order.map((cat) => ({
     cat,
-    tools: TOOLS.filter((t) => t.category === cat),
+    tools: TOOLS.filter((t) => (t as any).category === cat),
   }));
 
   return (
@@ -28,20 +27,7 @@ export function HomeClient() {
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
             Extract palettes, generate gradients, and convert color spaces for your creative projects. No signup required.
           </p>
-          <div className="relative w-full max-w-xl mx-auto">
-            <div className="relative">
-              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4.5 w-4.5 text-muted-foreground pointer-events-none" />
-              <input
-                type="text"
-                placeholder="Search 450+ color tools..."
-                className="w-full h-11 pl-10 pr-16 rounded-lg border border-border bg-card text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/40 transition-shadow"
-                aria-label="Search Color Tools"
-              />
-              <kbd className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none hidden sm:inline-flex items-center gap-0.5 rounded border border-border bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground">
-                ⌘K
-              </kbd>
-            </div>
-          </div>
+          <CategorySearch categorySlug="colors" placeholder="Search 450+ color tools..." registry={(TOOLS || []).map(t => ({ name: (t as any).name, description: (t as any).description || '', slug: (t as any).slug, href: (t as any).slug.startsWith('/') ? (t as any).slug : `/colors/tools/${(t as any).slug}`, category: (t as any).category, icon: (t as any).icon, isBuilt: (t as any).built !== false }))} />
         </div>
       </section>
         {grouped.map(({ cat, tools }) => (

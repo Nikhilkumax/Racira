@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export function generateStaticParams() {
-  return CATEGORIES.flatMap((c) => c.tools.map((t) => ({ slug: t.slug })));
+  return CATEGORIES.flatMap((c) => c.tools.map((t) => ({ slug: (t as any).slug })));
 }
 
 export default async function ToolPage({ params }: Props) {

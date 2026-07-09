@@ -3,6 +3,7 @@ import Header from "@/components/Header";
 import { categories } from "@/domains/business/registry";
 import { SiteFooter } from "@/domains/business/components/SiteHeader";
 import { Search, Wrench, Sparkles } from "lucide-react";
+import { CategorySearch } from "@/components/CategorySearch";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -34,20 +35,7 @@ export default function Landing() {
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
             Calculate ROI, profit margins, and track growth metrics to run your business effectively. No signup required.
           </p>
-          <div className="relative w-full max-w-xl mx-auto">
-            <div className="relative">
-              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4.5 w-4.5 text-muted-foreground pointer-events-none" />
-              <input
-                type="text"
-                placeholder="Search 45+ business tools..."
-                className="w-full h-11 pl-10 pr-16 rounded-lg border border-border bg-card text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/40 transition-shadow"
-                aria-label="Search Business Tools"
-              />
-              <kbd className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none hidden sm:inline-flex items-center gap-0.5 rounded border border-border bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground">
-                ⌘K
-              </kbd>
-            </div>
-          </div>
+          <CategorySearch categorySlug="business" placeholder="Search 45+ business tools..." registry={(Array.isArray(categories) ? categories.flatMap((cat: any) => (cat.tools || []).map((t: any) => ({ name: (t as any).name, description: (t as any).description || '', slug: (t as any).slug, href: ((t as any).slug || '').startsWith('/') ? (t as any).slug : `/business/tools/${(t as any).slug}`, category: (cat as any).label, isBuilt: (t as any).status !== 'soon' }))) : [])} />
         </div>
       </section>
 
@@ -60,8 +48,8 @@ export default function Landing() {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {cat.tools.map((t) => (
                   <Link
-                    key={t.slug}
-                    href={`/tools/${t.slug}`}
+                    key={(t as any).slug}
+                    href={`/tools/${(t as any).slug}`}
                     className="group relative rounded-xl border border-border bg-surface p-5 transition-all hover:border-primary/40 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_-12px_color-mix(in_oklab,var(--primary)_30%,transparent)]"
                   >
                     {t.status === "soon" && (
@@ -76,9 +64,9 @@ export default function Landing() {
                         <Wrench className="h-5 w-5" />
                       )}
                     </div>
-                    <h3 className="font-semibold text-foreground leading-snug">{t.name}</h3>
+                    <h3 className="font-semibold text-foreground leading-snug">{(t as any).name}</h3>
                     <p className="mt-1 text-sm text-muted-foreground leading-relaxed">
-                      {t.description}
+                      {(t as any).description}
                     </p>
                   </Link>
                 ))}

@@ -169,12 +169,12 @@ export const categories: Category[] = [
 // Mark active (fully functional) tools.
 const ACTIVE_SLUGS = new Set(["2d-cad-sketch-tool"]);
 for (const c of categories) {
-  for (const t of c.tools) if (ACTIVE_SLUGS.has(t.slug)) t.active = true;
+  for (const t of c.tools) if (ACTIVE_SLUGS.has((t as any).slug)) t.active = true;
 }
 
 export const allTools: Tool[] = categories.flatMap((c) => c.tools);
 export const totalCount = allTools.length; // sanity: 108
 
-export const findTool = (s: string) => allTools.find((t) => t.slug === s);
+export const findTool = (s: string) => allTools.find((t) => (t as any).slug === s);
 export const findCategoryForTool = (s: string) =>
-  categories.find((c) => c.tools.some((t) => t.slug === s));
+  categories.find((c) => c.tools.some((t) => (t as any).slug === s));

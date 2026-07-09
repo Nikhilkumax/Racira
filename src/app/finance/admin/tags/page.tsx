@@ -31,7 +31,7 @@ export default function TagsPage() {
         <div className="mt-5 flex flex-wrap gap-2">
           {tags.map((t) => (
             <span key={t.id} className="inline-flex items-center gap-1 rounded-full border border-border/60 bg-muted/30 px-3 py-1 text-sm">
-              {t.name}
+              {(t as any).name}
               <button onClick={() => { deleteTag(t.id); force((n) => n + 1); router.refresh(); }} className="text-muted-foreground hover:text-destructive" aria-label="Remove tag">
                 <X className="h-3.5 w-3.5" />
               </button>

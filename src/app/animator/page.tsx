@@ -1,3 +1,4 @@
+import { CategorySearch } from "@/components/CategorySearch";
 import { categories, totalCount } from "@/domains/animator/registry";
 import { Sparkles, Search } from "lucide-react";
 import Link from "next/link";
@@ -14,20 +15,7 @@ export default function Index() {
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
             Generate CSS animations, SVG paths, and keyframe sequences for your web projects. No signup required.
           </p>
-          <div className="relative w-full max-w-xl mx-auto">
-            <div className="relative">
-              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4.5 w-4.5 text-muted-foreground pointer-events-none" />
-              <input
-                type="text"
-                placeholder="Search 130+ animation tools..."
-                className="w-full h-11 pl-10 pr-16 rounded-lg border border-border bg-card text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/40 transition-shadow"
-                aria-label="Search Animation Tools"
-              />
-              <kbd className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none hidden sm:inline-flex items-center gap-0.5 rounded border border-border bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground">
-                ⌘K
-              </kbd>
-            </div>
-          </div>
+          <CategorySearch categorySlug="animator" placeholder="Search 130+ animation tools..." registry={(Array.isArray(categories) ? categories.flatMap((cat: any) => (cat.tools || []).map((t: any) => ({ name: (t as any).name, description: (t as any).description || '', slug: (t as any).slug, href: ((t as any).slug || '').startsWith('/') ? (t as any).slug : `/animator/tools/${(t as any).slug}`, category: (cat as any).name || (cat as any).title || (cat as any).label || '', isBuilt: (t as any).built !== false }))) : [])} />
         </div>
       </section>
 
@@ -40,15 +28,15 @@ export default function Index() {
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
               {cat.tools.map((t) => (
                 <Link
-                  key={t.slug}
-                  href={`/tool/${t.slug}`}
+                  key={(t as any).slug}
+                  href={`/tool/${(t as any).slug}`}
                   className="tool-card group"
                 >
                   <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
                     <Sparkles className="h-5 w-5" />
                   </div>
-                  <h3 className="font-semibold text-foreground leading-snug">{t.name}</h3>
-                  <p className="mt-1 text-sm text-muted-foreground line-clamp-2">{t.desc}</p>
+                  <h3 className="font-semibold text-foreground leading-snug">{(t as any).name}</h3>
+                  <p className="mt-1 text-sm text-muted-foreground line-clamp-2">{(t as any).desc}</p>
                 </Link>
               ))}
             </div>

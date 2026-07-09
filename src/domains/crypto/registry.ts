@@ -212,8 +212,8 @@ for (const [category, name] of extraCategories) {
   TOOLS.push(mk(name, "Coming soon", category));
 }
 
-export const CATEGORIES = Array.from(new Set(TOOLS.map((t) => t.category)));
+export const CATEGORIES = Array.from(new Set(TOOLS.map((t) => (t as any).category)));
 
 export function getTool(slug: string) {
-  return TOOLS.find((t) => t.slug === slug);
+  return TOOLS.find((t) => (t as any).slug === slug);
 }

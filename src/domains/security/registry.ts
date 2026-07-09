@@ -241,6 +241,6 @@ export const categories: ToolCategory[] = Object.keys(groups) as ToolCategory[];
 
 export const totalTools = tools.length;
 
-export const getTool = (slug: string) => tools.find((t) => t.slug === slug);
+export const getTool = (slug: string) => tools.find((t) => (t as any).slug === slug);
 export const toolsByCategory = (cat: ToolCategory) =>
-  tools.filter((t) => t.category === cat);
+  tools.filter((t) => (t as any).category === cat);

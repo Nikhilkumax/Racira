@@ -185,7 +185,7 @@ export const totalCount = allTools.length;
 
 export function findTool(s: string): { tool: Tool; category: string } | null {
   for (const c of categories) {
-    const t = c.tools.find((t) => t.slug === s);
+    const t = c.tools.find((t) => (t as any).slug === s);
     if (t) return { tool: t, category: c.name };
   }
   return null;

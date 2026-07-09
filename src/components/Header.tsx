@@ -12,6 +12,7 @@ import { useTheme } from "@/components/ThemeProvider";
 export interface HeaderProps {
   mode?: "homepage" | "category";
   categoryName?: string;
+  ctaHref?: string;
 }
 
 const nav = [
@@ -22,13 +23,22 @@ const nav = [
   { href: "/#categories", label: "All Categories" },
 ];
 
-const Header = ({ mode = "homepage", categoryName }: HeaderProps) => {
+const Header = ({ mode = "homepage", categoryName, ctaHref: ctaHrefProp }: HeaderProps) => {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const { theme, toggleTheme } = useTheme();
 
   const ctaLabel = "Explore Tools";
-  const ctaHref = "/calculator";
+  
+  let ctaHref = ctaHrefProp;
+  if (!ctaHref) {
+    if (mode === "category" && pathname) {
+      const segments = pathname.split("/").filter(Boolean);
+      ctaHref = segments.length > 0 ? `/${segments[0]}` : "/calculator";
+    } else {
+      ctaHref = "/calculator";
+    }
+  }
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/60 bg-background/80 backdrop-blur-xl">

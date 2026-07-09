@@ -170,7 +170,7 @@ export const ALL_TOOLS: Tool[] = CATEGORIES.flatMap((c) => c.tools);
 
 export function findTool(slugStr: string): { tool: Tool; category: string } | null {
   for (const c of CATEGORIES) {
-    const t = c.tools.find((t) => t.slug === slugStr);
+    const t = c.tools.find((t) => (t as any).slug === slugStr);
     if (t) return { tool: t, category: c.name };
   }
   return null;

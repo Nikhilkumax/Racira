@@ -24,7 +24,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
   }
 
   const related = TOOLS.filter(
-    (t) => t.category === tool.category && t.slug !== tool.slug
+    (t) => (t as any).category === tool.category && (t as any).slug !== tool.slug
   ).slice(0, 8);
 
   return (

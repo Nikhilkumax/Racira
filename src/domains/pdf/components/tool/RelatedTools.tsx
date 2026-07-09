@@ -24,7 +24,7 @@ const RelatedTools = ({ currentSlug, currentCategory }: RelatedToolsProps) => {
 
   // 1) Same category
   for (const t of tools) {
-    if (t.category === currentCategory && t.slug !== currentSlug) pool.push(t);
+    if ((t as any).category === currentCategory && (t as any).slug !== currentSlug) pool.push(t);
   }
 
   // 2) Adjacent categories (before and after)
@@ -35,14 +35,14 @@ const RelatedTools = ({ currentSlug, currentCategory }: RelatedToolsProps) => {
 
   for (const cat of neighbours) {
     for (const t of tools) {
-      if (t.category === cat && t.slug !== currentSlug && !pool.includes(t))
+      if ((t as any).category === cat && (t as any).slug !== currentSlug && !pool.includes(t))
         pool.push(t);
     }
   }
 
   // 3) Everything else
   for (const t of tools) {
-    if (t.slug !== currentSlug && !pool.includes(t)) pool.push(t);
+    if ((t as any).slug !== currentSlug && !pool.includes(t)) pool.push(t);
   }
 
   const related = pool.slice(0, MAX_RELATED);
@@ -61,18 +61,18 @@ const RelatedTools = ({ currentSlug, currentCategory }: RelatedToolsProps) => {
           const Icon = t.icon;
           return (
             <Link
-              key={t.slug}
-              href={`/pdf/${t.slug}`}
+              key={(t as any).slug}
+              href={`/pdf/${(t as any).slug}`}
               className="tool-card group shrink-0 sm:shrink min-w-[220px] sm:min-w-0"
             >
               <div className="tool-card-icon">
                 <Icon className="h-5 w-5 text-primary" />
               </div>
               <h3 className="font-semibold text-foreground leading-snug">
-                {t.name}
+                {(t as any).name}
               </h3>
               <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
-                {t.description}
+                {(t as any).description}
               </p>
             </Link>
           );

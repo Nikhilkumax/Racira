@@ -15,10 +15,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const title = `${t.title} — Racira Colors`;
   return {
     title,
-    description: t.description,
+    description: (t as any).description,
     openGraph: {
       title,
-      description: t.description,
+      description: (t as any).description,
     },
   };
 }
