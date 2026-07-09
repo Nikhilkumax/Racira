@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, Construction } from "lucide-react";
+import { Construction } from "lucide-react";
+import Header from "@/components/Header";
 import { findTool } from "@/domains/writing/registry";
 import { Metadata } from "next";
 import { DistractionFreeEditor } from "@/domains/writing/components/tools/DistractionFreeEditor";
@@ -32,19 +33,7 @@ export default async function ToolPage({ params }: PageProps) {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="sticky top-0 z-30 border-b border-border/70 bg-background/80 backdrop-blur">
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-sm text-muted-foreground transition hover:text-foreground"
-          >
-            <ArrowLeft className="h-4 w-4" /> All tools
-          </Link>
-          <span className="text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
-            {category}
-          </span>
-        </div>
-      </header>
+      <Header mode="category" categoryName="Writing" />
 
       {tool.available && tool.slug === "distraction-free-writing-editor" ? (
         <DistractionFreeEditor />
