@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, Sparkles } from "lucide-react";
+import Header from "@/components/Header";
 import { TOOL_BY_SLUG, TOOLS } from "@/domains/seo/registry";
 import { KeywordDensityChecker } from "@/domains/seo/components/tools/KeywordDensityChecker";
 import { ComingSoon } from "@/domains/seo/components/tools/ComingSoon";
@@ -29,22 +29,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="border-b border-border/60 bg-background/80 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <Link href="/" className="flex items-center gap-2">
-            <div className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-primary to-accent text-primary-foreground">
-              <Sparkles className="h-4 w-4" />
-            </div>
-            <div className="text-base font-semibold tracking-tight">Racira SEO</div>
-          </Link>
-          <Link
-            href="/"
-            className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
-          >
-            <ArrowLeft className="h-3.5 w-3.5" /> All tools
-          </Link>
-        </div>
-      </header>
+      <Header mode="category" categoryName="SEO" />
 
       <main className="racira-page-container py-10">
         <div className="mb-8">
