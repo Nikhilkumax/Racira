@@ -1,5 +1,6 @@
 "use client";
 
+import { CategorySearch } from "@/components/CategorySearch";
 import Header from "@/components/Header";
 import { useMemo, useState } from "react";
 import Link from "next/link";
@@ -14,7 +15,7 @@ export default function FlowchartHomePage() {
     return CATEGORIES.map((c) => ({
       ...c,
       tools: c.tools.filter(
-        (t) => t.name.toLowerCase().includes(q) || t.desc.toLowerCase().includes(q),
+        (t) => (t as any).name.toLowerCase().includes(q) || (t as any).desc.toLowerCase().includes(q),
       ),
     })).filter((c) => c.tools.length > 0);
   }, [query]);
@@ -32,20 +33,7 @@ export default function FlowchartHomePage() {
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
             Build flowcharts, mind maps, and node diagrams with our intuitive visual tools. No signup required.
           </p>
-          <div className="relative w-full max-w-xl mx-auto">
-            <div className="relative">
-              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4.5 w-4.5 text-muted-foreground pointer-events-none" />
-              <input
-                type="text"
-                placeholder="Search 110+ diagram tools..."
-                className="w-full h-11 pl-10 pr-16 rounded-lg border border-border bg-card text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/40 transition-shadow"
-                aria-label="Search Diagram Tools"
-              />
-              <kbd className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none hidden sm:inline-flex items-center gap-0.5 rounded border border-border bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground">
-                ⌘K
-              </kbd>
-            </div>
-          </div>
+          <CategorySearch categorySlug="flowchart" placeholder="Search 110+ diagram tools..." registry={(Array.isArray(CATEGORIES) ? CATEGORIES.flatMap((cat: any) => (cat.tools || []).map((t: any) => ({ name: (t as any).name, description: (t as any).description || '', slug: (t as any).slug, href: ((t as any).slug || '').startsWith('/') ? (t as any).slug : `/flowchart/tools/${(t as any).slug}`, category: (cat as any).name || (cat as any).title || (cat as any).label || '', isBuilt: (t as any).built !== false }))) : [])} />
         </div>
       </section>
 
@@ -57,11 +45,11 @@ export default function FlowchartHomePage() {
               </h2>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
                 {cat.tools.map((t) => {
-                  const active = t.slug === ACTIVE_SLUG;
+                  const active = (t as any).slug === ACTIVE_SLUG;
                   return (
                     <Link
-                      key={t.slug}
-                      href={`/flowchart/tool/${t.slug}`}
+                      key={(t as any).slug}
+                      href={`/flowchart/tool/${(t as any).slug}`}
                       className="tool-card group"
                     >
                       {!active && (
@@ -72,8 +60,8 @@ export default function FlowchartHomePage() {
                       <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
                         <Workflow className="h-5 w-5" />
                       </div>
-                      <h3 className="font-semibold text-foreground leading-snug">{t.name}</h3>
-                      <p className="mt-1 text-sm text-muted-foreground line-clamp-2">{t.desc}</p>
+                      <h3 className="font-semibold text-foreground leading-snug">{(t as any).name}</h3>
+                      <p className="mt-1 text-sm text-muted-foreground line-clamp-2">{(t as any).desc}</p>
                     </Link>
                   );
                 })}

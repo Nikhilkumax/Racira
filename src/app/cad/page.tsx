@@ -16,22 +16,7 @@ const CATEGORY_ICONS: Record<string, React.ComponentType<{ className?: string }>
   "architecture-and-planning": Home,
   "piping-and-hvac": Wind,
   "gd-and-t-and-standards": Crosshair,
-import Link from "next/link";
-import { categories, totalCount } from "@/domains/cad/registry";
-import {
-  Search, Pencil, Ruler, Cog, Building2, CircuitBoard, Home, Wind,
-  Crosshair, Scissors, FileText, ArrowRight, Sparkles,
-} from "lucide-react";
 
-const CATEGORY_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
-  "2d-drafting": Pencil,
-  "measurement-and-geometry": Ruler,
-  "mechanical-engineering-cad": Cog,
-  "structural-and-civil-cad": Building2,
-  "electrical-and-pcb-schematic": CircuitBoard,
-  "architecture-and-planning": Home,
-  "piping-and-hvac": Wind,
-  "gd-and-t-and-standards": Crosshair,
   "cnc-and-fabrication": Scissors,
   "cad-utilities": FileText,
 };

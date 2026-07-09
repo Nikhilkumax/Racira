@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import Link from "next/link";
 import { categories, totalCount } from "@/domains/design/registry";
+import { Search } from "lucide-react";
 
 export const metadata = {
   title: "Racira Design — 144 Free Design Tools in Your Browser",
