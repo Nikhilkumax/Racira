@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, GraduationCap, Construction } from "lucide-react";
+import { Construction } from "lucide-react";
+import Header from "@/components/Header";
 import { findTool } from "@/domains/education/registry";
 import { Button } from "@/components/ui/button";
 import { ToolRenderer } from "@/domains/education/components/tools/ToolRenderer";
@@ -39,21 +40,7 @@ export default async function ToolPage({ params }: PageProps) {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="border-b bg-background/80 backdrop-blur sticky top-0 z-30">
-        <div className="racira-page-container h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
-            <div className="h-8 w-8 rounded-lg bg-primary text-primary-foreground grid place-items-center">
-              <GraduationCap className="h-5 w-5" />
-            </div>
-            <span className="text-lg font-semibold">
-              <span className="text-primary">Racira</span> Education
-            </span>
-          </Link>
-          <Link href="/" className="text-sm text-muted-foreground hover:text-foreground inline-flex items-center gap-1">
-            <ArrowLeft className="h-4 w-4" /> All tools
-          </Link>
-        </div>
-      </header>
+      <Header mode="category" categoryName="Education" />
 
       <div className="racira-page-container py-10">
         <div className="text-xs text-muted-foreground uppercase tracking-widest mb-2">
