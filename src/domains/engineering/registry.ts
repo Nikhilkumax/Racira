@@ -1,3 +1,5 @@
+import { ToolResult } from "@/components/CategorySearch";
+
 export type Category = {
   id: string;
   name: string;
@@ -216,3 +218,15 @@ export const toolsByCategory = categories.map((category) => ({
   category,
   items: tools.filter((tool) => tool.category === category.id),
 }));
+
+export const SEARCH_REGISTRY: ToolResult[] = tools.map((tool) => {
+  const categoryName = categories.find((c) => c.id === tool.category)?.name || tool.category;
+  return {
+    name: tool.name,
+    description: tool.description,
+    slug: tool.slug,
+    href: `/engineering/tool/${tool.slug}`,
+    category: categoryName,
+    isBuilt: tool.built ?? false,
+  };
+});

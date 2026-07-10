@@ -5,7 +5,7 @@ import Header from "@/components/Header";
 import { CategorySearch } from "@/components/CategorySearch";
 
 import { ToolCard } from "@/domains/engineering/components/tool-card";
-import { categories, tools, toolsByCategory } from "@/domains/engineering/registry";
+import { categories, tools, toolsByCategory, SEARCH_REGISTRY } from "@/domains/engineering/registry";
 
 export default function Index() {
   const [activeCat, setActiveCat] = useState<string | "all">("all");
@@ -29,7 +29,7 @@ export default function Index() {
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
             Technical calculators for unit conversions, material properties, and engineering formulas. No signup required.
           </p>
-          <CategorySearch categorySlug="engineering" placeholder="Search 138+ engineering tools..." registry={(tools || []).map((t: any) => ({ name: (t as any).name, description: (t as any).description || '', slug: (t as any).slug, href: ((t as any).slug || '').startsWith('/') ? (t as any).slug : `/engineering/tools/${(t as any).slug}`, category: (t as any).category?.name || '', isBuilt: (t as any).built !== false }))} />
+          <CategorySearch categorySlug="engineering" placeholder="Search 138+ engineering tools..." registry={SEARCH_REGISTRY} />
         </div>
       </section>
 
