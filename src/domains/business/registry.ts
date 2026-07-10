@@ -1,3 +1,5 @@
+import { ToolResult } from "@/components/CategorySearch";
+
 export type ToolStatus = "available" | "soon";
 
 export interface Tool {
@@ -113,3 +115,14 @@ export function findTool(slugStr: string): { tool: Tool; category: ToolCategory 
   }
   return null;
 }
+
+export const SEARCH_REGISTRY: ToolResult[] = categories.flatMap((cat) =>
+  cat.tools.map((tool) => ({
+    name: tool.name,
+    description: tool.description,
+    slug: tool.slug,
+    href: `/business/tools/${tool.slug}`,
+    category: cat.label,
+    isBuilt: tool.status === "available",
+  }))
+);

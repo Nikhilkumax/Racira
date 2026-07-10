@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Header from "@/components/Header";
-import { categories } from "@/domains/business/registry";
+import { categories, SEARCH_REGISTRY } from "@/domains/business/registry";
 import { SiteFooter } from "@/domains/business/components/SiteHeader";
 import { Search, Wrench, Sparkles } from "lucide-react";
 import { CategorySearch } from "@/components/CategorySearch";
@@ -35,7 +35,7 @@ export default function Landing() {
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
             Calculate ROI, profit margins, and track growth metrics to run your business effectively. No signup required.
           </p>
-          <CategorySearch categorySlug="business" placeholder="Search 45+ business tools..." registry={(Array.isArray(categories) ? categories.flatMap((cat: any) => (cat.tools || []).map((t: any) => ({ name: (t as any).name, description: (t as any).description || '', slug: (t as any).slug, href: ((t as any).slug || '').startsWith('/') ? (t as any).slug : `/business/tools/${(t as any).slug}`, category: (cat as any).label, isBuilt: (t as any).status !== 'soon' }))) : [])} />
+          <CategorySearch categorySlug="business" placeholder="Search 45+ business tools..." registry={SEARCH_REGISTRY} />
         </div>
       </section>
 
