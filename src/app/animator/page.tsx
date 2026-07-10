@@ -1,5 +1,5 @@
 import { CategorySearch } from "@/components/CategorySearch";
-import { categories, totalCount } from "@/domains/animator/registry";
+import { categories, totalCount, SEARCH_REGISTRY } from "@/domains/animator/registry";
 import { Sparkles, Search } from "lucide-react";
 import Link from "next/link";
 
@@ -15,7 +15,7 @@ export default function Index() {
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
             Generate CSS animations, SVG paths, and keyframe sequences for your web projects. No signup required.
           </p>
-          <CategorySearch categorySlug="animator" placeholder="Search 130+ animation tools..." registry={(Array.isArray(categories) ? categories.flatMap((cat: any) => (cat.tools || []).map((t: any) => ({ name: (t as any).name, description: (t as any).description || '', slug: (t as any).slug, href: ((t as any).slug || '').startsWith('/') ? (t as any).slug : `/animator/tools/${(t as any).slug}`, category: (cat as any).name || (cat as any).title || (cat as any).label || '', isBuilt: (t as any).built !== false }))) : [])} />
+          <CategorySearch categorySlug="animator" placeholder="Search 130+ animation tools..." registry={SEARCH_REGISTRY} />
         </div>
       </section>
 

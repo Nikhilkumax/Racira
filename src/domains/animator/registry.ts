@@ -1,3 +1,5 @@
+import { ToolResult } from "@/components/CategorySearch";
+
 export type Tool = { name: string; slug: string; desc: string };
 export type Category = { name: string; tools: Tool[] };
 
@@ -190,3 +192,14 @@ export function findTool(s: string): { tool: Tool; category: string } | null {
   }
   return null;
 }
+
+export const SEARCH_REGISTRY: ToolResult[] = categories.flatMap((cat) =>
+  cat.tools.map((tool) => ({
+    name: tool.name,
+    description: tool.desc,
+    slug: tool.slug,
+    href: `/animator/tool/${tool.slug}`,
+    category: cat.name,
+    isBuilt: false,
+  }))
+);
