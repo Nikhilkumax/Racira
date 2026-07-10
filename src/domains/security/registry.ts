@@ -1,5 +1,6 @@
+import { ToolResult } from "@/components/CategorySearch";
+
 // Registry of 175 Security & Privacy tools.
-// `live` tools have a real implementation; others render a Coming Soon screen.
 
 export type ToolCategory =
   | "Password Tools"
@@ -244,3 +245,12 @@ export const totalTools = tools.length;
 export const getTool = (slug: string) => tools.find((t) => (t as any).slug === slug);
 export const toolsByCategory = (cat: ToolCategory) =>
   tools.filter((t) => (t as any).category === cat);
+
+export const SEARCH_REGISTRY: ToolResult[] = tools.map((tool) => ({
+  name: tool.name,
+  description: tool.description,
+  slug: tool.slug,
+  href: `/security/tool/${tool.slug}`,
+  category: tool.category,
+  isBuilt: tool.live ?? false,
+}));

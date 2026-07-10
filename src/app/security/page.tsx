@@ -4,7 +4,7 @@ import Link from "next/link";
 import { CategorySearch } from "@/components/CategorySearch";
 import { Search, ShieldCheck, Lock, KeyRound, Hash, Binary, EyeOff, Network, UserCheck, ClipboardCheck, Bug, Scale, Wrench, ArrowRight } from "lucide-react";
 import { Layout } from "@/domains/security/components/Layout";
-import { categories, tools, toolsByCategory, totalTools, type ToolCategory } from "@/domains/security/registry";
+import { categories, tools, toolsByCategory, totalTools, SEARCH_REGISTRY, type ToolCategory } from "@/domains/security/registry";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 
@@ -34,7 +34,7 @@ export default function Home() {
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
             Generate secure passwords, hash data, and manage keys safely in your browser. No signup required.
           </p>
-          <CategorySearch categorySlug="security" placeholder="Search 170+ security tools..." registry={(tools || []).map((t: any) => ({ name: (t as any).name, description: (t as any).description || '', slug: (t as any).slug, href: ((t as any).slug || '').startsWith('/') ? (t as any).slug : `/security/tools/${(t as any).slug}`, category: (t as any).category, isBuilt: (t as any).built !== false }))} />
+          <CategorySearch categorySlug="security" placeholder="Search 170+ security tools..." registry={SEARCH_REGISTRY} />
         </div>
       </section>
 
