@@ -1,5 +1,5 @@
 import { CategorySearch } from "@/components/CategorySearch";
-import { tools, categories } from "@/data/developers/tools";
+import { tools, categories, SEARCH_REGISTRY } from "@/data/developers/tools";
 import { ToolCard } from "@/components/developers/tool-card";
 import { ToolSearch } from "@/components/developers/tool-search";
 import { Metadata } from "next";
@@ -29,7 +29,7 @@ export default function Index() {
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
             Essential utilities for developers including JSON formatters, Base64 encoders, and decoders. No signup required.
           </p>
-          <CategorySearch categorySlug="developers" placeholder="Search 290+ developer tools..." registry={(tools || []).map((t: any) => ({ name: (t as any).name, description: (t as any).description || '', slug: (t as any).slug, href: ((t as any).slug || '').startsWith('/') ? (t as any).slug : `/developers/tools/${(t as any).category}/${(t as any).slug}`, category: (t as any).category, isBuilt: (t as any).built !== false }))} />
+          <CategorySearch categorySlug="developers" placeholder="Search 290+ developer tools..." registry={SEARCH_REGISTRY} />
         </div>
       </section>
 

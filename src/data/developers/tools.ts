@@ -1,3 +1,4 @@
+import { ToolResult } from "@/components/CategorySearch";
 import {
   Braces, Code2, FileCode2, FileJson, FileText, Type, Hash, AlignLeft,
   ArrowDownAZ, Eraser, Copy, ListOrdered, ScanText,
@@ -394,3 +395,12 @@ export function findTool(catSlug: string, toolSlug: string) {
   if (!tool) return null;
   return { tool, categoryName };
 }
+
+export const SEARCH_REGISTRY: ToolResult[] = tools.map((t) => ({
+  name: t.name,
+  description: t.description,
+  slug: t.slug,
+  href: `/developers/tools/${categorySlug(t.category)}/${t.slug}`,
+  category: t.category,
+  isBuilt: true,
+}));
