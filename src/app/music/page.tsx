@@ -2,7 +2,7 @@ import { CategorySearch } from "@/components/CategorySearch";
 ﻿import { SiteFooter } from "@/domains/music/components/site-chrome";
 import Header from "@/components/Header";
 import { ToolCard } from "@/domains/music/components/tool-card";
-import { categories, totalTools } from "@/domains/music/registry";
+import { categories, totalTools, SEARCH_REGISTRY } from "@/domains/music/registry";
 
 export default function HomePage() {
   return (
@@ -18,7 +18,7 @@ export default function HomePage() {
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
             Essential tools for musicians including BPM counters, scale references, and online tuners. No signup required.
           </p>
-          <CategorySearch categorySlug="music" placeholder="Search 30+ music tools..." registry={(categories || []).flatMap((cat: any) => (cat.tools || []).map((t: any) => ({ name: (t as any).name, description: (t as any).description || '', slug: (t as any).slug, href: ((t as any).slug || '').startsWith('/') ? (t as any).slug : `/music/tools/${(t as any).slug}`, category: (cat as any).name || (cat as any).title || (cat as any).label || '', isBuilt: (t as any).built !== false })))} />
+          <CategorySearch categorySlug="music" placeholder="Search 30+ music tools..." registry={SEARCH_REGISTRY} />
         </div>
       </section>
 

@@ -1,3 +1,5 @@
+import { ToolResult } from "@/components/CategorySearch";
+
 export type Tool = {
   name: string;
   slug: string;
@@ -235,3 +237,14 @@ export const totalTools = allTools.length;
 export const findTool = (slug: string) => allTools.find((t) => (t as any).slug === slug);
 export const findCategoryOfTool = (slug: string) =>
   categories.find((c) => c.tools.some((t) => (t as any).slug === slug));
+
+export const SEARCH_REGISTRY: ToolResult[] = categories.flatMap((cat) =>
+  cat.tools.map((tool) => ({
+    name: tool.name,
+    description: tool.description,
+    slug: tool.slug,
+    href: `/music/tool/${tool.slug}`,
+    category: cat.name,
+    isBuilt: false,
+  }))
+);
