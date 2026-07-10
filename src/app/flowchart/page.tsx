@@ -4,7 +4,7 @@ import { CategorySearch } from "@/components/CategorySearch";
 import Header from "@/components/Header";
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { CATEGORIES, ACTIVE_SLUG, ALL_TOOLS } from "@/domains/flowchart/registry";
+import { CATEGORIES, ACTIVE_SLUG, ALL_TOOLS, SEARCH_REGISTRY } from "@/domains/flowchart/registry";
 import { Search,  Workflow  } from "lucide-react";
 
 export default function FlowchartHomePage() {
@@ -33,7 +33,7 @@ export default function FlowchartHomePage() {
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
             Build flowcharts, mind maps, and node diagrams with our intuitive visual tools. No signup required.
           </p>
-          <CategorySearch categorySlug="flowchart" placeholder="Search 110+ diagram tools..." registry={(Array.isArray(CATEGORIES) ? CATEGORIES.flatMap((cat: any) => (cat.tools || []).map((t: any) => ({ name: (t as any).name, description: (t as any).description || '', slug: (t as any).slug, href: ((t as any).slug || '').startsWith('/') ? (t as any).slug : `/flowchart/tools/${(t as any).slug}`, category: (cat as any).name || (cat as any).title || (cat as any).label || '', isBuilt: (t as any).built !== false }))) : [])} />
+          <CategorySearch categorySlug="flowchart" placeholder="Search 110+ diagram tools..." registry={SEARCH_REGISTRY} />
         </div>
       </section>
 
