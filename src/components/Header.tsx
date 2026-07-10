@@ -8,6 +8,7 @@ import { Menu, X, Sun, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/components/ThemeProvider";
+import { categories } from "@/data/tools";
 
 export interface HeaderProps {
   mode?: "homepage" | "category";
@@ -31,26 +32,37 @@ const Header = ({ mode = "homepage", categoryName, ctaHref: ctaHrefProp }: Heade
   const ctaLabel = "Explore Tools";
   
   let ctaHref = ctaHrefProp;
+  const segments = pathname?.split("/").filter(Boolean) || [];
+  const currentSlug = segments.length > 0 ? segments[0].toLowerCase() : "";
+
   if (!ctaHref) {
     if (mode === "category" && pathname) {
-      const segments = pathname.split("/").filter(Boolean);
       ctaHref = segments.length > 0 ? `/${segments[0]}` : "/calculator";
     } else {
       ctaHref = "/calculator";
     }
   }
 
+  const activeCategory = mode === "category" ? categories.find(c => c.slug === currentSlug) : undefined;
+  const CategoryIcon = activeCategory?.icon;
+
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/60 bg-background/80 backdrop-blur-xl">
       <div className="racira-page-container flex h-16 items-center justify-between">
         <Link href="/" className="flex items-center gap-2.5">
-          <Image 
-            src="/racira-logo-navbar.png" 
-            alt="Racira Logo" 
-            width={32} 
-            height={32} 
-            className="h-8 w-8 object-contain"
-          />
+          {CategoryIcon ? (
+            <div className="flex shrink-0 items-center justify-center rounded-lg bg-[hsl(var(--tool-icon-bg))] h-8 w-8">
+              <CategoryIcon className="h-[18px] w-[18px] text-primary" strokeWidth={2.5} />
+            </div>
+          ) : (
+            <Image 
+              src="/racira-logo-navbar.png" 
+              alt="Racira Logo" 
+              width={32} 
+              height={32} 
+              className="h-8 w-8 object-contain"
+            />
+          )}
           <span className="text-lg font-bold tracking-tight text-foreground">
             Racira
             {mode === "category" && categoryName && (
