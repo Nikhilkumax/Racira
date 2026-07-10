@@ -1,7 +1,7 @@
 import { CategorySearch } from "@/components/CategorySearch";
 import Header from "@/components/Header";
 import Link from "next/link";
-import { categories, totalCount } from "@/domains/cad/registry";
+import { categories, totalCount, SEARCH_REGISTRY } from "@/domains/cad/registry";
 import {
   Search, Pencil, Ruler, Cog, Building2, CircuitBoard, Home, Wind,
   Crosshair, Scissors, FileText, ArrowRight, Sparkles,
@@ -84,7 +84,7 @@ function Hero() {
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
             Essential utilities for viewing, measuring, and converting CAD and DXF files. No signup required.
           </p>
-          <CategorySearch categorySlug="cad" placeholder="Search 3+ CAD tools..." registry={(Array.isArray(categories) ? categories.flatMap((cat: any) => (cat.tools || []).map((t: any) => ({ name: (t as any).name, description: (t as any).description || '', slug: (t as any).slug, href: ((t as any).slug || '').startsWith('/') ? (t as any).slug : `/cad/tools/${(t as any).slug}`, category: (cat as any).name || (cat as any).title || (cat as any).label || '', isBuilt: (t as any).built !== false }))) : [])} />
+          <CategorySearch categorySlug="cad" placeholder="Search 3+ CAD tools..." registry={SEARCH_REGISTRY} />
         </div>
       </section>
   );

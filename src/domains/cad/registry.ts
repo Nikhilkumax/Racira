@@ -1,3 +1,5 @@
+import { ToolResult } from "@/components/CategorySearch";
+
 // Centralized tool catalog: 108 CAD tools across 10 categories.
 export type Tool = {
   slug: string;
@@ -178,3 +180,14 @@ export const totalCount = allTools.length; // sanity: 108
 export const findTool = (s: string) => allTools.find((t) => (t as any).slug === s);
 export const findCategoryForTool = (s: string) =>
   categories.find((c) => c.tools.some((t) => (t as any).slug === s));
+
+export const SEARCH_REGISTRY: ToolResult[] = categories.flatMap((cat) =>
+  cat.tools.map((tool) => ({
+    name: tool.name,
+    description: tool.desc,
+    slug: tool.slug,
+    href: `/cad/tools/${tool.slug}`,
+    category: cat.title,
+    isBuilt: tool.active === true,
+  }))
+);
