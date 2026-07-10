@@ -2,7 +2,7 @@ import { CategorySearch } from "@/components/CategorySearch";
 import { Search, Dumbbell } from "lucide-react";
 import Header from "@/components/Header";
 import Link from "next/link";
-import { categories, FUNCTIONAL_SLUGS } from "@/domains/fitness/registry";
+import { categories, FUNCTIONAL_SLUGS, SEARCH_REGISTRY } from "@/domains/fitness/registry";
 
 
 export default function Home() {
@@ -20,7 +20,7 @@ export default function Home() {
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
             Track your health with BMI calculators, macro trackers, and calorie estimators. No signup required.
           </p>
-          <CategorySearch categorySlug="fitness" placeholder="Search 6+ fitness tools..." registry={(Array.isArray(categories) ? categories.flatMap((cat: any) => (cat.tools || []).map((t: any) => ({ name: (t as any).name, description: (t as any).description || '', slug: (t as any).slug, href: ((t as any).slug || '').startsWith('/') ? (t as any).slug : `/fitness/tools/${(t as any).slug}`, category: (cat as any).name || (cat as any).title || (cat as any).label || '', isBuilt: (t as any).built !== false }))) : [])} />
+          <CategorySearch categorySlug="fitness" placeholder="Search 6+ fitness tools..." registry={SEARCH_REGISTRY} />
         </div>
       </section>
 

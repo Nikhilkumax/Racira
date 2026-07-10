@@ -1,3 +1,5 @@
+import { ToolResult } from "@/components/CategorySearch";
+
 export type Tool = { name: string; desc: string; slug: string };
 export type Category = { name: string; tools: Tool[] };
 
@@ -184,3 +186,14 @@ export const findCategory = (slug: string) =>
   categories.find((c) => c.tools.some((t) => (t as any).slug === slug));
 
 export const FUNCTIONAL_SLUGS = new Set(["workout-planner"]);
+
+export const SEARCH_REGISTRY: ToolResult[] = categories.flatMap((cat) =>
+  cat.tools.map((tool) => ({
+    name: tool.name,
+    description: tool.desc,
+    slug: tool.slug,
+    href: `/fitness/tools/${tool.slug}`,
+    category: cat.name,
+    isBuilt: FUNCTIONAL_SLUGS.has(tool.slug),
+  }))
+);
