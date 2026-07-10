@@ -1,5 +1,5 @@
 import { CategorySearch } from "@/components/CategorySearch";
-﻿import { CATEGORY_ORDER, TOOLS, TOOLS_BY_CATEGORY } from "@/data/video/tools";
+﻿import { CATEGORY_ORDER, TOOLS, TOOLS_BY_CATEGORY, SEARCH_REGISTRY } from "@/data/video/tools";
 import { ToolCard } from "@/components/video/ToolCard";
 import type { Metadata } from "next";
 
@@ -29,7 +29,7 @@ export default function Home() {
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
             Basic video utilities to trim, crop, and convert formats without heavy software. No signup required.
           </p>
-          <CategorySearch categorySlug="video" placeholder="Search 4+ video tools..." registry={(TOOLS || []).map((t: any) => ({ name: (t as any).name, description: (t as any).description || '', slug: (t as any).slug, href: ((t as any).slug || '').startsWith('/') ? (t as any).slug : `/video/tools/${(t as any).slug}`, category: (t as any).category, isBuilt: (t as any).built !== false }))} />
+          <CategorySearch categorySlug="video" placeholder="Search 4+ video tools..." registry={SEARCH_REGISTRY} />
         </div>
       </section>
 

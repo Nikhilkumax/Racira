@@ -1,3 +1,5 @@
+import { ToolResult } from "@/components/CategorySearch";
+
 export type ToolStatus = "live" | "soon";
 
 export interface Tool {
@@ -236,3 +238,12 @@ export const TOOLS_BY_CATEGORY: Record<string, Tool[]> = CATEGORY_ORDER.reduce(
 export const TOOL_BY_SLUG: Record<string, Tool> = Object.fromEntries(
   TOOLS.map((t) => [t.slug, t]),
 );
+
+export const SEARCH_REGISTRY: ToolResult[] = TOOLS.map((tool) => ({
+  name: tool.name,
+  description: tool.description,
+  slug: tool.slug,
+  href: `/video/tools/${tool.slug}`,
+  category: tool.category,
+  isBuilt: tool.status === "live",
+}));
