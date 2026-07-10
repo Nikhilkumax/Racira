@@ -1,3 +1,5 @@
+import { ToolResult } from "@/components/CategorySearch";
+
 export type Tool = {
   id: number;
   name: string;
@@ -137,3 +139,21 @@ export const CATEGORIES: Category[] = [
 ];
 
 export const TOTAL_TOOLS = CATEGORIES.reduce((n, c) => n + c.tools.length, 0);
+
+const slugify = (s: string) =>
+  s
+    .toLowerCase()
+    .replace(/&/g, "and")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+
+export const SEARCH_REGISTRY: ToolResult[] = CATEGORIES.flatMap((cat) =>
+  cat.tools.map((tool) => ({
+    name: tool.name,
+    description: "",
+    slug: tool.slug || slugify(tool.name),
+    href: tool.slug ? `/productivity/tools/${tool.slug}` : "/productivity#tools",
+    category: cat.name,
+    isBuilt: tool.available === true,
+  }))
+);

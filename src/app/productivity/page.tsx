@@ -1,11 +1,11 @@
-﻿"use client";
+"use client";
 import { CategorySearch } from "@/components/CategorySearch";
 
 import Link from "next/link";
 import Header from "@/components/Header";
 import { useMemo, useState } from "react";
 import { Search, Sparkles } from "lucide-react";
-import { CATEGORIES, TOTAL_TOOLS } from "@/data/productivity/tools";
+import { CATEGORIES, TOTAL_TOOLS, SEARCH_REGISTRY } from "@/data/productivity/tools";
 import { CategorySection } from "@/components/productivity/CategorySection";
 
 import { SiteFooter } from "@/components/productivity/SiteFooter";
@@ -35,7 +35,7 @@ export default function Index() {
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
             Boost your workflow with Pomodoro timers, planners, and task tracking utilities. No signup required.
           </p>
-          <CategorySearch categorySlug="productivity" placeholder="Search 74+ productivity tools..." registry={(Array.isArray(CATEGORIES) ? CATEGORIES.flatMap((cat: any) => (cat.tools || []).map((t: any) => ({ name: (t as any).name, description: (t as any).description || '', slug: (t as any).slug, href: ((t as any).slug || '').startsWith('/') ? (t as any).slug : `/productivity/tools/${(t as any).slug}`, category: (cat as any).name || (cat as any).title || (cat as any).label || '', isBuilt: (t as any).built !== false }))) : [])} />
+          <CategorySearch categorySlug="productivity" placeholder="Search 74+ productivity tools..." registry={SEARCH_REGISTRY} />
         </div>
       </section>
 
