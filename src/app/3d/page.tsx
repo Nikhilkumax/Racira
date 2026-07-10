@@ -1,6 +1,6 @@
 import { CategorySearch } from "@/components/CategorySearch";
 import Link from "next/link";
-import { CATEGORIES, TOTAL_TOOLS } from "@/domains/3d/registry";
+import { CATEGORIES, TOTAL_TOOLS, SEARCH_REGISTRY } from "@/domains/3d/registry";
 import { SiteShell } from "@/domains/3d/components/SiteShell";
 import {
   Search, Eye, Box, Printer, Layers, Droplet, Wallet, Palette, Film,
@@ -33,7 +33,7 @@ export default function Index() {
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
             Browser-based 3D model viewers, format converters, and spatial utilities. No signup required.
           </p>
-          <CategorySearch categorySlug="3d" placeholder="Search 120+ 3D tools..." registry={(Array.isArray(CATEGORIES) ? CATEGORIES.flatMap((cat: any) => (cat.tools || []).map((t: any) => ({ name: (t as any).name, description: (t as any).description || '', slug: (t as any).slug, href: ((t as any).slug || '').startsWith('/') ? (t as any).slug : `/3d/tools/${(t as any).slug}`, category: (cat as any).name || (cat as any).title || (cat as any).label || '', isBuilt: (t as any).built !== false }))) : [])} />
+          <CategorySearch categorySlug="3d" placeholder="Search 120+ 3D tools..." registry={SEARCH_REGISTRY} />
         </div>
       </section>
 

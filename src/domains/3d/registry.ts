@@ -1,3 +1,5 @@
+import { ToolResult } from "@/components/CategorySearch";
+
 export type Tool = {
   slug: string;
   name: string;
@@ -213,3 +215,12 @@ export const CATEGORIES: Category[] = [
 export const ALL_TOOLS: Tool[] = CATEGORIES.flatMap((c) => c.tools);
 export const TOOLS_BY_SLUG = new Map(ALL_TOOLS.map((t) => [(t as any).slug, t]));
 export const TOTAL_TOOLS = ALL_TOOLS.length;
+
+export const SEARCH_REGISTRY: ToolResult[] = ALL_TOOLS.map((tool) => ({
+  name: tool.name,
+  description: tool.description,
+  slug: tool.slug,
+  href: `/3d/tool/${tool.slug}`,
+  category: tool.category,
+  isBuilt: tool.built ?? false,
+}));
