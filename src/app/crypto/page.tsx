@@ -6,7 +6,7 @@ import Header from "@/components/Header";
 import { useMemo, useState } from "react";
 import { Search, ArrowRight, Wallet, Send, FileCode, Lock, Coins, Image, BarChart3, GraduationCap, Wrench } from "lucide-react";
 
-import { TOOLS, CATEGORIES } from "@/domains/crypto/registry";
+import { TOOLS, CATEGORIES, SEARCH_REGISTRY } from "@/domains/crypto/registry";
 
 const CATEGORY_ICONS: Record<string, typeof Wallet> = {
   "Wallet & Address": Wallet,
@@ -42,7 +42,7 @@ export default function Index() {
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
             Essential utilities for crypto conversion, hashing, and blockchain tracking. No signup required.
           </p>
-          <CategorySearch categorySlug="crypto" placeholder="Search 100+ crypto tools..." registry={(TOOLS || []).map((t: any) => ({ name: (t as any).name, description: (t as any).description || '', slug: (t as any).slug, href: ((t as any).slug || '').startsWith('/') ? (t as any).slug : `/crypto/tools/${(t as any).slug}`, category: (t as any).category, isBuilt: (t as any).built !== false }))} />
+          <CategorySearch categorySlug="crypto" placeholder="Search 100+ crypto tools..." registry={SEARCH_REGISTRY} />
         </div>
       </section>
 

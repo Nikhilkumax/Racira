@@ -1,3 +1,5 @@
+import { ToolResult } from "@/components/CategorySearch";
+
 export type Tool = {
   slug: string;
   name: string;
@@ -217,3 +219,12 @@ export const CATEGORIES = Array.from(new Set(TOOLS.map((t) => (t as any).categor
 export function getTool(slug: string) {
   return TOOLS.find((t) => (t as any).slug === slug);
 }
+
+export const SEARCH_REGISTRY: ToolResult[] = TOOLS.map((t) => ({
+  name: t.name,
+  description: t.desc,
+  slug: t.slug,
+  href: `/crypto/tool/${t.slug}`,
+  category: t.category,
+  isBuilt: t.implemented === true,
+}));
