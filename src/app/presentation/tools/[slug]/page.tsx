@@ -57,7 +57,7 @@ export default async function ToolPage({ params }: Props) {
         </Link>
 
         <div className="mt-10 rounded-2xl border border-border bg-card p-10 text-center">
-          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-primary-soft text-primary">
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 text-primary">
             <Icon className="h-8 w-8" />
           </div>
           <h1 className="mt-6 text-3xl font-bold tracking-tight text-card-foreground sm:text-4xl">
@@ -67,7 +67,7 @@ export default async function ToolPage({ params }: Props) {
             {tool.description}
           </p>
 
-          <div className="mx-auto mt-8 inline-flex items-center gap-2 rounded-full bg-primary-soft px-4 py-1.5 text-sm font-medium text-primary">
+          <div className="mx-auto mt-8 inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary">
             <Sparkles className="h-3.5 w-3.5" />
             Coming Soon
           </div>
