@@ -9,6 +9,7 @@ import {
   getGamesByCategory,
   getTotalGameCount,
   searchGames,
+  SEARCH_REGISTRY,
   type Game,
 } from "@/data/games/games";
 import { GameCard } from "@/components/games/GameCard";
@@ -47,7 +48,7 @@ function HomeContent() {
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
             Relax with browser-based casual games, logic puzzles, and brain teasers. No signup required.
           </p>
-          <CategorySearch categorySlug="games" placeholder="Search 10+ games..." registry={categories.flatMap(c => getGamesByCategory(c.name)).map((t: any) => ({ name: (t as any).name, description: (t as any).description || '', slug: (t as any).slug, href: `/games/${(t as any).slug}`, category: (t as any).category, isBuilt: true }))} />
+          <CategorySearch categorySlug="games" placeholder="Search 10+ games..." registry={SEARCH_REGISTRY} />
         </div>
       </section>
 

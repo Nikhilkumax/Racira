@@ -1,3 +1,4 @@
+import { ToolResult } from "@/components/CategorySearch";
 import {
   Puzzle,
   Type,
@@ -928,6 +929,18 @@ export const getCategories = () => CATEGORIES;
 
 export const getGamesByCategory = (categoryName: string): Game[] =>
   getAllGames().filter((g) => g.category === categoryName);
+
+
+export const SEARCH_REGISTRY: ToolResult[] = CATEGORIES.flatMap((cat) =>
+  getGamesByCategory(cat.name).map((game) => ({
+    name: game.title,
+    description: `${game.category} > ${game.subcategory}`,
+    slug: game.slug,
+    href: `/games/game/${game.slug}`,
+    category: game.category,
+    isBuilt: false, // All games currently route to a "Coming Soon" GameClient
+  }))
+);
 
 export const searchGames = (query: string): Game[] => {
   const q = query.trim().toLowerCase();
