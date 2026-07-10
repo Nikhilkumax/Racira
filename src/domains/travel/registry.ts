@@ -208,6 +208,6 @@ export const SEARCH_REGISTRY: ToolResult[] = categories.flatMap((cat) =>
     slug: tool.slug,
     href: `/travel/tool/${tool.slug}`,
     category: cat.name,
-    isBuilt: false, // No status field in schema, all tools are pending
+    isBuilt: tool.slug === "trip-itinerary-builder",
   }))
 );
