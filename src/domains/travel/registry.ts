@@ -1,3 +1,5 @@
+import { ToolResult } from "@/components/CategorySearch";
+
 export type Tool = { name: string; slug: string; desc: string };
 export type Category = { name: string; tools: Tool[] };
 
@@ -198,3 +200,14 @@ export const totalCount = allTools.length;
 export const findTool = (slug: string) => allTools.find((t) => (t as any).slug === slug);
 export const findCategoryOfTool = (slug: string) =>
   categories.find((c) => c.tools.some((t) => (t as any).slug === slug));
+
+export const SEARCH_REGISTRY: ToolResult[] = categories.flatMap((cat) =>
+  cat.tools.map((tool) => ({
+    name: tool.name,
+    description: tool.desc,
+    slug: tool.slug,
+    href: `/travel/tool/${tool.slug}`,
+    category: cat.name,
+    isBuilt: false, // No status field in schema, all tools are pending
+  }))
+);

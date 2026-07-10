@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Header from "@/components/Header";
-import { categories, totalCount } from "@/domains/travel/registry";
+import { categories, totalCount, SEARCH_REGISTRY } from "@/domains/travel/registry";
 import { categoryIcons, fallbackIcon } from "@/domains/travel/lib/category-icons";
 import { SiteFooter } from "@/domains/travel/components/site-chrome";
 import { Search,  Compass  } from "lucide-react";
@@ -20,7 +20,7 @@ export default function Home() {
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
             Plan your trips with currency converters, time zone calculators, and distance metrics. No signup required.
           </p>
-          <CategorySearch categorySlug="travel" placeholder="Search 120+ travel tools..." registry={(categories || []).flatMap((cat: any) => (cat.tools || []).map((t: any) => ({ name: (t as any).name, description: (t as any).desc || '', slug: (t as any).slug, href: `/tool/${(t as any).slug}`, category: (cat as any).name || (cat as any).title || (cat as any).label || '', isBuilt: false })))} />
+          <CategorySearch categorySlug="travel" placeholder="Search 120+ travel tools..." registry={SEARCH_REGISTRY} />
         </div>
       </section>
 
