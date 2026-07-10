@@ -46,7 +46,7 @@ export default function Index() {
             <section key={cat.name} id={id} className="scroll-mt-20">
               <div className="mb-5 flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary-soft text-primary">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
                     <Icon className="h-4 w-4" />
                   </span>
                   <div>
