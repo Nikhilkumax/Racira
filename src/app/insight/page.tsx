@@ -1,5 +1,5 @@
 import { CategorySearch } from "@/components/CategorySearch";
-import { CATEGORIES } from "@/domains/insight/registry";
+import { CATEGORIES, SEARCH_REGISTRY } from "@/domains/insight/registry";
 import Header from "@/components/Header";
 import { CategorySection } from "@/domains/insight/components/CategorySection";
 
@@ -19,7 +19,7 @@ export default function Index() {
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
             Clean, convert, and format data across CSV, JSON, and XML formats instantly. No signup required.
           </p>
-          <CategorySearch categorySlug="insight" placeholder="Search 10+ data tools..." registry={(Array.isArray(CATEGORIES) ? CATEGORIES.flatMap((cat: any) => (cat.tools || []).map((t: any) => ({ name: (t as any).name, description: (t as any).description || '', slug: (t as any).slug, href: ((t as any).slug || '').startsWith('/') ? (t as any).slug : `/insight/tools/${(t as any).slug}`, category: (cat as any).name || (cat as any).title || (cat as any).label || '', isBuilt: (t as any).built !== false }))) : [])} />
+          <CategorySearch categorySlug="insight" placeholder="Search 10+ data tools..." registry={SEARCH_REGISTRY} />
         </div>
       </section>
 
