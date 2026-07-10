@@ -5,7 +5,7 @@ import { useMemo, useState } from "react";
 import Header from "@/components/Header";
 import Link from "next/link";
 import { Search, ArrowRight, Aperture, Sparkles } from "lucide-react";
-import { CATEGORIES, ALL_TOOLS } from "@/domains/photo/registry";
+import { CATEGORIES, ALL_TOOLS, SEARCH_REGISTRY } from "@/domains/photo/registry";
 
 
 export default function Home() {
@@ -31,7 +31,7 @@ export default function Home() {
             <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
               Apply filters, adjust lighting, and retouch your photos right in the browser. No signup required.
             </p>
-            <CategorySearch categorySlug="photo" placeholder="Search 10+ photo tools..." registry={(Array.isArray(CATEGORIES) ? CATEGORIES.flatMap((cat: any) => (cat.tools || []).map((t: any) => ({ name: (t as any).name, description: (t as any).description || '', slug: (t as any).slug, href: ((t as any).slug || '').startsWith('/') ? (t as any).slug : `/photo/tools/${(t as any).slug}`, category: (cat as any).name || (cat as any).title || (cat as any).label || '', isBuilt: (t as any).built !== false }))) : [])} />
+            <CategorySearch categorySlug="photo" placeholder="Search 10+ photo tools..." registry={SEARCH_REGISTRY} />
           </div>
         </section>
 
