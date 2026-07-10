@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import Header from "@/components/Header";
 
 import { CategorySection } from "@/components/presentation/CategorySection";
-import { categories, totalToolCount } from "@/data/presentation/tools";
+import { categories, totalToolCount, SEARCH_REGISTRY } from "@/data/presentation/tools";
 
 export const metadata: Metadata = {
   title: "Racira Presentation Tools — Free Browser Tools for Slides",
@@ -29,7 +29,7 @@ export default function Index() {
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
             Everything you need for presentations, from slide timers to teleprompters. No signup required.
           </p>
-          <CategorySearch categorySlug="presentation" placeholder="Search 190+ presentation tools..." registry={(Array.isArray(categories) ? categories.flatMap((cat: any) => (cat.tools || []).map((t: any) => ({ name: (t as any).name, description: (t as any).description || '', slug: (t as any).slug, href: ((t as any).slug || '').startsWith('/') ? (t as any).slug : `/presentation/tools/${(t as any).slug}`, category: (cat as any).name || (cat as any).title || (cat as any).label || '', isBuilt: (t as any).built !== false }))) : [])} />
+          <CategorySearch categorySlug="presentation" placeholder="Search 190+ presentation tools..." registry={SEARCH_REGISTRY} />
         </div>
       </section>
         </section>
