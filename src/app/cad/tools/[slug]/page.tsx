@@ -70,7 +70,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
 function ComingSoon({ name }: { name: string }) {
   return (
     <div className="rounded-2xl border border-dashed border-border bg-card/50 p-12 text-center">
-      <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-primary-soft text-primary">
+      <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary">
         <Construction className="h-6 w-6" />
       </div>
       <h2 className="mt-4 text-xl font-semibold text-foreground">Coming soon</h2>
