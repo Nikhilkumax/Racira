@@ -50,7 +50,7 @@ export default function Landing() {
                   <Link
                     key={(t as any).slug}
                     href={`/tools/${(t as any).slug}`}
-                    className="group relative rounded-xl border border-border bg-surface p-5 transition-all hover:border-primary/40 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_-12px_color-mix(in_oklab,var(--primary)_30%,transparent)]"
+                    className="group relative rounded-xl border border-border bg-card p-5 transition-all hover:border-primary/40 hover:-translate-y-0.5 hover:shadow-md"
                   >
                     {t.status === "soon" && (
                       <span className="absolute top-3 right-3 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground bg-muted px-2 py-0.5 rounded-full">

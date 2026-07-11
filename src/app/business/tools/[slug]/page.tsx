@@ -52,7 +52,7 @@ export default async function ComingSoonPage({ params }: Props) {
         </h1>
         <p className="mt-4 text-lg text-muted-foreground">{found.tool.description}</p>
 
-        <div className="mt-10 rounded-2xl border border-border bg-surface p-8 flex items-start gap-5">
+        <div className="mt-10 rounded-2xl border border-border bg-card p-8 flex items-start gap-5">
           <div className="h-12 w-12 rounded-xl bg-accent text-primary flex items-center justify-center shrink-0">
             <Hammer className="h-6 w-6" />
           </div>
