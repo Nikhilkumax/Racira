@@ -58,7 +58,7 @@ export default function ImagePage() {
             <a
               key={c.name}
               href={`#${slugify(c.name)}`}
-              className="px-3 py-1.5 rounded-full border border-border bg-card text-sm text-muted-foreground hover:text-sky-500 hover:border-sky-400/40 transition-colors"
+              className="px-3 py-1.5 rounded-full border border-border bg-card text-sm text-muted-foreground hover:text-primary hover:border-primary/40 transition-colors"
             >
               {c.name}
             </a>
@@ -83,13 +83,13 @@ export default function ImagePage() {
                     href={`/image/tool/${tool.slug}`}
                     className="tool-card group"
                   >
-                    <div className="mb-4 inline-flex items-center justify-center h-10 w-10 rounded-xl bg-sky-500/10 text-sky-500">
+                    <div className="mb-4 inline-flex items-center justify-center h-10 w-10 rounded-xl bg-primary/10 text-primary">
                       <Icon className="h-5 w-5" />
                     </div>
                     <h3 className="font-semibold text-foreground leading-snug">{tool.name}</h3>
                     <p className="mt-1 text-sm text-muted-foreground line-clamp-2">{tool.desc}</p>
                     {tool.built ? (
-                      <span className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-sky-500">
+                      <span className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-primary">
                         Open <ArrowRight className="h-3 w-3" />
                       </span>
                     ) : (
