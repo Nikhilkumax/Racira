@@ -84,7 +84,7 @@ export default async function ToolPage({ params }: Props) {
               </div>
             </div>
 
-            <div className="mt-10 rounded-xl border border-dashed border-primary/30 bg-primary-soft/40 p-8 text-center">
+            <div className="mt-10 rounded-xl border border-dashed border-primary/30 bg-primary/10 p-8 text-center">
               <div className="mx-auto mb-4 grid h-12 w-12 place-items-center rounded-full bg-primary/10 text-primary">
                 <Clock className="h-5 w-5" />
               </div>
