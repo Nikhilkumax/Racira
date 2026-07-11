@@ -65,7 +65,7 @@ export function GridSystemBuilder() {
                 }}
               >
                 {Array.from({ length: columns }).map((_, i) => (
-                  <div key={i} className="bg-primary-soft/60 border-x border-primary/20" />
+                  <div key={i} className="bg-primary/10 border-x border-primary/20" />
                 ))}
               </div>
             )}
@@ -79,7 +79,7 @@ export function GridSystemBuilder() {
               {Array.from({ length: rows * columns }).map((_, i) => (
                 <div
                   key={i}
-                  className="rounded-md bg-gradient-to-br from-primary/80 to-fuchsia-400/70"
+                  className="rounded-md bg-primary/80"
                   style={{ height: `${rowHeight}px` }}
                 />
               ))}

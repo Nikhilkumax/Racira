@@ -33,7 +33,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
           <ArrowLeft className="h-4 w-4" /> All tools
         </Link>
         <div className="flex items-start gap-4 mb-8">
-          <div className="inline-flex items-center justify-center h-14 w-14 rounded-2xl bg-primary-soft text-primary shrink-0">
+          <div className="inline-flex items-center justify-center h-14 w-14 rounded-2xl bg-primary/10 text-primary shrink-0">
             <Icon className="h-7 w-7" />
           </div>
           <div className="min-w-0">
@@ -61,7 +61,7 @@ function BuiltTool({ slug }: { slug: string }) {
 function ComingSoon() {
   return (
     <div className="rounded-2xl border border-dashed border-border bg-card p-12 text-center">
-      <div className="inline-flex items-center justify-center h-14 w-14 rounded-2xl bg-primary-soft text-primary mb-4">
+      <div className="inline-flex items-center justify-center h-14 w-14 rounded-2xl bg-primary/10 text-primary mb-4">
         <Hammer className="h-7 w-7" />
       </div>
       <h2 className="text-2xl font-bold mb-2">Coming soon</h2>
