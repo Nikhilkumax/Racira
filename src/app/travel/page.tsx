@@ -29,7 +29,7 @@ export default function Home() {
           return (
             <section key={cat.name} className="mb-14">
               <div className="mb-5 flex items-center gap-2">
-                <Icon className="h-4 w-4" style={{ color: "var(--sky)" }} />
+                <Icon className="h-4 w-4 text-primary" />
                 <h2 className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
                   {cat.name}
                 </h2>

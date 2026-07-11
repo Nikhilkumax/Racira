@@ -38,7 +38,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
         </Link>
         <div className="mt-6">
           {category && (
-            <p className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--sky)" }}>
+            <p className="text-xs font-bold uppercase tracking-widest text-primary">
               {category.name}
             </p>
           )}
@@ -59,10 +59,9 @@ function ComingSoon({ name }: { name: string }) {
   return (
     <div className="rounded-2xl border border-border bg-card p-10 text-center">
       <div
-        className="mx-auto grid h-14 w-14 place-items-center rounded-xl"
-        style={{ backgroundColor: "var(--sky-soft)" }}
+        className="mx-auto grid h-14 w-14 place-items-center rounded-xl bg-primary/10"
       >
-        <Construction className="h-7 w-7" style={{ color: "var(--sky)" }} />
+        <Construction className="h-7 w-7 text-primary" />
       </div>
       <h2 className="mt-5 font-display text-2xl font-bold">Coming Soon</h2>
       <p className="mx-auto mt-2 max-w-md text-muted-foreground">
@@ -70,8 +69,7 @@ function ComingSoon({ name }: { name: string }) {
       </p>
       <Link
         href="/"
-        className="mt-6 inline-flex items-center justify-center rounded-lg px-5 py-2.5 text-sm font-semibold text-white transition hover:opacity-90"
-        style={{ backgroundColor: "var(--sky)" }}
+        className="mt-6 inline-flex items-center justify-center rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition hover:opacity-90"
       >
         Browse other tools
       </Link>
