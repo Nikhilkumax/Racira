@@ -23,7 +23,7 @@ export default function ClientLayout({
         <TooltipProvider>
           <Toaster />
           <Sonner />
-          <div className="flex min-h-screen flex-col">
+          <div className="theme-pdf flex min-h-screen flex-col">
             <Header mode="category" categoryName="PDF" />
             <div className="flex-1">
               <ToolWorkflowProvider>

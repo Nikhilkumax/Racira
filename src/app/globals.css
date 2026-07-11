@@ -82,6 +82,20 @@
     --shadow-brand: 0 8px 24px -6px hsl(239 84% 67% / 0.45);
   }
 
+  /* Domain Theme Overrides */
+  .theme-pdf {
+    --primary: 0 72% 51%;
+    --primary-glow: 0 90% 71%;
+    --ring: 0 72% 51%;
+    --tool-card-border-hover: 0 72% 51%;
+    --tool-icon-bg: 0 90% 95%;
+    --hero-text-gradient: linear-gradient(90deg, hsl(0 72% 51%), hsl(0 90% 71%));
+  }
+  .dark .theme-pdf {
+    --tool-icon-bg: 0 72% 15%;
+    --hero-text-gradient: linear-gradient(90deg, hsl(0 90% 71%), hsl(0 72% 51%));
+  }
+
   .dark {
     --background: 222 47% 7%;
     --foreground: 210 40% 98%;
