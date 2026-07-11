@@ -168,8 +168,7 @@ export function TripItineraryBuilder() {
             ))}
             <button
               onClick={() => addActivity(day.id)}
-              className="inline-flex items-center gap-1 text-sm font-semibold hover:opacity-80"
-              style={{ color: "var(--sky)" }}
+              className="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:opacity-80"
             >
               <Plus className="h-4 w-4" /> Add activity
             </button>
@@ -179,7 +178,7 @@ export function TripItineraryBuilder() {
 
       <button
         onClick={addDay}
-        className="flex w-full items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-border py-5 text-sm font-semibold text-muted-foreground hover:border-[var(--sky)] hover:text-[var(--sky)]"
+        className="flex w-full items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-border py-5 text-sm font-semibold text-muted-foreground hover:border-primary hover:text-primary"
       >
         <Plus className="h-4 w-4" /> Add another day
       </button>
@@ -194,7 +193,7 @@ export function TripItineraryBuilder() {
           font-size: 0.875rem;
           outline: none;
         }
-        .input:focus { border-color: var(--sky); box-shadow: 0 0 0 3px color-mix(in oklab, var(--sky) 20%, transparent); }
+        .input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px color-mix(in oklab, var(--primary) 20%, transparent); }
       `}</style>
     </div>
   );
