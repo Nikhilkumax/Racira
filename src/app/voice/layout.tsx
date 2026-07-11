@@ -8,7 +8,7 @@ export default function VoiceLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="theme-voice flex min-h-screen flex-col">
       <Header mode="category" categoryName="Voice" />
       <main className="flex-1">
         {children}

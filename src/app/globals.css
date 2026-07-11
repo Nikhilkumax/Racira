@@ -91,9 +91,31 @@
     --tool-icon-bg: 0 90% 95%;
     --hero-text-gradient: linear-gradient(90deg, hsl(0 72% 51%), hsl(0 90% 71%));
   }
+  .theme-voice {
+    --primary: 199 89% 48%;
+    --primary-glow: 198 93% 60%;
+    --ring: 199 89% 48%;
+    --tool-card-border-hover: 199 89% 48%;
+    --tool-icon-bg: 199 89% 95%;
+    --hero-text-gradient: linear-gradient(90deg, hsl(199 89% 48%), hsl(198 93% 60%));
+    /* Legacy Voice Overrides */
+    --brand: 199 89% 48%;
+    --brand-glow: 198 93% 60%;
+    --brand-soft: 199 89% 95%;
+    --shadow-brand: 0 8px 24px -6px hsl(199 89% 48% / 0.45);
+    --gradient-brand: linear-gradient(135deg, hsl(199 89% 48%), hsl(198 93% 60%));
+  }
   .dark .theme-pdf {
     --tool-icon-bg: 0 72% 15%;
     --hero-text-gradient: linear-gradient(90deg, hsl(0 90% 71%), hsl(0 72% 51%));
+  }
+  .dark .theme-voice {
+    --tool-icon-bg: 199 89% 15%;
+    --hero-text-gradient: linear-gradient(90deg, hsl(198 93% 60%), hsl(199 89% 48%));
+    /* Legacy Voice Overrides */
+    --brand-soft: 199 89% 15%;
+    --shadow-brand: 0 8px 24px -6px hsl(199 89% 48% / 0.5);
+    --gradient-brand: linear-gradient(135deg, hsl(198 93% 60%), hsl(199 89% 48%));
   }
 
   .dark {
