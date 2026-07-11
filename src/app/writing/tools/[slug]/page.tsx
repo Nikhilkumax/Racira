@@ -47,7 +47,7 @@ export default async function ToolPage({ params }: PageProps) {
 function ComingSoon({ name, description }: { name: string; description: string }) {
   return (
     <div className="mx-auto flex max-w-2xl flex-col items-center px-5 py-24 text-center">
-      <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary-soft text-primary">
+      <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary">
         <Construction className="h-6 w-6" />
       </div>
       <h1 className="text-balance text-4xl font-bold tracking-tight sm:text-5xl">
