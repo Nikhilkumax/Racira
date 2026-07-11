@@ -23,7 +23,7 @@ export default function Index() {
         {categories.map((cat) => (
           <div key={cat.name} className="mb-12">
             <h2 className="mb-4 text-xs font-bold uppercase tracking-widest text-muted-foreground">
-              {cat.name} <span className="text-[#EC4899]">· {cat.tools.length}</span>
+              {cat.name} <span className="text-primary">· {cat.tools.length}</span>
             </h2>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
               {cat.tools.map((t) => (
