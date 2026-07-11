@@ -45,7 +45,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
           <ToolRenderer slug={tool.slug} />
         ) : (
           <div className="rounded-2xl border border-dashed border-border bg-card p-10 text-center">
-            <div className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-primary-soft text-primary">
+            <div className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-primary/10 text-primary">
               <Construction className="h-7 w-7" />
             </div>
             <h2 className="mt-4 text-xl font-bold">Coming Soon</h2>
