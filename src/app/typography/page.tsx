@@ -55,10 +55,7 @@ export default function Index() {
                         Soon
                       </span>
                     )}
-                    <div
-                      className="mb-4 grid h-10 w-10 place-items-center rounded-xl text-primary"
-                      style={{ backgroundColor: "oklch(0.96 0.03 277)" }}
-                    >
+                    <div className="mb-4 grid h-10 w-10 place-items-center rounded-xl bg-primary/10 text-primary">
                       <span className="font-serif text-xl font-bold leading-none">Aa</span>
                     </div>
                     <h3 className="font-semibold text-foreground leading-snug">{tool.name}</h3>
