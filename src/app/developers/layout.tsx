@@ -6,7 +6,7 @@ export default function DevelopersLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="theme-developers min-h-screen bg-background flex flex-col">
       <Header mode="category" categoryName="Developers" />
       <div className="flex-1">{children}</div>
     </div>

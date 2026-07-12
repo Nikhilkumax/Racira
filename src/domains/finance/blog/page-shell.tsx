@@ -5,7 +5,7 @@ import type { ReactNode } from "react";
 
 export function PageShell({ children }: { children: ReactNode }) {
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="theme-finance flex min-h-screen flex-col">
       <Header mode="category" categoryName="Finance" />
       <main className="flex-1">{children}</main>
       <SiteFooter />
