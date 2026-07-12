@@ -31,17 +31,9 @@ const Header = ({ mode = "homepage", categoryName, ctaHref: ctaHrefProp }: Heade
 
   const ctaLabel = "Explore Tools";
   
-  let ctaHref = ctaHrefProp;
+  const ctaHref = ctaHrefProp || "/#categories";
   const segments = pathname?.split("/").filter(Boolean) || [];
   const currentSlug = segments.length > 0 ? segments[0].toLowerCase() : "";
-
-  if (!ctaHref) {
-    if (mode === "category" && pathname) {
-      ctaHref = segments.length > 0 ? `/${segments[0]}` : "/calculator";
-    } else {
-      ctaHref = "/calculator";
-    }
-  }
 
   const activeCategory = mode === "category" ? categories.find(c => c.slug === currentSlug) : undefined;
   const CategoryIcon = activeCategory?.icon;
