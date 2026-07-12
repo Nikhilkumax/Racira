@@ -90,6 +90,7 @@
     --tool-card-border-hover: 0 72% 51%;
     --tool-icon-bg: 0 90% 95%;
     --hero-text-gradient: linear-gradient(90deg, hsl(0 72% 51%), hsl(0 90% 71%));
+    --gradient-hero: radial-gradient(1200px 600px at 50% -10%, hsl(0 72% 93% / 0.6) 0%, transparent 70%);
   }
   .theme-voice {
     --primary: 239 84% 67%;
@@ -98,6 +99,7 @@
     --tool-card-border-hover: 239 84% 67%;
     --tool-icon-bg: 239 84% 95%;
     --hero-text-gradient: linear-gradient(90deg, hsl(239 84% 67%), hsl(258 90% 66%));
+    --gradient-hero: radial-gradient(1200px 600px at 50% -10%, hsl(239 84% 93% / 0.6) 0%, transparent 70%);
     /* Legacy Voice Overrides */
     --brand: 239 84% 67%;
     --brand-glow: 258 90% 66%;
@@ -112,6 +114,7 @@
     --tool-card-border-hover: 189 94% 43%;
     --tool-icon-bg: 189 94% 95%;
     --hero-text-gradient: linear-gradient(90deg, hsl(189 94% 43%), hsl(187 92% 69%));
+    --gradient-hero: radial-gradient(1200px 600px at 50% -10%, hsl(189 94% 93% / 0.6) 0%, transparent 70%);
   }
   .theme-finance {
     --primary: 161 94% 30%;
@@ -120,14 +123,17 @@
     --tool-card-border-hover: 161 94% 30%;
     --tool-icon-bg: 161 94% 95%;
     --hero-text-gradient: linear-gradient(90deg, hsl(161 94% 30%), hsl(161 94% 50%));
+    --gradient-hero: radial-gradient(1200px 600px at 50% -10%, hsl(161 94% 93% / 0.6) 0%, transparent 70%);
   }
   .dark .theme-pdf {
     --tool-icon-bg: 0 72% 15%;
     --hero-text-gradient: linear-gradient(90deg, hsl(0 90% 71%), hsl(0 72% 51%));
+    --gradient-hero: radial-gradient(1200px 600px at 50% -10%, hsl(0 72% 15%) 0%, transparent 70%);
   }
   .dark .theme-voice {
     --tool-icon-bg: 239 84% 15%;
     --hero-text-gradient: linear-gradient(90deg, hsl(258 90% 66%), hsl(239 84% 67%));
+    --gradient-hero: radial-gradient(1200px 600px at 50% -10%, hsl(239 84% 15%) 0%, transparent 70%);
     /* Legacy Voice Overrides */
     --brand-soft: 239 84% 15%;
     --shadow-brand: 0 8px 24px -6px hsl(239 84% 67% / 0.5);
@@ -136,10 +142,12 @@
   .dark .theme-developers {
     --tool-icon-bg: 189 94% 15%;
     --hero-text-gradient: linear-gradient(90deg, hsl(187 92% 69%), hsl(189 94% 43%));
+    --gradient-hero: radial-gradient(1200px 600px at 50% -10%, hsl(189 94% 15%) 0%, transparent 70%);
   }
   .dark .theme-finance {
     --tool-icon-bg: 161 94% 15%;
     --hero-text-gradient: linear-gradient(90deg, hsl(161 94% 50%), hsl(161 94% 30%));
+    --gradient-hero: radial-gradient(1200px 600px at 50% -10%, hsl(161 94% 15%) 0%, transparent 70%);
   }
 
   .dark {
