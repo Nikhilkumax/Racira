@@ -108,13 +108,13 @@
     --gradient-brand: linear-gradient(135deg, hsl(239 84% 67%), hsl(258 90% 66%));
   }
   .theme-developers {
-    --primary: 189 94% 43%;
-    --primary-glow: 187 92% 69%;
-    --ring: 189 94% 43%;
-    --tool-card-border-hover: 189 94% 43%;
-    --tool-icon-bg: 189 94% 95%;
-    --hero-text-gradient: linear-gradient(90deg, hsl(189 94% 43%), hsl(187 92% 69%));
-    --gradient-hero: radial-gradient(1200px 600px at 50% -10%, hsl(189 94% 93% / 0.6) 0%, transparent 70%);
+    --primary: 24 20% 32%;
+    --primary-glow: 24 20% 64%;
+    --ring: 24 20% 32%;
+    --tool-card-border-hover: 24 20% 32%;
+    --tool-icon-bg: 24 20% 95%;
+    --hero-text-gradient: linear-gradient(90deg, hsl(24 20% 32%), hsl(24 20% 64%));
+    --gradient-hero: radial-gradient(1200px 600px at 50% -10%, hsl(24 20% 93% / 0.6) 0%, transparent 70%);
   }
   .theme-finance {
     --primary: 161 94% 30%;
@@ -140,9 +140,9 @@
     --gradient-brand: linear-gradient(135deg, hsl(258 90% 66%), hsl(239 84% 67%));
   }
   .dark .theme-developers {
-    --tool-icon-bg: 189 94% 15%;
-    --hero-text-gradient: linear-gradient(90deg, hsl(187 92% 69%), hsl(189 94% 43%));
-    --gradient-hero: radial-gradient(1200px 600px at 50% -10%, hsl(189 94% 15%) 0%, transparent 70%);
+    --tool-icon-bg: 24 20% 15%;
+    --hero-text-gradient: linear-gradient(90deg, hsl(24 20% 64%), hsl(24 20% 32%));
+    --gradient-hero: radial-gradient(1200px 600px at 50% -10%, hsl(24 20% 15%) 0%, transparent 70%);
   }
   .dark .theme-finance {
     --tool-icon-bg: 161 94% 15%;
