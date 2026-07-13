@@ -10,9 +10,9 @@ export default function FlowchartHomePage() {
   const filtered = CATEGORIES;
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-background">
       <Header mode="category" categoryName="Diagrams" />
-      <main className="flex-1 pb-24">
+      <main className="pb-24 pt-16">
               <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
         <div className="racira-page-container text-center">
           <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
@@ -27,7 +27,7 @@ export default function FlowchartHomePage() {
       </section>
 
 
-        <div className="mt-12 space-y-14">
+        <div className="racira-page-container mt-12 space-y-14">
           {filtered.map((cat) => (
             <CategorySection key={cat.title} section={cat} basePath="/flowchart/tool" />
           ))}
