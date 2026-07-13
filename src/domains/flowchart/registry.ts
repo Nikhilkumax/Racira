@@ -1,7 +1,7 @@
 import { ToolResult } from "@/components/CategorySearch";
 
-export type Tool = { name: string; slug: string; desc: string };
-export type ToolCategory = { name: string; tools: Tool[] };
+import { Tool, SubcategorySection } from "@/domains/_types";
+import { inferIcon } from "@/components/shared/icon-map";
 
 const slug = (s: string) =>
   s
@@ -11,13 +11,22 @@ const slug = (s: string) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-|-$/g, "");
 
-const mk = (name: string, desc: string): Tool => ({ name, slug: slug(name), desc });
-
 export const ACTIVE_SLUG = "basic-flowchart-builder";
 
-export const CATEGORIES: ToolCategory[] = [
+const mk = (name: string, description: string): Tool => {
+  const generatedSlug = slug(name);
+  return {
+    name,
+    slug: generatedSlug,
+    description,
+    icon: inferIcon(name, generatedSlug),
+    status: generatedSlug === ACTIVE_SLUG ? "live" : "soon",
+  };
+};
+
+export const CATEGORIES: SubcategorySection[] = [
   {
-    name: "Flowcharts",
+    title: "Flowcharts",
     tools: [
       mk("Basic Flowchart Builder", "Drag, drop and connect shapes"),
       mk("Process Flowchart Creator", "Map any business process"),
@@ -32,7 +41,7 @@ export const CATEGORIES: ToolCategory[] = [
     ],
   },
   {
-    name: "Mind Maps",
+    title: "Mind Maps",
     tools: [
       mk("Mind Map Creator", "Capture ideas radially"),
       mk("Radial Mind Map Builder", "Center-out mind maps"),
@@ -47,7 +56,7 @@ export const CATEGORIES: ToolCategory[] = [
     ],
   },
   {
-    name: "UML Diagrams",
+    title: "UML Diagrams",
     tools: [
       mk("UML Class Diagram Builder", "Classes and relations"),
       mk("UML Sequence Diagram Builder", "Object interactions over time"),
@@ -62,7 +71,7 @@ export const CATEGORIES: ToolCategory[] = [
     ],
   },
   {
-    name: "Architecture Diagrams",
+    title: "Architecture Diagrams",
     tools: [
       mk("System Architecture Diagram Builder", "End-to-end systems"),
       mk("Cloud Architecture Diagram Builder", "Cloud services map"),
@@ -77,7 +86,7 @@ export const CATEGORIES: ToolCategory[] = [
     ],
   },
   {
-    name: "Entity Relationship (ER) Diagrams",
+    title: "Entity Relationship (ER) Diagrams",
     tools: [
       mk("ER Diagram Builder", "Entities and relationships"),
       mk("Database Schema Visualizer", "Visualize a schema"),
@@ -92,7 +101,7 @@ export const CATEGORIES: ToolCategory[] = [
     ],
   },
   {
-    name: "Org Charts & Hierarchy",
+    title: "Org Charts & Hierarchy",
     tools: [
       mk("Org Chart Builder", "Build an org chart"),
       mk("Hierarchical Tree Chart Builder", "Tree hierarchies"),
@@ -107,7 +116,7 @@ export const CATEGORIES: ToolCategory[] = [
     ],
   },
   {
-    name: "Process & Workflow",
+    title: "Process & Workflow",
     tools: [
       mk("BPMN Diagram Builder (basic)", "Basic BPMN flows"),
       mk("Value Stream Map Builder", "Lean value streams"),
@@ -122,7 +131,7 @@ export const CATEGORIES: ToolCategory[] = [
     ],
   },
   {
-    name: "Network & Infrastructure",
+    title: "Network & Infrastructure",
     tools: [
       mk("Network Diagram Builder", "General network maps"),
       mk("Physical Network Diagram", "Physical layout"),
@@ -137,7 +146,7 @@ export const CATEGORIES: ToolCategory[] = [
     ],
   },
   {
-    name: "Planning & Strategy",
+    title: "Planning & Strategy",
     tools: [
       mk("Roadmap Timeline Builder", "Timeline roadmaps"),
       mk("Product Roadmap Diagram", "Product plans"),
@@ -152,7 +161,7 @@ export const CATEGORIES: ToolCategory[] = [
     ],
   },
   {
-    name: "Diagram Utilities",
+    title: "Diagram Utilities",
     tools: [
       mk("Shape Library Manager", "Manage shapes"),
       mk("Arrow Style Selector", "Pick arrow styles"),
@@ -173,7 +182,7 @@ export const ALL_TOOLS: Tool[] = CATEGORIES.flatMap((c) => c.tools);
 export function findTool(slugStr: string): { tool: Tool; category: string } | null {
   for (const c of CATEGORIES) {
     const t = c.tools.find((t) => (t as any).slug === slugStr);
-    if (t) return { tool: t, category: c.name };
+    if (t) return { tool: t, category: c.title };
   }
   return null;
 }
@@ -181,10 +190,10 @@ export function findTool(slugStr: string): { tool: Tool; category: string } | nu
 export const SEARCH_REGISTRY: ToolResult[] = CATEGORIES.flatMap((cat) =>
   cat.tools.map((tool) => ({
     name: tool.name,
-    description: tool.desc,
+    description: tool.description,
     slug: tool.slug,
     href: `/flowchart/tool/${tool.slug}`,
-    category: cat.name,
+    category: cat.title,
     isBuilt: tool.slug === ACTIVE_SLUG,
   }))
 );

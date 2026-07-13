@@ -40,7 +40,7 @@ export default async function ComingSoonPage({ params }: Props) {
   return (
     <div className="min-h-screen flex flex-col">
       <Header mode="category" categoryName="Business" />
-      <main className="flex-1 mx-auto max-w-3xl w-full px-6 py-20">
+      <main className="racira-page-container flex-1 py-20">
         <Link href="/" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-8">
           <ArrowLeft className="h-4 w-4" /> Back to all tools
         </Link>

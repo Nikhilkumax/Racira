@@ -10,7 +10,7 @@ import { Mail } from "lucide-react";
 export default function Contact() {
   return (
     <PageShell>
-      <section className="mx-auto grid max-w-6xl gap-12 px-4 py-16 sm:px-6 md:grid-cols-2 lg:px-8 lg:py-24">
+      <section className="racira-page-container grid gap-12 py-16 md:grid-cols-2 lg:py-24">
         <div>
           <div className="text-xs font-semibold uppercase tracking-wider text-primary">Contact</div>
           <h1 className="mt-3 font-display text-4xl font-semibold tracking-tight md:text-5xl">Tell us what you're working on.</h1>

@@ -22,7 +22,7 @@ export default function HomePage() {
         </div>
       </section>
 
-        <div className="mx-auto max-w-6xl space-y-14 px-4 pb-24 sm:px-6">
+        <div className="racira-page-container space-y-14 pb-24">
           {categories.map((cat) => (
             <section key={cat.name} aria-labelledby={`cat-${cat.name}`}>
               <div className="mb-5 flex items-end justify-between gap-4">

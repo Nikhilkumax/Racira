@@ -17,8 +17,8 @@ export function HomeClient() {
 
   return (
     <>
-      <main className="racira-page-container pb-10 sm:px-6 lg:px-8">
-              <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
+      <main className="racira-page-container pb-10">
+        <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
         <div className="racira-page-container text-center">
           <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
             450+ Free Color Tools —{" "}

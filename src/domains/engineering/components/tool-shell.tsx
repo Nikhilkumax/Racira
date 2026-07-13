@@ -1,4 +1,4 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 import { ArrowLeft, Construction } from "lucide-react";
 import type { ReactNode } from "react";
 import type { Tool } from "@/domains/engineering/registry";
@@ -11,7 +11,7 @@ export function ToolShell({
   children: ReactNode;
 }) {
   return (
-    <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6">
+    <div className="racira-page-container py-10">
       <Link
         href="/"
         className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary"

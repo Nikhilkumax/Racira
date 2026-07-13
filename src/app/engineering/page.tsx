@@ -19,7 +19,7 @@ export default function Index() {
   return (
     <>
       <Header mode="category" categoryName="Engineering" />
-      <main className="racira-page-container pb-24 pt-12 sm:px-6 sm:pt-16">
+      <main className="pb-24 pt-12 sm:pt-16">
               <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
         <div className="racira-page-container text-center">
           <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
@@ -33,7 +33,7 @@ export default function Index() {
         </div>
       </section>
 
-        <div className="mt-10 flex flex-wrap items-center justify-center gap-2">
+        <div className="racira-page-container mt-10 flex flex-wrap items-center justify-center gap-2">
           <CategoryChip label="All" active={activeCat === "all"} onClick={() => setActiveCat("all")} />
           {categories.map((cat) => (
             <CategoryChip
@@ -45,7 +45,7 @@ export default function Index() {
           ))}
         </div>
 
-        <div className="mt-12 space-y-14">
+        <div className="racira-page-container mt-12 space-y-14">
           {filtered.length === 0 && (
             <p className="text-center text-sm text-muted-foreground">No tools match your search.</p>
           )}

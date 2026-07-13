@@ -32,7 +32,7 @@ export default async function TagPage({ params }: { params: Promise<{ slug: stri
   return (
     <PageShell>
       <section className="border-b border-border/60" style={{ background: "var(--gradient-hero)" }}>
-        <div className="racira-page-container py-14 sm:px-6 lg:px-8">
+        <div className="racira-page-container py-14">
           <h1 className="font-display text-4xl font-semibold tracking-tight md:text-5xl">#{tag.name}</h1>
           <p className="mt-3 text-muted-foreground">{posts.length} article{posts.length === 1 ? "" : "s"}</p>
         </div>

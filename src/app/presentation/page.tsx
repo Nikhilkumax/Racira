@@ -19,7 +19,7 @@ export default function Index() {
     <div className="min-h-screen bg-background">
       <Header mode="category" categoryName="Presentation" />
       <main>
-        <section className="px-6 pb-12 pt-20 sm:pt-28">
+        <section className="racira-page-container pb-12 pt-20 sm:pt-28">
                 <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
         <div className="racira-page-container text-center">
           <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">

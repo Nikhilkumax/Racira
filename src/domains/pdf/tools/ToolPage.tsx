@@ -95,7 +95,7 @@ const ToolPage = () => {
   // ── Not found ─────────────────────────────────────────────
   if (!tool) {
     return (
-      <div className="container py-20 text-center">
+      <div className="racira-page-container py-20 text-center">
         <h1 className="text-2xl font-bold text-foreground">Tool not found</h1>
         <Link href="/" className="mt-4 inline-block text-primary hover:underline">
           Back to all tools
@@ -368,7 +368,7 @@ const ToolPage = () => {
       <ToolBreadcrumb category={config.category} toolName={tool.name} />
 
       {/* SECTION 2–3: Title + Tool UI Card */}
-      <div className="mx-auto max-w-[1100px] px-4 sm:px-6">
+      <div className="racira-page-container">
         <div className="mt-2 mb-8">
           <ToolHeading
             name={tool.name}

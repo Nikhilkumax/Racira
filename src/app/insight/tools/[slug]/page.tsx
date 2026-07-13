@@ -39,7 +39,7 @@ export default async function ToolPage({ params }: Props) {
   return (
     <div className="min-h-screen bg-background">
       <Header mode="category" categoryName="Insight" />
-      <main className="racira-page-container py-10 sm:px-6">
+      <main className="racira-page-container py-10">
         <Link
           href="/"
           className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"

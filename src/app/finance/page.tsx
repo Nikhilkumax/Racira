@@ -29,7 +29,7 @@ export default function Index() {
     <PageShell>
       {/* Hero */}
             <section className="relative overflow-hidden" style={{ background: "var(--gradient-hero)" }}>
-        <div className="racira-page-container py-20 sm:px-6 lg:px-8 lg:py-28">
+        <div className="racira-page-container py-20 lg:py-28">
           <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-primary">
             <TrendingUp className="h-3.5 w-3.5" /> The week in finance
           </div>

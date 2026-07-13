@@ -4,8 +4,8 @@ import Header from "@/components/Header";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { findTool, ACTIVE_SLUG } from "@/domains/flowchart/registry";
-import { Workflow } from "lucide-react";
 import { FlowchartBuilder } from "@/domains/flowchart/components/FlowchartBuilder";
+import { Tool } from "@/domains/_types";
 
 interface ToolPageProps {
   params: { slug: string };
@@ -25,22 +25,23 @@ export default function ToolPage({ params }: ToolPageProps) {
         <div className="mb-6">
           <p className="text-xs font-bold uppercase tracking-widest text-primary">{category}</p>
           <h1 className="mt-2 text-3xl font-extrabold tracking-tight md:text-4xl">{tool.name}</h1>
-          <p className="mt-2 text-muted-foreground">{tool.desc}</p>
+          <p className="mt-2 text-muted-foreground">{tool.description}</p>
         </div>
 
-        {isLive ? <FlowchartBuilder /> : <ComingSoon name={tool.name} />}
+        {isLive ? <FlowchartBuilder /> : <ComingSoon tool={tool} />}
       </main>
     </div>
   );
 }
 
-function ComingSoon({ name }: { name: string }) {
+function ComingSoon({ tool }: { tool: Tool }) {
+  const Icon = tool.icon;
   return (
     <div className="rounded-2xl border bg-card p-12 text-center shadow-sm">
       <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary">
-        <Workflow className="h-7 w-7" />
+        <Icon className="h-7 w-7" />
       </div>
-      <h2 className="text-xl font-semibold">{name} is coming soon</h2>
+      <h2 className="text-xl font-semibold">{tool.name} is coming soon</h2>
       <p className="mx-auto mt-2 max-w-md text-sm text-muted-foreground">
         We&apos;re crafting this tool. In the meantime, try the live Basic Flowchart Builder.
       </p>

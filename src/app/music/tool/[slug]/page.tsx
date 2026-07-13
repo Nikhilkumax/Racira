@@ -38,7 +38,7 @@ export default async function ToolPage({ params }: Props) {
     return (
       <div className="flex min-h-screen flex-col">
         <Header mode="category" categoryName="Music" />
-        <main className="mx-auto max-w-3xl flex-1 px-6 py-24 text-center">
+        <main className="racira-page-container flex-1 py-24 text-center">
           <h1 className="font-display text-3xl font-bold">Tool not found</h1>
           <p className="mt-2 text-muted-foreground">That tool isn't in our library.</p>
           <Link href="/" className="mt-6 inline-block text-primary underline">
@@ -58,7 +58,7 @@ export default async function ToolPage({ params }: Props) {
     <div className="flex min-h-screen flex-col">
       <Header mode="category" categoryName="Music" />
       <main className="flex-1">
-        <div className="racira-page-container pt-10 sm:px-6">
+        <div className="racira-page-container pt-10">
           <Link
             href="/"
             className="inline-flex items-center gap-1.5 text-sm text-muted-foreground transition hover:text-primary"
@@ -67,7 +67,7 @@ export default async function ToolPage({ params }: Props) {
           </Link>
         </div>
 
-        <section className="racira-page-container py-10 sm:px-6">
+        <section className="racira-page-container py-10">
           <div className="rounded-2xl border border-border bg-card p-8 sm:p-12">
             <div className="flex items-start gap-5">
               <span className="grid h-14 w-14 shrink-0 place-items-center rounded-xl bg-primary text-primary-foreground">
@@ -102,7 +102,7 @@ export default async function ToolPage({ params }: Props) {
         </section>
 
         {related.length > 0 && (
-          <section className="racira-page-container pb-24 sm:px-6">
+          <section className="racira-page-container pb-24">
             <h2 className="mb-5 text-xs font-bold uppercase tracking-[0.18em] text-muted-foreground">
               More in {category.name}
             </h2>

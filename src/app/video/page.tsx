@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 export default function Home() {
   const total = TOOLS.length;
   return (
-    <div className="racira-page-container">
+    <div>
             <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
         <div className="racira-page-container text-center">
           <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
@@ -33,7 +33,7 @@ export default function Home() {
         </div>
       </section>
 
-      <div className="space-y-14 pb-16">
+      <div className="racira-page-container space-y-14 pb-16">
         {CATEGORY_ORDER.map((cat) => (
           <section key={cat}>
             <h2 className="text-xs font-bold uppercase tracking-[0.18em] text-muted-foreground mb-4">

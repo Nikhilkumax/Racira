@@ -5,7 +5,7 @@ import { ToolIcon } from "./ToolIcon";
 
 export function ComingSoon({ tool }: { tool: Tool }) {
   return (
-    <div className="mx-auto max-w-2xl px-4 sm:px-6 py-20 text-center">
+    <div className="racira-page-container py-20 text-center">
       <span className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/15 text-primary mb-6">
         <ToolIcon name={tool.icon} className="h-7 w-7" />
       </span>

@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background">
       <Header mode="category" categoryName="Fitness" />
-      <main className="mx-auto max-w-7xl px-6">
+      <main>
               <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
         <div className="racira-page-container text-center">
           <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
@@ -24,7 +24,7 @@ export default function Home() {
         </div>
       </section>
 
-        <div className="space-y-12 pb-24">
+        <div className="racira-page-container space-y-12 pb-24">
           {categories.map((cat) => (
             <section key={cat.name}>
               <h2 className="text-xs font-bold tracking-widest text-muted-foreground uppercase mb-4">

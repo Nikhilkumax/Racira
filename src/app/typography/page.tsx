@@ -34,7 +34,7 @@ export default function Index() {
           </div>
         </section>
 
-        <section id="tools" className="mx-auto max-w-6xl px-6 pb-16 space-y-14">
+        <section id="tools" className="racira-page-container pb-16 space-y-14">
           {categories.map((cat) => (
             <div key={cat.name}>
               <div className="mb-5 flex items-baseline justify-between">

@@ -67,7 +67,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
       />
       <article>
         <header className="border-b border-border/60" style={{ background: "var(--gradient-hero)" }}>
-          <div className="racira-page-container py-14 sm:px-6 lg:px-8">
+          <div className="racira-page-container py-14">
             <Link href="/blog" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
               <ArrowLeft className="h-3.5 w-3.5" /> All articles
             </Link>

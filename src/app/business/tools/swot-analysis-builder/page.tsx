@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useRef, useState } from "react";
 import Header from "@/components/Header";
@@ -105,7 +105,7 @@ export default function SwotBuilder() {
   return (
     <div className="min-h-screen flex flex-col">
       <Header mode="category" categoryName="Business" />
-      <main className="flex-1 mx-auto max-w-6xl w-full px-6 py-12">
+      <main className="racira-page-container flex-1 py-12">
         <Link href="/" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-6">
           <ArrowLeft className="h-4 w-4" /> Back to all tools
         </Link>

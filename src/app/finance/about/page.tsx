@@ -20,7 +20,7 @@ export default function About() {
   return (
     <PageShell>
       <section className="border-b border-border/60" style={{ background: "var(--gradient-hero)" }}>
-        <div className="racira-page-container py-20 sm:px-6 lg:px-8">
+        <div className="racira-page-container py-20">
           <div className="text-xs font-semibold uppercase tracking-wider text-primary">About</div>
           <h1 className="mt-3 font-display text-4xl font-semibold tracking-tight md:text-5xl">Slow ideas about money.</h1>
           <p className="mt-5 text-lg text-muted-foreground">

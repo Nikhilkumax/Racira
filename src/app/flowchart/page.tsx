@@ -3,9 +3,8 @@
 import { CategorySearch } from "@/components/CategorySearch";
 import Header from "@/components/Header";
 import { useMemo, useState } from "react";
-import Link from "next/link";
-import { CATEGORIES, ACTIVE_SLUG, ALL_TOOLS, SEARCH_REGISTRY } from "@/domains/flowchart/registry";
-import { Search,  Workflow  } from "lucide-react";
+import { CATEGORIES, ALL_TOOLS, SEARCH_REGISTRY } from "@/domains/flowchart/registry";
+import { CategorySection } from "@/components/shared/CategorySection";
 
 export default function FlowchartHomePage() {
   const [query, setQuery] = useState("");
@@ -15,7 +14,7 @@ export default function FlowchartHomePage() {
     return CATEGORIES.map((c) => ({
       ...c,
       tools: c.tools.filter(
-        (t) => (t as any).name.toLowerCase().includes(q) || (t as any).desc.toLowerCase().includes(q),
+        (t) => t.name.toLowerCase().includes(q) || t.description.toLowerCase().includes(q),
       ),
     })).filter((c) => c.tools.length > 0);
   }, [query]);
@@ -39,34 +38,7 @@ export default function FlowchartHomePage() {
 
         <div className="mt-16 space-y-14">
           {filtered.map((cat) => (
-            <section key={cat.name}>
-              <h2 className="mb-5 text-xs font-bold uppercase tracking-widest text-muted-foreground">
-                {cat.name}
-              </h2>
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                {cat.tools.map((t) => {
-                  const active = (t as any).slug === ACTIVE_SLUG;
-                  return (
-                    <Link
-                      key={(t as any).slug}
-                      href={`/flowchart/tool/${(t as any).slug}`}
-                      className="tool-card group"
-                    >
-                      {!active && (
-                        <span className="absolute right-3 top-3 rounded-md bg-muted px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
-                          Soon
-                        </span>
-                      )}
-                      <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                        <Workflow className="h-5 w-5" />
-                      </div>
-                      <h3 className="font-semibold text-foreground leading-snug">{(t as any).name}</h3>
-                      <p className="mt-1 text-sm text-muted-foreground line-clamp-2">{(t as any).desc}</p>
-                    </Link>
-                  );
-                })}
-              </div>
-            </section>
+            <CategorySection key={cat.title} section={cat} basePath="/flowchart/tool" />
           ))}
         </div>
       </main>

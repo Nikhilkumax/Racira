@@ -7,7 +7,7 @@ import { CATEGORY_META } from "@/domains/colors/registry/types";
 export function ToolShell({ tool, children }: { tool: ToolDef; children: ReactNode }) {
   const Icon = tool.icon;
   return (
-    <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
+    <div className="racira-page-container py-10">
       <Link
         href="/"
         className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"

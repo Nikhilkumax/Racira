@@ -35,7 +35,7 @@ export default async function AuthorPage({ params }: { params: Promise<{ slug: s
   return (
     <PageShell>
       <section className="border-b border-border/60" style={{ background: "var(--gradient-hero)" }}>
-        <div className="mx-auto flex max-w-5xl flex-col items-center gap-6 px-4 py-16 text-center sm:px-6 lg:px-8">
+        <div className="racira-page-container flex flex-col items-center gap-6 py-16 text-center">
           <img src={author.avatar_url} alt={author.name} className="h-24 w-24 rounded-full ring-4 ring-background" />
           <div>
             <div className="text-xs font-semibold uppercase tracking-wider text-primary">{author.role}</div>

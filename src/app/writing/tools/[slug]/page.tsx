@@ -46,7 +46,7 @@ export default async function ToolPage({ params }: PageProps) {
 
 function ComingSoon({ name, description }: { name: string; description: string }) {
   return (
-    <div className="mx-auto flex max-w-2xl flex-col items-center px-5 py-24 text-center">
+    <div className="racira-page-container flex flex-col items-center py-24 text-center">
       <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary">
         <Construction className="h-6 w-6" />
       </div>

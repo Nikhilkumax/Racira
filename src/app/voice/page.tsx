@@ -23,7 +23,7 @@ export default function VoicePage() {
     <div className="flex flex-col">
       <TTSHero />
       
-      <div className="container mx-auto px-4 pb-20 sm:px-6 lg:px-8">
+      <div className="racira-page-container pb-20">
         <StudioCard />
       </div>
 
