@@ -2,7 +2,7 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import { categories, SEARCH_REGISTRY } from "@/domains/business/registry";
 import { SiteFooter } from "@/domains/business/components/SiteHeader";
-import { Search, Wrench, Sparkles } from "lucide-react";
+import BusinessClientGrid from "@/domains/business/components/ClientGrid";
 import { CategorySearch } from "@/components/CategorySearch";
 import type { Metadata } from "next";
 
@@ -39,43 +39,11 @@ export default function Landing() {
         </div>
       </section>
 
-        <div className="racira-page-container pb-24 space-y-14">
-          {categories.map((cat) => (
-            <section key={cat.key}>
-              <h2 className="text-xs font-bold tracking-[0.18em] text-muted-foreground uppercase mb-5">
-                {cat.label}
-              </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                {cat.tools.map((t) => (
-                  <Link
-                    key={(t as any).slug}
-                    href={`/tools/${(t as any).slug}`}
-                    className="group relative rounded-xl border border-border bg-card p-5 transition-all hover:border-primary/40 hover:-translate-y-0.5 hover:shadow-md"
-                  >
-                    {t.status === "soon" && (
-                      <span className="absolute top-3 right-3 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground bg-muted px-2 py-0.5 rounded-full">
-                        Soon
-                      </span>
-                    )}
-                    <div className="h-10 w-10 rounded-lg bg-accent text-primary flex items-center justify-center mb-4">
-                      {t.status === "available" ? (
-                        <Sparkles className="h-5 w-5" />
-                      ) : (
-                        <Wrench className="h-5 w-5" />
-                      )}
-                    </div>
-                    <h3 className="font-semibold text-foreground leading-snug">{(t as any).name}</h3>
-                    <p className="mt-1 text-sm text-muted-foreground leading-relaxed">
-                      {(t as any).description}
-                    </p>
-                  </Link>
-                ))}
-              </div>
-            </section>
-          ))}
-        </div>
-      </main>
-      <SiteFooter />
-    </div>
+      <BusinessClientGrid />
+    </main>
+    <footer className="border-t border-border py-8 text-center text-sm text-muted-foreground">
+      Racira Business — Free Business Tools
+    </footer>
+  </div>
   );
 }
