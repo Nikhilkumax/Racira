@@ -4,7 +4,7 @@ import { calculatorRegistry, getCategoryIcon } from "@/domains/calculator/regist
 const PopularCalculators = ({ exclude }: { exclude?: string }) => {
   const items = calculatorRegistry
     .filter(c => `/calculator/${c.slug}` !== exclude)
-    .sort((a, b) => (b.isBuilt ? 1 : 0) - (a.isBuilt ? 1 : 0))
+    .sort((a, b) => (b.status === "live" ? 1 : 0) - (a.status === "live" ? 1 : 0))
     .slice(0, 8);
 
   return (
@@ -20,7 +20,7 @@ const PopularCalculators = ({ exclude }: { exclude?: string }) => {
             href={`/calculator/${c.slug}`}
             className="tool-card group"
           >
-            {!c.isBuilt && (
+            {c.status !== "live" && (
               <span className="tool-card-badge">Soon</span>
             )}
             <div className="tool-card-icon">

@@ -23,7 +23,7 @@ export interface CalculatorDef {
   category: string;
   subcategory: string;
   icon?: LucideIcon;
-  isBuilt: boolean;
+  status: "live" | "soon";
   tier?: string;
   priorityScore?: number;
   updatedAt?: string;
@@ -62,10 +62,10 @@ export const calculatorRegistry: CalculatorDef[] = [
 ];
 
 export const getBuiltCalculators = () =>
-  calculatorRegistry.filter(c => c.isBuilt);
+  calculatorRegistry.filter(c => c.status === "live");
 
 export const getUnbuiltCalculators = () =>
-  calculatorRegistry.filter(c => !c.isBuilt);
+  calculatorRegistry.filter(c => c.status === "soon");
 
 export const getCategoryIcon = (category: string): LucideIcon => {
   const upper = category.toUpperCase().replace(/ /g, '_');

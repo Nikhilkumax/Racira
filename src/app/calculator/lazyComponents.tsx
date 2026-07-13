@@ -1321,7 +1321,7 @@ export default function CalculatorPage({ params }: Props) {
     notFound();
   }
 
-  if (!calc.isBuilt) {
+  if (calc.status !== "live") {
     return <ComingSoonCalculator slug={slug} />;
   }
 

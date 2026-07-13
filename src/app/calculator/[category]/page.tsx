@@ -2,6 +2,8 @@ import React, { Suspense } from "react";
 import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { inferIcon } from "@/components/shared/icon-map";
+import { SubcategoryCard } from "@/components/shared/SubcategoryCard";
 import { 
   DollarSign, 
   Briefcase, 
@@ -149,24 +151,16 @@ function CategoryView({ params, summary }: { params: any, summary: any }) {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {summary.subcategories.map((sub: any) => {
             const subSlug = toSlug(sub.name);
+            const SubIcon = inferIcon(sub.name, subSlug);
             return (
-              <Link
+              <SubcategoryCard
                 key={sub.name}
-                href={`/calculator/${catSlug}/${subSlug}`}
-                className="tool-card group hover:cursor-pointer hover:shadow-md transition-all duration-200"
-              >
-                <div className="tool-card-icon">
-                  <Icon className="h-5 w-5 text-primary" />
-                </div>
-                <div className="min-w-0">
-                  <h4 className="font-semibold text-foreground text-[15px] leading-snug mb-1">
-                    {sub.name}
-                  </h4>
-                  <p className="text-[13px] text-muted-foreground leading-relaxed line-clamp-2">
-                    {sub.count} calculators
-                  </p>
-                </div>
-              </Link>
+                title={sub.name}
+                icon={SubIcon}
+                count={sub.count}
+                basePath={`/calculator/${catSlug}/${subSlug}`}
+                label="calculators"
+              />
             );
           })}
         </div>

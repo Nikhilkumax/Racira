@@ -1,6 +1,6 @@
 import { calculatorRegistry } from "@/domains/calculator/registry";
 
-const activeCalculators = calculatorRegistry.filter(c => c.isBuilt);
+const activeCalculators = calculatorRegistry;
 
 export const CATEGORY_SUMMARY = [
   {

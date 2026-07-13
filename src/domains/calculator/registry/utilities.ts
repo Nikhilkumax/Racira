@@ -7,7 +7,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "Ohm's Law Calculator",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "temperature-converter",
@@ -15,7 +15,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "Temperature Converter — calculate and convert instantly",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "length-converter",
@@ -23,7 +23,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "The exact conversion 1 inch = 2.54 cm was internationally agreed in 1959 and underpins all metric-imperial conversions with complete mathematical precision.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "weight-converter",
@@ -31,7 +31,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "A weight converter is an online tool designed to instantly translate a measurement of weight or mass from one unit to another. Whether you need to know how many pounds are in 5 kilograms, how many grams are in an ounce, or how many stones you weigh based on your kilogram measurement, a weight converter eliminates manual calculation errors and saves time.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "speed-converter",
@@ -39,7 +39,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "Speed Converter — calculate and convert instantly",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "currency-converter",
@@ -47,7 +47,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "Currency conversion calculates how much of one currency you receive when exchanging another. This converter uses fixed reference rates relative to the US Dollar (USD) as a base currency.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "time-zone-converter",
@@ -55,7 +55,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "The Earth is divided into 24 primary time zones, each roughly 15° of longitude wide — corresponding to one hour of Earth's rotation. In practice, political boundaries create 38 distinct zones ranging from UTC−12 (Baker Island) to UTC+14 (Line Islands, Kiribati).",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "horsepower-to-kilowatts-calculator",
@@ -63,7 +63,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "Horsepower to Kilowatts Calculator — calculate and convert instantly",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "angle-converter-advanced",
@@ -71,7 +71,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "The Angle Converter Advanced helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "area-converter",
@@ -79,7 +79,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "The Area Converter helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "baking-ingredient-converter",
@@ -87,7 +87,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "The Baking Ingredient Converter helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "base64-decoder",
@@ -95,7 +95,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "The Base64 Decoder helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "base64-encoder",
@@ -103,7 +103,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "The Base64 Encoder helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "binary-text-converter",
@@ -111,7 +111,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "The Binary Text Converter helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "boyles-law-calculator",
@@ -119,7 +119,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "The Boyles Law Calculator helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "bra-size-converter",
@@ -127,7 +127,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "The Bra Size Converter helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "charles-law-calculator",
@@ -135,7 +135,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "The Charles Law Calculator helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "clothing-size-converter-advanced",
@@ -143,7 +143,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "The Clothing Size Converter Advanced helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "cooking-measurement-converter",
@@ -151,7 +151,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "The Cooking Measurement Converter helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "crochet-hook-converter",
@@ -159,7 +159,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "The Crochet Hook Converter helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "crypto-currency-converter",
@@ -167,7 +167,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "The Crypto Currency Converter helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "data-size-converter",
@@ -175,7 +175,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "The Data Size Converter helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "data-transfer-converter",
@@ -183,7 +183,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "The Data Transfer Converter helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "decimal-to-fraction-converter",
@@ -191,7 +191,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "The Decimal To Fraction Converter helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "decimal-to-hex-converter",
@@ -199,7 +199,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "The Decimal To Hex Converter helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "density-converter",
@@ -207,7 +207,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "The Density Converter helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "energy-converter",
@@ -215,7 +215,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "The Energy Converter helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "epoch-time-converter",
@@ -223,7 +223,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "The Epoch Time Converter helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "flow-rate-converter",
@@ -231,7 +231,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "The Flow Rate Converter helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "force-converter",
@@ -239,7 +239,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "The Force Converter helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "fraction-to-decimal-converter",
@@ -247,7 +247,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "The Fraction To Decimal Converter helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "frequency-converter",
@@ -255,7 +255,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "The Frequency Converter helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "fuel-economy-converter",
@@ -263,7 +263,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "The Fuel Economy Converter helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "hex-to-decimal-converter",
@@ -271,7 +271,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "The Hex To Decimal Converter helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "illuminance-converter",
@@ -279,7 +279,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "The Illuminance Converter helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "ip-subnet-calculator",
@@ -287,7 +287,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "IP Subnet Calculator — calculate and convert instantly",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "knitting-needle-converter",
@@ -295,7 +295,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "The Knitting Needle Converter helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "luminance-converter",
@@ -303,7 +303,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "The Luminance Converter helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "morse-code-translator",
@@ -311,7 +311,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "The Morse Code Translator helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "oven-temperature-converter",
@@ -319,7 +319,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "The Oven Temperature Converter helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "payback-period-calculator-advanced",
@@ -327,7 +327,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "Payback Period Calculator (Advanced) — calculate and convert instantly",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "power-converter",
@@ -335,7 +335,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "The Power Converter helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "pressure-converter",
@@ -343,7 +343,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "The Pressure Converter helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "radiation-dose-converter",
@@ -351,7 +351,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "The Radiation Dose Converter helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "radioactivity-converter",
@@ -359,7 +359,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "The Radioactivity Converter helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "ring-size-converter-advanced",
@@ -367,7 +367,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "The Ring Size Converter Advanced helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "scientific-notation-converter",
@@ -375,7 +375,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "The Scientific Notation Converter helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "snells-law-calculator",
@@ -383,7 +383,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "The Snells Law Calculator helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "text-binary-converter",
@@ -391,7 +391,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "The Text Binary Converter helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "time-converter",
@@ -399,7 +399,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "The Time Converter helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "torque-converter",
@@ -407,7 +407,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "The Torque Converter helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "two-complement-calculator",
@@ -415,7 +415,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "The Two Complement Calculator helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "url-decoder",
@@ -423,7 +423,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "The Url Decoder helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "url-encoder",
@@ -431,7 +431,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "The Url Encoder helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "viscosity-dynamic-converter",
@@ -439,7 +439,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "The Viscosity Dynamic Converter helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "viscosity-kinematic-converter",
@@ -447,7 +447,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "The Viscosity Kinematic Converter helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "volume-converter",
@@ -455,7 +455,7 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "The Volume Converter helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   },
   {
     slug: "yarn-weight-converter",
@@ -463,6 +463,6 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "The Yarn Weight Converter helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    isBuilt: true
+    status: "live"
   }
 ];

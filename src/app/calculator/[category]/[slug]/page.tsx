@@ -2,6 +2,8 @@ import React from "react";
 import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { SiteFooter } from "@/components/productivity/SiteFooter";
+import { ClientGrid } from "./ClientGrid";
 import { ChevronRight, Calculator } from "lucide-react";
 import { calculatorRegistry } from "@/domains/calculator/registry";
 import { CATEGORY_SUMMARY } from "../../summaryData";
@@ -98,30 +100,11 @@ export default function SubcategoryPage({ params }: Props) {
       </section>
 
       <div className="racira-page-container pb-16 w-full">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {tools.map((tool: any) => {
-            const toolSlug = tool.slug || toSlug(tool.name);
-            return (
-              <Link
-                key={toolSlug}
-                href={`/calculator/${toolSlug}`}
-                className="tool-card group"
-              >
-                <div className="tool-card-icon">
-                  <Calculator className="h-5 w-5 text-primary" />
-                </div>
-                <div className="min-w-0">
-                  <h4 className="font-semibold text-foreground text-[15px] leading-snug mb-1">
-                    {tool.name}
-                  </h4>
-                  <p className="text-[13px] text-muted-foreground leading-relaxed line-clamp-2">
-                    {tool.description || "Free online calculator."}
-                  </p>
-                </div>
-              </Link>
-            );
-          })}
-        </div>
+        <ClientGrid 
+          tools={tools.map(({ icon, ...rest }) => rest)} 
+          subcategoryName={sub.name} 
+          slug={params.slug} 
+        />
       </div>
     </div>
   );

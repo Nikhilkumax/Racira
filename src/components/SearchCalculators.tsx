@@ -60,8 +60,10 @@ const SearchCalculators = () => {
         )
         .sort((a, b) => {
           // Priority 0: Built vs Unbuilt
-          if (a.isBuilt && !b.isBuilt) return -1;
-          if (!a.isBuilt && b.isBuilt) return 1;
+          const aBuilt = a.status === "live";
+          const bBuilt = b.status === "live";
+          if (aBuilt && !bBuilt) return -1;
+          if (!aBuilt && bBuilt) return 1;
 
           const aName = a.name.toLowerCase();
           const bName = b.name.toLowerCase();
@@ -147,7 +149,7 @@ const SearchCalculators = () => {
                 href={`/calculator/${c.slug}`}
                 prefetch={false}
                 onClick={() => { 
-                  if (!c.isBuilt) trackComingSoonClick(c.slug, "search");
+                  if (c.status !== "live") trackComingSoonClick(c.slug, "search");
                   setQuery(""); 
                   setOpen(false); 
                 }}
