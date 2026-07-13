@@ -307,3 +307,12 @@ export const categories: { name: string; tools: Tool[] }[] = [
     ],
   },
 ];
+
+export function getAudioToolBySlug(slug: string) {
+  for (const cat of categories) {
+    for (const tool of cat.tools) {
+      if (tool.slug === slug) return tool;
+    }
+  }
+  return null;
+}

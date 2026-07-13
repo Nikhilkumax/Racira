@@ -36,7 +36,7 @@ export default function AudioClientGrid() {
           <div key={cat.name}>
             <CategorySection 
               section={{ title: cat.name, tools: cat.tools }} 
-              basePath="/audio/tool" 
+              basePath="/audio" 
             />
           </div>
         ))}

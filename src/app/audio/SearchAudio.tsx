@@ -11,7 +11,7 @@ export function SearchAudio() {
     <CategorySearch 
       categorySlug="audio" 
       placeholder={`Search ${totalCount}+ audio tools...`} 
-      registry={SEARCH_REGISTRY.map(t => ({ ...t, href: `/audio/tools/${t.slug}` }))} 
+      registry={SEARCH_REGISTRY.map(t => ({ ...t, href: `/audio/${t.slug}` }))} 
     />
   );
 }
