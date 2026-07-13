@@ -6,10 +6,10 @@ import { categories } from "@/domains/image/registry";
 import { SearchImage } from "./SearchImage";
 
 export const metadata = {
-  title: "Racira Image — 80+ Free Image Tools in Your Browser",
+  title: "Racira Image — 34+ Free Image Tools in Your Browser",
   description: "Convert, resize, compress, and edit images entirely in your browser. No signup required.",
   openGraph: {
-    title: "Racira Image — 80+ Free Image Tools",
+    title: "Racira Image — 34+ Free Image Tools",
     description: "Convert, resize, compress, and edit images entirely in your browser.",
   },
 };
