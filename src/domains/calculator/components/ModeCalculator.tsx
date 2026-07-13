@@ -135,7 +135,7 @@ const ModeCalculator = () => {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Mode Calculator?</h2>
             <p>A mode calculator finds the most frequently occurring value(s) in a dataset and builds a complete frequency distribution. Pre-filled with 15 numbers, the mode is 23 (appearing 4 times) — a clear unimodal distribution. The frequency chart highlights modes in amber for immediate visual identification, while also computing mean and median for comparison.</p>
             <h2 className="text-2xl font-bold mb-3">Types of Mode Distributions</h2>
@@ -148,7 +148,7 @@ const ModeCalculator = () => {
             <p>For a probability distribution, the mode is the value at which the probability density function reaches its maximum. Normal distribution: mode = mean = median (symmetric). Exponential distribution: mode = 0 (always). Beta distribution: mode varies with shape parameters. Bimodal distributions — like the mixture of two Gaussians — have two probability peaks and arise naturally in many real-world phenomena.</p>
             <h2 className="text-2xl font-bold mb-3">Practical Applications</h2>
             <p>Retail: most popular shoe size, best-selling product (inventory planning). Education: most common grade, most frequently missed question. Quality control: most common defect type. Medicine: most frequent diagnosis, most common side effect. Meteorology: most common wind direction. Political science: plurality winner in elections (the candidate with the most votes, i.e., the mode).</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/mode-calculator" />
           <PopularCalculators exclude="/calculator/mode-calculator" />
         </div>

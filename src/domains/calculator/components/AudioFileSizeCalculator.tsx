@@ -180,7 +180,7 @@ const AudioFileSizeCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Digital Audio Science</h2>
               <p>Digital audio is created by sampling a continuous sound wave at regular intervals. The frequency of these intervals is called the sample rate, and the precision of each sample is called the bit depth.</p>
               
@@ -189,7 +189,7 @@ const AudioFileSizeCalculator = () => {
 
               <h3>High-Resolution Audio</h3>
               <p>While CD quality (44.1 kHz / 16-bit) covers the entire frequency range audible to humans, many audiophiles and professionals prefer "High-Res" audio (96 kHz or 192 kHz / 24-bit). These formats provide a lower noise floor and greater dynamic range, though they require significantly more storage space and high-end playback equipment to be appreciated.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/audio-file-size" />
           <PopularCalculators exclude="/calculator/audio-file-size-calculator" />
         </div>

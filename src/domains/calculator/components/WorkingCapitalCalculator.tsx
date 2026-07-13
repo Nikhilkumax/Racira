@@ -134,7 +134,7 @@ const WorkingCapitalCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">What Is Working Capital?</h2>
               <p>Working capital is a measure of a company's short-term financial health and operational efficiency. It represents the difference between current assets (cash, receivables, inventory) and current liabilities (payables, short-term debt). Positive working capital means the company can fund its day-to-day operations and invest in growth.</p>
 
@@ -166,7 +166,7 @@ const WorkingCapitalCalculator = () => {
               </ul>
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> Working capital analysis is one part of financial assessment. Industry norms vary significantly. Consult an accountant for comprehensive financial analysis.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/working-capital-calculator" />
           <PopularCalculators exclude="/working-capital-calculator" />
         </div>

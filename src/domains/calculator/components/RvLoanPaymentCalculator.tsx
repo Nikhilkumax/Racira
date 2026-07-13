@@ -215,7 +215,7 @@ export default function RvLoanPaymentCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Financing Your RV: What to Know</h2>
             <p>Buying a recreational vehicle is a major financial commitment, often functioning more like purchasing a second home than buying a car. Because motorhomes, fifth wheels, and travel trailers can cost anywhere from $30,000 to well over $300,000, lenders treat RV financing differently than standard auto loans. The <strong>RV Loan Payment Calculator</strong> helps you model these long-term loans so you can understand the true cost of ownership before signing at the dealership.</p>
 
@@ -225,7 +225,7 @@ export default function RvLoanPaymentCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Taxes and Negative Equity</h2>
             <p>Sales tax on an RV purchase is significant. Depending on your state, taxes and dealer fees can add 6% to 10% to the purchase price. If you do not pay these costs in cash and instead roll them into your loan, you are paying 8.5% interest on taxes for the next decade. Furthermore, rolling taxes and fees into the loan almost guarantees you will be "underwater" (owing more than the RV is worth) the moment you drive off the lot. Because RVs depreciate steeply in the first three years, taking a 15-year loan with zero down payment means you may not build positive equity in the RV for 6 to 8 years.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/rv-loan-payment-calculator" />
           <PopularCalculators exclude="/calculator/rv-loan-payment-calculator" />
         </div>

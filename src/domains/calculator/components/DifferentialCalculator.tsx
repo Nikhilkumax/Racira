@@ -274,7 +274,7 @@ export default function DifferentialCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What is a Differential?</h2>
             <p>While the transmission handles shifting gears, the differential (often called the "rear end" in RWD trucks and cars) provides the final, permanent gear reduction before engine power reaches the tires. Inside the differential casing, there are two primary gears: a small Pinion gear connected to the spinning driveshaft, and a large Ring gear connected to the wheel axles. By dividing the number of teeth on the Ring gear by the teeth on the Pinion gear, you calculate your differential ratio (e.g., 41 ring teeth ÷ 11 pinion teeth = 3.73:1).</p>
 
@@ -290,7 +290,7 @@ export default function DifferentialCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Using the Differential Calculator</h2>
             <p>Our calculator allows you to predict exactly how a gear swap will affect your daily driving. By inputting the new Ring and Pinion teeth alongside your transmission's overdrive ratio (usually 0.70 or 0.75 for modern 6+ speed automatics) and tire size, the tool will instantly reveal your new highway cruising RPM. This ensures you do not accidentally install gears that are so aggressive they make your vehicle undrivable on the interstate.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/differential-calculator" />
           <PopularCalculators />

@@ -137,7 +137,7 @@ export default function LengthConverter() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Complete Guide to Length Unit Conversion</h2>
             <p>Length conversion is one of the most common mathematical operations in everyday life, science, engineering, and international commerce. Whether converting room dimensions from feet to meters for a renovation project, calculating a running route in kilometers versus miles, or working with microscopic measurements in engineering, understanding length units and converting between them is an essential skill.</p>
             <p>The world uses two primary measurement systems: the International System of Units (SI — the metric system) and the Imperial/US Customary system. While most countries use metric exclusively, the United States continues to use Imperial for everyday measurements, creating a constant need for conversion in international contexts.</p>
@@ -151,7 +151,7 @@ export default function LengthConverter() {
             <p>The nautical mile (nm = 1,852 m) equals one minute of arc of latitude on Earth's surface. This makes it ideal for navigation: distances in nautical miles correspond directly to degrees and minutes of latitude on charts. One degree of latitude equals 60 nautical miles. Speed in nautical miles per hour is called knots — the standard unit in aviation and maritime operations worldwide.</p>
             <h2 className="text-2xl font-bold mb-3">Practical Length Conversion Examples</h2>
             <p>Common conversions that arise in daily life: A standard door is 6 feet 8 inches (203.2 cm) tall. A marathon is 42.195 km (26.219 miles). A football field is 100 yards (91.44 m). A sheet of A4 paper is 29.7 cm × 21 cm (11.69 in × 8.27 in). A credit card is 85.6 mm × 54 mm (3.37 in × 2.13 in). The average human walking step is about 0.762 m (2.5 ft). Understanding these reference points helps build intuition for length conversions in everyday contexts.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/length-converter" />
           <PopularCalculators exclude="/calculator/length-converter" />
         </div>

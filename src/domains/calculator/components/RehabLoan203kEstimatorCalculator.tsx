@@ -202,7 +202,7 @@ export default function RehabLoan203kEstimatorCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding FHA 203(k) Rehab Loans</h2>
             <p>Buying a "fixer-upper" presents a common financial dilemma: standard mortgages will not lend you more than the current, pre-repaired value of the house, leaving you to fund renovations out of pocket or with high-interest personal loans. The Federal Housing Administration created the <strong>203(k) Rehab Loan</strong> to solve this. It allows you to wrap the purchase price of the home and the cost of the necessary repairs into one single, 30-year fixed-rate mortgage.</p>
             <p>The loan amount is based not on what the house is worth today, but on the projected value of the house after the repairs are completed. This powerful tool allows homebuyers to purchase distressed properties, update them, and immediately build sweat equity.</p>
@@ -212,7 +212,7 @@ export default function RehabLoan203kEstimatorCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">The 3.5% Down Payment Requirement</h2>
             <p>One of the biggest advantages of the 203(k) loan is the low down payment. Just like a standard FHA loan, you only need to put down 3.5%. However, this 3.5% is calculated based on the <strong>Total Project Cost</strong> (Purchase Price + Rehab Budget), not just the purchase price. For example, if you buy a home for $200,000 and the total rehab budget is $50,000, your 3.5% down payment is based on $250,000, requiring $8,750 down.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/rehab-loan-203k-estimator-calculator" />
           <PopularCalculators exclude="/calculator/rehab-loan-203k-estimator-calculator" />
         </div>

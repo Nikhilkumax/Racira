@@ -284,7 +284,7 @@ export default function HiitCalorieBurnCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Efficiency of High-Intensity Interval Training (HIIT)</h2>
             <p>For decades, the fitness industry believed that the only way to lose weight and improve cardiovascular health was to jog at a moderate pace for 45 to 60 minutes on a treadmill. Then, the science of High-Intensity Interval Training (HIIT) emerged and completely disrupted the status quo. By alternating between short bursts of absolute maximum effort and brief periods of rest, researchers discovered that athletes could achieve drastically superior cardiovascular adaptations and fat-loss results in a fraction of the time. The <strong>HIIT Calorie Burn Calculator</strong> bypasses generic fitness watch estimations by utilizing clinical Metabolic Equivalent (MET) formulas based on your specific work-to-rest intervals, providing an exact mathematical measurement of your intense thermodynamic output.</p>
 
@@ -315,7 +315,7 @@ export default function HiitCalorieBurnCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Quality Over Quantity</h2>
             <p>Stop doing 60 minutes of mediocre cardio and hoping for the best. Stop relying on inaccurate fitness watches that get confused by your heart rate spikes. To maximize fat loss, you need intense, focused, mathematical output. Use the HIIT Calorie Burn Calculator to track your exact interval data, ensure you are resting exactly when the timer says to rest, and let the science of the Afterburn Effect strip away body fat in half the time.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/hiit-calorie-burn-calculator" />
           <PopularCalculators exclude="/calculator/hiit-calorie-burn-calculator" />

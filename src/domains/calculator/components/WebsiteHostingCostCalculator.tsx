@@ -110,12 +110,12 @@ const WebsiteHostingCostCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Choosing the Right Web Hosting</h2>
               <p>Choosing a hosting provider is one of the most important decisions for your online business. The right choice ensures your site is fast, secure, and always available to your customers.</p>
               <h3>When to Upgrade</h3>
               <p>If your website starts to feel slow during peak traffic times, or if you are exceeding your current plan's bandwidth limits, it's time to upgrade. Moving from shared hosting to a VPS is the most common first step for growing businesses, providing much better reliability and speed.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/website-hosting-cost" />
           <PopularCalculators exclude="/calculator/website-hosting-cost-calculator" />
         </div>

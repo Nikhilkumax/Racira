@@ -275,7 +275,7 @@ export default function ReverseLogisticsCostCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Mathematics of Reverse Logistics</h2>
             <p>Reverse Logistics is often the most misunderstood and incorrectly budgeted part of a supply chain. Executives often assume that if it costs $8.50 to ship an item to a customer, it will cost $8.50 to ship it back. <strong>This is completely false.</strong></p>
             
@@ -286,7 +286,7 @@ export default function ReverseLogisticsCostCalculator() {
             <h2 className="text-2xl font-bold mb-3">Cost Recovery and "Free Returns"</h2>
             <p>For a decade, Amazon forced the e-commerce industry to offer "Free Returns." In 2023, the math became so unsustainable that major brands (Zara, H&M, Abercrombie) started charging a return fee (usually $5.99 to $7.99) deducted from the refund.</p>
             <p>This calculator demonstrates why. If your reverse freight cost is $21.25 per item, and you don't charge a return fee, you are subsidizing that entire loss out of your corporate profits. Charging a $5.99 fee doesn't cover the whole cost, but it acts as a critical subsidy to prevent severe financial bleeding.</p>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "What is a 3PL Handling Fee?", answer: "Third-Party Logistics (3PL) warehouses charge a 'receiving fee' for returns. It takes significantly more labor to open a used box, inspect the item, and decide if it can be restocked than it does to ship a new item." },
             { question: "Can I use 'Returnless Refunds'?", answer: "Yes, and it is highly recommended for low-ticket items. If an item costs you $4 to manufacture, and the reverse freight + handling costs $15, you should issue the customer a refund and tell them to keep the item. You instantly save $11." },

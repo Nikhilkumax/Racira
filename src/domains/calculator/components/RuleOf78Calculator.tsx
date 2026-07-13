@@ -273,7 +273,7 @@ export default function RuleOf78Calculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is the Rule of 78 Calculator?</h2>
             <p>The Rule of 78 Calculator is a specialized financial tool that helps borrowers understand how pre-computed interest loans work and quantifies the true cost of paying off a loan early. Unlike standard amortization loans where interest is calculated daily or monthly on the remaining balance, Rule of 78 loans front-load the interest — assigning more of the total interest to the early months and less to the later months. This creates a hidden financial trap: the earlier you pay off the loan, the less interest rebate you receive.</p>
             <p>This calculator is essential for anyone who has taken out a consumer loan — particularly from a car dealership, furniture store, or sub-prime lender — and is considering making an early payoff. By entering your loan amount, interest rate, term, and intended payoff month, you immediately see your exact interest rebate and remaining balance, often revealing a significant penalty compared to a simple interest loan.</p>
@@ -306,7 +306,7 @@ export default function RuleOf78Calculator() {
 
             <h2 className="text-2xl font-bold mb-3">Benefits of Using This Calculator</h2>
             <p>This calculator eliminates the complex arithmetic of the sum-of-digits method and gives you an instant, accurate picture of your true payoff cost. It empowers borrowers to make informed decisions about early loan payoffs, refinancing, and loan selection. Understanding the Rule of 78 before signing can save hundreds to thousands of dollars over the life of a consumer loan.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/rule-of-78-calculator" />
           <PopularCalculators exclude="/calculator/rule-of-78-calculator" />
         </div>

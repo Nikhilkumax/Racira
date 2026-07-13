@@ -334,7 +334,7 @@ export default function WalkVsRunCalorieComparisonCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Great Debate: Walking vs. Running for Calorie Burn</h2>
             <p>One of the most pervasive myths in the fitness industry is the belief that moving a specific mass across a specific distance burns the exact same amount of energy, regardless of speed. People often say, "A mile is a mile; if you weigh 150 pounds, you'll burn 100 calories whether you walk it or run it." From a strict Newtonian physics perspective (Work = Force × Distance), this sounds logical. However, human biology does not operate like a simple machine. The <strong>Walk vs Run Calorie Comparison Calculator</strong> mathematically proves that the biomechanics and cardiovascular demands of running force your body to expend significantly more energy over the exact same distance compared to walking.</p>
 
@@ -363,7 +363,7 @@ export default function WalkVsRunCalorieComparisonCalculator() {
             <h2 className="text-2xl font-bold mb-3">The Case for Walking: Joint Health and Sustainability</h2>
             <p>If running burns more calories per mile, more calories per minute, and generates an afterburn effect, why should anyone walk? The answer lies in orthopedics and sustainability. </p>
             <p>Running is incredibly punishing on the human skeletal system. The repetitive impact can cause shin splints, stress fractures, plantar fasciitis, and severe knee cartilage degradation (runner's knee). If you weigh over 200 pounds, running can be downright dangerous for your joints. Walking, on the other hand, is a low-impact activity that causes virtually zero orthopedic trauma. You can walk 5 miles a day, every single day, without ever needing a "recovery day." For long-term, sustainable, injury-free weight management, walking is arguably the greatest exercise tool in existence. Use the calculator to balance your goals: run for time efficiency and cardiovascular power, or walk for joint health and sustainable daily volume.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/walk-vs-run-calorie-comparison-calculator" />
           <PopularCalculators exclude="/calculator/walk-vs-run-calorie-comparison-calculator" />

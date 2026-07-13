@@ -124,12 +124,12 @@ const HouseAffordabilityCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Sidebar Ad" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">How Lenders Determine Your Budget</h2>
               <p>When you apply for a mortgage, lenders don't just look at your credit score; they look at your "capacity" to pay. The primary metric they use is the Debt-to-Income (DTI) ratio.</p>
               <h3>Front-End vs. Back-End Ratio</h3>
               <p>The **front-end ratio** is the percentage of your gross income that goes toward housing costs. Lenders typically like this to be 28% or less. The **back-end ratio** is your total debt payments (including the new mortgage) divided by your gross income. Lenders typically look for 36% to 43% here.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/house-affordability-calculator" />
           <PopularCalculators exclude="/calculator/house-affordability-calculator" />
         </div>

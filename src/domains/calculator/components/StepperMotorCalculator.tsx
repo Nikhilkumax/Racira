@@ -164,7 +164,7 @@ const StepperMotorCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Configuring 3D Printer Firmware</h2>
               <p>For a 3D printer or CNC machine to move accurately, its firmware (like Marlin, Klipper, or RepRapFirmware) must know exactly how many electronic pulses (steps) correspond to one millimeter of physical movement.</p>
               
@@ -173,7 +173,7 @@ const StepperMotorCalculator = () => {
 
               <h3>Lead vs. Pitch</h3>
               <p>When calculating Z-axis steps, it's vital to use the 'Lead' of the screw, not just the 'Pitch'. The lead is the linear distance a nut travels in one complete revolution of the screw. For a single-start screw, lead equals pitch. For an 4-start T8 screw (very common in 3D printers), the pitch might be 2mm, but the lead is 8mm.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/stepper-motor" />
           <PopularCalculators exclude="/calculator/stepper-motor-calculator" />
         </div>

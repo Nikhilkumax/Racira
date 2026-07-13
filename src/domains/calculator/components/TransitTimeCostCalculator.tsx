@@ -281,7 +281,7 @@ export default function TransitTimeCostCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Air vs Ocean: The Supply Chain Trade-Off</h2>
             <p>Every logistics manager faces the classic dilemma: Do I ship this cargo via Ocean (cheap but takes 45 days) or Air (expensive but takes 5 days)? The amateur mistake is to only look at the logistics invoice. The professional approach is to calculate the <strong>Total Cost of Ownership (TCO)</strong>, which includes the cost of tied-up capital.</p>
             
@@ -292,7 +292,7 @@ export default function TransitTimeCostCalculator() {
             <h2 className="text-2xl font-bold mb-3">When Air Freight Actually Saves Money</h2>
             <p>For low-value, heavy goods (like furniture or canned food), Ocean freight is almost always cheaper, even with the opportunity cost. However, for <strong>high-value, lightweight goods</strong> (like microchips, smartphones, or high-end pharmaceuticals), the math flips.</p>
             <p>If you have $2,000,000 worth of iPhones, the daily interest cost of tying up that capital is so exorbitant that it is mathematically cheaper to pay the massive Air Freight premium just to get the goods onto store shelves 40 days faster.</p>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "What should I use for 'Cost of Capital' if I don't have a business loan?", answer: "Use your expected Return on Investment (ROI). If you could take that cash and invest it in marketing to generate a 15% return, your cost of capital is 15%. Your cash should never sit idle for 'free'." },
             { question: "Are there other costs to slow transit times?", answer: "Yes. Obsolescence is a major risk in fashion and tech. If you ship winter coats via ocean, but they get delayed and arrive in Spring, you now have to liquidate them at a massive loss. Air freight guarantees you hit the seasonal window." },

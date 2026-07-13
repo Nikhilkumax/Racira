@@ -227,7 +227,7 @@ const RoundingCalculator = () => {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Importance of Rounding</h2>
             <p><strong>Rounding</strong> is a mathematical technique used to reduce the number of digits in a figure while keeping its value relatively similar to the original. This is done to make numbers simpler, more readable, and easier to use in mental calculations, particularly when extreme precision is unnecessary. For instance, stating that a distance is "about 15 miles" is usually more helpful than stating it is "14.8392 miles."</p>
 
@@ -247,7 +247,7 @@ const RoundingCalculator = () => {
               <li><strong>Hundredths (0.01):</strong> Two digits after the decimal point. The standard precision for almost all global fiat currencies (dollars and cents).</li>
               <li><strong>Thousandths (0.001):</strong> Three digits after the decimal point. Commonly used in science, manufacturing, and sports statistics (like a baseball batting average).</li>
             </ul>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/rounding-calculator" />
           <PopularCalculators exclude="/calculator/rounding-calculator" />
         </div>

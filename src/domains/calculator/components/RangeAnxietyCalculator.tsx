@@ -400,7 +400,7 @@ export default function RangeAnxietyCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Range Anxiety Calculator?</h2>
             <p>A Range Anxiety Calculator is a trip-planning tool that replaces panic with mathematics. When driving an electric vehicle, trusting the dashboard's "estimated miles remaining" display can lead to severe anxiety, because that computer cannot see the massive mountain pass or the 75 mph speed limit in your immediate future. This calculator strips away the guesswork. By inputting your current battery level, destination distance, and expected driving conditions, it predicts exactly what percentage your battery will be at when you arrive.</p>
 
@@ -419,7 +419,7 @@ export default function RangeAnxietyCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
             <p>If you find yourself experiencing range anxiety on the highway, the absolute fastest way to extend your range is to <strong>slow down</strong>. Dropping your speed by just 10 mph can restore 15% to 20% of your range instantly. Secondly, turn off the cabin heater and use the seat heaters instead. Heating the air in a car requires a 3,000-watt electric heater. Heating a seat requires a 50-watt element. Finally, if you are driving into a massive headwind, draft safely behind a large semi-truck to reduce wind resistance.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/range-anxiety-calculator" />
           <PopularCalculators />

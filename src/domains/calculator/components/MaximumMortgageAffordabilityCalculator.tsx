@@ -194,7 +194,7 @@ export default function MaximumMortgageAffordabilityCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">How Much Home Can You Truly Afford?</h2>
             <p>Determining your maximum mortgage affordability is the crucial first step before browsing real estate listings. If you start shopping before knowing your mathematical limit, you risk falling in love with a home that lenders will not approve you for. The <strong>Maximum Mortgage Affordability Calculator</strong> reverses the standard mortgage math: instead of entering a home price to see the monthly payment, you enter your income and debts, and the calculator determines the absolute maximum home price a lender will approve.</p>
             <p>This calculation is strictly mathematical. It models the exact underwriting formulas used by major banks, relying heavily on the Debt-to-Income (DTI) ratio. However, borrowers should be aware that "what you qualify for" and "what you should comfortably spend" are often two different numbers. Being approved for a $600,000 home doesn't mean your lifestyle and savings goals can easily absorb the payments.</p>
@@ -209,7 +209,7 @@ export default function MaximumMortgageAffordabilityCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">The Impact of Down Payments</h2>
             <p>Your available down payment serves two functions in affordability. First, it bridges the gap between the maximum loan amount the bank will give you and the purchase price of the home. If the bank's DTI formula dictates they will only lend you $400,000, but you have $100,000 in cash, you can afford a $500,000 home. Second, bringing a down payment of at least 20% eliminates Private Mortgage Insurance (PMI). Removing the PMI cost from your monthly payment frees up more room in your DTI ratio, allowing the bank to approve a slightly larger principal loan amount.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/maximum-mortgage-affordability-calculator" />
           <PopularCalculators exclude="/calculator/maximum-mortgage-affordability-calculator" />
         </div>

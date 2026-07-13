@@ -358,7 +358,7 @@ export default function OlympicLiftPercentageCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Olympic Lift Percentage Calculator</h2>
             <p>If you observe a beginner attempting the Olympic lifts (the Snatch and the Clean & Jerk), you will immediately notice a chaotic disconnect between their strength and their technique. A massive powerlifter might be able to deadlift 600 pounds, but completely fail to Snatch 135 pounds due to a lack of speed and mobility. Conversely, a highly technical teenager might Snatch 185 pounds, but constantly fail standing up from the squat because they lack raw leg strength. The <strong>Olympic Lift Ratio Calculator</strong> uses decades of elite Russian and Soviet weightlifting data to diagnose exactly where your training is failing. By establishing an ideal mathematical ratio between your lifts, you can immediately identify whether you need to spend the next 12 weeks building raw strength or drilling technique.</p>
 
@@ -392,7 +392,7 @@ export default function OlympicLiftPercentageCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Train the Weakness</h2>
             <p>Olympic Weightlifting is a delicate balance of absolute strength, explosive power, extreme mobility, and surgical precision. If any one of these pillars falls out of alignment, the entire system crashes. Use the Olympic Lift Percentage Calculator to periodically audit your training. Let the cold, hard mathematics of the Soviet ratios dictate your programming, ensuring you are always training your weakest link rather than simply feeding your ego.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/olympic-lift-percentage-calculator" />
           <PopularCalculators exclude="/calculator/olympic-lift-percentage-calculator" />

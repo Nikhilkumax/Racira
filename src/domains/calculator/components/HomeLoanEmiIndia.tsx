@@ -239,7 +239,7 @@ export default function HomeLoanEmiIndia() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Home Loan EMI Calculator?</h2>
             <p>A home loan EMI (Equated Monthly Installment) calculator is an essential tool for anyone considering or managing a home loan in India. It instantly calculates your fixed monthly payment, total interest outgo, and repayment schedule based on your loan amount, interest rate, and tenure. Whether you're comparing offers from SBI, HDFC, ICICI, or any other bank or NBFC, understanding your EMI before applying is crucial for financial planning.</p>
             <p>In India, home loans are typically available for tenures of 5 to 30 years, with amounts ranging from a few lakhs to several crores. The current (2024-25) home loan interest rate range is approximately 8.35% to 10.5% depending on the lender, your credit profile, and whether you choose a floating or fixed rate product. Even a 0.5% difference in interest rate on a ₹50 lakh loan over 20 years can mean a difference of ₹3-4 lakhs in total interest outgo.</p>
@@ -258,7 +258,7 @@ export default function HomeLoanEmiIndia() {
 
             <h2 className="text-2xl font-bold mb-3">Home Loan Comparison: Bank vs HFC vs NBFC</h2>
             <p>Public sector banks (SBI, Bank of Baroda, PNB) typically offer the lowest interest rates and are benchmarked to the RBI repo rate. Private banks (HDFC Bank, ICICI, Axis) offer convenience, digital processing, and fast approvals but at slightly higher rates. Housing Finance Companies (HDFC Ltd, LIC Housing Finance, Bajaj Housing Finance) specialize in home loans and often have more flexible eligibility criteria. NBFCs may approve borrowers with non-traditional income but typically charge higher rates. Always compare the all-in cost including processing fees, legal charges, technical valuation fees, and insurance requirements.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/home-loan-emi-calculator-india" />
           <PopularCalculators exclude="/calculator/home-loan-emi-calculator-india" />
         </div>

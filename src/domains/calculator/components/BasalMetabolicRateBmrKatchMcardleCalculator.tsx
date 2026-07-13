@@ -330,7 +330,7 @@ export default function BasalMetabolicRateBmrKatchMcardleCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Katch-McArdle BMR Calculator</h2>
             <p>If you have ever attempted to track your macros or count calories, you have likely used a standard online calculator to find your Basal Metabolic Rate (BMR) or Total Daily Energy Expenditure (TDEE). The vast majority of these basic calculators use the Mifflin-St Jeor or Harris-Benedict formulas. While these equations are excellent for the "average" human being, they contain a massive mathematical flaw when applied to outliers: they only look at Total Body Weight. They assume that a pound of body fat and a pound of skeletal muscle burn calories at the exact same rate. This is biologically false. The <strong>Katch-McArdle Formula</strong> is an elite, clinical sports science calculation that corrects this flaw by basing your metabolism entirely on your <strong>Lean Body Mass</strong>.</p>
 
@@ -372,7 +372,7 @@ export default function BasalMetabolicRateBmrKatchMcardleCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Precision Engineering</h2>
             <p>If you are serious about optimizing your body composition, generic averages are no longer sufficient. You must treat your body like a high-performance machine. By securing an accurate body fat measurement and running it through the Basal Metabolic Rate (Katch-McArdle) Calculator, you strip away the metabolic dead weight and build your nutritional protocol on the exact mathematical requirements of your lean tissue.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/basal-metabolic-rate-bmr-katch-mcardle-calculator" />
           <PopularCalculators exclude="/calculator/basal-metabolic-rate-bmr-katch-mcardle-calculator" />

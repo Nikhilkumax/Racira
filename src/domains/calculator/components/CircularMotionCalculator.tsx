@@ -153,7 +153,7 @@ const CircularMotionCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Circular Motion Calculator?</h2>
             <p>A circular motion calculator computes the centripetal acceleration, centripetal force, angular velocity, period, frequency, and G-force for an object moving in a circular path. Pre-filled with a 5 kg object at radius 2 m moving at 10 m/s, the centripetal acceleration is 50 m/s² (5.1g) and the centripetal force is 250 N.</p>
             <h2 className="text-2xl font-bold mb-3">Core Formulas</h2>
@@ -166,7 +166,7 @@ const CircularMotionCalculator = () => {
             <p>For a circular orbit, the centripetal force equals gravitational force: mv²/r = GMm/r². This gives orbital velocity: v = √(GM/r). The ISS orbits at ~7.7 km/s at altitude ~400 km (r = 6,771 km from Earth's center). Geostationary orbits require r = 42,164 km with v = 3.07 km/s, where the orbital period matches Earth's rotation (23h 56m).</p>
             <h2 className="text-2xl font-bold mb-3">Banked Curves in Road Design</h2>
             <p>When a road curves, friction provides centripetal force. Banked curves supplement friction with a component of the normal force: tan(θ) = v²/(rg). For a 50 m/s car on a 200m radius curve: θ = arctan(50²/(200×9.81)) = 51.8°. Most highway curves are designed for speeds of 80–120 km/h with 5–10° banking angles. Ice and rain reduce available friction, requiring lower speeds or steeper banking.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/circular-motion-calculator" />
           <PopularCalculators exclude="/calculator/circular-motion-calculator" />
         </div>

@@ -319,7 +319,7 @@ export default function WeightLossPercentageCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Deception of Aspirational Fitness</h2>
             <p>If you consume fitness media on Instagram or TikTok, you are subjected to a relentless barrage of "aspirational" physiques. You are shown images of bodybuilders with 5% body fat and fitness models with six-pack abs. This creates a deeply toxic psychological framework for the average person attempting to lose weight. They believe that unless they achieve that magazine-cover perfection, their diet was a failure. Medical science completely disagrees. The clinical reality is that you do not need to be perfect to save your own life. The <strong>Clinical Weight Loss Percentage Calculator</strong> strips away the aesthetic vanity of the fitness industry and anchors your progress to the three objective medical milestones that actually govern human longevity.</p>
 
@@ -344,7 +344,7 @@ export default function WeightLossPercentageCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Reclaim Your Health</h2>
             <p>You do not need a six-pack to be healthy, and you do not need to be thin to dramatically extend your lifespan. You simply need to initiate the process of visceral fat oxidation. Use the Clinical Weight Loss Percentage Calculator to track your exact trajectory. Cross the 5% threshold, push relentlessly toward the 15% remission line, and mathematically reclaim your metabolic health.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/weight-loss-percentage-calculator" />
           <PopularCalculators exclude="/calculator/weight-loss-percentage-calculator" />

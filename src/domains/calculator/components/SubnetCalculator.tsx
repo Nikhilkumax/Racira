@@ -146,14 +146,14 @@ const SubnetCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Understanding Subnetting</h2>
               <p>In the early days of the Internet, IP addresses were assigned in large blocks called "classes" (Class A, B, and C). This was extremely wasteful, as many organizations received far more addresses than they needed. Subnetting was developed to allow for much more precise allocation of IP address space.</p>
               <h3>CIDR Notation</h3>
               <p>The slash notation (e.g., /24) is known as CIDR (Classless Inter-Domain Routing). It tells you how many bits of the 32-bit IP address are dedicated to the network prefix. A /24 mask means the first 24 bits are for the network, leaving 8 bits (2^8 = 256 addresses) for local hosts.</p>
               <h3>The Role of the Gateway</h3>
               <p>For a device on one subnet to communicate with a device on another, it must send its traffic through a "Default Gateway" (usually a router). The subnet mask allows the device to determine if a destination IP is "local" or if it needs to be sent to the gateway.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/subnet" />
           <PopularCalculators exclude="/calculator/subnet-calculator" />
         </div>

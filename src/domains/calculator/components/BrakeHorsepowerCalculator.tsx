@@ -226,7 +226,7 @@ export default function BrakeHorsepowerCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Why Calculate Brake Horsepower?</h2>
             <p>If you take your modified car to a performance shop and run it on a chassis dynamometer (dyno), the computer will print out a graph showing your <strong>Wheel Horsepower (WHP)</strong>. However, the automotive industry does not use WHP for marketing; they use <strong>Brake Horsepower (BHP)</strong>, which is measured at the engine crank. If your dyno sheet says 400 WHP, and you want to know how that compares to a brand-new 480 BHP Mustang GT, you must mathematically convert your WHP back into BHP using this calculator.</p>
 
@@ -249,7 +249,7 @@ export default function BrakeHorsepowerCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Is the 15% / 18% / 25% Rule Perfect?</h2>
             <p>No, these percentages are industry-standard estimations used as a general baseline. Real-world power loss is incredibly nuanced. A highly efficient modern 10-speed automatic transmission might only lose 12% in a rear-wheel-drive car. Conversely, an older, heavy all-wheel-drive system might lose closer to 28%. The type of dyno used (Mustang vs. Dynojet) also heavily skews the initial WHP reading, making BHP calculation a helpful estimation rather than an exact science.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/brake-horsepower-calculator" />
           <PopularCalculators />

@@ -312,7 +312,7 @@ export default function NetProfitMarginCalculator() {
         {/* SEO Article Section */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Net Profit Margin</h2>
             <p>
               The <strong>Net Profit Margin</strong> stands as the ultimate indicator of a firm's bottom-line profitability. While other metrics like gross profit or operating earnings tell a story about manufacturing efficiency or sales control, the net profit margin reports the percentage of revenue that remains as actual cash that can be distributed to equity owners or reinvested in corporate expansion.
@@ -320,7 +320,7 @@ export default function NetProfitMarginCalculator() {
             <p>
               Calculated by dividing Net Income by Total Revenue, this ratio accounts for every single dollar of expenses. This includes direct labor and materials (COGS), selling and general overhead (OpEx), interest payments on corporate debt, and federal/state income taxes. An expanding net profit margin indicates excellent pricing power, cost control, or strong operating leverage.
             </p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/net-profit-margin-calculator" />
           <PopularCalculators exclude="/calculator/net-profit-margin-calculator" />
         </div>

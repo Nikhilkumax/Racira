@@ -297,7 +297,7 @@ export default function TennisFirstServeCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Ultimate Offensive Weapon</h2>
             <p>In the sport of tennis, the player who dictates the baseline geometry of the point is almost always the player who wins the match. There is no greater tactical advantage than the First Serve. Because the rules of tennis grant the server two attempts to start the point without penalty, the first serve is essentially a "free swing." Players utilize this first attempt to strike the ball with maximum velocity, extreme spin, and aggressive placement, aiming for aces or weak returns. However, if that serve misses, the tactical advantage completely evaporates. The <strong>Tennis First Serve Percentage Calculator</strong> isolates this critical statistic, revealing whether you are successfully controlling your service games or surrendering the offensive initiative to your opponent.</p>
 
@@ -319,7 +319,7 @@ export default function TennisFirstServeCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Control the Controllable</h2>
             <p>Tennis is a sport defined by chaos: wind, court surface anomalies, and an unpredictable opponent. The service toss is the only moment in a tennis match where you have absolute, total control over the ball. Stop guessing how well you are executing this advantage. Use the Tennis First Serve Percentage Calculator after every match. Track your data. If your percentage consistently falls below 55%, you must head to the practice court and drill your mechanics until you can reliably execute the most important shot in the game.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/tennis-first-serve-percentage-calculator" />
           <PopularCalculators exclude="/calculator/tennis-first-serve-percentage-calculator" />

@@ -140,7 +140,7 @@ export default function MacroCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Macro Calculator?</h2>
             <p>A macro calculator converts your total daily calorie goal into specific gram targets for protein, carbohydrates, and fat based on your chosen percentage split. Macronutrients are the three classes of nutrients that provide energy: protein and carbohydrates each provide 4 kcal per gram; fat provides 9 kcal per gram. Tracking macros (not just calories) allows precision nutrition for specific body composition goals.</p>
             <h2 className="text-2xl font-bold mb-3">How to Choose Your Macro Split</h2>
@@ -149,7 +149,7 @@ export default function MacroCalculator() {
             <p>Protein is uniquely important because it is the only macronutrient that directly supports muscle synthesis and preservation. Minimum recommendation: 0.8g/kg (sedentary). For body composition goals: 1.6–2.2g/kg of bodyweight. High protein intake increases satiety (reduces hunger), has the highest thermic effect (20–30% of calories burned in digestion vs. 5–10% for carbs/fat), and protects muscle mass during calorie restriction. Prioritize hitting protein targets; fill remaining calories with carbs and fat based on preference and training demands.</p>
             <h2 className="text-2xl font-bold mb-3">Carbohydrates and Exercise Performance</h2>
             <p>Carbohydrates are the primary fuel for moderate-to-high intensity exercise. Muscle glycogen (stored carbs) is depleted within 60–90 minutes of intense training. Athletes and regular gym-goers perform better with adequate carbohydrate intake (5–7g/kg for moderate exercise; 7–10g/kg for endurance). Low-carb approaches can work for fat loss but may impair performance at high exercise intensities. Match carb intake to training volume and intensity.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/macro-calculator" />
           <PopularCalculators exclude="/calculator/macro-calculator" />
         </div>

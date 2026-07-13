@@ -126,7 +126,7 @@ const IdealWeightCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">What Is Ideal Body Weight?</h2>
               <p>Ideal body weight (IBW) is a clinical estimate of the weight at which a person of a given height is likely to be healthiest. It was originally developed for drug dosing calculations but is now widely used as a general health reference. This calculator uses four of the most established formulas in medicine.</p>
 
@@ -161,7 +161,7 @@ const IdealWeightCalculator = () => {
               <p>Rather than fixating on an ideal number, focus on body composition (fat vs. muscle), waist-to-hip ratio, blood pressure, blood sugar, and how you feel. A holistic approach to health is more meaningful than any single metric.</p>
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> Ideal weight estimates are general guidelines based on population averages. They do not account for individual body composition. Consult a healthcare professional for personalized health advice.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/ideal-weight-calculator" />
           <PopularCalculators exclude="/ideal-weight-calculator" />
         </div>

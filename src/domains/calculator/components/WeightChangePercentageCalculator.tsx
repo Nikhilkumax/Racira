@@ -352,7 +352,7 @@ export default function WeightChangePercentageCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Mathematics of Relativity</h2>
             <p>One of the most psychologically frustrating aspects of the fitness journey is comparing yourself to others. A 130-pound woman might spend three months dieting rigorously to lose 6 pounds, while her 300-pound husband stops drinking soda for a month and drops 15 pounds. The woman feels defeated because she only looks at the absolute number on the scale. However, the laws of biology operate on relativity, not absolute numbers. Losing 6 pounds on a 130-pound frame is an incredibly difficult, massive physiological shift (nearly 5% of total body mass). Losing 15 pounds on a 300-pound frame is mathematically much easier and represents a smaller percentage. The <strong>Weight Change Percentage Calculator</strong> eliminates emotional bias by translating your progress into a strict, objective mathematical ratio.</p>
 
@@ -374,7 +374,7 @@ export default function WeightChangePercentageCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Trust the Math, Ignore the Mirror</h2>
             <p>When you stare at yourself in the mirror every single day, you suffer from "change blindness." The gradual shifts in your physique are impossible for your brain to detect in real-time. Do not trust the mirror, and do not let the raw poundage on the scale dictate your mood. Use the Weight Change Percentage Calculator to anchor your progress in cold, objective mathematics. Hit the 5% clinical milestone, push toward the 10% threshold, and permanently alter the trajectory of your metabolic health.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/weight-change-percentage-calculator" />
           <PopularCalculators exclude="/calculator/weight-change-percentage-calculator" />

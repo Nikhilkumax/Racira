@@ -468,7 +468,7 @@ export default function EducationLoanCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Education Loan Calculator</h2>
             <p>Investing in higher education is often the most significant financial decision a young adult will make. While a degree can dramatically increase your lifelong earning potential, the debt required to obtain it can cripple your finances for decades if not managed correctly. An <strong>Education Loan Calculator</strong> (often referred to as a Student Loan Calculator) is a critical planning tool that helps prospective students and their parents project the true, long-term cost of borrowing money for college or graduate school.</p>
             <p>Unlike standard auto loans or mortgages, education loans have unique structural features—such as extended grace periods and capitalized interest—that make them deceptively expensive. By utilizing this comprehensive calculator, you can strip away the complexity, clearly visualize the impact of compound interest during your college years, and accurately estimate the monthly payment you will face upon graduation.</p>
@@ -511,7 +511,7 @@ export default function EducationLoanCalculator() {
             <h2 className="text-2xl font-bold mb-3">Conclusion and Financial Security</h2>
             <p>An education is a powerful asset, but excessive student loan debt is an anchor that can delay buying a home, starting a family, or saving for retirement. By utilizing this Education Loan Calculator, you transition from a passive student blindly accepting financial aid award letters, to an informed consumer.</p>
             <p>Running multiple scenarios—such as working part-time to pay down interest, choosing a less expensive state school, or committing to an aggressive 5-year repayment plan instead of the standard 10-year plan—empowers you to secure your education while fiercely protecting your financial future.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/education-loan-calculator" />
           <PopularCalculators exclude="/calculator/education-loan-calculator" />

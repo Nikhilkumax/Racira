@@ -305,7 +305,7 @@ export default function CarWashCostCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Car Wash Cost Calculator?</h2>
             <p>A Car Wash Cost Calculator is a specialized budgeting tool designed to reveal the hidden annual expense of keeping your vehicle clean. While dropping $15 at an automatic car wash or paying $35 a month for a subscription might seem like a trivial expense at the time, these small recurring costs silently compound. When aggregated over a year or five years, car washing can easily rival the cost of vehicle maintenance or insurance. This calculator helps you compare different cleaning methods to optimize your budget.</p>
 
@@ -330,7 +330,7 @@ export default function CarWashCostCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Benefits</h2>
             <p>Using a Car Wash Cost Calculator stops financial leaks. It forces you to look at micro-transactions through an annualized lens. By understanding exactly how much money and time you are dedicating to vehicle aesthetics, you can make an informed decision on whether to cancel that unused subscription, start washing at home, or accept the cost as a necessary luxury.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/car-wash-cost-calculator" />
           <PopularCalculators />

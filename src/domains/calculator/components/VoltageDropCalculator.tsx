@@ -230,7 +230,7 @@ const VoltageDropCalculator = () => {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Physics of Voltage Drop</h2>
             <p>No wire is a perfect conductor of electricity. Even highly conductive metals like copper and aluminum possess a small amount of internal resistance to the flow of electrons. When electrical current (Amperage) pushes through this resistance over a long distance, some of the electrical energy is converted into heat and lost to the surrounding environment. This loss of electrical "pressure" is known as <strong>Voltage Drop</strong>.</p>
             
@@ -245,7 +245,7 @@ const VoltageDropCalculator = () => {
               <li><strong>Shorten the Distance:</strong> Resistance is cumulative. The shorter the physical length of the wire from the breaker panel to the outlet, the lower the resistance.</li>
               <li><strong>Decrease the Load:</strong> If a circuit is heavily loaded (pulling many Amps), the voltage drop is amplified. Splitting the electrical load across two separate circuits will reduce the drop on both.</li>
             </ol>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/voltage-drop-calculator" />
           <PopularCalculators exclude="/calculator/voltage-drop-calculator" />
         </div>

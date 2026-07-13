@@ -126,7 +126,7 @@ export default function SpeedConverter() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Complete Guide to Speed Unit Conversion</h2>
             <p>Speed is defined as the rate at which an object covers distance over time. Different fields and regions use different speed units, making conversions essential for science, transportation, sports, and engineering. This converter handles all major speed units: meters per second (m/s), kilometers per hour (km/h), miles per hour (mph), knots (kn), feet per second (ft/s), and Mach numbers.</p>
             <p>The SI base unit for speed is meters per second (m/s). However, km/h is the most commonly used unit globally for road speeds and weather, mph is standard in the United States and United Kingdom, and knots are used universally in aviation and maritime navigation. Mach numbers are used for supersonic and high-altitude flight where the speed of sound is a critical reference point.</p>
@@ -140,7 +140,7 @@ export default function SpeedConverter() {
             <p>The knot is defined as one nautical mile per hour = 1.852 km/h = 0.514444 m/s. It is the universal standard in aviation and maritime contexts because nautical miles relate directly to Earth's coordinate system. Commercial aircraft cruise at 450–500 knots true airspeed. Container ships travel at 20–24 knots. The America's Cup sailing competition features vessels exceeding 50 knots.</p>
             <h2 className="text-2xl font-bold mb-3">Mach Number — Supersonic Flight</h2>
             <p>The Mach number expresses speed as a ratio to the local speed of sound. At sea level and 15°C, Mach 1 = 340.29 m/s = 1,225 km/h = 761 mph. At 30,000 ft altitude (cruise altitude for jets), Mach 1 ≈ 295 m/s because cold air slows sound propagation. Commercial aircraft cruise at Mach 0.78–0.85. The Concorde cruised at Mach 2. The SR-71 Blackbird reconnaissance aircraft reached Mach 3.3.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/speed-converter" />
           <PopularCalculators exclude="/calculator/speed-converter" />
         </div>

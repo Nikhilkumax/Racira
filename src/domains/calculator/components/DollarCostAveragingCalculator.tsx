@@ -88,7 +88,7 @@ export default function DollarCostAveragingCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">What Is Dollar Cost Averaging?</h2>
               <p>Dollar Cost Averaging (DCA) is one of the most powerful — and psychologically comfortable — investment strategies available to individual investors. The concept is elegantly simple: invest a fixed dollar amount into a chosen asset at regular intervals (weekly, monthly, quarterly) regardless of what the market is doing. When prices are high, your fixed amount buys fewer shares. When prices are low, the same amount buys more shares. Over time, this results in a lower average cost per share than randomly timed purchases.</p>
               <h2 className="text-2xl font-bold mb-3">The Math Behind DCA</h2>
@@ -101,7 +101,7 @@ export default function DollarCostAveragingCalculator() {
               <p>The most successful DCA practitioners automate their investments. By setting up automatic monthly transfers from your paycheck into a 401(k), IRA, or brokerage account, you eliminate the emotional component of investment decisions. You never have to agonize over whether "now is a good time" to invest. This "set it and forget it" approach is well-suited for busy professionals who want long-term wealth building without constant market monitoring.</p>
               <h2 className="text-2xl font-bold mb-3">DCA During Market Downturns</h2>
               <p>Market downturns are where DCA truly shines. While a lump-sum investor who put everything in at the peak watches their portfolio decline, a DCA investor continues buying at lower and lower prices, accumulating more shares for the same monthly dollar amount. When the inevitable recovery occurs, the DCA investor has a larger share count and often recovers their losses — and then some — much faster than the lump-sum investor who timed the market badly.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/dollar-cost-averaging-calculator" />
           <PopularCalculators exclude="/calculator/dollar-cost-averaging-calculator" />
         </div>

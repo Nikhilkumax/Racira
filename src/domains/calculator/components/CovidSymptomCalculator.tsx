@@ -249,7 +249,7 @@ export default function CovidSymptomCalculator() {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding COVID-19 Triage</h2>
             <p>COVID-19 affects different people in drastically different ways. While some individuals remain entirely asymptomatic, others can develop life-threatening respiratory failure within days. Understanding when to isolate at home and when to seek emergency medical care is the cornerstone of managing the virus safely.</p>
             <p>This <strong>COVID-19 Symptom Triage Checker</strong> is designed using the official symptom categorizations established by the Centers for Disease Control and Prevention (CDC) and the World Health Organization (WHO).</p>
@@ -273,7 +273,7 @@ export default function CovidSymptomCalculator() {
             <div className="p-4 bg-muted/30 border border-border rounded-lg mt-6 text-sm text-muted-foreground">
               <strong>Disclaimer:</strong> This tool is for informational purposes only. It is not intended to be a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition.
             </div>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/covid-symptom-calculator" />
           <PopularCalculators exclude="/calculator/covid-symptom-calculator" />
         </div>

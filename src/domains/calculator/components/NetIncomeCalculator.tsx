@@ -161,7 +161,7 @@ export default function NetIncomeCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What is Net Income?</h2>
             <p>Net income (often referred to colloquially as <strong>take-home pay</strong>) is the precise amount of money you actually receive in your paycheck after all mandatory taxes, voluntary benefits, and retirement contributions have been deducted from your gross salary. While your gross salary is the impressive top-line number you negotiate during a job offer, your net income is the realistic bottom-line number that dictates your lifestyle, budgeting capacity, and true financial power.</p>
             <p>Understanding the vast chasm between gross income and net income is a rite of passage for every working professional. It is the difference between what you earn on paper and what you actually have available to spend, save, and invest. For businesses, net income represents pure profit after all expenses, taxes, and costs of goods sold are subtracted from total revenue. For individuals, however, it represents your actual disposable income. Mastering the calculation and optimization of your net income is the foundational step in personal financial planning.</p>
@@ -204,7 +204,7 @@ export default function NetIncomeCalculator() {
             <h2 className="text-2xl font-bold mb-3">Benefits</h2>
             <p>Knowing your exact net income is the absolute bedrock of personal finance. You cannot build a realistic budget, get out of debt, or invest for the future using your gross salary. Gross salary is a vanity metric; net income is reality.</p>
             <p>By regularly using a net income calculator, you gain precise control over your cash flow. You will understand exactly how a raise, a move to a new state, or a change in retirement contributions will affect your daily life, allowing you to make strategic career and financial decisions with complete confidence.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/net-income-calculator" />
           <PopularCalculators exclude="/calculator/net-income-calculator" />
         </div>

@@ -249,7 +249,7 @@ export default function InsuranceCostPerShipmentCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding Cargo Insurance Costs (CIF)</h2>
             <p>In international trade and logistics, marine and cargo insurance is vital to protect against loss, damage, or theft during transit. The cost of this insurance is not simply based on the cost of the goods; it is based on the <strong>Total Insured Value (TIV)</strong>.</p>
             
@@ -275,7 +275,7 @@ export default function InsuranceCostPerShipmentCalculator() {
               <li><strong>Packaging:</strong> Proper export crating and containerization reduce damage risk, lowering the rate.</li>
               <li><strong>Mode of Transport:</strong> Air freight is generally considered safer and faster than ocean freight, often resulting in lower insurance rates despite higher freight costs.</li>
             </ul>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "What is CIF?", answer: "CIF stands for Cost, Insurance, and Freight. It is an Incoterm dictating that the seller must arrange and pay for the cost of goods, the ocean freight, and the marine insurance to bring the goods to the destination port." },
             { question: "Is the 10% markup mandatory?", answer: "Under official CIF terms established by the International Chamber of Commerce (Incoterms 2020), 110% is the default minimum coverage requirement. You can negotiate higher markups (like 20%) if both parties agree, but 10% is standard." },

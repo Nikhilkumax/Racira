@@ -94,7 +94,7 @@ const DACalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">What Is a DA Calculator?</h2>
               <p>A Dearness Allowance (DA) calculator helps government employees and pensioners estimate their DA component based on their basic pay and the applicable DA rate. DA is revised semi-annually by the central government to compensate for rising cost of living.</p>
 
@@ -123,7 +123,7 @@ const DACalculator = () => {
               </ul>
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> DA rates are revised by the government periodically. The preset rates may not reflect the latest revision. Always verify with official government orders.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/da-calculator" />
           <PopularCalculators exclude="/da-calculator" />
         </div>

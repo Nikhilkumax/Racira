@@ -187,7 +187,7 @@ const LcmCalculator = () => {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Least Common Multiple (LCM)</h2>
             <p>The <strong>Least Common Multiple (LCM)</strong>, sometimes referred to as the Lowest Common Multiple, is a foundational mathematical concept used heavily when working with fractions. By definition, the LCM of two integers (let's say <em>a</em> and <em>b</em>) is the smallest positive integer that is perfectly divisible by both <em>a</em> and <em>b</em> without leaving a remainder.</p>
 
@@ -218,7 +218,7 @@ const LcmCalculator = () => {
 
             <h2 className="text-2xl font-bold mb-3">The LCM and Fractions</h2>
             <p>You cannot add or subtract fractions unless their bottom numbers (denominators) match. The fastest way to make them match without inflating the numbers to unmanageable sizes is to find their Least Common Denominator (LCD). The LCD is exactly the same thing as the LCM of the bottom numbers.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/lcm-calculator" />
           <PopularCalculators exclude="/calculator/lcm-calculator" />
         </div>

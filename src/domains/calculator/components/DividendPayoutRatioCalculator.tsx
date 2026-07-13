@@ -132,7 +132,7 @@ export default function DividendPayoutRatioCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is the Dividend Payout Ratio?</h2>
             <p>The dividend payout ratio measures what percentage of a company&apos;s net income is distributed to common shareholders as dividends. It is a fundamental metric for income investors, equity analysts, and corporate finance professionals assessing a company&apos;s capital allocation policy, dividend sustainability, and long-term growth prospects. Formula: Payout Ratio = Total Dividends ÷ Net Income.</p>
             <h2 className="text-2xl font-bold mb-3">Payout Ratio vs. Retention Ratio</h2>
@@ -147,7 +147,7 @@ export default function DividendPayoutRatioCalculator() {
             <p>DPS = Total Dividends ÷ Shares Outstanding. Dividend Yield = DPS ÷ Stock Price × 100%. Yield provides the income return per dollar invested. A 3% yield on a stock at $50 means $1.50 DPS annually. Investors often compare dividend yield to bond yields — when yields are similar, the dividend&apos;s growth potential makes equities attractive. Beware of high yields caused by falling stock prices (the "yield trap") rather than growing dividends.</p>
             <h2 className="text-2xl font-bold mb-3">Dividend Growth Investing</h2>
             <p>The "Dividend Aristocrats" are S&amp;P 500 companies that have increased dividends for 25+ consecutive years. These companies demonstrate consistent earnings power, disciplined capital allocation, and long-term business durability. DPS growth tracking (5-year CAGR) is often more important than current yield for long-term investors, as compounding dividend increases create substantial income growth over decades. The payout ratio trend over time reveals whether dividend growth is sustainable.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/dividend-payout-ratio-calculator" />
           <PopularCalculators exclude="/calculator/dividend-payout-ratio-calculator" />
         </div>

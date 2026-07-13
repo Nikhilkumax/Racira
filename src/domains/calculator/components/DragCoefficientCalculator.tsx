@@ -284,7 +284,7 @@ export default function DragCoefficientCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Invisible Wall: Aerodynamic Drag</h2>
             <p>When you drive down the road, your vehicle is physically ramming into billions of air molecules. At low speeds, air easily parts and flows around the car. However, air behaves like a fluid. As you drive faster, the air resists being moved out of the way, creating immense backward pressure against the front bumper and windshield. This invisible wall of air is known as Aerodynamic Drag Force. Our calculator uses fluid dynamics equations to show exactly how much horsepower your engine is wasting just to slice through the air.</p>
 
@@ -301,7 +301,7 @@ export default function DragCoefficientCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Why Top Speed is So Hard to Increase</h2>
             <p>This calculator perfectly demonstrates why building a 200 MPH supercar is so difficult. If a car maxes out at 150 MPH using 300 horsepower, you cannot simply add another 100 horsepower to reach 200 MPH. Because of the cubic relationship between speed and drag, you would likely need well over 700 horsepower just to push through that extra 50 MPH of dense air resistance.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/drag-coefficient-calculator" />
           <PopularCalculators />

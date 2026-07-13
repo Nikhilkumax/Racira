@@ -155,7 +155,7 @@ const TipCalculator = () => {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Tip Calculator?</h2>
             <p>A tip calculator instantly computes the tip amount and total bill for any service, with easy bill splitting for groups. Pre-filled with an $85 restaurant bill at 18% tip split 4 ways, it shows a $15.30 tip ($100.30 total) with each person paying $25.08. Quick-select buttons for 10%, 15%, 18%, 20%, and 25% match the most common tipping conventions, and you can enter any custom percentage.</p>
             <p>Tip calculators are essential for dining out, managing group expenses, calculating service charges for delivery and rideshare, and understanding tipping conventions across different service industries. This calculator also shows the per-person breakdown of bill and tip separately — useful when some people in a group ordered more expensive dishes and want to split proportionally.</p>
@@ -174,7 +174,7 @@ const TipCalculator = () => {
             <p>Etiquette traditionally recommends tipping on the pre-tax bill. Servers provide service on the food and drink, not the government's portion. However, for simplicity many people tip on the total including tax. On a $100 pre-tax bill with 8% tax ($108 total), the difference between 20% on $100 ($20) versus 20% on $108 ($21.60) is $1.60 — a minor difference that you can resolve based on the quality of service.</p>
             <h2 className="text-2xl font-bold mb-3">Tips for Using This Calculator</h2>
             <p>Use the quick-select buttons to instantly switch between standard percentages. The pie chart shows the bill-to-tip ratio at a glance. For unequal splits (where people ordered different amounts), use the per-person breakdown to settle the difference. Combine with the <a href="/calculator/sales-tax-calculator">sales tax calculator</a> to compute the full pre-tax amount if you only know the total, or with the <a href="/calculator/percentage-calculator">percentage calculator</a> for other service charge needs.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/tip-calculator" />
           <PopularCalculators exclude="/calculator/tip-calculator" />
         </div>

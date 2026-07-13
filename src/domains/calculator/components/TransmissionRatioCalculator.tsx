@@ -259,7 +259,7 @@ export default function TransmissionRatioCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Mathematics of Vehicle Speed</h2>
             <p>Have you ever wondered exactly how fast your car will go if you bounce it off the 7,000 RPM rev limiter in 4th gear? Or maybe you are planning to install massive 35-inch off-road tires and want to know how badly it will affect your highway cruising RPM. The Transmission Ratio Calculator removes the guesswork by applying strict mechanical physics to your drivetrain specifications. By linking your engine's rotational speed (RPM) to the physical circumference of your tires through a series of gear reductions, this tool calculates your exact road velocity.</p>
 
@@ -274,7 +274,7 @@ export default function TransmissionRatioCalculator() {
             <h2 className="text-2xl font-bold mb-3">How Tire Diameter Changes Your Gearing</h2>
             <p>Gears handle the rotational math, but the tires handle the physical distance. A tire with a 26.5-inch diameter has a physical circumference of roughly 83.2 inches. This means every time the wheel completes one full rotation, the car moves exactly 83.2 inches forward. </p>
             <p>If you install larger 30-inch tires on a truck, the circumference jumps to 94.2 inches. Because the new tire covers significantly more ground per rotation, the truck will travel faster at the same engine RPM. However, because the larger tire acts as a longer physical lever against the axle, the engine will have to work much harder to turn it, resulting in a noticeable loss of acceleration and torque. This is why off-road enthusiasts must install higher numerically (shorter) differential gears (like a 4.56 or 4.88) to compensate for massive tires and regain their acceleration.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/transmission-ratio-calculator" />
           <PopularCalculators />

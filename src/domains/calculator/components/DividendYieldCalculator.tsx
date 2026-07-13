@@ -198,7 +198,7 @@ export default function DividendYieldCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is Dividend Yield?</h2>
             <p><strong>Dividend Yield = Annual Dividend Per Share ÷ Current Stock Price × 100.</strong> It tells you the annual cash return from a stock relative to its price. Our pre-filled example: $3.80 annual dividend ÷ $95.00 stock price = 4.00% yield — meaning for every $95 invested, you receive $3.80 in cash per year, regardless of stock price movements.</p>
 
@@ -210,7 +210,7 @@ export default function DividendYieldCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Dividend Growth Investing</h2>
             <p>The Dividend Growth Investing (DGI) strategy focuses on companies that consistently increase dividends — the "Dividend Aristocrats" (25+ years of consecutive increases) and "Dividend Kings" (50+ years). A stock bought at 4% yield that grows its dividend 6% annually sees your yield-on-cost rise to 7.2% in 10 years and 12.9% in 20 years — powerful income compounding over time. Reinvesting dividends (DRIP) accelerates compounding by buying additional shares with each payment.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/dividend-yield-calculator" />
           <PopularCalculators exclude="/calculator/dividend-yield-calculator" />
         </div>

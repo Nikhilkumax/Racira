@@ -295,7 +295,7 @@ export default function SportSpecificCalorieCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Mathematics of Athletic Competition</h2>
             <p>For many people, the idea of running on a treadmill for 45 minutes is a form of psychological torture. Staring at a digital timer while jogging in place is incredibly monotonous. However, if you put those same people on a basketball court or a tennis court, they will happily sprint, jump, and sweat for two hours without complaining once. This is the power of gamifying fitness. But how does playing a sport actually compare to traditional gym cardio? The <strong>Sport Specific Calorie Calculator</strong> utilizes clinical Metabolic Equivalent (MET) formulas to mathematically prove that competitive sports are often vastly superior to steady-state cardio for burning massive amounts of energy.</p>
 
@@ -322,7 +322,7 @@ export default function SportSpecificCalorieCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Play Your Way to Fat Loss</h2>
             <p>You do not need to be strapped to a treadmill to lose weight. The human body is designed to sprint, jump, and play. By engaging in competitive sports, you distract your brain from the pain of exercise, allowing you to push yourself much harder and longer than you would in a traditional gym setting. Use the Sport Specific Calorie Calculator to track your true active time, maintain a caloric deficit in the kitchen, and let the thrill of competition forge a leaner, more athletic physique.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/sport-specific-calorie-calculator" />
           <PopularCalculators exclude="/calculator/sport-specific-calorie-calculator" />

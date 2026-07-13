@@ -274,7 +274,7 @@ export default function VaccinationScheduleCalculator() {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Importance of the CDC Immunization Schedule</h2>
             <p>The Centers for Disease Control and Prevention (CDC), in collaboration with the American Academy of Pediatrics (AAP), publishes an updated childhood immunization schedule every year. This schedule is not arbitrarily designed; it is the result of decades of clinical trials, epidemiological data, and virology research aimed at protecting infants at their most vulnerable stages of life.</p>
             <p>This <strong>Vaccination Schedule Calculator</strong> maps your child's exact date of birth to the official CDC timeline, ensuring you never miss a critical milestone.</p>
@@ -294,7 +294,7 @@ export default function VaccinationScheduleCalculator() {
             <h2 className="text-2xl font-bold mb-3">Herd Immunity and the Community</h2>
             <p>Following the standard vaccination schedule does not just protect your child; it protects the entire community. This concept is known as <strong>Herd Immunity</strong>.</p>
             <p>Certain individuals cannot receive vaccines. This includes newborns who are too young, children undergoing chemotherapy for leukemia, and individuals with severe immune system disorders. These vulnerable people rely entirely on the rest of the community being vaccinated. When a high percentage of the population is immunized (typically 90-95%), viruses are deprived of the hosts they need to spread, effectively stopping outbreaks in their tracks and creating a protective shield around those who cannot be vaccinated.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/vaccination-schedule-calculator" />
           <PopularCalculators exclude="/calculator/vaccination-schedule-calculator" />
         </div>

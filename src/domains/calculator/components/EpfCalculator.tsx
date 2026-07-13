@@ -141,7 +141,7 @@ const EPFCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">What Is an EPF Calculator?</h2>
               <p>An EPF calculator estimates your Employee Provident Fund corpus at retirement based on your current salary, contribution rates, expected salary increments, and EPF interest rate. It helps you plan for retirement by projecting how your monthly EPF contributions will grow over time.</p>
 
@@ -160,7 +160,7 @@ const EPFCalculator = () => {
               </ul>
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> EPF interest rate changes annually. This calculator assumes a constant rate. Actual corpus may vary. Consult your HR or EPFO for exact figures.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/epf-calculator" />
           <PopularCalculators exclude="/epf-calculator" />
         </div>

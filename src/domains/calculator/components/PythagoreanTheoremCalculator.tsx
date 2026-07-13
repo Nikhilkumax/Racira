@@ -102,10 +102,10 @@ const PythagoreanTheoremCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Understanding the Pythagorean Theorem</h2>
               <p>The Pythagorean theorem states that in a right triangle, the square of the hypotenuse equals the sum of the squares of the other two sides: a² + b² = c². This calculator also computes the area, perimeter, and interior angles of the right triangle.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/pythagorean-theorem-calculator" />
           <PopularCalculators exclude="/pythagorean-theorem-calculator" />
         </div>

@@ -216,7 +216,7 @@ export default function VacationBudgetCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">About the Vacation Budget Calculator</h2>
             <p>Planning a vacation without a budget is one of the fastest ways to return home stressed about finances. This vacation budget calculator lets you itemize all trip expenses across eight common categories, set your travel group size and trip length, and automatically adds a contingency buffer for unexpected costs. The result is a comprehensive, realistic trip budget with per-person and per-day metrics.</p>
             <h2 className="text-2xl font-bold mb-3">How Vacation Budgets Are Calculated</h2>
@@ -231,7 +231,7 @@ export default function VacationBudgetCalculator() {
             <p>Open a dedicated vacation savings account. Automate monthly transfers equal to (Grand Total ÷ Months Until Trip). Use travel rewards credit cards for everyday purchases — a card offering 2–3x points on travel can offset $300–$600 in costs for a $5,000 trip. Sell unused items, take on extra work, or redirect discretionary spending temporarily to accelerate savings.</p>
             <h2 className="text-2xl font-bold mb-3">Travel Insurance — Don't Skip It</h2>
             <p>Travel insurance typically costs 5–10% of the trip total and covers trip cancellation, emergency medical, evacuation, and baggage loss. For a $6,000 trip, expect to pay $200–$600 for comprehensive coverage. It is particularly critical for international travel where medical costs can be catastrophic. Always compare policies on InsureMyTrip or Squaremouth before purchasing.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/vacation-budget-calculator" />
           <PopularCalculators exclude="/calculator/vacation-budget-calculator" />
         </div>

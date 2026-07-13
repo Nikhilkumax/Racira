@@ -156,7 +156,7 @@ const PriceToSalesCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Price to Sales Ratio Calculator?</h2>
             <p>A price-to-sales (P/S) ratio calculator compares a company's market capitalization to its total revenue, showing investors how much they are paying for each dollar of sales. Pre-filled with a $120 stock price, 50,000 shares, and $2,000,000 in annual revenue, the P/S ratio is 3.00x — typical for a mature company with predictable revenue streams.</p>
             <h2 className="text-2xl font-bold mb-3">The P/S Ratio Formula</h2>
@@ -174,7 +174,7 @@ const PriceToSalesCalculator = () => {
             <p>When using the most recent quarterly revenue figure (as reported by public companies), multiply by 4 to get a run-rate annual estimate. This is common in equity research models but can distort seasonal businesses — retail companies may have very high Q4 revenue that doesn't represent a sustainable quarterly run rate. The checkbox option on this calculator automatically annualizes quarterly inputs for convenience.</p>
             <h2 className="text-2xl font-bold mb-3">P/S vs EV/Revenue</h2>
             <p>A more precise version of P/S uses Enterprise Value (EV = Market Cap + Debt − Cash) instead of market cap: EV/Revenue. This accounts for capital structure differences between companies — a company with $500M market cap but $2B debt is very differently leveraged than a pure-equity company with $500M market cap. EV/Revenue is the preferred metric in investment banking for M&A valuation.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/price-to-sales-calculator" />
           <PopularCalculators exclude="/calculator/price-to-sales-calculator" />
         </div>

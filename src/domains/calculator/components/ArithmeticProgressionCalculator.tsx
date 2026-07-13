@@ -168,7 +168,7 @@ const ArithmeticProgressionCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is an Arithmetic Progression Calculator?</h2>
             <p>An arithmetic progression calculator finds the nth term, sum, and sequence of an AP given the first term, common difference, and number of terms. Pre-filled with a=2, d=5, n=10: the 10th term is 47, sum is 245, mean is 24.5. The linear term chart confirms that APs always form a straight line — their defining characteristic.</p>
             <h2 className="text-2xl font-bold mb-3">Key Formulas</h2>
@@ -179,7 +179,7 @@ const ArithmeticProgressionCalculator = () => {
             <p>An AP adds a constant (d) to each term; a GP multiplies by a constant (r). APs model linear phenomena: salary with fixed raises, simple interest, linear depreciation. GPs model exponential phenomena: compound interest, population growth, radioactive decay. The term chart of an AP is a straight line; a GP is exponential. Real-world data can often be classified by which fits better.</p>
             <h2 className="text-2xl font-bold mb-3">Applications in Finance</h2>
             <p>Simple interest payments form an AP: if you borrow $10,000 at 5% simple interest, interest = $500/year, and total payments after n years = principal + n × $500. This contrasts with compound interest (geometric sequence). Annuities with equal payments and no growth are AP-based. Straight-line depreciation: asset loses $D per year, so book value after n years = original cost − n × D (an AP with negative d).</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/arithmetic-progression-calculator" />
           <PopularCalculators exclude="/calculator/arithmetic-progression-calculator" />
         </div>

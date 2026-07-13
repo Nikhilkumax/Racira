@@ -236,7 +236,7 @@ export default function PredictableRevenuePercentageCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What is Predictable Revenue?</h2>
             <p>In business valuation and operations, not all revenue is created equal. <strong>Predictable Revenue</strong> (often called Quality of Earnings) refers to money that a business is mathematically guaranteed to receive in the future without having to make a new sale.</p>
             <p>A business with $10 million in highly predictable revenue is usually valued much higher than a business with $20 million in unpredictable, one-off revenue.</p>
@@ -254,7 +254,7 @@ export default function PredictableRevenuePercentageCalculator() {
             
             <h2 className="text-2xl font-bold mb-3">Benchmarks for Success</h2>
             <p>If you are running a B2B SaaS company, investors typically expect your predictable revenue percentage to be <strong>above 80%</strong>. The remaining 20% is usually comprised of one-off implementation, training, or professional services fees used to onboard the client.</p>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "Do monthly retainers count as predictable revenue?", answer: "Yes, if they are tied to a signed contract (e.g., a 12-month marketing retainer). If it is a month-to-month 'handshake' agreement that the client can cancel at any time with no notice, it is considered much lower quality and borders on transactional." },
             { question: "Why is a SaaS company valued at 10x revenue, but a consulting firm is valued at 1x revenue?", answer: "Because of predictability. If you buy a SaaS company, the customers are locked into software they rely on every day. If you buy a consulting firm, the 'assets' are the consultants. If the consultants quit, the revenue instantly disappears." },

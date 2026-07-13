@@ -296,7 +296,7 @@ export default function PregnancyCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding Your Pregnancy Timeline</h2>
             <p>Finding out you are pregnant is an incredibly exciting and life-changing moment. However, the medical math used to determine exactly how far along you are can often feel confusing. Our <strong>Pregnancy Calculator</strong> is designed to cut through the clinical jargon, providing you with a highly accurate Estimated Due Date (EDD), your exact current gestational age, and a customized timeline of crucial developmental milestones for your baby.</p>
             <p>Obstetricians and midwives use standard clinical formulas to track pregnancy progress. By understanding the methodology behind these calculations, you can better follow along with your medical charts, know when to schedule vital ultrasounds, and prepare for the physical changes occurring in each trimester.</p>
@@ -332,7 +332,7 @@ export default function PregnancyCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion</h2>
             <p>While the Estimated Due Date is a vital clinical tool, it is important to remember that it is merely an estimate. Babies are not governed by calendars. Only about 4% to 5% of babies arrive exactly on their EDD. The vast majority are born perfectly healthy sometime within the two weeks before or the week after that date. Use our Pregnancy Calculator to stay informed, track your baby's remarkable journey, and prepare for the joyous arrival of your little one.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/pregnancy-calculator" />
           <PopularCalculators exclude="/calculator/pregnancy-calculator" />

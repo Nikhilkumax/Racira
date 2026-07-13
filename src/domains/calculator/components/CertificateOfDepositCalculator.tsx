@@ -87,7 +87,7 @@ export default function CertificateOfDepositCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Understanding Certificates of Deposit</h2>
               <p>A Certificate of Deposit (CD) is a time deposit savings product that offers a guaranteed fixed interest rate in exchange for committing your money for a specified period. CDs have been a cornerstone of conservative investing for decades, offering FDIC-insured safety with returns that typically exceed those of standard savings accounts. In the elevated interest rate environment of 2023-2025, CDs have become especially attractive, with many institutions offering 5%+ APY on 1-year terms.</p>
               <h2 className="text-2xl font-bold mb-3">The CD Ladder Strategy</h2>
@@ -98,7 +98,7 @@ export default function CertificateOfDepositCalculator() {
               <p>The guaranteed rate on a CD comes at the cost of liquidity. Most CDs impose substantial early withdrawal penalties, commonly expressed as months of interest. A typical 1-year CD might penalize 3-6 months of interest for early withdrawal. For a 5-year CD, the penalty might be 12-18 months of interest. In rare cases, if you withdraw very early and the penalty exceeds your earned interest, you could actually lose a portion of your principal.</p>
               <h2 className="text-2xl font-bold mb-3">No-Penalty CDs: The Best of Both Worlds?</h2>
               <p>Some banks offer "no-penalty" or "liquid" CDs that allow you to withdraw your funds without penalty after a brief lock-up period (typically 7 days). These instruments offer the guaranteed rate advantage of traditional CDs with the flexibility closer to a savings account. However, they typically offer lower APYs than standard CDs of the same term. They're worth considering when you want a guaranteed rate but aren't certain you can commit for the full term.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/certificate-of-deposit-calculator" />
           <PopularCalculators exclude="/calculator/certificate-of-deposit-calculator" />
         </div>

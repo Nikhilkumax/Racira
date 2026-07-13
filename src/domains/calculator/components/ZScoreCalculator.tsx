@@ -153,7 +153,7 @@ const ZScoreCalculator = () => {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Z-Score Calculator?</h2>
             <p>A z-score calculator computes the standard score — how many standard deviations a particular value lies from the mean of a distribution. Pre-filled with a test score of 75 from a class where the mean is 60 and the standard deviation is 10, it shows z = (75−60)/10 = 1.5. This means the score is 1.5 standard deviations above average, placing it at the 93.32nd percentile — better than 93% of students.</p>
             <p>Z-scores are fundamental to statistics, research, quality control, finance, and any field that compares values to a reference distribution. This calculator also computes the cumulative probability from a standard normal table, eliminating the need to look up z-tables by hand.</p>
@@ -168,7 +168,7 @@ const ZScoreCalculator = () => {
             <p>In a one-sample z-test, calculate z = (x̄ − μ₀) / (σ/√n) where x̄ is the sample mean, μ₀ is the hypothesized mean, σ is the known population SD, and n is sample size. If |z| exceeds the critical value (1.96 for 95% confidence, 2.576 for 99%), reject the null hypothesis. The p-value = 2 × P(Z &gt; |z|) for a two-tailed test — this calculator computes P(Z &gt; z) directly in the "Percent above" row.</p>
             <h2 className="text-2xl font-bold mb-3">Tips for This Calculator</h2>
             <p>Use a positive value for "above the mean" and negative for "below." The standard deviation must be positive (enter 0 in the SD field and the calculator will not compute). For sample-based z-scores where the population SD is unknown, use the <a href="/calculator/t-test-calculator">t-test calculator</a> instead. For raw data, first compute SD with the <a href="/calculator/standard-deviation-calculator">standard deviation calculator</a>, then use those values here.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/z-score-calculator" />
           <PopularCalculators exclude="/calculator/z-score-calculator" />
         </div>

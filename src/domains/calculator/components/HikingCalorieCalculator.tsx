@@ -301,7 +301,7 @@ export default function HikingCalorieCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Hidden Physics of Hiking</h2>
             <p>To the untrained observer, hiking appears to be nothing more than walking outdoors. From a physiological and thermodynamic perspective, however, it is an entirely different mechanical beast. Walking on a flat, paved sidewalk is a highly efficient form of transportation; hiking up a mountain with a loaded backpack is a grueling, multi-hour resistance training session that demands massive cardiovascular output. The <strong>Hiking Calorie Calculator</strong> bypasses the inaccurate generalizations of fitness trackers by utilizing clinical Metabolic Equivalent (MET) formulas. By mathematically combining your specific body mass with the dead weight of your pack, and factoring in the vertical severity of the terrain, it provides an exact measurement of the energy required to conquer the trail.</p>
 
@@ -331,7 +331,7 @@ export default function HikingCalorieCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Conquer the Mountain</h2>
             <p>A smart watch cannot accurately sense the 20-pound pack on your back, nor can it perfectly account for the uneven mud pulling at your boots. It relies entirely on heart rate, which often leads to wildly inaccurate estimations. Stop relying on generic technology. Use the Hiking Calorie Calculator to input your exact mass, load, and terrain data. Track your true energy expenditure, pack the correct amount of nutritional fuel, and conquer your next summit with mathematical precision.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/hiking-calorie-calculator" />
           <PopularCalculators exclude="/calculator/hiking-calorie-calculator" />

@@ -269,7 +269,7 @@ export default function SalaryBenchmarkPercentileCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What is a Salary Percentile?</h2>
             <p>In compensation benchmarking, a <strong>Salary Percentile</strong> tells you exactly where your pay ranks compared to everyone else holding the same job title in your geographical area.</p>
             <p>If you are at the <strong>70th percentile</strong>, it means you earn more than 70% of the people in your role, and 30% of the people earn more than you.</p>
@@ -289,7 +289,7 @@ export default function SalaryBenchmarkPercentileCalculator() {
             <h2 className="text-2xl font-bold mb-3">How to Use This Data in Negotiations</h2>
             <p>If you are asking for a raise, knowing your percentile is your strongest weapon:</p>
             <p><em>"According to [Market Data Source], the 50th percentile for a Senior Financial Analyst in Chicago is $95,000. My current salary is $82,000, which puts me roughly in the 10th percentile. Given that my performance reviews have consistently 'Exceeded Expectations', I am requesting a market adjustment to bring my pay in line with the 50th percentile."</em></p>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "Is it bad to be at the 25th percentile?", answer: "Not necessarily. If you just graduated college or recently changed careers into a completely new field, you should expect to be in the bottom quartile. However, if you have 5+ years of experience in the role and are still at P25, you are severely underpaid." },
             { question: "Do companies ever target the 75th percentile?", answer: "Yes, but it is rare. Companies known as 'market leaders' (like FAANG tech companies or elite investment banks) intentionally target the 75th or even 90th percentile to attract the absolute best talent in the world. They view the high payroll as a strategic investment." },

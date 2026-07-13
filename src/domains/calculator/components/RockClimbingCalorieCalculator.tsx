@@ -293,7 +293,7 @@ export default function RockClimbingCalorieCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Physics and Physiology of Rock Climbing</h2>
             <p>Rock climbing is rapidly transitioning from a niche outdoor extreme sport to a mainstream fitness staple, thanks to the explosion of massive indoor climbing gyms worldwide. As a full-body workout, it is almost entirely unique; it demands the cardiovascular endurance of running combined with the explosive pulling power of heavy weightlifting. However, because climbers spend so much time resting between routes, estimating the true energy expenditure is notoriously difficult. The <strong>Rock Climbing Calorie Calculator</strong> solves this by using clinically validated Metabolic Equivalent (MET) formulas. By focusing strictly on your active time on the wall, it provides a mathematically precise measurement of the massive thermodynamic effort required to conquer gravity.</p>
 
@@ -323,7 +323,7 @@ export default function RockClimbingCalorieCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Train for Strength, Eat for Fat Loss</h2>
             <p>Use rock climbing for what it is best at: building incredible upper body strength, bulletproof core stability, and unmatched mental problem-solving skills. Do not obsess over the calories burned. Use the Rock Climbing Calorie Calculator to get an accurate estimate of your active expenditure, but understand that leaning out for climbing is achieved in the kitchen. Maintain a slight caloric deficit through diet, use climbing to build muscle, and watch your strength-to-weight ratio transform your performance on the wall.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/rock-climbing-calorie-calculator" />
           <PopularCalculators exclude="/calculator/rock-climbing-calorie-calculator" />

@@ -306,7 +306,7 @@ export default function RoadTaxCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is Road Tax?</h2>
             <p>Road Tax, commonly referred to as Vehicle Registration Fees in the United States, is an annual tax levied by state and local governments. This tax is the legal requirement to operate your vehicle on public roads. The revenue generated is typically earmarked for maintaining state highways, funding local infrastructure projects, and supporting the operations of the Department of Motor Vehicles (DMV). Knowing your annual road tax is crucial for calculating the true Total Cost of Ownership of your vehicle.</p>
 
@@ -331,7 +331,7 @@ export default function RoadTaxCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Benefits</h2>
             <p>Using a Road Tax Calculator prevents sticker shock at the DMV. It provides a realistic estimate of your annual vehicle holding costs. For buyers considering an EV, it clearly highlights the "hidden" electric vehicle surcharges that dealerships rarely mention, allowing you to accurately compare the long-term savings of electricity versus gasoline.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/road-tax-calculator" />
           <PopularCalculators />

@@ -201,7 +201,7 @@ const WeightConverter = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">What Is a Weight Converter?</h2>
               <p>
                 A weight converter is an online tool designed to instantly translate a measurement of weight or mass from one unit to another. Whether you need to know how many pounds are in 5 kilograms, how many grams are in an ounce, or how many stones you weigh based on your kilogram measurement, a weight converter eliminates manual calculation errors and saves time.
@@ -280,7 +280,7 @@ const WeightConverter = () => {
                 <li><strong>Check unit settings:</strong> Many digital scales can switch between kg and lb. Always confirm which unit your scale is displaying before recording or converting a measurement.</li>
                 <li><strong>Use appropriate precision:</strong> For cooking, rounding to the nearest gram or 0.1 oz is usually sufficient. For pharmaceutical or laboratory work, use a scale accurate to 0.001 g (milligram precision).</li>
               </ul>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/weight-converter" />
           <PopularCalculators exclude="/calculator/weight-converter" />
         </div>

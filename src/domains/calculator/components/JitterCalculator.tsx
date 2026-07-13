@@ -106,7 +106,7 @@ const JitterCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Jitter: The Silent Connection Killer</h2>
               <p>You might have a fast connection, but if your jitter is high, your experience will be poor. Jitter represents the inconsistency in your connection. For example, if one packet takes 20ms and the next takes 100ms, the receiving device must wait for the slower packet, causing a glitch in the audio or video.</p>
               <h3>Impact of Jitter</h3>
@@ -115,7 +115,7 @@ const JitterCalculator = () => {
                 <li><strong>Gaming:</strong> Characters appear to teleport or "rubber-band" back to previous positions.</li>
                 <li><strong>Streaming:</strong> Video may pause for buffering even if the average speed is high enough.</li>
               </ul>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/jitter" />
           <PopularCalculators exclude="/calculator/jitter-calculator" />
         </div>

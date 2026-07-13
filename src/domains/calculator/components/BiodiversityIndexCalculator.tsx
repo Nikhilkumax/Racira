@@ -171,8 +171,8 @@ const BiodiversityIndexCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">Understanding Biodiversity Indexes</h2>
+          <section className="prose-finance text-[15.75px]">
+              <h2 className="text-2xl font-bold mb-3">Understanding Biodiversity Indices</h2>
               <p>In ecology, a diversity index is a quantitative measure that reflects how many different types (such as species) there are in a dataset, and simultaneously takes into account how evenly the basic entities (such as individuals) are distributed among those types.</p>
               
               <h3>Richness vs. Evenness</h3>
@@ -181,8 +181,8 @@ const BiodiversityIndexCalculator = () => {
 
               <h3>How Simpson's Index Works</h3>
               <p>Simpson's Index takes both richness and evenness into account. The formula calculates the probability that two individuals randomly selected from a sample will belong to the same species. A highly diverse ecosystem will have a low probability (a low D value), which is why we often use `1 - D` to represent the final score, where a higher score means higher diversity.</p>
-            </article>
-          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/biodiversity-index" />
+            </section>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/biodiversity-index-calculator" />
           <PopularCalculators exclude="/calculator/biodiversity-index-calculator" />
         </div>
       </div>

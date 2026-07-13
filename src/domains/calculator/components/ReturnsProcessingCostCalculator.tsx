@@ -271,7 +271,7 @@ export default function ReturnsProcessingCostCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Nightmare of Reverse Logistics</h2>
             <p><strong>Reverse Logistics</strong> refers to the supply chain process of moving goods from the end customer back to the seller or manufacturer. In the era of free e-commerce returns, this is often the single largest profit leak in a retail business.</p>
             
@@ -289,7 +289,7 @@ export default function ReturnsProcessingCostCalculator() {
               <li><strong>Returnless Refunds:</strong> For items with a COGS under $15, it is mathematically cheaper to let the customer keep the item than to pay the return shipping, QA labor, and repackaging costs.</li>
               <li><strong>Better Sizing Guides:</strong> In apparel, 70% of returns are due to fit. Investing in 3D sizing tech or better photography drastically reduces the initial return rate.</li>
             </ul>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "What is a normal return rate?", answer: "It depends on the industry. Electronics and home goods sit around 8%. Apparel and footwear are notoriously high, often hovering between 20% and 35%." },
             { question: "Why do companies destroy returned goods?", answer: "If an item costs $10 to manufacture, but costs $15 in labor to inspect, clean, and restock, it is mathematically cheaper to throw it in an incinerator. This is a massive environmental issue in fast fashion." },

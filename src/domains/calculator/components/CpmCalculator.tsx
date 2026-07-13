@@ -84,12 +84,12 @@ const CpmCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Mastering CPM in Advertising</h2>
               <p>CPM is the standard metric for brand awareness campaigns. Whether you are running ads on Facebook, Google, or YouTube, understanding your CPM is the first step in optimizing your budget.</p>
               <h3>Why CPM Matters</h3>
               <p>CPM allows you to compare the cost of different advertising platforms on an even playing field. If one platform has a CPM of $5.00 and another has $15.00, you know exactly how many more people you can reach for the same investment on the first platform.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/cpm" />
           <PopularCalculators exclude="/calculator/cpm-calculator" />
         </div>

@@ -108,14 +108,14 @@ const StockCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Sidebar Ad" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Understanding Your Investment Returns</h2>
               <p>Calculating the true profit of a stock trade involves more than just subtracting the purchase price from the selling price. Commissions and taxes can significantly eat into your returns, especially for high-frequency traders.</p>
               <h3>The Impact of Fees</h3>
               <p>While many modern brokerages offer $0 commissions, many international traders or those using specialized platforms still pay per-share or per-trade fees. These fees are added to your cost basis and subtracted from your revenue, essentially being paid out of your profit.</p>
               <h3>Taxes and the Long Game</h3>
               <p>The biggest "hidden" cost of stock trading is often taxes. By holding quality companies for more than 12 months, you move into the long-term capital gains category, which can save you 10-20% compared to short-term trading taxes.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/stock-calculator" />
           <PopularCalculators exclude="/calculator/stock-calculator" />
         </div>

@@ -151,7 +151,7 @@ export default function DefensiveIntervalRatioCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is the Defensive Interval Ratio?</h2>
             <p>The Defensive Interval Ratio (DIR), also known as the Basic Defense Interval (BDI) or Defensive Interval Period (DIP), is a liquidity metric that measures how many days a company could operate exclusively using its most liquid assets — without generating any new revenue or accessing additional financing. It answers the critical question: "If all revenue stopped today, how long could we keep the lights on?"</p>
             <h2 className="text-2xl font-bold mb-3">DIR Formula</h2>
@@ -167,7 +167,7 @@ export default function DefensiveIntervalRatioCalculator() {
             <p>Accelerate cash collection: reduce DSO by offering early payment discounts or tightening credit terms. Build a cash reserve: maintain a minimum cash balance policy (e.g., 60 days of operating expenses). Establish a revolving credit facility as backstop liquidity — banks are more willing to provide credit when you don&apos;t urgently need it. Reduce burn rate: identify and eliminate non-critical overhead. Convert slow assets to cash: factor receivables, liquidate slow-moving inventory at discount rather than holding it.</p>
             <h2 className="text-2xl font-bold mb-3">DIR in Financial Distress Analysis</h2>
             <p>Credit analysts and restructuring advisors use DIR to assess how much time a distressed company has before it faces a liquidity crisis. A DIR below 30 days often triggers accelerated review of refinancing options, asset sales, or bankruptcy preparation. During the COVID-19 pandemic, many businesses' DIRs collapsed from months to weeks — illustrating why companies with strong pre-crisis balance sheets (high DIR) survived while leveraged competitors failed.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/defensive-interval-ratio-calculator" />
           <PopularCalculators exclude="/calculator/defensive-interval-ratio-calculator" />
         </div>

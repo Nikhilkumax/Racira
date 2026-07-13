@@ -168,7 +168,7 @@ const MaxHeartRateCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Maximum Heart Rate Calculator?</h2>
             <p>A maximum heart rate (MHR) calculator estimates the highest number of heartbeats per minute your cardiovascular system can sustain during peak exercise. Pre-filled with age 35 and 65 bpm resting heart rate, the Tanaka formula gives a maximum heart rate of 183 bpm for men, with training zones ranging from 92 bpm (warm-up) to 183 bpm (maximum effort). MHR is the foundation of heart rate-based training and essential for designing effective workout programs.</p>
             <h2 className="text-2xl font-bold mb-3">Heart Rate Formulas Compared</h2>
@@ -181,7 +181,7 @@ const MaxHeartRateCalculator = () => {
             <p>Formula-based MHR estimates have a standard deviation of ±10–12 bpm. Individual MHR can vary significantly from formulas due to genetics, fitness level, medications (beta-blockers lower MHR by 20–30%), caffeine, hydration, and heat. The most accurate MHR measurement requires a graded exercise stress test (VO₂ max test) in a laboratory or supervised clinical setting. Use formula estimates as starting points and adjust based on your actual perceived exertion during training.</p>
             <h2 className="text-2xl font-bold mb-3">How Resting Heart Rate Affects Training</h2>
             <p>A lower resting heart rate is generally associated with higher aerobic fitness. Elite endurance athletes can have resting heart rates of 35–50 bpm, compared to the average of 60–80 bpm. Low resting heart rate increases heart rate reserve, which means more functional cardiovascular range and better ability to modulate intensity. The Karvonen method correctly accounts for this by centering zones around the available working range, not just maximum heart rate.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/max-heart-rate-calculator" />
           <PopularCalculators exclude="/calculator/max-heart-rate-calculator" />
         </div>

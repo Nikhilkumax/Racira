@@ -254,7 +254,7 @@ export default function ExpeditedShippingCostPremiumCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Danger of "Expedited" Shipping</h2>
             <p>In logistics, speed equals money. If a factory runs late on production, a junior supply chain manager might instinctively upgrade the ocean container to an Air Freight shipment to "save the deadline." They look at the invoice, see an extra $2,700 charge, and think it is an acceptable penalty to keep the customer happy.</p>
             
@@ -265,7 +265,7 @@ export default function ExpeditedShippingCostPremiumCalculator() {
             <h2 className="text-2xl font-bold mb-3">The "Break-Even Sales" Concept</h2>
             <p>This calculator translates that logistics penalty into a language the Sales team understands. If the expedited premium is $2,700, and your profit is $18 a unit, <strong>you have to sell 150 units for absolutely zero profit</strong> just to pay for the shipping upgrade.</p>
             <p>If the shipment only contains 300 units, you just wiped out half of your profit. In many cases, it is mathematically smarter to simply accept the late delivery penalty from the retailer than to pay the massive Air Freight premium.</p>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "When is expedited shipping worth it?", answer: "When the cost of a stockout is higher than the premium. If you are out of stock on Amazon during Black Friday, you might lose $50,000 in sales. Paying a $5,000 air freight premium to get inventory back in stock immediately is highly profitable." },
             { question: "Can I pass expedited costs to the customer?", answer: "In B2C e-commerce, yes (e.g., charging $25 for Overnight Shipping at checkout). In B2B wholesale, almost never, unless the retailer specifically requested the rush and agreed to pay the freight terms in writing." },

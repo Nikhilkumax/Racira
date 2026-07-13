@@ -219,7 +219,7 @@ const StairCalculator = () => {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Mathematics of Stairs</h2>
             <p>Building stairs is arguably one of the most mathematically demanding tasks in carpentry. It requires absolute precision. If you simply divide the height by the number of stairs and round off the decimal, your staircase will fail building code inspections and present a massive tripping hazard.</p>
 
@@ -239,7 +239,7 @@ const StairCalculator = () => {
 
             <h2 className="text-2xl font-bold mb-3">The Tread Rule (Runs vs Risers)</h2>
             <p>A staircase always has one less tread (horizontal run) than riser (vertical step). When you walk up a set of stairs, the very last vertical step you take lands you on the upper floor itself. Therefore, the upper floor acts as the final tread. If your staircase has 14 vertical risers, you will only physically cut and install 13 wooden treads.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/stair-calculator" />
           <PopularCalculators exclude="/calculator/stair-calculator" />
         </div>

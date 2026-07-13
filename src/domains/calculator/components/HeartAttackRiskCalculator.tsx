@@ -306,7 +306,7 @@ export default function HeartAttackRiskCalculator() {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the 10-Year ASCVD Risk Score</h2>
             <p>Cardiovascular disease remains the leading cause of death globally. However, heart attacks and strokes rarely occur without warning. They are the climax of a slow, multi-decade process of plaque buildup in the arteries known as atherosclerosis.</p>
             <p>This <strong>Heart Attack Risk Calculator</strong> implements the exact algorithms used by the American College of Cardiology (ACC) and the American Heart Association (AHA). These algorithms, known as the <em>Pooled Cohort Equations</em>, do not guess your future; they calculate your absolute statistical probability of experiencing a "hard" atherosclerotic cardiovascular disease (ASCVD) event within the next 10 years. A "hard event" is strictly defined as a non-fatal heart attack, a non-fatal stroke, or cardiovascular death.</p>
@@ -337,7 +337,7 @@ export default function HeartAttackRiskCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Why is Weight/BMI Excluded?</h2>
             <p>Patients are often confused why a Heart Attack Risk Calculator doesn't ask for their weight or Body Mass Index (BMI). In the complex statistical models used by the AHA, obesity is not an <em>independent</em> predictor of 10-year risk. Obesity causes high blood pressure, low HDL, and diabetes. Because those three specific downstream effects are already measured in the calculator, adding weight into the equation would result in "double counting" the risk and mathematically inflating the score.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/heart-attack-risk-calculator" />
           <PopularCalculators exclude="/calculator/heart-attack-risk-calculator" />
         </div>

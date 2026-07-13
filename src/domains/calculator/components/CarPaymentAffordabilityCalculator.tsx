@@ -374,7 +374,7 @@ export default function CarPaymentAffordabilityCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Car Payment Affordability Calculator?</h2>
             <p>A Car Payment Affordability Calculator is a reverse-engineering tool designed to protect car buyers from predatory dealership math. While a standard auto loan calculator asks "Here is the car price, what is my payment?", this affordability calculator asks "Here is my monthly budget, exactly how much car can I afford to buy?" It strips away the hidden costs by working backward, deducting taxes, fees, and interest from your total budget to reveal the true maximum vehicle sticker price you can negotiate for.</p>
 
@@ -393,7 +393,7 @@ export default function CarPaymentAffordabilityCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
             <p>Follow the <strong>20/4/10 Rule</strong> of car buying. Put down at least 20% to avoid immediate negative equity due to depreciation. Finance the car for no more than 4 years (48 months); if you have to stretch the loan to 72 or 84 months to afford the payment, you cannot afford the car. Finally, ensure your total transportation costs (payment, insurance, fuel, and maintenance) do not exceed 10% of your gross monthly income.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/car-payment-affordability-calculator" />
           <PopularCalculators />

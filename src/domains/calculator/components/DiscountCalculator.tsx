@@ -138,7 +138,7 @@ const DiscountCalculator = () => {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Discount Calculator?</h2>
             <p>A discount calculator computes the final price after applying a percentage discount to an original price. Enter the original price and discount percentage — the calculator instantly shows how much you save and what you actually pay. Pre-filled with a $120 item at 25% off, you immediately see the $30 savings and $90 final price, plus a pie chart showing the split between what you pay and what you save.</p>
             <p>Discount calculations are used everywhere: retail shopping, wholesale pricing, coupon redemption, seasonal sales, restaurant tipping (reverse), contractor pricing, and eCommerce. This calculator also shows the price multiplier — a quick way to mentally compute discounts on any price at the same percentage.</p>
@@ -157,7 +157,7 @@ const DiscountCalculator = () => {
             <p>10% off: pay 90%, multiply by 0.90. 15% off: pay 85%, multiply by 0.85. 20% off: pay 80%, multiply by 0.80. 25% off: pay 75%, multiply by 0.75. 30% off: pay 70%, multiply by 0.70. 50% off: pay 50%, multiply by 0.50. 75% off: pay 25%, multiply by 0.25.</p>
             <h2 className="text-2xl font-bold mb-3">Tips for Using This Calculator</h2>
             <p>The pie chart visually splits the original price into "you pay" and "you save" segments — useful for quickly seeing the proportion at a glance. For markup instead of discount (increasing a price by a percentage), use the <a href="/calculator/markup-calculator">markup calculator</a>. To calculate sales tax on top of a discounted price, use the <a href="/calculator/sales-tax-calculator">sales tax calculator</a>.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/discount-calculator" />
           <PopularCalculators exclude="/calculator/discount-calculator" />
         </div>

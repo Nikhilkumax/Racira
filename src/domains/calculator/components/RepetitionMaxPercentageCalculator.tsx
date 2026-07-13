@@ -362,7 +362,7 @@ export default function RepetitionMaxPercentageCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the 1-Rep Max (1RM) Estimator</h2>
             <p>Every legitimate, science-based strength training program on earth—from Jim Wendler’s 5/3/1 to the legendary Smolov Squat Routine—requires you to know your 1-Repetition Maximum (1RM). Your 1RM is the absolute maximum amount of weight you can physically lift for a single, full repetition with proper form. It is the mathematical anchor point used to calculate the percentages for every warmup set, working set, and speed set in your entire program. However, actually performing a true 1RM test in the gym is exhausting, neurologically draining, and highly dangerous for amateur lifters. The <strong>Repetition Max Percentage Calculator</strong> provides a mathematically safe alternative, allowing you to convert a lighter, high-repetition set (e.g., 5 reps) into a highly accurate 1RM estimation using aggregated clinical formulas.</p>
 
@@ -397,7 +397,7 @@ export default function RepetitionMaxPercentageCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Applying the Data to Your Program</h2>
             <p>Once the calculator generates your Estimated 1RM, you must secure it. Do not immediately go to the gym and try to lift it to prove the calculator right. Take that number, subtract 10% from it to create a "Training Max" (a conservative baseline that accounts for bad days and poor sleep), and plug that Training Max into your programming spreadsheet. This will ensure your Hypertrophy (75%), Strength (85%), and Peaking (95%) blocks are perfectly calibrated to your current physiological capability, guaranteeing steady, injury-free progress.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/repetition-max-percentage-calculator" />
           <PopularCalculators exclude="/calculator/repetition-max-percentage-calculator" />

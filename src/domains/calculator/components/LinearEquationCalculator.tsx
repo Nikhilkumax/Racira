@@ -168,10 +168,10 @@ const LinearEquationCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Solving Linear Equations</h2>
               <p>Linear equations are the foundation of algebra. This calculator solves single-variable equations (ax + b = 0) and systems of 2 or 3 equations using Cramer's rule with determinants.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/linear-equation-calculator" />
           <PopularCalculators exclude="/linear-equation-calculator" />
         </div>

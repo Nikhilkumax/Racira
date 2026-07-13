@@ -252,7 +252,7 @@ export default function SalaryBandRangeCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Why Do HR Teams Use Salary Quartiles?</h2>
             <p>Once a company defines the Minimum and Maximum pay for a specific job title, they divide that salary band into four equal zones, known as <strong>Quartiles</strong>. This framework helps managers make objective, data-driven decisions when hiring new employees or issuing annual merit raises.</p>
             
@@ -267,7 +267,7 @@ export default function SalaryBandRangeCalculator() {
             <h2 className="text-2xl font-bold mb-3">What is Band Spread?</h2>
             <p>The <strong>Band Spread</strong> is the percentage difference between the Minimum and the Maximum of the salary band. To calculate it, subtract the Minimum from the Maximum, and divide by the Minimum.</p>
             <p>For example, a band from $60,000 to $90,000 has a spread of exactly 50%. A 50% spread is the standard benchmark for mid-level corporate professional roles, as it provides enough "runway" for an employee to receive raises over 5 to 7 years before maxing out the band and requiring a promotion.</p>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "How does a manager decide where to place a new hire?", answer: "Usually, new hires are placed in Q1 or Q2. Placing a new hire in Q3 or Q4 is heavily discouraged by HR because it leaves the employee with almost no room for future raises (they will 'cap out' quickly) and often causes pay equity issues with existing tenured staff." },
             { question: "What happens if an employee reaches the Maximum (Q4)?", answer: "When an employee's salary hits the Maximum, they are considered 'Red-Circled'. They are usually ineligible for further base salary increases until they are promoted to a higher job classification with a higher salary band." },

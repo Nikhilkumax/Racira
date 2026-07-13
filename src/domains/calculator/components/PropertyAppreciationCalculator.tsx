@@ -87,14 +87,14 @@ const PropertyAppreciationCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Real vs. Nominal Property Returns</h2>
               <p>Nominal appreciation is the headline number — the percentage your property grows each year. But real appreciation, adjusted for inflation, is the true measure of wealth creation.</p>
               <h3>The Leverage Effect</h3>
               <p>Real estate appreciation is amplified by mortgage leverage. If you put 20% down on a property and it appreciates 4%, your actual return on the equity invested is much higher. A $70,000 down payment on a $350,000 property that gains $14,000 (4%) represents a 20% return on your cash invested.</p>
               <h3>Location is Everything</h3>
               <p>National averages mask enormous local variation. Some zip codes have seen 8-10% annual appreciation for decades; others have barely matched inflation. Research population trends, job growth, and housing supply constraints in your specific market before making projections.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/property-appreciation" />
           <PopularCalculators exclude="/calculator/property-appreciation-calculator" />
         </div>

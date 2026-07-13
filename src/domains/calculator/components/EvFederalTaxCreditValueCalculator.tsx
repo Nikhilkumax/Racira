@@ -228,7 +228,7 @@ const EvFederalTaxCreditValueCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is the EV Federal Tax Credit Value Calculator?</h2>
             <p>This calculator determines the exact dollar value of the federal EV tax credit you qualify for, based on your vehicle's MSRP, class, condition, your household income, filing status, and federal tax liability. It applies the Inflation Reduction Act rules to check eligibility and caps the credit based on your ability to use it.</p>
 
@@ -274,7 +274,7 @@ const EvFederalTaxCreditValueCalculator = () => {
 
             <h2 className="text-2xl font-bold mb-3">Benefits of Using This Calculator</h2>
             <p>This tool gives you the exact dollar value of the federal EV credit for your specific situation — not just a generic $7,500. By checking MSRP, income, and tax liability, it tells you whether you qualify, how much you'll actually benefit, and whether you should use point-of-sale transfer or tax-return filing.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/ev-federal-tax-credit-value-calculator" />
           <PopularCalculators exclude="/calculator/ev-federal-tax-credit-value-calculator" />
         </div>

@@ -246,7 +246,7 @@ export default function TimeAndMaterialsBudgetCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What is a Time and Materials (T&M) Contract?</h2>
             <p>In project management and construction, a <strong>Time and Materials (T&M)</strong> contract is an arrangement where the client agrees to pay the contractor based on the exact hours worked (Time) and the actual cost of supplies (Materials), rather than paying a flat, fixed price for the entire project.</p>
             <p>T&M contracts are highly common in software development, construction, legal services, and general consulting where the full scope of work is difficult to accurately predict upfront.</p>
@@ -267,7 +267,7 @@ export default function TimeAndMaterialsBudgetCalculator() {
             
             <h2 className="text-2xl font-bold mb-3">Setting a "Not To Exceed" (NTE) Limit</h2>
             <p>Because T&M contracts pose a risk of runaway budgets for clients, it is standard practice to include a <strong>Not To Exceed (NTE)</strong> clause. This acts as a hybrid approach: the client pays hourly, but the total budget is hard-capped (e.g., "Billed at $150/hr, not to exceed $60,000 without written authorization").</p>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "Should my labor rate include overhead?", answer: "Yes. When calculating a T&M budget, the 'Avg Hourly Rate' should not be what you actually pay your employee (e.g., $30/hr). It should be your 'Fully Loaded Billed Rate' (e.g., $100/hr) which covers the employee's salary, benefits, office rent, software, and company profit." },
             { question: "Are subcontractor fees considered Time or Materials?", answer: "Subcontractor fees are generally treated as Materials (or pass-through expenses). You take the total invoice from the subcontractor and apply your standard material markup before billing the client." },

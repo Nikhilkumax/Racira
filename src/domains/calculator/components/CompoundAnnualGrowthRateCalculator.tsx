@@ -187,7 +187,7 @@ export default function CompoundAnnualGrowthRateCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is CAGR (Compound Annual Growth Rate)?</h2>
             <p>CAGR, or Compound Annual Growth Rate, is the single most important metric for measuring investment performance over time. It represents the rate at which an investment would have grown each year if it had grown at a perfectly steady rate — factoring in the effect of compounding. Unlike simple average returns, CAGR eliminates volatility from the picture, giving you a clean, comparable number that tells you exactly what your investment delivered annually, year after year.</p>
             <p>Our calculator is pre-filled with a common investment scenario: $10,000 growing to $18,500 over 6 years — producing a CAGR of 10.80% per year. This is close to the historical S&P 500 average, illustrating what a decade of consistent index fund investing looks like in practice.</p>
@@ -216,7 +216,7 @@ export default function CompoundAnnualGrowthRateCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">How to Use This CAGR Calculator</h2>
             <p>Enter your Beginning Value (your initial investment or starting metric), Ending Value (final value after the period), and Number of Years. The calculator instantly computes your CAGR, total return in dollars and percent, simple average annual return for comparison, and the Rule of 72 doubling time. The growth chart projects your investment forward at the calculated CAGR rate, showing the compounding curve visually. Use this to set realistic expectations: a $50,000 investment at 8% CAGR becomes $107,946 in 10 years — more than doubling, but not the explosive growth seen in speculative assets.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/compound-annual-growth-rate-calculator" />
           <PopularCalculators exclude="/calculator/compound-annual-growth-rate-calculator" />
         </div>

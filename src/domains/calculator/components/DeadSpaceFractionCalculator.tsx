@@ -310,7 +310,7 @@ export default function DeadSpaceFractionCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Dead Space Fraction (Vd/Vt) Calculator</h2>
             <p>Mechanical ventilation is a life-saving intervention, but managing a patient on a ventilator requires deep insight into pulmonary mechanics. One of the most critical metrics of lung efficiency is the <strong>Dead Space Fraction (Vd/Vt)</strong>. Our Dead Space Fraction Calculator uses the classic Bohr-Enghoff equation to determine exactly how much of a patient's breathing is "wasted" ventilation. By inputting the arterial CO2 (PaCO2) and the mixed expired CO2 (PeCO2), clinicians can rapidly assess the severity of ventilation-perfusion (V/Q) mismatch, guide ventilator weaning strategies, and predict patient mortality in severe respiratory failure.</p>
 
@@ -344,7 +344,7 @@ export default function DeadSpaceFractionCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion</h2>
             <p>The Dead Space Fraction is a powerful prognostic indicator in critical care medicine. It provides a direct mathematical window into the efficiency of pulmonary gas exchange. By calculating Vd/Vt, intensivists can objectively measure the severity of ARDS, optimize ventilator settings to minimize alveolar over-distension, and accurately assess whether a recovering patient possesses the respiratory efficiency required to successfully breathe on their own.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/dead-space-fraction-calculator" />
           <PopularCalculators exclude="/calculator/dead-space-fraction-calculator" />

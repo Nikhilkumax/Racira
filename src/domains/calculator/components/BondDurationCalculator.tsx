@@ -228,7 +228,7 @@ export default function BondDurationCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is Bond Duration?</h2>
             <p>Bond duration is one of the most important concepts in fixed-income investing — yet it's frequently misunderstood. Duration is not simply the time until a bond matures. Rather, it is the weighted average time until all cash flows (coupons and principal repayment) are received, where each cash flow is weighted by its present value as a fraction of the total bond price. Duration measures both the average timing of a bond's cash flows and, critically, its sensitivity to interest rate changes.</p>
             <p>Our calculator is pre-filled with a typical investment-grade bond: $1,000 face value, 6% coupon, 10-year maturity, 5% yield to maturity, semi-annual payments. This produces a bond price of approximately $1,077 (premium bond since coupon &gt; yield) and a Macaulay Duration of about 7.8 years.</p>
@@ -256,7 +256,7 @@ export default function BondDurationCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Convexity: The Duration Refinement</h2>
             <p>Duration provides a linear approximation of price sensitivity that becomes less accurate for large rate moves. Convexity is the second-order correction. A bond with positive convexity benefits more from rate decreases than it suffers from equivalent rate increases — the price-yield relationship curves in the investor's favor. Callable bonds can have negative convexity: when rates fall, the issuer may call the bond, capping price appreciation. Mortgage-backed securities (MBS) are the classic negative convexity instrument. When comparing bonds with similar duration, prefer the one with higher convexity — it's a "free" enhancement in most scenarios.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/bond-duration-calculator" />
           <PopularCalculators exclude="/calculator/bond-duration-calculator" />
         </div>

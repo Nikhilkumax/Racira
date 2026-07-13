@@ -127,7 +127,7 @@ const CompostRatioCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">The Science of Composting</h2>
               <p>Composting is a biological process where microorganisms convert organic material into a nutrient-rich soil amendment. The speed and quality of this process depend on four factors: Carbon, Nitrogen, Oxygen, and Water.</p>
               <h3>Why the Ratio Matters</h3>
@@ -141,7 +141,7 @@ const CompostRatioCalculator = () => {
                 <li><strong>Cardboard:</strong> 350:1</li>
                 <li><strong>Sawdust:</strong> 500:1</li>
               </ul>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/compost-ratio" />
           <PopularCalculators exclude="/calculator/compost-ratio-calculator" />
         </div>

@@ -137,7 +137,7 @@ const PensionCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">How Defined Benefit Pensions Work</h2>
               <p>While 401(k) plans have become the standard in the private sector, many public sector employees (teachers, police officers, government workers) still have access to defined benefit pensions. These plans offer a high level of retirement security because the employer bears all the investment risk, promising a set income for the rest of your life.</p>
 
@@ -160,7 +160,7 @@ const PensionCalculator = () => {
 
               <h2 className="text-2xl font-bold mb-3">Pension Safety and the PBGC</h2>
               <p>If you work for a private company with a pension, your benefits are likely insured by the **Pension Benefit Guaranty Corporation (PBGC)**. This federal agency ensures that even if your company goes bankrupt, you will still receive at least a portion of your promised pension benefits, up to certain legal limits.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/pension-calculator" />
           <PopularCalculators exclude="/calculator/pension-calculator" />
         </div>

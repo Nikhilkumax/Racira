@@ -155,7 +155,7 @@ const PointsBreakEvenCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">What Are Mortgage Discount Points?</h2>
               <p>Mortgage discount points are essentially prepaid interest. By paying a lump sum at the closing of your home loan, you "buy down" the interest rate for the entire life of the mortgage. This is often referred to as "buying down the rate."</p>
 
@@ -186,7 +186,7 @@ const PointsBreakEvenCalculator = () => {
 
               <h3>Tax Considerations</h3>
               <p>Mortgage discount points are generally tax-deductible as home mortgage interest, provided you meet certain IRS requirements. This tax benefit can actually shorten your "effective" break-even period by reducing your overall tax liability for the year you buy the home.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/points-break-even-calculator" />
           <PopularCalculators exclude="/calculator/points-break-even-calculator" />
         </div>

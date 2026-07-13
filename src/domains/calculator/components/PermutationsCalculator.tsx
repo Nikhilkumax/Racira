@@ -135,7 +135,7 @@ const PermutationsCalculator = () => {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Permutations Calculator?</h2>
             <p>A permutations calculator computes P(n, r) — the number of ordered arrangements of r items chosen from n distinct items. Unlike combinations (where order doesn't matter), permutations count each different ordering as a separate outcome. This calculator shows both the permutation count and the corresponding combination count, plus a bar chart showing how permutations grow as r increases from 0 to the entered value.</p>
             <p>Pre-filled with P(10, 3) = 720, the calculator shows that there are 720 different ways to arrange 3 items chosen from 10 when the order matters — for example, awarding gold, silver, and bronze medals to 3 of 10 athletes.</p>
@@ -154,7 +154,7 @@ const PermutationsCalculator = () => {
             <p><strong>Password strength:</strong> An 8-character password from 26 lowercase letters without repetition: P(26,8) = 26!/(26-8)! = 62,990,928,000 — about 63 billion combinations. Pair with the <a href="/calculator/combinations-calculator">combinations calculator</a> for complete counting analysis.</p>
             <h2 className="text-2xl font-bold mb-3">Tips for Using This Calculator</h2>
             <p>Enter n and r as non-negative integers with r ≤ n. Maximum n = 20 due to integer overflow. The growth chart shows how rapidly permutations increase as r grows — a powerful visual for understanding combinatorial explosion. For larger values, use Stirling's approximation or logarithms to estimate factorial-based formulas.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/permutations-calculator" />
           <PopularCalculators exclude="/calculator/permutations-calculator" />
         </div>

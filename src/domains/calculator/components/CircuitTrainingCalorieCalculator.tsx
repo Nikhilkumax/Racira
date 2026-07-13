@@ -281,7 +281,7 @@ export default function CircuitTrainingCalorieCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Caloric Power of Circuit Training</h2>
             <p>If you have ever felt completely exhausted after just 20 minutes of a high-intensity workout class, you have experienced the brutal efficiency of circuit training. While traditional weightlifting requires long rest periods and steady-state cardio requires long time commitments, circuit training perfectly marries the two into a hyper-efficient, massive calorie-burning protocol. The <strong>Circuit Training Calorie Calculator</strong> bypasses inaccurate fitness watch estimates by utilizing clinical Metabolic Equivalent (MET) formulas. By factoring in your specific body mass and the intensity of your rest periods, it calculates the exact thermodynamic cost of your session.</p>
 
@@ -320,7 +320,7 @@ export default function CircuitTrainingCalorieCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: The Ultimate Time-Saver</h2>
             <p>In modern society, "lack of time" is the number one reason people fail to achieve their fitness goals. Circuit training entirely destroys this excuse. By utilizing the Circuit Training Calorie Calculator, you can easily see that a grueling, 30-minute high-intensity circuit can easily burn more calories than an hour of walking on a treadmill, all while simultaneously strengthening your muscles and spiking your cardiovascular endurance. Design a circuit, keep your rest periods strictly timed, and watch your metabolic rate skyrocket.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/circuit-training-calorie-calculator" />
           <PopularCalculators exclude="/calculator/circuit-training-calorie-calculator" />

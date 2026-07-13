@@ -372,9 +372,9 @@ const AutoLoanVsLeaseComparisonCalculator = () => {
           </div>
         </div>
 
-        <div className="max-w-[1180px] mt-8">
+        <section className="mt-12 space-y-8 text-base text-foreground max-w-[1180px]">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <div>
             <h2 className="text-2xl font-bold mb-3">What Is the Auto Loan vs Lease Comparison Calculator?</h2>
             <p>The Auto Loan vs Lease Comparison Calculator helps you decide whether financing the purchase of a vehicle or leasing it will cost less over the same term. It runs both scenarios on the same vehicle, same term, and same annual mileage, then reports the net cost of each — including the equity you keep when you buy versus the fees and mileage penalties you face when you lease.</p>
             <p>This side-by-side view removes the marketing spin that surrounds both options. Dealers quote low lease payments and low purchase APRs in isolation, but the only fair comparison is total dollars out of pocket over the term you actually intend to keep the car. This calculator does exactly that.</p>
@@ -419,10 +419,10 @@ const AutoLoanVsLeaseComparisonCalculator = () => {
 
             <h2 className="text-2xl font-bold mb-3">Benefits of Using This Calculator</h2>
             <p>By calculating the true net cost of both options on identical terms, this calculator replaces dealer marketing with hard math. You see exactly how much each option costs in total dollars, where the differences come from, and which choice leaves you better off. Use it before every car-shopping trip to negotiate from a position of clarity rather than monthly-payment confusion.</p>
-          </article>
-          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/auto-loan-vs-lease-comparison-calculator" />
-          <PopularCalculators exclude="/calculator/auto-loan-vs-lease-comparison-calculator" />
-        </div>
+          </div>
+        </section>
+        <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/auto-loan-vs-lease-comparison-calculator" />
+        <PopularCalculators exclude="/calculator/auto-loan-vs-lease-comparison-calculator" />
       </div>
     </>
   );

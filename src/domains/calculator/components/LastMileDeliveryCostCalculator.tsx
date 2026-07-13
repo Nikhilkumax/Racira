@@ -269,7 +269,7 @@ export default function LastMileDeliveryCostCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Last-Mile Delivery Problem</h2>
             <p>In the supply chain, the <strong>Last Mile</strong> refers to the final step of the delivery process: moving a package from a local fulfillment center to the customer's front door. Astonishingly, this short trip often accounts for <strong>over 50% of the total shipping cost</strong> of a product.</p>
             
@@ -286,7 +286,7 @@ export default function LastMileDeliveryCostCalculator() {
             
             <h3>The Hidden Cost of Vehicle Wear</h3>
             <p>Many courier businesses only look at Driver Wage and Gas. This is a fatal mistake. Delivery vans stop and start hundreds of times a day, destroying brakes and transmissions. Tires wear out quickly, and commercial insurance is exorbitant. Factoring in a per-mile maintenance rate (like the IRS standard mileage rate) is critical to understanding your true route profitability.</p>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "What is an acceptable Cost Per Package?", answer: "For giants like Amazon or USPS with massive route density, they can achieve $3 - $5 per package. For smaller regional couriers or dedicated delivery services, $8 - $12 per stop is more common." },
             { question: "How does 'Failed Delivery' impact costs?", answer: "A failed delivery (customer wasn't home to sign) doubles your cost for that package, because the driver has to drive it back to the depot and attempt it again tomorrow, doing twice the work for the same revenue." },

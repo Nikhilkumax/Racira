@@ -175,7 +175,7 @@ export default function PreferredStockValuationCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is Preferred Stock Valuation?</h2>
             <p>Preferred stock is a hybrid security combining features of both bonds (fixed dividends) and equity (ownership claim). Valuation uses a Dividend Discount Model adapted for perpetuities. For non-growing preferred stock: Intrinsic Value = Annual Dividend ÷ Required Return. For growing preferred: Value = Dividend ÷ (Required Return − Growth Rate), which is the Gordon Growth Model.</p>
             <p>Preferred stockholders receive dividends before common shareholders and have priority claims in liquidation. However, dividends can be suspended without triggering default (unlike bond interest), and preferred holders typically don't vote on corporate matters. This risk profile places preferred stock between investment-grade bonds and common equity in the capital structure hierarchy.</p>
@@ -183,7 +183,7 @@ export default function PreferredStockValuationCalculator() {
             <p>The power of this calculator lies in comparison: if the intrinsic value ($78.57) exceeds the current market price ($65), the stock is undervalued — you'd earn more than your required return. If intrinsic value is below market price, you'd earn less than required — the stock is overvalued relative to your targets. This framework is identical to how bond investors analyze yield to maturity vs. required yield.</p>
             <h2 className="text-2xl font-bold mb-3">Types of Preferred Stock</h2>
             <p>Cumulative preferred accumulates unpaid dividends (arrears) and must pay all arrears before common dividends resume — more valuable than non-cumulative. Convertible preferred can be exchanged for common shares at a preset ratio — more complex to value. Adjustable-rate preferred has dividends tied to a benchmark rate. Participating preferred shares in excess profits alongside common dividends. Each type requires different valuation adjustments, with this calculator covering standard fixed-rate perpetual preferred most accurately.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/preferred-stock-valuation-calculator" />
           <PopularCalculators exclude="/calculator/preferred-stock-valuation-calculator" />
         </div>

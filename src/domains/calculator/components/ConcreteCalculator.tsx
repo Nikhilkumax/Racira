@@ -209,7 +209,7 @@ export default function ConcreteCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">How to Calculate Concrete Volume</h2>
             <p>This <strong>concrete calculator</strong> computes the exact volume of concrete needed for slabs, footings, and columns in cubic yards, cubic feet, and cubic meters. The core formula for rectangular shapes: <strong>Volume (ft³) = Length (ft) × Width (ft) × Depth (in) ÷ 12</strong>. Divide by 27 to convert to cubic yards (the standard ordering unit for ready-mix concrete). Always add 10% waste to account for spillage, uneven subgrade, and settling.</p>
             <h2 className="text-2xl font-bold mb-3">Ready-Mix vs. Bagged Concrete</h2>
@@ -218,7 +218,7 @@ export default function ConcreteCalculator() {
             <p>Driveway (cars): 4 inches minimum. Driveway (trucks/RVs): 5–6 inches. Patio/walkway: 3.5–4 inches. Garage floor: 4–6 inches. Structural footings: minimum 8 inches deep. Basement walls: 8–10 inches. Higher PSI concrete (3,500–5,000) is recommended for driveways and areas with freeze-thaw cycles. Use rebar (#4 or #5 bar) on a 2-foot grid for driveways; wire mesh for patios.</p>
             <h2 className="text-2xl font-bold mb-3">Estimating Cost</h2>
             <p>Ready-mix concrete: $100–$200/yd³ delivered (varies by region and mix spec). Bags: 80-lb bags at $6–$8 each; cost per yd³ ≈ $270–$360. Labor: $2–$5/ft² for a typical slab pour. Pumping (if needed): $500–$1,500 for pump truck. Reinforcement: rebar $0.25–$0.50/lb; wire mesh $0.10–$0.20/ft². Finishing and sealing: $1–$2/ft² additional. Related tools: <a href="/calculator/area-calculator">Area Calculator</a>, <a href="/calculator/volume-calculator">Volume Calculator</a>.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/concrete-calculator" />
           <PopularCalculators exclude="/calculator/concrete-calculator" />
         </div>

@@ -124,7 +124,7 @@ const DepreciationCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Choosing a Depreciation Method</h2>
               <p>The method you choose affects your financial statements and tax liability significantly. Each method is appropriate for different assets and goals.</p>
               <h3>Straight-Line: Simplicity and Consistency</h3>
@@ -133,7 +133,7 @@ const DepreciationCalculator = () => {
               <p>DDB charges twice the straight-line rate applied to the declining book value. This front-loads expenses, reducing taxable income in early years. It is best for assets that lose value quickly (e.g., computers, vehicles).</p>
               <h3>Sum of Years Digits: Middle Ground</h3>
               <p>SYD is also accelerated but less aggressive than DDB. It's calculated by multiplying the depreciable base by a fraction where the numerator is the remaining life and the denominator is the sum of all years.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/depreciation" />
           <PopularCalculators exclude="/calculator/depreciation-calculator" />
         </div>

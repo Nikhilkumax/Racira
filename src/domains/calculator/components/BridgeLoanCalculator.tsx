@@ -182,7 +182,7 @@ const BridgeLoanCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Understanding Bridge Loans</h2>
               <p>A bridge loan is a powerful financial tool for homeowners who need to buy a new house before selling their current one. It essentially 'bridges' the gap between the two transactions by providing immediate cash for a down payment or other closing costs on the new property.</p>
 
@@ -223,7 +223,7 @@ const BridgeLoanCalculator = () => {
               <p><strong>HELOC (Home Equity Line of Credit):</strong> Often cheaper but can be difficult to secure if your home is already for sale.</p>
               <p><strong>80/10/10 Financing:</strong> Using a second mortgage on the new home instead of using equity from the old one.</p>
               <p><strong>Personal Loans:</strong> Unsecured loans that might cover a smaller down payment but usually have higher rates.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/bridge-loan-calculator" />
           <PopularCalculators exclude="/calculator/bridge-loan-calculator" />
         </div>

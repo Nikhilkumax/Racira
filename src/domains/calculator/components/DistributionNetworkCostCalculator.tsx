@@ -272,7 +272,7 @@ export default function DistributionNetworkCostCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Supply Chain Network Trade-Off</h2>
             <p>Designing a distribution network is a delicate balancing act between two opposing forces: <strong>Outbound Freight Costs</strong> and <strong>Fixed Overhead Costs</strong>.</p>
             
@@ -284,7 +284,7 @@ export default function DistributionNetworkCostCalculator() {
             
             <h2 className="text-2xl font-bold mb-3">When Does it Make Sense to Expand?</h2>
             <p>This calculator allows you to model those scenarios. You should only add a new Distribution Center (DC) to your network if the projected savings in <strong>Outbound Freight</strong> are greater than the new <strong>Fixed Overhead + Inventory Cost</strong> of the new facility.</p>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "What is Inventory Carrying Cost?", answer: "It is the financial cost of holding inventory. It includes the cost of capital (interest on loans used to buy the goods), insurance, taxes, and obsolescence risk. Usually calculated as 15% to 25% of inventory value annually." },
             { question: "Why do more DCs increase inventory?", answer: "Because of 'Safety Stock'. If you have 1 DC, you might need 1,000 units of a shirt to absorb demand spikes. If you have 3 DCs, you can't perfectly predict which DC will get the orders, so you might need 600 units at each DC (1,800 total) to prevent stockouts." },

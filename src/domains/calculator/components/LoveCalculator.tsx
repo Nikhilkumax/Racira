@@ -153,7 +153,7 @@ const LoveCalculator = () => {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Mathematics of Romance</h2>
             <p>Can a computer algorithm truly predict love? Since the dawn of the internet, "Love Calculators" have been incredibly popular tools for friends and couples to test their compatibility. While they are purely for entertainment, the mathematics running behind the scenes are quite interesting.</p>
 
@@ -165,7 +165,7 @@ const LoveCalculator = () => {
             <h2 className="text-2xl font-bold mb-3">Why Opposites Attract</h2>
             <p>While numerology is fun, human psychology is much more complex. Psychologists have long studied why certain personalities mesh well together. Interestingly, research suggests that the "Opposites Attract" theory has some scientific backing when it comes to specific personality traits.</p>
             <p>A highly organized, structured person often pairs incredibly well with a spontaneous, relaxed person. The structured partner provides stability and planning, while the spontaneous partner introduces excitement and flexibility. They physically balance out each other's extremes. So, if this calculator gives you a low score because your names are vastly different, take heart: in the real world, differences are often the foundation of the strongest relationships!</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/love-calculator" />
           <PopularCalculators exclude="/calculator/love-calculator" />
         </div>

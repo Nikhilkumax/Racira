@@ -264,7 +264,7 @@ export default function EnterpriseValueCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is Enterprise Value?</h2>
             <p>Enterprise Value (EV) is a financial metric that represents the total economic value of a business — the theoretical price an acquirer would pay to own the entire company, including its debt. Unlike market capitalization, which only reflects the equity holders' claim, enterprise value encompasses all stakeholders: equity shareholders, debt holders, preferred stockholders, and minority interest holders.</p>
             <p>The formula is: EV = Market Capitalization + Total Debt + Preferred Equity + Minority Interest − Cash & Cash Equivalents. The inclusion of debt makes EV capital-structure neutral, allowing fair comparisons between companies regardless of how they finance their operations.</p>
@@ -281,7 +281,7 @@ export default function EnterpriseValueCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Practical Applications</h2>
             <p>Investors use EV to screen for undervalued stocks by identifying companies trading at low EV multiples relative to peers. M&A advisors use EV to set takeover bid prices. Credit analysts use the debt-to-EV ratio to assess financial leverage. Venture capitalists use EV equivalents when pricing startup funding rounds. Understanding EV is foundational for any serious fundamental analysis of public or private companies.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/enterprise-value-calculator" />
           <PopularCalculators exclude="/calculator/enterprise-value-calculator" />
         </div>

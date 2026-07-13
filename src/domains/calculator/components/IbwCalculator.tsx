@@ -230,7 +230,7 @@ export default function IbwCalculator() {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Medical Definition of "Ideal" Body Weight</h2>
             <p>The term "Ideal Body Weight" (IBW) is one of the most widely misunderstood terms in medicine. In the clinical world, "ideal" does not refer to aesthetics, visual attractiveness, or personal health goals. Instead, it is a strictly mathematical construct utilized by anesthesiologists, clinical pharmacists, and nephrologists to safely dose medications.</p>
             <p>This <strong>Ideal Body Weight Calculator</strong> computes the four globally recognized IBW formulas. Because different organ systems metabolize drugs differently, using a patient's actual total body weight can sometimes result in massive overdoses, particularly in obese patients. IBW strips away excess adipose (fat) tissue mathematically, providing doctors with an estimate of the patient's lean metabolic mass.</p>
@@ -258,7 +258,7 @@ export default function IbwCalculator() {
             <h2 className="text-2xl font-bold mb-3">Limitations of the IBW Calculations</h2>
             <p>While critical for pharmacology, IBW formulas are incredibly flawed for general health assessments. They were developed decades ago when the average population was significantly lighter. </p>
             <p>Furthermore, these formulas exclusively factor in <strong>height</strong>. They do not account for frame size, bone density, or muscle mass. An elite NFL linebacker who is 6'2" might weigh 245 lbs of pure muscle with 10% body fat, but the Devine formula will tell him his "Ideal Body Weight" is 177 lbs. For this reason, athletes should entirely ignore IBW formulas for fitness planning and instead rely on Body Fat Percentage or Fat-Free Mass Index (FFMI) calculations.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/ibw-calculator" />
           <PopularCalculators exclude="/calculator/ibw-calculator" />
         </div>

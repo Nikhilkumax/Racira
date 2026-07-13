@@ -235,7 +235,7 @@ export default function PayRaisePercentageCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding Your Pay Raise</h2>
             <p>A pay raise is formally calculated as the percentage difference between your old salary and your new salary. This metric is critical for evaluating whether a promotion or an annual cost-of-living adjustment (COLA) is actually improving your financial standing.</p>
             
@@ -259,7 +259,7 @@ export default function PayRaisePercentageCalculator() {
               <li><strong>Internal Promotion:</strong> Getting promoted to a new tier within the same company typically yields a 7% to 12% increase.</li>
               <li><strong>Job Hopping:</strong> Leaving your company for a similar role at a competitor is historically the fastest way to grow income, often yielding 15% to 20% increases.</li>
             </ul>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "Can I use hourly rates instead of annual salary?", answer: "Yes! The percentage calculation is exactly the same whether you input $20/hr to $22/hr, or $41,600/yr to $45,760/yr. The math holds true regardless of the time unit." },
             { question: "Is a 3% raise good?", answer: "A 3% raise is average for an annual 'merit' increase designed to keep pace with standard inflation. It means your company values keeping you, but it is not a promotion. If inflation is higher than 3%, you are losing purchasing power." },

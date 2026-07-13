@@ -214,7 +214,7 @@ export default function BlendedRateMortgageCalculator() {
         {/* SEO CONTENT SECTION */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Golden Handcuffs Dilemma</h2>
             <p>During periods of historically low interest rates, millions of homeowners locked in mortgages at 3% or 4%. Fast forward a few years, and those same homeowners may need cash for home improvements, tuition, or debt consolidation. If current market rates have risen to 7% or 8%, a traditional cash-out refinance forces them to surrender their low primary rate on the entire balance — replacing a 3% loan with a 7% loan on $350,000 is a punishing monthly payment increase. The blended rate calculation exists precisely to model the alternative.</p>
 
@@ -226,7 +226,7 @@ export default function BlendedRateMortgageCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Don't Overlook Closing Costs</h2>
             <p>While the blended rate comparison tells the pure interest story, closing costs often tip the decision in favor of the second mortgage even when the rates are close. A cash-out refinance on a $350,000 balance typically carries closing costs of 2% to 5% — potentially $10,000 to $17,500 in fees. By contrast, many HELOCs and home equity loans come with minimal or even waived closing costs. If the blended rate and the refinance rate are within a fraction of a percent of each other, the avoided closing costs alone usually make the second mortgage the financially superior choice.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/blended-rate-mortgage-calculator" />
           <PopularCalculators exclude="/calculator/blended-rate-mortgage-calculator" />
         </div>

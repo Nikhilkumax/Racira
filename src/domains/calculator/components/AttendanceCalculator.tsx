@@ -110,12 +110,12 @@ const AttendanceCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Sidebar Ad" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Managing Your Academic Attendance</h2>
               <p>Maintaining a minimum attendance percentage is a common hurdle for students worldwide. Whether due to illness, family emergencies, or extracurricular activities, it's easy to fall behind the required threshold.</p>
               <h3>Why 75%?</h3>
               <p>The 75% rule is widely used because it balances the need for classroom instruction with a reasonable margin for unavoidable absences. It ensures that students engage with at least three-quarters of the curriculum delivered in person.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/attendance-calculator" />
           <PopularCalculators exclude="/calculator/attendance-calculator" />
         </div>

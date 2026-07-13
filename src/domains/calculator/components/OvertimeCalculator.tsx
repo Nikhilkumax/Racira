@@ -92,14 +92,14 @@ const OvertimeCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Overtime Pay Explained</h2>
               <p>Overtime compensation is a legal protection for workers, ensuring that employers pay a premium for demanding extra hours. Understanding your overtime rights and potential earnings is essential for every hourly worker.</p>
               <h3>The FLSA and Overtime Rules</h3>
               <p>The Fair Labor Standards Act (FLSA) requires all non-exempt employees to receive at least 1.5x their regular rate for hours worked over 40 per workweek. This is a federal minimum — many states have additional protections.</p>
               <h3>California's Daily Overtime Rule</h3>
               <p>California employees are entitled to 1.5x pay for any hours over 8 in a single workday (and 2x for hours over 12). This is more generous than the federal weekly standard and applies regardless of how many total hours are worked that week.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/overtime" />
           <PopularCalculators exclude="/calculator/overtime-calculator" />
         </div>

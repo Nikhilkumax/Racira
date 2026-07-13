@@ -498,7 +498,7 @@ const K401Calculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a 401(k) Calculator?</h2>
             <p>A 401(k) calculator projects how much money you'll accumulate in your employer-sponsored retirement account by the time you retire. It factors in your current balance, annual contributions (up to the IRS limit), employer matching contributions, expected investment returns, salary increases, and inflation to provide a comprehensive retirement savings forecast.</p>
             <p>Our advanced 401(k) calculator includes all factors that significantly impact your retirement outcome: employer match with configurable match percentage and limits, annual salary increase projections, inflation-adjusted purchasing power, and a complete growth table showing milestones until retirement.</p>
@@ -520,7 +520,7 @@ const K401Calculator = () => {
 
             <h2 className="text-2xl font-bold mb-3">Tips to Maximize Your 401(k)</h2>
             <p>Always contribute at least enough to get the full employer match first. Then maximize an IRA (Roth or Traditional). Then maximize the 401(k) to the full $23,000 limit. Increase your contribution rate by 1% each time you receive a raise. Choose low-cost index funds — expense ratios of 0.03–0.10% vs 1%+ for actively managed funds can mean hundreds of thousands of dollars difference at retirement. At age 50+, take full advantage of the $7,500 catch-up contribution. Review and rebalance your asset allocation annually.</p>
-          </article>
+          </section>
 
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/401k-calculator" />
           <PopularCalculators exclude="/calculator/401k-calculator" />

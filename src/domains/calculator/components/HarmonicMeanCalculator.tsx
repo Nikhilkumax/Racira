@@ -130,7 +130,7 @@ const HarmonicMeanCalculator = () => {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Harmonic Mean Calculator?</h2>
             <p>A harmonic mean calculator computes HM = n / Σ(1/xᵢ) and compares it against the geometric mean (GM) and arithmetic mean (AM). Pre-filled with the geometric sequence {"{1, 2, 4, 8, 16}"}: HM ≈ 2.581, GM = 4.0, AM = 6.2 — demonstrating the AM≥GM≥HM inequality. The reciprocals table shows exactly how each value contributes to the calculation.</p>
             <h2 className="text-2xl font-bold mb-3">The Harmonic Mean Formula</h2>
@@ -143,7 +143,7 @@ const HarmonicMeanCalculator = () => {
             <p>F₁ = 2 × (Precision × Recall) / (Precision + Recall) = harmonic mean of precision and recall. Using the harmonic mean instead of arithmetic mean ensures that a high F₁ score requires both precision AND recall to be high. A model with precision=1.0 and recall=0.01 would get AM=0.505 (misleadingly high) but F₁=0.0198 (correctly low). This makes F₁ the standard binary classification metric.</p>
             <h2 className="text-2xl font-bold mb-3">P/E Ratio Aggregation</h2>
             <p>For an equal-dollar-weighted portfolio, the correct aggregate P/E is the harmonic mean: HM P/E = n / Σ(1/P/Eᵢ). If you invest $10,000 each in 3 stocks with P/E of 10, 20, 30: each dollar buys different amounts of earnings. HM P/E = 3/(0.1+0.05+0.033) = 3/0.183 = 16.4, not the arithmetic mean of 20. Many financial databases incorrectly report arithmetic P/E averages, understating value.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/harmonic-mean-calculator" />
           <PopularCalculators exclude="/calculator/harmonic-mean-calculator" />
         </div>

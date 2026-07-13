@@ -142,7 +142,7 @@ const StudentLoanPayoffCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">The Power of Extra Payments</h2>
               <p>Student loans are structured as amortized debt, meaning your monthly payment is split between interest and principal. In the early years of your loan, a large portion of your payment goes toward interest. By adding even a small amount to your monthly payment, you directly reduce the principal balance.</p>
               
@@ -151,7 +151,7 @@ const StudentLoanPayoffCalculator = () => {
 
               <h3>Federal vs. Private Loans</h3>
               <p>Always check if your loans have prepayment penalties (most federal and modern private student loans do not). Additionally, ensure your loan servicer is applying the extra payment to the principal balance rather than just 'advancing' your next due date.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/student-loan-payoff" />
           <PopularCalculators exclude="/calculator/student-loan-payoff-calculator" />
         </div>

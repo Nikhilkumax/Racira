@@ -427,7 +427,7 @@ export default function MortgagePayoffCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Target Payoff Calculator</h2>
             <p>For most homeowners, the mortgage is a 30-year financial anchor. Standard amortization calculators are passive tools—they tell you what the bank requires you to do. Our <strong>Mortgage Payoff Calculator</strong> flips the script. It is an active, goal-oriented tool that allows you to dictate the timeline. Instead of asking "When will my loan end?", this calculator allows you to state "I want my loan to end in 10 years," and mathematically reverse-engineers the exact monthly payment required to make that goal a reality.</p>
             <p>By comparing your "Status Quo" trajectory against your "Target Strategy," you can visualize the massive disparity in wealth accumulation. While it requires financial discipline to funnel extra cash into your mortgage every month, seeing the tens of thousands of dollars in "Wealth Saved" provides the psychological motivation necessary to execute the plan and achieve ultimate financial freedom.</p>
@@ -463,7 +463,7 @@ export default function MortgagePayoffCalculator() {
             <h2 className="text-2xl font-bold mb-3">Conclusion</h2>
             <p>A mortgage is designed to generate decades of passive income for the lender. By shifting from a passive borrower to an active debt-destroyer, you reclaim that wealth for your own family.</p>
             <p>By leveraging this Target Payoff Calculator, you establish a concrete, mathematical roadmap to absolute ownership. By identifying your target date, isolating the required cash flow, and understanding the compounding mechanics of principal reduction, you ensure that the roof over your head eventually belongs entirely to you, not the bank.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/mortgage-payoff-calculator" />
           <PopularCalculators exclude="/calculator/mortgage-payoff-calculator" />

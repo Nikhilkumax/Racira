@@ -227,14 +227,14 @@ export default function DebtPayoffCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Avalanche vs. Snowball: Which Debt Payoff Method Is Best?</h2>
             <p>This <strong>debt payoff calculator</strong> simulates both the Avalanche (highest interest rate first) and Snowball (smallest balance first) debt elimination strategies and compares total interest paid and payoff timeline. The Avalanche method is mathematically optimal — always paying less total interest. The Snowball method provides faster psychological wins. Both dramatically outperform making minimum payments only.</p>
             <h2 className="text-2xl font-bold mb-3">How the Debt Avalanche Works</h2>
             <p>Pay minimum payments on every debt. Apply all extra money to the highest interest rate debt. When paid off, roll the freed payment to the next highest rate. This cascades until all debt is gone. Example: 4 debts with rates 24.99%, 19.99%, 12%, 6.5%. Avalanche targets the 24.99% card first — every dollar applied there saves the maximum interest. The 'avalanche' of freed payments accelerates payoff on each subsequent debt.</p>
             <h2 className="text-2xl font-bold mb-3">When Snowball Outperforms</h2>
             <p>Despite costing more interest, the Snowball method may produce better real-world outcomes for people who struggle with motivation. Research by Kellogg School of Management found that people who felt progress (paid-off accounts) were more likely to stick with their debt payoff plan. If you've previously failed with Avalanche or have many small debts that can be quickly eliminated, Snowball's psychological benefits may outweigh the additional interest cost. Related tools: <a href="/calculator/budget-calculator">Budget Calculator</a>, <a href="/calculator/credit-card-payoff-calculator">Credit Card Payoff Calculator</a>.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/debt-payoff-calculator" />
           <PopularCalculators exclude="/calculator/debt-payoff-calculator" />
         </div>

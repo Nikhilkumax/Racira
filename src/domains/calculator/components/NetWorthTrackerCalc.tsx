@@ -229,7 +229,7 @@ export default function NetWorthTrackerCalc() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is Net Worth and Why Does It Matter?</h2>
             <p>Net worth is the cornerstone metric of personal finance — the single number that tells you exactly where you stand financially. It's calculated as Total Assets minus Total Liabilities. Everything you own minus everything you owe. While income matters for your standard of living today, net worth determines your long-term financial security, retirement readiness, and wealth legacy.</p>
             <p>Many people focus exclusively on income without tracking net worth, missing the bigger picture. A $200,000/year earner who spends everything has a lower net worth than a $70,000/year earner who saves and invests consistently. Wealth is built not by what you earn, but by what you keep and grow.</p>
@@ -243,7 +243,7 @@ export default function NetWorthTrackerCalc() {
 
             <h2 className="text-2xl font-bold mb-3">Building Net Worth: The Three Pillars</h2>
             <p><strong>Earn more:</strong> Increase income through career advancement, skills development, side income, or business ownership. <strong>Spend less:</strong> Track spending, eliminate waste, live below your means. Even a 5-10% savings rate improvement compounds dramatically over decades. <strong>Invest wisely:</strong> Put the difference to work in diversified, low-cost index funds, real estate, or other appreciating assets. The wealth-building formula is deceptively simple: Income &gt; Expenses, with the difference invested consistently over time.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/net-worth-tracker" />
           <PopularCalculators exclude="/calculator/net-worth-tracker" />
         </div>

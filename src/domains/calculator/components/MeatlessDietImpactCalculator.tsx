@@ -137,7 +137,7 @@ const MeatlessDietImpactCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">The Environmental Impact of Diet</h2>
               <p>The foods we choose to eat have a profound impact on the environment. Animal agriculture is heavily resource-intensive compared to plant-based agriculture. Even a slight reduction in meat consumption, such as participating in "Meatless Mondays," can yield significant environmental benefits.</p>
               
@@ -146,7 +146,7 @@ const MeatlessDietImpactCalculator = () => {
 
               <h3>Land Use and Deforestation</h3>
               <p>Vast tracts of natural ecosystems, including the Amazon rainforest, are cleared daily to make room for cattle ranching and to grow monoculture crops (like soy and corn) destined for animal feed. Transitioning to plant-based diets frees up massive amounts of land that can be rewilded to absorb carbon.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/meatless-monday-impact" />
           <PopularCalculators exclude="/calculator/meatless-monday-impact-calculator" />
         </div>

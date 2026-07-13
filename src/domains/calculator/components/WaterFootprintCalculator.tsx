@@ -159,7 +159,7 @@ const WaterFootprintCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">The Three Colors of Water</h2>
               <p>Water footprints are divided into three categories to help understand the source and impact of consumption:</p>
               <ul>
@@ -171,7 +171,7 @@ const WaterFootprintCalculator = () => {
               <p>When we import a t-shirt or a piece of fruit, we are also importing the water that was used to produce it. This is called "virtual water." Many water-scarce regions are effectively exporting their precious water resources in the form of agricultural products to water-rich nations.</p>
               <h3>Why Direct Use is Only the Tip of the Iceberg</h3>
               <p>While we might notice the water flowing from our faucets, direct household use typically accounts for less than 5% of our total water footprint. The other 95% is hidden in the food we eat, the clothes we wear, and the products we use every day.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/water-footprint" />
           <PopularCalculators exclude="/calculator/water-footprint-calculator" />
         </div>

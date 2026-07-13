@@ -112,7 +112,7 @@ const HardDriveCapacityCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">The Mystery of the Missing Gigabytes</h2>
               <p>When you buy a hard drive, you might feel cheated when your "1TB" drive shows up as "931GB" in Windows. This isn't because the drive is broken or poor quality; it's because manufacturers and software developers use different measuring sticks.</p>
               <h3>Decimal vs Binary</h3>
@@ -121,7 +121,7 @@ const HardDriveCapacityCalculator = () => {
                 <li><strong>Computers (Binary):</strong> Use powers of 2. For them, 1 Kibibyte = 1,024 bytes.</li>
               </ul>
               <p>As drives get larger, this 2.4% difference compounds. By the time you reach Terabytes, the difference is approximately 7.4%.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/hard-drive-capacity" />
           <PopularCalculators exclude="/calculator/hard-drive-capacity-calculator" />
         </div>

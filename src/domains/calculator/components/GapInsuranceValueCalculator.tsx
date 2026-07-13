@@ -282,7 +282,7 @@ const GapInsuranceValueCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is the GAP Insurance Value Calculator?</h2>
             <p>GAP (Guaranteed Asset Protection) insurance covers the difference between what you owe on your car loan and what the car is actually worth if it's totaled or stolen. This calculator determines whether GAP insurance is worth buying for your specific loan by comparing the cost of GAP coverage against the maximum potential payout over the life of your loan.</p>
 
@@ -323,7 +323,7 @@ const GapInsuranceValueCalculator = () => {
 
             <h2 className="text-2xl font-bold mb-3">Benefits of Using This Calculator</h2>
             <p>This tool takes the guesswork out of GAP insurance decisions. By showing exactly when you'll be underwater and how much GAP would pay, it helps you decide whether to buy GAP, where to buy it (insurer vs dealer), and when to cancel it for a refund.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/gap-insurance-value-calculator" />
           <PopularCalculators exclude="/calculator/gap-insurance-value-calculator" />
         </div>

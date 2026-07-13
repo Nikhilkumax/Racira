@@ -154,7 +154,7 @@ const TimeDurationCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">About Time Duration Calculator</h2>
               <p>This tool calculates the precise duration between any two dates and times. It accounts for varying month lengths, leap years, and provides results in multiple units.</p>
 
@@ -165,7 +165,7 @@ const TimeDurationCalculator = () => {
                 <li><strong>Travel:</strong> Compute journey duration across dates</li>
                 <li><strong>Legal:</strong> Determine precise time periods for contracts or statutes</li>
               </ul>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/time-duration-calculator" />
           <PopularCalculators exclude="/time-duration-calculator" />
         </div>

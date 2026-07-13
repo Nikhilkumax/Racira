@@ -502,7 +502,7 @@ export default function UkMortgageCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the UK Mortgage Calculator</h2>
             <p>Buying a property in the United Kingdom is a massive financial commitment that involves far more than just agreeing to a purchase price. Lenders, solicitors, surveyors, and HM Revenue and Customs (HMRC) all play a role in determining your final costs. Our <strong>UK Mortgage Calculator</strong> is specifically engineered for the British housing market. It bypasses generic international formulas to accurately model Loan-to-Value (LTV) bands, Stamp Duty Land Tax (SDLT) thresholds, and Repayment vs. Interest-Only structures.</p>
             <p>Whether you are a First-Time Buyer trying to get onto the property ladder, a Home Mover upgrading your primary residence, or a Buy-to-Let investor expanding your portfolio, this calculator provides a transparent breakdown of your monthly obligations and total upfront tax liabilities.</p>
@@ -539,7 +539,7 @@ export default function UkMortgageCalculator() {
             <h2 className="text-2xl font-bold mb-3">Conclusion</h2>
             <p>Securing a UK mortgage requires navigating a labyrinth of LTV bands, tax thresholds, and fixed-rate expiries. It is not a passive process; it requires active financial management every few years to ensure you remain on the optimal rate.</p>
             <p>By utilizing this UK Mortgage Calculator, you gain the foresight needed to confidently approach lenders. By accurately projecting your SDLT liability, understanding the amortization curve of your repayment structure, and recognizing the power of your deposit, you can transition from a prospective buyer to a financially secure homeowner.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/uk-mortgage-calculator" />
           <PopularCalculators exclude="/calculator/uk-mortgage-calculator" />

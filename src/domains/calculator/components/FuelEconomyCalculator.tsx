@@ -328,7 +328,7 @@ export default function FuelEconomyCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Fuel Economy Calculator?</h2>
             <p>A Fuel Economy Calculator is a universal conversion and efficiency tool that bridges the gap between different global measurement systems. While the United States measures fuel efficiency in <strong>Miles Per Gallon (US MPG)</strong>, Europe and much of the world use <strong>Liters per 100 Kilometers (L/100km)</strong>, and the United Kingdom uses the slightly different <strong>Imperial MPG (UK MPG)</strong>. This calculator instantly processes your raw trip data (distance and fuel burned) and converts it across all these formats simultaneously.</p>
 
@@ -350,7 +350,7 @@ export default function FuelEconomyCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
             <p>To get the most accurate baseline for your car, perform the calculation over a long distance (e.g., an entire tank of gas rather than a 10-mile trip). Small variations in how the gas pump clicks off can skew your results significantly on short trips. Furthermore, use this calculator to verify your car's dashboard computer. Many modern vehicles will display an estimated L/100km or MPG on the screen, but these digital estimates are notoriously optimistic compared to hard math at the pump.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/fuel-economy-calculator" />
           <PopularCalculators />

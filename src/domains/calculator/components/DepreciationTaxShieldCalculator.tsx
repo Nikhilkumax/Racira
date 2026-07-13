@@ -234,7 +234,7 @@ export default function DepreciationTaxShieldCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What is a Depreciation Tax Shield?</h2>
             <p>A <strong>Depreciation Tax Shield</strong> is the reduction in income taxes that results from taking an allowable deduction for depreciation. Because depreciation is a non-cash expense (you don't actually write a check for it each year), the tax savings it generates represent real, tangible cash flow that stays in the business.</p>
             
@@ -249,7 +249,7 @@ export default function DepreciationTaxShieldCalculator() {
             <h2 className="text-2xl font-bold mb-3">Straight-Line vs. Accelerated Depreciation</h2>
             <p>This calculator uses the <strong>Straight-Line</strong> method, which spreads the deduction equally over the asset's life. However, governments often allow <strong>Accelerated Depreciation</strong> (like MACRS in the US) or even 100% Bonus Depreciation.</p>
             <p>Accelerated depreciation doesn't change the <em>total</em> lifetime tax shield, but it pulls those tax savings into the earlier years of the project. Due to the time value of money, receiving those tax shields sooner is highly beneficial to a company's cash flow.</p>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "Is a tax shield actual cash?", answer: "Yes, indirectly. Because it legally reduces the amount of cash you must pay to the government in taxes, that cash remains in your corporate bank account. In finance, a dollar saved on taxes is exactly equal to a dollar earned." },
             { question: "What is Salvage Value?", answer: "Salvage value is the estimated resale value of the asset at the end of its useful life. You cannot depreciate an asset below its salvage value. If you buy a truck for $50k and expect to sell it for $10k in five years, your depreciable base is only $40k." },

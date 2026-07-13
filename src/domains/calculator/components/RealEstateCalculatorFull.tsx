@@ -233,7 +233,7 @@ export default function RealEstateCalculatorFull() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">How to Analyze a Real Estate Investment</h2>
             <p>Real estate investment analysis requires evaluating multiple metrics simultaneously to understand both cash flow and total return potential. This calculator computes the key metrics that experienced real estate investors use: cap rate, cash-on-cash return, net operating income, gross yield, break-even occupancy, and equity buildup over time. Understanding each metric's meaning and limitations is essential for making sound investment decisions.</p>
             <p>The starting point is always the <strong>Net Operating Income (NOI)</strong>: annual rent × (1 − vacancy rate) minus all operating expenses (taxes, insurance, maintenance, management fees). NOI is the income the property generates before debt service — it's independent of your financing, making it useful for comparing properties.</p>
@@ -251,7 +251,7 @@ export default function RealEstateCalculatorFull() {
 
             <h2 className="text-2xl font-bold mb-3">Real Estate Investment Risks</h2>
             <p>Real estate investing involves significant risks: illiquidity (you can't sell a fraction of a property overnight), leverage risk (borrowed money amplifies losses), vacancy risk, tenant damage, unexpected maintenance costs (a new HVAC unit can cost $5,000-$15,000), local market risk, regulatory risk (rent control, eviction moratoriums), and interest rate risk if using adjustable-rate financing. Successful real estate investors maintain cash reserves (typically 3-6 months of gross rent) and properly vet tenants to minimize vacancies and damage.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/real-estate-calculator" />
           <PopularCalculators exclude="/calculator/real-estate-calculator" />
         </div>

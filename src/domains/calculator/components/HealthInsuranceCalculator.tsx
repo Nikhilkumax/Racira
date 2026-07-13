@@ -216,14 +216,14 @@ export default function HealthInsuranceCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding Health Insurance Costs</h2>
             <p>This <strong>health insurance calculator</strong> estimates your total annual healthcare costs across ACA marketplace metal tiers — Bronze, Silver, Gold, and Platinum. Your true annual cost includes not just the monthly premium, but your expected out-of-pocket expenses (deductibles, copays, coinsurance) up to the out-of-pocket maximum. Choosing the "cheapest" premium isn't always the most economical choice if you have significant medical needs.</p>
             <h2 className="text-2xl font-bold mb-3">How Metal Tiers Work</h2>
             <p>ACA plans are categorized by actuarial value — the percentage of average member's medical costs the plan pays. Bronze: 60% (you pay 40%). Silver: 70% (you pay 30%). Gold: 80% (you pay 20%). Platinum: 90% (you pay 10%). Higher metal = higher premium + lower out-of-pocket costs. The optimal tier depends on your expected healthcare utilization — Bronze saves money if you're rarely sick; Gold/Platinum saves money if you have chronic conditions, frequent specialist visits, or expensive prescriptions.</p>
             <h2 className="text-2xl font-bold mb-3">ACA Premium Tax Credits</h2>
             <p>If your household income is 100–400% of the Federal Poverty Level (FPL) and you're not eligible for affordable employer coverage, Medicare, or Medicaid, you may qualify for premium tax credits (subsidies). For 2024, the enhanced subsidies from the American Rescue Plan remain in effect: no household pays more than 8.5% of income in premiums. A person earning $35,000/year would pay ~$207/month maximum. Use the official healthcare.gov calculator for precise subsidy estimates. Related tools: <a href="/calculator/disability-insurance-calculator">Disability Insurance Calculator</a>, <a href="/calculator/term-life-vs-whole-life-calculator">Term vs. Whole Life Calculator</a>.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/health-insurance-calculator" />
           <PopularCalculators exclude="/calculator/health-insurance-calculator" />
         </div>

@@ -154,7 +154,7 @@ const PizzaSizeCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">The Math of Pizza Value</h2>
               <p>When you're ordering pizza, your eyes often deceive you. A 12-inch pizza might look only slightly smaller than a 14-inch pizza, but the math tells a different story. Because the area of a circle grows exponentially as the diameter increases, those extra two inches actually provide about 36% more pizza!</p>
               
@@ -171,7 +171,7 @@ const PizzaSizeCalculator = () => {
 
               <h2 className="text-2xl font-bold mb-3">Tips for Savvy Ordering</h2>
               <p>Always check for "BOGO" (Buy One Get One) deals on smaller sizes, but compare them against the price of one extra-large. Often, one 18-inch pizza contains more food than two 12-inch pizzas, and usually costs less. Use our calculator at the restaurant to ensure you're getting the most crust for your buck.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/pizza-size" />
           <PopularCalculators exclude="/calculator/pizza-size-calculator" />
         </div>

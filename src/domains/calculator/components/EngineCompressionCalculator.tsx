@@ -282,7 +282,7 @@ export default function EngineCompressionCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Why Engine Compression Ratio Matters</h2>
             <p>The Static Compression Ratio is one of the most fundamental specifications of any internal combustion engine. It defines the mathematical relationship between the maximum volume of a cylinder (when the piston is at Bottom Dead Center) and the minimum volume (when the piston is at Top Dead Center). The higher the compression ratio, the more thermal energy the engine can extract from a single drop of fuel. High compression yields more horsepower, crisper throttle response, and better fuel efficiency.</p>
 
@@ -301,7 +301,7 @@ export default function EngineCompressionCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Turbochargers and Dynamic Compression</h2>
             <p>The ratio calculated by this tool is the <strong>Static</strong> Compression Ratio. It assumes the cylinder fills with air at normal atmospheric pressure. However, if you add a turbocharger or supercharger, you are forcibly cramming double or triple the amount of air into the cylinder. Because the cylinder is artificially overfilled, turbocharged engines must run much lower static compression ratios (e.g., 8.5:1) to prevent catastrophic detonation when the boost kicks in.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/engine-compression-calculator" />
           <PopularCalculators />

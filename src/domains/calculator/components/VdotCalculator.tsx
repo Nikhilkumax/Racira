@@ -122,14 +122,14 @@ export default function VdotCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is VDOT?</h2>
             <p>VDOT is a performance index developed by exercise physiologist Jack Daniels, Ph.D., author of &quot;Daniels&apos; Running Formula&quot; — considered the bible of distance running training. Rather than requiring a laboratory VO2max test, VDOT is derived from race performance and represents an integrated measure of aerobic capacity and running economy. It provides a single number that precisely determines optimal training paces across all workout types.</p>
             <h2 className="text-2xl font-bold mb-3">Training Zones Explained</h2>
             <p><strong>Easy (E) pace:</strong> Used for 80%+ of weekly mileage. Builds aerobic base, promotes recovery, improves fat metabolism. Approximately 59–74% of VDOT effort. <strong>Tempo (T) pace:</strong> Lactate threshold training. Improves the body&apos;s ability to sustain faster speeds before lactate accumulates. Run in 20–40 minute continuous efforts or cruise intervals. <strong>Interval (I) pace:</strong> VO2max training. 800m–1 mile repeats with equal rest. Maximally stresses the aerobic system to drive VO2max adaptations. <strong>Repetition (R) pace:</strong> Speed and economy training. 200m–400m at mile race pace with full recovery.</p>
             <h2 className="text-2xl font-bold mb-3">Race Prediction Accuracy</h2>
             <p>VDOT-based race predictions assume equivalent training preparation for each distance. A runner who primarily trains for 10K may underperform at the marathon relative to VDOT prediction (insufficient endurance base). Similarly, a high-mileage marathon runner may outperform VDOT predictions at shorter distances (aerobic capacity exceeds current 5K fitness). Use predictions as training targets, not guarantees.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/vdot-calculator" />
           <PopularCalculators exclude="/calculator/vdot-calculator" />
         </div>

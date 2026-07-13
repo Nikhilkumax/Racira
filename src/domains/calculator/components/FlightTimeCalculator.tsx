@@ -60,7 +60,7 @@ const FlightTimeCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">About the Flight Time Calculator</h2>
             <p>The Flight Time Calculator helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.</p>
             <h3>How to Use</h3>
@@ -71,7 +71,7 @@ const FlightTimeCalculator = () => {
             </ol>
             <h3>Why Use This Calculator?</h3>
             <p>Our calculator is fast, free, and accurate. No sign-up required.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/flight-time-calculator" />
           <PopularCalculators exclude="/calculator/flight-time-calculator" />
         </div>

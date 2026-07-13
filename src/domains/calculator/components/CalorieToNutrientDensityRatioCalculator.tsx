@@ -337,7 +337,7 @@ export default function CalorieToNutrientDensityRatioCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding Nutrient Density</h2>
             <p>In the modern world of fitness and dieting, there is a massive obsession with macronutrients (proteins, carbs, and fats) and raw calorie counting. This approach, colloquially known as "If It Fits Your Macros" (IIFYM), has led many people to believe that 500 calories of potato chips is biologically equivalent to 500 calories of grilled chicken and broccoli, so long as the math balances out at the end of the day. This is a fundamentally flawed understanding of human biology.</p>
             <p>The human body does not just require raw energy (calories) to survive; it requires microscopic instructions in the form of vitamins, minerals, and amino acids to repair DNA, balance hormones, and fight off disease. This is where the concept of <strong>Nutrient Density</strong> comes in. The <strong>Calorie to Nutrient Density Ratio Calculator</strong> is designed to look past the raw calorie count and algorithmically determine exactly how much actual <em>nutrition</em> a food provides per calorie consumed.</p>
@@ -371,7 +371,7 @@ export default function CalorieToNutrientDensityRatioCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Quality Over Quantity</h2>
             <p>Weight loss is dictated by the quantity of calories you consume, but your longevity, energy levels, and disease risk are dictated entirely by the quality of those calories. By utilizing the Calorie to Nutrient Density Ratio Calculator, you can train your brain to look past flashy marketing claims. You will begin to view food not just as a source of energy, but as a vehicle for complex, life-sustaining nutrition.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/calorie-to-nutrient-density-ratio-calculator" />
           <PopularCalculators exclude="/calculator/calorie-to-nutrient-density-ratio-calculator" />

@@ -127,7 +127,7 @@ const DataTransferRateCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Megabits vs. Megabytes</h2>
               <p>One of the most common points of confusion in technology is the difference between a bit and a byte. There are exactly <strong>8 bits in 1 byte</strong>. Because internet speeds are marketed in Megabits per second (Mbps), you should divide that number by 8 to see how many Megabytes per second (MB/s) you will actually see in your browser or download manager.</p>
               
@@ -141,7 +141,7 @@ const DataTransferRateCalculator = () => {
               
               <h3>ISP "Up to" Speeds</h3>
               <p>Most Internet Service Providers sell packages with "up to" speeds. This is a maximum theoretical limit. During peak hours, your actual throughput might be significantly lower than the advertised number.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/data-transfer" />
           <PopularCalculators exclude="/calculator/data-transfer-rate-calculator" />
         </div>

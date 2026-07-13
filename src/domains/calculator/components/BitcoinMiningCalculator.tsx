@@ -274,7 +274,7 @@ export default function BitcoinMiningCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Realities of Bitcoin Mining</h2>
             <p>Bitcoin mining is the process of using high-powered computer hardware (ASICs) to solve complex cryptographic puzzles. The first miner to solve the puzzle earns the right to add a new block to the blockchain and receives the "block reward" (newly minted Bitcoins) plus transaction fees.</p>
             
@@ -289,7 +289,7 @@ export default function BitcoinMiningCalculator() {
             
             <h2 className="text-2xl font-bold mb-3">Mining Pools</h2>
             <p>Because the network hash rate is so incredibly high, solo mining is financially reckless. You could run a machine for 10 years and never win the race to solve a block. To fix this, miners combine their hash power into "pools." The pool acts as one massive miner, solving blocks frequently, and distributing the BTC to its participants based on how much hash power they contributed. This provides a steady, predictable income stream.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/bitcoin-mining-calculator" />
           <PopularCalculators />

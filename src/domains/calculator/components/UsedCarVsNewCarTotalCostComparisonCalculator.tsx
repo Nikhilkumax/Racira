@@ -307,7 +307,7 @@ const UsedCarVsNewCarTotalCostComparisonCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is the Used vs New Car Total Cost Comparison?</h2>
             <p>This calculator performs a comprehensive side-by-side comparison of the total cost of ownership for a new car versus a used car over the same ownership period. It goes beyond sticker prices to include every cost factor: depreciation, financing interest, insurance, fuel, maintenance, and registration — giving you the honest financial picture needed to make the right purchase decision.</p>
 
@@ -341,7 +341,7 @@ const UsedCarVsNewCarTotalCostComparisonCalculator = () => {
 
             <h2 className="text-2xl font-bold mb-3">Benefits of Using This Calculator</h2>
             <p>This tool eliminates the guesswork from the new-vs-used decision by computing the actual dollar difference in total ownership cost. It accounts for every factor that dealers won't mention and helps you make a financially sound decision based on real numbers rather than sticker price perception.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/used-car-vs-new-car-total-cost-comparison-calculator" />
           <PopularCalculators exclude="/calculator/used-car-vs-new-car-total-cost-comparison-calculator" />
         </div>

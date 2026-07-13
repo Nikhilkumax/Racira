@@ -125,7 +125,7 @@ const RangeCalculator = () => {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Range Calculator?</h2>
             <p>A range calculator computes the spread of a dataset from its minimum to maximum value (Range = Max − Min), along with a full suite of dispersion metrics: IQR, standard deviation, coefficient of variation, quartiles, and midrange. Pre-filled with 9 values from a sample dataset, the range is 17 (max 19 − min 2). The sorted distribution chart includes a reference line at the mean.</p>
             <h2 className="text-2xl font-bold mb-3">Range Formula</h2>
@@ -138,7 +138,7 @@ const RangeCalculator = () => {
             <p>CV = (σ/μ) × 100% allows comparing variability between datasets with different scales. Comparing investment volatility: Portfolio A (mean return 10%, σ = 2%) has CV = 20%. Portfolio B (mean return 3%, σ = 1%) has CV = 33% — despite smaller absolute standard deviation, B is proportionally more volatile. CV is dimensionless, making it ideal for cross-dataset comparisons.</p>
             <h2 className="text-2xl font-bold mb-3">Range in Quality Control</h2>
             <p>Control charts (R-charts) track the range across subgroups of production samples to monitor process variability. If range exceeds control limits (D₄R̄ or falls below D₃R̄), the process shows unusual variation requiring investigation. Process capability (Cpk) uses both range and specification limits to measure how well a process meets requirements. Manufacturing tolerances are essentially acceptable ranges.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/range-calculator" />
           <PopularCalculators exclude="/calculator/range-calculator" />
         </div>

@@ -86,7 +86,7 @@ const InterestRateCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">What Is an Interest Rate Calculator?</h2>
               <p>An interest rate calculator determines the annual interest rate (APR) on a loan when you know the loan amount, monthly payment, and term length. This is essentially the reverse of a standard loan calculator — instead of calculating the payment from the rate, it calculates the rate from the payment.</p>
               <p>This tool is invaluable when you receive a loan offer that quotes a monthly payment but not the interest rate, or when you want to verify the rate on an existing loan.</p>
@@ -107,7 +107,7 @@ const InterestRateCalculator = () => {
               <p>The interest rate is the cost of borrowing money, expressed as a percentage of the outstanding balance. Even small differences in rates can have a significant impact over the life of a loan. On a $25,000 loan over 60 months, the difference between 5% and 7% APR is approximately $1,350 in total interest.</p>
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> This calculator provides estimates for educational purposes only. The calculated rate is the nominal annual rate, which may differ from the APR if fees are involved. This is not financial advice.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/interest-rate-calculator" />
           <PopularCalculators exclude="/interest-rate-calculator" />
         </div>

@@ -154,7 +154,7 @@ const KurtosisCalculator = () => {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Kurtosis Calculator?</h2>
             <p>A kurtosis calculator measures the tailedness of a distribution — how prone the data is to producing extreme outliers. Pre-filled with 13 values that cluster around the center, the calculator computes population and sample kurtosis, excess kurtosis, classifies the distribution (leptokurtic/mesokurtic/platykurtic), and shows a distribution histogram.</p>
             <h2 className="text-2xl font-bold mb-3">Kurtosis vs Excess Kurtosis</h2>
@@ -165,7 +165,7 @@ const KurtosisCalculator = () => {
             <p>Financial returns are leptokurtic: the S&amp;P 500 has excess kurtosis around 2–4 on daily returns. This means market crashes and extreme gains are far more frequent than a normal model predicts. Standard VaR calculations using normal assumptions underestimate risk. Fat-tailed models (Student{"'"}s t-distribution, extreme value theory) provide more accurate tail risk estimates.</p>
             <h2 className="text-2xl font-bold mb-3">The Jarque-Bera Normality Test</h2>
             <p>JB = (n/6) × [S² + (K²/4)], where S = skewness, K = excess kurtosis. Under H₀ (normality): JB ~ χ²(2). Large JB → reject normality. This test efficiently combines both shape measures. A dataset with skewness = 0.5 and excess kurtosis = 1.5 with n=100 gives JB = 100/6 × (0.25 + 0.5625) ≈ 13.5, rejecting normality at the 1% level (critical value ≈ 9.21).</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/kurtosis-calculator" />
           <PopularCalculators exclude="/calculator/kurtosis-calculator" />
         </div>

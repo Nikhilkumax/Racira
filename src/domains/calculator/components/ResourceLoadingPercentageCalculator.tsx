@@ -264,7 +264,7 @@ export default function ResourceLoadingPercentageCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What is Resource Loading?</h2>
             <p>In Project Management, <strong>Resource Loading</strong> refers to the amount of project-specific work assigned to an individual (or team) relative to their total available time. It helps project managers determine if an employee has enough bandwidth to take on a new task without causing project delays or personal burnout.</p>
             
@@ -286,7 +286,7 @@ export default function ResourceLoadingPercentageCalculator() {
               <li><strong>Resource Smoothing:</strong> Assign some of the work to a different team member who has free capacity.</li>
               <li><strong>Authorize Overtime:</strong> Temporarily increase the resource's capacity to 50 or 60 hours, assuming the budget allows for overtime pay (and the employee agrees).</li>
             </ul>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "What is an ideal billable utilization rate for a consultant?", answer: "In most professional services firms, the target billable utilization rate for a junior-to-mid level consultant is between 75% and 85%. Partners and executives usually have much lower targets (30% to 50%) because they spend most of their time selling new business." },
             { question: "How do you calculate capacity for a team?", answer: "Simply aggregate the individuals. If you have 5 full-time developers, your team capacity is 200 hours per week. If you have 150 hours of assigned development work, the team loading is 75%." },

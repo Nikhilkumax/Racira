@@ -283,7 +283,7 @@ export default function RowingCalorieCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Unmatched Efficiency of the Rowing Machine</h2>
             <p>For decades, the treadmill and the elliptical have dominated commercial gym cardio sections. However, in recent years, the indoor rowing machine (ergometer) has surged in popularity, largely driven by the rise of functional fitness and CrossFit. The reason is simple: efficiency. Rowing is one of the few cardiovascular exercises that simultaneously acts as full-body resistance training. But calculating exactly how many calories you are burning while pulling the chain is complex. The <strong>Rowing Calorie Calculator</strong> eliminates the generic estimations of gym consoles by utilizing clinical Metabolic Equivalent (MET) formulas. By factoring in your specific body mass and exact exertion level, it provides a highly accurate, biologically sound caloric burn estimate.</p>
 
@@ -315,7 +315,7 @@ export default function RowingCalorieCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Maximize the Machine</h2>
             <p>To get the most accurate results from this calculator, you must row with proper form. The most common mistake beginners make is keeping the resistance ("damper setting") at 10 and trying to row as fast as possible with their arms. This is wildly inefficient. Keep the damper at 4 or 5. Focus on a slow recovery, and explode backward using the massive strength of your legs. Track your sessions with the Rowing Calorie Calculator, dial in your nutrition, and watch as this single machine transforms your cardiovascular engine and your physique.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/rowing-calorie-calculator" />
           <PopularCalculators exclude="/calculator/rowing-calorie-calculator" />

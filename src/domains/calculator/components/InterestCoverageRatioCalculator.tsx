@@ -233,7 +233,7 @@ export default function InterestCoverageRatioCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What is the Interest Coverage Ratio?</h2>
             <p>The <strong>Interest Coverage Ratio (ICR)</strong> is a critical financial metric used by lenders, creditors, and investors to determine how easily a company can pay interest on its outstanding debt. It measures how many times a company could pay its current interest obligations using its operating earnings.</p>
             
@@ -252,7 +252,7 @@ export default function InterestCoverageRatioCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">ICR vs. DSCR</h2>
             <p>While the ICR only looks at a company's ability to pay <em>interest</em>, the <strong>Debt Service Coverage Ratio (DSCR)</strong> looks at the ability to pay both interest <em>and</em> principal repayments. Because of this, the DSCR is usually a much stricter metric, and banks often heavily rely on the DSCR when underwriting commercial real estate or large corporate loans.</p>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "Why do we use EBIT instead of Net Income?", answer: "Interest is a pre-tax expense. Therefore, we must use pre-tax earnings (EBIT) to measure the company's true ability to pay interest out of its operations. Using Net Income would artificially lower the ratio because it accounts for taxes that are paid after interest." },
             { question: "What causes a bad Interest Coverage Ratio?", answer: "An ICR drops either because operating income (EBIT) is falling due to poor sales/high costs, or because interest expense is rising due to taking on too much debt or facing higher variable interest rates." },

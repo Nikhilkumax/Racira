@@ -185,7 +185,7 @@ export default function BurnRateCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is Burn Rate?</h2>
             <p>Burn rate measures how fast a startup or early-stage company is spending its cash reserves. For companies pre-profitability, this is the single most critical financial metric — it determines survival. This <strong>burn rate calculator</strong> computes your net and gross burn rate, runway in months and weeks, and projects when your cash will run out at current rates.</p>
             <h2 className="text-2xl font-bold mb-3">The Burn Rate Formulas</h2>
@@ -194,7 +194,7 @@ export default function BurnRateCalculator() {
             <p>Under 6 months: critical — begin emergency fundraising or cost cuts immediately. 6–12 months: start fundraising now, as it typically takes 3–6 months to close a round. 12–18 months: healthy — begin preparing for the next round. 18+ months: strong position to negotiate favorable terms with investors.</p>
             <h2 className="text-2xl font-bold mb-3">Key Benchmarks by Stage</h2>
             <p>Pre-seed ($0–$500K raised): Monthly burn typically $5K–$30K. Seed ($500K–$2M): $30K–$100K/month. Series A ($2M–$15M): $100K–$500K/month. Series B+: $500K–$2M+/month. Benchmark your burn against peers and ensure it's tied to proportional growth in key metrics.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/burn-rate-calculator" />
           <PopularCalculators exclude="/calculator/burn-rate-calculator" />
         </div>

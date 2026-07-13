@@ -124,14 +124,14 @@ const InvestmentPropertyCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Investing in Real Estate</h2>
               <p>Real estate is one of the most reliable ways to build long-term wealth, but not every property is a good investment. Running the numbers is the difference between a profitable asset and a "money pit."</p>
               <h3>Cash Flow is King</h3>
               <p>While appreciation (the increase in property value) is a great bonus, professional investors focus on cash flow. Monthly cash flow is the money left over after all expenses, including the mortgage, have been paid. Positive cash flow provides a safety net for repairs and allows you to reinvest in more properties.</p>
               <h3>Leverage and Risk</h3>
               <p>Using a mortgage (leverage) allows you to control a $250,000 asset with only $50,000 of your own money. This amplifies your Cash on Cash return but also increases your risk. If the property becomes vacant, you are still responsible for the full mortgage payment.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/investment-property" />
           <PopularCalculators exclude="/calculator/investment-property-calculator" />
         </div>

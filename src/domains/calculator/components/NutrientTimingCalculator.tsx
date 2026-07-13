@@ -242,7 +242,7 @@ export default function NutrientTimingCalculator() {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Science of Nutrient Timing</h2>
             <p>In the hierarchy of sports nutrition, total daily calorie intake and total daily macronutrient targets are the undisputed king and queen. If you are not eating enough protein over a 24-hour period, or if you are not in a caloric deficit, no amount of precise meal timing will save your physique. However, once those foundational elements are dialed in, <strong>Nutrient Timing</strong> becomes the crucial final layer for optimizing physical performance, delaying systemic fatigue, and maximizing muscular recovery.</p>
             <p>Nutrient timing specifically refers to the strategic manipulation of macronutrients (primarily carbohydrates and protein) directly around your training window. This period is scientifically referred to as the "Peri-Workout Window," which encompasses your pre-workout, intra-workout, and post-workout nutrition.</p>
@@ -273,7 +273,7 @@ export default function NutrientTimingCalculator() {
             <h2 className="text-2xl font-bold mb-3">What About Training Fasted?</h2>
             <p>Training completely fasted (e.g., waking up and immediately running or lifting weights) is a popular trend, particularly for fat loss. Fasted cardio can slightly increase the percentage of calories burned directly from fat <em>during</em> the actual session. However, long-term clinical studies show it does not lead to greater overall body fat loss over a 24-hour period compared to fed cardio. Total caloric deficit dictates fat loss.</p>
             <p>For resistance training (lifting weights), working out completely fasted is almost always suboptimal. Lifting weights requires high neural drive and glycogen. Doing it fasted noticeably decreases your performance output and increases muscle catabolism. If you must train first thing in the morning, consuming a small, fast-digesting protein shake (20g of whey) before you lift is highly recommended to protect your muscle tissue without causing stomach upset.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/nutrient-timing-calculator" />
           <PopularCalculators exclude="/calculator/nutrient-timing-calculator" />
         </div>

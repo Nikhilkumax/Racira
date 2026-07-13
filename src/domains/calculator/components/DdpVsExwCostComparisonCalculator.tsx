@@ -272,7 +272,7 @@ export default function DdpVsExwCostComparisonCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">EXW vs DDP: The Great Supply Chain Debate</h2>
             <p>When negotiating a purchase order with an overseas supplier, you will inevitably have to choose an Incoterm. The two most extreme opposites on the spectrum are <strong>EXW (Ex Works)</strong> and <strong>DDP (Delivered Duty Paid)</strong>.</p>
             
@@ -285,7 +285,7 @@ export default function DdpVsExwCostComparisonCalculator() {
             <h2 className="text-2xl font-bold mb-3">The "Convenience Premium" Trap</h2>
             <p>Many new importers choose DDP because they are intimidated by logistics. However, suppliers know this. When a supplier quotes you a DDP price, they do not just pass along the exact freight cost. They will often add a massive 20% to 40% markup on the freight to compensate themselves for the administrative hassle and risk of clearing customs in your country.</p>
             <p>By getting a separate EXW quote, and asking your own freight forwarder for a logistics quote, you can use this calculator to uncover exactly how much profit the supplier is secretly baking into their DDP freight quote.</p>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "If EXW is cheaper, why would anyone use DDP?", answer: "DDP is fantastic for very small, low-value test orders (like a $500 sample box shipped via DHL Express) where hiring a dedicated customs broker isn't worth the administrative hassle." },
             { question: "Is DDP legally risky for the buyer?", answer: "Yes. In the United States, CBP holds the 'Importer of Record' legally liable for customs fraud. If your overseas supplier uses a shady DDP agent who lies about the product's value to evade taxes, US Customs can seize your goods and fine YOU, even though the supplier arranged the freight." },

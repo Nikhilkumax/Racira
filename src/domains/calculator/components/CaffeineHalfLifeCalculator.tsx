@@ -245,14 +245,14 @@ export default function CaffeineHalfLifeCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding Caffeine Metabolism</h2>
             <p>This <strong>Caffeine Half-Life Calculator</strong> visualizes exactly how long your afternoon coffee stays in your bloodstream. Caffeine is processed by the liver using the CYP1A2 enzyme. Because of genetic and lifestyle variations, the "half-life" (the time it takes your body to eliminate 50% of the drug) can vary wildly from person to person.</p>
             <h2 className="text-2xl font-bold mb-3">The Invisible Sleep Thief</h2>
             <p>If you consume a large 160mg energy drink at 3:00 PM, and you have an average 5-hour half-life, you will still have 80mg in your system at 8:00 PM, and nearly 40mg circulating in your brain at midnight. Caffeine works by blocking adenosine receptors in the brain. Even if you fall asleep, that 40mg of active caffeine will prevent your brain from entering Stage 3 and 4 deep sleep. You will spend the night in lighter sleep stages and wake up feeling exhausted, leading you to reach for more caffeine the next morning.</p>
             <h2 className="text-2xl font-bold mb-3">Surprising Modifiers (The Pill and Smoking)</h2>
             <p>Most people don't realize how much outside factors influence their caffeine tolerance. Women taking oral contraceptives (birth control pills) experience inhibited CYP1A2 function, causing caffeine to stay in their system nearly twice as long. Conversely, smokers metabolize caffeine incredibly fast. This is why smokers often drink large amounts of coffee without getting the jitters—their liver is clearing the stimulant much faster than a non-smoker. Related tools: <a href="/calculator/caffeine-calculator">Caffeine Intake Calculator</a>, <a href="/calculator/sleep-calculator">Sleep Cycle Calculator</a>.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/caffeine-half-life-calculator" />
           <PopularCalculators exclude="/calculator/caffeine-half-life-calculator" />
         </div>

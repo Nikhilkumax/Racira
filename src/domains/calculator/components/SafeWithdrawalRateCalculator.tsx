@@ -196,13 +196,13 @@ export default function SafeWithdrawalRateCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is the Safe Withdrawal Rate?</h2>
             <p>The Safe Withdrawal Rate (SWR) is a crucial retirement planning formula that calculates the maximum percentage of your total savings you can withdraw in your first year of retirement, and then adjust for inflation annually, with a high probability that your money will not run out before you die.</p>
             
             <h2 className="text-2xl font-bold mb-3">The History of the 4% Rule</h2>
             <p>The 4% rule was established by William Bengen in 1994. By analyzing historical market returns of a 50/50 stock and bond portfolio over several rolling 30-year periods (including through the Great Depression and stagflation of the 1970s), Bengen found that a 4% initial withdrawal rate never exhausted the portfolio in less than 30 years. Today, some planners recommend safer rates of 3% to 3.5% for early retirees or longer retirement periods.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/safe-withdrawal-rate-calculator" />
           <PopularCalculators exclude="/calculator/safe-withdrawal-rate-calculator" />
         </div>

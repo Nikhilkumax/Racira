@@ -475,7 +475,7 @@ export default function BikeLoanCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Bike Loan Calculator</h2>
             <p>Buying a motorcycle is often an emotional decision driven by passion, freedom, and the open road. However, financing that motorcycle is a purely mathematical endeavor. An <strong>Motorcycle Loan Calculator</strong> is a critical financial planning tool designed specifically for riders. It helps you navigate the unique lending environment of recreational vehicles, allowing you to estimate your monthly payments, factor in riding gear, and understand the true cost of your new bike before you ever set foot inside a dealership.</p>
             <p>Dealership finance offices are notoriously adept at masking high interest rates by extending the loan term to hit your desired monthly payment. By using this calculator, you take the power back. You can clearly visualize the amortization schedule, analyze the impact of different down payments, and uncover exactly how much interest you will be paying over the life of the loan.</p>
@@ -517,7 +517,7 @@ export default function BikeLoanCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion</h2>
             <p>A motorcycle is an investment in your lifestyle and happiness, but it should never become a financial burden. By utilizing this Motorcycle Loan Calculator, you strip away the sales tactics and focus purely on the mathematics. Running different scenarios allows you to find the perfect balance between the bike you want, the monthly payment you need, and the long-term financial security you deserve.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/bike-loan-calculator" />
           <PopularCalculators exclude="/calculator/bike-loan-calculator" />

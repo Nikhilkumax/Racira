@@ -385,7 +385,7 @@ export default function RpeToPercentageCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the RPE to Percentage Calculator</h2>
             <p>For decades, professional strength athletes and powerlifters relied exclusively on strict, rigid percentage-based programming. If the spreadsheet said to lift 80% of your 1-Rep Maximum for 5 sets of 5 repetitions, you loaded exactly that weight onto the bar, regardless of how you felt. While effective in a vacuum, this rigid approach fails to account for human biology. You are not a machine. Your strength fluctuates daily based on sleep quality, caloric intake, accumulated systemic fatigue, and psychological stress. Enter <strong>Autoregulation</strong> and the <strong>Rate of Perceived Exertion (RPE)</strong> scale. The RPE to Percentage Calculator bridges the gap between rigid mathematics and subjective daily readiness, allowing you to fluidly adjust your training weights to match your actual physiological state.</p>
 
@@ -417,7 +417,7 @@ export default function RpeToPercentageCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Train Smarter, Not Harder</h2>
             <p>If you want to lift weights for the rest of your life without chronic joint pain and CNS fatigue, you must learn to listen to your body. The RPE scale is the language your body speaks; the RPE to Percentage Calculator translates that language into actionable data. By utilizing autoregulation, you ensure that every single set is perfectly tailored to your physiological state on that exact day. Stop grinding through bad days, capitalize on the good days, and use the math to build unbreakable strength.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/rpe-to-percentage-calculator" />
           <PopularCalculators exclude="/calculator/rpe-to-percentage-calculator" />

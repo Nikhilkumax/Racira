@@ -269,7 +269,7 @@ export default function CustomsClearanceCostEstimator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding US Customs Clearance Costs</h2>
             <p>When importing commercial goods into the United States, the price on your supplier's invoice is only part of the story. Before US Customs and Border Protection (CBP) will release your cargo from the port, you must pay a series of duties and fees. If you do not budget for these accurately, your profit margins will be wiped out.</p>
             
@@ -289,7 +289,7 @@ export default function CustomsClearanceCostEstimator() {
             
             <h3>4. Customs Broker Fee</h3>
             <p>Unless you are a licensed customs broker yourself, you must pay a third-party logistics company to file the entry paperwork (CBP Form 3461 and 7501) on your behalf. Brokers typically charge a flat fee per entry, usually ranging from $100 to $250.</p>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "What is an 'Informal Entry'?", answer: "Shipments valued under $2,500 usually qualify as informal entries. They often have simplified paperwork and are exempt from standard MPF limits, though flat-rate fees may still apply depending on how they are cleared (manual vs electronic)." },
             { question: "Do I pay duties on the shipping cost?", answer: "In the United States, duties are generally assessed on the FOB (Free On Board) value of the goods. This means you pay duty on the cost of the goods themselves, but you do NOT pay duty on the cost of the international ocean or air freight." },

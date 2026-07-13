@@ -260,7 +260,7 @@ export default function AngelInvestmentReturnCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <section className="mt-12 space-y-8 text-base text-foreground">
               <div>
                 <h2 className="text-2xl font-bold mb-3">Understanding Angel Investment Returns</h2>
@@ -312,7 +312,7 @@ export default function AngelInvestmentReturnCalculator() {
                 </p>
               </div>
             </section>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/angel-investment-return-calculator" />
           <PopularCalculators />

@@ -232,7 +232,7 @@ export default function MenstrualCycleLengthCalculator() {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding Your Menstrual Cycle Length</h2>
             <p>The female menstrual cycle is a complex, continuous sequence of hormonal shifts designed to prepare the body for a potential pregnancy. Understanding the exact length of your cycle is the foundation of reproductive health, whether you are trying to conceive (TTC), practicing natural family planning, or simply monitoring for hormonal imbalances.</p>
             <p>This <strong>Menstrual Cycle Length Calculator</strong> determines the exact biological length of your cycle and utilizes retrograde clinical tracking to estimate your upcoming ovulation date, fertile window, and next period.</p>
@@ -259,7 +259,7 @@ export default function MenstrualCycleLengthCalculator() {
             <h2 className="text-2xl font-bold mb-3">Calculating the Fertile Window</h2>
             <p>Because the Luteal Phase is fixed at 14 days, the calculator estimates your ovulation date by projecting your next period and counting backward exactly 14 days. This is known as the "Rhythm Method" or retrograde tracking.</p>
             <p>However, your "Fertile Window" is longer than just the day of ovulation. While an egg only lives for 24 hours, healthy sperm can survive inside the cervical crypts of the female reproductive tract for up to 5 days, waiting for the egg to drop. Therefore, the biological window for conception opens 5 days prior to ovulation and completely closes 24 hours after ovulation.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/menstrual-cycle-length-calculator" />
           <PopularCalculators exclude="/calculator/menstrual-cycle-length-calculator" />
         </div>

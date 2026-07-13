@@ -110,14 +110,14 @@ const OvulationCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Maximizing Your Chances of Conception</h2>
               <p>Timing intercourse correctly is the most important factor in getting pregnant. The egg only survives for a short window (12-24 hours), so waiting until you ovulate is often too late.</p>
               <h3>The Luteal Phase</h3>
               <p>The time between ovulation and your next period is called the luteal phase. While total cycle length varies wildly among women (from 21 to 35 days), the luteal phase is remarkably consistent, almost always lasting exactly 14 days. This is why ovulation is calculated backwards from your next expected period.</p>
               <h3>Tracking Methods</h3>
               <p>Calculators are based on averages. For absolute precision, combine this calculator's results with physical tracking methods: observing cervical mucus changes, tracking Basal Body Temperature (BBT), or using Ovulation Predictor Kits (OPKs) which detect LH surges in urine.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/ovulation" />
           <PopularCalculators exclude="/calculator/ovulation-calculator" />
         </div>

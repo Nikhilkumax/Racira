@@ -184,7 +184,7 @@ const DopplerEffectCalculator = () => {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Doppler Effect Calculator?</h2>
             <p>A Doppler effect calculator computes the observed frequency shift when a wave source and observer are in relative motion. Supporting both sound and light waves, this calculator applies the classical Doppler formula for sound and the relativistic formula for light. Pre-filled with a 440 Hz source (musical note A4) approaching at 30 m/s in air, the observed frequency is approximately 482 Hz — a clearly audible pitch increase.</p>
             <h2 className="text-2xl font-bold mb-3">Classical Doppler Formula (Sound)</h2>
@@ -197,7 +197,7 @@ const DopplerEffectCalculator = () => {
             <p>Doppler ultrasound measures blood flow velocity through vessels — critical for detecting blockages, valve disorders, and fetal heart monitoring. Police radar guns measure vehicle speed by bouncing microwaves off cars and measuring the return frequency shift. Weather Doppler radar detects precipitation movement and rotation (tornado detection). Satellite communications apply Doppler compensation to maintain signal quality.</p>
             <h2 className="text-2xl font-bold mb-3">Sonic Booms and Shock Waves</h2>
             <p>When a source exceeds the speed of sound (Mach 1), it outruns its own sound waves. The wavefronts pile up into a conical shock wave — the sonic boom. The Mach cone half-angle θ = arcsin(1/Mach). At Mach 2: θ = 30°. The boom is heard as a sharp double crack (from leading and trailing edges of the aircraft). Concorde cruised at Mach 2.04 — its sonic boom was a major factor limiting overland supersonic flight.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/doppler-effect-calculator" />
           <PopularCalculators exclude="/calculator/doppler-effect-calculator" />
         </div>

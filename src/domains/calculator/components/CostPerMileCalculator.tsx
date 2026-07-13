@@ -299,7 +299,7 @@ const CostPerMileCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is the Cost Per Mile Calculator?</h2>
             <p>The Cost Per Mile Calculator determines exactly how much each mile you drive costs in total ownership expenses. Unlike MPG or fuel cost per mile, this metric captures the full picture — depreciation, financing, insurance, maintenance, fuel, registration, and parking — expressed as a single dollar amount per mile. It's the most honest way to compare vehicles and evaluate whether driving is cheaper than rideshare, transit, or other alternatives.</p>
 
@@ -331,7 +331,7 @@ const CostPerMileCalculator = () => {
 
             <h2 className="text-2xl font-bold mb-3">Benefits of Using This Calculator</h2>
             <p>Cost per mile is the single best metric for evaluating transportation decisions. Use it to compare vehicles objectively, decide between owning and ridesharing, set per-mile budgets for business travel, and understand the true cost of your daily commute in dollars.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/cost-per-mile-calculator" />
           <PopularCalculators exclude="/calculator/cost-per-mile-calculator" />
         </div>

@@ -269,7 +269,7 @@ export default function AverageReturnCalculator() {
         {/* SEO Article section */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding Average Returns: Arithmetic vs. Geometric Mean</h2>
             <p>
               When evaluating the performance of stocks, mutual funds, or real estate assets over multiple years, investors frequently refer to "average returns." However, the term average can be highly misleading in finance because it can refer to two fundamentally different mathematical concepts: the <strong>Arithmetic Mean</strong> and the <strong>Geometric Mean</strong>.
@@ -311,7 +311,7 @@ export default function AverageReturnCalculator() {
               <li><strong>Actual Outcome:</strong> You lost $2,500 (25% of your original wealth).</li>
               <li><strong>Geometric Average:</strong> [ (1 - 0.50) × (1 + 0.50) ]^(1/2) - 1 = (0.75)^(0.5) - 1 ≈ -13.4%. The geometric return correctly registers a compound annual loss of -13.4%, matching the wealth decline.</li>
             </ul>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/average-return-calculator" />
           <PopularCalculators exclude="/calculator/average-return-calculator" />
         </div>

@@ -116,7 +116,7 @@ const SukanyaSamriddhiCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">What Is Sukanya Samriddhi Yojana?</h2>
               <p>Sukanya Samriddhi Yojana (SSY) is a government-backed savings scheme launched in 2015 under the Beti Bachao Beti Padhao campaign. It is designed to encourage parents to build a fund for their girl child's future education and marriage. The scheme offers one of the highest interest rates among small savings instruments and provides full tax benefits.</p>
 
@@ -145,7 +145,7 @@ const SukanyaSamriddhiCalculator = () => {
               </ul>
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> Interest rates are subject to quarterly revision by the government. This calculator provides estimates based on the rate you enter. Verify with post office or bank for current rates.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/sukanya-samriddhi-calculator" />
           <PopularCalculators exclude="/sukanya-samriddhi-calculator" />
         </div>

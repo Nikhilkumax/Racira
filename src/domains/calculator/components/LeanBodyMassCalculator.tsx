@@ -93,14 +93,14 @@ const LeanBodyMassCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Why Lean Body Mass Matters More Than Weight</h2>
               <p>The number on the scale is a poor indicator of health and fitness. Two people at the same weight can look and perform very differently depending on their body composition.</p>
               <h3>Tracking Progress with LBM</h3>
               <p>When losing weight through diet and exercise, tracking LBM ensures you're losing fat and not muscle. Ideally, your LBM should stay the same or increase while total weight decreases during a cut.</p>
               <h3>Katch-McArdle Formula</h3>
               <p>This BMR formula is considered more accurate than Harris-Benedict for people who know their body fat percentage, because it accounts for lean mass directly rather than using height, weight, age, and sex as proxies.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/lean-body-mass" />
           <PopularCalculators exclude="/calculator/lean-body-mass-calculator" />
         </div>

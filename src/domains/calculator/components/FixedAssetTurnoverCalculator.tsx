@@ -131,7 +131,7 @@ export default function FixedAssetTurnoverCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is the Fixed Asset Turnover Ratio?</h2>
             <p>The Fixed Asset Turnover (FAT) ratio measures how efficiently a company generates revenue from its long-term tangible assets — Property, Plant &amp; Equipment (PP&amp;E). It is a key operational efficiency metric in capital-intensive industries and a critical component of DuPont Analysis decomposition, where it feeds into the broader Asset Turnover ratio.</p>
             <h2 className="text-2xl font-bold mb-3">Fixed Asset Turnover Formula</h2>
@@ -145,7 +145,7 @@ export default function FixedAssetTurnoverCalculator() {
             <p>As assets age, their net book value declines (accumulated depreciation increases), which mechanically increases FAT even without revenue growth or operational improvement. Companies with older, more fully-depreciated assets will appear more FAT-efficient than those with newly upgraded infrastructure. Analysts using FAT should also track gross PP&amp;E turnover (Revenue ÷ Gross PP&amp;E) as a complement to remove this depreciation distortion.</p>
             <h2 className="text-2xl font-bold mb-3">FAT in the Context of DuPont Analysis</h2>
             <p>In DuPont Analysis, Asset Turnover = Revenue ÷ Total Assets. FAT isolates the fixed asset component, while Working Capital Turnover captures the current asset efficiency. Together they explain the Total Asset Turnover and ultimately contribute to explaining Return on Equity through the multiplier effect of efficient asset utilization on ROE. Improving FAT improves Asset Turnover, which improves ROA and ROE without requiring higher margins or greater leverage.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/fixed-asset-turnover-calculator" />
           <PopularCalculators exclude="/calculator/fixed-asset-turnover-calculator" />
         </div>

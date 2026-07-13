@@ -211,7 +211,7 @@ export default function JumboLoanPaymentCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Jumbo Loan?</h2>
             <p>A <strong>jumbo loan</strong> is a mortgage that exceeds the conforming loan limits established annually by the Federal Housing Finance Agency (FHFA). For 2024, the baseline limit is $766,550 for single-family homes in most U.S. counties. In high-cost markets like New York City, San Francisco Bay Area, Honolulu, and Seattle, higher limits apply—up to $1,149,825 in some areas. Any loan exceeding these thresholds is classified as a jumbo mortgage and does not qualify for purchase by Fannie Mae or Freddie Mac.</p>
             <p>Because jumbo loans cannot be sold on the secondary market to government-sponsored enterprises, lenders hold them on their own balance sheets. This exposes lenders to greater risk and explains why jumbo loans historically carried higher interest rates and stricter qualification requirements than conforming loans.</p>
@@ -225,7 +225,7 @@ export default function JumboLoanPaymentCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Interest Savings on Large Loans</h2>
             <p>On a $1.5 million jumbo loan at 7.25% over 30 years, the monthly P&I payment is approximately $10,236. The total interest paid over the life of the loan is approximately $1.68 million—more than the original loan amount. Even a small rate reduction produces enormous savings at this scale. A 0.25% rate reduction (from 7.25% to 7.00%) saves approximately $138 per month and over $49,000 in total interest. This makes rate shopping critically important for jumbo borrowers—even fractional rate differences represent meaningful lifetime savings.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/jumbo-loan-payment-calculator" />
           <PopularCalculators exclude="/calculator/jumbo-loan-payment-calculator" />
         </div>

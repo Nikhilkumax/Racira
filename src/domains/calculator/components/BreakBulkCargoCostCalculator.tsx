@@ -253,7 +253,7 @@ export default function BreakBulkCargoCostCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What is Break-Bulk Cargo?</h2>
             <p><strong>Break-bulk</strong> cargo refers to goods that must be loaded individually onto a ship, rather than being placed in intermodal containers (like standard 20ft or 40ft shipping containers) or transported in bulk (like oil or grain). Common examples of break-bulk include large machinery, construction equipment, steel beams, structural timber, and oversized vehicles (RO-RO).</p>
             
@@ -276,7 +276,7 @@ export default function BreakBulkCargoCostCalculator() {
             
             <h2 className="text-2xl font-bold mb-3">Why Are Port and Stevedoring Fees Billed by W/M?</h2>
             <p>Unlike container shipping where ports charge a flat fee per box (THC - Terminal Handling Charge), break-bulk cargo requires specialized labor and equipment to load and secure. Cranes (stevedoring) and port storage are constrained by both weight and physical dimensions, so these secondary logistics fees almost universally apply the same W/M rule to calculate your final port bill.</p>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "What is the difference between Break-Bulk and Bulk?", answer: "Bulk cargo is unpackaged and poured directly into the ship's hold (e.g., coal, crude oil, grain). Break-bulk is packaged, strapped, or assembled as individual pieces (e.g., pallets, drums, large generators) but not put inside standard shipping containers." },
             { question: "What is a Revenue Ton (RT)?", answer: "A Revenue Ton is the billing unit used by ocean and air carriers. In ocean freight, 1 RT is equal to either 1 Metric Ton or 1 Cubic Meter, whichever yields the higher revenue for the carrier." },

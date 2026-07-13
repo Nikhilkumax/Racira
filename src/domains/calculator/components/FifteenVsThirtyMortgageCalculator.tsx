@@ -236,7 +236,7 @@ export default function FifteenVsThirtyMortgageCalculator() {
         {/* SEO CONTENT SECTION */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Classic Homebuyer's Dilemma</h2>
             <p>When financing a home purchase, the most common decision borrowers face is choosing between a 15-year fixed-rate mortgage and a 30-year fixed-rate mortgage. The choice fundamentally dictates your monthly cash flow, the total cost of the home, and the speed at which you build equity. While the 30-year mortgage is the undisputed king of popularity in the United States — prized for its lower monthly payments — the 15-year mortgage offers a rapid path to debt freedom and massive interest savings. Our calculator lets you input your specific loan amounts and rates to see the exact mathematical divergence between these two paths.</p>
 
@@ -251,7 +251,7 @@ export default function FifteenVsThirtyMortgageCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Making the Right Call</h2>
             <p>The correct choice depends entirely on your financial goals, risk tolerance, and income stability. If you prioritize absolute debt freedom and have comfortable income to cover the higher payments, the 15-year mortgage is unparalleled. If you prioritize liquidity, want to maximize market investments, or need to stretch your budget to enter an expensive housing market, the 30-year mortgage is the pragmatic choice. Use the comparison calculator above to quantify exactly what you are trading in either direction before you sign.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/15-year-vs-30-year-mortgage-comparison" />
           <PopularCalculators exclude="/calculator/15-year-vs-30-year-mortgage-comparison" />
         </div>

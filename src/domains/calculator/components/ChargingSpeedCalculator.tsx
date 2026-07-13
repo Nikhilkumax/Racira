@@ -344,7 +344,7 @@ export default function ChargingSpeedCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is an EV Charging Speed Calculator?</h2>
             <p>An EV Charging Speed Calculator is a specialized tool designed to estimate exactly how long it will take to charge an Electric Vehicle battery. Unlike filling a gas tank, which takes exactly 3 minutes regardless of how empty the tank is, charging a battery is an incredibly dynamic process. It depends on the size of the battery, the maximum output of the charger, and crucially, the battery's current State of Charge (SoC). This calculator factors in these complex variables to provide a realistic time estimate.</p>
 
@@ -365,7 +365,7 @@ export default function ChargingSpeedCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
             <p>On road trips, do not charge to 100% unless absolutely necessary to reach your next destination. Because charging slows to a crawl above 80%, it is significantly faster to unplug at 80%, drive to the next charger, and charge from 10% to 60% at maximum speed. Your total travel time will be much lower using this "hop-scotch" strategy rather than waiting for 100% at every stop.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/charging-speed-calculator" />
           <PopularCalculators />

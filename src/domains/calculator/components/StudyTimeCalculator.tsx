@@ -156,7 +156,7 @@ const StudyTimeCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Planning for Academic Success</h2>
               <p>Success in college is as much about time management as it is about intelligence. Most students underestimate the amount of time required to master complex subjects, leading to stress and lower grades.</p>
               
@@ -168,7 +168,7 @@ const StudyTimeCalculator = () => {
 
               <h3>Burnout Prevention</h3>
               <p>Research suggests that for most people, cognitive performance drops significantly after 4-5 hours of intense study in a single day. Instead of "marathon" study sessions, aim for consistent, daily progress using techniques like the Pomodoro method.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/study-time" />
           <PopularCalculators exclude="/calculator/study-time-calculator" />
         </div>

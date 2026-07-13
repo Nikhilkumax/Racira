@@ -105,12 +105,12 @@ const CustomerLifetimeValueCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Sidebar Ad" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">The Most Important Business Metric</h2>
               <p>Customer Lifetime Value (LTV) is the North Star for marketing and growth teams. If you know a customer is worth $500 in profit over their lifetime, you can confidently spend $150 to acquire them. Without this number, you are flying blind with your advertising budget.</p>
               <h3>The LTV/CAC Ratio</h3>
               <p>In the SaaS and e-commerce world, an LTV/CAC ratio of 3:1 is considered the gold standard for a healthy business. This means that for every $1 you spend on marketing, you eventually get $3 in profit back. A ratio below 1:1 means you are losing money on every customer you acquire.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/lifetime-value-calculator" />
           <PopularCalculators exclude="/calculator/lifetime-value-calculator" />
         </div>

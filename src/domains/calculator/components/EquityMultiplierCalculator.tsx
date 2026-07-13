@@ -165,7 +165,7 @@ export default function EquityMultiplierCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is the Equity Multiplier?</h2>
             <p>The Equity Multiplier (EM) is a financial leverage ratio that measures how much of a company's assets are financed by equity versus debt. Formula: Equity Multiplier = Total Assets / Total Shareholders' Equity. An EM of 2.5x tells you that for every dollar of equity, the company controls $2.50 worth of assets — meaning $1.50 comes from debt financing.</p>
             <p>This ratio is the third component of the classic DuPont Analysis framework, which decomposes Return on Equity as: ROE = Net Profit Margin × Asset Turnover × Equity Multiplier. Understanding the EM allows analysts to isolate whether a company's ROE performance stems from operational excellence (high margins and turnover) or financial engineering (high leverage). Both can produce identical ROE figures but with very different risk profiles.</p>
@@ -173,7 +173,7 @@ export default function EquityMultiplierCalculator() {
             <p>Consider two companies each with 15% ROE. Company A achieves this with 10% net margin, 1.0x asset turnover, and 1.5x EM — a high-quality, low-leverage business. Company B achieves 15% ROE with 3% net margin, 1.0x asset turnover, and 5.0x EM — a low-margin, heavily leveraged business. The DuPont breakdown reveals fundamentally different risk profiles behind identical return figures. The Equity Multiplier quantifies this leverage difference precisely.</p>
             <h2 className="text-2xl font-bold mb-3">Industry Context and Risk Implications</h2>
             <p>Banks and financial institutions operate with EM of 8–15x (massive leverage backed by regulatory capital requirements and deposit insurance). Industrial companies typically maintain 2–4x. Pure equity businesses (no debt) show EM of exactly 1.0x. The appropriate EM depends on asset stability, cash flow predictability, and access to capital markets. Cyclical businesses with volatile cash flows should maintain lower EM to survive economic downturns.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/equity-multiplier-calculator" />
           <PopularCalculators exclude="/calculator/equity-multiplier-calculator" />
         </div>

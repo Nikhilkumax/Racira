@@ -255,7 +255,7 @@ export default function TradeFinanceCostCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What is Trade Finance?</h2>
             <p><strong>Trade Finance</strong> provides short-term cash flow to businesses engaged in domestic or international trade. Because supply chains take time, there is often a massive gap between when a manufacturer has to pay their suppliers, and when they actually get paid by their end customer.</p>
             <p>Instead of waiting 90 days for a customer to pay an invoice, a business can use <strong>Invoice Factoring</strong> or a <strong>Letter of Credit</strong> to get cash from a bank immediately. In exchange, the bank takes a cut of the invoice.</p>
@@ -273,7 +273,7 @@ export default function TradeFinanceCostCalculator() {
             
             <h2 className="text-2xl font-bold mb-3">When Does Factoring Make Sense?</h2>
             <p>Paying a 20%+ effective APR is mathematically painful, but it makes sense when the <strong>Opportunity Cost</strong> of not having cash is even worse. If having immediate cash allows you to buy more raw materials to fulfill a massive, highly-profitable purchase order that you otherwise would have had to reject, the expensive finance fee is easily justified by the net profit of the new order.</p>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "Is Factoring considered debt?", answer: "Technically, no. Factoring is the 'sale of an asset' (your accounts receivable). Because it is not a loan, it does not appear as liability debt on your balance sheet, making it easier to secure other traditional bank loans." },
             { question: "What is Recourse vs. Non-Recourse Factoring?", answer: "In 'Recourse' factoring, if your customer goes bankrupt and fails to pay the invoice, you must buy the invoice back from the factoring company (you take the loss). In 'Non-Recourse', the factoring company assumes the credit risk and takes the loss." },

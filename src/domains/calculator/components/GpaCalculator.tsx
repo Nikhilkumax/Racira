@@ -347,7 +347,7 @@ const GPACalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">What Is a GPA Calculator?</h2>
               <p>A GPA (Grade Point Average) calculator converts your letter grades and credit hours into a numerical GPA on the standard 4.0 scale. It's an essential tool for students planning their academic paths, checking honor roll eligibility, preparing graduate school applications, and monitoring academic progress throughout their college career.</p>
               <p>Our advanced calculator offers three modes: Semester GPA for calculating your current term's GPA, Cumulative GPA for updating your overall GPA after a new semester, and Needed GPA for finding exactly what grades you need in remaining courses to reach a target GPA by graduation.</p>
@@ -368,7 +368,7 @@ const GPACalculator = () => {
 
               <h2 className="text-2xl font-bold mb-3">Tips for Improving Your GPA</h2>
               <p>Take advantage of grade replacement policies at schools that allow retaking courses. Focus extra effort on high-credit courses where grades have a proportionally larger impact on GPA. Use incomplete/withdrawal options strategically rather than taking a failing grade. Attend office hours — research shows students who attend office hours receive on average 0.5 GPA points higher than those who don't. Balance your course load to avoid taking multiple difficult courses simultaneously.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/gpa-calculator" />
           <PopularCalculators exclude="/calculator/gpa-calculator" />
         </div>

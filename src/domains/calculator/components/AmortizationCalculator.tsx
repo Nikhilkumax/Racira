@@ -399,8 +399,8 @@ export default function AmortizationCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
-            <section className="mt-12 space-y-8 text-base text-foreground">
+          <section className="prose-finance text-[15.75px]">
+            <div className="mt-12 space-y-8 text-base text-foreground">
               <div>
                 <h2 className="text-2xl font-bold mb-3">What Is an Amortization Calculator?</h2>
                 <p className="text-muted-foreground leading-relaxed">
@@ -489,8 +489,8 @@ export default function AmortizationCalculator() {
                   By leveraging this amortization calculator, you shift the power dynamic back in your favor. You gain the ability to visualize exactly when your hard-earned money begins building your own wealth rather than the bank's bottom line. You can accurately project your equity, avoid being trapped "underwater" on auto loans, and model aggressive, early-payoff strategies to achieve financial freedom years—or even decades—ahead of schedule.
                 </p>
               </div>
-            </section>
-          </article>
+            </div>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/amortization-calculator" />
           <PopularCalculators exclude="/calculator/amortization-calculator" />

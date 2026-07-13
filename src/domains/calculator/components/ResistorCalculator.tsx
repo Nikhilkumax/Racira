@@ -240,7 +240,7 @@ const ResistorCalculator = () => {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Reading a Through-Hole Resistor</h2>
             <p>Through-hole resistors are tiny, cylindrical electronic components used to restrict the flow of electrical current in a circuit. Because they are so small, it is impossible to print text on them legibly. To solve this, the electronics industry developed the <strong>Electronic Color Code (IEC 60062)</strong> in the 1920s. By reading the painted bands on the resistor from left to right, you can determine its exact resistance value in Ohms (Ω) and its manufacturing tolerance.</p>
 
@@ -258,7 +258,7 @@ const ResistorCalculator = () => {
 
             <h2 className="text-2xl font-bold mb-3">Tips for Reading Real Resistors</h2>
             <p>The most common mistake beginners make is reading the resistor backward. How do you know which end is the left? Look for the gap. The tolerance band (usually Gold or Silver) will be separated from the other bands by a slightly wider empty space. Put that band on the right-hand side, and read the colors from left to right.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/resistor-calculator" />
           <PopularCalculators exclude="/calculator/resistor-calculator" />
         </div>

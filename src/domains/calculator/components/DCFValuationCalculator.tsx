@@ -133,7 +133,7 @@ export default function DCFValuationCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What is DCF (Discounted Cash Flow) Analysis?</h2>
             <p>DCF analysis is the fundamental valuation method in finance, used by investment banks, private equity firms, and value investors to determine a company&apos;s intrinsic value based on its future earnings power. The core principle: a dollar today is worth more than a dollar in the future due to time value of money and risk. By discounting projected future free cash flows back to present value, we determine what the business is worth today.</p>
             <h2 className="text-2xl font-bold mb-3">DCF Formula</h2>
@@ -145,7 +145,7 @@ export default function DCFValuationCalculator() {
             <p>Always model multiple scenarios. A 1% change in terminal growth rate changes intrinsic value by 20–50%. A 1% change in discount rate has even larger impacts. Build a sensitivity table: vary terminal growth from 1–4% on one axis, discount rate from 8–14% on another, and see the range of intrinsic values. Invest only when the stock price is below the conservative (pessimistic scenario) intrinsic value.</p>
             <h2 className="text-2xl font-bold mb-3">Margin of Safety</h2>
             <p>Benjamin Graham&apos;s margin of safety principle: only buy when market price is significantly below estimated intrinsic value — typically 30–50% discount. This cushion protects against: overestimated growth assumptions, unexpected business deterioration, modeling errors, and market sentiment shifts. A 30% margin of safety means a stock worth $100 should only be purchased at $70 or below.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/dcf-valuation-calculator" />
           <PopularCalculators exclude="/calculator/dcf-valuation-calculator" />
         </div>

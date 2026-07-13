@@ -188,14 +188,14 @@ export default function SocialSecurityCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">When Should You Claim Social Security?</h2>
             <p>This <strong>Social Security calculator</strong> computes your monthly benefit at the three key claiming ages (62, FRA, and 70) and provides break-even analysis — the age at which delaying produces more total lifetime income than claiming early. For post-1960 birth years: claiming at 62 reduces your full benefit by 30%; claiming at 70 increases it by 24% (8%/year for 3 years past FRA). The break-even analysis assumes equal health and spending needs at all ages.</p>
             <h2 className="text-2xl font-bold mb-3">Break-Even Analysis</h2>
             <p>Break-even analysis answers: "At what age will I receive more total lifetime benefits by delaying?" For claiming at 67 vs. 62 (post-1960): The higher monthly benefit at 67 must offset the 60 months of foregone payments at 62. Break-even is typically around age 79–80. For 70 vs. 67: Break-even typically falls around age 82–83. If your family has a history of longevity and you're in good health, delaying maximizes lifetime benefits. If you have serious health concerns, claiming early may be prudent.</p>
             <h2 className="text-2xl font-bold mb-3">The Spousal and Survivor Benefit Dimension</h2>
             <p>For married couples, the decision of when the higher-earning spouse claims affects not just their benefit but also the surviving spouse's benefit. When one spouse dies, the surviving spouse inherits the higher of the two benefits. This means the higher earner delaying to 70 can provide a significantly larger survivor benefit for their spouse — particularly important when one spouse earned considerably more than the other. This spousal/survivor dimension often makes delayed claiming even more valuable for couples. Related tools: <a href="/calculator/retirement-calculator">Retirement Calculator</a>, <a href="/calculator/early-retirement-calculator">FIRE Calculator</a>.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/social-security-calculator" />
           <PopularCalculators exclude="/calculator/social-security-calculator" />
         </div>

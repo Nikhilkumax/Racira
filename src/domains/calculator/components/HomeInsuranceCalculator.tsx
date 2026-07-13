@@ -224,7 +224,7 @@ export default function HomeInsuranceCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">How to Use This Home Insurance Calculator</h2>
             <p>This home insurance calculator provides an estimated annual premium and recommended coverage levels based on your home's characteristics and location. Enter your home's current market value, age, square footage, state, construction type, and roof age to generate a tailored estimate. The calculator adjusts rates based on real state-by-state insurance cost data and applies standard underwriting factors like roof age, pool presence, and deductible selection.</p>
             <p>Note that this is an estimate for budgeting purposes. Actual premiums vary by insurer, claims history, credit score, local fire ratings, and individual underwriting guidelines. Always get at least 3 competitive quotes from licensed insurers before purchasing or renewing a homeowners policy.</p>
@@ -243,7 +243,7 @@ export default function HomeInsuranceCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">How to Lower Your Home Insurance Premium</h2>
             <p>The most impactful savings strategy is <strong>increasing your deductible</strong>. Moving from a $500 to a $2,500 deductible can reduce your premium 15-25%. Only raise the deductible to an amount you can comfortably pay out-of-pocket. <strong>Bundling</strong> home and auto insurance with the same carrier saves 10-25% on both policies. <strong>Home hardening</strong> — hurricane shutters, impact-resistant roofing, smoke detectors, security systems — earns discounts in most states. Maintaining a <strong>claims-free record</strong> is essential; even small claims can raise premiums significantly for 3-5 years.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/home-insurance-calculator" />
           <PopularCalculators exclude="/calculator/home-insurance-calculator" />
         </div>

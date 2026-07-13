@@ -270,7 +270,7 @@ export default function LeanWastePercentageCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What is Lean Waste & Process Cycle Efficiency?</h2>
             <p>In Lean Six Sigma and modern manufacturing, processes are broken down into two types of time: <strong>Value-Added (VA)</strong> and <strong>Non-Value-Added (NVA)</strong>. NVA time is commonly referred to as "Waste".</p>
             <p><strong>Process Cycle Efficiency (PCE)</strong> is a critical lean metric that reveals how much of your total lead time is actually spent transforming the product into something the customer is willing to pay for.</p>
@@ -294,7 +294,7 @@ export default function LeanWastePercentageCalculator() {
               <li><strong>Traditional Batch Manufacturing:</strong> PCE is typically between <strong>1% and 5%</strong>. (95%+ of the time, the product is just waiting in a queue).</li>
               <li><strong>World-Class Lean Operations:</strong> Target a PCE of <strong>20% or higher</strong>. (Achieving 100% is physically impossible due to necessary but non-value-added activities like curing/drying).</li>
             </ul>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "How is Value-Added time calculated?", answer: "In this calculator, Value-Added time is derived by subtracting the sum of all your quantified wastes from your Total Lead Time. If your lead time is 100 hours and you identified 90 hours of waste, your VA time is 10 hours." },
             { question: "What is Necessary Non-Value-Added time?", answer: "This is time that the customer doesn't technically pay for, but you cannot eliminate. For example, safety inspections or drying time for paint. While it is technically 'waste' in pure lean theory, it is considered necessary waste." },

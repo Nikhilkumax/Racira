@@ -271,7 +271,7 @@ const TenYearOwnershipCostCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is the 10-Year Ownership Cost Calculator?</h2>
             <p>The 10-Year Ownership Cost Calculator projects the full cost of owning a vehicle over a decade — the longest realistic ownership period for most drivers. It accounts for depreciation flattening over time, loan interest ending after the loan term, maintenance costs rising with age, and all annual operating expenses. This long view reveals the true cost efficiency of keeping a car versus replacing it.</p>
 
@@ -303,7 +303,7 @@ const TenYearOwnershipCostCalculator = () => {
 
             <h2 className="text-2xl font-bold mb-3">Benefits of Using This Calculator</h2>
             <p>This tool shows the financial benefits of long-term car ownership. By projecting costs over 10 years, it helps you decide whether to keep your current car, compare the lifetime cost of different vehicles, and understand when maintenance costs make replacement the better financial choice.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/10-year-ownership-cost-calculator" />
           <PopularCalculators exclude="/calculator/10-year-ownership-cost-calculator" />
         </div>

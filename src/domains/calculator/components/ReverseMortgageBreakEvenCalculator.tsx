@@ -292,7 +292,7 @@ export default function ReverseMortgageBreakEvenCalculator() {
         {/* SEO CONTENT SECTION */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Reverse Mortgage Structure</h2>
             <p>A reverse mortgage, most commonly known as a Home Equity Conversion Mortgage (HECM) insured by the Federal Housing Administration, allows senior homeowners aged 62 and older to tap into their home equity without selling the home or taking on a new monthly mortgage payment. Instead of you paying the lender every month, the lender pays you — either as a lump sum, a line of credit, or monthly installments.</p>
             <p>However, the money received is not free. Every dollar drawn, along with substantial upfront closing costs, is added to the loan balance. Because you are not making monthly principal and interest payments, the loan balance experiences negative amortization — it grows steadily over time, compounded by the interest rate.</p>
@@ -309,7 +309,7 @@ export default function ReverseMortgageBreakEvenCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Planning for the Long Term</h2>
             <p>A reverse mortgage can be a powerful tool to secure reliable cash flow in retirement, allowing seniors to age in place without the burden of a monthly mortgage payment. The key is understanding the trajectory before you commit. By using this Break-Even Calculator to map out exactly when your loan balance will overtake your home's value, you can make an informed decision, prepare your heirs for what to expect, and choose a draw strategy that balances your income needs against the equity you wish to preserve.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/reverse-mortgage-break-even-calculator" />
           <PopularCalculators exclude="/calculator/reverse-mortgage-break-even-calculator" />
         </div>

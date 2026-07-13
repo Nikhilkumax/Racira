@@ -78,7 +78,7 @@ export default function TreasuryBillCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">What Are U.S. Treasury Bills?</h2>
               <p>U.S. Treasury Bills (T-Bills) are short-term debt instruments issued by the U.S. Department of the Treasury to finance the national debt. Unlike bonds, T-Bills do not pay periodic interest. Instead, they are sold at a discount from their face value, and the investor receives the full face value at maturity. The difference between the purchase price and the face value represents the investor's return.</p>
               <h2 className="text-2xl font-bold mb-3">How T-Bills Are Priced</h2>
@@ -89,7 +89,7 @@ export default function TreasuryBillCalculator() {
               <p>T-Bills are one of the most liquid investments in the world. Their safety (backed by the U.S. government), liquidity (actively traded in secondary markets), and tax treatment (exempt from state and local taxes) make them an essential tool for cash management. During periods of stock market uncertainty, the "flight to safety" into T-Bills often drives yields lower as demand surges.</p>
               <h2 className="text-2xl font-bold mb-3">T-Bills in a Portfolio Context</h2>
               <p>T-Bills serve important roles in investment portfolios: emergency fund reserve earning competitive yields, "dry powder" for opportunistic investing, cash sweep vehicles in brokerage accounts, and comparison benchmarks for the risk-free rate in financial models. In the post-2022 environment with interest rates above 5%, T-Bills have attracted enormous inflows from retail investors seeking safe, liquid alternatives to savings accounts offering far lower rates.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/treasury-bill-calculator" />
           <PopularCalculators exclude="/calculator/treasury-bill-calculator" />
         </div>

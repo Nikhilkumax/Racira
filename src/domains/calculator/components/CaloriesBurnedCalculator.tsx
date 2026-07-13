@@ -123,14 +123,14 @@ const CaloriesBurnedCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">How Calorie Burning Works</h2>
               <p>Your total daily energy expenditure (TDEE) is made up of your resting metabolic rate (which accounts for about 60-70% of your calories), the thermic effect of food (digestion), and physical activity.</p>
               <h3>The Role of Body Weight</h3>
               <p>Heavier individuals burn more calories doing the exact same activity as lighter individuals. This is simple physics: it takes more energy to move more mass across a distance or against gravity.</p>
               <h3>The Afterburn Effect (EPOC)</h3>
               <p>High-Intensity Interval Training (HIIT) and heavy resistance training cause Excess Post-exercise Oxygen Consumption (EPOC). This means your body continues to burn calories at an elevated rate for hours after the workout is finished as it repairs muscle tissue and replenishes oxygen stores.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/calories-burned" />
           <PopularCalculators exclude="/calculator/calories-burned-calculator" />
         </div>

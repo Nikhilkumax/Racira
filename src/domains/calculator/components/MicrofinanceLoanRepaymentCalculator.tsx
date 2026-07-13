@@ -260,7 +260,7 @@ export default function MicrofinanceLoanRepaymentCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding Microfinance Loans</h2>
             <p>Microfinance institutions (MFIs) provide crucial capital to small business owners, traders, and individuals who lack access to traditional banking infrastructure. Because microloans are typically uncollateralized and carry higher administrative costs relative to their size, their structure differs significantly from standard personal loans. The <strong>Microfinance Loan Repayment Calculator</strong> is designed to handle these unique structures, including short weekly repayment terms and the critical distinction between flat and declining interest rates.</p>
 
@@ -271,7 +271,7 @@ export default function MicrofinanceLoanRepaymentCalculator() {
             <h2 className="text-2xl font-bold mb-3">Why Repayment Frequencies Matter</h2>
             <p>Microfinance loans frequently utilize weekly or bi-weekly repayment schedules rather than standard monthly payments. For a trader who earns revenue daily at a market stall, setting aside a small amount weekly is far more manageable than accumulating a large lump sum at the end of the month. Weekly payments also allow the lender to monitor the borrower's financial health closely—a missed $15 weekly payment is an early warning sign that can be addressed before it becomes a missed $60 monthly payment.</p>
             <p>From a mathematical perspective, more frequent compounding can slightly alter the total interest paid, but the primary impact is on cash flow management. Use this calculator to compare exactly how a weekly vs. monthly schedule impacts your out-of-pocket obligation.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/microfinance-loan-repayment-calculator" />
           <PopularCalculators exclude="/calculator/microfinance-loan-repayment-calculator" />
         </div>

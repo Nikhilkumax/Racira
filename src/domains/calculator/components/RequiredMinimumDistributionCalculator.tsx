@@ -184,7 +184,7 @@ export default function RequiredMinimumDistributionCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Required Minimum Distribution?</h2>
             <p>A Required Minimum Distribution (RMD) is the annual amount the IRS mandates you withdraw from tax-deferred retirement accounts — traditional IRAs, 401(k)s, 403(b)s, SEP IRAs, and SIMPLE IRAs — starting at age 73 (SECURE 2.0 Act, 2022). These rules exist because the IRS deferred taxes when you contributed to these accounts; RMDs ensure those taxes are eventually collected. The <strong>RMD calculator</strong> uses the IRS Uniform Lifetime Table to compute your precise annual distribution requirement.</p>
             <h2 className="text-2xl font-bold mb-3">RMD Calculation Formula</h2>
@@ -193,7 +193,7 @@ export default function RequiredMinimumDistributionCalculator() {
             <p>The SECURE 2.0 Act significantly changed RMD rules: RMD age increased from 72 to 73 (and will rise to 75 for those born after 1960). Roth 401(k)s are no longer subject to RMDs starting in 2024. The excise tax for missed RMDs was reduced from 50% to 25% (10% if corrected timely). These changes provide more planning flexibility for retirees.</p>
             <h2 className="text-2xl font-bold mb-3">Strategies to Manage RMD Tax Impact</h2>
             <p>Qualified Charitable Distributions (QCDs): donate up to $105,000/year directly from your IRA to charity — counts toward your RMD but excluded from taxable income. Roth conversions before age 73: converting traditional IRA funds to Roth reduces future RMD obligations. Aggregating accounts: multiple IRA RMDs can be satisfied by taking the total from any single IRA. Related calculators: <a href="/calculator/roth-ira-calculator">Roth IRA Calculator</a>, <a href="/calculator/retirement-calculator">Retirement Calculator</a>, <a href="/calculator/401k-calculator">401(k) Calculator</a>.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/required-minimum-distribution-calculator" />
           <PopularCalculators exclude="/calculator/required-minimum-distribution-calculator" />
         </div>

@@ -348,7 +348,7 @@ export default function AdolescentBmiCalculator() {
         </div>
 
         <div className="mt-8 xl:mt-12 max-w-[1180px]">
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding Adolescent Body Mass Index</h2>
             <p>Evaluating the physical growth and nutritional status of children and teenagers requires an entirely different mathematical and clinical approach than evaluating fully mature adults. For an adult who has completely stopped growing vertically, Body Mass Index (BMI) is calculated as a simple, static ratio of total mass in kilograms divided by the square of their height in meters. Because adult height is fixed, their BMI only changes if their weight changes, making it a relatively straightforward, albeit imperfect, proxy for total body fat percentage. However, this static adult model completely collapses when applied to teenagers. During the turbulent physiological window between ages ten and nineteen, adolescents are in a constant, rapid state of physical flux. They are growing taller, their bone density is increasing dramatically, and their natural distribution of lean muscle and subcutaneous fat is completely transforming under the influence of puberty hormones. Therefore, a teenager's BMI is absolutely meaningless as an isolated number. To have any clinical value, an adolescent's BMI must be plotted against standard epidemiological growth charts and expressed as a percentile relative to their peers.</p>
 
@@ -364,7 +364,7 @@ export default function AdolescentBmiCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Navigating the Chaos of Growth Spurts</h2>
             <p>It is vital for parents and caregivers to understand that a single BMI percentile calculation represents merely a snapshot in time. Because puberty rarely progresses in a perfectly smooth, linear fashion, a teenager's BMI percentile will naturally fluctuate. It is incredibly common for a teenager to rapidly gain ten pounds in preparation for a major vertical growth spurt, temporarily pushing them into a higher BMI percentile category. Six months later, after they suddenly shoot up three inches in height without gaining any additional weight, their BMI percentile will plummet back into their historical average. This phenomenon is why pediatricians emphasize tracking the trajectory of a teenager's BMI across multiple years. A sudden, drastic change in percentile ranking—crossing two major percentile lines in a short timeframe—is far more clinically significant than a teenager who naturally tracks along the 85th percentile curve for their entire childhood. Severe caloric restriction diets are almost never recommended for teenagers in higher percentiles, as denying the body essential nutrients during puberty can permanently damage cognitive and physical development. Instead, the clinical goal is almost always weight maintenance—allowing the teenager to naturally grow into their current weight as their height continues to increase.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} />
         </div>

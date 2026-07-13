@@ -122,12 +122,12 @@ const PingTimeCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">What is Ping?</h2>
               <p>Ping is the time it takes for a small packet of data to travel from your device to a server and back again. It is also called Round Trip Time (RTT). While download speed tells you how much data you can move, ping tells you how fast that data starts moving.</p>
               <h3>Why Distance Matters</h3>
               <p>Even light has a speed limit. At 300,000 km/s, it takes about 133ms just to travel once around the Earth. When you add the refractive index of glass in fiber optics and the delay of processing data at every router (hop), physical distance becomes the primary bottleneck for low-latency applications like video calls and competitive gaming.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/ping-time" />
           <PopularCalculators exclude="/calculator/ping-time-calculator" />
         </div>

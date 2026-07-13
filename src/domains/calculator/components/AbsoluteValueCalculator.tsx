@@ -105,7 +105,7 @@ const AbsoluteValueCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Absolute Value of a Number</h2>
             <p>The concept of absolute value is one of the most fundamental and universally applied principles in all of mathematics, forming the bedrock for advanced topics ranging from complex algebra to calculus, statistics, and engineering. At its most basic level, the absolute value of a number represents its physical distance from zero on a standard number line, regardless of which direction you travel. Because distance in the physical world cannot be negative, the absolute value of any real number is always non-negative. This means that whether a number is initially positive or negative, its absolute value will be a positive number or zero. For instance, if you move five steps to the right of zero, you are at positive five, and your distance from zero is five. If you move five steps to the left of zero, you are at negative five, but your physical distance from zero remains exactly five. This simple yet profound realization is why the absolute value is such a critical tool in measuring magnitude without being influenced by direction or sign. It strips away the negative sign and leaves you only with the pure numerical magnitude of the value.</p>
             
@@ -130,7 +130,7 @@ const AbsoluteValueCalculator = () => {
             <p>One of the most common reasons students search for an absolute value calculator is to verify their work when solving algebraic equations that feature absolute value expressions. Solving an equation like |x - 5| = 10 requires understanding that the expression inside the vertical bars could have originally been either positive ten or negative ten, since both numbers have an absolute value of ten. Therefore, to solve the equation, you must branch it into two separate linear equations: x - 5 = 10, and x - 5 = -10. Solving these individually reveals that x can be either 15 or -5. Both solutions are completely valid and will satisfy the original absolute value equation.</p>
             
             <p>Inequalities involving absolute values are slightly more complex but follow a similar logic. An inequality like |x| less than 5 means that the distance from x to zero is strictly less than 5 units. This translates to the compound inequality where x is greater than negative 5 and strictly less than positive 5. Conversely, if the inequality states that |x| is greater than 5, it means the distance from zero is more than 5 units in either direction, meaning x must be less than negative 5 or x must be greater than positive 5. Mastering these branched logic paths is essential for success in pre-calculus and advanced algebra courses.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/absolute-value-calculator" />
           <PopularCalculators exclude="/calculator/absolute-value-calculator" />
         </div>

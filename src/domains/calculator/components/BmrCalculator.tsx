@@ -119,7 +119,7 @@ const BMRCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">What Is BMR?</h2>
               <p>Basal Metabolic Rate (BMR) represents the minimum number of calories your body needs to function while at complete rest. This includes essential processes like breathing, blood circulation, nutrient processing, and cell production. BMR typically accounts for 60-75% of your total daily calorie expenditure.</p>
 
@@ -147,7 +147,7 @@ const BMRCalculator = () => {
               </ul>
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> BMR calculations provide estimates. Individual metabolic rates can vary. Consult a healthcare professional for personalized nutrition advice.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/bmr-calculator" />
           <PopularCalculators exclude="/bmr-calculator" />
         </div>

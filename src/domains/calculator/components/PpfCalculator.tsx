@@ -109,7 +109,7 @@ const PPFCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">What Is a PPF Calculator?</h2>
               <p>A PPF calculator helps you estimate the maturity value of your Public Provident Fund account based on annual deposits, interest rate, and tenure. PPF is one of the safest investment options in India, backed by the Government of India.</p>
 
@@ -127,7 +127,7 @@ const PPFCalculator = () => {
               </ul>
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> PPF interest rate is subject to quarterly revision by the government. This calculator uses the rate you provide for the entire tenure. Actual returns may vary.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/ppf-calculator" />
           <PopularCalculators exclude="/ppf-calculator" />
         </div>

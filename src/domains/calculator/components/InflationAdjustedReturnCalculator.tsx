@@ -254,7 +254,7 @@ export default function InflationAdjustedReturnCalculator() {
         {/* SEO Article Section */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Power of Real Returns</h2>
             <p>
               In wealth management and investing, the numerical increase in your portfolio is referred to as the <strong>nominal return</strong>. While seeing a 10% gain on paper is positive, it does not represent your actual wealth growth unless it is contrasted with price inflation. The <strong>inflation-adjusted return</strong>, or <strong>real return</strong>, accounts for this erosion by measuring how much additional purchasing power your investments have acquired.
@@ -282,7 +282,7 @@ export default function InflationAdjustedReturnCalculator() {
             <p>
               At higher nominal rates or in high-inflation environments, the difference between the approximation and the exact Fisher return becomes much larger and can cause significant errors in long-term financial modeling.
             </p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/inflation-adjusted-return-calculator" />
           <PopularCalculators exclude="/calculator/inflation-adjusted-return-calculator" />
         </div>

@@ -107,7 +107,7 @@ export default function OptionsProfitCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Understanding Options Profit and Loss</h2>
               <p>Options trading offers investors a powerful way to profit from price movements in stocks, ETFs, and other securities with a defined and limited risk. Unlike buying shares outright, purchasing an option grants you the right — but not the obligation — to buy or sell an underlying asset at a predetermined price (the strike price) before a specified expiration date. This Options Profit Calculator helps you visualize the exact profit, loss, and break-even points for your trade before you commit capital.</p>
 
@@ -141,7 +141,7 @@ export default function OptionsProfitCalculator() {
 
               <h2 className="text-2xl font-bold mb-3">Common Options Strategies Beyond Simple Calls and Puts</h2>
               <p>Once you master the basics, you can combine options contracts into complex strategies. A <strong>covered call</strong> involves owning 100 shares and selling a call against them to generate income. A <strong>protective put</strong> involves buying a put on shares you own to insure against downside. A <strong>bull call spread</strong> involves buying one call and selling another at a higher strike to reduce the cost of the trade, capping both your profit and loss.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/options-profit-calculator" />
           <PopularCalculators exclude="/calculator/options-profit-calculator" />
         </div>

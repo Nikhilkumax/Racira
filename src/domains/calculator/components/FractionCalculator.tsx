@@ -95,10 +95,10 @@ const FractionCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">How to Work with Fractions</h2>
               <p>A fraction consists of a numerator (top) and denominator (bottom). To add or subtract fractions, first find a common denominator. To multiply, multiply numerators and denominators. To divide, multiply by the reciprocal.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/fraction-calculator" />
           <PopularCalculators exclude="/fraction-calculator" />
         </div>

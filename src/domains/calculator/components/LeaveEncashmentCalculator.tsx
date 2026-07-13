@@ -111,7 +111,7 @@ const LeaveEncashmentCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">What Is Leave Encashment?</h2>
               <p>Leave encashment is the process of converting unused (accumulated) leave into cash. This is typically done at the time of retirement, resignation, or superannuation. Some organizations also allow leave encashment during service, but the tax treatment differs.</p>
 
@@ -144,7 +144,7 @@ const LeaveEncashmentCalculator = () => {
               </ul>
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> Tax exemption limits and rules may change with annual budgets. Consult a CA or tax professional for personalized advice.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/leave-encashment-calculator" />
           <PopularCalculators exclude="/leave-encashment-calculator" />
         </div>

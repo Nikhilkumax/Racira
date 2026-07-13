@@ -400,7 +400,7 @@ export default function BodyFatNavyMethodCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Limitations of the Bathroom Scale</h2>
             <p>One of the most psychologically damaging aspects of the modern fitness industry is our total obsession with the bathroom scale. We have been conditioned to believe that the number on the scale is the ultimate arbiter of our health and aesthetic progress. However, from a clinical perspective, total body weight is an incredibly ignorant metric. The scale cannot tell the difference between a pound of heavy, metabolically active muscle and a pound of deadly visceral fat. A 220-pound professional athlete and a 220-pound sedentary office worker look identical to a bathroom scale, but their biological realities could not be more different. The <strong>Body Fat Percentage Calculator (Navy Method)</strong> solves this problem by completely bypassing raw weight and using anatomical geometry to isolate your true body composition.</p>
 
@@ -426,7 +426,7 @@ export default function BodyFatNavyMethodCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Track What Actually Matters</h2>
             <p>If you want to permanently transform your physique, you must throw out the bathroom scale and start tracking your composition. Use the Body Fat Percentage Calculator (Navy Method) once every two weeks. As long as your Lean Body Mass is stable or increasing, and your Fat Mass is decreasing, you are successfully altering the architecture of your body—regardless of what the raw weight on the scale says.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/body-fat-percentage-navy-method-calculator" />
           <PopularCalculators exclude="/calculator/body-fat-percentage-navy-method-calculator" />

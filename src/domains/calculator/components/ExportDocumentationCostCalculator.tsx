@@ -269,7 +269,7 @@ export default function ExportDocumentationCostCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Hidden Costs of International Trade</h2>
             <p>New exporters often focus purely on the cost of the Ocean Freight (moving the physical box from Point A to Point B). They are routinely shocked when their Freight Forwarder hands them a $600 bill just for "Documentation Fees."</p>
             <p>Moving goods across international borders requires a mountain of legal paperwork, and none of it is free.</p>
@@ -284,7 +284,7 @@ export default function ExportDocumentationCostCalculator() {
             <h2 className="text-2xl font-bold mb-3">The Margin Trap on Small Orders</h2>
             <p>Because documentation fees are usually <strong>fixed flat rates</strong> per shipment, they are incredibly dangerous for small orders. If your documentation costs $550, and you are shipping a full $100,000 container of goods, the docs only add a negligible 0.5% to your cost. <strong>You remain profitable.</strong></p>
             <p>If a foreign customer asks for a $2,000 "test order," that same $550 documentation fee adds a catastrophic 27.5% markup to your goods. You will likely lose money on the test order unless you explicitly charge the customer a "Documentation Surcharge."</p>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "What is an EEI?", answer: "Electronic Export Information. In the US, if any single commodity line item in your shipment is valued over $2,500, you are legally required to file an EEI via the AES (Automated Export System) for Census tracking." },
             { question: "Can I avoid Consular Legalization?", answer: "Usually not. If the destination country's customs law requires it, the goods will simply be impounded at the destination port if they arrive without the embassy stamps." },

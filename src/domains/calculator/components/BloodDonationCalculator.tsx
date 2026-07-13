@@ -211,7 +211,7 @@ export default function BloodDonationCalculator() {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Science of Blood Recovery</h2>
             <p>Every day in the United States, patients in emergency rooms, surgical suites, and cancer treatment centers require approximately 36,000 units of red blood cells to survive. Because human blood cannot be manufactured in a laboratory, it must be voluntarily donated. However, blood banks enforce strict recovery periods to protect the health of the donor.</p>
 
@@ -226,7 +226,7 @@ export default function BloodDonationCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Preparing for Your Next Donation</h2>
             <p>To ensure a fast and healthy recovery period, blood banks strongly recommend increasing your intake of iron-rich foods (such as spinach, red meat, and beans) combined with Vitamin C (which drastically increases iron absorption) in the weeks following a Whole Blood or Power Red donation.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/blood-donation-calculator" />
           <PopularCalculators exclude="/calculator/blood-donation-calculator" />
         </div>

@@ -86,14 +86,14 @@ const ConceptionCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Understanding Conception Timing</h2>
               <p>Conception strictly occurs when a sperm fertilizes an egg. However, because sperm can survive in the reproductive tract for up to 5 days, the act that led to conception may have happened days prior to the actual conception date.</p>
               <h3>The 266-Day Rule</h3>
               <p>While pregnancy is considered to be 40 weeks (280 days) long, this includes the two weeks prior to ovulation. The actual gestational age of the fetus—the time from conception to birth—averages 266 days (38 weeks).</p>
               <h3>Determining Paternity</h3>
               <p>Because there is a 5-to-7 day window of fertility where intercourse can lead to pregnancy, and because due dates have a margin of error, calculating conception dates cannot be used to definitively determine paternity if multiple partners were involved during the fertile window. A DNA test is required for certainty.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/conception" />
           <PopularCalculators exclude="/calculator/conception-calculator" />
         </div>

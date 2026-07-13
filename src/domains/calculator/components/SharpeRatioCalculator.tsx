@@ -80,7 +80,7 @@ export default function SharpeRatioCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Understanding the Sharpe Ratio</h2>
               <p>The Sharpe Ratio, developed by Nobel laureate William F. Sharpe in 1966, is the most widely used metric for measuring risk-adjusted investment performance. Its central insight is that return alone is a meaningless number — what matters is return per unit of risk taken. A portfolio returning 15% with enormous volatility may be inferior to one returning 12% with much lower volatility, once risk is properly accounted for.</p>
               <h2 className="text-2xl font-bold mb-3">The Sharpe Ratio Formula</h2>
@@ -100,7 +100,7 @@ export default function SharpeRatioCalculator() {
               <p>The Sharpe Ratio assumes that investment returns follow a normal distribution (a bell curve). In reality, financial returns often exhibit "fat tails" — extreme events occur more frequently than a normal distribution predicts. This limitation makes the Sharpe Ratio less reliable for strategies with non-linear payoffs, such as options selling, where returns appear stable until a catastrophic loss occurs.</p>
               <h2 className="text-2xl font-bold mb-3">Sharpe vs. Sortino vs. Calmar Ratios</h2>
               <p>Several ratios build on the Sharpe Ratio concept. The <strong>Sortino Ratio</strong> only penalizes downside volatility, rewarding upside volatility. The <strong>Calmar Ratio</strong> uses maximum drawdown instead of standard deviation. The <strong>Information Ratio</strong> compares a portfolio to a benchmark rather than the risk-free rate. Each metric highlights different aspects of risk-adjusted performance.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/sharpe-ratio-calculator" />
           <PopularCalculators exclude="/calculator/sharpe-ratio-calculator" />
         </div>

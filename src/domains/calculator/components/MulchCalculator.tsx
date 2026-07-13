@@ -165,7 +165,7 @@ const MulchCalculator = () => {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Mathematics of Landscaping</h2>
             <p>One of the most difficult parts of landscaping is visualizing exactly how much material you need. Unlike water, mulch and dirt do not level themselves perfectly, and it is incredibly easy to vastly underestimate the volume required to fill a garden bed.</p>
             <p>To accurately calculate mulch, you must convert three-dimensional space into the universal landscaping unit: the <strong>Cubic Yard</strong>.</p>
@@ -181,7 +181,7 @@ const MulchCalculator = () => {
               <li><strong>3 Inches (Industry Standard):</strong> This is the golden rule of landscaping. A 3-inch layer is thick enough to completely block sunlight from reaching the soil, killing off dormant weed seeds. It is also thick enough to insulate the soil, trapping moisture during the scorching heat of summer so you don't have to water your plants as frequently.</li>
               <li><strong>Over 4 Inches (Dangerous):</strong> Adding too much mulch restricts oxygen flow to the soil and traps too much water. If you pile heavy, wet mulch directly against the bark of a tree, it will cause the bark to rot and introduce fungal diseases that can kill the plant.</li>
             </ul>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/mulch-calculator" />
           <PopularCalculators exclude="/calculator/mulch-calculator" />
         </div>

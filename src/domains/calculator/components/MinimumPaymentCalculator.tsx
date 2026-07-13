@@ -187,7 +187,7 @@ const MinimumPaymentCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">The Danger of Minimum Payments</h2>
               <p>Minimum payments are one of the most effective ways for credit card companies to maximize their profits. While they allow you to avoid late fees and keep your account active, they are mathematically structured to keep you in debt for as long as possible—often decades.</p>
 
@@ -210,7 +210,7 @@ const MinimumPaymentCalculator = () => {
 
               <h3>A Rule of Thumb</h3>
               <p>Financial experts generally suggest that if your credit card debt exceeds 50% of your annual income and you can only afford minimum payments, you may need to seek professional help from a non-profit credit counseling agency to explore debt management plans.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/minimum-payment-calculator" />
           <PopularCalculators exclude="/calculator/minimum-payment-calculator" />
         </div>

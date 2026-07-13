@@ -126,7 +126,7 @@ export default function ReceivableDaysCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10"/>
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is Days Sales Outstanding (DSO)?</h2>
             <p>Days Sales Outstanding (DSO) is a financial ratio that measures the average number of days a company takes to collect payment after a sale has been made on credit. It is a key accounts receivable efficiency metric used by finance teams, credit analysts, and investors to assess collection effectiveness and working capital management quality.</p>
             <h2 className="text-2xl font-bold mb-3">DSO Formula</h2>
@@ -142,7 +142,7 @@ export default function ReceivableDaysCalculator() {
             <p>Invoice immediately upon delivery or completion. Offer 2/10 net 30 early-payment discounts. Use automated AR platforms (Bill.com, Stripe Invoicing) with built-in reminders. Enforce credit limits and conduct credit checks on new customers. Escalate overdue accounts systematically: email at day 15, call at day 30, collections at day 60. Consider invoice factoring or dynamic discounting platforms for persistent slow-payers.</p>
             <h2 className="text-2xl font-bold mb-3">DSO and Revenue Quality</h2>
             <p>Rapidly increasing DSO in a high-growth company may indicate channel stuffing — shipping product to distributors that is not yet sold through to end customers. This artificially inflates revenue while AR bloats. Forensic accountants often track DSO alongside inventory turnover as part of revenue quality assessments during due diligence or fraud investigations.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/receivable-days-calculator"/>
           <PopularCalculators exclude="/calculator/receivable-days-calculator"/>
         </div>

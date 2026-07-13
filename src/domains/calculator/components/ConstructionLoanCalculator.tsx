@@ -480,7 +480,7 @@ export default function ConstructionLoanCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Construction Loan Calculator</h2>
             <p>Building your dream home from the ground up is an exciting endeavor, but the financing mechanics are vastly different and more complex than buying an existing house. Instead of a standard mortgage, you need a highly specialized financial product: a construction loan. Our <strong>Construction Loan Calculator</strong> is designed to demystify this complex two-phase financing structure, allowing you to accurately estimate your interest-only payments during the build phase and your amortized mortgage payments once you move in.</p>
             <p>Because construction loans involve releasing funds in stages (called "draws"), standard mortgage calculators are entirely useless for projecting your costs. Using a standard calculator will trick you into severely overestimating your monthly payments during the first year of construction. This calculator correctly separates the timeline into the Construction Phase and the Permanent Phase, giving you the precise mathematical foresight required to confidently manage your budget while your house is being built.</p>
@@ -524,7 +524,7 @@ export default function ConstructionLoanCalculator() {
             <h2 className="text-2xl font-bold mb-3">Conclusion</h2>
             <p>Financing a custom home build is a complex, multi-stage process that demands rigorous financial planning. A construction loan provides the necessary liquidity, but the interest-only draws and variable conversion rates can easily overwhelm an unprepared borrower.</p>
             <p>By utilizing this Construction Loan Calculator, you can map out your exact cash flow requirements from the day the foundation is poured to the day you make your final mortgage payment 30 years later. Understanding the mathematics of the draw schedule and the permanent conversion ensures that you can focus on building your dream home, rather than stressing over the financing.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/construction-loan-calculator" />
           <PopularCalculators exclude="/calculator/construction-loan-calculator" />

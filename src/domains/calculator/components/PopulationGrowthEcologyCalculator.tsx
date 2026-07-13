@@ -165,7 +165,7 @@ const PopulationGrowthEcologyCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Population Dynamics in Ecology</h2>
               <p>In population ecology, understanding how populations grow and what limits their growth is fundamental to managing wildlife, conserving endangered species, and understanding human impacts on ecosystems.</p>
               
@@ -174,7 +174,7 @@ const PopulationGrowthEcologyCalculator = () => {
 
               <h3>The Logistic Model</h3>
               <p>Because no environment has infinite resources, exponential growth cannot continue forever. The logistic growth model introduces the concept of carrying capacity (K). As the population size approaches K, the growth rate approaches zero. The resulting curve is S-shaped (sigmoidal).</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/population-growth-ecology" />
           <PopularCalculators exclude="/calculator/population-growth-ecology-calculator" />
         </div>

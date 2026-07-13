@@ -172,7 +172,7 @@ export default function GrossMarginCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding Gross Margin</h2>
             <p>Gross profit margin, often simply called gross margin, is one of the most basic and vital profitability ratios used by business owners, analysts, and investors. It represents the percentage of total sales revenue that a company keeps after incurring the direct costs associated with producing the goods or services it sells. These direct costs are referred to as the Cost of Goods Sold (COGS).</p>
             
@@ -191,7 +191,7 @@ export default function GrossMarginCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Why Gross Margin Matters</h2>
             <p>Gross margin indicates whether a company can generate enough profit from selling its goods to pay for its other operating expenses, such as marketing, salaries, rent, research and development, and interest. A healthy gross margin provides a safety net against fluctuations in manufacturing costs or sales volume. Conversely, a low or declining gross margin suggests pricing pressures, rising supplier costs, or inefficient production methods.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/gross-margin-calculator" />
           <PopularCalculators exclude="/calculator/gross-margin-calculator" />
         </div>

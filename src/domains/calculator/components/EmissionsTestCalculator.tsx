@@ -278,7 +278,7 @@ export default function EmissionsTestCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Science of Tailpipe Emissions</h2>
             <p>An internal combustion engine burns a mixture of gasoline and oxygen to create power. In a perfect, impossible world, this combustion process would produce only three harmless things: Water (H2O), Carbon Dioxide (CO2), and Nitrogen gas. However, because engines are imperfect machines dealing with varying temperatures and fuel qualities, they inevitably produce toxic byproducts.</p>
             <p>During a state emissions test, a metal sniffer probe is placed into the tailpipe while the engine is running on a dynamometer (treadmill) to measure the exact parts-per-million (ppm) of these three specific toxic gasses.</p>
@@ -291,7 +291,7 @@ export default function EmissionsTestCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">3. Nitrous Oxides (NOx) - Extreme Heat</h2>
             <p>The air we breathe is mostly Nitrogen. Normally, Nitrogen just passes through the engine harmlessly. However, if the combustion chamber gets too hot (above 2,500°F), the extreme heat physically forces the Nitrogen to bond with Oxygen, creating Nitrous Oxides (NOx). NOx is the primary chemical responsible for thick brown city smog. High NOx readings mean the engine is running dangerously hot, usually due to a broken EGR (Exhaust Gas Recirculation) valve or a severely leaking head gasket.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/emissions-test-calculator" />
           <PopularCalculators />

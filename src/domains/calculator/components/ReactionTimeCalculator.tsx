@@ -267,7 +267,7 @@ export default function ReactionTimeCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Physics of Perception</h2>
             <p>We often think of cars stopping instantaneously when we press the brake pedal, but we forget the critical human element involved before the brakes even engage. When a deer jumps into the road, your vehicle does not instantly begin slowing down. A complex biological chain reaction must occur first.</p>
             <p>Traffic engineers call this <strong>Perception-Reaction Time (PRT)</strong>. First, your eyes must capture the image of the deer. Second, your brain must process that the image represents a dangerous hazard. Third, your brain must calculate a solution (stop the car). Finally, your brain sends a neurological signal down to your leg muscles, instructing them to lift off the accelerator and slam onto the brake pedal. This entire process takes the average, alert driver 1.5 seconds.</p>
@@ -282,7 +282,7 @@ export default function ReactionTimeCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">The Distracted Driving Multiplier</h2>
             <p>The math above assumes the driver is staring directly at the road with both hands on the wheel. If a driver takes their eyes off the road to look down at a text message, their reaction time easily doubles or triples. A 3.0-second reaction time at 60 MPH means the vehicle will travel 264 feet without slowing down. If traffic comes to a sudden stop 200 feet ahead of a texting driver, a rear-end collision is mathematically unavoidable, regardless of how good the vehicle's brakes are.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/reaction-time-calculator" />
           <PopularCalculators />

@@ -178,14 +178,14 @@ const RentVsBuyCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – Sidebar" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Renting vs. Buying: Which is the Smart Move?</h2>
               <p>The "rent vs buy" debate is one of the most significant financial decisions you'll ever face. While the American Dream often emphasizes homeownership, the math doesn't always favor buying—especially in high-interest environments or expensive markets.</p>
               <h3>When Buying Wins</h3>
               <p>Buying usually becomes the better option if you plan to stay in the home for 7 years or longer. This allows time for the home's appreciation to outweigh the high upfront closing costs and the interest-heavy early years of a mortgage. Additionally, buying acts as a forced savings plan by building equity through principal payments.</p>
               <h3>When Renting Wins</h3>
               <p>Renting is often better if you prioritize mobility or have a short time horizon (less than 5 years). It also allows you to invest your down payment capital into the stock market, which historically often yields higher returns than real estate appreciation. Renting is also a "predictable" cost, as the landlord is responsible for all maintenance, taxes, and insurance.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/rent-vs-buy-calculator" />
           <PopularCalculators exclude="/calculator/rent-vs-buy-calculator" />
         </div>

@@ -285,7 +285,7 @@ const BrickCalculator = () => {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Mathematics of Masonry</h2>
             <p>Laying a brick wall involves surprisingly precise mathematics. Because bricks are rigid, standardized blocks, calculating the exact quantity required is a matter of calculating the surface area of the wall and dividing it by the surface area of a single brick. However, a major component that DIYers often overlook is the <strong>Mortar Joint</strong>.</p>
             <p>If you stack bare bricks directly on top of each other, your math will be completely wrong. A wall is not just made of bricks; it is made of bricks suspended in a matrix of mortar. In the United States, a standard mortar joint is 3/8 of an inch thick. To calculate correctly, you must add that 3/8 inch to both the length and the height of every single brick to determine the "Effective Area" that each brick covers on the wall.</p>
@@ -301,7 +301,7 @@ const BrickCalculator = () => {
             <h2 className="text-2xl font-bold mb-3">Estimating Mortar</h2>
             <p>Mortar is the adhesive that binds the bricks. It is not concrete. Mortar is made by mixing masonry cement (or Portland cement and lime) with fine sand and water. It contains no gravel, allowing it to spread smoothly like peanut butter.</p>
             <p>Calculating mortar volume is difficult because it depends heavily on the skill of the mason. A messy mason will drop a significant amount of mortar on the ground, and striking (tooling) the joints deeply removes more material from the wall. As a general industry rule of thumb, you need roughly one cubic foot of wet mortar for every 50 to 60 standard bricks laid.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/brick-calculator" />
           <PopularCalculators exclude="/calculator/brick-calculator" />
         </div>

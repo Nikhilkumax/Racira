@@ -214,7 +214,7 @@ export default function BudgetRuleCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is the 50/30/20 Budget Rule?</h2>
             <p>The 50/30/20 rule is a simple, powerful budgeting framework that divides your after-tax income into three broad categories: 50% for needs, 30% for wants, and 20% for savings and debt repayment. First popularized by U.S. Senator Elizabeth Warren and her daughter Amelia Warren Tyagi in their 2005 book "All Your Worth: The Ultimate Lifetime Money Plan," this framework provides a starting point for anyone who wants financial structure without the complexity of tracking every dollar.</p>
             <p>Unlike detailed budgeting systems that require itemizing every expense, the 50/30/20 rule works at the macro level — giving you three clear buckets to allocate your income into. This simplicity is its greatest strength, making it sustainable for long-term financial planning rather than a strict regimen that's abandoned after a few months.</p>
@@ -232,7 +232,7 @@ export default function BudgetRuleCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Adapting the 50/30/20 Rule to Your Situation</h2>
             <p>The 50/30/20 rule is a starting point, not a rigid law. In high cost-of-living cities where rent exceeds 40% of take-home pay, the framework may need to be adjusted to 60/20/20 temporarily until income increases or you relocate. Those with high debt loads might use 50/20/30, directing more to debt payoff. Aggressive savers pursuing financial independence often flip the framework to 50/20/30 (30% savings) or even more. Those close to retirement may increase savings to 30–40%. The key insight is keeping a structured balance between living today and securing tomorrow.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/50-30-20-budget-calculator" />
           <PopularCalculators exclude="/calculator/50-30-20-budget-calculator" />
         </div>

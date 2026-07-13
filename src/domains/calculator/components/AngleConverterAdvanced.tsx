@@ -60,8 +60,8 @@ const AngleConverterAdvanced = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">About the Angle Converter Advanced</h2>
+          <section className="prose-finance text-[15.75px]">
+            <h2 className="text-2xl font-bold mb-3">Understanding the Advanced Angle Converter</h2>
             <p>The Angle Converter Advanced helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.</p>
             <h3>How to Use</h3>
             <ol>
@@ -71,7 +71,7 @@ const AngleConverterAdvanced = () => {
             </ol>
             <h3>Why Use This Calculator?</h3>
             <p>Our calculator is fast, free, and accurate. No sign-up required.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/angle-converter-advanced" />
           <PopularCalculators exclude="/calculator/angle-converter-advanced" />
         </div>

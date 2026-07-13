@@ -298,7 +298,7 @@ export default function SpeedometerErrorCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Causes Speedometer Error?</h2>
             <p>Your vehicle's speedometer is calibrated at the factory to match the exact circumference of the original equipment (OEM) tires. When you drive, a speed sensor located in the transmission or wheel hub counts the number of revolutions per minute. The vehicle's computer multiplies these revolutions by the factory tire circumference to calculate your speed. If you replace your tires with a different size, you alter the circumference, completely destroying the mathematical foundation of your speedometer's accuracy. Our Speedometer Error Calculator instantly reveals how far off your dash reading is from reality.</p>
 
@@ -313,7 +313,7 @@ export default function SpeedometerErrorCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">How to Fix Your Speedometer Calibration</h2>
             <p>You do not have to live with a broken speedometer. Modern vehicles use electronic speed sensors rather than mechanical cables. An automotive shop, dealership, or even a handheld aftermarket tuner (like a Flashcal) can plug into your vehicle's OBD-II diagnostic port. They simply update the Tire Size parameter in the Engine Control Unit (ECU) with the new circumference data, instantly restoring the accuracy of both your speedometer and odometer, and ensuring your Anti-lock Braking System (ABS) functions safely.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/speedometer-error-calculator" />
           <PopularCalculators />

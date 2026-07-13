@@ -206,7 +206,7 @@ const CommissionCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">A Comprehensive Guide to Sales Commission Structures</h2>
               <p>Commission is a powerful motivator in sales, aligning the interests of the salesperson with those of the company. However, not all commission structures are created equal. Whether you are a business owner designing a new comp plan or a sales professional trying to forecast your next paycheck, understanding the mechanics of these calculations is essential.</p>
               
@@ -237,7 +237,7 @@ const CommissionCalculator = () => {
                 <li><strong>On-Target Earnings (OTE):</strong> What is the realistic total pay a successful salesperson in this role can expect to earn?</li>
                 <li><strong>Sales Cycle:</strong> A 10% commission on a product that takes 12 months to sell might be worse than a 2% commission on a product that sells in a week.</li>
               </ul>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/commission-calculator" />
           <PopularCalculators exclude="/calculator/commission-calculator" />
         </div>

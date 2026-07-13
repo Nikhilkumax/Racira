@@ -242,7 +242,7 @@ const CreditScoreEstimator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">How Credit Scores Are Calculated</h2>
               <p>Your credit score is a three-digit number that tells lenders how likely you are to repay your debts. In the United States, the most common model is the FICO score, which ranges from 300 to 850. Understanding the five main components of this score is the first step toward financial health.</p>
 
@@ -271,7 +271,7 @@ const CreditScoreEstimator = () => {
                 <li><strong>Check Your Report Regularly:</strong> Errors on credit reports are common. Use services like AnnualCreditReport.com to ensure everything is accurate.</li>
                 <li><strong>Keep Old Cards Open:</strong> Even if you don't use them, they contribute to your average account age.</li>
               </ul>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/credit-score-estimator" />
           <PopularCalculators exclude="/calculator/credit-score-estimator" />
         </div>

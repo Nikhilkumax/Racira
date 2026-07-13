@@ -272,7 +272,7 @@ const FiveYearOwnershipCostCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is the 5-Year Ownership Cost Calculator?</h2>
             <p>The 5-Year Ownership Cost Calculator estimates the total cost of owning a vehicle over five years — the most common ownership period in the United States. It goes beyond the purchase price to include depreciation, financing interest, insurance, fuel, maintenance, registration, and parking. The result is the true dollar amount you will spend over 60 months of ownership.</p>
             <p>Five years is a natural evaluation horizon because it aligns with the typical auto loan term and marks the point where the steepest depreciation has already occurred.</p>
@@ -306,7 +306,7 @@ const FiveYearOwnershipCostCalculator = () => {
 
             <h2 className="text-2xl font-bold mb-3">Benefits of Using This Calculator</h2>
             <p>This tool gives you the complete financial picture for a 5-year ownership horizon — the period most people actually keep their cars. Use it before purchasing to compare vehicles honestly and budget accurately for the full cost, not just the monthly payment.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/5-year-ownership-cost-calculator" />
           <PopularCalculators exclude="/calculator/5-year-ownership-cost-calculator" />
         </div>

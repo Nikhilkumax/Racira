@@ -182,7 +182,7 @@ export default function MortgagePointsCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Should You Buy Mortgage Points?</h2>
             <p>Buying mortgage discount points—often referred to as "buying down the rate"—is one of the most common decisions homebuyers face at closing. It represents a classic financial trade-off: paying cash today to secure guaranteed savings over time. The <strong>Mortgage Points Calculator</strong> cuts through the sales pitch and reveals the exact mathematical point at which buying points becomes a profitable decision.</p>
 
@@ -195,7 +195,7 @@ export default function MortgagePointsCalculator() {
             
             <h2 className="text-2xl font-bold mb-3">Lender Pricing Variations</h2>
             <p>It is crucial to understand that there is no legally mandated standard for how much one point reduces your rate. While the traditional rule of thumb is a 0.25% reduction per point, lenders adjust this yield curve daily based on bond market volatility and their internal profit margins. Sometimes 1 point buys a 0.375% reduction (an excellent deal with a fast break-even). Other times, 1 point only buys a 0.125% reduction (a terrible deal with a decade-long break-even). Always use this calculator with your lender's exact pricing sheet to verify if their specific offer is mathematically sound.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/mortgage-points-calculator" />
           <PopularCalculators exclude="/calculator/mortgage-points-calculator" />
         </div>

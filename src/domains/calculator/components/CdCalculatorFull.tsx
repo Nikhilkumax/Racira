@@ -216,7 +216,7 @@ export default function CdCalculatorFull() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a CD Calculator?</h2>
             <p>A CD (Certificate of Deposit) calculator helps you determine exactly how much you'll earn by depositing a lump sum into a CD at a given Annual Percentage Yield (APY) for a specific term. CDs are one of the safest investments available — they're FDIC-insured up to $250,000 per depositor per institution — and typically offer significantly higher interest rates than standard savings accounts because you agree to leave your money untouched for the CD's term.</p>
             <p>Understanding CD math is critical for planning short-term savings goals: down payment funds, vacation savings, emergency fund top-up, or simply parking cash you won't need soon. This calculator handles all major compounding frequencies and shows you a year-by-year breakdown so you can see exactly how your money grows.</p>
@@ -239,7 +239,7 @@ export default function CdCalculatorFull() {
 
             <h2 className="text-2xl font-bold mb-3">Tips for Maximizing CD Returns</h2>
             <p>Shop online banks and credit unions — they offer 3-5× higher rates than big banks. Compare APY, not APR. Check for bump-up CDs that let you raise your rate once if rates increase. Consider no-penalty CDs if flexibility matters. Use the FDIC limit of $250,000 per institution as a guide — spread large deposits across multiple banks for full insurance coverage. Always confirm FDIC or NCUA (for credit unions) insurance before depositing.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/cd-calculator" />
           <PopularCalculators exclude="/calculator/cd-calculator" />
         </div>

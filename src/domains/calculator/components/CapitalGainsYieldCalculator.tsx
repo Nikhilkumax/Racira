@@ -184,7 +184,7 @@ export default function CapitalGainsYieldCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is Capital Gains Yield?</h2>
             <p>Capital Gains Yield (CGY) is a key return metric for any investment that appreciates in price — stocks, real estate, bonds, or alternative assets. It measures the percentage price increase from your purchase price to your selling price, isolating the price appreciation component of your total investment return. For investors focused on growth rather than income, CGY is the primary performance metric.</p>
             <p>Our calculator uses a realistic example: a stock purchased at $150, sold at $185, with $4.50 in dividends received during the holding period. This produces a Capital Gains Yield of 23.33%, a Dividend Yield of 3.00%, and a Total Return of 26.33% — a strong performance representing approximately 2.5× the typical annual stock market return.</p>
@@ -212,7 +212,7 @@ export default function CapitalGainsYieldCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Price-to-Earnings and CGY Expectations</h2>
             <p>Expected capital gains yield and current valuations are inversely related. The Shiller P/E (CAPE) ratio provides a valuation context: when CAPE is high (above 30), historical evidence suggests future 10-year CGY will be below average (perhaps 3–5%). When CAPE is low (below 15), future CGY tends to be stronger (8–12%). Current CAPE (2024) at approximately 35 suggests below-average forward equity returns, though this doesn't predict short-term movements. Earnings growth is the fundamental driver of long-run CGY — stocks follow earnings over long periods. A company growing earnings per share at 10% per year will likely deliver roughly 10% CGY over many years, assuming stable valuation multiples.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/capital-gains-yield-calculator" />
           <PopularCalculators exclude="/calculator/capital-gains-yield-calculator" />
         </div>

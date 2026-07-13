@@ -439,7 +439,7 @@ const LoanToCostRatioCalculator = () => {
         {/* SEO Content */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <section className="mt-12 space-y-8 text-base text-foreground">
               <div>
                 <h2 className="text-2xl font-bold mb-3">What Is a Loan-to-Cost (LTC) Ratio Calculator?</h2>
@@ -490,7 +490,7 @@ const LoanToCostRatioCalculator = () => {
                 </p>
               </div>
             </section>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/loan-to-cost-ltc-ratio-calculator" />
           <PopularCalculators exclude="/calculator/loan-to-cost-ltc-ratio-calculator" />
         </div>

@@ -253,7 +253,7 @@ export default function ImportClearanceTimeCostCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Nightmare of Customs Holds</h2>
             <p>In global supply chains, Customs authorities (like US CBP) have the absolute legal authority to stop, hold, and inspect any shipment entering the country. When this happens, the importer does not just suffer from a delayed schedule—they suffer massive, unplannable financial damages.</p>
             
@@ -274,7 +274,7 @@ export default function ImportClearanceTimeCostCalculator() {
               <li>Use the correct HTS classification codes.</li>
               <li>File your ISF (Importer Security Filing) 24 hours before the ship leaves the origin port. Late ISF filings almost guarantee a customs hold at destination.</li>
             </ul>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "If customs damages my goods during an inspection, do they pay for it?", answer: "No. By law, Customs authorities are generally immune from liability for damage caused during routine inspections. You must file a claim against your own cargo insurance policy." },
             { question: "Can I refuse to pay the intensive exam fee?", answer: "No. If you refuse to pay the Centralized Examination Station (CES) facility, they will not release your cargo. Eventually, the cargo will be seized and auctioned off." },

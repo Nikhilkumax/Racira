@@ -263,7 +263,7 @@ export default function IncotermsLandedCostCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What is Total Landed Cost?</h2>
             <p><strong>Total Landed Cost</strong> is the true, fully-burdened financial cost of a product once it has arrived at your warehouse door, ready to be sold to a customer. It includes the price of the goods, plus every single logistical and tax expense incurred to get it there.</p>
             
@@ -282,7 +282,7 @@ export default function IncotermsLandedCostCalculator() {
             
             <h2 className="text-2xl font-bold mb-3">How to Use Landed Cost for Pricing</h2>
             <p>You should never determine your final retail price (MSRP) until you know your exact Landed Cost Per Unit. Your gross margin must be calculated against the Landed Cost, not the Factory Cost. Additionally, if you see your Landed Cost Multiplier creeping above 1.5x, you need to investigate your supply chain to see if you can optimize freight density or renegotiate tariffs.</p>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "Should I include domestic shipping to the customer in Landed Cost?", answer: "No. Landed Cost only covers the expenses to get the product to YOUR warehouse (Inbound Logistics). Shipping the product to the final customer is considered an Outbound Fulfillment or Shipping Expense." },
             { question: "Does Landed Cost change based on the Incoterm?", answer: "The components you pay directly will change. Under EXW, you pay the freight forwarder directly. Under CIF, the supplier pays the main freight, but they increase the unit price to compensate. Ultimately, the total Landed Cost is usually similar, but the breakdown looks different." },

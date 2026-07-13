@@ -287,7 +287,7 @@ export default function Election83bCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is an 83(b) Election?</h2>
             <p>An 83(b) election is a letter you send to the Internal Revenue Service (IRS) informing them that you'd like to be taxed on your equity, such as restricted stock, on the date the equity was granted to you rather than on the date the equity vests. This provision under Section 83(b) of the Internal Revenue Code is particularly popular among startup founders and early employees who receive stock when the company's valuation is very low.</p>
             
@@ -311,7 +311,7 @@ export default function Election83bCalculator() {
             
             <h2 className="text-2xl font-bold mb-3">Benefits and Risks</h2>
             <p>The benefit is potentially massive tax savings and avoiding "phantom income" (owing taxes on illiquid stock that has vested but cannot yet be sold). The primary risk is overpaying taxes: if you pay tax based on the grant value and the company subsequently goes out of business, or you leave before the stock vests and forfeit the shares, you cannot claim a tax refund for the ordinary income taxes already paid.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/83-b-election-calculator" />
           <PopularCalculators />

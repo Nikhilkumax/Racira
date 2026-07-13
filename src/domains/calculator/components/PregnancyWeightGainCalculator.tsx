@@ -148,14 +148,14 @@ const PregnancyWeightGainCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Why Tracking Matters</h2>
               <p>Gaining the right amount of weight during pregnancy is crucial. Gaining too little can result in a low birth weight baby, while gaining too much increases the risk of gestational diabetes, high blood pressure, and complications during delivery.</p>
               <h3>Trimester Breakdown</h3>
               <p>During the first trimester, very little extra energy is needed. Most guidelines suggest gaining only 1 to 4 pounds total during the first 13 weeks. In the second and third trimesters, the baby grows rapidly, and steady weight gain (usually around 1 pound per week for a normal BMI) is expected.</p>
               <h3>Don't Diet While Pregnant</h3>
               <p>If you are gaining weight faster than expected, do not try to lose weight or restrict calories drastically. Instead, focus on nutrient-dense foods (lean proteins, vegetables, whole grains) and consult your doctor or a prenatal dietitian.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/pregnancy-weight-gain" />
           <PopularCalculators exclude="/calculator/pregnancy-weight-gain-calculator" />
         </div>

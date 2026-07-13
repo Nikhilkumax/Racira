@@ -324,7 +324,7 @@ export default function CatPregnancyDurationCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Feline Gestation Period</h2>
             <p>If you suspect your cat is expecting, understanding the timeline of feline gestation is critical for her health and the survival of the kittens. The <strong>Cat Pregnancy Calculator</strong> is designed to remove the guesswork from this 9-week journey. By simply inputting the date of mating, the calculator algorithm maps out a precise timeline, giving you an estimated due date, a safe delivery window, and a week-by-week breakdown of essential fetal developmental milestones.</p>
             <p>A queen (an unspayed female cat) can become pregnant relatively easily. Cats are "induced ovulators," meaning the act of mating stimulates the release of eggs from the ovaries. Because of this biological mechanism, if mating occurs, the chance of conception is exceptionally high.</p>
@@ -367,7 +367,7 @@ export default function CatPregnancyDurationCalculator() {
               <li>There is significant, bright red bleeding.</li>
             </ul>
             <p>By using the Cat Pregnancy Calculator, ensuring proper veterinary care, and understanding the biological timeline of gestation, you ensure the safest possible outcome for both the mother and her new litter.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/cat-pregnancy-duration-calculator" />
           <PopularCalculators exclude="/calculator/cat-pregnancy-duration-calculator" />

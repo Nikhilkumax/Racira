@@ -290,7 +290,7 @@ export default function WaterAerobicsCalorieCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Physics of Fluid Resistance</h2>
             <p>For decades, water aerobics was mistakenly viewed as a "light" or "easy" workout reserved exclusively for the elderly or those recovering from injuries. To a casual observer, the slow, buoyant movements in the pool look effortless compared to the heavy breathing and heavy sweating seen in a CrossFit gym or on a treadmill. However, from a purely thermodynamic and biomechanical perspective, exercising in water is one of the most mechanically demanding tasks the human body can perform. The <strong>Water Aerobics Calorie Calculator</strong> bypasses the visual illusion of "easy movement" by utilizing clinical Metabolic Equivalent (MET) formulas to calculate the massive energy required to displace high-density fluid.</p>
 
@@ -319,7 +319,7 @@ export default function WaterAerobicsCalorieCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Respect the Water</h2>
             <p>Do not let the lack of sweat fool you into thinking you didn't work hard. By leveraging the immense density of water, you are performing a rigorous, full-body resistance and cardiovascular workout simultaneously. Use the Water Aerobics Calorie Calculator to track your exact thermodynamic output, understand the power of fluid resistance, and achieve your weight loss goals without punishing your joints.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/water-aerobics-calorie-calculator" />
           <PopularCalculators exclude="/calculator/water-aerobics-calorie-calculator" />

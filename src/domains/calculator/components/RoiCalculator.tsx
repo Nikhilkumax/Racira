@@ -87,7 +87,7 @@ const ROICalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">What Is ROI?</h2>
               <p>Return on Investment (ROI) is one of the most widely used financial metrics for evaluating the profitability of an investment. It measures the percentage return generated relative to the amount invested, providing a simple way to compare different investment opportunities.</p>
 
@@ -120,7 +120,7 @@ const ROICalculator = () => {
               </ul>
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> ROI is a simplified metric. Past returns don't guarantee future performance. Consider risk-adjusted returns and consult a financial advisor for investment decisions.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/roi-calculator" />
           <PopularCalculators exclude="/roi-calculator" />
         </div>

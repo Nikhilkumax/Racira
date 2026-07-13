@@ -196,7 +196,7 @@ const SampleSizeCalculator = () => {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Science of Statistical Sampling</h2>
             <p>If a polling agency wants to know who will win a presidential election, they do not ask all 160 million registered voters. That would cost billions of dollars and take months. Instead, they ask a few thousand people. How can asking 2,000 people accurately predict the behavior of 160 million people? The answer is <strong>Statistical Sampling</strong>.</p>
             <p>Sampling mathematics proves that if you select a group of people truly at random, the traits of that small group will mirror the traits of the massive population with astonishing accuracy. This calculator uses Cochran's formula to determine exactly how many people you need to test to guarantee that accuracy.</p>
@@ -214,7 +214,7 @@ const SampleSizeCalculator = () => {
 
             <h2 className="text-2xl font-bold mb-3">The Infinite Population Paradox</h2>
             <p>One of the most counter-intuitive rules of statistics is that once a population is "large enough" (usually over 100,000), the population size no longer matters. To achieve a 5% margin of error at a 95% confidence level, you need to survey exactly 385 people—whether your total population is 100,000 people, 1 million people, or the entire planet Earth. The math stabilizes, which is why national polls rarely survey more than 1,000 respondents.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/sample-size-calculator" />
           <PopularCalculators exclude="/calculator/sample-size-calculator" />
         </div>

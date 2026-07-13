@@ -120,14 +120,14 @@ const RunningCalorieCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Maximizing Your Run</h2>
               <p>Running is one of the most efficient ways to burn calories and improve cardiovascular health. However, many people overestimate how much they burn during a workout.</p>
               <h3>Distance vs. Duration</h3>
               <p>While spending more time on your feet is good for endurance, calorie burn is primarily a function of work done. Moving your body weight over a specific distance requires a set amount of energy. This is why a slow 5-mile run and a fast 5-mile run burn a similar amount of calories, even if the fast one feels more exhausting.</p>
               <h3>Fueling and Recovery</h3>
               <p>If your goal is weight loss, remember that it's easy to "eat back" your calories after a run. A single sports drink or protein bar can negate the caloric deficit created by a 3-mile run. Focus on nutrient-dense whole foods and stay hydrated with water to see the best results.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/running-calorie" />
           <PopularCalculators exclude="/calculator/running-calorie-calculator" />
         </div>

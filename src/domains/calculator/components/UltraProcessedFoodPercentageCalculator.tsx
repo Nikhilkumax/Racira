@@ -313,7 +313,7 @@ export default function UltraProcessedFoodPercentageCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Ultra-Processed Food Percentage Calculator</h2>
             <p>For decades, nutritional science was heavily focused on macronutrients (proteins, carbohydrates, and fats) and raw calorie counting. This led to the creation of "diet foods"—such as 100-calorie snack packs or sugar-free cookies—that perfectly fit macro targets but contained absolutely zero natural ingredients. In recent years, a massive paradigm shift has occurred in dietary science. Researchers realized that it is not just the <em>amount</em> of calories we eat that dictates our health, but the <em>level of industrial processing</em> those calories have undergone. The <strong>Ultra-Processed Food (UPF) Percentage Calculator</strong> is designed to help you quantify exactly how much of your daily diet is derived from these industrially manufactured foods.</p>
             <p>Recent epidemiological studies have shown that diets high in UPFs are strongly correlated with an increased risk of obesity, Type 2 diabetes, cardiovascular disease, and certain types of cancer. By tracking your UPF percentage, you can slowly transition your diet away from the factory floor and back to the farm.</p>
@@ -356,7 +356,7 @@ export default function UltraProcessedFoodPercentageCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion</h2>
             <p>Your health is ultimately dictated by the structural integrity of the food you consume. By using the Ultra-Processed Food Percentage Calculator, you can audit your dietary habits and expose hidden UPFs. By prioritizing single-ingredient, whole foods, you provide your body with the natural metabolic instructions it needs to thrive, naturally reducing hunger, lowering inflammation, and effortlessly shedding excess body fat.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/ultra-processed-food-percentage-calculator" />
           <PopularCalculators exclude="/calculator/ultra-processed-food-percentage-calculator" />

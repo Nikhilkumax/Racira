@@ -167,7 +167,7 @@ export default function PaydayLoanTrueCostCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Mathematics of the Debt Trap</h2>
             <p>Payday loans are marketed as quick fixes for unexpected emergencies. The terms often sound reasonable at a glance: "Borrow $300, pay a $45 fee." To a borrower in a crisis, $45 might seem like an acceptable price to fix an immediate problem. However, the <strong>Payday Loan True Cost Calculator</strong> strips away the marketing to reveal the math. Because that $45 fee is charged for a loan that lasts only 14 days, the annualized cost of borrowing that money is staggeringly high.</p>
 
@@ -178,7 +178,7 @@ export default function PaydayLoanTrueCostCalculator() {
             <h2 className="text-2xl font-bold mb-3">The Rollover Danger</h2>
             <p>The true danger of payday loans is not just the high APR, but the structure of the repayment. Unlike traditional loans which are paid off gradually over time (amortization), payday loans require a balloon payment: the entire principal plus the fee is due on your next payday. If you struggled to make ends meet this week, it is highly likely that handing over $575 from your next paycheck will leave you unable to pay rent or buy groceries next week.</p>
             <p>This structural reality forces many borrowers to "roll over" the loan. You pay the $75 fee to extend the loan for another two weeks, but you still owe the original $500. A borrower caught in this trap for six months will pay $900 in fees, yet they will still owe the original $500 principal. This calculator highlights the disparity between the payday fee and traditional financing to encourage exploring all other alternatives before signing a payday contract.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/payday-loan-true-cost-calculator" />
           <PopularCalculators exclude="/calculator/payday-loan-true-cost-calculator" />
         </div>

@@ -231,7 +231,7 @@ export default function HasBledScoreCalculator() {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Balancing Act of Cardiology</h2>
             <p>Treating atrial fibrillation is a delicate balancing act. On one hand, a doctor wants to prescribe a powerful blood thinner to ensure the patient does not suffer a catastrophic ischemic stroke. On the other hand, giving a patient a blood thinner dramatically increases their risk of suffering a spontaneous internal hemorrhage (a "major bleed").</p>
             <p>The <strong>HAS-BLED score</strong> was developed as the perfect counterbalance to the stroke risk calculators. Before writing a prescription for a blood thinner like Eliquis, Xarelto, or Warfarin, a doctor calculates the HAS-BLED score to quantify exactly how dangerous that prescription will be.</p>
@@ -248,7 +248,7 @@ export default function HasBledScoreCalculator() {
               <li>Bleeding that is so severe it requires a transfusion of at least two units of blood</li>
             </ul>
             <p>Because these events are often fatal, a high HAS-BLED score (≥3) requires intense clinical caution and frequent monitoring, though it is rarely used as an absolute excuse to withhold life-saving stroke prevention medication if the stroke risk is equally severe.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/has-bled-score-calculator" />
           <PopularCalculators exclude="/calculator/has-bled-score-calculator" />
         </div>

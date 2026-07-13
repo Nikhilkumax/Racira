@@ -89,12 +89,12 @@ const BillSplitCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Sidebar Ad" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Sharing Expenses Without the Stress</h2>
               <p>Dining out or traveling with friends is fun until the bill arrives. A bill split calculator removes the awkwardness and math errors from the table, ensuring everyone pays their fair share exactly.</p>
               <h3>When to Split Evenly</h3>
               <p>Splitting evenly is best for meals where everyone ordered similar items or for shared costs like a vacation rental or utility bill. If one person ordered significantly more expensive items, it's often more fair to calculate individual subtotals first.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/bill-split-calculator" />
           <PopularCalculators exclude="/calculator/bill-split-calculator" />
         </div>

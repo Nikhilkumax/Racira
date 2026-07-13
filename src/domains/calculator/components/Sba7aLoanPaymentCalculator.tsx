@@ -234,7 +234,7 @@ export default function Sba7aLoanPaymentCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding SBA 7(a) Loan Costs</h2>
             <p>The SBA 7(a) loan is the most popular government-backed commercial loan in the United States, designed to help small businesses acquire funding when they cannot qualify for conventional bank loans. While the terms are highly favorable, the fee structures are significantly more complex than standard commercial loans. The <strong>SBA 7(a) Loan Payment Calculator</strong> is designed to accurately model these unique costs, particularly the mandatory Guarantee Fee.</p>
 
@@ -245,7 +245,7 @@ export default function Sba7aLoanPaymentCalculator() {
             <h2 className="text-2xl font-bold mb-3">The Prime Rate and Your Interest</h2>
             <p>Unlike fixed-rate commercial real estate mortgages, the vast majority of SBA 7(a) loans feature variable interest rates that fluctuate daily. The rate is tied to the Wall Street Journal Prime Rate plus a margin negotiated by the lender (e.g., Prime + 2.75%).</p>
             <p>This means your monthly payment is not static. If the Federal Reserve raises interest rates, the Prime rate increases, and your monthly SBA payment will jump accordingly. When using this calculator for financial planning, it is highly recommended to run scenarios with interest rates 2% or 3% higher than today's rate to ensure your business's cash flow can survive a high-rate environment.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/sba-7a-loan-payment-calculator" />
           <PopularCalculators exclude="/calculator/sba-7a-loan-payment-calculator" />
         </div>

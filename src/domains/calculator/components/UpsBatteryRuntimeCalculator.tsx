@@ -107,7 +107,7 @@ const UpsBatteryRuntimeCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Planning Your Backup Power</h2>
               <p>A UPS is your first line of defense against data loss and hardware damage from power surges or blackouts. Understanding its limits is crucial for maintaining server uptime.</p>
               <h3>Factors Affecting Runtime</h3>
@@ -116,7 +116,7 @@ const UpsBatteryRuntimeCalculator = () => {
                 <li><strong>Temperature:</strong> Lead-acid batteries are sensitive to heat. Operating in a room above 25°C (77°F) significantly shortens their lifespan.</li>
                 <li><strong>Depth of Discharge:</strong> Repeatedly draining a battery to 0% will kill it quickly. Most UPS units shut down with 10-20% remaining to protect the battery.</li>
               </ul>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/ups-runtime" />
           <PopularCalculators exclude="/calculator/ups-battery-runtime-calculator" />
         </div>

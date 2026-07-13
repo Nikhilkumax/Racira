@@ -373,7 +373,7 @@ export default function PonderalIndexCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Ponderal Index (PI) Calculator</h2>
             <p>For nearly two centuries, the medical community has utilized the Body Mass Index (BMI) to determine if an individual is carrying a healthy amount of weight. However, as sports science and biomechanics have advanced, glaring mathematical flaws in the BMI formula have been exposed. The most significant flaw lies in its geometry. The <strong>Ponderal Index Calculator</strong> (also known as the Corpulence Index or Rohrer's Index) was developed to fix this specific mathematical error. By utilizing a three-dimensional cubic equation instead of a two-dimensional square equation, the Ponderal Index provides a vastly superior analysis of human body proportions, particularly for individuals who are unusually tall or short.</p>
 
@@ -413,7 +413,7 @@ export default function PonderalIndexCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: A Smarter Metric for a 3D World</h2>
             <p>The reliance on the outdated, 2-dimensional Body Mass Index has caused millions of healthy, tall individuals to panic over false "Overweight" classifications, while simultaneously failing to warn shorter individuals of their impending metabolic risk. We live in a three-dimensional world, and our medical diagnostics should reflect that reality. If your height falls outside the standard human average, discard the BMI entirely. Use the Ponderal Index Calculator to gain a mathematically accurate, volumetrically sound assessment of your true health profile.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/ponderal-index-calculator" />
           <PopularCalculators exclude="/calculator/ponderal-index-calculator" />

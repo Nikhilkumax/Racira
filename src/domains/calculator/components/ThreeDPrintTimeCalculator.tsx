@@ -447,7 +447,7 @@ const ThreeDPrintTimeCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What is a 3D Print Time Calculator?</h2>
             <p>
               A <strong>3D Print Time Calculator</strong> is an advanced planning tool designed to estimate how long a 3D model will take to manufacture using Fused Deposition Modeling (FDM) or other additive manufacturing technologies. For hobbyists, engineers, and print farm operators, time is the ultimate bottleneck. This calculator uses volumetric flow algorithms, kinematic limits, and slicer approximations to give you a highly accurate preview of your print duration without needing to open resource-heavy slicing software like Cura or PrusaSlicer.
@@ -528,7 +528,7 @@ const ThreeDPrintTimeCalculator = () => {
             <p>
               3D printing is a balancing act between speed, strength, and aesthetic quality. By using our 3D Print Time Calculator, you remove the guesswork from your manufacturing workflow. Tweak your layer heights, simulate a nozzle swap, and optimize your infill before you ever generate a G-code file, ensuring your printers are always running at peak efficiency.
             </p>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "How accurate is this print time estimate?", answer: "This tool uses a mathematical volumetric-flow approximation, simulating the volume of plastic extruded against your printer's kinematic limits. It assumes your printer can sustain the requested flow rate and uses a generic efficiency factor to account for acceleration and travel. Actual print times in a slicer like Cura or PrusaSlicer may vary by 5-15% based on complex, specific model geometries." },
             { question: "Why is electricity cost so low?", answer: "A 3D printer draws significant peak power (e.g., 300W+) while initially heating the bed and nozzle, but it settles to a much lower average (e.g., 100W-150W) during the actual printing process. At an average US rate of $0.15/kWh, printing for 10 hours usually costs less than $0.25 in electricity." },

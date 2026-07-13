@@ -226,7 +226,7 @@ export default function VariablePayPercentageCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What is a Target Pay Mix?</h2>
             <p>In Human Resources and compensation planning, the <strong>Pay Mix</strong> is the ratio of guaranteed Base Salary to at-risk Variable Pay (like bonuses, commissions, and profit-sharing). It is formally expressed as a ratio totaling 100, such as <strong>80/20</strong> or <strong>60/40</strong>.</p>
             <p>For example, if you have an $80,000 base salary and a $20,000 target commission, your Total Target Compensation (TTC) is $100,000. Your pay mix is exactly 80/20.</p>
@@ -245,7 +245,7 @@ export default function VariablePayPercentageCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Why Employers Use Variable Pay</h2>
             <p>From a corporate finance perspective, variable pay is a brilliant tool. It aligns the employee's financial interests directly with the company's goals. More importantly, it turns fixed costs (salaries) into variable costs. If the company has a bad year and revenue drops, payroll expenses automatically drop as well because fewer bonuses and commissions are paid out, protecting the company's margin of safety.</p>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "Are equity grants (RSUs/Options) considered variable pay?", answer: "While equity is absolutely part of Total Compensation, it is usually modeled separately from the Base/Variable 'Pay Mix' because equity payouts are tied to stock market performance over a multi-year vesting schedule, rather than immediate operational KPIs." },
             { question: "Is variable pay taxed differently?", answer: "Yes and no. When a bonus or commission is paid, it is often subject to a mandatory 'supplemental withholding rate' (often 22% in the US), which makes it feel like it's taxed higher. However, at the end of the year, all your income is lumped together and taxed at your standard marginal rate." },

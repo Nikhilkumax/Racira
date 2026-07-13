@@ -340,7 +340,7 @@ export default function EarlyMortgagePayoffCalculator() {
         {/* SEO CONTENT SECTION */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Why Consider Paying Off Your Mortgage Early?</h2>
             <p>For many homeowners, the mortgage is their largest single debt. A standard 30-year mortgage front-loads the interest, meaning that for the first decade, the vast majority of your monthly payment goes toward the bank's profit rather than building your equity. By utilizing an early mortgage payoff calculator, you can visualize exactly how small additional payments applied directly to your principal can drastically alter the amortization schedule, saving you tens or even hundreds of thousands of dollars in interest over the life of the loan.</p>
             <p>Beyond the pure mathematical savings, paying off a home provides immense psychological benefits. Owning your property free and clear reduces your monthly overhead, provides security against economic downturns, and significantly accelerates your path to financial independence and early retirement.</p>
@@ -357,7 +357,7 @@ export default function EarlyMortgagePayoffCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Prepayment Penalties</h2>
             <p>Before aggressively paying down your mortgage, check your loan documents for a prepayment penalty clause. While these are increasingly rare in modern conforming residential mortgages, some subprime loans, commercial loans, or specific portfolio loans still include them. A prepayment penalty is a fee the bank charges if you pay off the loan significantly ahead of schedule, usually within the first three to five years of origination. If your loan has such a penalty, it may negate the financial benefits of early payoff during that window, so always confirm the terms with your lender before beginning any accelerated payment strategy.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/early-mortgage-payoff-calculator" />
           <PopularCalculators exclude="/calculator/early-mortgage-payoff-calculator" />
         </div>

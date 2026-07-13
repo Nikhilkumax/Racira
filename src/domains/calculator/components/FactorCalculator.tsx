@@ -168,7 +168,7 @@ const FactorCalculator = () => {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Are Factors?</h2>
             <p>In mathematics, <strong>factors</strong> are the numbers that you can multiply together to get another number. Put differently, a factor is an integer that divides evenly into a larger integer without leaving a remainder. For example, 5 is a factor of 20 because 20 divided by 5 equals exactly 4.</p>
 
@@ -190,7 +190,7 @@ const FactorCalculator = () => {
 
             <h2 className="text-2xl font-bold mb-3">Factors vs. Multiples</h2>
             <p>A common point of confusion for students is the difference between factors and multiples. <strong>Factors</strong> are the numbers that fit <em>into</em> a target number (they are smaller than or equal to the target). <strong>Multiples</strong> are the numbers you get when you multiply the target number by 1, 2, 3, etc. (they are larger than or equal to the target). The factors of 8 are 1, 2, 4, and 8. The multiples of 8 are 8, 16, 24, 32, etc.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/factor-calculator" />
           <PopularCalculators exclude="/calculator/factor-calculator" />
         </div>

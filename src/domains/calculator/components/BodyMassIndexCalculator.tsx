@@ -353,8 +353,8 @@ export default function BodyMassIndexCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">The Foundation of Modern Health Metrics</h2>
+          <section className="prose-finance text-[15.75px]">
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Body Mass Index (BMI)</h2>
             <p>If you visit any physician in the developed world, before they check your blood pressure or draw your blood, they will measure your height and weight to calculate your Body Mass Index (BMI). Despite intense criticism from the fitness community, BMI remains the undisputed foundation of global health tracking. It is a simple, universal ratio that compares your total physical mass to your structural height. The <strong>Body Mass Index (BMI) Calculator</strong> instantly computes this crucial metric, placing you within the standard clinical classifications established by the World Health Organization (WHO).</p>
 
             <h2 className="text-2xl font-bold mb-3">Why the Fitness Industry Hates BMI</h2>
@@ -380,9 +380,9 @@ export default function BodyMassIndexCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Know Your Baseline</h2>
             <p>Unless you can squat 400 pounds, you should not ignore your BMI. It is the fundamental baseline upon which all other health metrics are built. Use the Body Mass Index Calculator to find your current classification. If you fall into the Overweight or Obese categories, use the generated Target Range to establish your exact weight-loss goals, and immediately begin the process of pulling your body back into the zone of statistical longevity.</p>
-          </article>
+          </section>
           
-          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/body-mass-index-bmi-calculator" />
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/body-mass-index" />
           <PopularCalculators exclude="/calculator/body-mass-index-bmi-calculator" />
         </div>
       </div>

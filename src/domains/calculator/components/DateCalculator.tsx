@@ -116,7 +116,7 @@ const DateCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">About the Date Calculator</h2>
               <p>This tool lets you quickly find a date in the future or past by adding or subtracting a specific number of years, months, and days from any starting date.</p>
 
@@ -130,7 +130,7 @@ const DateCalculator = () => {
 
               <h2 className="text-2xl font-bold mb-3">How Month Addition Works</h2>
               <p>When adding months, if the resulting month has fewer days than the starting day, the date is clamped to the last day of the target month. For example, adding 1 month to January 31 yields February 28 (or 29 in a leap year).</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/date-calculator" />
           <PopularCalculators exclude="/date-calculator" />
         </div>

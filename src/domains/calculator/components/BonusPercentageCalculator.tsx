@@ -238,7 +238,7 @@ export default function BonusPercentageCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">How Corporate Bonuses Work</h2>
             <p>Unlike fixed commissions where you earn a specific dollar amount per sale, corporate bonuses are typically calculated as a <strong>Percentage of your Base Salary</strong>, and then adjusted based on performance multipliers.</p>
             
@@ -257,7 +257,7 @@ export default function BonusPercentageCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Bonuses and Taxes</h2>
             <p>It is critical to remember that bonuses are subject to standard income taxes. In the United States, employers are required to withhold a flat <strong>22% supplemental tax rate</strong> on bonuses under $1 million, plus Social Security (6.2%), Medicare (1.45%), and any state taxes. Therefore, it is very common to only take home 55% to 65% of your gross bonus amount in your actual bank account.</p>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "Can a performance multiplier be 0%?", answer: "Yes. Many companies have a 'threshold' or 'gate'. If the company misses its minimum revenue target, the corporate multiplier drops to 0%, meaning no one gets a bonus regardless of personal performance." },
             { question: "Is my bonus guaranteed?", answer: "Usually not. Unless your contract explicitly states it is a 'Guaranteed Bonus' or a 'Sign-On Bonus', annual performance bonuses are considered discretionary and depend entirely on the company's financial health." },

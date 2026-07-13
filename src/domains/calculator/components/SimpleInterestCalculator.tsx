@@ -144,7 +144,7 @@ const SimpleInterestCalculator = () => {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Simple Interest Calculator?</h2>
             <p>A simple interest calculator computes the interest earned or paid on a principal amount using the formula I = Prt, where interest grows linearly — the same fixed amount each year. Unlike compound interest, simple interest does not earn interest on accumulated interest. Pre-filled with $5,000 at 8% for 3 years, the result is $1,200 in interest ($400/year) for a total of $6,200.</p>
             <p>Simple interest is used for short-term personal loans, some auto financing, US Treasury bills, pawnshop loans, and as a baseline for comparing more complex financial products. Understanding simple interest is the first step toward mastering personal finance math.</p>
@@ -160,7 +160,7 @@ const SimpleInterestCalculator = () => {
             <p>The simple interest formula can be rearranged: <strong>P = I / (rt)</strong> — find how much you need to invest to earn a target interest amount. <strong>r = I / (Pt)</strong> — find the rate given principal, interest, and time. <strong>t = I / (Pr)</strong> — find how long it takes to earn a target amount.</p>
             <h2 className="text-2xl font-bold mb-3">Tips for Using This Calculator</h2>
             <p>Enter fractional years for partial-year calculations (e.g., 0.5 for 6 months, 0.25 for a quarter). The bar chart shows the linearly growing balance — compare this visually to the exponential curve in the compound interest calculator to see the dramatic difference. For borrowing, simple interest is usually better; for investing, compound interest is always preferable.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/simple-interest-calculator" />
           <PopularCalculators exclude="/calculator/simple-interest-calculator" />
         </div>

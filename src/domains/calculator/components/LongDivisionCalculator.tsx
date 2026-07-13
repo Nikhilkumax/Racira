@@ -253,7 +253,7 @@ const LongDivisionCalculator = () => {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding Long Division</h2>
             <p><strong>Long division</strong> is a foundational mathematical algorithm that breaks down the division of large numbers into a sequence of simpler, more manageable steps. By addressing the number piece by piece from left to right, we can efficiently find how many times one number (the divisor) fits into another (the dividend).</p>
 
@@ -277,7 +277,7 @@ const LongDivisionCalculator = () => {
 
             <h2 className="text-2xl font-bold mb-3">Why Show the Remainder?</h2>
             <p>While calculating decimals is useful for precise mathematical applications, remainders are highly practical in everyday scenarios. For instance, if you have 50 cookies (dividend) to split among 12 children (divisor), the decimal result is 4.166. However, in reality, you give each child 4 whole cookies (quotient), and you have 2 cookies left over in the jar (remainder). Long division beautifully illustrates this real-world distribution logic.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/long-division-calculator" />
           <PopularCalculators exclude="/calculator/long-division-calculator" />
         </div>

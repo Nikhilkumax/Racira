@@ -91,12 +91,12 @@ const PercentageToCgpaConverter = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Sidebar Ad" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Academic Grading Conversions</h2>
               <p>Converting between percentage and Cumulative Grade Point Average (CGPA) is a common requirement for students applying to higher education or jobs. Different educational systems use different scales, but the 10-point scale is the most prevalent in modern systems.</p>
               <h3>The 9.5 Multiplier Rule</h3>
               <p>The multiplier 9.5 is derived from statistical analysis of board results. It is designed to ensure that the converted percentage reflects the student's relative performance accurately across different difficulty levels of exams.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/percentage-to-cgpa-converter" />
           <PopularCalculators exclude="/calculator/percentage-to-cgpa-converter" />
         </div>

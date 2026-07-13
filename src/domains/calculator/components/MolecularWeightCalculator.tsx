@@ -225,7 +225,7 @@ const MolecularWeightCalculator = () => {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding Molecular Weight (Molar Mass)</h2>
             <p><strong>Molecular weight</strong> (more accurately called molar mass in modern chemistry) is a measure of the total mass of a single molecule or compound. It is a foundational metric in chemistry used to determine how much of a physical substance you need to measure out to ensure a reaction happens perfectly without leftover waste.</p>
 
@@ -246,7 +246,7 @@ const MolecularWeightCalculator = () => {
             <h2 className="text-2xl font-bold mb-3">Why is this calculation important?</h2>
             <p>In a chemical reaction, molecules react with each other based on their quantity (count), not their physical weight. For example, to make Water (H2O), you need exactly two Hydrogen atoms for every one Oxygen atom. However, Oxygen atoms are much heavier than Hydrogen atoms.</p>
             <p>If you walked into a lab and mixed 10 grams of Hydrogen with 10 grams of Oxygen, you wouldn't get a perfect reaction. You would have a massive amount of Hydrogen leftover, because 10 grams of Hydrogen contains vastly more atoms than 10 grams of Oxygen. By using Molar Mass, chemists know exactly how many grams of each substance to weigh out so the atom counts match the reaction requirements perfectly.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/molecular-weight-calculator" />
           <PopularCalculators exclude="/calculator/molecular-weight-calculator" />
         </div>

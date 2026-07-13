@@ -209,7 +209,7 @@ const HoursCalculator = () => {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Mathematics of Payroll</h2>
             <p>Tracking time for payroll is notoriously frustrating because clocks operate on a Base-60 mathematical system (60 minutes in an hour), but financial currency operates on a Base-10 system (100 cents in a dollar).</p>
             <p>If you work 8 hours and 15 minutes, and your wage is $20 an hour, you cannot simply multiply 8.15 * 20. The answer you get ($163) is legally incorrect, and doing so will result in massive payroll violations. You must first convert the sexagesimal time into a standardized decimal format.</p>
@@ -223,7 +223,7 @@ const HoursCalculator = () => {
 
             <h2 className="text-2xl font-bold mb-3">Gross Pay vs Net Pay</h2>
             <p>It is important to remember that this calculator outputs your <strong>Gross Pay</strong>. This is the raw value of the time you sold to your employer. However, you will never see this full amount in your bank account. In the United States, employers are legally required to act as tax collectors for the federal government. Before writing your paycheck, they will automatically deduct 6.2% for Social Security, 1.45% for Medicare, and a sliding percentage for Federal and State Income Tax. Your final take-home amount is known as your <strong>Net Pay</strong>.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/hours-calculator" />
           <PopularCalculators exclude="/calculator/hours-calculator" />
         </div>

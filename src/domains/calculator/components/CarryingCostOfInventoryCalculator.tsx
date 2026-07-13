@@ -255,7 +255,7 @@ export default function CarryingCostOfInventoryCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What is the Carrying Cost of Inventory?</h2>
             <p>The carrying cost of inventory (also known as holding cost) is the total amount a business spends to store and maintain unsold goods over a specific period, typically a year. It is usually expressed as a percentage of the total inventory value. For most businesses, this percentage ranges between <strong>15% and 25%</strong>.</p>
             
@@ -271,7 +271,7 @@ export default function CarryingCostOfInventoryCalculator() {
             <h2 className="text-2xl font-bold mb-3">Why Calculating Holding Cost Matters</h2>
             <p>If your carrying cost is 20% and you hold $1,000,000 in average inventory, you are spending $200,000 a year just to keep those items on shelves. Understanding this metric is crucial for determining the <strong>Economic Order Quantity (EOQ)</strong>.</p>
             <p>If your holding costs are high, you should order smaller batches more frequently (Just-In-Time inventory) to keep average inventory low. If holding costs are very low but ordering/shipping costs are high, you should buy in large bulk quantities.</p>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "What is a normal Carrying Cost percentage?", answer: "Across most retail and manufacturing industries, a normal carrying cost is roughly 20% to 25% per year. However, high-tech goods with rapid obsolescence or perishable food items can easily exceed 30% to 40%." },
             { question: "How can I lower my inventory carrying cost?", answer: "You can lower it by improving demand forecasting to prevent overstocking, implementing Just-In-Time (JIT) ordering, liquidating obsolete 'dead stock' immediately, and optimizing warehouse layouts to reduce storage footprint." },

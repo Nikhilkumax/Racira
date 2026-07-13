@@ -379,7 +379,7 @@ export default function AthleteBmiCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Fatal Flaw of the Standard BMI</h2>
             <p>If you have spent years lifting weights, playing sports, or engaging in intense physical training, you have likely experienced a frustrating moment at the doctor's office. You step on the scale, the nurse types your height and weight into a computer, and suddenly, you are officially classified as "Overweight" or "Obese." The problem? You have a visible six-pack and run 5 miles a week. How is this possible?</p>
             <p>The answer lies in the archaic formula of the Body Mass Index (BMI). Created in the 1830s by a Belgian mathematician (not a doctor), the formula is terrifyingly simplistic: Total Weight divided by Height squared. The fatal flaw of the BMI formula is that it cannot mathematically differentiate between a pound of fat and a pound of dense, metabolically active muscle. The <strong>Athlete BMI Calculator</strong> completely solves this paradox by utilizing your body fat percentage to extract your true Fat-Free Mass Index (FFMI), revealing your actual clinical composition.</p>
@@ -412,7 +412,7 @@ export default function AthleteBmiCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Stop Worrying About BMI</h2>
             <p>If you lift weights consistently, the standard BMI chart is no longer applicable to your life. The next time a doctor looks at a piece of paper and tells you that you need to lose weight because your BMI is 27, ask them what your body fat percentage is. If your body fat is in the athletic range (under 15% for men or 22% for women), you are not overweight; you are simply "over-muscled." Use the Athlete BMI Calculator to track your true Lean Body Mass, monitor your FFMI progression over the years, and celebrate the heavy, functional muscle you have worked so hard to build.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/athlete-bmi-calculator" />
           <PopularCalculators exclude="/calculator/athlete-bmi-calculator" />

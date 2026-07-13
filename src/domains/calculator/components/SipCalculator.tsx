@@ -139,7 +139,7 @@ export default function SipCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a SIP Calculator?</h2>
             <p>A <strong>SIP calculator</strong> projects the future value of regular monthly investments using compound interest. SIP (Systematic Investment Plan) investing automates disciplined wealth building — by investing a fixed amount every month, you leverage both compound growth and dollar-cost averaging to build significant wealth over time.</p>
             <h2 className="text-2xl font-bold mb-3">SIP Formula</h2>
@@ -148,7 +148,7 @@ export default function SipCalculator() {
             <p>$500/month at 12% for 20 years = $494,000. Starting 5 years earlier (25 years): $941,000 — nearly double from just 5 extra years. Starting 5 years later (15 years): $250,000 — half the outcome. The compounding curve accelerates dramatically in the later years — the last 5 years of a 20-year SIP generate more wealth than the first 15 years combined.</p>
             <h2 className="text-2xl font-bold mb-3">SIP vs. Lumpsum: The Dollar-Cost Averaging Advantage</h2>
             <p>SIP automatically buys more units when prices are low (after market crashes) and fewer when prices are high. Over a full market cycle, this often produces better average cost than a single lumpsum investment. Studies show SIP outperforms lumpsum in volatile markets, making it the preferred choice for most retail investors.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/sip-calculator" />
           <PopularCalculators exclude="/calculator/sip-calculator" />
         </div>

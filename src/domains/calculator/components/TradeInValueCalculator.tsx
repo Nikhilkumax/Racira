@@ -291,7 +291,7 @@ export default function TradeInValueCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Trade-In Value Calculator?</h2>
             <p>A Trade-In Value Calculator is a financial modeling tool that estimates exactly how much a dealership is willing to pay you for your used car. While most people know what their car is roughly worth on the open market (Private Party Value), dealership math operates differently. Dealerships are not buying your car to use it; they are buying it to re-sell it for a profit. This calculator reverse-engineers the dealership's profit margin and risk-assessment logic to provide you with a realistic negotiation target before you ever step foot on the lot.</p>
 
@@ -310,7 +310,7 @@ export default function TradeInValueCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
             <p>Never tell the salesperson you are trading in a vehicle until <em>after</em> you have successfully negotiated the final, out-the-door price of the new car. Dealerships often use the "Four Square" negotiation tactic, manipulating the price of the new car, the trade-in value, and the interest rate simultaneously to confuse you. Negotiate the new car price first. Then, pull out the keys to your old car and say, "I'd like to see what you will offer for a trade-in." Treat it as two completely separate financial transactions.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/trade-in-value-calculator" />
           <PopularCalculators />

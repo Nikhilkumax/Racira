@@ -245,7 +245,7 @@ export default function DrugDosageCalculator() {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Mathematics of Weight-Based Dosing</h2>
             <p>Administering medication to pediatric patients or underweight adults requires absolute mathematical precision. Unlike standard adult medications which often come in fixed, universal pill sizes (e.g., "take two 200mg capsules"), pediatric medications must be dynamically scaled. This <strong>Drug Dosage Calculator</strong> automates the clinical pharmacology equations required to safely convert a prescribed mg/kg target into an exact liquid milliliter (mL) volume for syringe administration.</p>
 
@@ -271,7 +271,7 @@ export default function DrugDosageCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">A Critical Warning on Kitchen Spoons</h2>
             <p><strong>Never use household kitchen spoons to measure or administer liquid medications.</strong> The term "teaspoon" in medical pharmacology refers to an exact, calibrated volume of 5.0 mL. However, the actual metal spoons in your kitchen drawer are not standardized. A spoon you eat cereal with might hold anywhere from 3 mL to 9 mL of liquid. Using them can easily result in under-dosing by 40% or overdosing by 80%. Always use the calibrated plastic oral syringe or measuring cup provided by the pharmacy.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/drug-dosage-calculator" />
           <PopularCalculators exclude="/calculator/drug-dosage-calculator" />
         </div>

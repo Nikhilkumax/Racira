@@ -150,7 +150,7 @@ const ReadingSpeedCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">The Mechanics of Reading</h2>
               <p>Reading is a complex neurological process that involves vision, language, and memory. While we often think of it as a single skill, it's actually a collection of many sub-skills working in harmony.</p>
               
@@ -168,7 +168,7 @@ const ReadingSpeedCalculator = () => {
               <p><strong>Average Adult:</strong> 200 - 250 WPM</p>
               <p><strong>College Student:</strong> 300 - 400 WPM</p>
               <p><strong>Speed Readers:</strong> 700+ WPM</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/reading-speed" />
           <PopularCalculators exclude="/calculator/reading-speed-calculator" />
         </div>

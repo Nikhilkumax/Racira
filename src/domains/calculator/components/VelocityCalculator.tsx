@@ -183,7 +183,7 @@ const VelocityCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Velocity Calculator?</h2>
             <p>A velocity calculator computes the speed of an object from distance and time, or solves for distance or time given the other two values. Velocity (v = d/t) is the fundamental kinematic quantity describing motion. Pre-filled with 100 meters covered in 10 seconds, the velocity is 10 m/s (36 km/h) — roughly the speed of an Olympic sprinter.</p>
             <h2 className="text-2xl font-bold mb-3">The Velocity Formula</h2>
@@ -196,7 +196,7 @@ const VelocityCalculator = () => {
             <p>When acceleration is involved: v = v₀ + at. d = v₀t + ½at². v² = v₀² + 2ad. d = ½(v₀ + v)t. These equations describe uniformly accelerated motion (constant acceleration). For non-constant acceleration, calculus (integration) is required: v = ∫a dt, x = ∫v dt.</p>
             <h2 className="text-2xl font-bold mb-3">Relativistic Velocity</h2>
             <p>At velocities approaching the speed of light, Newtonian mechanics breaks down. Special relativity modifies the velocity addition rule: u = (v₁ + v₂) / (1 + v₁v₂/c²). At 90% of light speed, time dilation becomes significant: 1 second for the traveler = 2.29 seconds for a stationary observer. This calculator displays Mach number and fraction of c for context.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/velocity-calculator" />
           <PopularCalculators exclude="/calculator/velocity-calculator" />
         </div>

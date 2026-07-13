@@ -158,7 +158,7 @@ const ArcLengthCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is an Arc Length Calculator?</h2>
             <p>An arc length calculator computes the arc length, chord length, sector area, segment area, and apothem of a circular sector. Pre-filled with radius=5 and angle=72° (1/5 of a circle): arc length = 2π ≈ 6.283, sector area = 5π ≈ 15.708 sq units. The formula is s = rθ where θ must be in radians.</p>
             <h2 className="text-2xl font-bold mb-3">Arc Length Formula</h2>
@@ -169,7 +169,7 @@ const ArcLengthCalculator = () => {
             <p><strong>Chord = 2r × sin(θ/2)</strong>. A chord is the straight-line distance across the arc. For θ = 180° (semicircle), chord = 2r × sin(90°) = 2r = diameter ✓. For θ = 60°: chord = 2r × sin(30°) = 2r × 0.5 = r — an equilateral triangle inscribed in the circle has sides equal to the radius. For small angles, chord ≈ arc (both ≈ rθ).</p>
             <h2 className="text-2xl font-bold mb-3">Applications in Road Design</h2>
             <p>Horizontal curves in road design are circular arcs. Engineers specify curves by their radius (R) and degree of curvature (D° — the central angle subtended by a 100-foot arc). Arc length between stations tells how far the road curves. Superelevation (banking angle) is calculated from the design speed and radius. The sight distance around a curve is the arc length visible to the driver.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/arc-length-calculator" />
           <PopularCalculators exclude="/calculator/arc-length-calculator" />
         </div>

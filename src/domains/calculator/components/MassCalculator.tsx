@@ -222,7 +222,7 @@ const MassCalculator = () => {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What is Mass?</h2>
             <p><strong>Mass</strong> is a fundamental property of physics that describes the amount of matter in an object. Unlike weight—which is the force created when gravity pulls on that mass—mass is absolute. A 10 kg bowling ball has a mass of 10 kg on Earth, in deep space, and on Jupiter. However, its weight will change dramatically in those three locations because gravity varies. The standard metric unit for mass is the Kilogram (kg).</p>
 
@@ -237,7 +237,7 @@ const MassCalculator = () => {
 
             <h3>3. Einstein's Mass-Energy Equivalence</h3>
             <p><code>E = mc²</code>. Albert Einstein radically changed physics by proving that mass and energy are the exact same thing, just in different forms. If you take a tiny piece of mass and convert it entirely into energy (like in a nuclear reactor), it releases a colossal amount of Joules. By rearranging the equation to <code>m = E ÷ c²</code>, you can calculate exactly how much mass is required to generate a specific amount of energy. Because the speed of light (c) squared is such a massive number, it takes an enormous amount of energy to equal even a tiny fraction of a gram of mass.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/mass-calculator" />
           <PopularCalculators exclude="/calculator/mass-calculator" />
         </div>

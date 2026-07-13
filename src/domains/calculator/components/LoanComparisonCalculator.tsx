@@ -166,7 +166,7 @@ export default function LoanComparisonSideBySide() {
           </>)}
 
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Why Compare Loans Side by Side?</h2>
             <p>A <strong>Loan Comparison Calculator</strong> is the most powerful tool for evaluating competing financing offers. When you receive multiple loan quotes from different lenders, each one presents numbers in a way that emphasizes its best features. One lender might advertise a low monthly payment by extending the term. Another might show a lower rate that comes with high origination fees. Without a standardized comparison, it is nearly impossible to determine which offer is genuinely better for your financial situation.</p>
             <p>This side-by-side calculator strips away the marketing and reveals the three numbers that truly matter: monthly payment (immediate cash flow impact), total interest paid (the true cost of borrowing), and total cost of the loan including fees. Cells highlighted in green indicate the best value for that metric.</p>
@@ -176,7 +176,7 @@ export default function LoanComparisonSideBySide() {
 
             <h2 className="text-2xl font-bold mb-3">Including Origination Fees</h2>
             <p>Lenders often offer a choice between a "low-rate" loan with origination fees and a "no-fee" loan at a slightly higher rate. Evaluating these correctly requires including the fee in the total cost. A $300,000 loan at 6.75% with a $3,000 origination fee may cost more than a 7.0% loan with no fees, depending on how long you hold the loan. The break-even point (where the lower rate's interest savings exceed the upfront fee) typically occurs at 24-36 months. If you plan to sell or refinance before that break-even, the no-fee loan is the better choice.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/loan-comparison-calculator-side-by-side" />
           <PopularCalculators exclude="/calculator/loan-comparison-calculator-side-by-side" />
         </div>

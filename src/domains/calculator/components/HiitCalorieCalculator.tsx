@@ -187,14 +187,14 @@ export default function HiitCalorieCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Science of High-Intensity Interval Training</h2>
             <p>This <strong>HIIT Calorie Calculator</strong> uses clinical METs formulas to estimate the energy you burn during the active and rest phases of an interval workout, and crucially, calculates the "Afterburn" (EPOC) effect. HIIT is a training technique where you give 100% maximal effort through quick, intense bursts of exercise, followed by short, sometimes active, recovery periods. This type of training keeps your heart rate up and burns more fat in less time.</p>
             <h2 className="text-2xl font-bold mb-3">The Magic of EPOC</h2>
             <p>EPOC stands for Excess Post-exercise Oxygen Consumption. When you push your body near its VO2 Max (maximal oxygen uptake) during a sprint or burpee, you create an oxygen debt. After the workout ends, your body must work overtime to restore oxygen levels in the blood, clear lactic acid, and begin repairing muscle fibers. This recovery process requires significant energy. As a result, a true HIIT session causes your body to continue burning calories at an elevated rate for several hours after you leave the gym. The EPOC effect can add 6% to 15% more total calories to your session's burn.</p>
             <h2 className="text-2xl font-bold mb-3">Why Rest Intervals Matter</h2>
             <p>It is tempting to shorten the rest intervals (e.g. 10 seconds of rest for 50 seconds of work) thinking it will burn more calories. While it does increase total active time, it usually prevents you from hitting true maximal intensity during the active phases because you are too fatigued. By taking a proper 20 or 30-second rest, your ATP stores partially replenish, allowing you to hit 95% heart rate again. The extreme spikes and drops in heart rate are what create the massive EPOC effect. Related tools: <a href="/calculator/mets-calculator">METs Activity Calculator</a>, <a href="/calculator/daily-calorie-burn-calculator">TDEE Calculator</a>.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/hiit-calorie-calculator" />
           <PopularCalculators exclude="/calculator/hiit-calorie-calculator" />
         </div>

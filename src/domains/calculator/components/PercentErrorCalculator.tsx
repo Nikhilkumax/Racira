@@ -71,10 +71,10 @@ const PercentErrorCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Understanding Percent Error</h2>
               <p>Percent error quantifies how far an experimental measurement is from the accepted (theoretical) value. It is widely used in chemistry, physics, and engineering to assess measurement accuracy. The formula is: % Error = |Experimental − Theoretical| / |Theoretical| × 100%.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/percent-error-calculator" />
           <PopularCalculators exclude="/percent-error-calculator" />
         </div>

@@ -126,14 +126,14 @@ const FertilityCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">How Fertility Tracking Works</h2>
               <p>For pregnancy to occur, live sperm must be present in the fallopian tubes when an egg is released. Because sperm can live in optimal conditions for up to 5 days, a woman's fertile window is roughly 6 days long: the 5 days before ovulation, plus the day of ovulation.</p>
               <h3>Why Ovulation Day Matters</h3>
               <p>An egg typically survives for only 12 to 24 hours after being released. If intercourse happens after ovulation, the chances of conception drop to near zero for that cycle.</p>
               <h3>Increasing Accuracy</h3>
               <p>Because this calculator relies on standard averages (a 14-day luteal phase), cycles that vary due to stress, travel, or illness may cause the actual window to shift. For higher accuracy, combine these dates with tracking your Basal Body Temperature (BBT) and using Ovulation Predictor Kits (OPKs).</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/fertility" />
           <PopularCalculators exclude="/calculator/fertility-calculator" />
         </div>

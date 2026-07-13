@@ -196,7 +196,7 @@ export default function BodyTypeCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding Your Genetic Blueprint</h2>
             <p>A body type calculator is a crucial first step in designing an effective, highly personalized fitness regimen. For decades, frustrated gym-goers have downloaded generic workout templates from fitness magazines, only to find they yield zero results. The reason is simple: a high-volume, low-rest workout designed for a naturally muscular athlete will absolutely destroy the nervous system of a naturally skinny beginner. By determining your dominant somatotype—Ectomorph, Mesomorph, or Endomorph—you unlock the specific metabolic rules that govern your body, allowing you to stop fighting your genetics and start working with them.</p>
             <p>Originally categorized by American psychologist William Sheldon in the 1940s, somatotyping provides a framework for understanding human physical variation. While modern exercise science rejects Sheldon's psychological assumptions, the physiological classifications remain the gold standard heuristic used by elite personal trainers and sports dietitians to establish baseline training protocols for new clients.</p>
@@ -246,7 +246,7 @@ export default function BodyTypeCalculator() {
             <h2 className="text-2xl font-bold mb-3">Benefits</h2>
             <p>Utilizing a comprehensive Body Type Calculator eliminates the guesswork from your fitness journey. It stops you from blindly following the routines of genetic elites and forces you to confront the reality of your own physiological baseline.</p>
             <p>By understanding your inherent strengths and weaknesses, you can immediately discard training philosophies that conflict with your metabolism and adopt the specific nutritional strategies required to force adaptation. It empowers you to train smarter, recover faster, and finally build the physique you have been working toward.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/body-type-calculator" />
           <PopularCalculators exclude="/calculator/body-type-calculator" />
         </div>

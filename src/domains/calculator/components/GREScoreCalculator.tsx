@@ -136,7 +136,7 @@ const GREScoreCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">The New, Shorter GRE</h2>
               <p>In September 2023, ETS (Educational Testing Service) introduced a shorter version of the GRE General Test. The new test is under two hours long—nearly half the length of the previous version. While the format changed, the score scale of 130-170 remains the same.</p>
               
@@ -145,7 +145,7 @@ const GREScoreCalculator = () => {
 
               <h3>Adaptive Testing Logic</h3>
               <p>The GRE is "section-level adaptive." This means that the computer selects the difficulty of the second section based on your performance in the first. If you do very well on the first Quant section, the second Quant section will be harder, but your potential score range will be higher.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/gre-score" />
           <PopularCalculators exclude="/calculator/gre-score-calculator" />
         </div>

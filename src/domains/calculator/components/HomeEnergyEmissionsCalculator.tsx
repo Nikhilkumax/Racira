@@ -125,14 +125,14 @@ const HomeEnergyEmissionsCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Heating, Cooling, and the Planet</h2>
               <p>For the average household, space heating and cooling account for more than half of total energy use. This is where the largest opportunities for emission reductions exist.</p>
               <h3>The Hidden Impact of Natural Gas</h3>
               <p>While natural gas burns cleaner than coal, it is mostly methane. Methane leaks from pipelines and infrastructure are a significant source of global warming. Switching to electric heat pumps can reduce a home's operational carbon footprint by 40% to 70% in most regions.</p>
               <h3>The Efficiency First Rule</h3>
               <p>Before installing solar panels or switching fuels, the most cost-effective way to reduce emissions is efficiency. Sealing air leaks and adding attic insulation can reduce energy needs by up to 20%, permanently lowering your footprint regardless of the energy source.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/home-energy-emissions" />
           <PopularCalculators exclude="/calculator/home-energy-emissions-calculator" />
         </div>

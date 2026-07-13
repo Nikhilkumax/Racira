@@ -206,14 +206,14 @@ const MolarityCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding Molarity and Solution Chemistry</h2>
             <p>Molarity is the most widely used measure of concentration in chemistry. It tells you how many moles of a dissolved substance (solute) are present in exactly one liter of solution.</p>
             <h3>The Molarity Formula</h3>
             <p>Molarity (M) = moles of solute / liters of solution. If you know the mass and molar mass of the solute, you can first convert: moles = mass (g) / molar mass (g/mol).</p>
             <h3>Dilution Equation (C₁V₁ = C₂V₂)</h3>
             <p>When you dilute a solution, the amount of solute stays constant even though the volume increases. This relationship is captured by C₁V₁ = C₂V₂. Leave any one variable unknown and this calculator will solve for it.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/molarity-calculator" />
           <PopularCalculators exclude="/calculator/molarity-calculator" />
         </div>

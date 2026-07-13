@@ -143,7 +143,7 @@ export default function GiftTaxCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Gift Tax Myth</h2>
             <p>One of the most common tax myths is that if you give someone a large sum of money, you or they will have to pay a massive tax bill. In reality, less than 1% of Americans ever pay the federal gift tax. The gift tax is deeply intertwined with the estate tax to prevent wealthy individuals from simply giving away all their assets before death to avoid estate taxes.</p>
             <h2 className="text-2xl font-bold mb-3">Annual Exclusion vs. Lifetime Exemption</h2>
@@ -151,7 +151,7 @@ export default function GiftTaxCalculator() {
             <p>The Lifetime Exemption for 2024 is massive: $13.61 million. When you give that extra $2,000, you don't pay tax. You simply file Form 709 with your tax return to tell the IRS, "Hey, subtract $2,000 from my $13.61 million lifetime limit." You only pay out-of-pocket gift tax if you completely exhaust your $13+ million lifetime limit.</p>
             <h2 className="text-2xl font-bold mb-3">Exceptions to the Rule</h2>
             <p>You can make unlimited payments for someone's tuition or medical bills without it counting toward your annual or lifetime exclusions—but there's a catch. The money must be paid <strong>directly</strong> to the educational institution or medical provider. You cannot give the money to the student or patient to pay the bill themselves.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/gift-tax-calculator" />
           <PopularCalculators exclude="/calculator/gift-tax-calculator" />
         </div>

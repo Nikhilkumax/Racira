@@ -268,7 +268,7 @@ export default function BodyFatPercentageCalculator() {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Why Body Fat Percentage is Better Than BMI</h2>
             <p>For decades, doctors have relied on the Body Mass Index (BMI) to screen patients for weight-related health risks. However, BMI is inherently flawed because it simply divides total weight by height. It cannot tell the difference between a 200-pound man carrying 60 pounds of dangerous visceral fat, and a 200-pound professional athlete carrying 180 pounds of healthy muscle.</p>
             <p><strong>Body Fat Percentage</strong> is a far superior metric because it isolates exactly how much of your mass is adipose tissue (fat). By tracking your body fat percentage, you ensure that any weight you lose is actually fat, rather than precious muscle mass or water.</p>
@@ -280,7 +280,7 @@ export default function BodyFatPercentageCalculator() {
             <h2 className="text-2xl font-bold mb-3">Understanding Lean Body Mass (LBM)</h2>
             <p>This calculator also provides your Lean Body Mass. This is arguably the most important number for longevity. LBM is the weight of your skeleton, your organs, and your skeletal muscle.</p>
             <p>As we age, we naturally lose muscle mass (Sarcopenia) and bone density. If you attempt to lose weight by simply starving yourself, a large portion of the weight lost will be from your Lean Body Mass. This suppresses your metabolism and makes you frail. A healthy diet combined with resistance training (weightlifting) ensures that you preserve your Lean Body Mass while forcing your body to burn its fat reserves.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/body-fat-percentage-calculator" />
           <PopularCalculators exclude="/calculator/body-fat-percentage-calculator" />
         </div>

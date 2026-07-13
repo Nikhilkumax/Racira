@@ -140,7 +140,7 @@ const EBITDACalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">What Is EBITDA?</h2>
               <p>EBITDA (Earnings Before Interest, Taxes, Depreciation, and Amortization) is a widely used measure of core profitability. By excluding financing costs, tax rates, and non-cash accounting charges, EBITDA reveals a company's operational performance independent of its capital structure and accounting decisions.</p>
 
@@ -177,7 +177,7 @@ const EBITDACalculator = () => {
               </ul>
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> EBITDA is a non-GAAP metric and should be used alongside other financial measures. Consult a CPA or financial analyst for comprehensive business valuation.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/ebitda-calculator" />
           <PopularCalculators exclude="/ebitda-calculator" />
         </div>

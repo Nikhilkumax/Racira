@@ -356,7 +356,7 @@ const PmiRemovalDateCalculator = () => {
         {/* ─── SEO CONTENT ─── */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is It?</h2>
             <p>A PMI Removal Date Calculator is an advanced financial tool designed to tell you the exact month and year you can legally cancel private mortgage insurance on a conventional loan—or when FHA mortgage insurance premiums (MIP) finally expire. PMI typically costs homeowners between $100 and $400 per month, and millions of people pay it for years longer than necessary because they do not fully understand the legal regulations that dictate when lenders are forced to remove it. By simulating your loan's amortization schedule and applying the federal Homeowners Protection Act (HPA) of 1998, this calculator projects three distinct termination pathways to show you the fastest possible route to eliminating this unnecessary expense.</p>
             <p>Many homeowners operate under the misconception that their loan servicer will automatically drop their PMI the very moment their loan balance falls below 80% of the home's value. Unfortunately, this is a widespread myth that costs borrowers thousands of dollars in excess premiums. The law only requires automatic termination when your scheduled balance reaches 78% of the original home value. If you want it removed earlier—such as when you hit 80% of the home's current market value—you must proactively request it in writing. This calculator eliminates the guesswork by doing the complex date math for you, allowing you to take control of your mortgage.</p>
@@ -395,7 +395,7 @@ const PmiRemovalDateCalculator = () => {
             <p>The financial benefits of early PMI removal are staggering. PMI offers absolutely no protection or benefit to you as the homeowner—it solely protects the lender in case you default on the mortgage. Every dollar spent on it is essentially a tax on your lack of initial equity. By eliminating this expense as quickly as possible, you free up substantial monthly cash flow.</p>
             <p>For a typical homeowner, removing PMI can save between $1,500 and $4,000 per year. If appreciation and paydown get you to 80% LTV in year four instead of the scheduled year nine, you save roughly $10,000 to $20,000 over the life of the loan. That money can be redirected toward retirement savings, college funds, or further principal reduction to accelerate your path to a mortgage-free life.</p>
             <p>By tracking your local real estate market and proactively requesting an appraisal as soon as the calculator indicates you have crossed the 80% threshold, the $500 cost of the appraisal becomes an investment. In many cases, spending $500 on an appraisal yields a 500% to 1,000% return in the first year alone from avoided PMI premiums. This makes monitoring your PMI removal date one of the highest-ROI financial moves a homeowner can make.</p>
-          </article>
+          </section>
 
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/pmi-removal-date-calculator" />
           <PopularCalculators exclude="/calculator/pmi-removal-date-calculator" />

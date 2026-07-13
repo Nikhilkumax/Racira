@@ -138,7 +138,7 @@ const DogPregnancyCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Complete Guide to Dog Pregnancy (Canine Gestation)</h2>
               <p>Responsible breeding requires careful planning and attentive care throughout the entire gestation period. Here is everything you need to know about the 9 weeks of canine pregnancy.</p>
 
@@ -156,7 +156,7 @@ const DogPregnancyCalculator = () => {
 
               <h3>Warning Signs During Pregnancy</h3>
               <p>Contact your vet immediately if you notice: green or black discharge before the first puppy is delivered, more than 4 hours of active straining without a puppy being born, extreme lethargy, or signs of systemic illness. Emergency caesarean sections can save both the dam and her puppies.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/dog-pregnancy" />
           <PopularCalculators exclude="/calculator/dog-pregnancy-calculator" />
         </div>

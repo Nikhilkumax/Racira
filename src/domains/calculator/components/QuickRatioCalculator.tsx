@@ -161,7 +161,7 @@ const QuickRatioCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Quick Ratio Calculator?</h2>
             <p>A quick ratio calculator measures a company's short-term liquidity by comparing its most liquid assets to its current liabilities. Also known as the acid-test ratio, the quick ratio is a stricter version of the current ratio because it excludes inventory and prepaid expenses — assets that cannot always be quickly converted to cash. Pre-filled with $50,000 cash, $30,000 securities, $80,000 receivables, and $100,000 in current liabilities, the quick ratio is 1.60x — indicating excellent liquidity.</p>
             <p>Financial analysts, investors, creditors, and business owners use the quick ratio to assess whether a company can meet its short-term obligations without relying on selling inventory or raising new capital. It is one of the primary financial ratios used in credit analysis and business valuation.</p>
@@ -180,7 +180,7 @@ const QuickRatioCalculator = () => {
             <p>The current ratio = Current Assets / Current Liabilities includes inventory and prepaid expenses. It is a broader measure of liquidity but less conservative. If a company's current ratio is 2.0x but quick ratio is 0.8x, it means most of its current assets are tied up in inventory — a potential red flag if inventory is hard to liquidate quickly. See also: <a href="/calculator/current-ratio-calculator">current ratio calculator</a>, <a href="/calculator/cash-ratio-calculator">cash ratio calculator</a>, and <a href="/calculator/working-capital-calculator">working capital calculator</a>.</p>
             <h2 className="text-2xl font-bold mb-3">Benefits of Using This Calculator</h2>
             <p>The quick ratio calculation is simple but the interpretation requires context. This calculator provides instant computation with a color-coded rating system, pie chart visualization of asset composition, and surplus/shortfall analysis — making it easy to assess and communicate a company's liquidity position to investors, lenders, or management teams.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/quick-ratio-calculator" />
           <PopularCalculators exclude="/calculator/quick-ratio-calculator" />
         </div>

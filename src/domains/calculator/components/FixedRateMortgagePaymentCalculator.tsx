@@ -222,7 +222,7 @@ export default function FixedRateMortgagePaymentCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Fixed-Rate Mortgage?</h2>
             <p>A <strong>fixed-rate mortgage</strong> is the most straightforward and popular home financing product in the United States. The defining feature is simple: the interest rate is permanently locked for the entire duration of the loan—whether that is 10, 15, 20, or 30 years. Your principal and interest (P&I) payment never changes from the first payment to the last, providing a level of financial predictability that adjustable-rate mortgages (ARMs) cannot match.</p>
             <p>This calculator computes your exact monthly payment, generates a full amortization schedule, and shows how much of your total payment goes toward building equity versus paying interest to the bank—an essential insight for making an informed mortgage decision.</p>
@@ -238,7 +238,7 @@ export default function FixedRateMortgagePaymentCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Down Payment Impact</h2>
             <p>The down payment is a powerful lever. Every extra dollar you put down reduces your loan principal by exactly one dollar, reducing interest charges over the entire loan term. Additionally, reaching a 20% down payment eliminates the requirement for Private Mortgage Insurance (PMI), which typically adds 0.2%–2% of the loan amount per year to your costs. On a $400,000 home, the difference between 5% down ($20,000) and 20% down ($80,000) eliminates PMI and reduces the loan by $60,000—saving over $100,000 in total long-term costs.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/fixed-rate-mortgage-payment-calculator" />
           <PopularCalculators exclude="/calculator/fixed-rate-mortgage-payment-calculator" />
         </div>

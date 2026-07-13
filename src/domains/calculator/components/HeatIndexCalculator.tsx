@@ -223,7 +223,7 @@ const HeatIndexCalculator = () => {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Science of the Heat Index</h2>
             <p>During the summer, you will frequently hear meteorologists say, <em>"The temperature is 90°F, but the Heat Index makes it feel like 105°F."</em> This <strong>Heat Index</strong> (often called the apparent temperature) is the summer equivalent to the winter's Wind Chill factor. It calculates how hot it actually feels on human skin when relative humidity is combined with the air temperature.</p>
 
@@ -246,7 +246,7 @@ const HeatIndexCalculator = () => {
               <li>The official formula (the Rothfusz regression equation) assumes you are resting in the <strong>shade</strong> with a light breeze. If you are standing in direct, full sunshine, the heat index value can actually increase by up to 15°F.</li>
               <li>The formula mathematically breaks down below 80°F or below 40% humidity. In those mild conditions, humidity does not significantly impair evaporative cooling, so the "feels like" temperature is simply the actual temperature.</li>
             </ol>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/heat-index-calculator" />
           <PopularCalculators exclude="/calculator/heat-index-calculator" />
         </div>

@@ -129,14 +129,14 @@ const GfrCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Understanding eGFR</h2>
               <p>Estimated Glomerular Filtration Rate (eGFR) is a mathematically derived number based on your serum creatinine level, age, and sex. Creatinine is a waste product from muscle breakdown that healthy kidneys filter out. If kidney function drops, creatinine levels in the blood rise.</p>
               <h3>The 2021 Equation Update</h3>
               <p>Historically, equations like the CKD-EPI 2009 included a race multiplier for Black patients based on flawed assumptions about muscle mass. This resulted in artificially higher eGFR scores for Black patients, delaying critical care and transplant listings. The medical community officially shifted to the race-free 2021 equation to ensure equitable care.</p>
               <h3>Why eGFR Fluctuates</h3>
               <p>Because the equation relies on creatinine, anything that affects muscle mass or breakdown can temporarily alter your eGFR. Heavy exercise, dehydration, large amounts of meat consumption, or certain medications can cause a temporary drop in eGFR that does not necessarily indicate chronic kidney damage.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/gfr" />
           <PopularCalculators exclude="/calculator/gfr-calculator" />
         </div>

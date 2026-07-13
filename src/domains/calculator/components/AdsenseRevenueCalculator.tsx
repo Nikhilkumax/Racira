@@ -165,7 +165,7 @@ export default function AdsenseRevenueCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is an AdSense Revenue Calculator?</h2>
             <p>An AdSense revenue calculator is a vital predictive tool for webmasters, bloggers, and digital publishers looking to forecast their earnings from Google's ubiquitous advertising network. Google AdSense works by displaying contextually relevant text, display, or video advertisements on your website. When a visitor engages with these ads, you receive a portion of the revenue that the advertiser paid to Google. However, because earnings fluctuate wildly based on dozens of variables, predicting your monthly payout can be frustratingly complex.</p>
             <p>This calculator simplifies that complexity by isolating the three most important metrics in the display advertising industry: Traffic (Page Views), Click-Through Rate (CTR), and Cost Per Click (CPC). By adjusting these inputs, publishers can mathematically determine exactly how much traffic they need to quit their day jobs, or how improving their site's layout to boost CTR could double their income without requiring a single new visitor. It transforms the mystery of digital monetization into a solvable algebraic equation.</p>
@@ -209,7 +209,7 @@ export default function AdsenseRevenueCalculator() {
             <h2 className="text-2xl font-bold mb-3">Benefits</h2>
             <p>Using an AdSense revenue calculator removes the guesswork from your digital publishing business. It forces you to look at your website not just as a creative outlet, but as a mathematical machine.</p>
             <p>By understanding the exact relationship between Traffic, CTR, and CPC, you can stop wasting time on strategies that don't move the needle. You'll know exactly whether you need to focus your energy on writing more content to drive traffic, tweaking your layout to improve CTR, or shifting your niche entirely to chase higher CPCs, ultimately empowering you to build a highly profitable online business.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/adsense-revenue-calculator" />
           <PopularCalculators exclude="/calculator/adsense-revenue-calculator" />
         </div>

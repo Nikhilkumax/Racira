@@ -202,7 +202,7 @@ const BigNumberCalculator = () => {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Limit of Normal Calculators</h2>
             <p>If you have ever typed a massive equation into a standard pocket calculator or your phone app, you've likely seen the screen output an error or revert to E-notation (like <code>4.5e12</code>). This happens because standard computational hardware allocates a fixed amount of memory (typically 64 bits) to store a number. Once a number exceeds roughly 15 digits (specifically 9,007,199,254,740,991 in JavaScript), the computer can no longer guarantee the precision of the integers at the end of the number. It will start rounding them off to zeroes to save memory.</p>
             
@@ -220,7 +220,7 @@ const BigNumberCalculator = () => {
 
             <h2 className="text-2xl font-bold mb-3">Use Cases for Arbitrary-Precision Math</h2>
             <p>While the average person rarely needs to calculate beyond trillions (12 digits), big number math is the backbone of modern cybersecurity. The encryption protecting your bank accounts, emails, and internet traffic (like RSA encryption) relies on generating and factoring prime numbers that are hundreds of digits long. Cryptographers use arbitrary-precision calculators constantly to verify these massive prime factoring algorithms.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/big-number-calculator" />
           <PopularCalculators exclude="/calculator/big-number-calculator" />
         </div>

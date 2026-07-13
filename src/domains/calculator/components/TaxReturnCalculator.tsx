@@ -187,7 +187,7 @@ export default function TaxReturnCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">2024 Federal Tax Return Calculator</h2>
             <p>Our <strong>tax return calculator</strong> estimates your 2024 federal income tax liability using the latest IRS tax brackets, standard deductions, and filing status rules. It shows you whether to expect a refund or owe taxes, your effective rate vs. marginal rate, and exactly how much tax applies to each income bracket.</p>
             <h2 className="text-2xl font-bold mb-3">How Federal Taxes Are Calculated</h2>
@@ -196,7 +196,7 @@ export default function TaxReturnCalculator() {
             <p>Take whichever is larger. Standard (2024): $14,600 single, $29,200 married. Common itemized deductions: mortgage interest, charitable contributions, SALT (capped at $10,000), medical expenses above 7.5% AGI. Only about 10% of taxpayers itemize after the TCJA doubled the standard deduction.</p>
             <h2 className="text-2xl font-bold mb-3">Tax Withholding and W-4</h2>
             <p>Employers withhold taxes based on your W-4 form. A large refund means you over-withheld (gave the government an interest-free loan). A large bill means you under-withheld (may owe penalty). Ideal: withholding close to your actual tax liability. Update your W-4 when life changes occur: marriage, children, job change, significant income changes.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/tax-return-calculator" />
           <PopularCalculators exclude="/calculator/tax-return-calculator" />
         </div>

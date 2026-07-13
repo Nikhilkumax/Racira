@@ -200,11 +200,11 @@ export default function VarianceCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding Variance and standard deviation</h2>
             <p>Variance measures structural spread within data sets. It calculates the expectation of squared deviations from the arithmetic mean, giving analysts a mathematically solid index of dispersion. Standard deviation is simply the square root of the variance, converting the value back into the original units of measurement.</p>
             <p>Sample variance utilizes Bessel's correction, dividing the sum of squares by $n - 1$ instead of $n$. This accounts for degrees of freedom lost during mean estimation and ensures the sample variance remains an unbiased estimator of true population parameters.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/variance-calculator" />
           <PopularCalculators exclude="/calculator/variance-calculator" />
         </div>

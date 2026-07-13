@@ -267,7 +267,7 @@ const CarInsuranceSavingsFromSafetyFeaturesCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is the Safety Feature Insurance Savings Calculator?</h2>
             <p>This calculator estimates how much you can save on car insurance premiums by having safety features installed on your vehicle. Most major insurers offer discounts of 3–15% for each qualifying safety feature, and the savings stack. Combined with a clean driving record and multi-policy bundle, you can reduce your premium by 30–60%.</p>
 
@@ -302,7 +302,7 @@ const CarInsuranceSavingsFromSafetyFeaturesCalculator = () => {
 
             <h2 className="text-2xl font-bold mb-3">Benefits of Using This Calculator</h2>
             <p>This tool reveals savings most drivers overlook. By understanding which features generate the largest discounts, you can make smarter vehicle purchase decisions, prioritize aftermarket safety upgrades, and ensure your current insurer is applying all eligible discounts to your policy.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/car-insurance-savings-from-safety-features-calculator" />
           <PopularCalculators exclude="/calculator/car-insurance-savings-from-safety-features-calculator" />
         </div>

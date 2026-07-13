@@ -134,7 +134,7 @@ const AspectRatioCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Common Aspect Ratios</h2>
               <p>Aspect ratios have evolved significantly over the history of cinema and television. Understanding which one to use is vital for content creators and web designers.</p>
               
@@ -149,7 +149,7 @@ const AspectRatioCalculator = () => {
               
               <h3>4:3 (Classic)</h3>
               <p>The standard for nearly all television and computer monitors before the mid-2000s. While rare now, it is still used in some photography formats and retro-gaming.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/aspect-ratio" />
           <PopularCalculators exclude="/calculator/aspect-ratio-calculator" />
         </div>

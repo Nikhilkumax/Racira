@@ -211,7 +211,7 @@ export default function HelocCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a HELOC?</h2>
             <p>A Home Equity Line of Credit (HELOC) is a revolving credit line secured by your home equity. Unlike a traditional loan, you draw funds as needed up to your credit limit during the draw period, making it ideal for ongoing expenses like home renovations. This <strong>HELOC calculator</strong> estimates your interest-only draw period payments, principal-and-interest repayment payments, and total interest cost over the life of the line.</p>
             <h2 className="text-2xl font-bold mb-3">How HELOC Payments Are Calculated</h2>
@@ -220,7 +220,7 @@ export default function HelocCalculator() {
             <p>HELOCs are variable-rate products tied to the prime rate (currently 8.5% as of 2024). Draw periods typically run 5–10 years with interest-only payments. Repayment periods are 10–20 years. Some lenders offer rate caps to limit how high your rate can go. Compare HELOCs from credit unions, banks, and online lenders.</p>
             <h2 className="text-2xl font-bold mb-3">Smart HELOC Strategies</h2>
             <p>Use HELOCs for home improvements that increase property value — the interest may be tax-deductible. Avoid drawing for consumer spending or depreciating assets. Have a repayment plan before drawing — the payment shock at end of draw period catches many homeowners unprepared. Consider fixing the rate during repayment if rates are expected to rise.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/heloc-calculator" />
           <PopularCalculators exclude="/calculator/heloc-calculator" />
         </div>

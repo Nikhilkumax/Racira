@@ -342,7 +342,7 @@ const EarlyLoanPayoffSavingsCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is the Early Loan Payoff Savings Calculator?</h2>
             <p>The Early Loan Payoff Savings Calculator shows you exactly how much money and time you can save by adding extra payments to an existing loan. Whether you have an auto loan, personal loan, student loan, or any other fixed-rate installment debt, this tool runs two complete amortization schedules — one with your scheduled payments and one with your extra contributions — and reports the interest savings, time savings, and new payoff date.</p>
             <p>Borrowers use this calculator to decide whether a tax refund, work bonus, or small monthly overpayment is worth applying to their loan. Even modest extra payments made early in the loan's life can eliminate thousands of dollars in interest, because every extra dollar reduces the principal balance that future interest is calculated against.</p>
@@ -389,7 +389,7 @@ const EarlyLoanPayoffSavingsCalculator = () => {
 
             <h2 className="text-2xl font-bold mb-3">Benefits of Using This Calculator</h2>
             <p>This tool removes the guesswork from extra-payment decisions. Instead of wondering whether $100/month &quot;matters,&quot; you see the exact dollar figure saved and months eliminated. It runs instantly, works for any fixed-rate installment loan, and helps you make confident, math-backed choices about your debt. Used alongside a budget, it can shave years off your path to being debt-free.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/early-loan-payoff-savings-calculator" />
           <PopularCalculators exclude="/calculator/early-loan-payoff-savings-calculator" />
         </div>

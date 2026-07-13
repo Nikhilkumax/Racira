@@ -108,7 +108,7 @@ const NPSCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">What Is an NPS Calculator?</h2>
               <p>An NPS calculator helps you estimate the retirement corpus from your National Pension System contributions. It projects your total accumulation, tax-free lump sum withdrawal, and estimated monthly pension from the annuity portion.</p>
 
@@ -129,7 +129,7 @@ const NPSCalculator = () => {
               </ul>
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> NPS returns are market-linked and not guaranteed. The pension estimate is simplified and actual annuity rates vary by provider. Consult PFRDA guidelines.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/nps-calculator" />
           <PopularCalculators exclude="/nps-calculator" />
         </div>

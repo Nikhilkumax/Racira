@@ -174,7 +174,7 @@ export default function CashRatioCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is the Cash Ratio?</h2>
             <p>The Cash Ratio is the most conservative liquidity ratio in financial analysis. <strong>Cash Ratio = (Cash + Cash Equivalents) ÷ Current Liabilities.</strong> Unlike the Current Ratio or Quick Ratio, it only counts the most liquid assets — actual cash and near-cash instruments like T-bills and money market funds — against short-term obligations.</p>
             <p>Our calculator is pre-filled with $120,000 cash + $30,000 equivalents against $200,000 current liabilities → Cash Ratio = 0.75×. This means the company can cover 75% of its short-term obligations with available cash.</p>
@@ -187,7 +187,7 @@ export default function CashRatioCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">What Counts as Cash Equivalents?</h2>
             <p>Cash equivalents are instruments with original maturities of three months or less: US Treasury bills, money market mutual funds, commercial paper, and certificates of deposit (CDs) maturing within 90 days. They're reported alongside cash on the balance sheet and treated identically for liquidity analysis purposes.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/cash-ratio-calculator" />
           <PopularCalculators exclude="/calculator/cash-ratio-calculator" />
         </div>

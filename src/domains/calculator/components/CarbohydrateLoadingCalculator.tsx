@@ -343,7 +343,7 @@ export default function CarbohydrateLoadingCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Carbohydrate Loading Calculator</h2>
             <p>Hitting "The Wall" is the most feared physiological event in all of endurance sports. Around mile 20 of a marathon, thousands of perfectly trained runners suddenly find their legs turned to cement, their vision tunneling, and their pace dropping to a staggered walk. This is not a failure of willpower or cardiovascular fitness; it is a mathematical failure of chemistry. They have completely depleted their muscular glycogen stores. To prevent this, elite endurance athletes utilize a strict nutritional protocol known as Carbohydrate Loading (or Glycogen Supercompensation). The <strong>Carb Loading Calculator</strong> provides the exact mathematical framework to execute this protocol, ensuring your fuel tanks are literally overflowing when you step on the starting line.</p>
 
@@ -377,7 +377,7 @@ export default function CarbohydrateLoadingCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Trust the Process</h2>
             <p>A marathon is won or lost in the final 10 kilometers. Your cardiovascular fitness dictates your pace, but your glycogen dictates whether you get to maintain that pace or collapse. Use the Carbohydrate Loading Calculator to establish your 72-hour mathematical targets. Strip the fiber out of your diet, embrace the white rice and fruit juice, accept the temporary water weight gain, and step onto the starting line with an overflowing fuel tank.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/carbohydrate-loading-calculator" />
           <PopularCalculators exclude="/calculator/carbohydrate-loading-calculator" />

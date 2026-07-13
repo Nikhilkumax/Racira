@@ -142,10 +142,10 @@ const PolynomialCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Polynomial Operations</h2>
               <p>A polynomial is an expression of variables and coefficients using only addition, subtraction, multiplication, and non-negative integer exponents. This calculator lets you perform arithmetic on polynomials by entering coefficients from highest degree to lowest.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/polynomial-calculator" />
           <PopularCalculators exclude="/polynomial-calculator" />
         </div>

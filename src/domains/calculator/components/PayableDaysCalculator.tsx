@@ -126,7 +126,7 @@ export default function PayableDaysCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10"/>
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is the Days Payable Outstanding (DPO) Calculator?</h2>
             <p>Days Payable Outstanding (DPO) measures how many days on average a company takes to pay its trade creditors. It is the supplier-side counterpart to Days Sales Outstanding (DSO) and is a critical component of the Cash Conversion Cycle. Higher DPO means the business retains cash longer before paying suppliers — effectively using supplier credit as free short-term financing.</p>
             <h2 className="text-2xl font-bold mb-3">DPO Formula</h2>
@@ -142,7 +142,7 @@ export default function PayableDaysCalculator() {
             <p>Excessively extending DPO beyond agreed terms creates legal risk (breach of contract), reputational damage, and supply chain vulnerability. Suppliers may place the company on credit hold, delay shipments, or deprioritize orders during high-demand periods. The optimal DPO strategy maximizes cash retention within ethical and contractual boundaries while investing in supplier relationships through transparency, consistent communication, and honoring commitments.</p>
             <h2 className="text-2xl font-bold mb-3">DPO in Financial Statement Analysis</h2>
             <p>Rising DPO alongside declining margins can signal a company struggling to pay bills. Rising DPO with stable or improving margins suggests deliberate, strategic cash management. Compare DPO trends year-over-year and against industry peers. A company with DPO far above industry average should be examined carefully — it may reflect superior negotiating power or a warning sign of payment difficulties.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/payable-days-calculator"/>
           <PopularCalculators exclude="/calculator/payable-days-calculator"/>
         </div>

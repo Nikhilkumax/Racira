@@ -285,7 +285,7 @@ export default function StoppingDistanceCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Two Halves of Stopping</h2>
             <p>Most drivers assume that "stopping distance" refers only to how strong their car's brakes are. In reality, a vehicle's total stopping distance is comprised of two completely separate phases: <strong>Reaction Distance</strong> (the human element) and <strong>Braking Distance</strong> (the mechanical element). Our Stopping Distance Calculator analyzes both to give you a true, real-world estimate of how much space you need to avoid an accident.</p>
 
@@ -302,7 +302,7 @@ export default function StoppingDistanceCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">The Danger of Wet and Icy Roads</h2>
             <p>Your brakes do not stop the car; your tires stop the car. The brakes simply stop the wheels from spinning. The entire system relies on the friction between your rubber tires and the asphalt. If the road is wet, water acts as a lubricant, reducing the coefficient of friction by almost half. If the road is covered in snow or ice, friction is nearly eliminated, causing the braking distance to explode to terrifying lengths, regardless of how advanced your Anti-Lock Braking System (ABS) is.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/stopping-distance-calculator" />
           <PopularCalculators />

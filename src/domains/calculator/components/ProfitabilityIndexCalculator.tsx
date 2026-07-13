@@ -151,7 +151,7 @@ export default function ProfitabilityIndexCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10"/>
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is the Profitability Index?</h2>
             <p>The Profitability Index (PI), also known as the Profit Investment Ratio (PIR) or Value Investment Ratio (VIR), is a capital budgeting metric that measures the value created per unit of investment. It extends NPV analysis by providing a relative measure of investment efficiency — essential when comparing projects of different sizes or allocating limited capital across multiple opportunities.</p>
             <h2 className="text-2xl font-bold mb-3">Profitability Index Formula</h2>
@@ -167,7 +167,7 @@ export default function ProfitabilityIndexCalculator() {
             <p>When a firm cannot fund all positive-NPV projects (due to budget constraints, credit limits, or strategic priorities), PI ranking enables optimal capital allocation. Sort available projects by PI in descending order. Fund from the top until the budget is exhausted. This algorithm maximizes total NPV across the funded portfolio — a fundamental result in corporate finance theory.</p>
             <h2 className="text-2xl font-bold mb-3">Limitations of the Profitability Index</h2>
             <p>PI assumes cash flows are known with certainty — use sensitivity analysis to stress-test key assumptions. It does not account for project interdependencies (e.g., two projects that share infrastructure). PI can be misleading for mutually exclusive projects of the same size — in that case, NPV provides the correct ranking. Always use PI alongside IRR and payback period for a complete capital investment evaluation.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/profitability-index-calculator"/>
           <PopularCalculators exclude="/calculator/profitability-index-calculator"/>
         </div>

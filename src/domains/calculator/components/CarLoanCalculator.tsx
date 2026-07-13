@@ -214,14 +214,14 @@ export default function CarLoanCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">How Car Loan Payments Are Calculated</h2>
             <p>This <strong>car loan calculator</strong> uses the standard amortization formula and includes sales tax, trade-in value, and total ownership cost (loan + insurance + maintenance). Monthly Payment = Loan Amount × [r(1+r)^n] ÷ [(1+r)^n − 1], where r = monthly rate and n = term in months. The true cost of car ownership — including insurance, fuel, and maintenance — typically runs $9,000–$13,000/year for an average new vehicle (AAA 2024 data).</p>
             <h2 className="text-2xl font-bold mb-3">2024 Car Loan Rates and Market Context</h2>
             <p>The average new car loan rate in 2024 is approximately 7.1% for all credit tiers (Federal Reserve data). Credit unions average 1–2% lower than banks. The average new car transaction price hit $48,000+ in 2024 — an all-time high. With a typical 60-month loan at 7.1%, that translates to about $950/month before insurance and maintenance. The 20/4/10 rule (20% down, 4-year term, 10% of income) is increasingly difficult to achieve at this price level for median-income households.</p>
             <h2 className="text-2xl font-bold mb-3">Strategies to Reduce Car Loan Costs</h2>
             <p>1. Improve credit score before applying — each tier jump can save 1–3% in rate. 2. Get pre-approved before visiting the dealership. 3. Make a larger down payment to reduce the loan principal. 4. Avoid add-ons and extras financed into the loan (extended warranties, paint protection). 5. Consider certified pre-owned vehicles — often 15–30% less than new, with manufacturer warranty. 6. Shorter loan term = less total interest despite higher payments. Related tools: <a href="/calculator/auto-lease-vs-buy-calculator">Lease vs. Buy Calculator</a>, <a href="/calculator/debt-payoff-calculator">Debt Payoff Calculator</a>.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/car-loan-calculator" />
           <PopularCalculators exclude="/calculator/car-loan-calculator" />
         </div>

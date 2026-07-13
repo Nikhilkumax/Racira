@@ -335,7 +335,7 @@ export default function DemurrageCostCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What is Tiered Demurrage?</h2>
             <p><strong>Port Demurrage</strong> is the penalty fee charged by a marine terminal when you fail to pick up your container within the allotted "Free Time" window. Because ports have limited physical space on the dock, they use demurrage as a weapon to force importers to quickly remove their cargo.</p>
             
@@ -347,7 +347,7 @@ export default function DemurrageCostCalculator() {
             <h2 className="text-2xl font-bold mb-3">Can You Abandon a Container to Avoid Fees?</h2>
             <p>No. If the accumulated demurrage fees exceed the actual value of the goods inside the container (which happens frequently with cheap goods like plastic toys or scrap metal), an importer might be tempted to simply abandon the cargo and ignore the port's phone calls.</p>
             <p>However, you cannot escape the bill. As the "Importer of Record," you signed a contract with the ocean carrier. The carrier will place a lien on your company, send you to collections, and potentially ban you from ever shipping with them again. The port will eventually auction off your cargo to recoup the storage fees, but you are still legally liable for the difference.</p>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "Are weekends included in Demurrage calculation?", answer: "Usually, yes. While 'Free Time' sometimes excludes weekends depending on the specific port tariff, once the container enters penalty status (Demurrage), ports almost always charge you for Saturdays and Sundays." },
             { question: "What causes a container to get stuck in Demurrage?", answer: "The most common reasons are: 1) Customs holds or intensive exams (CBP X-Ray). 2) Missing or incorrect import paperwork (e.g., missing Bill of Lading). 3) A severe shortage of truck drivers or chassis at the destination port." },

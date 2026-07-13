@@ -370,7 +370,7 @@ export default function TwinPregnancyWeightGainCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding Twin Pregnancy Weight Gain Guidelines</h2>
             <p>Finding out that you are pregnant with twins is a life-altering moment. Almost immediately, the medical care required shifts from standard obstetrics to specialized, high-risk Maternal-Fetal Medicine (MFM). One of the most immediate, critical conversations you will have with your healthcare provider revolves around maternal nutrition and weight gain. Carrying multiples demands a drastically different physiological environment than a singleton pregnancy. The <strong>Twin Pregnancy Weight Gain Calculator</strong> utilizes the official, peer-reviewed guidelines published by the Institute of Medicine (IOM) to provide you with a mathematically precise target range designed to maximize fetal growth while protecting maternal health.</p>
 
@@ -404,7 +404,7 @@ export default function TwinPregnancyWeightGainCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Trust the Process and Your Doctor</h2>
             <p>Watching the scale climb rapidly during a twin pregnancy can be psychologically jarring, especially in a society hyper-fixated on thinness. However, in the context of a multiple gestation, that weight gain is literally building human life and protecting against catastrophic prematurity. Use the Twin Pregnancy Weight Gain Calculator to establish your mathematical baseline, and then work aggressively alongside your high-risk OB/GYN to construct a daily nutritional protocol that ensures you and your babies reach the finish line as safely and healthily as possible.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/twin-pregnancy-weight-gain-calculator" />
           <PopularCalculators exclude="/calculator/twin-pregnancy-weight-gain-calculator" />

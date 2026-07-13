@@ -311,7 +311,7 @@ export default function CarDownPaymentCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Why Use a Car Down Payment Calculator?</h2>
             <p>A Car Down Payment Calculator allows you to visualize the direct mathematical impact of bringing cash to the closing table. Many buyers fixate entirely on the monthly payment negotiated at the dealership without realizing the massive downstream effects of a down payment. Dropping cash upfront doesn't just lower your monthly bill; it drastically reduces the total amount of interest you will pay to the bank over the life of the loan.</p>
 
@@ -326,7 +326,7 @@ export default function CarDownPaymentCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Should You Empty Your Savings?</h2>
             <p>While a large down payment is mathematically optimal, it shouldn't come at the cost of your emergency fund. If putting 20% down drains your entire bank account, it is a bad move. You are transferring liquid cash into an illiquid, depreciating asset. If an emergency strikes, you cannot easily extract cash from a car. Aim for the 20% mark, but ensure you retain 3 to 6 months of living expenses in a high-yield savings account.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/car-down-payment-calculator" />
           <PopularCalculators />

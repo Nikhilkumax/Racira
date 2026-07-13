@@ -162,7 +162,7 @@ const QuartileCalculator = () => {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Quartile Calculator?</h2>
             <p>A quartile calculator divides a dataset into four equal parts using Q1 (25th percentile), Q2 (50th percentile/median), and Q3 (75th percentile). Pre-filled with 10 evenly spaced values (1–19), Q1=5, Q2=10, Q3=15, IQR=10. Choose between inclusive (Excel QUARTILE.INC) and exclusive (QUARTILE.EXC) interpolation methods. The calculator also shows a full percentile table from P10 to P90.</p>
             <h2 className="text-2xl font-bold mb-3">How Quartiles Are Computed</h2>
@@ -173,7 +173,7 @@ const QuartileCalculator = () => {
             <p>QCD = (Q3 − Q1) / (Q3 + Q1) — a dimensionless relative measure of spread. Unlike CV (σ/μ), QCD uses quartiles and is resistant to outliers. Values near 0 indicate little spread relative to the central quartiles. Values near 1 indicate very high relative spread. Useful for comparing variability across datasets with different units or very different scales.</p>
             <h2 className="text-2xl font-bold mb-3">Quartiles in Everyday Life</h2>
             <p>Income distribution: "bottom quartile" earns less than Q1, "top quartile" more than Q3. Investment performance: funds ranked in Q1 outperformed 75% of peers. Academic grading: "quartile rank" in class. Health percentiles: child growth charts show weight/height by percentile. Employee compensation: salary band analysis often uses Q1, midpoint (Q2), and Q3 to define pay ranges.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/quartile-calculator" />
           <PopularCalculators exclude="/calculator/quartile-calculator" />
         </div>

@@ -290,7 +290,7 @@ export default function GearRatioCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Magic of Gear Ratios</h2>
             <p>Gears are one of the most fundamental mechanical inventions in human history. They allow a small motor with very little twisting force (torque) to lift incredibly heavy objects. This mechanical advantage is achieved through a Gear Ratio. By connecting a small gear (the driving gear) to a large gear (the driven gear), you force the small gear to spin multiple times just to turn the large gear once. This concentrates the force, multiplying the torque output at the expense of rotational speed.</p>
 
@@ -307,7 +307,7 @@ export default function GearRatioCalculator() {
             <h2 className="text-2xl font-bold mb-3">What is an Idler Gear?</h2>
             <p>In a simple gear train with two gears, the driven gear always spins in the opposite direction of the driving gear. If you need the output shaft to spin in the exact same direction as the input shaft, you place a third gear in the middle. This is called an <strong>Idler Gear</strong>.</p>
             <p>A fascinating rule of physics is that an idler gear has zero effect on the final gear ratio. You could place a massive 100-tooth idler gear or a tiny 5-tooth idler gear between your 10-tooth driving gear and 30-tooth driven gear. In both scenarios, the final ratio remains exactly 3.0:1. The idler simply transfers the motion and reverses the direction.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/gear-ratio-calculator" />
           <PopularCalculators />

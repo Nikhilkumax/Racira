@@ -328,8 +328,8 @@ export default function AltmanZScoreCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">What Is the Altman Z-Score?</h2>
+          <section className="prose-finance text-[15.75px]">
+            <h2 className="text-2xl font-bold mb-3">Understanding the Altman Z-Score</h2>
             <p>The Altman Z-Score is a highly respected, mathematically rigorous financial forecasting tool originally designed to predict the likelihood of a major corporate entity filing for bankruptcy within a two-year horizon. Edward Altman, an esteemed finance professor at New York University, meticulously developed this groundbreaking formula in nineteen sixty-eight. Rather than relying on singular, isolated financial metrics, the Z-Score holistically integrates five distinct, critically important financial ratios entirely derived from a company's public financial statements. By combining these five ratios, the formula provides institutional investors, risk analysts, and corporate lenders with a highly accurate, single-number assessment of a company's overall liquidity, cumulative profitability, operational efficiency, market leverage, and total asset turnover capabilities.</p>
             
             <h2 className="text-2xl font-bold mb-3">The Mathematical Architecture</h2>
@@ -349,7 +349,7 @@ export default function AltmanZScoreCalculator() {
             
             <h2 className="text-2xl font-bold mb-3">Critical Limitations and Vulnerabilities</h2>
             <p>Despite its proven historical accuracy rate of approximately eighty to ninety percent, the Altman Z-Score possesses severe, undeniable limitations. The formula is fundamentally useless for evaluating financial institutions, such as commercial banks or insurance conglomerates, due to the radically unique structure of their heavily leveraged balance sheets. More importantly, the algorithm is entirely dependent upon the absolute integrity of the underlying accounting data. If a corrupt corporate management team is actively engaged in fraudulent accounting practices, systematically hiding massive liabilities off-balance-sheet or artificially inflating top-line revenue, the Z-Score will unwittingly digest this manipulated data and erroneously output a highly secure score, providing investors with a catastrophic false sense of security right before the company collapses.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/altman-z-score-calculator" />
           <PopularCalculators />

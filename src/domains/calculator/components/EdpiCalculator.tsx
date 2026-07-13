@@ -87,7 +87,7 @@ const EdpiCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Standardizing Your Sensitivity</h2>
               <p>eDPI is the most common way for gamers to share their settings. If a pro player uses 400 DPI and 2.0 sensitivity, their eDPI is 800. If you use 800 DPI and 1.0 sensitivity, your eDPI is also 800—meaning you both have the exact same in-game feel.</p>
               <h3>Common eDPI Ranges (CS2/Valorant)</h3>
@@ -96,7 +96,7 @@ const EdpiCalculator = () => {
                 <li><strong>Medium:</strong> 600 - 1000 eDPI (Standard for most pros)</li>
                 <li><strong>High:</strong> 1000 - 1600 eDPI (Wrist-heavy movement)</li>
               </ul>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/edpi" />
           <PopularCalculators exclude="/calculator/edpi-calculator" />
         </div>

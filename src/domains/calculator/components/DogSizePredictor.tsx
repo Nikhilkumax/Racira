@@ -170,7 +170,7 @@ const DogSizePredictor = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">How Puppies Grow: The Science of Canine Development</h2>
               <p>Puppy growth follows a predictable curve that varies significantly by breed size. Understanding this curve is essential for new dog owners who want to plan for food costs, crate size, harness upgrades, and even apartment requirements.</p>
 
@@ -189,7 +189,7 @@ const DogSizePredictor = () => {
 
               <h3>The Importance of Not Overfeeding Growing Puppies</h3>
               <p>Especially in large and giant breeds, overfeeding during the growth phase can cause bones and joints to develop faster than the muscles and connective tissue can support them. This increases the risk of Hip Dysplasia, OCD (Osteochondritis Dissecans), and other orthopaedic conditions. Always feed large-breed puppies a diet formulated specifically for their size class.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/dog-size-predictor" />
           <PopularCalculators exclude="/calculator/dog-size-predictor" />
         </div>

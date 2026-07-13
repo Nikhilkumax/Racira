@@ -93,7 +93,7 @@ const InflationCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">What Is an Inflation Calculator?</h2>
               <p>An inflation calculator helps you understand how the purchasing power of money changes over time due to inflation. It can show you what today's money will be worth in the future, or what a past amount would be equivalent to today.</p>
               <p>Understanding inflation is crucial for financial planning. Whether you're saving for retirement, negotiating a salary, or evaluating an investment, knowing how inflation erodes purchasing power helps you make better decisions.</p>
@@ -122,7 +122,7 @@ const InflationCalculator = () => {
               </ul>
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> This calculator provides estimates for educational purposes only. Actual inflation rates vary and past rates don't predict future inflation. This is not financial advice.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/inflation-calculator" />
           <PopularCalculators exclude="/inflation-calculator" />
         </div>

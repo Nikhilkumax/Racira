@@ -196,7 +196,7 @@ export default function GrossIncomeCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Gross Income Calculator?</h2>
             <p>A gross income calculator is a foundational personal finance tool designed to convert your salary or hourly wages into various pay periods. Whether you are negotiating a job offer, applying for a mortgage, or trying to budget your monthly expenses, understanding your exact gross income across different timeframes is critical. "Gross income" refers to the raw, total amount of money you earn from your employer before any federal taxes, state taxes, Social Security, Medicare, or retirement contributions (like a 401k) are deducted from your paycheck.</p>
             <p>This calculator removes the mental gymnastics of converting an hourly wage into an annual salary, or figuring out exactly how much smaller a bi-weekly paycheck is compared to a semi-monthly paycheck. By standardizing your income into actionable data points, you can navigate financial decisions—from signing a lease to taking out an auto loan—with absolute confidence and precision.</p>
@@ -239,7 +239,7 @@ export default function GrossIncomeCalculator() {
             <h2 className="text-2xl font-bold mb-3">Benefits</h2>
             <p>Using a Gross Income Calculator provides absolute clarity regarding your earning power. It prevents you from accepting lowball salary offers by instantly revealing their hourly equivalent, and it stops you from overestimating your annual income if you work irregular hours.</p>
             <p>By translating a single pay rate into a comprehensive, annualized financial picture, this tool empowers you to negotiate better salaries, qualify for the right loans, and lay a mathematically sound foundation for your long-term personal finance goals.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/gross-income-calculator" />
           <PopularCalculators exclude="/calculator/gross-income-calculator" />
         </div>

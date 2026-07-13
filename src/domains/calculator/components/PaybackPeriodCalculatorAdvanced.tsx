@@ -204,7 +204,7 @@ export default function PaybackPeriodCalculatorAdvanced() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is the Payback Period?</h2>
             <p>The payback period is the length of time required for an investment to recoup its initial cost from generated cash flows. It's one of the most widely used capital budgeting metrics because of its simplicity and intuitive interpretation. This <strong>advanced payback period calculator</strong> goes beyond the basic formula to include discounted payback period, Net Present Value (NPV), and Internal Rate of Return (IRR) — giving you a comprehensive investment analysis.</p>
             <h2 className="text-2xl font-bold mb-3">Simple vs. Discounted Payback Period</h2>
@@ -213,7 +213,7 @@ export default function PaybackPeriodCalculatorAdvanced() {
             <p>NPV = −Investment + Σ (Cash Flow_t ÷ (1 + r)^t) summed over all years. A positive NPV means the investment creates value above the required return. For our example at 8% discount rate over 10 years: NPV = −$100,000 + PV of $25,000/year for 10 years at 8% = −$100,000 + $167,770 = +$67,770. This positive NPV confirms the investment is worthwhile at an 8% hurdle rate.</p>
             <h2 className="text-2xl font-bold mb-3">Internal Rate of Return (IRR)</h2>
             <p>IRR is the discount rate at which NPV equals zero. It represents the effective compound annual return of the investment. Decision rule: accept the investment if IRR {'>'} Cost of Capital (WACC). Our example yields IRR ≈ 21.4%, well above the 8% discount rate, confirming strong value creation. Related tools: <a href="/calculator/roi-calculator">ROI Calculator</a>, <a href="/calculator/npv-calculator">NPV Calculator</a>, <a href="/calculator/investment-calculator">Investment Calculator</a>.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/payback-period-calculator-advanced" />
           <PopularCalculators exclude="/calculator/payback-period-calculator-advanced" />
         </div>

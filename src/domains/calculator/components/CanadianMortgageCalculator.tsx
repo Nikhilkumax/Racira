@@ -270,7 +270,7 @@ const CanadianMortgageCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding Canadian Mortgages</h2>
             <p>The Canadian mortgage landscape is unique, governed by specific regulations in the Interest Act and the Bank Act. Whether you are buying a trendy condo in Toronto, a family home in Calgary, or an investment property in Vancouver, understanding how interest is calculated and how insurance premiums work can save you thousands of dollars.</p>
             
@@ -305,7 +305,7 @@ const CanadianMortgageCalculator = () => {
             <p><strong>Title Insurance:</strong> $250 - $500.</p>
             <p><strong>Appraisal Fee:</strong> $300 - $500.</p>
             <p><strong>PST on CMHC Premium:</strong> In provinces like Ontario, Quebec, and Saskatchewan, you must pay provincial sales tax on the insurance premium upfront, even if the premium itself is rolled into the loan.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/canadian-mortgage-calculator" />
           <PopularCalculators exclude="/calculator/canadian-mortgage-calculator" />
         </div>

@@ -300,7 +300,7 @@ export default function AssetCoverageRatioCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is the Asset Coverage Ratio?</h2>
             <p>The Asset Coverage Ratio is a financial solvency metric used by lenders and investors to determine how well a company can repay its debts by liquidating its assets. It provides a measure of downside protection. Specifically, it tells you how many times over the company's tangible assets can cover its total debt obligations in the event of bankruptcy.</p>
             
@@ -319,7 +319,7 @@ export default function AssetCoverageRatioCalculator() {
             
             <h2 className="text-2xl font-bold mb-3">Limitations</h2>
             <p>While useful, the Asset Coverage Ratio relies on the "book value" of assets as reported on the balance sheet. In a real-world liquidation scenario, heavy machinery, specialized inventory, or real estate might sell for drastically less than their recorded book value. Therefore, lenders often apply severe discounts (called "haircuts") to the book value of assets before calculating a true liquidation coverage ratio.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/asset-coverage-ratio-calculator" />
           <PopularCalculators />

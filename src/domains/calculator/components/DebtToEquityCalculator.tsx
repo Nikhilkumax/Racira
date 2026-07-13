@@ -171,7 +171,7 @@ export default function DebtToEquityCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is the Debt-to-Equity Ratio?</h2>
             <p>The Debt-to-Equity (D/E) Ratio is one of the most fundamental measures of financial leverage. <strong>D/E = Total Debt ÷ Shareholders' Equity.</strong> It reveals how much of a company's financing comes from creditors versus shareholders. A D/E of 1.31× (our pre-filled example: $850K debt ÷ $650K equity) means the company has $1.31 of debt for every $1.00 of equity — moderate leverage, typical for established mid-market businesses.</p>
 
@@ -183,7 +183,7 @@ export default function DebtToEquityCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Tax Advantage of Debt</h2>
             <p>Interest on debt is tax-deductible, creating a "tax shield." At a 25% corporate tax rate, a company paying $100,000 in annual interest reduces its tax bill by $25,000 — the net cost of debt is only $75,000. This tax advantage makes debt cheaper than equity financing up to optimal leverage levels, which is why profitable companies often deliberately carry some debt even when they have cash available.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/debt-to-equity-calculator" />
           <PopularCalculators exclude="/calculator/debt-to-equity-calculator" />
         </div>

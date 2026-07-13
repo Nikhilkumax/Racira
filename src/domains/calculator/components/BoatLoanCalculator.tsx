@@ -165,7 +165,7 @@ export default function BoatLoanCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Boat Loan Calculator?</h2>
             <p>A boat loan calculator is an essential financial tool designed specifically for marine financing. Purchasing a boat—whether it’s a small fishing vessel, a pontoon, or a luxury yacht—represents a significant capital expenditure. Unlike automotive loans, which typically span 3 to 7 years, boat loans operate in a unique space between auto loans and home mortgages, with terms frequently stretching from 10 to 20 years. This calculator helps prospective boat owners model different purchasing scenarios by factoring in the boat's price, down payment, trade-in value, interest rate, and term length. It goes beyond a simple monthly payment calculation by integrating critical out-the-door costs such as state sales tax and dealer registration fees, providing a transparent view of the true cost of boat ownership.</p>
             <p>Using this calculator allows you to confidently set a budget before visiting a marine dealership or negotiating with a private seller. By understanding the long-term amortization schedule and total interest accumulation, you can avoid the common trap of shopping based purely on a "monthly payment" and instead focus on securing the best overall financial deal for your nautical dreams.</p>
@@ -210,7 +210,7 @@ export default function BoatLoanCalculator() {
             <h2 className="text-2xl font-bold mb-3">Benefits</h2>
             <p>Utilizing a comprehensive boat loan calculator transforms an emotional purchase into a rational financial decision. Boats are inherently emotional buys—they represent family time, recreation, and freedom. It is incredibly easy to let the excitement of a boat show blind you to the math.</p>
             <p>By running the numbers through this calculator, you strip away the sales pitch and confront the reality of the amortization schedule. You will know exactly how much interest the bank is charging you, when the boat will actually be paid off, and whether the true out-the-door cost aligns with your long-term wealth-building goals. This clarity allows you to buy the boat of your dreams without accidentally sinking your financial future.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/boat-loan-calculator" />
           <PopularCalculators exclude="/calculator/boat-loan-calculator" />
         </div>

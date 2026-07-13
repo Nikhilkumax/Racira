@@ -126,12 +126,12 @@ const DogCalorieCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Feeding Your Dog for Longevity</h2>
               <p>Maintaining a healthy weight is the single most important factor in extending your dog's life. Even a slight excess in calories can lead to obesity-related joint issues and health complications.</p>
               <h3>Understanding Caloric Density</h3>
               <p>Different dog foods have vastly different caloric densities. A high-protein kibble might have 450 kcal per cup, while a 'healthy weight' formula might only have 300 kcal. Always check the packaging for the 'kcal/kg' or 'kcal/cup' measurement and use this calculator's result to measure precisely.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/dog-calorie" />
           <PopularCalculators exclude="/calculator/dog-calorie-calculator" />
         </div>

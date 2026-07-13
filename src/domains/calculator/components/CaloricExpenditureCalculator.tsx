@@ -214,7 +214,7 @@ export default function CaloricExpenditureCalculator() {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Mathematics of Weight Loss: Understanding TDEE</h2>
             <p>Every fad diet on the market—from Keto and Paleo to Intermittent Fasting and Weight Watchers—ultimately works through the exact same biological mechanism: a caloric deficit. If you consume fewer calories than your body burns, your body is forced to oxidize stored fat tissue to make up the missing energy difference. To create that precise deficit, you must first calculate your <strong>Total Daily Energy Expenditure (TDEE)</strong>.</p>
             <p>This calculator uses the <strong>Mifflin-St Jeor Equation</strong>, the clinical formula used by registered dietitians worldwide to calculate human energy expenditure. It is significantly more accurate than the older Harris-Benedict equation, which notoriously overestimates caloric burn.</p>
@@ -239,7 +239,7 @@ export default function CaloricExpenditureCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Why You Shouldn't Over-Restrict</h2>
             <p>A common mistake is trying to lose weight too fast by eating drastically below your TDEE (e.g., eating 1,200 calories when your TDEE is 2,800). This is clinically dangerous and biologically counterproductive. Severe caloric restriction spikes cortisol (a stress hormone that causes water retention), causes the body to cannibalize muscle tissue for fast energy, and eventually suppresses your BMR as the body attempts to prevent starvation. A moderate 500-calorie deficit from your TDEE is the scientifically proven sweet spot for sustainable, long-term fat loss while preserving lean muscle mass.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/caloric-expenditure-calculator" />
           <PopularCalculators exclude="/calculator/caloric-expenditure-calculator" />
         </div>

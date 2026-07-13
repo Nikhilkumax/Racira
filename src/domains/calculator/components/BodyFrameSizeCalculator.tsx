@@ -196,7 +196,7 @@ export default function BodyFrameSizeCalculator() {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Body Frame Size Calculator?</h2>
             <p>A Body Frame Size Calculator is a clinical tool used in physical anthropometry to categorize the mass and density of a person's skeletal structure. In the fitness and medical communities, individuals are generally classified into three frame sizes: Small, Medium, or Large. Determining your frame size is crucial because it heavily influences your baseline ideal body weight, your natural propensity to gain muscle mass, and how certain BMI thresholds apply to your specific physique.</p>
             <p>While height and weight provide a general overview of your body, two people who are both 180 cm tall and weigh 80 kg can look entirely different. One might look incredibly skinny (small frame, low muscle mass, high body fat), while the other looks powerfully built (large frame, high bone density, high muscle mass). Frame size provides the vital context that simple BMI calculations lack.</p>
@@ -247,7 +247,7 @@ export default function BodyFrameSizeCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Benefits of Knowing Your Frame Size</h2>
             <p>Understanding your skeletal frame size provides immense psychological relief and practical direction for your fitness journey. It allows you to stop fighting your genetics. A large-framed person will never look like a runway model, and a small-framed person will struggle immensely to look like an NFL linebacker. By identifying your baseline skeletal structure, you can set realistic, healthy goals that align with your body's natural architecture, leading to a much more sustainable and satisfying approach to health and fitness.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/body-frame-size-calculator" />
           <PopularCalculators exclude="/calculator/body-frame-size-calculator" />
         </div>

@@ -213,7 +213,7 @@ const IpSubnetCalculator = () => {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding IPv4 Subnetting</h2>
             <p>At its core, a computer network is like a city postal system. The IP address is the exact street address of a house, but the post office needs to know which city the house is in. A <strong>Subnet Mask</strong> acts as the dividing line, cutting an IP address into two distinct parts: the Network (the city) and the Host (the specific house).</p>
 
@@ -228,7 +228,7 @@ const IpSubnetCalculator = () => {
               <li><strong>The Broadcast Address:</strong> The very last address in the block (e.g., .255) is reserved. If a router sends a data packet to the broadcast address, it acts as a loudspeaker, sending the packet to every single device on the network simultaneously.</li>
             </ul>
             <p>Therefore, a standard /24 home network has 256 total IPs, but only 254 <em>usable</em> IPs.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/ip-subnet-calculator" />
           <PopularCalculators exclude="/calculator/ip-subnet-calculator" />
         </div>

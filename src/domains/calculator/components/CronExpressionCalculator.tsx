@@ -131,7 +131,7 @@ const CronExpressionCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What is Cron?</h2>
             <p>Cron is a time-based job scheduler in Unix-like computer operating systems. Users who set up and maintain software environments use cron to schedule jobs (commands or shell scripts) to run periodically at fixed times, dates, or intervals.</p>
             <h3>Special Characters</h3>
@@ -141,7 +141,7 @@ const CronExpressionCalculator = () => {
               <li><strong>- (Hyphen)</strong>: Defines a range, e.g. `1-5` for Mon–Fri.</li>
               <li><strong>/ (Slash)</strong>: Specifies step values, e.g. `*/5` every 5 minutes.</li>
             </ul>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/cron-expression" />
           <PopularCalculators exclude="/calculator/cron-expression-calculator" />
         </div>

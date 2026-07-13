@@ -117,7 +117,7 @@ export default function CyclingCalorieCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Cycling Calorie Burn — How It&apos;s Calculated</h2>
             <p>Cycling calorie burn is calculated using validated MET values from the Compendium of Physical Activities. Formula: Calories = MET × Weight (kg) × Duration (hours). A terrain multiplier adjusts for the additional energy cost of hill climbing, which can increase expenditure by 15–60% compared to flat cycling at the same speed.</p>
             <h2 className="text-2xl font-bold mb-3">Cycling for Weight Loss</h2>
@@ -126,7 +126,7 @@ export default function CyclingCalorieCalculator() {
             <p>Zone 2 cycling (65–75% of max heart rate) maximizes fat oxidation and builds mitochondrial density — the cellular machinery responsible for aerobic energy production. At Zone 2 intensity (comfortable conversational pace), approximately 65–85% of energy comes from fat. This is why endurance athletes spend 80% of training time in Zone 2, building the aerobic base upon which higher intensity work is layered.</p>
             <h2 className="text-2xl font-bold mb-3">Indoor vs. Outdoor Calorie Burn</h2>
             <p>Controlled studies show indoor cycling (stationary bike, spin class) burns comparable or slightly fewer calories than outdoor cycling at the same perceived effort because aerodynamic drag doesn&apos;t exist indoors. However, indoor cycling allows precise intensity control and is unaffected by traffic, weather, and coasting. Power meter equipped bikes measure output in watts — the most precise calorie measurement method available (1 watt = 3.6 kJ/hr = ~0.86 kcal/hr, adjusted for ~25% mechanical efficiency).</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/cycling-calorie-calculator" />
           <PopularCalculators exclude="/calculator/cycling-calorie-calculator" />
         </div>

@@ -206,7 +206,7 @@ const TaxBracketCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">How U.S. Tax Brackets Really Work</h2>
               <p>One of the most common misconceptions about personal finance is how tax brackets work. Many people believe that moving into a higher bracket means their entire income is suddenly taxed at that higher rate. This is false. The United States uses a <strong>progressive tax system</strong>, which means your income is divided into "buckets," and each bucket is taxed at its own specific rate.</p>
 
@@ -224,7 +224,7 @@ const TaxBracketCalculator = () => {
 
               <h2 className="text-2xl font-bold mb-3">Strategies for Tax Bracket Management</h2>
               <p>If you find yourself at the very bottom of a higher bracket (e.g., earning $105,000 when the 24% bracket starts at $100,525), you can use tax-deferred investments to drop your taxable income back into the 22% bracket. This is a common strategy for high-earners to maximize their long-term wealth.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/tax-bracket-calculator" />
           <PopularCalculators exclude="/calculator/tax-bracket-calculator" />
         </div>

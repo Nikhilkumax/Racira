@@ -294,7 +294,7 @@ export default function TurboBoostCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">How Do Turbochargers Add Horsepower?</h2>
             <p>Naturally aspirated engines rely on the downward stroke of the piston to pull atmospheric air into the combustion chamber. This creates a hard physical limit on how much oxygen can mix with fuel. A turbocharger completely rewrites this rule. Driven by waste exhaust gases, the turbo's compressor wheel acts as a powerful forced-induction pump. It artificially pressurizes the intake air (measured in PSI of "boost"), allowing the engine to inhale a massive surplus of oxygen and burn significantly more fuel, generating explosive horsepower gains.</p>
 
@@ -309,7 +309,7 @@ export default function TurboBoostCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Limitations of Boosted Applications</h2>
             <p>Our Turbo Boost Calculator provides thermodynamic estimates, but it assumes your engine block can physically survive the strain. Turning the boost up to 25 PSI might mathematically yield 500 horsepower, but if you have a factory cast-iron engine with weak connecting rods, the engine will likely shatter long before it reaches that number. High horsepower builds require forged internal components, high-capacity fuel injectors, and highly specialized ECU tuning to manage the aggressive air-fuel ratios.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/turbo-boost-calculator" />
           <PopularCalculators />

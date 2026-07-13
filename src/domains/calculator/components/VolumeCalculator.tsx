@@ -85,7 +85,7 @@ const VolumeCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]"><h2 className="text-2xl font-bold mb-3">Volume Formulas</h2><p><strong>Cube:</strong> V = s³ | <strong>Sphere:</strong> V = (4/3)πr³ | <strong>Cylinder:</strong> V = πr²h | <strong>Cone:</strong> V = (1/3)πr²h</p></article>
+          <section className="prose-finance text-[15.75px]"><h2 className="text-2xl font-bold mb-3">Volume Formulas</h2><p><strong>Cube:</strong> V = s³ | <strong>Sphere:</strong> V = (4/3)πr³ | <strong>Cylinder:</strong> V = πr²h | <strong>Cone:</strong> V = (1/3)πr²h</p></section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/volume-calculator" />
           <PopularCalculators exclude="/volume-calculator" />
         </div>

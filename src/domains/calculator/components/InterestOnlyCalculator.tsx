@@ -419,7 +419,7 @@ export default function InterestOnlyCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Interest-Only Mortgage Calculator</h2>
             <p>An Interest-Only (IO) mortgage is one of the most misunderstood and potentially hazardous financial products in real estate. While it offers the allure of drastically lower initial monthly payments, the mechanics behind those low payments can lead to severe financial distress if not properly managed. Our <strong>Interest-Only Mortgage Calculator</strong> is designed to mathematically reveal the two distinct phases of this loan, highlight the exact moment of "payment shock," and calculate the massive long-term interest penalty you pay for deferring your principal payments.</p>
             <p>Standard mortgage calculators assume you are paying down your debt from day one. An IO calculator correctly models the timeline, ensuring that for the first 5 to 10 years, your debt balance remains frozen. By visualizing the massive payment jump that occurs when the loan recasts, you can make an informed decision on whether this advanced lending tool fits your long-term financial strategy.</p>
@@ -457,7 +457,7 @@ export default function InterestOnlyCalculator() {
             <h2 className="text-2xl font-bold mb-3">Conclusion</h2>
             <p>An Interest-Only mortgage is a high-leverage financial tool. Like a chainsaw, it is incredibly effective for a skilled professional but highly dangerous for a novice. It offers unmatched cash flow flexibility in the short term, but extracts a massive toll in long-term interest and equity stagnation.</p>
             <p>By rigorously utilizing this Interest-Only Calculator, you can strip away the sales pitch and confront the mathematical reality of the Recast. Ensure that the opportunity cost of your capital justifies the extra interest you will pay, and never commit to an IO loan without a guaranteed strategy for handling the inevitable Phase 2 payment shock.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/interest-only-calculator" />
           <PopularCalculators exclude="/calculator/interest-only-calculator" />

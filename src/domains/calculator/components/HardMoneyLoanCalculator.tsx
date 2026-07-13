@@ -157,7 +157,7 @@ const HardMoneyLoanCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Fix-and-Flip with Hard Money</h2>
               <p>Hard money loans are the lifeblood of real estate investors. Because these loans focus on the property's potential value rather than the borrower's credit score, they allow for rapid funding of distressed properties that traditional banks won't touch.</p>
 
@@ -181,7 +181,7 @@ const HardMoneyLoanCalculator = () => {
               <p><strong>Accurate ARV:</strong> Overestimating the final sale price is the most common reason flippers lose money. Always use conservative 'Comps' (comparable sales).</p>
               <p><strong>Tight Renovation Budget:</strong> Get multiple quotes and add a 10-20% contingency fund for 'surprises' behind the walls.</p>
               <p><strong>Speed:</strong> Have your contractors ready to go the day you close. Every day the house is empty is a day you are losing interest.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/hard-money-loan-calculator" />
           <PopularCalculators exclude="/calculator/hard-money-loan-calculator" />
         </div>

@@ -170,7 +170,7 @@ export default function AltitudeCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Physics of Aviation Altitude</h2>
             <p>In the highly technical and rigorously demanding field of aviation, understanding the precise aerodynamic environment is absolutely critical for ensuring the safe operation of any aircraft. While a casual observer might simply look at a topographical map to determine the physical elevation of an airport, professional pilots and aeronautical engineers recognize that physical elevation is merely a starting point. The true performance capabilities of an aircraft are dictated by the absolute density of the atmospheric air surrounding it. To mathematically quantify this critical environmental variable, the aviation industry universally relies on complex calculations involving pressure altitude and density altitude. These sophisticated metrics provide an unambiguous, standardized framework for predicting exactly how an aircraft's engine, propeller, and aerodynamic lifting surfaces will behave under specific atmospheric conditions.</p>
             
@@ -188,7 +188,7 @@ export default function AltitudeCalculator() {
             
             <h2 className="text-2xl font-bold mb-3">Mitigating Density Altitude Risks</h2>
             <p>To safely mitigate the severe operational hazards associated with high density altitude, professional pilots must proactively modify their flight profiles and operating procedures. The most common and effective strategy is to meticulously schedule flight operations during the coolest portions of the day, typically immediately after sunrise or during the late evening hours, when the ambient temperature is lowest and the air density is theoretically optimal. Additionally, pilots must aggressively manage the aircraft's gross takeoff weight by intentionally carrying less aviation fuel or strictly limiting the total number of passengers and cargo on board. By systematically reducing the total mass of the aircraft, the pilot decreases the total aerodynamic lift required for safe flight, effectively compensating for the severe performance penalties inflicted by the high density altitude environment.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/altitude-calculator" />
           <PopularCalculators exclude="/calculator/altitude-calculator" />
         </div>

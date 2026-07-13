@@ -333,7 +333,7 @@ export default function LowCarbThresholdCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Low-Carb Threshold Calculator</h2>
             <p>The term "low-carb" is one of the most widely used and broadly misunderstood phrases in the health and fitness industry. To a competitive marathon runner eating 500 grams of carbohydrates a day, dropping to 250 grams feels incredibly "low-carb." To a strict Ketogenic dieter eating 20 grams a day, 250 grams is an astronomical carbohydrate overload. Because human metabolism operates on a continuous spectrum rather than binary switches, defining where you stand requires mathematical precision. The <strong>Low-Carb Threshold Calculator</strong> classifies your exact dietary protocol based on established clinical guidelines, helping you align your carbohydrate intake with your specific metabolic goals (whether that is deep ketosis, insulin stabilization, or simple weight maintenance).</p>
 
@@ -361,7 +361,7 @@ export default function LowCarbThresholdCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Choose Your Threshold</h2>
             <p>There is no single "best" carbohydrate threshold. The optimal tier depends entirely on your current metabolic health, your athletic goals, and your psychological ability to adhere to restriction. If you are deeply insulin-resistant and want rapid weight loss, the Ketogenic threshold (&lt;50g) is a powerful medical tool. If you are a healthy, active individual looking to stay lean year-round, the Liberal Low-Carb tier (100-150g) offers the perfect balance of metabolic health and dietary freedom. Use the calculator to establish your target, eliminate refined sugars, and stick to your chosen threshold.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/low-carb-threshold-calculator" />
           <PopularCalculators exclude="/calculator/low-carb-threshold-calculator" />

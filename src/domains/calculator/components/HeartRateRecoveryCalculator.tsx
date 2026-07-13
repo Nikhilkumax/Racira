@@ -172,7 +172,7 @@ const HeartRateRecoveryCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Heart Rate Recovery Calculator?</h2>
             <p>A heart rate recovery (HRR) calculator measures how quickly your heart rate drops after peak exercise — a powerful indicator of cardiovascular fitness and autonomic nervous system health. Pre-filled with a peak heart rate of 175 bpm dropping to 150 bpm at 1 minute, the 25-bpm recovery is rated "Excellent." Slower recovery indicates reduced parasympathetic (vagal) tone and may warrant medical evaluation.</p>
             <h2 className="text-2xl font-bold mb-3">The Clinical Significance of HRR</h2>
@@ -185,7 +185,7 @@ const HeartRateRecoveryCalculator = () => {
             <p>Cardiovascular fitness (most important), age (HRR decreases with age), medications (beta-blockers dramatically improve HRR, while anticholinergics impair it), chronic conditions (heart failure, diabetes, COPD reduce HRR), overtraining syndrome, dehydration, and ambient temperature all affect recovery speed. Serial HRR measurements over weeks provide more reliable assessment than single measurements.</p>
             <h2 className="text-2xl font-bold mb-3">Improving Your Heart Rate Recovery</h2>
             <p>Regular aerobic exercise improves HRR within 4–12 weeks. HIIT (high-intensity interval training) is particularly effective at enhancing autonomic function. Additional strategies: adequate sleep (7–9 hours), meditation and deep breathing exercises (directly stimulate vagal tone), weight management, smoking cessation, moderate alcohol consumption, and avoiding chronic psychological stress. Elite endurance athletes exhibit HRR drops of 30–50+ bpm at 1 minute, reflecting superior vagal tone.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/heart-rate-recovery-calculator" />
           <PopularCalculators exclude="/calculator/heart-rate-recovery-calculator" />
         </div>

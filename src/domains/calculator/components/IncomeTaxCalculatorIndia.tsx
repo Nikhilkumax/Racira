@@ -174,7 +174,7 @@ const IncomeTaxCalculatorIndia = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Income Tax Slabs FY 2024-25 (New Regime)</h2>
               <ul>
                 <li>Up to ₹3,00,000 — Nil</li>
@@ -207,7 +207,7 @@ const IncomeTaxCalculatorIndia = () => {
               <p>As a thumb rule, if your total deductions (80C + 80D + HRA + others) exceed approximately ₹3.75 lakh, the old regime is likely better. With fewer deductions, the new regime's lower slab rates and higher standard deduction (₹75,000) make it more beneficial.</p>
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> Tax slabs and rules are for FY 2024-25 (AY 2025-26). Surcharge and marginal relief are not included. Consult a CA for precise calculation.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/income-tax-calculator-india" />
           <PopularCalculators exclude="/income-tax-calculator-india" />
         </div>

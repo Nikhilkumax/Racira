@@ -211,7 +211,7 @@ const NavyBodyFatCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Navy Body Fat Calculator?</h2>
             <p>The Navy Body Fat Calculator uses the U.S. Navy circumference method to estimate body fat percentage from simple tape measurements — height, neck, waist, and hip (women). Pre-filled with height 70 inches, neck 15 inches, and waist 33 inches for a male, the estimated body fat is approximately 18% — in the average fitness category. This method was developed by Hodgdon and Beckett in 1984 for the U.S. military and is still used by the Navy, Army, and Marine Corps for fitness standards compliance.</p>
             <h2 className="text-2xl font-bold mb-3">The Navy Body Fat Formulas</h2>
@@ -228,7 +228,7 @@ const NavyBodyFatCalculator = () => {
             <p>Excess body fat — particularly visceral fat — is associated with insulin resistance, type 2 diabetes, cardiovascular disease, hypertension, certain cancers, and reduced longevity. The relationship between body fat and health outcomes is nonlinear: both very low body fat (below essential levels) and high body fat increase all-cause mortality risk. The healthiest ranges for most adults are 10–18% for men and 18–28% for women, representing the "fit" to "average" categories.</p>
             <h2 className="text-2xl font-bold mb-3">How to Reduce Body Fat Percentage</h2>
             <p>To reduce body fat: create a moderate caloric deficit (300–500 kcal/day) while maintaining adequate protein (1.6–2.2 g/kg body weight) to preserve lean mass. Combine resistance training (stimulates muscle protein synthesis) with aerobic exercise (expands caloric expenditure). Target 0.5–1% body fat reduction per month for sustainable, muscle-preserving fat loss. Aggressive deficits (1,000+ kcal/day) often result in significant muscle loss, especially without adequate protein and resistance training.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/navy-body-fat-calculator" />
           <PopularCalculators exclude="/calculator/navy-body-fat-calculator" />
         </div>

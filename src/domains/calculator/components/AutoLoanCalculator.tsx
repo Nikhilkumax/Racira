@@ -489,7 +489,7 @@ export default function AutoLoanCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Auto Loan Calculator</h2>
             <p>Buying a car is typically the second largest purchase an average consumer will make, following only the purchase of a home. Yet, while home buyers spend months analyzing mortgages, car buyers often make rushed decisions in the finance office of a dealership. An <strong>Auto Loan Calculator</strong> is your primary defense against overpaying. It is an essential financial tool that demystifies dealership mathematics, allowing you to accurately estimate your monthly payments and uncover the true, long-term cost of vehicle ownership before you sign a contract.</p>
             <p>Dealerships frequently negotiate based on the "monthly payment" rather than the total purchase price of the vehicle. This tactic obscures the actual cost. By stretching a loan over 72 or 84 months, a salesperson can hit your target monthly payment while quietly increasing the total vehicle price and inflating the interest charges by thousands of dollars. Our comprehensive Auto Loan Calculator prevents this by giving you the power to see the entire amortization schedule, factoring in trade-in values, local taxes, dealer fees, and manufacturer incentives.</p>
@@ -529,7 +529,7 @@ export default function AutoLoanCalculator() {
             <h2 className="text-2xl font-bold mb-3">Conclusion and Financial Benefits</h2>
             <p>An automobile is a depreciating asset. Unlike a house, a car loses value every single day you own it. Therefore, minimizing the amount of interest you pay to finance that depreciating asset is paramount to your long-term wealth building.</p>
             <p>By rigorously utilizing this Auto Loan Calculator, you take control of the transaction. You transition from a passive buyer reacting to dealership numbers, into an informed consumer who dictates the terms of the deal. Running multiple scenarios—adjusting the down payment by $1,000 here, shortening the loan term by 12 months there—empowers you to find the exact financing structure that minimizes your costs and maximizes your financial security.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/auto-loan-calculator" />
           <PopularCalculators exclude="/calculator/auto-loan-calculator" />

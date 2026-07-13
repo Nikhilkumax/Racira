@@ -197,14 +197,14 @@ export default function FatBurningZoneCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Optimal Exercise Intensity for Fat Oxidation</h2>
             <p>To maximize fitness and target fat reduction, understanding training zones is essential. Training intensity dictates whether the body converts carbohydrates or fat lipids into energy. Lower-intensity exercise (Zone 2) depends mostly on oxidative metabolism, utilizing fat stores for fuel, while higher intensities switch to glycogen conversion.</p>
             <p>Using target zones like Zone 2 optimizes base aerobic development, improves mitochondrial efficiency, and allows athletes to train for longer durations without central nervous fatigue. Calculating maximum heart rate and adjusting for resting levels yields customized target ranges for safe, efficient workouts.</p>
 
             <h2 className="text-2xl font-bold mb-3">Formulas Explained</h2>
             <p>The Standard equation (220 - Age) offers a quick baseline estimate. The Tanaka equation modifies this to 208 - 0.7 × Age, reducing variance across older active populations. The Karvonen formula integrates Heart Rate Reserve (Max HR - Resting HR), adjusting for individual cardiovascular efficiency and resulting in highly tailored, functional zones.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/fat-burning-zone-calculator" />
           <PopularCalculators exclude="/calculator/fat-burning-zone-calculator" />
         </div>

@@ -161,7 +161,7 @@ export default function SslCostCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Why Your Website Needs an SSL Certificate</h2>
               <p>SSL (Secure Sockets Layer) is the standard technology for keeping an internet connection secure and safeguarding any sensitive data that is being sent between two systems. It prevents criminals from reading and modifying any information transferred, including potential personal details like credit card numbers or login credentials. Today, SSL is not just a luxury; it is a fundamental requirement for any professional website.</p>
 
@@ -181,7 +181,7 @@ export default function SslCostCalculator() {
 
               <h3>Impact on SEO and User Experience</h3>
               <p>Google has officially stated that HTTPS is a ranking signal. Beyond SEO, browsers like Chrome and Firefox now display 'Not Secure' warnings for any page served over HTTP. Studies show that up to 85% of users will abandon a website if they see a 'Not Secure' warning, especially if the site asks for any form of data input. Investing in a stable, trusted SSL certificate is a direct investment in your conversion rate and brand reputation.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/ssl-certificate-cost-calculator" />
           <PopularCalculators exclude="/calculator/ssl-certificate-cost-calculator" />
         </div>

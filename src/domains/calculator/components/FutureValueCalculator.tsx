@@ -183,7 +183,7 @@ export default function FutureValueCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding Future Value</h2>
             <p>Future Value (FV) is the projected value of a current sum of money at a future date, assuming a specific rate of growth over time. It is one of the most important concepts in personal finance and investing, forming the mathematical backbone of retirement planning, college savings, investment analysis, and any goal that involves accumulating money over time.</p>
             <p>The core insight behind future value is the time value of money: money today is worth more than the same amount in the future because it can be invested to earn returns. Conversely, the future value calculation tells you exactly how much your current money will grow to — making it the essential tool for turning savings goals into concrete investment plans.</p>
@@ -200,7 +200,7 @@ export default function FutureValueCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Practical Applications</h2>
             <p>Retirement planning: Will my current 401(k) balance and monthly contributions be enough by age 65? College savings: How much do I need to invest monthly to have $200,000 in 18 years? Comparing investment options: Which account with different rates and compounding frequencies will grow more? Business projections: What will my capital equipment be worth in 5 years? Our future value calculator answers all these questions instantly.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/future-value-calculator" />
           <PopularCalculators exclude="/calculator/future-value-calculator" />
         </div>

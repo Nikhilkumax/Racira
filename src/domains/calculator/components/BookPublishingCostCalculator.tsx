@@ -502,7 +502,7 @@ export default function BookPublishingCostCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Complete Guide to Book Publishing Costs</h2>
             <h3>Understanding the True Cost of Publishing</h3>
             <p>Writing a book is free, but publishing a high-quality book that competes with traditional publishers requires a financial investment. Our Book Publishing Cost Calculator helps aspiring independent authors construct a realistic budget before launching their literary careers.</p>
@@ -533,7 +533,7 @@ export default function BookPublishingCostCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">How to Reduce Your Publishing Costs</h2>
             <p>If your budget is tight, do not cut corners on the cover or the editing. Instead, join critique groups or find reliable beta readers to review your manuscript before sending it to a professional editor—the cleaner your draft, the less an editor may charge. Use DIY formatting software like Atticus, rely on pre-made covers from quality designers, and utilize free grassroots marketing on social media to build an organic audience before opening your wallet for paid advertising.</p>
-          </article>
+          </section>
 
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/book-publishing-cost-calculator" />
           <PopularCalculators exclude="/calculator/book-publishing-cost-calculator" />

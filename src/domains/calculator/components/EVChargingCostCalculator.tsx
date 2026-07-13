@@ -317,7 +317,7 @@ export default function EVChargingCostCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is an EV Charging Cost Calculator?</h2>
             <p>An EV Charging Cost Calculator takes the mystery out of "fueling" an electric vehicle. Unlike gas cars, where you look at a giant sign that clearly states $3.50 per gallon, the cost to charge an EV is largely invisible. It depends on your home utility rate, the size of your car's battery, and the efficiency of the vehicle itself. This calculator converts the abstract concepts of kilowatts and electrical efficiency into concrete dollars, cents, and miles, allowing you to accurately budget your transportation costs and compare them directly against gasoline.</p>
 
@@ -339,7 +339,7 @@ export default function EVChargingCostCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
             <p>To maximize your savings, check if your local utility provider offers a "Time of Use" (TOU) or specific EV charging rate. These programs offer incredibly cheap electricity if you schedule your car to charge automatically at 1:00 AM when grid demand is lowest. Also, avoid using expensive public fast chargers for your daily commute; they are designed for road trips and charge massive premiums for the convenience of speed.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/ev-charging-cost-calculator" />
           <PopularCalculators />

@@ -192,7 +192,7 @@ const DockerImageSizeCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Optimizing Docker Images</h2>
               <p>In the world of containerization, size matters. Smaller Docker images deploy faster, consume less network bandwidth, boot up quicker, and present a smaller attack surface for security vulnerabilities.</p>
               
@@ -201,7 +201,7 @@ const DockerImageSizeCalculator = () => {
 
               <h3>Beware of Build Tools</h3>
               <p>If your application requires compiling native extensions (like certain Python packages or Node.js modules), you need heavy tools like `gcc` and `make`. However, these tools are only needed during the build process, not when the app is running. Using Docker Multi-stage builds allows you to compile your code in a heavy container, and then copy the compiled files into a fresh, tiny container, leaving the massive build tools behind.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/docker-image-size" />
           <PopularCalculators exclude="/calculator/docker-image-size-calculator" />
         </div>

@@ -129,12 +129,12 @@ const GameDownloadCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Wait Less, Play More</h2>
               <p>With modern games like *Call of Duty* or *Baldur's Gate 3* reaching over 100GB, download time is a serious consideration. Understanding your real-world transfer rate helps you plan your gaming sessions.</p>
               <h3>Why is my speed fluctuating?</h3>
               <p>Game downloads aren't just about moving data; your computer is also decompressing and installing files as they arrive. If your CPU or Disk is slow, the download may pause to let the installation catch up. This is very common on launchers like Steam or the EA App.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/game-download" />
           <PopularCalculators exclude="/calculator/game-download-calculator" />
         </div>

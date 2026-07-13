@@ -283,7 +283,7 @@ export default function WeightliftingSessionCalorieCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Mathematics of Resistance Training</h2>
             <p>One of the most disappointing truths in the fitness industry is the realization of how few calories traditional weightlifting actually burns compared to steady-state cardiovascular exercise. Many people assume that because lifting a 300-pound barbell off the ground is excruciatingly difficult, they must be burning massive amounts of energy. However, the human body does not burn calories based on the weight on the bar; it burns calories based on continuous cardiovascular demand and oxygen consumption. The <strong>Weightlifting Session Calorie Calculator</strong> bypasses inaccurate fitness watch estimations by utilizing clinically validated Metabolic Equivalent (MET) formulas. By factoring in your specific body mass and your training style, it calculates the exact thermodynamic cost of your time in the weight room.</p>
 
@@ -314,7 +314,7 @@ export default function WeightliftingSessionCalorieCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Train for Muscle, Eat for Fat Loss</h2>
             <p>Do not use the weight room as a primary calorie-burning tool. That is not what it is designed for. Use the weight room to build strength, increase your bone density, and sculpt your physique. Use the Weightlifting Session Calorie Calculator to get an accurate, realistic estimate of your expenditure so you don't overeat. Then, combine your lifting with a strict, disciplined caloric deficit in your diet to strip away the fat and reveal the muscle you have built.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/weightlifting-session-calorie-calculator" />
           <PopularCalculators exclude="/calculator/weightlifting-session-calorie-calculator" />

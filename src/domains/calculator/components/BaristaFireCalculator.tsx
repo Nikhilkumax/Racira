@@ -338,7 +338,7 @@ export default function BaristaFireCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What is Barista FIRE?</h2>
             <p>Barista FIRE is a hybrid approach to the Financial Independence, Retire Early (FIRE) movement. Traditional FIRE requires you to save a massive portfolio (usually 25x your annual expenses) so you can stop working entirely. Barista FIRE requires a much smaller portfolio because you continue to work a low-stress, part-time job (like a barista) to cover a portion of your living expenses and, crucially, to secure employer-sponsored health insurance.</p>
             
@@ -353,7 +353,7 @@ export default function BaristaFireCalculator() {
             
             <h2 className="text-2xl font-bold mb-3">Is it Right for You?</h2>
             <p>Barista FIRE is perfect for people experiencing intense corporate burnout who want to slow down in their 40s or 50s but aren't wealthy enough to stop working entirely. It provides structure, social interaction, and income, while freeing up 20+ hours a week for hobbies, family, or building a small business.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/barista-fire-calculator" />
           <PopularCalculators />

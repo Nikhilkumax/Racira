@@ -236,7 +236,7 @@ const ScientificNotationCalculator = () => {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Why Use Scientific Notation?</h2>
             <p><strong>Scientific notation</strong> is an essential mathematical tool for dealing with extreme numbers. In fields like astronomy and quantum physics, scientists frequently work with figures that are staggeringly large or incredibly small. For instance, the mass of the Earth is approximately 5,972,000,000,000,000,000,000,000 kg. The mass of an electron is roughly 0.0000000000000000000000000000009109 kg. Writing these standard decimals out by hand is not only tedious but highly prone to counting errors. Scientific notation condenses these numbers into a clean, universally readable format.</p>
 
@@ -261,7 +261,7 @@ const ScientificNotationCalculator = () => {
 
             <h2 className="text-2xl font-bold mb-3">Engineering Notation vs. Scientific Notation</h2>
             <p>While standard scientific notation requires the coefficient to be between 1 and 10, <strong>Engineering notation</strong> has a different rule: the exponent must always be a multiple of three (e.g., 3, 6, 9, -3, -6). Consequently, the coefficient can be anywhere between 1 and 1000. This system perfectly aligns with SI metric prefixes. For example, 5.5 × 10³ Hz translates instantly to 5.5 kiloHertz, while 5.5 × 10⁶ translates to 5.5 megaHertz.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/scientific-notation-calculator" />
           <PopularCalculators exclude="/calculator/scientific-notation-calculator" />
         </div>

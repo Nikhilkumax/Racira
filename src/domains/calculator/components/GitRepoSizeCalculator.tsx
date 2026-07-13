@@ -175,7 +175,7 @@ const GitRepoSizeCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">The Mechanics of Git Storage</h2>
               <p>Git is incredibly efficient at storing source code. Instead of saving a full copy of a file every time you make a commit, it uses compression and deltas. A delta only stores the lines of text that changed between commits. This allows a repository with thousands of commits to remain remarkably small.</p>
               
@@ -185,7 +185,7 @@ const GitRepoSizeCalculator = () => {
 
               <h3>The Solution: Git LFS</h3>
               <p>Git Large File Storage (LFS) solves this by replacing large files in your repository with tiny text pointers. The actual file contents are stored on a remote server. When you clone a repository, Git LFS only downloads the versions of the large files needed for your currently checked-out commit, rather than downloading the entire history of every large file.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/git-repo-size" />
           <PopularCalculators exclude="/calculator/git-repo-size-calculator" />
         </div>

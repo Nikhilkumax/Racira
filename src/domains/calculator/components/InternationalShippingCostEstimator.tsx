@@ -271,7 +271,7 @@ export default function InternationalShippingCostEstimator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the International Shipping Stack</h2>
             <p>One of the biggest mistakes new importers make is looking up an "Ocean Freight Rate" from Shanghai to Los Angeles ($4,200), and assuming that is the total cost of logistics. In reality, moving a 40-foot steel container from a factory in China to a warehouse in Ohio involves three distinct phases, each with its own massive costs.</p>
             
@@ -286,7 +286,7 @@ export default function InternationalShippingCostEstimator() {
             
             <h2 className="text-2xl font-bold mb-3">Why Use This Calculator?</h2>
             <p>This tool models a true <strong>Door-to-Door (D2D)</strong> scenario. If you are importing goods using EXW or FOB terms, you are responsible for multiple layers of this stack. Failing to account for destination drayage or import duties can completely wipe out your product's profit margin before it ever reaches your shelves.</p>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "What is THC?", answer: "Terminal Handling Charges (THC) are fees levied by the port authority to physically move the container around the terminal yard using heavy machinery and cranes. You pay THC at both origin and destination." },
             { question: "What is Drayage?", answer: "Drayage is the specialized logistics niche of moving shipping containers over short distances, typically between the port terminal and a local rail yard or warehouse." },

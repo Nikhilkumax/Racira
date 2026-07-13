@@ -141,7 +141,7 @@ export default function CurrentRatioCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10"/>
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is the Current Ratio?</h2>
             <p>The current ratio is a liquidity ratio that measures a company&apos;s ability to pay its short-term obligations with its short-term assets. It is the most basic and widely cited liquidity metric in financial statement analysis, appearing in credit agreements, loan covenants, and equity research reports worldwide.</p>
             <h2 className="text-2xl font-bold mb-3">Current Ratio Formula</h2>
@@ -157,7 +157,7 @@ export default function CurrentRatioCalculator() {
             <p>Typical current ratios by sector: Retail/Grocery: 0.8–1.2. Manufacturing: 1.5–2.5. Technology (asset-light): 2.0–4.0. Utilities: 0.8–1.3. Healthcare: 1.5–2.5. Always compare a company&apos;s current ratio to its direct peers rather than using a universal benchmark.</p>
             <h2 className="text-2xl font-bold mb-3">Limitations of the Current Ratio</h2>
             <p>The current ratio is a point-in-time snapshot and can be easily manipulated near reporting dates (window dressing). It does not reflect cash flow quality, the liquidity of receivables, or the age of inventory. A high ratio with slow-moving inventory and uncollectible receivables may be worse than a lower ratio with high-quality liquid assets.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/current-ratio-calculator"/>
           <PopularCalculators exclude="/calculator/current-ratio-calculator"/>
         </div>

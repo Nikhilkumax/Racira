@@ -123,14 +123,14 @@ const BacCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">How Alcohol is Metabolized</h2>
               <p>When you consume alcohol, it passes through the stomach and small intestine directly into your bloodstream. Because it is a toxin, your liver immediately begins producing enzymes (alcohol dehydrogenase) to break it down. However, the liver can only process a finite amount of alcohol per hour (roughly one standard drink).</p>
               <h3>The Danger of Binge Drinking</h3>
               <p>If you consume alcohol faster than your liver can break it down, the excess alcohol remains in your bloodstream, causing your BAC to rise. Binge drinking (4+ drinks in two hours for women, 5+ for men) causes BAC to spike rapidly into dangerous territory.</p>
               <h3>Why Food Matters</h3>
               <p>Drinking on an empty stomach allows alcohol to pass immediately into the small intestine, where absorption is incredibly fast. Eating a large meal before drinking slows gastric emptying, significantly flattening the curve of your BAC spike.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/bac" />
           <PopularCalculators exclude="/calculator/bac-calculator" />
         </div>

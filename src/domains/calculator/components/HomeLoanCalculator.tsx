@@ -500,7 +500,7 @@ export default function HomeLoanCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Home Loan Calculator?</h2>
             <p>A <strong>Home Loan Calculator</strong> is a powerful financial modeling tool designed to help prospective home buyers and real estate investors estimate their true monthly mortgage obligations and total long-term borrowing costs. When you purchase a home, the sticker price is just the beginning. The actual amount you will pay every month—and over the course of the loan—depends heavily on your down payment, interest rate, loan duration, and peripheral costs like property taxes and homeowner's insurance.</p>
             <p>This calculator removes the guesswork from the home-buying process. By instantly processing standard amortization mathematics alongside your specific local variables, it provides a crystal-clear picture of your housing affordability. Whether you are a first-time home buyer trying to figure out if you can afford a starter home, or an experienced investor calculating cash flow on a rental property, a home loan calculator is your first step toward responsible property ownership.</p>
@@ -545,7 +545,7 @@ export default function HomeLoanCalculator() {
             <h2 className="text-2xl font-bold mb-3">Benefits</h2>
             <p>Utilizing a Home Loan Calculator empowers you with financial foresight. It protects you from the emotional trap of falling in love with a house you cannot afford. By running various scenarios—different home prices, varying down payments, fluctuating interest rates—you establish firm budgetary boundaries before you ever speak to a real estate agent.</p>
             <p>Ultimately, a home is not just a place to live; it is a complex financial instrument. Approaching it with accurate, unbiased mathematical modeling ensures that your new home remains a blessing rather than becoming a financial burden.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/home-loan-calculator" />
           <PopularCalculators exclude="/calculator/home-loan-calculator" />

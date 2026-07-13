@@ -378,7 +378,7 @@ export default function OilChangeIntervalCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is an Oil Change Interval Calculator?</h2>
             <p>An Oil Change Interval Calculator is a diagnostic tool designed to tell you exactly when your car is due for its next oil service. For decades, the automotive industry relentlessly pushed the "3 months or 3,000 miles" rule. Today, that rule is entirely obsolete. Thanks to advances in engine manufacturing tolerances and highly engineered synthetic oils, changing your oil too frequently is simply throwing money away. This calculator analyzes your oil type, driving habits, and engine specifics to provide a mathematically sound, customized maintenance schedule.</p>
 
@@ -403,7 +403,7 @@ export default function OilChangeIntervalCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Benefits</h2>
             <p>Using this calculator prevents two expensive mistakes: over-maintaining your car (wasting money on unnecessary oil changes) and under-maintaining your car (causing catastrophic engine failure due to sludge). It provides peace of mind by giving you a personalized, science-based schedule tailored to how you actually drive.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/oil-change-interval-calculator" />
           <PopularCalculators />

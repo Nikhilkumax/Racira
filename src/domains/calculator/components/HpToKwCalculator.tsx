@@ -103,14 +103,14 @@ const HpToKwCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">What is a Horsepower?</h2>
               <p>The term "horsepower" was coined by James Watt in the 18th century to compare the output of steam engines to the power of draft horses. Today, it remains the most popular unit for describing engine power in the automotive world.</p>
               <h3>Mechanical vs. Metric</h3>
               <p>Not all horsepower is created equal. <strong>Mechanical horsepower</strong> (used in the US) is defined as 550 foot-pounds per second. <strong>Metric horsepower</strong> (PS, CV, or pk) was developed in Germany and is slightly different, defined as the power required to raise a 75 kg mass against gravity at a speed of 1 meter per second.</p>
               <h3>The Shift to Watts</h3>
               <p>As the world moves toward electric vehicles, the Watt (and its multiple, the Kilowatt) is becoming the universal unit for power. Since electric motors are rated in Watts, using kW allows for a direct comparison between internal combustion engines and electric powertrains without the confusion of regional horsepower standards.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/hp-to-kw" />
           <PopularCalculators exclude="/calculator/horsepower-to-kilowatts-calculator" />
         </div>

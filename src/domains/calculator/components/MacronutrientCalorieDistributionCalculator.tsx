@@ -419,7 +419,7 @@ export default function MacronutrientCalorieDistributionCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Macronutrient Calorie Distribution Calculator</h2>
             <p>In the hierarchy of nutritional importance, Total Calories dictate whether you will gain or lose weight. However, your <strong>Macronutrients (Macros)</strong> dictate your body composition—specifically, whether that weight gained or lost comes from muscle or fat. "If It Fits Your Macros" (IIFYM) is a scientifically validated dieting approach that ignores restrictive food rules (like "no eating after 8 PM" or "no white bread") and focuses entirely on hitting specific daily targets of Protein, Carbohydrates, and Fats. The <strong>Macronutrient Calorie Distribution Calculator</strong> acts as the architectural blueprint for your diet, taking your raw calorie target and converting it into physical, trackable grams.</p>
 
@@ -466,7 +466,7 @@ export default function MacronutrientCalorieDistributionCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Precision Yields Results</h2>
             <p>The most elite physiques in the world are not built by "eating clean" and guessing portion sizes; they are built through mathematical precision. Use the Macronutrient Calorie Distribution Calculator to generate your personalized blueprint, hit your targets with a +/- 5 gram variance every single day, and watch your body transform predictably and consistently.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/macronutrient-calorie-distribution-calculator" />
           <PopularCalculators exclude="/calculator/macronutrient-calorie-distribution-calculator" />

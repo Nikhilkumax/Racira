@@ -173,7 +173,7 @@ const PomodoroCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Mastering the Pomodoro Technique</h2>
               <p>The Pomodoro Technique is one of the most effective ways to maintain deep focus while preventing mental burnout. By breaking your day into small, manageable chunks, you can maintain high productivity throughout the entire day.</p>
               
@@ -182,7 +182,7 @@ const PomodoroCalculator = () => {
 
               <h3>Customizing Your Flow</h3>
               <p>While the standard 25/5 rhythm works for many, some people prefer longer sessions. For complex tasks like coding or writing, a 50-minute work session followed by a 10-minute break (often called the '50/10' rule) might be more effective to maintain "flow state."</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/pomodoro-cycle" />
           <PopularCalculators exclude="/calculator/pomodoro-calculator" />
         </div>

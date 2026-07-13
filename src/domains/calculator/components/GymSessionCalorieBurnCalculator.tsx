@@ -312,7 +312,7 @@ export default function GymSessionCalorieBurnCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Mathematics of a Complete Gym Session</h2>
             <p>Walking into a gym and staying for exactly 60 minutes does not guarantee a specific caloric burn. The human body does not burn calories based on the clock on the wall; it burns calories based on the intensity of cardiovascular demand and muscular tension. Most people don't do just one thing at the gym; they warm up, lift weights, and finish with a cardio session. Because each of these activities has a drastically different metabolic demand, relying on a generic "1 Hour Workout" estimate is highly inaccurate. The <strong>Gym Session Calorie Burn Calculator</strong> solves this by breaking your workout down into distinct physiological segments, applying clinical Metabolic Equivalent (MET) formulas to each, and providing a highly accurate total energy expenditure.</p>
 
@@ -339,7 +339,7 @@ export default function GymSessionCalorieBurnCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Stop Trusting Fitness Watches</h2>
             <p>Do not rely on the calorie readout on your smart watch when lifting weights. Fitness trackers estimate caloric burn primarily through heart rate. When you lift a heavy barbell, your blood pressure spikes to push blood to the working muscles, which artificially spikes your heart rate. Your watch assumes this massive heart rate spike means you are sprinting at full speed, and it will falsely reward you with hundreds of phantom calories you did not actually burn. The Gym Session Calorie Burn Calculator ignores these false heart rate spikes and uses clinically validated thermodynamic math to provide you with the cold, hard truth of your energy expenditure.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/gym-session-calorie-burn-calculator" />
           <PopularCalculators exclude="/calculator/gym-session-calorie-burn-calculator" />

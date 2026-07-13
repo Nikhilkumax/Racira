@@ -277,7 +277,7 @@ export default function BackdoorRothIraCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What is a Backdoor Roth IRA?</h2>
             <p>The IRS imposes income limits on who can contribute directly to a Roth IRA. In 2024, if you are single and earn over $161,000 (or Married Filing Jointly and earn over $240,000), you are barred from making direct contributions. However, the "Backdoor Roth" strategy allows high earners to legally bypass these limits.</p>
             
@@ -293,7 +293,7 @@ export default function BackdoorRothIraCalculator() {
             
             <h2 className="text-2xl font-bold mb-3">Important Deadlines</h2>
             <p>While you can make prior-year IRA contributions up until Tax Day (usually April 15th), a Roth <em>conversion</em> is strictly tied to the calendar year it is performed in. Furthermore, the IRS checks your Traditional IRA balance for the pro-rata calculation on December 31st of the year the conversion takes place.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/backdoor-roth-ira-calculator" />
           <PopularCalculators />

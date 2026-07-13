@@ -178,7 +178,7 @@ const OhmsLawCalculator = () => {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is Ohm&apos;s Law?</h2>
             <p>Ohm&apos;s Law is the fundamental relationship in electrical circuit analysis: the voltage across a conductor equals the current flowing through it multiplied by its resistance (V = I × R). Published by German physicist Georg Simon Ohm in 1827, this simple equation underpins all of electrical engineering and electronics. This calculator solves for any one of the three variables — voltage, current, or resistance — given the other two, and also computes power using the three equivalent power formulas.</p>
             <p>Pre-filled with 12V and 4Ω (a common 12V automotive circuit), the calculator immediately shows that 3 amperes of current flow and 36 watts of power are consumed — typical for a small automotive accessory.</p>
@@ -197,7 +197,7 @@ const OhmsLawCalculator = () => {
             <p>Ohm&apos;s Law applies only to ohmic (linear) conductors where resistance is constant regardless of applied voltage. Non-ohmic devices include diodes (exponential V-I curve), transistors, thermistors (resistance changes with temperature), and incandescent bulb filaments (resistance increases when hot). For AC circuits, resistance is replaced by impedance Z = √(R² + X²), where X is reactance from capacitors or inductors. Use the <a href="/calculator/impedance-calculator">impedance calculator</a> for AC analysis.</p>
             <h2 className="text-2xl font-bold mb-3">Tips for Using This Calculator</h2>
             <p>Select "Solve For" to choose which variable to calculate. The two known values auto-populate the visible input fields. The calculator verifies Ohm&apos;s Law in the breakdown table (V = I × R should equal your entered voltage). The pie chart shows all four quantities for quick visual comparison. Pair with the <a href="/calculator/power-calculator">power calculator</a> for complete electrical circuit analysis.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/ohms-law-calculator" />
           <PopularCalculators exclude="/calculator/ohms-law-calculator" />
         </div>

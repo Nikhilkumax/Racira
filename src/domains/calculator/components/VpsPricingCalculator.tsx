@@ -180,7 +180,7 @@ const VpsPricingCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">VPS Pricing Decoded</h2>
               <p>Virtual Private Server (VPS) pricing is generally more predictable than "serverless" or "managed" services because you are paying for reserved capacity. However, there are several factors that can influence your final bill.</p>
               
@@ -196,7 +196,7 @@ const VpsPricingCalculator = () => {
                 <li><strong>NVMe SSD:</strong> High-performance storage, essential for database-heavy applications.</li>
                 <li><strong>Block Storage:</strong> External drives that can be detached and attached to different servers, usually priced per GB/month.</li>
               </ul>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/vps-pricing" />
           <PopularCalculators exclude="/calculator/vps-pricing-calculator" />
         </div>

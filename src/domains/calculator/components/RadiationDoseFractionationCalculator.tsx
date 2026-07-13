@@ -307,7 +307,7 @@ export default function RadiationDoseFractionationCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding Radiation Dose Fractionation (BED & EQD2)</h2>
             <p>In modern oncology, radiation therapy is a cornerstone of cancer treatment. However, prescribing radiation is not as simple as giving a patient a total physical dose (e.g., 60 Gray) all at once. Delivering massive amounts of radiation in a single burst causes catastrophic damage to healthy, normal tissues. To protect the patient, radiation oncologists use "fractionation"—splitting the total dose into small daily treatments (fractions) delivered over several weeks. Our <strong>Radiation Dose Fractionation Calculator</strong> uses the Linear-Quadratic (LQ) model to calculate the true biological effect of these altered schedules, generating the Biologically Effective Dose (BED) and the Equivalent Dose in 2 Gy fractions (EQD2).</p>
 
@@ -336,7 +336,7 @@ export default function RadiationDoseFractionationCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Clinical Uses: Hypofractionation and SBRT</h2>
             <p>In the past, patients had to come to the clinic 5 days a week for 8 weeks (40 fractions) for prostate cancer. Today, using advanced imaging and robotics, we use Stereotactic Body Radiotherapy (SBRT) to deliver massive doses (like 8 Gy per day) in just 5 days. Our BED and EQD2 calculator is the exact mathematical tool physicists use to prove that these ultra-short, highly convenient 5-day schedules deliver the exact same biological tumor-killing power as the old 8-week regimens, fundamentally transforming modern cancer care.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/radiation-dose-fractionation-calculator" />
           <PopularCalculators exclude="/calculator/radiation-dose-fractionation-calculator" />

@@ -378,7 +378,7 @@ export default function LowCarbDietAdherenceScoreCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Low-Carb Diet Adherence Score</h2>
             <p>The Low-Carbohydrate Diet (LCD) Adherence Score is a quantitative tool originally developed by nutritional epidemiologists to study dietary patterns over time. Unlike a simple "yes/no" checklist of whether you are eating low-carb, this scoring system evaluates the precise ratio of macronutrients—carbohydrates, fats, and proteins—in your daily caloric intake. Our <strong>Low-Carb Diet Adherence Score Calculator</strong> adapts this clinical methodology into an accessible tool to help you instantly determine how closely your eating habits align with your specific nutritional goals.</p>
             <p>Whether your objective is metabolic flexibility, managing insulin resistance, weight loss, or achieving therapeutic ketosis, understanding the exact percentage breakdown of your macronutrients is critical. A high adherence score indicates that your body is being optimally fueled by dietary fats while carbohydrate restriction is tightly maintained.</p>
@@ -421,7 +421,7 @@ export default function LowCarbDietAdherenceScoreCalculator() {
             <h2 className="text-2xl font-bold mb-3">Conclusion</h2>
             <p>Nutritional success is rarely accidental; it requires measurement and feedback. The Low-Carb Diet Adherence Score Calculator provides an objective, mathematical analysis of your daily habits, stripping away the guesswork.</p>
             <p>By consistently evaluating your macronutrient ratios, you can quickly identify macro creep, prevent the physiological trap of low-carb limbo, and ensure that your daily food intake is perfectly aligned with your long-term metabolic health goals.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/low-carb-diet-adherence-score-calculator" />
           <PopularCalculators exclude="/calculator/low-carb-diet-adherence-score-calculator" />

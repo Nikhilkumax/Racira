@@ -204,7 +204,7 @@ const BandwidthCalculator = () => {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Great Broadband Marketing Trick</h2>
             <p>If you pay your Internet Service Provider (ISP) for a "100 Meg" internet connection, you might be furious when you download a video game and your browser says it is only downloading at 12 Megs. Are you being scammed? No, you are experiencing the most successful marketing trick in the technology industry: the difference between a Bit and a Byte.</p>
 
@@ -216,7 +216,7 @@ const BandwidthCalculator = () => {
             <h2 className="text-2xl font-bold mb-3">Understanding Gigabit Internet</h2>
             <p>Fiber optic infrastructure has brought "Gigabit" internet to many residential homes. 1 Gigabit per second (Gbps) equals 1,000 Megabits per second (Mbps). When divided by 8, a Gigabit connection provides a maximum theoretical download speed of 125 Megabytes per second (MB/s).</p>
             <p>While incredibly fast, you will rarely see a single file download at 125 MB/s. This is because bandwidth acts like a physical pipe. Just because your pipe is large enough to handle 125 MB/s of water doesn't mean the server you are downloading from has a pump strong enough to push the water that fast. Most web servers cap their upload speeds to individual users, meaning the real benefit of Gigabit internet is allowing a family of 5 to stream 4K video simultaneously without lagging, rather than accelerating a single download.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/bandwidth-calculator" />
           <PopularCalculators exclude="/calculator/bandwidth-calculator" />
         </div>

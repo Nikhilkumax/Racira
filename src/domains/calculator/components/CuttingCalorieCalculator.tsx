@@ -370,7 +370,7 @@ export default function CuttingCalorieCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Cutting Calorie Calculator</h2>
             <p>In the fitness and bodybuilding world, losing weight is not the goal—losing <em>fat</em> is the goal. If you simply stop eating, you will lose weight rapidly, but a massive portion of that weight will be metabolically expensive, hard-earned muscle tissue. This process, known as muscle catabolism, leaves you looking "skinny fat" and drastically lowers your basal metabolic rate (BMR), guaranteeing that you will rebound and gain all the fat back once the diet ends.</p>
             <p>To prevent this, athletes utilize a highly structured nutritional phase known as a "Cut". A cut is not a crash diet; it is a mathematically precise caloric deficit designed to coax the body into burning stored body fat for fuel while providing just enough energy (and heavy resistance training) to signal the body to preserve muscle. The <strong>Cutting Calorie Calculator</strong> removes the guesswork by providing exact daily targets based on your unique body weight and timeline.</p>
@@ -404,7 +404,7 @@ export default function CuttingCalorieCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Consistency Over Intensity</h2>
             <p>The most successful cut is not the one with the most aggressive deficit; it is the one you can actually adhere to. A 1% deficit followed perfectly for 12 weeks will yield vastly superior results to a 2% deficit that causes you to binge-eat every weekend. Use the Cutting Calorie Calculator to map out a mathematical, sustainable protocol, trust the timeline, and watch the fat melt away.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/cutting-calorie-calculator" />
           <PopularCalculators exclude="/calculator/cutting-calorie-calculator" />

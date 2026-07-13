@@ -223,7 +223,7 @@ export default function WheelHorsepowerCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What is Wheel Horsepower?</h2>
             <p>When you buy a car, the manufacturer advertises the engine's power output. For example, a Ford Mustang GT is advertised with 480 horsepower. However, this is <strong>Brake Horsepower (BHP)</strong>, measured directly at the engine's crankshaft in a laboratory setting with no transmission attached. Wheel Horsepower (WHP) is the amount of power that actually makes it down to the asphalt. Our Wheel Horsepower Calculator converts factory marketing numbers into realistic, road-ready figures.</p>
 
@@ -240,7 +240,7 @@ export default function WheelHorsepowerCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Why Dynos Read Different Numbers</h2>
             <p>If you strap your car to a chassis dynamometer (a "dyno"), it will measure your true Wheel Horsepower. However, different brands of dynos read differently. A Mustang Dyno is notorious for reading very low ("heartbreaker dyno") because it actively loads the rollers to simulate aerodynamic drag and vehicle weight. A Dynojet is an inertia-based dyno that spins freely, resulting in much higher, more flattering WHP numbers.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/wheel-horsepower-calculator" />
           <PopularCalculators />

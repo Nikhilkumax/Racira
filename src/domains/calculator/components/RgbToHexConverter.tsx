@@ -120,7 +120,7 @@ const RgbToHexConverter = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Color Models in Web Design</h2>
               <p>Computers create colors by mixing light. The primary colors of light are Red, Green, and Blue (RGB). By varying the intensity of these three lights, we can create millions of distinct colors.</p>
               
@@ -132,7 +132,7 @@ const RgbToHexConverter = () => {
 
               <h3>Understanding the Values</h3>
               <p>When all three values are the same, you get a shade of gray. Higher values result in lighter colors (FFF is white), while lower values result in darker colors (000 is black).</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/rgb-to-hex" />
           <PopularCalculators exclude="/calculator/rgb-to-hex-converter" />
         </div>

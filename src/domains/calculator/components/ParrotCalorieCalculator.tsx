@@ -331,7 +331,7 @@ export default function ParrotCalorieCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding Avian Metabolism and Nutrition</h2>
             <p>Parrots, macaws, and finches are incredibly complex animals with a metabolism vastly different from the domestic dogs and cats we are used to caring for. A bird's metabolic engine runs incredibly hot; their core body temperature is higher, their heart rate is significantly faster, and their respiratory system is highly specialized for the immense physical demands of flight. The <strong>Parrot & Avian Calorie Calculator</strong> utilizes veterinary allometric scaling equations to pinpoint exactly how much energy your bird needs to maintain this high-performance biology.</p>
             <p>Unfortunately, malnutrition is the leading cause of premature death in captive exotic birds. Many owners inadvertently feed their birds diets that are too high in fat, too low in calcium, and devoid of Vitamin A. By understanding your bird's precise daily caloric limit, you can transition them to a medically sound 70/20/10 diet plan, ensuring vibrant plumage, a strong immune system, and a lifespan that can stretch for decades.</p>
@@ -374,7 +374,7 @@ export default function ParrotCalorieCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion</h2>
             <p>Feeding a parrot is more akin to feeding a highly specialized human athlete than an ordinary house pet. Their brilliant minds and delicate biologies require exact nutritional inputs to thrive. By utilizing the Parrot & Avian Diet Calculator, converting their diet to a pellet-based protocol, and vigilantly monitoring their weight on a gram scale, you can protect your feathered companion from the silent epidemic of avian malnutrition.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/parrot-calorie-calculator" />
           <PopularCalculators exclude="/calculator/parrot-calorie-calculator" />

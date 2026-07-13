@@ -137,7 +137,7 @@ const SalaryCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">What Is a Salary Calculator?</h2>
               <p>A salary calculator converts your pay between different time periods — hourly, daily, weekly, bi-weekly, monthly, and annually. Whether you're evaluating a job offer, comparing different positions, or budgeting, understanding your salary across different timeframes is essential.</p>
               <p>Our calculator also accounts for paid holidays and vacation days, giving you a more accurate picture of your actual working hours and effective hourly rate.</p>
@@ -158,7 +158,7 @@ const SalaryCalculator = () => {
               </ul>
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> This calculator provides gross salary conversions. Actual take-home pay depends on taxes, deductions, and benefits. Use our Income Tax Calculator for net pay estimates.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/salary-calculator" />
           <PopularCalculators exclude="/salary-calculator" />
         </div>

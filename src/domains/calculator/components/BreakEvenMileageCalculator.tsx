@@ -310,7 +310,7 @@ export default function BreakEvenMileageCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Mathematics of Efficiency</h2>
             <p>Automakers heavily heavily market Hybrid and Electric Vehicles (EVs) based on fuel savings. A salesman will excitedly tell you that upgrading to the Hybrid trim level will jump your fuel economy from 30 MPG to an astonishing 50 MPG. What they rarely mention is the upfront math. The Hybrid engine upgrade usually carries a massive <strong>Price Premium</strong> (often $2,000 to $4,000) that gets rolled into your loan.</p>
             <p>This creates a race between two numbers: The extra money you paid at the dealership vs the money you are saving at the gas pump each week.</p>
@@ -324,7 +324,7 @@ export default function BreakEvenMileageCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">The Volatility of Fuel Prices</h2>
             <p>The break-even timeline is at the complete mercy of global oil prices. When gas spikes to $5.00 a gallon, the mathematical advantage of a 50 MPG Hybrid becomes massive, shortening the break-even time to just a few years. When gas drops down to $2.50 a gallon, the financial penalty of driving a standard 30 MPG gas car is so low that the Hybrid premium becomes nearly impossible to justify mathematically.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/break-even-mileage-calculator" />
           <PopularCalculators />

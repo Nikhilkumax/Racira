@@ -104,12 +104,12 @@ const BmiClassificationCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Sidebar Ad" />
-          <article className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">Understanding BMI in Context</h2>
+          <section className="prose-finance text-[15.75px]">
+              <h2 className="text-2xl font-bold mb-3">Understanding BMI Classifications</h2>
               <p>While BMI is the standard tool used by the WHO and CDC to categorize body weight and health risks, it should not be the only metric you track. It does not measure body fat percentage directly or account for bone density or muscle mass.</p>
               <h3>Why Categories Matter</h3>
               <p>Falling into the Overweight or Obese categories is statistically associated with higher risks of chronic conditions like type 2 diabetes, hypertension, and cardiovascular diseases. However, a person with a 'Normal' BMI can still be unhealthy if they have high visceral fat or poor fitness levels.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/bmi-classification-calculator" />
           <PopularCalculators exclude="/calculator/bmi-classification-calculator" />
         </div>

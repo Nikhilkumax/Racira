@@ -281,7 +281,7 @@ export default function SteroidEquivalenceCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Steroid Equivalence Calculator</h2>
             <p>Corticosteroids are powerful, life-saving medications used to treat severe inflammation, autoimmune diseases, asthma exacerbations, and severe allergic reactions. However, not all steroids are created equal. The <strong>Steroid Equivalence Calculator</strong> is a vital pharmacological tool used by physicians, pharmacists, and medical students to safely convert a patient's dose from one specific systemic corticosteroid to another.</p>
             <p>Switching steroid types is incredibly common in medicine. A patient might be admitted to the emergency room and given a massive dose of intravenous Methylprednisolone. When they are discharged three days later, they need a prescription for oral Prednisone. If the doctor simply writes the same milligram number on the prescription, it could result in a dangerous overdose or a failure to control the disease. This calculator ensures the anti-inflammatory potency remains perfectly matched across different drug molecules.</p>
@@ -313,7 +313,7 @@ export default function SteroidEquivalenceCalculator() {
             <h2 className="text-2xl font-bold mb-3">Clinical Limitations</h2>
             <p>While this calculator uses universally accepted pharmacological tables, clinical medicine is not always perfectly mathematical. Individual patient factors—such as liver function (which is required to metabolize Prednisone into its active form, Prednisolone), kidney function, and concurrent medications—can alter how a steroid behaves in the body.</p>
             <p>Furthermore, these equivalence ratios apply strictly to <strong>systemic</strong> steroids (oral tablets, IV, or IM injections). They cannot be used to calculate equivalent doses for topical steroid creams (used for eczema) or inhaled corticosteroids (used for asthma), as those delivery methods have entirely different absorption profiles and safety metrics.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/steroid-equivalence-calculator" />
           <PopularCalculators exclude="/calculator/steroid-equivalence-calculator" />

@@ -296,7 +296,7 @@ const MonthlyCarPaymentToAnnualCostCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is the Monthly Payment to Annual Cost Calculator?</h2>
             <p>This calculator converts your monthly car payment into the true annual cost of ownership. Most people look at their $550/month payment and think that's what their car costs. In reality, the annual cost is typically 1.5–2.5x the loan payment alone because it also includes insurance, fuel, maintenance, registration, parking, and interest.</p>
             <p>By starting from the monthly payment you already know, this calculator reverse-engineers the full financial picture — revealing exactly how much your car really costs you every year.</p>
@@ -331,7 +331,7 @@ const MonthlyCarPaymentToAnnualCostCalculator = () => {
 
             <h2 className="text-2xl font-bold mb-3">Benefits of Using This Calculator</h2>
             <p>This tool transforms a single monthly payment number into the complete financial picture. It helps you budget accurately, understand the true cost of your vehicle, compare different cars beyond just their payments, and make informed decisions about refinancing, early payoff, or vehicle replacement.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/monthly-car-payment-to-annual-cost-calculator" />
           <PopularCalculators exclude="/calculator/monthly-car-payment-to-annual-cost-calculator" />
         </div>

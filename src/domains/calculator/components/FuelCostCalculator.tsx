@@ -190,7 +190,7 @@ const FuelCostCalculator = () => {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Hidden Costs of the American Road Trip</h2>
             <p>The great American road trip is a classic vacation, but calculating the true cost of driving across the country can be deceiving. When choosing between driving 1,200 miles to a destination or buying a $300 airline ticket, many people vastly underestimate the cost of the drive because they only think about filling up the gas tank once.</p>
 
@@ -205,7 +205,7 @@ const FuelCostCalculator = () => {
 
             <h2 className="text-2xl font-bold mb-3">Aerodynamics: Why Speed Costs Money</h2>
             <p>Because of aerodynamic drag, fuel efficiency is not linear. When you drive 60 MPH, your engine works to push the car through the air. When you accelerate to 80 MPH, the air resistance does not simply increase by 33%; it increases exponentially. Pushing a heavy SUV through the air at 80 MPH requires massive amounts of horsepower, which requires massive amounts of fuel. If your car gets 30 MPG at 65 MPH, it might only get 24 MPG at 80 MPH. Driving faster saves time, but it costs significantly more money.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/fuel-cost-calculator" />
           <PopularCalculators exclude="/calculator/fuel-cost-calculator" />
         </div>

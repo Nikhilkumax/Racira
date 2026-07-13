@@ -124,7 +124,7 @@ const DayCounter = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">About the Day Counter</h2>
               <p>This tool calculates the exact number of days between two dates, along with breakdowns by weeks, months, weekdays, and weekend days.</p>
 
@@ -138,7 +138,7 @@ const DayCounter = () => {
 
               <h2 className="text-2xl font-bold mb-3">Weekday vs. Calendar Day Counting</h2>
               <p>Calendar days include every day. Weekdays exclude Saturday and Sunday. For business planning, weekday counts are typically more relevant. Note that this tool does not account for public holidays.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/day-counter" />
           <PopularCalculators exclude="/day-counter" />
         </div>

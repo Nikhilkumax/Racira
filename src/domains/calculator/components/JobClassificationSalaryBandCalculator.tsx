@@ -262,7 +262,7 @@ export default function JobClassificationSalaryBandCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What is a Salary Band?</h2>
             <p>In corporate Human Resources, a <strong>Salary Band</strong> (or pay range) provides a structured minimum and maximum pay limit for a specific job classification. Instead of paying everyone with the same title the exact same salary, bands allow managers to pay less experienced workers near the Minimum, and highly experienced, top-performing workers near the Maximum.</p>
             
@@ -284,7 +284,7 @@ export default function JobClassificationSalaryBandCalculator() {
               <li><strong>Green-Circled:</strong> An employee whose salary is below the band minimum. HR usually mandates an immediate off-cycle raise to bring them up to at least the minimum.</li>
               <li><strong>Red-Circled:</strong> An employee whose salary is above the band maximum. They are considered "maxed out." Usually, they are ineligible for base salary raises until the band is adjusted for inflation, though they may still receive lump-sum bonuses.</li>
             </ul>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "What is a normal Band Spread Percentage?", answer: "Band spreads get wider as you move up the corporate ladder. Entry-level/Clerical roles usually have a 20% to 30% spread. Mid-level professional roles usually have a 40% to 50% spread. Executive roles can have spreads of 80% to 100% due to the massive variance in experience." },
             { question: "Why is the Midpoint not exactly in the middle of Min and Max?", answer: "It actually is in the exact middle mathematically. If the Min is $80k and the Max is $120k (a 50% spread), the Midpoint is exactly $100k." },

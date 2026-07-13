@@ -347,7 +347,7 @@ export default function CarbohydrateCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Daily Carbohydrate Calculator</h2>
             <p>Carbohydrates are the most controversial macronutrient in the modern diet industry. Over the last three decades, they have been unfairly demonized by low-carb and ketogenic diets as the primary cause of the obesity epidemic. The scientific reality is entirely different: carbohydrates are the human body's absolute preferred source of high-octane energy. The problem is not the carbohydrate itself; the problem is an extreme mismatch between energy intake and energy expenditure. The <strong>Daily Carbohydrate Calculator</strong> utilizes clinical sports science formulas (measured in grams per kilogram of body weight) to map your exact carbohydrate requirements directly to your physical activity level, ensuring you are perfectly fueled without "spilling over" into fat storage.</p>
 
@@ -386,7 +386,7 @@ export default function CarbohydrateCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Fueling for Performance</h2>
             <p>Do not be afraid of carbohydrates. They are the premium, high-octane fuel required to build elite physiques and achieve peak athletic performance. By utilizing the Daily Carbohydrate Calculator, you can align your intake perfectly with your lifestyle. Assess your activity level honestly, hit the calculated macro range consistently, prioritize complex fiber-dense sources, and utilize the energy to push harder in the gym than you ever have before.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/carbohydrate-calculator" />
           <PopularCalculators exclude="/calculator/carbohydrate-calculator" />

@@ -203,7 +203,7 @@ export default function BmiPrimeCalculator() {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is BMI Prime?</h2>
             <p>The standard Body Mass Index (BMI) is a cornerstone of global preventative medicine, but it suffers from a major psychological flaw: the numbers mean absolutely nothing without referencing a medical chart. If a doctor tells a patient their BMI is 27.3, the patient doesn't intuitively know if that is slightly overweight or dangerously obese. They have to memorize that 25 is the cutoff for "normal" and 30 is the cutoff for "obese."</p>
             <p>To solve this communication barrier, medical researchers developed <strong>BMI Prime</strong>. BMI Prime is a simple mathematical ratio that converts your standard BMI into a fraction of your maximum optimal weight. Instead of dealing with abstract medical scales, BMI Prime expresses your body mass as a clean, intuitive percentage relative to the upper boundary of health.</p>
@@ -247,7 +247,7 @@ export default function BmiPrimeCalculator() {
             <p><strong>It cannot measure body fat.</strong> The formula only registers total mass relative to height. It assumes all mass is identical. If you are a dedicated weightlifter, a collegiate sprinter, or someone who performs heavy manual labor, your dense muscle tissue will increase your total mass. You may register a BMI Prime of 1.15 (15% Overweight), but that 15% excess mass may be pure, healthy muscle tissue.</p>
             <p><strong>It ignores fat distribution.</strong> Two people can have a perfect optimal BMI Prime of 0.95. One person may store their fat evenly across their subcutaneous layer (safe fat), while the other may store a small amount of fat exclusively around their waist, wrapping around their organs (dangerous visceral fat). The person with visceral fat is at a much higher risk for heart disease, despite having a "perfect" BMI Prime score.</p>
             <p>BMI Prime is an exceptional public health screening tool and a fantastic starting point for personal goal setting, but it should always be contextualized with other metrics like waist circumference, body fat percentage, and overall cardiovascular fitness.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/bmi-prime-calculator" />
           <PopularCalculators exclude="/calculator/bmi-prime-calculator" />
         </div>

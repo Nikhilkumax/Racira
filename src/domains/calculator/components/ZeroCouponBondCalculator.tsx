@@ -142,7 +142,7 @@ const ZeroCouponBondCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Zero Coupon Bond Calculator?</h2>
             <p>A zero coupon bond calculator computes the present value (purchase price) of a zero coupon bond given its face value, yield to maturity, and years to maturity. Zero coupon bonds pay no periodic interest — instead, they are issued at a steep discount and redeemed at full face value at maturity. The profit is simply the difference: face value minus purchase price. Pre-filled at $10,000 face value, 5% yield, 10 years, the purchase price is $6,139.13 — delivering $3,860.87 total profit over a decade.</p>
             <p>Zero coupon bonds (also called ZCBs, discount bonds, or pure discount bonds) are used by individual investors, pension funds, and governments. US Treasury STRIPS are the most widely traded zero coupon instruments, derived by separating ("stripping") the principal and interest components of Treasury notes and bonds.</p>
@@ -159,7 +159,7 @@ const ZeroCouponBondCalculator = () => {
             <p>Use ZCBs when you have a known future cash need (college, retirement, liability). Avoid holding taxable ZCBs in taxable accounts due to annual OID tax on phantom income — hold them in IRAs or 401(k)s instead. Compare the YTM on ZCBs to the compound interest rate on savings accounts or CDs for the same term. See also: <a href="/calculator/bond-yield-calculator">bond yield calculator</a>, <a href="/calculator/yield-to-maturity-calculator">yield to maturity calculator</a>, and <a href="/calculator/compound-interest-calculator">compound interest calculator</a>.</p>
             <h2 className="text-2xl font-bold mb-3">Benefits of Using This Calculator</h2>
             <p>The zero coupon bond pricing formula involves exponents that are tedious to compute by hand. This calculator handles all computations instantly, shows the year-by-year growth chart, and breaks down your total profit and return. Use it to compare different ZCB scenarios and find the best fit for your investment timeline.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/zero-coupon-bond-calculator" />
           <PopularCalculators exclude="/calculator/zero-coupon-bond-calculator" />
         </div>

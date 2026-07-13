@@ -244,7 +244,7 @@ export default function VehicleWeightCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding Vehicle Weight Limits</h2>
             <p>Every vehicle on the road, from a tiny Smart car to a massive commercial semi-truck, operates within strict weight boundaries designed by structural engineers. Ignoring these boundaries does not just cause accelerated wear and tear on your vehicle; it introduces catastrophic safety hazards. Overloading a vehicle causes brakes to overheat and fail, tires to blow out due to excessive sidewall pressure, and suspension components to snap.</p>
 
@@ -264,7 +264,7 @@ export default function VehicleWeightCalculator() {
               <li>The "Tongue Weight" of any trailer you are towing (a 5,000 lb trailer typically drops 500 lbs of physical weight straight down onto the truck's rear hitch, consuming 500 lbs of payload capacity).</li>
             </ul>
             <p>If your half-ton pickup truck has a Payload Capacity of 1,200 lbs, and you load the cab with four adult men weighing 250 lbs each, you have consumed 1,000 lbs of payload before you even put a single piece of cargo in the bed.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/vehicle-weight-calculator" />
           <PopularCalculators />

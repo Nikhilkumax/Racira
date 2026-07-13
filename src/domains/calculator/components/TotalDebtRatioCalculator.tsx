@@ -158,7 +158,7 @@ export default function TotalDebtRatioCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is the Total Debt Ratio?</h2>
             <p>The <strong>total debt ratio</strong>, frequently referred to in financial planning as the debt-to-asset ratio, is a fundamental metric used to evaluate a person's or a business's financial leverage. It measures the exact percentage of your total assets that are financed by creditors versus the percentage you own outright (your equity). Simply put, it answers the question: "How much of what I own is actually mine?" For individuals, this is one of the most critical indicators of long-term financial health and solvency.</p>
             <p>While income dictates your day-to-day cash flow and ability to pay bills, your total debt ratio reveals your true underlying wealth. High-income earners can still have a poor total debt ratio if they finance everything they own—from luxury vehicles and primary residences to vacation homes and credit card spending. Conversely, someone with a modest income who diligently pays down their mortgage and avoids consumer debt might boast an excellent total debt ratio. A lower ratio means you are significantly more financially secure, less vulnerable to economic downturns, and closer to achieving true financial independence.</p>
@@ -203,7 +203,7 @@ export default function TotalDebtRatioCalculator() {
             <h2 className="text-2xl font-bold mb-3">Benefits</h2>
             <p>Regularly monitoring your total debt ratio provides immense clarity and peace of mind. It strips away the illusion of wealth created by high incomes and luxury spending, forcing you to confront the reality of your balance sheet.</p>
             <p>By understanding your exact leverage position, you can make more rational decisions about taking on new debt, prioritizing payoffs, and allocating investments. A low, healthy total debt ratio ensures you can weather economic storms, handle unexpected emergencies without panic, and ultimately achieve the financial freedom to retire comfortably on your own terms.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/total-debt-ratio-calculator" />
           <PopularCalculators exclude="/calculator/total-debt-ratio-calculator" />
         </div>

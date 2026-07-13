@@ -119,7 +119,7 @@ const StampDutyCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">What Is Stamp Duty?</h2>
               <p>Stamp duty is a legal tax imposed by state governments on property transactions. It must be paid before or at the time of executing a sale deed, and the property registration is incomplete without it. The rates vary significantly across states and are influenced by factors like property type, location, buyer's gender, and property value.</p>
 
@@ -152,7 +152,7 @@ const StampDutyCalculator = () => {
               </ul>
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> Rates are indicative and may not include additional surcharges, metro cess, or local body taxes. Verify with the local sub-registrar office for exact charges.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/stamp-duty-calculator" />
           <PopularCalculators exclude="/stamp-duty-calculator" />
         </div>

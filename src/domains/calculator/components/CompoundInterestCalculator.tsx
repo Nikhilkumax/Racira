@@ -195,7 +195,7 @@ const CompoundInterestCalculator = () => {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Compound Interest Calculator?</h2>
             <p>A compound interest calculator computes how an investment grows when interest is earned on both the initial principal and the accumulated interest from previous periods. This "interest on interest" effect — compounding — is the most powerful force in personal finance. Pre-filled with $10,000 invested at 7% for 20 years with $200/month contributions, the calculator shows the final balance, the breakdown of principal vs contributions vs interest, and a growth chart showing how the balance accelerates over time.</p>
             <p>Understanding compound interest is essential for retirement planning, savings goal-setting, loan comparison, and investment analysis. Albert Einstein allegedly called compound interest "the eighth wonder of the world" — whether or not the quote is authentic, the math is undeniably powerful.</p>
@@ -213,7 +213,7 @@ const CompoundInterestCalculator = () => {
             <p><strong>Retirement planning:</strong> A 25-year-old investing $500/month at 7% for 40 years accumulates over $1.3 million. A 35-year-old investing the same amount for 30 years accumulates only $567,000 — the 10-year head start more than doubles the outcome. <strong>Emergency fund:</strong> Keeping $10,000 in a 4.5% high-yield savings account for 5 years grows to about $12,462. <strong>Debt payoff:</strong> The same formula works in reverse for credit card debt at 20% APR. Pair with the <a href="/calculator/loan-calculator">loan calculator</a> for debt analysis.</p>
             <h2 className="text-2xl font-bold mb-3">Tips for Using This Calculator</h2>
             <p>Use the frequency toggle to compare compounding intervals. Adjust the contribution field to model different savings scenarios. The orange dashed line on the chart marks your initial principal, showing clearly when the compounding effect begins to dominate. For retirement-specific planning including employer match and tax-advantaged accounts, see the <a href="/calculator/retirement-calculator">retirement calculator</a>.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/compound-interest-calculator" />
           <PopularCalculators exclude="/calculator/compound-interest-calculator" />
         </div>

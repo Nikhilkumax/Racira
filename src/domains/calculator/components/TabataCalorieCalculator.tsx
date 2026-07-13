@@ -295,7 +295,7 @@ export default function TabataCalorieCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Mathematics of Maximum Effort: The Tabata Protocol</h2>
             <p>In 1996, Dr. Izumi Tabata, a researcher at the National Institute of Fitness and Sports in Tokyo, sought to find a way to improve the cardiovascular conditioning of the Japanese Olympic speed skating team. His research resulted in the discovery of arguably the most brutal and thermodynamically efficient interval protocol ever created: the 20/10 ratio. Today, the word "Tabata" is thrown around loosely in commercial gyms, but very few people understand the strict mathematics and physiological demands required to perform it correctly. The <strong>Tabata Calorie Calculator</strong> bypasses generic fitness watch estimations by utilizing clinical Metabolic Equivalent (MET) formulas to calculate the exact thermodynamic cost of pushing the human body into a state of severe oxygen debt.</p>
 
@@ -330,7 +330,7 @@ export default function TabataCalorieCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Quality Over Quantity</h2>
             <p>More is not always better. If you can perform 10 Tabata cycles (40 minutes) in a row, you are not doing Tabata; you are doing moderate-intensity circuit training. The goal of this protocol is absolute cardiovascular devastation in the shortest time possible. Stop relying on inaccurate wrist trackers that misread your heart rate spikes. Use the Tabata Calorie Calculator to track your true 4-minute outputs, maintain a disciplined caloric deficit in your kitchen, and watch your cardiovascular engine transform.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/tabata-calorie-calculator" />
           <PopularCalculators exclude="/calculator/tabata-calorie-calculator" />

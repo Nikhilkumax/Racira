@@ -272,7 +272,7 @@ export default function OdometerCorrectionCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Mathematics of Mileage</h2>
             <p>Your vehicle's dashboard does not use GPS satellites to track how many miles you have driven. Instead, it relies on a very simple piece of math: counting wheel rotations. When your vehicle leaves the factory, its central computer is permanently programmed with the physical circumference of the stock tires. The computer knows exactly how many times the axles must rotate to cover exactly one mile. If you change the size of the tires, you break that mathematical formula.</p>
 
@@ -285,7 +285,7 @@ export default function OdometerCorrectionCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">The Real-World Consequences</h2>
             <p>An inaccurate odometer causes several cascading issues beyond just a false reading on the dashboard. Because the speedometer uses the exact same rotational data, your speedometer will also be incorrect. If you install larger tires, your speedometer will say you are driving 65 MPH when you are actually traveling 75 MPH, making it incredibly easy to get a speeding ticket. Furthermore, because your vehicle's MPG computer uses the odometer data to calculate efficiency, your dashboard will incorrectly tell you that your fuel economy has plummeted.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/odometer-correction-calculator" />
           <PopularCalculators />

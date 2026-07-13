@@ -310,7 +310,7 @@ const AprCalculator = () => {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-12">
           <AdPlaceholder className="mb-8" />
-          <article className="prose prose-slate max-w-none lg:prose-lg dark:prose-invert">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is an APR Calculator?</h2>
             <p>
               An <strong>APR Calculator</strong> (Annual Percentage Rate Calculator) is a financial tool designed to reveal the true cost of borrowing money. While most lenders advertise an attractive "interest rate," this number rarely tells the whole story. The interest rate only accounts for the base cost of borrowing the principal amount. The APR, however, encompasses both the interest rate <em>and</em> any mandatory upfront fees, providing a standardized, mathematically accurate annualized cost.
@@ -394,7 +394,7 @@ const AprCalculator = () => {
             <p>
               Calculating APR by hand requires advanced calculus and iterative mathematical solving. Our tool performs thousands of calculations instantly, providing you with a high-fidelity look at your true borrowing costs. By leveraging the visual breakdowns, pie charts, and amortization summaries, you can confidently navigate lending offers, negotiate away junk fees, and secure the best possible financial terms for your future.
             </p>
-          </article>
+          </section>
 
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/apr" />
           <PopularCalculators exclude="/calculator/apr-calculator" />

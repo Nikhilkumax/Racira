@@ -177,7 +177,7 @@ const DogChocolateToxicityCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">The Science of Chocolate Toxicity in Dogs</h2>
               <p>Chocolate poisoning is one of the most common emergencies seen by veterinarians, particularly around holidays like Halloween, Christmas, and Easter. Understanding exactly why chocolate is dangerous and how different types vary in their potency can help pet owners respond appropriately.</p>
 
@@ -204,7 +204,7 @@ const DogChocolateToxicityCalculator = () => {
 
               <h3>Treatment Options</h3>
               <p>If ingestion occurred within 2 hours, a vet may induce vomiting. Activated charcoal may be administered to slow absorption. Severe cases require hospitalisation for IV fluids, cardiac monitoring, and anticonvulsant therapy. There is no specific antidote — treatment is supportive.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/dog-chocolate-toxicity" />
           <PopularCalculators exclude="/calculator/dog-chocolate-toxicity-calculator" />
         </div>

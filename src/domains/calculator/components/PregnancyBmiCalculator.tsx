@@ -372,7 +372,7 @@ export default function PregnancyBmiCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Pregnancy BMI Calculator</h2>
             <p>Weight gain during pregnancy is entirely expected, biologically necessary, and universally monitored by obstetricians. However, exactly how much weight you should safely gain depends entirely on the size of your body the day before you became pregnant. The <strong>Pregnancy BMI Calculator</strong> utilizes the official Institute of Medicine (IOM) clinical guidelines to analyze your pre-pregnancy Body Mass Index (BMI). By determining your starting body composition, the calculator provides a mathematically precise, 40-week weight gain trajectory designed to ensure maximum fetal health while minimizing maternal complications.</p>
 
@@ -414,7 +414,7 @@ export default function PregnancyBmiCalculator() {
             <h2 className="text-2xl font-bold mb-3">Tracking the Trajectory: Second and Third Trimesters</h2>
             <p>As illustrated by the Area Chart in our calculator, the weight gain curve should remain flat for the first 13 weeks, and then pitch sharply upwards into a steady, linear climb. During the second and third trimesters, women in the Normal BMI category should aim to gain approximately 1 pound per week. Women in the Overweight or Obese categories should aim for roughly 0.5 pounds per week.</p>
             <p>By monitoring your weight weekly and plotting it against your calculated trajectory, you and your obstetrician can make real-time dietary adjustments. If your weight spikes by 5 pounds in a single week, your doctor will immediately check for sudden fluid retention (edema)—a massive red flag for preeclampsia. If your weight stalls for three consecutive weeks in the third trimester, your doctor may order a growth ultrasound to ensure the placenta is still functioning properly. By knowing your precise, BMI-driven targets, you transform a simple scale into a powerful diagnostic tool for fetal health.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/pregnancy-bmi-calculator" />
           <PopularCalculators exclude="/calculator/pregnancy-bmi-calculator" />

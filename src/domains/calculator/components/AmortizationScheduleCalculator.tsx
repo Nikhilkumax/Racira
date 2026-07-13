@@ -390,17 +390,17 @@ export default function AmortizationScheduleCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <section className="mt-12 space-y-8 text-base text-foreground">
-              <div>
-                <h2 className="text-2xl font-bold mb-3">Understanding the Amortization Schedule</h2>
+              <section className="prose-finance text-[15.75px]">
+                <h2 className="text-2xl font-bold mb-3">Understanding Amortization Schedules</h2>
                 <p className="text-muted-foreground leading-relaxed">
                   An amortization schedule is an essential financial tool that maps out every single payment required to pay off a fixed-rate loan over a specified period. Unlike a simple calculator that only provides your monthly payment amount, an amortization schedule calculator generates a comprehensive, line-by-line table. This table explicitly breaks down how much of your payment is allocated toward interest (the lender's profit) versus the principal (the actual reduction of your debt). By generating this schedule, you can visually track your exact remaining balance at any given month or year throughout the life of the loan.
                 </p>
                 <p className="text-muted-foreground leading-relaxed mt-4">
                   For major financial decisions like purchasing a home or financing a vehicle, having an amortization schedule is non-negotiable. Without it, you are committing to a long-term contract without fully grasping the true cost of the capital you are borrowing. This calculator allows you to see the complete financial picture before signing any legally binding paperwork.
                 </p>
-              </div>
+              </section>
 
               <div>
                 <h2 className="text-2xl font-bold mb-3">How Payments Are Apportioned Over Time</h2>
@@ -452,7 +452,7 @@ export default function AmortizationScheduleCalculator() {
                 </p>
               </div>
             </section>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/amortization-schedule-calculator" />
           <PopularCalculators exclude="/calculator/amortization-schedule-calculator" />

@@ -268,7 +268,7 @@ const ScientificCalculator = () => {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Online Scientific Calculator</h2>
             <p>A <strong>scientific calculator</strong> goes far beyond the capabilities of a basic arithmetic tool. It is engineered to solve complex mathematical, engineering, and scientific problems. Unlike basic calculators that process equations linearly as you type them, a scientific calculator strictly adheres to the mathematical order of operations (PEMDAS/BODMAS), allowing you to input complex, multi-layered equations exactly as they appear in a textbook.</p>
 
@@ -289,7 +289,7 @@ const ScientificCalculator = () => {
 
             <h2 className="text-2xl font-bold mb-3">Tips for Efficient Use</h2>
             <p>For students and professionals working rapidly, this tool supports full physical keyboard integration. You can type numbers directly and use standard keyboard symbols (like <code>^</code> for exponents). The calculator will dynamically build your equation string on the screen, allowing you to review the entire formula for syntax errors before hitting equals.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/scientific-calculator" />
           <PopularCalculators exclude="/calculator/scientific-calculator" />
         </div>

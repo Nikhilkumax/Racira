@@ -169,7 +169,7 @@ export default function ReturnOnCapitalEmployedCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is Return on Capital Employed (ROCE)?</h2>
             <p>Return on Capital Employed is a profitability ratio measuring how efficiently a company generates profits from its capital base. ROCE = EBIT / Capital Employed × 100%, where Capital Employed = Total Assets − Current Liabilities. This represents the total long-term investment in the business — equity plus long-term debt — the resources management is responsible for generating returns from.</p>
             <p>ROCE is one of the most widely used metrics by value investors, particularly those following the principles of Warren Buffett and Charlie Munger, who view consistently high ROCE as a hallmark of business quality and competitive moat. A business with ROCE of 25% is compounding shareholder capital far more effectively than one with 8% ROCE, all else equal.</p>
@@ -179,7 +179,7 @@ export default function ReturnOnCapitalEmployedCalculator() {
             <p>The most powerful use of ROCE is comparing it to the Weighted Average Cost of Capital. If ROCE consistently exceeds WACC, each dollar of capital deployed creates value. If ROCE is below WACC, even profitable-looking companies are economically destroying value. This framework underpins Economic Value Added (EVA) analysis and is fundamental to understanding whether management is genuinely creating shareholder wealth.</p>
             <h2 className="text-2xl font-bold mb-3">Sector-Specific Interpretation</h2>
             <p>Technology and asset-light businesses often achieve ROCE of 20–40%+ due to scalable models with minimal capital requirements. Capital-intensive utilities and real estate businesses achieve ROCE of 5–10% which, if above their cost of capital, can still be excellent businesses. Always benchmark ROCE within the same industry and track trends over multiple years — consistency of high ROCE is more important than any single data point.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/return-on-capital-employed-calculator" />
           <PopularCalculators exclude="/calculator/return-on-capital-employed-calculator" />
         </div>

@@ -326,7 +326,7 @@ export default function SportsDrinkCarbConcentrationCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Sports Drink Carb Concentration Calculator</h2>
             <p>For endurance athletes—marathon runners, triathletes, and long-distance cyclists—nutrition is not just about daily macros; it is about intra-workout execution. When you are exercising continuously for over 90 minutes, your body drastically depletes its muscular glycogen stores. If those stores empty completely, you will "bonk" or "hit the wall," resulting in a catastrophic drop in athletic performance. To prevent this, athletes must ingest carbohydrates during the event. However, the human digestive system is highly sensitive under physical stress. The <strong>Sports Drink Carb Concentration Calculator</strong> is an essential sports science tool used to formulate hydration mixes that deliver maximum energy without triggering devastating gastrointestinal (GI) distress.</p>
 
@@ -356,7 +356,7 @@ export default function SportsDrinkCarbConcentrationCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Do Not Guess Your Nutrition</h2>
             <p>You would never run a marathon wearing untested shoes, and you should never race using an uncalculated sports drink. Measuring scoops by eye is a recipe for gastric disaster. Use the Sports Drink Carb Concentration Calculator to mathematically verify your hydration strategy. Keep your mixes in the Isotonic (6-8%) sweet spot for optimal energy delivery, train your gut with these exact concentrations during practice runs, and execute your race with perfect metabolic precision.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/sports-drink-carb-concentration-calculator" />
           <PopularCalculators exclude="/calculator/sports-drink-carb-concentration-calculator" />

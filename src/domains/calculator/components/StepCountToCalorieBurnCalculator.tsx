@@ -298,7 +298,7 @@ export default function StepCountToCalorieBurnCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Translating Raw Steps into Thermodynamic Energy</h2>
             <p>Every smartphone and smart watch on the market today features a built-in pedometer, constantly tracking your daily steps in the background. We are constantly told to aim for the magical "10,000 steps" to improve our health. However, a raw step count tells you almost nothing about the actual physical "work" your body performed. A step is not a universal measurement of energy. The <strong>Step Count to Calorie Burn Calculator</strong> bridges this gap. By factoring in your body mass to calculate mechanical resistance, and your pacing intensity to determine stride length and heart rate, it translates your raw pedometer data into a highly accurate, biologically sound caloric expenditure.</p>
 
@@ -325,7 +325,7 @@ export default function StepCountToCalorieBurnCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Track Your True Output</h2>
             <p>Do not be satisfied with an arbitrary number on your pedometer. A step count is absolutely useless if you do not understand the thermodynamic energy behind it. By inputting your weight, steps, and pacing intensity into the Step Count to Calorie Burn Calculator, you can determine exactly how much energy you expended today, allowing you to seamlessly adjust your nutritional intake and achieve your weight management goals with mathematical precision.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/step-count-to-calorie-burn-calculator" />
           <PopularCalculators exclude="/calculator/step-count-to-calorie-burn-calculator" />

@@ -349,7 +349,7 @@ const EscapeVelocityCalculator = () => {
         {/* ── Article + FAQ ─────────────────────────────────────────────────── */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is an Escape Velocity Calculator?</h2>
             <p>
               This escape velocity calculator computes two fundamental cosmic speeds: the <strong>First Cosmic Velocity (V₁)</strong> — the minimum speed to orbit just above a body{"'"}s surface — and the <strong>Escape Velocity (Vₑ)</strong> — the minimum speed to leave the body{"'"}s gravitational field entirely. Both are calculated from mass and radius using the universal law of gravitation. You can express mass in anything from kilograms to Earth masses and radius from meters to solar radii, with output in six velocity units including fractions of the speed of light.
@@ -376,7 +376,7 @@ const EscapeVelocityCalculator = () => {
             <p>
               A black hole forms when a body is compressed until Vₑ = c (speed of light). The critical radius is the Schwarzschild radius: R_s = 2GM/c². Plugging c = 299,792,458 m/s: for Earth, R_s ≈ 8.87 mm; for the Sun, R_s ≈ 2.95 km. At and inside R_s, not even light can escape — the event horizon. You can explore this using the calculator by setting the velocity output to {"'"}c{"'"} and adjusting mass/radius until Vₑ approaches 1 c.
             </p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/escape-velocity-calculator" />
           <PopularCalculators exclude="/calculator/escape-velocity-calculator" />
         </div>

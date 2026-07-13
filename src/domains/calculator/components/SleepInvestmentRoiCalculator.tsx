@@ -297,7 +297,7 @@ export default function SleepInvestmentRoiCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Mathematics of Exhaustion</h2>
             <p>For decades, "hustle culture" has glorified sleep deprivation. Ambitious professionals proudly declare, "I'll sleep when I'm dead," treating a 5-hour night of sleep as a badge of honor and a sign of massive dedication to their careers. They believe that by staying awake for two extra hours at night, they are gaining two extra hours of valuable work. The <strong>Sleep Investment ROI Calculator</strong> utilizes modern neuroscience and clinical cognitive data to prove that this belief is a catastrophic mathematical error. Sacrificing sleep does not buy you more output; it simply forces you to produce lower-quality work at a much slower, more expensive rate.</p>
 
@@ -322,7 +322,7 @@ export default function SleepInvestmentRoiCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Close the Laptop</h2>
             <p>Stop trying to hack your way to success by stealing hours from your pillow. Chronic exhaustion is not a competitive advantage; it is a profound biological weakness that destroys your productivity, your emotional intelligence, and your metabolic health. Use the Sleep Investment ROI Calculator to visualize the massive financial cost of your brain fog, prioritize 8 hours of sleep, and start arriving at your desk with a fully optimized, razor-sharp cognitive blade.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/sleep-investment-roi-calculator" />
           <PopularCalculators exclude="/calculator/sleep-investment-roi-calculator" />

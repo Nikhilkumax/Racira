@@ -293,7 +293,7 @@ export default function MartialArtsCalorieCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Massive Caloric Demand of Martial Arts</h2>
             <p>From the explosive high kicks of Muay Thai to the grueling ground battles of Brazilian Jiu-Jitsu, martial arts represent one of the most physically exhausting forms of training in existence. They are entirely unique in the fitness world because they combine the heavy resistance of lifting weights (moving another human being) with the maximum heart rate spikes of sprinting. However, estimating the true energy expenditure of a dojo session is incredibly difficult because so much time is spent receiving instruction. The <strong>Martial Arts Calorie Calculator</strong> solves this by using clinically validated Metabolic Equivalent (MET) formulas based solely on your active drilling time, providing a mathematically precise measurement of your thermodynamic output.</p>
 
@@ -324,7 +324,7 @@ export default function MartialArtsCalorieCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Train Like a Fighter</h2>
             <p>You do not need to compete in a cage to reap the incredible fat-burning benefits of martial arts. Hitting Thai pads with a coach or grappling with a safe partner provides an astronomical cardiovascular return on investment. Stop relying on inaccurate wrist trackers that get confused by the stop-and-go nature of a class. Use the Martial Arts Calorie Calculator to track your true active time, maintain a disciplined caloric deficit in your diet, and watch as combat training rapidly strips body fat and builds a lean, highly functional physique.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/martial-arts-calorie-calculator" />
           <PopularCalculators exclude="/calculator/martial-arts-calorie-calculator" />

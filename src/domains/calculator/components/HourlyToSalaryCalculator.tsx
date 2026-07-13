@@ -148,14 +148,14 @@ const HourlyToSalaryCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Converting Hourly to Salary: The Full Picture</h2>
               <p>Whether you are negotiating a new job offer or looking to switch from hourly to salaried status, understanding the relationship between these two figures is essential. While the math is simple, there are several "hidden" factors that can make one option more valuable than the other.</p>
               <h3>The Standard Formula</h3>
               <p>For most professionals in the United States, the work year is calculated as 2,080 hours (40 hours/week × 52 weeks/year).</p>
               <h3>Overtime and Non-Exempt Status</h3>
               <p>The biggest difference between hourly and salaried roles is often overtime eligibility. Non-exempt employees must be paid 1.5x their rate for hours over 40, whereas salaried employees often have consistent pay regardless of extra hours worked.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/hourly-to-salary-calculator" />
           <PopularCalculators exclude="/calculator/hourly-to-salary-calculator" />
         </div>

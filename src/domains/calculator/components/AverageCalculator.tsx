@@ -95,7 +95,7 @@ const AverageCalculator = () => {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is an Average Calculator?</h2>
             <p>An average calculator computes descriptive statistics — mean, median, mode, range, sum, minimum, and maximum — for any list of numbers you provide. The arithmetic mean is the single number most people call "the average," but a complete statistical summary requires several measures to describe a dataset accurately.</p>
             <p>This calculator is useful for students computing class averages, analysts summarizing data, athletes tracking performance metrics, businesses calculating sales averages, and scientists summarizing experimental results.</p>
@@ -110,7 +110,7 @@ const AverageCalculator = () => {
             <p>Averages are fundamental in education (GPA, test scores), finance (average returns, moving averages), weather (average temperature, rainfall), sports (batting averages, ERA), manufacturing (average defect rates), and healthcare (average blood pressure readings). Any field that collects repeated measurements uses averages for summarization.</p>
             <h2 className="text-2xl font-bold mb-3">Tips for Accurate Averages</h2>
             <p>Always check for outliers before interpreting the mean. Use the median for skewed distributions. When data has natural groupings, consider the weighted average instead. For percentage data, the geometric mean is often more appropriate than the arithmetic mean.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/average-calculator" />
           <PopularCalculators exclude="/calculator/average-calculator" />
         </div>

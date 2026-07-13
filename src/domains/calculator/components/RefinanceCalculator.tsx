@@ -209,14 +209,14 @@ export default function RefinanceCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Should You Refinance Your Mortgage?</h2>
             <p>This <strong>refinance calculator</strong> computes your monthly savings, break-even period, and lifetime interest savings from refinancing. The decision hinges on three factors: how much you lower your rate, how much the closing costs are, and how long you plan to stay in the home. Break-even formula: Months = Closing Costs ÷ Monthly Payment Savings. If you plan to stay longer than the break-even, refinancing makes financial sense.</p>
             <h2 className="text-2xl font-bold mb-3">The 1% Rule and Rate-Drop Thresholds</h2>
             <p>The classic "1% rule" says refinancing is worth it if you can lower your rate by at least 1%. While this is a reasonable starting point, the correct approach is break-even analysis. A 0.5% rate reduction on a $500,000 loan saves ~$165/month — recouping $6,000 in closing costs in just 36 months. On a $150,000 loan, the same 0.5% saves only ~$50/month, making a break-even of 120 months. The loan size dramatically affects the math.</p>
             <h2 className="text-2xl font-bold mb-3">Rate-and-Term vs. Cash-Out Refinance</h2>
             <p>Rate-and-term refinance replaces your loan at a lower rate or different term — purely to save on interest or payment. Cash-out refinance accesses home equity by taking a larger loan than your current balance. Cash-out rates are typically 0.125–0.5% higher than rate-and-term. Cash-out is useful for home improvements (which build equity), high-interest debt consolidation, or education funding — but adds to your mortgage balance and resets your equity. Related tools: <a href="/calculator/mortgage-calculator">Mortgage Calculator</a>, <a href="/calculator/home-equity-calculator">Home Equity Calculator</a>.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/refinance-calculator" />
           <PopularCalculators exclude="/calculator/refinance-calculator" />
         </div>

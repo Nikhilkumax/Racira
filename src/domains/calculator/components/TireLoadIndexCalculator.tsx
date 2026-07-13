@@ -215,7 +215,7 @@ export default function TireLoadIndexCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding Your Tire Load Index</h2>
             <p>Every tire manufactured for road use carries a specific Load Index, a numerical code that dictates exactly how much physical weight the tire is engineered to support. Our Tire Load Index Calculator instantly decodes this industry-standard numbering system into practical pounds and kilograms, allowing you to ensure your vehicle is safe to operate under heavy loads.</p>
 
@@ -230,7 +230,7 @@ export default function TireLoadIndexCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Upgrading to a Higher Load Index</h2>
             <p>Conversely, it is entirely safe—and sometimes beneficial—to install tires with a higher load index than the factory specification. A higher load index typically means the tire features a reinforced internal structure with stronger belts and a stiffer sidewall. For drivers who frequently tow heavy trailers or carry heavy cargo, an "XL" (Extra Load) tire with a higher index provides a superior margin of safety and improved steering response, albeit sometimes at the cost of a slightly stiffer ride quality.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/tire-load-index-calculator" />
           <PopularCalculators />

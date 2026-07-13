@@ -137,7 +137,7 @@ export default function SavingsGoalCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Savings Goal Calculator?</h2>
             <p>A <strong>savings goal calculator</strong> tells you exactly how much you need to save each month to reach a financial goal by a specific date. Whether you&apos;re saving for a house down payment, emergency fund, vacation, education, or retirement milestone, knowing your required monthly contribution removes guesswork and keeps your plan concrete and actionable.</p>
             <h2 className="text-2xl font-bold mb-3">How the Calculation Works</h2>
@@ -146,7 +146,7 @@ export default function SavingsGoalCalculator() {
             <p>The monthly required amount shows exactly what you need to save starting today. The interest earned portion shows how much your investment returns contribute — dramatically less if you save in a checking account vs. an investment account. A higher return rate or longer horizon significantly reduces monthly requirements.</p>
             <h2 className="text-2xl font-bold mb-3">Common Savings Goals and Timelines</h2>
             <p>Emergency fund (3–6 months expenses): typically 6–18 months savings horizon. House down payment (20% of purchase price): 3–7 year horizon. College education ($150K–$300K): 15–18 year horizon from birth. Retirement (25x annual expenses): 20–35 year horizon. Each goal benefits from dedicated accounts and automated transfers.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/savings-goal-calculator" />
           <PopularCalculators exclude="/calculator/savings-goal-calculator" />
         </div>

@@ -233,7 +233,7 @@ export default function FitnessAgeCalculator() {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is Fitness Age?</h2>
             <p>Chronological age is a rigid, unchangeable number dictated by your birth certificate. However, biological age—specifically your <strong>Fitness Age</strong>—is a highly fluid metric that you can actively control. Fitness Age is a measurement of your body's cardiovascular capacity and metabolic health compared to the statistical averages of different age groups. If you are 55 years old but maintain the cardiovascular engine of a healthy 35-year-old, your body is biologically functioning 20 years younger than your chronological age.</p>
             <p>Pioneered by researchers at the Norwegian University of Science and Technology (NTNU) studying the longevity of over 50,000 individuals, the concept of Fitness Age has revolutionized preventative cardiology. The researchers discovered that a person's Fitness Age (derived from their VO2 Max) is a far more accurate predictor of long-term health, cardiovascular disease risk, and overall mortality than the year they were born.</p>
@@ -267,7 +267,7 @@ export default function FitnessAgeCalculator() {
             <h2 className="text-2xl font-bold mb-3">The Limitations of Non-Exercise Estimations</h2>
             <p>While this non-exercise estimation model is a fantastic screening tool and motivational metric, it is still a statistical approximation. If you have a naturally low resting heart rate due to genetics, the calculator may underestimate your Fitness Age. Conversely, if you are a heavily muscled powerlifter with a larger waist circumference (due to thick core musculature rather than fat), the calculator may overestimate your Fitness Age.</p>
             <p>For highly trained endurance athletes looking for precise pacing metrics, a clinical VO2 Max test in a sports laboratory is required. However, for the vast majority of the population, this calculator provides a highly accurate, accessible baseline to track the most important metric in longevity: the biological age of your heart.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/fitness-age-calculator" />
           <PopularCalculators exclude="/calculator/fitness-age-calculator" />
         </div>

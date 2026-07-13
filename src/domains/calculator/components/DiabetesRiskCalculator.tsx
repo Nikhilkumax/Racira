@@ -284,7 +284,7 @@ export default function DiabetesRiskCalculator() {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Silent Epidemic: Undiagnosed Diabetes</h2>
             <p>According to the CDC, over 37 million Americans have diabetes, but an estimated <strong>1 in 5 do not know they have it</strong>. Even more alarming, over 96 million adults have <em>prediabetes</em>, a condition where blood sugar is chronically elevated but not yet high enough for a formal diabetes diagnosis. More than 80% of those people are completely unaware.</p>
             <p>Type 2 diabetes is often called a "silent disease" because the early symptoms (fatigue, increased thirst, frequent urination) are mild and easily dismissed. Unfortunately, while it remains undiagnosed, chronically high blood sugar slowly causes irreversible microscopic damage to your blood vessels, kidneys, retinas, and nerves. This is why screening is absolutely critical.</p>
@@ -311,7 +311,7 @@ export default function DiabetesRiskCalculator() {
               <li><strong>Fasting Plasma Glucose (FPG):</strong> A simple blood draw taken after you have fasted for 8 hours. A level of 100 to 125 mg/dL indicates prediabetes, while 126 mg/dL or higher indicates diabetes.</li>
             </ul>
             <p>If you discover you have prediabetes, the condition is highly reversible. Losing just 5% to 7% of your body weight and engaging in 150 minutes of brisk walking per week can cut your risk of developing full Type 2 Diabetes by nearly 60%.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/diabetes-risk-calculator" />
           <PopularCalculators exclude="/calculator/diabetes-risk-calculator" />
         </div>

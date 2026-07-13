@@ -99,14 +99,14 @@ const IrrCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Understanding Internal Rate of Return</h2>
               <p>IRR is one of the most widely used metrics in capital budgeting and investment analysis. It tells you the annualized return you can expect from an investment, accounting for the timing and magnitude of all cash flows.</p>
               <h3>IRR vs. NPV</h3>
               <p>Both IRR and NPV are discounted cash flow methods. NPV tells you the dollar value added by an investment at a given discount rate. IRR tells you at what rate the NPV equals zero. For most projects, NPV and IRR will lead to the same accept/reject decision.</p>
               <h3>When to Use IRR</h3>
               <p>IRR is particularly useful for comparing projects of different sizes and durations. It provides a single, intuitive percentage that can be benchmarked against a cost of capital or required rate of return.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/irr" />
           <PopularCalculators exclude="/calculator/irr-calculator" />
         </div>

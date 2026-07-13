@@ -168,7 +168,7 @@ const DtiCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Understanding Your Debt-to-Income Ratio</h2>
               <p>Your Debt-to-Income (DTI) ratio is one of the most important numbers in personal finance, especially when you are applying for a mortgage or a large loan. It is a simple mathematical comparison between how much money you earn and how much money you owe each month.</p>
 
@@ -194,7 +194,7 @@ const DtiCalculator = () => {
 
               <h3>DTI vs. Disposable Income</h3>
               <p>It is important to remember that DTI only looks at pre-tax (gross) income and debt payments. It does not account for taxes, groceries, utilities, or entertainment. Even with a 'good' DTI, you should perform your own budget analysis to ensure you are comfortable with your monthly cash flow.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/dti-calculator" />
           <PopularCalculators exclude="/calculator/dti-calculator" />
         </div>

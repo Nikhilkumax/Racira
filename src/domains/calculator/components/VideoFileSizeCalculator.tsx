@@ -133,7 +133,7 @@ const VideoFileSizeCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Video Compression Fundamentals</h2>
               <p>The file size of any video is determined by two main factors: duration and bitrate. Bitrate represents the amount of data processed per second. If you know these two numbers, you can precisely calculate the final file size regardless of the resolution or frame rate.</p>
               
@@ -142,7 +142,7 @@ const VideoFileSizeCalculator = () => {
 
               <h3>Container vs. Codec</h3>
               <p>Don't confuse the file extension (MP4, MKV, MOV) with the video itself. The extension is a "container" that holds the video and audio streams. The "codec" (like H.264) is the mathematical algorithm that actually compresses the data. Most modern containers have very little impact on the final file size compared to the bitrate of the streams inside them.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/video-file-size" />
           <PopularCalculators exclude="/calculator/video-file-size-calculator" />
         </div>

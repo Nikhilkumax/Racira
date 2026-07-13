@@ -209,7 +209,7 @@ const PrimeFactorizationCalculator = () => {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What is Prime Factorization?</h2>
             <p><strong>Prime Factorization</strong> is the mathematical process of breaking down a composite number into a series of prime numbers that, when multiplied together, equal the original composite number. You can think of prime numbers as the fundamental "building blocks" of all other numbers in mathematics.</p>
             <p>For example, the number 12 is a composite number. It can be factored into 3 × 4. However, 4 is not a prime number, so we must break it down further into 2 × 2. Therefore, the complete prime factorization of 12 is <strong>2 × 2 × 3</strong>.</p>
@@ -222,7 +222,7 @@ const PrimeFactorizationCalculator = () => {
 
             <h2 className="text-2xl font-bold mb-3">Real-World Applications</h2>
             <p>While prime factoring might seem like a purely academic exercise done in middle school math classes, it is actually the foundation of modern cybersecurity. The encryption that protects your bank account, your private text messages, and all secure internet traffic (such as the RSA algorithm) relies heavily on prime factorization. These systems multiply two incredibly massive prime numbers together to create a public "key". Hackers cannot crack the code without finding the original two prime numbers, and currently, there is no known algorithm that can prime-factor a 600-digit number fast enough to be useful to a hacker—even using supercomputers.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/prime-factorization-calculator" />
           <PopularCalculators exclude="/calculator/prime-factorization-calculator" />
         </div>

@@ -134,14 +134,14 @@ const WalkingCalorieCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">The Benefits of Walking</h2>
               <p>Walking is the most accessible form of physical activity and offers profound health benefits for your heart, bones, and mind. Unlike high-impact exercises, it's gentle on the joints and can be sustained daily.</p>
               <h3>Steps and Heart Health</h3>
               <p>Walking at a brisk pace for just 30 minutes a day has been shown to reduce the risk of heart disease and stroke. It helps lower blood pressure, improves circulation, and can help manage blood sugar levels.</p>
               <h3>Walking for Weight Management</h3>
               <p>While often underestimated, walking is a fantastic tool for weight loss because it is low-stress and doesn't typically trigger the same "extreme hunger" response that high-intensity workouts can. It is much easier to maintain a caloric deficit when you incorporate regular, pleasant walks into your routine.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/walking-calorie" />
           <PopularCalculators exclude="/calculator/walking-calorie-calculator" />
         </div>

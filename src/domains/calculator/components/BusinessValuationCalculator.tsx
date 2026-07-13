@@ -187,7 +187,7 @@ export default function BusinessValuationCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding Business Valuation</h2>
             <p>Business valuation is the process of determining the economic value of a whole business or company unit. It is used to establish the fair value of a business for sale, merger, acquisition, partner buyouts, tax reporting, or capital allocation. A thorough valuation typically employs multiple methodologies to establish a realistic valuation range rather than relying on a single approach.</p>
             
@@ -200,7 +200,7 @@ export default function BusinessValuationCalculator() {
 
             <h3>3. Asset-Based Method</h3>
             <p>Calculates the Net Asset Value (NAV) of a firm by taking Total Fair Market Value of Assets and subtracting Total Liabilities. This reflects the liquidation value or tangible value floor of the enterprise.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/business-valuation-calculator" />
           <PopularCalculators exclude="/calculator/business-valuation-calculator" />
         </div>

@@ -196,7 +196,7 @@ const EcologicalFootprintCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">What is Earth Overshoot Day?</h2>
               <p>Earth Overshoot Day marks the date when humanity's demand for ecological resources and services in a given year exceeds what Earth can regenerate in that year. We maintain this deficit by liquidating stocks of ecological resources and accumulating waste, primarily carbon dioxide in the atmosphere.</p>
               
@@ -206,7 +206,7 @@ const EcologicalFootprintCalculator = () => {
                 <li><strong>Energy:</strong> Upgrading home insulation and switching to renewable energy sources slashes your carbon footprint.</li>
                 <li><strong>Mobility:</strong> Replacing short car trips with walking or cycling, and using public transit, makes a massive difference.</li>
               </ul>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/ecological-footprint" />
           <PopularCalculators exclude="/calculator/ecological-footprint-calculator" />
         </div>

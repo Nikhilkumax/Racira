@@ -276,7 +276,7 @@ export default function MeldScoreCalculator() {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Science of End-Stage Liver Disease</h2>
             <p>The liver is the body's primary chemical processing plant. It is responsible for filtering toxins out of the blood, manufacturing the proteins required for blood to clot, and producing bile to digest food. When a patient develops cirrhosis (severe scarring of the liver from alcohol, hepatitis, or fatty liver disease), these vital functions begin to shut down.</p>
             <p>Before the year 2002, prioritizing patients on the liver transplant waiting list was heavily subjective. Patients were ranked largely based on how long they had been waiting. Unfortunately, this meant that critically ill patients who had just been added to the list were dying before patients who were relatively stable but had been waiting longer. To fix this, the medical community adopted the <strong>MELD Score</strong>.</p>
@@ -292,7 +292,7 @@ export default function MeldScoreCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">The Transplant Waiting List</h2>
             <p>A patient's MELD score directly correlates to their 90-day survival probability. A patient with a MELD of 10 has a 94% chance of surviving the next three months. A patient with a MELD of 40 has less than a 29% chance. Therefore, when a donor liver becomes available in a specific region, it is offered to the compatible patient with the highest MELD score first, ensuring the sickest patients are saved.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/meld-score-calculator" />
           <PopularCalculators exclude="/calculator/meld-score-calculator" />
         </div>

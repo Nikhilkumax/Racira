@@ -347,7 +347,7 @@ const CalorieCalculator = () => {
           }) }} />
 
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is the Losertown Calorie Calculator?</h2>
             <p>The <strong>Losertown calorie calculator</strong> is a free, science-backed tool that estimates how many calories you need each day to lose weight, maintain your current weight, or build muscle. It calculates your <strong>Basal Metabolic Rate (BMR)</strong> — the energy your body burns at complete rest — then multiplies it by an activity factor to produce your Total Daily Energy Expenditure (TDEE). Pre-filled with a 25-year-old male, 180 cm, 65 kg, moderate activity: TDEE ≈ 2,510 Cal/day.</p>
             <p>Unlike generic "2,000 Cal/day" guidance, the <strong>Losertown calculator calorie</strong> approach gives you a personalized target based on your actual body and lifestyle. Whether you're cutting, bulking, or just trying to understand your energy balance, this tool gives you the numbers you need in seconds — in Calories or Kilojoules, Metric or US units.</p>
@@ -412,7 +412,7 @@ const CalorieCalculator = () => {
             <h2 className="text-2xl font-bold mb-3">Benefits of Using the Losertown Calorie Calculator</h2>
             <p>Using the <strong>Losertown calorie calculator</strong> removes guesswork from your nutrition strategy. Instead of following one-size-fits-all advice, you get a number calibrated to your body size, age, gender, and actual activity. This is the same methodology used by registered dietitians in clinical settings — just packaged as a free, instant online tool.</p>
             <p>Whether your goal is fat loss, muscle gain, or simply understanding your energy balance, the <strong>Losertown calculator calorie</strong> output gives you an actionable starting point. Pair it with the <a href="/calculator/protein-calculator">Protein Calculator</a> and <a href="/calculator/calorie-deficit-calculator">Calorie Deficit Calculator</a> to build a complete, data-driven nutrition plan.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/calorie-calculator" />
           <PopularCalculators exclude="/calculator/calorie-calculator" />
         </div>

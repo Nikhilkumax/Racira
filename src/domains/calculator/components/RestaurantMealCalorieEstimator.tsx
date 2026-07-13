@@ -418,7 +418,7 @@ export default function RestaurantMealCalorieEstimator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Restaurant Meal Calorie Estimator</h2>
             <p>One of the most frustrating obstacles for anyone attempting to lose weight or track their macronutrients is dining out. When you cook at home, you have total control over the exact weight of your chicken, the exact grams of rice, and—most importantly—the exact amount of cooking oil used in the pan. When you order a meal at a restaurant, you surrender that control. Even "healthy" looking options are often engineered to taste incredible, which usually means they are saturated with invisible calories. The <strong>Restaurant Meal Calorie Estimator</strong> is designed to help you deconstruct these untracked meals, component by component, to reveal their true caloric impact and prevent a single dinner from destroying your weekly deficit.</p>
 
@@ -451,7 +451,7 @@ export default function RestaurantMealCalorieEstimator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Estimation is Better Than Ignorance</h2>
             <p>Unless you walk into the kitchen with a food scale, you will never know the exact macros of a restaurant meal. However, using the Restaurant Meal Calorie Estimator forces you to acknowledge the physics of the plate in front of you. By deconstructing the meal, taxing the hidden oils, and accounting for the sauces, you replace willful ignorance with an educated estimation. This allows you to adjust the rest of your daily meals accordingly, keeping your weekly caloric balance perfectly on track while still enjoying a night out.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/restaurant-meal-calorie-estimator" />
           <PopularCalculators exclude="/calculator/restaurant-meal-calorie-estimator" />

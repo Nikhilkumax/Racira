@@ -144,7 +144,7 @@ const HashCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Understanding Cryptographic Hashes</h2>
               <p>A hash function takes an input of any size and produces a fixed-size string of characters. This output, known as a hash or checksum, is consistent: the same input will always produce the same hash.</p>
               
@@ -160,7 +160,7 @@ const HashCalculator = () => {
               <p><strong>SHA-256:</strong> Part of the SHA-2 family, it produces a 256-bit (64 character) hash. It is the most widely used algorithm today and is considered highly secure.</p>
               <p><strong>SHA-512:</strong> Similar to SHA-256 but produces a 512-bit hash. It is even more secure but requires more computational power.</p>
               <p><strong>SHA-1:</strong> A legacy algorithm that is now considered vulnerable to collision attacks and should be avoided for security-critical applications.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/hash-calculator" />
           <PopularCalculators exclude="/calculator/hash-calculator" />
         </div>

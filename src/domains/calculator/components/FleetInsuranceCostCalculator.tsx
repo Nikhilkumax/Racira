@@ -305,7 +305,7 @@ const FleetInsuranceCostCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is the Fleet Insurance Cost Calculator?</h2>
             <p>This calculator estimates the total annual insurance cost for a fleet of vehicles — whether for a family with multiple cars, a small business, or a large commercial operation. It accounts for vehicle type, driver age, coverage level, annual mileage, multi-vehicle discounts, and commercial-use surcharges to produce an accurate per-vehicle and total-fleet premium estimate.</p>
 
@@ -340,7 +340,7 @@ const FleetInsuranceCostCalculator = () => {
 
             <h2 className="text-2xl font-bold mb-3">Benefits of Using This Calculator</h2>
             <p>This tool helps fleet managers, business owners, and multi-vehicle families estimate insurance costs accurately. By adjusting vehicle mix, driver ages, and coverage levels, you can find the configuration that minimizes total cost while maintaining adequate protection.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/fleet-insurance-cost-calculator" />
           <PopularCalculators exclude="/calculator/fleet-insurance-cost-calculator" />
         </div>

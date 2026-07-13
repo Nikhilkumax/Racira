@@ -89,10 +89,10 @@ const SlopeCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">How to Calculate Slope</h2>
               <p>The slope of a line through two points (x₁, y₁) and (x₂, y₂) is m = (y₂ - y₁) / (x₂ - x₁). This calculator also finds the distance (using the distance formula), the midpoint, the equation in slope-intercept form, and the perpendicular slope.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/slope-calculator" />
           <PopularCalculators exclude="/slope-calculator" />
         </div>

@@ -453,7 +453,7 @@ export default function SubprimeLoanCostCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Subprime Loan Cost Calculator</h2>
             <p>The financial services industry operates on a strict system of risk assessment. When you apply for a loan—whether it is an auto loan, a personal loan, or a mortgage—the lender evaluates your credit score to determine how likely you are to default. If your credit score is below a certain threshold (typically sub-600 FICO), you fall into the "subprime" category. To compensate for the high risk of lending to you, banks impose a massive financial penalty via exorbitant interest rates and fees.</p>
             <p>Our <strong>Subprime Loan Cost Calculator</strong> is not a standard payment calculator. It is a forensic analytical tool designed to quantify the "Subprime Penalty." By comparing the exact trajectory of your high-interest loan against what a borrower with good credit would receive, this tool reveals the precise, dollar-for-dollar amount of wealth you are losing due to a low credit score.</p>
@@ -488,7 +488,7 @@ export default function SubprimeLoanCostCalculator() {
             <h2 className="text-2xl font-bold mb-3">Conclusion</h2>
             <p>Subprime loans are a brutal mathematical reality for millions of borrowers. However, ignorance is the lender's greatest weapon. By refusing to focus merely on the "affordable monthly payment," and instead demanding to see the Total Lifetime Cost, you strip the lender of their advantage.</p>
             <p>Use this Subprime Loan Cost Calculator to confront the mathematical reality of bad credit. Quantify your penalty, strategize a 12-month refinance escape plan, and ensure that your temporary credit missteps do not result in a permanent destruction of your long-term wealth.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/subprime-loan-cost-calculator" />
           <PopularCalculators exclude="/calculator/subprime-loan-cost-calculator" />

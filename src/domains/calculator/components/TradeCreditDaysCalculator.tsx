@@ -239,7 +239,7 @@ export default function TradeCreditDaysCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Are Trade Credit Days (DPO)?</h2>
             <p>Trade Credit Days, more formally known as <strong>Days Payable Outstanding (DPO)</strong>, is a financial ratio that indicates the average time (in days) that a company takes to pay its bills and invoices to its trade creditors, which include suppliers, vendors, or financiers. The formula is simple: <code>(Accounts Payable / Cost of Goods Sold) × Number of Days in the Period</code>.</p>
             
@@ -253,7 +253,7 @@ export default function TradeCreditDaysCalculator() {
             <h2 className="text-2xl font-bold mb-3">The Cash Conversion Cycle</h2>
             <p>Trade Credit Days is one of the three components of the <strong>Cash Conversion Cycle (CCC)</strong>, which measures how long it takes a company to convert its investments in inventory back into cash. The CCC formula is: <code>DIO + DSO - DPO</code>.</p>
             <p>Because DPO is subtracted in this formula, increasing your Trade Credit Days directly reduces your Cash Conversion Cycle, improving your overall liquidity.</p>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "What is a 'good' DPO?", answer: "A 'good' DPO depends entirely on the industry and the specific trade terms negotiated with suppliers (like Net 30 or Net 60). Generally, 30 to 45 days is standard. If your DPO is 75 days but your suppliers expect payment in 30 days, your DPO is bad because you are paying late." },
             { question: "How can I improve my Trade Credit Days?", answer: "You can increase your DPO by renegotiating payment terms with suppliers (e.g., asking for Net 45 instead of Net 30), centralizing payables to control cash outflows better, or simply delaying payments until the exact due date rather than paying invoices the day they arrive." },

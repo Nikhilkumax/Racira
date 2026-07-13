@@ -319,7 +319,7 @@ export default function BaseballFieldingCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Mathematics of Defense</h2>
             <p>For over a century, the sport of baseball has relied on one fundamental metric to evaluate the defensive prowess of a player: the Fielding Percentage. While offensive statistics focus on generating runs, defensive statistics focus on preventing them. The <strong>Baseball Fielding Percentage Calculator</strong> isolates a player's raw ability to handle the baseball without making mistakes. It is a pure measurement of sure-handedness, calculating exactly how often a player executes a defensive play flawlessly when given the opportunity.</p>
 
@@ -347,7 +347,7 @@ export default function BaseballFieldingCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: The Foundation of Defense</h2>
             <p>Despite its flaws regarding athletic range, Fielding Percentage remains the bedrock of defensive analytics. If a player has a terrible Fielding Percentage, no amount of speed or range will save them—if they cannot securely catch the ball when it comes to them, they are a defensive liability. Use the Baseball Fielding Percentage Calculator to establish the baseline sure-handedness of your players, ensuring your team isn't mathematically giving away bases through sloppy execution.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/baseball-fielding-percentage-calculator" />
           <PopularCalculators exclude="/calculator/baseball-fielding-percentage-calculator" />

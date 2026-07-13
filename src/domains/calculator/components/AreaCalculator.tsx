@@ -85,7 +85,7 @@ const AreaCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]"><h2 className="text-2xl font-bold mb-3">Area Formulas</h2><p><strong>Rectangle:</strong> A = l × w | <strong>Circle:</strong> A = πr² | <strong>Triangle:</strong> A = ½bh | <strong>Trapezoid:</strong> A = ½(a+b)h | <strong>Ellipse:</strong> A = πab</p></article>
+          <section className="prose-finance text-[15.75px]"><h2 className="text-2xl font-bold mb-3">Area Formulas</h2><p><strong>Rectangle:</strong> A = l × w | <strong>Circle:</strong> A = πr² | <strong>Triangle:</strong> A = ½bh | <strong>Trapezoid:</strong> A = ½(a+b)h | <strong>Ellipse:</strong> A = πab</p></section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/area-calculator" />
           <PopularCalculators exclude="/area-calculator" />
         </div>

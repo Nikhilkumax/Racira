@@ -321,7 +321,7 @@ export default function CarbohydrateGramsCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding Your Carbohydrate Grams Target</h2>
             <p>In the world of sports nutrition and dietetics, carbohydrates are often referred to as the "flexible macro." While your body absolutely requires specific minimums of dietary protein (to repair muscle tissue and synthesize enzymes) and dietary fat (to regulate hormones and absorb fat-soluble vitamins), your carbohydrate intake is entirely dictated by your energy output and performance goals. The <strong>Carbohydrate Grams Calculator</strong> removes the guesswork from meal planning by utilizing reverse-subtraction math. By establishing your total caloric ceiling and securing your essential protein and fat targets first, the calculator allocates every remaining calorie exclusively to carbohydrates, giving you an exact daily gram target to fuel your lifestyle.</p>
 
@@ -359,7 +359,7 @@ export default function CarbohydrateGramsCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Fueling for Performance</h2>
             <p>Calculating your specific carbohydrate grams is the final step in designing a hyper-optimized nutrition protocol. By using this calculator to precisely balance your macronutrients, you ensure that your body has the exact structural materials it needs to recover (protein and fat), coupled with the exact amount of premium fuel required to perform (carbohydrates). Stick to your caloric ceiling, prioritize complex, nutrient-dense carbohydrate sources, and watch your gym performance, energy levels, and physique transform.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/carbohydrate-grams-calculator" />
           <PopularCalculators exclude="/calculator/carbohydrate-grams-calculator" />

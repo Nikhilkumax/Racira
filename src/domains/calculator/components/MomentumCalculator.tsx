@@ -133,7 +133,7 @@ const MomentumCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Momentum Calculator?</h2>
             <p>A momentum calculator computes the linear momentum of an object — the product of its mass and velocity (p = mv). Momentum is one of the most fundamental quantities in physics, directly tied to Newton's Second Law and the conservation laws governing all physical interactions. Pre-filled with 75 kg at 10 m/s (a person sprinting), the momentum is 750 kg⋅m/s.</p>
             <h2 className="text-2xl font-bold mb-3">The Momentum Formula</h2>
@@ -147,7 +147,7 @@ const MomentumCalculator = () => {
             <p>Both describe moving objects, but they differ fundamentally. Momentum (mv) is a vector — it has direction and is always conserved. Kinetic energy (½mv²) is a scalar — it has no direction and is only conserved in elastic collisions. In a perfectly inelastic collision, all kinetic energy can be lost to heat and deformation, but momentum is still perfectly conserved.</p>
             <h2 className="text-2xl font-bold mb-3">Real-World Momentum Examples</h2>
             <p>Walking person: 75 × 1.5 = 112.5 kg⋅m/s. Sprinting athlete: 75 × 10 = 750 kg⋅m/s. Car at highway speed: 1,500 × 30 = 45,000 kg⋅m/s. Bullet: 0.01 × 700 = 7 kg⋅m/s (much less than a car, but concentrated force). Freight train: 100,000 × 15 = 1,500,000 kg⋅m/s. The massive momentum of trains and ships explains why they require enormous distances to stop.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/momentum-calculator" />
           <PopularCalculators exclude="/calculator/momentum-calculator" />
         </div>

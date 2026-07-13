@@ -408,8 +408,9 @@ const BalanceTransferCalculator = () => {
 
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-12">
+        <section className="mt-12 space-y-8 text-base text-foreground max-w-[1180px]">
           <AdPlaceholder className="mb-8" />
-          <article className="prose prose-slate max-w-none lg:prose-lg dark:prose-invert">
+          <div>
             <h2 className="text-2xl font-bold mb-3">What Is a Balance Transfer Calculator?</h2>
             <p>
               A <strong>Balance Transfer Calculator</strong> is a strategic financial tool used to determine whether shifting high-interest credit card debt to a new credit card with a promotional 0% APR (Annual Percentage Rate) will actually save you money. 
@@ -489,9 +490,10 @@ const BalanceTransferCalculator = () => {
             <p>
               Financial institutions rely on consumers misunderstanding the math behind balance transfer fees and post-promotional rates. By using our robust algorithmic calculator, you take the guesswork out of debt repayment. The interactive charts and precise amortization schedules empower you to mathematically verify that a transfer is beneficial, allowing you to execute a disciplined strategy to achieve financial freedom.
             </p>
-          </article>
+          </div>
+        </section>
 
-          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/balance-transfer-calculator" />
+        <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/balance-transfer-calculator" />
           <PopularCalculators exclude="/calculator/balance-transfer-calculator" />
         </div>
       </div>

@@ -124,14 +124,14 @@ const HomeAffordabilityCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Finding Your Budget</h2>
               <p>Buying a home is the largest purchase most people will ever make. Knowing exactly how much you can afford before you start house hunting is critical to avoiding financial stress.</p>
               <h3>The Role of Interest Rates</h3>
               <p>Even a 1% change in interest rates can change your home affordability by tens of thousands of dollars. When rates are high, your monthly payment covers more interest and less principal, reducing the total loan amount you can qualify for.</p>
               <h3>PITI: More Than a Mortgage</h3>
               <p>Your monthly housing cost consists of Principal, Interest, Taxes, and Insurance (PITI). When calculating affordability, it's vital to include property taxes and homeowners insurance, as these can easily add $300-$600 to your monthly bill.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/home-affordability" />
           <PopularCalculators exclude="/calculator/home-affordability-calculator" />
         </div>

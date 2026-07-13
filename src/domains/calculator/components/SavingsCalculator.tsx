@@ -198,7 +198,7 @@ const SavingsCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">What Is a Savings Calculator?</h2>
               <p>A savings calculator projects how much money you'll accumulate over time based on your initial deposit, regular contributions, interest rate, and compounding frequency. It's an essential planning tool for anyone building an emergency fund, saving for a down payment, funding a college education, or growing long-term wealth.</p>
               <p>Our advanced savings calculator goes beyond basic projections by including compounding frequency options (daily, monthly, quarterly, annually), optional inflation adjustment to show real purchasing power, and a complete year-by-year breakdown table that reveals exactly how compound interest and regular savings work together over time.</p>
@@ -222,7 +222,7 @@ const SavingsCalculator = () => {
 
               <h2 className="text-2xl font-bold mb-3">Savings Tips to Maximize Growth</h2>
               <p>Automate contributions so you save before spending. Take advantage of tax-advantaged accounts (401k, Roth IRA, 529) to keep more of your returns. Reinvest all interest and dividends to maximize compound growth. Increase contributions by 1% each year or with every raise. Consider high-yield savings accounts (currently 4–5%) versus traditional banks (0.01–0.5%) — the difference is enormous over time. Keep emergency savings in liquid accounts; invest longer-term savings in diversified portfolios for better growth.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/savings-calculator" />
           <PopularCalculators exclude="/calculator/savings-calculator" />
         </div>

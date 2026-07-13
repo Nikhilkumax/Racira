@@ -145,7 +145,7 @@ const AdjustedBodyWeightCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Understanding Adjusted Body Weight (ABW)</h2>
               <p>In the fields of clinical pharmacology and medical dietetics, accurately estimating a patient's metabolic and spatial requirements is paramount for safe treatment. When a patient's actual body mass heavily exceeds the clinical average for their physical stature, medical professionals must adapt their mathematical models to account for the unique physiological properties of excess adipose tissue (fat). This is where the concept of Adjusted Body Weight (ABW) becomes critical. Adipose tissue is vastly different from lean muscle mass or organ tissue; it contains significantly less intracellular water and requires far less metabolic energy to sustain on a daily basis. Therefore, if a physician were to dose a highly potent, water-soluble medication based entirely on a heavily obese patient's actual total body weight, they would likely administer a massive, potentially toxic overdose. Conversely, if they strictly utilized the patient's Ideal Body Weight (IBW)—which entirely ignores the extra mass the patient is carrying—they would likely under-dose the medication, rendering it entirely ineffective against the infection or condition they are attempting to treat.</p>
               
@@ -161,7 +161,7 @@ const AdjustedBodyWeightCalculator = () => {
 
               <h2 className="text-2xl font-bold mb-3">Pharmacological Importance of ABW</h2>
               <p>The most common, life-saving application of the Adjusted Body Weight formula is in the dosing of aminoglycoside antibiotics, such as gentamicin, tobramycin, and amikacin. These are incredibly powerful drugs used to combat severe, often life-threatening bacterial infections. However, they are also highly hydrophilic, meaning they strictly distribute into the body's water compartments and do not penetrate fat tissue well. Furthermore, they possess an incredibly narrow therapeutic index, meaning the difference between a dose that cures the infection and a dose that causes irreversible kidney failure or permanent hearing loss is dangerously small. If a clinician doses gentamicin based on a severely obese patient's actual weight, the massive dose will not absorb into the fat tissue; instead, it will aggressively concentrate in the blood plasma and organs, almost guaranteeing severe toxicity. By utilizing the Adjusted Body Weight calculator, pharmacists and physicians can rapidly determine the precise, safe dosage required to eradicate the infection without destroying the patient's vital organs.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/adjusted-body-weight" />
           <PopularCalculators exclude="/calculator/adjusted-body-weight-calculator" />
         </div>

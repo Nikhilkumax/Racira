@@ -119,12 +119,12 @@ const EmergencyFundCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Sidebar Ad" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">The Foundation of Financial Peace</h2>
               <p>An emergency fund is not just a savings account; it's insurance for your life. It provides a financial buffer that allows you to weather unexpected storms without resorting to high-interest credit card debt or raiding your retirement accounts.</p>
               <h3>Why 3 to 6 Months?</h3>
               <p>The standard 3 to 6-month recommendation covers the average time it takes to find a new job or recover from a significant medical event. If you have a stable job and low expenses, 3 months might suffice. If you have a family and a mortgage, 6 months is the safer minimum.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/emergency-fund-calculator" />
           <PopularCalculators exclude="/calculator/emergency-fund-calculator" />
         </div>

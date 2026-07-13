@@ -119,7 +119,7 @@ const FibonacciCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is the Fibonacci Sequence?</h2>
             <p>The Fibonacci sequence is one of mathematics' most famous number patterns, appearing throughout nature, art, architecture, and finance. Each number in the sequence is the sum of the two numbers before it, starting with 0 and 1: 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144… This seemingly simple rule produces a sequence with profound mathematical properties and surprising real-world occurrences.</p>
             <p>Named after the Italian mathematician Leonardo Bonacci (circa 1170–1250), who introduced the sequence to Western mathematics in his book Liber Abaci, Fibonacci numbers have been studied for centuries and remain a rich area of mathematical research and application.</p>
@@ -145,7 +145,7 @@ const FibonacciCalculator = () => {
 
             <h2 className="text-2xl font-bold mb-3">Tips for Using This Calculator</h2>
             <p>Enter a count between 2 and 40. The table shows the complete sequence (up to 20 terms displayed). The line chart shows the exponential growth curve clearly — even at 15 terms, the dramatic acceleration is visible. Combine with the <a href="/calculator/combinations-calculator">combinations calculator</a> or <a href="/calculator/factorial-calculator">factorial calculator</a> for combinatorics work. For financial applications, use Fibonacci retracements alongside technical analysis tools.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/fibonacci-calculator" />
           <PopularCalculators exclude="/calculator/fibonacci-calculator" />
         </div>

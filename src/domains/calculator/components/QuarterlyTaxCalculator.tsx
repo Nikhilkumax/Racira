@@ -160,7 +160,7 @@ const QuarterlyTaxCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Mastering Your Quarterly Estimated Taxes</h2>
               <p>For freelancers, solopreneurs, and business owners, tax season happens four times a year. Because no employer is withholding taxes from your income, the IRS requires you to calculate and pay your own taxes as you earn them. This is known as "Estimated Tax."</p>
 
@@ -198,7 +198,7 @@ const QuarterlyTaxCalculator = () => {
                 <li><strong>Q3 (Jun 1 - Aug 31):</strong> Due September 15</li>
                 <li><strong>Q4 (Sep 1 - Dec 31):</strong> Due January 15 (following year)</li>
               </ul>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/quarterly-tax-calculator" />
           <PopularCalculators exclude="/calculator/quarterly-tax-calculator" />
         </div>

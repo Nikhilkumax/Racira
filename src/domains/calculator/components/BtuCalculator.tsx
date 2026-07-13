@@ -247,7 +247,7 @@ const BtuCalculator = () => {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What is a BTU?</h2>
             <p><strong>BTU</strong> stands for British Thermal Unit. It is the international standard for measuring the power of heating and air conditioning systems. Scientifically, one BTU is the exact amount of energy required to raise the temperature of one pound of liquid water by 1 degree Fahrenheit.</p>
             <p>In the HVAC industry, when you buy an "8,000 BTU Air Conditioner," it technically means the unit has the capacity to remove 8,000 BTUs of heat from the air <em>per hour</em>.</p>
@@ -264,7 +264,7 @@ const BtuCalculator = () => {
               <li><strong>Sun Exposure:</strong> Windows facing the sun create a "greenhouse effect," trapping solar radiation. Rooms with heavy, direct sun exposure require roughly 10% more cooling power.</li>
               <li><strong>Human Body Heat:</strong> Every human body acts like a 100-watt heater. If a room frequently hosts many people, you must add 600 BTUs of cooling capacity for every person over two.</li>
             </ul>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/btu-calculator" />
           <PopularCalculators exclude="/calculator/btu-calculator" />
         </div>

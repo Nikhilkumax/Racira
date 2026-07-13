@@ -182,7 +182,7 @@ export default function ForexProfitCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Forex Profit Calculator?</h2>
             <p>A forex profit calculator is an indispensable risk management tool for currency traders operating in the global foreign exchange market. Unlike trading physical stocks, where calculating profit is as simple as subtracting your buy price from your sell price, forex trading involves complex, leveraged contracts based on exchange rates and standardized lot sizes. Because currencies are traded in pairs (like EUR/USD or USD/JPY), calculating your exact monetary gain or loss requires a deep understanding of pip values, contract units, and margin requirements.</p>
             <p>This calculator removes the mathematical friction from trade planning. By instantly computing your total pip movement, your pip value based on your lot size, and your required margin based on your leverage ratio, it allows you to see the precise financial outcome of any trade scenario before you ever risk a single dollar in the live markets. It is the ultimate tool for enforcing strict position sizing and money management rules.</p>
@@ -225,7 +225,7 @@ export default function ForexProfitCalculator() {
             <h2 className="text-2xl font-bold mb-3">Benefits</h2>
             <p>Utilizing a comprehensive Forex Profit Calculator bridges the gap between chaotic gambling and structured, professional trading. It removes the emotional component of market speculation by forcing you to confront the exact financial consequences of your actions.</p>
             <p>By defining your required margin, calculating your exact pip values, and enforcing strict Risk/Reward ratios, this tool empowers you to protect your capital, optimize your position sizing, and ultimately build a sustainable, mathematically sound trading career.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/forex-profit-calculator" />
           <PopularCalculators exclude="/calculator/forex-profit-calculator" />
         </div>

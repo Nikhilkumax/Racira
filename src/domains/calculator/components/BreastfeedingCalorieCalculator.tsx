@@ -396,7 +396,7 @@ export default function BreastfeedingCalorieCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Metabolic Demands of Breastfeeding</h2>
             <p>From a biological perspective, exclusive breastfeeding is one of the most metabolically demanding processes the human female body will ever undergo. Synthesizing complex breast milk—which is heavily fortified with fat, proteins, antibodies, and carbohydrates (lactose)—requires a staggering amount of energy. To put it in perspective, the daily energy expenditure required to exclusively breastfeed an infant is roughly equivalent to running 5 to 7 miles every single day. The <strong>Breastfeeding Calorie Calculator</strong> is designed to help postpartum mothers navigate this extreme metabolic shift, ensuring they consume enough high-quality calories to sustain a robust milk supply without compromising their own physical recovery and health.</p>
 
@@ -425,7 +425,7 @@ export default function BreastfeedingCalorieCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Fuel the Machine</h2>
             <p>Breastfeeding is an incredible physical feat. It is not the time for crash diets, restrictive eating, or extreme caloric deficits. By using the Breastfeeding Calorie Calculator, you can determine exactly what your body needs to thrive during the postpartum period. Eat nutrient-dense whole foods, drink a massive amount of water, and ensure you are meeting your elevated caloric targets. Your body is doing the work of two; feed it accordingly.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/breastfeeding-calorie-calculator" />
           <PopularCalculators exclude="/calculator/breastfeeding-calorie-calculator" />

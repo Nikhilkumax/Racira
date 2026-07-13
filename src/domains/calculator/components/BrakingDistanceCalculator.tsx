@@ -275,7 +275,7 @@ export default function BrakingDistanceCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Mathematics of Deceleration</h2>
             <p>Every time you press the brake pedal, you are engaging in a violent exercise of physics. A 4,000-pound vehicle traveling at 70 MPH possesses a massive amount of kinetic energy. The brakes must convert 100% of that kinetic energy into thermal energy (heat) in a matter of seconds. The physical distance the car travels while the brakes are working to dissipate this energy is known as the <strong>Braking Distance</strong>.</p>
 
@@ -289,7 +289,7 @@ export default function BrakingDistanceCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">The Weather Factor</h2>
             <p>The road surface coefficient of friction is the master variable in the braking equation. Dry asphalt provides an excellent coefficient of ~0.70. When it rains, a layer of water forms between the rubber and the road, dropping friction to ~0.40. Driving in the rain physically increases your braking distance by 75%. On ice, the friction coefficient drops near zero, rendering your brakes almost entirely useless.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/braking-distance-calculator" />
           <PopularCalculators />

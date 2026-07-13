@@ -381,7 +381,7 @@ export default function SyntaxScoreComplexityCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the SYNTAX Score Calculator</h2>
             <p>Coronary artery disease (CAD) is not uniform. The complexity of blockages within the heart's blood vessels varies immensely from patient to patient. To create a standardized, objective method for evaluating this complexity, cardiovascular researchers developed the <strong>SYNTAX Score</strong>. Our SYNTAX Score Complexity Calculator is an educational tool designed to help medical professionals, students, and patients understand how this vital metric is calculated and how it influences major treatment decisions.</p>
             <p>The score analyzes the coronary anatomy based on a diagnostic angiogram. It weighs the location, severity, and morphological characteristics of every significant lesion (blockage) to generate a single number. This number is then used by the Heart Team to decide whether the patient would benefit more from Percutaneous Coronary Intervention (PCI, commonly known as stenting) or Coronary Artery Bypass Grafting (CABG, commonly known as open-heart bypass surgery).</p>
@@ -421,7 +421,7 @@ export default function SyntaxScoreComplexityCalculator() {
             <h2 className="text-2xl font-bold mb-3">Educational Value and Limitations</h2>
             <p>Our online SYNTAX Score Complexity Calculator is an excellent tool for medical students and residents learning about coronary anatomy, or for patients trying to understand why their cardiologist recommended surgery over stenting.</p>
             <p>However, it is strictly an estimation tool. The exact interpretation of whether an artery is "severely tortuous" or "heavily calcified" requires clinical judgment and advanced imaging. Do not use this calculator to make diagnostic or treatment decisions. Always consult with a board-certified cardiovascular specialist regarding the management of coronary artery disease.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/syntax-score-complexity-calculator" />
           <PopularCalculators exclude="/calculator/syntax-score-complexity-calculator" />

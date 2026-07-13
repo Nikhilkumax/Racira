@@ -160,7 +160,7 @@ export default function EarningsPerShareCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10"/>
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is the Earnings Per Share (EPS) Calculator?</h2>
             <p>Earnings Per Share (EPS) is the portion of a company&apos;s profit allocated to each outstanding common share. It is one of the most important metrics in equity analysis, directly impacting stock valuation, P/E ratios, and investor sentiment. This EPS calculator computes basic EPS, diluted EPS, adjusted EPS, and the implied P/E ratio and earnings yield.</p>
             <h2 className="text-2xl font-bold mb-3">EPS Formulas Explained</h2>
@@ -176,7 +176,7 @@ export default function EarningsPerShareCalculator() {
             <p>Aggressive stock-based compensation inflates the diluted share count and mechanically reduces EPS. Conversely, buybacks reduce shares outstanding and mechanically boost EPS even with flat net income. Investors should distinguish EPS growth driven by genuine profit improvement versus financial engineering through buybacks or accounting adjustments.</p>
             <h2 className="text-2xl font-bold mb-3">Reading Earnings Reports</h2>
             <p>Companies report GAAP and often non-GAAP (adjusted) EPS in earnings releases. The consensus estimate aggregated by Bloomberg, FactSet, or Refinitiv serves as the benchmark. A "beat" occurs when reported EPS exceeds consensus — historically triggering positive stock moves. Guidance on forward EPS often matters more than the reported quarter for long-term investors.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/earnings-per-share-calculator"/>
           <PopularCalculators exclude="/calculator/earnings-per-share-calculator"/>
         </div>

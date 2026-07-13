@@ -116,7 +116,7 @@ const TDEECalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">What Is TDEE?</h2>
               <p>Total Daily Energy Expenditure (TDEE) is the total number of calories your body burns in a day. It combines your Basal Metabolic Rate (BMR) — calories burned at rest — with the energy used for physical activity, digestion, and non-exercise movement. TDEE is the cornerstone of any weight management plan.</p>
 
@@ -148,7 +148,7 @@ const TDEECalculator = () => {
               </ul>
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> TDEE is an estimate. Track your weight over 2-3 weeks and adjust calories accordingly. Consult a nutritionist for personalized plans.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/tdee-calculator" />
           <PopularCalculators exclude="/tdee-calculator" />
         </div>

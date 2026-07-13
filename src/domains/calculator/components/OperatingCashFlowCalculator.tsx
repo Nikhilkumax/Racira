@@ -315,7 +315,7 @@ export default function OperatingCashFlowCalculator() {
         {/* SEO Article Section */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding Operating Cash Flow (OCF)</h2>
             <p>
               Operating Cash Flow (OCF)—frequently referred to as Cash Flow from Operating Activities—represents the actual amount of currency a business generates from its standard operational transactions over a period. It excludes cash flow from investing (purchasing machinery or real estate) and cash flow from financing (issuing shares or paying debt).
@@ -323,7 +323,7 @@ export default function OperatingCashFlowCalculator() {
             <p>
               OCF serves as a key check on reported net profit. In accrual accounting, net income includes credit sales and delayed expenses. OCF filters out these accounting timing differences to show the physical cash movement. Checking if a firm has strong OCF is the best way to determine if a company is truly solvent and generating enough cash to stay in business.
             </p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/operating-cash-flow-calculator" />
           <PopularCalculators exclude="/calculator/operating-cash-flow-calculator" />
         </div>

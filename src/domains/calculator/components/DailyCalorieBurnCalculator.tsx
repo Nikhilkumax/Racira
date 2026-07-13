@@ -362,7 +362,7 @@ export default function DailyCalorieBurnCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Mathematics of Your Metabolism</h2>
             <p>The fitness industry is flooded with fad diets, magic pills, and "fat-burning" supplements. We are constantly sold the lie that weight loss is a mysterious biological process dependent on eating specific superfoods or avoiding carbohydrates after 6:00 PM. In reality, human metabolism is governed by the unbreakable laws of thermodynamics. If you consume more energy (calories) than your body requires, it stores the excess as fat. If you consume less energy than your body requires, it is forced to burn stored fat to survive. It is a strict mathematical equation. The <strong>Daily Calorie Burn Calculator</strong> utilizes clinical algorithms to determine your exact metabolic baseline, giving you the mathematical key to manipulating your body composition.</p>
 
@@ -388,7 +388,7 @@ export default function DailyCalorieBurnCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Stop Guessing, Start Measuring</h2>
             <p>Weight loss is not a mystery, and it does not require purchasing expensive supplements or detox teas. It requires data. By using the Daily Calorie Burn Calculator to establish your exact TDEE, you remove all the guesswork from your diet. You now have the exact mathematical formula required to force your body to burn fat or build muscle. Track your intake, honor the math, and watch your physique transform with clinical precision.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/daily-calorie-burn-calculator" />
           <PopularCalculators exclude="/calculator/daily-calorie-burn-calculator" />

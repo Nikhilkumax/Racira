@@ -162,7 +162,7 @@ const LoanCalculator = () => {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Loan Calculator?</h2>
             <p>A loan calculator computes your monthly payment for any installment loan using the amortization formula — the same math used by banks for auto loans, personal loans, and student loans. Pre-filled with a $25,000 loan at 6.5% APR over 5 years, it shows the exact monthly payment, total amount paid, total interest cost, and a declining balance chart showing how your loan balance reduces month by month.</p>
             <p>Whether you are financing a car, consolidating debt, taking a personal loan, or comparing different loan offers, this calculator gives you the full picture instantly — empowering you to negotiate better terms and understand the true cost of borrowing.</p>
@@ -177,7 +177,7 @@ const LoanCalculator = () => {
             <p>A 1% difference in rate on a $25,000 5-year loan: at 5.5%, payment = $478/mo, interest = $3,706. At 6.5%, payment = $489/mo, interest = $4,349. At 7.5%, payment = $501/mo, interest = $5,006. The 2% spread costs $1,300 over the life of the loan — worth shopping multiple lenders. On a $400,000 mortgage, the same 2% difference means $180,000+ extra in interest over 30 years.</p>
             <h2 className="text-2xl font-bold mb-3">Tips for Reducing Loan Costs</h2>
             <p>Make bi-weekly payments instead of monthly — you end up making 26 half-payments (= 13 full payments) instead of 12, knocking years off your loan. Make even small extra principal payments — $50/month extra on a 5-year loan saves hundreds in interest and pays it off faster. Compare APR (not just interest rate) across lenders — origination fees can make a "lower rate" loan more expensive. If you have good credit, refinance when rates drop. Use the <a href="/calculator/compound-interest-calculator">compound interest calculator</a> to see how investing the monthly savings from a shorter term builds wealth.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/loan-calculator" />
           <PopularCalculators exclude="/calculator/loan-calculator" />
         </div>

@@ -178,7 +178,7 @@ export default function UsdaLoanCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a USDA Loan Calculator?</h2>
             <p>A USDA loan calculator is a specialized mortgage tool designed to compute the exact costs associated with the United States Department of Agriculture's Rural Development loan program. For millions of Americans living in suburban and rural areas, the USDA loan is arguably the best mortgage product on the market, offering 100% financing (zero down payment) and competitive interest rates. However, because it is a government-backed loan, it features unique fee structures—specifically the Upfront and Annual Guarantee Fees—that standard mortgage calculators simply ignore.</p>
             <p>If you use a generic calculator to estimate a USDA loan, you will dramatically underestimate your monthly payment and your total loan balance. This tool perfectly replicates the USDA underwriting formula. It automatically calculates the mandatory upfront fee, rolls it into your financed loan amount, and computes the ongoing monthly guarantee fee alongside your property taxes and insurance, providing you with a perfectly accurate, to-the-penny estimate of your true housing costs.</p>
@@ -223,7 +223,7 @@ export default function UsdaLoanCalculator() {
             <h2 className="text-2xl font-bold mb-3">Benefits</h2>
             <p>Using a dedicated USDA loan calculator is critical because standard mortgage calculators will mislead you by ignoring the mandatory guarantee fees, resulting in a payment shock when you receive your official loan estimate.</p>
             <p>This tool provides absolute clarity. It shows you the true cost of zero-down financing. By understanding exactly how much of your payment is consumed by interest, taxes, and government fees, you can confidently determine if a USDA loan is the right path to achieving your dream of homeownership.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/usda-loan-calculator" />
           <PopularCalculators exclude="/calculator/usda-loan-calculator" />
         </div>

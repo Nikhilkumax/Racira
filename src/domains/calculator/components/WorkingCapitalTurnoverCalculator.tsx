@@ -125,7 +125,7 @@ export default function WorkingCapitalTurnoverCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is Working Capital Turnover?</h2>
             <p>Working Capital Turnover (WCT) measures how efficiently a company uses its net current assets (working capital) to generate revenue. A higher ratio indicates more revenue generated per dollar of working capital deployed — a hallmark of capital-efficient businesses. Formula: WCT = Net Revenue ÷ (Current Assets − Current Liabilities).</p>
             <h2 className="text-2xl font-bold mb-3">Interpreting High vs. Low WCT</h2>
@@ -136,7 +136,7 @@ export default function WorkingCapitalTurnoverCalculator() {
             <p>WCT is one component of broader efficiency analysis. Asset Turnover (Revenue ÷ Total Assets) is the broader measure including fixed assets. WCT specifically isolates the current asset portion. Together with DIO, DSO, and DPO (the cash conversion cycle components), WCT gives a complete picture of short-term capital efficiency. A company can have a good cash conversion cycle but still have low WCT if it maintains excessive liquid cash reserves.</p>
             <h2 className="text-2xl font-bold mb-3">Improving Working Capital Turnover</h2>
             <p>Reduce excess current assets: repatriate surplus cash via dividends or buybacks rather than holding idle balances. Optimize inventory: implement demand forecasting and JIT practices to reduce DIO. Accelerate collections: tighten credit terms and improve AR processes to reduce DSO. Extend payables: negotiate longer supplier payment terms to increase DPO. Revenue growth without proportional working capital growth directly improves WCT through the leverage effect of fixed working capital infrastructure.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/working-capital-turnover-calculator" />
           <PopularCalculators exclude="/calculator/working-capital-turnover-calculator" />
         </div>

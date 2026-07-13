@@ -215,7 +215,7 @@ export default function HealthyWeightRangeCalculator() {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Science Behind the Healthy Weight Range</h2>
             <p>Weight is a highly emotional topic, but biologically, it is simply a metric of physical mass. The medical community uses the <strong>Healthy Weight Range</strong> to identify the optimal amount of mass your specific skeleton is designed to carry.</p>
             <p>This calculator reverse-engineers the standard Body Mass Index (BMI) formula. Instead of telling you your BMI score, it calculates the exact minimum and maximum pounds you can weigh before crossing the clinical threshold into elevated health risks.</p>
@@ -236,7 +236,7 @@ export default function HealthyWeightRangeCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">When the Formula Fails</h2>
             <p>The BMI formula is a statistical screening tool designed for the general population. It fails completely when applied to extreme edge cases. Professional bodybuilders, NFL linebackers, and heavyweight boxers are regularly classified as "Obese" by this calculator simply because muscle is so heavy. If you are a highly trained athlete with visible abs, you can safely ignore this metric and rely on Body Fat Percentage instead.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/healthy-weight-range-calculator" />
           <PopularCalculators exclude="/calculator/healthy-weight-range-calculator" />
         </div>

@@ -314,7 +314,7 @@ export default function DeliveryCostPerMileCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What is Cost Per Mile (CPM)?</h2>
             <p><strong>Cost Per Mile (CPM)</strong> is the foundational metric of the trucking and delivery industry. It represents exactly how much money it costs a trucking company (or owner-operator) to drive a vehicle exactly one mile.</p>
             <p>If you do not know your CPM to the penny, you cannot run a profitable trucking business. Freight brokers will constantly offer you loads at "$1.80 per mile." If your CPM is $1.95, accepting that load means you are losing 15 cents for every mile you drive.</p>
@@ -329,7 +329,7 @@ export default function DeliveryCostPerMileCalculator() {
             <h2 className="text-2xl font-bold mb-3">The Danger of "Deadhead" Miles</h2>
             <p><strong>Deadheading</strong> is driving a truck with an empty trailer. If you drive 500 miles to deliver a load, and then drive 200 miles empty to pick up the next load, your actual driven miles for that trip is 700.</p>
             <p>Many new truck drivers only divide their revenue by the 500 loaded miles, tricking themselves into thinking they are profitable. You must divide your costs by <strong>Total Miles Driven</strong> (including empty deadhead miles) to find your true CPM. Fuel burns whether the trailer is empty or full.</p>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "What is a good CPM for a trucking company?", answer: "There is no single 'good' CPM, as it varies wildly depending on the equipment type (Dry Van vs Reefer vs Flatbed) and fuel prices. However, a typical owner-operator operating a Class 8 semi-truck usually sees a CPM between $1.60 and $2.10." },
             { question: "How often should I calculate my CPM?", answer: "You should calculate it monthly. Diesel prices fluctuate constantly, and insurance premiums usually adjust annually. A CPM calculated six months ago is likely inaccurate today." },

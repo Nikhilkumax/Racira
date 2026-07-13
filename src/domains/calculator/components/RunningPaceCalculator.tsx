@@ -129,7 +129,7 @@ export default function RunningPaceCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">How to Use the Running Pace Calculator</h2>
             <p>Enter your distance, completion time, and body weight to instantly calculate pace per km and mile, running speed, calories burned, and projected finish times for all major race distances. Whether you are training for a 5K or targeting a sub-3-hour marathon, this tool provides the data you need to structure your training.</p>
             <h2 className="text-2xl font-bold mb-3">Understanding Running Pace</h2>
@@ -138,7 +138,7 @@ export default function RunningPaceCalculator() {
             <p>Running burns roughly 70 calories per kilometer for a 70 kg runner — largely independent of speed (slower speed burns the same calories over a given distance, just takes longer). The MET-based formula used here accounts for the increase in energy expenditure at higher intensities. For weight management, total calorie burn matters most — longer slower runs burn as many calories as shorter faster ones covering the same distance.</p>
             <h2 className="text-2xl font-bold mb-3">Training Pace Zones</h2>
             <p>Easy pace: 65–75% max HR, 90–120 seconds/km slower than race pace. Tempo: 80–88% max HR, approximately 20–30 sec/km slower than 10K race pace. Intervals: 90–95% max HR, faster than 5K race pace. Long run: same as easy pace, used to build aerobic base and fat-burning efficiency. 80% of training volume should be easy, 20% quality (tempo + intervals).</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/running-pace-calculator" />
           <PopularCalculators exclude="/calculator/running-pace-calculator" />
         </div>

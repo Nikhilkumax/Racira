@@ -134,7 +134,7 @@ export default function InventoryDaysCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10"/>
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is the Days in Inventory Calculator?</h2>
             <p>Days in Inventory (DIO), also known as Days Sales of Inventory (DSI) or Days Inventory Outstanding, measures how many days on average a company holds inventory before selling it. It is a critical operational efficiency metric used by CFOs, supply chain managers, and equity analysts to assess working capital management.</p>
             <h2 className="text-2xl font-bold mb-3">DIO Formula</h2>
@@ -150,7 +150,7 @@ export default function InventoryDaysCalculator() {
             <p>Implement demand forecasting to align procurement with actual sales velocity. Adopt just-in-time (JIT) inventory practices. Segment inventory into ABC categories (A=high value/high velocity, C=low value/low velocity) and prioritize active management of A items. Use vendor-managed inventory (VMI) where suppliers maintain optimal stock levels. Regularly review and clear slow-moving or obsolete inventory through markdowns or liquidation.</p>
             <h2 className="text-2xl font-bold mb-3">Risks of Overly Low DIO</h2>
             <p>While reducing DIO is generally beneficial, extreme reduction creates stockout risk — empty shelves leading to lost sales and customer churn. The optimal DIO balances inventory carrying costs (storage, insurance, obsolescence) against the cost of stockouts (lost revenue, expediting charges). Safety stock calculations should inform the floor below which DIO should not fall.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/inventory-days-calculator"/>
           <PopularCalculators exclude="/calculator/inventory-days-calculator"/>
         </div>

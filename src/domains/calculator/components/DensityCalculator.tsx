@@ -127,7 +127,7 @@ const DensityCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">About Density Calculation</h2>
               <p>Density is a measure of how much mass is contained in a given unit of volume. It is a fundamental property of matter that describes how tightly atoms or molecules are packed together.</p>
               
@@ -143,7 +143,7 @@ const DensityCalculator = () => {
                 <li><strong>Buoyancy:</strong> Objects with a lower density than water will float, while those with a higher density will sink.</li>
                 <li><strong>Construction:</strong> Engineers calculate the density of concrete and steel to ensure buildings can support their own weight.</li>
               </ul>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/density-calculator" />
           <PopularCalculators exclude="/calculator/density-calculator" />
         </div>

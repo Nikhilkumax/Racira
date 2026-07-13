@@ -242,7 +242,7 @@ const SignificantFiguresCalculator = () => {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding Significant Figures</h2>
             <p><strong>Significant figures</strong> (often called "sig figs" or "significant digits") are the digits in a measured or calculated number that carry reliable, meaningful information about the precision of that measurement. In science, chemistry, and engineering, no measurement is perfectly exact. Significant figures ensure that the mathematical results of a calculation do not imply a false sense of precision that wasn't present in the original data.</p>
 
@@ -261,7 +261,7 @@ const SignificantFiguresCalculator = () => {
 
             <h2 className="text-2xl font-bold mb-3">Applying Sig Figs in Calculations</h2>
             <p>When performing math with measured numbers, the result cannot be more precise than your least precise measurement. When multiplying or dividing, the final answer must be rounded to the same number of significant figures as the measurement with the <em>fewest</em> significant figures. When adding or subtracting, the result is rounded to the same number of <em>decimal places</em> as the measurement with the fewest decimal places.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/significant-figures-calculator" />
           <PopularCalculators exclude="/calculator/significant-figures-calculator" />
         </div>

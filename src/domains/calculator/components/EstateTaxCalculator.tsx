@@ -160,7 +160,7 @@ const EstateTaxCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Understanding the Federal Estate Tax</h2>
               <p>Commonly referred to by critics as the "Death Tax," the federal estate tax is a levy on the transfer of wealth from a deceased person to their heirs. While it is one of the most debated taxes in the United States, it currently affects only a tiny fraction of the wealthiest households due to historically high exemption limits.</p>
 
@@ -193,7 +193,7 @@ const EstateTaxCalculator = () => {
 
               <h2 className="text-2xl font-bold mb-3">State-Level Estate Taxes</h2>
               <p>Be aware that even if you don't owe federal estate tax, you might owe state estate tax. Several states (including Oregon, Washington, New York, and Massachusetts) have their own estate or inheritance taxes with much lower exemptions, sometimes starting at just $1 million.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/estate-tax-calculator" />
           <PopularCalculators exclude="/calculator/estate-tax-calculator" />
         </div>

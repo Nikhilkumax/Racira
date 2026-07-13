@@ -440,7 +440,7 @@ export default function MealFrequencyCalorieSplitCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Meal Frequency Calorie Split</h2>
             <p>Once you have calculated your Total Daily Energy Expenditure (TDEE) and set a caloric target for cutting or bulking, you face the practical reality of execution: <em>How do I actually eat all this food?</em> Historically, the fitness industry was plagued by the myth that you had to eat six small meals a day to "stoke the metabolic fire." Modern science has thoroughly debunked this. The thermic effect of food is based entirely on the total caloric volume consumed, not how many times you sit down to eat.</p>
             <p>However, meal frequency and caloric distribution still matter massively for two critical reasons: <strong>Muscle Protein Synthesis (MPS)</strong> and <strong>Dietary Adherence</strong>. The <strong>Meal Frequency Calorie Split Calculator</strong> allows you to take your daily macroscopic targets and chop them up into a sustainable, scientifically optimized daily blueprint.</p>
@@ -475,7 +475,7 @@ export default function MealFrequencyCalorieSplitCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Consistency Trumps Optimization</h2>
             <p>Do not let the pursuit of the "perfect" meal schedule derail your progress. The hierarchy of nutritional importance is rigid: Total Calories dictate weight, Total Protein dictates muscle preservation, and Meal Frequency simply optimizes the process. Use the calculator to experiment with different distributions. If you find yourself starving and miserable on an even split, try carb backloading. If you lack energy in the gym, try peri-workout prioritization. Find the blueprint that fits your lifestyle, and execute it consistently.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/meal-frequency-calorie-split-calculator" />
           <PopularCalculators exclude="/calculator/meal-frequency-calorie-split-calculator" />

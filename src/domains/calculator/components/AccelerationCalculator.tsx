@@ -146,7 +146,7 @@ const AccelerationCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Physics of Acceleration</h2>
             <p>Acceleration is one of the most fundamental concepts in classical mechanics and physics, describing the exact rate at which an object changes its velocity over a specific period of time. Unlike speed, which simply measures how fast an object is moving, acceleration measures how quickly that speed is changing. Furthermore, because velocity is a vector quantity—meaning it has both a magnitude (speed) and a direction—acceleration is also a vector quantity. This means you can experience acceleration by speeding up, by slowing down, or simply by changing the direction of your movement while maintaining a constant speed, such as a car driving in a continuous circle. Our acceleration calculator focuses on linear acceleration, computing the rate of change in speed along a straight path using the fundamental kinematic equations of motion established by Sir Isaac Newton centuries ago.</p>
             
@@ -171,7 +171,7 @@ const AccelerationCalculator = () => {
             <p>The principles of acceleration calculation are critical in almost every branch of engineering, particularly in safety analysis and vehicle dynamics. Automotive engineers use these exact formulas to design crumple zones and airbag deployment systems. During a car crash, a vehicle undergoes a massive, violent deceleration over a fraction of a second. By measuring the initial speed of the vehicle prior to impact and the extremely short time it takes for the car to come to a complete stop, engineers can calculate the exact negative acceleration experienced by the vehicle's frame and the passengers inside. According to Newton's Second Law of Motion (Force = mass × acceleration), higher rates of acceleration or deceleration result in exponentially higher forces being applied to the human body.</p>
             
             <p>Similarly, civil engineers rely on acceleration calculations when designing highway on-ramps and off-ramps. An on-ramp must be physically long enough to give a heavily loaded commercial truck sufficient distance to accelerate from surface street speeds to highway speeds before merging into high-speed traffic. If the ramp is too short, the truck's maximum acceleration rate won't be enough to reach a safe merging velocity, creating a hazardous traffic situation. By utilizing the time, velocity, and distance formulas processed by this calculator, infrastructure can be designed to match the physical realities of motion.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/acceleration-calculator" />
           <PopularCalculators exclude="/calculator/acceleration-calculator" />
         </div>

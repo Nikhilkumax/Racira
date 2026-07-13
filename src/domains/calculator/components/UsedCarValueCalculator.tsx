@@ -398,7 +398,7 @@ export default function UsedCarValueCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Used Car Value Calculator?</h2>
             <p>A Used Car Value Calculator is a financial modeling tool that estimates the current market value of an automobile by simulating its depreciation curve. Cars are depreciating assets, meaning they lose value every single day. This calculator takes the original sticker price (MSRP) of the vehicle when it was brand new and applies industry-standard depreciation logic based on its age, mileage, condition, and vehicle class to find its true current worth.</p>
 
@@ -417,7 +417,7 @@ export default function UsedCarValueCalculator() {
             <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <p><strong>Example 1: The High-Mileage Commuter.</strong> You have a 4-year-old standard car originally bought for $30,000. However, you commute heavily and have 80,000 miles on the odometer. The base age depreciation drops the value to roughly $15,600. But because you are 32,000 miles over the average (4 years x 12k = 48k), the calculator applies a massive $1,600 mileage penalty. Your car is only worth around $14,000.</p>
             <p><strong>Example 2: The Garage Queen.</strong> You bought a $50,000 luxury car 5 years ago, but you only drove it on weekends. It has a pristine 15,000 miles on the odometer. While luxury cars depreciate rapidly (dropping the base value to ~$17,000), your incredibly low mileage triggers a substantial bonus, pulling the final estimated value back up over $20,000.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/used-car-value-calculator" />
           <PopularCalculators />

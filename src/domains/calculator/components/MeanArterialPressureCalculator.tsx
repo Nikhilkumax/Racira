@@ -146,7 +146,7 @@ const MeanArterialPressureCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Mean Arterial Pressure Calculator?</h2>
             <p>A mean arterial pressure (MAP) calculator computes the average blood pressure during a complete cardiac cycle from your systolic and diastolic readings. MAP is the single best indicator of organ perfusion pressure — the force driving blood through your kidneys, brain, and other vital organs. Pre-filled with 120/80 mmHg (normal blood pressure), the MAP is 93 mmHg — well within the healthy range of 70–100 mmHg.</p>
             <h2 className="text-2xl font-bold mb-3">The MAP Formula</h2>
@@ -160,7 +160,7 @@ const MeanArterialPressureCalculator = () => {
             <p>The brain requires a cerebral perfusion pressure (CPP) of 60–70 mmHg for adequate oxygenation. CPP = MAP − Intracranial Pressure (ICP). In traumatic brain injury management, MAP is carefully targeted to maintain CPP above 60 mmHg while controlling ICP. Too high MAP with elevated ICP can worsen brain edema, while too low MAP causes cerebral ischemia. This is why MAP monitoring is continuous in neurocritical care units.</p>
             <h2 className="text-2xl font-bold mb-3">MAP in Anesthesia</h2>
             <p>During surgery, anesthesiologists monitor MAP continuously and maintain it within 20% of the patient's baseline to prevent organ damage. A MAP drop below 65 mmHg for more than 10 minutes during surgery is associated with myocardial injury, acute kidney injury, and 30-day mortality. Vasopressors (phenylephrine, ephedrine) and fluid boluses are titrated to maintain MAP targets.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/mean-arterial-pressure-calculator" />
           <PopularCalculators exclude="/calculator/mean-arterial-pressure-calculator" />
         </div>

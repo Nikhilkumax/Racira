@@ -192,7 +192,7 @@ const InterestOnlyMortgageCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Understanding Interest-Only Mortgages</h2>
               <p>An interest-only (IO) mortgage is a specialized home loan that provides flexibility in the early years of homeownership. For a predetermined period, usually 5 to 10 years, you are not required to pay down any of the loan's principal. Instead, your monthly payments cover only the interest charges.</p>
 
@@ -235,7 +235,7 @@ const InterestOnlyMortgageCalculator = () => {
 
               <h3>Important Considerations</h3>
               <p>Before choosing an interest-only mortgage, it is vital to have a clear "exit strategy." This might include plans to sell the property, refinance into a traditional mortgage, or a guaranteed increase in household income to handle the future payment jump. Without a plan, the transition to the amortization phase can cause significant financial distress.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/interest-only-mortgage-calculator" />
           <PopularCalculators exclude="/calculator/interest-only-mortgage-calculator" />
         </div>

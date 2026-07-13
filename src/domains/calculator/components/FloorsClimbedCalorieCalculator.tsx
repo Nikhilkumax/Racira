@@ -283,7 +283,7 @@ export default function FloorsClimbedCalorieCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Physics of Vertical Displacement</h2>
             <p>Every fitness tracker on the market gamifies the concept of "closing your rings" by telling you to stand up and walk. However, walking on flat ground is a highly efficient movement that barely challenges the human cardiovascular system. If you want to force your body to expend a massive amount of energy in a very short amount of time, you must wage war against the most powerful force on Earth: gravity.</p>
             <p>The <strong>Floors Climbed Calorie Calculator</strong> bypasses the inaccurate generalizations of wrist pedometers by utilizing pure Newtonian physics. By mathematically determining the exact mechanical force required to propel your specific body mass straight up into the air, it provides a flawless calculation of the thermodynamic energy your muscles were forced to expend.</p>
@@ -311,7 +311,7 @@ export default function FloorsClimbedCalorieCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Skip the Elevator</h2>
             <p>If your goal is to lose weight and drastically improve your cardiovascular conditioning, flat-ground walking is not enough. You must introduce mechanical resistance. Climbing stairs is one of the most brutal, efficient, and accessible forms of high-intensity interval training (HIIT) on the planet. Stop relying on gamified watch rings. Use the Floors Climbed Calorie Calculator to track the true physics of your output, embrace the burn in your legs, and always take the stairs.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/floors-climbed-calorie-calculator" />
           <PopularCalculators exclude="/calculator/floors-climbed-calorie-calculator" />

@@ -124,14 +124,14 @@ const TreePlantingOffsetCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Nature's Solution</h2>
               <p>Reforestation is one of the most scalable and cost-effective ways to remove existing carbon dioxide from the atmosphere. Trees act as natural "carbon sinks," pulling CO2 from the air to build their trunks, branches, and roots.</p>
               <h3>The Time Factor</h3>
               <p>It's important to remember that tree planting is a long-term commitment. A sapling planted today won't reach its peak absorption rate for 10 to 20 years. This is why preserving existing old-growth forests is even more critical than planting new ones—a mature forest has already done the decades of work required to become a massive carbon storage system.</p>
               <h3>Biodiversity and Ecosystems</h3>
               <p>Effective carbon offsetting isn't just about the number of trees; it's about planting the right species in the right places. Monoculture plantations (planting only one type of tree) are vulnerable to disease and support very little wildlife. Diverse, native forests are much more resilient and provide additional benefits like soil protection and water filtration.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/tree-planting-offset" />
           <PopularCalculators exclude="/calculator/tree-planting-offset-calculator" />
         </div>

@@ -259,7 +259,7 @@ export default function EbitdaMarginCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is EBITDA Margin?</h2>
             <p>EBITDA Margin is one of the most widely used profitability metrics in corporate finance. It measures how much of a company's revenue becomes EBITDA — Earnings Before Interest, Taxes, Depreciation, and Amortization. The formula is: EBITDA Margin = EBITDA / Revenue × 100. This metric allows investors and analysts to compare operational profitability across companies with different capital structures, tax situations, and asset base sizes.</p>
             <p>EBITDA itself is derived by adding back non-cash charges (depreciation and amortization) and non-operating items (interest and taxes) to net income. This produces a measure that closely approximates operating cash flow, which is why private equity firms, investment bankers, and fundamental analysts use it as a primary valuation anchor.</p>
@@ -276,7 +276,7 @@ export default function EbitdaMarginCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">EBITDA in M&A and Private Equity</h2>
             <p>In mergers and acquisitions, EBITDA is the universal valuation language. Leverage buyout (LBO) models are built around EBITDA multiples. When a private equity firm says they're buying a company at "8x," they mean 8x trailing 12-month EBITDA. This is why improving EBITDA margin is a primary value-creation strategy in PE-backed companies — every dollar of EBITDA improvement creates 8–12x that in enterprise value at exit.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/ebitda-margin-calculator" />
           <PopularCalculators exclude="/calculator/ebitda-margin-calculator" />
         </div>

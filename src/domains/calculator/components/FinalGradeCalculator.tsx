@@ -128,7 +128,7 @@ const FinalGradeCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Planning for Your Final Exam</h2>
               <p>The "Final Grade" calculation is a rite of passage for students everywhere. As the semester ends, knowing exactly what score you need can help you prioritize your study time effectively.</p>
               
@@ -137,7 +137,7 @@ const FinalGradeCalculator = () => {
 
               <h3>Strategic Studying</h3>
               <p>If you find that you need a very low score (like 40%) to maintain your target grade, you might choose to dedicate more study time to a different class where the required score is higher. Conversely, if you need a high score (95%+), you know you need to focus intensely on that subject.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/final-grade" />
           <PopularCalculators exclude="/calculator/final-grade-calculator" />
         </div>

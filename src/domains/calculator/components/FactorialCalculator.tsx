@@ -127,7 +127,7 @@ const FactorialCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Factorial Calculator?</h2>
             <p>A factorial calculator computes n! — the product of every positive integer from 1 up to n. Factorials are foundational to combinatorics, probability theory, algebra, and calculus. They grow extraordinarily fast: 10! = 3,628,800 while 20! = 2,432,902,008,176,640,000. This calculator shows the result instantly alongside a complete table of all factorials from 0! through n! and a bar chart that visualizes the explosive growth pattern.</p>
             <p>Students use factorial calculators when working through permutations and combinations, educators use them to illustrate mathematical growth rates, and programmers use factorials in algorithms including sorting, hashing, and recursive function design.</p>
@@ -163,7 +163,7 @@ const FactorialCalculator = () => {
 
             <h2 className="text-2xl font-bold mb-3">Tips for Using This Calculator</h2>
             <p>Enter any integer from 0 to 20. Values above 20 exceed JavaScript's safe integer range (2⁵³ − 1). For larger factorials, use Stirling's approximation: n! ≈ √(2πn) × (n/e)^n, which is accurate to within 1% for n ≥ 10. Combine this calculator with the <a href="/calculator/combinations-calculator">combinations calculator</a> and the <a href="/calculator/permutations-calculator">permutations calculator</a> for complete combinatorics work.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/factorial-calculator" />
           <PopularCalculators exclude="/calculator/factorial-calculator" />
         </div>

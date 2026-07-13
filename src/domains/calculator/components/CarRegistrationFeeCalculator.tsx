@@ -291,7 +291,7 @@ export default function CarRegistrationFeeCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Car Registration Fee Calculator?</h2>
             <p>A Car Registration Fee Calculator helps you estimate exactly how much it will cost to legally register and title your vehicle with the Department of Motor Vehicles (DMV). Registration fees are notoriously complex, often combining flat rates with value-based percentages and hidden surcharges. Whether you are buying a new car at a dealership, purchasing a used car from a private seller, or simply renewing your annual tags, this calculator removes the guesswork so you can budget appropriately without facing sticker shock at the DMV counter.</p>
 
@@ -316,7 +316,7 @@ export default function CarRegistrationFeeCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Benefits</h2>
             <p>Using a Car Registration Fee Calculator provides peace of mind. It prevents you from walking into the DMV completely blind to the costs. By anticipating the heavy value-based taxes associated with newer vehicles, you can roll these costs into your initial car-buying budget rather than scrambling to drain your savings account just to get license plates.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/car-registration-fee-calculator" />
           <PopularCalculators />

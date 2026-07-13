@@ -358,7 +358,7 @@ export default function PregnancyDueDateCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Pregnancy Due Date Calculator</h2>
             <p>Discovering you are pregnant is one of the most monumental moments in a woman's life. Almost instantly, the single most pressing question becomes: "When is the baby arriving?" For decades, modern obstetrics has relied on a specific mathematical algorithm to predict exactly when a full-term pregnancy will reach its natural conclusion. The <strong>Pregnancy Due Date Calculator</strong> utilizes this globally accepted medical standard—the Modified Naegele's Rule—to provide you with an incredibly precise Estimated Date of Delivery (EDD), alongside a comprehensive timeline of your gestational milestones.</p>
 
@@ -398,7 +398,7 @@ export default function PregnancyDueDateCalculator() {
             <h2 className="text-2xl font-bold mb-3">LMP Dating vs. Ultrasound Dating</h2>
             <p>While the LMP calculation is the gold standard for initiating prenatal care, modern obstetrics relies heavily on ultrasound technology to verify the due date. During the first trimester (typically between 8 and 12 weeks), the doctor will perform an early dating ultrasound to measure the Crown-Rump Length (CRL) of the fetus.</p>
             <p>During the first trimester, embryos grow at a shockingly uniform, predictable rate across all human genetics. If the ultrasound measurement indicates a due date that is more than 5 to 7 days different from your LMP-calculated due date, your obstetrician will likely discard the LMP date entirely and make the Ultrasound Date your new, official Estimated Date of Delivery. This is highly common for women with irregular cycles who may have ovulated much later than they realized.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/pregnancy-due-date-calculator" />
           <PopularCalculators exclude="/calculator/pregnancy-due-date-calculator" />

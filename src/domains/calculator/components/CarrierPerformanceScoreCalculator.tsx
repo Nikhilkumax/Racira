@@ -292,7 +292,7 @@ export default function CarrierPerformanceScoreCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What is a Carrier Performance Scorecard?</h2>
             <p>In logistics and supply chain management, simply choosing the cheapest freight carrier often results in terrible service. A <strong>Carrier Performance Scorecard</strong> is a quantitative tool used by procurement managers to evaluate their logistics partners based on multiple Key Performance Indicators (KPIs), rather than just cost.</p>
             
@@ -311,7 +311,7 @@ export default function CarrierPerformanceScoreCalculator() {
             
             <h2 className="text-2xl font-bold mb-3">Using the Scorecard for Continuous Improvement</h2>
             <p>Scorecards should be reviewed with carriers on a monthly or quarterly basis in a <em>Quarterly Business Review (QBR)</em>. Carriers who consistently achieve Tier 1 (Preferred) status are rewarded with more freight volume. Carriers who fall into Probationary status are placed on a corrective action plan; if scores do not improve, they are removed from the routing guide entirely (Do Not Use).</p>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "What is a good overall carrier score?", answer: "In most enterprise routing guides, a score of 95 or above is required to maintain 'Preferred' status. Scores between 85 and 94 are considered adequate but require improvement, while anything below 85 usually triggers a formal review." },
             { question: "How do I calculate the 'On-Time' metric fairly?", answer: "It is crucial to measure On-Time Delivery against the agreed appointment time, minus any delays caused by the shipper (e.g., if the shipper held the driver at the origin dock for 4 hours, the late delivery should not penalize the carrier)." },

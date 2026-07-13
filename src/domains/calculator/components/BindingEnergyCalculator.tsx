@@ -164,7 +164,7 @@ const BindingEnergyCalculator = () => {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Binding Energy Calculator?</h2>
             <p>A nuclear binding energy calculator computes the energy holding a nucleus together — the energy required to completely separate all protons and neutrons. Pre-filled with Helium-4 (the alpha particle), the total binding energy is 28.22 MeV with 7.06 MeV per nucleon. This calculator uses precise atomic masses and {"Einstein's"} mass-energy equivalence (E = mc²) to derive binding energies for 8 common isotopes plus custom inputs.</p>
             <h2 className="text-2xl font-bold mb-3">Mass-Energy Equivalence</h2>
@@ -177,7 +177,7 @@ const BindingEnergyCalculator = () => {
             <p>Fission splits heavy nuclei into lighter, more tightly bound fragments. U-235 + n → fission products + 2-3n + ~200 MeV. The released neutrons can trigger chain reactions — the basis of nuclear reactors and weapons. Each U-235 fission releases ~200 MeV vs ~4 eV per chemical reaction — nuclear energy is ~50 million times more energy-dense than chemical energy per atom.</p>
             <h2 className="text-2xl font-bold mb-3">Stellar Nucleosynthesis</h2>
             <p>Stars fuse progressively heavier elements: H → He (main sequence), He → C,O (red giant), then C → Ne → O → Si → Fe in massive stars. Each stage releases energy because BE/nucleon increases. Fusion beyond iron requires energy input, so iron accumulates in the core. When the iron core exceeds the Chandrasekhar limit (~1.4 solar masses), it collapses — triggering a supernova that synthesizes all elements heavier than iron via rapid neutron capture (r-process).</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/binding-energy-calculator" />
           <PopularCalculators exclude="/calculator/binding-energy-calculator" />
         </div>

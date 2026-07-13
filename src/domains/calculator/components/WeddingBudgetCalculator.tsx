@@ -201,7 +201,7 @@ const WeddingBudgetCalculator = () => {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Mathematics of a Wedding</h2>
             <p>Planning a wedding is effectively managing a large-scale event production. Many couples start planning with an arbitrary total budget in mind, only to be completely shocked when they receive their first quote from a caterer or venue. Understanding the mathematical breakdown of the event is crucial to avoid going deeply into debt before the honeymoon even begins.</p>
 
@@ -214,7 +214,7 @@ const WeddingBudgetCalculator = () => {
 
             <h2 className="text-2xl font-bold mb-3">The 5% Emergency Buffer</h2>
             <p>Every professional event planner includes a buffer in their budget. A wedding has hundreds of moving parts, and things will inevitably change. You might forget to budget for vendor meals (you have to feed your photographer and DJ). You might need to pay overtime if the party runs late. You might have to pay a massive shipping fee for a dress alteration. Never allocate 100% of your money during the planning phase. Keep 5% locked away as an emergency fund.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/wedding-budget-calculator" />
           <PopularCalculators exclude="/calculator/wedding-budget-calculator" />
         </div>

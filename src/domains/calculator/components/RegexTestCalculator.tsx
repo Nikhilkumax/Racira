@@ -180,7 +180,7 @@ const RegexTestCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Mastering Regular Expressions</h2>
               <p>Regular expressions (regex) are incredibly powerful tools for text processing. From validating form inputs like emails and passwords to parsing complex server logs, regex is an essential skill for any developer or IT professional.</p>
               
@@ -194,7 +194,7 @@ const RegexTestCalculator = () => {
 
               <h3>Why Captured Groups?</h3>
               <p>Brackets <code>()</code> in regex serve two purposes: they group parts of your pattern together, and they "capture" the matched text so you can reference it later. This is extremely useful when you need to extract specific parts of a string, such as a username from an email or a domain from a URL.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/regex-match" />
           <PopularCalculators exclude="/calculator/regex-test-calculator" />
         </div>

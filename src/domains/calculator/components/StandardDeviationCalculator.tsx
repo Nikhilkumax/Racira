@@ -141,7 +141,7 @@ const StandardDeviationCalculator = () => {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Standard Deviation Calculator?</h2>
             <p>A standard deviation calculator measures how spread out a dataset is around its mean. It computes all key descriptive statistics: mean, median, variance, standard deviation, range, and coefficient of variation — giving you a complete picture of your data's distribution in one step. This calculator supports both sample SD (divides by n−1, for data sampled from a larger population) and population SD (divides by n, for complete dataset analysis).</p>
             <p>Standard deviation is the most widely used measure of statistical dispersion. It appears in finance (portfolio risk, volatility), quality control (Six Sigma), scientific research (margin of error), education (grading on a curve), weather forecasting, and sports analytics.</p>
@@ -157,7 +157,7 @@ const StandardDeviationCalculator = () => {
             <p><strong>Finance:</strong> Stock volatility is measured by SD of daily returns. A high-SD stock (e.g., 3% daily SD) is riskier than a low-SD stock (0.5% daily SD). Portfolio theory uses SD to quantify and minimize risk. <strong>Quality control:</strong> Six Sigma aims for processes where the defect rate is beyond 6 standard deviations from the target — fewer than 3.4 defects per million. <strong>Research:</strong> Standard error = SD/√n; confidence intervals = mean ± 1.96 × SE (for 95% CI). <strong>Education:</strong> Standardized test scores (SAT, IQ) are scaled using mean and SD of the reference population.</p>
             <h2 className="text-2xl font-bold mb-3">Tips for Using This Calculator</h2>
             <p>Enter numbers separated by commas or spaces. Toggle between Sample and Population mode — the results update immediately. The bar chart shows each value with a red dashed line at the mean — values far from the line contribute most to the standard deviation. For z-score analysis, use the <a href="/calculator/z-score-calculator">z-score calculator</a>. For probability distributions, see the <a href="/calculator/normal-distribution-calculator">normal distribution calculator</a>.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/standard-deviation-calculator" />
           <PopularCalculators exclude="/calculator/standard-deviation-calculator" />
         </div>

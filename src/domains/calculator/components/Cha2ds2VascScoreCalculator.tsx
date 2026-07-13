@@ -228,7 +228,7 @@ export default function Cha2ds2VascScoreCalculator() {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Evolution of Stroke Risk Assessment</h2>
             <p>Atrial fibrillation (AFib) is a condition where the upper chambers of the heart quiver erratically, causing blood to pool and form clots. If these clots travel to the brain, they cause massive strokes. To prevent this, doctors prescribe powerful blood thinners.</p>
             <p>For years, cardiologists used the CHADS2 score to decide who needed these medications. However, CHADS2 was fundamentally flawed because it failed to account for several major risk factors, leaving thousands of seemingly "low risk" patients unprotected. The <strong>CHA2DS2-VASc score</strong> was introduced in 2010 to fix these blind spots by incorporating age nuances, vascular disease, and sex differences.</p>
@@ -240,7 +240,7 @@ export default function Cha2ds2VascScoreCalculator() {
             <h2 className="text-2xl font-bold mb-3">The Danger of Over-Prescribing</h2>
             <p>If blood thinners prevent strokes, why not give them to every patient with AFib? Because anticoagulants (like Warfarin, Eliquis, or Xarelto) carry a massive, intrinsic risk of causing internal hemorrhage. If a patient accidentally bumps their head, a minor concussion can turn into a fatal brain bleed because their blood cannot clot.</p>
             <p>Therefore, a doctor must ensure the patient's baseline stroke risk is mathematically higher than the risk of causing a fatal bleed with the medication. If a patient scores a 0 (or a 1 if female), their annual stroke risk is incredibly low (0.2%), and the risks of the medication heavily outweigh the benefits.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/cha2ds2-vasc-score-calculator" />
           <PopularCalculators exclude="/calculator/cha2ds2-vasc-score-calculator" />
         </div>

@@ -100,14 +100,14 @@ const RentAffordabilityCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Renting Without Stress</h2>
               <p>Rent is often the single largest monthly expense. Overextending yourself on a "dream apartment" can lead to a cycle of debt and prevent you from reaching other financial goals like traveling or saving for a down payment.</p>
               <h3>Why the 30% Rule Exists</h3>
               <p>The 30% threshold was established by HUD in the 1980s as a standard for housing affordability. If you spend more than 30% of your income on rent, you are considered "house burdened," which significantly increases the risk of financial instability during emergencies.</p>
               <h3>Adjusting for High-Cost Areas</h3>
               <p>In cities like New York, London, or San Francisco, the 30% rule is often impossible to follow for many workers. In these cases, it's vital to look at your actual net income and subtract fixed costs (transportation, food, debt) to see what is truly leftover. Often, sacrificing space or location is better than living paycheck to paycheck.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/rent-affordability" />
           <PopularCalculators exclude="/calculator/rent-affordability-calculator" />
         </div>

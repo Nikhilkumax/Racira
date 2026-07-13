@@ -169,7 +169,7 @@ const KeplersLawsCalculator = () => {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">{"What Is a Kepler's Laws Calculator?"}</h2>
             <p>{"A Kepler's Laws calculator applies Johannes Kepler's Third Law of Planetary Motion (T² ∝ a³) to compute orbital periods from semi-major axes or vice versa. Pre-filled with Earth's orbit around the Sun (a = 1.496×10⁸ km, e = 0.0167), the calculated period is 365.25 days — exactly one year. The calculator also computes perihelion/aphelion distances and orbital velocities using Kepler's First and Second Laws."}</p>
             <h2 className="text-2xl font-bold mb-3">{"Kepler's Three Laws"}</h2>
@@ -182,7 +182,7 @@ const KeplersLawsCalculator = () => {
             <p>{"Newton proved that Kepler's empirical laws are mathematical consequences of inverse-square gravitational force (F = GMm/r²). Newton also generalized the laws: they apply to any two-body system — binary stars, planet-moon systems, artificial satellites. The generalized Third Law: T² = 4π²a³/(G(M₁+M₂)) accounts for the orbiting body's mass, important when both bodies have comparable masses."}</p>
             <h2 className="text-2xl font-bold mb-3">Applications in Modern Astronomy</h2>
             <p>{"Exoplanet detection: Kepler's Third Law is used to calculate exoplanet orbital radii from measured periods (transit method). Satellite deployment: determining correct orbits for GPS, communications, and Earth observation. Binary star masses: measuring orbital periods and separations gives total system mass. Galaxy dynamics: deviations from Keplerian orbits provide evidence for dark matter."}</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/keplers-laws-calculator" />
           <PopularCalculators exclude="/calculator/keplers-laws-calculator" />
         </div>

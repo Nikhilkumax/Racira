@@ -282,7 +282,7 @@ export default function BatteryLifeCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding Battery Capacity (Amp-Hours)</h2>
             <p>Whether you are building a solar system for an RV, powering a portable fridge for overlanding, or setting up a trolling motor for a boat, your primary limitation is battery capacity. Deep cycle batteries are measured in <strong>Amp-Hours (Ah)</strong>. This metric tells you exactly how much electrical current the battery can hold. If a device draws 5 Amps of current, and you run it for 2 hours, you have consumed 10 Amp-Hours of battery capacity.</p>
 
@@ -296,7 +296,7 @@ export default function BatteryLifeCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">How to Calculate Total Device Draw</h2>
             <p>If you have multiple devices running at the same time, simply add their Amperages together. For example, if your portable fridge draws 4 Amps, your LED lights draw 1 Amp, and your phone charger draws 2 Amps, your Total Device Draw is 7 Amps. You plug that number into the calculator to see exactly how many hours your system will survive before shutting down.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/battery-life-calculator" />
           <PopularCalculators />

@@ -332,7 +332,7 @@ export default function MonthlyCarPaymentCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Monthly Car Payment Calculator?</h2>
             <p>A Monthly Car Payment Calculator is a financial tool that simulates an auto loan amortization schedule. When you buy a car, the dealership negotiates based on the sticker price of the vehicle. However, your actual monthly obligation is determined by a combination of the vehicle price, state sales tax, dealership fees, your cash down payment, and the interest rate charged by the bank. This calculator synthesizes all of these variables into a single, accurate monthly payment figure.</p>
 
@@ -351,7 +351,7 @@ export default function MonthlyCarPaymentCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
             <p>Always secure financing from a local credit union or bank <em>before</em> walking into a dealership. Dealerships often act as middlemen, taking the bank's interest rate and adding 1% or 2% on top of it as pure profit for themselves. If you walk in with a pre-approved 5% rate from your bank, the dealer is forced to beat that rate to win your financing business. Furthermore, aim to put down at least 20% in cash or trade equity to protect yourself from immediate negative equity depreciation.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/monthly-car-payment-calculator" />
           <PopularCalculators />

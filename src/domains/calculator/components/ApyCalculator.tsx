@@ -297,7 +297,7 @@ const ApyCalculator = () => {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-12">
           <AdPlaceholder className="mb-8" />
-          <article className="prose prose-slate max-w-none lg:prose-lg dark:prose-invert">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is an APY Calculator?</h2>
             <p>
               An <strong>APY Calculator</strong> (Annual Percentage Yield Calculator) is an essential financial tool that helps consumers determine the actual, effective return on their savings or investments. While banks frequently advertise a "nominal interest rate," that rate does not tell the whole story if the interest is compounded over time. The APY calculation takes into account the magical effect of compounding—where you earn interest not only on your initial deposit but also on the accumulated interest from previous periods.
@@ -393,7 +393,7 @@ const ApyCalculator = () => {
             <p>
               Calculating APY by hand, especially when adjusting for daily or continuous compounding, is mathematically tedious. Our tool provides instantaneous, pinpoint-accurate conversions that empower you to outsmart banking marketing tactics. By utilizing the 5-year growth schedules and visual charts, you can clearly see the long-term impact of your financial decisions and optimize your passive income strategy with absolute confidence.
             </p>
-          </article>
+          </section>
 
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/apy-calculator" />
           <PopularCalculators exclude="/calculator/apy-calculator" />

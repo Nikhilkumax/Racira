@@ -79,7 +79,7 @@ export default function PERatioCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Understanding the Price-to-Earnings (P/E) Ratio</h2>
               <p>The Price-to-Earnings (P/E) ratio is the most widely used valuation metric in stock market investing. It answers the fundamental question: "How much am I paying for each dollar of this company's earnings?" A P/E of 20 means investors pay $20 for every $1 of annual profit the company generates.</p>
               <h2 className="text-2xl font-bold mb-3">The P/E Ratio Formula</h2>
@@ -98,7 +98,7 @@ export default function PERatioCalculator() {
               <p>PEG Ratio = P/E ÷ Earnings Growth Rate. A PEG below 1.0 is often considered undervalued. This metric accounts for the fact that faster-growing companies deserve higher P/E multiples.</p>
               <h2 className="text-2xl font-bold mb-3">Limitations of the P/E Ratio</h2>
               <p>The P/E ratio doesn't account for debt, cash flows, or accounting differences between companies. Always combine P/E analysis with Price-to-Book, EV/EBITDA, and Free Cash Flow yield for a complete valuation picture.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/pe-ratio-calculator" />
           <PopularCalculators exclude="/calculator/pe-ratio-calculator" />
         </div>

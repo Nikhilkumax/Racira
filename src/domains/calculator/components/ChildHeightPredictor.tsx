@@ -219,7 +219,7 @@ export default function ChildHeightPredictor() {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Genetics of Human Growth</h2>
             <p>Predicting exactly how tall a child will be is one of the most common questions pediatricians face. Human height is considered a "polygenic trait"—meaning it is controlled by hundreds of different genes interacting together. However, extensive clinical research has shown that approximately <strong>80% of a person's adult height is determined solely by genetics</strong>.</p>
             <p>Because genetics play such a dominant role, doctors use a mathematical shortcut known as the <strong>Mid-Parental Height (Tanner) Method</strong> to quickly establish a child's growth target.</p>
@@ -235,7 +235,7 @@ export default function ChildHeightPredictor() {
             <h2 className="text-2xl font-bold mb-3">Growth Plates and Puberty</h2>
             <p>A child's height increases because of specialized cartilage at the ends of their long bones (like the femur), known as <strong>epiphyseal plates</strong>. During childhood, these plates rapidly produce new bone tissue, pushing the bones longer.</p>
             <p>When a child enters puberty, the massive surge of sex hormones (estrogen and testosterone) triggers a final, explosive "growth spurt." However, these same hormones also signal the cartilage to begin turning into solid bone. Once this ossification process is complete (typically around age 15 for girls and 18 for boys), the growth plates are considered "fused." After fusion, no further upward growth is biologically possible, regardless of diet, stretching, or supplements.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/child-height-predictor" />
           <PopularCalculators exclude="/calculator/child-height-predictor" />
         </div>

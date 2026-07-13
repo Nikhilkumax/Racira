@@ -92,14 +92,14 @@ const RuleOf70Calculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">The Power of Compounding</h2>
               <p>The Rule of 70 is a powerful mental shortcut used by economists and investors to understand exponential growth. It reveals why even a small difference in annual returns can lead to massive differences in wealth over long periods.</p>
               <h3>Why Time is Your Greatest Asset</h3>
               <p>If you have an investment growing at 7%, it doubles every 10 years. If you start with $10,000 at age 20, you'll have $20,000 at 30, $40,000 at 40, $80,000 at 50, and $160,000 at 60. If you wait until age 30 to start, you'll end up with only half as much money by retirement.</p>
               <h3>Rule of 70 vs. Rule of 72</h3>
               <p>While the Rule of 70 is common in economics and population growth studies, the 'Rule of 72' is more popular in finance for annual compounding. The Rule of 69 is technically the most accurate for continuous compounding, but the Rule of 70 remains the easiest for quick mental math.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/rule-of-70" />
           <PopularCalculators exclude="/calculator/rule-of-70-calculator" />
         </div>

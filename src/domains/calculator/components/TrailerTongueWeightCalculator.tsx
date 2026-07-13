@@ -260,7 +260,7 @@ export default function TrailerTongueWeightCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Physics of a Trailer</h2>
             <p>Towing a trailer is an incredibly complex balancing act of physics. A trailer is essentially a giant seesaw balancing on its central axles. When you hook the front of the trailer (the tongue) onto the back of your truck (the hitch), the trailer pushes down on the truck. This downward force is called <strong>Tongue Weight</strong>, and it is the single most important factor determining whether you will arrive at your destination safely.</p>
 
@@ -278,7 +278,7 @@ export default function TrailerTongueWeightCalculator() {
               <li><strong>Conventional (Bumper) Hitches:</strong> The tongue must hold between 10% and 15% of the total trailer weight. A 7,000 lb trailer MUST drop 700 to 1,050 lbs onto the hitch.</li>
               <li><strong>Fifth-Wheel and Gooseneck Hitches:</strong> Because these hitches mount directly over the rear axle of the truck (rather than on the back bumper), they can safely handle significantly more weight. The safe zone is 15% to 25% of the total trailer weight.</li>
             </ul>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/trailer-tongue-weight-calculator" />
           <PopularCalculators />

@@ -141,7 +141,7 @@ export default function RefinanceBreakEvenCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Refinance Break-Even Calculator?</h2>
             <p>A <strong>refinance break-even calculator</strong> determines the exact number of months you need to stay in your home after refinancing before your cumulative monthly savings exceed the upfront closing costs. This is the single most important calculation for deciding whether to refinance — without knowing your break-even point, you risk paying thousands in costs only to move before recouping them.</p>
             <h2 className="text-2xl font-bold mb-3">How Break-Even Is Calculated</h2>
@@ -150,7 +150,7 @@ export default function RefinanceBreakEvenCalculator() {
             <p>Strong case: rate drops 0.5%+, break-even under 36 months, staying 5+ years. Borderline: rate drops 0.25–0.5%, break-even 36–60 months. Avoid: moving within 2 years, or no-cost refinance that only resets your balance.</p>
             <h2 className="text-2xl font-bold mb-3">Understanding Rate Environments</h2>
             <p>2020–2021 saw record-low rates (2.65–3.0%). Rates rose sharply to 7–8% in 2023–2024. When rates fall, refinancing makes more sense for those who bought at peak rates. Even a 1% rate drop on a $400,000 loan saves $220+/month — a 12-month break-even on $2,600 in closing costs.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/refinance-break-even-calculator" />
           <PopularCalculators exclude="/calculator/refinance-break-even-calculator" />
         </div>

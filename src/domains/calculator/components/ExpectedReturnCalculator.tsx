@@ -164,14 +164,14 @@ const ExpectedReturnCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Managing Investment Uncertainty</h2>
               <p>In a world of fluctuating markets, static returns are rare. Expected return analysis allows investors to quantify the range of possibilities and make decisions based on the "average" outcome.</p>
               <h3>The Probability-Weighted Average</h3>
               <p>To find the expected return, you multiply each possible return by the probability of that return occurring, then sum those values. This gives you a single number that represents the most likely mathematical outcome over many repetitions.</p>
               <h3>Why Volatility Matters</h3>
               <p>Two investments might both have an expected return of 7%. However, if one has a 0% standard deviation (a government bond) and the other has a 20% standard deviation (a tech stock), the tech stock is significantly riskier. Most investors require a higher expected return to compensate for higher standard deviation.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/expected-return" />
           <PopularCalculators exclude="/calculator/expected-return-calculator" />
         </div>

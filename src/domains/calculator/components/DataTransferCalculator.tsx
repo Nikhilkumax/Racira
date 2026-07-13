@@ -194,7 +194,7 @@ const DataTransferCalculator = () => {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Reality of Internet Downloads</h2>
             <p>In theory, calculating a file download is simple math: divide the size of the file by the speed of the network. However, in the real world of computer science, theoretical speeds are never achieved. There are two major technical bottlenecks that prevent perfect data transfer: Base Conversion and Network Overhead.</p>
 
@@ -206,7 +206,7 @@ const DataTransferCalculator = () => {
             <p>The internet relies on the TCP/IP protocol to ensure data is transmitted accurately. When a server sends you a file, it does not send one massive block of data. It chops the file up into thousands of tiny pieces called "Packets."</p>
             <p>Each packet must be wrapped in a digital envelope (a header) that contains the destination IP address, the sequence number, and a checksum to verify the data wasn't corrupted in transit. Every time your computer receives a packet, it must use a tiny fraction of your upload bandwidth to send an acknowledgment message back to the server saying "Packet received, send the next one."</p>
             <p>All of this mandatory background chatter consumes bandwidth. This "Overhead Tax" generally consumes about 5% of your total network capacity, which is why this calculator automatically adds a 5% time penalty to give you a realistic real-world estimate.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/data-transfer-calculator" />
           <PopularCalculators exclude="/calculator/data-transfer-calculator" />
         </div>

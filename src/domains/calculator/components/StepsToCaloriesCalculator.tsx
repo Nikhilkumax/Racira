@@ -337,7 +337,7 @@ export default function StepsToCaloriesCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Translating Steps into Energy: The Biomechanics of Walking</h2>
             <p>Every smartphone and smart watch on the market today features a built-in pedometer, constantly tracking your daily steps in the background. We are constantly told to aim for the magical "10,000 steps" to improve our health. However, a raw step count tells you nothing about the actual thermodynamic "work" your body performed. A step is not a universal measurement of energy. The <strong>Steps to Calories Calculator</strong> bridges this gap. By factoring in your exact height to determine your unique stride length, and your exact body weight to calculate mechanical resistance, it translates your raw step count into a highly accurate, biologically sound caloric expenditure.</p>
 
@@ -369,7 +369,7 @@ export default function StepsToCaloriesCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Track Your True Output</h2>
             <p>Do not be satisfied with an arbitrary number on your smart watch. A step count is useless if you do not understand the thermodynamic energy behind it. By inputting your height, weight, and daily steps into the Steps to Calories Calculator, you can determine exactly how much energy you expended today, allowing you to seamlessly adjust your nutritional intake and achieve your weight management goals with mathematical precision.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/steps-to-calories-calculator" />
           <PopularCalculators exclude="/calculator/steps-to-calories-calculator" />

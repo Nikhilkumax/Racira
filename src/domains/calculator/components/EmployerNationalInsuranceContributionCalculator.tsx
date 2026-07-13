@@ -228,7 +228,7 @@ export default function EmployerNationalInsuranceContributionCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What are Employer National Insurance Contributions?</h2>
             <p>In the United Kingdom, both employers and employees must pay National Insurance Contributions (NICs) to fund state benefits, including the NHS and the State Pension. However, the rates and thresholds are different for both parties.</p>
             <p><strong>Employer NICs (Class 1 Secondary)</strong> represent a significant hidden cost of hiring staff. When you offer an employee a £45,000 salary, it actually costs the business nearly £50,000 due to this mandatory tax.</p>
@@ -252,7 +252,7 @@ export default function EmployerNationalInsuranceContributionCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Why Directors Must Be Careful</h2>
             <p>If you are the director of a limited company, you pay Employer NICs on your own salary. This is why many UK directors choose to pay themselves a small base salary (usually up to the Primary Threshold to qualify for state pension years without paying NICs) and take the rest of their income as corporate dividends, which are subject to different tax rates and do not attract National Insurance.</p>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "Does the employee pay this 13.8%?", answer: "No. The 13.8% Employer NIC is a direct expense to the business. The employee pays their own separate Class 1 Primary NICs, which are deducted directly from their gross salary before they receive their payslip." },
             { question: "Is Employer NIC a tax-deductible expense?", answer: "Yes. Employer National Insurance contributions are considered a legitimate business expense. You can deduct them from your company's profits before calculating Corporation Tax." },

@@ -114,14 +114,14 @@ const TakeHomeSalaryCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Where Does Your Money Go?</h2>
               <p>Understanding your paycheck deductions is the foundation of personal finance. For most Americans, federal income taxes and FICA (Social Security and Medicare) are the two largest deductions.</p>
               <h3>Pre-Tax vs. Post-Tax Deductions</h3>
               <p>Pre-tax deductions (401k, HSA, FSA) reduce your taxable income, lowering your tax bill. Post-tax deductions (Roth 401k, life insurance) are taken from your net pay and don't reduce taxes now but may offer benefits later.</p>
               <h3>Marginal vs. Effective Tax Rate</h3>
               <p>The US uses a progressive tax system. Your "marginal rate" is the rate on your last dollar of income. Your "effective rate" is your actual total tax as a percentage of gross income — always lower than the marginal rate.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/take-home-salary" />
           <PopularCalculators exclude="/calculator/take-home-salary-calculator" />
         </div>

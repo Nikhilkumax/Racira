@@ -204,7 +204,7 @@ const DewPointCalculator = () => {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Why Dew Point is Better Than Relative Humidity</h2>
             <p>If you have ever stepped outside in Florida during the summer and felt like you could drink the air, you have experienced a high <strong>Dew Point</strong>. While most weather apps prominently display Relative Humidity (RH), meteorologists actually prefer using the Dew Point to measure human comfort.</p>
             <p>Why? Because Relative Humidity is highly misleading. RH measures how close the air is to being completely saturated with water, but this capacity changes with temperature. Hot air can hold vastly more water than cold air. If the temperature is 95°F with 50% humidity, the air feels violently oppressive. But if the temperature is 35°F with 50% humidity, the air feels crisp and dry. The RH is the exact same, but the physical amount of water floating around you is entirely different.</p>
@@ -216,7 +216,7 @@ const DewPointCalculator = () => {
 
             <h2 className="text-2xl font-bold mb-3">Why High Dew Points are Dangerous</h2>
             <p>The human body's primary method of cooling itself is sweating. However, sweating only works if the sweat can evaporate off your skin into the air, taking heat energy with it. When the dew point is exceptionally high (above 70°F), the air is so heavily loaded with water vapor that there is simply no "room" for your sweat to evaporate. Your sweat stays trapped on your skin, your core temperature rises, and you become highly susceptible to heat exhaustion or heat stroke.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/dew-point-calculator" />
           <PopularCalculators exclude="/calculator/dew-point-calculator" />
         </div>

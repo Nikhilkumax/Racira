@@ -264,7 +264,7 @@ export default function ConsignmentInventoryCostCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What is Consignment Inventory?</h2>
             <p><strong>Consignment Inventory</strong> is an agreement where a Supplier (the brand/manufacturer) places their goods in a Retailer's store, but the Retailer does not purchase the goods. The Supplier retains legal ownership of the inventory until a customer actually buys it off the shelf. Only when the item sells does the Retailer pay the Supplier.</p>
             <p>This is highly common in fashion boutiques, art galleries, high-end electronics, and automotive parts.</p>
@@ -282,7 +282,7 @@ export default function ConsignmentInventoryCostCalculator() {
             
             <h2 className="text-2xl font-bold mb-3">Should You Ever Agree to Consignment?</h2>
             <p>Suppliers should only agree to consignment if they have no other choice to get their product in front of customers (e.g., an unproven startup brand trying to get into a major retail chain). If you must do consignment, ensure your wholesale margin is significantly higher than normal to compensate for the massive risk you are absorbing.</p>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "Who pays for shipping in a consignment deal?", answer: "This is negotiable, but typically the Supplier pays to ship the goods to the Retailer. If the goods do not sell, the Supplier also usually pays the return shipping cost to get them back." },
             { question: "What is Vendor Managed Inventory (VMI)?", answer: "VMI is a more advanced form of consignment often used in grocery and large retail. The supplier actually monitors the retailer's shelf space and automatically sends restocks when levels get low, maintaining ownership of the stock until checkout." },

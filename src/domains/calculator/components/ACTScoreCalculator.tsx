@@ -158,7 +158,7 @@ const ACTScoreCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">The Mathematical Architecture of the ACT Scoring System</h2>
               <p>The ACT uses a highly specific, standardized scoring system that is frequently misunderstood by high school students and parents encountering it for the first time. Unlike high school grading systems, which operate on strict percentages out of 100, or the competing SAT, which utilizes a massive 1600-point scale, the ACT compresses all of its data into an incredibly tight 1-to-36 scale. Every single question across the entire exam is fundamentally worth the exact same amount of raw points, regardless of whether it is a simple grammar check or an advanced trigonometric proof. Even more importantly, the ACT employs a purely additive scoring model. There is absolutely no penalty or deduction for guessing an incorrect answer. If a student leaves a bubble blank, they earn zero points. If they guess completely randomly and get it wrong, they still earn zero points. Therefore, the mathematically optimal strategy is to ensure every single bubble on the answer sheet is filled in before time expires, even if the student is purely guessing on the final ten questions of a section.</p>
               
@@ -170,7 +170,7 @@ const ACTScoreCalculator = () => {
               
               <h2 className="text-2xl font-bold mb-3">Calculating the Master Composite Score</h2>
               <p>Once the equating process has assigned a scaled score (1-36) to all four individual sections, the final step is generating the overarching Composite Score. The mathematics here are remarkably straightforward: the testing agency simply adds the four scaled section scores together and divides the sum by exactly four to find the mean average. The critical factor in this calculation is the rounding protocol. The ACT strictly adheres to traditional mathematical rounding rules. If the calculated average ends in a decimal fraction of .50 or higher, the score is rounded up to the next whole number. If the decimal fraction is less than .50, the score rounds down. For example, if a student scores a 29 in English, 28 in Math, 30 in Reading, and 28 in Science, the sum is 115. Dividing 115 by four yields 28.75. Because .75 is above the halfway threshold, this student's official ACT Composite Score rounds up to a 29. Understanding this rounding math is crucial, as raising a single section score by just one point can sometimes be enough to push the decimal average over the .50 threshold, thereby elevating the entire Composite Score and potentially qualifying the student for thousands of dollars in additional merit-based college scholarships.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/act-score" />
           <PopularCalculators exclude="/calculator/act-score-calculator" />
         </div>

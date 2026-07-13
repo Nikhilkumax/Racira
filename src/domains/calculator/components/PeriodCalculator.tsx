@@ -106,14 +106,14 @@ const PeriodCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">The Phases of the Menstrual Cycle</h2>
               <p>Your cycle is divided into four distinct phases, each driven by changing hormone levels that affect mood, energy, and physical symptoms.</p>
               <h3>Menstruation & The Follicular Phase</h3>
               <p>Day 1 of bleeding is Day 1 of your cycle. As bleeding stops, the follicular phase continues, driven by rising estrogen levels. This phase often brings high energy, clear skin, and a positive mood.</p>
               <h3>Ovulation & The Luteal Phase</h3>
               <p>Around the middle of the cycle, an egg is released (ovulation). Immediately after, the luteal phase begins. Progesterone rises, which can lead to PMS symptoms (bloating, fatigue, mood swings) in the days leading up to your next period.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/period" />
           <PopularCalculators exclude="/calculator/period-calculator" />
         </div>

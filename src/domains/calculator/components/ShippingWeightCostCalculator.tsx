@@ -281,7 +281,7 @@ export default function ShippingWeightCostCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What is Dimensional (DIM) Weight?</h2>
             <p><strong>Dimensional Weight</strong> (or Volumetric Weight) is a pricing technique used by commercial freight transport companies, including USPS, FedEx, and UPS. It assumes that the cost of shipping a package should be based on the amount of space it takes up in a delivery truck, rather than strictly how much it weighs.</p>
             
@@ -298,7 +298,7 @@ export default function ShippingWeightCostCalculator() {
               <li>The most common domestic US DIM Divisor for UPS and FedEx is <strong>139</strong>.</li>
               <li>Always round the final billable weight up to the next whole number. A package with a DIM weight of 4.1 lbs will be billed as 5 lbs.</li>
             </ul>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "Do all shipping carriers use the same DIM factor?", answer: "No. UPS and FedEx standard domestic uses 139. International shipments often use 139 or 166. USPS uses 166 for certain zones. Always check your specific carrier contract, as large e-commerce companies negotiate custom DIM factors (like 199) to lower their costs." },
             { question: "How can I avoid paying DIM weight penalties?", answer: "The only way to avoid DIM penalties is to optimize your packaging. Use the smallest possible box that safely protects your item. Switch from rigid cardboard boxes to flexible polymailers for apparel." },

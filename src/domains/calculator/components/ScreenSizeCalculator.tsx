@@ -108,12 +108,12 @@ const ScreenSizeCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Sidebar Ad" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Choosing the Right Screen Size</h2>
               <p>When buying a new monitor or TV, diagonal size is only half the story. The aspect ratio significantly changes how much usable space you have for work or entertainment.</p>
               <h3>Area vs. Diagonal</h3>
               <p>Because screen sizes are marketed by diagonal, manufacturers can make a screen 'sound' bigger while providing less surface area by making it wider (increasing aspect ratio). For example, a 34-inch ultrawide (21:9) actually has a similar height to a 27-inch standard widescreen (16:9), but with extra width on the sides.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/screen-size-calculator" />
           <PopularCalculators exclude="/calculator/screen-size-calculator" />
         </div>

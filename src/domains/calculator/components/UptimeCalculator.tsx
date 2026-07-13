@@ -142,7 +142,7 @@ const UptimeCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">The Cost of Downtime</h2>
               <p>For modern businesses, every minute of downtime translates directly to lost revenue, decreased employee productivity, and potential damage to brand reputation. Calculating your allowed downtime is the first step in designing a resilient infrastructure.</p>
               
@@ -158,7 +158,7 @@ const UptimeCalculator = () => {
                 <li><strong>MTTR (Mean Time To Repair):</strong> How long it takes to bring a system back online after it fails.</li>
               </ul>
               <p>To maximize uptime, you must simultaneously work to increase your MTBF and decrease your MTTR.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/uptime" />
           <PopularCalculators exclude="/calculator/uptime-calculator" />
         </div>

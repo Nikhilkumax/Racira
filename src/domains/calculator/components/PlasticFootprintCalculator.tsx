@@ -124,14 +124,14 @@ const PlasticFootprintCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">The Plastic Problem</h2>
               <p>Plastic is a miracle material: it's cheap, durable, and lightweight. However, those same qualities make it a nightmare for the environment. Most single-use plastics are used for just a few minutes but persist in the environment for centuries.</p>
               <h3>Microplastics: The Invisible Threat</h3>
               <p>As plastic items break down, they don't disappear; they simply become smaller. These "microplastics" have been found in the deepest parts of the ocean, in the air we breathe, and even in the human bloodstream. Reducing our use of macro-plastics (like bottles and bags) is the only way to stop the inflow of microplastics into our ecosystems.</p>
               <h3>Refuse, Reduce, Reuse, Recycle</h3>
               <p>While recycling is often promoted as the primary solution, it is actually the last resort. The most effective action is to <strong>refuse</strong> single-use items entirely. If you can't refuse, <strong>reduce</strong> the amount you use. If you must use it, <strong>reuse</strong> it as many times as possible. Only when an item is truly at the end of its life should you <strong>recycle</strong> it.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/plastic-footprint" />
           <PopularCalculators exclude="/calculator/plastic-footprint-calculator" />
         </div>

@@ -112,14 +112,14 @@ const WaterIntakeCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Why Hydration is Essential</h2>
               <p>Water makes up about 60% of your body weight. It is vital for flushing toxins, lubricating joints, regulating body temperature, and transporting nutrients to cells. Even mild dehydration can impair energy levels and brain function.</p>
               <h3>Signs You Aren't Drinking Enough</h3>
               <p>Thirst is an obvious sign, but by the time you feel thirsty, you may already be slightly dehydrated. Other signs include dark yellow urine, fatigue, headaches, dry skin, and infrequent urination.</p>
               <h3>Factors That Increase Your Needs</h3>
               <p>You need to drink more water if you are exercising heavily, spending time in hot or humid environments, experiencing a fever, or experiencing fluid loss through vomiting or diarrhea. Pregnant and breastfeeding women also have significantly higher hydration requirements.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/water-intake" />
           <PopularCalculators exclude="/calculator/water-intake-calculator" />
         </div>

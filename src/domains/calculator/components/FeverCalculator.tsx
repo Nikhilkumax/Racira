@@ -279,7 +279,7 @@ export default function FeverCalculator() {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Medical Reality of Fevers</h2>
             <p>One of the most common reasons for emergency room visits and panicked calls to pediatricians is a fever. However, there is widespread misunderstanding about what a fever actually is. A fever is not a disease; it is a highly evolved, biological defense mechanism. When your immune system detects a viral or bacterial invader, the hypothalamus (the brain's thermostat) intentionally raises your core body temperature. Why? Because most pathogens replicate very poorly in high heat, and your immune cells operate more efficiently at higher temperatures.</p>
 
@@ -293,7 +293,7 @@ export default function FeverCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Febrile Seizures in Toddlers</h2>
             <p>Between the ages of 6 months and 5 years, some children may experience a febrile seizure when their temperature spikes rapidly. Witnessing a child convulse and lose consciousness is terrifying for parents. However, neurological studies have definitively proven that simple febrile seizures are benign. They do not cause brain damage, they do not lower intelligence, and they do not mean the child has epilepsy. If a seizure lasts longer than 5 minutes, call 911.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/fever-calculator" />
           <PopularCalculators exclude="/calculator/fever-calculator" />
         </div>

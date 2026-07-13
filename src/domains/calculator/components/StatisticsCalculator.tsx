@@ -89,10 +89,10 @@ const StatisticsCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Descriptive Statistics</h2>
               <p><strong>Mean:</strong> Sum of all values ÷ count. <strong>Median:</strong> Middle value when sorted. <strong>Mode:</strong> Most frequent value. <strong>Standard Deviation:</strong> Measures how spread out data is from the mean.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/statistics-calculator" />
           <PopularCalculators exclude="/statistics-calculator" />
         </div>

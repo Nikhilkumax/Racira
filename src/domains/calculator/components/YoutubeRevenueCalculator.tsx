@@ -152,7 +152,7 @@ export default function YoutubeRevenueCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a YouTube Revenue Calculator?</h2>
             <p>A YouTube revenue calculator is an essential forecasting tool for content creators, digital marketers, and entrepreneurs looking to understand the financial viability of building a YouTube channel. YouTube has evolved from a simple video-sharing platform into a massive global economic engine, minting millionaires and providing sustainable, full-time careers for millions of creators worldwide. However, the actual mathematics behind how YouTube pays its creators is famously opaque and confusing for beginners.</p>
             <p>Because earnings fluctuate wildly based on dozens of algorithmic variables—from viewer demographics to video length—predicting your monthly AdSense payout can be frustrating. This calculator cuts through the complexity by isolating the two most critical metrics in the YouTube Partner Program: Traffic (Daily Views) and Revenue Per Mille (RPM). By adjusting these inputs, creators can mathematically determine exactly how much traffic they need to quit their day jobs, or how improving their niche to boost RPM could double their income without requiring a single new subscriber.</p>
@@ -200,7 +200,7 @@ export default function YoutubeRevenueCalculator() {
             <h2 className="text-2xl font-bold mb-3">Benefits</h2>
             <p>Using a YouTube revenue calculator transforms your channel from a creative hobby into a predictable business model. It removes the mystery of the algorithm and replaces it with cold, actionable mathematics.</p>
             <p>By understanding exactly how Traffic and RPM interact, you can stop blindly chasing viral views and instead focus on strategic growth. You'll know exactly whether you need to increase your upload frequency to boost total views, or if you need to pivot your content into a more lucrative niche to raise your RPM, ultimately giving you a clear roadmap to becoming a full-time professional creator.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/youtube-revenue-calculator" />
           <PopularCalculators exclude="/calculator/youtube-revenue-calculator" />
         </div>

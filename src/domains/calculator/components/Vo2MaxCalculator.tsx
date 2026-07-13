@@ -166,14 +166,14 @@ const Vo2MaxCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Improving Your VO2 Max</h2>
               <p>While genetics play a significant role in your absolute potential, almost anyone can improve their VO2 Max through consistent training. The most effective way to increase it is through High-Intensity Interval Training (HIIT).</p>
               <h3>Why It Matters for Health</h3>
               <p>Beyond athletic performance, VO2 Max is one of the strongest independent predictors of longevity. A high cardiovascular capacity means your heart doesn't have to work as hard during daily activities, lowering your risk of cardiovascular disease.</p>
               <h3>Clinical Testing vs. Estimation</h3>
               <p>The only way to find your true, exact VO2 Max is in a sports science lab, running on a treadmill with a mask strapped to your face measuring your oxygen inspiration and expiration. However, formulas like the Cooper Test and Rockport Test have been clinically validated to provide extremely close estimates.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/vo2-max" />
           <PopularCalculators exclude="/calculator/vo2-max-calculator" />
         </div>

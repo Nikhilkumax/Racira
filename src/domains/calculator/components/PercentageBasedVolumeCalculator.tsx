@@ -348,7 +348,7 @@ export default function PercentageBasedVolumeCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Percentage-Based Volume Calculator</h2>
             <p>In the realm of strength training and bodybuilding, progression is often tracked by a single metric: adding more weight to the bar. While hitting a new 1-Rep Maximum (1RM) is incredibly satisfying, it is an incomplete picture of physiological adaptation. Elite strength coaches rarely judge a workout solely by the heaviest weight lifted. Instead, they track the absolute, total physical work completed by the athlete. This metric is known as <strong>Volume Load</strong> or <strong>Tonnage</strong>. The <strong>Percentage-Based Volume Calculator</strong> allows you to perfectly quantify the massive amounts of physical work your body is performing, providing an objective mathematical lens through which to view your muscle growth and recovery demands.</p>
 
@@ -381,7 +381,7 @@ export default function PercentageBasedVolumeCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Architecting the Workload</h2>
             <p>Strength training is not a chaotic guessing game of effort; it is applied mathematics and architectural design. By calculating the total tonnage of your training blocks, you protect yourself from overtraining while guaranteeing you are doing enough work to grow. Use the Percentage-Based Volume Calculator to audit your weekly routines. Ensure your hypertrophy blocks contain massive, grueling volume, and your strength peaks taper down into low-volume, high-percentage precision. Let the numbers dictate the effort.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/percentage-based-volume-calculator" />
           <PopularCalculators exclude="/calculator/percentage-based-volume-calculator" />

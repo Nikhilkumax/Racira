@@ -228,7 +228,7 @@ export default function TowingCapacityCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Myth of "Max Towing Capacity"</h2>
             <p>If you watch a truck commercial, the manufacturer will proudly display a massive number: <em>"Maximum Towing Capacity: 12,000 lbs!"</em> However, this number is a marketing myth. It is a theoretical maximum calculated under impossible conditions. To achieve that 12,000 lb rating, the manufacturer assumes the truck is completely empty, holding absolutely zero cargo, and being driven by a single 150-pound person.</p>
 
@@ -245,7 +245,7 @@ export default function TowingCapacityCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">The Hidden Hitch Limit: Tongue Weight</h2>
             <p>Even if you are under your GCWR limit, you must also be aware of Tongue Weight. A trailer does not just pull backward on the truck; it pushes straight down onto the rear hitch. A 7,000 lb trailer will drop roughly 700 to 1,000 lbs of physical force directly onto the back of your truck. This force counts entirely against your truck's internal Payload Capacity. If you have a massive trailer, the tongue weight alone can overload the truck's rear suspension, causing the front tires to lift slightly, resulting in a terrifying loss of steering control.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/towing-capacity-calculator" />
           <PopularCalculators />

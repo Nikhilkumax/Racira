@@ -150,14 +150,14 @@ const DueDateCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Multiple Ways to Calculate a Due Date</h2>
               <p>Depending on how your pregnancy occurred and what data you have, different calculation methods yield different levels of accuracy.</p>
               <h3>The LMP Method (Naegele's Rule)</h3>
               <p>This is the standard clinical method. It assumes ovulation occurs exactly on day 14 of a 28-day cycle. If your cycles are longer or shorter than 28 days, this calculator adjusts the date accordingly, providing a more accurate estimate than standard generic wheels used in doctor's offices.</p>
               <h3>Conception and IVF Methods</h3>
               <p>If you tracked ovulation via temperature or hormone strips, or if you underwent IVF, you bypass the cycle-length guesswork entirely. These methods calculate directly from the age of the embryo, making them highly accurate baselines prior to an ultrasound.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/due-date" />
           <PopularCalculators exclude="/calculator/due-date-calculator" />
         </div>

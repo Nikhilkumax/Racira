@@ -271,7 +271,7 @@ export default function AdjustableRateMortgageCalculator() {
 
         {/* SEO Content */}
         <div className="max-w-[1180px] mt-12">
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Adjustable Rate Mortgage (ARM)</h2>
             <p>An adjustable-rate mortgage (ARM) is a dynamic financial instrument that fundamentally differs from the traditional, rigid 30-year fixed-rate mortgage. In a standard fixed-rate loan, the interest rate remains locked in for the entire duration of the term, providing complete certainty regarding the monthly principal and interest payment. By contrast, an adjustable-rate mortgage operates in two distinct phases. It begins with a "fixed period," during which the interest rate is locked at a highly competitive, introductory level that is almost always significantly lower than prevailing fixed-rate mortgages. Once this introductory period expires, the loan enters its "adjustment period." During this second phase, the interest rate becomes variable, floating up or down at predetermined intervals based on a specific financial index tied to the broader economy. Because this variability shifts the risk of rising interest rates from the lender to the borrower, lenders incentivize ARMs by offering that ultra-low initial rate.</p>
             
@@ -289,7 +289,7 @@ export default function AdjustableRateMortgageCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Strategic Applications for Adjustable Mortgages</h2>
             <p>Despite the inherent risks associated with variable rates, ARMs remain incredibly popular tools for savvy borrowers with specific strategic timelines. Because the initial rate on a 5/1 or 7/1 ARM is lower than a 30-year fixed loan, it allows buyers to purchase more home for the same monthly payment or dramatically increase their cash flow during the first half-decade of homeownership. The mathematical reality is that the vast majority of homeowners either sell their property or completely refinance their mortgage within the first seven to ten years. If you are a military family knowing you will relocate in five years, or a young professional purchasing a "starter home" you intend to outgrow, paying a premium for a 30-year fixed rate that you will never actually use is mathematically inefficient. In these specific scenarios, an ARM allows you to capitalize on the heavily discounted introductory rate, strictly containing the loan within the guaranteed fixed period and exiting the mortgage long before the first variable adjustment can ever take effect.</p>
-          </article>
+          </section>
         </div>
 
         <FAQSection pageUrl="https://racira.com/calculator/adjustable-rate-mortgage-calculator" faqs={[

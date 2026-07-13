@@ -296,8 +296,8 @@ export default function AlternatorOutputCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">The Misunderstood Alternator</h2>
+          <section className="prose-finance text-[15.75px]">
+            <h2 className="text-2xl font-bold mb-3">What Is an Alternator Output Calculator?</h2>
             <p>Many drivers harbor the fundamentally incorrect belief that the car battery physically powers the vehicle while driving. This is entirely false. In a traditional internal combustion vehicle, the battery serves exactly one highly specialized purpose: providing a massive, instantaneous burst of electrical power to the starter motor for roughly three to five seconds to physically crank the engine. Once the engine successfully starts and is running under its own power, the vehicle's alternator immediately takes over completely. The alternator is responsible for continuously powering the spark plugs, the headlights, the radio, the fuel pump, the climate control fans, and all onboard computer systems, while simultaneously acting as a dedicated battery charger to fully replenish the massive amount of power consumed during the engine startup process.</p>
 
             <h2 className="text-2xl font-bold mb-3">The Idle Problem</h2>
@@ -316,7 +316,7 @@ export default function AlternatorOutputCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">The Big Three Wiring Upgrade</h2>
             <p>Even if you purchase and install a massive High-Output alternator capable of generating three hundred Amps, your vehicle will still suffer electrical failures if the factory wiring cannot physically transport that amount of power. Factory wiring is extremely thin, designed strictly to handle the factory alternator's output. Pushing three hundred Amps through a thin factory wire will cause the wire to melt, potentially causing an engine fire. To fully utilize a High-Output alternator, installers must execute the "Big Three" wiring upgrade, replacing the primary charging wire, the engine grounding wire, and the chassis grounding wire with massive, zero-gauge oxygen-free copper cables capable of safely transmitting massive electrical loads without extreme resistance.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/alternator-output-calculator" />
           <PopularCalculators />

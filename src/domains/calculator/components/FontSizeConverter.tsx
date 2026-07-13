@@ -164,14 +164,14 @@ const FontSizeConverter = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Modern Web Typography Units</h2>
             <p>In modern web development, absolute units like pixels (px) are generally discouraged. Responsive, accessible designs prioritize relative units like REM and EM.</p>
             <h3>The Power of REM</h3>
             <p>The rem unit is relative to the root HTML element font size. If a user sets their browser default to 20px, your entire layout scales proportionally.</p>
             <h3>When to Use EM</h3>
             <p>While rem is great for global layout, em is useful for components that should scale relative to their own container.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/font-size-converter" />
           <PopularCalculators exclude="/calculator/font-size-converter" />
         </div>

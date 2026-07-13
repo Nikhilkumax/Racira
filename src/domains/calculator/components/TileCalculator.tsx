@@ -282,7 +282,7 @@ const TileCalculator = () => {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Mathematics of Flooring</h2>
             <p>Laying a tile floor seems like a simple math problem: calculate the square footage of the room, calculate the square footage of a single tile, and divide. However, performing this calculation without accounting for the realities of construction will leave you short on materials every time. The two critical factors you must include are the <strong>Grout Joint</strong> and the <strong>Waste Margin</strong>.</p>
 
@@ -301,7 +301,7 @@ const TileCalculator = () => {
 
             <h2 className="text-2xl font-bold mb-3">Why is Tile Sold by the Box?</h2>
             <p>Because tile is heavy and extremely fragile, it is shipped from the factory tightly packed in heavy corrugated cardboard boxes to prevent movement and cracking. For this reason, hardware stores rarely allow you to break open a box to buy individual tiles. If your mathematical calculation determines you need 112 tiles, and the tiles are sold in boxes of 10, you cannot buy 11.2 boxes. You must round up and purchase exactly 12 full boxes.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/tile-calculator" />
           <PopularCalculators exclude="/calculator/tile-calculator" />
         </div>

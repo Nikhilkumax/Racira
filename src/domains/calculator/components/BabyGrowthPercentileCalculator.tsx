@@ -226,14 +226,14 @@ export default function BabyGrowthPercentileCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Tracking Your Baby's Growth</h2>
             <p>This <strong>Baby Growth Percentile Calculator</strong> compares your infant's weight against the World Health Organization (WHO) Child Growth Standards. The WHO charts are the gold standard recommended by pediatricians for babies ages 0 to 24 months because they depict how children <em>should</em> grow under optimal conditions (e.g., breastfed as the norm), rather than just describing how children <em>do</em> grow.</p>
             <h2 className="text-2xl font-bold mb-3">Busting the Percentile Myth</h2>
             <p>One of the most common mistakes new parents make is assuming that a higher percentile means a healthier baby. If your baby is in the 80th percentile, it simply means they are heavier than 80 out of 100 babies their age. A baby in the 20th percentile is just as healthy as a baby in the 80th. Pediatricians are rarely concerned with the exact number; instead, they are looking for the <strong>curve</strong>. A baby should establish their own personal percentile curve and stay roughly on it month after month. A sudden, sharp drop across two major percentile lines is when doctors investigate.</p>
             <h2 className="text-2xl font-bold mb-3">Weight Loss After Birth</h2>
             <p>It is perfectly normal for newborns to lose up to 10% of their birth weight in the first few days of life, primarily due to fluid loss and the transition to drinking milk. A baby born in the 50th percentile might drop to the 25th percentile by day four. However, they should regain their birth weight by 10 to 14 days old and resume steady climbing. Related calculators: <a href="/calculator/fetal-weight-calculator">Fetal Weight Calculator</a>, <a href="/calculator/breastfeeding-calorie-calculator">Breastfeeding Calorie Calculator</a>.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/baby-growth-percentile-calculator" />
           <PopularCalculators exclude="/calculator/baby-growth-percentile-calculator" />
         </div>

@@ -60,7 +60,7 @@ const MannWhitneyUTestCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">About the Mann Whitney U Test Calculator</h2>
             <p>The Mann Whitney U Test Calculator helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.</p>
             <h3>How to Use</h3>
@@ -71,7 +71,7 @@ const MannWhitneyUTestCalculator = () => {
             </ol>
             <h3>Why Use This Calculator?</h3>
             <p>Our calculator is fast, free, and accurate. No sign-up required.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/mann-whitney-u-test-calculator" />
           <PopularCalculators exclude="/calculator/mann-whitney-u-test-calculator" />
         </div>

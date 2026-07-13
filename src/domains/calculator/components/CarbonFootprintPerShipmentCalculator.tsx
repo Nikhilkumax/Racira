@@ -250,7 +250,7 @@ export default function CarbonFootprintPerShipmentCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Why Calculate Logistics Carbon Footprint?</h2>
             <p>As global supply chains expand, the logistics industry accounts for roughly 11% of global greenhouse gas emissions. Calculating your <strong>Carbon Footprint per Shipment</strong> is increasingly required by governments (such as the EU's Corporate Sustainability Reporting Directive), large B2B clients requiring Scope 3 emissions data, and consumers demanding eco-friendly practices.</p>
             
@@ -266,7 +266,7 @@ export default function CarbonFootprintPerShipmentCalculator() {
             <h2 className="text-2xl font-bold mb-3">How to Reduce Shipment Emissions</h2>
             <p>The most effective strategy to reduce your carbon footprint is <strong>modal shifting</strong>. If you currently fly goods from Asia to Europe or North America, switching to ocean freight will instantly slash your transport emissions by over 95%. For domestic shipping, utilizing rail networks instead of long-haul trucking can reduce emissions by up to 65%.</p>
             <p>Other strategies include optimizing packaging to reduce "dead air" (allowing more products per container) and consolidating shipments to reduce the total number of trips.</p>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "What does CO₂e mean?", answer: "CO₂e stands for Carbon Dioxide Equivalent. Transport vehicles emit various greenhouse gases (like methane and nitrous oxide) in addition to carbon dioxide. CO₂e converts all these gases into a single metric based on their global warming potential." },
             { question: "Are these exact emission numbers?", answer: "No, these are global averages used for baseline estimations. The exact emissions of a shipment depend on the specific vehicle model, fuel type (e.g., biodiesel vs standard diesel), load capacity utilization, and exact routing." },

@@ -166,7 +166,7 @@ export default function LoanOriginationPointsToAprCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding APR vs. Interest Rate</h2>
             <p>When shopping for a mortgage or business loan, the interest rate is often the headline number that catches your attention. However, federal law requires lenders to also display the Annual Percentage Rate (APR). While the interest rate represents the annual cost of the principal, the APR represents the true total cost of borrowing by factoring in upfront fees, origination points, and discount points over the life of the loan. A lender offering a rock-bottom interest rate may actually be the most expensive option if they charge excessive origination fees—the APR reveals this hidden cost.</p>
             
@@ -176,7 +176,7 @@ export default function LoanOriginationPointsToAprCalculator() {
             <h2 className="text-2xl font-bold mb-3">How APR is Calculated</h2>
             <p>The math behind APR is complex, but the concept is straightforward. To find the true cost of credit, the calculation subtracts all upfront, non-refundable fees (points, underwriting fees, processing fees) from your loan amount to find the "effective loan amount" you actually receive. It then looks at the monthly payments you are required to make based on the full nominal loan amount. The APR is the mathematical internal rate of return that makes your stream of monthly payments equal to the effective loan amount you walked away with.</p>
             <p>For example, if you borrow $300,000 but pay $6,000 in upfront fees, you effectively only received $294,000. But you are still making monthly payments based on a $300,000 principal. This dynamic is why your APR is always higher than your interest rate when upfront fees are involved.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/loan-origination-points-to-apr-calculator" />
           <PopularCalculators exclude="/calculator/loan-origination-points-to-apr-calculator" />
         </div>

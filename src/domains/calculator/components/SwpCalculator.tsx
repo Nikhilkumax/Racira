@@ -124,7 +124,7 @@ const SWPCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">What Is an SWP Calculator?</h2>
               <p>An SWP (Systematic Withdrawal Plan) calculator helps you plan regular withdrawals from your mutual fund investment. It shows how your corpus behaves over time as you withdraw fixed amounts while the remaining balance continues to earn returns.</p>
 
@@ -138,7 +138,7 @@ const SWPCalculator = () => {
               </ul>
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> Mutual fund returns are not guaranteed. Actual returns may vary significantly from expected rates. This calculator assumes constant returns for estimation.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/swp-calculator" />
           <PopularCalculators exclude="/swp-calculator" />
         </div>

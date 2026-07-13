@@ -316,7 +316,7 @@ export default function TireSizeCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Why Use a Tire Size Calculator?</h2>
             <p>A Tire Size Calculator is an essential diagnostic tool for anyone looking to replace their factory tires with aftermarket alternatives, upgrade their wheel rims ("plus sizing"), or install a suspension lift kit. Modifying tire dimensions alters the geometry of your vehicle. This calculator instantly processes the complex metric-to-imperial conversions embedded in tire codes to reveal the exact physical changes in width, diameter, and circumference.</p>
 
@@ -331,7 +331,7 @@ export default function TireSizeCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Performance Impacts of Wider Tires</h2>
             <p>Increasing the section width of your tires (the first number in the tire code, e.g., moving from 225 to 245) increases the contact patch with the road. This generally improves dry traction and cornering grip. However, wider tires are heavier, which increases unsprung mass and rotational inertia. This can negatively impact acceleration, increase fuel consumption, and make the steering feel heavier. Furthermore, excessively wide tires are prone to "hydroplaning" on wet roads because they distribute the vehicle's weight over a larger area, reducing the pressure needed to slice through standing water.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/tire-size-calculator" />
           <PopularCalculators />

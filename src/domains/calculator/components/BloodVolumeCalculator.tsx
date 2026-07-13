@@ -195,8 +195,8 @@ export default function BloodVolumeCalculator() {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">The Mathematics of Blood Volume</h2>
+          <section className="prose-finance text-[15.75px]">
+            <h2 className="text-2xl font-bold mb-3">Understanding Total Blood Volume</h2>
             <p>Your blood is the body's primary transportation network. It delivers oxygen and nutrients to every cell while simultaneously removing carbon dioxide and waste products. But exactly how much of this fluid do you have?</p>
             <p>In clinical settings (such as preparing a patient for major surgery or dialysis), doctors cannot simply guess a patient's blood volume. Instead, they rely on the <strong>Nadler Equation</strong>. Developed in the 1960s, this complex mathematical formula accounts for the non-linear relationship between a person's height, weight, and biological sex to provide a highly accurate estimation of Total Blood Volume (TBV).</p>
 
@@ -219,7 +219,7 @@ export default function BloodVolumeCalculator() {
               <li><strong>Class III (30% to 40% loss):</strong> Blood pressure begins to drop dangerously. The patient will become confused and agitated as the brain is starved of oxygen. Emergency blood transfusions are required immediately.</li>
               <li><strong>Class IV (Over 40% loss):</strong> This is severe, life-threatening hemorrhagic shock. The heart cannot pump enough fluid to keep the patient alive without immediate, massive resuscitation.</li>
             </ul>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/blood-volume-calculator" />
           <PopularCalculators exclude="/calculator/blood-volume-calculator" />
         </div>

@@ -159,7 +159,7 @@ const QuadraticFormulaCalculator = () => {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is the Quadratic Formula Calculator?</h2>
             <p>This quadratic formula calculator solves any quadratic equation of the form ax² + bx + c = 0 using the quadratic formula, plots the parabola, and shows the vertex, discriminant, and nature of the roots. Pre-filled with x² − 5x + 6 = 0 (which factors as (x−2)(x−3) = 0, giving roots x=2 and x=3), the calculator demonstrates a clean example with two positive real roots.</p>
             <p>Quadratic equations appear in physics (projectile motion), engineering (structural analysis), economics (profit maximization), and geometry (area and distance problems). The quadratic formula provides a universal solution — working for any quadratic regardless of whether it factors easily.</p>
@@ -176,7 +176,7 @@ const QuadraticFormulaCalculator = () => {
             <p><strong>Projectile motion:</strong> Height h = −½gt² + v₀t + h₀. Setting h=0 and solving for t gives the time of landing. <strong>Area problems:</strong> If a rectangle has perimeter 20m and area 21m², the dimensions satisfy x(10−x) = 21, or x²−10x+21 = 0, giving x=3 and x=7. <strong>Break-even analysis:</strong> Revenue and cost functions often intersect at quadratic solutions. Pair with the <a href="/calculator/break-even-calculator">break-even calculator</a> for business applications.</p>
             <h2 className="text-2xl font-bold mb-3">Tips for This Calculator</h2>
             <p>Enter a ≠ 0 (if a=0, the equation is linear, not quadratic). The parabola graph shows the function with green dashed vertical lines at real roots. The vertex is clearly identified. For complex roots, the parabola does not cross the x-axis — this is visible in the graph. Combine with the <a href="/calculator/polynomial-calculator">polynomial calculator</a> for higher-degree equations.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/quadratic-formula-calculator" />
           <PopularCalculators exclude="/calculator/quadratic-formula-calculator" />
         </div>

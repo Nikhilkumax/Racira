@@ -144,7 +144,7 @@ const SelfEmploymentTaxCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">The Freelancer's Guide to Self-Employment Tax</h2>
               <p>When you work as an employee, your employer pays half of your Social Security and Medicare taxes (FICA), and you pay the other half. When you are self-employed, you are both the employer and the employee, meaning you are responsible for the full 15.3% tax rate. This is known as the self-employment (SE) tax.</p>
 
@@ -177,7 +177,7 @@ const SelfEmploymentTaxCalculator = () => {
                 <li><strong>Use an Accounting Software:</strong> Tools like QuickBooks or Wave can help you track expenses in real-time.</li>
                 <li><strong>Consult a CPA:</strong> If your net income exceeds $50,000, a tax professional may suggest forming an S-Corp to reduce your self-employment tax liability.</li>
               </ol>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/self-employment-tax-calculator" />
           <PopularCalculators exclude="/calculator/self-employment-tax-calculator" />
         </div>

@@ -253,7 +253,7 @@ export default function TirePressureCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Why Does Tire Pressure Drop in the Winter?</h2>
             <p>Every year, as autumn turns to winter, millions of drivers are startled by the sudden glow of their dashboard's TPMS (Tire Pressure Monitoring System) warning light. This phenomenon is a direct result of Gay-Lussac's Law of thermodynamics. Our Tire Pressure Calculator models this exact physical relationship so you can predict and adjust your tire pressure before the warning light ever comes on.</p>
 
@@ -268,7 +268,7 @@ export default function TirePressureCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">When to Check Your Tire Pressure</h2>
             <p>You should check your tire pressure at least once a month, and always first thing in the morning <em>before</em> driving the car. As you drive, the friction between the tire and the road heats up the air inside, temporarily raising the pressure. If you check your tires after a long highway commute, you will get a falsely high reading. Always check "cold" tire pressure for accurate maintenance.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/tire-pressure-calculator" />
           <PopularCalculators />

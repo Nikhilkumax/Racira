@@ -292,7 +292,7 @@ export default function PortHandlingCostCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Demurrage vs. Detention: The Supply Chain Nightmare</h2>
             <p>During global supply chain crunches, the words <strong>Demurrage</strong> and <strong>Detention</strong> strike fear into the hearts of importers. These are daily financial penalties levied by ports and ocean carriers for delaying their operations or holding onto their equipment for too long.</p>
             <p>While often used interchangeably by novices, they mean two very different things in the logistics world. Understanding the difference is critical to disputing unfair invoices.</p>
@@ -313,7 +313,7 @@ export default function PortHandlingCostCalculator() {
             
             <h2 className="text-2xl font-bold mb-3">The Escalation Effect</h2>
             <p>Demurrage and Detention are rarely flat fees. They usually operate on a tiered escalation scale to aggressively incentivize you to move. For example: Days 1-3 might be $150/day, Days 4-7 might jump to $300/day, and Days 8+ could be a punishing $500/day per container. If you have 10 containers stuck at the port for a week, you could easily face a $30,000 penalty invoice.</p>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "What is a Terminal Handling Charge (THC)?", answer: "A THC is a standard, non-penalty fee charged by the port for the physical labor and crane operation required to lift your container off the ship and place it onto the dock (and eventually onto your trucker's chassis)." },
             { question: "Can I negotiate Demurrage and Detention?", answer: "Before the shipment, yes. Large importers negotiate extended 'Free Time' into their annual carrier contracts (e.g., getting 14 free days instead of 4). After the penalties have accrued, it is very difficult to negotiate unless you can prove the delay was the port's fault (e.g., a union strike)." },

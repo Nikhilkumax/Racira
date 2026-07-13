@@ -177,7 +177,7 @@ export default function CommercialLoanCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Commercial Loan Calculator?</h2>
             <p>A commercial loan calculator is an advanced financial tool designed explicitly for real estate investors, business owners, and syndicators who are purchasing or refinancing income-producing properties. Unlike a standard residential mortgage calculator, which primarily focuses on basic amortization over a 15- or 30-year fixed term, a commercial loan calculator accounts for the unique, often complex structures inherent to commercial finance. This includes the decoupling of loan amortization from the loan term, the calculation of massive balloon payments, and the crucial analysis of cash flow metrics like the Debt Service Coverage Ratio (DSCR).</p>
             <p>Commercial real estate (CRE) deals live and die by the numbers. Lenders do not care about your personal W-2 salary in the same way residential lenders do. Instead, they underwrite the property itself as a standalone business. Our calculator replicates a commercial underwriter's desk, allowing you to instantly determine if a property generates enough Net Operating Income (NOI) to support the debt you are requesting, empowering you to negotiate with banks from a position of mathematical strength.</p>
@@ -221,7 +221,7 @@ export default function CommercialLoanCalculator() {
             <h2 className="text-2xl font-bold mb-3">Benefits</h2>
             <p>Routinely using a commercial loan calculator before writing offers or contacting brokers gives you a massive competitive advantage. It prevents you from wasting time on deals that look good on a spreadsheet but will inevitably fail at the underwriter's desk.</p>
             <p>By forcing you to confront the DSCR and the balloon payment, this calculator ensures you structure your debt responsibly. It transforms you from a speculative buyer into a sophisticated investor who speaks the language of the bank, ultimately helping you build a safer, more profitable commercial real estate portfolio.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/commercial-loan-calculator" />
           <PopularCalculators exclude="/calculator/commercial-loan-calculator" />
         </div>

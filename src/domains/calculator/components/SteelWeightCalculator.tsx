@@ -218,7 +218,7 @@ const SteelWeightCalculator = () => {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Importance of Calculating Steel Weight</h2>
             <p>Steel is the backbone of modern construction, from the framing of skyscrapers to the chassis of automobiles. However, steel is extraordinarily dense and heavy. A solid block of steel measuring just 1 foot by 1 foot by 1 foot (a cubic foot) weighs a massive <strong>490 pounds</strong>.</p>
             <p>Accurately calculating the weight of a steel component is absolutely critical for three main reasons:</p>
@@ -238,7 +238,7 @@ const SteelWeightCalculator = () => {
 
             <h2 className="text-2xl font-bold mb-3">Carbon Steel vs. Stainless vs. Aluminum</h2>
             <p>It is important to select the right material multiplier. Carbon steel and Stainless steel are almost identical in weight (Stainless is technically about 1% heavier due to the Chromium and Nickel content). However, Aluminum is completely different. Aluminum is famously lightweight, with a density of roughly 0.098 lbs/in³. An identical volume of Aluminum weighs about one-third the weight of Steel.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/steel-weight-calculator" />
           <PopularCalculators exclude="/calculator/steel-weight-calculator" />
         </div>

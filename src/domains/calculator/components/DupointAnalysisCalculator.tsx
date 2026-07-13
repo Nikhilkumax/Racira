@@ -135,7 +135,7 @@ export default function DupointAnalysisCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is DuPont Analysis?</h2>
             <p>DuPont Analysis is a fundamental equity research framework that decomposes Return on Equity (ROE) into three operational and financial components: profitability, asset efficiency, and financial leverage. Developed by the DuPont Corporation in the 1920s, it remains one of the most powerful diagnostic tools in financial statement analysis, revealing not just how much return a company earns for shareholders, but precisely why that return exists and whether it is sustainable.</p>
             <h2 className="text-2xl font-bold mb-3">The 3-Factor DuPont Formula</h2>
@@ -151,7 +151,7 @@ export default function DupointAnalysisCalculator() {
             <p>Improving ROE via margin expansion (better pricing, cost cuts) is the highest quality improvement signal. Improving ROE via turnover (more efficient asset use, faster inventory) is healthy. Improving ROE via leverage increases financial risk and may mask operational deterioration. Investors should reward margin and turnover-driven ROE expansion and scrutinize leverage-driven ROE improvements carefully, especially in rising interest rate environments.</p>
             <h2 className="text-2xl font-bold mb-3">The Extended 5-Factor DuPont Model</h2>
             <p>The 5-factor model further decomposes margin into: Tax Burden (Net Income ÷ Pre-Tax Income) × Interest Burden (Pre-Tax Income ÷ EBIT) × EBIT Margin (EBIT ÷ Revenue) × Asset Turnover × Equity Multiplier. This granular breakdown isolates the effects of taxes, interest expense, and operating efficiency separately — useful for analyzing how changes in tax policy or debt structure impact ROE.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/dupont-analysis-calculator" />
           <PopularCalculators exclude="/calculator/dupont-analysis-calculator" />
         </div>

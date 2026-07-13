@@ -121,7 +121,7 @@ const MedianCalculator = () => {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Median Calculator?</h2>
             <p>A median calculator finds the middle value of a dataset after sorting it in ascending order. Pre-filled with the sequence {"{4, 8, 15, 16, 23, 42}"} (the famous Lost numbers), the median is 15.5 — the average of the two middle values in this even-count dataset. The calculator also computes mean, mode, range, standard deviation, and variance for complete descriptive statistics.</p>
             <h2 className="text-2xl font-bold mb-3">How to Calculate the Median</h2>
@@ -134,7 +134,7 @@ const MedianCalculator = () => {
             <p>A weighted median assigns importance to values. Each value has a weight, and the weighted median is the value where accumulated weight reaches 50%. Used in: portfolio analysis (weighted by asset value), spatial median calculations, image processing (noise reduction). The standard median is a special case where all weights are equal.</p>
             <h2 className="text-2xl font-bold mb-3">Median Absolute Deviation (MAD)</h2>
             <p>MAD = median(|xᵢ − median|) — a robust measure of spread analogous to standard deviation but using medians instead of means. MAD is highly resistant to outliers: one extreme value can completely distort the standard deviation but barely affects MAD. Used in: outlier detection, robust statistics, financial risk analysis. MAD × 1.4826 estimates the standard deviation for normal distributions.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/median-calculator" />
           <PopularCalculators exclude="/calculator/median-calculator" />
         </div>

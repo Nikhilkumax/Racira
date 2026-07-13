@@ -201,7 +201,7 @@ const ElectricityCostCalculator = () => {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">How Is Electricity Billed?</h2>
             <p>Unlike water or gas, which are billed by physical volume, electricity is billed by <strong>Energy</strong> over time. The standard unit of measurement used by utility companies worldwide is the <strong>Kilowatt-Hour (kWh)</strong>. This unit does not mean "kilowatts per hour." Rather, it means exactly 1,000 watts of power sustained for exactly one hour. For instance, running a 1,500-watt space heater for two hours consumes 3 kWh (1.5 kW × 2h = 3 kWh).</p>
 
@@ -222,7 +222,7 @@ const ElectricityCostCalculator = () => {
 
             <h2 className="text-2xl font-bold mb-3">Beware of "Always On" Appliances</h2>
             <p>When using this calculator, be realistic about "Usage Time." A television might draw 100W, but you only watch it for 4 hours a day. Conversely, a device in "standby mode" (like a cable box or a TV waiting for a remote signal) might only draw 10W, but because it draws that power 24 hours a day, 365 days a year, it can cost you over $10 a year to do absolutely nothing!</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/electricity-cost-calculator" />
           <PopularCalculators exclude="/calculator/electricity-cost-calculator" />
         </div>

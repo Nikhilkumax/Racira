@@ -152,7 +152,7 @@ const TurkeyRoastingCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Mastering the Holiday Roast</h2>
               <p>Roasting a turkey can be intimidating, but with proper planning, it's a straightforward process. The most important step isn't the cooking—it's the thawing. A partially frozen turkey will cook unevenly, leaving some parts raw while others are dry. Always plan your thawing time several days in advance.</p>
               
@@ -167,7 +167,7 @@ const TurkeyRoastingCalculator = () => {
 
               <h2 className="text-2xl font-bold mb-3">Why You Must Rest the Bird</h2>
               <p>Resistance is futile—you must let the turkey rest for at least 20 to 30 minutes after taking it out of the oven. This allows the juices to redistribute throughout the meat. If you carve it immediately, all those delicious juices will run out onto the cutting board, leaving the meat dry.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/turkey-roasting" />
           <PopularCalculators exclude="/calculator/turkey-roasting-calculator" />
         </div>

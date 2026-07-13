@@ -350,7 +350,7 @@ export default function TotalCostOfOwnershipCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is Total Cost of Ownership (TCO)?</h2>
             <p>Total Cost of Ownership (TCO) is the ultimate metric for understanding vehicle affordability. When buying a car, it is incredibly easy to focus solely on the sticker price or the monthly loan payment. However, these figures represent only a fraction of what the vehicle will actually cost you. TCO combines the direct costs (financing, taxes, fuel, insurance, and maintenance) with the indirect costs (depreciation) over a standard 5-year period. By calculating the TCO, you can accurately compare the long-term financial impact of different vehicles.</p>
 
@@ -375,7 +375,7 @@ export default function TotalCostOfOwnershipCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Benefits</h2>
             <p>Using a Total Cost of Ownership Calculator protects you from buying a vehicle that will slowly drain your bank account. It shifts your perspective from short-term payment thinking to long-term wealth preservation. By understanding the true financial footprint of a vehicle, you can confidently choose a car that fits both your lifestyle and your long-term financial goals.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/total-cost-of-ownership-calculator" />
           <PopularCalculators />

@@ -403,7 +403,7 @@ export default function WaistToHeightRatioCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Waist-to-Height Ratio (WtHR) Calculator</h2>
             <p>For over 150 years, the medical establishment has leaned heavily on the Body Mass Index (BMI) as the primary indicator of obesity and health risk. However, modern cardiology and metabolic science have definitively proven that BMI is fundamentally flawed. BMI only measures your total gravitational pull (weight) against your height. It cannot differentiate between a pound of dense, healthy skeletal muscle and a pound of dangerous, toxic fat. More critically, BMI cannot tell doctors <em>where</em> your fat is located. The <strong>Waist-to-Height Ratio (WtHR) Calculator</strong> bypasses the flaws of the scale entirely. By directly comparing the circumference of your abdomen to your height, it zeroes in on the single most lethal type of fat in the human body, providing a vastly superior, highly accurate predictor of cardiovascular disease and metabolic syndrome.</p>
 
@@ -442,7 +442,7 @@ export default function WaistToHeightRatioCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: A Call to Action</h2>
             <p>The Waist-to-Height Ratio is a harsh, unforgiving metric, but it is one of the most vital health numbers you can track. You cannot hide visceral fat from this calculation. If your ratio exceeds 0.50, you must view it as an urgent biological warning siren. Begin implementing a caloric deficit, significantly reduce your intake of refined carbohydrates, sugars, and alcohol (which heavily drive visceral fat storage), and prioritize cardiovascular exercise to shrink your waistline back into the healthy zone.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/waist-to-height-ratio-calculator" />
           <PopularCalculators exclude="/calculator/waist-to-height-ratio-calculator" />

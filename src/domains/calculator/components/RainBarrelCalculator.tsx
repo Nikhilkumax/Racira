@@ -105,7 +105,7 @@ const RainBarrelCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Rainwater Harvesting</h2>
               <p>Rainwater harvesting is an ancient practice that is seeing a modern resurgence. By catching water before it hits the ground, you reduce local runoff (which carries pollutants to streams) and decrease your reliance on treated municipal water for landscaping.</p>
               <h3>How to Measure Your Roof Area</h3>
@@ -117,7 +117,7 @@ const RainBarrelCalculator = () => {
                 <li><strong>Dark Barrels:</strong> Use opaque (usually dark green or black) barrels to prevent sunlight from entering, which stops algae from growing.</li>
                 <li><strong>Screen Tops:</strong> Always ensure your barrel is tightly screened to prevent mosquitoes from breeding.</li>
               </ul>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/rain-barrel" />
           <PopularCalculators exclude="/calculator/rain-barrel-calculator" />
         </div>

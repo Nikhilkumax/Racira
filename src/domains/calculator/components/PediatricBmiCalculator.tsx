@@ -404,7 +404,7 @@ export default function PediatricBMICalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Danger of Adult Metrics for Children</h2>
             <p>One of the most common and terrifying mistakes parents make is taking their child's height and weight, plugging it into a standard adult Body Mass Index (BMI) calculator, and panicking at the result. The standard adult BMI formula establishes a rigid "Normal" range of 18.5 to 24.9. This range is designed for fully mature adult skeletons that have stopped growing. If you put the measurements of a perfectly healthy, athletic 7-year-old child into an adult calculator, the resulting BMI will often be around 15 or 16, leading the calculator to loudly declare the child is dangerously "Underweight." The <strong>BMI-for-Age (Pediatric) Calculator</strong> prevents this dangerous misdiagnosis by abandoning static adult numbers and utilizing the clinical percentile databases managed by the Centers for Disease Control (CDC).</p>
 
@@ -436,7 +436,7 @@ export default function PediatricBMICalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Track the Trend, Not the Dot</h2>
             <p>The most important rule when using the BMI-for-Age (Pediatric) Calculator is to look at the trend over time. A single measurement is just a dot on a graph. A child might temporarily spike into the 88th percentile right before a massive vertical growth spurt, and then drop back to the 60th percentile six months later. Use this tool every six months to track the <em>trajectory</em> of your child's growth. If the trajectory is aggressively curving upwards toward the red Obese zone, schedule a consultation with your pediatrician immediately to discuss structural nutritional changes.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/bmi-for-age-pediatric-calculator" />
           <PopularCalculators exclude="/calculator/bmi-for-age-pediatric-calculator" />

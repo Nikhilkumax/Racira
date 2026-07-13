@@ -181,7 +181,7 @@ const LedSavingsCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">The LED Revolution</h2>
               <p>Switching to LED (Light Emitting Diode) lighting is one of the fastest, easiest, and most profitable energy-saving investments you can make for your home or business.</p>
               
@@ -190,7 +190,7 @@ const LedSavingsCalculator = () => {
 
               <h3>Lifespan Matters</h3>
               <p>An incandescent bulb lasts about 1,000 hours. A CFL lasts about 8,000 hours. A quality LED bulb lasts 25,000 hours or more. This means you won't just save money on electricity; you will save money (and time) by not having to constantly buy and replace burnt-out bulbs.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/led-savings" />
           <PopularCalculators exclude="/calculator/led-savings-calculator" />
         </div>

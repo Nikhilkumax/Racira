@@ -270,7 +270,7 @@ export default function JobOfferNetSalaryCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Don't Spend Your Gross Salary</h2>
             <p>One of the most common financial mistakes young professionals make is building a budget based on the salary written in their job offer letter. That number is your <strong>Gross Salary</strong>, and you will never actually see it. What matters for your rent, car payment, and groceries is your <strong>Net Take-Home Pay</strong>.</p>
             
@@ -290,7 +290,7 @@ export default function JobOfferNetSalaryCalculator() {
             <h2 className="text-2xl font-bold mb-3">Why Bi-Weekly Matters</h2>
             <p>Most corporate employers pay <strong>Bi-Weekly</strong> (every two weeks), resulting in 26 paychecks per year. However, most people budget <strong>Monthly</strong> (12 months). This creates a discrepancy: for 10 months of the year, you will only receive 2 paychecks per month. Twice a year, you will receive a "bonus" 3rd paycheck in a single month.</p>
             <p>You should always build your monthly budget based on two bi-weekly paychecks, and treat the two "extra" paychecks as windfall money for savings or debt payoff.</p>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "Is this calculator exact to the penny?", answer: "No. Exact payroll calculation requires knowing your precise state, local city taxes, filing status (Single/Married), number of dependents, and specific W-4 withholding elections. This calculator provides a highly accurate estimate for negotiation and budgeting purposes." },
             { question: "Do my health insurance premiums lower my FICA taxes?", answer: "Yes. Section 125 Cafeteria Plans (which cover most employer health insurance premiums) are deducted before FICA taxes are applied. However, 401(k) contributions do NOT lower FICA taxes, they only lower your income taxes." },

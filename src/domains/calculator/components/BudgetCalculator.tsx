@@ -202,14 +202,14 @@ export default function BudgetCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">How to Build a Monthly Budget</h2>
             <p>This <strong>monthly budget calculator</strong> compares your actual spending against recommended percentages for each category, instantly flagging areas where you're over budget. The status indicators (✓ Good / ⚠ High / ✗ Over) are based on the widely-accepted 50/30/20 framework and standard lender debt-to-income guidelines. Your savings rate — money saved plus any monthly surplus — is the key metric to optimize.</p>
             <h2 className="text-2xl font-bold mb-3">The 50/30/20 Framework</h2>
             <p>50% Needs: housing, food, utilities, insurance, minimum debt payments, essential transportation. 30% Wants: dining out, entertainment, hobbies, subscriptions, clothing above essentials. 20% Financial goals: retirement contributions, emergency fund, extra debt paydown, savings for goals. Adjust for your situation — a 25% savings rate accelerates financial independence dramatically; a 10% savings rate is a starting point, not a destination.</p>
             <h2 className="text-2xl font-bold mb-3">The Most Impactful Budget Levers</h2>
             <p>Housing: the biggest single expense for most households. Every $100/month saved on housing saves $1,200/year — consider roommates, a longer commute, or downsizing. Transportation: the second-largest expense. Car ownership costs average $12,000+/year all-in (loan, insurance, gas, maintenance, depreciation). Savings rate: every additional 1% of income saved is a permanent lifestyle improvement. Food: cooking at home vs. dining out has one of the highest ROI of any budget category. Related tools: <a href="/calculator/income-tax-calculator">Income Tax Calculator</a>, <a href="/calculator/early-retirement-calculator">FIRE Calculator</a>.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/budget-calculator" />
           <PopularCalculators exclude="/calculator/budget-calculator" />
         </div>

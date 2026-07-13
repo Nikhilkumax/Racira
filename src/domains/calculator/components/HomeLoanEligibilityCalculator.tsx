@@ -197,7 +197,7 @@ export default function HomeLoanEligibilityCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">How Home Loan Eligibility Is Determined</h2>
             <p>Lenders do not arbitrarily approve or deny home loan applications. They use a systematic framework to assess your ability to repay. The <strong>Home Loan Eligibility Calculator</strong> replicates this framework, giving you a transparent view of how a lender evaluates your financial profile before you ever submit an application. Understanding your eligibility in advance allows you to make strategic improvements, negotiate from a position of strength, and avoid the credit score damage of rejected applications.</p>
             <p>The two primary pillars of eligibility assessment are your <strong>income-based repayment capacity</strong> and your <strong>creditworthiness</strong>. The first determines how large a monthly payment you can safely afford without defaulting. The second determines the lender's confidence in your willingness to repay based on your historical behavior with credit.</p>
@@ -214,7 +214,7 @@ export default function HomeLoanEligibilityCalculator() {
             <p><strong>Reduce existing debt:</strong> Paying off a car loan, personal loan, or credit card balance before applying can significantly lower your FOIR, creating more room for a new mortgage payment. Prioritize eliminating loans with the largest monthly payment relative to their remaining balance.</p>
             <p><strong>Extend the loan tenure:</strong> Choosing a 30-year term instead of a 15-year term reduces the required monthly payment for any given loan amount, effectively increasing the maximum loan you qualify for. The trade-off is substantially more total interest paid over the loan life.</p>
             <p><strong>Build a larger down payment:</strong> A larger down payment reduces the required loan amount, which reduces the required monthly payment. This can bring an otherwise ineligible loan amount into the range your income can support.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/home-loan-eligibility-calculator" />
           <PopularCalculators exclude="/calculator/home-loan-eligibility-calculator" />
         </div>

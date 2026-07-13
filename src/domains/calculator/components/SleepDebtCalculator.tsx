@@ -197,7 +197,7 @@ export default function SleepDebtCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding Your Sleep Deficit</h2>
             <p>Sleep debt is the cumulative difference between the amount of sleep your body requires and the amount you actually obtain. Just like financial debt, sleep debt accumulates over days of deficit. If you need 8 hours of sleep per night but only obtain 6, you build a sleep debt of 2 hours daily, totaling 14 hours by the end of a single week.</p>
             <p>Chronic sleep deficit impairs cognitive performance, response times, memory retrieval, and emotional regulation. Over time, it contributes to metabolic imbalances, immune suppression, and elevated risks of cardiovascular complications.</p>
@@ -205,7 +205,7 @@ export default function SleepDebtCalculator() {
             <h2 className="text-2xl font-bold mb-3">Safe Sleep Recovery Protocol</h2>
             <p>Recovering from sleep debt cannot be accomplished simply by sleeping for 12 hours on the weekend. Massive shifts in sleep times disrupt circadian synchronization, causing "social jetlag" and making it harder to fall asleep on Sunday night.</p>
             <p>To safely erase sleep debt, aim to add no more than 1 to 2 hours of sleep per night. This can be achieved by moving your bedtime earlier or taking a structured 20-minute nap during the mid-afternoon. Consistently matching or slightly exceeding your baseline goal over several weeks is the healthiest path to cognitive restoration.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/sleep-debt-calculator" />
           <PopularCalculators exclude="/calculator/sleep-debt-calculator" />
         </div>

@@ -131,7 +131,7 @@ export default function AdsenseRevenueCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Mastering the Mathematics of Digital Advertising Revenue</h2>
               <p>For independent digital publishers, bloggers, and specialized niche content creators, the Google AdSense platform frequently represents the most accessible, foundational method for monetizing web traffic. Despite its immense popularity, the actual mathematical mechanics governing how AdSense generates payouts remain deeply misunderstood by the vast majority of new publishers. Developing a highly profitable, sustainable digital publishing business is not merely about writing excellent content or securing viral traffic spikes; it is fundamentally a game of statistical optimization. To truly scale your digital income, you must intimately understand how the three core pillars of advertising revenue—Traffic Volume, Click-Through Rate (CTR), and Cost Per Click (CPC)—mathematically interact to determine your final monthly deposit.</p>
               
@@ -146,7 +146,7 @@ export default function AdsenseRevenueCalculator() {
               
               <h2 className="text-2xl font-bold mb-3">Tracking Performance with Page RPM</h2>
               <p>To effectively evaluate the true profitability of your website, you must look beyond raw daily income and focus on Page RPM (Revenue Per Mille). Page RPM calculates exactly how much money your website generates for every one thousand page views it receives. It acts as the ultimate equalizer, allowing you to accurately compare the financial efficiency of a low-traffic financial blog against a high-traffic entertainment site. If a specialized technology blog generates fifty dollars for every thousand visitors, while a meme aggregation site generates only two dollars per thousand visitors, the technology blog is vastly more efficient and arguably possesses far more commercial potential, even if its absolute traffic numbers are currently lower.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/adsense-revenue-calculator" />
           <PopularCalculators exclude="/calculator/adsense-revenue-calculator" />
         </div>

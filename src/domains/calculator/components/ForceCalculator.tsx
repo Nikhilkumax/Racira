@@ -124,7 +124,7 @@ const ForceCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Newton's Second Law of Motion</h2>
               <p>Newton's Second Law is one of the most fundamental principles in classical mechanics. it describes the relationship between an object's mass and the amount of force needed to accelerate it.</p>
               
@@ -139,7 +139,7 @@ const ForceCalculator = () => {
                 <li><strong>Mass (kg):</strong> The amount of matter in an object. Unlike weight, mass does not change based on gravity.</li>
                 <li><strong>Acceleration (m/s²):</strong> The rate at which an object changes its velocity.</li>
               </ul>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/force-calculator" />
           <PopularCalculators exclude="/calculator/force-calculator" />
         </div>

@@ -138,12 +138,12 @@ const GradeCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Mastering Course Grading Scales</h2>
               <p>In high school and college, grading systems vary widely. The two most common types are point-based systems and weighted systems. Point-based systems are straightforward, but weighted systems can be tricky to track without a dedicated calculator.</p>
               <h3>Why Weighted Grades Matter</h3>
               <p>Weighted grades allow instructors to emphasize certain parts of a course over others. For example, a final exam might be worth as much as all homework assignments combined. This means a single high-stakes test has a massive impact on your final GPA, making it essential to know exactly where you stand before walking into the exam hall.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/grade-calculator" />
           <PopularCalculators exclude="/calculator/grade-calculator" />
         </div>

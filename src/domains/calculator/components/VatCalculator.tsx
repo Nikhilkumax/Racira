@@ -168,7 +168,7 @@ export default function VatCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is VAT (Value Added Tax)?</h2>
             <p>Value Added Tax (VAT) is a consumption-based tax levied on the value added to goods and services at each stage of production and distribution. Unlike a simple sales tax collected only at the point of final sale, VAT is charged incrementally throughout the supply chain, with each business able to reclaim the VAT it paid on its own purchases (input tax) and remitting only the net VAT on the value it added. This mechanism creates a self-auditing chain that reduces tax evasion significantly compared to traditional sales taxes.</p>
             <p>Over 170 countries worldwide use VAT or a closely related system (called GST — Goods and Services Tax — in countries like Australia, Canada, and India). The EU mandates VAT across all member states. The UK retained its VAT system after Brexit. The United States remains one of the few major economies without a federal VAT, relying instead on state-level sales taxes.</p>
@@ -188,7 +188,7 @@ export default function VatCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Zero-Rated vs. Exempt Supplies</h2>
             <p>Understanding this distinction is critical for businesses. Zero-rated supplies (0% VAT) allow full input tax recovery — common examples include food, children's clothing, books, and exports. Exempt supplies (no VAT charged and no input VAT recovery) include financial services, healthcare, and education in most jurisdictions. Businesses with both taxable and exempt supplies must carefully apportion their input tax claims, which adds significant compliance complexity.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/vat-calculator" />
           <PopularCalculators exclude="/calculator/vat-calculator" />
         </div>

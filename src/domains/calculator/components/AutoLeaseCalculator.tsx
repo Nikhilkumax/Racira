@@ -174,7 +174,7 @@ export default function AutoLeaseCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is an Auto Lease Calculator?</h2>
             <p>An auto lease calculator is an essential financial tool that demystifies the complex mathematics behind car leasing. Unlike a standard auto loan where you are financing the entire purchase price of a vehicle, a lease operates on a completely different framework. When you lease a car, you are essentially paying for the exact amount of value the car loses (depreciation) during the time you drive it, plus a finance charge (rent charge) and taxes. Because the vocabulary of leasing—using terms like Money Factor, Capitalized Cost, and Residual Value—is designed to be opaque, dealerships often use leasing as a way to maximize profit from uninformed buyers.</p>
             <p>This calculator strips away the dealership jargon and reveals the true cost of your lease. By independently calculating the depreciation fee, the rent charge, and the localized sales tax, it empowers you to negotiate effectively. You will no longer be negotiating a "monthly payment"—a dangerous practice that allows dealers to hide fees—but rather negotiating the raw numbers that construct that payment.</p>
@@ -220,7 +220,7 @@ export default function AutoLeaseCalculator() {
             <h2 className="text-2xl font-bold mb-3">Benefits</h2>
             <p>Utilizing a comprehensive auto lease calculator levels the playing field against professional dealership finance managers. It transitions you from a vulnerable buyer negotiating a "monthly payment" to an educated consumer negotiating the raw data.</p>
             <p>By forcing the dealer to reveal the Money Factor, the Capitalized Cost, and the Residual Value, you can plug those numbers into this tool and verify their honesty instantly. This calculator ensures you never pay hidden markups, prevents you from making risky down payments, and ultimately guarantees you secure the absolute best lease deal possible for your new vehicle.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/auto-lease-calculator" />
           <PopularCalculators exclude="/calculator/auto-lease-calculator" />
         </div>

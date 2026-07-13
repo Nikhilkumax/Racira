@@ -193,7 +193,7 @@ export default function LoanDefermentInterestCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding Loan Deferment Interest</h2>
             <p>Loan deferment offers a financial lifeline during periods of hardship—but it comes with a critical hidden cost that most borrowers fail to fully understand. While deferment relieves you of the obligation to make monthly payments, interest continues to accumulate on most loan types during the deferment period. When the deferment ends, this accumulated interest is capitalized (added to your principal balance), permanently increasing your loan balance and all future interest charges.</p>
             <p>This calculator reveals the true long-term cost of deferment, showing exactly how much interest accrues during your pause, how your balance changes, and how much your monthly payment increases afterward. This information is essential for making an informed decision about whether deferment is the right choice or whether alternative options are more cost-effective.</p>
@@ -207,7 +207,7 @@ export default function LoanDefermentInterestCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Alternatives to Full Deferment</h2>
             <p>If your primary goal is reducing your monthly cash outflow during a hardship period, consider these alternatives that are less costly than full deferment. <strong>Interest-only payments</strong> prevent capitalization by paying the monthly interest as it accrues, even while skipping principal payments—your balance stays flat rather than growing. <strong>Income-driven repayment (IDR) plans</strong> for student loans cap payments at 5-20% of discretionary income. <strong>Extended repayment plans</strong> stretch the term to lower monthly payments without pausing entirely. All of these options preserve more of your financial health than a full deferment on an unsubsidized loan.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/loan-deferment-interest-accumulation-calculator" />
           <PopularCalculators exclude="/calculator/loan-deferment-interest-accumulation-calculator" />
         </div>

@@ -130,14 +130,14 @@ const CyclingPowerCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">The Physics of Cycling</h2>
               <p>When you ride a bike, you are constantly fighting against three main forces: air resistance (drag), rolling resistance, and gravity. Understanding how these forces interact can help you become a faster, more efficient cyclist.</p>
               <h3>Drafting and Drag</h3>
               <p>Air resistance is the dominant force on flat ground, especially at speeds above 20 km/h. Because drag increases with the cube of your speed, doubling your speed requires eight times the power. This is why "drafting" behind another rider can save you up to 30% of your energy.</p>
               <h3>Climbing and Gravity</h3>
               <p>Once the road tilts upward, gravity becomes the primary enemy. On a 10% gradient, over 90% of your power goes into simply lifting your body and bike weight against gravity. This is why lighter riders (and lighter bikes) have a massive advantage on climbs, where power-to-weight ratio (W/kg) is the ultimate metric of performance.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/cycling-power" />
           <PopularCalculators exclude="/calculator/cycling-power-calculator" />
         </div>

@@ -214,7 +214,7 @@ export default function GroceryBudgetCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">About the Grocery Budget Calculator</h2>
             <p>This grocery budget calculator gives you a clear picture of your household food spending across eight categories. Enter your typical spend per shopping trip and select your frequency — weekly, bi-weekly, or monthly — to see your projected weekly, monthly, and annual totals. The built-in cost-per-person-per-day metric benchmarks your spending against USDA dietary plans and national averages.</p>
             <h2 className="text-2xl font-bold mb-3">How the Calculation Works</h2>
@@ -229,7 +229,7 @@ export default function GroceryBudgetCalculator() {
             <p>Modern grocery savings extend beyond paper coupons. Loyalty programs (Kroger Plus, Safeway Club, Target Circle) offer significant per-item discounts. Cashback apps like Ibotta, Fetch, and Checkout 51 return $15–$50/month for regular shoppers. Credit cards with grocery category bonuses (3–5% back) add another layer of savings. Combining all three strategies can realistically cut annual grocery costs by 15–25%.</p>
             <h2 className="text-2xl font-bold mb-3">Building a Sustainable Grocery Budget</h2>
             <p>Track actual spending for 4–6 weeks before setting firm targets. Most households underestimate grocery spending by 15–20%. Use this calculator after each shopping trip to update your estimates and identify category drift. Set a specific weekly budget and carry a running total on your phone while shopping to avoid over-spending at the store.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/grocery-budget-calculator" />
           <PopularCalculators exclude="/calculator/grocery-budget-calculator" />
         </div>

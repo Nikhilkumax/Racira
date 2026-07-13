@@ -167,7 +167,7 @@ const TaxEquivalentYieldCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Tax Equivalent Yield Calculator?</h2>
             <p>A tax equivalent yield (TEY) calculator converts the yield of a tax-exempt municipal bond into the equivalent pre-tax yield that a taxable bond would need to offer to match it on an after-tax basis. This comparison is essential for fixed-income investors choosing between corporate bonds, Treasury bonds, and tax-free municipal bonds. Pre-filled with a 4.00% muni yield, 24% federal rate, and 5% state rate, the TEY is 5.63% — meaning you would need a taxable bond yielding at least 5.63% to beat the muni bond after taxes.</p>
             <h2 className="text-2xl font-bold mb-3">The Tax Equivalent Yield Formula</h2>
@@ -185,7 +185,7 @@ const TaxEquivalentYieldCalculator = () => {
             <p>After confirming that a muni bond beats the TEY threshold, compare credit quality and duration risk. Municipal bonds range from AAA-rated state general obligation bonds to below-investment-grade revenue bonds. Higher yields often come with higher default risk. The muni bond default rate has historically been very low (well under 0.1% for investment-grade munis), but credit analysis remains essential.</p>
             <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <p><strong>Conservative retiree (22% bracket, 5% state):</strong> TEY on 4% muni = 4% / 0.73 = 5.48%. At this bracket, competitive taxable bonds may beat the muni. <strong>High-income professional (37% bracket, 9.3% CA):</strong> TEY on 4% muni = 4% / (1 − 0.463) = 7.45%. Municipal bonds are clearly superior. The TEY analysis should always be the first step in fixed-income portfolio construction for high-income investors.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/tax-equivalent-yield-calculator" />
           <PopularCalculators exclude="/calculator/tax-equivalent-yield-calculator" />
         </div>

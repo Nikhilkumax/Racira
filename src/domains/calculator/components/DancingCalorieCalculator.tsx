@@ -283,7 +283,7 @@ export default function DancingCalorieCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Cardiovascular Power of Dance</h2>
             <p>For many people, the thought of strapping on running shoes and jogging on a treadmill for 60 minutes is an exercise in pure mental torture. Enter dance cardio. Over the last two decades, structured dance classes have exploded as a mainstream fitness alternative, offering a highly engaging, music-driven way to achieve massive cardiovascular benefits. But exactly how many calories are you burning while having all that fun? The <strong>Dancing Calorie Calculator</strong> removes the guesswork. By applying clinically validated Metabolic Equivalent (MET) formulas to your specific body mass and the type of dance you are performing, it provides a mathematically precise measurement of your thermodynamic output.</p>
 
@@ -314,7 +314,7 @@ export default function DancingCalorieCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Find Your Rhythm</h2>
             <p>The best exercise in the world is the one you will actually stick to consistently. If you hate the treadmill, force yourself to use it, and quit after two weeks, the caloric burn of that treadmill is mathematically zero. Dance offers an infectious, community-driven, musical environment that keeps people coming back week after week. Use the Dancing Calorie Calculator to track your exact energy output, sync it with your daily dietary goals, and dance your way to a leaner, healthier body.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/dancing-calorie-calculator" />
           <PopularCalculators exclude="/calculator/dancing-calorie-calculator" />

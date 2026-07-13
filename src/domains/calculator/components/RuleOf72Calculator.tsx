@@ -194,7 +194,7 @@ export default function RuleOf72Calculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is the Rule of 72?</h2>
             <p>The Rule of 72 is one of the most useful mental shortcuts in personal finance and investing. It provides a quick, accurate estimate of how long it takes for an investment to double in value, given a fixed annual rate of return. Simply divide 72 by the annual interest rate percentage, and the result is the approximate number of years to double your money.</p>
             <p>For example: at 8% annual return, your money doubles in approximately 72 ÷ 8 = 9 years. At 6%, it takes 12 years. At 12%, it takes just 6 years. The simplicity is stunning — no calculator or complex formula needed, just a single division. Yet the result is remarkably accurate for most everyday investment rates (between 4% and 20%).</p>
@@ -210,7 +210,7 @@ export default function RuleOf72Calculator() {
 
             <h2 className="text-2xl font-bold mb-3">The Rule of 72 in Practice: Examples</h2>
             <p>Stock market (7–10% historical average): Money doubles every 7.2–10.3 years. High-yield savings (4–5%): Doubles every 14.4–18 years. Typical mortgage rate (6–7%): Outstanding debt doubles without extra payments every 10.3–12 years. CD rate (3–5%): Doubles every 14.4–24 years. Cryptocurrency (hypothetical 20%): Could double every 3.6 years (with extreme risk). These examples make tangible why starting to invest early and targeting higher returns (within appropriate risk tolerance) dramatically accelerates wealth building.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/rule-of-72-calculator" />
           <PopularCalculators exclude="/calculator/rule-of-72-calculator" />
         </div>

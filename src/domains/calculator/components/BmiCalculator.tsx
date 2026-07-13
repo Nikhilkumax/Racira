@@ -188,7 +188,7 @@ const BMICalculator = () => {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a BMI Calculator?</h2>
             <p>A BMI (Body Mass Index) calculator computes a standardized score from height and weight to assess weight status relative to health guidelines. BMI is the most widely used screening tool for underweight, normal weight, overweight, and obesity in adults worldwide. This calculator uses the standard WHO BMI formula, adds an estimated body fat percentage using the Deurenberg formula, and computes your Basal Metabolic Rate (BMR) — the calories your body burns at rest.</p>
             <p>Pre-filled with a 30-year-old male at 175 cm (5&apos;9&quot;) and 77 kg (170 lbs), the calculator shows BMI = 25.1 — just above the normal-weight threshold, a common scenario for millions of adults navigating their health goals.</p>
@@ -206,7 +206,7 @@ const BMICalculator = () => {
             <p>The calculator shows your healthy weight range — the weights that correspond to BMI 18.5–24.9 at your height. For a 175 cm male: healthy range = 18.5 × 1.75² to 24.9 × 1.75² = 56.6 kg to 76.3 kg (125 to 168 lbs). Use the <a href="/calculator/calorie-calculator">calorie calculator</a> alongside BMI tracking for comprehensive weight management planning.</p>
             <h2 className="text-2xl font-bold mb-3">Tips for Using This Calculator</h2>
             <p>Toggle between metric and imperial with the unit selector — values convert automatically. Age and gender improve the body fat estimate accuracy. The BMI category chart shows your score relative to all four categories. Remember that BMI is a screening tool, not a diagnostic measure — always consult a healthcare provider for personalized health assessment. Pair with the <a href="/calculator/ideal-weight-calculator">ideal weight calculator</a> for additional reference points.</p>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "What BMI is considered healthy?", answer: "A BMI between 18.5 and 24.9 is classified as normal weight by the WHO. Below 18.5 is underweight; 25–29.9 is overweight; 30 and above is obese." },
             { question: "Is BMI accurate for athletes?", answer: "No. BMI overestimates body fat in muscular athletes. A bodybuilder with very low body fat can have a BMI in the obese range due to high muscle mass. Use body fat percentage measurements for athletes." },

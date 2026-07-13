@@ -318,7 +318,7 @@ export default function DriverCostPerMileCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Mathematics of Fleet Profitability</h2>
             <p>If you own a logistics, trucking, or delivery company, you do not sell physical products; you sell distance. The only way your company makes money is by charging a customer a specific rate to move freight from Point A to Point B. This rate is heavily negotiated and usually breaks down to a specific dollar amount per mile.</p>
             <p>To ensure your company doesn't go bankrupt, you must know exactly how much it costs you to drive that mile. This is known as the <strong>Cost Per Mile (CPM)</strong>. A fleet's Total CPM is made up of several buckets: Fuel CPM, Maintenance CPM, Equipment CPM, and the largest controllable bucket: <strong>Driver CPM</strong>.</p>
@@ -331,7 +331,7 @@ export default function DriverCostPerMileCalculator() {
             <h2 className="text-2xl font-bold mb-3">The Hidden Costs of Labor</h2>
             <p>When calculating Driver CPM, rookie fleet managers often just divide the driver's paycheck by the miles driven. This is a fatal mathematical error.</p>
             <p>When you hire an employee, the government mandates that you (the employer) pay taxes on top of their salary. This includes a matching portion of Social Security and Medicare (FICA), which automatically adds 7.65% to the labor cost. You must also factor in State Unemployment Taxes, extremely expensive commercial Worker's Compensation Insurance, and any company benefits (like health insurance or 401k matching). An employee who "makes" $60,000 a year actually costs the company closer to $75,000 a year.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/driver-cost-per-mile-calculator" />
           <PopularCalculators />

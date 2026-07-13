@@ -75,7 +75,7 @@ export default function MoneyMarketCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Understanding Money Market Accounts</h2>
               <p>Money market accounts (MMAs) occupy a unique position in the financial product landscape, combining features of both checking and savings accounts while typically offering higher interest rates than either. They are particularly well-suited for individuals who want their emergency fund or short-term savings to earn a competitive yield while maintaining easy access to their money through checks or debit card transactions.</p>
               <h2 className="text-2xl font-bold mb-3">How Money Market Account Interest Works</h2>
@@ -84,7 +84,7 @@ export default function MoneyMarketCalculator() {
               <p>Many money market accounts use tiered interest rates where larger balances earn higher APYs. For example, a bank might offer 3.0% on balances under $10,000, 4.0% on balances from $10,000-$50,000, and 4.5% on balances above $50,000. When shopping for an MMA, pay attention to which tier applies to your expected balance and whether the higher rate applies to the entire balance or only the portion above the threshold.</p>
               <h2 className="text-2xl font-bold mb-3">MMA vs. CD: When Each Makes Sense</h2>
               <p>MMAs offer liquidity — you can withdraw anytime without penalty. CDs (Certificates of Deposit) lock up your money for a fixed term but may offer higher rates as compensation for the illiquidity. If you know you won't need the money for 12-24 months and want a guaranteed rate, a CD may be preferable. If you want flexibility and still need the money accessible, an MMA is the better choice, especially in a falling rate environment where you can keep earning the current high rate until you need the funds.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/money-market-calculator" />
           <PopularCalculators exclude="/calculator/money-market-calculator" />
         </div>

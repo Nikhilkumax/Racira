@@ -258,7 +258,7 @@ export default function SeaVsAirFreightCostComparisonCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Sea vs. Air: The Weight and Volume Paradox</h2>
             <p>Choosing between Ocean Freight (Sea) and Air Freight is the most consequential decision in international logistics. While Air is universally faster, the way these two modes calculate price is fundamentally different.</p>
             
@@ -274,7 +274,7 @@ export default function SeaVsAirFreightCostComparisonCalculator() {
               <li><strong>High Density (Heavy & Small):</strong> Items like steel bolts, batteries, or liquid chemicals. These take up very little CBM but weigh a massive amount. Air freighting these will be astronomically expensive. Sea freight is the only option.</li>
               <li><strong>Low Density (Light & Bulky):</strong> Items like pillows, stuffed animals, or empty plastic bottles. These weigh almost nothing but take up huge amounts of CBM. Sea freight will charge you for the massive volume. Interestingly, if the cargo is light enough, Air Freight sometimes becomes surprisingly competitive because the weight charge is so low (though airlines use Dimensional Weight rules to prevent you from shipping pure air).</li>
             </ul>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "What is a CBM?", answer: "Cubic Meter. It is calculated as Length x Width x Height in meters (1m x 1m x 1m). It is the standard unit of volume in international sea freight." },
             { question: "What is Chargeable Weight in Air Freight?", answer: "Airlines don't want you shipping a plane full of pillows for free. They use a DIM factor (usually 1 CBM = 167 kg). If your 1 CBM box only weighs 50kg, they will 'charge' you as if it weighed 167kg. You always pay the greater of Actual Weight or Chargeable Weight." },

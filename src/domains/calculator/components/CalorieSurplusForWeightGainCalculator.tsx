@@ -325,7 +325,7 @@ export default function CalorieSurplusForWeightGainCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Calorie Surplus Calculator</h2>
             <p>In the world of fitness, nutrition, and bodybuilding, gaining weight is often referred to as "Bulking." However, gaining weight is incredibly easy; anyone can do it by simply eating massive amounts of fast food while sitting on a couch. The true challenge is gaining <strong>muscle</strong> while minimizing the accumulation of body fat. To accomplish this, you must manipulate the First Law of Thermodynamics by establishing a mathematically precise Calorie Surplus.</p>
             <p>A calorie surplus occurs when you consume more energy (measured in kilocalories) than your body expends throughout the day to survive and move. When the body encounters this excess energy, it must store it. The <strong>Calorie Surplus Calculator for Weight Gain</strong> is designed to help you project exactly how fast your body will accrue mass based on the size of the surplus you establish. By forecasting this growth over a 6-month timeline, you can visually determine if your eating habits align with your physique goals without crossing the line into a "dirty bulk."</p>
@@ -362,7 +362,7 @@ export default function CalorieSurplusForWeightGainCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Patience and Precision</h2>
             <p>Building an elite physique is a marathon, not a sprint. While you can lose fat rapidly through aggressive deficits, you cannot build muscle rapidly through aggressive surpluses. Use the Calorie Surplus Calculator to project a sustainable, lean-bulking timeline. Aim for a conservative weight gain of 0.5 to 1.0 pounds per week, lift progressively heavier weights, hit your protein targets, and trust the long-term mathematical process to deliver results.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/calorie-surplus-for-weight-gain-calculator" />
           <PopularCalculators exclude="/calculator/calorie-surplus-for-weight-gain-calculator" />

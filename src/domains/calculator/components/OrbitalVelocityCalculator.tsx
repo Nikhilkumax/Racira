@@ -133,7 +133,7 @@ const OrbitalVelocityCalculator = () => {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is an Orbital Velocity Calculator?</h2>
             <p>An orbital velocity calculator computes the speed required for an object to maintain a stable circular orbit around a celestial body at a given altitude. Pre-filled with Earth at 400 km altitude (the ISS orbit), the orbital velocity is approximately 7.67 km/s (27,600 km/h or Mach 22). This calculator supports 7 celestial bodies from the Moon to the Sun.</p>
             <h2 className="text-2xl font-bold mb-3">The Orbital Velocity Formula</h2>
@@ -146,7 +146,7 @@ const OrbitalVelocityCalculator = () => {
             <p>Escape velocity is exactly √2 times orbital velocity at the same altitude: v_escape = √2 × v_orbital. At Earth's surface: orbital velocity ≈ 7.9 km/s, escape velocity ≈ 11.2 km/s. To leave Earth entirely requires 41% more velocity than to orbit. This relationship holds for any celestial body.</p>
             <h2 className="text-2xl font-bold mb-3">Practical Applications</h2>
             <p>Satellite deployment: rockets must accelerate payloads to orbital velocity. Space debris tracking: knowing orbital velocities helps predict collision risks. Spacecraft rendezvous: matching orbits requires precise velocity adjustments (delta-v). Planetary missions: calculating transfer orbits between planets requires knowing orbital velocities at departure and arrival.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/orbital-velocity-calculator" />
           <PopularCalculators exclude="/calculator/orbital-velocity-calculator" />
         </div>

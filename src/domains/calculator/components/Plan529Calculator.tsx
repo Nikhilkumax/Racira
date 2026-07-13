@@ -299,7 +299,7 @@ export default function Plan529Calculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a 529 Plan?</h2>
             <p>A 529 plan is a tax-advantaged savings plan designed to encourage saving for future education costs. Sponsored by states, state agencies, or educational institutions, these plans are legally known as "qualified tuition programs." There are two main types of 529 plans: education savings plans and prepaid tuition plans. This calculator focuses on the more common education savings plans, which allow you to open an investment account to save for the beneficiary's future qualified higher education expenses.</p>
             
@@ -323,7 +323,7 @@ export default function Plan529Calculator() {
             
             <h2 className="text-2xl font-bold mb-3">Benefits</h2>
             <p>Using a 529 plan calculator helps you set realistic savings goals and track your progress. It takes the guesswork out of planning for education expenses, ensuring you understand exactly what it takes to fund your child's future without resorting entirely to burdensome student loans.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/529-plan-calculator" />
           <PopularCalculators />

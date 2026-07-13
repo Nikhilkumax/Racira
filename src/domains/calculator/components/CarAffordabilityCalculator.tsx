@@ -317,7 +317,7 @@ export default function CarAffordabilityCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Car Affordability Calculator?</h2>
             <p>A Car Affordability Calculator is an essential financial tool designed to help you determine exactly how much car you can afford based on your monthly budget, rather than getting tricked into a predatory loan at the dealership. Dealerships often manipulate the loan term to match a specific monthly payment, which can result in you paying thousands more in interest. By calculating your maximum purchase price beforehand, you can shop with confidence and negotiate strictly on the out-the-door price of the vehicle. This tool is perfect for anyone looking to finance a new or used vehicle while adhering to a strict monthly budget.</p>
 
@@ -342,7 +342,7 @@ export default function CarAffordabilityCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Benefits</h2>
             <p>Using this Car Affordability Calculator empowers you as a buyer. It strips away the smoke and mirrors of dealership financing, providing an accurate, mathematically sound budget. It saves you time by narrowing down your vehicle search to cars you can actually afford, and it saves you thousands of dollars by preventing you from rolling taxes and negative equity into a high-interest, long-term loan.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/car-affordability-calculator" />
           <PopularCalculators />

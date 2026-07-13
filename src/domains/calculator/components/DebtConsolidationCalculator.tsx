@@ -128,14 +128,14 @@ const DebtConsolidationCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">When Does Consolidation Make Sense?</h2>
               <p>Debt consolidation is beneficial when you can secure a consolidation loan at a meaningfully lower interest rate than your current debts. It simplifies your finances into a single monthly payment and can reduce total interest costs significantly.</p>
               <h3>Watch Out for Longer Terms</h3>
               <p>A lower monthly payment can be misleading. If your consolidation loan has a very long term, you might pay more interest in total even at a lower rate. Always compare the total cost of the loan, not just the monthly payment.</p>
               <h3>The Discipline Problem</h3>
               <p>The biggest risk of consolidation is re-accumulating the debts you just paid off. If you consolidate your credit cards and then start using them again, you'll end up with even more total debt. Consolidation works best alongside a committed behavioral change.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/debt-consolidation" />
           <PopularCalculators exclude="/calculator/debt-consolidation-calculator" />
         </div>

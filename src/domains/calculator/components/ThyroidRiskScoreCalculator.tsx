@@ -379,7 +379,7 @@ export default function ThyroidRiskScoreCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Thyroid Risk Score Calculator</h2>
             <p>The thyroid is a small, butterfly-shaped gland located at the base of your neck. Despite its small size, it acts as the master control center for your entire body's metabolism. It regulates how fast your heart beats, how quickly you burn calories, how you regulate body temperature, and even how your brain functions. When this gland malfunctions, the physical and psychological symptoms can be devastating.</p>
             <p>The <strong>Thyroid Risk Score Calculator</strong> is an educational clinical profiling tool designed to help you quantify your symptoms. Because thyroid disease shares symptoms with many other common conditions (such as aging, menopause, stress, or depression), it is frequently misdiagnosed or ignored for years. By algorithmically weighting your demographics against the classic presentation of both overactive and underactive thyroid states, this calculator provides a clear visual risk profile to discuss with your endocrinologist.</p>
@@ -431,7 +431,7 @@ export default function ThyroidRiskScoreCalculator() {
             <h2 className="text-2xl font-bold mb-3">Conclusion: Taking Control of Your Endocrine Health</h2>
             <p>The Thyroid Risk Score Calculator is your first step toward diagnosis and recovery. Thyroid disorders are insidious; they creep up slowly, stealing your energy, altering your physical appearance, and destroying your mental health. Do not allow a medical professional to dismiss your symptoms as "just getting older" or "just stress."</p>
             <p>If your risk score points toward dysfunction, print these results, schedule an appointment with an endocrinologist, and demand comprehensive blood testing. With the correct diagnosis and proper hormone replacement therapy, thyroid disease is highly manageable, and you can fully reclaim your quality of life.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/thyroid-risk-score-calculator" />
           <PopularCalculators exclude="/calculator/thyroid-risk-score-calculator" />

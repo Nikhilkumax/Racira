@@ -109,7 +109,7 @@ const RothIraCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Why a Roth IRA is Powerful</h2>
               <p>The Roth IRA is often considered one of the best retirement savings vehicles available. Its core advantage — tax-free growth — becomes increasingly powerful over a long investment horizon.</p>
               <h3>The Tax-Free Advantage</h3>
@@ -118,7 +118,7 @@ const RothIraCalculator = () => {
               <p>Unlike Traditional IRAs, Roth IRAs have no Required Minimum Distributions (RMDs) during your lifetime. This means you can let the money grow for as long as you choose, making it an excellent tool for leaving a tax-free inheritance to your heirs.</p>
               <h3>The Back-Door Roth</h3>
               <p>If your income exceeds the Roth IRA limits, high earners can use a "backdoor Roth" strategy: making a non-deductible Traditional IRA contribution and then immediately converting it to a Roth. Consult a tax professional before attempting this strategy.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/roth-ira" />
           <PopularCalculators exclude="/calculator/roth-ira-calculator" />
         </div>

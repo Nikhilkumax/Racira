@@ -185,7 +185,7 @@ const PostpartumWeightLossCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Postpartum Weight Loss Calculator?</h2>
             <p>A postpartum weight loss calculator tracks your progress from delivery weight back to your pre-pregnancy weight, estimates your weekly loss rate, and projects a realistic timeline to reach your goal. Pre-filled with 165 lbs pre-pregnancy, 195 lbs at delivery (30 lbs gained), and 180 lbs at 6 weeks postpartum (15 lbs lost), the calculator shows 50% of pregnancy weight already lost — right on track with typical postpartum progression.</p>
             <h2 className="text-2xl font-bold mb-3">Normal Postpartum Weight Loss Timeline</h2>
@@ -200,7 +200,7 @@ const PostpartumWeightLossCalculator = () => {
             <p>Research shows that retaining more than 11 lbs (5 kg) of pregnancy weight at 6 months postpartum is associated with long-term obesity risk. However, "bouncing back" quickly is not a health goal — it's a cultural pressure. The most important health metric is sustainable, gradual progress toward your pre-pregnancy weight within the 6–18 month postpartum window, while maintaining energy for infant care, work, and recovery. Many women find their body composition changes permanently after pregnancy, with muscle and fat redistribution that doesn't fully revert — and this is entirely normal and healthy.</p>
             <h2 className="text-2xl font-bold mb-3">Nutrition Priorities Postpartum</h2>
             <p>Key nutrients for postpartum recovery: Iron (lost during delivery; found in lean red meat, lentils, fortified cereals). Calcium (essential for bone density during breastfeeding). Omega-3 DHA (critical for infant brain development; found in fatty fish, algae-based supplements). Protein (1.2–1.7 g/kg body weight to support muscle recovery and satiety). Continue taking a prenatal vitamin or postnatal supplement during breastfeeding. Hydration is especially critical during breastfeeding — breast milk is ~87% water.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/postpartum-weight-loss-calculator" />
           <PopularCalculators exclude="/calculator/postpartum-weight-loss-calculator" />
         </div>

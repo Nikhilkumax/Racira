@@ -283,7 +283,7 @@ export default function CarrierRateComparisonCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Why Comparing Freight Rates is Tricky</h2>
             <p>When shippers request freight quotes from carriers, they rarely receive simple, flat-rate pricing. Carrier pricing is a complex stack of base rates, dynamic fuel surcharges, and conditional accessorial fees. This structure makes a simple "apples-to-apples" comparison difficult.</p>
             
@@ -300,7 +300,7 @@ export default function CarrierRateComparisonCalculator() {
             
             <h2 className="text-2xl font-bold mb-3">Best Practices for Logistics Procurement</h2>
             <p>When running a freight RFP (Request for Proposal), never evaluate carriers on base rates alone. Always demand that carriers provide their full FSC tables and a schedule of accessorial fees. Run scenario analyses by applying their specific surcharges to your historical shipping data to find the true lowest cost provider.</p>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "Is the Fuel Surcharge calculated on the total bill?", answer: "Usually, no. In most freight contracts, the FSC is calculated only as a percentage of the Base Rate, not the accessorial fees. This is why a high base rate combined with a high FSC percentage can aggressively inflate your freight bill." },
             { question: "What is FAK?", answer: "FAK stands for 'Freight All Kinds'. It's a pricing agreement where a carrier agrees to rate multiple different freight classes at a single unified class (e.g., rating Class 100 and Class 85 both as Class 70). This simplifies billing and lowers costs." },

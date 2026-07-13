@@ -394,7 +394,7 @@ export default function BodyFatSkinfoldCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Flaw in Modern Fitness Technology</h2>
             <p>If you purchase a modern, $100 digital bathroom scale, it will likely claim to calculate your body fat percentage using Bioelectrical Impedance Analysis (BIA). You step on the metal plates, it shoots a small electrical current up your leg, and it spits out a number. The problem? That number is mathematically heavily dependent on your hydration levels. If you drink a gallon of water, or if you eat a salty meal that causes water retention, the electrical current moves faster, and the scale will instantly tell you your body fat has dropped by 3%. That is a biological impossibility. The <strong>Body Fat Percentage Calculator (Skinfold)</strong> bypasses digital gimmickry. By using physical calipers to measure the exact millimeter thickness of your subcutaneous tissue, it provides a clinical, hydration-immune view of your true body composition.</p>
 
@@ -420,7 +420,7 @@ export default function BodyFatSkinfoldCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Trust the Caliper, Not the Scale</h2>
             <p>Stop letting hydration fluctuations dictate your mood. A $10 set of plastic skinfold calipers is vastly superior to a $100 digital smart scale. Use the Body Fat Percentage Calculator (Skinfold) to isolate your true Lean Body Mass, track the exact millimeter reduction of your adipose tissue, and sculpt your physique with clinical precision.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/body-fat-percentage-skinfold-calculator" />
           <PopularCalculators exclude="/calculator/body-fat-percentage-skinfold-calculator" />

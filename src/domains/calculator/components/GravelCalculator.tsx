@@ -197,7 +197,7 @@ const GravelCalculator = () => {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Mathematics of Landscaping</h2>
             <p>One of the most difficult parts of landscaping is visualizing exactly how much material you need. Unlike water, rock and dirt do not level themselves perfectly, and it is incredibly easy to vastly underestimate the volume required to fill a garden bed.</p>
             <p>To accurately calculate gravel, you must convert three-dimensional space into the universal landscaping unit: the <strong>Cubic Yard</strong>.</p>
@@ -216,7 +216,7 @@ const GravelCalculator = () => {
               <li><strong>2 Inches (Decorative):</strong> This is the absolute minimum depth for landscape beds. It provides enough coverage to hide the dirt below and suppress minor weed growth, assuming you have laid professional weed barrier fabric underneath.</li>
               <li><strong>4 to 6 Inches (Structural):</strong> If you are building a gravel driveway or a French drain, you need immense structural stability. A 2-inch layer of rock will simply be pushed into the mud the first time a heavy car drives over it. Driveways require a deep, compacted base layer of crushed stone.</li>
             </ul>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/gravel-calculator" />
           <PopularCalculators exclude="/calculator/gravel-calculator" />
         </div>

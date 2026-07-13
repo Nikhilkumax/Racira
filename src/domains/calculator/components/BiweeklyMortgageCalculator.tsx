@@ -425,7 +425,7 @@ const BiWeeklyMortgageCalculator = () => {
         <div className="max-w-[1180px] mt-12">
           <AdPlaceholder className="mb-10" />
           
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <section className="mb-8">
               <h2 className="text-2xl font-bold mb-3">What Is a Bi-Weekly Mortgage Calculator?</h2>
               <p>
@@ -508,7 +508,7 @@ const BiWeeklyMortgageCalculator = () => {
                 This calculator provides an exact, mathematically sound comparison of your payment options. It allows you to visualize the massive long-term benefits of minor short-term cash flow adjustments. By making informed decisions today, you can guarantee a debt-free future decades ahead of schedule.
               </p>
             </section>
-          </article>
+          </section>
 
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/bi-weekly-mortgage" />
           <PopularCalculators exclude="/calculator/biweekly-mortgage-calculator" />

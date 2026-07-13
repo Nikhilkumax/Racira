@@ -318,7 +318,7 @@ export default function DogWalkCalorieBurnCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Dog Walk Calorie Burn Calculator</h2>
             <p>Walking the dog is a daily ritual for millions of pet owners worldwide. It serves as a primary source of cardiovascular exercise and mental stimulation for the animal, while providing a consistent, low-impact workout for the owner. However, quantifying the exact physiological benefits of this activity can be difficult due to differences in weight, pace, and biomechanics. The <strong>Dog Walk Calorie Burn Calculator</strong> is designed to solve this problem by simultaneously calculating the metabolic energy expenditure of both you and your canine companion.</p>
             <p>By inputting basic metrics—your weight, your dog’s weight, the duration of the walk, and the intensity of the pace—the algorithm determines exactly how many calories were burned during the session. Furthermore, it contextualizes this data by displaying what percentage of your dog's daily maintenance diet was burned off, helping you manage their weight more effectively.</p>
@@ -356,7 +356,7 @@ export default function DogWalkCalorieBurnCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion</h2>
             <p>The dog walk is the foundation of the human-canine bond. It provides necessary physical exertion, mental enrichment, and quality bonding time. By using the Dog Walk Calorie Burn Calculator, you can elevate this daily routine from a simple chore to a measurable, data-driven fitness activity that optimizes the health and longevity of both you and your best friend.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/dog-walk-calorie-burn-calculator" />
           <PopularCalculators exclude="/calculator/dog-walk-calorie-burn-calculator" />

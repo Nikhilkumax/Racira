@@ -373,7 +373,7 @@ export default function LeaseVsFinanceCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Should You Lease or Finance Your Next Car?</h2>
             <p>The decision to lease or finance a vehicle is one of the most hotly debated topics in personal finance. A Lease vs Finance Calculator objectively compares the true cost of both options by analyzing monthly payments, interest rates, taxes, depreciation, and the equity you build. By projecting these variables over the exact same time horizon (typically 36 months), you can see mathematically which option drains less cash from your net worth.</p>
 
@@ -395,7 +395,7 @@ export default function LeaseVsFinanceCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">When Does Financing Make Sense?</h2>
             <p>If you drive more than 15,000 miles a year, you must buy. Leases come with strict mileage limits, and the penalties for going over (often $0.25 per mile) will destroy any financial benefit the lease offered. Furthermore, if you plan to keep the car long after it is paid off, financing is the undisputed winner. Once the loan is gone, your monthly payment drops to $0, allowing you to maximize the value of the asset.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/lease-vs-finance-calculator" />
           <PopularCalculators />

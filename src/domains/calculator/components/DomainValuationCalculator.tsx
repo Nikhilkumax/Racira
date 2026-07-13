@@ -169,7 +169,7 @@ export default function DomainValuationCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">What Makes a Domain Name Valuable?</h2>
               <p>In the digital age, a domain name is more than just a website address — it is virtual real estate. Just like physical property, some addresses are worth more than others because of their location (extension), accessibility (length), and development (traffic). This calculator uses professional appraisal methodologies to give you a realistic window into what your domain might be worth on the open market.</p>
 
@@ -191,7 +191,7 @@ export default function DomainValuationCalculator() {
 
               <h3>5. Scarcity and Liquid Assets</h3>
               <p>Certain domains are considered 'liquid,' meaning they have a known floor price and can be sold quickly to other investors. This includes 2-letter .coms, 3-letter .coms, and short numeric domains (like 88.com). These assets are often used as stores of value, similar to gold or fine art, because their supply is strictly limited by the architecture of the DNS system.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/domain-name-valuation-calculator" />
           <PopularCalculators exclude="/calculator/domain-name-valuation-calculator" />
         </div>

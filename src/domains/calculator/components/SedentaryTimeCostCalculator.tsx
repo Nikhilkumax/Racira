@@ -303,7 +303,7 @@ export default function SedentaryTimeCostCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Mathematics of Inactivity</h2>
             <p>Modern society is built around the chair. We sit in our cars to commute, we sit at our desks for eight hours to work, we sit at the table to eat, and we sit on the couch to watch television before going to sleep. This hyper-sedentary lifestyle is completely alien to human evolutionary biology, and it is the primary driver behind the modern obesity epidemic. Many people believe they can counteract 10 hours of sitting by going to the gym for 45 minutes, but the math simply does not support this. The <strong>Sedentary Time Cost Calculator</strong> is designed to reveal the staggering amount of "free" passive calories you are leaving on the table by keeping your postural muscles turned off.</p>
 
@@ -329,7 +329,7 @@ export default function SedentaryTimeCostCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Reclaim Your Posture</h2>
             <p>You cannot out-train a sedentary lifestyle. If you sit for 12 hours a day, a 45-minute spin class is merely a band-aid on a bullet wound. True metabolic health requires constant, low-level movement throughout the day. Use the Sedentary Time Cost Calculator to project the massive long-term penalty of your office chair, invest in a standing desk or walking pad, and reclaim the massive amount of free thermodynamic energy you are currently leaving on the table.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/sedentary-time-cost-calculator" />
           <PopularCalculators exclude="/calculator/sedentary-time-cost-calculator" />

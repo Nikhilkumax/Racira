@@ -215,7 +215,7 @@ export default function TireDiameterCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Why Calculate Tire Diameter?</h2>
             <p>Tire diameter is the most critical metric when modifying your vehicle's stance, installing a lift kit, or ensuring speedometer accuracy. Unfortunately, the metric tire code printed on the sidewall (e.g., 275/60R20) is notoriously difficult to parse into a straightforward overall diameter. A Tire Diameter Calculator bypasses the complex math to instantly provide the true height of the tire in both inches and millimeters.</p>
 
@@ -233,7 +233,7 @@ export default function TireDiameterCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Truck Tires: Metric vs. Flotation Sizes</h2>
             <p>If you own an off-road truck or Jeep, you may notice that some tires do not use the metric system. Instead, they use "Flotation Sizes," such as 35x12.50R17. This system is much easier to read: the tire is 35 inches in diameter, 12.5 inches wide, and fits a 17-inch wheel. However, the majority of street-legal tires still use the metric system, making a calculator necessary to figure out if a 285/70R17 metric tire is equivalent to a 33-inch flotation tire.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/tire-diameter-calculator" />
           <PopularCalculators />

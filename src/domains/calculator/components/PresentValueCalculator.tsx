@@ -163,7 +163,7 @@ export default function PresentValueCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is Present Value?</h2>
             <p>Present Value (PV) is one of the most fundamental concepts in finance and investing. It answers a simple but powerful question: how much is a future sum of money worth today? The answer depends on the discount rate — the rate of return you could earn if you invested that money right now.</p>
             <p>The principle behind present value is the time value of money: a dollar today is worth more than a dollar in the future. Why? Because money today can be invested to generate returns, while future money carries both inflation risk and opportunity cost. If you can earn 8% per year, receiving $10,000 in 10 years is equivalent to having $4,632 today — the present value at an 8% discount rate.</p>
@@ -180,7 +180,7 @@ export default function PresentValueCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Present Value vs Net Present Value</h2>
             <p>Present Value discounts a single future cash flow. Net Present Value (NPV) extends this to multiple cash flows: it sums the present values of all future cash inflows and outflows, then subtracts the initial investment. A positive NPV means the investment creates value above the required return; a negative NPV destroys value. NPV is the gold standard for capital budgeting decisions.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/present-value-calculator" />
           <PopularCalculators exclude="/calculator/present-value-calculator" />
         </div>

@@ -315,7 +315,7 @@ export default function ProteinToCalorieRatioCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Protein to Calorie Ratio</h2>
             <p>Hitting your daily protein target while staying inside a caloric deficit is the hardest mathematical challenge in fitness. Many people fail because they are tricked by deceptive marketing on the front of food packaging. A box of cereal might claim "10g of Protein!" in huge letters, but if that serving also contains 400 calories of sugar, it is actively destroying your fat loss goals. The <strong>Protein to Calorie Ratio (PCR) Calculator</strong> cuts through the marketing noise by giving you the only metric that actually matters: <em>How many grams of protein are you getting for every 100 calories you consume?</em></p>
             <p>By standardizing all foods to a 100-calorie baseline, you can easily compare a massive 800-calorie steak dinner to a 150-calorie protein shake on an even, mathematical playing field. This is the ultimate tool for evaluating macronutrient density and building a diet that supports lean muscle growth without unnecessary fat accumulation.</p>
@@ -354,7 +354,7 @@ export default function ProteinToCalorieRatioCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion</h2>
             <p>Dieting does not have to be an emotional struggle; it is simply an accounting problem. By utilizing the Protein to Calorie Ratio Calculator, you can instantly strip away deceptive marketing and analyze the cold, hard mathematics of the foods you eat. By anchoring your meals with "Elite" and "Excellent" ratio foods, hitting your protein targets while maintaining a caloric deficit becomes a near certainty.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/protein-to-calorie-ratio-calculator" />
           <PopularCalculators exclude="/calculator/protein-to-calorie-ratio-calculator" />

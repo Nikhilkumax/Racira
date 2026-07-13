@@ -427,7 +427,7 @@ export default function LoanAgainstPropertyCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Loan Against Property Calculator</h2>
             <p>Your real estate is likely your most valuable asset. When you need significant capital—to expand a business, fund a child's higher education abroad, pay for a wedding, or consolidate high-interest debt—selling the property is often not ideal. A <strong>Loan Against Property (LAP)</strong> allows you to leverage the equity in your home or commercial building to secure a large amount of cash without giving up ownership. Our LAP Calculator is designed to help you quickly understand the borrowing power of your real estate, the strict Loan-to-Value (LTV) limits lenders enforce, and the long-term amortization schedule of your repayment.</p>
             <p>A Loan Against Property acts very differently from an unsecured personal loan. Because it is backed by a hard asset, the underwriting process is more complex, but the financial rewards for the borrower are substantial. By inputting your property's market value and your desired loan amount into this calculator, you can instantly see if your request aligns with standard banking guidelines and map out your monthly Equated Monthly Installment (EMI).</p>
@@ -466,7 +466,7 @@ export default function LoanAgainstPropertyCalculator() {
             <h2 className="text-2xl font-bold mb-3">Conclusion</h2>
             <p>A Loan Against Property is a highly efficient way to unlock the dormant equity in your real estate. It provides massive liquidity, long repayment windows, and interest rates that unsecured loans simply cannot match.</p>
             <p>By utilizing this Loan Against Property Calculator, you can approach lenders with confidence. By understanding your LTV limits, modeling the amortization schedule, and factoring in processing fees, you ensure that you are leveraging your property safely and securing the capital you need to achieve your broader financial goals without risking the roof over your head.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/loan-against-property-calculator" />
           <PopularCalculators exclude="/calculator/loan-against-property-calculator" />

@@ -322,7 +322,7 @@ export default function MarginCalculator() {
         {/* SEO Article Section */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding Margin vs. Markup</h2>
             <p>
               In pricing strategies and business operations, the terms <strong>margin</strong> and <strong>markup</strong> are often used interchangeably. However, they describe two distinct viewpoints of profitability, and confusing them can lead to major pricing errors and financial deficits.
@@ -345,7 +345,7 @@ export default function MarginCalculator() {
             <p>
               Because selling price is always higher than cost (except in losses), the markup percentage will always be higher than the margin percentage. For example, a 50% markup is equivalent to a 33.33% gross margin.
             </p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/margin-calculator" />
           <PopularCalculators exclude="/calculator/margin-calculator" />
         </div>

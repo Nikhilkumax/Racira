@@ -252,7 +252,7 @@ export default function BondedWarehouseCostCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What is a Bonded Warehouse?</h2>
             <p>A <strong>Bonded Warehouse</strong> is a secure storage facility controlled by customs authorities (like US Customs and Border Protection). When you import goods from overseas, you normally have to pay import duties and tariffs the moment the cargo hits the port. However, if you move the goods directly into a bonded warehouse, you do not have to pay the duties until the goods are removed for domestic sale.</p>
             
@@ -266,7 +266,7 @@ export default function BondedWarehouseCostCalculator() {
               <li><strong>Exporting:</strong> If you import components, assemble them in the bonded warehouse, and then export them to another country (like Canada), you pay <strong>zero</strong> import duties to the US. This is called a drawback or re-export exemption.</li>
               <li><strong>Long Storage Durations:</strong> If you import a massive bulk order to get a supplier discount, but won't sell through the inventory for 12 months, deferring the tax preserves your operating capital.</li>
             </ul>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "How long can goods stay in a bonded warehouse?", answer: "In the United States, goods can legally remain in a bonded warehouse for up to 5 years from the date of importation before duties must be paid or the goods destroyed/exported." },
             { question: "Is bonded storage more expensive than normal storage?", answer: "Yes. Bonded warehouses require special security, strict inventory auditing, and a customs bond, so third-party logistics (3PL) providers charge a premium for this space compared to standard commercial warehousing." },

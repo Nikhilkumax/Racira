@@ -280,7 +280,7 @@ export default function MultiModalTransportationCostCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What is Multi-Modal Transportation?</h2>
             <p><strong>Multi-Modal</strong> (or Intermodal) transportation refers to moving freight from an origin to a destination using multiple modes of transport—usually a combination of trucks and trains (or ships) without handling the freight itself when changing modes. The goods stay inside the same standard 40ft or 53ft shipping container the entire time.</p>
             
@@ -291,7 +291,7 @@ export default function MultiModalTransportationCostCalculator() {
             <h2 className="text-2xl font-bold mb-3">The Trade-Off: Cost vs. Transit Time</h2>
             <p>Shipping a load from Los Angeles to Chicago entirely by truck (Over The Road - OTR) might cost $3,500 and take 3 days. Shipping that same load via Intermodal (Truck + Train + Truck) might cost $2,200 but take 7 days.</p>
             <p>You are trading <strong>speed and reliability</strong> for a massive reduction in <strong>cost and carbon footprint</strong>. Multi-modal is the backbone of modern heavy supply chains.</p>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "What is Transloading?", answer: "Transloading is physically taking the goods out of one container (like a 40ft Ocean container) and packing them into a different container (like a 53ft domestic truck trailer). This happens constantly at major ports like Los Angeles." },
             { question: "What is Drayage?", answer: "Drayage is the short-distance trucking leg that connects the rail yard or port to the warehouse. It is usually the most expensive part of the trip on a per-mile basis." },

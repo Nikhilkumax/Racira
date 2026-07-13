@@ -162,7 +162,7 @@ const AwsS3CostCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Mastering S3 Storage Costs</h2>
               <p>Amazon S3 (Simple Storage Service) is the backbone of the internet, but its pricing model can be complex. Understanding the three main dimensions of cost—storage, requests, and transfer—is key to keeping your cloud bill under control.</p>
               
@@ -176,7 +176,7 @@ const AwsS3CostCalculator = () => {
               <h3>Hidden Costs to Watch For</h3>
               <p><strong>Minimum Storage Duration:</strong> Classes like IA and Glacier have minimum storage durations (e.g., 30 or 90 days). If you delete an object before this time, you still pay for the full duration.</p>
               <p><strong>Object Overhead:</strong> Each object in S3 has a small amount of metadata (typically 8KB-32KB) that is billed at the storage class rate. For billions of tiny files, this overhead can be significant.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/aws-s3-cost" />
           <PopularCalculators exclude="/calculator/aws-s3-cost-calculator" />
         </div>

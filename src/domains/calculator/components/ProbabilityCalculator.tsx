@@ -256,7 +256,7 @@ const ProbabilityCalculator = () => {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding Probability Basics</h2>
             <p><strong>Probability</strong> is the mathematical measurement of how likely an event is to occur. It is expressed as a number between 0 and 1 (or 0% and 100%). A probability of 0% means the event is impossible, while a probability of 100% means the event is absolutely certain. Everything in between represents varying degrees of likelihood.</p>
             <p>When calculating probability manually using fractions, the formula is simple: divide the number of <em>favorable outcomes</em> by the total number of <em>possible outcomes</em>. For example, rolling a 4 on a standard six-sided die has a probability of 1/6, or ~16.66%.</p>
@@ -279,7 +279,7 @@ const ProbabilityCalculator = () => {
               <li><strong>Mutually Exclusive (Cannot happen together):</strong> Drawing a Heart OR a Spade from a deck. You simply add them: P(A) + P(B).</li>
               <li><strong>Not Mutually Exclusive (Can happen together):</strong> Drawing a King OR a Heart from a deck. Since you could draw the King of Hearts (satisfying both conditions simultaneously), you must subtract the overlap so you don't double count it. Formula: <code>P(A) + P(B) - P(A and B)</code>.</li>
             </ul>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/probability-calculator" />
           <PopularCalculators exclude="/calculator/probability-calculator" />
         </div>

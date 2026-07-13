@@ -289,7 +289,7 @@ export default function AnnualRecurringRevenueCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is Annual Recurring Revenue (ARR)?</h2>
             <p>Annual Recurring Revenue (ARR) is a key metric used by subscription-based businesses, particularly SaaS (Software as a Service) companies, to measure their predictable and recurring revenue over a 12-month period. It represents the annualized value of active subscriptions and is the most common metric used to value SaaS companies.</p>
             
@@ -307,7 +307,7 @@ export default function AnnualRecurringRevenueCalculator() {
             
             <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
             <p>If you have 100 customers paying $500 per month, your MRR is $50,000, making your ARR $600,000. Next month, you acquire 5 new customers (+$2,500 MRR), 2 existing customers upgrade (+$1,000 MRR), and 1 customer cancels (-$500 MRR). Your Net MRR Growth is $3,000. Your new MRR is $53,000, making your new ARR $636,000.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/annual-recurring-revenue-calculator" />
           <PopularCalculators />

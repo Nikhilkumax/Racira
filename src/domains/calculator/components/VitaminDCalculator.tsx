@@ -250,7 +250,7 @@ export default function VitaminDCalculator() {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Global Vitamin D Epidemic</h2>
             <p>Vitamin D is not actually a vitamin—it is a powerful pro-hormone that controls the expression of over 1,000 genes throughout the human body. Every single cell in your immune system, from T-cells to macrophages, contains Vitamin D receptors. Without adequate levels, your immune system cannot activate effectively to fight off viruses, your bones cannot absorb calcium, and your brain struggles to regulate mood-stabilizing neurotransmitters like serotonin.</p>
             <p>Despite its critical importance, we are facing a global deficiency epidemic. Because modern humans spend the vast majority of their lives indoors, and heavily apply sunscreen when outdoors, over 40% of the population is clinically deficient in Vitamin D, with another 30% hovering in the "insufficient" range. This calculator is designed to help you determine the exact daily dosage required to pull yourself out of deficiency and into the optimal range.</p>
@@ -288,7 +288,7 @@ export default function VitaminDCalculator() {
             <p>You should never take high doses of Vitamin D in isolation. Vitamin D works synergistically with two critical co-factors.</p>
             <p><strong>Magnesium:</strong> Every enzyme involved in metabolizing Vitamin D in the liver and kidneys requires magnesium to function. If you are magnesium deficient (and roughly 50% of the population is), taking high doses of Vitamin D will rapidly deplete your remaining magnesium stores, leading to muscle cramps, heart palpitations, and anxiety.</p>
             <p><strong>Vitamin K2:</strong> As mentioned, Vitamin D vastly increases your body's absorption of dietary calcium. If that calcium is not directed into your bones, it will float in your bloodstream and calcify your soft tissues and arteries. Vitamin K2 acts as the "traffic cop," activating the proteins that shuttle calcium directly into the bone matrix. Always look for a supplement that pairs Vitamin D3 with Vitamin K2 (specifically the MK-7 variant) to ensure long-term cardiovascular safety.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/vitamin-d-calculator" />
           <PopularCalculators exclude="/calculator/vitamin-d-calculator" />
         </div>

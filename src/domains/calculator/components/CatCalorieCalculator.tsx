@@ -142,7 +142,7 @@ const CatCalorieCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Understanding Your Cat's Caloric Needs</h2>
               <p>Feeding a cat the right amount is one of the most important things you can do for their long-term health. Unlike dogs, cats are <strong>obligate carnivores</strong> — their bodies are optimised to derive energy from animal protein and fat rather than carbohydrates. This has a direct impact on how their caloric needs are calculated.</p>
 
@@ -174,7 +174,7 @@ const CatCalorieCalculator = () => {
 
               <h3>Reading Commercial Cat Food Labels</h3>
               <p>When comparing cat foods, always check the <strong>caloric content per 100g or per can</strong>, not just the protein percentages. A food with 40% protein on a "dry matter basis" from a tiny can might deliver far fewer calories than expected. The gold standard is kcal/cup or kcal/100g listed under the Guaranteed Analysis section of the label.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/cat-calorie" />
           <PopularCalculators exclude="/calculator/cat-calorie-calculator" />
         </div>

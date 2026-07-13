@@ -291,7 +291,7 @@ export default function BoxingCalorieCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Brutal Efficiency of Boxing for Weight Loss</h2>
             <p>Boxing is universally recognized as one of the most physically exhausting sports in the world. Ask any professional athlete from another sport—whether they are a marathon runner or a powerlifter—to step into a boxing ring and throw punches for just 3 minutes, and they will almost certainly collapse from cardiovascular failure. The sheer energy required to sustain full-body, explosive anaerobic movements is staggering. The <strong>Boxing Calorie Calculator</strong> bypasses inaccurate fitness watch estimations by utilizing clinically validated Metabolic Equivalent (MET) formulas. By factoring in your specific body mass and your exact training environment, it calculates the massive thermodynamic cost of the Sweet Science.</p>
 
@@ -322,7 +322,7 @@ export default function BoxingCalorieCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Fight for Your Fitness</h2>
             <p>You do not need to take punches to the face to reap the incredible fat-burning benefits of boxing. Hitting the heavy bag or doing mitt-work with a trainer provides an astronomical cardiovascular return on investment. Stop relying on inaccurate wrist trackers. Use the Boxing Calorie Calculator to track your active rounds, maintain a disciplined caloric deficit in your diet, and watch as the Sweet Science rapidly strips body fat and builds a lean, bulletproof physique.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/boxing-calorie-calculator" />
           <PopularCalculators exclude="/calculator/boxing-calorie-calculator" />

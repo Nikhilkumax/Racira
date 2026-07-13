@@ -175,7 +175,7 @@ export default function ReturnOnEquityCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is Return on Equity (ROE)?</h2>
             <p>Return on Equity (ROE) is one of the most important metrics in fundamental stock analysis. It measures how effectively a company uses the money shareholders have invested to generate profit. The formula is straightforward: ROE = Net Income ÷ Average Shareholders' Equity × 100. An ROE of 20% means the company generates $20 in annual profit for every $100 of shareholders' equity on its balance sheet.</p>
             <p>ROE is particularly powerful as a tool for comparing companies within the same industry. It cuts through differences in company size, age, and accounting choices to reveal the fundamental question: how good are management at turning shareholders' capital into profit? Companies that consistently maintain high ROE over multiple years — without relying on excessive debt — typically command premium valuations in the stock market.</p>
@@ -191,7 +191,7 @@ export default function ReturnOnEquityCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Limitations of ROE</h2>
             <p>ROE can be artificially inflated by high financial leverage (debt increases returns to equity but also increases bankruptcy risk), aggressive share buybacks (reducing the equity base), or one-time gains. Negative equity (from large share buybacks or cumulative losses) makes ROE meaningless or misleading. A company with ROE of 50% funded by 90% debt is far riskier than one with ROE of 18% and zero debt. Always examine ROE alongside the debt-to-equity ratio and interest coverage ratio.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/return-on-equity-calculator" />
           <PopularCalculators exclude="/calculator/return-on-equity-calculator" />
         </div>

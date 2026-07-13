@@ -364,7 +364,7 @@ export default function WeightliftingPercentageCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Weightlifting Percentage Calculator</h2>
             <p>Walk into any commercial gym, and you will see amateur lifters wandering from machine to machine, guessing what weight they should use that day based purely on how they "feel." This approach almost guarantees plateaus. Professional strength athletes, powerlifters, and Olympic weightlifters do not guess. They use <strong>Percentage-Based Programming</strong>. Every single working set, repetition, and rest period is mathematically derived from a single anchor point: their 1-Repetition Maximum (1RM). The <strong>Weightlifting Percentage Calculator</strong> acts as the central intelligence engine for your training, breaking down your absolute ceiling into specific, actionable physiological zones.</p>
 
@@ -398,7 +398,7 @@ export default function WeightliftingPercentageCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Execute the Math</h2>
             <p>Strength training is applied physics and biology. Stop guessing your weights. Find your 1-Rep Maximum (or calculate an accurate Training Max), input it into the Weightlifting Percentage Calculator, and print your matrix. Walk into the gym with absolute mathematical certainty regarding what weight belongs on the bar for your hypertrophy blocks, your speed days, and your absolute strength peaks. Follow the math, execute the repetitions, and the results are guaranteed.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/weightlifting-percentage-calculator" />
           <PopularCalculators exclude="/calculator/weightlifting-percentage-calculator" />

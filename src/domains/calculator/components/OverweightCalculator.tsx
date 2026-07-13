@@ -178,7 +178,7 @@ const OverweightCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is an Overweight Calculator?</h2>
             <p>An overweight calculator determines whether your current weight exceeds the healthy BMI range (18.5–24.9) for your height, and if so, calculates exactly how much excess weight you carry. Pre-filled with 195 lbs and 5'8" (68 inches), the BMI is 29.7 — classified as overweight, with approximately 31 lbs above the upper threshold of normal weight for this height.</p>
             <h2 className="text-2xl font-bold mb-3">Understanding the Results</h2>
@@ -191,7 +191,7 @@ const OverweightCalculator = () => {
             <p>BMI cannot distinguish muscle from fat. Muscular athletes routinely register as "overweight" or "obese" by BMI while having healthy or athletic body fat percentages. For a more complete assessment, combine BMI with: waist-to-height ratio (WHtR &lt; 0.5 is healthy), body fat percentage (Navy method, DEXA), metabolic health markers (blood pressure, fasting glucose, lipid panel), and cardiorespiratory fitness level.</p>
             <h2 className="text-2xl font-bold mb-3">Evidence-Based Weight Loss Strategies</h2>
             <p>For sustainable weight loss: create a moderate caloric deficit of 500–750 kcal/day (yields ~1–1.5 lbs/week loss). Prioritize protein intake (1.2–1.6 g/kg body weight) to preserve lean mass. Engage in both aerobic exercise (150+ minutes/week) and resistance training (2–3 sessions/week). Focus on whole foods, adequate sleep (7–9 hours), and stress management. Avoid extreme diets that promise rapid results — they typically result in muscle loss and metabolic adaptation that makes long-term weight maintenance extremely difficult.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/overweight-calculator" />
           <PopularCalculators exclude="/calculator/overweight-calculator" />
         </div>

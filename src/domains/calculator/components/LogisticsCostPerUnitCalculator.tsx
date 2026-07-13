@@ -239,7 +239,7 @@ export default function LogisticsCostPerUnitCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What is Logistics Cost Per Unit?</h2>
             <p><strong>Logistics Cost per Unit</strong> is a critical supply chain metric that translates large macro freight bills into micro product economics. It answers the question: <em>"How much did it cost to physically move this one specific item from the factory to my warehouse?"</em></p>
             
@@ -253,7 +253,7 @@ export default function LogisticsCostPerUnitCalculator() {
               <li><strong>High-Value Density (e.g., iPhones):</strong> You can fit $1,000,000 worth of iPhones in a small pallet. If freight costs $2,000, the logistics markup is 0.2%. Freight is almost irrelevant.</li>
               <li><strong>Low-Value Density (e.g., Plastic Trash Cans):</strong> A container full of plastic trash cans is mostly empty air. The goods might only be worth $10,000, but the container still costs $8,000 to ship. Logistics just added an 80% markup to the product, making it almost impossible to sell profitably.</li>
             </ul>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "Should I include customs duties in this calculation?", answer: "Yes! A true 'Landed Cost' must include the factory price, the freight, the insurance, and the import duties. All of those should be bundled into your Total Freight Cost input." },
             { question: "How can I lower my logistics cost per unit?", answer: "The fastest way is packaging optimization. If you redesign your retail box to be 1 inch thinner, you might fit 20% more units into the exact same shipping container, instantly lowering the freight cost per unit." },

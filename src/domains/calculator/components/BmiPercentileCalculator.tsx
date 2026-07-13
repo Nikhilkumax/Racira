@@ -141,14 +141,14 @@ const BmiPercentileCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Understanding BMI in Youth</h2>
               <p>Body Mass Index (BMI) is a measure of weight relative to height. For children and teens, BMI is age- and sex-specific and is often referred to as BMI-for-age.</p>
               <h3>Why Percentiles Matter</h3>
               <p>A BMI of 22 might be healthy for a 19-year-old but could indicate obesity in a 10-year-old. By using percentiles, we can see where a child stands relative to the "standard" population. The goal is typically to remain within the 5th to 85th percentile range.</p>
               <h3>Next Steps</h3>
               <p>If a child's BMI percentile falls outside the healthy range, it is not an immediate cause for alarm, but it is a reason to have a conversation with a healthcare provider. They can assess other factors like diet, physical activity, and family history to provide a complete picture of health.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/bmi-percentile" />
           <PopularCalculators exclude="/calculator/bmi-percentile-calculator" />
         </div>

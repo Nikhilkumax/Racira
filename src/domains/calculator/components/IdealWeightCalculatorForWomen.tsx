@@ -390,7 +390,7 @@ export default function IdealWeightCalculatorForWomen() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Ideal Weight Calculator for Women</h2>
             <p>Every day, millions of women step onto the bathroom scale and feel intense frustration because their weight does not match an arbitrary number they saw in a magazine. Society often conflates a "model physique" with a "healthy physique," leading to dangerous eating disorders and unrealistic expectations. The <strong>Ideal Weight Calculator for Women</strong> strips away cosmetic societal pressures and relies entirely on cold, hard medical science. It utilizes four heavily researched clinical algorithms—developed by physicians—to determine the exact mathematical baseline weight required to ensure optimal cardiovascular health, organ function, and joint longevity based exclusively on your biological height and bone structure.</p>
 
@@ -431,7 +431,7 @@ export default function IdealWeightCalculatorForWomen() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: A Baseline, Not a Bible</h2>
             <p>The Ideal Weight Calculator for Women is a powerful diagnostic tool, but it should never override common sense or how you feel in your own body. If your current weight is vastly higher than the calculated output, it serves as a clinical warning that you may be carrying excess visceral fat, placing you at risk for type 2 diabetes and joint degradation. However, if you are strong, energetic, possess a healthy body fat percentage, and your weight is 10 pounds above the calculated average, you are perfectly healthy. Use the science to guide your journey, but do not let a mathematical equation dictate your self-worth.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/ideal-weight-calculator-for-women" />
           <PopularCalculators exclude="/calculator/ideal-weight-calculator-for-women" />

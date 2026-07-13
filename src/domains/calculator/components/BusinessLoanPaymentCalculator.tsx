@@ -208,7 +208,7 @@ export default function BusinessLoanPaymentCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding Business Loan Payments</h2>
             <p>A <strong>Business Loan Payment Calculator</strong> is an essential financial planning tool for any entrepreneur or business owner seeking debt financing. Unlike personal loans, business loans come with a vastly wider range of structures, rates, and fees that can make it difficult to compare offers side-by-side. This calculator simplifies that process by computing your exact monthly payment, total interest cost, and complete amortization schedule in seconds, enabling you to make data-driven borrowing decisions.</p>
             <p>Understanding the true cost of a business loan goes beyond the monthly payment figure. A loan with a low monthly payment stretched over a long term may cost your business far more in total interest than a higher-payment, shorter-term loan. This calculator makes those trade-offs immediately visible.</p>
@@ -242,7 +242,7 @@ export default function BusinessLoanPaymentCalculator() {
             <p><strong>Get Pre-Approved from Multiple Sources:</strong> Always compare at least three loan offers before committing. SBA lenders, community banks, credit unions, and CDFI lenders often offer better rates than online alternative lenders. The application process is more rigorous, but the savings are substantial.</p>
             <p><strong>Match Loan Term to Asset Life:</strong> Finance short-term needs (inventory, payroll) with short-term loans or lines of credit. Finance long-term assets (equipment, real estate) with long-term loans whose term does not exceed the useful life of the asset.</p>
             <p><strong>Read the Fine Print on Prepayment:</strong> Some business loans—particularly SBA loans in the first three years—carry prepayment penalties. If you anticipate generating excess cash flow that you would use to pay down the loan early, verify there are no penalties before signing.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/business-loan-payment-calculator" />
           <PopularCalculators exclude="/calculator/business-loan-payment-calculator" />
         </div>

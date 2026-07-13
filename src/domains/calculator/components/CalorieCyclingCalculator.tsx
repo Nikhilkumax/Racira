@@ -368,7 +368,7 @@ export default function CalorieCyclingCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Calorie Cycling Calculator</h2>
             <p>Traditional diet plans typically prescribe a "linear" or flat caloric target. For example, if your Total Daily Energy Expenditure (TDEE) is 2,500 calories and you want to lose fat, a standard diet might tell you to eat 2,000 calories every single day. While this mathematically guarantees fat loss, it ignores a fundamental reality of fitness: your energy demands are not the same every day.</p>
             <p>On a Sunday when you are sitting on the couch binge-watching television, your body does not require massive amounts of energy. However, on a Tuesday when you are performing heavy barbell squats, your central nervous system and muscular system demand significant fuel. If you eat a flat 2,000 calories on both days, you will feel perfectly fine on the couch, but you will feel lethargic, weak, and flat during your squat session. The <strong>Calorie Cycling Calculator</strong> (also known as zig-zag dieting) solves this problem by allocating your weekly caloric allowance strategically.</p>
@@ -400,7 +400,7 @@ export default function CalorieCyclingCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Advanced Nutritional Periodization</h2>
             <p>Calorie cycling is not a magic trick; it still abides by the immutable laws of thermodynamics. However, it represents an advanced form of nutritional periodization. By aligning your energy intake with your actual physical output, you optimize hormones, preserve lean tissue, maximize gym performance, and drastically improve your relationship with food. Use the calculator above to map out your week, hit your net targets, and watch your physique transform.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/calorie-cycling-calculator" />
           <PopularCalculators exclude="/calculator/calorie-cycling-calculator" />

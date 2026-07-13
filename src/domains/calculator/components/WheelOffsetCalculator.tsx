@@ -230,7 +230,7 @@ export default function WheelOffsetCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Why Use a Wheel Offset Calculator?</h2>
             <p>Buying aftermarket wheels is one of the most popular and transformative modifications you can make to a vehicle. However, ensuring those new wheels actually fit without destroying your suspension or fenders is a mathematical headache. A Wheel Offset Calculator takes your factory wheel width and offset, compares it against your desired aftermarket specifications, and instantly tells you exactly how the new wheel will sit in the wheel well.</p>
 
@@ -250,7 +250,7 @@ export default function WheelOffsetCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">How Wheel Width Complicates Offset</h2>
             <p>Offset is not an absolute measurement; it is relative to the width of the wheel. You cannot assume a +40 offset wheel will fit just because your factory wheels are +40 offset. If your factory wheels are 8 inches wide and your new wheels are 10 inches wide, the new wheels are 2 inches wider overall. Even with the exact same +40 offset, the new wheel will stick out 1 inch further toward the fender AND reach 1 inch deeper toward the suspension. Our calculator handles this complex math automatically.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/wheel-offset-calculator" />
           <PopularCalculators />

@@ -279,7 +279,7 @@ export default function SafeFollowingDistanceCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Flaw of "Car Lengths"</h2>
             <p>For decades, driving instructors taught students to leave "one car length of space for every 10 MPH of speed." While this sounds like decent advice, it is incredibly dangerous in practice for two reasons. First, human beings are terrible at judging absolute distances while moving. Estimating "six car lengths" on an empty highway is nearly impossible. Second, modern safety engineering has proven that the one-car-length rule simply does not provide enough physical space to stop at high speeds.</p>
 
@@ -297,7 +297,7 @@ export default function SafeFollowingDistanceCalculator() {
               <li><strong>4 Seconds:</strong> Use during rain, driving at night, or when you are fatigued. Water drastically reduces tire friction, increasing the physical braking distance required.</li>
               <li><strong>6 Seconds:</strong> Use when driving on snow/ice, when towing a heavy trailer, or when following a large commercial truck. Semi-trucks block your forward visibility, meaning you cannot see hazards ahead of them. If the truck swerves to avoid a massive pothole, a 3-second gap will not give you enough time to react.</li>
             </ul>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/safe-following-distance-calculator" />
           <PopularCalculators />

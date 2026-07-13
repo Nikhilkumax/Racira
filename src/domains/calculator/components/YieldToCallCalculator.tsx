@@ -190,7 +190,7 @@ const YieldToCallCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Yield to Call Calculator?</h2>
             <p>A yield to call calculator determines the annualized return on a callable bond if the issuer redeems it on the earliest call date at the specified call price. Pre-filled with a $1,000 face value bond priced at $1,050 with an 8% coupon, $1,020 call price, and 5 years to call, the YTC is approximately 7.02% — meaningfully below the 8% coupon because the investor pays a premium and receives only $1,020 (not $1,000) at call. Callable bonds are common in corporate and municipal bond markets.</p>
             <p>When a bond trades at a premium, the issuer has financial incentive to call it and refinance at lower market rates. In such cases, yield to call is often a more realistic return expectation than yield to maturity. Our yield to call calculator helps bond investors assess call risk and true expected return.</p>
@@ -207,7 +207,7 @@ const YieldToCallCalculator = () => {
             <p>Use YTM for non-callable bonds or discount bonds unlikely to be called. Use YTC when the bond trades at a premium, the issuer is investment-grade with strong refinancing incentive, or market rates have fallen significantly since issuance. Always compute yield to worst (the minimum of YTM and all YTCs) for callable premium bonds. See also: <a href="/calculator/yield-to-maturity-calculator">yield to maturity calculator</a>, <a href="/calculator/bond-price-calculator">bond price calculator</a>, and <a href="/calculator/bond-duration-calculator">bond duration calculator</a>.</p>
             <h2 className="text-2xl font-bold mb-3">Benefits of This Calculator</h2>
             <p>Manually computing YTC requires iterative trial-and-error calculations involving exponents. This yield to call calculator delivers precise results in milliseconds, with a clear visual comparison of all three yield metrics to help you quickly assess the trade-off between coupon income and call risk.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/yield-to-call-calculator" />
           <PopularCalculators exclude="/calculator/yield-to-call-calculator" />
         </div>

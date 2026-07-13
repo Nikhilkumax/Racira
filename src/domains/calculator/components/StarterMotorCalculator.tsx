@@ -328,7 +328,7 @@ export default function StarterMotorCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Mechanics of Starting an Engine</h2>
             <p>Before a modern internal combustion engine can run on its own power, it must be physically rotated by an external force to suck in the first breath of air and compress the first spray of fuel. This incredibly demanding task falls on the <strong>Starter Motor</strong>, a small but incredibly powerful electric motor bolted to the side of the engine block.</p>
             <p>The starter motor draws a massive, instantaneous surge of electrical current from the battery to force the heavy steel crankshaft to turn against the mechanical resistance of the engine's internal compression.</p>
@@ -343,7 +343,7 @@ export default function StarterMotorCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">The Brutality of Winter (Cold Starts)</h2>
             <p>Starting an engine in the dead of winter is exponentially harder than in the summer. When temperatures drop below freezing, the engine oil thickens from a smooth fluid into a thick, sticky sludge. The starter motor must fight against this increased mechanical resistance. Simultaneously, the freezing temperatures slow down the chemical reaction inside the Lead-Acid battery, severely reducing its ability to output maximum current. This combination of increased physical resistance and decreased electrical output is why batteries almost always fail on cold winter mornings.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/starter-motor-calculator" />
           <PopularCalculators />

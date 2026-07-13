@@ -214,14 +214,14 @@ export default function SodiumIntakeCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding Your Sodium Limits</h2>
             <p>This <strong>Sodium Intake Calculator</strong> determines your ideal sodium target and maximum healthy limit based on guidelines from the FDA and the American Heart Association (AHA). For most adults, the FDA recommends no more than 2,300mg of sodium per day, but the AHA suggests an ideal limit of 1,500mg for optimal cardiovascular health — especially for those with high blood pressure.</p>
             <h2 className="text-2xl font-bold mb-3">The Athlete Exception</h2>
             <p>While the general population consumes too much sodium, high-level athletes and endurance runners face the opposite risk. Intense exercise causes significant sodium loss through sweat. If you are training for a marathon, competing in hot climates, or are a "salty sweater," restricting your sodium to 1,500mg can cause severe cramping and hyponatremia. This calculator adjusts your limits upward if you select intense activity profiles.</p>
             <h2 className="text-2xl font-bold mb-3">Hidden Sodium in Your Diet</h2>
             <p>You can throw away your salt shaker and still consume excessive sodium. Over 70% of the sodium in the American diet is added during manufacturing and processing. "The Salty Six" (breads, pizza, sandwiches, cold cuts, soup, and tacos) are responsible for a massive portion of dietary sodium. Reading nutrition labels and choosing "low sodium" (140mg or less per serving) or "no salt added" options is the most effective way to lower your intake. Related tools: <a href="/calculator/blood-pressure-calculator">Blood Pressure Calculator</a>, <a href="/calculator/potassium-intake-calculator">Potassium Calculator</a>.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/sodium-intake-calculator" />
           <PopularCalculators exclude="/calculator/sodium-intake-calculator" />
         </div>

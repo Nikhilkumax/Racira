@@ -155,7 +155,7 @@ const EnergyEfficientApplianceCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Understanding Appliance Energy Efficiency</h2>
               <p>Upgrading to energy-efficient appliances is one of the most effective ways to reduce your household's carbon footprint and save money on electricity bills. Modern appliances, especially those with the ENERGY STAR label, use significantly less energy than models built just a decade ago.</p>
               
@@ -164,7 +164,7 @@ const EnergyEfficientApplianceCalculator = () => {
 
               <h3>What is a Payback Period?</h3>
               <p>The payback period is the time it takes for the energy savings to equal the cost of the new appliance. For example, if a new washing machine costs $800 but saves you $100 a year in electricity and water, the payback period is 8 years. If the appliance lasts 12 years, you will enjoy 4 years of pure profit.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/energy-efficient-appliance" />
           <PopularCalculators exclude="/calculator/energy-efficient-appliance-calculator" />
         </div>

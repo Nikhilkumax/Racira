@@ -291,7 +291,7 @@ export default function CrossFitWodCalorieCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Brutal Efficiency of CrossFit for Weight Loss</h2>
             <p>Walk into any CrossFit "box" (gym) around the world, and you will see athletes lying flat on their backs, gasping for air after a 12-minute workout. To an outsider who is used to spending an hour walking on a treadmill, a 12-minute workout sounds absurd. However, from a purely thermodynamic and physiological standpoint, CrossFit represents the absolute pinnacle of caloric efficiency. By combining heavy resistance training with maximal cardiovascular output and minimal rest, it forces the human body to expend a staggering amount of energy in a very short window. The <strong>CrossFit WOD Calorie Calculator</strong> bypasses inaccurate smart watch estimations by utilizing clinical Metabolic Equivalent (MET) formulas, translating your body weight, time domain, and WOD modality into mathematically precise expenditure data.</p>
 
@@ -321,7 +321,7 @@ export default function CrossFitWodCalorieCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Don't Rely on the Watch</h2>
             <p>Fitness trackers are notoriously terrible at estimating caloric burn during CrossFit because they rely entirely on heart rate. When you perform heavy Olympic lifts, your blood pressure spikes to push blood to your muscles, which artificially spikes your heart rate. Your watch thinks you are sprinting and wildly overestimates the calories. Stop relying on inaccurate wrist trackers. Use the CrossFit WOD Calorie Calculator to track your active workout time, dial in your nutrition, and let the intensity of functional fitness forge a leaner, stronger physique.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/crossfit-wod-calorie-calculator" />
           <PopularCalculators exclude="/calculator/crossfit-wod-calorie-calculator" />

@@ -258,7 +258,7 @@ export default function CostPerShipmentCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What is the Fully Burdened Cost per Shipment?</h2>
             <p>A massive mistake made by direct-to-consumer (DTC) and e-commerce companies is assuming their "Cost Per Shipment" is simply the $7.50 they pay to UPS for a shipping label. In reality, that box did not magically pack itself.</p>
             <p>The <strong>Fully Burdened Cost per Shipment</strong> measures the true logistical cost of getting a product out the door. It aggregates the carrier postage, the cost of the cardboard box, the cost of the thermal label, and the hourly wage of the warehouse worker who picked and packed the order.</p>
@@ -275,7 +275,7 @@ export default function CostPerShipmentCalculator() {
               <li><strong>Optimize Warehouse Layout:</strong> Implement an efficient pick-path and barcode scanning system to increase the number of orders a worker can pack per hour, driving down the unit labor cost.</li>
               <li><strong>Right-Size Packaging:</strong> Don't ship a tiny item in a huge box filled with expensive bubble wrap. It costs more in materials, and triggers higher volumetric carrier fees.</li>
             </ul>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "Should I include warehouse rent in this calculation?", answer: "Usually, no. Warehouse rent, electricity, and management salaries are typically tracked separately as 'Fixed Fulfillment Overheads'. This calculator focuses on the 'Variable Costs' that directly scale with every new order." },
             { question: "What is a good benchmark for Fulfillment % of AOV?", answer: "It varies heavily by industry. High-end fashion might see 5-8%. Standard e-commerce generally aims for 10-15%. Anything above 20% usually indicates a broken business model, as it leaves no room for product COGS, marketing, and profit." },

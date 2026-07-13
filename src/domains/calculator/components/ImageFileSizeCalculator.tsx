@@ -147,7 +147,7 @@ const ImageFileSizeCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Digital Image Architecture</h2>
               <p>Understanding how image file sizes are calculated requires knowledge of resolution and color depth. A digital image is essentially a grid of pixels, where each pixel stores a specific color value.</p>
               
@@ -156,7 +156,7 @@ const ImageFileSizeCalculator = () => {
 
               <h3>Bit Depth and Color Range</h3>
               <p>The bit depth determines the precision of color representation. For example, a 1-bit image only has two states: 0 or 1 (Black or White). A 24-bit image uses 8 bits for each of the three primary color channels (Red, Green, Blue), resulting in over 16 million possible color combinations per pixel.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/image-file-size" />
           <PopularCalculators exclude="/calculator/image-file-size-calculator" />
         </div>

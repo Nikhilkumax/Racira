@@ -108,14 +108,14 @@ const TraditionalIraCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Tax-Deferred Growth Explained</h2>
               <p>The Traditional IRA is built around a "pay taxes later" philosophy. By deferring taxes until retirement, your entire contribution — including the portion that would have gone to taxes — grows and compounds for decades.</p>
               <h3>Traditional vs. Roth IRA</h3>
               <p>The core trade-off is between current and future taxes. If you expect to be in a lower tax bracket in retirement, the Traditional IRA is often better. If you expect a higher tax rate in retirement (or simply want tax-free income), the Roth IRA is typically superior.</p>
               <h3>Deductibility Rules</h3>
               <p>If you (or your spouse) have a workplace retirement plan (like a 401k), your Traditional IRA deduction may be limited or eliminated based on your income. For 2024, single filers with a workplace plan see reduced deductibility starting at $77,000 MAGI.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/traditional-ira" />
           <PopularCalculators exclude="/calculator/traditional-ira-calculator" />
         </div>

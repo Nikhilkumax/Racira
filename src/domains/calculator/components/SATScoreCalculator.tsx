@@ -139,7 +139,7 @@ const SATScoreCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Understanding the SAT Curve</h2>
               <p>The SAT uses a process called "equating" to ensure that scores are consistent across different test dates, regardless of slight variations in difficulty. This means that missing two questions on a particularly hard test might result in the same scaled score as missing zero questions on an easier test.</p>
               
@@ -148,7 +148,7 @@ const SATScoreCalculator = () => {
 
               <h3>Section Weighting</h3>
               <p>The SAT is divided into two 800-point halves. The first is the Evidence-Based Reading and Writing section, which combines your performance on the Reading test and the Writing & Language test. The second is the Math section, which combines the calculator and non-calculator portions.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/sat-score" />
           <PopularCalculators exclude="/calculator/sat-score-calculator" />
         </div>

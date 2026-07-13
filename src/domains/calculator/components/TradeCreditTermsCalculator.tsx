@@ -259,7 +259,7 @@ export default function TradeCreditTermsCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Are Trade Credit Terms?</h2>
             <p>Trade credit terms (also known as payment terms) dictate how and when a buyer must pay a supplier for goods or services. They are often displayed in a shorthand format like <strong>"2/10 Net 30"</strong>.</p>
             <ul>
@@ -280,7 +280,7 @@ export default function TradeCreditTermsCalculator() {
             </ul>
             <p>Because the EAR of standard terms like 1/10 Net 30 (18% EAR) or 2/10 Net 30 (44% EAR) is almost always higher than standard commercial lending rates, <strong>it is almost always financially optimal to take the discount</strong>.</p>
 
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "What does '1/10 Net 30' mean?", answer: "It means you receive a 1% discount if you pay within 10 days. Otherwise, the full net amount is due in 30 days." },
             { question: "What is EAR vs APR in trade credit?", answer: "The APR (Annual Percentage Rate) simply multiplies the periodic rate by the number of periods in a year. The EAR (Effective Annual Rate) accounts for compound interest, providing a slightly higher and mathematically precise measure of the true cost of missing the discount." },

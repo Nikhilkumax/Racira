@@ -164,7 +164,7 @@ const ProfessionalTaxCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">What Is Professional Tax?</h2>
               <p>Professional Tax (PT) is a direct tax levied by state governments on individuals earning income through employment, trade, or profession. It is one of the oldest forms of taxation in India and is governed by Article 276 of the Indian Constitution, which caps it at ₹2,500 per year.</p>
 
@@ -187,7 +187,7 @@ const ProfessionalTaxCalculator = () => {
               <p>Several states and union territories do not levy Professional Tax, including Delhi, Uttar Pradesh, Rajasthan, Haryana, Uttarakhand, Punjab, Himachal Pradesh, and Jammu & Kashmir.</p>
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> PT rates vary by state and are subject to change. Some states have special rates for February. Verify with your employer or state government portal.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/professional-tax-calculator" />
           <PopularCalculators exclude="/professional-tax-calculator" />
         </div>

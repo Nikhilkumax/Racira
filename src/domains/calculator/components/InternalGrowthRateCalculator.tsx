@@ -255,7 +255,7 @@ export default function InternalGrowthRateCalculator() {
         {/* SEO Article Section */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Internal Growth Rate (IGR)</h2>
             <p>
               In corporate finance, the <strong>Internal Growth Rate (IGR)</strong> represents the maximum rate of sales and operational growth that a business can achieve without requiring any external funding. This means the firm does not issue new shares (equity financing) or take on new loans or notes (debt financing). Instead, all expansion in assets is financed strictly using the company's retained cash flow from operations.
@@ -283,7 +283,7 @@ export default function InternalGrowthRateCalculator() {
             <p>
               A company can actively influence its internal growth rate by adjusting its dividend payout policy. If a company stops paying dividends entirely (retention ratio of 100%), it maximizes its IGR. As shown in our sensitivity chart, increasing the retention ratio directly translates to a higher organic growth capability because more profits are recycled back into the asset base.
             </p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/internal-growth-rate-calculator" />
           <PopularCalculators exclude="/calculator/internal-growth-rate-calculator" />
         </div>

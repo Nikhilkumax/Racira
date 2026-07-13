@@ -191,7 +191,7 @@ const EngineHorsepowerCalculator = () => {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Horsepower vs. Torque</h2>
             <p>In the automotive world, there is an old saying: <em>"Horsepower sells cars, but torque wins races."</em> To understand how an engine truly performs, you must understand the mathematical relationship between the two.</p>
             <ul>
@@ -212,7 +212,7 @@ const EngineHorsepowerCalculator = () => {
               <li><strong>Semi-Trucks:</strong> A diesel truck might have 1,500 lb-ft of torque but only 400 HP. How? Because diesel engines spin very slowly (redlining around 2,000 RPM). A massive torque number divided by 5252, multiplied by a tiny RPM number, yields low horsepower. They pull massive weight, but accelerate very slowly.</li>
               <li><strong>Formula 1 Cars:</strong> An F1 engine might only produce 300 lb-ft of torque (less than many pickup trucks). However, because the engine can spin at a screaming 15,000 RPM, it generates massive horsepower. They can't tow a boat, but they accelerate blisteringly fast.</li>
             </ul>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/engine-horsepower-calculator" />
           <PopularCalculators exclude="/calculator/engine-horsepower-calculator" />
         </div>

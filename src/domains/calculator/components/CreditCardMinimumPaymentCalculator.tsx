@@ -111,14 +111,14 @@ const CreditCardMinimumPaymentCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">The Minimum Payment Trap</h2>
               <p>Credit card issuers design minimum payments to keep you in debt as long as possible. A $5,000 balance at 22.99% APR can take over 20 years to pay off with minimums alone, costing you thousands more than you borrowed.</p>
               <h3>How Minimums Are Calculated</h3>
               <p>Most card issuers use whichever is greater: a percentage of the balance (1-3%) or a fixed floor amount ($25-$35). As your balance drops, so does your minimum — which is exactly what traps you in a long-term cycle.</p>
               <h3>Break the Cycle</h3>
               <p>The single most powerful step is to fix your payment. Instead of paying whatever the minimum is each month, pick a fixed number (say, $200) and stick to it. This alone can reduce a 20-year payoff to under 3 years.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/credit-card-minimum-payment" />
           <PopularCalculators exclude="/calculator/credit-card-minimum-payment-calculator" />
         </div>

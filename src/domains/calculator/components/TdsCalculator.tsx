@@ -116,7 +116,7 @@ const TDSCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">What Is a TDS Calculator?</h2>
               <p>A TDS (Tax Deducted at Source) calculator helps you estimate the tax that will be deducted from various types of payments. TDS is the Indian government's mechanism to collect tax at the point of income generation.</p>
 
@@ -137,7 +137,7 @@ const TDSCalculator = () => {
               </ul>
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> TDS rates and thresholds are subject to change. This calculator provides estimates only. Verify with the latest Income Tax rules or consult a CA.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/tds-calculator" />
           <PopularCalculators exclude="/tds-calculator" />
         </div>

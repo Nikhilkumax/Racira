@@ -131,7 +131,7 @@ const WeightedGradeCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Understanding Weighted Grading</h2>
               <p>Most college and high school courses use weighted grading systems to ensure that significant assessments, like midterms and finals, contribute more to your final mark than smaller assignments like daily homework or participation.</p>
               
@@ -140,7 +140,7 @@ const WeightedGradeCalculator = () => {
 
               <h3>What if I don't have 100% yet?</h3>
               <p>During the semester, your total weights will likely be less than 100% because you haven't taken the final exam yet. To find your *current* standing, you simply divide your current weighted points by the total weight of the categories you've completed. This calculator does that automatically by normalizing your inputs.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/weighted-grade-calculator" />
           <PopularCalculators exclude="/calculator/weighted-grade-calculator" />
         </div>

@@ -236,7 +236,7 @@ export default function MetsCalculator() {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Science of METs (Metabolic Equivalents)</h2>
             <p>If you are attempting to lose body fat or track your daily energy expenditure, calculating exactly how many calories you burn during a workout is critical. However, most commercial fitness trackers provide highly inaccurate data. To get clinical-grade accuracy, nutritionists and sports scientists rely on the <strong>Metabolic Equivalent of Task (MET)</strong>.</p>
             <p>A MET is a standardized physiological measure expressing the energy cost (or caloric burn rate) of physical activities. <strong>One MET is defined as the exact amount of energy your body burns while sitting completely still on the couch.</strong> This baseline is your resting metabolic rate.</p>
@@ -267,7 +267,7 @@ export default function MetsCalculator() {
             <h2 className="text-2xl font-bold mb-3">Limitations of the MET System</h2>
             <p>While the MET system is the clinical gold standard, it is not flawless. Its primary limitation is that it assumes every person has the exact same mechanical efficiency. </p>
             <p>For example, a professional marathon runner has highly efficient running mechanics. They do not bounce, they do not waste kinetic energy, and their stride is perfect. If they run at 8 mph alongside an amateur runner with terrible form who bounces and thrashes, the amateur runner will actually burn more calories (require more oxygen) to maintain that speed because they are mechanically inefficient. The MET tables provide a population average, but individual biomechanics can cause minor deviations in the final caloric burn.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/mets-calculator" />
           <PopularCalculators exclude="/calculator/mets-calculator" />
         </div>

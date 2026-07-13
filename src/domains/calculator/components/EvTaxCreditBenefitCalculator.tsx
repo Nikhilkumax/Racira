@@ -304,7 +304,7 @@ const EvTaxCreditBenefitCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is the EV Tax Credit Benefit Calculator?</h2>
             <p>This calculator estimates the total financial benefit of buying an electric vehicle, combining the federal tax credit, state incentives, utility rebates, and fuel savings over your ownership period. It also checks federal eligibility based on MSRP, vehicle class, income, and filing status under the Inflation Reduction Act rules.</p>
 
@@ -340,7 +340,7 @@ const EvTaxCreditBenefitCalculator = () => {
 
             <h2 className="text-2xl font-bold mb-3">Benefits of Using This Calculator</h2>
             <p>This tool reveals the complete financial picture of EV ownership — not just the federal credit but every dollar of incentive plus ongoing fuel savings. Use it to compare EVs against gas vehicles on a total-cost basis and to ensure you're capturing every available incentive before purchase.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/ev-tax-credit-benefit-calculator" />
           <PopularCalculators exclude="/calculator/ev-tax-credit-benefit-calculator" />
         </div>

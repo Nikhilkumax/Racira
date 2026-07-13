@@ -400,7 +400,7 @@ export default function AbsorptionVsVariableCostingCalculator() {
 
         {/* SEO CONTENT SECTION */}
         <div className="max-w-[1180px] mt-8">
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
           <h2 className="text-2xl font-bold mb-3">Absorption Costing vs Variable Costing</h2>
           <p>
             In managerial accounting and corporate finance, there are two primary methods used to assign manufacturing costs to inventory and calculate net income for a specific period: <strong>Absorption Costing</strong> and <strong>Variable Costing</strong>. While both methods ultimately account for the exact same total costs over the entire lifecycle of a business, they treat fixed manufacturing overhead very differently in the short term. This fundamental difference in cost classification can lead to vastly different net income figures in a single reporting period, which can significantly influence management decisions, executive compensation bonuses, and external investor perceptions. Understanding the intricate mechanical differences between these two costing systems is essential for anyone studying accounting, managing a production facility, or analyzing corporate financial statements.
@@ -460,7 +460,7 @@ export default function AbsorptionVsVariableCostingCalculator() {
           <p>
             By dynamically adjusting the "Units Produced" versus "Units Sold" inputs, you can instantly observe how inventory fluctuations directly manipulate absorption net income while leaving variable costing net income tied purely to the company's actual sales performance. This tool is invaluable for demonstrating the mechanical flow of fixed overhead through the balance sheet and income statement.
           </p>
-          </article>
+          </section>
         </div>
 
         <FAQSection faqs={[

@@ -257,7 +257,7 @@ export default function SalaryGradeSpreadCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What is a Salary Grade Structure?</h2>
             <p>Instead of creating a unique salary band for every single job title, modern HR departments use a <strong>Grade Structure</strong>. Jobs of similar value and complexity are grouped into the same "Grade" (e.g., Grade 5, Grade 6). For instance, an Accountant II, an HR Generalist, and a Marketing Coordinator might all be classified as Grade 6.</p>
             
@@ -275,7 +275,7 @@ export default function SalaryGradeSpreadCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">How to Spot a Broken Pay Structure</h2>
             <p>If there is <strong>no overlap</strong> between grades (Grade 1 ends at $60k, and Grade 2 starts at $61k), it creates severe pay compression. New hires will come in making exactly the same as tenured employees who just got promoted. Conversely, if there is <strong>too much overlap</strong> (e.g., 70%), the grades are practically identical, rendering the promotion financially meaningless.</p>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "What is a normal Band Spread for a Grade?", answer: "Band Spreads (the difference between Min and Max within the same grade) are typically 30% for administrative roles, 40% to 50% for professional roles, and 60%+ for directors and executives." },
             { question: "If I get promoted, do I get the Midpoint Differential?", answer: "Not automatically. The Midpoint Differential determines the structure of the bands, not your personal raise. However, a standard internal promotion raise is usually designed to roughly match the Midpoint Differential (around 10% to 15%)." },

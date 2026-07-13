@@ -155,7 +155,7 @@ export default function HourlyWageCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Why Convert Salary to an Hourly Wage?</h2>
             <p>At first glance, converting an annual salary into an hourly wage might seem like a simple mathematical exercise. However, for professionals, it is a critical step in understanding the true, granular value of their time. Society often measures career success by the "headline" salary number—$70,000, $100,000, or $150,000. But that headline number hides the reality of how many hours of your life you are actually trading for that money.</p>
             <p>By converting your salary to an hourly wage, you uncover your "Effective Hourly Rate." This metric is essential for evaluating job offers, understanding the financial impact of unpaid overtime, and making better day-to-day spending decisions based on the time-value of your money.</p>
@@ -198,7 +198,7 @@ export default function HourlyWageCalculator() {
             <h2 className="text-2xl font-bold mb-3">Benefits</h2>
             <p>Using an Hourly Wage Calculator shifts your mindset from "salary-focused" to "time-focused." It strips away the illusion of a high salary if that salary is built on the back of excessive, unpaid overtime.</p>
             <p>By defining exactly what an hour of your professional life is worth, this tool empowers you to negotiate fiercely for better work-life balance, evaluate job transitions with mathematical precision, and make purchasing decisions that align with the true value of your time.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/hourly-wage-calculator" />
           <PopularCalculators exclude="/calculator/hourly-wage-calculator" />
         </div>

@@ -97,7 +97,7 @@ export default function BondPriceCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">How Bond Pricing Works</h2>
               <p>A bond is essentially a loan from an investor to a borrower (typically a government or corporation). In exchange for the loan, the borrower promises to pay regular interest payments (coupons) and return the principal (face value) at maturity. The fair price of a bond equals the present value of all future cash flows, discounted at the current market interest rate (yield to maturity).</p>
               <h2 className="text-2xl font-bold mb-3">The Inverse Relationship Between Price and Yield</h2>
@@ -110,7 +110,7 @@ export default function BondPriceCalculator() {
               <p>Duration is a measure of a bond's sensitivity to interest rate changes. A bond with a modified duration of 7 years will decrease in value by approximately 7% if interest rates rise by 1%. Longer maturity bonds have higher duration (more sensitive), and lower-coupon bonds have higher duration for the same maturity. Understanding duration is essential for managing fixed-income portfolio risk.</p>
               <h2 className="text-2xl font-bold mb-3">Bond Yield Measures</h2>
               <p>There are multiple yield measures for bonds: <strong>Coupon Rate</strong> (stated annual interest as % of face value), <strong>Current Yield</strong> (annual coupon ÷ current price), <strong>Yield to Maturity (YTM)</strong> (total return if held to maturity), and <strong>Yield to Call (YTC)</strong> (return if the bond is called by the issuer before maturity). YTM is the most comprehensive and most widely used.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/bond-price-calculator" />
           <PopularCalculators exclude="/calculator/bond-price-calculator" />
         </div>

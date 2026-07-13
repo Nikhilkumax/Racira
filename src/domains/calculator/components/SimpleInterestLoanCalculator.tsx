@@ -196,7 +196,7 @@ export default function SimpleInterestLoanCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Math of Simple Interest</h2>
             <p>Simple interest is the most fundamental concept in borrowing and lending. It operates on a straightforward mathematical equation: <strong>I = P × R × T</strong> (Interest = Principal × Rate × Time). The <strong>Simple Interest Loan Calculator</strong> instantly applies this formula to determine exactly how much a loan or investment will cost over its lifespan.</p>
 
@@ -207,7 +207,7 @@ export default function SimpleInterestLoanCalculator() {
             <h2 className="text-2xl font-bold mb-3">The "Add-On" Installment Trap</h2>
             <p>While the I=PRT formula is simple, lenders can structure the repayment in ways that make the loan mathematically much more expensive. The most common structure is the "Add-On" simple interest loan, frequently used by "buy-here-pay-here" auto dealerships and personal loan companies.</p>
             <p>The lender calculates the total simple interest for the entire 3-year term upfront (e.g., $1,500). They add that to the principal ($10,000) for a total of $11,500, and divide it by 36 months to get a fixed monthly payment of $319.44. The trap here is that even as you pay down the principal over the three years, the lender is still charging you interest as if you held the full $10,000 for the entire term. This effectively doubles the true Annual Percentage Rate (APR) compared to a standard amortizing loan.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/simple-interest-loan-calculator" />
           <PopularCalculators exclude="/calculator/simple-interest-loan-calculator" />
         </div>

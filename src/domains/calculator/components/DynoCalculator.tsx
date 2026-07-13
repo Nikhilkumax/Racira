@@ -281,7 +281,7 @@ export default function DynoCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Mathematics of a Dyno</h2>
             <p>If you strap your car to a dynamometer (a "dyno"), it does not directly measure horsepower. A dyno is physically only capable of measuring two things: <strong>Torque</strong> (the twisting force of the tires against the rollers) and <strong>Engine Speed</strong> (RPM). Once the dyno captures these two variables, its internal computer uses a strict mathematical formula to calculate your Horsepower.</p>
 
@@ -296,7 +296,7 @@ export default function DynoCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Why Diesel Engines Feel So Different</h2>
             <p>Diesel trucks are famous for generating massive amounts of torque (e.g., 1,000+ lb-ft) but relatively low horsepower (e.g., 400 HP). Why? Because diesel engines physically cannot spin fast. A heavy-duty diesel engine might hit its redline at just 3,200 RPM. Because the RPM variable in the horsepower formula is so low, the resulting horsepower number remains low, despite the sheer twisting force being generated.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/dyno-calculator" />
           <PopularCalculators />

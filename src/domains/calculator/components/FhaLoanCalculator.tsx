@@ -179,7 +179,7 @@ export default function FhaLoanCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is an FHA Loan Calculator?</h2>
             <p>An FHA loan calculator is a specialized mortgage tool designed to compute the unique costs associated with a mortgage insured by the Federal Housing Administration. FHA loans are incredibly popular among first-time homebuyers because they drastically lower the barrier to entry, requiring a down payment of just 3.5% and accepting credit scores as low as 580. However, this leniency comes with a specific cost structure that traditional mortgage calculators fail to capture accurately.</p>
             <p>Unlike a conventional loan, an FHA loan mandates two distinct types of Mortgage Insurance Premiums (MIP) to protect the lender against default. Without factoring in both the Upfront MIP and the Annual MIP, a standard calculator will severely underestimate your monthly payment and total loan balance. This FHA loan calculator perfectly replicates the FHA underwriting process, automatically rolling the upfront fees into your loan balance and distributing the annual fees into your monthly payment, giving you the exact, to-the-penny cost of homeownership.</p>
@@ -224,7 +224,7 @@ export default function FhaLoanCalculator() {
             <h2 className="text-2xl font-bold mb-3">Benefits</h2>
             <p>Using an accurate FHA loan calculator is critical because standard mortgage calculators lie to you by omission. If you only calculate Principal and Interest, you will be shocked when the lender shows you the true monthly payment incorporating the mandatory FHA premiums.</p>
             <p>This tool provides absolute clarity. It shows you the true cost of putting down only 3.5%, allowing you to budget safely. By understanding exactly how much of your payment is consumed by interest and insurance versus how much is actually paying down the principal, you can make the most informed decision possible about whether an FHA loan is the right path to your first home.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/fha-loan-calculator" />
           <PopularCalculators exclude="/calculator/fha-loan-calculator" />
         </div>

@@ -222,7 +222,7 @@ export default function FertilityWindowCalculator() {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Mathematics of Conception</h2>
             <p>If you are Trying to Conceive (TTC), timing is absolutely everything. The human reproductive window is surprisingly narrow. Even young, healthy couples having well-timed intercourse only have about a 25% to 30% chance of successfully conceiving in any given cycle.</p>
             <p>This <strong>Fertility Window Calculator</strong> uses the clinical "Standard Days Method" to project exactly when your ovaries will release a mature egg, and maps out the 6-day biological window where intercourse can actually lead to pregnancy.</p>
@@ -246,7 +246,7 @@ export default function FertilityWindowCalculator() {
               <li><strong>Ovulation Predictor Kits (OPKs):</strong> These are cheap urine test strips that detect the Luteinizing Hormone (LH) surge that happens 24-36 hours before the egg is released. When the test line is as dark as the control line, you are in your peak window.</li>
               <li><strong>Basal Body Temperature (BBT):</strong> By taking your temperature the exact moment you wake up every morning with a highly sensitive thermometer, you can confirm ovulation has occurred. The hormone progesterone, released immediately after the egg drops, causes a sustained spike in your resting body temperature.</li>
             </ol>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/fertility-window-calculator" />
           <PopularCalculators exclude="/calculator/fertility-window-calculator" />
         </div>

@@ -354,7 +354,7 @@ export default function PrePregnancyBMICalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Biological Reality of Pregnancy</h2>
             <p>Pregnancy is arguably the most intense physiological stress test the human body can endure. For nine months, the mother's cardiovascular system, hormonal network, and metabolic engine are pushed to their absolute biological limits. Yet, despite the severity of this medical event, societal mythology continues to push the dangerous narrative that pregnant women should "eat for two" and stop worrying about the scale. The medical community vehemently disagrees. The <strong>Pre-Pregnancy BMI & Target Gain Calculator</strong> utilizes the strict guidelines established by the American College of Obstetricians and Gynecologists (ACOG) to mathematically define exactly how much weight you are permitted to gain, proving that your biological starting point dictates the safety of your entire term.</p>
 
@@ -391,7 +391,7 @@ export default function PrePregnancyBMICalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Protect the Baseline</h2>
             <p>Pregnancy is a massive physiological undertaking that requires clinical precision, not dietary recklessness. Use the Pre-Pregnancy BMI & Target Gain Calculator to establish your exact mathematical ceiling. Anchor your dietary decisions to the ACOG guidelines, protect your body from unnecessary adipose accumulation, and ensure a safer, healthier delivery for both you and your child.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/pre-pregnancy-bmi-calculator" />
           <PopularCalculators exclude="/calculator/pre-pregnancy-bmi-calculator" />

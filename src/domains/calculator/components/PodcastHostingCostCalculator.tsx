@@ -124,7 +124,7 @@ export default function PodcastHostingCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">The Hidden Economics of Podcast Hosting</h2>
               <p>Choosing a podcast host is one of the first and most critical technical decisions for any creator. While it might seem like a simple matter of uploading an MP3 file, the infrastructure required to serve high-fidelity audio to thousands of listeners simultaneously is complex and costly. This calculator helps you understand exactly where your money is going and how your costs will scale as your show grows.</p>
 
@@ -142,7 +142,7 @@ export default function PodcastHostingCalculator() {
 
               <h3>5. Free vs. Paid Hosting</h3>
               <p>Services like Spotify for Podcasters offer free hosting because they benefit from having your content on their platform. While free hosting is an excellent way to start, paid hosts offer significant advantages: ownership of your RSS feed, advanced IAB-certified analytics (which advertisers require), private podcasting features, and better customer support. For serious creators, the $15-$20 monthly investment is usually worth the peace of mind and data accuracy.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/podcast-hosting-cost-calculator" />
           <PopularCalculators exclude="/calculator/podcast-hosting-cost-calculator" />
         </div>

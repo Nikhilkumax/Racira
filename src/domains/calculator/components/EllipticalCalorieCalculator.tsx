@@ -309,7 +309,7 @@ export default function EllipticalCalorieCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Elliptical Calorie Calculator</h2>
             <p>Walk into any commercial gym in the world, and you will find the cardio section dominated by elliptical trainers. Since its invention in the 1990s, the elliptical machine has revolutionized cardiovascular training by offering a unique, suspended-pedal design that mimics the natural motion of running without subjecting the skeletal system to harsh impact forces. However, estimating the true energy expenditure on these machines is notoriously difficult. The <strong>Elliptical Calorie Calculator</strong> bypasses inaccurate gym console readouts by utilizing established Metabolic Equivalent (MET) formulas. By factoring in your exact body mass, duration, and cardiovascular effort level, it provides a highly accurate, biologically sound estimate of your caloric burn.</p>
 
@@ -340,7 +340,7 @@ export default function EllipticalCalorieCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Maximizing Your Elliptical Sessions</h2>
             <p>The elliptical is an incredibly powerful tool for fat loss and cardiovascular health, provided you use it correctly. To maximize your caloric expenditure, stop leaning heavily on the stationary center console (which effectively turns off your core muscles). Stand up straight, actively push and pull the moving handles, and focus on increasing the resistance to challenge your leg muscles. By using the Elliptical Calorie Calculator to track your exact energy expenditure, you can design a precise, zero-impact cardio routine that perfectly aligns with your daily nutritional goals.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/elliptical-calorie-calculator" />
           <PopularCalculators exclude="/calculator/elliptical-calorie-calculator" />

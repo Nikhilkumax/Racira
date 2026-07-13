@@ -211,7 +211,7 @@ export default function ReverseMortgageEstimationCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Reverse Mortgage Math</h2>
             <p>A Home Equity Conversion Mortgage (HECM) allows seniors to access their home equity without taking on a monthly payment. However, determining exactly how much cash you can access is complex. Lenders do not simply give you 100% of your home's value. The <strong>Reverse Mortgage Estimation Calculator</strong> models the FHA's algorithm to show you your true "Principal Limit"—the actual maximum amount the government will insure for your specific profile.</p>
 
@@ -226,7 +226,7 @@ export default function ReverseMortgageEstimationCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">The Rising Loan Balance</h2>
             <p>Because you are not making monthly payments, the interest and annual MIP (0.5%) are continually added to your loan balance. This results in negative amortization—your debt grows every month. As shown in the Equity Projection chart, over 10 to 15 years, the loan balance can grow substantially, consuming the remaining equity in the home unless the property appreciates at a very high rate.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/reverse-mortgage-estimation-calculator" />
           <PopularCalculators exclude="/calculator/reverse-mortgage-estimation-calculator" />
         </div>

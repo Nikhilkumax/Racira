@@ -280,7 +280,7 @@ export default function FleetDepreciationCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Accounting of Aging Vehicles</h2>
             <p>For a logistics or service company, commercial vehicles are typically the largest capital assets on the balance sheet. When a company purchases ten delivery trucks for $50,000 each (a $500,000 investment), they cannot simply deduct that entire half-million dollars from their taxes in the first year. The IRS and standard accounting principles require that the cost of these vehicles be spread out over their "useful life." This spreading out of the cost is known as <strong>Depreciation</strong>.</p>
 
@@ -296,7 +296,7 @@ export default function FleetDepreciationCalculator() {
             <h2 className="text-2xl font-bold mb-3">Why the Deduction is Critical for Business</h2>
             <p>Depreciation is a unique financial metric because it is a "non-cash expense." If your annual fleet depreciation is $40,000, you do not write a $40,000 check to anyone at the end of the year. The money was already spent when you bought the trucks.</p>
             <p>However, you are legally allowed to claim that $40,000 as a business expense on your income statement. This lowers your company's taxable net income by $40,000, which drastically reduces the amount of corporate taxes you have to pay the government. Proper management of fleet depreciation is one of the most powerful tools a logistics company has to protect its cash flow.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/fleet-depreciation-calculator" />
           <PopularCalculators />

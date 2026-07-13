@@ -441,7 +441,7 @@ export default function BodyAdiposityIndexBaiCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Body Adiposity Index (BAI) Calculator</h2>
             <p>For over a century, the medical community has grappled with a massive problem: how do we easily and accurately measure how much fat a person is carrying? The Body Mass Index (BMI) has been the global standard, but it is deeply flawed because it relies heavily on total body weight. A dense, heavily muscled athlete will weigh the same as a severely obese, sedentary individual, causing BMI to falsely classify the athlete as unhealthy. In 2011, researchers at the University of Southern California developed a revolutionary new formula: The <strong>Body Adiposity Index (BAI) Calculator</strong>. The true genius of the BAI is that it completely ignores the scale. It estimates your body fat percentage using only two geometric measurements: your height and the circumference of your hips.</p>
 
@@ -477,7 +477,7 @@ export default function BodyAdiposityIndexBaiCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Throw Away the Scale</h2>
             <p>If you have recently started a weightlifting program, you may notice that the scale is not moving. You might weigh 200 pounds on Day 1, and three months later, you still weigh 200 pounds. This causes immense frustration. However, if you use the Body Adiposity Index Calculator, you might find your hips have shrunk by 3 inches. The scale didn't move because you burned 10 pounds of fat and built 10 pounds of muscle. By relying on geometric proportions instead of gravity, the BAI provides a much clearer window into the true state of your physical transformation.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/body-adiposity-index-bai-calculator" />
           <PopularCalculators exclude="/calculator/body-adiposity-index-bai-calculator" />

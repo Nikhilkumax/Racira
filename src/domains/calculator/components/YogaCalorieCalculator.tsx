@@ -283,7 +283,7 @@ export default function YogaCalorieCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Caloric Demand of Yoga</h2>
             <p>For thousands of years, yoga has been utilized as a profound physical and spiritual discipline. In modern times, it has exploded in popularity as a mainstream fitness routine. However, a massive misconception persists in the fitness industry regarding how many calories a yoga class actually burns. Many practitioners believe that because they are sweating profusely and their muscles are trembling during a hold, they are burning a massive amount of calories. The <strong>Yoga Calorie Calculator</strong> cuts through the myths by utilizing established Metabolic Equivalent (MET) formulas, providing a mathematically accurate caloric burn based on your specific body weight and the exact style of yoga you are practicing.</p>
 
@@ -313,7 +313,7 @@ export default function YogaCalorieCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Where Yoga Fits in Your Routine</h2>
             <p>Stop viewing yoga purely as a calorie-burning mechanism. Use the Yoga Calorie Calculator to accurately log your energy expenditure so you can adjust your daily diet (TDEE) accordingly, but appreciate the discipline for what it truly is: a foundational pillar of longevity. Lift heavy weights to build muscle, run or cycle to build cardiovascular power, and practice yoga to ensure your joints, mind, and nervous system remain flexible, resilient, and healthy for decades to come.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/yoga-calorie-calculator" />
           <PopularCalculators exclude="/calculator/yoga-calorie-calculator" />

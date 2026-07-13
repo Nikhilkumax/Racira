@@ -190,7 +190,7 @@ export default function ConstructionToPermanentLoanCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Construction-to-Permanent Loan?</h2>
             <p>A <strong>construction-to-permanent loan</strong> (C2P), also known as a single-close or one-time-close construction loan, is a unique financing product that combines two separate loan phases into a single mortgage. The first phase funds the construction of your new home. The second phase automatically converts to a standard amortizing mortgage once the construction is complete and the certificate of occupancy is issued. Unlike a traditional two-loan approach, you apply and close only once, saving thousands in duplicate closing costs and eliminating the risk of rate lock expiration.</p>
 
@@ -207,7 +207,7 @@ export default function ConstructionToPermanentLoanCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Who Should Use a C2P Loan?</h2>
             <p>Construction-to-permanent loans are ideal for borrowers who are building a custom home on land they already own or are purchasing simultaneously. They work best when you have a licensed general contractor, detailed construction plans, and a fixed-price contract. Lenders will review all three during underwriting. Owner-builder arrangements (where you act as your own contractor) are typically not eligible for C2P programs and require a separate specialized construction loan product.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/construction-to-permanent-loan-calculator" />
           <PopularCalculators exclude="/calculator/construction-to-permanent-loan-calculator" />
         </div>

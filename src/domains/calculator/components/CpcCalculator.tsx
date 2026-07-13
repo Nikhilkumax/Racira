@@ -84,12 +84,12 @@ const CpcCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Optimizing for CPC</h2>
               <p>CPC is the most popular metric for performance marketers. Unlike CPM, where you pay for eyeballs, CPC ensures you only pay when you actually get a visitor to your site.</p>
               <h3>Balancing CPC and Conversion</h3>
               <p>A low CPC is great, but only if those visitors are actually interested in your product. It is often better to pay a $2.00 CPC for a highly targeted visitor than a $0.20 CPC for someone who leaves your site immediately. Always track your 'Cost Per Acquisition' (CPA) alongside your CPC.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/cpc" />
           <PopularCalculators exclude="/calculator/cpc-calculator" />
         </div>

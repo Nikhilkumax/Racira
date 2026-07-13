@@ -153,7 +153,7 @@ const GSTCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">What Is a GST Calculator?</h2>
               <p>A GST (Goods and Services Tax) calculator helps you add or remove GST from any amount. It's essential for businesses and consumers in India and other countries that use the GST system. Our calculator provides a complete breakdown including CGST, SGST, and IGST splits.</p>
               <p>Whether you're preparing invoices, checking bills, or calculating the tax component of a purchase, this tool gives you instant, accurate results with an invoice-ready format.</p>
@@ -177,7 +177,7 @@ const GSTCalculator = () => {
               <p>Businesses use GST calculators for invoice preparation, pricing decisions, and tax compliance. When quoting prices to customers, you can start with your desired net amount and add GST to determine the total invoice value. When receiving invoices, you can extract the tax component for input tax credit claims.</p>
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> This calculator provides estimates for general purposes. GST rules are complex and subject to change. For official tax compliance, consult a chartered accountant or tax professional.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/gst-calculator" />
           <PopularCalculators exclude="/gst-calculator" />
         </div>

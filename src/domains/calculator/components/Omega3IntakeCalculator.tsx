@@ -224,14 +224,14 @@ export default function Omega3IntakeCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding Omega-3 Fatty Acids</h2>
             <p>This <strong>Omega-3 intake calculator</strong> determines your recommended daily requirement for both ALA (plant-based) and EPA/DHA (marine-based) Omega-3 fatty acids based on age, sex, and specific health goals. Omega-3s are essential polyunsaturated fats, meaning your body cannot produce them from scratch — they must be obtained through diet or supplementation.</p>
             <h2 className="text-2xl font-bold mb-3">The Importance of EPA and DHA vs ALA</h2>
             <p>The most critical distinction in Omega-3 nutrition is between ALA (alpha-linolenic acid) and EPA/DHA (eicosapentaenoic acid and docosahexaenoic acid). Plant sources like flax, chia, and walnuts contain ALA. While ALA is essential, your body actually needs EPA and DHA to reduce inflammation, support cardiovascular health, and maintain brain function. The body converts ALA to EPA/DHA at a very poor rate (typically less than 5%). Therefore, relying solely on plant sources is often insufficient for optimal health, which is why fatty fish or algae-oil supplements are highly recommended.</p>
             <h2 className="text-2xl font-bold mb-3">Therapeutic Dosing for Health Goals</h2>
             <p>While general health requires about 250-500mg of EPA/DHA daily, therapeutic doses are significantly higher. The American Heart Association recommends 1,000mg daily for patients with coronary heart disease, and 2,000-4,000mg for patients attempting to lower high triglyceride levels. High doses of EPA/DHA have also shown efficacy in reducing joint stiffness in rheumatoid arthritis patients. Related health calculators: <a href="/calculator/macro-calculator">Macro Calculator</a>, <a href="/calculator/tdee-calculator">TDEE Calculator</a>.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/omega-3-calculator" />
           <PopularCalculators exclude="/calculator/omega-3-calculator" />
         </div>

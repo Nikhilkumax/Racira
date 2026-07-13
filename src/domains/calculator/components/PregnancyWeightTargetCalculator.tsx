@@ -437,7 +437,7 @@ export default function PregnancyWeightTargetCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Mathematics of Gestation</h2>
             <p>Pregnancy is a masterclass in structural biology. For 40 weeks, the female body acts as a hyper-efficient construction zone, synthesizing complex neurological networks, skeletal structures, and a temporary organ (the placenta) from scratch. Because this process is so biologically demanding, the medical community established strict guidelines for how much raw mass a woman must acquire to support it safely. However, this process is not linear. Gaining 10 pounds in the first trimester is a massive medical red flag, whereas gaining 10 pounds in the third trimester is perfectly normal. The <strong>Pregnancy Weight Gain Trajectory Calculator</strong> maps your weekly progress against the exact biological curve established by the American College of Obstetricians and Gynecologists (ACOG), ensuring your body is scaling correctly.</p>
 
@@ -463,7 +463,7 @@ export default function PregnancyWeightTargetCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Trust the Curve</h2>
             <p>Do not attempt to blindly manage your pregnancy weight by guessing. Use the Pregnancy Weight Gain Trajectory Calculator weekly to verify that your velocity of mass accumulation is locked safely inside the ACOG biological channel. By hitting the mathematical targets, you actively protect yourself from the horrors of preeclampsia and gestational diabetes, ensuring a safer delivery and a healthier foundation for your child's life.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/weight-gain-during-pregnancy-target-calculator" />
           <PopularCalculators exclude="/calculator/weight-gain-during-pregnancy-target-calculator" />

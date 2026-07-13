@@ -208,7 +208,7 @@ const RandomNumberGenerator = () => {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What is a Random Number Generator?</h2>
             <p>A <strong>Random Number Generator (RNG)</strong> is a computational or physical device designed to generate a sequence of numbers or symbols that lack any pattern. This online RNG allows you to define a specific numerical range (e.g., 1 to 100) and instantly draw one or multiple unbiased numbers from that pool.</p>
 
@@ -228,7 +228,7 @@ const RandomNumberGenerator = () => {
             <h2 className="text-2xl font-bold mb-3">Pseudo-Random vs. True Random</h2>
             <p>This calculator utilizes a Pseudo-Random Number Generator (PRNG) built into your modern web browser. PRNGs use complex mathematical algorithms to produce sequences of numbers that are practically indistinguishable from true randomness. They are incredibly fast and perfectly reliable for games, raffles, and statistical models.</p>
             <p>However, because they rely on deterministic algorithms (often seeded by the system clock), they are not "True RNGs" (which use unpredictable physical phenomena like atmospheric noise or radioactive decay). Therefore, PRNGs should not be used for high-security cryptography.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/random-number-generator" />
           <PopularCalculators exclude="/calculator/random-number-generator" />
         </div>

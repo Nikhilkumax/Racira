@@ -257,7 +257,7 @@ const ActivationEnergyCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding Activation Energy in Chemical Kinetics</h2>
             <p>In the study of physical chemistry and chemical kinetics, activation energy is one of the most critical concepts governing how and why chemical reactions occur. At its core, activation energy represents the absolute minimum amount of extra energy required by a reacting molecule to get converted into a product. You can visualize it as a massive physical hill or a barrier that reactant molecules must successfully climb over before they can roll down the other side to become products. Even if a chemical reaction is thermodynamically favorable and releases a massive amount of energy (an exothermic reaction), it will not occur spontaneously if the reactant molecules do not possess enough kinetic energy to overcome this initial activation barrier. This explains why a piece of paper, which contains vast amounts of stored chemical energy, does not spontaneously burst into flames at room temperature; it requires the initial activation energy provided by a match or a lighter to begin the combustion process.</p>
             
@@ -282,7 +282,7 @@ const ActivationEnergyCalculator = () => {
             <p>One of the primary benefits of using a dedicated activation energy calculator is avoiding the treacherous pitfalls of unit mismatch. The universal gas constant (R) is fixed at 8.314 J/(mol·K). Because this constant uses Joules and Kelvin, the temperature must always be converted to Kelvin before any math occurs, and the resulting activation energy will always be calculated initially in Joules per mole. Our calculator handles this seamlessly, allowing you to input temperature in Celsius or Fahrenheit while automatically performing the necessary +273.15 conversion to Kelvin in the background.</p>
             
             <p>Furthermore, the calculator provides the final activation energy in all standard scientific units simultaneously. While physicists and mechanical engineers typically prefer Joules (J) or kilojoules (kJ) per mole, biochemists and nutritionists often work exclusively in calories (cal) or kilocalories (kcal) per mole. By displaying the result across all formats—including megajoules (MJ) for highly energetic reactions like combustion—the calculator serves as an interdisciplinary tool bridging the gap between different scientific fields.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/activation-energy-calculator" />
           <PopularCalculators exclude="/calculator/activation-energy-calculator" />
         </div>

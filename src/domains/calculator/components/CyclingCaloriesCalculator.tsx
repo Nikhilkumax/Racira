@@ -206,14 +206,14 @@ export default function CyclingCaloriesCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Weight Loss Power of Cycling</h2>
             <p>This <strong>Cycling Calorie Calculator</strong> uses the clinical METs (Metabolic Equivalent of Task) formula to estimate the energy you burn on a bike. Because cycling is a low-impact exercise, it is often considered superior to running for sustainable weight loss. While running burns massive calories, it causes joint degradation and severe CNS (Central Nervous System) fatigue, meaning you can't run for hours on end. Cyclists, however, routinely go for 2 or 3-hour rides, allowing them to burn upwards of 1,500 calories in a single, enjoyable session.</p>
             <h2 className="text-2xl font-bold mb-3">Aerodynamic Drag and Caloric Burn</h2>
             <p>If you've ever watched the Tour de France, you know aerodynamics are everything. On a flat road, roughly 70% to 90% of the resistance a cyclist must overcome is aerodynamic drag (air pushing against you). Crucially, air resistance is not linear—it increases exponentially with speed. To ride at 10 mph requires a light 6.0 METs of effort. To double that speed to 20 mph, you do not simply double your effort; you must quadruple your power output (reaching 16.0+ METs). This exponential difficulty means fast cycling is one of the most intense caloric burners possible.</p>
             <h2 className="text-2xl font-bold mb-3">Mountain Biking vs Road Cycling</h2>
             <p>You might be surprised to see Mountain Biking rated at a massive 14.0 METs, higher than many fast road cycling paces. When navigating steep, rocky terrain, a mountain biker is constantly standing on the pedals, using their upper body to lift the front wheel, and using their core to balance. This full-body anaerobic engagement spikes caloric burn even when the actual miles-per-hour speed is very low. Related tools: <a href="/calculator/calories-burned-walking">Walking Calorie Calculator</a>, <a href="/calculator/daily-calorie-burn-calculator">TDEE Calculator</a>.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/cycling-calories-calculator" />
           <PopularCalculators exclude="/calculator/cycling-calories-calculator" />
         </div>

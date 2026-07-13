@@ -205,7 +205,7 @@ export default function ViscerialFatCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is Visceral Fat?</h2>
             <p>Visceral fat is the fat that accumulates deep in the abdominal cavity, surrounding vital organs like the liver, pancreas, and intestines. Unlike subcutaneous fat — the soft fat you can pinch under your skin — visceral fat is metabolically active tissue that secretes inflammatory compounds, disrupts hormonal signals, and significantly raises the risk of chronic disease.</p>
             <p>Consumer-grade body composition monitors (like Tanita and InBody scales) express visceral fat as a level from 1 to 15 (or 1 to 30 in some systems). Levels below 4 are considered healthy. Levels above 9 represent very high risk and are associated with metabolic syndrome, elevated triglycerides, low HDL cholesterol, insulin resistance, and systemic inflammation.</p>
@@ -223,7 +223,7 @@ export default function ViscerialFatCalculator() {
             <h2 className="text-2xl font-bold mb-3">How to Reduce Visceral Fat</h2>
             <p>Visceral fat is more responsive to lifestyle interventions than subcutaneous fat. The most evidence-backed strategies include: aerobic exercise (brisk walking, cycling, swimming — 150+ minutes/week), reducing ultra-processed foods and added sugars, improving sleep quality (7–9 hours/night — sleep deprivation increases cortisol, which promotes fat storage), stress management (cortisol directly promotes visceral fat accumulation), and a diet rich in fiber, lean protein, and healthy fats.</p>
             <p>Strength training improves insulin sensitivity and preserves muscle mass, creating a metabolic environment less conducive to fat storage. The combination of aerobic exercise and resistance training is more effective than either alone for reducing visceral fat levels.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/visceral-fat-calculator" />
           <PopularCalculators exclude="/calculator/visceral-fat-calculator" />
         </div>

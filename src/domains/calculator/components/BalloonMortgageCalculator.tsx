@@ -175,7 +175,7 @@ const BalloonMortgageCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">What Is a Balloon Mortgage?</h2>
               <p>A balloon mortgage is a unique type of financing that offers the low monthly payments of a long-term mortgage (like a 30-year fixed) but requires the borrower to pay off the entire remaining balance in one large "balloon" payment at the end of a much shorter term (typically 5, 7, or 10 years).</p>
 
@@ -207,7 +207,7 @@ const BalloonMortgageCalculator = () => {
                 <li><strong>Sell the Property:</strong> List your home early enough to ensure a sale before the payment deadline.</li>
                 <li><strong>Aggressive Savings:</strong> Set aside extra funds each month to chip away at the principal or build a cash reserve for the final payment.</li>
               </ul>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/balloon-mortgage-calculator" />
           <PopularCalculators exclude="/calculator/balloon-mortgage-calculator" />
         </div>

@@ -374,7 +374,7 @@ export default function CarbCyclingCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Carb Cycling Calculator</h2>
             <p>Traditional diets operate on a linear model: you eat the exact same amount of food and the exact same macronutrient ratios every single day until you reach your goal. While this works mathematically, it ignores a fundamental biological reality—your energy expenditure is not linear. On a Tuesday, you might endure a brutal 90-minute weightlifting session that drains your muscular glycogen. On a Wednesday, you might sit at a desk for nine hours and do nothing.</p>
             <p>If you eat a massive amount of carbohydrates on Wednesday (your rest day), those excess carbs have nowhere to go; your glycogen tanks are already full from sitting, so the excess energy is highly likely to be stored as body fat. Conversely, if you eat a low-carb diet on Tuesday (your heavy training day), you will suffer from terrible gym performance and risk muscle catabolism. <strong>Carb Cycling</strong> solves this by periodizing your nutrition to match your physical output. Our Carb Cycling Calculator allows you to map your carbohydrate intake directly to your weekly training intensity.</p>
@@ -421,7 +421,7 @@ export default function CarbCyclingCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Advanced Nutritional Strategy</h2>
             <p>Carb cycling is an advanced protocol. It requires meticulous tracking, digital food scales, and a solid understanding of macronutrients. It is not recommended for absolute beginners who have never tracked a calorie. However, for intermediate and advanced athletes who are dealing with diet fatigue, stalled fat loss, or poor gym performance on a standard cut, Carb Cycling is an incredibly powerful tool to break through plateaus and optimize body composition.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/carb-cycling-calculator" />
           <PopularCalculators exclude="/calculator/carb-cycling-calculator" />

@@ -104,14 +104,14 @@ const WaistToHipRatioCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Understanding Waist-to-Hip Ratio</h2>
               <p>The WHO uses WHR as a key indicator of abdominal obesity and associated health risks. Fat stored around the abdomen (visceral fat) is metabolically active and linked to insulin resistance, inflammation, and cardiovascular disease.</p>
               <h3>Apple vs. Pear Body Shape</h3>
               <p>"Apple-shaped" individuals carry weight in the abdomen (high WHR). "Pear-shaped" individuals carry weight in the hips and thighs (low WHR). Research consistently shows that apple-shaped body composition carries significantly higher health risks.</p>
               <h3>How to Measure Correctly</h3>
               <p>Measure your waist at its narrowest point (usually just above the belly button). Measure your hip at the widest point (around the hip bones and buttocks). Breathe normally during measurement — don't suck in.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/waist-to-hip-ratio" />
           <PopularCalculators exclude="/calculator/waist-to-hip-ratio-calculator" />
         </div>

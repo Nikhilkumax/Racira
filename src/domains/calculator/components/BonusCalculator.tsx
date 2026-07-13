@@ -146,7 +146,7 @@ const BonusCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Understanding Bonus Taxes: Why Your Net is Lower Than Expected</h2>
               <p>Receiving a bonus is always exciting, but the excitement often turns to confusion when you see the final amount on your paycheck. It's a common observation: "My bonus was taxed at 40%!" In reality, while bonuses might be *withheld* at a higher rate, they are eventually taxed as regular income when you file your annual return. This guide explains how the withholding math works and how you can plan for it.</p>
               
@@ -173,7 +173,7 @@ const BonusCalculator = () => {
 
               <h2 className="text-2xl font-bold mb-3">Withholding vs. Actual Tax Liability</h2>
               <p>It is crucial to understand that **withholding is not the same as the final tax.** If your employer withholds 22% but your actual marginal tax rate is only 12%, you will get that extra 10% back as a tax refund when you file your return the following year. Conversely, if you are in the 37% tax bracket, you will owe the difference when you file. Using a bonus calculator helps you avoid surprises during tax season.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/bonus-calculator" />
           <PopularCalculators exclude="/calculator/bonus-calculator" />
         </div>

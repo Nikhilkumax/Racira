@@ -103,10 +103,10 @@ const ExponentCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">How Exponents Work</h2>
               <p>Exponentiation is repeated multiplication. The base is the number being multiplied, and the exponent tells how many times. This calculator also handles roots (fractional exponents) and scientific notation for very large or small numbers.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/exponent-calculator" />
           <PopularCalculators exclude="/exponent-calculator" />
         </div>

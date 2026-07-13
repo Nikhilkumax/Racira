@@ -233,7 +233,7 @@ export default function FhaMipCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is FHA Mortgage Insurance Premium (MIP)?</h2>
             <p>The <strong>FHA Mortgage Insurance Premium (MIP)</strong> is a mandatory insurance charge required on all loans backed by the Federal Housing Administration. Since FHA loans allow borrowers to purchase homes with as little as 3.5% down, the MIP protects approved lenders against the risk of default on these higher-LTV loans. Without this insurance, banks would be unwilling to extend mortgages to borrowers with smaller down payments and less-than-perfect credit histories.</p>
             <p>MIP has two distinct components. The <strong>Upfront MIP (UFMIP)</strong> is a one-time charge of 1.75% of the base loan amount, due at closing. Most borrowers choose to roll this into the loan, meaning it gets added to the mortgage principal and financed over the loan term. The <strong>Annual MIP</strong> is an ongoing charge expressed as a percentage of the outstanding loan balance, divided into 12 monthly installments that are added to your regular mortgage payment.</p>
@@ -248,7 +248,7 @@ export default function FhaMipCalculator() {
             <h2 className="text-2xl font-bold mb-3">The Refinance Strategy to Eliminate MIP</h2>
             <p>The most effective strategy for eliminating FHA MIP is to refinance into a conventional loan once your home equity reaches 20%. As home values appreciate and you pay down your principal, your LTV will decrease. When your equity reaches 20% of the current appraised value, you can refinance into a conventional mortgage with no PMI requirement, permanently eliminating the MIP burden.</p>
             <p>The break-even timeline for this strategy depends on your current FHA rate, current conventional rates, refinancing closing costs, and how long you plan to stay in the home. Use our Refinance Calculator to model this scenario with your specific numbers.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/fha-mortgage-insurance-premium-mip-calculator" />
           <PopularCalculators exclude="/calculator/fha-mortgage-insurance-premium-mip-calculator" />
         </div>

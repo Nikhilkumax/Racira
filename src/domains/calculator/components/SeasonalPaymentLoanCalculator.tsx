@@ -288,7 +288,7 @@ export default function SeasonalPaymentLoanCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Financing for Highly Cyclical Businesses</h2>
             <p>Traditional commercial loans require fixed, equal monthly payments for the life of the loan. For a standard retail store, this structure works well. But for a business dependent on seasons—like an oceanfront hotel, a snow removal company, or an agricultural supplier—a fixed payment can trigger a devastating cash crunch during the off-season. The <strong>Seasonal Payment Loan Calculator</strong> demonstrates how customized debt structuring allows a business to match its debt service directly to its revenue cycle.</p>
 
@@ -298,7 +298,7 @@ export default function SeasonalPaymentLoanCalculator() {
             <h2 className="text-2xl font-bold mb-3">The Cost of Capitalized Interest</h2>
             <p>What happens to the loan during the off-season? Your lender is not going to stop charging you interest just because your business is closed. The contract will handle this interest in one of two ways. The most cash-flow-friendly option is to <strong>capitalize</strong> the interest. This means you pay absolutely nothing out of pocket during the off-season. However, the interest the bank charges you each month is simply added to your total loan balance. When your peak season starts again, your balance is higher than when the peak season ended.</p>
             <p>Alternatively, the lender may require <strong>interest-only payments</strong> during the off-season. This requires you to keep some cash reserves to make small monthly payments when revenue is low, but it prevents your principal balance from increasing and significantly lowers the total lifetime cost of the loan.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/seasonal-payment-loan-calculator" />
           <PopularCalculators exclude="/calculator/seasonal-payment-loan-calculator" />
         </div>

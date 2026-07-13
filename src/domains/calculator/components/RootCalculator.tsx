@@ -185,7 +185,7 @@ const RootCalculator = () => {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding Mathematical Roots</h2>
             <p>In mathematics, calculating a <strong>root</strong> is the inverse operation of exponentiation. When you raise a number to a power (like 4³ = 64), you multiply that number by itself repeatedly. When you take the root of a number, you are working backward. The "cube root" of 64 asks the question: <em>What number, multiplied by itself 3 times, equals 64?</em> The answer is 4.</p>
 
@@ -205,7 +205,7 @@ const RootCalculator = () => {
             <p>Can you find the root of a negative number? The answer depends on the degree (n) of the root.</p>
             <p>If the degree is <strong>odd</strong> (like a cube root or 5th root), the answer is yes, and it is a real number. The cube root of -8 is -2, because <code>(-2) × (-2) × (-2) = -8</code>.</p>
             <p>If the degree is <strong>even</strong> (like a square root or 4th root), the answer cannot be a real number. Why? Because multiplying any real number by itself an even number of times always results in a positive number. Therefore, to solve the square root of a negative number, mathematicians created <strong>Imaginary Numbers</strong>, denoted by the letter <em>i</em> (where <em>i</em> = √-1). Our calculator automatically detects this scenario and appends <em>i</em> to your result.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/root-calculator" />
           <PopularCalculators exclude="/calculator/root-calculator" />
         </div>

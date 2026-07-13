@@ -120,7 +120,7 @@ export default function InstagramEngagementCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Mastering Instagram Engagement Metrics</h2>
               <p>In the early days of Instagram, a high follower count was the only metric that mattered. Today, the landscape has shifted entirely. Brands, agencies, and the Instagram algorithm itself now prioritize <strong>engagement</strong> over raw numbers. This Instagram Engagement Calculator is designed to help you see past the 'vanity metrics' and understand the true health and commercial value of your social presence.</p>
 
@@ -150,7 +150,7 @@ export default function InstagramEngagementCalculator() {
                 <li><strong>Use Interactive Stories:</strong> Polls, sliders, and 'Add Yours' stickers are low-friction ways to keep your audience interacting with your brand daily.</li>
                 <li><strong>Clean Your Follower List:</strong> Periodically removing 'ghost' or bot accounts can actually increase your overall engagement percentage and reach.</li>
               </ul>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/instagram-engagement-calculator" />
           <PopularCalculators exclude="/calculator/instagram-engagement-calculator" />
         </div>

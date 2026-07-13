@@ -144,7 +144,7 @@ const FlightEmissionsCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Aviation and the Climate</h2>
               <p>Air travel is one of the most carbon-intensive activities an individual can perform. A single long-haul flight can produce more CO2 emissions than many people produce in an entire year through other activities.</p>
               <h3>The Radiative Forcing Index (RFI)</h3>
@@ -156,7 +156,7 @@ const FlightEmissionsCalculator = () => {
                 <li><strong>Economy Class:</strong> Flying economy is the most efficient way to use the plane's space.</li>
                 <li><strong>Newer Aircraft:</strong> Modern planes (like the A350 or 787) are significantly more fuel-efficient than older models.</li>
               </ul>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/flight-emissions" />
           <PopularCalculators exclude="/calculator/flight-emissions-calculator" />
         </div>

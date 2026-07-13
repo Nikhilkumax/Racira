@@ -234,7 +234,7 @@ const BinaryCalculator = () => {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Foundation of Computing</h2>
             <p>Every digital device—from your smartphone to supercomputers—operates fundamentally on <strong>binary code</strong>. The binary numeral system (Base-2) uses only two symbols: <code>0</code> and <code>1</code>. In physical hardware, a 1 represents a microscopic transistor being "ON" (allowing electricity to flow), while a 0 represents it being "OFF." By stringing millions of these binary switches together, computers can perform complex arithmetic and logic instantly.</p>
 
@@ -261,7 +261,7 @@ const BinaryCalculator = () => {
               <li><strong>Left Shift (&lt;&lt;):</strong> Moves bits to the left, appending a 0 to the right. Mathematically, this is a highly efficient way to multiply an integer by 2. (e.g., <code>0011</code> [3 in decimal] shifted left becomes <code>0110</code> [6 in decimal]).</li>
               <li><strong>Right Shift (&gt;&gt;):</strong> Moves bits to the right, discarding the final bit. This effectively divides an integer by 2, dropping any remainder.</li>
             </ul>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/binary-calculator" />
           <PopularCalculators exclude="/calculator/binary-calculator" />
         </div>

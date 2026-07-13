@@ -230,7 +230,7 @@ export default function IvfDueDateCalculator() {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Unmatched Precision of IVF Pregnancy Dating</h2>
             <p>In a standard, unassisted pregnancy, a woman must calculate her Estimated Due Date (EDD) using the first day of her Last Menstrual Period (LMP). This biological dating standard assumes that every woman operates on a perfect 28-day cycle and ovulates exactly on day 14. Because this is rarely true, natural pregnancy due dates are, at best, highly educated guesses.</p>
             <p>In Vitro Fertilization (IVF) fundamentally changes this. Because medical embryologists know the precise moment the egg was fertilized in the laboratory, and exactly how many hours it developed before being transferred into the uterus, IVF offers absolute mathematical precision. There is no guesswork regarding ovulation. Your Estimated Due Date is anchored to exact scientific events.</p>
@@ -268,7 +268,7 @@ export default function IvfDueDateCalculator() {
               <li><strong>Second Trimester:</strong> The first trimester officially ends upon the completion of Week 13. The risk of miscarriage drops exponentially at this stage.</li>
               <li><strong>Anatomy Scan:</strong> At 20 weeks, you will undergo a comprehensive ultrasound to measure all fetal organs and confirm structural development.</li>
             </ul>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/ivf-due-date-calculator" />
           <PopularCalculators exclude="/calculator/ivf-due-date-calculator" />
         </div>

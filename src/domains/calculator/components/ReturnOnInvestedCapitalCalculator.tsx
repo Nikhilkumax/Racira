@@ -277,7 +277,7 @@ export default function ReturnOnInvestedCapitalCalculator() {
         {/* SEO Article Section */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding Return on Invested Capital (ROIC)</h2>
             <p>
               <strong>Return on Invested Capital (ROIC)</strong> is one of the most critical efficiency ratios in corporate valuation. While return on equity (ROE) focuses only on the shareholders' portion of financing, and return on assets (ROA) counts all assets (including passive cash), ROIC isolates the actual return a business generates from its core operating capital base.
@@ -285,7 +285,7 @@ export default function ReturnOnInvestedCapitalCalculator() {
             <p>
               It compares unlevered operating profit (NOPAT) against net deployed capital (Debt + Equity - excess cash). It is the premier metric used by value investors (such as Warren Buffett) to check if a company has an economic moat. A company that consistently generates an ROIC above its capital cost (WACC) is creating real shareholder value.
             </p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/return-on-invested-capital-calculator" />
           <PopularCalculators exclude="/calculator/return-on-invested-capital-calculator" />
         </div>

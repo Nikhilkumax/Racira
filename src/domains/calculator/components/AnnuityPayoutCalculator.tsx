@@ -262,8 +262,8 @@ export default function AnnuityPayoutCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">Understanding Annuity Payouts</h2>
+          <section className="prose-finance text-[15.75px]">
+            <h2 className="text-2xl font-bold mb-3">What Is an Annuity Payout?</h2>
             <p>An annuity is a structured long-term financial contract designed to mitigate the risk of outliving your retirement savings. You transfer a sum of cash to an insurance company or financial institution, and they invest it to produce steady income streams. The payout phase represents the period where you withdraw funds from this capital pool.</p>
             
             <h2 className="text-2xl font-bold mb-3">Key Annuity Terms</h2>
@@ -273,7 +273,7 @@ export default function AnnuityPayoutCalculator() {
               <li><strong>Payment Frequency:</strong> How often you receive payouts (usually monthly, quarterly, or annually).</li>
               <li><strong>Fixed Term vs. Fixed Amount:</strong> Fixed term yields a guaranteed payout amount that drains the balance to zero at the end of the term. Fixed amount lets you define the withdrawal size, meaning the duration will fluctuate based on interest.</li>
             </ul>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/annuity-payout-calculator" />
           <PopularCalculators exclude="/calculator/annuity-payout-calculator" />
         </div>

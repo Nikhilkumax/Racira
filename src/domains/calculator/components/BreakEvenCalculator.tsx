@@ -171,7 +171,7 @@ export default function BreakEvenCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is Break-Even Analysis?</h2>
             <p>A <strong>break-even analysis</strong> identifies the exact point where total revenue equals total costs — the moment your business neither gains nor loses money. Every unit sold beyond the break-even point generates pure profit. This <strong>break-even calculator</strong> helps entrepreneurs, managers, and analysts understand the minimum sales volume required for profitability.</p>
             <h2 className="text-2xl font-bold mb-3">The Break-Even Formula</h2>
@@ -182,7 +182,7 @@ export default function BreakEvenCalculator() {
             <p>Fixed costs include rent, salaries, insurance, and depreciation — costs that don't change with production volume. Variable costs change directly with output: raw materials, direct labor, shipping. Selling price should reflect market positioning and target margin. Most businesses aim for 20–40% contribution margin ratios in manufacturing, 50–80% in services.</p>
             <h2 className="text-2xl font-bold mb-3">Using Break-Even in Business Planning</h2>
             <p>Use BEP when launching a new product to validate pricing. Compare BEP scenarios across different price points. Calculate how many customers or subscriptions you need before becoming profitable. Investors often ask founders about break-even timelines during due diligence.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/break-even-calculator" />
           <PopularCalculators exclude="/calculator/break-even-calculator" />
         </div>

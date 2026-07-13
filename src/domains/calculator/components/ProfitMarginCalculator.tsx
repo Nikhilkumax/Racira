@@ -99,7 +99,7 @@ const ProfitMarginCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">What Is Profit Margin?</h2>
               <p>Profit margin measures how much of every dollar in revenue a company keeps as profit. It is one of the most important financial metrics for evaluating business performance, pricing strategy, and operational efficiency. There are three levels of profit margin, each revealing different aspects of financial health.</p>
 
@@ -137,7 +137,7 @@ const ProfitMarginCalculator = () => {
               </ul>
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> This calculator provides simplified margin calculations. Actual financial analysis should account for depreciation, amortization, and other accounting standards. Consult a CPA for business financial planning.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/profit-margin-calculator" />
           <PopularCalculators exclude="/profit-margin-calculator" />
         </div>

@@ -337,7 +337,7 @@ export default function CarDepreciationCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is Car Depreciation?</h2>
             <p>Car depreciation is the financial reality that a vehicle loses value over time. It is the single largest hidden expense of car ownership. While most people focus on their monthly loan payment, insurance, and gas, the thousands of dollars the vehicle sheds in market value every year quietly dwarfs those other costs. A Car Depreciation Calculator is an essential tool for buyers who want to understand the true cost to own a vehicle before signing the paperwork.</p>
 
@@ -362,7 +362,7 @@ export default function CarDepreciationCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Benefits</h2>
             <p>Using this calculator before purchasing a car forces you to look beyond the monthly payment. By visualizing the massive loss in value, you can make smarter decisions—such as opting for a gently used vehicle or choosing a brand known for retaining its value—ultimately saving you tens of thousands of dollars over your lifetime.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/car-depreciation-calculator" />
           <PopularCalculators />

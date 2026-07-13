@@ -126,14 +126,14 @@ const PaceConverter = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Mastering Your Pace</h2>
               <p>Pace is the primary language of runners. Unlike speed, which tells you how much distance you cover in a set time, pace tells you how long it will take to reach your destination. This makes it invaluable for race planning and training.</p>
               <h3>Training Zones</h3>
               <p>Most running coaches use pace to define training zones. An "Easy Run" might be done at a pace 60-90 seconds slower than your 5K race pace, while "Interval Training" might be done at or faster than race pace to build speed and aerobic capacity.</p>
               <h3>Predicting Race Times</h3>
               <p>Once you know your steady training pace, you can use it to predict your time for longer distances. However, remember that as the distance increases, your pace will naturally slow down. A common rule is to add 15-20 seconds per mile when doubling the distance of a race (e.g., from 5K to 10K).</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/pace-converter" />
           <PopularCalculators exclude="/calculator/pace-converter" />
         </div>

@@ -136,7 +136,7 @@ const SolarEnergySavingsCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Solar: An Investment in Independence</h2>
               <p>Installing solar panels is one of the few home improvements that actually pays for itself. Beyond the environmental benefits, it provides a hedge against rising electricity costs from traditional utility companies.</p>
               <h3>Understanding Net Metering</h3>
@@ -148,7 +148,7 @@ const SolarEnergySavingsCalculator = () => {
                 <li><strong>Local Incentives:</strong> Many states and municipalities offer additional rebates or tax exemptions beyond the federal 30% credit.</li>
                 <li><strong>Energy Usage:</strong> The more electricity you use, the faster your system will pay for itself through avoided costs.</li>
               </ul>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/solar-energy-savings" />
           <PopularCalculators exclude="/calculator/solar-energy-savings-calculator" />
         </div>

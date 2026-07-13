@@ -123,14 +123,14 @@ const WindTurbineEnergyCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Harnessing the Wind</h2>
               <p>Wind energy is one of the fastest-growing sources of renewable electricity. Unlike solar, wind can produce power 24 hours a day, though it is often more intermittent and highly dependent on local terrain.</p>
               <h3>The Cube Law</h3>
               <p>The most important concept in wind energy is that the power available in the wind is proportional to the cube of the wind speed. This means small increases in wind speed lead to massive increases in energy. For example, a 6 m/s wind has nearly double the energy of a 5 m/s wind.</p>
               <h3>Rotor Diameter and Swept Area</h3>
               <p>The power captured is also directly proportional to the swept area of the blades. Doubling the length of the blades (the radius) quadruples the swept area and the potential power output. This is why commercial wind turbines are becoming increasingly massive.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/wind-turbine-energy" />
           <PopularCalculators exclude="/calculator/wind-turbine-energy-calculator" />
         </div>

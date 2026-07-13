@@ -217,7 +217,7 @@ export default function CholesterolRatioCalculator() {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Why "Total Cholesterol" is a Flawed Metric</h2>
             <p>For decades, physicians focused almost entirely on a patient's Total Cholesterol number, pushing patients to aggressively lower it below 200 mg/dL. Modern lipidology has revealed that Total Cholesterol is actually a relatively poor predictor of cardiovascular events when viewed in isolation.</p>
             <p>Cholesterol is not an inherently dangerous toxin; it is a vital structural component of every cell membrane in your body and the precursor to essential hormones like testosterone and estrogen. It travels through your bloodstream inside protein "boats" known as lipoproteins. The clinical danger arises not from having cholesterol, but from the <em>type</em> of lipoproteins carrying it.</p>
@@ -244,7 +244,7 @@ export default function CholesterolRatioCalculator() {
             <h2 className="text-2xl font-bold mb-3">3. Understanding Non-HDL Cholesterol</h2>
             <p>Standard LDL is often called the "bad" cholesterol. However, there are other plaque-forming particles in your blood that a standard LDL test misses, such as VLDL (Very Low-Density Lipoprotein) and IDL (Intermediate-Density Lipoprotein).</p>
             <p>To get a complete picture of your cardiovascular risk load, doctors calculate <strong>Non-HDL Cholesterol</strong> by simply subtracting your HDL from your Total. The resulting number represents the sum total of <em>every single</em> atherogenic, plaque-forming particle circulating in your bloodstream. Current clinical guidelines suggest keeping Non-HDL at least 30 points lower than your Total Cholesterol target.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/cholesterol-ratio-calculator" />
           <PopularCalculators exclude="/calculator/cholesterol-ratio-calculator" />
         </div>

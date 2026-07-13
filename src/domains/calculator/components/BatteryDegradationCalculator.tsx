@@ -387,9 +387,9 @@ export default function BatteryDegradationCalculator() {
         </div>
         
         {/* SEO CONTENT */}
-        <div className="max-w-[1180px] mt-8">
+        <section className="mt-12 space-y-8 text-base text-foreground max-w-[1180px]">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <div>
             <h2 className="text-2xl font-bold mb-3">What Is an EV Battery Degradation Calculator?</h2>
             <p>An EV Battery Degradation Calculator is a diagnostic tool used to estimate the current health and remaining lifespan of a lithium-ion electric vehicle battery. Just like a smartphone battery, an EV battery permanently loses a small fraction of its maximum capacity over time. This calculator uses a multi-variable algorithm to estimate that capacity loss based on the vehicle's age, total mileage, your charging habits, and the local climate.</p>
 
@@ -411,11 +411,11 @@ export default function BatteryDegradationCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
             <p>To maximize the lifespan of your EV battery, follow the "20/80 Rule." Try to keep the battery charged between 20% and 80% for daily driving. Charging to 100% and letting the car sit for days puts extreme stress on the cells. Do not run the battery down to 0%. Avoid DC Fast Charging unless you are on a road trip; use a Level 2 home charger for daily top-ups. If you live in a very hot climate, try to park the car in the shade or a garage whenever possible.</p>
-          </article>
+          </div>
+        </section>
           
-          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/battery-degradation-calculator" />
-          <PopularCalculators />
-        </div>
+        <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/battery-degradation-calculator" />
+        <PopularCalculators />
       </div>
     </>
   );

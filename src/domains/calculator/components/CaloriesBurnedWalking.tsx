@@ -214,7 +214,7 @@ export default function CaloriesBurnedWalking() {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Hidden Power of Walking for Sustainable Fat Loss</h2>
             <p>In the fitness industry, walking is often dismissed in favor of high-intensity interval training (HIIT), heavy weightlifting, or grueling marathons. However, from a physiological perspective, walking is one of the absolute most powerful tools for sustainable fat loss. Why? Because it allows you to burn a significant amount of calories with an exceptionally low impact on your joints and virtually zero stress on your Central Nervous System (CNS).</p>
             <p>This <strong>Calories Burned Walking Calculator</strong> bypasses generic estimates and utilizes clinical MET (Metabolic Equivalent of Task) formulas to precisely calculate your exact energy expenditure. By factoring in your body weight, your exact walking speed, the incline grade of your path, and the terrain you are walking on, it provides laboratory-grade data for your nutritional planning.</p>
@@ -240,7 +240,7 @@ export default function CaloriesBurnedWalking() {
             <h2 className="text-2xl font-bold mb-3">Walking vs. Running: The Calorie Debate</h2>
             <p>A common misconception is that running a mile burns wildly more calories than walking a mile. Physiologically, this is false. Per mile covered, walking and running actually burn a surprisingly similar amount of total energy, because you are ultimately moving the exact same mass across the exact same distance.</p>
             <p>The difference lies entirely in <strong>time efficiency</strong>. A 180lb man might burn 125 calories walking a mile in 20 minutes, whereas he would burn roughly 150 calories running that same mile in 8 minutes. Running doesn't burn magically different calories; it simply allows you to burn the required calories in less than half the time. If you have the time to walk, it is just as effective for creating a daily caloric deficit.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/calories-burned-walking" />
           <PopularCalculators exclude="/calculator/calories-burned-walking" />
         </div>

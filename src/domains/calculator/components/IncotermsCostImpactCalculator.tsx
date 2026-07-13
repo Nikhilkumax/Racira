@@ -315,7 +315,7 @@ export default function IncotermsCostImpactCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What are Incoterms?</h2>
             <p><strong>Incoterms</strong> (International Commercial Terms) are universal, pre-defined commercial rules published by the International Chamber of Commerce (ICC). They are universally used in international commercial transactions and procurement processes.</p>
             <p>A three-letter Incoterm clearly dictates two massive factors in international trade: <strong>Cost</strong> (who pays for which part of the journey) and <strong>Risk</strong> (at what exact geographic point the responsibility for lost/damaged cargo shifts from the seller to the buyer).</p>
@@ -331,7 +331,7 @@ export default function IncotermsCostImpactCalculator() {
             <h2 className="text-2xl font-bold mb-3">Why Your Freight Invoice May Vary</h2>
             <p>If you switch a contract from FOB to CIF, your supplier will increase the price of the goods. They aren't paying the freight out of the kindness of their heart; they are simply baking the freight cost into the commercial invoice.</p>
             <p>Many professional importers prefer <strong>FOB</strong> because it gives them total control over the main ocean freight. They can use their own trusted freight forwarders to negotiate better rates, rather than relying on the seller's forwarder (who may inflate the CIF price for extra profit).</p>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "Can I use FOB for Air Freight?", answer: "Technically, no. According to ICC rules, FOB is strictly for ocean/inland waterway transport. The equivalent term for air freight is FCA (Free Carrier). However, in practice, many businesses mistakenly use FOB for air freight anyway." },
             { question: "Why do sellers hate DDP?", answer: "Because under DDP, the seller is legally responsible for clearing customs in a foreign country (the buyer's country). This means the seller must deal with foreign tax laws, VAT/GST registration, and import tariffs, which is an administrative nightmare for most exporters." },

@@ -202,7 +202,7 @@ const TimeZoneConverter = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">World Time Zones Explained</h2>
               <p>The Earth is divided into 24 primary time zones, each roughly 15° of longitude wide — corresponding to one hour of Earth's rotation. In practice, political boundaries create 38 distinct zones ranging from UTC−12 (Baker Island) to UTC+14 (Line Islands, Kiribati).</p>
               <p>Several zones use half-hour or 45-minute offsets. India (UTC+5:30), Iran (UTC+3:30), Nepal (UTC+5:45), and parts of Australia (UTC+9:30) are the most notable examples. Our converter supports all major offsets.</p>
@@ -217,7 +217,7 @@ const TimeZoneConverter = () => {
                 <li><strong>Respect business hours:</strong> Avoid scheduling before 9 AM or after 6 PM in any participant's zone when possible.</li>
                 <li><strong>Rotate inconvenience:</strong> For recurring meetings spanning very different zones, alternate the meeting time so the same team doesn't always have an early or late call.</li>
               </ul>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/time-zone-converter" />
           <PopularCalculators exclude="/calculator/time-zone-converter" />
         </div>

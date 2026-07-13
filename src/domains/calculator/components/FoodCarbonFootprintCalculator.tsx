@@ -137,14 +137,14 @@ const FoodCarbonFootprintCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Food and the Environment</h2>
               <p>Food production is responsible for about one-quarter of the world's greenhouse gas emissions. This includes everything from the fertilizer used on crops to the fuel used for transportation.</p>
               <h3>The Hierarchy of Impacts</h3>
               <p>Beef and lamb have by far the largest impact due to methane production and the vast amounts of land they require. Dairy products follow closely. In contrast, poultry and eggs have a significantly lower footprint, while plant-based foods like legumes, grains, and vegetables have the lowest of all.</p>
               <h3>Beyond CO2: Water and Land</h3>
               <p>While this calculator focuses on carbon emissions, diet choice also affects water usage and land conservation. A plant-based diet typically requires 75% less agricultural land than one rich in animal products—land that could instead be used for forests to naturally sequester carbon.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/food-carbon-footprint" />
           <PopularCalculators exclude="/calculator/food-carbon-footprint-calculator" />
         </div>

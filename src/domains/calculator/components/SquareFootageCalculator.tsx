@@ -189,7 +189,7 @@ const SquareFootageCalculator = () => {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Mathematics of Area Measurement</h2>
             <p>Whether you are buying real estate, ordering flooring, or applying fertilizer to a lawn, almost everything related to physical land or structure is measured in two-dimensional area. In the United States, the fundamental unit of this measurement is the <strong>Square Foot</strong>.</p>
             <p>If you have a tape measure, you are measuring a single line (one-dimensional length). To get square footage, you are multiplying two perpendicular lines (Length × Width) to calculate the size of the flat surface between them.</p>
@@ -204,7 +204,7 @@ const SquareFootageCalculator = () => {
             <h2 className="text-2xl font-bold mb-3">Acres vs. Square Feet</h2>
             <p>When measuring vast plots of land, square feet becomes an unwieldy number (a standard city block would be hundreds of thousands of square feet). Instead, real estate uses the <strong>Acre</strong>.</p>
             <p>An acre is exactly <strong>43,560 square feet</strong>. If a developer tells you a suburban housing lot is "a quarter acre," they mean the lot contains exactly 10,890 square feet of land (usually roughly 100 feet deep and 100 feet wide).</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/square-footage-calculator" />
           <PopularCalculators exclude="/calculator/square-footage-calculator" />
         </div>

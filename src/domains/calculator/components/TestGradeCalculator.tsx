@@ -135,7 +135,7 @@ const TestGradeCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Effective Grading for Teachers</h2>
               <p>Grading a stack of papers can be time-consuming. Using a test grade calculator allows you to quickly determine a student's percentage score without having to perform manual division for every single paper.</p>
               
@@ -154,7 +154,7 @@ const TestGradeCalculator = () => {
               
               <h3>Grading with Weights</h3>
               <p>If you have different sections of a test that are worth more than others (e.g., Essay vs. Multiple Choice), you should use a Weighted Grade Calculator for a more accurate final score.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/test-grade" />
           <PopularCalculators exclude="/calculator/test-grade-calculator" />
         </div>

@@ -281,7 +281,7 @@ export default function AverageRevenuePerUserCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is ARPU?</h2>
             <p>Average Revenue Per User (ARPU) is a highly tracked performance metric in the software, media, telecommunications, and digital services industries. It essentially breaks down your total revenue on a per-customer basis. By understanding how much revenue a single user generates on average, executives and investors can quickly gauge the profitability of the business model and the effectiveness of upselling strategies.</p>
             
@@ -296,7 +296,7 @@ export default function AverageRevenuePerUserCalculator() {
             
             <h2 className="text-2xl font-bold mb-3">Strategies to Increase ARPU</h2>
             <p>Increasing ARPU is often cheaper than acquiring new customers. The most common strategies include creating tiered pricing models (Good, Better, Best), cross-selling related services, usage-based billing (where customers who use the product more pay more), and straight price increases. A healthy SaaS company should see its ARPU steadily grow year over year as the product matures and provides more value.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/average-revenue-per-user-calculator" />
           <PopularCalculators />

@@ -261,7 +261,7 @@ export default function RadiatorSizeCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Mathematics of Cooling</h2>
             <p>An internal combustion engine acts essentially as a massive heater. When you burn fuel to create horsepower, roughly one-third of the energy from that fuel is absorbed directly into the metal engine block as raw thermal heat. If you double the horsepower of an engine, you are burning twice as much fuel, which means you are dumping twice as much heat into the block.</p>
             <p>The radiator's only job is to act as a heat exchanger, pulling that heat out of the liquid coolant and dissipating it into the passing atmosphere. To dissipate more heat, you need a physically larger radiator.</p>
@@ -273,7 +273,7 @@ export default function RadiatorSizeCalculator() {
             <h2 className="text-2xl font-bold mb-3">The Solution: Adding Core Rows</h2>
             <p>If your engine bay is physically too small to fit a wider radiator, the only solution is to make the radiator thicker by adding rows of cooling tubes. A standard factory radiator is usually a 1-Row design. By stacking a second row of tubes behind the first (creating a 2-Row radiator), you increase the cooling capacity without making the radiator any wider or taller.</p>
             <p>However, there are diminishing returns. As outside air flows through the first row of tubes, the air heats up. By the time that same air hits the second row, it is already warm. By the time it hits a 3rd or 4th row, the air is scorching hot, meaning the back rows are vastly less efficient at extracting heat than the front row. Because of this, a 2-Row radiator only provides about 60% more cooling capacity than a 1-Row, not double.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/radiator-size-calculator" />
           <PopularCalculators />

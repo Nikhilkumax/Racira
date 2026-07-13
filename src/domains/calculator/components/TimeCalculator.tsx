@@ -196,7 +196,7 @@ const TimeCalculator = () => {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Base-60 Problem</h2>
             <p>If you try to add 2 hours and 45 minutes to 3 hours and 30 minutes using a standard desk calculator, you might type <code>2.45 + 3.30</code>. The calculator will output <code>5.75</code>. This is mathematically correct in the Base-10 decimal system, but it is entirely incorrect for calculating time. 5.75 hours is not 5 hours and 75 minutes. Because time rolls over at 60, the correct answer is 6 hours and 15 minutes.</p>
 
@@ -206,7 +206,7 @@ const TimeCalculator = () => {
 
             <h2 className="text-2xl font-bold mb-3">How Time Addition Works</h2>
             <p>To accurately add or subtract time, computers bypass the Base-60 problem entirely by converting everything into a single, massive pool of <strong>Seconds</strong>. For example, 1 hour and 1 minute is converted into 3,660 seconds. The computer then adds the seconds together using standard decimal math. Once the final number of seconds is calculated, the computer physically packages those seconds back up, dividing them into blocks of 86,400 to find days, blocks of 3,600 to find hours, and blocks of 60 to find minutes.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/time-calculator" />
           <PopularCalculators exclude="/calculator/time-calculator" />
         </div>

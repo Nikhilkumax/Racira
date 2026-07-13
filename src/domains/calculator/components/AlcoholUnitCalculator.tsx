@@ -190,7 +190,7 @@ const AlcoholUnitCalculator = () => {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Medical Science Behind Alcohol Units</h2>
             <p>An alcohol unit is a standardized metric designed primarily by the United Kingdom's medical authorities to help the general population accurately track, monitor, and moderate their systemic consumption of ethanol. Because alcoholic beverages violently fluctuate in strength, measuring consumption simply by counting the number of drinks is scientifically useless. A pint of an aggressive, heavy craft India Pale Ale contains drastically more ethanol than a pint of a standard, light mass-market lager. To solve this critical public health problem, medical scientists established that one UK alcohol unit equates precisely to ten milliliters, or approximately eight grams, of pure, undiluted ethanol. The UK National Health Service, alongside the Chief Medical Officers, strongly recommends that adult men and women consume no more than fourteen units of alcohol per week to minimize the severe cardiovascular, neurological, and hepatic risks associated with long-term ethanol consumption.</p>
             
@@ -211,7 +211,7 @@ const AlcoholUnitCalculator = () => {
             
             <h2 className="text-2xl font-bold mb-3">The Long-Term Medical Benefits of Unit Tracking</h2>
             <p>Consistent, mathematically rigorous tracking with an alcohol unit calculator is the most effective method for maintaining strict awareness of your long-term consumption patterns. Human psychology is inherently flawed when estimating casual behavior; a habit of having two large glasses of wine every evening can rapidly and silently escalate into a severe medical liability. Consistently drinking significantly beyond the fourteen-unit weekly threshold exponentially increases your statistical risk of developing severe hepatic cirrhosis, cardiovascular disease, hypertension, and various aggressive forms of cancer, including breast and bowel malignancies. By transforming vague drink counts into hard, actionable numerical data, you empower yourself to make highly informed, mathematically sound decisions regarding your long-term physiological health and longevity.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/alcohol-unit-calculator" />
           <PopularCalculators exclude="/calculator/alcohol-unit-calculator" />
         </div>

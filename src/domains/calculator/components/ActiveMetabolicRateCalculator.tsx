@@ -140,7 +140,7 @@ export default function ActiveMetabolicRateCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding Your Active Metabolic Rate (AMR)</h2>
             <p>The human body is an incredibly complex thermodynamic engine that requires a constant influx of chemical energy to sustain life, repair cellular damage, and perform physical work. This total daily energy expenditure is precisely what we call the Active Metabolic Rate (AMR), though it is frequently referred to in fitness circles as Total Daily Energy Expenditure (TDEE). While your Basal Metabolic Rate (BMR) represents the absolute minimum number of calories your body would burn if you were in a coma and completely motionless for an entire 24-hour period, your AMR takes that baseline figure and scales it up to account for the physical realities of your daily life. Every single time you stand up from a chair, walk to the kitchen, lift weights in the gym, or even digest a meal, you are burning extra calories on top of your baseline BMR. Your AMR is the true, master number in nutrition science. If you consume exactly your AMR in calories every day, your body weight will remain perfectly stable. If you consistently eat below your AMR, you will force your body to metabolize stored fat for energy, resulting in weight loss. If you eat above your AMR, the surplus energy will be stored as either fat or new muscle tissue.</p>
             
@@ -161,7 +161,7 @@ export default function ActiveMetabolicRateCalculator() {
             
             <h2 className="text-2xl font-bold mb-3">Managing Your Goals Safely</h2>
             <p>If you select "Lose Weight," the calculator automatically subtracts exactly 500 calories from your daily AMR. Because one pound of human body fat stores approximately 3,500 calories of energy, maintaining a 500-calorie daily deficit will reliably result in exactly one pound of pure fat loss per week (500 × 7 = 3,500). This is widely considered the maximum sustainable rate of weight loss that does not risk severe muscle degradation or metabolic adaptation (often referred to as "starvation mode"). Conversely, if you select "Gain Muscle," the calculator adds a mild 300-calorie surplus. This is known as a "lean bulk," providing just enough excess energy to fuel the synthesis of new muscle tissue without causing excessive, unwanted fat accumulation.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/active-metabolic-rate-calculator" />
           <PopularCalculators exclude="/calculator/active-metabolic-rate-calculator" />
         </div>

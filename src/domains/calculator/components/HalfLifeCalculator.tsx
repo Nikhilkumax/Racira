@@ -239,7 +239,7 @@ const HalfLifeCalculator = () => {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Mathematics of Decay</h2>
             <p>In science, <strong>Exponential Decay</strong> describes a process where a quantity decreases at a rate proportional to its current value. Because the rate of decay slows down as the quantity shrinks, the material theoretically never reaches absolute zero. Instead, scientists measure the decay using a concept called the <strong>Half-Life</strong>.</p>
             <p>A half-life (denoted as t½) is exactly what it sounds like: the amount of time it takes for half of the original substance to decay or disappear. If you start with 100 grams of a substance that has a half-life of 10 years:</p>
@@ -259,7 +259,7 @@ const HalfLifeCalculator = () => {
 
             <h3>3. Nuclear Physics</h3>
             <p>Radioactive waste from nuclear power plants is highly dangerous. Knowing the half-life of the isotopes produced (such as Plutonium-239, which has a half-life of 24,100 years) tells scientists exactly how long the waste must be securely contained before it decays into safe, stable lead.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/half-life-calculator" />
           <PopularCalculators exclude="/calculator/half-life-calculator" />
         </div>

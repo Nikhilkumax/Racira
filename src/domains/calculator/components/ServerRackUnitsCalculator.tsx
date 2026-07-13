@@ -148,7 +148,7 @@ const ServerRackUnitsCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Data Center Capacity Planning</h2>
               <p>Effective rack management is about more than just physical space; it's about power distribution, weight limits, and airflow. However, everything starts with the Rack Unit (U).</p>
               <h3>Standard Equipment Sizes</h3>
@@ -158,7 +158,7 @@ const ServerRackUnitsCalculator = () => {
                 <li><strong>UPS / Batteries:</strong> Typically 2U to 6U depending on capacity.</li>
                 <li><strong>Patch Panels:</strong> Usually 1U or 2U.</li>
               </ul>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/server-rack-units" />
           <PopularCalculators exclude="/calculator/server-rack-units-calculator" />
         </div>

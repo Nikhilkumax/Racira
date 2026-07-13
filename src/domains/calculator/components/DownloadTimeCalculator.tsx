@@ -132,7 +132,7 @@ const DownloadTimeCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Speed Up Your Downloads</h2>
               <p>Download speed is the rate at which data is transferred from the internet to your local machine. It is the most common metric used by ISPs to market their services.</p>
               <h3>Practical Tips</h3>
@@ -141,7 +141,7 @@ const DownloadTimeCalculator = () => {
                 <li><strong>Time of Day:</strong> Network traffic often peaks in the evenings. Downloading large files overnight or during off-peak hours can be faster.</li>
                 <li><strong>Background Apps:</strong> Close streaming services, cloud sync apps (like OneDrive or Dropbox), and browser tabs to free up bandwidth.</li>
               </ul>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/download-time" />
           <PopularCalculators exclude="/calculator/download-time-calculator" />
         </div>

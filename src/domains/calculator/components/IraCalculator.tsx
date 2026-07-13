@@ -151,7 +151,7 @@ export default function IraCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is an IRA Calculator?</h2>
             <p>An <strong>IRA calculator</strong> projects the future value of your Individual Retirement Account based on annual contributions, current balance, expected return, and time horizon. Whether you have a Traditional IRA (pre-tax contributions) or Roth IRA (after-tax contributions), understanding how compound growth works over decades is essential for retirement planning.</p>
             <h2 className="text-2xl font-bold mb-3">How IRA Growth Is Calculated</h2>
@@ -162,7 +162,7 @@ export default function IraCalculator() {
             <p>Contribution limit: $7,000 ($8,000 age 50+). Roth income limits: phaseout at $146,000–$161,000 (single), $230,000–$240,000 (married). Traditional deductibility phases out if covered by workplace plan. RMDs start at 73 for Traditional; Roth has no RMDs.</p>
             <h2 className="text-2xl font-bold mb-3">Traditional vs. Roth — The Tax Math</h2>
             <p>If your tax rate is higher now than in retirement, Traditional wins. If you expect the same or higher rate in retirement, Roth wins. Young earners in the 22% or lower bracket almost always benefit more from Roth. High earners in the 32%+ bracket often benefit from Traditional deductions today.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/ira-calculator" />
           <PopularCalculators exclude="/calculator/ira-calculator" />
         </div>

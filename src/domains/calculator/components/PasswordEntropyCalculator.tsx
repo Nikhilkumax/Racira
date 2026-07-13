@@ -152,7 +152,7 @@ const PasswordEntropyCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Password Strength vs. Entropy</h2>
               <p>Many websites use simple meters that check for specific characters. However, the true security of a password is its <strong>entropy</strong>, which measures the total number of guesses a computer must make to crack it via brute force.</p>
               
@@ -166,7 +166,7 @@ const PasswordEntropyCalculator = () => {
                 <li><strong>Use a Manager:</strong> The best passwords are those you don't even know. Use a password manager to generate and store 20+ character random strings for every site.</li>
                 <li><strong>Enable MFA:</strong> Multi-Factor Authentication provides a second layer of security even if your password is stolen or cracked.</li>
               </ul>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/password-entropy" />
           <PopularCalculators exclude="/calculator/password-entropy-calculator" />
         </div>

@@ -214,7 +214,7 @@ export default function LifeInsuranceCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">How Much Life Insurance Do You Need?</h2>
             <p>Life insurance is one of the most important financial safety nets you can provide for your family, yet determining how much coverage you need is often confusing. The right amount depends on your income, debts, family situation, existing savings, and financial goals. This calculator uses two proven methods to give you a data-driven coverage estimate rather than an arbitrary rule of thumb.</p>
             <p>The most common mistake people make is either being underinsured (relying solely on employer-provided group coverage, which is typically only 1–2× salary) or overinsured (buying more permanent life insurance than needed due to aggressive sales tactics). A properly sized term life policy can provide comprehensive protection at a fraction of the cost of whole life insurance.</p>
@@ -228,7 +228,7 @@ export default function LifeInsuranceCalculator() {
             <h2 className="text-2xl font-bold mb-3">Term Life vs Whole Life Insurance</h2>
             <p>For most families, term life insurance is the right choice. A 20-year level-term policy locked in at age 30–35 can provide $500,000–$1,000,000 in coverage for $25–60/month. The policy covers the period when your family is most financially vulnerable — when children are young, the mortgage is large, and retirement savings are still accumulating. By the time the term ends (typically when children are grown and the mortgage is paid off), your need for life insurance has usually diminished significantly.</p>
             <p>Whole life and universal life policies combine permanent death benefit coverage with a cash value investment component. While they can make sense in specific estate planning scenarios (particularly for high-net-worth individuals), most financial advisors recommend "buy term and invest the difference" — purchasing affordable term coverage and investing the premium savings in diversified index funds, which typically outperform insurance cash value growth over the long term.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/life-insurance-calculator" />
           <PopularCalculators exclude="/calculator/life-insurance-calculator" />
         </div>

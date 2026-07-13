@@ -114,7 +114,7 @@ const OneRepMaxCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Using Your 1RM for Training</h2>
               <p>Almost all professional strength and hypertrophy programs base your daily working weights on a percentage of your One Rep Max. Instead of guessing how much weight to put on the bar, you use precise percentages to target different physiological adaptations.</p>
               <h3>Training Zones</h3>
@@ -125,7 +125,7 @@ const OneRepMaxCalculator = () => {
               </ul>
               <h3>When Calculations Fail</h3>
               <p>The higher the reps you input, the less accurate the formula becomes. A 1RM estimated from a 3-rep lift will be extremely accurate. A 1RM estimated from a 20-rep lift will likely heavily overestimate your true strength.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/one-rep-max" />
           <PopularCalculators exclude="/calculator/one-rep-max-calculator" />
         </div>

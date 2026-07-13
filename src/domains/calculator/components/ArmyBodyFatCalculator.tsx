@@ -226,7 +226,7 @@ const ArmyBodyFatCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is the Army Body Fat Calculator?</h2>
             <p>The Army Body Fat Calculator uses the U.S. Army's official circumference-based method (AR 600-9) to estimate body fat percentage and evaluate compliance with U.S. Army fitness standards. Pre-filled with age 25, height 70 inches, neck 15.5 inches, and waist 33 inches for a male, the estimated body fat is approximately 17% — well within the Army standard of 22% for the 21–27 age group. This calculator is essential for soldiers, recruits, and fitness-conscious individuals tracking military fitness readiness.</p>
             <h2 className="text-2xl font-bold mb-3">Army Body Fat Formula</h2>
@@ -241,7 +241,7 @@ const ArmyBodyFatCalculator = () => {
             <p>The circumference method has a standard error of approximately ±3–4% body fat compared to DEXA scanning. For very muscular soldiers, the formula may overestimate body fat (larger neck measurement reduces the differential). For soldiers with unusual fat distribution, it may underestimate. The Army acknowledges these limitations but uses the method due to its practicality, reproducibility, and low equipment requirements in field conditions.</p>
             <h2 className="text-2xl font-bold mb-3">Army vs Navy vs Marine Corps Standards</h2>
             <p>All three services use the same Hodgdon &amp; Beckett circumference formula. The differences are in standards and administrative procedures: Navy uses OPNAVINST 6110.1J with slightly higher thresholds in some age groups. Marine Corps uses a similar method with stricter standards (especially for younger males). Army uses AR 600-9, which is updated periodically. For 2024, the Army shifted focus toward overall body composition and fitness rather than body fat alone, incorporating ACFT (Army Combat Fitness Test) performance data alongside body fat measurements.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/army-body-fat-calculator" />
           <PopularCalculators exclude="/calculator/army-body-fat-calculator" />
         </div>

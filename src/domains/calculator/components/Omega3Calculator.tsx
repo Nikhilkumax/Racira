@@ -219,7 +219,7 @@ export default function Omega3Calculator() {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding Omega-3 Fatty Acids</h2>
             <p>Omega-3 fatty acids are "essential" fats. Unlike saturated fats or cholesterol, the human body lacks the enzymes required to produce Omega-3s from scratch. Therefore, you must obtain them directly through your diet or via supplementation. They play a critical structural role in the cell membranes of every tissue in your body, particularly in the brain, retina, and cardiovascular system.</p>
             <p>While the supplement industry often groups all Omega-3s together, from a clinical perspective, they are absolutely not equal. There are three primary types of Omega-3 fatty acids, separated into "Marine" and "Plant" sources:</p>
@@ -258,7 +258,7 @@ export default function Omega3Calculator() {
             <h2 className="text-2xl font-bold mb-3">Toxicity and the Safe Upper Limit</h2>
             <p>Can you overdose on Omega-3s? Yes. Because EPA and DHA actively reduce platelet aggregation (they make your blood less sticky), consuming massive doses acts as a blood thinner.</p>
             <p>The FDA has established a Safe Upper Limit of 5,000 mg (5 grams) per day of combined EPA and DHA. Exceeding this amount can suppress your immune system and significantly increase the risk of severe bleeding episodes. If you are already taking pharmaceutical blood thinners (like Warfarin, Plavix, or even daily Aspirin), you must consult your doctor before starting high-dose Omega-3 therapy, as the compounding blood-thinning effects can be fatal.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/omega-3-calculator" />
           <PopularCalculators exclude="/calculator/omega-3-calculator" />
         </div>

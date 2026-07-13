@@ -120,14 +120,14 @@ const FovCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Why FOV Matters in Gaming</h2>
               <p>Field of View (FOV) determines how much of the game world you can see at once. While it seems simple, developers use different mathematical bases for their FOV sliders.</p>
               <h3>Source Engine Basis (4:3)</h3>
               <p>Games like Counter-Strike, Dota 2, and Team Fortress 2 use a 4:3 base. If you set your FOV to 90 on a 16:9 monitor, your actual horizontal FOV is **106.26°**. This calculator helps you translate that "feel" to other games or monitor setups.</p>
               <h3>Vertical FOV Basis</h3>
               <p>Some modern games (like Battlefield or R6 Siege) use Vertical FOV. In these games, your horizontal vision expands automatically as you use wider monitors, but your vertical vision stays the same. This is generally preferred for consistency across different screen shapes.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/fov" />
           <PopularCalculators exclude="/calculator/fov-calculator" />
         </div>

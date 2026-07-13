@@ -244,7 +244,7 @@ export default function FreightCostToRevenueRatioCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What is the Freight Cost to Revenue Ratio?</h2>
             <p>The <strong>Freight Cost to Revenue Ratio</strong> is a key performance indicator (KPI) used in supply chain management and e-commerce. It measures exactly what percentage of your top-line sales is being consumed by logistics and shipping expenses.</p>
             <p>If a company has a ratio of 10%, it means that for every $100 of product sold, $10 is spent purely on moving that product through the supply chain.</p>
@@ -267,7 +267,7 @@ export default function FreightCostToRevenueRatioCalculator() {
               <li><strong>Optimize Packaging:</strong> Carriers charge by the amount of space a box takes up in a truck, not just its weight. Reducing box sizes or eliminating excess void-fill can drastically reduce shipping costs.</li>
               <li><strong>Raise Product Prices:</strong> If shipping costs cannot be reduced, the only way to fix the ratio is to raise the top-line revenue by increasing prices or implementing shipping surcharges for customers.</li>
             </ol>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "Should I include inbound or outbound freight?", answer: "Usually, this metric includes BOTH inbound freight (bringing raw materials or inventory to your warehouse) and outbound freight (shipping to the final customer). However, some supply chain managers track 'Outbound Freight to Revenue' as a separate, more granular metric." },
             { question: "Does offering 'Free Shipping' ruin this ratio?", answer: "Yes, if it is poorly managed. 'Free Shipping' is a marketing tactic, not a logistics reality. You must pay the carrier. If you offer free shipping, you must bake the average freight cost into the base retail price of your products to maintain a healthy ratio." },

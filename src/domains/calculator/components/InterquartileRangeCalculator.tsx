@@ -136,7 +136,7 @@ const InterquartileRangeCalculator = () => {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is an IQR Calculator?</h2>
             <p>An IQR calculator computes the Interquartile Range — the spread of the middle 50% of a dataset — along with the full five-number summary, Tukey outlier fences, and identified outliers. Pre-filled with {"{7, 15, 36, 39, 40, 41}"}, the IQR is 25 (Q3=40 − Q1=15). The five-number summary chart visualizes Min, Q1, Median, Q3, and Max.</p>
             <h2 className="text-2xl font-bold mb-3">IQR Formula</h2>
@@ -149,7 +149,7 @@ const InterquartileRangeCalculator = () => {
             <p>Robust statistics resist the influence of outliers. The IQR has a breakdown point of 25% — up to 25% of data can be extreme outliers without affecting the IQR. Standard deviation has a 0% breakdown point — even one outlier can distort it drastically. For real-world data with measurement errors, contamination, or heavy-tailed distributions, IQR-based methods (median, MAD, IQR) are preferred over mean-based methods.</p>
             <h2 className="text-2xl font-bold mb-3">Applications</h2>
             <p>Finance: VaR calculations often exclude outlier days using IQR methods. Healthcare: clinical reference ranges typically exclude the top and bottom 2.5% (similar spirit to IQR). Quality control: IQR-based control charts for non-normal processes. Machine learning: feature scaling using IQR (RobustScaler in scikit-learn). Data cleaning: automatically flag potential data entry errors using outlier fences.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/interquartile-range-calculator" />
           <PopularCalculators exclude="/calculator/interquartile-range-calculator" />
         </div>

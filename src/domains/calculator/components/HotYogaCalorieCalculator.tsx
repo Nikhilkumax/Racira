@@ -296,7 +296,7 @@ export default function HotYogaCalorieCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Illusion of the Hot Room</h2>
             <p>If you have ever taken a 90-minute Bikram or Hot Yoga class in a room cranked to 105°F and 40% humidity, you know the feeling of profound exhaustion. Your heart is pounding, you are completely drenched in sweat, and when you step on the scale in the locker room, you are thrilled to see you have miraculously "lost" 3 pounds in an hour and a half. This intense physical feedback makes it incredibly easy to believe that Hot Yoga is the ultimate calorie-burning, fat-melting workout on Earth. Unfortunately, human physiology tells a very different, mathematically strict story. The <strong>Hot Yoga Calorie Calculator</strong> strips away the illusions of thermal stress and water weight to reveal the true thermodynamic reality of your practice.</p>
 
@@ -322,7 +322,7 @@ export default function HotYogaCalorieCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Trust the Physics, Not the Sweat</h2>
             <p>Stop chasing the illusion of the locker room scale, and stop trusting fitness watches that cannot differentiate between thermal stress and mechanical work. To achieve real body recomposition, you need cold, hard data. Use the Hot Yoga Calorie Calculator to track the true, clinical thermodynamic output of your practice, understand your exact fluid loss, and seamlessly integrate your yoga routine into a mathematically sound nutritional plan.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/hot-yoga-calorie-calculator" />
           <PopularCalculators exclude="/calculator/hot-yoga-calorie-calculator" />

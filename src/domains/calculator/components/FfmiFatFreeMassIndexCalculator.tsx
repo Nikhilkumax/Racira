@@ -381,7 +381,7 @@ export default function FfmiFatFreeMassIndexCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Fat-Free Mass Index (FFMI) Calculator</h2>
             <p>For decades, the medical community has relied on the Body Mass Index (BMI) to determine whether an individual is healthy, overweight, or obese. However, anyone who lifts weights knows that BMI is a fundamentally broken metric. It only measures Total Weight against Height. According to BMI, a 220-pound professional bodybuilder with 8% body fat is morbidly obese, placing them in the same health category as a 220-pound sedentary individual with 40% body fat. The <strong>Fat-Free Mass Index (FFMI) Calculator</strong> was developed by sports scientists to fix this flaw. It strips away all adipose tissue (fat) and mathematically isolates pure lean mass, providing the gold-standard metric for assessing true muscularity and genetic potential.</p>
 
@@ -415,7 +415,7 @@ export default function FfmiFatFreeMassIndexCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Tracking True Progress</h2>
             <p>Stop chasing the number on the scale. Gaining 10 pounds of body weight is meaningless if 8 pounds of it is fat and water. By tracking your Normalized FFMI over time, you are tracking pure, actualized muscle tissue. Use the Fat-Free Mass Index Calculator to find your current baseline, set realistic physiological goals, and push yourself toward your true genetic potential.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/ffmi-fat-free-mass-index-calculator" />
           <PopularCalculators exclude="/calculator/ffmi-fat-free-mass-index-calculator" />

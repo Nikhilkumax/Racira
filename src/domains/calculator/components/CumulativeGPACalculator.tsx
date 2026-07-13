@@ -163,7 +163,7 @@ const CumulativeGPACalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Mastering Your GPA</h2>
               <p>Maintaining a strong GPA is often a requirement for scholarships, graduate school admissions, and even certain job opportunities. A cumulative GPA provides a birds-eye view of your entire academic performance, but it can be surprisingly difficult to move once you've accumulated a large number of credits.</p>
               
@@ -172,7 +172,7 @@ const CumulativeGPACalculator = () => {
 
               <h3>Strategic Grade Improvement</h3>
               <p>If you are trying to raise your GPA, focus your best efforts on courses with the highest credit values. A high grade in a 4 or 5-credit course will pull your average up significantly faster than the same grade in a 1 or 2-credit elective.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/cumulative-gpa" />
           <PopularCalculators exclude="/calculator/cumulative-gpa-calculator" />
         </div>

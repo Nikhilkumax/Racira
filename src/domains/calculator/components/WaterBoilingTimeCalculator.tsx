@@ -124,7 +124,7 @@ const WaterBoilingTimeCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">The Physics of Boiling</h2>
               <p>Boiling water seems simple, but it's a fascinating thermodynamic process. To boil water, you must first raise its temperature to the boiling point (sensible heat) and then provide enough energy to convert it from liquid to gas (latent heat of vaporization). This calculator focuses on the first stage: reaching the boiling point.</p>
               
@@ -140,7 +140,7 @@ const WaterBoilingTimeCalculator = () => {
                 <li><strong>Start with Warm Water:</strong> Using warm tap water (if safe and filtered) reduces the temperature delta.</li>
                 <li><strong>Only Boil What You Need:</strong> Boiling two liters when you only need one cup wastes energy and doubles the wait time.</li>
               </ul>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/water-boiling" />
           <PopularCalculators exclude="/calculator/water-boiling-time-calculator" />
         </div>

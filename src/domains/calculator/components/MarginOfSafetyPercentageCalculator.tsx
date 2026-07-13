@@ -258,7 +258,7 @@ export default function MarginOfSafetyPercentageCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What is the Margin of Safety?</h2>
             <p>In cost accounting and business planning, the <strong>Margin of Safety</strong> represents the cushion a company has before it starts operating at a loss. It is the difference between your actual (or expected) sales and your break-even sales.</p>
             <p>If your margin of safety is high, your business can absorb a significant drop in customer demand, an economic recession, or unexpected downtime without plunging into the red. If your margin of safety is low, your business is highly sensitive to even minor disruptions in revenue.</p>
@@ -282,7 +282,7 @@ export default function MarginOfSafetyPercentageCalculator() {
               <li><strong>Reduce Fixed Costs:</strong> Move to a cheaper facility, renegotiate software subscriptions, or reduce administrative headcount. Lowering fixed costs dramatically lowers your break-even point.</li>
               <li><strong>Lower Variable Costs:</strong> Negotiate better rates with suppliers or reduce direct labor costs to improve your contribution margin per unit.</li>
             </ul>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "What is a 'good' Margin of Safety?", answer: "A healthy margin of safety is generally considered to be 20% or higher. However, highly stable, recurring-revenue businesses (like utilities or subscription software) can safely operate with lower margins, while volatile businesses (like fashion retail or restaurants) need higher margins to survive lean seasons." },
             { question: "How do I find my Break-Even Sales?", answer: "To find your break-even sales volume, you must divide your Total Fixed Costs by your Contribution Margin Ratio. The Contribution Margin Ratio is calculated as (Sales Revenue - Variable Costs) / Sales Revenue." },

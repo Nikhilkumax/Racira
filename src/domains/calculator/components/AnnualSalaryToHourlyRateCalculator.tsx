@@ -230,8 +230,8 @@ export default function AnnualSalaryToHourlyRateCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">The "2080" Rule for Salaried Employees</h2>
+          <section className="prose-finance text-[15.75px]">
+            <h2 className="text-2xl font-bold mb-3">Understanding the Salary to Hourly Conversion</h2>
             <p>If you work a standard full-time job in the United States, Human Resources uses a universal number to calculate your hourly rate: <strong>2,080 hours</strong>.</p>
             <p>This number comes from multiplying exactly 40 hours per week by exactly 52 weeks in a year. If you ever want to quickly convert a salary to an hourly rate in your head, simply take the salary, drop the thousands, and divide by 2.</p>
             <p><em>Example: A $50,000 salary divided by 2 is roughly $25 per hour. ($50,000 / 2,080 = $24.03 exact).</em></p>
@@ -246,7 +246,7 @@ export default function AnnualSalaryToHourlyRateCalculator() {
               <li><strong>Evaluating "Hustle Culture":</strong> If you make $100,000 a year but work 80 hours a week, your hourly rate drops from $48/hr to $24/hr. Sometimes, a lower-paying job with better work-life balance actually pays a higher hourly rate.</li>
               <li><strong>Comparing Job Offers:</strong> If Company A offers $60,000 for 40 hours a week, and Company B offers $70,000 but explicitly demands 55 hours a week, Company A is technically paying you a higher hourly rate for your time.</li>
             </ul>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "What if I work 37.5 hours a week?", answer: "Many corporate offices offer a 1-hour unpaid lunch every day, meaning employees are technically scheduled for 37.5 working hours per week. In this case, your total annual hours drop to 1,950, which increases your hourly rate slightly." },
             { question: "How is a monthly rate calculated?", answer: "A monthly rate is always Annual Salary divided by 12. It is NOT your weekly rate multiplied by 4, because most months have slightly more than 4 weeks (4.33 weeks on average)." },

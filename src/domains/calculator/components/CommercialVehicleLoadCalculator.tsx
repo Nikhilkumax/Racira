@@ -283,7 +283,7 @@ export default function CommercialVehicleLoadCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Complexity of Commercial Weight Limits</h2>
             <p>If you rent a standard U-Haul moving truck, you only have to worry about one number: The GVWR (Gross Vehicle Weight Rating). As long as the total weight of the truck plus your furniture is under the limit, you are legally fine. However, for commercial trucks (like 26,000 lb Box Trucks or 80,000 lb Semi-Tractor Trailers), the rules are drastically more complex.</p>
             <p>The Department of Transportation (DOT) does not just weigh the entire truck at once. They force the truck to drive slowly over segmented scales that measure exactly how much weight is pushing down on the front tires (Steer Axle) and the rear tires (Drive Axles) individually.</p>
@@ -295,7 +295,7 @@ export default function CommercialVehicleLoadCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Why Axle Limits Exist</h2>
             <p>The DOT strictly enforces individual axle limits (via the Federal Bridge Formula) because concentrated weight destroys asphalt and bridge structures. If an 80,000 lb semi-truck has all of its weight perfectly distributed across 18 wheels, the road surface can handle it. If that same 80,000 lbs is concentrated entirely on the rear axles, it will physically crack the highway pavement and severely compromise bridge integrity.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/commercial-vehicle-load-calculator" />
           <PopularCalculators />

@@ -157,7 +157,7 @@ const RetentionRatioCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Retention Ratio Calculator?</h2>
             <p>A retention ratio calculator computes what fraction of a company's net income is retained and reinvested into the business rather than paid to shareholders as dividends. Also known as the plowback ratio, it is a fundamental corporate finance metric used by analysts, investors, and CFOs to understand how a company deploys its profits. Pre-filled with $100,000 net income and $30,000 dividends paid, the retention ratio is 70% — the company keeps $70,000 for reinvestment while returning $30,000 to shareholders.</p>
             <h2 className="text-2xl font-bold mb-3">The Retention Ratio Formula</h2>
@@ -174,7 +174,7 @@ const RetentionRatioCalculator = () => {
             <p>The retention ratio directly fuels future EPS growth. When a company retains earnings at high returns on equity, book value per share compounds, which drives earnings growth. Companies with high sustainable ROEs and appropriate retention ratios represent the most powerful compounding machines in equity markets.</p>
             <h2 className="text-2xl font-bold mb-3">Limitations</h2>
             <p>A company can retain 90% of earnings but deploy them into low-return acquisitions or excess working capital — destroying shareholder value. High retention alone does not guarantee value creation. Always verify that the company earns a return on retained earnings above its cost of equity (WACC). A declining retention ratio is not automatically negative — it may signal optimal capital return to shareholders when reinvestment opportunities are exhausted.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/retention-ratio-calculator" />
           <PopularCalculators exclude="/calculator/retention-ratio-calculator" />
         </div>

@@ -114,14 +114,14 @@ const CreditUtilizationCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Why Credit Utilization Matters</h2>
               <p>Credit utilization is the second most important factor in your FICO credit score, accounting for approximately 30% of the total. Understanding and managing it can lead to significant improvements in your creditworthiness.</p>
               <h3>The 30% Rule</h3>
               <p>The widely-cited rule is to keep utilization below 30%. However, research shows that those with the highest credit scores typically have utilization below 10%. The ideal target is as low as possible while still using your cards regularly.</p>
               <h3>Two Ways to Reduce Utilization</h3>
               <p>You can lower your utilization by paying down your balances OR by increasing your total credit limit. Requesting a higher limit on an existing card (without a hard pull) can instantly improve your utilization ratio.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/credit-utilization" />
           <PopularCalculators exclude="/calculator/credit-utilization-calculator" />
         </div>

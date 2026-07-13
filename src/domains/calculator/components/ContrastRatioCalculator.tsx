@@ -136,7 +136,7 @@ const ContrastRatioCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Web Accessibility (a11y) and Color</h2>
               <p>Accessibility is not just a feature; it's a fundamental requirement of the modern web. The Web Content Accessibility Guidelines (WCAG) provide a technical standard for ensuring that web content is accessible to people with various disabilities.</p>
               
@@ -150,7 +150,7 @@ const ContrastRatioCalculator = () => {
                 <li><strong>Weight Matters:</strong> Bolder fonts can often pass contrast tests with a lower ratio than thin fonts of the same color.</li>
                 <li><strong>Don't rely on color alone:</strong> Color contrast is only one part of the story. Use icons, underlines, and clear labels to convey meaning to users who may not be able to perceive color differences at all.</li>
               </ul>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/contrast-ratio" />
           <PopularCalculators exclude="/calculator/contrast-ratio-calculator" />
         </div>

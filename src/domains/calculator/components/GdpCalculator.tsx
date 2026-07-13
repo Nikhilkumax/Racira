@@ -207,7 +207,7 @@ export default function GdpCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding GDP: The Expenditure Approach</h2>
             <p>The Gross Domestic Product (GDP) formula using the expenditure approach is: <strong>GDP = C + I + G + (X − M)</strong>. This is the most commonly used method for calculating GDP. Consumer spending (C) typically represents 65-70% of GDP in developed economies. Business investment (I) covers capital expenditure on equipment, structures, and inventories. Government spending (G) includes federal, state, and local expenditures on goods and services (but not transfer payments like Social Security). Net exports (X−M) is exports minus imports; a trade deficit produces a negative value that reduces GDP.</p>
             <p>The US GDP is approximately $28-29 trillion annually (2024), making it the world's largest economy. China is second at approximately $18 trillion, followed by Germany, Japan, and India. The EU as a bloc exceeds $18 trillion combined. GDP growth of 2-3% annually is considered healthy for a developed economy; emerging markets often target 5-7%.</p>
@@ -223,7 +223,7 @@ export default function GdpCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">GDP Limitations and Alternative Measures</h2>
             <p>GDP was never designed to be a measure of human welfare — it's a measure of economic activity. Environmental economists note that GDP treats environmental destruction as positive (cleanup costs add to GDP). Social economists observe that unpaid work (childcare, eldercare, volunteering) is excluded. Inequality economists note that GDP growth can leave most citizens worse off if gains accrue entirely to the wealthy. Alternative measures like the Human Development Index (HDI), which combines GDP per capita with health and education metrics, and the Genuine Progress Indicator (GPI), which adjusts for inequality and environmental costs, provide complementary perspectives on national wellbeing.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/gdp-calculator" />
           <PopularCalculators exclude="/calculator/gdp-calculator" />
         </div>

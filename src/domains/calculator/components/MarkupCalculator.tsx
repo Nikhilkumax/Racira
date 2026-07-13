@@ -124,7 +124,7 @@ const MarkupCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">What Is Markup?</h2>
               <p>Markup is the amount added to the cost of a product or service to determine its selling price. It is expressed as a percentage of the cost. Markup is one of the most fundamental pricing concepts in business, directly affecting profitability and competitiveness.</p>
 
@@ -158,7 +158,7 @@ const MarkupCalculator = () => {
               </ul>
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> Pricing decisions should consider market conditions, competitor pricing, and perceived value. Markup alone doesn't guarantee profitability — total volume and overhead matter.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/markup-calculator" />
           <PopularCalculators exclude="/markup-calculator" />
         </div>

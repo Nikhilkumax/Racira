@@ -277,7 +277,7 @@ export default function ShippingInsuranceCostCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">How Is Shipping Insurance Calculated?</h2>
             <p>Shipping insurance is designed to protect merchants and individuals from financial loss if a package is damaged, lost, or stolen in transit. The cost of this insurance is primarily based on the <strong>Declared Value</strong> of the goods, the chosen carrier, and the destination.</p>
             
@@ -292,7 +292,7 @@ export default function ShippingInsuranceCostCalculator() {
             
             <h2 className="text-2xl font-bold mb-3">When Should You Buy Shipping Insurance?</h2>
             <p>Shipping insurance is highly recommended if the cost of replacing the item would significantly impact your business margin or personal finances. As a rule of thumb for e-commerce businesses: if your profit margin is tight and the item value is over $100, insure it. Many high-volume shippers choose to "self-insure" low-value items by simply refunding the customer out of pocket when a package is lost, rather than paying an insurance premium on every single box.</p>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "Is my package automatically insured?", answer: "Usually, yes, up to $100. USPS Priority Mail, FedEx Ground, and UPS Ground all include up to $100 of default liability coverage. USPS First Class (now Ground Advantage) also includes up to $100. If your item is worth more, you must purchase declared value coverage." },
             { question: "Does shipping insurance cover porch piracy (stolen after delivery)?", answer: "Typically, NO. Carrier insurance only covers the package while it is in their possession (in transit). Once the tracking marks it as 'Delivered,' carrier liability ends. If you are worried about theft after delivery, require a Signature Confirmation." },

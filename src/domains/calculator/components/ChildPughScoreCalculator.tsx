@@ -254,7 +254,7 @@ export default function ChildPughScoreCalculator() {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Child-Pugh Score</h2>
             <p>The Child-Turcotte-Pugh (CTP) score, commonly known as the Child-Pugh score, was originally developed in 1964 to predict the surgical mortality risk of patients with cirrhosis undergoing liver portocaval shunt operations. Over time, it became the gold standard for predicting the overall severity and prognosis of chronic liver disease.</p>
             <p>While the modern MELD score has largely replaced the Child-Pugh score for determining liver transplant priority due to its purely objective mathematical nature, the Child-Pugh score remains critically important in everyday medicine. It is universally used to adjust medication dosing for patients with liver failure and to assess whether a patient can survive elective surgeries.</p>
@@ -274,7 +274,7 @@ export default function ChildPughScoreCalculator() {
             <p><strong>Class A (Score 5-6):</strong> Compensated. The liver is scarred, but it is still performing its vital functions. Life expectancy remains high.</p>
             <p><strong>Class B (Score 7-9):</strong> Transitioning. The liver is beginning to struggle to keep up with the body's demands, and complications are arising.</p>
             <p><strong>Class C (Score 10-15):</strong> Decompensated. The liver has functionally failed. The patient is at extreme risk of death from bleeding or infection and urgently requires a transplant.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/child-pugh-score-calculator" />
           <PopularCalculators exclude="/calculator/child-pugh-score-calculator" />
         </div>

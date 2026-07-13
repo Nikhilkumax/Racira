@@ -246,7 +246,7 @@ const BasicCalculator = () => {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Basic Four-Function Calculator</h2>
             <p>Our <strong>online basic calculator</strong> provides a clean, distraction-free interface for standard arithmetic operations. It is designed to function exactly like a traditional physical desktop calculator, supporting the "Big Four" mathematical operations: addition, subtraction, multiplication, and division.</p>
             <p>Whether you are balancing a checkbook, splitting a dinner bill, or helping with elementary school homework, a fast, reliable basic calculator is an essential everyday tool.</p>
@@ -264,7 +264,7 @@ const BasicCalculator = () => {
 
             <h2 className="text-2xl font-bold mb-3">Understanding the Memory and Clear Functions</h2>
             <p>The <strong>C (Clear)</strong> button completely wipes the current session—it resets the display to zero and forgets any pending mathematical operations. The <strong>Backspace</strong> icon (located to the left of the zero) allows you to delete the last single digit you typed without clearing the entire number, preventing frustration during long entries.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/basic-calculator" />
           <PopularCalculators exclude="/calculator/basic-calculator" />
         </div>

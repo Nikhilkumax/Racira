@@ -1056,7 +1056,7 @@ const PmiCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is Private Mortgage Insurance (PMI)?</h2>
             <p>Private Mortgage Insurance, commonly known as PMI, is a financial product that protects the lender — not the borrower — in the event of a loan default. It is typically required on conventional mortgage loans when the borrower makes a down payment of less than 20% of the home&apos;s purchase price. While PMI adds to your monthly housing cost, it plays an important role in making homeownership accessible to millions of Americans who cannot yet afford a 20% down payment.</p>
             <p>PMI essentially allows lenders to take on greater risk by insuring themselves against potential losses. Without PMI, most lenders would require a 20% down payment as a mandatory condition for loan approval. With PMI in place, you can purchase a home with as little as 3% to 5% down — a significant advantage in today&apos;s competitive housing market.</p>
@@ -1104,7 +1104,7 @@ const PmiCalculator = () => {
             <h2 className="text-2xl font-bold mb-3">The Benefits of Using a PMI Calculator</h2>
             <p>A PMI calculator gives you a comprehensive, real-time view of one of homeownership&apos;s most misunderstood costs. Instead of being surprised by a higher-than-expected mortgage payment, you can model different down payment amounts, loan types, and payment strategies <em>before</em> you commit. This empowers you to make smarter decisions — whether that means saving a little longer to hit 20% down, choosing a conventional loan over FHA, or structuring extra payments to eliminate PMI as quickly as possible.</p>
             <p>Use this tool alongside our <a href="/calculator/mortgage-calculator">Mortgage Calculator</a> for a complete view of your monthly housing costs, and our <a href="/calculator/home-affordability-calculator">Home Affordability Calculator</a> to determine how much house fits your budget before factoring in PMI.</p>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "What is PMI and why is it required?", answer: "Private Mortgage Insurance (PMI) protects the lender if you default on your loan. It is required on conventional loans when your down payment is less than 20% of the home's purchase price, since lower equity represents higher risk to the lender." },
             { question: "How is my monthly PMI payment calculated?", answer: "Monthly PMI = (Loan Amount × Annual PMI Rate) ÷ 12. For example, a $320,000 loan with a 0.85% PMI rate results in ($320,000 × 0.0085) ÷ 12 = $226.67/month. The annual rate is determined by your LTV ratio and credit score." },

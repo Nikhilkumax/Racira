@@ -420,7 +420,7 @@ export default function MaintenanceCalorieCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Maintenance Calorie Calculator</h2>
             <p>In the realm of nutritional science and body composition, every diet plan, every bulking protocol, and every fat-loss strategy begins with a single foundational number: your Maintenance Calories. Also known as your Total Daily Energy Expenditure (TDEE), this number represents the exact amount of energy (measured in kilocalories) your body burns in a 24-hour period. If you consume exactly this number of calories, your body weight will not change by a single ounce. The <strong>Maintenance Calorie Calculator</strong> uses clinically validated biological equations to pinpoint this number, allowing you to build an effective diet based on mathematical certainty rather than guesswork.</p>
             <p>Attempting to cut fat or build muscle without knowing your maintenance baseline is akin to driving a car with a blindfold on. You might arrive at your destination eventually, but you are far more likely to crash. By calculating your exact TDEE, you can dial in precise caloric deficits or surpluses to sculpt your physique efficiently and safely.</p>
@@ -466,7 +466,7 @@ export default function MaintenanceCalorieCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: The Science of Certainty</h2>
             <p>Metabolism is not a mystery, nor is it "broken." It is a highly predictable biological engine governed by the laws of thermodynamics. By using the Maintenance Calorie Calculator, you remove the emotion and the guesswork from dieting. You now have a scientifically validated baseline. Track your food intake meticulously to hit this number, monitor the scale, and take total control of your health.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/maintenance-calorie-calculator" />
           <PopularCalculators exclude="/calculator/maintenance-calorie-calculator" />

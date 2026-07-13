@@ -125,7 +125,7 @@ export default function NormalDistributionCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Normal Distribution Calculator — Overview</h2>
             <p>This normal distribution calculator computes the Z-score, cumulative probability (CDF), percentile rank, and left/right tail probabilities for any value from a normal distribution. It uses the error function (erf) for precise CDF calculation and renders the full bell curve for visual reference.</p>
             <h2 className="text-2xl font-bold mb-3">Key Formulas</h2>
@@ -137,7 +137,7 @@ export default function NormalDistributionCalculator() {
             <p><strong>IQ Testing:</strong> Mean = 100, SD = 15. A score of 130 → Z = 2.0 → 97.7th percentile — higher than 97.7% of the population. <strong>Manufacturing Quality:</strong> If a part diameter has mean = 50mm, SD = 0.1mm, a part at 50.2mm → Z = 2.0 → only 2.3% of parts are larger. <strong>Finance:</strong> If stock returns have mean = 10%, SD = 20%, probability of losing money (return &lt; 0%) = Φ(−0.5) ≈ 30.9%.</p>
             <h2 className="text-2xl font-bold mb-3">The 68-95-99.7 Empirical Rule</h2>
             <p>For any normal distribution: 68.27% of values fall within ±1σ. 95.45% within ±2σ. 99.73% within ±3σ. 99.9937% within ±4σ (Six Sigma quality: fewer than 3.4 defects per million at 4.5σ process shift). This rule is fundamental to quality control, statistical process control, and hypothesis testing.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/normal-distribution-calculator" />
           <PopularCalculators exclude="/calculator/normal-distribution-calculator" />
         </div>

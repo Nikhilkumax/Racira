@@ -296,7 +296,7 @@ export default function FuelInjectorCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Why Fuel Injector Sizing is Critical</h2>
             <p>If you are upgrading your engine to make more horsepower—whether by installing a supercharger, adding a turbo, or switching to E85 fuel—your factory fuel injectors will rapidly become a bottleneck. An engine requires a very precise ratio of air to fuel to operate safely. If you force massive amounts of air into the engine, but the injectors are too small to supply the matching amount of fuel, the engine will run "lean." A lean engine runs violently hot and will suffer from detonation, quickly melting pistons and destroying the block. Our Fuel Injector Calculator uses strict engineering formulas to ensure you buy the exact size injector required to safely support your horsepower goals.</p>
 
@@ -314,7 +314,7 @@ export default function FuelInjectorCalculator() {
             <h2 className="text-2xl font-bold mb-3">The 80% Duty Cycle Rule</h2>
             <p>Fuel injectors are electromagnetic valves that open and close thousands of times per minute. <strong>Duty Cycle</strong> refers to the percentage of time the valve is held open during a single combustion cycle. A 100% duty cycle means the injector is held wide open constantly and has reached its absolute physical limit. It is an industry-standard rule to size injectors so that they never exceed an 80% to 85% duty cycle.</p>
             <p>Why? If an injector is held open continuously (approaching 100%), the electromagnet inside will overheat, leading to catastrophic failure. Furthermore, leaving a 20% safety buffer ensures that if the air temperature suddenly drops (cold air is denser and requires more fuel), the ECU has the physical capacity to add extra fuel to prevent the engine from running lean.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/fuel-injector-calculator" />
           <PopularCalculators />

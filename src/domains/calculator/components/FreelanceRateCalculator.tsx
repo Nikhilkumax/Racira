@@ -96,7 +96,7 @@ export default function FreelanceRateCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Setting Your Freelance Rate: A Complete Guide</h2>
               <p>Pricing your freelance services is one of the most important business decisions you'll make. Charge too little and you'll be overworked and underpaid. Charge too much without the portfolio to justify it and you'll struggle to win clients. The goal is to find a rate that covers all your costs, compensates for all the time you spend on non-billable activities, and provides a sustainable income for your lifestyle.</p>
               <h2 className="text-2xl font-bold mb-3">The Hidden Costs of Freelancing</h2>
@@ -109,7 +109,7 @@ export default function FreelanceRateCalculator() {
               <p>Beyond covering your personal income and business expenses, you should build in a profit margin (typically 15-25%) that allows your business to grow, invest in better tools, save for slow periods, and build a business reserve fund. Many freelancers treat every dollar above their expenses as "salary," leaving no buffer for slow months, unexpected expenses, or growth investments.</p>
               <h2 className="text-2xl font-bold mb-3">Value-Based Pricing vs. Hourly Rates</h2>
               <p>As you gain experience, consider shifting from hourly billing to value-based pricing. Instead of charging for the time it takes you to complete a task, you charge based on the value delivered to the client. A logo that took you 5 hours to design might be worth $2,000 to a startup whose entire brand identity depends on it, far exceeding what an $150/hour rate would yield. Value-based pricing rewards your expertise and efficiency rather than penalizing you for getting faster at your craft.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/freelance-rate-calculator" />
           <PopularCalculators exclude="/calculator/freelance-rate-calculator" />
         </div>

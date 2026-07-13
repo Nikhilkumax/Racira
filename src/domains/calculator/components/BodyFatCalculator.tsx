@@ -140,8 +140,8 @@ const BodyFatCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">What Is Body Fat Percentage?</h2>
+          <section className="prose-finance text-[15.75px]">
+              <h2 className="text-2xl font-bold mb-3">Understanding Body Fat Percentage</h2>
               <p>Body fat percentage is the proportion of your total body weight that is fat tissue. It's a better indicator of health and fitness than weight alone, as it distinguishes between fat mass and lean mass (muscle, bone, water, organs).</p>
 
               <h2 className="text-2xl font-bold mb-3">US Navy Body Fat Formula</h2>
@@ -171,8 +171,8 @@ const BodyFatCalculator = () => {
               </ul>
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> The US Navy method provides estimates. For precise measurements, consider DEXA scans, hydrostatic weighing, or Bod Pod testing. Consult a healthcare professional.</p>
-            </article>
-          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/body-fat-calculator" />
+            </section>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/body-fat-percentage" />
           <PopularCalculators exclude="/body-fat-calculator" />
         </div>
       </div>

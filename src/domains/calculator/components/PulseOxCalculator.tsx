@@ -239,7 +239,7 @@ export default function PulseOxCalculator() {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding Pulse Oximetry (SpO2)</h2>
             <p>A pulse oximeter is a small, non-invasive medical device that clips onto your finger to measure the oxygen saturation level of your blood (SpO2). It works by shining specialized wavelengths of light through your skin and nail bed, analyzing how much of that light is absorbed by the hemoglobin in your blood. Fully oxygenated blood absorbs light differently than oxygen-depleted blood.</p>
             <p>This <strong>Pulse Ox Triage Calculator</strong> provides immediate clinical context for your reading, distinguishing between normal healthy ranges and the specialized ranges required for patients with severe chronic lung disease.</p>
@@ -260,7 +260,7 @@ export default function PulseOxCalculator() {
             <div className="p-4 bg-muted/30 border border-border rounded-lg mt-6 text-sm text-muted-foreground">
               <strong>Disclaimer:</strong> This tool is for educational triage purposes only. It is not intended to be a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your physician regarding oxygen therapy protocols.
             </div>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/pulse-ox-calculator" />
           <PopularCalculators exclude="/calculator/pulse-ox-calculator" />
         </div>

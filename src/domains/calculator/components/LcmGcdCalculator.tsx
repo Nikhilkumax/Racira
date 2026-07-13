@@ -99,7 +99,7 @@ export default function LcmGcdCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Understanding GCD and LCM</h2>
               <p>Greatest Common Divisor (GCD) and Least Common Multiple (LCM) are two of the most fundamental concepts in number theory. They appear in everything from simplifying fractions to scheduling systems and cryptography. Understanding these concepts is essential for any student of mathematics.</p>
               <h2 className="text-2xl font-bold mb-3">The Euclidean Algorithm for GCD</h2>
@@ -110,7 +110,7 @@ export default function LcmGcdCalculator() {
               <p>An alternative approach uses prime factorization: write each number as a product of primes. GCD uses common factors with the minimum exponent; LCM uses all factors with the maximum exponent. For 12 = 2² × 3 and 18 = 2 × 3²: GCD = 2¹ × 3¹ = 6; LCM = 2² × 3² = 36.</p>
               <h2 className="text-2xl font-bold mb-3">Real-World Applications</h2>
               <p>LCM is used to find common denominators when adding fractions. If adding 1/12 + 1/18, the LCM (36) becomes the common denominator. LCM also solves scheduling problems: if event A occurs every 12 days and event B every 18 days, they coincide every 36 days. GCD is used to simplify fractions to lowest terms and in cryptographic algorithms like RSA.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/lcm-gcd-calculator" />
           <PopularCalculators exclude="/calculator/lcm-gcd-calculator" />
         </div>

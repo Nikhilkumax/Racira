@@ -123,7 +123,7 @@ const CatPregnancyCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">A Complete Guide to Cat Pregnancy</h2>
               <p>Whether you are a professional breeder or a surprised pet owner, understanding the timeline and stages of feline pregnancy helps you provide the best possible care for your queen and her unborn kittens.</p>
 
@@ -142,7 +142,7 @@ const CatPregnancyCalculator = () => {
 
               <h3>Preparing for Labour</h3>
               <p>Set up a quiet, warm, dark nesting box in the last week. Line it with clean towels or paper. The queen will likely choose this spot to give birth if she feels safe there. Signs of imminent labour include restlessness, loss of appetite, and a drop in rectal temperature to below 37.8°C (100°F).</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/cat-pregnancy" />
           <PopularCalculators exclude="/calculator/cat-pregnancy-calculator" />
         </div>

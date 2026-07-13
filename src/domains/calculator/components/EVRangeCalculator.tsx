@@ -360,7 +360,7 @@ export default function EVRangeCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is an EV Range Calculator?</h2>
             <p>An EV Range Calculator is a predictive tool that models the real-world driving range of an Electric Vehicle based on environmental and driving conditions. The range sticker plastered on the window of a new EV at the dealership is the official EPA estimate. However, this number is notoriously optimistic, acting more as a theoretical maximum under laboratory conditions than a practical guarantee. By inputting your actual driving speed, local weather, and battery age, this calculator strips away the marketing fluff to reveal exactly how far you can drive before you are stranded.</p>
 
@@ -385,7 +385,7 @@ export default function EVRangeCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Benefits</h2>
             <p>Using this calculator cures "range anxiety" with hard mathematics. By understanding precisely how your speed, the weather, and your heater interact to drain the battery, you can plan charging stops accurately and avoid the catastrophic scenario of running out of power on a lonely stretch of highway.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/ev-range-calculator" />
           <PopularCalculators />

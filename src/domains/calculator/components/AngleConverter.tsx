@@ -187,7 +187,7 @@ const AngleConverter = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is an Angle Converter?</h2>
             <p>An angle converter converts between all common angular units: degrees, radians, gradians, turns, arcminutes, arcseconds, and milliradians. Pre-filled at 45° — a fundamental angle that equals π/4 radians, 50 gradians, 1/8 turn, 2700 arcminutes, and 785.4 milliradians. The calculator also computes sin, cos, and tan for the converted angle.</p>
             <h2 className="text-2xl font-bold mb-3">Degrees vs Radians</h2>
@@ -196,7 +196,7 @@ const AngleConverter = () => {
             <p>Gradians (gons) divide a circle into 400 parts, making right angles exactly 100 grad. Created during the French Revolution as part of the metric system. Still used in surveying, especially in Europe. A theodolite reading of 200.0000 grad means due south. Gradians simplify calculations when dealing with perpendiculars, since a right turn is exactly 100 grad.</p>
             <h2 className="text-2xl font-bold mb-3">Arcminutes and Arcseconds in Astronomy</h2>
             <p>Astronomers use the sexagesimal (base-60) system: degrees, arcminutes, arcseconds (DMS). Betelgeuse has an angular diameter of ~56 milliarcseconds — the smallest angle resolvable by early VLBI. The Hubble Space Telescope can resolve about 0.05 arcseconds. GPS coordinates are typically given in decimal degrees (e.g., 40.7128°N) rather than DMS for computational convenience.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/angle-converter" />
           <PopularCalculators exclude="/calculator/angle-converter" />
         </div>

@@ -235,14 +235,14 @@ export default function CalorieDeficitCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Mechanics of Calorie Deficits</h2>
             <p>Weight reduction is governed by thermodynamics: to lose tissue mass, the body must consume fewer calories than it expends to maintain basic operations and activities. This deficit forces the body to mobilize adipose tissue (fat stores) and convert it to ATP energy.</p>
             <p>Our calculator determines your Basal Metabolic Rate (BMR) using the Mifflin-St Jeor formula and adjusts it for your exercise habits to determine your Total Daily Energy Expenditure (TDEE). The required daily deficit is then subtracted to calculate your final daily calorie intake goal.</p>
 
             <h2 className="text-2xl font-bold mb-3">Setting Safe Deficits</h2>
             <p>While a larger deficit accelerates initial weight loss, excessively low calorie consumption triggers severe metabolic adaptations (muscle loss, hormonal suppression, decreased thyroid activity). Aim to keep daily deficits between 300 to 500 kcal for stable, sustainable results.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/calorie-deficit-calculator" />
           <PopularCalculators exclude="/calculator/calorie-deficit-calculator" />
         </div>

@@ -219,7 +219,7 @@ const CementCalculator = () => {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Cement vs. Concrete: The Ultimate Misconception</h2>
             <p>One of the most common mistakes in DIY construction is confusing cement with concrete. <strong>Cement</strong> is merely an ingredient. It is a fine, grey powder (usually Portland cement) made from burning limestone and clay in a massive kiln. <strong>Concrete</strong> is the rock-solid final product. Concrete is created by mixing cement powder with water, sand, and gravel.</p>
             <p>You cannot pour a sidewalk using just cement and water. Without the structural integrity of the rocks and sand, the dried cement paste would have very little strength and would immediately crack into pieces under any pressure.</p>
@@ -239,7 +239,7 @@ const CementCalculator = () => {
 
             <h2 className="text-2xl font-bold mb-3">The Water-Cement Ratio</h2>
             <p>The biggest mistake amateurs make is adding too much water. More water makes the concrete easier to pour and shovel, but it permanently destroys the chemical strength of the final cure. A standard water-to-cement ratio is 0.5 (by weight), meaning you use 1 kg of water for every 2 kg of cement. Adding excess water creates tiny microscopic bubbles in the cured concrete, resulting in a weak, flaky, and cracking slab.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/cement-calculator" />
           <PopularCalculators exclude="/calculator/cement-calculator" />
         </div>

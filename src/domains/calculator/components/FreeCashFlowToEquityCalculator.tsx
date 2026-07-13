@@ -397,7 +397,7 @@ export default function FreeCashFlowToEquityCalculator() {
         {/* SEO Content Section */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding Free Cash Flow to Equity (FCFE)</h2>
             <p>
               Free Cash Flow to Equity (FCFE) represents the actual amount of liquid cash a business generates that is fully available to be distributed back to its common stock owners or equity shareholders. This distribution can take multiple forms, including direct dividend payouts, share buyback programs (treasury shares repurchase), or simply being retained in the equity segment of the balance sheet for future growth.
@@ -444,7 +444,7 @@ export default function FreeCashFlowToEquityCalculator() {
             <p>
               Conversely, a negative FCFE means a company spent more cash on reinvestment and debt adjustments than it generated from its base operations. While negative FCFE is typical for early-stage or rapidly expanding companies that must invest heavily in CapEx to build their infrastructure, it is a warning sign if it persists for mature, low-growth enterprises.
             </p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/free-cash-flow-to-equity-calculator" />
           <PopularCalculators exclude="/calculator/free-cash-flow-to-equity-calculator" />
         </div>

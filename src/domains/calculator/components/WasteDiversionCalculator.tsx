@@ -158,7 +158,7 @@ const WasteDiversionCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">The Importance of Waste Diversion</h2>
               <p>Waste diversion is the process of redirecting waste from landfills and incinerators to more sustainable channels like recycling, composting, or reuse. It is a key metric for businesses, municipalities, and households aiming for environmental sustainability.</p>
               
@@ -167,7 +167,7 @@ const WasteDiversionCalculator = () => {
 
               <h3>The Road to "Zero Waste"</h3>
               <p>The internationally recognized standard for a "Zero Waste" organization is achieving a waste diversion rate of 90% or higher. The remaining 10% accounts for materials that currently have no viable recycling or composting infrastructure.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/waste-diversion" />
           <PopularCalculators exclude="/calculator/waste-diversion-calculator" />
         </div>

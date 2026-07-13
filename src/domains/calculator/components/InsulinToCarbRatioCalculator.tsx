@@ -242,7 +242,7 @@ export default function InsulinToCarbRatioCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Insulin-to-Carb Ratio Calculator</h2>
             <p>For individuals managing Type 1 Diabetes or insulin-dependent Type 2 Diabetes, precision is the difference between optimal health and dangerous glycemic extremes. Modern diabetes management relies heavily on Intensive Insulin Therapy (IIT), also known as "basal-bolus" therapy. This strategy mimics a healthy pancreas by providing a steady baseline of insulin (basal) and sharp spikes of insulin (bolus) specifically to cover the carbohydrates eaten at meals. To successfully bolus for a meal, you must know your exact <strong>Insulin-to-Carb Ratio (ICR)</strong>. Our calculator uses established clinical algorithms to provide you with your baseline ICR and your Insulin Sensitivity Factor (ISF).</p>
 
@@ -269,7 +269,7 @@ export default function InsulinToCarbRatioCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Fine-Tuning Your Baselines</h2>
             <p>It is vital to understand that the Rule of 500 and the Rule of 1800 provide <em>estimates</em> based on population averages. They are excellent, safe starting points. However, insulin resistance is fluid. If you are highly active, you may find your true ICR is 1:15 (you need less insulin). If you are stressed or sick, your ratio might drop to 1:8 (you need more insulin). Always work closely with your endocrinologist to track post-meal blood sugars and fine-tune these mathematical starting points to fit your unique biological needs.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/insulin-to-carb-ratio-calculator" />
           <PopularCalculators exclude="/calculator/insulin-to-carb-ratio-calculator" />

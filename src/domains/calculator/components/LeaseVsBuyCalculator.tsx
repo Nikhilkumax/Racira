@@ -120,14 +120,14 @@ const LeaseVsBuyCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Lease or Buy: Which is Right for You?</h2>
               <p>Choosing between leasing and buying a car is one of the most common financial dilemmas. While buying is often the "smarter" financial move in the long term, leasing offers flexibility and lower upfront costs.</p>
               <h3>When Leasing Makes Sense</h3>
               <p>Leasing is ideal if you enjoy driving a new car every few years, want the latest technology and safety features, and prefer lower monthly payments. Since you only pay for the car's depreciation during the lease term, your payments are typically lower than a loan for the full purchase price.</p>
               <h3>The Benefits of Ownership</h3>
               <p>When you buy a car, you are building equity. Once the loan is paid off, you own an asset that you can sell or trade in later. There are no mileage restrictions, and you have the freedom to customize the vehicle however you like.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/lease-vs-buy" />
           <PopularCalculators exclude="/calculator/lease-vs-buy-calculator" />
         </div>

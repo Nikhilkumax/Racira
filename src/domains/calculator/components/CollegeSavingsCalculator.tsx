@@ -154,7 +154,7 @@ export default function CollegeSavingsCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a College Savings Calculator?</h2>
             <p>A <strong>college savings calculator</strong> projects the future cost of higher education (accounting for historical tuition inflation of 5–7% annually) and calculates the exact monthly savings needed to fund your child&apos;s education. It factors in your current savings, investment returns, and tuition inflation to give you a realistic, actionable savings target.</p>
             <h2 className="text-2xl font-bold mb-3">Why Tuition Inflation Matters</h2>
@@ -163,7 +163,7 @@ export default function CollegeSavingsCalculator() {
             <p>529 plans offer federal tax-free growth and withdrawals for qualified education expenses. Many states offer income tax deductions for contributions. 2024 SECURE 2.0 addition: up to $35,000 can be rolled to a Roth IRA after 15 years, eliminating the "what if they don&apos;t attend college" risk. Start a 529 immediately — even small contributions benefit from decades of tax-free compounding.</p>
             <h2 className="text-2xl font-bold mb-3">Maximizing College Savings</h2>
             <p>Open a 529 at birth. Contribute regularly even if small. Ask grandparents to contribute to the 529 instead of holiday gifts. Apply for FAFSA even if you think you won&apos;t qualify. Consider community college for the first 2 years, then transfer. Explore merit scholarships early — many are available to high school freshmen and sophomores.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/college-savings-calculator" />
           <PopularCalculators exclude="/calculator/college-savings-calculator" />
         </div>

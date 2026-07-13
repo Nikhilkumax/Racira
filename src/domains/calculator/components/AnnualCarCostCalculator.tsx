@@ -318,9 +318,9 @@ const AnnualCarCostCalculator = () => {
           </div>
         </div>
 
-        <div className="max-w-[1180px] mt-8">
+        <section className="mt-12 space-y-8 text-base text-foreground max-w-[1180px]">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <div>
             <h2 className="text-2xl font-bold mb-3">What Is the Annual Car Cost Calculator?</h2>
             <p>The Annual Car Cost Calculator computes the full yearly cost of owning a vehicle — not just the monthly payment, but every expense: depreciation, loan interest, insurance, fuel, maintenance, registration fees, and parking. By revealing the true cost per year and per mile, it helps you budget accurately, compare vehicles objectively, and decide whether a car upgrade is financially justified.</p>
             <p>Most car buyers focus on the monthly payment and dramatically underestimate total ownership cost. Studies consistently show that the average American spends $8,000–$10,000 per year on their vehicle, yet most people would guess half that figure. This calculator eliminates the guesswork.</p>
@@ -364,10 +364,10 @@ const AnnualCarCostCalculator = () => {
 
             <h2 className="text-2xl font-bold mb-3">Benefits of Using This Calculator</h2>
             <p>This calculator provides the complete, honest picture of car ownership cost — not just the payment the dealer wants you to see. By including depreciation and every running cost, it helps you make financially sound vehicle choices, set realistic budgets, and compare the true cost of ownership across vehicles. Use it before every vehicle purchase or lease decision.</p>
-          </article>
-          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/annual-car-cost-calculator" />
-          <PopularCalculators exclude="/calculator/annual-car-cost-calculator" />
-        </div>
+          </div>
+        </section>
+        <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/annual-car-cost-calculator" />
+        <PopularCalculators exclude="/calculator/annual-car-cost-calculator" />
       </div>
     </>
   );

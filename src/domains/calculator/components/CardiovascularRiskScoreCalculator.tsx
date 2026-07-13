@@ -419,7 +419,7 @@ export default function CardiovascularRiskScoreCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding Your ASCVD Risk Score</h2>
             <p>Atherosclerotic Cardiovascular Disease (ASCVD) remains the leading cause of death globally. It is an umbrella term that encompasses conditions caused by the buildup of cholesterol plaque in the arteries, most notably leading to acute myocardial infarctions (heart attacks) and ischemic strokes. Because atherosclerosis is a silent disease that progresses over decades without symptoms, physicians cannot rely on how a patient "feels" to assess their danger. Instead, they rely on mathematics.</p>
             <p>The <strong>10-Year ASCVD Risk Score Calculator</strong> implements the official Pooled Cohort Equations developed by the American College of Cardiology (ACC) and the American Heart Association (AHA) in 2013. By inputting your age, sex, race, lipid profile, and medical history, this algorithm calculates the exact percentage probability that you will suffer a fatal or non-fatal cardiovascular event within the next ten years.</p>
@@ -458,7 +458,7 @@ export default function CardiovascularRiskScoreCalculator() {
             <h2 className="text-2xl font-bold mb-3">Conclusion: Reversing the Trajectory</h2>
             <p>An ASCVD risk score is not a death sentence; it is a roadmap. If your score places you in the Borderline, Intermediate, or High-Risk categories, you have the power to intervene. You cannot change your age, but you can quit smoking today. You can adopt a Mediterranean-style diet to lower your Total Cholesterol and raise your HDL. You can begin a cardiovascular exercise routine to drop your systolic blood pressure.</p>
             <p>By making these changes and partnering with a physician to initiate statin or anti-hypertensive therapy, you can force the mathematics in your favor, drastically lowering your risk and protecting your heart for decades to come.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/cardiovascular-risk-score-calculator" />
           <PopularCalculators exclude="/calculator/cardiovascular-risk-score-calculator" />

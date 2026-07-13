@@ -250,7 +250,7 @@ export default function HorsepowerCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">How Does a Horsepower Calculator Work?</h2>
             <p>At its core, estimating a vehicle's horsepower from its track performance is a physics equation. The heavier a car is, and the faster it travels across a 1/4 mile distance, the more energy the engine must be producing. Our Horsepower Calculator uses the industry-standard Hale formulas to convert your real-world drag strip data (Weight and Trap Speed or Elapsed Time) into a highly accurate estimate of your engine's power output.</p>
 
@@ -272,7 +272,7 @@ export default function HorsepowerCalculator() {
               <li><strong>Rear-Wheel Drive (RWD):</strong> ~18% power loss. The power must travel down the length of the vehicle through a heavy driveshaft, increasing rotational mass and friction.</li>
               <li><strong>All-Wheel Drive (AWD):</strong> ~25% power loss. AWD systems are heavy and complex. Turning multiple differentials and a transfer case creates immense friction, robbing the engine of significant power before it reaches the wheels.</li>
             </ul>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/horsepower-calculator" />
           <PopularCalculators />

@@ -255,7 +255,7 @@ export default function SustainableGrowthRateCalculator() {
         {/* SEO Article Section */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Sustainable Growth Rate (SGR)</h2>
             <p>
               The <strong>Sustainable Growth Rate (SGR)</strong> is a foundational indicator in business planning and financial analysis. It represents the maximum annual growth in sales and assets a company can support without issuing new shares of stock (equity dilution) or altering its established capital leverage policy (debt-to-equity ratio).
@@ -263,7 +263,7 @@ export default function SustainableGrowthRateCalculator() {
             <p>
               By retaining a portion of earnings and raising a matching amount of debt to keep leverage constant, a company can grow organically. Knowing the SGR helps management prevent the common pitfall of overtrading, which occurs when a business grows faster than its cash capacity can handle, causing cash crises.
             </p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/sustainable-growth-rate-calculator" />
           <PopularCalculators exclude="/calculator/sustainable-growth-rate-calculator" />
         </div>

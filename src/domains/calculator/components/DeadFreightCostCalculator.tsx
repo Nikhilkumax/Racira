@@ -270,7 +270,7 @@ export default function DeadFreightCostCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What is Dead Freight?</h2>
             <p><strong>Dead Freight</strong> is a logistics term used to describe the financial loss incurred when a shipper books and pays for a specific amount of cargo capacity, but fails to utilize all of it. In simple terms, it is the cost of shipping empty air.</p>
             <p>This happens frequently in FCL (Full Container Load) ocean shipping and FTL (Full Truckload) domestic shipping. When you book a 40-foot ocean container, the shipping line charges you a flat rate for the box (e.g., $5,500). They do not care if you put 1,000 laptops in it, or a single pair of socks.</p>
@@ -285,7 +285,7 @@ export default function DeadFreightCostCalculator() {
               <li><strong>Carton Optimization:</strong> If your product boxes are slightly too large, they won't stack efficiently on a pallet, leaving massive gaps at the ceiling of the container. Shaving 1 inch off a cardboard box design can sometimes allow an extra 500 units to fit in a container.</li>
               <li><strong>Supplier Penalties:</strong> If you order enough product to fill a 40ft container, but the supplier fails to manufacture it all in time and ships a half-empty container anyway, you should charge the supplier a chargeback for the dead freight loss.</li>
             </ul>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "Do airlines charge for dead freight?", answer: "Yes, but in a different way. Airlines use 'Chargeable Weight' (comparing actual weight vs volumetric weight). If you book a charter flight or buy a massive block of space on a freighter and fail to fill it, you still pay for the blocked space." },
             { question: "How many CBM fit in a container?", answer: "A standard 20ft container holds about 33 CBM. A standard 40ft container holds about 67 CBM. A 40ft High Cube (HC) holds about 76 CBM. Note that you can rarely utilize 100% due to the geometry of pallets." },

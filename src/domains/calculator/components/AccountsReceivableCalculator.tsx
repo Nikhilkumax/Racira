@@ -518,7 +518,7 @@ export default function AccountsReceivableCalculator() {
         {/* SEO CONTENT SECTION */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Mathematics of Accounts Receivable</h2>
             <p>Managing accounts receivable (AR) effectively is one of the most critical components of maintaining healthy cash flow and ensuring the long-term solvency of any business that sells goods or services on credit. When a company makes a sale but allows the customer to pay at a later date, it creates an account receivable. While this represents revenue on the income statement, it does not immediately represent cash in the bank account. Until that invoice is actually paid by the customer, the business is effectively acting as a bank, providing a short-term, interest-free loan to its client. If this process is not managed with strict mathematical rigor, a business can easily find itself showing massive profits on paper while simultaneously going bankrupt because it has run out of the actual liquid cash needed to pay its own employees, suppliers, and operational expenses. Our calculator is engineered to track every single key metric related to your credit sales, providing you with exact formulas to understand the precise pace at which your business collects cash and how efficiently your working capital is being deployed.</p>
 
@@ -552,7 +552,7 @@ export default function AccountsReceivableCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Collection Risk and Overdue Ratios</h2>
             <p>Finally, the calculator evaluates portfolio health through the <strong>Overdue AR Ratio</strong>, which measures what percentage of your average accounts receivable balance is currently past its due date. This ratio directly feeds into the <strong>Collection Risk Score</strong>, a proprietary composite indicator calculated by Racira using a 50/50 weighting of your Bad Debt Percentage and your Overdue Receivables Ratio. The score is capped at 100 and banded into Low Risk (0–20), Moderate Risk (20–50), and High Risk (50–100) to provide an instant, at-a-glance health check of your entire receivables portfolio.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/accounts-receivable-calculator" />
           <PopularCalculators exclude="/calculator/accounts-receivable-calculator" />
         </div>

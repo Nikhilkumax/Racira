@@ -178,7 +178,7 @@ export default function CustomerAcquisitionCostCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding CAC & LTV</h2>
             <p>For any modern recurring revenue business or e-commerce platform, two metrics reign supreme: Customer Acquisition Cost (CAC) and Customer Lifetime Value (LTV). Together, they tell the story of a company's marketing efficiency and unit economic health. If CAC exceeds LTV, the business is fundamentally unprofitable at its core; if LTV is significantly higher than CAC, the company has an engine for highly profitable growth.</p>
             
@@ -187,7 +187,7 @@ export default function CustomerAcquisitionCostCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">What is Customer Lifetime Value (LTV)?</h2>
             <p>LTV measures the total gross margin a customer generates during their lifespan with your company. The basic formula is: LTV = (Average Revenue Per User × Gross Margin %) ÷ Churn Rate. Churn rate represents the rate at which customers cancel or stop buying from you. Decreasing churn is one of the most effective ways to boost LTV.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/customer-acquisition-cost-calculator" />
           <PopularCalculators exclude="/calculator/customer-acquisition-cost-calculator" />
         </div>

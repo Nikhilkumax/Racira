@@ -348,7 +348,7 @@ export default function BaseballSluggingCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Flaw of Traditional Batting Average</h2>
             <p>For decades, the most celebrated statistic in the sport of baseball was the Batting Average. If a player was hitting .300, they were automatically considered a superstar. But there is a massive, fundamental mathematical flaw in Batting Average: it treats every single hit as if it possesses the exact same value. In the eyes of Batting Average, a slow, bouncing infield single that barely beats the throw to first base is completely equal to a 450-foot grand slam home run that clears the stadium walls. The <strong>Baseball Slugging Percentage (SLG) Calculator</strong> destroys this false equivalency by evaluating hits based on the actual, physical damage they do to the opposing team.</p>
 
@@ -374,7 +374,7 @@ export default function BaseballSluggingCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Stop Counting Singles</h2>
             <p>If you want to evaluate a baseball player's true ability to drive in runs and change the geometry of a game, you must look past their Batting Average. Use the Baseball Slugging Percentage Calculator to measure the actual, mathematical weight of their contact. By valuing extra-base hits accurately, you will instantly recognize which hitters are truly generating the power required to win championships.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/baseball-slugging-percentage-calculator" />
           <PopularCalculators exclude="/calculator/baseball-slugging-percentage-calculator" />

@@ -224,14 +224,14 @@ export default function FiberIntakeCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">How Much Fiber Should You Eat?</h2>
             <p>This <strong>Daily Fiber Intake Calculator</strong> determines your personalized fiber needs based on USDA guidelines (14g per 1,000 calories) while ensuring you meet the Institute of Medicine's absolute minimums (38g for men, 25g for women under 50). It also adjusts your target upward if your primary health goal is weight loss, cholesterol reduction, or blood sugar management.</p>
             <h2 className="text-2xl font-bold mb-3">The Soluble vs Insoluble Ratio</h2>
             <p>While you don't need to obsessively track the exact ratio, a healthy diet naturally provides about 1 part soluble fiber to 3 parts insoluble fiber. <strong>Soluble fiber</strong> (oats, beans, apples) forms a gel in the gut, binding to cholesterol and slowing sugar absorption. <strong>Insoluble fiber</strong> (wheat bran, leafy greens, nuts) acts like a broom, sweeping material through the digestive tract and adding bulk to stool. Both are critical for a healthy microbiome.</p>
             <h2 className="text-2xl font-bold mb-3">The Water Warning</h2>
             <p>The most common mistake people make when increasing fiber is failing to increase their water intake. Fiber absorbs water. If you eat 35g of fiber but are dehydrated, the fiber turns into a hard mass in your intestines, causing severe constipation, bloating, and cramping. When you increase your fiber, you must simultaneously increase your hydration. Related tools: <a href="/calculator/macro-calculator">Macro Calculator</a>, <a href="/calculator/calorie-calculator">Calorie Calculator</a>.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/fiber-intake-calculator" />
           <PopularCalculators exclude="/calculator/fiber-intake-calculator" />
         </div>

@@ -238,7 +238,7 @@ const CAGRCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">What Is CAGR?</h2>
               <p>CAGR, or Compound Annual Growth Rate, is one of the most important metrics in finance and investing. It represents the rate at which an investment would have grown if it grew at a steady rate each year over the specified period. CAGR is a smoothed-out growth rate that eliminates the volatility of year-to-year returns, making it ideal for comparing investments across different time horizons.</p>
               <p>Unlike simple average annual return, CAGR accounts for the compounding effect — meaning it reflects the actual end-to-end performance of an investment including the reinvestment of gains. This makes it the preferred metric for evaluating mutual funds, stocks, business revenue growth, and any metric that changes over time.</p>
@@ -259,7 +259,7 @@ const CAGRCalculator = () => {
 
               <h2 className="text-2xl font-bold mb-3">Tips for Interpreting CAGR</h2>
               <p>A higher CAGR doesn't always mean a better investment — consider risk and volatility too. Compare CAGR to a relevant benchmark (e.g., S&P 500 for equity funds). A fund with a 15% CAGR but extreme volatility may be riskier than one with a 12% CAGR and smooth growth. Also note that CAGR is backward-looking — past performance doesn't guarantee future results. Use CAGR alongside Sharpe ratio and maximum drawdown for a complete picture of investment quality.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/cagr-calculator" />
           <PopularCalculators exclude="/calculator/cagr-calculator" />
         </div>

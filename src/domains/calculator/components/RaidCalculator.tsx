@@ -139,7 +139,7 @@ const RaidCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">A Guide to RAID Levels</h2>
               <p>Choosing the right RAID level is a tradeoff between three factors: <strong>Performance</strong>, <strong>Redundancy</strong>, and <strong>Cost</strong> (Capacity).</p>
               
@@ -154,7 +154,7 @@ const RaidCalculator = () => {
               
               <h3>RAID 6 (The Modern Standard)</h3>
               <p>Similar to RAID 5 but uses double parity. It can survive two simultaneous drive failures. As drive sizes increase (10TB+), RAID 6 is recommended because rebuild times are so long that a second drive might fail during the process.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/raid" />
           <PopularCalculators exclude="/calculator/raid-calculator" />
         </div>

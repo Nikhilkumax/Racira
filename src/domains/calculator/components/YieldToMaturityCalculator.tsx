@@ -185,7 +185,7 @@ const YieldToMaturityCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Yield to Maturity Calculator?</h2>
             <p>A yield to maturity calculator determines the total annualized return on a bond if held until its maturity date. YTM is the single most important metric for bond valuation — it accounts for the bond's current price, face value, coupon payments, and time to maturity. Pre-filled with a $1,000 face value bond priced at $950 with a 6% coupon and 10 years to maturity, the YTM is approximately 6.71% — higher than the 6% coupon because the investor benefits from the $50 capital gain at maturity.</p>
             <p>The yield to maturity calculator is used by bond investors, portfolio managers, financial advisors, and corporate treasurers to evaluate fixed-income securities. It helps compare bonds with different coupon rates, maturities, and prices on a level playing field.</p>
@@ -203,7 +203,7 @@ const YieldToMaturityCalculator = () => {
             <p>Always compare bonds using YTM, not coupon rate or current yield alone. Use the price-yield chart to visualize interest rate risk — steeper curves mean higher duration and more interest rate sensitivity. For callable bonds, also calculate yield to call. See also: <a href="/calculator/bond-price-calculator">bond price calculator</a>, <a href="/calculator/yield-to-call-calculator">yield to call calculator</a>, and <a href="/calculator/bond-duration-calculator">bond duration calculator</a>.</p>
             <h2 className="text-2xl font-bold mb-3">Benefits of Using This Calculator</h2>
             <p>YTM calculation by hand requires iterative trial and error that can take hours for an unpracticed investor. This yield to maturity calculator delivers the answer in milliseconds, including a price-yield sensitivity chart that reveals your bond's interest rate risk at a glance.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/yield-to-maturity-calculator" />
           <PopularCalculators exclude="/calculator/yield-to-maturity-calculator" />
         </div>

@@ -184,7 +184,7 @@ export default function PiotroskiFScoreCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is the Piotroski F-Score?</h2>
             <p>The Piotroski F-Score is a 9-point accounting-based scoring system developed by Stanford accounting professor Joseph Piotroski in his seminal 2000 paper &quot;Value Investing: The Use of Historical Financial Statement Information to Separate Winners from Losers.&quot; It assesses a company&apos;s fundamental financial health using binary criteria across three dimensions: profitability, financial leverage/liquidity, and operating efficiency. Each criterion earns one point, producing a total score between 0 and 9.</p>
             <h2 className="text-2xl font-bold mb-3">The 9 F-Score Criteria Explained</h2>
@@ -197,7 +197,7 @@ export default function PiotroskiFScoreCalculator() {
             <p>F-Score was developed and backtested primarily on US equities from the 1970s–1990s. It is less applicable to financial companies (banks, insurance firms) due to their different balance sheet structures. Very early-stage or rapidly growing companies may score poorly despite strong prospects (e.g., investing in growth means higher leverage and lower current ratio). Use F-Score as one factor in a multi-dimensional framework, not as a standalone buy/sell signal.</p>
             <h2 className="text-2xl font-bold mb-3">Combining F-Score with Other Factors</h2>
             <p>High F-Score + Low P/B: Piotroski&apos;s original strategy. High F-Score + Insider Buying: Strong signal of undervalued, improving companies. High F-Score + Low Short Interest: Reduces squeeze risk and confirms fundamental quality. High F-Score + Momentum: Combines quality/value improvement with price confirmation. Many quantitative funds incorporate F-Score as a quality factor in multi-factor models alongside value, momentum, and size factors.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/piotroski-f-score-calculator" />
           <PopularCalculators exclude="/calculator/piotroski-f-score-calculator" />
         </div>

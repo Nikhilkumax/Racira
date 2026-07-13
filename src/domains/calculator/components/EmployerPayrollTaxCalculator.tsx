@@ -263,7 +263,7 @@ export default function EmployerPayrollTaxCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What is the True Cost of an Employee?</h2>
             <p>A common mistake made by new business owners is assuming that a $75,000 salary costs the business exactly $75,000. In reality, the true cost is significantly higher due to mandatory payroll taxes, workers' compensation, and discretionary benefits.</p>
             <p>This hidden cost is known as the <strong>Employer Burden Rate</strong>. For a standard US employee receiving basic health benefits and a 401k match, the burden rate is typically <strong>20% to 30%</strong> on top of their gross salary.</p>
@@ -283,7 +283,7 @@ export default function EmployerPayrollTaxCalculator() {
             <h2 className="text-2xl font-bold mb-3">W-2 Employees vs. 1099 Contractors</h2>
             <p>Because the employer burden is so high, many companies attempt to classify workers as 1099 Independent Contractors. When you hire a contractor, you pay zero FICA, zero unemployment, and zero benefits. The burden rate is effectively 0%.</p>
             <p>However, the IRS has extremely strict rules regarding worker classification. If you control exactly how, when, and where a contractor does their work, they are legally a W-2 employee, and misclassifying them can result in devastating penalties and back-taxes.</p>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "Do I pay both halves of FICA?", answer: "The total FICA tax is 15.3%. The employer pays half (7.65%), and the employee pays the other half (7.65%), which you are required to withhold from their paycheck. This calculator only shows the employer's half, as that is the cost borne by the business." },
             { question: "Does this include Workers' Compensation?", answer: "No. Workers' compensation insurance is required in almost all states, but the rates vary so drastically by industry (a roofer's rate might be 20%, while an office worker's rate might be 0.1%) that it must be quoted by an insurance broker." },

@@ -266,7 +266,7 @@ export default function ColdChainComplianceCostCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What is Cold Chain Logistics?</h2>
             <p><strong>Cold Chain Logistics</strong> refers to the highly specialized supply chain processes used to transport temperature-sensitive products. This is most commonly required for pharmaceuticals (vaccines, biologics), fresh agriculture, and perishable foods.</p>
             <p>Unlike shipping dry goods like t-shirts or electronics, a single temperature excursion (e.g., a truck turning off its refrigeration unit for 2 hours) can instantly ruin a $2,000,000 shipment of medicine. Because of this extreme risk, cold chain shipping is drastically more expensive than standard freight.</p>
@@ -285,7 +285,7 @@ export default function ColdChainComplianceCostCalculator() {
               <li><strong>Active Systems:</strong> Using machines with active compressors (like a Reefer ocean container or a plugged-in Envirotainer for air freight). Highly reliable, but very expensive to lease and transport.</li>
               <li><strong>Passive Systems:</strong> Using highly advanced coolers filled with dry ice or gel packs, shipped on standard dry trucks or airplanes. Cheaper on freight, but the packaging materials themselves can cost hundreds of dollars per pallet.</li>
             </ul>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "What happens if a shipment goes out of temperature range?", answer: "In the pharmaceutical industry, this is called a 'Temperature Excursion'. The product is immediately quarantined. A Quality Assurance team will review the data logger to see exactly how high the temperature spiked and for how long. If it exceeds the stability budget, the entire shipment is destroyed." },
             { question: "Is Cold Chain insurance more expensive?", answer: "Yes. Marine/Cargo insurance for cold chain goods usually requires a specialized 'Spoilage Rider' which significantly increases the premium, as the risk of a total loss is much higher than standard freight." },

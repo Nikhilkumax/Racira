@@ -286,7 +286,7 @@ export default function PortDwellTimeCostCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What is Dwell Time in Supply Chain?</h2>
             <p><strong>Dwell Time</strong> is the amount of time a shipping container sits completely idle. Whether it is sitting on the dock at the port, or sitting in a dirt parking lot waiting to be unloaded, dwell time is the silent killer of logistics budgets.</p>
             
@@ -297,7 +297,7 @@ export default function PortDwellTimeCostCalculator() {
             <h2 className="text-2xl font-bold mb-3">The Hidden Chassis Rental Trap</h2>
             <p>Whether the container is sitting at the port, or sitting in a pre-pull yard, it is resting on a <strong>Chassis</strong> (the wheeled trailer frame). You do not own the chassis; you rent it from a leasing pool (like DCLI or TRAC) for around $35 a day.</p>
             <p>If you pre-pull a container to avoid a $200/day port fine, but let it sit in a yard for 15 days, you still have to pay 15 days of chassis rental fees. This calculator helps you determine exactly which strategy is cheaper based on how long you expect the cargo to be delayed.</p>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "What is the difference between Demurrage and Detention?", answer: "Demurrage is the fine for leaving a full container inside the port terminal. Detention (or Per Diem) is the fine for keeping the physical steel container (owned by the ocean carrier) outside the port for too long." },
             { question: "Do you pay a chassis fee while the container is on the ship?", answer: "No. The chassis fee only begins the moment the crane places the container onto a chassis at the destination port, and stops the moment you return the empty container and chassis back to the terminal." },

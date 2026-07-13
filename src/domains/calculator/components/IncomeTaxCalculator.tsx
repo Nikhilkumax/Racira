@@ -161,7 +161,7 @@ export default function IncomeTaxCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">How US Federal Income Tax Works (2024)</h2>
             <p>The United States uses a progressive federal income tax system with seven brackets. The key insight most people misunderstand: you do not pay your highest bracket rate on all income. You pay 10% on the first $11,600, 12% on the next portion, and so forth. Only income within each bracket is taxed at that rate. The standard deduction ($14,600 for single filers in 2024) is subtracted before any brackets apply, significantly reducing taxable income for most people.</p>
             <h2 className="text-2xl font-bold mb-3">2024 Federal Tax Brackets (Single Filers)</h2>
@@ -170,7 +170,7 @@ export default function IncomeTaxCalculator() {
             <p>Social Security: 6.2% on wages up to $168,600 (2024 wage base). Medicare: 1.45% on all wages (no cap). Additional Medicare: 0.9% on wages above $200,000 (single). Self-employed individuals pay the full 15.3% themselves (employer + employee share) but deduct half as a business expense. FICA taxes fund Social Security retirement benefits and Medicare health insurance — a form of forced savings for future retirement and healthcare.</p>
             <h2 className="text-2xl font-bold mb-3">Tax Reduction Strategies</h2>
             <p>401(k) contributions reduce federal taxable income dollar-for-dollar (max $23,000 in 2024, $30,500 if 50+). Traditional IRA: deductible if income limits allow (max $7,000, $8,000 if 50+). HSA: triple tax advantage — deductible contribution + tax-free growth + tax-free medical withdrawals (max $4,150 individual, $8,300 family for 2024). These accounts combined can reduce taxable income by $30,000–$40,000+ for a single filer, potentially dropping a bracket and saving thousands in federal taxes.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/income-tax-calculator" />
           <PopularCalculators exclude="/calculator/income-tax-calculator" />
         </div>

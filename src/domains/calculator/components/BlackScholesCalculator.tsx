@@ -226,8 +226,9 @@ export default function BlackScholesCalculator() {
             </div>
 
             <div className="flex gap-2.5 mt-4">
-              <button type="button" onClick={handleReset} className="w-full rounded-md border border-border bg-background hover:bg-secondary text-foreground font-semibold h-11 transition-colors flex items-center justify-center gap-2 focus:outline-none shadow-sm">
-                <RotateCcw className="h-4 w-4" /> Reset
+              <button type="button" onClick={() => { const r = calculateBlackScholes(inputs); if (!r.isError) setResults(r); }} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-11 text-base transition-all active:scale-[0.98] shadow-sm">Calculate</button>
+              <button type="button" onClick={handleReset} className="w-11 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-11 transition-colors flex items-center justify-center focus:outline-none" aria-label="Reset">
+                <RotateCcw className="h-4 w-4" />
               </button>
             </div>
           </div>
@@ -332,9 +333,9 @@ export default function BlackScholesCalculator() {
           </div>
         </div>
 
-        <div className="max-w-[1180px] mt-8">
+        <section className="mt-12 space-y-8 text-base text-foreground max-w-[1180px]">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <div>
             <h2 className="text-2xl font-bold mb-3">The Black-Scholes Option Pricing Model</h2>
             <p>Developed by Fischer Black, Myron Scholes, and Robert Merton in 1973, the Black-Scholes model revolutionized modern finance by providing a mathematical framework for pricing options contracts. It is widely considered one of the most important concepts in financial engineering and earned its creators the Nobel Prize in Economics.</p>
             
@@ -360,11 +361,11 @@ export default function BlackScholesCalculator() {
             
             <h2 className="text-2xl font-bold mb-3">Limitations of the Model</h2>
             <p>While foundational, the Black-Scholes model has known limitations. It assumes that stock prices follow a lognormal distribution (a random walk), which implies that extreme market crashes are mathematically impossible, despite them happening in reality (fat tails). It also assumes that volatility and the risk-free rate remain perfectly constant over the life of the option, and it does not account for the early exercise premium of American options.</p>
-          </article>
+          </div>
+        </section>
           
-          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/black-scholes-calculator" />
-          <PopularCalculators />
-        </div>
+        <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/black-scholes-calculator" />
+        <PopularCalculators />
       </div>
     </>
   );

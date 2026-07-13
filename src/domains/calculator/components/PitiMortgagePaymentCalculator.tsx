@@ -208,7 +208,7 @@ export default function PitiMortgagePaymentCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the True Cost of Homeownership</h2>
             <p>One of the most common mistakes first-time homebuyers make is calculating their affordability based solely on the loan principal and interest rate. While P&I forms the core of your mortgage, it does not reflect the total amount you will write a check for every month. To avoid foreclosure and protect their asset, lenders require you to pay property taxes and homeowners insurance simultaneously with your loan repayment. This complete calculation is known as PITI: Principal, Interest, Taxes, and Insurance.</p>
 
@@ -220,7 +220,7 @@ export default function PitiMortgagePaymentCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Why PITI Matters for Loan Approval</h2>
             <p>When you apply for a mortgage, the underwriter evaluates your Debt-to-Income (DTI) ratio. They do not use your base P&I to calculate this ratio; they use the full projected PITI, plus any Homeowners Association (HOA) dues. If you have a strict budget, understanding your PITI is essential. A $400,000 home in a state with very high property taxes will result in a much higher monthly PITI—and therefore require a higher income to qualify—than a $400,000 home in a low-tax state.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/piti-mortgage-payment-calculator" />
           <PopularCalculators exclude="/calculator/piti-mortgage-payment-calculator" />
         </div>

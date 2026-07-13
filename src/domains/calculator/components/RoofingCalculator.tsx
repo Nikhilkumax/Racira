@@ -207,7 +207,7 @@ const RoofingCalculator = () => {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Secret of the Pitch Multiplier</h2>
             <p>If your house is exactly 40 feet long and 30 feet wide, the footprint of your house is 1,200 square feet. A massive amateur mistake is assuming you only need 1,200 square feet of roofing materials. <strong>This is completely wrong.</strong></p>
             <p>Your house footprint is flat, but your roof is angled upwards like a triangle. The steeper the angle, the longer the sides of the triangle become, meaning the physical surface area of the roof increases significantly. To calculate the actual square footage of your roof, you must multiply the flat footprint area by a <strong>Pitch Multiplier</strong> derived from the Pythagorean theorem.</p>
@@ -226,7 +226,7 @@ const RoofingCalculator = () => {
 
             <h2 className="text-2xl font-bold mb-3">The Waste Factor</h2>
             <p>Roofs are rarely simple rectangles. You will have to cut shingles at every edge, along the roof peak (the ridge), and in the valleys where two roof sections meet. These cuts create unusable scrap. For a simple gable roof (two flat sides like a tent), a 10% waste factor is standard. For complex roofs with many dormers, hips, and valleys, you must use a 15% to 20% waste factor, or you will run out of material before the job is done.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/roofing-calculator" />
           <PopularCalculators exclude="/calculator/roofing-calculator" />
         </div>

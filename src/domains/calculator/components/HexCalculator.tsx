@@ -226,7 +226,7 @@ const HexCalculator = () => {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Power of Hexadecimal</h2>
             <p><strong>Hexadecimal (Base-16)</strong> is a numbering system designed to make raw binary code significantly more human-readable. Computers only understand binary (Base-2), meaning long strings of 0s and 1s. However, writing out millions of binary digits is incredibly prone to error for human programmers.</p>
             <p>Hexadecimal solves this problem elegantly. Because 16 is exactly 2⁴, one single hexadecimal digit maps perfectly to four binary digits (a "nibble"). Therefore, an 8-bit byte (like <code>1101 0101</code>) can be compressed down to just two hex characters (<code>D5</code>). This drastically shortens code while retaining an exact, mathematical link to the underlying binary.</p>
@@ -251,7 +251,7 @@ const HexCalculator = () => {
               <li><strong>MAC Addresses:</strong> The unique physical identifier burned into your computer's network card is written in hex (e.g., <code>00:1A:2B:3C:4D:5E</code>).</li>
               <li><strong>Memory Addresses:</strong> When software crashes and displays an error code (like <code>0x000000FF</code>), it is telling the developer the exact physical memory location in RAM where the error occurred, written in hex.</li>
             </ul>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/hex-calculator" />
           <PopularCalculators exclude="/calculator/hex-calculator" />
         </div>

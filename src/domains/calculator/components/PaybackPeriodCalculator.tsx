@@ -218,7 +218,7 @@ export default function PaybackPeriodCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What is the Payback Period?</h2>
             <p>The payback period is the length of time required for an investment to generate enough cash flow to recover its initial cost. It is one of the oldest and simplest capital budgeting methods used by businesses to evaluate potential capital expenditures and investments.</p>
             <p>Because the payback period measures the time to recoup capital, it serves as a proxy for risk. Shorter payback periods are generally preferred because they free up cash quickly for other investments and reduce the period of time during which the investment is exposed to market, political, or technological obsolescence risks.</p>
@@ -227,7 +227,7 @@ export default function PaybackPeriodCalculator() {
             <p>When cash flows are constant year after year, the calculation is simple:</p>
             <p><code>Payback Period = Initial Investment ÷ Annual Cash Flow</code></p>
             <p>For example, if a project costs $50,000 to implement and generates $12,000 per year, the payback period is <code>$50,000 ÷ $12,000 = 4.17 years</code>.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/payback-period-calculator" />
           <PopularCalculators exclude="/calculator/payback-period-calculator" />
         </div>

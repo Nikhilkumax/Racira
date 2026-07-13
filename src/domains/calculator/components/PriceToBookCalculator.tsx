@@ -194,7 +194,7 @@ const PriceToBookCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Price to Book Ratio Calculator?</h2>
             <p>A price-to-book (P/B) ratio calculator compares a company's current stock price to its book value per share — the net accounting value of its assets after subtracting all liabilities. Pre-filled with a $50 stock price, $1,000,000 in total assets, $400,000 in liabilities, and 20,000 shares outstanding, the book value per share is $30.00 and the P/B ratio is 1.67x — a fair valuation for most established businesses.</p>
             <h2 className="text-2xl font-bold mb-3">The P/B Ratio Formula</h2>
@@ -210,7 +210,7 @@ const PriceToBookCalculator = () => {
             <p>Book value is an accounting construct based on historical cost, not fair market value. Assets like real estate, inventory, and equipment are often worth more (or less) than their balance sheet values. The P/B ratio is essentially meaningless for software companies, consulting firms, or pharmaceutical companies where human capital, patents, and brand equity — not recorded on the balance sheet — represent the majority of value. Always use P/B in conjunction with P/E, EV/EBITDA, and ROE analysis.</p>
             <h2 className="text-2xl font-bold mb-3">P/B and Return on Equity Connection</h2>
             <p>The P/B ratio has a fundamental relationship with ROE: P/B = (ROE × Retention Ratio) / (Cost of Equity − Sustainable Growth Rate). Companies with high ROEs typically deserve higher P/B multiples because they generate more value per dollar of book assets. Conversely, companies with ROE below their cost of equity may deserve to trade at a discount to book value — the market anticipates value destruction.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/price-to-book-calculator" />
           <PopularCalculators exclude="/calculator/price-to-book-calculator" />
         </div>

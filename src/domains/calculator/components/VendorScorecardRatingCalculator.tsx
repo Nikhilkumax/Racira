@@ -293,7 +293,7 @@ export default function VendorScorecardRatingCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What is a Vendor Scorecard?</h2>
             <p>A <strong>Vendor Scorecard</strong> is a systematic tool used by procurement and supply chain teams to evaluate the performance of their suppliers over a specific period (usually monthly or quarterly). By assigning objective scores and weights to different performance categories, companies can manage supplier relationships based on data rather than emotion.</p>
             
@@ -314,7 +314,7 @@ export default function VendorScorecardRatingCalculator() {
               <li><strong>Conditional (70-79):</strong> These vendors are struggling. Procurement should issue a formal Corrective Action Request (CAR) and place them on probation until performance improves.</li>
               <li><strong>Disqualified (Below 70):</strong> Vendors causing active harm to your operations. Procurement should begin phasing them out and sourcing alternative suppliers immediately.</li>
             </ul>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "Why not just buy from the cheapest vendor?", answer: "The 'cheapest' vendor often has hidden costs. If a cheap vendor has a 90% quality rate and delivers late 20% of the time, the costs of factory downtime, scrap, and expedited freight will vastly exceed the pennies saved on the initial purchase price." },
             { question: "How should I weight the categories?", answer: "Weights should reflect your company's strategic priorities. If you manufacture aerospace parts, Quality should likely be weighted at 60%. If you sell low-margin commodities, Cost might be weighted at 40%." },

@@ -99,7 +99,7 @@ const GratuityCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">What Is a Gratuity Calculator?</h2>
               <p>A gratuity calculator helps employees estimate the gratuity amount they are entitled to receive upon retirement, resignation, or completion of service. Gratuity is a lump sum payment made by employers as a gesture of gratitude for the employee's service.</p>
 
@@ -118,7 +118,7 @@ const GratuityCalculator = () => {
               </ul>
 
               <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> This is an estimate based on the standard formula. Actual gratuity may vary based on company policy and specific employment terms. Consult your HR department.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/gratuity-calculator" />
           <PopularCalculators exclude="/gratuity-calculator" />
         </div>

@@ -115,12 +115,12 @@ const HydrationCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Sidebar Ad" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">The Importance of Staying Hydrated</h2>
               <p>Water is the most essential nutrient for the human body. Every cell, tissue, and organ needs water to work properly. From regulating body temperature to lubricating joints and carrying nutrients to cells, staying hydrated is a cornerstone of metabolic health.</p>
               <h3>Factors That Increase Your Needs</h3>
               <p>While this calculator provides a baseline, you should increase your intake if you have a fever, are pregnant or breastfeeding, or are consuming high amounts of fiber or protein. Additionally, if you work outdoors or in a physically demanding job, your needs may be significantly higher than the average person.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/hydration-calculator" />
           <PopularCalculators exclude="/calculator/hydration-calculator" />
         </div>

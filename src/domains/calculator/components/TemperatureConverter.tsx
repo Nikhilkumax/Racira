@@ -134,7 +134,7 @@ export default function TemperatureConverter() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding Temperature Scales</h2>
             <p>Temperature is a measure of the average kinetic energy of the particles in a substance. Four primary temperature scales are in common use: Celsius (°C), Fahrenheit (°F), Kelvin (K), and Rankine (°R). Each was developed for different purposes, and conversions between them are essential for science, cooking, engineering, medicine, and international communication.</p>
             <h2 className="text-2xl font-bold mb-3">The Celsius Scale</h2>
@@ -147,7 +147,7 @@ export default function TemperatureConverter() {
             <p>The Rankine scale is used in some American engineering applications, particularly in thermodynamics. It starts at absolute zero like the Kelvin scale, but uses the same degree size as Fahrenheit. Water freezes at 491.67°R and boils at 671.67°R. The relationship between Rankine and Kelvin is: R = K × 9/5. It is used in fields like gas dynamics and combustion engineering in the United States where Fahrenheit-based calculations are traditional.</p>
             <h2 className="text-2xl font-bold mb-3">Common Temperature Reference Points</h2>
             <p>Understanding key reference temperatures helps build intuition for conversions. Absolute zero: 0 K = −273.15°C = −459.67°F. Liquid nitrogen boiling point: 77 K = −196°C = −321°F. Dry ice (CO₂) sublimation: −78.5°C = −109.3°F. Water freezing: 0°C = 32°F = 273.15 K. Human body: 37°C = 98.6°F = 310.15 K. Water boiling at sea level: 100°C = 212°F = 373.15 K. Self-cleaning oven temperature: 500°C = 932°F. Melting point of iron: 1538°C = 2800°F.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/temperature-converter" />
           <PopularCalculators exclude="/calculator/temperature-converter" />
         </div>

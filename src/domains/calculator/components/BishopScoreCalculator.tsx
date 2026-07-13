@@ -234,7 +234,7 @@ export default function BishopScoreCalculator() {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding Labor Induction</h2>
             <p>Labor induction is the medical process of artificially stimulating uterine contractions to achieve a vaginal birth before labor begins on its own. While inductions are common, they are not always successful. If an induction fails to progress, the mother is often rushed into an unplanned Cesarean section (C-section).</p>
             <p>In the 1960s, Dr. Edward Bishop recognized that the primary reason inductions fail is that the mother's body simply isn't physically prepared to give birth yet. He developed the <strong>Bishop Score</strong> to quantify exactly how "ripe" or ready the cervix is, allowing doctors to predict the success rate of the procedure.</p>
@@ -246,7 +246,7 @@ export default function BishopScoreCalculator() {
             <h2 className="text-2xl font-bold mb-3">Cervical Ripening: Preparing for Induction</h2>
             <p>If a mother requires a medically necessary induction (due to high blood pressure, gestational diabetes, or being two weeks past her due date) but has an <strong>unfavorable Bishop score</strong>, the doctor must first perform "cervical ripening."</p>
             <p>This is typically done by inserting a medication containing prostaglandins (such as Cervidil or Cytotec) directly against the cervix, or by mechanically stretching it using a Foley balloon catheter. This process can take 12 to 24 hours. Once the cervical tissue softens and the Bishop score increases to an 8 or higher, the doctor can safely begin administering Pitocin to stimulate the actual contractions.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/bishop-score-calculator" />
           <PopularCalculators exclude="/calculator/bishop-score-calculator" />
         </div>

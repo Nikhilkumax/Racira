@@ -234,14 +234,14 @@ export default function PrenatalVitaminCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Demystifying Prenatal Vitamins</h2>
             <p>This <strong>Prenatal Vitamin Calculator</strong> compares your current supplement stack against guidelines from the American College of Obstetricians and Gynecologists (ACOG). While a balanced diet is the best source of nutrients, the massive physical demands of building a new human require supplementation. The "big three" nutrients you must monitor are Folic Acid, Iron, and DHA.</p>
             <h2 className="text-2xl font-bold mb-3">Gummy Vitamins: The Hidden Trap</h2>
             <p>Many women switch to gummy prenatal vitamins in the first trimester because large pills trigger nausea. What many don't realize is that <strong>gummy vitamins almost never contain Iron</strong>. The metallic taste of iron is incredibly difficult to mask in a sweet gummy, and iron poses a toxicity risk to young children who might mistake the gummies for candy. If you take gummies during your 2nd and 3rd trimesters, you will likely need a separate iron pill to prevent maternal anemia.</p>
             <h2 className="text-2xl font-bold mb-3">Dietary Adjustments</h2>
             <p>If you eat a plant-based (vegan or vegetarian) diet, your nutrient targets shift. Plant-based (non-heme) iron is absorbed much less efficiently than meat-based (heme) iron, meaning vegans need to consume nearly 1.5 times the standard iron target. Furthermore, DHA is primarily found in marine life. Vegans should seek out an algae-based DHA supplement to ensure proper fetal brain development. Related tools: <a href="/calculator/pregnancy-calculator">Pregnancy Calculator</a>, <a href="/calculator/fetal-weight-calculator">Fetal Weight Calculator</a>.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/prenatal-vitamin-calculator" />
           <PopularCalculators exclude="/calculator/prenatal-vitamin-calculator" />
         </div>

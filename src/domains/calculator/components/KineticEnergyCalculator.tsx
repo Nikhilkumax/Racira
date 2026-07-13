@@ -140,7 +140,7 @@ const KineticEnergyCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Kinetic Energy Calculator?</h2>
             <p>A kinetic energy calculator computes the energy of motion for any moving object using the formula KE = ½mv². It is one of the most fundamental quantities in classical mechanics. This calculator instantly converts your mass (kg) and velocity (m/s) inputs into kinetic energy in Joules, kilojoules, or megajoules — and shows how KE scales as speed changes. Pre-filled with a typical passenger car (1,200 kg) traveling at 100 km/h (27.78 m/s), you can see immediately how much energy must be dissipated when braking.</p>
             <p>Engineers use kinetic energy calculations in vehicle crash safety testing, rollercoaster design, projectile analysis, sports equipment testing, and turbine design. The dramatic square relationship between speed and KE makes these calculations critical for safety planning across all engineering disciplines.</p>
@@ -162,7 +162,7 @@ const KineticEnergyCalculator = () => {
 
             <h2 className="text-2xl font-bold mb-3">Tips for Using This Calculator</h2>
             <p>Convert km/h to m/s by dividing by 3.6 before entering velocity. For mph, multiply by 0.447. Enter mass in kilograms — convert pounds by multiplying by 0.4536. The bar chart showing KE at different speeds is particularly useful for engineers and safety analysts comparing scenarios. Pair with the <a href="/calculator/acceleration-calculator">acceleration calculator</a> to compute force (F = ma) and with the <a href="/calculator/momentum-calculator">momentum calculator</a> for collision analysis.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/kinetic-energy-calculator" />
           <PopularCalculators exclude="/calculator/kinetic-energy-calculator" />
         </div>

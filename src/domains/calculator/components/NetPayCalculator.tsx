@@ -230,7 +230,7 @@ const NetPayCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Understanding Your Take-Home Pay</h2>
               <p>When you see a salary figure on a job offer or a promotion letter, it represents your gross pay—the total amount the company pays you. However, the amount that actually reaches your bank account is your net pay. This gap is filled by taxes, social insurance, and voluntary benefit contributions.</p>
 
@@ -258,7 +258,7 @@ const NetPayCalculator = () => {
 
               <h2 className="text-2xl font-bold mb-3">Next Steps</h2>
               <p>Use this calculator to see how a potential raise or a new deduction would impact your actual budget. Knowing your exact take-home pay is the first step in creating a realistic monthly budget that helps you reach your financial goals.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/net-pay-calculator" />
           <PopularCalculators exclude="/calculator/net-pay-calculator" />
         </div>

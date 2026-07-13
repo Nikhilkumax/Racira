@@ -170,7 +170,7 @@ const StorageConverter = () => {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Great Storage Discrepancy</h2>
             <p>Every year, millions of consumers buy a brand-new 1 Terabyte (TB) external hard drive, plug it into their Windows PC, and are furious to discover the computer says the drive only holds 931 Gigabytes. Did the manufacturer steal 69 Gigabytes of space? No, this discrepancy is the result of an industry-wide mathematical disagreement between hardware manufacturers and software developers.</p>
 
@@ -182,7 +182,7 @@ const StorageConverter = () => {
             <h2 className="text-2xl font-bold mb-3">The Attempted Fix: Kibibytes</h2>
             <p>To end the confusion, the International Electrotechnical Commission created new prefixes in 1998. The decimal standard (1,000) kept the names Kilobyte (KB) and Megabyte (MB). The binary standard (1,024) was given the names Kibibyte (KiB) and Mebibyte (MiB).</p>
             <p>Apple adopted this standard. If you plug a 1TB drive into a Mac, macOS uses base-10 decimal math and correctly reports a full 1TB of space. However, Microsoft refused to adopt the standard. Windows still uses binary math (1,024) but continues to display the old 'KB' and 'GB' abbreviations, causing endless confusion for consumers to this day.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/storage-converter" />
           <PopularCalculators exclude="/calculator/storage-converter" />
         </div>

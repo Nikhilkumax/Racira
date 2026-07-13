@@ -192,7 +192,7 @@ const WindChillCalculator = () => {
         
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Science of Wind Chill</h2>
             <p>During the winter, meteorologists will often say, <em>"The temperature is 30°F, but it feels like 15°F."</em> This phenomenon is known as the <strong>Wind Chill Factor</strong>. It explains why a calm, sunny day at 30°F feels tolerable, but a blustery, windy day at 30°F cuts right to the bone.</p>
 
@@ -206,7 +206,7 @@ const WindChillCalculator = () => {
 
             <h2 className="text-2xl font-bold mb-3">Frostbite Danger</h2>
             <p>The National Weather Service (NWS) updated the wind chill formula in 2001 to more accurately reflect human face heat loss. The NWS issues Wind Chill Advisories and Warnings because severe wind chill drastically accelerates the onset of frostbite. In extreme conditions (wind chill below -60°F), exposed flesh can freeze in under 5 minutes.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/wind-chill-calculator" />
           <PopularCalculators exclude="/calculator/wind-chill-calculator" />
         </div>

@@ -305,7 +305,7 @@ export default function DailyCalorieBurnPerPoundCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Mathematics of the Cellular Engine</h2>
             <p>One of the most profound mistakes people make when analyzing their metabolism is looking exclusively at the total number of calories they burn in a day (TDEE). They see their Apple Watch register a burn of 3,000 calories and immediately assume they have a "fast" metabolism. However, thermodynamics is entirely relative to the mass of the organism. A 350-pound man burning 3,000 calories is effectively in a highly sedentary state, while a 120-pound gymnast burning 3,000 calories is operating at the absolute razor's edge of human cardiovascular capacity. The <strong>Metabolic Energy Density Calculator</strong> solves this discrepancy by dividing your total energy output by your physical mass, revealing the exact calorie-per-pound efficiency of your cellular engine.</p>
 
@@ -331,7 +331,7 @@ export default function DailyCalorieBurnPerPoundCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Upgrade Your Engine</h2>
             <p>Stop tracking total calories and start tracking cellular efficiency. If your output is stuck in the sedentary baseline, no amount of 'fat-burner' supplements will save you. You must introduce mechanical stress to the body through resistance training and cardiovascular output. Use the Metabolic Energy Density Calculator to identify your exact thermodynamic classification, and purposefully drive your score into the "Active" zone to trigger the biological cascade of fat oxidation and metabolic longevity.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/daily-calorie-burn-per-pound-of-body-weight" />
           <PopularCalculators exclude="/calculator/daily-calorie-burn-per-pound-of-body-weight" />

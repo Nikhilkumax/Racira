@@ -104,14 +104,14 @@ const SsdTbwCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">How Long Will Your SSD Last?</h2>
               <p>Unlike traditional hard drives which have mechanical parts that wear out, SSDs use NAND flash memory cells that can only be written to a finite number of times. This is why manufacturers provide a <strong>TBW (Total Bytes Written)</strong> rating.</p>
               <h3>What is DWPD?</h3>
               <p>DWPD stands for <strong>Drive Writes Per Day</strong>. It describes how many times you can write the full capacity of the drive every single day during the warranty period (usually 5 years). A high DWPD is critical for enterprise servers, while a low DWPD is fine for home users.</p>
               <h3>Monitoring Your SSD</h3>
               <p>You can check your current "Total Host Writes" using free software like CrystalDiskInfo. Compare that number with your drive's TBW rating to see how much 'health' your drive has left.</p>
-            </article>
+            </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/ssd-tbw" />
           <PopularCalculators exclude="/calculator/ssd-tbw-calculator" />
         </div>

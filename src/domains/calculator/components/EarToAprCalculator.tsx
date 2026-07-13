@@ -175,7 +175,7 @@ export default function EarToAprCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is the EAR to APR Calculator?</h2>
             <p>This calculator performs the reverse of the standard APR-to-EAR conversion: given an Effective Annual Rate (EAR) or Annual Percentage Yield (APY), it finds the equivalent nominal APR at any compounding frequency. The formula is APR = n × [(1 + EAR)^(1/n) − 1], where n is the number of compounding periods per year.</p>
             <p>This conversion is essential when you need to compare a savings account's APY to a loan's APR, when issuing bonds that must disclose a nominal coupon rate, or when converting investment returns to the rate convention used in your market. Financial professionals working across different markets use this constantly since countries and institutions use different rate quoting conventions.</p>
@@ -183,7 +183,7 @@ export default function EarToAprCalculator() {
             <p>Yes — APY (Annual Percentage Yield) and EAR (Effective Annual Rate) are mathematically identical. Both represent the true annual return or cost after accounting for intra-year compounding. The US Truth in Savings Act requires banks to disclose APY for deposit accounts, which is why you see APY on savings accounts and CDs. The relationship to APR depends on how frequently the bank compounds interest.</p>
             <h2 className="text-2xl font-bold mb-3">Practical Applications</h2>
             <p>Bond traders converting between yield conventions (semi-annual US bonds vs. annual European bonds), mortgage lenders comparing quotes from different markets, corporate treasurers benchmarking investment returns against their borrowing costs, and financial analysts normalizing data across international markets all rely on EAR-to-APR conversion daily. Understanding both sides of this conversion is fundamental to financial mathematics.</p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/ear-to-apr-calculator" />
           <PopularCalculators exclude="/calculator/ear-to-apr-calculator" />
         </div>

@@ -262,7 +262,7 @@ export default function UnitLoadCostCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What is a Unit Load?</h2>
             <p>In supply chain logistics, a <strong>Unit Load</strong> is the standard configuration of a pallet. Instead of moving 240 individual boxes by hand, warehouse workers stack those 240 boxes onto a wooden pallet, wrap it in plastic, and strap it down. A forklift can now move all 240 items at once.</p>
             
@@ -273,7 +273,7 @@ export default function UnitLoadCostCalculator() {
             <h2 className="text-2xl font-bold mb-3">Why Calculate Cost Per Unit?</h2>
             <p>If you sell high-value electronics and put $100,000 worth of laptops on a single pallet, a $27 pallet build cost is a negligible fraction of a penny per laptop.</p>
             <p>But if you sell concrete landscaping bricks that cost $2.00 each, and you can only fit 50 bricks on a pallet due to weight limits, that $27 pallet build adds a massive <strong>$0.54 markup</strong> to every single brick. You must calculate this and build it into your wholesale pricing, or you will lose money on every B2B order.</p>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "What is Dunnage?", answer: "Dunnage refers to the materials used to protect the cargo during transport. For pallets, this usually means cardboard corner protectors, slip sheets placed between layers, or inflatable air bags placed between pallets inside the truck." },
             { question: "Should I buy a pallet wrapping machine?", answer: "If you build more than 15 pallets a day, yes. A semi-automatic stretch wrapper costs about $5,000. It dramatically reduces labor time and, more importantly, uses 40% less plastic wrap than manual hand-wrapping because the machine stretches the film to its maximum yield." },

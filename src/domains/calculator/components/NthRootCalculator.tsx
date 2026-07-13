@@ -202,7 +202,7 @@ export default function NthRootCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is an Nth Root Calculator?</h2>
             <p>
               An nth root calculator finds the value r such that r raised to the power n equals a given number x. Written mathematically: ⁿ√x = r, which means rⁿ = x. The most familiar examples are the square root (n = 2) and the cube root (n = 3), but the operation generalizes to any positive integer — or even fractional and decimal — root degree.
@@ -326,7 +326,7 @@ export default function NthRootCalculator() {
             <p>
               For 0 &lt; x &lt; 1, the opposite happens: higher degree roots produce larger values (still approaching 1). For x = 1, every root is exactly 1. The chart in this calculator visualizes exactly this relationship for your input value.
             </p>
-          </article>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/nth-root-calculator" />
           <PopularCalculators exclude="/calculator/nth-root-calculator" />
         </div>

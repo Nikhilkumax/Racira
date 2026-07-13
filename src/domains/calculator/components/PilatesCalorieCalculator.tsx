@@ -281,7 +281,7 @@ export default function PilatesCalorieCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding the Caloric Demand of Pilates</h2>
             <p>Developed in the early 20th century by Joseph Pilates for rehabilitating bedridden soldiers, "Contrology" (now known globally as Pilates) has become one of the most popular functional fitness modalities in the world. It is highly revered for building exceptional core strength, improving posture, and increasing flexibility. However, because it is low-impact and often lacks the rapid, heavy breathing associated with cardio, calculating the exact energy expended can be confusing. The <strong>Pilates Calorie Calculator</strong> removes the guesswork. By applying clinically established Metabolic Equivalent (MET) formulas to your specific body mass and the type of equipment you are using, it provides a mathematically precise estimate of your caloric burn.</p>
 
@@ -311,7 +311,7 @@ export default function PilatesCalorieCalculator() {
 
             <h2 className="text-2xl font-bold mb-3">Conclusion: Incorporating Pilates into Your Routine</h2>
             <p>Pilates should not be viewed primarily as a rapid calorie-burning tool. If your sole goal is to burn 500 calories as fast as possible, you should go for a run. Instead, use the Pilates Calorie Calculator to accurately log your sessions, but value the discipline for its true clinical benefits: bulletproofing your spine, eliminating lower back pain, correcting your posture, and building an incredibly strong, functional core that will dramatically improve your performance in every other sport or activity you undertake.</p>
-          </article>
+          </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/pilates-calorie-calculator" />
           <PopularCalculators exclude="/calculator/pilates-calorie-calculator" />

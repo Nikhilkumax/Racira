@@ -261,7 +261,7 @@ export default function SkuStorageCostCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <article className="prose-finance text-[15.75px]">
+          <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What is the Honeycomb Effect?</h2>
             <p>In warehouse logistics, the <strong>Honeycomb Effect</strong> refers to the empty space that cannot be utilized due to operational constraints—specifically the rule that you cannot mix different SKUs in the same storage bin or pallet location.</p>
             
@@ -272,7 +272,7 @@ export default function SkuStorageCostCalculator() {
             <h2 className="text-2xl font-bold mb-3">SKU Proliferation Will Bankrupt You</h2>
             <p><strong>SKU Proliferation</strong> is the act of endlessly adding new colors, sizes, and variations to your catalog to chase revenue. The sales team loves it. The logistics team hates it.</p>
             <p>As you add SKUs, your overall inventory volume might stay the same, but your physical footprint in the warehouse explodes because of the honeycomb effect. This calculator visualizes that exact financial penalty. If you have too many slow-moving SKUs, the monthly storage bill will consume all of the profit.</p>
-          </article>
+          </section>
           <FAQSection faqs={[
             { question: "How can I avoid Honeycomb storage fees?", answer: "Move slow-moving SKUs from 'Pallet Storage' into 'Bin Storage'. 3PLs will often charge $25 for a pallet, but only $2.50 for a small bin on a shelf. Do not store 12 units on a pallet." },
             { question: "What is SKU Rationalization?", answer: "The process of ruthlessly cutting the bottom 20% of your products that barely sell. Dropping dead SKUs instantly reduces your honeycomb waste and lowers your 3PL bill." },
