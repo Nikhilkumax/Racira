@@ -18,10 +18,10 @@ export default function ToolPage({ params }: ToolPageProps) {
   const isLive = tool.slug === ACTIVE_SLUG;
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-background">
       <Header mode="category" categoryName="Diagrams" />
 
-      <main className="racira-page-container flex-1 pb-16">
+      <main className="racira-page-container py-10">
         <div className="mb-6">
           <p className="text-xs font-bold uppercase tracking-widest text-primary">{category}</p>
           <h1 className="mt-2 text-3xl font-extrabold tracking-tight md:text-4xl">{tool.name}</h1>
