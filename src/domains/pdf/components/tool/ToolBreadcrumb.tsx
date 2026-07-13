@@ -24,7 +24,20 @@ const ToolBreadcrumb = ({ category, toolName }: ToolBreadcrumbProps) => {
   return (
     <div className="w-full">
       <div className="mx-auto max-w-[1100px] px-4 sm:px-6">
-        <Breadcrumb className="py-3">
+        {/* ── MOBILE: ← [Category] (immediate parent) ── */}
+        <nav aria-label="breadcrumb" className="md:hidden py-3">
+          <a
+            href="/pdf"
+            aria-label={`Back to ${category}`}
+            className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground hover:text-foreground transition-colors"
+          >
+            <span aria-hidden="true">←</span>
+            {category}
+          </a>
+        </nav>
+
+        {/* ── DESKTOP: full trail ── */}
+        <Breadcrumb className="hidden md:flex py-3">
           <BreadcrumbList className="text-[13px]">
             <BreadcrumbItem>
               <BreadcrumbLink asChild>

@@ -125,7 +125,18 @@ function CategoryView({ params, summary }: { params: any, summary: any }) {
   return (
     <div className="flex flex-col">
       <div className="racira-page-container pt-3 pb-0">
-        <nav aria-label="Breadcrumb" className="flex items-center flex-wrap text-sm text-muted-foreground mb-6">
+        {/* MOBILE: ← Calculators */}
+        <nav aria-label="breadcrumb" className="md:hidden flex items-center mb-6">
+          <a
+            href="/calculator"
+            aria-label="Back to Calculators"
+            className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground hover:text-foreground transition-colors"
+          >
+            <span aria-hidden="true">←</span>Calculators
+          </a>
+        </nav>
+        {/* DESKTOP: full trail */}
+        <nav aria-label="breadcrumb" className="hidden md:flex items-center flex-wrap text-sm text-muted-foreground mb-6">
           <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
           <ChevronRight className="h-4 w-4 mx-1 opacity-50 shrink-0" />
           <Link href="/calculator" className="hover:text-foreground transition-colors">Calculators</Link>
@@ -216,7 +227,18 @@ function ToolView({ params, tool }: { params: any, tool: any }) {
       />
 
       <div className="racira-page-container pt-3 pb-0">
-        <nav aria-label="Breadcrumb" className="flex items-center flex-wrap text-sm text-muted-foreground mb-6">
+        {/* MOBILE: ← Subcategory (immediate parent) */}
+        <nav aria-label="breadcrumb" className="md:hidden flex items-center mb-6">
+          <a
+            href={`/calculator/${categorySlug}/${subcategorySlug}`}
+            aria-label={`Back to ${formattedSubcategoryName}`}
+            className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground hover:text-foreground transition-colors"
+          >
+            <span aria-hidden="true">←</span>{formattedSubcategoryName}
+          </a>
+        </nav>
+        {/* DESKTOP: full trail */}
+        <nav aria-label="breadcrumb" className="hidden md:flex items-center flex-wrap text-sm text-muted-foreground mb-6">
           <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
           <ChevronRight className="h-4 w-4 mx-1 opacity-50 shrink-0" />
           <Link href="/calculator" className="hover:text-foreground transition-colors">Calculators</Link>
@@ -236,7 +258,8 @@ function ToolView({ params, tool }: { params: any, tool: any }) {
       </div>
 
       <style dangerouslySetInnerHTML={{__html: `
-        .tool-wrapper nav[aria-label="Breadcrumb"] { display: none !important; }
+        .tool-wrapper nav[aria-label="Breadcrumb"],
+        .tool-wrapper nav[aria-label="breadcrumb"] { display: none !important; }
         .tool-wrapper h1:first-of-type { display: none !important; }
         .tool-wrapper .racira-page-container { padding-top: 0 !important; padding-bottom: 0 !important; }
         .tool-wrapper .card-calculator {
