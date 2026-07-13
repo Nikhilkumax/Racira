@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import Header from "@/components/Header";
@@ -15,7 +15,6 @@ import {
   Music,
 } from "lucide-react";
 
-import { SiteFooter } from "@/components/audio/SiteFooter";
 import { cn } from "@/lib/utils";
 
 type Bitrate = 128 | 192 | 320;
@@ -323,7 +322,9 @@ export default function Mp3ConverterPage() {
         </div>
       </main>
 
-      <SiteFooter />
+      <footer className="border-t border-border py-8 text-center text-sm text-muted-foreground">
+        Racira Audio — 234 free audio tools. Runs entirely in your browser.
+      </footer>
     </div>
   );
 }
