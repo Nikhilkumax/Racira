@@ -25,6 +25,7 @@ import { toSlug } from "@/lib/utils/slug";
 import CalculatorSkeleton from "@/domains/calculator/components/ui/CalculatorSkeleton";
 import ComingSoonCalculator from "@/domains/calculator/components/ui/ComingSoonCalculator";
 import { lazyComponents } from "@/app/calculator/lazyComponents";
+import SearchCalculators from "@/components/SearchCalculators";
 
 const categoryMap: Record<string, string> = {
   "FINANCE": "Finance",
@@ -144,6 +145,7 @@ function CategoryView({ params, summary }: { params: any, summary: any }) {
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
             Explore {summary.total} professional-grade {catName.toLowerCase()} calculators and tools.
           </p>
+          <SearchCalculators />
         </div>
       </section>
 
