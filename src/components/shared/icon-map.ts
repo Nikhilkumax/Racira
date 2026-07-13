@@ -821,9 +821,9 @@ export function inferIcon(toolName: string, slug: string): LucideIcon {
   if (/architecture|system|service/i.test(toolName)) return Lucide.Server;
 
   // Image inference
-  if (/compress|reduce/i.test(toolName)) return Lucide.Minimize2;
+  if (/compress|reduce|optimiz/i.test(toolName)) return Lucide.Minimize2;
   if (/crop/i.test(toolName)) return Lucide.Crop;
-  if (/resize|scale/i.test(toolName)) return Lucide.ZoomIn;
+  if (/resize|scale|extend|canvas/i.test(toolName)) return Lucide.Maximize;
   if (/convert|to /i.test(toolName)) return Lucide.RefreshCw;
   if (/rotate/i.test(toolName)) return Lucide.RotateCw;
   if (/flip/i.test(toolName)) return Lucide.FlipHorizontal;

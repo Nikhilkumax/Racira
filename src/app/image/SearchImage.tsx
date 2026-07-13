@@ -11,7 +11,7 @@ export function SearchImage() {
     <CategorySearch 
       categorySlug="image" 
       placeholder={`Search ${totalCount}+ image tools...`} 
-      registry={SEARCH_REGISTRY.map(t => ({ ...t, href: `/image/tools/${t.slug}` }))} 
+      registry={SEARCH_REGISTRY.map(t => ({ ...t, href: `/image/${t.slug}` }))} 
     />
   );
 }

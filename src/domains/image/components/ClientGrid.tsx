@@ -15,7 +15,7 @@ export default function ImageClientGrid() {
           <div key={cat.name} className="mb-14 last:mb-0">
             <CategorySection 
               section={{ title: cat.name, tools: cat.tools }} 
-              basePath="/image/tool" 
+              basePath="/image" 
             />
           </div>
         ))}

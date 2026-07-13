@@ -63,3 +63,12 @@ export const categories: any[] = [
     ],
   },
 ];
+
+export function getImageToolBySlug(slug: string) {
+  for (const cat of categories) {
+    for (const tool of cat.tools) {
+      if (tool.slug === slug) return tool;
+    }
+  }
+  return null;
+}
