@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import Header from "@/components/Header";
@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 
 import { SiteFooter } from "@/components/productivity/SiteFooter";
+import { TOTAL_TOOLS } from "@/data/productivity/tools";
 
 type Preset = { id: string; label: string; work: number; brk: number };
 const PRESETS: Preset[] = [
@@ -262,7 +263,7 @@ export default function DeepWorkPlanner() {
 
       <main className="racira-page-container py-10">
         <Link
-          href="/"
+          href="/productivity"
           className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors mb-6"
         >
           <ArrowLeft className="h-4 w-4" /> All tools
@@ -643,8 +644,8 @@ export default function DeepWorkPlanner() {
           </p>
           <p className="text-muted-foreground mt-3 leading-relaxed">
             This planner is one of {" "}
-            <Link href="/" className="text-primary underline-offset-2 hover:underline">
-              Racira's 69 free productivity tools
+            <Link href="/productivity" className="text-primary underline-offset-2 hover:underline">
+              Racira's {TOTAL_TOOLS} free productivity tools
             </Link>
             . No account, no tracking — everything you enter lives in your browser only.
           </p>

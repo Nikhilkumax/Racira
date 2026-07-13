@@ -6,7 +6,7 @@ import Header from "@/components/Header";
 import { useMemo, useState } from "react";
 import { Search, Sparkles } from "lucide-react";
 import { CATEGORIES, TOTAL_TOOLS, SEARCH_REGISTRY } from "@/data/productivity/tools";
-import { CategorySection } from "@/components/productivity/CategorySection";
+import { CategorySection } from "@/components/shared/CategorySection";
 
 import { SiteFooter } from "@/components/productivity/SiteFooter";
 
@@ -48,14 +48,14 @@ export default function Index() {
                type="search"
               value={q}
               onChange={(e) => setQ(e.target.value)}
-              placeholder="Search 69 tools…"
+              placeholder={`Search ${TOTAL_TOOLS} tools…`}
               className="w-full rounded-full border border-border bg-card pl-9 pr-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/30"
             />
           </div>
         </div>
 
         {filtered.map((cat, i) => (
-          <CategorySection key={cat.name} category={cat} index={i} />
+          <CategorySection key={cat.name} section={{ title: cat.name, tools: cat.tools }} basePath="/productivity/tools" />
         ))}
 
         {filtered.length === 0 && (
