@@ -556,7 +556,7 @@ const OVERRIDES: Record<string, string> = {
   "m4a-converter": "Radio",
   "wma-converter": "Headphones",
   "aiff-converter": "Speaker",
-  "opus-converter": "Cassette",
+  "opus-converter": "CassetteTape",
   "audio-format-converter": "Repeat",
   "audio-trimmer": "Scissors",
   "audio-cutter": "SplitSquareHorizontal",
