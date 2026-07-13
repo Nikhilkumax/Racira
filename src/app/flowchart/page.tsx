@@ -26,13 +26,13 @@ export default function FlowchartHomePage() {
               <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
         <div className="racira-page-container text-center">
           <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
-            110+ Free Diagram Tools —{" "}
+            100 Free Diagram Tools —{" "}
             <span className="hero-gradient-text">Flowcharts, Trees & Nodes</span>
           </h1>
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
             Build flowcharts, mind maps, and node diagrams with our intuitive visual tools. No signup required.
           </p>
-          <CategorySearch categorySlug="flowchart" placeholder="Search 110+ diagram tools..." registry={SEARCH_REGISTRY} />
+          <CategorySearch categorySlug="flowchart" placeholder="Search 100 diagram tools..." registry={SEARCH_REGISTRY} />
         </div>
       </section>
         <div className="mx-auto mt-8 flex max-w-xl items-center gap-2 rounded-xl border border-border bg-card px-4 py-3 shadow-[var(--shadow-card)] focus-within:border-primary/50 focus-within:ring-2 focus-within:ring-primary/20 mb-6">
