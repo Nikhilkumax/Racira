@@ -1,4 +1,3 @@
-"use client";
 
 import Index from "@/domains/pdf/tools/Index";
 
