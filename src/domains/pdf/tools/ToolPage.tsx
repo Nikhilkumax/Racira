@@ -97,8 +97,8 @@ const ToolPage = () => {
     return (
       <div className="racira-page-container py-20 text-center">
         <h1 className="text-2xl font-bold text-foreground">Tool not found</h1>
-        <Link href="/" className="mt-4 inline-block text-primary hover:underline">
-          Back to all tools
+        <Link href="/pdf" className="mt-4 inline-block text-primary hover:underline">
+          Back to all PDF tools
         </Link>
       </div>
     );
