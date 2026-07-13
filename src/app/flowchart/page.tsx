@@ -10,9 +10,9 @@ export default function FlowchartHomePage() {
   const filtered = CATEGORIES;
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background flex flex-col">
       <Header mode="category" categoryName="Diagrams" />
-      <main className="pb-24 pt-16">
+      <main className="flex-1 pb-24">
               <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
         <div className="racira-page-container text-center">
           <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
