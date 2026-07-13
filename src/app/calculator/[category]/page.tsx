@@ -252,7 +252,7 @@ function ToolView({ params, tool }: { params: any, tool: any }) {
       `}} />
 
       <div className="tool-wrapper">
-        {!tool.isBuilt || !CalculatorComponent ? (
+        {tool.status === "soon" || !CalculatorComponent ? (
           <ComingSoonCalculator slug={tool.slug || params.category} />
         ) : (
           <Suspense fallback={<CalculatorSkeleton />}>
