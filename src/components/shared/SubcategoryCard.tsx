@@ -1,0 +1,40 @@
+import Link from "next/link";
+import { LucideIcon } from "lucide-react";
+
+interface SubcategoryCardProps {
+  title: string;
+  icon: LucideIcon;
+  count: number;
+  basePath: string;
+  label?: string;
+}
+
+export function SubcategoryCard({
+  title,
+  icon: Icon,
+  count,
+  basePath,
+  label = "tools"
+}: SubcategoryCardProps) {
+  return (
+    <Link
+      href={basePath}
+      className="tool-card group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-card p-5 hover:-translate-y-[3px] hover:border-primary/40 hover:shadow-[0_8px_24px_hsl(var(--ring)/0.1)] transition-all"
+    >
+      <div className="flex flex-col">
+        <div className="mb-4 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+          <Icon className="h-5 w-5" />
+        </div>
+
+        <div className="flex flex-col">
+          <h3 className="font-semibold text-foreground leading-snug line-clamp-2">
+            {title}
+          </h3>
+          <p className="mt-1.5 text-[13px] text-muted-foreground leading-relaxed line-clamp-1">
+            {count} {label}
+          </p>
+        </div>
+      </div>
+    </Link>
+  );
+}
