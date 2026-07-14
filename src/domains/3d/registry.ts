@@ -1,17 +1,9 @@
 import { ToolResult } from "@/components/CategorySearch";
+import { Tool as BaseTool, Category as BaseCategory, ToolStatus } from "@/domains/_types";
+import { inferIcon } from "@/components/shared/icon-map";
 
-export type Tool = {
-  slug: string;
-  name: string;
-  description: string;
-  category: string;
-  built?: boolean;
-};
-
-export type Category = {
-  name: string;
-  tools: Tool[];
-};
+export type Tool = BaseTool;
+export type Category = BaseCategory;
 
 const slugify = (s: string) =>
   s
@@ -22,198 +14,180 @@ const slugify = (s: string) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
 
-const def = (name: string, description: string, built = false): Omit<Tool, "category"> => ({
-  slug: slugify(name),
-  name,
-  description,
-  built,
+// Mark active (fully functional) tools
+const ACTIVE_SLUGS = new Set([
+  "3d-model-viewer-gltf-obj-stl",
+  "gltf-inspector",
+  "obj-inspector",
+  "stl-viewer",
+  "fbx-viewer-via-conversion",
+  "3d-mesh-stats-tool",
+  "3d-scene-explorer",
+  "3d-bounding-box-inspector",
+  "3d-normal-map-viewer",
+  "uv-map-inspector",
+  "3d-wireframe-viewer",
+  "3d-vertex-count-analyzer"
+]);
+
+const def = (name: string, description: string): Omit<Tool, "category"> => {
+  const slug = slugify(name);
+  return {
+    slug,
+    name,
+    description,
+    status: ACTIVE_SLUGS.has(slug) ? "live" : "soon",
+    icon: inferIcon(name, slug)
+  };
+};
+
+const buildCat = (name: string, items: Omit<Tool, "category">[]): Category => ({
+  title: name,
+  key: slugify(name),
+  tools: items.map(t => ({ ...t, category: name } as Tool))
 });
 
 export const CATEGORIES: Category[] = [
-  {
-    name: "3D Viewing & Inspection",
-    tools: [
-      def("3D Model Viewer (GLTF/OBJ/STL)", "Load and rotate GLTF, OBJ, or STL files in your browser", true),
-      def("GLTF Inspector", "Parse a GLTF/GLB file and explore its JSON structure", true),
-      def("OBJ Inspector", "Inspect OBJ geometry, groups, and materials", true),
-      def("STL Viewer", "View binary or ASCII STL meshes in 3D", true),
-      def("FBX Viewer (via conversion)", "View FBX models after converting to GLTF", true),
-      def("3D Mesh Stats Tool", "Vertex, face, edge, and material counts for any mesh", true),
-      def("3D Scene Explorer", "Walk the scene graph of any 3D file", true),
-      def("3D Bounding Box Inspector", "Compute and visualize bounding box dimensions", true),
-      def("3D Normal Map Viewer", "Preview a normal map applied to a sphere", true),
-      def("UV Map Inspector", "Render the UV layout of a 3D model", true),
-      def("3D Wireframe Viewer", "Toggle wireframe rendering for any model", true),
-      def("3D Vertex Count Analyzer", "Per-mesh vertex counts for performance budgeting", true),
-    ],
-  },
-  {
-    name: "3D Modeling Utilities",
-    tools: [
-      def("3D Model Scale Calculator", "Calculate scaling factors between units"),
-      def("3D Print Volume Estimator", "Estimate the printable volume of a model"),
-      def("Mesh Simplification Preview", "Preview decimated meshes"),
-      def("3D Booleans Concept Tool", "Plan boolean operations between meshes"),
-      def("Surface Area Calculator (3D)", "Compute surface area of a mesh"),
-      def("3D Model Unit Converter", "Convert between mm, cm, inch, m"),
-      def("Voxel Art Builder", "Build voxel-based scenes"),
-      def("3D Isometric Builder", "Compose isometric scenes in browser"),
-      def("Low-Poly Shape Generator", "Generate low-poly primitives"),
-      def("3D Model Dimension Inspector", "Inspect width, height, and depth"),
-      def("3D Coordinate System Tool", "Reference for 3D coordinate systems"),
-      def("Mesh Density Checker", "Check polygon density per area"),
-      def("3D Transform Tool", "Translate, rotate, scale meshes"),
-      def("3D Model Repair Checklist", "Checklist of common mesh repairs"),
-    ],
-  },
-  {
-    name: "3D Print Preparation",
-    tools: [
-      def("3D Print Slicer Preview (browser)", "Preview slicing in browser"),
-      def("Layer Height Calculator", "Find ideal layer heights for nozzles"),
-      def("Infill Density Estimator", "Estimate infill weight and strength"),
-      def("Support Structure Planner", "Plan supports for overhangs"),
-      def("Print Time Estimator", "Estimate total print time"),
-      def("Material Weight Calculator", "Calculate filament/resin weight"),
-      def("Filament Usage Calculator", "Estimate filament length used"),
-      def("Wall Thickness Checker", "Check minimum wall thickness"),
-      def("Overhangs Analyzer", "Find risky overhang angles"),
-      def("Bridge Length Estimator", "Estimate bridge spans"),
-      def("Bed Adhesion Planner", "Plan adhesion strategy"),
-      def("Cooling Strategy Planner", "Plan cooling per material"),
-      def("G-Code Viewer", "Preview G-code in browser"),
-      def("Print Settings Reference Tool", "Reference common slicer settings"),
-      def("Build Plate Layout Planner", "Lay out parts on build plate"),
-      def("First Layer Calibration Guide", "Calibrate first layer adhesion"),
-    ],
-  },
-  {
-    name: "FDM 3D Printing",
-    tools: [
-      def("FDM Material Comparator", "Compare FDM filament types"),
-      def("PLA vs PETG vs ABS Chooser", "Pick the right filament"),
-      def("Nozzle Size Guide", "Nozzle size to detail reference"),
-      def("Printer Spec Comparator", "Compare printer specifications"),
-      def("Hotend Temperature Reference", "Temperature ranges per material"),
-      def("Retraction Settings Guide", "Tune retraction"),
-      def("Speed vs Quality Trade-Off Tool", "Balance speed and quality"),
-      def("Stringing Troubleshooting Tool", "Fix stringing issues"),
-      def("Layer Adhesion Guide", "Improve layer bonding"),
-      def("Warping Prevention Checklist", "Prevent warped prints"),
-      def("FDM Color Management Tool", "Manage multi-color prints"),
-      def("Enclosure Requirement Estimator", "Decide if you need an enclosure"),
-    ],
-  },
-  {
-    name: "SLA & Resin Printing",
-    tools: [
-      def("Resin Exposure Calculator", "Calculate exposure times"),
-      def("Resin Material Comparator", "Compare resin types"),
-      def("Support Density Planner (SLA)", "Plan SLA support density"),
-      def("Hollow Shell Wall Thickness Tool", "Set hollow shell thickness"),
-      def("Drain Hole Placement Guide", "Place drain holes correctly"),
-      def("UV Curing Time Calculator", "Compute post-cure time"),
-      def("Resin Safety Checklist", "Resin handling safety"),
-      def("SLA Print Cost Estimator", "Estimate resin print cost"),
-    ],
-  },
-  {
-    name: "Print Materials & Costs",
-    tools: [
-      def("Filament Cost Calculator", "Cost per print by filament"),
-      def("Resin Cost Calculator", "Cost per print by resin"),
-      def("Print Material Budget Planner", "Plan your material budget"),
-      def("Material Density Reference", "Densities for common materials"),
-      def("Spool Weight Tracker", "Track remaining spool weight"),
-      def("Multi-Material Print Planner", "Plan multi-material jobs"),
-      def("Recycled Filament Comparator", "Compare recycled filaments"),
-      def("Material Data Sheet Reference", "Lookup material datasheets"),
-    ],
-  },
-  {
-    name: "3D Texturing & Materials",
-    tools: [
-      def("Texture Map Builder", "Build texture maps in browser"),
-      def("UV Unwrap Guide", "Guide to UV unwrapping"),
-      def("PBR Material Reference", "Reference PBR materials"),
-      def("Normal Map Generator", "Generate normal maps from images"),
-      def("Roughness Map Builder", "Build roughness maps"),
-      def("Metallic Map Maker", "Make metallic maps"),
-      def("Ambient Occlusion Map Preview", "Preview AO maps"),
-      def("Displacement Map Viewer", "View displacement maps"),
-      def("Material Library Builder", "Build your material library"),
-      def("Substance Parameter Reference", "Substance parameter cheatsheet"),
-    ],
-  },
-  {
-    name: "3D Animation (Concept Tools)",
-    tools: [
-      def("3D Rig Concept Builder", "Concept rigs for characters"),
-      def("Animation Curve Visualizer", "Visualize ease curves"),
-      def("Bone Hierarchy Planner", "Plan bone hierarchy"),
-      def("Morph Target Reference", "Reference morph targets"),
-      def("3D Path Animation Planner", "Plan path animations"),
-      def("Blend Shape Concept Tool", "Concept blend shapes"),
-      def("IK Chain Visualizer", "Visualize IK chains"),
-      def("Keyframe Timing Reference", "Timing chart for keyframes"),
-    ],
-  },
-  {
-    name: "Web 3D & Real-Time",
-    tools: [
-      def("Three.js Playground", "Live Three.js sandbox"),
-      def("WebGL Shader Editor", "Edit shaders live"),
-      def("WebXR Scene Builder", "Build basic WebXR scenes"),
-      def("AR Marker Generator", "Generate AR markers"),
-      def("3D CSS Transform Builder", "Build 3D CSS transforms"),
-      def("GLTF Optimizer", "Optimize GLTF files"),
-      def("Three.js Geometry Gallery", "Gallery of geometries"),
-      def("WebGPU Feature Checker", "Check WebGPU support"),
-      def("Three.js Material Preview", "Preview Three.js materials"),
-      def("3D Performance Budget Estimator", "Budget polys and draw calls"),
-    ],
-  },
-  {
-    name: "Print Design (Print-on-Paper)",
-    tools: [
-      def("Print Bleed & Safe Zone Calculator", "Bleed and safe zones for print"),
-      def("Print DPI Checker", "Check image DPI for print"),
-      def("CMYK Print Preview Simulator", "Preview CMYK output"),
-      def("Print Template Builder", "Build print templates"),
-      def("Tiling Print Layout", "Lay out tiled prints"),
-      def("Large Format Print Calculator", "Calculate large format prints"),
-      def("Print Crop Marks Generator", "Generate crop marks"),
-      def("Color Bar Reference", "Reference color bars"),
-      def("Registration Mark Generator", "Generate registration marks"),
-      def("Print Proof Checklist", "Pre-press proof checklist"),
-      def("Printer Color Profile Selector", "Pick the right ICC profile"),
-      def("Cardstock Weight Reference", "Paper weight reference"),
-      def("Binding Type Selector", "Pick a binding method"),
-      def("Print Run Cost Estimator", "Estimate print run cost"),
-    ],
-  },
-  {
-    name: "Specialized 3D",
-    tools: [
-      def("Point Cloud Viewer", "View point clouds"),
-      def("Photogrammetry Checklist", "Photogrammetry workflow checklist"),
-      def("LiDAR Data Reference", "LiDAR data reference"),
-      def("3D Scanning Guide", "Guide to 3D scanning"),
-      def("Digital Fabrication Reference", "Digital fab reference"),
-      def("CNC Path Concept Planner", "Plan CNC toolpaths"),
-      def("Laser Cutter Material Guide", "Materials for laser cutting"),
-      def("Embossing Pattern Builder", "Build emboss patterns"),
-      def("3D Map Terrain Viewer", "View 3D terrain maps"),
-      def("Procedural Terrain Generator", "Generate procedural terrain"),
-    ],
-  },
-].map((c) => ({
-  name: c.name,
-  tools: c.tools.map((t) => ({ ...t, category: c.name })),
-}));
+  buildCat("3D Viewing & Inspection", [
+    def("3D Model Viewer (GLTF/OBJ/STL)", "Load and rotate GLTF, OBJ, or STL files in your browser"),
+    def("GLTF Inspector", "Parse a GLTF/GLB file and explore its JSON structure"),
+    def("OBJ Inspector", "Inspect OBJ geometry, groups, and materials"),
+    def("STL Viewer", "View binary or ASCII STL meshes in 3D"),
+    def("FBX Viewer (via conversion)", "View FBX models after converting to GLTF"),
+    def("3D Mesh Stats Tool", "Vertex, face, edge, and material counts for any mesh"),
+    def("3D Scene Explorer", "Walk the scene graph of any 3D file"),
+    def("3D Bounding Box Inspector", "Compute and visualize bounding box dimensions"),
+    def("3D Normal Map Viewer", "Preview a normal map applied to a sphere"),
+    def("UV Map Inspector", "Render the UV layout of a 3D model"),
+    def("3D Wireframe Viewer", "Toggle wireframe rendering for any model"),
+    def("3D Vertex Count Analyzer", "Per-mesh vertex counts for performance budgeting"),
+  ]),
+  buildCat("3D Modeling Utilities", [
+    def("3D Model Scale Calculator", "Calculate scaling factors between units"),
+    def("3D Print Volume Estimator", "Estimate the printable volume of a model"),
+    def("Mesh Simplification Preview", "Preview decimated meshes"),
+    def("3D Booleans Concept Tool", "Plan boolean operations between meshes"),
+    def("Surface Area Calculator (3D)", "Compute surface area of a mesh"),
+    def("3D Model Unit Converter", "Convert between mm, cm, inch, m"),
+    def("Voxel Art Builder", "Build voxel-based scenes"),
+    def("3D Isometric Builder", "Compose isometric scenes in browser"),
+    def("Mesh Smoothing Viewer", "Preview subdivision surfaces"),
+    def("3D Mirror/Symmetry Tool", "Preview mirrored geometries"),
+    def("Model Hollower (Shell) Concept", "Plan wall thickness for hollowing"),
+    def("3D Pivot Point Adjuster", "Re-center model origins"),
+    def("Poly Count Reducer Helper", "Target poly counts for LODs"),
+    def("3D Model Bounding Sphere Calc", "Calculate bounding spheres"),
+  ]),
+  buildCat("3D Print Preparation", [
+    def("G-Code Viewer", "Preview G-Code paths layer by layer"),
+    def("3D Print Time Estimator", "Estimate print time from parameters"),
+    def("Overhang Angle Checker", "Identify faces needing supports"),
+    def("Wall Thickness Analyzer", "Check minimum wall thickness"),
+    def("Support Material Estimator", "Estimate support material usage"),
+    def("Infill Density Visualizer", "Visualize different infill patterns"),
+    def("Bed Leveling Test Generator", "Generate bed leveling test prints"),
+    def("3D Print Shrinkage Calculator", "Calculate material shrinkage compensation"),
+    def("Resin Exposure Time Finder", "Calculate ideal resin exposure"),
+    def("FEP Film Tension Guide", "Guide to tuning FEP film"),
+    def("Nozzle Size vs Layer Height", "Calculate optimal layer heights"),
+    def("Extrusion Multiplier Calc", "Calibrate flow rate/extrusion"),
+  ]),
+  buildCat("FDM 3D Printing", [
+    def("Filament Spool Cost Calculator", "Cost per gram/meter of filament"),
+    def("Filament Runout Predictor", "Predict if a spool has enough left"),
+    def("Retraction Calibration Test", "Generate stringing tests"),
+    def("Temperature Tower Generator", "Generate temp tower STLs"),
+    def("Vase Mode Planner", "Plan continuous spiral vases"),
+    def("First Layer Squish Visualizer", "First layer height reference"),
+    def("PID Autotune Helper", "Marlin PID autotune reference"),
+    def("Stepper Motor Steps/mm Calc", "Calibrate e-steps and axis steps"),
+    def("Print Speed vs Quality Guide", "Speed and acceleration reference"),
+    def("Dual Extrusion Prime Tower Calc", "Size prime towers"),
+  ]),
+  buildCat("SLA & Resin Printing", [
+    def("Resin Cost Calculator", "Cost per mL of resin"),
+    def("Resin Lift Speed Reference", "Optimal lift speeds for SLA"),
+    def("Hollowing Resin Drain Planner", "Plan drain holes for hollow prints"),
+    def("Resin Print Orientation Guide", "Guide to minimizing peel forces"),
+    def("Anti-Aliasing Preview", "Preview AA settings for resin"),
+    def("LCD Screen Life Tracker", "Track hours on SLA screens"),
+    def("Resin Toxicity & Safety Ref", "Material safety guide"),
+    def("Wash & Cure Time Guide", "Optimal washing and curing times"),
+  ]),
+  buildCat("Print Materials & Costs", [
+    def("PLA vs PETG vs ABS Guide", "Compare common FDM filaments"),
+    def("TPU/Flexible Print Settings", "Reference for printing flexibles"),
+    def("Nylon & PC Enclosure Ref", "Requirements for engineering materials"),
+    def("3D Print Pricing Calculator", "Quote jobs by time, weight, and wear"),
+    def("Electricity Cost of Printing", "Calculate power usage of printers"),
+    def("Spool Weight Tare Database", "Empty spool weights by brand"),
+  ]),
+  buildCat("3D Texturing & Materials", [
+    def("PBR Material Viewer", "View physically based materials"),
+    def("Albedo/Color Map Viewer", "View base color maps"),
+    def("Roughness/Gloss Map Viewer", "View roughness maps"),
+    def("Metalness Map Viewer", "View metallic maps"),
+    def("Ambient Occlusion Viewer", "View AO maps"),
+    def("Displacement Map Visualizer", "Preview height/displacement"),
+    def("Texture Tiling Checker", "Check for seamless tiling"),
+    def("Normal Map Inverter (DirectX/OpenGL)", "Flip green channels on normals"),
+    def("Texture Resolution Resizer", "Scale textures to power-of-two"),
+    def("Color Palette to 3D Gradient", "Map palettes to 3D ramps"),
+  ]),
+  buildCat("3D Animation (Concept Tools)", [
+    def("Bone Weight Visualizer", "Preview vertex weights"),
+    def("Rigging Hierarchy Viewer", "View armature tree structures"),
+    def("Keyframe Interpolation Curve", "Bezier curve editor for animation"),
+    def("FK/IK Joint Simulator", "Simulate forward and inverse kinematics"),
+    def("Motion Capture Data Viewer", "Preview BVH files"),
+    def("Frame Rate Converter", "Calculate frame counts across FPS"),
+    def("Lip Sync Viseme Reference", "Reference chart for mouth shapes"),
+    def("Walk Cycle Timing Guide", "Timing charts for standard walk cycles"),
+  ]),
+  buildCat("Web 3D & Real-Time", [
+    def("Three.js Scene Builder", "Compose basic Three.js scenes"),
+    def("WebGL Capabilities Checker", "Check device WebGL limits"),
+    def("HDRI Environment Viewer", "View equirectangular HDRI maps"),
+    def("GLTF Compression (Draco) Planner", "Estimate Draco compression savings"),
+    def("Three.js Camera Planner", "Plan FOV and near/far planes"),
+    def("WebXR Device Support Checker", "Check for VR/AR support"),
+    def("Three.js Geometry Gallery", "Gallery of geometries"),
+    def("WebGPU Feature Checker", "Check WebGPU support"),
+    def("Three.js Material Preview", "Preview Three.js materials"),
+    def("3D Performance Budget Estimator", "Budget polys and draw calls"),
+  ]),
+  buildCat("Print Design (Print-on-Paper)", [
+    def("Print Bleed & Safe Zone Calculator", "Bleed and safe zones for print"),
+    def("Print DPI Checker", "Check image DPI for print"),
+    def("CMYK Print Preview Simulator", "Preview CMYK output"),
+    def("Print Template Builder", "Build print templates"),
+    def("Tiling Print Layout", "Lay out tiled prints"),
+    def("Large Format Print Calculator", "Calculate large format prints"),
+    def("Print Crop Marks Generator", "Generate crop marks"),
+    def("Color Bar Reference", "Reference color bars"),
+    def("Registration Mark Generator", "Generate registration marks"),
+    def("Print Proof Checklist", "Pre-press proof checklist"),
+    def("Printer Color Profile Selector", "Pick the right ICC profile"),
+    def("Cardstock Weight Reference", "Paper weight reference"),
+    def("Binding Type Selector", "Pick a binding method"),
+    def("Print Run Cost Estimator", "Estimate print run cost"),
+  ]),
+  buildCat("Specialized 3D", [
+    def("Point Cloud Viewer", "View point clouds"),
+    def("Photogrammetry Checklist", "Photogrammetry workflow checklist"),
+    def("LiDAR Data Reference", "LiDAR data reference"),
+    def("3D Scanning Guide", "Guide to 3D scanning"),
+    def("Digital Fabrication Reference", "Digital fab reference"),
+    def("CNC Path Concept Planner", "Plan CNC toolpaths"),
+    def("Laser Cutter Material Guide", "Materials for laser cutting"),
+    def("Embossing Pattern Builder", "Build emboss patterns"),
+    def("3D Map Terrain Viewer", "View 3D terrain maps"),
+    def("Procedural Terrain Generator", "Generate procedural terrain"),
+  ])
+];
 
 export const ALL_TOOLS: Tool[] = CATEGORIES.flatMap((c) => c.tools);
-export const TOOLS_BY_SLUG = new Map(ALL_TOOLS.map((t) => [(t as any).slug, t]));
+export const TOOLS_BY_SLUG = new Map(ALL_TOOLS.map((t) => [t.slug, t]));
 export const TOTAL_TOOLS = ALL_TOOLS.length;
 
 export const SEARCH_REGISTRY: ToolResult[] = ALL_TOOLS.map((tool) => ({
@@ -222,5 +196,5 @@ export const SEARCH_REGISTRY: ToolResult[] = ALL_TOOLS.map((tool) => ({
   slug: tool.slug,
   href: `/3d/tool/${tool.slug}`,
   category: tool.category,
-  isBuilt: tool.built ?? false,
+  isBuilt: tool.status === "live",
 }));
