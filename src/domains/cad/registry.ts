@@ -1,11 +1,15 @@
 import { ToolResult } from "@/components/CategorySearch";
 
 // Centralized tool catalog: 108 CAD tools across 10 categories.
+import { ToolStatus } from "@/domains/_types";
+import { inferIcon } from "@/components/shared/icon-map";
+
 export type Tool = {
   slug: string;
   name: string;
-  desc: string;
-  active?: boolean;
+  description: string;
+  status: ToolStatus;
+  icon: any;
 };
 
 export type Category = {
@@ -24,7 +28,13 @@ const slug = (s: string) =>
 const cat = (title: string, items: [string, string][]): Category => ({
   key: slug(title),
   title,
-  tools: items.map(([name, desc]) => ({ slug: slug(name), name, desc })),
+  tools: items.map(([name, desc]) => ({
+    slug: slug(name),
+    name,
+    description: desc,
+    status: "soon",
+    icon: inferIcon(name, slug(name))
+  })),
 });
 
 export const categories: Category[] = [
@@ -171,7 +181,11 @@ export const categories: Category[] = [
 // Mark active (fully functional) tools.
 const ACTIVE_SLUGS = new Set(["2d-cad-sketch-tool"]);
 for (const c of categories) {
-  for (const t of c.tools) if (ACTIVE_SLUGS.has((t as any).slug)) t.active = true;
+  for (const t of c.tools) {
+    if (t && t.slug && ACTIVE_SLUGS.has(t.slug)) {
+      t.status = "live";
+    }
+  }
 }
 
 export const allTools: Tool[] = categories.flatMap((c) => c.tools);
@@ -184,10 +198,10 @@ export const findCategoryForTool = (s: string) =>
 export const SEARCH_REGISTRY: ToolResult[] = categories.flatMap((cat) =>
   cat.tools.map((tool) => ({
     name: tool.name,
-    description: tool.desc,
+    description: tool.description, // FIXED property name
     slug: tool.slug,
     href: `/cad/tools/${tool.slug}`,
     category: cat.title,
-    isBuilt: tool.active === true,
+    isBuilt: tool.status === "live", // FIXED property
   }))
 );

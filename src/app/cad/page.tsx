@@ -1,25 +1,12 @@
+"use client";
+
 import { CategorySearch } from "@/components/CategorySearch";
 import Header from "@/components/Header";
 import Link from "next/link";
-import { categories, totalCount, SEARCH_REGISTRY } from "@/domains/cad/registry";
-import {
-  Search, Pencil, Ruler, Cog, Building2, CircuitBoard, Home, Wind,
-  Crosshair, Scissors, FileText, ArrowRight, Sparkles,
-} from "lucide-react";
+import { categories, totalCount, SEARCH_REGISTRY, Category } from "@/domains/cad/registry";
+import { CategorySection } from "@/components/shared/CategorySection";
 
-const CATEGORY_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
-  "2d-drafting": Pencil,
-  "measurement-and-geometry": Ruler,
-  "mechanical-engineering-cad": Cog,
-  "structural-and-civil-cad": Building2,
-  "electrical-and-pcb-schematic": CircuitBoard,
-  "architecture-and-planning": Home,
-  "piping-and-hvac": Wind,
-  "gd-and-t-and-standards": Crosshair,
-
-  "cnc-and-fabrication": Scissors,
-  "cad-utilities": FileText,
-};
+// Removed inline icons
 
 export default function Index() {
   return (
@@ -28,44 +15,13 @@ export default function Index() {
       <main>
         <Hero />
         <section className="racira-page-container pb-24 space-y-16">
-          {categories.map((c) => {
-            const Icon = CATEGORY_ICONS[c.key] ?? Pencil;
-            return (
-              <div key={c.key} id={c.key}>
-                <div className="mb-5 flex items-center gap-2">
-                  <Icon className="h-4 w-4 text-primary" />
-                  <h2 className="text-xs font-bold uppercase tracking-[0.15em] text-muted-foreground">
-                    {c.title}
-                  </h2>
-                  <span className="text-xs text-muted-foreground/70">· {c.tools.length} tools</span>
-                </div>
-                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                  {c.tools.map((t) => (
-                    <Link
-                      key={(t as any).slug}
-                      href={`/cad/tools/${(t as any).slug}`}
-                      className="tool-card group hover:-translate-y-[3px] hover:border-primary/40 hover:shadow-[0_8px_24px_hsl(var(--ring)/0.1)]"
-                    >
-                      {!t.active && (
-                        <span className="absolute right-3 top-3 rounded-md bg-muted px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
-                          Soon
-                        </span>
-                      )}
-                      <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                        <Icon className="h-5 w-5" />
-                      </div>
-                      <h3 className="font-semibold text-foreground leading-snug">
-                        {(t as any).name}
-                      </h3>
-                      <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
-                        {(t as any).desc}
-                      </p>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            );
-          })}
+          {categories.map((c) => (
+            <CategorySection
+              key={c.key}
+              section={{ title: c.title, tools: c.tools as any }}
+              basePath="/cad/tools"
+            />
+          ))}
         </section>
       </main>
       <Footer />
