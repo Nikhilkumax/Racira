@@ -25,16 +25,21 @@ const slug = (s: string) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-|-$/g, "");
 
+const ACTIVE_SLUGS = new Set(["2d-cad-sketch-tool"]);
+
 const cat = (title: string, items: [string, string][]): Category => ({
   key: slug(title),
   title,
-  tools: items.map(([name, desc]) => ({
-    slug: slug(name),
-    name,
-    description: desc,
-    status: "soon",
-    icon: inferIcon(name, slug(name))
-  })),
+  tools: items.map(([name, desc]) => {
+    const itemSlug = slug(name);
+    return {
+      slug: itemSlug,
+      name,
+      description: desc,
+      status: ACTIVE_SLUGS.has(itemSlug) ? "live" : "soon",
+      icon: inferIcon(name, itemSlug)
+    };
+  }),
 });
 
 export const categories: Category[] = [
@@ -178,15 +183,7 @@ export const categories: Category[] = [
   ]),
 ];
 
-// Mark active (fully functional) tools.
-const ACTIVE_SLUGS = new Set(["2d-cad-sketch-tool"]);
-for (const c of categories) {
-  for (const t of c.tools) {
-    if (t && t.slug && ACTIVE_SLUGS.has(t.slug)) {
-      t.status = "live";
-    }
-  }
-}
+
 
 export const allTools: Tool[] = categories.flatMap((c) => c.tools);
 export const totalCount = allTools.length; // sanity: 118
