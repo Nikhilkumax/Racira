@@ -31,7 +31,7 @@ export default function Index() {
       <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
         <div className="racira-page-container text-center">
           <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
-            160+ Free Writing Tools —{" "}
+            148 Free Writing Tools —{" "}
             <span className="hero-gradient-text">Grammar, Count & Format</span>
           </h1>
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
@@ -44,7 +44,7 @@ export default function Index() {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 type="text"
-                placeholder="Search 160+ writing tools..."
+                placeholder="Search 148 writing tools..."
                 className="w-full h-11 pl-10 pr-16 rounded-lg border border-border bg-card text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/40 transition-shadow"
                 aria-label="Search Writing Tools"
               />
@@ -78,7 +78,7 @@ export default function Index() {
                 {cat.tools.map((t) => (
                   <Link
                     key={t.slug}
-                    href={`/tools/${t.slug}`}
+                    href={`/writing/tools/${t.slug}`}
                     className="tool-card group"
                   >
                     {!t.available && (

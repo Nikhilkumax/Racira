@@ -6,7 +6,7 @@ export function ToolCard({ tool }: { tool: ToolDef }) {
   const isSoon = tool.status === "soon";
   return (
     <Link
-      href={`/tools/${tool.slug}`}
+      href={`/colors/tools/${tool.slug}`}
       className="tool-card group"
     >
       {isSoon && (

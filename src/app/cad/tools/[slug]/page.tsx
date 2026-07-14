@@ -76,10 +76,10 @@ function ComingSoon({ name }: { name: string }) {
       <h2 className="mt-4 text-xl font-semibold text-foreground">Coming soon</h2>
       <p className="mx-auto mt-2 max-w-md text-sm text-muted-foreground">
         The <span className="font-medium text-foreground">{name}</span> is currently under
-        construction. We're rolling out all 108+ tools — check back shortly.
+        construction. We're rolling out all 118+ tools — check back shortly.
       </p>
       <Link
-        href="/tools/2d-cad-sketch-tool"
+        href="/cad/tools/2d-cad-sketch-tool"
         className="mt-6 inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
       >
         Try the 2D CAD Sketch Tool

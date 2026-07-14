@@ -1,4 +1,4 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 import * as Icons from "lucide-react";
 import type { Tool } from "@/domains/insight/registry";
 import { FUNCTIONAL_SLUGS } from "@/domains/insight/registry";
@@ -40,7 +40,7 @@ function ToolCard({ tool, icon }: { tool: Tool; icon: string }) {
   const isLive = FUNCTIONAL_SLUGS.has(tool.slug);
   return (
     <Link
-      href={`/tools/${tool.slug}`}
+      href={`/insight/tools/${tool.slug}`}
       className="group relative flex flex-col rounded-xl border border-border bg-card p-5 transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md"
     >
       <span className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary transition-colors group-hover:bg-primary/15">

@@ -13,7 +13,7 @@ export function ToolShell({
   return (
     <div className="racira-page-container py-10">
       <Link
-        href="/"
+        href="/engineering"
         className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary"
       >
         <ArrowLeft className="h-4 w-4" /> All tools

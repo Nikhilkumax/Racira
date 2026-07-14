@@ -23,13 +23,13 @@ export default function Index() {
             <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
         <div className="racira-page-container text-center">
           <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
-            290+ Free Developer Tools —{" "}
+            294 Free Developer Tools —{" "}
             <span className="hero-gradient-text">JSON, Base64 & Formatters</span>
           </h1>
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
             Essential utilities for developers including JSON formatters, Base64 encoders, and decoders. No signup required.
           </p>
-          <CategorySearch categorySlug="developers" placeholder="Search 290+ developer tools..." registry={SEARCH_REGISTRY} />
+          <CategorySearch categorySlug="developers" placeholder="Search 294 developer tools..." registry={SEARCH_REGISTRY} />
         </div>
       </section>
 

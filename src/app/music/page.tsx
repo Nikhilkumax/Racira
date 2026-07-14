@@ -12,13 +12,13 @@ export default function HomePage() {
               <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
         <div className="racira-page-container text-center">
           <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
-            30+ Free Music Tools —{" "}
+            134 Free Music Tools —{" "}
             <span className="hero-gradient-text">BPM, Scales & Tuners</span>
           </h1>
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
             Essential tools for musicians including BPM counters, scale references, and online tuners. No signup required.
           </p>
-          <CategorySearch categorySlug="music" placeholder="Search 30+ music tools..." registry={SEARCH_REGISTRY} />
+          <CategorySearch categorySlug="music" placeholder="Search 134 music tools..." registry={SEARCH_REGISTRY} />
         </div>
       </section>
 

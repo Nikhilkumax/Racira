@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Construction } from "lucide-react";
+import { Construction, ArrowLeft } from "lucide-react";
 import Header from "@/components/Header";
 import { findTool } from "@/domains/writing/registry";
 import { Metadata } from "next";
@@ -35,6 +35,12 @@ export default async function ToolPage({ params }: PageProps) {
     <div className="min-h-screen bg-background">
       <Header mode="category" categoryName="Writing" />
 
+      <div className="racira-page-container pt-8">
+        <Link href="/writing" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
+          <ArrowLeft className="h-4 w-4" /> All tools
+        </Link>
+      </div>
+
       {tool.available && tool.slug === "distraction-free-writing-editor" ? (
         <DistractionFreeEditor />
       ) : (
@@ -62,7 +68,7 @@ function ComingSoon({ name, description }: { name: string; description: string }
       <p className="mt-8 max-w-md text-sm text-muted-foreground">
         We're polishing this one. In the meantime, try our{" "}
         <Link
-          href="/tools/distraction-free-writing-editor"
+          href="/writing/tools/distraction-free-writing-editor"
           className="font-medium text-primary underline-offset-4 hover:underline"
         >
           Distraction-Free Writing Editor

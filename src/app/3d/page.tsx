@@ -63,7 +63,7 @@ export default function Index() {
                 {cat.tools.map((tool) => (
                   <Link
                     key={tool.slug}
-                    href={`/tool/${tool.slug}`}
+                    href={`/3d/tool/${tool.slug}`}
                     className="tool-card group"
                   >
                     <div className="mb-4 flex items-center justify-between">

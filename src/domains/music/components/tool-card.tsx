@@ -6,7 +6,7 @@ export function ToolCard({ tool }: { tool: Tool }) {
   const Icon = getToolIcon(tool);
   return (
     <Link
-      href={`/tool/${tool.slug}`}
+      href={`/music/tool/${tool.slug}`}
       className="tool-card group"
     >
       <div className="tool-card-icon">

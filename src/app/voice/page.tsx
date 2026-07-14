@@ -9,6 +9,7 @@ import { TTSWhyRacira } from "@/domains/voice/components/tts-sections/TTSWhyRaci
 import { TTSFAQ } from "@/domains/voice/components/tts-sections/TTSFAQ";
 import { TTSSeoContent } from "@/domains/voice/components/tts-sections/TTSSeoContent";
 import type { Metadata } from "next";
+import { VoiceToolGrid } from "./VoiceToolGrid";
 
 export const metadata: Metadata = {
   title: "Free Text to Speech Online | Natural AI Voices — Racira TTS",
@@ -27,7 +28,7 @@ export default function VoicePage() {
     <div className="flex flex-col">
       <TTSHero />
       
-      <div className="racira-page-container pb-20">
+      <div className="racira-page-container pb-8">
         {TTS_STUDIO_ENABLED ? (
           // StudioCard is intentionally not imported while tts-worker.js is absent.
           // Re-add: import { StudioCard } from "@/domains/voice/components/tts/StudioCard";
@@ -47,6 +48,8 @@ export default function VoicePage() {
           </div>
         )}
       </div>
+
+      <VoiceToolGrid />
 
       <TTSFeatures />
       <TTSWhyRacira />

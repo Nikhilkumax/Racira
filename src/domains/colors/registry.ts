@@ -1,4 +1,3 @@
-"use client";
 import {
   Pipette, Palette, Image as ImageIcon, Droplet, Shuffle, Hash, ListChecks,
   Repeat, Sun, Moon, Sparkles, Eye, EyeOff, Wand2, Layers, SlidersHorizontal,

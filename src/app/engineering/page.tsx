@@ -23,13 +23,13 @@ export default function Index() {
               <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
         <div className="racira-page-container text-center">
           <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
-            130+ Free Engineering Tools —{" "}
+            138 Free Engineering Tools —{" "}
             <span className="hero-gradient-text">Units, Forces & Materials</span>
           </h1>
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
             Technical calculators for unit conversions, material properties, and engineering formulas. No signup required.
           </p>
-          <CategorySearch categorySlug="engineering" placeholder="Search 138+ engineering tools..." registry={SEARCH_REGISTRY} />
+          <CategorySearch categorySlug="engineering" placeholder="Search 138 engineering tools..." registry={SEARCH_REGISTRY} />
         </div>
       </section>
 

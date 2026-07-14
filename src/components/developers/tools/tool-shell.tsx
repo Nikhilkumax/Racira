@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { ToolDefinition, ToolResult } from "@/components/developers/tools/registry";
-import { Breadcrumbs } from "@/components/developers/breadcrumbs";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {
   Copy,
@@ -12,6 +12,7 @@ import {
   Play,
   AlertTriangle,
   Check,
+  ArrowLeft,
 } from "lucide-react";
 import { ToolCard } from "@/components/developers/tool-card";
 import { toast } from "sonner";
@@ -132,9 +133,11 @@ export function ToolShell({ tool, toolMeta, categoryName, relatedTools }: ToolSh
 
   return (
     <div className="racira-page-container py-8 lg:py-12">
-      <Breadcrumbs items={[{ label: categoryName }, { label: toolMeta.name }]} />
+      <Link href="/developers" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground mb-6">
+        <ArrowLeft className="h-4 w-4" /> All tools
+      </Link>
 
-      <div className="mt-6 flex items-start gap-4">
+      <div className="mt-2 flex items-start gap-4">
         <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
           <Icon className="h-6 w-6" />
         </div>
@@ -210,7 +213,7 @@ export function ToolShell({ tool, toolMeta, categoryName, relatedTools }: ToolSh
                     Second input
                   </span>
                   <button
-                    onClick={() => setSecondInput("")}
+                     onClick={() => setSecondInput("")}
                     className="rounded-md p-1.5 text-muted-foreground hover:text-foreground hover:bg-accent"
                     aria-label="Clear"
                   >

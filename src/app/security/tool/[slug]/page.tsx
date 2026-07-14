@@ -90,7 +90,7 @@ export default async function ToolPage({ params }: Props) {
   return (
     <Layout>
       <div className="racira-page-container py-10">
-        <Link href="/" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-6">
+        <Link href="/security" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-6">
           <ArrowLeft className="h-4 w-4" /> All tools
         </Link>
         <div className="mb-2 text-xs font-semibold tracking-wider text-primary uppercase">{tool.category}</div>
@@ -106,7 +106,7 @@ export default async function ToolPage({ params }: Props) {
             <h2 className="text-xs font-semibold tracking-wider text-muted-foreground uppercase mb-3">More in {tool.category}</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {related.map((t) => (
-                <Link key={(t as any).slug} href={`/tool/${(t as any).slug}`} className="rounded-lg border border-border bg-card p-3 hover:border-primary/40">
+                <Link key={(t as any).slug} href={`/security/tool/${(t as any).slug}`} className="rounded-lg border border-border bg-card p-3 hover:border-primary/40">
                   <div className="font-medium text-sm">{(t as any).name}</div>
                   <div className="text-xs text-muted-foreground mt-1 line-clamp-1">{(t as any).description}</div>
                 </Link>
@@ -129,7 +129,7 @@ function ComingSoon({ name }: { name: string }) {
       <p className="mt-2 text-sm text-muted-foreground racira-page-container">
         We're polishing this tool. In the meantime, explore the other 100+ live tools running entirely in your browser.
       </p>
-      <Link href="/"><Button variant="outline" className="mt-6"><Shield className="h-4 w-4" /> Browse all tools</Button></Link>
+      <Link href="/security"><Button variant="outline" className="mt-6"><Shield className="h-4 w-4" /> Browse all tools</Button></Link>
     </div>
   );
 }

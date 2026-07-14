@@ -8,10 +8,10 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Racira Typography — All Typography Tools You Need",
-  description: "98+ free typography tools: font previewer, pairing, type scales, glyphs, CSS typography and more.",
+  description: "108 free typography tools: font previewer, pairing, type scales, glyphs, CSS typography and more.",
   openGraph: {
     title: "Racira Typography",
-    description: "98+ free typography tools in your browser. No signup.",
+    description: "108 free typography tools in your browser. No signup.",
   },
 };
 
@@ -24,13 +24,13 @@ export default function Index() {
                 <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
           <div className="racira-page-container text-center">
             <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
-              20+ Free Typography Tools —{" "}
+              108 Free Typography Tools —{" "}
               <span className="hero-gradient-text">Fonts, Scales & Pairings</span>
             </h1>
             <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
               Find perfect font pairings, generate modular scales, and preview typography instantly. No signup required.
             </p>
-            <CategorySearch categorySlug="typography" placeholder="Search 20+ typography tools..." registry={SEARCH_REGISTRY} />
+            <CategorySearch categorySlug="typography" placeholder="Search 108 typography tools..." registry={SEARCH_REGISTRY} />
           </div>
         </section>
 
@@ -47,7 +47,7 @@ export default function Index() {
                 {cat.tools.map((tool) => (
                   <Link
                     key={tool.slug}
-                    href={`/tools/${tool.slug}`}
+                    href={`/typography/tools/${tool.slug}`}
                     className="tool-card group hover:-translate-y-[3px] hover:border-primary/40 hover:shadow-[0_8px_24px_hsl(var(--ring)/0.1)]"
                   >
                     {!tool.built && (

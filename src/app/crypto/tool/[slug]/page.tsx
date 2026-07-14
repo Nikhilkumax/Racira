@@ -32,7 +32,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
     <div className="min-h-screen bg-background">
       <Header mode="category" categoryName="Crypto" />
       <main className="racira-page-container py-10">
-        <Link href="/" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
+        <Link href="/crypto" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
           <ArrowLeft className="h-4 w-4" /> All tools
         </Link>
         <div className="mt-4 mb-8">
@@ -53,7 +53,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
               This tool is on the roadmap. We're rolling out tools one by one — check back soon.
             </p>
             <Link
-              href="/"
+              href="/crypto"
               className="mt-6 inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90"
             >
               Browse other tools

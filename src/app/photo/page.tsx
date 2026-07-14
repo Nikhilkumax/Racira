@@ -25,13 +25,13 @@ export default function Home() {
                 <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
           <div className="racira-page-container text-center">
             <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
-              10+ Free Photo Tools —{" "}
+              122 Free Photo Tools —{" "}
               <span className="hero-gradient-text">Filters, Retouch & Adjust</span>
             </h1>
             <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
               Apply filters, adjust lighting, and retouch your photos right in the browser. No signup required.
             </p>
-            <CategorySearch categorySlug="photo" placeholder="Search 10+ photo tools..." registry={SEARCH_REGISTRY} />
+            <CategorySearch categorySlug="photo" placeholder="Search 122 photo tools..." registry={SEARCH_REGISTRY} />
           </div>
         </section>
 
@@ -83,7 +83,7 @@ function SearchResults({ results }: { results: typeof ALL_TOOLS }) {
 function ToolCard({ slug, name, description, built }: { slug: string; name: string; description: string; built?: boolean }) {
   return (
     <Link
-      href={`/tool/${slug}`}
+      href={`/photo/tool/${slug}`}
       className="tool-card group"
     >
       {!built && (

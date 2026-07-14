@@ -29,13 +29,13 @@ export default function Index() {
             <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
         <div className="racira-page-container text-center">
           <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
-            74+ Free Productivity Tools —{" "}
+            74 Free Productivity Tools —{" "}
             <span className="hero-gradient-text">Timers, Planners & Trackers</span>
           </h1>
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
             Boost your workflow with Pomodoro timers, planners, and task tracking utilities. No signup required.
           </p>
-          <CategorySearch categorySlug="productivity" placeholder="Search 74+ productivity tools..." registry={SEARCH_REGISTRY} />
+          <CategorySearch categorySlug="productivity" placeholder="Search 74 productivity tools..." registry={SEARCH_REGISTRY} />
         </div>
       </section>
 
@@ -48,7 +48,7 @@ export default function Index() {
                type="search"
               value={q}
               onChange={(e) => setQ(e.target.value)}
-              placeholder={`Search ${TOTAL_TOOLS} tools…`}
+              placeholder={`Search 74 tools…`}
               className="w-full rounded-full border border-border bg-card pl-9 pr-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/30"
             />
           </div>

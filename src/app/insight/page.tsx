@@ -13,13 +13,13 @@ export default function Index() {
               <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
         <div className="racira-page-container text-center">
           <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
-            10+ Free Data Tools —{" "}
+            138 Free Data Tools —{" "}
             <span className="hero-gradient-text">CSV, JSON & Convert</span>
           </h1>
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
             Clean, convert, and format data across CSV, JSON, and XML formats instantly. No signup required.
           </p>
-          <CategorySearch categorySlug="insight" placeholder="Search 10+ data tools..." registry={SEARCH_REGISTRY} />
+          <CategorySearch categorySlug="insight" placeholder="Search 138 data tools..." registry={SEARCH_REGISTRY} />
         </div>
       </section>
 

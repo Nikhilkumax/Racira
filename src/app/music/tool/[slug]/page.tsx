@@ -41,7 +41,7 @@ export default async function ToolPage({ params }: Props) {
         <main className="racira-page-container flex-1 py-24 text-center">
           <h1 className="font-display text-3xl font-bold">Tool not found</h1>
           <p className="mt-2 text-muted-foreground">That tool isn't in our library.</p>
-          <Link href="/" className="mt-6 inline-block text-primary underline">
+          <Link href="/music" className="mt-6 inline-block text-primary underline">
             Back to all tools
           </Link>
         </main>
@@ -60,7 +60,7 @@ export default async function ToolPage({ params }: Props) {
       <main className="flex-1">
         <div className="racira-page-container pt-10">
           <Link
-            href="/"
+            href="/music"
             className="inline-flex items-center gap-1.5 text-sm text-muted-foreground transition hover:text-primary"
           >
             <ArrowLeft className="h-4 w-4" /> All tools

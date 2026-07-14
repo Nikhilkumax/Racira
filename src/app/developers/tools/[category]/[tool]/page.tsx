@@ -23,11 +23,11 @@ export async function generateMetadata({
     openGraph: {
       title: `${result.tool.name} — DevForge`,
       description: result.tool.description,
-      url: `/tools/${resolvedParams.category}/${resolvedParams.tool}`,
+      url: `/developers/tools/${resolvedParams.category}/${resolvedParams.tool}`,
       type: "article",
     },
     alternates: {
-      canonical: `/tools/${resolvedParams.category}/${resolvedParams.tool}`,
+      canonical: `/developers/tools/${resolvedParams.category}/${resolvedParams.tool}`,
     },
   };
 }
@@ -60,12 +60,12 @@ export default async function ToolPage({
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             itemListElement: [
-              { "@type": "ListItem", position: 1, name: result.categoryName, item: `/` },
+              { "@type": "ListItem", position: 1, name: result.categoryName, item: `/developers` },
               {
                 "@type": "ListItem",
                 position: 2,
                 name: result.tool.name,
-                item: `/tools/${resolvedParams.category}/${resolvedParams.tool}`,
+                item: `/developers/tools/${resolvedParams.category}/${resolvedParams.tool}`,
               },
             ],
           }),

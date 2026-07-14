@@ -28,13 +28,13 @@ export default function Home() {
             <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
         <div className="racira-page-container text-center">
           <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
-            170+ Free Security Tools —{" "}
+            175 Free Security Tools —{" "}
             <span className="hero-gradient-text">Passwords, Hashes & Keys</span>
           </h1>
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
             Generate secure passwords, hash data, and manage keys safely in your browser. No signup required.
           </p>
-          <CategorySearch categorySlug="security" placeholder="Search 170+ security tools..." registry={SEARCH_REGISTRY} />
+          <CategorySearch categorySlug="security" placeholder="Search 175 security tools..." registry={SEARCH_REGISTRY} />
         </div>
       </section>
 
@@ -68,7 +68,7 @@ function ToolGrid({ items }: { items: typeof tools }) {
         return (
           <Link
             key={(t as any).slug}
-            href={`/tool/${(t as any).slug}`}
+            href={`/security/tool/${(t as any).slug}`}
             className="tool-card group hover:-translate-y-[3px] hover:border-primary/40 hover:shadow-[0_8px_24px_hsl(var(--ring)/0.1)]"
           >
             {!t.live && (

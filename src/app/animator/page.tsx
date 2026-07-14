@@ -9,13 +9,13 @@ export default function Index() {
       <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
         <div className="racira-page-container text-center">
           <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
-            130+ Free Animation Tools —{" "}
+            116 Free Animation Tools —{" "}
             <span className="hero-gradient-text">CSS, SVG & Keyframes</span>
           </h1>
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
             Generate CSS animations, SVG paths, and keyframe sequences for your web projects. No signup required.
           </p>
-          <CategorySearch categorySlug="animator" placeholder="Search 130+ animation tools..." registry={SEARCH_REGISTRY} />
+          <CategorySearch categorySlug="animator" placeholder="Search 116 animation tools..." registry={SEARCH_REGISTRY} />
         </div>
       </section>
 
@@ -29,7 +29,7 @@ export default function Index() {
               {cat.tools.map((t) => (
                 <Link
                   key={(t as any).slug}
-                  href={`/tool/${(t as any).slug}`}
+                  href={`/animator/tool/${(t as any).slug}`}
                   className="tool-card group"
                 >
                   <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">

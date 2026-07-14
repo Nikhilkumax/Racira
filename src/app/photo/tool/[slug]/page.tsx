@@ -35,7 +35,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
     <div className="min-h-screen bg-background">
       <Header mode="category" categoryName="Photo" />
       <div className="racira-page-container py-10">
-        <Link href="/" className="inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground hover:text-foreground">
+        <Link href="/photo" className="inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground hover:text-foreground">
           <ArrowLeft className="h-3.5 w-3.5" /> All tools
         </Link>
         <header className="mt-4 border-b pb-8">
@@ -64,7 +64,7 @@ function ComingSoon({ name }: { name: string }) {
         check back shortly.
       </p>
       <Link
-        href="/"
+        href="/photo"
         className="mt-6 inline-flex items-center gap-1.5 rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90"
       >
         Browse ready tools

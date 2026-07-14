@@ -69,7 +69,7 @@ export default function Home() {
               <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
         <div className="racira-page-container text-center">
           <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
-            6+ Free SEO Tools —{" "}
+            246 Free SEO Tools —{" "}
             <span className="hero-gradient-text">Meta, Tags & Analysis</span>
           </h1>
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
@@ -80,7 +80,7 @@ export default function Home() {
               <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4.5 w-4.5 text-muted-foreground pointer-events-none" />
               <input
                 type="text"
-                placeholder="Search 6+ SEO tools..."
+                placeholder="Search 246 SEO tools..."
                 className="w-full h-11 pl-10 pr-16 rounded-lg border border-border bg-card text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/40 transition-shadow"
                 aria-label="Search SEO Tools"
               />
@@ -149,7 +149,7 @@ function ToolCard({ tool }: { tool: Tool }) {
   const Icon = iconFor(tool.category);
   return (
     <Link
-      href={`/tools/${tool.slug}`}
+      href={`/seo/tools/${tool.slug}`}
       className="tool-card group"
     >
       {!tool.active && (

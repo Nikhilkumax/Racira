@@ -5,7 +5,7 @@ import { ToolIcon } from "./ToolIcon";
 export function ToolCard({ tool }: { tool: Tool }) {
   return (
     <Link
-      href={`/tools/${tool.slug}`}
+      href={`/video/tools/${tool.slug}`}
       className="tool-card group"
     >
       {tool.status !== "live" && (

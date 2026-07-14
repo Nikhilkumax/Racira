@@ -5,7 +5,7 @@ export function GameCard({ game }: { game: Game }) {
   const Icon = game.icon;
   return (
     <Link
-      href={`/game/${game.slug}`}
+      href={`/games/game/${game.slug}`}
       className="tool-card group"
     >
       <div className="tool-card-icon">

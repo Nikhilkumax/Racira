@@ -9,7 +9,7 @@ export function ToolShell({ tool, children }: { tool: ToolDef; children: ReactNo
   return (
     <div className="racira-page-container py-10">
       <Link
-        href="/"
+        href="/colors"
         className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
       >
         <ArrowLeft className="h-4 w-4" />

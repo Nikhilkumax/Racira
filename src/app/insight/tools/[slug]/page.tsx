@@ -41,7 +41,7 @@ export default async function ToolPage({ params }: Props) {
       <Header mode="category" categoryName="Insight" />
       <main className="racira-page-container py-10">
         <Link
-          href="/"
+          href="/insight"
           className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
         >
           <ArrowLeft className="h-4 w-4" /> All tools
@@ -77,7 +77,7 @@ function ComingSoon({ name }: { name: string }) {
         {name} is on the roadmap. We're polishing it for launch — check back shortly.
       </p>
       <Link
-        href="/"
+        href="/insight"
         className="mt-6 inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
       >
         Explore other tools

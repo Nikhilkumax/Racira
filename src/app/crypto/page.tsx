@@ -36,13 +36,13 @@ export default function Index() {
               <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
         <div className="racira-page-container text-center">
           <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
-            100+ Free Crypto Tools —{" "}
+            170 Free Crypto Tools —{" "}
             <span className="hero-gradient-text">Convert, Hash & Track</span>
           </h1>
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
             Essential utilities for crypto conversion, hashing, and blockchain tracking. No signup required.
           </p>
-          <CategorySearch categorySlug="crypto" placeholder="Search 100+ crypto tools..." registry={SEARCH_REGISTRY} />
+          <CategorySearch categorySlug="crypto" placeholder="Search 170 crypto tools..." registry={SEARCH_REGISTRY} />
         </div>
       </section>
 
@@ -63,7 +63,7 @@ export default function Index() {
                 {items.map((t) => (
                   <Link
                     key={(t as any).slug}
-                    href={`/tool/${(t as any).slug}`}
+                    href={`/crypto/tool/${(t as any).slug}`}
                     className="tool-card group hover:-translate-y-[3px] hover:border-primary/40 hover:shadow-[0_8px_24px_hsl(var(--ring)/0.1)]"
                   >
                     {!t.implemented && (

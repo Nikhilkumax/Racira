@@ -29,7 +29,7 @@ export default async function ToolPage({ params }: PageProps) {
       <div className="min-h-screen grid place-items-center">
         <div className="text-center">
           <h1 className="text-2xl font-semibold">Tool not found</h1>
-          <Link href="/" className="text-primary mt-4 inline-block">Go home</Link>
+          <Link href="/education" className="text-primary mt-4 inline-block">Go home</Link>
         </div>
       </div>
     );
@@ -67,10 +67,10 @@ export default async function ToolPage({ params }: PageProps) {
             </div>
             <h2 className="text-xl font-semibold">Coming Soon</h2>
             <p className="mt-2 text-muted-foreground racira-page-container">
-              {tool.name} is on the roadmap. We're building all 132 tools — check back soon.
+              {tool.name} is on the roadmap. We're building all 142 tools — check back soon.
             </p>
             <Button asChild className="mt-6">
-              <Link href="/">Browse other tools</Link>
+              <Link href="/education">Browse other tools</Link>
             </Button>
           </div>
         )}

@@ -43,7 +43,7 @@ export default function Index() {
                   {c.tools.map((t) => (
                     <Link
                       key={(t as any).slug}
-                      href={`/tools/${(t as any).slug}`}
+                      href={`/cad/tools/${(t as any).slug}`}
                       className="tool-card group hover:-translate-y-[3px] hover:border-primary/40 hover:shadow-[0_8px_24px_hsl(var(--ring)/0.1)]"
                     >
                       {!t.active && (

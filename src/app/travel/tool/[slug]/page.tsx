@@ -33,7 +33,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
     <div className="min-h-screen">
       <Header mode="category" categoryName="Travel" />
       <main className="racira-page-container py-12">
-        <Link href="/" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
+        <Link href="/travel" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
           <ArrowLeft className="h-4 w-4" /> All tools
         </Link>
         <div className="mt-6">
@@ -68,7 +68,7 @@ function ComingSoon({ name }: { name: string }) {
         {name} is on the way. We're polishing it up — check back soon.
       </p>
       <Link
-        href="/"
+        href="/travel"
         className="mt-6 inline-flex items-center justify-center rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition hover:opacity-90"
       >
         Browse other tools

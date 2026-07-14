@@ -23,13 +23,13 @@ export default function Index() {
                 <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
         <div className="racira-page-container text-center">
           <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
-            190+ Free Presentation Tools —{" "}
+            175 Free Presentation Tools —{" "}
             <span className="hero-gradient-text">Slides, Timers & Prompters</span>
           </h1>
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
             Everything you need for presentations, from slide timers to teleprompters. No signup required.
           </p>
-          <CategorySearch categorySlug="presentation" placeholder="Search 190+ presentation tools..." registry={SEARCH_REGISTRY} />
+          <CategorySearch categorySlug="presentation" placeholder="Search 175 presentation tools..." registry={SEARCH_REGISTRY} />
         </div>
       </section>
         </section>

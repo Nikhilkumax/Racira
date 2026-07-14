@@ -1,14 +1,14 @@
 import { CategorySearch } from "@/components/CategorySearch";
-﻿import { CATEGORY_ORDER, TOOLS, TOOLS_BY_CATEGORY, SEARCH_REGISTRY } from "@/data/video/tools";
+import { CATEGORY_ORDER, TOOLS, TOOLS_BY_CATEGORY, SEARCH_REGISTRY } from "@/data/video/tools";
 import { ToolCard } from "@/components/video/ToolCard";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Racira Video — All-in-One Free Online Video Tools",
-  description: "Convert, trim, compress, extract and edit videos with 150+ free online video tools. Runs in your browser — no signup, no upload.",
+  description: "Convert, trim, compress, extract and edit videos with 150 free online video tools. Runs in your browser — no signup, no upload.",
   openGraph: {
     title: "Racira Video — All-in-One Free Online Video Tools",
-    description: "150+ free in-browser video tools: convert, trim, compress, extract frames and more. No signup required.",
+    description: "150 free in-browser video tools: convert, trim, compress, extract frames and more. No signup required.",
     url: "/",
   },
   alternates: {
@@ -23,13 +23,13 @@ export default function Home() {
             <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
         <div className="racira-page-container text-center">
           <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
-            4+ Free Video Tools —{" "}
+            150 Free Video Tools —{" "}
             <span className="hero-gradient-text">Trim, Crop & Convert</span>
           </h1>
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
             Basic video utilities to trim, crop, and convert formats without heavy software. No signup required.
           </p>
-          <CategorySearch categorySlug="video" placeholder="Search 4+ video tools..." registry={SEARCH_REGISTRY} />
+          <CategorySearch categorySlug="video" placeholder="Search 150 video tools..." registry={SEARCH_REGISTRY} />
         </div>
       </section>
 

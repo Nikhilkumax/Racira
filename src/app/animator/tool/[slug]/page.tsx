@@ -22,7 +22,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
     return (
       <div className="racira-page-container py-24 text-center">
         <h1 className="text-2xl font-bold">Tool not found</h1>
-        <Link href="/" className="mt-4 inline-block text-primary hover:underline">Back to all tools</Link>
+        <Link href="/animator" className="mt-4 inline-block text-primary hover:underline">Back to all tools</Link>
       </div>
     );
   }
@@ -31,7 +31,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
 
   return (
     <main className="racira-page-container py-12 sm:py-16">
-      <Link href="/" className="mb-6 inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
+      <Link href="/animator" className="mb-6 inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
         <ArrowLeft className="h-4 w-4" /> All tools
       </Link>
       <div className="text-xs font-semibold uppercase tracking-widest text-primary">{category}</div>
@@ -44,10 +44,10 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
         </div>
         <h2 className="text-xl font-semibold">Coming soon</h2>
         <p className="mx-auto mt-2 max-w-md text-sm text-muted-foreground">
-          We're polishing <span className="font-medium text-foreground">{tool.name}</span>. It will land here shortly — in the meantime explore the other 105 tools.
+          We're polishing <span className="font-medium text-foreground">{tool.name}</span>. It will land here shortly — in the meantime explore the other 116 tools.
         </p>
         <Link
-          href="/"
+          href="/animator"
           className="mt-6 inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90"
         >
           <Sparkles className="h-4 w-4" /> Browse all tools

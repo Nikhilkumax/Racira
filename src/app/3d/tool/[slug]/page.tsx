@@ -25,7 +25,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
   return (
     <SiteShell>
       <div className="racira-page-container py-8">
-        <Link href="/" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground">
+        <Link href="/3d" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground">
           <ArrowLeft className="h-4 w-4" /> All tools
         </Link>
         <div className="mt-4 mb-6">
@@ -56,7 +56,7 @@ function ComingSoon({ name }: { name: string }) {
       <p className="mt-2 text-sm text-muted-foreground racira-page-container">
         We're crafting this tool right now. In the meantime, explore our live tools from the homepage.
       </p>
-      <Link href="/" className="mt-6 inline-flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90">
+      <Link href="/3d" className="mt-6 inline-flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90">
         Browse live tools
       </Link>
     </div>

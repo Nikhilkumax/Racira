@@ -37,7 +37,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
       <Header mode="category" categoryName="Typography" />
       <main className="racira-page-container py-10">
         <Link
-          href="/"
+          href="/typography"
           className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
         >
           <ArrowLeft className="h-4 w-4" /> All tools
@@ -81,7 +81,7 @@ function ComingSoon({ name }: { name: string }) {
         We're polishing this tool. In the meantime, try our Font Previewer to play with type live.
       </p>
       <Link
-        href="/tools/font-previewer"
+        href="/typography/tools/font-previewer"
         className="mt-6 inline-flex items-center rounded-md bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
       >
         Open Font Previewer

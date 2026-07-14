@@ -14,13 +14,13 @@ export default function Home() {
               <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
         <div className="racira-page-container text-center">
           <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
-            25+ Free Travel Tools —{" "}
+            122 Free Travel Tools —{" "}
             <span className="hero-gradient-text">Currency, Time & Distance</span>
           </h1>
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
             Plan your trips with currency converters, time zone calculators, and distance metrics. No signup required.
           </p>
-          <CategorySearch categorySlug="travel" placeholder="Search 120+ travel tools..." registry={SEARCH_REGISTRY} />
+          <CategorySearch categorySlug="travel" placeholder="Search 122 travel tools..." registry={SEARCH_REGISTRY} />
         </div>
       </section>
 
@@ -38,7 +38,7 @@ export default function Home() {
                 {cat.tools.map((tool) => (
                   <Link
                     key={tool.slug}
-                    href={`/tool/${tool.slug}`}
+                    href={`/travel/tool/${tool.slug}`}
                     className="tool-card group"
                   >
                     <div className="mb-4 grid h-10 w-10 place-items-center rounded-xl bg-primary/10 text-primary">
