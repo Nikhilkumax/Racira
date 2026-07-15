@@ -166,7 +166,7 @@ export const TOOLS: ToolDef[] = [
   { slug: "tailwind-palette-generator", name: "Tailwind Palette Generator", description: "Generate Tailwind-style 50→900 palettes", category: "palettes", icon: Wind, component: TailwindPaletteGenerator, status: "live" },
   { slug: "brand-palette-generator", name: "Brand Palette Generator", description: "Generate a brand-ready palette", category: "palettes", icon: Briefcase, component: BrandPaletteGenerator, status: "live" },
   { slug: "accessible-palette-generator", name: "Accessible Palette Generator", description: "Generate WCAG-AA palettes", category: "palettes", icon: Accessibility, component: AccessiblePaletteGenerator, status: "live" },
-  { slug: "color-palette-extractor", name: "Color Palette Extractor", description: "Extract a palette from any image", category: "palettes", icon: ImageIcon, component: PaletteFromImage, status: "live" },
+  { slug: "color-palette-extractor", name: "Color Palette Extractor", description: "Extract a palette from any image", category: "palettes", icon: Images, component: PaletteFromImage, status: "live" },
   { slug: "daily-color-palette-generator", name: "Daily Color Palette Generator", description: "Get a fresh palette every day", category: "palettes", icon: Calendar, component: RandomPaletteGenerator, status: "live" },
   { slug: "wes-anderson-style-palette", name: "Wes Anderson Style Palette", description: "Pastel cinematic Wes Anderson palettes", category: "palettes", icon: Aperture, component: wesAnderson, status: "live" },
 
@@ -261,7 +261,7 @@ export const TOOLS: ToolDef[] = [
   { slug: "gradient-collection-browser", name: "Gradient Collection Browser", description: "Browse an embedded collection of gradients", category: "gradients", icon: Grid3x3, component: GradientCollection, status: "live" },
   { slug: "gradient-angle-calculator", name: "Gradient Angle Calculator", description: "Convert between angles and gradient directions", category: "gradients", icon: Calculator, component: GradientAngleCalc, status: "live" },
   { slug: "css-gradient-to-image-exporter", name: "CSS Gradient to Image Exporter", description: "Render a CSS gradient as a downloadable image", category: "gradients", icon: FileImage, component: CSSGradientExporter, status: "live" },
-  { slug: "gradient-from-image", name: "Gradient from Image", description: "Extract a gradient from any image", category: "gradients", icon: ImageIcon, component: GradientFromImage, status: "live" },
+  { slug: "gradient-from-image", name: "Gradient from Image", description: "Extract a gradient from any image", category: "gradients", icon: ImagePlus, component: GradientFromImage, status: "live" },
   { slug: "image-theme-generator", name: "Image Theme Generator", description: "Generate a UI theme from an image", category: "gradients", icon: ImagePlus, component: ImageTheme, status: "live" },
 
   // ===== Design Effects (12) =====
@@ -269,7 +269,7 @@ export const TOOLS: ToolDef[] = [
   { slug: "neumorphism-generator", name: "Neumorphism Generator", description: "Design soft-UI dual-shadow CSS", category: "effects", icon: Boxes, component: NeumorphismGenerator, status: "live" },
   { slug: "shadow-color-generator", name: "Shadow Color Generator", description: "Generate harmonious shadow colors", category: "effects", icon: Moon, component: ShadowColorGenerator, status: "live" },
   { slug: "box-shadow-color-tool", name: "Box Shadow Color Tool", description: "Design CSS box-shadows with custom colors", category: "effects", icon: Square, component: CssShadowGenerator, status: "live" },
-  { slug: "text-shadow-color-tool", name: "Text Shadow Color Tool", description: "Design CSS text-shadows with custom colors", category: "effects", icon: TypeIcon, component: CssShadowGenerator, status: "live" },
+  { slug: "text-shadow-color-tool", name: "Text Shadow Color Tool", description: "Design CSS text-shadows with custom colors", category: "effects", icon: Blend, component: CssShadowGenerator, status: "live" },
   { slug: "overlay-color-generator", name: "Overlay Color Generator", description: "Generate overlay colors for images and video", category: "effects", icon: Layers, component: ColorOverlayGenerator, status: "live" },
   { slug: "duotone-generator", name: "Duotone Generator", description: "Apply a duotone effect to any image", category: "effects", icon: Blend, component: DuotoneGenerator, status: "live" },
   { slug: "color-overlay-generator", name: "Color Overlay Generator", description: "Generate CSS color overlays with blend modes", category: "effects", icon: PaintBucket, component: ColorOverlayGenerator, status: "live" },
@@ -284,7 +284,7 @@ export const TOOLS: ToolDef[] = [
   { slug: "css-hex-color-generator", name: "CSS HEX Color Generator", description: "Generate CSS HEX color values", category: "css", icon: Hash, component: CssColorGenerator, status: "live" },
   { slug: "css-color-formatter", name: "CSS Color Formatter", description: "Format any color into a CSS-ready string", category: "css", icon: AlignLeft, component: CssColorFormatter, status: "live" },
   { slug: "css-background-color-preview", name: "CSS Background Color Preview", description: "Preview a background color in CSS", category: "css", icon: PaintBucket, component: CssColorPreview, status: "live" },
-  { slug: "css-text-color-preview", name: "CSS Text Color Preview", description: "Preview a text color in CSS", category: "css", icon: TypeIcon, component: CssColorPreview, status: "live" },
+  { slug: "css-text-color-preview", name: "CSS Text Color Preview", description: "Preview a text color in CSS", category: "css", icon: Code2, component: CssColorPreview, status: "live" },
   { slug: "css-color-variables-generator", name: "CSS Color Variables Generator", description: "Generate CSS custom property color variables", category: "css", icon: Variable, component: CssVariableGenerator, status: "live" },
   { slug: "css-custom-properties-exporter", name: "CSS Custom Properties Exporter", description: "Export a palette as CSS custom properties", category: "css", icon: Download, component: CssVariablesExporter, status: "live" },
   { slug: "scss-variable-generator", name: "SCSS Variable Generator", description: "Generate SCSS $color variables", category: "css", icon: FileCode2, component: SCSSVars, status: "live" },
@@ -325,7 +325,7 @@ export const TOOLS: ToolDef[] = [
   { slug: "color-object-generator", name: "Color Object Generator", description: "Generate a JavaScript color object", category: "data", icon: Code, component: ColorJsonGenerator, status: "live" },
   { slug: "color-palette-json-exporter", name: "Color Palette JSON Exporter", description: "Export a palette as JSON", category: "data", icon: Database, component: PaletteExporter, status: "live" },
   { slug: "color-palette-css-exporter", name: "Color Palette CSS Exporter", description: "Export a palette as CSS", category: "data", icon: FileCode, component: CssVariablesExporter, status: "live" },
-  { slug: "color-palette-svg-exporter", name: "Color Palette SVG Exporter", description: "Export a palette as an SVG swatch", category: "data", icon: Image, component: PaletteExporter, status: "live" },
+  { slug: "color-palette-svg-exporter", name: "Color Palette SVG Exporter", description: "Export a palette as an SVG swatch", category: "data", icon: FileCode2, component: PaletteExporter, status: "live" },
   { slug: "color-palette-png-generator", name: "Color Palette PNG Generator", description: "Export color palettes as high-quality PNG swatch images", category: "data", icon: FileImage, component: PaletteExporter, status: "live" },
 
   // ===== Fun & Creative (22) =====

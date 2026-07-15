@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ArrowLeft, Clock, Sparkles } from "lucide-react";
 import { SiteFooter } from "@/domains/music/components/site-chrome";
 import { ToolCard } from "@/domains/music/components/tool-card";
-import { getToolIcon } from "@/domains/music/components/tool-icon";
+
 import { findTool, findCategoryOfTool, type Tool } from "@/domains/music/registry";
 import { Metadata } from "next";
 
@@ -51,7 +51,8 @@ export default async function ToolPage({ params }: Props) {
   }
 
   const category = findCategoryOfTool(slug)!;
-  const Icon = getToolIcon(tool);
+  const Icon = tool.icon as React.ComponentType<{ className?: string }>;
+  const isLive = tool.status === "live";
   const related = category.tools.filter((t: Tool) => (t as any).slug !== tool.slug).slice(0, 4);
 
   return (
@@ -84,20 +85,22 @@ export default async function ToolPage({ params }: Props) {
               </div>
             </div>
 
-            <div className="mt-10 rounded-xl border border-dashed border-primary/30 bg-primary/10 p-8 text-center">
-              <div className="mx-auto mb-4 grid h-12 w-12 place-items-center rounded-full bg-primary/10 text-primary">
-                <Clock className="h-5 w-5" />
+            {!isLive && (
+              <div className="mt-10 rounded-xl border border-dashed border-primary/30 bg-primary/10 p-8 text-center">
+                <div className="mx-auto mb-4 grid h-12 w-12 place-items-center rounded-full bg-primary/10 text-primary">
+                  <Clock className="h-5 w-5" />
+                </div>
+                <h2 className="font-display text-xl font-bold text-foreground">Coming soon</h2>
+                <p className="mx-auto mt-2 max-w-md text-sm text-muted-foreground">
+                  We're tuning this one up. It'll be live in your browser shortly — no signup, no
+                  paywall, just music.
+                </p>
+                <div className="mt-5 inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-1.5 text-xs font-semibold text-primary-foreground">
+                  <Sparkles className="h-3.5 w-3.5" />
+                  In development
+                </div>
               </div>
-              <h2 className="font-display text-xl font-bold text-foreground">Coming soon</h2>
-              <p className="mx-auto mt-2 max-w-md text-sm text-muted-foreground">
-                We're tuning this one up. It'll be live in your browser shortly — no signup, no
-                paywall, just music.
-              </p>
-              <div className="mt-5 inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-1.5 text-xs font-semibold text-primary-foreground">
-                <Sparkles className="h-3.5 w-3.5" />
-                In development
-              </div>
-            </div>
+            )}
           </div>
         </section>
 
