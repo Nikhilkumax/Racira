@@ -1,13 +1,13 @@
 import Link from "next/link";
 import { ArrowLeft, Clock } from "lucide-react";
 import type { Tool } from "@/data/video/tools";
-import { ToolIcon } from "./ToolIcon";
 
 export function ComingSoon({ tool }: { tool: Tool }) {
+  const Icon = tool.icon as React.ComponentType<{ className?: string }>;
   return (
     <div className="racira-page-container py-20 text-center">
       <span className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/15 text-primary mb-6">
-        <ToolIcon name={tool.icon} className="h-7 w-7" />
+        <Icon className="h-7 w-7" />
       </span>
       <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
         {tool.name}
