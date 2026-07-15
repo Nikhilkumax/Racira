@@ -2,7 +2,7 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Sparkles } from "lucide-react";
-import { findTool, FUNCTIONAL_SLUGS, CATEGORIES } from "@/domains/insight/registry";
+import { findTool, CATEGORIES } from "@/domains/insight/registry";
 
 import { LineChartBuilder } from "@/domains/insight/components/tools/LineChartBuilder";
 import { Metadata } from "next";
@@ -34,7 +34,7 @@ export default async function ToolPage({ params }: Props) {
   }
 
   const { tool, category } = found;
-  const isLive = FUNCTIONAL_SLUGS.has(tool.slug);
+  const isLive = tool.status === "live";
 
   return (
     <div className="min-h-screen bg-background">

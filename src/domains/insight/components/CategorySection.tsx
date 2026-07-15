@@ -1,7 +1,6 @@
 import Link from "next/link";
 import * as Icons from "lucide-react";
 import type { Tool } from "@/domains/insight/registry";
-import { FUNCTIONAL_SLUGS } from "@/domains/insight/registry";
 
 type IconName = keyof typeof Icons;
 
@@ -28,16 +27,16 @@ export function CategorySection({
       </div>
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {tools.map((t) => (
-          <ToolCard key={(t as any).slug} tool={t} icon={icon} />
+          <ToolCard key={(t as any).slug} tool={t} />
         ))}
       </div>
     </section>
   );
 }
 
-function ToolCard({ tool, icon }: { tool: Tool; icon: string }) {
-  const Icon = (Icons[icon as IconName] as React.ComponentType<{ className?: string }>) ?? Icons.BarChart3;
-  const isLive = FUNCTIONAL_SLUGS.has(tool.slug);
+function ToolCard({ tool }: { tool: Tool }) {
+  const Icon = tool.icon as React.ComponentType<{ className?: string }>;
+  const isLive = tool.status === "live";
   return (
     <Link
       href={`/insight/tools/${tool.slug}`}
