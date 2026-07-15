@@ -1,3 +1,4 @@
+import { FileVideo, FileVideo2, FileUp, FileDown, FileInput, FileOutput, FileBadge, FileBadge2, FileCog, Shuffle, RefreshCw, RefreshCcw, ArrowRightLeft, Replace, FileSymlink, ArrowDownUp, MonitorUp, MonitorDown } from "lucide-react";
 import { AArrowDown, AArrowUp, ArrowBigDown, ArrowBigDownDash, ArrowBigLeft, ArrowBigLeftDash, ArrowBigRight, ArrowBigRightDash, ArrowBigUp, ArrowBigUpDash, ArrowDown, ArrowDown01, ALargeSmall, Accessibility, Activity, ActivitySquare, AirVent, Airplay, LucideScissors, LucideScissorsLineDashed, LucideScissorsSquare, ChartNoAxesCombined, Combine, LucideScissorsSquareDashedBottom, AlarmCheck, LucideRotate3D, LucideRotate3d, LucideRotateCcw, CircleGauge, Grid, LucideMinimize, LucideMinimize2, BadgeInfo, Minimize, AlarmClock, Minimize2, Info, AlarmClockCheck, LucideShrink, ArrowDown10, ArrowDownAZ, ArrowDownAz, ArrowDownCircle, ArrowDownFromLine, ArrowDownLeft, ArrowDownLeftFromCircle, BookImage, FileImage, Grid2X2, Image, Grid2X2Plus, ImageDown, ImageMinus, AlarmClockMinus, ArrowDownLeftFromSquare, AlarmClockOff, AlarmClockPlus, CalendarClock, FileMusic, KeyboardMusic, ListMusic, LucideFileMusic, Captions, CaptionsOff, LucideCaptions, LucideChartNoAxesCombined, LucideCaptionsOff, BookType, ClipboardType, ArrowDownLeftSquare, ArrowDownNarrowWide, ArrowDownRight, ArrowDownRightFromCircle, FileType, FileType2, ArrowDownRightFromSquare, LucideCombine, LucideBookType, LucideClipboardType, LucideFileType, LucidePalette, Palette, CloudSun, ArrowDownRightSquare, AlarmMinus, AlarmPlus, CloudSunRain, LucideCloudSun, LucideStamp, Stamp, LucideCloudSunRain, LucideSun, AlarmSmoke, Album, BugPlay, Shrink, LucideRotateCcwSquare, CirclePlay, ImageOff, ImagePlay, LucidePackage, LucidePackage2, LucidePackageCheck, LucidePackageMinus, LucidePackageOpen, LucidePackagePlus, LucideBadgeInfo, LucideInfo, Barcode, Clock, Gauge, LucideMonitor, IterationCcw, LucideSunDim, Clock1, ArrowDownSquare, LucideMonitorPlay, MonitorPlay, AlertCircle, FileVideo, FileVideo2, File, Clock10, Clock11, FileArchive, LucidePackageSearch, Code, Grid2x2, Grid2x2Check, LucidePlayCircle, PlayCircle, AlertOctagon, ListVideo, LucideYoutube, AlertTriangle, AlignCenter, LucideStopCircle, AlignCenterHorizontal, AlignCenterVertical, Code2, LucideRadio, LucideRadioReceiver, CodeSquare, LucideMonitorCheck, LucideRadioTower, CodeXml, Codepen, Codesandbox, FileCode, FileCode2 } from "lucide-react";
 import { ToolResult } from "@/components/CategorySearch";
 
@@ -24,24 +25,24 @@ type RawTool = [name: string, description: string, icon: any];
 
 const CATEGORIES: Record<string, RawTool[]> = {
   "Video Conversion": [
-    ["MP4 Converter", "Convert any video to MP4 in your browser", AArrowDown],
-    ["WebM Converter", "Convert videos to WebM format", AArrowUp],
-    ["MOV Converter", "Convert videos to MOV format", ArrowBigDown],
-    ["AVI Converter", "Convert videos to AVI format", ArrowBigDownDash],
-    ["MKV Converter", "Convert videos to MKV format", ArrowBigLeft],
-    ["FLV Converter", "Convert videos to FLV format", ArrowBigLeftDash],
-    ["WMV Converter", "Convert videos to WMV format", ArrowBigRight],
-    ["M4V Converter", "Convert videos to M4V format", ArrowBigRightDash],
-    ["MPEG Converter", "Convert videos to MPEG format", ArrowBigUp],
-    ["Video Format Converter", "Universal video format converter", ArrowBigUpDash],
-    ["H.264 to H.265 Converter", "Re-encode H.264 to HEVC", ArrowDown],
-    ["VP8 to VP9 Converter", "Re-encode VP8 to VP9", ArrowDown01],
-    ["MTS to MP4", "Convert MTS files to MP4", ALargeSmall],
-    ["TS to MP4", "Convert TS files to MP4", Accessibility],
-    ["F4V to MP4", "Convert F4V files to MP4", Activity],
-    ["3GP to MP4", "Convert 3GP files to MP4", ActivitySquare],
-    ["OGV to MP4", "Convert OGV files to MP4", AirVent],
-    ["Video to WebM", "Convert any video to WebM", Airplay],
+    ["MP4 Converter", "Convert any video to MP4 in your browser", FileVideo],
+    ["WebM Converter", "Convert videos to WebM format", FileVideo2],
+    ["MOV Converter", "Convert videos to MOV format", FileUp],
+    ["AVI Converter", "Convert videos to AVI format", FileDown],
+    ["MKV Converter", "Convert videos to MKV format", FileInput],
+    ["FLV Converter", "Convert videos to FLV format", FileOutput],
+    ["WMV Converter", "Convert videos to WMV format", FileBadge],
+    ["M4V Converter", "Convert videos to M4V format", FileBadge2],
+    ["MPEG Converter", "Convert videos to MPEG format", FileCog],
+    ["Video Format Converter", "Universal video format converter", Shuffle],
+    ["H.264 to H.265 Converter", "Re-encode H.264 to HEVC", RefreshCw],
+    ["VP8 to VP9 Converter", "Re-encode VP8 to VP9", RefreshCcw],
+    ["MTS to MP4", "Convert MTS files to MP4", ArrowRightLeft],
+    ["TS to MP4", "Convert TS files to MP4", Replace],
+    ["F4V to MP4", "Convert F4V files to MP4", FileSymlink],
+    ["3GP to MP4", "Convert 3GP files to MP4", ArrowDownUp],
+    ["OGV to MP4", "Convert OGV files to MP4", MonitorUp],
+    ["Video to WebM", "Convert any video to WebM", MonitorDown],
   ],
   "Video Trimming & Editing": [
     ["Video Trimmer", "Trim start and end of a video", LucideScissors],
