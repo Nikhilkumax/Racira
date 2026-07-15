@@ -22,10 +22,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const title = t ? `${(t as any).name} — Racira CAD` : "Tool — Racira CAD";
   return {
     title,
-    description: t?.desc ?? "Free CAD tool by Racira CAD.",
+    description: t?.description ?? "Free CAD tool by Racira CAD.",
     openGraph: {
       title,
-      description: t?.desc ?? "Free CAD tool by Racira CAD.",
+      description: t?.description ?? "Free CAD tool by Racira CAD.",
     },
   };
 }
@@ -52,16 +52,16 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
           )}
           <h1 className="mt-2 flex items-center gap-3 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
             {tool.name}
-            {tool.active && (
+            {tool.status === "live" && (
               <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary">
                 <Sparkles className="h-3 w-3" /> Live
               </span>
             )}
           </h1>
-          <p className="mt-2 max-w-2xl text-sm text-muted-foreground">{tool.desc}</p>
+          <p className="mt-2 max-w-2xl text-sm text-muted-foreground">{tool.description}</p>
         </div>
 
-        {tool.active ? <SketchToolClient /> : <ComingSoon name={tool.name} />}
+        {tool.status === "live" ? <SketchToolClient /> : <ComingSoon name={tool.name} />}
       </main>
     </div>
   );

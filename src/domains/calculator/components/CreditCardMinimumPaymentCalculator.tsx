@@ -7,7 +7,8 @@ import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
 import InputField from "@/domains/calculator/components/ui/InputField";
 import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
-import { RotateCcw, CreditCard } from "lucide-react";
+import { RotateCcw, CreditCard, ChevronDown } from "lucide-react";
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from "recharts";
 
 const CreditCardMinimumPaymentCalculator = () => {
   const [balance, setBalance] = useState("5000");
@@ -17,6 +18,12 @@ const CreditCardMinimumPaymentCalculator = () => {
 
   const [results, setResults] = useState<any>(null);
   const [showResults, setShowResults] = useState(false);
+  const [showAdv, setShowAdv] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  import("react").then(React => {
+    React.useEffect(() => { setMounted(true); }, []);
+  });
 
   const handleCalculate = () => {
     setShowResults(true);
@@ -71,14 +78,27 @@ const CreditCardMinimumPaymentCalculator = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+            <div className="grid sm:grid-cols-2 gap-6 mb-2">
                 <InputField id="balance" label="Credit Card Balance ($)" value={balance} onChange={setBalance} />
                 <InputField id="apr" label="Annual APR (%)" value={apr} onChange={setApr} />
-                <InputField id="minpct" label="Min Payment Rate (%)" value={minPct} onChange={setMinPct} tooltip="Usually 1-3% of balance." />
-                <InputField id="floor" label="Minimum Floor ($)" value={minFloor} onChange={setMinFloor} tooltip="Minimum dollar amount, usually $25." />
               </div>
-              <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">Calculate</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground">
+
+              {/* Advanced Options */}
+              <div>
+                <button type="button" onClick={() => setShowAdv(!showAdv)} className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline focus:outline-none mb-1">
+                  Advanced Options <ChevronDown className={`h-3 w-3 transition-transform ${showAdv ? "rotate-180" : ""}`} />
+                </button>
+                {showAdv && (
+                  <div className="mt-2 p-4 rounded-xl bg-secondary/20 border border-border animate-fade-in-up grid sm:grid-cols-2 gap-4">
+                    <InputField id="minpct" label="Min Payment Rate (%)" value={minPct} onChange={setMinPct} tooltip="Usually 1-3% of balance." />
+                    <InputField id="floor" label="Minimum Floor ($)" value={minFloor} onChange={setMinFloor} tooltip="Minimum dollar amount, usually $25." />
+                  </div>
+                )}
+              </div>
+
+              <div className="flex gap-2.5 mt-2">
+                <button onClick={handleCalculate} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm">Calculate</button>
+                <button onClick={() => { reset(); setShowAdv(false); }} className="w-10 shrink-0 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center">
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
@@ -88,7 +108,7 @@ const CreditCardMinimumPaymentCalculator = () => {
             {showResults && results && (
               <>
                 <h2 className="text-2xl font-bold mb-3">Minimum Payment Analysis</h2>
-                <div className="grid sm:grid-cols-2 gap-6 mb-8">
+                <div className="grid sm:grid-cols-2 gap-6 mb-6">
                   <div className="p-6 rounded-2xl bg-red-500/10 border border-red-500/20 text-center">
                     <p className="text-sm font-bold text-red-600 uppercase tracking-widest mb-1">Time to Pay Off</p>
                     <p className="text-5xl font-black text-foreground">{results.years} yrs</p>
@@ -99,6 +119,28 @@ const CreditCardMinimumPaymentCalculator = () => {
                     <p className="text-3xl font-black text-foreground">${results.totalInterest.toLocaleString(undefined, { maximumFractionDigits: 0 })}</p>
                   </div>
                 </div>
+                
+                {mounted && (
+                  <div className="card-calculator !p-5 border border-border bg-card mb-6 flex flex-col justify-center items-center">
+                    <h3 className="text-sm font-bold mb-4 w-full text-left">Payment Breakdown</h3>
+                    <ResponsiveContainer width="100%" height={200}>
+                      <PieChart>
+                        <Pie data={[
+                          { name: "Principal", value: parseFloat(balance), color: "hsl(var(--primary))" },
+                          { name: "Interest", value: results.totalInterest, color: "hsl(var(--destructive))" },
+                        ]} cx="50%" cy="50%" innerRadius={60} outerRadius={80} dataKey="value" paddingAngle={2}>
+                          {[
+                            { name: "Principal", value: parseFloat(balance), color: "hsl(var(--primary))" },
+                            { name: "Interest", value: results.totalInterest, color: "hsl(var(--destructive))" },
+                          ].map((entry, index) => <Cell key={`cell-${index}`} fill={entry.color} />)}
+                        </Pie>
+                        <Tooltip formatter={(val: number) => `$${val.toLocaleString(undefined, { maximumFractionDigits: 0 })}`} />
+                        <Legend iconType="circle" />
+                      </PieChart>
+                    </ResponsiveContainer>
+                  </div>
+                )}
+
                 <ResultDisplay items={[
                   { label: "Original Balance", value: 0, textValue: "$" + parseFloat(balance).toLocaleString() },
                   { label: "Total Amount Paid", value: 0, textValue: "$" + results.totalPaid.toLocaleString(undefined, { maximumFractionDigits: 0 }) },
@@ -111,13 +153,19 @@ const CreditCardMinimumPaymentCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <section className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">The Minimum Payment Trap</h2>
-              <p>Credit card issuers design minimum payments to keep you in debt as long as possible. A $5,000 balance at 22.99% APR can take over 20 years to pay off with minimums alone, costing you thousands more than you borrowed.</p>
-              <h3>How Minimums Are Calculated</h3>
-              <p>Most card issuers use whichever is greater: a percentage of the balance (1-3%) or a fixed floor amount ($25-$35). As your balance drops, so does your minimum — which is exactly what traps you in a long-term cycle.</p>
-              <h3>Break the Cycle</h3>
-              <p>The single most powerful step is to fix your payment. Instead of paying whatever the minimum is each month, pick a fixed number (say, $200) and stick to it. This alone can reduce a 20-year payoff to under 3 years.</p>
+          <section className="mt-12 space-y-8 text-base text-foreground max-w-[1180px]">
+              <div>
+                <h2 className="text-2xl font-bold mb-3">The Minimum Payment Trap</h2>
+                <p className="text-muted-foreground leading-relaxed">Credit card issuers design minimum payments to keep you in debt as long as possible. Because a minimum payment is structured to cover the interest accrued during the billing cycle plus only a tiny fraction of the principal, a $5,000 balance at a typical 22.99% APR can take over 20 years to pay off with minimums alone, ultimately costing you thousands of dollars more than the original amount you borrowed.</p>
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold mb-3">How Minimums Are Calculated</h2>
+                <p className="text-muted-foreground leading-relaxed">Most credit card issuers calculate your minimum payment using whichever amount is greater: a percentage of your total outstanding balance (typically between 1% and 3%) or a fixed floor amount (often $25 to $35). As your principal balance slowly drops over the years, the minimum required payment drops as well. This shrinking payment is precisely what stretches the repayment timeline into decades and maximizes the total interest generated for the bank.</p>
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold mb-3">Breaking the Cycle</h2>
+                <p className="text-muted-foreground leading-relaxed">The single most powerful step you can take to escape credit card debt is to fix your monthly payment amount. Instead of paying whatever the minimum requirement is each month, pick a fixed number (for example, $200) and stick to it regardless of what the statement says. This simple action alone can dramatically reduce a 20-year payoff timeline to under 3 years. For the best mathematical savings, consider applying extra payments toward the card with the highest interest rate first, a strategy known as the debt avalanche.</p>
+              </div>
             </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/credit-card-minimum-payment" />
           <PopularCalculators exclude="/calculator/credit-card-minimum-payment-calculator" />

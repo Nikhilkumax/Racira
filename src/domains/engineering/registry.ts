@@ -134,7 +134,7 @@ export const tools: Tool[] = [
   t("thermo", "Radiation Heat Transfer Calculator", "Stefan-Boltzmann radiation", "Sun"),
   t("thermo", "Thermal Expansion Calculator", "Linear & volumetric expansion", "MoveHorizontal"),
   t("thermo", "Specific Heat Capacity Reference", "Cp values for materials", "GaugeCircle"),
-  t("thermo", "Rankine Cycle Visualizer", "Steam power cycle T-s diagram", "Workflow"),
+  t("thermo", "Rankine Cycle Visualizer", "Steam power cycle T-s diagram", "RefreshCw"),
   t("thermo", "Brayton Cycle Reference", "Gas turbine cycle reference", "Plane"),
   t("thermo", "Refrigeration COP Calculator", "Coefficient of performance", "Snowflake"),
   t("thermo", "Insulation R-Value Calculator", "R-value from k and thickness", "ShieldHalf"),

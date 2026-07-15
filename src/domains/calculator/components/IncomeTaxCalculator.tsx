@@ -4,11 +4,11 @@ import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
-import { RotateCcw, Calculator } from "lucide-react";
+import { RotateCcw, ChevronDown } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip as RTooltip, ResponsiveContainer, Cell } from "recharts";
 
 interface TaxResult { federalTax: number; stateTax: number; ficaTax: number; totalTax: number; effectiveRate: number; marginalRate: number; takeHome: number; monthlyTakeHome: number; }
-const DEFAULTS = { income: "85000", state: "CA", filingStatus: "single", stateRate: "9.3" };
+const DEFAULTS = { income: "85000", state: "CA", filingStatus: "single", stateRate: "9.3", k401: "0", ira: "0", hsa: "0" };
 
 const BRACKETS_SINGLE_2024 = [
   { min: 0, max: 11600, rate: 0.10 }, { min: 11600, max: 47150, rate: 0.12 },
@@ -39,12 +39,14 @@ function calcFederal(income: number, status: string): { tax: number; marginalRat
 
 function calculate(d: typeof DEFAULTS): TaxResult {
   const income = parseFloat(d.income)||0;
-  const { tax: federalTax, marginalRate } = calcFederal(income, d.filingStatus);
-  const stateTax = Math.round(income * (parseFloat(d.stateRate)||0) / 100);
+  const preTaxDeductions = (parseFloat(d.k401)||0) + (parseFloat(d.ira)||0) + (parseFloat(d.hsa)||0);
+  const adjustedIncome = Math.max(0, income - preTaxDeductions);
+  const { tax: federalTax, marginalRate } = calcFederal(adjustedIncome, d.filingStatus);
+  const stateTax = Math.round(adjustedIncome * (parseFloat(d.stateRate)||0) / 100);
   const ficaTax = Math.round(Math.min(income, 168600) * 0.062 + income * 0.0145);
   const totalTax = federalTax + stateTax + ficaTax;
   const effectiveRate = income > 0 ? totalTax / income : 0;
-  return { federalTax, stateTax, ficaTax, totalTax, effectiveRate, marginalRate, takeHome: income - totalTax, monthlyTakeHome: Math.round((income - totalTax) / 12) };
+  return { federalTax, stateTax, ficaTax, totalTax, effectiveRate, marginalRate, takeHome: income - totalTax - preTaxDeductions, monthlyTakeHome: Math.round((income - totalTax - preTaxDeductions) / 12) };
 }
 
 const fmt = (n: number) => `$${Math.round(n).toLocaleString()}`;
@@ -53,9 +55,10 @@ const pct = (n: number) => `${(n * 100).toFixed(1)}%`;
 export default function IncomeTaxCalculator() {
   const [f, setF] = useState(DEFAULTS);
   const [r, setR] = useState<TaxResult>(() => calculate(DEFAULTS));
+  const [showAdv, setShowAdv] = useState(false);
   const set = (k: keyof typeof DEFAULTS) => (v: string) => setF(p => ({ ...p, [k]: v }));
   const calc = () => setR(calculate(f));
-  const reset = () => { setF(DEFAULTS); setR(calculate(DEFAULTS)); };
+  const reset = () => { setF(DEFAULTS); setR(calculate(DEFAULTS)); setShowAdv(false); };
 
   const income = parseFloat(f.income)||0;
   const pieData = [
@@ -98,14 +101,42 @@ export default function IncomeTaxCalculator() {
             <div className="flex flex-col">
               <label className="text-sm font-semibold mb-1">State Income Tax Rate (%)</label>
               <p className="text-xs text-muted-foreground mb-1">Enter your state&apos;s effective rate (0% for TX, FL, WA, etc.)</p>
-              <div className="flex items-center rounded-md border border-input bg-background h-9 overflow-hidden focus-within:ring-2 focus-within:ring-primary/20">
+              <div className="flex items-center rounded-md border border-input bg-background h-10 overflow-hidden focus-within:ring-2 focus-within:ring-primary/20">
                 <input type="number" value={f.stateRate} onChange={e => set("stateRate")(e.target.value)} className="w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground" />
                 <span className="pr-3 text-sm text-muted-foreground">%</span>
               </div>
             </div>
-            <div className="flex gap-2 mt-1">
-              <button onClick={calc} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-9 transition-all">Calculate</button>
-              <button onClick={reset} className="px-3 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-9 flex items-center justify-center"><RotateCcw className="h-4 w-4" /></button>
+
+            {/* Advanced Options */}
+            <div>
+              <button type="button" onClick={() => setShowAdv(!showAdv)} className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline mt-1 focus:outline-none">
+                Advanced Options <ChevronDown className={`h-3 w-3 transition-transform ${showAdv ? "rotate-180" : ""}`} />
+              </button>
+              {showAdv && (
+                <div className="mt-3 p-4 rounded-lg bg-secondary/20 border border-border animate-fade-in-up grid grid-cols-1 gap-3">
+                  <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Pre-Tax Deductions (reduce taxable income)</p>
+                  {[
+                    { key: "k401" as const, label: "401(k) Contribution", max: 23000 },
+                    { key: "ira" as const, label: "Traditional IRA", max: 7000 },
+                    { key: "hsa" as const, label: "HSA Contribution", max: 4150 },
+                  ].map(({ key, label, max }) => (
+                    <div key={key} className="flex flex-col">
+                      <label className="text-xs font-semibold mb-1">{label} <span className="text-muted-foreground font-normal">(max ${max.toLocaleString()})</span></label>
+                      <div className="flex items-center rounded-md border border-input bg-background h-9 overflow-hidden focus-within:ring-2 focus-within:ring-primary/20">
+                        <span className="pl-3 pr-1 text-sm text-muted-foreground">$</span>
+                        <input type="number" value={f[key]} onChange={e => set(key)(e.target.value)} className="w-full h-full px-2 text-sm bg-transparent outline-none border-none text-foreground" />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <div className="flex gap-2.5 mt-1">
+              <button onClick={calc} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm">Calculate</button>
+              <button onClick={reset} className="w-10 shrink-0 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center" aria-label="Reset">
+                <RotateCcw className="h-5 w-5" />
+              </button>
             </div>
           </div>
           <div className="flex flex-col gap-3">
@@ -161,15 +192,23 @@ export default function IncomeTaxCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <section className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">How US Federal Income Tax Works (2024)</h2>
-            <p>The United States uses a progressive federal income tax system with seven brackets. The key insight most people misunderstand: you do not pay your highest bracket rate on all income. You pay 10% on the first $11,600, 12% on the next portion, and so forth. Only income within each bracket is taxed at that rate. The standard deduction ($14,600 for single filers in 2024) is subtracted before any brackets apply, significantly reducing taxable income for most people.</p>
-            <h2 className="text-2xl font-bold mb-3">2024 Federal Tax Brackets (Single Filers)</h2>
-            <p>10%: $0–$11,600. 12%: $11,601–$47,150. 22%: $47,151–$100,525. 24%: $100,526–$191,950. 32%: $191,951–$243,725. 35%: $243,726–$609,350. 37%: Over $609,350. These brackets are indexed for inflation annually. Married Filing Jointly brackets are approximately double the single filer thresholds.</p>
-            <h2 className="text-2xl font-bold mb-3">FICA Taxes Explained</h2>
-            <p>Social Security: 6.2% on wages up to $168,600 (2024 wage base). Medicare: 1.45% on all wages (no cap). Additional Medicare: 0.9% on wages above $200,000 (single). Self-employed individuals pay the full 15.3% themselves (employer + employee share) but deduct half as a business expense. FICA taxes fund Social Security retirement benefits and Medicare health insurance — a form of forced savings for future retirement and healthcare.</p>
-            <h2 className="text-2xl font-bold mb-3">Tax Reduction Strategies</h2>
-            <p>401(k) contributions reduce federal taxable income dollar-for-dollar (max $23,000 in 2024, $30,500 if 50+). Traditional IRA: deductible if income limits allow (max $7,000, $8,000 if 50+). HSA: triple tax advantage — deductible contribution + tax-free growth + tax-free medical withdrawals (max $4,150 individual, $8,300 family for 2024). These accounts combined can reduce taxable income by $30,000–$40,000+ for a single filer, potentially dropping a bracket and saving thousands in federal taxes.</p>
+          <section className="mt-12 space-y-8 text-base text-foreground max-w-[1180px]">
+            <div>
+              <h2 className="text-2xl font-bold mb-3">How US Federal Income Tax Works (2024)</h2>
+              <p className="text-muted-foreground leading-relaxed">The United States uses a progressive federal income tax system with seven brackets. The key insight most people misunderstand is that you do not pay your highest bracket rate on all income. You pay 10% on the first $11,600, 12% on the next portion, and so forth. Only income within each bracket is taxed at that bracket rate. The standard deduction ($14,600 for single filers in 2024) is subtracted before any brackets apply, significantly reducing taxable income for most people.</p>
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold mb-3">2024 Federal Tax Brackets (Single Filers)</h2>
+              <p className="text-muted-foreground leading-relaxed">10% on $0–$11,600. 12% on $11,601–$47,150. 22% on $47,151–$100,525. 24% on $100,526–$191,950. 32% on $191,951–$243,725. 35% on $243,726–$609,350. 37% on over $609,350. These brackets are indexed for inflation annually. Married Filing Jointly brackets are approximately double the single filer thresholds. Understanding where your income falls within these brackets determines both your marginal and effective tax rates.</p>
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold mb-3">FICA Taxes Explained</h2>
+              <p className="text-muted-foreground leading-relaxed">Social Security: 6.2% on wages up to $168,600 (2024 wage base). Medicare: 1.45% on all wages with no cap. Additional Medicare: 0.9% on wages above $200,000 for single filers. Self-employed individuals pay the full 15.3% themselves (employer and employee share combined) but may deduct half as a business expense. FICA taxes fund Social Security retirement benefits and Medicare health insurance, representing a form of forced savings for future retirement and healthcare needs.</p>
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold mb-3">Tax Reduction Strategies</h2>
+              <p className="text-muted-foreground leading-relaxed">401(k) contributions reduce federal taxable income dollar-for-dollar (max $23,000 in 2024, $30,500 if 50 or older). Traditional IRA contributions are deductible if income limits allow (max $7,000, $8,000 if 50 or older). Health Savings Accounts offer a triple tax advantage: deductible contributions, tax-free growth, and tax-free medical withdrawals (max $4,150 individual, $8,300 family for 2024). These accounts combined can reduce taxable income by $30,000 to $40,000 or more for a single filer, potentially dropping a bracket and saving thousands in federal taxes annually.</p>
+            </div>
           </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/income-tax-calculator" />
           <PopularCalculators exclude="/calculator/income-tax-calculator" />

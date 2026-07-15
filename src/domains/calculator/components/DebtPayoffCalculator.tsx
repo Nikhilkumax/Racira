@@ -4,7 +4,7 @@ import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
-import { RotateCcw, Calculator } from "lucide-react";
+import { RotateCcw, ChevronDown } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
 
 interface Debt { name: string; balance: number; rate: number; minPayment: number; }
@@ -106,6 +106,7 @@ export default function DebtPayoffCalculator() {
   const [debts, setDebts] = useState<Debt[]>(DEFAULT_DEBTS);
   const [extra, setExtra] = useState("200");
   const [result, setResult] = useState<DebtPayoffResult | null>(null);
+  const [showAdv, setShowAdv] = useState(false);
 
   const calculate = () => {
     const e = parseFloat(extra) || 0;
@@ -168,9 +169,22 @@ export default function DebtPayoffCalculator() {
                 <input type="number" value={extra} onChange={e => setExtra(e.target.value)} className="w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground" />
               </div>
             </div>
+            {/* Advanced Options — add/remove debts */}
+            <div>
+              <button type="button" onClick={() => setShowAdv(!showAdv)} className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline focus:outline-none">
+                Advanced Options <ChevronDown className={`h-3 w-3 transition-transform ${showAdv ? "rotate-180" : ""}`} />
+              </button>
+              {showAdv && (
+                <div className="mt-2 p-3 rounded-lg bg-secondary/20 border border-border animate-fade-in-up">
+                  <button onClick={addDebt} className="text-sm text-primary font-bold hover:underline">+ Add Another Debt</button>
+                  <p className="text-xs text-muted-foreground mt-1">Click × on any row to remove a debt from the list.</p>
+                </div>
+              )}
+            </div>
+
             <div className="flex gap-3 mt-1">
-              <button onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm">Calculate</button>
-              <button onClick={() => { setDebts(DEFAULT_DEBTS); setExtra("200"); setResult(calcDebtPayoff(DEFAULT_DEBTS, 200)); }} className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center">
+              <button onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm">Calculate</button>
+              <button onClick={() => { setDebts(DEFAULT_DEBTS); setExtra("200"); setResult(calcDebtPayoff(DEFAULT_DEBTS, 200)); setShowAdv(false); }} className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center" aria-label="Reset">
                 <RotateCcw className="h-4 w-4" />
               </button>
             </div>
@@ -227,13 +241,23 @@ export default function DebtPayoffCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <section className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">Avalanche vs. Snowball: Which Debt Payoff Method Is Best?</h2>
-            <p>This <strong>debt payoff calculator</strong> simulates both the Avalanche (highest interest rate first) and Snowball (smallest balance first) debt elimination strategies and compares total interest paid and payoff timeline. The Avalanche method is mathematically optimal — always paying less total interest. The Snowball method provides faster psychological wins. Both dramatically outperform making minimum payments only.</p>
-            <h2 className="text-2xl font-bold mb-3">How the Debt Avalanche Works</h2>
-            <p>Pay minimum payments on every debt. Apply all extra money to the highest interest rate debt. When paid off, roll the freed payment to the next highest rate. This cascades until all debt is gone. Example: 4 debts with rates 24.99%, 19.99%, 12%, 6.5%. Avalanche targets the 24.99% card first — every dollar applied there saves the maximum interest. The 'avalanche' of freed payments accelerates payoff on each subsequent debt.</p>
-            <h2 className="text-2xl font-bold mb-3">When Snowball Outperforms</h2>
-            <p>Despite costing more interest, the Snowball method may produce better real-world outcomes for people who struggle with motivation. Research by Kellogg School of Management found that people who felt progress (paid-off accounts) were more likely to stick with their debt payoff plan. If you've previously failed with Avalanche or have many small debts that can be quickly eliminated, Snowball's psychological benefits may outweigh the additional interest cost. Related tools: <a href="/calculator/budget-calculator">Budget Calculator</a>, <a href="/calculator/credit-card-payoff-calculator">Credit Card Payoff Calculator</a>.</p>
+          <section className="mt-12 space-y-8 text-base text-foreground max-w-[1180px]">
+            <div>
+              <h2 className="text-2xl font-bold mb-3">Avalanche vs. Snowball: Which Debt Payoff Method Is Best?</h2>
+              <p className="text-muted-foreground leading-relaxed">This debt payoff calculator simulates both the Avalanche (highest interest rate first) and Snowball (smallest balance first) debt elimination strategies and compares total interest paid and payoff timeline side by side. The Avalanche method is mathematically optimal and always results in less total interest paid. The Snowball method provides faster psychological wins by eliminating individual accounts sooner. Both strategies dramatically outperform making only minimum payments over the long term.</p>
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold mb-3">How the Debt Avalanche Works</h2>
+              <p className="text-muted-foreground leading-relaxed">Pay minimum payments on every debt each month. Then apply all extra money to the single debt with the highest interest rate. When that debt is fully paid off, roll the freed payment amount to the next highest-rate debt. This cascades until all debt is eliminated. For example, with four debts at rates of 24.99%, 19.99%, 12%, and 6.5%, the Avalanche targets the 24.99% card first. Every dollar applied there saves the maximum possible interest over time, and the growing avalanche of freed payments accelerates payoff of each subsequent debt.</p>
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold mb-3">When the Snowball Method Outperforms</h2>
+              <p className="text-muted-foreground leading-relaxed">Despite costing more in total interest, the Snowball method may produce better real-world outcomes for people who struggle with motivation and consistency. Research by the Kellogg School of Management found that people who experienced progress by eliminating individual accounts were significantly more likely to stay committed to their debt payoff plan. If you have previously abandoned the Avalanche approach or have many small debts that can be quickly eliminated, the psychological benefits of Snowball may outweigh the additional interest cost in practice.</p>
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold mb-3">The Power of Extra Payments</h2>
+              <p className="text-muted-foreground leading-relaxed">Even a modest extra payment makes an enormous difference over time. On a $20,000 debt portfolio at an average rate of 18%, an extra $200 per month can reduce total interest paid by thousands of dollars and cut years off your payoff timeline. The key principle is consistency: every extra dollar applied to debt represents a guaranteed, risk-free return equal to the debt's interest rate. On a 24.99% credit card, that is a guaranteed 24.99% return on every dollar repaid above the minimum payment.</p>
+            </div>
           </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/debt-payoff-calculator" />
           <PopularCalculators exclude="/calculator/debt-payoff-calculator" />

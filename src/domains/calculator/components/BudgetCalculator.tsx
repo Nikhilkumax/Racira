@@ -4,7 +4,7 @@ import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
-import { RotateCcw, Calculator } from "lucide-react";
+import { RotateCcw, ChevronDown } from "lucide-react";
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from "recharts";
 
 interface BudgetResult {
@@ -88,11 +88,14 @@ export default function BudgetCalculator() {
     personalCare: "100", debt: "300", other: "200",
   });
   const [result, setResult] = useState<BudgetResult | null>(null);
+  const [showAdv, setShowAdv] = useState(false);
+  const [incomeFreq, setIncomeFreq] = useState<"monthly" | "annual">("monthly");
 
   const setExpense = (key: string, value: string) => setExpenses(prev => ({ ...prev, [key]: value }));
 
   const calculate = () => {
-    const inc = parseFloat(income) || 0;
+    const rawInc = parseFloat(income) || 0;
+    const inc = incomeFreq === "annual" ? rawInc / 12 : rawInc;
     const expNums = Object.fromEntries(Object.entries(expenses).map(([k, v]) => [k, parseFloat(v) || 0]));
     setResult(calcBudget(inc, expNums));
   };
@@ -139,9 +142,28 @@ export default function BudgetCalculator() {
                 </div>
               ))}
             </div>
+            {/* Advanced Options */}
+            <div>
+              <button type="button" onClick={() => setShowAdv(!showAdv)} className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline focus:outline-none">
+                Advanced Options <ChevronDown className={`h-3 w-3 transition-transform ${showAdv ? "rotate-180" : ""}`} />
+              </button>
+              {showAdv && (
+                <div className="mt-2 p-3 rounded-lg bg-secondary/20 border border-border animate-fade-in-up">
+                  <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wide block mb-2">Income Frequency</label>
+                  <div className="flex gap-2">
+                    {(["monthly", "annual"] as const).map(f => (
+                      <button key={f} type="button" onClick={() => setIncomeFreq(f)} className={`flex-1 rounded-md border text-sm py-1.5 font-semibold transition-colors ${incomeFreq === f ? "bg-primary text-primary-foreground border-primary" : "border-border bg-background text-muted-foreground hover:bg-secondary"}` }>
+                        {f === "monthly" ? "Monthly" : "Annual (÷12)"}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
             <div className="flex gap-3 mt-1">
               <button onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm">Calculate</button>
-              <button onClick={() => { setIncome("6000"); setExpenses(defaults); const expNums = Object.fromEntries(Object.entries(defaults).map(([k, v]) => [k, parseFloat(v) || 0])); setResult(calcBudget(6000, expNums)); }} className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center">
+              <button onClick={() => { setIncome("6000"); setExpenses(defaults); setShowAdv(false); const expNums = Object.fromEntries(Object.entries(defaults).map(([k, v]) => [k, parseFloat(v) || 0])); setResult(calcBudget(6000, expNums)); }} className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center" aria-label="Reset">
                 <RotateCcw className="h-4 w-4" />
               </button>
             </div>
@@ -202,13 +224,23 @@ export default function BudgetCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <section className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">How to Build a Monthly Budget</h2>
-            <p>This <strong>monthly budget calculator</strong> compares your actual spending against recommended percentages for each category, instantly flagging areas where you're over budget. The status indicators (✓ Good / ⚠ High / ✗ Over) are based on the widely-accepted 50/30/20 framework and standard lender debt-to-income guidelines. Your savings rate — money saved plus any monthly surplus — is the key metric to optimize.</p>
-            <h2 className="text-2xl font-bold mb-3">The 50/30/20 Framework</h2>
-            <p>50% Needs: housing, food, utilities, insurance, minimum debt payments, essential transportation. 30% Wants: dining out, entertainment, hobbies, subscriptions, clothing above essentials. 20% Financial goals: retirement contributions, emergency fund, extra debt paydown, savings for goals. Adjust for your situation — a 25% savings rate accelerates financial independence dramatically; a 10% savings rate is a starting point, not a destination.</p>
-            <h2 className="text-2xl font-bold mb-3">The Most Impactful Budget Levers</h2>
-            <p>Housing: the biggest single expense for most households. Every $100/month saved on housing saves $1,200/year — consider roommates, a longer commute, or downsizing. Transportation: the second-largest expense. Car ownership costs average $12,000+/year all-in (loan, insurance, gas, maintenance, depreciation). Savings rate: every additional 1% of income saved is a permanent lifestyle improvement. Food: cooking at home vs. dining out has one of the highest ROI of any budget category. Related tools: <a href="/calculator/income-tax-calculator">Income Tax Calculator</a>, <a href="/calculator/early-retirement-calculator">FIRE Calculator</a>.</p>
+          <section className="mt-12 space-y-8 text-base text-foreground max-w-[1180px]">
+            <div>
+              <h2 className="text-2xl font-bold mb-3">How to Build a Monthly Budget</h2>
+              <p className="text-muted-foreground leading-relaxed">This monthly budget calculator compares your actual spending against recommended percentages for each category, instantly flagging areas where you are over budget. The status indicators (Good, High, or Over) are based on the widely accepted 50/30/20 framework and standard lender debt-to-income guidelines. Your savings rate, which is money saved plus any monthly surplus, is the single most important metric to optimize over time.</p>
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold mb-3">The 50/30/20 Framework</h2>
+              <p className="text-muted-foreground leading-relaxed">The 50/30/20 rule divides after-tax income into three categories. Fifty percent goes to needs: housing, food, utilities, insurance, minimum debt payments, and essential transportation. Thirty percent goes to wants: dining out, entertainment, hobbies, subscriptions, and clothing above essentials. Twenty percent goes to financial goals: retirement contributions, emergency fund building, extra debt paydown, and savings for specific objectives. Adjust these percentages based on your income level and local cost of living.</p>
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold mb-3">The Most Impactful Budget Levers</h2>
+              <p className="text-muted-foreground leading-relaxed">Housing is the single largest expense for most households. Every $100 per month saved on housing saves $1,200 per year. Consider roommates, a longer commute, or downsizing to free up significant budget capacity. Transportation is the second-largest expense, with car ownership averaging over $12,000 per year all-in when accounting for loan payments, insurance, gas, maintenance, and depreciation. Food offers one of the highest returns on any budget category: cooking at home versus dining out can save hundreds of dollars each month with only moderate effort.</p>
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold mb-3">Setting and Achieving Your Savings Rate</h2>
+              <p className="text-muted-foreground leading-relaxed">A minimum savings rate of 10 to 15 percent of gross income covers only basic retirement needs. A rate of 15 to 20 percent is considered good and covers retirement plus an emergency fund and other goals. A rate of 25 percent or higher substantially accelerates wealth building and the path to financial independence. Each additional percentage point saved permanently improves your financial future. The difference between a 10 percent savings rate and a 25 percent savings rate can mean retiring a decade earlier.</p>
+            </div>
           </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/budget-calculator" />
           <PopularCalculators exclude="/calculator/budget-calculator" />

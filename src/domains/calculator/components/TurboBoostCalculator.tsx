@@ -192,9 +192,13 @@ export default function TurboBoostCalculator() {
               )}
             </div>
 
-            <div className="flex gap-2.5 mt-4">
-              <button type="button" onClick={handleReset} className="w-full rounded-md border border-border bg-background hover:bg-secondary text-foreground font-semibold h-11 transition-colors flex items-center justify-center gap-2 focus:outline-none shadow-sm">
-                <RotateCcw className="h-4 w-4" /> Reset
+            <div className="flex gap-2.5 mt-2">
+              <button type="button" onClick={() => {
+                const r = calculateBoost(inputs);
+                if (!r.isError) setResults(r);
+              }} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm">Calculate</button>
+              <button type="button" onClick={handleReset} className="w-10 shrink-0 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center focus:outline-none" aria-label="Reset">
+                <RotateCcw className="h-5 w-5" />
               </button>
             </div>
             
@@ -294,21 +298,31 @@ export default function TurboBoostCalculator() {
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <section className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">How Do Turbochargers Add Horsepower?</h2>
-            <p>Naturally aspirated engines rely on the downward stroke of the piston to pull atmospheric air into the combustion chamber. This creates a hard physical limit on how much oxygen can mix with fuel. A turbocharger completely rewrites this rule. Driven by waste exhaust gases, the turbo's compressor wheel acts as a powerful forced-induction pump. It artificially pressurizes the intake air (measured in PSI of "boost"), allowing the engine to inhale a massive surplus of oxygen and burn significantly more fuel, generating explosive horsepower gains.</p>
+          <section className="mt-12 space-y-8 text-base text-foreground max-w-[1180px]">
+            <div>
+              <h2 className="text-2xl font-bold mb-3">How Do Turbochargers Add Horsepower?</h2>
+              <p className="text-muted-foreground leading-relaxed">Naturally aspirated engines rely on the downward stroke of the piston to pull atmospheric air into the combustion chamber. This creates a hard physical limit on how much oxygen can mix with fuel. A turbocharger completely rewrites this rule. Driven by waste exhaust gases, the turbo's compressor wheel acts as a powerful forced-induction pump. It artificially pressurizes the intake air (measured in PSI of "boost"), allowing the engine to inhale a massive surplus of oxygen and burn significantly more fuel, generating explosive horsepower gains.</p>
+            </div>
 
-            <h2 className="text-2xl font-bold mb-3">The Rule of 14.7 PSI</h2>
-            <p>A common myth in the automotive community is that adding 14.7 PSI of boost will perfectly double your engine's horsepower. Atmospheric pressure at sea level is exactly 14.7 PSI. Therefore, adding an additional 14.7 PSI of boost creates a Pressure Ratio of 2.0 (doubling the total pressure). In a perfect world of pure mathematics, doubling the pressure doubles the oxygen, which doubles the horsepower. In reality, physics gets in the way.</p>
+            <div>
+              <h2 className="text-2xl font-bold mb-3">The Rule of 14.7 PSI</h2>
+              <p className="text-muted-foreground leading-relaxed">A common myth in the automotive community is that adding 14.7 PSI of boost will perfectly double your engine's horsepower. Atmospheric pressure at sea level is exactly 14.7 PSI. Therefore, adding an additional 14.7 PSI of boost creates a Pressure Ratio of 2.0 (doubling the total pressure). In a perfect world of pure mathematics, doubling the pressure doubles the oxygen, which doubles the horsepower. In reality, physics gets in the way.</p>
+            </div>
 
-            <h2 className="text-2xl font-bold mb-3">Thermal Dynamics and Density Ratio</h2>
-            <p>When you compress air, it gets incredibly hot. According to the Ideal Gas Law, hot air expands and becomes less dense. So, even though you doubled the physical pressure inside the manifold, the hot, expanded air molecules take up more space. You are not actually shoving twice as many oxygen molecules into the cylinder. The true measurement of how much extra oxygen the engine receives is called the <strong>Density Ratio</strong>.</p>
+            <div>
+              <h2 className="text-2xl font-bold mb-3">Thermal Dynamics and Density Ratio</h2>
+              <p className="text-muted-foreground leading-relaxed">When you compress air, it gets incredibly hot. According to the Ideal Gas Law, hot air expands and becomes less dense. So, even though you doubled the physical pressure inside the manifold, the hot, expanded air molecules take up more space. You are not actually shoving twice as many oxygen molecules into the cylinder. The true measurement of how much extra oxygen the engine receives is called the <strong>Density Ratio</strong>.</p>
+            </div>
 
-            <h2 className="text-2xl font-bold mb-3">The Critical Role of Intercoolers</h2>
-            <p>Because the air exiting a turbocharger can exceed 250°F, forcing it directly into the engine is highly inefficient and dangerous (leading to premature fuel detonation). To solve this, builders route the hot air through an intercooler—a large heat exchanger mounted in the front bumper. The intercooler strips the heat away, dropping the intake temperature back down near ambient levels. This cools and condenses the air, drastically improving the Density Ratio. A high-efficiency intercooler is the secret to extracting massive, safe horsepower from high boost pressures.</p>
+            <div>
+              <h2 className="text-2xl font-bold mb-3">The Critical Role of Intercoolers</h2>
+              <p className="text-muted-foreground leading-relaxed">Because the air exiting a turbocharger can exceed 250°F, forcing it directly into the engine is highly inefficient and dangerous (leading to premature fuel detonation). To solve this, builders route the hot air through an intercooler—a large heat exchanger mounted in the front bumper. The intercooler strips the heat away, dropping the intake temperature back down near ambient levels. This cools and condenses the air, drastically improving the Density Ratio. A high-efficiency intercooler is the secret to extracting massive, safe horsepower from high boost pressures.</p>
+            </div>
 
-            <h2 className="text-2xl font-bold mb-3">Limitations of Boosted Applications</h2>
-            <p>Our Turbo Boost Calculator provides thermodynamic estimates, but it assumes your engine block can physically survive the strain. Turning the boost up to 25 PSI might mathematically yield 500 horsepower, but if you have a factory cast-iron engine with weak connecting rods, the engine will likely shatter long before it reaches that number. High horsepower builds require forged internal components, high-capacity fuel injectors, and highly specialized ECU tuning to manage the aggressive air-fuel ratios.</p>
+            <div>
+              <h2 className="text-2xl font-bold mb-3">Limitations of Boosted Applications</h2>
+              <p className="text-muted-foreground leading-relaxed">Our Turbo Boost Calculator provides thermodynamic estimates, but it assumes your engine block can physically survive the strain. Turning the boost up to 25 PSI might mathematically yield 500 horsepower, but if you have a factory cast-iron engine with weak connecting rods, the engine will likely shatter long before it reaches that number. High horsepower builds require forged internal components, high-capacity fuel injectors, and highly specialized ECU tuning to manage the aggressive air-fuel ratios.</p>
+            </div>
           </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/turbo-boost-calculator" />

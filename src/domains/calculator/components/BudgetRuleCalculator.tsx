@@ -4,7 +4,7 @@ import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import { RotateCcw, Calculator, Wallet } from "lucide-react";
+import { RotateCcw, Wallet, ChevronDown } from "lucide-react";
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from "recharts";
 
 const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "number", ...props }: {
@@ -51,6 +51,7 @@ export default function BudgetRuleCalculator() {
   const [period, setPeriod] = useState<"monthly" | "annual">("monthly");
   const [res, setRes] = useState<{ monthly: number; needs: number; wants: number; savings: number; annual: number } | null>(null);
   const [mounted, setMounted] = useState(false);
+  const [showAdv, setShowAdv] = useState(false);
 
   useEffect(() => { setMounted(true); calc(); }, []);
 
@@ -92,27 +93,37 @@ export default function BudgetRuleCalculator() {
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
             <h2 className="text-2xl font-bold mb-3">Your Income</h2>
-            <div className="flex flex-col gap-1.5">
-              <span className="text-sm font-semibold text-foreground">Income Period</span>
-              <div className="flex rounded-md border border-border overflow-hidden">
-                {(["monthly", "annual"] as const).map(p => (
-                  <button key={p} type="button" onClick={() => setPeriod(p)} className={`flex-1 py-2.5 text-sm font-semibold transition-colors ${period === p ? "bg-primary text-primary-foreground" : "bg-background text-muted-foreground hover:bg-secondary"}`}>
-                    {p === "monthly" ? "Monthly" : "Annual"}
-                  </button>
-                ))}
-              </div>
-            </div>
-            <CompactInput id="income" label={`${period === "monthly" ? "Monthly" : "Annual"} After-Tax Income`} value={income} onChange={setIncome} prefix="$" />
             <div className="bg-secondary/30 rounded-xl p-4 space-y-2 text-sm">
               <p className="font-bold text-foreground">The 50/30/20 Framework</p>
               <div className="flex justify-between"><span className="text-blue-500 font-semibold">50% Needs</span><span className="text-muted-foreground">Essentials: housing, food, transport</span></div>
               <div className="flex justify-between"><span className="text-amber-500 font-semibold">30% Wants</span><span className="text-muted-foreground">Lifestyle: dining, fun, shopping</span></div>
               <div className="flex justify-between"><span className="text-emerald-500 font-semibold">20% Savings</span><span className="text-muted-foreground">Future: emergency fund, retirement, debt</span></div>
             </div>
+
+            {/* Advanced Options */}
+            <div>
+              <button type="button" onClick={() => setShowAdv(!showAdv)} className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline focus:outline-none mb-1">
+                Advanced Options <ChevronDown className={`h-3 w-3 transition-transform ${showAdv ? "rotate-180" : ""}`} />
+              </button>
+              {showAdv && (
+                <div className="mt-2 p-3 rounded-xl bg-secondary/20 border border-border animate-fade-in-up">
+                  <div className="flex flex-col gap-1.5">
+                    <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide block">Income Period</span>
+                    <div className="flex rounded-md border border-border overflow-hidden">
+                      {(["monthly", "annual"] as const).map(p => (
+                        <button key={p} type="button" onClick={() => setPeriod(p)} className={`flex-1 py-1.5 text-sm font-semibold transition-colors ${period === p ? "bg-primary text-primary-foreground" : "bg-background text-muted-foreground hover:bg-secondary"}`}>
+                          {p === "monthly" ? "Monthly" : "Annual"}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
             <div className="flex gap-2.5 mt-2">
-              <button type="button" onClick={calc} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm">Calculate</button>
-              <button type="button" onClick={reset} className="px-3 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center" aria-label="Reset">
-                <RotateCcw className="h-4 w-4" />
+              <button type="button" onClick={calc} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm">Calculate</button>
+              <button type="button" onClick={() => { reset(); setShowAdv(false); }} className="w-10 shrink-0 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center" aria-label="Reset">
+                <RotateCcw className="h-5 w-5" />
               </button>
             </div>
           </div>
@@ -214,24 +225,34 @@ export default function BudgetRuleCalculator() {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <section className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">What Is the 50/30/20 Budget Rule?</h2>
-            <p>The 50/30/20 rule is a simple, powerful budgeting framework that divides your after-tax income into three broad categories: 50% for needs, 30% for wants, and 20% for savings and debt repayment. First popularized by U.S. Senator Elizabeth Warren and her daughter Amelia Warren Tyagi in their 2005 book "All Your Worth: The Ultimate Lifetime Money Plan," this framework provides a starting point for anyone who wants financial structure without the complexity of tracking every dollar.</p>
-            <p>Unlike detailed budgeting systems that require itemizing every expense, the 50/30/20 rule works at the macro level — giving you three clear buckets to allocate your income into. This simplicity is its greatest strength, making it sustainable for long-term financial planning rather than a strict regimen that's abandoned after a few months.</p>
+          <section className="mt-12 space-y-8 text-base text-foreground max-w-[1180px]">
+            <div>
+              <h2 className="text-2xl font-bold mb-3">What Is the 50/30/20 Budget Rule?</h2>
+              <p className="text-muted-foreground leading-relaxed">The 50/30/20 rule is a simple, powerful budgeting framework that divides your after-tax income into three broad categories: 50% for needs, 30% for wants, and 20% for savings and debt repayment. First popularized by U.S. Senator Elizabeth Warren and her daughter Amelia Warren Tyagi in their 2005 book "All Your Worth: The Ultimate Lifetime Money Plan," this framework provides a starting point for anyone who wants financial structure without the complexity of tracking every dollar.</p>
+              <p className="text-muted-foreground leading-relaxed mt-4">Unlike detailed budgeting systems that require itemizing every expense, the 50/30/20 rule works at the macro level — giving you three clear buckets to allocate your income into. This simplicity is its greatest strength, making it sustainable for long-term financial planning rather than a strict regimen that's abandoned after a few months.</p>
+            </div>
 
-            <h2 className="text-2xl font-bold mb-3">The 50%: Needs</h2>
-            <p>Needs are essential expenses you must pay to maintain your basic standard of living. These are non-negotiable costs that remain relatively fixed from month to month. Examples include: rent or mortgage payments, utility bills (electricity, gas, water, internet for remote workers), groceries and basic food, health insurance premiums, minimum debt payments on loans and credit cards, transportation costs to work (car payment, insurance, fuel, or public transit), and childcare if required to work.</p>
-            <p>The goal of keeping needs below 50% creates a financial buffer. If you spend 80% on needs, any income disruption immediately creates a crisis. Keeping needs at 50% means you have 50% of income for life enrichment and future security.</p>
+            <div>
+              <h2 className="text-2xl font-bold mb-3">The 50%: Needs</h2>
+              <p className="text-muted-foreground leading-relaxed">Needs are essential expenses you must pay to maintain your basic standard of living. These are non-negotiable costs that remain relatively fixed from month to month. Examples include: rent or mortgage payments, utility bills (electricity, gas, water, internet for remote workers), groceries and basic food, health insurance premiums, minimum debt payments on loans and credit cards, transportation costs to work (car payment, insurance, fuel, or public transit), and childcare if required to work.</p>
+              <p className="text-muted-foreground leading-relaxed mt-4">The goal of keeping needs below 50% creates a financial buffer. If you spend 80% on needs, any income disruption immediately creates a crisis. Keeping needs at 50% means you have 50% of income for life enrichment and future security.</p>
+            </div>
 
-            <h2 className="text-2xl font-bold mb-3">The 30%: Wants</h2>
-            <p>Wants are discretionary expenses that improve quality of life but aren't essential for survival. This category is often the most flexible and the first to be adjusted when financial circumstances change. Examples include: dining out and restaurant meals, entertainment (movies, concerts, sports), streaming subscriptions (Netflix, Spotify), gym memberships, travel and vacations, shopping for clothing beyond basics, hobbies, and upgraded versions of necessary items (a more expensive car when a basic one would suffice).</p>
-            <p>Many people struggle to identify what's a want vs. need. A useful test: could you survive without it for 30 days without significant hardship? If yes, it's a want. Having a car might be a need; having a luxury car is a want. Internet may be a need; streaming services are wants.</p>
+            <div>
+              <h2 className="text-2xl font-bold mb-3">The 30%: Wants</h2>
+              <p className="text-muted-foreground leading-relaxed">Wants are discretionary expenses that improve quality of life but aren't essential for survival. This category is often the most flexible and the first to be adjusted when financial circumstances change. Examples include: dining out and restaurant meals, entertainment (movies, concerts, sports), streaming subscriptions (Netflix, Spotify), gym memberships, travel and vacations, shopping for clothing beyond basics, hobbies, and upgraded versions of necessary items (a more expensive car when a basic one would suffice).</p>
+              <p className="text-muted-foreground leading-relaxed mt-4">Many people struggle to identify what's a want vs. need. A useful test: could you survive without it for 30 days without significant hardship? If yes, it's a want. Having a car might be a need; having a luxury car is a want. Internet may be a need; streaming services are wants.</p>
+            </div>
 
-            <h2 className="text-2xl font-bold mb-3">The 20%: Savings and Debt Repayment</h2>
-            <p>The savings bucket covers your future self. This includes: emergency fund contributions (target 3–6 months of expenses), retirement account contributions (401(k), IRA, Roth IRA), investment accounts, additional debt repayments above minimums (especially high-interest debt), college savings funds (529 plans), and other goal-based savings. Financial experts recommend prioritizing in this order: 401(k) to employer match (free money), high-interest debt payoff, emergency fund, then additional retirement and investment savings.</p>
+            <div>
+              <h2 className="text-2xl font-bold mb-3">The 20%: Savings and Debt Repayment</h2>
+              <p className="text-muted-foreground leading-relaxed">The savings bucket covers your future self. This includes: emergency fund contributions (target 3–6 months of expenses), retirement account contributions (401(k), IRA, Roth IRA), investment accounts, additional debt repayments above minimums (especially high-interest debt), college savings funds (529 plans), and other goal-based savings. Financial experts recommend prioritizing in this order: 401(k) to employer match (free money), high-interest debt payoff, emergency fund, then additional retirement and investment savings.</p>
+            </div>
 
-            <h2 className="text-2xl font-bold mb-3">Adapting the 50/30/20 Rule to Your Situation</h2>
-            <p>The 50/30/20 rule is a starting point, not a rigid law. In high cost-of-living cities where rent exceeds 40% of take-home pay, the framework may need to be adjusted to 60/20/20 temporarily until income increases or you relocate. Those with high debt loads might use 50/20/30, directing more to debt payoff. Aggressive savers pursuing financial independence often flip the framework to 50/20/30 (30% savings) or even more. Those close to retirement may increase savings to 30–40%. The key insight is keeping a structured balance between living today and securing tomorrow.</p>
+            <div>
+              <h2 className="text-2xl font-bold mb-3">Adapting the 50/30/20 Rule to Your Situation</h2>
+              <p className="text-muted-foreground leading-relaxed">The 50/30/20 rule is a starting point, not a rigid law. In high cost-of-living cities where rent exceeds 40% of take-home pay, the framework may need to be adjusted to 60/20/20 temporarily until income increases or you relocate. Those with high debt loads might use 50/20/30, directing more to debt payoff. Aggressive savers pursuing financial independence often flip the framework to 50/20/30 (30% savings) or even more. Those close to retirement may increase savings to 30–40%. The key insight is keeping a structured balance between living today and securing tomorrow.</p>
+            </div>
           </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/50-30-20-budget-calculator" />
           <PopularCalculators exclude="/calculator/50-30-20-budget-calculator" />

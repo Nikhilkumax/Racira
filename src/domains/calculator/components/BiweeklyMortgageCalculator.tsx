@@ -425,8 +425,8 @@ const BiWeeklyMortgageCalculator = () => {
         <div className="max-w-[1180px] mt-12">
           <AdPlaceholder className="mb-10" />
           
-          <section className="prose-finance text-[15.75px]">
-            <section className="mb-8">
+          <section className="mt-12 space-y-8 text-base text-foreground">
+            <div className="mb-8">
               <h2 className="text-2xl font-bold mb-3">What Is a Bi-Weekly Mortgage Calculator?</h2>
               <p>
                 A bi-weekly mortgage calculator is a financial tool designed to show you exactly how much money and time you can save by altering your mortgage payment schedule. Instead of making one standard payment per month, a bi-weekly schedule splits that monthly payment in half, requiring you to make payments every 14 days. 
@@ -434,9 +434,9 @@ const BiWeeklyMortgageCalculator = () => {
               <p>
                 Because there are 52 weeks in a calendar year, paying every two weeks results in 26 half-payments. This perfectly equals 13 full payments over the course of the year. This calculator is primarily used by homeowners who want to pay off their mortgages years early and save tens of thousands of dollars in interest without significantly changing their monthly budget.
               </p>
-            </section>
+            </div>
 
-            <section className="mb-8">
+            <div className="mb-8">
               <h2 className="text-2xl font-bold mb-3">How It Works (The Math Behind It)</h2>
               <p>
                 The underlying math of this strategy relies on the standard amortization formula combined with accelerated principal reduction. The standard monthly payment <code>M</code> is calculated as:
@@ -450,9 +450,9 @@ const BiWeeklyMortgageCalculator = () => {
               <p>
                 When you switch to a bi-weekly schedule, your payment is exactly <code>M / 2</code>. However, because you make this payment 26 times a year, the total amount paid annually is <code>13 * M</code> instead of <code>12 * M</code>. The extra full payment is applied entirely to the principal balance, which violently decreases the balance upon which future interest is calculated, triggering a compounding savings effect.
               </p>
-            </section>
+            </div>
 
-            <section className="mb-8">
+            <div className="mb-8">
               <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
               <p>
                 The primary result card displays your <strong>Total Interest Saved</strong>. This is the difference between the total interest you would pay over the standard 30-year (or 15-year) schedule and the interest paid on the accelerated bi-weekly schedule. 
@@ -460,9 +460,9 @@ const BiWeeklyMortgageCalculator = () => {
               <p>
                 The <strong>Time Saved</strong> metric indicates how many years early you will burn your mortgage documents. The breakdown table provides a side-by-side comparison of the standard vs. bi-weekly approach, clearly outlining your total cost of loan in both scenarios. Remember that the "extra" money isn't lost; it goes directly into your home equity.
               </p>
-            </section>
+            </div>
 
-            <section className="mb-8">
+            <div className="mb-8">
               <h2 className="text-2xl font-bold mb-3">Key Factors & Inputs</h2>
               <p>
                 The Normal tier inputs are the basics needed to calculate your amortization:
@@ -473,16 +473,16 @@ const BiWeeklyMortgageCalculator = () => {
               <p>
                 The <strong>Advanced Options</strong> tier allows for more precise power-user forecasting.
               </p>
-            </section>
+            </div>
 
-            <section className="mb-8">
+            <div className="mb-8">
               <h2 className="text-2xl font-bold mb-3">Advanced Features</h2>
               <p>
                 Our Advanced Options include the ability to add an <strong>Extra Bi-Weekly Payment</strong>. This is crucial for borrowers who not only want to leverage the 13th payment effect but also have extra cash flow to aggressively attack the debt. By adding even $50 extra every two weeks, you can shave additional years off the mortgage and compound the interest savings exponentially.
               </p>
-            </section>
+            </div>
 
-            <section className="mb-8">
+            <div className="mb-8">
               <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
               <p>
                 <strong>Scenario A: Standard 30-Year Loan.</strong> Assume a $300,000 mortgage at 6.5% interest. The standard monthly payment is $1,896.20. Over 30 years, you will pay $382,633 in interest alone.
@@ -493,21 +493,21 @@ const BiWeeklyMortgageCalculator = () => {
               <p>
                 <strong>Scenario C: Advanced Options.</strong> You use the bi-weekly schedule ($948.10) but add an extra $50 to each payment ($998.10 total). You now pay off the loan in 21.2 years and save over $120,000 in interest!
               </p>
-            </section>
+            </div>
 
-            <section className="mb-8">
+            <div className="mb-8">
               <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
               <p>
                 Never pay a third-party company or your bank a setup fee to enroll in a bi-weekly program. You can easily achieve this yourself by simply dividing your monthly payment by 12, and adding that amount to your principal payment each month. Alternatively, you can set up automated transfers from your checking to a separate savings account every time you get paid (bi-weekly), and then make one massive extra principal payment at the end of the year.
               </p>
-            </section>
+            </div>
 
-            <section>
+            <div>
               <h2 className="text-2xl font-bold mb-3">Benefits of Using This Calculator</h2>
               <p>
                 This calculator provides an exact, mathematically sound comparison of your payment options. It allows you to visualize the massive long-term benefits of minor short-term cash flow adjustments. By making informed decisions today, you can guarantee a debt-free future decades ahead of schedule.
               </p>
-            </section>
+            </div>
           </section>
 
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/bi-weekly-mortgage" />

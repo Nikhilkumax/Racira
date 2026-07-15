@@ -40,7 +40,7 @@ export function VoiceToolGrid() {
       {filtered.map((cat) => (
         <CategorySection
           key={cat.name}
-          section={{ title: cat.name, tools: cat.tools }}
+          section={{ title: cat.name, tools: cat.tools as any }}
           basePath="/voice/tools"
         />
       ))}

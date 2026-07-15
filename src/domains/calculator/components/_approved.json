@@ -64,6 +64,14 @@
     "AgeCalculator",
     "AirFreightCostEstimator",
     "AlcoholCaloriesCalculator",
-    "AlcoholUnitCalculator"
+    "AlcoholUnitCalculator",
+    "BiweeklyMortgageCalculator",
+    "EngineCompressionCalculator",
+    "FirstHomeBuyerCalculator",
+    "HomeLoanEligibilityCalculator",
+    "LoanOriginationFeeCalculator",
+    "MortgageRecastCalculator",
+    "RentalPropertyDepreciationCalculator",
+    "TurboBoostCalculator"
   ]
 }

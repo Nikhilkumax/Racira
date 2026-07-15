@@ -139,7 +139,7 @@ export default function BonusPercentageCalculator() {
 
             <div>
               <button type="button" onClick={() => setShowAdvanced(!showAdvanced)} className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline mt-2 focus:outline-none">
-                Add Performance Multipliers <ChevronDown className={`h-3 w-3 transition-transform ${showAdvanced ? "rotate-180" : ""}`} />
+                Advanced Options <ChevronDown className={`h-3 w-3 transition-transform ${showAdvanced ? "rotate-180" : ""}`} />
               </button>
               {showAdvanced && (
                 <div className="grid grid-cols-1 gap-4 p-4 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up">
@@ -238,25 +238,22 @@ export default function BonusPercentageCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <section className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">How Corporate Bonuses Work</h2>
-            <p>Unlike fixed commissions where you earn a specific dollar amount per sale, corporate bonuses are typically calculated as a <strong>Percentage of your Base Salary</strong>, and then adjusted based on performance multipliers.</p>
+          <section className="mt-12 space-y-8 text-base text-foreground max-w-[1180px]">
+            <div>
+              <h2 className="text-2xl font-bold mb-3">How Corporate Bonuses Work</h2>
+              <p className="text-muted-foreground leading-relaxed">Unlike fixed commissions where you earn a specific dollar amount per sale, corporate bonuses are typically calculated as a percentage of your base salary, and then adjusted based on performance multipliers. Your offer letter usually states a "Target Bonus." For example, a Senior Manager making $100,000 might have a 15% Target Bonus. This means if everything goes exactly according to plan, they will receive $15,000 at the end of the year.</p>
+            </div>
             
-            <h3>The Target Bonus</h3>
-            <p>Your offer letter usually states a "Target Bonus." For example, a Senior Manager making $100,000 might have a 15% Target Bonus. This means if everything goes exactly according to plan, they will receive $15,000 at the end of the year.</p>
+            <div>
+              <h2 className="text-2xl font-bold mb-3">The Multipliers: Why Your Check Might Be Smaller (or Larger)</h2>
+              <p className="text-muted-foreground leading-relaxed">Very rarely does an employee receive exactly their target bonus. Most enterprise companies use a formula that multiplies your target bonus by two factors: Company Performance and Individual Performance. If the company missed its revenue or EBITDA goals for the year, the bonus pool might only fund at 80%. Conversely, if the company crushes its goals, it might fund at 120%. This is tied to your annual performance review. If you meet expectations, you get 100%. If you exceed expectations, you might get 110% or 120%. If you need improvement, you might get 50% or 0%.</p>
+              <p className="text-muted-foreground leading-relaxed mt-4">For example, if you have a $15,000 target bonus and the company had a rough year and funded the pool at 80%, but you personally had an amazing year and got a 115% individual multiplier, your final payout would be $15,000 × 0.80 × 1.15 = $13,800 final payout.</p>
+            </div>
 
-            <h2 className="text-2xl font-bold mb-3">The Multipliers: Why Your Check Might Be Smaller (or Larger)</h2>
-            <p>Very rarely does an employee receive exactly their target bonus. Most enterprise companies use a formula that multiplies your target bonus by two factors:</p>
-            <ul>
-              <li><strong>Company Performance Multiplier:</strong> Also known as a funding factor. If the company missed its revenue or EBITDA goals for the year, the bonus pool might only fund at 80%. Conversely, if the company crushes its goals, it might fund at 120%.</li>
-              <li><strong>Individual Performance Multiplier:</strong> This is tied to your annual performance review. If you "Meet Expectations," you get 100%. If you "Exceed Expectations," you might get 110% or 120%. If you "Need Improvement," you might get 50% or 0%.</li>
-            </ul>
-            
-            <p><strong>Example:</strong> You have a $15,000 target bonus. The company had a rough year and funded the pool at 80%. However, you personally had an amazing year and got a 115% individual multiplier.</p>
-            <p><em>$15,000 × 0.80 × 1.15 = $13,800 final payout.</em></p>
-
-            <h2 className="text-2xl font-bold mb-3">Bonuses and Taxes</h2>
-            <p>It is critical to remember that bonuses are subject to standard income taxes. In the United States, employers are required to withhold a flat <strong>22% supplemental tax rate</strong> on bonuses under $1 million, plus Social Security (6.2%), Medicare (1.45%), and any state taxes. Therefore, it is very common to only take home 55% to 65% of your gross bonus amount in your actual bank account.</p>
+            <div>
+              <h2 className="text-2xl font-bold mb-3">Bonuses and Taxes</h2>
+              <p className="text-muted-foreground leading-relaxed">It is critical to remember that bonuses are subject to standard income taxes. In the United States, employers are required to withhold a flat 22% supplemental tax rate on bonuses under $1 million, plus Social Security (6.2%), Medicare (1.45%), and any state taxes. Therefore, it is very common to only take home 55% to 65% of your gross bonus amount in your actual bank account. Any over-withheld amounts are returned as part of your tax refund when you file your annual return.</p>
+            </div>
           </section>
           <FAQSection faqs={[
             { question: "Can a performance multiplier be 0%?", answer: "Yes. Many companies have a 'threshold' or 'gate'. If the company misses its minimum revenue target, the corporate multiplier drops to 0%, meaning no one gets a bonus regardless of personal performance." },

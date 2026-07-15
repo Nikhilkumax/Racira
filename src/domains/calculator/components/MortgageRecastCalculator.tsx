@@ -153,10 +153,10 @@ export default function MortgageRecastCalculator() {
               </div>
             )}
             
-            <div className="flex gap-2.5 mt-2.5">
-              <button type="button" onClick={handleCalculate} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-9 text-base transition-all shadow-sm">Calculate</button>
-              <button type="button" onClick={reset} className="px-3 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-9 transition-colors flex items-center justify-center focus:outline-none">
-                <RotateCcw className="h-4 w-4" />
+            <div className="flex gap-2.5 mt-2">
+              <button type="button" onClick={handleCalculate} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm">Calculate</button>
+              <button type="button" onClick={reset} className="w-10 shrink-0 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center focus:outline-none">
+                <RotateCcw className="h-5 w-5" />
               </button>
             </div>
           </div>
@@ -259,31 +259,47 @@ export default function MortgageRecastCalculator() {
         </div>
 
         {/* SEO Content */}
-        <div className="max-w-[1180px] mt-12 prose prose-slate dark:prose-invert">
-          <h2 className="text-2xl font-bold mb-3">What Is a Mortgage Recast?</h2>
-          <p>A mortgage recast (or re-amortization) occurs when you make a large lump-sum payment toward your mortgage principal, and your lender recalculates your monthly payments based on the new, lower balance. The interest rate and the remaining loan term stay exactly the same.</p>
+        <section className="mt-12 space-y-8 text-base text-foreground max-w-[1180px]">
+          <div>
+            <h2 className="text-2xl font-bold mb-3">What Is a Mortgage Recast?</h2>
+            <p className="text-muted-foreground leading-relaxed">A mortgage recast (or re-amortization) occurs when you make a large lump-sum payment toward your mortgage principal, and your lender recalculates your monthly payments based on the new, lower balance. The interest rate and the remaining loan term stay exactly the same.</p>
+          </div>
           
-          <h2 className="text-2xl font-bold mb-3">How It Works</h2>
-          <p>The standard amortization formula is used again: <strong>M = P[r(1+r)^n] / [(1+r)^n - 1]</strong>. The new principal (P) is the old balance minus your lump-sum payment. The interest rate (r) and number of remaining payments (n) do not change.</p>
+          <div>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
+            <p className="text-muted-foreground leading-relaxed">The standard amortization formula is used again: <strong>M = P[r(1+r)^n] / [(1+r)^n - 1]</strong>. The new principal (P) is the old balance minus your lump-sum payment. The interest rate (r) and number of remaining payments (n) do not change.</p>
+          </div>
 
-          <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
-          <p>This calculator shows your new, lower monthly payment and compares your total interest costs before and after the recast. The net savings figure subtracts your lump-sum payment and any recast fees from the total amount you would have paid without recasting.</p>
+          <div>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
+            <p className="text-muted-foreground leading-relaxed">This calculator shows your new, lower monthly payment and compares your total interest costs before and after the recast. The net savings figure subtracts your lump-sum payment and any recast fees from the total amount you would have paid without recasting.</p>
+          </div>
           
-          <h2 className="text-2xl font-bold mb-3">Key Factors</h2>
-          <p>The biggest factor is the size of the lump-sum payment. Lenders usually require a minimum lump sum (such as $5,000 or $10,000) to qualify for a recast. Additionally, most lenders charge a small administrative fee, typically between $250 and $500.</p>
+          <div>
+            <h2 className="text-2xl font-bold mb-3">Key Factors</h2>
+            <p className="text-muted-foreground leading-relaxed">The biggest factor is the size of the lump-sum payment. Lenders usually require a minimum lump sum (such as $5,000 or $10,000) to qualify for a recast. Additionally, most lenders charge a small administrative fee, typically between $250 and $500.</p>
+          </div>
           
-          <h2 className="text-2xl font-bold mb-3">Advanced Features</h2>
-          <p>Our Advanced Options allow you to input the recast fee charged by your specific lender. This ensures that the net savings calculation is 100% accurate, taking all your out-of-pocket expenses into account.</p>
+          <div>
+            <h2 className="text-2xl font-bold mb-3">Advanced Features</h2>
+            <p className="text-muted-foreground leading-relaxed">Our Advanced Options allow you to input the recast fee charged by your specific lender. This ensures that the net savings calculation is 100% accurate, taking all your out-of-pocket expenses into account.</p>
+          </div>
           
-          <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
-          <p>Suppose you inherited $50,000 and want to lower your monthly expenses. If you owe $250,000 at 6.5% with 20 years left, recasting lowers your monthly payment from $1,863 to $1,491, giving you an extra $372 per month in cash flow.</p>
+          <div>
+            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
+            <p className="text-muted-foreground leading-relaxed">Suppose you inherited $50,000 and want to lower your monthly expenses. If you owe $250,000 at 6.5% with 20 years left, recasting lowers your monthly payment from $1,863 to $1,491, giving you an extra $372 per month in cash flow.</p>
+          </div>
           
-          <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
-          <p>Not all mortgages qualify for recasting. FHA and VA loans typically cannot be recast. Always ask your servicer if they allow recasting and what their specific requirements are before making a large lump-sum payment.</p>
+          <div>
+            <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
+            <p className="text-muted-foreground leading-relaxed">Not all mortgages qualify for recasting. FHA and VA loans typically cannot be recast. Always ask your servicer if they allow recasting and what their specific requirements are before making a large lump-sum payment.</p>
+          </div>
           
-          <h2 className="text-2xl font-bold mb-3">Benefits</h2>
-          <p>Recasting is an excellent alternative to refinancing if you already have a low interest rate. You avoid the high closing costs associated with a refinance, keep your low rate, and still benefit from a lower monthly payment.</p>
-        </div>
+          <div>
+            <h2 className="text-2xl font-bold mb-3">Benefits</h2>
+            <p className="text-muted-foreground leading-relaxed">Recasting is an excellent alternative to refinancing if you already have a low interest rate. You avoid the high closing costs associated with a refinance, keep your low rate, and still benefit from a lower monthly payment.</p>
+          </div>
+        </section>
 
         <FAQSection pageUrl="https://racira.com/calculator/mortgage-recast-calculator" faqs={[
           { question: "What is the difference between recasting and refinancing?", answer: "Refinancing replaces your old loan with a new one, usually to get a lower interest rate, but it involves high closing costs. Recasting keeps your existing loan and rate but recalculates the payment based on a lower balance, with a very small fee." },

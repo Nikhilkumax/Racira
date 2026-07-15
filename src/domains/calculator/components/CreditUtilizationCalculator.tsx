@@ -7,7 +7,8 @@ import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
 import InputField from "@/domains/calculator/components/ui/InputField";
 import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
-import { RotateCcw, Calculator, PieChart } from "lucide-react";
+import { RotateCcw, Calculator, ChevronDown } from "lucide-react";
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from "recharts";
 
 const CreditUtilizationCalculator = () => {
   const [cards, setCards] = useState([
@@ -17,6 +18,13 @@ const CreditUtilizationCalculator = () => {
   ]);
   const [results, setResults] = useState<any>(null);
   const [showResults, setShowResults] = useState(false);
+  const [showAdv, setShowAdv] = useState(false);
+  const [targetUtil, setTargetUtil] = useState("10");
+  const [mounted, setMounted] = useState(false);
+
+  import("react").then(React => {
+    React.useEffect(() => { setMounted(true); }, []);
+  });
 
   const updateCard = (i: number, field: string, val: string) => {
     setCards(prev => prev.map((c, idx) => idx === i ? { ...c, [field]: val } : c));
@@ -33,12 +41,13 @@ const CreditUtilizationCalculator = () => {
       util: parseFloat(c.limit) > 0 ? (parseFloat(c.balance) / parseFloat(c.limit)) * 100 : 0,
     }));
 
+    const target = parseFloat(targetUtil);
     let rating = "Excellent";
     let advice = "Your utilization is ideal. Keep it below 10% for the best impact on your credit score.";
     if (overallUtilization > 30) { rating = "Poor"; advice = "Utilization above 30% significantly hurts your credit score. Pay down balances or request a credit limit increase."; }
-    else if (overallUtilization > 10) { rating = "Fair"; advice = "You're in the moderate range. Aim to bring this below 10% for maximum credit score benefit."; }
+    else if (overallUtilization > target) { rating = "Fair"; advice = `You're in the moderate range. Aim to bring this below your target of ${target}% for maximum credit score benefit.`; }
 
-    setResults({ totalBalance, totalLimit, overallUtilization, cardDetails, rating, advice });
+    setResults({ totalBalance, totalLimit, overallUtilization, cardDetails, rating, advice, target });
   };
 
   const reset = () => {
@@ -48,6 +57,7 @@ const CreditUtilizationCalculator = () => {
       { name: "Card 2", balance: "800", limit: "3000" },
       { name: "Card 3", balance: "0", limit: "10000" },
     ]);
+    setTargetUtil("10");
     setResults(null);
   };
 
@@ -74,11 +84,24 @@ const CreditUtilizationCalculator = () => {
                     <InputField id={`lim-${i}`} label="Credit Limit ($)" value={c.limit} onChange={v => updateCard(i, "limit", v)} />
                   </div>
                 ))}
-                <button onClick={() => setCards(prev => [...prev, { name: `Card ${prev.length + 1}`, balance: "0", limit: "1000" }])} className="text-sm text-primary underline">+ Add Card</button>
+                <button type="button" onClick={() => setCards(prev => [...prev, { name: `Card ${prev.length + 1}`, balance: "0", limit: "1000" }])} className="text-sm font-semibold text-primary underline focus:outline-none">+ Add Another Card</button>
               </div>
-              <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">Calculate</button>
-                <button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground">
+              
+              {/* Advanced Options */}
+              <div className="mb-4">
+                <button type="button" onClick={() => setShowAdv(!showAdv)} className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline focus:outline-none mb-1">
+                  Advanced Options <ChevronDown className={`h-3 w-3 transition-transform ${showAdv ? "rotate-180" : ""}`} />
+                </button>
+                {showAdv && (
+                  <div className="mt-2 p-4 rounded-xl bg-secondary/20 border border-border animate-fade-in-up">
+                    <InputField id="target" label="Target Utilization (%)" value={targetUtil} onChange={setTargetUtil} tooltip="The maximum utilization percentage you want to aim for. Experts recommend 10% or below." />
+                  </div>
+                )}
+              </div>
+
+              <div className="flex gap-2.5">
+                <button onClick={handleCalculate} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm">Calculate</button>
+                <button onClick={() => { reset(); setShowAdv(false); }} className="w-10 shrink-0 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center">
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
@@ -95,15 +118,42 @@ const CreditUtilizationCalculator = () => {
                     <p className={`text-sm font-bold mt-1 ${results.overallUtilization > 30 ? "text-red-600" : results.overallUtilization > 10 ? "text-yellow-600" : "text-green-600"}`}>{results.rating}</p>
                   </div>
                   <div className="p-6 rounded-2xl bg-secondary/5 border border-border flex flex-col justify-center">
-                    <p className="text-sm text-muted-foreground">{results.advice}</p>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{results.advice}</p>
+                    {results.overallUtilization > results.target && (
+                      <p className="mt-4 text-sm font-semibold text-foreground">
+                        Pay off at least <span className="text-primary">${(results.totalBalance - (results.totalLimit * results.target / 100)).toLocaleString(undefined, { maximumFractionDigits: 0 })}</span> to reach your target.
+                      </p>
+                    )}
                   </div>
                 </div>
+
+                {mounted && (
+                  <div className="card-calculator !p-5 border border-border bg-card mb-6 flex flex-col justify-center items-center">
+                    <h3 className="text-sm font-bold mb-4 w-full text-left">Credit Limit Usage</h3>
+                    <ResponsiveContainer width="100%" height={220}>
+                      <PieChart>
+                        <Pie data={[
+                          { name: "Used Credit", value: results.totalBalance, color: "hsl(var(--destructive))" },
+                          { name: "Available Credit", value: Math.max(0, results.totalLimit - results.totalBalance), color: "hsl(var(--primary))" },
+                        ]} cx="50%" cy="50%" innerRadius={60} outerRadius={85} dataKey="value" paddingAngle={2}>
+                          {[
+                            { name: "Used Credit", value: results.totalBalance, color: "hsl(var(--destructive))" },
+                            { name: "Available Credit", value: Math.max(0, results.totalLimit - results.totalBalance), color: "hsl(var(--primary))" },
+                          ].map((entry, index) => <Cell key={`cell-${index}`} fill={entry.color} />)}
+                        </Pie>
+                        <Tooltip formatter={(val: number) => `$${val.toLocaleString(undefined, { maximumFractionDigits: 0 })}`} />
+                        <Legend iconType="circle" />
+                      </PieChart>
+                    </ResponsiveContainer>
+                  </div>
+                )}
+
                 <h3 className="font-semibold mb-3">Per-Card Utilization</h3>
                 <div className="space-y-3">
                   {results.cardDetails.map((c: any, i: number) => (
                     <div key={i} className="flex justify-between items-center p-3 rounded-lg bg-secondary/5">
                       <span className="font-medium text-foreground">{c.name}</span>
-                      <span className={`font-bold text-sm px-2 py-1 rounded-full ${c.util > 30 ? "bg-red-500/20 text-red-600" : c.util > 10 ? "bg-yellow-500/20 text-yellow-600" : "bg-green-500/20 text-green-600"}`}>{c.util.toFixed(1)}%</span>
+                      <span className={`font-bold text-sm px-2 py-1 rounded-full ${c.util > 30 ? "bg-red-500/10 text-red-600 border border-red-500/20" : c.util > 10 ? "bg-yellow-500/10 text-yellow-600 border border-yellow-500/20" : "bg-green-500/10 text-green-600 border border-green-500/20"}`}>{c.util.toFixed(1)}%</span>
                     </div>
                   ))}
                 </div>
@@ -114,13 +164,19 @@ const CreditUtilizationCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <section className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">Why Credit Utilization Matters</h2>
-              <p>Credit utilization is the second most important factor in your FICO credit score, accounting for approximately 30% of the total. Understanding and managing it can lead to significant improvements in your creditworthiness.</p>
-              <h3>The 30% Rule</h3>
-              <p>The widely-cited rule is to keep utilization below 30%. However, research shows that those with the highest credit scores typically have utilization below 10%. The ideal target is as low as possible while still using your cards regularly.</p>
-              <h3>Two Ways to Reduce Utilization</h3>
-              <p>You can lower your utilization by paying down your balances OR by increasing your total credit limit. Requesting a higher limit on an existing card (without a hard pull) can instantly improve your utilization ratio.</p>
+          <section className="mt-12 space-y-8 text-base text-foreground max-w-[1180px]">
+              <div>
+                <h2 className="text-2xl font-bold mb-3">Why Credit Utilization Matters</h2>
+                <p className="text-muted-foreground leading-relaxed">Credit utilization is the second most important factor in your FICO credit score, accounting for approximately 30% of the total calculation. It measures how much of your available revolving credit you are currently using. Understanding and actively managing this percentage can lead to significant and rapid improvements in your creditworthiness and borrowing power.</p>
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold mb-3">The 30% Rule vs. The 10% Target</h2>
+                <p className="text-muted-foreground leading-relaxed">The widely-cited financial rule of thumb is to keep your overall credit utilization below 30% across all your cards. However, empirical research shows that consumers with the highest credit scores (over 800) typically maintain a utilization rate well below 10%. The ideal target is to keep your balances as low as possible while still demonstrating that you use your cards responsibly.</p>
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold mb-3">Two Powerful Ways to Reduce Utilization</h2>
+                <p className="text-muted-foreground leading-relaxed">You can lower your credit utilization ratio in two ways: by paying down your existing balances or by increasing your total available credit limit. Requesting a credit limit increase on an existing card (often done online without a hard credit pull) can instantly improve your utilization ratio, provided you do not use the newly available credit to increase your spending.</p>
+              </div>
             </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/credit-utilization" />
           <PopularCalculators exclude="/calculator/credit-utilization-calculator" />

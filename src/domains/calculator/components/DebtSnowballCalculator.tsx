@@ -7,7 +7,8 @@ import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
 import InputField from "@/domains/calculator/components/ui/InputField";
 import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
-import { RotateCcw, CreditCard } from "lucide-react";
+import { RotateCcw, CreditCard, ChevronDown } from "lucide-react";
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from "recharts";
 
 interface Debt {
   name: string;
@@ -23,8 +24,15 @@ const DebtSnowballCalculator = () => {
     { name: "Personal Loan", balance: "8000", rate: "12", minPayment: "180" },
   ]);
   const [extraPayment, setExtraPayment] = useState("200");
+  const [lumpSum, setLumpSum] = useState("0");
+  const [showAdv, setShowAdv] = useState(false);
   const [results, setResults] = useState<any>(null);
   const [showResults, setShowResults] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  import("react").then(React => {
+    React.useEffect(() => { setMounted(true); }, []);
+  });
 
   const updateDebt = (i: number, field: keyof Debt, val: string) => {
     setDebts(prev => prev.map((d, idx) => idx === i ? { ...d, [field]: val } : d));
@@ -47,6 +55,18 @@ const DebtSnowballCalculator = () => {
     let month = 0;
     let totalInterest = 0;
     let availableExtra = extra;
+    
+    let initialLumpSum = parseFloat(lumpSum) || 0;
+    if (initialLumpSum > 0) {
+      for (let i = 0; i < sorted.length; i++) {
+        if (sorted[i].balance > 0) {
+          const applied = Math.min(initialLumpSum, sorted[i].balance);
+          sorted[i] = { ...sorted[i], balance: sorted[i].balance - applied };
+          initialLumpSum -= applied;
+          if (initialLumpSum <= 0) break;
+        }
+      }
+    }
 
     while (sorted.some(d => d.balance > 0) && month < 600) {
       month++;
@@ -81,6 +101,7 @@ const DebtSnowballCalculator = () => {
       { name: "Personal Loan", balance: "8000", rate: "12", minPayment: "180" },
     ]);
     setExtraPayment("200");
+    setLumpSum("0");
     setResults(null);
   };
 
@@ -110,8 +131,22 @@ const DebtSnowballCalculator = () => {
                 ))}
               </div>
               <InputField id="extra" label="Extra Monthly Payment ($)" value={extraPayment} onChange={setExtraPayment} />
-              <div className="flex gap-3 mt-4">
-                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">Calculate</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground">
+              
+              {/* Advanced Options */}
+              <div className="mt-4 mb-2">
+                <button type="button" onClick={() => setShowAdv(!showAdv)} className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline focus:outline-none mb-1">
+                  Advanced Options <ChevronDown className={`h-3 w-3 transition-transform ${showAdv ? "rotate-180" : ""}`} />
+                </button>
+                {showAdv && (
+                  <div className="mt-2 p-4 rounded-xl bg-secondary/20 border border-border animate-fade-in-up">
+                    <InputField id="lumpsum" label="One-Time Lump Sum ($)" value={lumpSum} onChange={setLumpSum} tooltip="A one-time payment applied immediately to your lowest balance debt." />
+                  </div>
+                )}
+              </div>
+
+              <div className="flex gap-2.5 mt-2">
+                <button onClick={handleCalculate} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm">Calculate</button>
+                <button onClick={() => { reset(); setShowAdv(false); }} className="w-10 shrink-0 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center">
                   <RotateCcw className="h-5 w-5" />
                 </button>
               </div>
@@ -132,6 +167,28 @@ const DebtSnowballCalculator = () => {
                     <p className="text-lg font-bold text-foreground">{debts.sort((a,b)=>parseFloat(a.balance)-parseFloat(b.balance)).map(d=>d.name).join(" → ")}</p>
                   </div>
                 </div>
+
+                {mounted && (
+                  <div className="card-calculator !p-5 border border-border bg-card mb-6 flex flex-col justify-center items-center">
+                    <h3 className="text-sm font-bold mb-4 w-full text-left">Cost Breakdown</h3>
+                    <ResponsiveContainer width="100%" height={220}>
+                      <PieChart>
+                        <Pie data={[
+                          { name: "Principal", value: debts.reduce((s,d)=>s+parseFloat(d.balance),0), color: "hsl(var(--primary))" },
+                          { name: "Interest", value: results.totalInterest, color: "hsl(var(--destructive))" },
+                        ]} cx="50%" cy="50%" innerRadius={60} outerRadius={85} dataKey="value" paddingAngle={2}>
+                          {[
+                            { name: "Principal", value: debts.reduce((s,d)=>s+parseFloat(d.balance),0), color: "hsl(var(--primary))" },
+                            { name: "Interest", value: results.totalInterest, color: "hsl(var(--destructive))" },
+                          ].map((entry, index) => <Cell key={`cell-${index}`} fill={entry.color} />)}
+                        </Pie>
+                        <Tooltip formatter={(val: number) => `$${val.toLocaleString(undefined, { maximumFractionDigits: 0 })}`} />
+                        <Legend iconType="circle" />
+                      </PieChart>
+                    </ResponsiveContainer>
+                  </div>
+                )}
+
                 <ResultDisplay items={[
                   { label: "Total Debts", value: 0, textValue: debts.length + " accounts" },
                   { label: "Total Balance", value: 0, textValue: "$" + debts.reduce((s,d)=>s+parseFloat(d.balance),0).toLocaleString() },
@@ -144,13 +201,19 @@ const DebtSnowballCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <section className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">How the Debt Snowball Works</h2>
-              <p>The Snowball method is a psychologically powerful debt payoff strategy. By targeting the smallest debt first, you get a quick win that builds momentum and confidence for tackling larger debts.</p>
-              <h3>The Rolling Effect</h3>
-              <p>Once debt #1 is paid off, you take its minimum payment and add it to your payment for debt #2. This creates a growing "snowball" of payments. By the time you hit your largest debt, you're throwing a massive payment at it every month.</p>
-              <h3>Snowball vs. Avalanche</h3>
-              <p>Mathematically, the Avalanche method (targeting the highest interest rate first) saves more money. But studies show that the Snowball method leads to higher completion rates because the psychological benefit of eliminating accounts quickly keeps people engaged and motivated.</p>
+          <section className="mt-12 space-y-8 text-base text-foreground max-w-[1180px]">
+              <div>
+                <h2 className="text-2xl font-bold mb-3">How the Debt Snowball Works</h2>
+                <p className="text-muted-foreground leading-relaxed">The Debt Snowball method is a psychologically powerful debt payoff strategy popularized by personal finance experts. By intentionally targeting the debt with the smallest balance first, regardless of its interest rate, you achieve a quick win that builds immense momentum and confidence. This behavioral approach recognizes that personal finance is often more about managing your habits and mindset than doing perfect math, making it significantly easier to tackle larger, more intimidating debts down the line without giving up.</p>
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold mb-3">The Rolling Effect</h2>
+                <p className="text-muted-foreground leading-relaxed">The core mechanic of this method is the "rolling" effect. Once debt number one is fully paid off, you take its minimum payment—along with any extra cash you were putting toward it—and add it entirely to your minimum payment for debt number two. This creates a growing "snowball" of payments. By the time you reach your largest and final debt, you are throwing a massive, consolidated monthly payment at it, accelerating its payoff dramatically and reducing the overall timeline to becoming debt-free.</p>
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold mb-3">Snowball vs. Avalanche</h2>
+                <p className="text-muted-foreground leading-relaxed">Mathematically, the Avalanche method (which targets the highest interest rate first) saves you more money in the long run by minimizing total interest accrual. However, comprehensive behavioral studies show that the Snowball method often leads to much higher completion rates. The psychological benefit of eliminating accounts quickly keeps people engaged, motivated, and less likely to quit the stressful process of debt reduction. For many individuals, this increased success rate more than compensates for the slight difference in total interest paid over the life of the loans.</p>
+              </div>
             </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/debt-snowball" />
           <PopularCalculators exclude="/calculator/debt-snowball-calculator" />

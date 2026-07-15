@@ -7,8 +7,8 @@ import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
 import InputField from "@/domains/calculator/components/ui/InputField";
 import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
-import PieChart from "@/domains/calculator/components/ui/PieChart";
-import { RotateCcw, Award, ShieldCheck, Landmark, Calculator } from "lucide-react";
+import PieChart from "@/domains/calculator/components/ui/PieChart"; // uses recharts internally
+import { RotateCcw, Award, ShieldCheck, Landmark, Calculator, ChevronDown } from "lucide-react";
 
 const BonusCalculator = () => {
   const [bonusAmount, setBonusAmount] = useState("10000");
@@ -26,6 +26,7 @@ const BonusCalculator = () => {
     totalDeductions: number;
   } | null>(null);
   const [showResults, setShowResults] = useState(false);
+  const [showAdv, setShowAdv] = useState(false);
 
   const handleCalculate = () => {
     setShowResults(true);
@@ -79,14 +80,14 @@ const BonusCalculator = () => {
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
             <div className="space-y-8">
-                    <section>
+                    <div>
                         <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
                             <Award className="h-5 w-5 text-primary" /> Bonus Amount
                         </h3>
                         <InputField id="gross" label="Gross Bonus Amount" value={bonusAmount} onChange={setBonusAmount} prefix="$" tooltip="The total amount of your bonus before any taxes or deductions." />
-                    </section>
+                    </div>
 
-                    <section>
+                    <div>
                         <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
                             <ShieldCheck className="h-5 w-5 text-primary" /> Tax Withholding
                         </h3>
@@ -95,17 +96,28 @@ const BonusCalculator = () => {
                             <InputField id="state" label="State Tax (%)" value={stateTax} onChange={setStateTax} suffix="%" tooltip="Your state's supplemental wage withholding rate." />
                             <InputField id="fica" label="FICA/Social Security" value={ficaTax} onChange={setFicaTax} suffix="%" tooltip="Social Security (6.2%) + Medicare (1.45%) = 7.65%." />
                         </div>
-                    </section>
+                    </div>
 
-                    <section>
-                        <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
-                            <Landmark className="h-5 w-5 text-primary" /> Pre-Tax Deductions
-                        </h3>
-                        <InputField id="ret" label="401(k) Contribution (%)" value={retirementContribution} onChange={setRetirementContribution} suffix="%" tooltip="Percentage of bonus to contribute to your 401(k)." />
-                    </section>
+                    {/* Advanced Options */}
+                    <div>
+                      <button type="button" onClick={() => setShowAdv(!showAdv)} className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline focus:outline-none mb-1">
+                        Advanced Options <ChevronDown className={`h-3 w-3 transition-transform ${showAdv ? "rotate-180" : ""}`} />
+                      </button>
+                      {showAdv && (
+                        <div className="mt-3 p-4 rounded-xl bg-secondary/20 border border-border animate-fade-in-up">
+                          <h3 className="text-sm font-bold mb-3 flex items-center gap-1.5 text-foreground">
+                              <Landmark className="h-4 w-4 text-primary" /> Pre-Tax Deductions
+                          </h3>
+                          <InputField id="ret" label="401(k) Contribution (%)" value={retirementContribution} onChange={setRetirementContribution} suffix="%" tooltip="Percentage of bonus to contribute to your 401(k)." />
+                        </div>
+                      )}
+                    </div>
 
-                    <div className="flex gap-3 pt-4">
-                        <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="p-4 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground"><RotateCcw className="h-5 w-5" /></button>
+                    <div className="flex gap-2.5 pt-2">
+                        <button onClick={handleCalculate} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm">Calculate</button>
+                        <button onClick={() => { reset(); setShowAdv(false); }} className="w-10 shrink-0 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center" aria-label="Reset">
+                          <RotateCcw className="h-5 w-5" />
+                        </button>
                     </div>
                 </div>
           </div>
@@ -146,33 +158,35 @@ const BonusCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <section className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">Understanding Bonus Taxes: Why Your Net is Lower Than Expected</h2>
-              <p>Receiving a bonus is always exciting, but the excitement often turns to confusion when you see the final amount on your paycheck. It's a common observation: "My bonus was taxed at 40%!" In reality, while bonuses might be *withheld* at a higher rate, they are eventually taxed as regular income when you file your annual return. This guide explains how the withholding math works and how you can plan for it.</p>
-              
-              <h2 className="text-2xl font-bold mb-3">Supplemental Wages: The IRS Definition</h2>
-              <p>The IRS classifies bonuses as "supplemental wages"—compensation paid in addition to your regular salary. Because supplemental wages are often irregular, the IRS provides employers with specific methods for calculating withholding to ensure enough tax is collected throughout the year.</p>
-              
-              <h2 className="text-2xl font-bold mb-3">The Two Methods of Bonus Withholding</h2>
-              <p>Your employer will typically choose one of two methods to calculate your bonus taxes:</p>
-              <ol>
-                <li><strong>The Percentage Method:</strong> If your employer pays your bonus separately from your regular salary, they can simply withhold a flat 22% for federal income tax (for bonuses under $1 million). This is the most common and predictable method.</li>
-                <li><strong>The Aggregate Method:</strong> If your bonus is included in your regular paycheck, the employer combines the two and calculates withholding based on the total. Because the IRS tables assume you earn that combined amount every period, it can push you into a much higher withholding bracket, making it look like your bonus was taxed at 30% or more.</li>
-              </ol>
-
-              <h2 className="text-2xl font-bold mb-3">Payroll Taxes (FICA)</h2>
-              <p>Unlike federal income tax, which is based on your total annual earnings, FICA taxes (Social Security and Medicare) are flat rates applied to every dollar you earn. You will pay 6.2% for Social Security and 1.45% for Medicare on your bonus, regardless of which withholding method your employer uses. Note that Social Security tax stops once you reach the annual wage base limit ($168,600 for 2024).</p>
-
-              <h2 className="text-2xl font-bold mb-3">Strategies to Keep More of Your Bonus</h2>
-              <p>While you can't avoid taxes entirely, you can influence how much cash you take home in the short term:</p>
-              <ul>
-                <li><strong>Increase 401(k) Contributions:</strong> Contributing to a traditional 401(k) or 403(b) is done on a pre-tax basis. By increasing your contribution percentage for your bonus, you reduce the taxable portion of the bonus, lowering the amount withheld for federal and state income tax.</li>
-                <li><strong>Adjust Your W-4:</strong> If you know a large bonus is coming, you could temporarily adjust your W-4 allowances (now "Step 3" or "Step 4" on the new form) to reduce withholding, though this carries the risk of underpayment penalties if not managed carefully.</li>
-                <li><strong>Timing:</strong> If you have the choice, receiving a bonus in a year where you expect to have lower overall income (or higher deductions) can help you keep more of the money after you file your tax return.</li>
-              </ul>
-
-              <h2 className="text-2xl font-bold mb-3">Withholding vs. Actual Tax Liability</h2>
-              <p>It is crucial to understand that **withholding is not the same as the final tax.** If your employer withholds 22% but your actual marginal tax rate is only 12%, you will get that extra 10% back as a tax refund when you file your return the following year. Conversely, if you are in the 37% tax bracket, you will owe the difference when you file. Using a bonus calculator helps you avoid surprises during tax season.</p>
+          <section className="mt-12 space-y-8 text-base text-foreground max-w-[1180px]">
+              <div>
+                <h2 className="text-2xl font-bold mb-3">Understanding Bonus Taxes: Why Your Net is Lower Than Expected</h2>
+                <p className="text-muted-foreground leading-relaxed">Receiving a bonus is always exciting, but the excitement often turns to confusion when you see the final amount on your paycheck. It is a common observation to feel a bonus was taxed at 40 percent. In reality, while bonuses might be withheld at a higher rate initially, they are eventually taxed as regular income when you file your annual return. This comprehensive guide explains how the withholding math works and how you can plan for it effectively to maximize your take-home pay.</p>
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold mb-3">Supplemental Wages: The IRS Definition</h2>
+                <p className="text-muted-foreground leading-relaxed">The IRS classifies bonuses as "supplemental wages"—compensation paid in addition to your regular salary. Because supplemental wages are often irregular, the IRS provides employers with specific methods for calculating withholding to ensure enough tax is collected throughout the year. This ensures that you do not end up with an unexpected tax bill when April arrives, though it can make your initial paycheck feel smaller than anticipated.</p>
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold mb-3">The Two Methods of Bonus Withholding</h2>
+                <p className="text-muted-foreground leading-relaxed">Your employer will typically choose one of two methods to calculate your bonus taxes. The Percentage Method applies if your employer pays your bonus separately from your regular salary, allowing them to withhold a flat 22% for federal income tax (for bonuses under $1 million). The Aggregate Method applies if your bonus is included in your regular paycheck; the employer combines the two and calculates withholding based on the total. Because the IRS tax tables assume you earn that combined amount every pay period for the entire year, it can push you into a much higher withholding bracket, making it look like your bonus was taxed at a significantly higher rate.</p>
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold mb-3">Payroll Taxes (FICA)</h2>
+                <p className="text-muted-foreground leading-relaxed">Unlike federal income tax, which is based on your total annual earnings, FICA taxes (Social Security and Medicare) are flat rates applied to every dollar you earn. You will pay 6.2% for Social Security and 1.45% for Medicare on your bonus, regardless of which withholding method your employer uses. Note that Social Security tax stops once you reach the annual wage base limit for the current tax year.</p>
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold mb-3">State Tax Considerations</h2>
+                <p className="text-muted-foreground leading-relaxed">In addition to federal withholding and FICA, your bonus is subject to state income taxes if your state imposes one. Many states have their own specific supplemental withholding rates that apply to bonuses, which can range from a few percent up to nearly 10 percent in high-tax states. It is important to check your state's specific regulations regarding supplemental wage withholding.</p>
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold mb-3">Strategies to Keep More of Your Bonus</h2>
+                <p className="text-muted-foreground leading-relaxed">While you cannot avoid taxes entirely, you can influence how much cash you take home in the short term. Increasing contributions to a traditional 401(k) or 403(b) is done on a pre-tax basis; by increasing your contribution percentage for your bonus, you reduce the taxable portion of the bonus, lowering the amount withheld for federal and state income tax. Alternatively, if you know a large bonus is coming, you could temporarily adjust your W-4 allowances to reduce withholding, though this carries the risk of underpayment penalties if not managed carefully.</p>
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold mb-3">Withholding vs. Actual Tax Liability</h2>
+                <p className="text-muted-foreground leading-relaxed">It is crucial to understand that withholding is not the same as the final tax. If your employer withholds 22% but your actual marginal tax rate is only 12%, you will receive the extra 10% back as a tax refund when you file your return the following year. Conversely, if you are in a higher tax bracket, you will owe the difference when you file. Using a bonus calculator helps you avoid surprises during tax season.</p>
+              </div>
             </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/bonus-calculator" />
           <PopularCalculators exclude="/calculator/bonus-calculator" />

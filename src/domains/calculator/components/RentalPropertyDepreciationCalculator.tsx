@@ -449,49 +449,49 @@ export default function RentalPropertyDepreciationCalculator() {
         <div className="max-w-[1180px] mt-12">
           <AdPlaceholder className="mb-10" />
           
-          <article className="prose prose-slate max-w-none prose-headings:text-foreground prose-p:text-muted-foreground prose-a:text-primary mb-12">
-            <section className="mb-8">
+          <section className="mt-12 space-y-8 text-base text-foreground max-w-[1180px] mb-12">
+            <div>
               <h2 className="text-2xl font-bold mb-3">What Is Rental Property Depreciation?</h2>
-              <p>Rental property depreciation is one of the most powerful tax advantages available to real estate investors. It is an income tax deduction that allows you to recover the cost of an income-producing property over a period of time specified by the IRS. Essentially, it accounts for the wear and tear, deterioration, and obsolescence of the physical building.</p>
-              <p>Unlike regular expenses (like repairs or property management fees) that are deducted fully in the year they are incurred, the cost of the property itself is capitalized and deducted gradually over its "useful life." This creates a non-cash deduction that offsets your rental income, often allowing real estate investors to generate positive cash flow while reporting a tax loss.</p>
-            </section>
+              <p className="text-muted-foreground leading-relaxed mb-4">Rental property depreciation is one of the most powerful tax advantages available to real estate investors. It is an income tax deduction that allows you to recover the cost of an income-producing property over a period of time specified by the IRS. Essentially, it accounts for the wear and tear, deterioration, and obsolescence of the physical building.</p>
+              <p className="text-muted-foreground leading-relaxed">Unlike regular expenses (like repairs or property management fees) that are deducted fully in the year they are incurred, the cost of the property itself is capitalized and deducted gradually over its "useful life." This creates a non-cash deduction that offsets your rental income, often allowing real estate investors to generate positive cash flow while reporting a tax loss.</p>
+            </div>
 
-            <section className="mb-8">
+            <div>
               <h2 className="text-2xl font-bold mb-3">How to Calculate Depreciable Basis</h2>
-              <p>You cannot simply depreciate the purchase price of the property. The IRS mandates that <strong>land does not depreciate</strong> because it does not wear out. Therefore, you must separate the value of the land from the value of the building.</p>
-              <p><strong>Cost Basis = Purchase Price + Capitalized Closing Costs + Initial Improvements</strong></p>
-              <p><strong>Depreciable Basis = Cost Basis − Land Value</strong></p>
-              <p>For example, if you buy a $500,000 property, and the local tax assessor values the land at $100,000, your depreciable basis (assuming no other costs) is $400,000. You will only calculate depreciation on that $400,000.</p>
-            </section>
+              <p className="text-muted-foreground leading-relaxed mb-4">You cannot simply depreciate the purchase price of the property. The IRS mandates that <strong>land does not depreciate</strong> because it does not wear out. Therefore, you must separate the value of the land from the value of the building.</p>
+              <p className="text-muted-foreground leading-relaxed mb-4"><strong>Cost Basis = Purchase Price + Capitalized Closing Costs + Initial Improvements</strong></p>
+              <p className="text-muted-foreground leading-relaxed mb-4"><strong>Depreciable Basis = Cost Basis − Land Value</strong></p>
+              <p className="text-muted-foreground leading-relaxed">For example, if you buy a $500,000 property, and the local tax assessor values the land at $100,000, your depreciable basis (assuming no other costs) is $400,000. You will only calculate depreciation on that $400,000.</p>
+            </div>
 
-            <section className="mb-8">
+            <div>
               <h2 className="text-2xl font-bold mb-3">Residential vs. Commercial Useful Life</h2>
-              <p>The IRS uses the Modified Accelerated Cost Recovery System (MACRS) to dictate how long a property must be depreciated:</p>
-              <ul>
+              <p className="text-muted-foreground leading-relaxed mb-4">The IRS uses the Modified Accelerated Cost Recovery System (MACRS) to dictate how long a property must be depreciated:</p>
+              <ul className="list-disc pl-6 text-muted-foreground space-y-2 mb-4">
                 <li><strong>Residential Rental Property:</strong> Depreciated over <strong>27.5 years</strong>. This includes single-family homes, duplexes, and apartment buildings where 80% or more of the gross rental income comes from dwelling units.</li>
                 <li><strong>Commercial Property:</strong> Depreciated over <strong>39 years</strong>. This applies to nonresidential real estate like office buildings, retail centers, and industrial warehouses.</li>
               </ul>
-              <p>Using the previous $400,000 example, a residential property would yield an annual deduction of $14,545 ($400,000 ÷ 27.5), while a commercial property would yield $10,256 ($400,000 ÷ 39).</p>
-            </section>
+              <p className="text-muted-foreground leading-relaxed">Using the previous $400,000 example, a residential property would yield an annual deduction of $14,545 ($400,000 ÷ 27.5), while a commercial property would yield $10,256 ($400,000 ÷ 39).</p>
+            </div>
 
-            <section className="mb-8">
+            <div>
               <h2 className="text-2xl font-bold mb-3">The IRS Mid-Month Convention</h2>
-              <p>You rarely get a full year of depreciation in the year you buy a property. The IRS requires the use of the "mid-month convention" for the first year. This rule assumes you placed the property in service exactly in the middle of the month, regardless of the actual day.</p>
-              <p>If you place a residential property in service in July, you get 5.5 months of depreciation for that first calendar year (July 15 to December 31). The formula is: <code>(12.5 - Month) / 12 * Annual Depreciation</code>. Our calculator automatically applies this convention to provide an accurate First Year Deduction figure.</p>
-            </section>
+              <p className="text-muted-foreground leading-relaxed mb-4">You rarely get a full year of depreciation in the year you buy a property. The IRS requires the use of the "mid-month convention" for the first year. This rule assumes you placed the property in service exactly in the middle of the month, regardless of the actual day.</p>
+              <p className="text-muted-foreground leading-relaxed">If you place a residential property in service in July, you get 5.5 months of depreciation for that first calendar year (July 15 to December 31). The formula is: <code>(12.5 - Month) / 12 * Annual Depreciation</code>. Our calculator automatically applies this convention to provide an accurate First Year Deduction figure.</p>
+            </div>
 
-            <section className="mb-8">
+            <div>
               <h2 className="text-2xl font-bold mb-3">Closing Costs & Capital Improvements</h2>
-              <p>Certain costs incurred during the purchase process must be capitalized (added to your basis) rather than deducted immediately. These include abstract fees, legal fees, recording fees, surveys, and title insurance.</p>
-              <p>Similarly, if you buy a fixer-upper and spend $25,000 on a new roof and HVAC system before renting it out, that $25,000 is considered a capital improvement. It increases your cost basis and is depreciated along with the building.</p>
-            </section>
+              <p className="text-muted-foreground leading-relaxed mb-4">Certain costs incurred during the purchase process must be capitalized (added to your basis) rather than deducted immediately. These include abstract fees, legal fees, recording fees, surveys, and title insurance.</p>
+              <p className="text-muted-foreground leading-relaxed">Similarly, if you buy a fixer-upper and spend $25,000 on a new roof and HVAC system before renting it out, that $25,000 is considered a capital improvement. It increases your cost basis and is depreciated along with the building.</p>
+            </div>
 
-            <section className="mb-8">
+            <div>
               <h2 className="text-2xl font-bold mb-3">Depreciation Recapture When Selling</h2>
-              <p>It is crucial to understand that depreciation is not completely free money; it lowers your cost basis. If you bought a $500,000 property, took $100,000 in depreciation over several years, and then sold it, the IRS considers your adjusted cost basis to be $400,000.</p>
-              <p>If you sell the property for $600,000, you have a $200,000 total gain. The $100,000 of that gain attributed to depreciation is subject to "depreciation recapture" tax at a maximum rate of 25%. The remaining $100,000 is taxed at long-term capital gains rates. Many real estate investors utilize a 1031 Exchange to continually defer these taxes by rolling the proceeds into a new property.</p>
-            </section>
-          </article>
+              <p className="text-muted-foreground leading-relaxed mb-4">It is crucial to understand that depreciation is not completely free money; it lowers your cost basis. If you bought a $500,000 property, took $100,000 in depreciation over several years, and then sold it, the IRS considers your adjusted cost basis to be $400,000.</p>
+              <p className="text-muted-foreground leading-relaxed">If you sell the property for $600,000, you have a $200,000 total gain. The $100,000 of that gain attributed to depreciation is subject to "depreciation recapture" tax at a maximum rate of 25%. The remaining $100,000 is taxed at long-term capital gains rates. Many real estate investors utilize a 1031 Exchange to continually defer these taxes by rolling the proceeds into a new property.</p>
+            </div>
+          </section>
 
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/rental-property-depreciation-calculator" />
           <PopularCalculators exclude="/calculator/rental-property-depreciation-calculator" />

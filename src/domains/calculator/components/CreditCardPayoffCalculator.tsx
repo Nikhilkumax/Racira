@@ -4,7 +4,7 @@ import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
-import { RotateCcw, Calculator } from "lucide-react";
+import { RotateCcw, ChevronDown, PlusCircle, Trash2 } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip as RTooltip, ResponsiveContainer, Cell } from "recharts";
 
 interface CCResult { totalDebt: number; monthlyPayment: number; monthsToPayoff: number; totalInterest: number; schedule: { name: string; balance: number; rate: number; min: number }[]; }
@@ -34,6 +34,37 @@ function calculate(cards: typeof DEFAULTS_CARDS, extra: string, strategy: string
     }
   }
   return { totalDebt, monthlyPayment: totalMonthly, monthsToPayoff: months, totalInterest: Math.round(totalInterest), schedule: parsed };
+}
+
+function AdvancedOptions({ cards, setCards }: { cards: typeof DEFAULTS_CARDS; setCards: React.Dispatch<React.SetStateAction<typeof DEFAULTS_CARDS>> }) {
+  const [open, setOpen] = useState(false);
+  const addCard = () => setCards(p => [...p, { name: `Card ${p.length + 1}`, balance: "1000", rate: "21.99", min: "25" }]);
+  const removeCard = (i: number) => setCards(p => p.filter((_, j) => j !== i));
+  return (
+    <div>
+      <button type="button" onClick={() => setOpen(!open)} className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline mt-1 focus:outline-none">
+        Advanced Options <ChevronDown className={`h-3 w-3 transition-transform ${open ? "rotate-180" : ""}`} />
+      </button>
+      {open && (
+        <div className="mt-3 p-3 rounded-lg bg-secondary/20 border border-border animate-fade-in-up space-y-2">
+          <p className="text-xs text-muted-foreground font-semibold uppercase tracking-wide">Manage Cards</p>
+          {cards.map((_, i) => (
+            <div key={i} className="flex items-center justify-between text-sm text-foreground">
+              <span>{cards[i].name || `Card ${i + 1}`}</span>
+              {cards.length > 1 && (
+                <button type="button" onClick={() => removeCard(i)} className="text-destructive hover:text-destructive/80 ml-2">
+                  <Trash2 className="h-4 w-4" />
+                </button>
+              )}
+            </div>
+          ))}
+          <button type="button" onClick={addCard} className="flex items-center gap-1.5 text-sm text-primary font-semibold mt-1">
+            <PlusCircle className="h-4 w-4" /> Add Card
+          </button>
+        </div>
+      )}
+    </div>
+  );
 }
 
 export default function CreditCardPayoffCalculator() {
@@ -85,19 +116,29 @@ export default function CreditCardPayoffCalculator() {
                 </div>
               </div>
             ))}
-            <div className="flex flex-col"><label className="text-sm font-semibold mb-1">Extra Monthly Payment ($)</label>
-              <div className="flex items-center rounded-md border border-input bg-background h-9 overflow-hidden focus-within:ring-2 focus-within:ring-primary/20">
+            <div className="flex flex-col">
+              <label className="text-sm font-semibold mb-1">Extra Monthly Payment ($)</label>
+              <div className="flex items-center rounded-md border border-input bg-background h-10 overflow-hidden focus-within:ring-2 focus-within:ring-primary/20">
                 <span className="pl-3 pr-1 text-sm text-muted-foreground">$</span>
                 <input type="number" value={f.extraPayment} onChange={e => setF(p => ({ ...p, extraPayment: e.target.value }))} className="w-full h-full px-2 text-base bg-transparent outline-none border-none text-foreground" />
-              </div></div>
-            <div className="flex flex-col"><label className="text-sm font-semibold mb-1">Payoff Strategy</label>
-              <select value={f.strategy} onChange={e => setF(p => ({ ...p, strategy: e.target.value }))} className="h-9 px-3 rounded-md border border-input bg-background text-sm text-foreground outline-none">
+              </div>
+            </div>
+            <div className="flex flex-col">
+              <label className="text-sm font-semibold mb-1">Payoff Strategy</label>
+              <select value={f.strategy} onChange={e => setF(p => ({ ...p, strategy: e.target.value }))} className="h-10 px-3 rounded-md border border-input bg-background text-sm text-foreground outline-none">
                 <option value="avalanche">Avalanche (Highest Rate First)</option>
                 <option value="snowball">Snowball (Lowest Balance First)</option>
-              </select></div>
-            <div className="flex gap-2 mt-1">
-              <button onClick={calc} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-9 transition-all">Calculate</button>
-              <button onClick={reset} className="px-3 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-9 flex items-center justify-center"><RotateCcw className="h-4 w-4" /></button>
+              </select>
+            </div>
+
+            {/* Advanced Options */}
+            <AdvancedOptions cards={cards} setCards={setCards} />
+
+            <div className="flex gap-2.5 mt-1">
+              <button onClick={calc} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm">Calculate</button>
+              <button onClick={reset} className="w-10 shrink-0 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center" aria-label="Reset">
+                <RotateCcw className="h-5 w-5" />
+              </button>
             </div>
           </div>
           <div className="flex flex-col gap-3">
@@ -132,15 +173,27 @@ export default function CreditCardPayoffCalculator() {
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <section className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">Credit Card Debt Payoff Strategies</h2>
-            <p>This calculator models both the Debt Avalanche and Debt Snowball strategies across multiple credit cards simultaneously. Enter your cards&apos; balances, APRs, and minimum payments, then add any extra monthly payment you can allocate. The calculator shows exact payoff timelines, total interest cost, and compares your chosen strategy against minimum-payment-only (revealing exactly how much you save by being aggressive).</p>
-            <h2 className="text-2xl font-bold mb-3">Debt Avalanche — The Mathematically Optimal Method</h2>
-            <p>The avalanche method directs all extra payments to the card with the highest interest rate. After that card is paid off, its payment is added to the next-highest-rate card (the &quot;avalanche&quot; effect). This minimizes total interest paid and total time in debt. For high-rate credit cards (20–30% APR), the interest savings are substantial — often thousands of dollars over minimum payments alone.</p>
-            <h2 className="text-2xl font-bold mb-3">Debt Snowball — The Motivational Method</h2>
-            <p>The snowball method targets the smallest balance first. Each paid-off card provides a psychological win that maintains motivation for the longer journey. Research by behavioral economists (Haisley et al.) shows many people successfully pay off debt faster using snowball because motivation and consistency outweigh mathematical efficiency. Choose the method you will actually stick with.</p>
-            <h2 className="text-2xl font-bold mb-3">Balance Transfer and Consolidation</h2>
-            <p>0% APR balance transfer cards can dramatically accelerate payoff by eliminating interest for 15–21 months. Key considerations: transfer fee (typically 3–5% of balance), must pay off before the promotional period ends (or interest often applies retroactively), and requires good credit to qualify (700+ typically). A personal loan consolidation at 10–15% APR can save 10–15 percentage points vs. credit card rates while simplifying to a single payment with a definite payoff date.</p>
+          <section className="mt-12 space-y-8 text-base text-foreground max-w-[1180px]">
+            <div>
+              <h2 className="text-2xl font-bold mb-3">Credit Card Debt Payoff Strategies</h2>
+              <p className="text-muted-foreground leading-relaxed">This calculator models both the Debt Avalanche and Debt Snowball strategies across multiple credit cards simultaneously. Enter your cards&apos; balances, APRs, and minimum payments, then add any extra monthly payment you can allocate. The calculator shows exact payoff timelines, total interest cost, and compares your chosen strategy against minimum-payment-only — revealing exactly how much you save by being aggressive with payments.</p>
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold mb-3">Debt Avalanche — The Mathematically Optimal Method</h2>
+              <p className="text-muted-foreground leading-relaxed">The avalanche method directs all extra payments to the card with the highest interest rate. After that card is paid off, its payment is rolled to the next-highest-rate card (the &quot;avalanche&quot; effect). This minimizes total interest paid and total time in debt. For high-rate credit cards (20–30% APR), the interest savings are substantial — often thousands of dollars over minimum payments alone. It is the mathematically superior choice for eliminating credit card debt efficiently.</p>
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold mb-3">Debt Snowball — The Motivational Method</h2>
+              <p className="text-muted-foreground leading-relaxed">The snowball method targets the smallest balance first, regardless of interest rate. Each paid-off card provides a psychological win that maintains motivation for the longer journey. Research by behavioral economists (Haisley et al.) shows many people successfully pay off debt faster using snowball because motivation and consistency outweigh mathematical efficiency. Choose the method you will actually stick with over months or years.</p>
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold mb-3">Balance Transfer and Consolidation</h2>
+              <p className="text-muted-foreground leading-relaxed">Zero-percent APR balance transfer cards can dramatically accelerate payoff by eliminating interest for 15 to 21 months. Key considerations include: transfer fee (typically 3–5% of balance), you must pay off the balance before the promotional period ends (otherwise interest often applies retroactively), and you need good credit to qualify (usually 700 or higher). A personal loan consolidation at 10–15% APR can save 10–15 percentage points versus credit card rates while simplifying to a single payment with a definite payoff date.</p>
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold mb-3">The Real Cost of Minimum Payments</h2>
+              <p className="text-muted-foreground leading-relaxed">Credit card companies deliberately set minimum payments low to maximize the interest they earn. A $5,000 balance at 22% APR with a $100 minimum payment takes over seven years to pay off and costs more than $3,500 in interest. By contrast, paying $300 per month eliminates that same balance in under two years and saves over $2,000 in interest charges. The difference between minimum payments and aggressive payoff can be years of debt and thousands of dollars.</p>
+            </div>
           </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/credit-card-payoff-calculator" />
           <PopularCalculators exclude="/calculator/credit-card-payoff-calculator" />
