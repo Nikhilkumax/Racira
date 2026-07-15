@@ -1,26 +1,13 @@
 import {
-  LayoutGrid, Frame, Smartphone, Move, Ratio, Grid3x3, AlignVerticalSpaceAround, Columns3,
-  LayoutDashboard, Rows3, GitBranch, CreditCard, LayoutPanelTop, Ruler,
-  PenTool, Boxes, AlignCenter, Minus, Palette, Download, Globe, Layers, Shuffle, Maximize2, Eye, FolderTree,
-  SquarePen, Zap, FileImage, Images, Spline, Film, Scissors, Square, Brush, Droplet, Crop, RefreshCw, Sparkles, FileMinus, FileDiff, ShieldCheck,
-  Crown, Type, Award, Grid2x2, Circle, Star, Tag, Stamp, ImageIcon,
-  MousePointer, FileText, Square as SquareIcon, BadgeCheck, MessageSquare, Navigation, ChevronRight, MessageCircle, AlertTriangle, BarChart3, ToggleLeft, Pill, Skull, User, ListOrdered, Table,
-  Coins, Library, BookOpen, Move3d, RectangleEllipsis, Cloud, Pointer, PaintBucket, Wind, TextCursorInput,
-  Monitor, Globe2, Tablet, AppWindow, Camera, Share2, Store, Megaphone, MousePointerClick, MousePointer2, MapPin, Workflow, MessageSquareQuote, FileCode,
-  Wallet, Mail, FileBadge, Newspaper, BookMarked, PieChart, Bookmark, Medal, ScrollText, Mailbox, UtensilsCrossed, Sticker,
-  Contrast, Focus, EyeOff, Pipette, Hand, BookOpenCheck, Glasses, Accessibility, Move as MoveIcon, ScanText,
-  Snowflake, Hexagon, Squirrel, CircleDot, Activity, Waves, Leaf, Volume2, Shirt, FileText as PaperIcon, Grid, Triangle,
-  Search, AlignHorizontalSpaceAround, Paintbrush, CaseSensitive, GitCompare, ClipboardList, FileSpreadsheet, TextSelect, ScanLine, CheckCircle,
-  Wand2, Box, Eye as EyeI, Aperture, Flower2, Tv, Layers as L2, Rss, Compass, Mountain, Pyramid, Terminal, Gamepad2, BarChart, PieChart as PC, Book,
-  type LucideIcon,
+  LayoutGrid, Frame, Smartphone, Move, Ratio, Grid3x3, AlignVerticalSpaceAround, Columns3, LayoutDashboard, Rows3, GitBranch, CreditCard, LayoutPanelTop, Ruler, PenTool, Boxes, AlignCenter, Minus, Palette, Download, Globe, Layers, Shuffle, Maximize2, Eye, FolderTree, SquarePen, Zap, FileImage, Images, Spline, Film, Scissors, Square, Brush, Droplet, Crop, RefreshCw, Sparkles, FileMinus, FileDiff, ShieldCheck, Crown, Award, Grid2x2, Circle, Repeat, Type, Star, Stamp, ImageIcon, MousePointer, FileText, Square as SquareIcon, BadgeCheck, MessageSquare, Navigation, ChevronRight, MessageCircle, AlertTriangle, BarChart3, ToggleLeft, Pill, Skull, User, ListOrdered, Table, Coins, Library, BookOpen, Move3d, RectangleEllipsis, Cloud, Pointer, PaintBucket, Wind, TextCursorInput, Monitor, Globe2, Tablet, AppWindow, Camera, Share2, Store, Megaphone, MousePointerClick, MousePointer2, MapPin, Workflow, MessageSquareQuote, FileCode, Wallet, Mail, Newspaper, FileBadge, Map, PieChart, Tag, Medal, Mailbox, UtensilsCrossed, Sticker, Contrast, Focus, EyeOff, Pipette, Hand, BookOpenCheck, ScanText, Glasses, Move as MoveIcon, Accessibility, Snowflake, Hexagon, Squirrel, CircleDot, Grip, Activity, Waves, Volume2, Shirt, FileText as PaperIcon, Grid, Triangle, Search, AlignHorizontalSpaceAround, Paintbrush, CaseSensitive, CheckCircle, ClipboardList, FileSpreadsheet, TextSelect, GitCompare, ScanLine, Wand2, Box, Eye as EyeI, Aperture, Flower2, Tv, Layers as L2, Rss, BookMarked, Compass, Mountain, Pyramid, Terminal, Gamepad2, BarChart, PieChart as PC, Book, BookmarkPlus, Scroll, Italic, type LucideIcon
 } from "lucide-react";
 
-export type Tool = { slug: string; name: string; desc: string; icon: LucideIcon; built?: boolean };
+export type Tool = { slug: string; name: string; desc: string; icon: LucideIcon; status: "live" | "soon" };
 export type Category = { name: string; tools: Tool[] };
 
 const t = (name: string, desc: string, icon: LucideIcon, built = false): Tool => ({
   slug: name.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""),
-  name, desc, icon, built,
+  name, desc, icon, status: built ? "live" : "soon",
 });
 
 export const categories: Category[] = [
@@ -74,11 +61,11 @@ export const categories: Category[] = [
   ]},
   { name: "Logo & Brand", tools: [
     t("Logo Maker", "Create logos quickly", Crown),
-    t("Monogram Generator", "Generate stylish monograms", Type),
+    t("Monogram Generator", "Generate stylish monograms", Italic),
     t("Brand Identity Builder", "Compose full identity systems", Award),
     t("Logo Grid System", "Build logo construction grids", Grid2x2),
     t("Logo Clearspace Calculator", "Compute logo clear space", Circle),
-    t("Logo Variation Generator", "Generate logo variations", Shuffle),
+    t("Logo Variation Generator", "Generate logo variations", Repeat),
     t("Wordmark Designer", "Design wordmark logos", Type),
     t("Emblem Builder", "Compose emblem-style marks", Star),
     t("Seal Generator", "Generate circular seal marks", Stamp),
@@ -133,12 +120,12 @@ export const categories: Category[] = [
   { name: "Print & Production", tools: [
     t("Business Card Designer", "Design business cards", Wallet),
     t("Letterhead Designer", "Design letterheads", Mail),
-    t("Flyer Layout Tool", "Lay out flyers", FileText),
+    t("Flyer Layout Tool", "Lay out flyers", Scroll),
     t("Poster Designer", "Design posters", FileBadge),
-    t("Brochure Layout Builder", "Lay out brochures", BookOpen),
-    t("Infographic Builder", "Build infographics", BarChart3),
+    t("Brochure Layout Builder", "Lay out brochures", Map),
+    t("Infographic Builder", "Build infographics", PieChart),
     t("Label Designer", "Design product labels", Tag),
-    t("Badge Designer", "Design printable badges", BadgeCheck),
+    t("Badge Designer", "Design printable badges", BookmarkPlus),
     t("Certificate Designer", "Design certificates", Medal),
     t("Invitation Card Maker", "Make invitation cards", Mailbox),
     t("Menu Card Designer", "Design menus", UtensilsCrossed),
@@ -161,7 +148,7 @@ export const categories: Category[] = [
     t("Geometric Pattern Maker", "Create geometric patterns", Hexagon),
     t("Seamless Tile Creator", "Build seamless tiles", Squirrel),
     t("Halftone Pattern Maker", "Create halftone effects", CircleDot),
-    t("Dot Grid Generator", "Generate dot grids", Grid3x3),
+    t("Dot Grid Generator", "Generate dot grids", Grip),
     t("Line Pattern Builder", "Build line patterns", Activity),
     t("Organic Shape Generator", "Generate organic blob shapes", Waves),
     t("Noise Texture Generator", "Generate noise textures", Volume2),

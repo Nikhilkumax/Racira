@@ -72,7 +72,7 @@ export default function Index() {
                     href={`/design/tool/${tool.slug}`}
                     className="tool-card group"
                   >
-                    {!tool.built && (
+                    {tool.status !== "live" && (
                       <span className="absolute right-3 top-3 rounded-md bg-muted px-2 py-0.5 text-[10px] font-semibold tracking-wider uppercase text-muted-foreground">
                         Soon
                       </span>

@@ -42,7 +42,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
           </div>
         </div>
 
-        {tool.built ? (
+        {tool.status === "live" ? (
           <BuiltTool slug={tool.slug} />
         ) : (
           <ComingSoon />
