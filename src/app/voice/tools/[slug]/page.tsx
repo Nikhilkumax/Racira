@@ -51,7 +51,13 @@ export default async function ToolPage({ params }: PageProps) {
         </Link>
       </div>
 
-      <ComingSoon name={tool.name} description={tool.description} />
+      {tool.status === "live" ? (
+        <div className="racira-page-container py-16 text-center text-muted-foreground">
+          Voice Tool UI (Live)
+        </div>
+      ) : (
+        <ComingSoon name={tool.name} description={tool.description} />
+      )}
     </div>
   );
 }
