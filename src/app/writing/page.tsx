@@ -81,13 +81,13 @@ export default function Index() {
                     href={`/writing/tools/${t.slug}`}
                     className="tool-card group"
                   >
-                    {!t.available && (
+                    {t.status !== "live" && (
                       <span className="absolute right-3 top-3 rounded-md bg-muted px-2 py-0.5 text-[10px] font-semibold tracking-wider uppercase text-muted-foreground">
                         Soon
                       </span>
                     )}
                     <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                      <PenLine className="h-5 w-5" />
+                      {t.icon ? <t.icon className="h-5 w-5" /> : <PenLine className="h-5 w-5" />}
                     </div>
                     <h3 className="font-semibold text-foreground leading-snug">
                       {t.name}

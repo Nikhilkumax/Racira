@@ -41,7 +41,7 @@ export default async function ToolPage({ params }: PageProps) {
         </Link>
       </div>
 
-      {tool.available && tool.slug === "distraction-free-writing-editor" ? (
+      {tool.status === "live" && tool.slug === "distraction-free-writing-editor" ? (
         <DistractionFreeEditor />
       ) : (
         <ComingSoon name={tool.name} description={tool.description} />
