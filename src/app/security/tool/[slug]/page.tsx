@@ -76,7 +76,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export function generateStaticParams() {
-  return tools.map((t) => ({ slug: (t as any).slug }));
+  return tools.map((t) => ({ slug: t.slug }));
 }
 
 export default async function ToolPage({ params }: Props) {
@@ -85,7 +85,8 @@ export default async function ToolPage({ params }: Props) {
   if (!tool) notFound();
 
   const Impl = IMPLS[tool.slug];
-  const related = toolsByCategory(tool.category).filter((t) => (t as any).slug !== tool.slug).slice(0, 6);
+  const related = toolsByCategory(tool.category).filter((t) => t.slug !== tool.slug).slice(0, 6);
+  const isLive = tool.status === "live";
   
   return (
     <Layout>
@@ -98,7 +99,7 @@ export default async function ToolPage({ params }: Props) {
         <p className="mt-2 text-muted-foreground">{tool.description}</p>
 
         <div className="mt-8">
-          {Impl ? <Impl /> : <ComingSoon name={tool.name} />}
+          {isLive && Impl ? <Impl /> : <ComingSoon name={tool.name} />}
         </div>
 
         {related.length > 0 && (
@@ -106,9 +107,9 @@ export default async function ToolPage({ params }: Props) {
             <h2 className="text-xs font-semibold tracking-wider text-muted-foreground uppercase mb-3">More in {tool.category}</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {related.map((t) => (
-                <Link key={(t as any).slug} href={`/security/tool/${(t as any).slug}`} className="rounded-lg border border-border bg-card p-3 hover:border-primary/40">
-                  <div className="font-medium text-sm">{(t as any).name}</div>
-                  <div className="text-xs text-muted-foreground mt-1 line-clamp-1">{(t as any).description}</div>
+                <Link key={t.slug} href={`/security/tool/${t.slug}`} className="rounded-lg border border-border bg-card p-3 hover:border-primary/40">
+                  <div className="font-medium text-sm">{t.name}</div>
+                  <div className="text-xs text-muted-foreground mt-1 line-clamp-1">{t.description}</div>
                 </Link>
               ))}
             </div>
