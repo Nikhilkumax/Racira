@@ -27,7 +27,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
     notFound();
   }
   const category = findCategoryOfTool(resolvedParams.slug);
-  const isLive = tool.slug === "trip-itinerary-builder";
+  const isLive = (tool as any).status === "live";
 
   return (
     <div className="min-h-screen">
