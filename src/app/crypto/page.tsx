@@ -8,17 +8,7 @@ import { Search, ArrowRight, Wallet, Send, FileCode, Lock, Coins, Image, BarChar
 
 import { TOOLS, CATEGORIES, SEARCH_REGISTRY } from "@/domains/crypto/registry";
 
-const CATEGORY_ICONS: Record<string, typeof Wallet> = {
-  "Wallet & Address": Wallet,
-  "Transaction": Send,
-  "Smart Contract": FileCode,
-  "Cryptography": Lock,
-  "DeFi": Coins,
-  "NFT": Image,
-  "Portfolio": BarChart3,
-  "Education": GraduationCap,
-  "Utilities": Wrench,
-};
+
 
 export default function Index() {
   const [q, setQ] = useState("");
@@ -50,36 +40,38 @@ export default function Index() {
         {CATEGORIES.map((cat) => {
           const items = filtered.filter((t) => (t as any).category === cat);
           if (!items.length) return null;
-          const Icon = CATEGORY_ICONS[cat] ?? Wrench;
           return (
             <section key={cat} className="mb-12">
               <div className="mb-4 flex items-center gap-2">
-                <Icon className="h-4 w-4 text-primary" />
+                <Wrench className="h-4 w-4 text-primary" />
                 <h2 className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
                   {cat} <span className="ml-1 text-muted-foreground/70">({items.length})</span>
                 </h2>
               </div>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                {items.map((t) => (
+                {items.map((t: any) => {
+                  const ToolIcon = t.icon;
+                  return (
                   <Link
-                    key={(t as any).slug}
-                    href={`/crypto/tool/${(t as any).slug}`}
+                    key={t.slug}
+                    href={`/crypto/tool/${t.slug}`}
                     className="tool-card group hover:-translate-y-[3px] hover:border-primary/40 hover:shadow-[0_8px_24px_hsl(var(--ring)/0.1)]"
                   >
-                    {!t.implemented && (
+                    {t.status !== "live" && (
                       <span className="absolute right-3 top-3 rounded-md bg-muted px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
                         Soon
                       </span>
                     )}
                     <div className="mb-4 grid h-10 w-10 place-items-center rounded-xl bg-primary/10 text-primary">
-                      <Icon className="h-5 w-5" />
+                      {ToolIcon ? <ToolIcon className="h-5 w-5" /> : <Wrench className="h-5 w-5" />}
                     </div>
                     <h3 className="font-semibold text-foreground leading-snug">
-                      {(t as any).name}
+                      {t.name}
                     </h3>
-                    <p className="mt-1 text-sm text-muted-foreground line-clamp-2">{(t as any).desc}</p>
+                    <p className="mt-1 text-sm text-muted-foreground line-clamp-2">{t.desc}</p>
                   </Link>
-                ))}
+                  );
+                })}
               </div>
             </section>
           );

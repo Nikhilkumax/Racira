@@ -41,7 +41,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
           <p className="mt-2 text-muted-foreground">{tool.desc}</p>
         </div>
 
-        {tool.implemented ? (
+        {tool.status === "live" ? (
           <ToolRenderer slug={tool.slug} />
         ) : (
           <div className="rounded-2xl border border-dashed border-border bg-card p-10 text-center">
