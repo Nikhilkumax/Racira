@@ -12,7 +12,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const resolvedParams = await params;
   const t: any = TOOLS_BY_SLUG[resolvedParams.slug];
   if (!t) return { title: "Not found — Racira Colors" };
-  const title = `${t.title} — Racira Colors`;
+  const title = `${t.name} — Racira Colors`;
   return {
     title,
     description: (t as any).description,

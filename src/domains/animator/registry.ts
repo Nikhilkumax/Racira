@@ -14,9 +14,8 @@ const slugify = (s: string) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
 
-// Mark active (fully functional) tools
 const ACTIVE_SLUGS = new Set<string>([
-  "css-keyframe-builder"
+  // No tools built yet
 ]);
 
 const def = (name: string, description: string): Omit<Tool, "category"> => {
