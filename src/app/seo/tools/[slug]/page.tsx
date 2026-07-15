@@ -25,7 +25,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
   }
 
   const related = TOOLS.filter(
-    (t) => (t as any).category === tool.category && (t as any).slug !== tool.slug
+    (t) => t.category === tool.category && t.slug !== tool.slug
   ).slice(0, 8);
 
   return (
@@ -45,7 +45,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
           </h1>
         </div>
 
-        {tool.active ? <KeywordDensityChecker /> : <ComingSoon name={tool.name} />}
+        {tool.status === "live" ? <KeywordDensityChecker /> : <ComingSoon name={tool.name} />}
 
         {related.length > 0 && (
           <section className="mt-16">

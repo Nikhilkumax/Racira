@@ -23,28 +23,7 @@ import {
 } from "lucide-react";
 import { CATEGORIES, TOOLS, TOTAL_TOOLS, type Tool } from "@/domains/seo/registry";
 
-// Map each category to an icon
-const CATEGORY_ICON: Record<string, React.ComponentType<{ className?: string }>> = {
-  "Keyword Tools": Key,
-  "On-Page SEO Analysis": FileSearch,
-  "Technical SEO": Wrench,
-  "Backlink & Off-Page SEO": Link2,
-  "Schema & Structured Data": Code2,
-  "Image SEO": ImageIcon,
-  "Performance & Core Web Vitals": Gauge,
-  "Local SEO": MapPin,
-  "Content & Writing SEO": PenTool,
-  "Security & SEO": ShieldCheck,
-  "International SEO": Globe,
-  "Analytics & Reporting": BarChart3,
-  "Mobile & Page Experience": Smartphone,
-  "SEO Content Templates": FileText,
-  "SERP & Search": SearchIcon,
-};
 
-function iconFor(category: string) {
-  return CATEGORY_ICON[category] ?? Wrench;
-}
 
 export default function Home() {
   const [q, setQ] = useState("");
@@ -146,13 +125,15 @@ function ToolGrid({ tools }: { tools: Tool[] }) {
 }
 
 function ToolCard({ tool }: { tool: Tool }) {
-  const Icon = iconFor(tool.category);
+  const Icon = tool.icon as React.ComponentType<{ className?: string }>;
+  const isLive = tool.status === "live";
+
   return (
     <Link
       href={`/seo/tools/${tool.slug}`}
-      className="tool-card group"
+      className="tool-card group relative"
     >
-      {!tool.active && (
+      {!isLive && (
         <span className="absolute right-3 top-3 rounded-md bg-muted px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
           Soon
         </span>
@@ -164,20 +145,9 @@ function ToolCard({ tool }: { tool: Tool }) {
         {tool.name}
       </h3>
       <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
-        {shortDescription(tool)}
+        {tool.description}
       </p>
     </Link>
   );
 }
 
-function shortDescription(t: Tool): string {
-  const n = t.name;
-  if (/Checker$/i.test(n)) return `Check ${n.replace(/ Checker$/i, "").toLowerCase()} quickly.`;
-  if (/Analyzer$/i.test(n)) return `Analyze ${n.replace(/ Analyzer$/i, "").toLowerCase()} for SEO.`;
-  if (/Generator$/i.test(n)) return `Generate ${n.replace(/ Generator$/i, "").toLowerCase()} instantly.`;
-  if (/Validator$/i.test(n)) return `Validate ${n.replace(/ Validator$/i, "").toLowerCase()}.`;
-  if (/Extractor$/i.test(n)) return `Extract ${n.replace(/ Extractor$/i, "").toLowerCase()}.`;
-  if (/Counter$/i.test(n)) return `Count ${n.replace(/ Counter$/i, "").toLowerCase()}.`;
-  if (/Template$/i.test(n)) return `Ready-to-use ${n.toLowerCase()}.`;
-  return `${t.category} tool.`;
-}
