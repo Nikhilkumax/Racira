@@ -1,5 +1,5 @@
 import {
-  CheckCircle2, ZoomOut, ZoomIn, AlignLeft, Wallet, Wand2, ZapOff, Zap, BookOpen, Youtube, ArrowRightLeft, YinYang, FileText, XSquare, ListChecks, Hash, Search, XOctagon, Calculator, LineChart, Eye, Lightbulb, XCircle, Unlock, Lock, X, FileCode, Wrench, WrapText, Workflow, WineOff, Wine, PenTool, Wind, Network, Key, Globe, WifiOff, Sprout, Scale, Wifi, Grid3x3, Image, WholeWord, WheatOff, Wheat, Webhook, Webcam, Waves, Watch, Warehouse, Wand, Receipt, Wallpaper, GitCompare, WalletCards, Wallet2, Vote, VolumeX, Volume2, Coins, Volume1, Volume
+  CheckCircle2, ShieldCheck, Fingerprint, AlignLeft, Wallet, Wand2, ScanSearch, Route, BookOpen, KeySquare, ArrowRightLeft, Shrink, FileText, Folders, ListChecks, Hash, Search, Gauge, Calculator, LineChart, Eye, Lightbulb, Flag, Unlock, Lock, KeyRound, FileCode, Wrench, FileBadge, FileImage, FileBox, ScrollText, PenTool, Wind, Network, Key, Globe, Map, Sprout, Scale, FlagTriangleRight, Grid3x3, Image, Dna, Link, Fuel, Braces, Users, DollarSign, PieChart, TrendingUp, Receipt, Landmark, GitCompare, GitFork, Activity, ArrowDownUp, ArrowLeftRight, Bitcoin, Coins, Gift
 } from "lucide-react";
 
 
@@ -24,31 +24,31 @@ const mk = (name: string, desc: string, category: string, implemented = false, i
 export const TOOLS: Tool[] = [
   // Wallet & Address (15)
   mk("Ethereum Address Validator", "Validate ETH addresses & checksums", "Wallet & Address", true, CheckCircle2),
-  mk("Bitcoin Address Validator", "Validate BTC addresses (P2PKH, P2SH, Bech32)", "Wallet & Address", true, ZoomOut),
-  mk("Solana Address Validator", "Validate Solana Base58 addresses", "Wallet & Address", true, ZoomIn),
+  mk("Bitcoin Address Validator", "Validate BTC addresses (P2PKH, P2SH, Bech32)", "Wallet & Address", true, ShieldCheck),
+  mk("Solana Address Validator", "Validate Solana Base58 addresses", "Wallet & Address", true, Fingerprint),
   mk("Multi-Chain Address Formatter", "Format addresses across chains", "Wallet & Address", false, AlignLeft),
   mk("Address Checksum Tool EIP-55", "Apply EIP-55 mixed-case checksum", "Wallet & Address", true, Wallet),
   mk("Wallet Address QR Code Generator", "Generate QR codes for addresses", "Wallet & Address", false, Wand2),
-  mk("Vanity Address Pattern Checker", "Check vanity address patterns locally", "Wallet & Address", false, ZapOff),
-  mk("HD Wallet Path BIP-44 Explorer", "Explore BIP-44 derivation paths", "Wallet & Address", false, Zap),
+  mk("Vanity Address Pattern Checker", "Check vanity address patterns locally", "Wallet & Address", false, ScanSearch),
+  mk("HD Wallet Path BIP-44 Explorer", "Explore BIP-44 derivation paths", "Wallet & Address", false, Route),
   mk("Mnemonic Seed Phrase Word List Reference", "Browse BIP-39 wordlist", "Wallet & Address", false, BookOpen),
-  mk("Seed Phrase Validator BIP-39", "Validate BIP-39 mnemonics", "Wallet & Address", false, Youtube),
+  mk("Seed Phrase Validator BIP-39", "Validate BIP-39 mnemonics", "Wallet & Address", false, KeySquare),
   mk("Private Key to Address Converter", "Educational private key → address", "Wallet & Address", false, ArrowRightLeft),
-  mk("Public Key Compressor Decompressor", "Compress/decompress secp256k1 keys", "Wallet & Address", false, YinYang),
+  mk("Public Key Compressor Decompressor", "Compress/decompress secp256k1 keys", "Wallet & Address", false, Shrink),
   mk("Address Balance Log Manual", "Log balances manually", "Wallet & Address", false, FileText),
-  mk("Multi-Wallet Organizer", "Organize wallets locally", "Wallet & Address", false, XSquare),
+  mk("Multi-Wallet Organizer", "Organize wallets locally", "Wallet & Address", false, Folders),
   mk("Cold Wallet Checklist Builder", "Build cold-storage checklists", "Wallet & Address", false, ListChecks),
 
   // Transaction (10)
   mk("Transaction Hash Decoder", "Decode tx hashes manually", "Transaction", false, Hash),
   mk("Raw Transaction Inspector Hex", "Inspect raw tx hex", "Transaction", false, Search),
   mk("Gas Price Reference Tool", "Gas price reference", "Transaction", false, BookOpen),
-  mk("Gas Limit Estimator Reference", "Gas limit reference", "Transaction", false, XOctagon),
+  mk("Gas Limit Estimator Reference", "Gas limit reference", "Transaction", false, Gauge),
   mk("Gas Fee Calculator", "Calculate gas fees manually", "Transaction", true, Calculator),
   mk("Transaction Nonce Tracker", "Track tx nonces locally", "Transaction", false, LineChart),
   mk("EIP-1559 Fee Structure Visualizer", "Visualize EIP-1559 fees", "Transaction", false, Eye),
   mk("Base Fee Plus Priority Fee Explainer", "Explain base + priority fees", "Transaction", false, Lightbulb),
-  mk("Transaction Finality Reference", "Finality concepts reference", "Transaction", false, XCircle),
+  mk("Transaction Finality Reference", "Finality concepts reference", "Transaction", false, Flag),
   mk("Transaction Receipt Decoder", "Decode receipts manually", "Transaction", false, Unlock),
 
   // Smart Contract (15)
@@ -56,16 +56,16 @@ export const TOOLS: Tool[] = [
   mk("ABI Decoder", "Decode ABI-encoded data", "Smart Contract", false, Unlock),
   mk("Function Signature Generator", "Generate 4-byte selectors", "Smart Contract", true, Wand2),
   mk("Event Topic Hash Generator", "Generate event topic0 hashes", "Smart Contract", true, Hash),
-  mk("Keccak-256 Hash Tool", "Compute keccak-256 hashes", "Smart Contract", true, X),
+  mk("Keccak-256 Hash Tool", "Compute keccak-256 hashes", "Smart Contract", true, KeyRound),
   mk("EVM Opcode Reference Browser", "Browse EVM opcodes", "Smart Contract", false, BookOpen),
   mk("Solidity Function Selector Database", "Lookup function selectors", "Smart Contract", false, FileCode),
   mk("Contract ABI Formatter", "Pretty-print JSON ABIs", "Smart Contract", false, AlignLeft),
   mk("ABI to TypeScript Type Generator", "Generate TS types from ABI", "Smart Contract", false, Wrench),
   mk("Smart Contract Event Log Decoder", "Decode event logs manually", "Smart Contract", false, FileText),
-  mk("ERC-20 Token Spec Reference", "ERC-20 reference", "Smart Contract", false, WrapText),
-  mk("ERC-721 Token Spec Reference", "ERC-721 reference", "Smart Contract", false, Workflow),
-  mk("ERC-1155 Token Spec Reference", "ERC-1155 reference", "Smart Contract", false, WineOff),
-  mk("EIP Reference Browser", "Browse EIPs", "Smart Contract", false, Wine),
+  mk("ERC-20 Token Spec Reference", "ERC-20 reference", "Smart Contract", false, FileBadge),
+  mk("ERC-721 Token Spec Reference", "ERC-721 reference", "Smart Contract", false, FileImage),
+  mk("ERC-1155 Token Spec Reference", "ERC-1155 reference", "Smart Contract", false, FileBox),
+  mk("EIP Reference Browser", "Browse EIPs", "Smart Contract", false, ScrollText),
   mk("Contract Bytecode Inspector", "Inspect bytecode basics", "Smart Contract", false, Search),
 
   // Cryptography (10)
@@ -78,7 +78,7 @@ export const TOOLS: Tool[] = [
   mk("PBKDF2 Key Derivation Tool", "Derive keys with PBKDF2", "Cryptography", false, Key),
   mk("BIP-39 Wordlist Browser", "Browse BIP-39 words", "Cryptography", false, Globe),
   mk("BIP-32 Path Visualizer", "Visualize BIP-32 paths", "Cryptography", false, Eye),
-  mk("BIP-44 Derivation Path Builder", "Build BIP-44 paths", "Cryptography", false, WifiOff),
+  mk("BIP-44 Derivation Path Builder", "Build BIP-44 paths", "Cryptography", false, Map),
 
   // DeFi (10)
   mk("Liquidity Pool Share Calculator", "Calculate LP share %", "DeFi", false, Calculator),
@@ -88,7 +88,7 @@ export const TOOLS: Tool[] = [
   mk("LP Token Estimator", "Estimate LP tokens", "DeFi", false, Scale),
   mk("Slippage Impact Tool", "Estimate slippage impact", "DeFi", false, Wrench),
   mk("DeFi Risk Assessment Checklist", "Assess DeFi risk", "DeFi", false, ListChecks),
-  mk("Rug Pull Red Flag Checklist", "Spot rug-pull signals", "DeFi", false, Wifi),
+  mk("Rug Pull Red Flag Checklist", "Spot rug-pull signals", "DeFi", false, FlagTriangleRight),
   mk("Protocol Comparison Matrix", "Compare protocols", "DeFi", false, Grid3x3),
   mk("DeFi Glossary Reference Browser", "Browse DeFi terms", "DeFi", false, BookOpen),
 
@@ -96,25 +96,25 @@ export const TOOLS: Tool[] = [
   mk("NFT Metadata Formatter JSON", "Format NFT metadata JSON", "NFT", false, AlignLeft),
   mk("NFT Attribute Rarity Estimator", "Estimate trait rarity", "NFT", false, Scale),
   mk("NFT Collection Planning Template", "Plan NFT collections", "NFT", false, Image),
-  mk("NFT Trait Combination Counter", "Count trait combinations", "NFT", false, WholeWord),
-  mk("IPFS URI Formatter", "Format ipfs:// URIs", "NFT", false, WheatOff),
+  mk("NFT Trait Combination Counter", "Count trait combinations", "NFT", false, Dna),
+  mk("IPFS URI Formatter", "Format ipfs:// URIs", "NFT", false, Link),
   mk("NFT Royalty Calculator", "Calculate royalties", "NFT", false, Calculator),
-  mk("NFT Gas Cost Estimator", "Estimate mint gas costs", "NFT", false, Wheat),
-  mk("ERC-721 Metadata Schema Builder", "Build ERC-721 schema", "NFT", false, Webhook),
-  mk("NFT Whitelist Organizer", "Organize whitelists", "NFT", false, Webcam),
+  mk("NFT Gas Cost Estimator", "Estimate mint gas costs", "NFT", false, Fuel),
+  mk("ERC-721 Metadata Schema Builder", "Build ERC-721 schema", "NFT", false, Braces),
+  mk("NFT Whitelist Organizer", "Organize whitelists", "NFT", false, Users),
   mk("NFT Launch Checklist Builder", "Build launch checklist", "NFT", false, ListChecks),
 
   // Portfolio (10)
   mk("Crypto Portfolio Tracker", "Local CSV portfolio tracker", "Portfolio", false, LineChart),
   mk("Multi-Coin Holdings Log", "Log multi-coin holdings", "Portfolio", false, FileText),
-  mk("Acquisition Price Log", "Log acquisition prices", "Portfolio", false, Waves),
+  mk("Acquisition Price Log", "Log acquisition prices", "Portfolio", false, DollarSign),
   mk("Cost Basis Calculator FIFO LIFO", "FIFO/LIFO cost basis", "Portfolio", false, Calculator),
-  mk("Realized vs Unrealized PnL Tracker", "Track realized/unrealized P&L", "Portfolio", false, Watch),
-  mk("Staking Rewards Log", "Log staking rewards", "Portfolio", false, Warehouse),
+  mk("Realized vs Unrealized PnL Tracker", "Track realized/unrealized P&L", "Portfolio", false, PieChart),
+  mk("Staking Rewards Log", "Log staking rewards", "Portfolio", false, Sprout),
   mk("Airdrop Log", "Log airdrops", "Portfolio", false, Wand2),
-  mk("DCA Investment Log", "Log DCA buys", "Portfolio", false, Wand),
+  mk("DCA Investment Log", "Log DCA buys", "Portfolio", false, TrendingUp),
   mk("Tax Event Identifier", "Identify taxable events", "Portfolio", false, Receipt),
-  mk("Tax Summary Builder", "Build offline tax summaries", "Portfolio", false, Wallpaper),
+  mk("Tax Summary Builder", "Build offline tax summaries", "Portfolio", false, Landmark),
 
   // Education (10)
   mk("Blockchain Block Structure Visualizer", "Visualize block structure", "Education", false, Eye),
@@ -122,22 +122,22 @@ export const TOOLS: Tool[] = [
   mk("Proof of Stake Concept Explainer", "Visual PoS explainer", "Education", false, Lightbulb),
   mk("Consensus Mechanism Comparison Tool", "Compare consensus mechanisms", "Education", false, GitCompare),
   mk("Hash Rate Reference Tool", "Hash rate reference", "Education", false, Hash),
-  mk("Blockchain Fork Explainer", "Visual fork explainer", "Education", false, WalletCards),
+  mk("Blockchain Fork Explainer", "Visual fork explainer", "Education", false, GitFork),
   mk("Layer 1 vs Layer 2 Comparison Matrix", "Compare L1/L2", "Education", false, Grid3x3),
   mk("Cross-Chain Bridge Reference", "Bridge reference", "Education", false, BookOpen),
-  mk("Gas Optimization Reference", "Gas optimization tips", "Education", false, Wallet2),
+  mk("Gas Optimization Reference", "Gas optimization tips", "Education", false, Activity),
   mk("Network Fee Comparison Tool", "Compare network fees", "Education", false, Wallet),
 
   // Utilities (10)
   mk("Hex to Decimal Converter Ethereum", "Convert hex ↔ decimal", "Utilities", true, ArrowRightLeft),
-  mk("Wei to ETH Unit Converter", "Convert wei ↔ ETH", "Utilities", true, Vote),
-  mk("Gwei to ETH Converter", "Convert gwei ↔ ETH", "Utilities", true, VolumeX),
-  mk("Satoshi to Bitcoin Converter", "Convert sats ↔ BTC", "Utilities", true, Volume2),
+  mk("Wei to ETH Unit Converter", "Convert wei ↔ ETH", "Utilities", true, ArrowDownUp),
+  mk("Gwei to ETH Converter", "Convert gwei ↔ ETH", "Utilities", true, ArrowLeftRight),
+  mk("Satoshi to Bitcoin Converter", "Convert sats ↔ BTC", "Utilities", true, Bitcoin),
   mk("Token Decimal Normalizer", "Normalize token decimals", "Utilities", true, Coins),
   mk("Unix Timestamp to Block Reference", "Timestamp → block reference", "Utilities", false, BookOpen),
-  mk("Blockchain Unit Reference Browser", "Browse blockchain units", "Utilities", false, Volume1),
+  mk("Blockchain Unit Reference Browser", "Browse blockchain units", "Utilities", false, Scale),
   mk("Token Supply Dilution Estimator", "Estimate supply dilution", "Utilities", false, Scale),
-  mk("Block Reward Reference", "Block reward reference", "Utilities", false, Volume),
+  mk("Block Reward Reference", "Block reward reference", "Utilities", false, Gift),
   mk("Crypto Glossary Browser", "Browse crypto glossary", "Utilities", false, Globe),
 ];
 
