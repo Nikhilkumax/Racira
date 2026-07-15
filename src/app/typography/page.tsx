@@ -44,24 +44,28 @@ export default function Index() {
                 <span className="text-xs text-muted-foreground">{cat.tools.length} tools</span>
               </div>
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                {cat.tools.map((tool) => (
-                  <Link
-                    key={tool.slug}
-                    href={`/typography/tools/${tool.slug}`}
-                    className="tool-card group hover:-translate-y-[3px] hover:border-primary/40 hover:shadow-[0_8px_24px_hsl(var(--ring)/0.1)]"
-                  >
-                    {!tool.built && (
-                      <span className="absolute right-3 top-3 rounded-md bg-muted px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
-                        Soon
-                      </span>
-                    )}
-                    <div className="mb-4 grid h-10 w-10 place-items-center rounded-xl bg-primary/10 text-primary">
-                      <span className="font-serif text-xl font-bold leading-none">Aa</span>
-                    </div>
-                    <h3 className="font-semibold text-foreground leading-snug">{tool.name}</h3>
-                    <p className="mt-1 text-sm text-muted-foreground line-clamp-2">{tool.desc}</p>
-                  </Link>
-                ))}
+                {cat.tools.map((tool) => {
+                  const Icon = (tool as any).icon as React.ComponentType<{ className?: string }>;
+                  const isLive = (tool as any).status === "live";
+                  return (
+                    <Link
+                      key={tool.slug}
+                      href={`/typography/tools/${tool.slug}`}
+                      className="tool-card group hover:-translate-y-[3px] hover:border-primary/40 hover:shadow-[0_8px_24px_hsl(var(--ring)/0.1)] relative"
+                    >
+                      {!isLive && (
+                        <span className="absolute right-3 top-3 rounded-md bg-muted px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+                          Soon
+                        </span>
+                      )}
+                      <div className="mb-4 grid h-10 w-10 place-items-center rounded-xl bg-primary/10 text-primary">
+                        <Icon className="h-5 w-5" />
+                      </div>
+                      <h3 className="font-semibold text-foreground leading-snug">{tool.name}</h3>
+                      <p className="mt-1 text-sm text-muted-foreground line-clamp-2">{tool.desc}</p>
+                    </Link>
+                  );
+                })}
               </div>
             </div>
           ))}

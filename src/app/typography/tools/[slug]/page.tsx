@@ -52,7 +52,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
             </h1>
             <p className="mt-2 text-muted-foreground">{tool.desc}</p>
           </div>
-          {tool.built ? (
+          {tool.status === "live" ? (
             <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary">
               Live
             </span>
@@ -63,7 +63,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
           )}
         </div>
 
-        {tool.built ? <FontPreviewer /> : <ComingSoon name={tool.name} />}
+        {tool.status === "live" ? <FontPreviewer /> : <ComingSoon name={tool.name} />}
       </main>
       <SiteFooter />
     </div>
