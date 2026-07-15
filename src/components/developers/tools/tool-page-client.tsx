@@ -31,22 +31,10 @@ export function ToolPageClient({
 
   const definition: ToolDefinition = useMemo(() => {
     const registered = getTool(serverTool.slug);
-    if (registered) return registered;
-    // Generic fallback: echo input with a clear note. Ensures *every*
-    // catalog tool produces real, copyable output even before a dedicated
-    // implementation exists.
-    return {
-      slug: serverTool.slug,
-      mode: "text",
-      live: true,
-      transform: ({ input }) =>
-        input
-          ? {
-              output: input,
-              info: "Generic pass-through — a dedicated implementation is coming soon.",
-            }
-          : { output: "" },
-    };
+    if (!registered) {
+      throw new Error(`Tool definition not found in registry for: ${serverTool.slug}`);
+    }
+    return registered;
   }, [serverTool.slug]);
 
   return (
