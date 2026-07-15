@@ -73,7 +73,7 @@ export default function Home() {
                     href={`/education/tool/${t.slug}`}
                     className="tool-card group"
                   >
-                    {!t.built && (
+                    {t.status !== "live" && (
                       <span className="absolute top-3 right-3 rounded-md bg-muted px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
                         Soon
                       </span>

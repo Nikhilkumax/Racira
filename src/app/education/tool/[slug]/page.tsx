@@ -56,7 +56,7 @@ export default async function ToolPage({ params }: PageProps) {
           </div>
         </div>
 
-        {tool.built ? (
+        {tool.status === "live" ? (
           <div className="rounded-xl border bg-card p-6">
             <ToolRenderer slug={tool.slug} />
           </div>

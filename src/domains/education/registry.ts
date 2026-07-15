@@ -23,7 +23,7 @@ import {
   Flame, Plane,
   Flag, Briefcase, Medal, HeartHandshake, ClipboardSignature,
   Film, Code,
-  type LucideIcon,
+  type LucideIcon, StickyNote, BrainCircuit, Route, Orbit, Table2, ArrowRightToLine, Crosshair, MoveUpRight, Blocks, Calculator, LayoutTemplate, LayoutGrid, WholeWord, Speech,
 } from "lucide-react";
 
 const TimerIcon = Timer;
@@ -38,7 +38,7 @@ export type Tool = {
   name: string;
   desc: string;
   icon: LucideIcon;
-  built?: boolean;
+  status: "live" | "soon";
 };
 
 export type Category = {
@@ -51,7 +51,7 @@ const slug = (s: string) =>
   s.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
 const mk = (name: string, desc: string, icon: LucideIcon, built = false): Tool => ({
-  slug: slug(name), name, desc, icon, built,
+  slug: slug(name), name, desc, icon, status: built ? "live" : "soon",
 });
 
 export const categories: Category[] = [
@@ -77,14 +77,14 @@ export const categories: Category[] = [
     id: "study-tools",
     name: "Study Tools",
     tools: [
-      mk("Flashcard Creator", "Create and study flashcards", Layers3, true),
+      mk("Flashcard Creator", "Create and study flashcards", StickyNote, true),
       mk("Spaced Repetition Scheduler", "Schedule cards with SM-2 style review", Repeat),
       mk("Cornell Notes Template", "Cornell note-taking layout", NotebookPen, true),
       mk("Study Schedule Builder", "Block out your study week", CalendarClock),
       mk("Pomodoro Study Timer", "Focus timer with breaks", Timer, true),
-      mk("Active Recall Practice Tool", "Self-quiz from your notes", Brain),
+      mk("Active Recall Practice Tool", "Self-quiz from your notes", BrainCircuit),
       mk("Concept Map Builder", "Connect ideas visually", Network),
-      mk("Mind Map Study Tool", "Branching study mind maps", Network),
+      mk("Mind Map Study Tool", "Branching study mind maps", Route),
       mk("Reading Comprehension Builder", "Comprehension question sets", BookOpenText),
       mk("Study Group Planner", "Coordinate group study sessions", Users),
       mk("Exam Countdown Timer", "Days, hours, minutes to exam", Hourglass, true),
@@ -100,12 +100,12 @@ export const categories: Category[] = [
       mk("Periodic Table Explorer", "Interactive periodic table", Atom, true),
       mk("Molecular Viewer", "3D molecule viewer in browser", Boxes),
       mk("Chemical Equation Balancer", "Balance chemistry equations", FlaskConical, true),
-      mk("Atom Builder", "Build atoms with protons and electrons", Atom),
+      mk("Atom Builder", "Build atoms with protons and electrons", Orbit),
       mk("Cell Biology Explorer", "Explore cell organelles", Microscope),
       mk("DNA Sequence Visualizer", "Visualize DNA strands", Dna),
-      mk("Genetics Punnett Square Tool", "Cross alleles instantly", Grid3x3, true),
+      mk("Genetics Punnett Square Tool", "Cross alleles instantly", Table2, true),
       mk("Physics Formula Reference", "Searchable physics formulas", Sigma),
-      mk("Force Diagram Builder", "Draw free-body diagrams", MoveRight),
+      mk("Force Diagram Builder", "Draw free-body diagrams", ArrowRightToLine),
       mk("Circuit Diagram Simulator", "Simple circuit sandbox", Zap),
       mk("Wave Properties Visualizer", "Wavelength, frequency, amplitude", Activity),
       mk("Light Refraction Simulator", "Snell's law visual", Sun),
@@ -119,15 +119,15 @@ export const categories: Category[] = [
     tools: [
       mk("Function Grapher", "Graph y = f(x) functions", LineChart, true),
       mk("Geometry Shape Explorer", "Areas, perimeters, properties", Shapes),
-      mk("Coordinate Plane Tool", "Plot points on the plane", Grid3x3),
-      mk("Vector Visualizer", "Visualize 2D vectors", MoveRight),
+      mk("Coordinate Plane Tool", "Plot points on the plane", Crosshair),
+      mk("Vector Visualizer", "Visualize 2D vectors", MoveUpRight),
       mk("Matrix Operations Visualizer", "Add, multiply matrices", Table),
       mk("Statistics Distribution Viewer", "Normal, binomial and more", BarChart3),
       mk("Probability Simulator", "Coin, dice and card sims", Dice5),
       mk("Number Line Tool", "Visual number line", Ruler),
       mk("Fraction Visual Builder", "See fractions as parts", PieChart),
-      mk("Algebra Tile Simulator", "Model algebra with tiles", Shapes),
-      mk("Times Table Visualizer", "12x12 multiplication table", Grid3x3, true),
+      mk("Algebra Tile Simulator", "Model algebra with tiles", Blocks),
+      mk("Times Table Visualizer", "12x12 multiplication table", Calculator, true),
       mk("Long Division Tool", "Step-by-step long division", Divide, true),
       mk("Prime Factor Tree Builder", "Factor any number", GitBranch, true),
       mk("Venn Diagram Tool", "Set intersections visually", CircleDot),
@@ -144,7 +144,7 @@ export const categories: Category[] = [
       mk("Sentence Structure Diagrammer", "Diagram a sentence", AlignLeft),
       mk("Literary Devices Reference", "Metaphor, simile, irony…", Sparkles),
       mk("Figurative Language Identifier", "Spot devices in text", Palette),
-      mk("Story Structure Planner", "Plan plot and arc", BookOpenText),
+      mk("Story Structure Planner", "Plan plot and arc", LayoutTemplate),
       mk("Essay Outline Builder", "Outline an essay quickly", PenLine, true),
       mk("Research Paper Template", "Academic paper scaffold", FilePen),
       mk("Annotation Tool", "Highlight and annotate text", Highlighter),
@@ -219,7 +219,7 @@ export const categories: Category[] = [
       mk("Sensory Profile Planner", "Plan sensory supports", Gauge),
       mk("Accommodation Planner", "Plan accommodations", Settings2),
       mk("IEP Progress Monitor", "Track IEP goal progress", TrendingUpIcon),
-      mk("AAC Symbol Chart Maker", "Create AAC symbol grids", Grid3x3),
+      mk("AAC Symbol Chart Maker", "Create AAC symbol grids", LayoutGrid),
       mk("Transition Plan Builder", "Plan student transitions", ArrowRightLeft),
     ],
   },
@@ -245,12 +245,12 @@ export const categories: Category[] = [
     tools: [
       mk("Vocabulary Flashcard Builder", "Bilingual flashcards", Languages, true),
       mk("Conjugation Practice Tool", "Practice verb conjugations", GitMerge),
-      mk("Sentence Translation Builder", "Build translation drills", ArrowRightLeft),
+      mk("Sentence Translation Builder", "Build translation drills", WholeWord),
       mk("Pronunciation Guide", "IPA pronunciation helper", Volume2),
       mk("Language Level Self-Assessor", "Estimate your CEFR level", AwardIcon),
       mk("Grammar Drill Builder", "Targeted grammar drills", Dumbbell),
       mk("Language Exchange Plan Template", "Plan exchange sessions", HandshakeIcon),
-      mk("Duolingo-Style Drill Builder", "Bite-sized language drills", Repeat),
+      mk("Duolingo-Style Drill Builder", "Bite-sized language drills", Speech),
       mk("Language Learning Streak Tracker", "Track daily streaks", Flame),
       mk("Immersion Schedule Planner", "Plan immersion blocks", Plane),
     ],
