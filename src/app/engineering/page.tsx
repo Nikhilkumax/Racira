@@ -14,7 +14,7 @@ export default function Index() {
       .filter((group) => activeCat === "all" || group.category.id === activeCat)
       .filter((group) => group.items.length > 0);
 
-  const liveCount = tools.filter((t) => (t as any).built).length;
+  const liveCount = tools.filter((t) => t.status === "live").length;
 
   return (
     <>

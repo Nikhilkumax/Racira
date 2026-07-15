@@ -9,7 +9,7 @@ export function ToolCard({ tool }: { tool: Tool }) {
       href={`/engineering/tool/${tool.slug}`}
       className="tool-card group"
     >
-      {!tool.built && (
+      {tool.status !== "live" && (
         <span className="tool-card-badge">Soon</span>
       )}
       <div className="tool-card-icon">
