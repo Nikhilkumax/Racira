@@ -45,7 +45,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
         </header>
 
         <div className="mt-10">
-          {Comp ? <Comp /> : <ComingSoon name={tool.name} />}
+          {tool.status === "live" && Comp ? <Comp /> : <ComingSoon name={tool.name} />}
         </div>
       </div>
     </div>

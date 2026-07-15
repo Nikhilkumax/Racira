@@ -5,7 +5,7 @@ import { useMemo, useState } from "react";
 import Header from "@/components/Header";
 import Link from "next/link";
 import { Search, ArrowRight, Aperture, Sparkles } from "lucide-react";
-import { CATEGORIES, ALL_TOOLS, SEARCH_REGISTRY } from "@/domains/photo/registry";
+import { CATEGORIES, ALL_TOOLS, SEARCH_REGISTRY, type Tool } from "@/domains/photo/registry";
 
 
 export default function Home() {
@@ -52,7 +52,7 @@ export default function Home() {
                 </div>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
                   {c.tools.map((t) => (
-                    <ToolCard key={(t as any).slug} slug={(t as any).slug} name={(t as any).name} description={(t as any).description} built={(t as any).built} />
+                    <ToolCard key={t.slug} tool={t} />
                   ))}
                 </div>
               </section>
@@ -74,28 +74,31 @@ function SearchResults({ results }: { results: typeof ALL_TOOLS }) {
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
       {results.map((t) => (
-        <ToolCard key={(t as any).slug} slug={(t as any).slug} name={(t as any).name} description={(t as any).description} built={(t as any).built} />
+        <ToolCard key={t.slug} tool={t} />
       ))}
     </div>
   );
 }
 
-function ToolCard({ slug, name, description, built }: { slug: string; name: string; description: string; built?: boolean }) {
+function ToolCard({ tool }: { tool: Tool }) {
+  const Icon = tool.icon as React.ComponentType<{ className?: string }>;
+  const isLive = tool.status === "live";
+
   return (
     <Link
-      href={`/photo/tool/${slug}`}
-      className="tool-card group"
+      href={`/photo/tool/${tool.slug}`}
+      className="tool-card group relative"
     >
-      {!built && (
+      {!isLive && (
         <span className="absolute right-3 top-3 rounded-md bg-muted px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
           Soon
         </span>
       )}
       <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
-        <Aperture className="h-5 w-5" />
+        <Icon className="h-5 w-5" />
       </div>
-      <h3 className="font-semibold text-foreground leading-snug">{name}</h3>
-      <p className="mt-1 text-sm text-muted-foreground line-clamp-2">{description}</p>
+      <h3 className="font-semibold text-foreground leading-snug">{tool.name}</h3>
+      <p className="mt-1 text-sm text-muted-foreground line-clamp-2">{tool.description}</p>
     </Link>
   );
 }
