@@ -111,7 +111,13 @@ const AngleConverter = () => {
               <input type="number" value={value} onChange={(e) => setValue(e.target.value)} className="w-full h-12 px-3 text-2xl rounded-md border border-input bg-background outline-none focus:ring-2 focus:ring-primary/20 font-bold" placeholder="Enter angle" />
             </div>
             <div className="flex gap-3">
-              <button onClick={() => calculate()} className="flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors">Calculate</button>
+              <button
+                type="button"
+                onClick={() => calculate()}
+                className="h-10 w-full flex-1 flex items-center justify-center rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold text-base transition-all active:scale-[0.98] shadow-sm"
+              >
+                Calculate
+              </button>
               <button onClick={reset} className="h-10 w-10 border border-border rounded-md flex items-center justify-center hover:bg-secondary transition-colors" aria-label="Reset">
                 <RotateCcw className="w-4 h-4" />
               </button>
@@ -188,14 +194,22 @@ const AngleConverter = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">What Is an Angle Converter?</h2>
-            <p>An angle converter converts between all common angular units: degrees, radians, gradians, turns, arcminutes, arcseconds, and milliradians. Pre-filled at 45° — a fundamental angle that equals π/4 radians, 50 gradians, 1/8 turn, 2700 arcminutes, and 785.4 milliradians. The calculator also computes sin, cos, and tan for the converted angle.</p>
-            <h2 className="text-2xl font-bold mb-3">Degrees vs Radians</h2>
-            <p>Degrees divide a circle into 360 equal parts (a Babylonian convention based on their base-60 number system). Radians define angle by arc length: 1 radian = the angle where arc length equals the radius. Since circumference = 2πr, a full circle = 2π radians = 360°. Conversion: radians = degrees × π/180, degrees = radians × 180/π.</p>
-            <h2 className="text-2xl font-bold mb-3">Gradians in Surveying</h2>
-            <p>Gradians (gons) divide a circle into 400 parts, making right angles exactly 100 grad. Created during the French Revolution as part of the metric system. Still used in surveying, especially in Europe. A theodolite reading of 200.0000 grad means due south. Gradians simplify calculations when dealing with perpendiculars, since a right turn is exactly 100 grad.</p>
-            <h2 className="text-2xl font-bold mb-3">Arcminutes and Arcseconds in Astronomy</h2>
-            <p>Astronomers use the sexagesimal (base-60) system: degrees, arcminutes, arcseconds (DMS). Betelgeuse has an angular diameter of ~56 milliarcseconds — the smallest angle resolvable by early VLBI. The Hubble Space Telescope can resolve about 0.05 arcseconds. GPS coordinates are typically given in decimal degrees (e.g., 40.7128°N) rather than DMS for computational convenience.</p>
+            <h2 className="text-2xl font-bold mb-3">Understanding Angular Measurement Systems</h2>
+            <p>An angle converter is an indispensable mathematical utility designed to translate angular measurements across all universally recognized systems: degrees, radians, gradians, turns, arcminutes, arcseconds, and milliradians. While angles fundamentally measure the same physical concept—the amount of rotation or separation between two intersecting lines—different fields of science, engineering, and mathematics have developed entirely different unit systems optimized for their specific computational needs. This calculator not only performs absolute conversions with high-precision floating-point arithmetic but also automatically computes the primary trigonometric functions (sine, cosine, and tangent) for the normalized angle, providing a comprehensive geometric profile in a single computational pass.</p>
+            
+            <h2 className="text-2xl font-bold mb-3">Degrees vs. Radians: The Fundamental Divide</h2>
+            <p>The most common angular unit in daily life is the degree, which divides a full circle into exactly three hundred and sixty equal parts. This system is largely a historical artifact, inherited from ancient Babylonian astronomers who utilized a sexagesimal (base-60) number system and observed that the solar year was approximately three hundred and sixty days long. While degrees are highly intuitive for human comprehension (e.g., a 90-degree right angle or a 180-degree U-turn), they are mathematically arbitrary.</p>
+            <p>In contrast, the radian is the 'natural' and mathematically pure unit of angular measurement. It defines an angle based on the physical arc length it creates along a circle's circumference. Specifically, one radian is the angle subtended at the center of a circle by an arc whose length is exactly equal to the circle's radius. Because the total circumference of a circle is calculated as two times Pi times the radius (2πr), a full circle contains exactly 2π radians. In advanced mathematics, physics, and calculus, radians are exclusively used because they are dimensionless quantities that drastically simplify derivatives and integrals. For example, the derivative of sine(x) is only cleanly cosine(x) if x is measured in radians; if x is in degrees, a messy conversion factor of π/180 must be introduced into the calculus.</p>
+            
+            <h2 className="text-2xl font-bold mb-3">Gradians in Civil Engineering and Surveying</h2>
+            <p>Gradians, also formally known as gons, were introduced during the French Revolution as part of a sweeping initiative to decimalize all systems of measurement. A gradian divides a full circle into exactly four hundred equal parts, which elegantly makes a perfect right angle exactly one hundred gradians. While the gradian failed to replace the 360-degree system in general public use, it remains a heavily utilized standard in European civil engineering, topography, and land surveying. Modern electronic theodolites and total stations often default to outputting measurements in gradians because calculating perpendicular offsets and right-angle turns is significantly less prone to arithmetic error when working with base-100 mathematics.</p>
+            
+            <h2 className="text-2xl font-bold mb-3">Precision Navigation: Arcminutes and Arcseconds</h2>
+            <p>When measuring vast distances, such as in global maritime navigation or deep-space astronomy, the standard degree is far too blunt an instrument. To achieve high precision, degrees are subdivided using the ancient base-60 system. A single degree is split into sixty equal arcminutes, and each arcminute is further subdivided into sixty equal arcseconds (meaning there are 3,600 arcseconds in a single degree). </p>
+            <p>To understand the scale of an arcsecond, consider that from the surface of the Earth, the entire Moon spans approximately thirty-one arcminutes. The Hubble Space Telescope is capable of resolving astronomical details as minuscule as 0.05 arcseconds—roughly equivalent to seeing a firefly in Tokyo from the city of New York. In traditional celestial navigation, one arcminute of latitude measured on the Earth's surface corresponds exactly to one standard nautical mile, demonstrating why these units remain critical in marine and aerospace environments.</p>
+
+            <h2 className="text-2xl font-bold mb-3">Milliradians in Ballistics and Optics</h2>
+            <p>Milliradians (often abbreviated as mrads or MILs) are heavily utilized in military applications, long-range precision shooting, and artillery targeting. A milliradian is simply one-thousandth of a standard radian. The power of the milliradian lies in its proportional relationship to distance: one milliradian of angular deviation subtends exactly one unit of physical size at a distance of one thousand identical units. For example, if a target is precisely one thousand meters away, an optical adjustment of one milliradian will shift the point of impact by exactly one meter. This direct, mathematical correlation allows marksmen and forward observers to rapidly calculate range to targets of known sizes without relying on complex trigonometric tables or laser rangefinders.</p>
           </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/angle-converter" />
           <PopularCalculators exclude="/calculator/angle-converter" />

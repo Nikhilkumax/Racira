@@ -171,7 +171,7 @@ export default function AndroidVsGynoidEstimator() {
   useEffect(() => {
     handleCalculate();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [unitSystem, gender, waist, hip]);
+  }, []);
 
   const handlePrint = () => {
     if (!printRef.current) return;
@@ -243,9 +243,16 @@ export default function AndroidVsGynoidEstimator() {
               </div>
             )}
 
-            <div className="flex gap-3 mt-4 pt-4 border-t border-border">
-              <button type="button" onClick={handleReset} className="w-full rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center font-bold text-sm">
-                <RotateCcw className="h-4 w-4 mr-2" /> Reset Profile
+            <div className="flex gap-2.5 mt-4 pt-4 border-t border-border">
+              <button
+                type="button"
+                onClick={handleCalculate}
+                className="h-10 w-full flex-1 flex items-center justify-center rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold text-base transition-all active:scale-[0.98] shadow-sm"
+              >
+                Calculate
+              </button>
+              <button type="button" onClick={handleReset} title="Reset Profile" className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 focus:outline-none">
+                <RotateCcw className="h-4 w-4" />
               </button>
             </div>
           </div>

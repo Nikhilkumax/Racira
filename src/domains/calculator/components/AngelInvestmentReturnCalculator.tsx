@@ -183,7 +183,11 @@ export default function AngelInvestmentReturnCalculator() {
             </div>
 
             <div className="flex gap-3 mt-4">
-              <button type="button" onClick={handleCalculate} className="h-10 w-full flex-1 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center transition-colors">
+              <button
+                type="button"
+                onClick={handleCalculate}
+                className="h-10 w-full flex-1 flex items-center justify-center rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold text-base transition-all active:scale-[0.98] shadow-sm"
+              >
                 Calculate
               </button>
               <button type="button" onClick={handleReset} className="h-10 w-10 border border-border rounded-md flex items-center justify-center hover:bg-secondary transition-colors" aria-label="Reset">

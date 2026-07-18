@@ -192,6 +192,7 @@ export default function AmazonFbaCalculator() {
             {/* Action Buttons */}
             <div className="flex gap-2.5 mt-2.5">
               <button
+                type="button"
                 onClick={handleCalculate}
                 className="h-10 w-full flex-1 flex items-center justify-center rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold text-base transition-all active:scale-[0.98] shadow-sm"
               >
