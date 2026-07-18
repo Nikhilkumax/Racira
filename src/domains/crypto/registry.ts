@@ -1,6 +1,4 @@
-import {
-  CheckCircle2, ShieldCheck, Fingerprint, AlignLeft, Wallet, Wand2, ScanSearch, Route, BookOpen, KeySquare, ArrowRightLeft, Shrink, FileText, Folders, ListChecks, Hash, Search, Gauge, Calculator, LineChart, Eye, Lightbulb, Flag, Unlock, Lock, KeyRound, FileCode, Wrench, FileBadge, FileImage, FileBox, ScrollText, PenTool, Wind, Network, Key, Globe, Map, Sprout, Scale, FlagTriangleRight, Grid3x3, Image, Dna, Link, Fuel, Braces, Users, DollarSign, PieChart, TrendingUp, Receipt, Landmark, GitCompare, GitFork, Activity, ArrowDownUp, ArrowLeftRight, Bitcoin, Coins, Gift
-} from "lucide-react";
+import { Activity, AlignLeft, ArrowDownUp, ArrowLeftRight, ArrowRightLeft, Bitcoin, BookOpen, Braces, Calculator, CheckCircle2, Coins, Dna, DollarSign, Eye, FileBadge, FileBox, FileCode, FileImage, FileText, Fingerprint, Flag, FlagTriangleRight, Folders, Fuel, Gauge, Gift, GitCompare, GitFork, Globe, Grid3x3, Hash, Image, Key, KeyRound, KeySquare, Landmark, Lightbulb, LineChart, Link, ListChecks, Lock, Map, Network, PenTool, PieChart, Receipt, Route, Scale, ScanSearch, ScrollText, Search, ShieldCheck, Shrink, Sprout, TrendingUp, Unlock, Users, Wallet, Wand2, Wind, Wrench } from "lucide-react";
 
 
 export type Tool = {
@@ -12,8 +10,11 @@ export type Tool = {
   icon?: any;
 };
 
+import { toSlug } from "@/lib/utils/slug";
+export const slugify = toSlug;
+
 const mk = (name: string, desc: string, category: string, implemented = false, icon: any): Tool => ({
-  slug: name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""),
+  slug: slugify(name),
   name,
   desc,
   category,

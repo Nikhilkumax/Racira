@@ -1,20 +1,5 @@
 import React from "react";
-import {
-  MapPin, Globe, Mountain, Satellite, Map, Layers, Compass, Navigation,
-  Ruler, Square, Hexagon, Calculator, Search, Pin, Crosshair,
-  FileCode, FileText, Download, Upload, Repeat,
-  Activity, BarChart3, Filter, Target, Zap, Grid3x3, Waypoints,
-  Locate, Boxes, GitBranch, Wind, Droplets, Cloud,
-  Building2, TreePine, Camera, Share2, Code2, Box, Workflow,
-  Edit3, Palette, Tag, Type, Eye, CheckCircle2, Merge, Link2, Clock,
-  Flame, Triangle, Layers3, Grid2x2, Telescope, History,
-  Wifi, Radio, FileImage, FileType, Hash, Globe2,
-  Moon, Car, Bike, Ship, Image as ImageIcon, Move, PenTool,
-  Sparkles, Minimize2, GitCompare, Database, Shuffle, ArrowDownUp, Dna,
-  Gauge, Plane, Magnet, Sunrise, MapPinned, Trees, Waves, Lightbulb,
-  Film, HardDrive, CloudDownload, ScanLine, Wand2, Network,
-  AlertTriangle, Thermometer,
-} from "lucide-react";
+import { Activity, AlertTriangle, ArrowDownUp, BarChart3, Bike, Box, Boxes, Building2, Calculator, Camera, Car, CheckCircle2, Clock, Cloud, CloudDownload, Code2, Compass, Crosshair, Database, Dna, Download, Droplets, Edit3, Eye, FileCode, FileImage, FileText, FileType, Film, Filter, Flame, Gauge, GitBranch, GitCompare, Globe, Globe2, Grid2x2, Grid3x3, HardDrive, Hash, Hexagon, History, Image as ImageIcon, Layers, Layers3, Lightbulb, Link2, Locate, Magnet, Map, MapPin, MapPinned, Merge, Minimize2, Moon, Mountain, Move, Navigation, Network, Palette, PenTool, Pin, Plane, Radio, Repeat, Ruler, Satellite, ScanLine, Search, Share2, Ship, Shuffle, Sparkles, Square, Sunrise, Tag, Target, Telescope, Thermometer, TreePine, Trees, Triangle, Type, Upload, Wand2, Waves, Waypoints, Wifi, Wind, Workflow, Zap } from "lucide-react";
 
 import { Tool as BaseTool } from "@/domains/_types";
 export type Tool = BaseTool;

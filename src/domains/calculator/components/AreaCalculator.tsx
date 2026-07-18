@@ -85,7 +85,29 @@ const AreaCalculator = () => {
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <section className="prose-finance text-[15.75px]"><h2 className="text-2xl font-bold mb-3">Area Formulas</h2><p><strong>Rectangle:</strong> A = l × w | <strong>Circle:</strong> A = πr² | <strong>Triangle:</strong> A = ½bh | <strong>Trapezoid:</strong> A = ½(a+b)h | <strong>Ellipse:</strong> A = πab</p></section>
+          <section className="prose-finance text-[15.75px]">
+            <h2 className="text-2xl font-bold mb-3">Understanding Geometric Area</h2>
+            <p>In geometry, area represents the amount of two-dimensional space that a flat surface or shape occupies. It is universally measured in square units, such as square meters (m²), square feet (ft²), square inches (in²), or acres. Calculating the area of various shapes is one of the most fundamental concepts in mathematics, with countless practical applications in everyday life, construction, engineering, agriculture, and design.</p>
+            <p>Whether you are calculating how much paint you need for a bedroom wall, determining the square footage of a property you want to buy, figuring out how much fertilizer is required for a circular garden, or calculating the cross-sectional capacity of a pipe, you are using area calculations. Because the physical world is constructed from complex geometries, being able to break down irregular objects into basic mathematical shapes (like rectangles and triangles) allows you to solve almost any spatial problem.</p>
+            
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of Basic Shapes</h2>
+            <p>Every standard geometric shape has a specific formula derived from its unique properties:</p>
+            <ul>
+              <li><strong>Rectangle:</strong> The simplest shape to calculate. The area is simply the product of its length and width (A = l × w). If you have a room that is 10 feet long and 12 feet wide, the area is exactly 120 square feet. A square is just a special rectangle where all sides are equal.</li>
+              <li><strong>Triangle:</strong> A triangle is mathematically exactly half of a rectangle or parallelogram. Therefore, the area is half of its base multiplied by its vertical height (A = ½bh). It is critical to use the vertical height (straight up and down at a 90-degree angle to the base), not the slanted side lengths.</li>
+              <li><strong>Circle:</strong> The area of a circle depends entirely on its radius (the distance from the center to the edge) and the mathematical constant Pi (π, approximately 3.14159). The formula is A = πr². Because the radius is squared, doubling the size of a circle actually quadruples its total area.</li>
+            </ul>
+
+            <h2 className="text-2xl font-bold mb-3">Complex Shapes: Trapezoids and Ellipses</h2>
+            <p>Moving beyond basic geometry, we encounter shapes that require slightly more complex calculations:</p>
+            <ul>
+              <li><strong>Trapezoid:</strong> A trapezoid is a four-sided shape with only one pair of parallel sides (called the bases). Its area is found by taking the average of the two parallel bases and multiplying that average by the height (A = ½(a+b)h). This shape is incredibly common in architectural roofs and land plots.</li>
+              <li><strong>Ellipse:</strong> An ellipse is an elongated circle, often called an oval. Instead of a single radius, it has a semi-major axis (the longest distance from center to edge) and a semi-minor axis (the shortest distance). Its area is calculated by multiplying these two axes together with Pi (A = πab). This formula is essential in physics and astronomy for calculating planetary orbits.</li>
+            </ul>
+            
+            <h2 className="text-2xl font-bold mb-3">Practical Applications of Area</h2>
+            <p>In the real estate and construction industries, "square footage" (which is simply the area of the floor plan) is the primary metric used to determine property value. When laying flooring, installing carpets, or calculating roof shingles, professionals must factor in a "waste percentage" (usually 10%) on top of the calculated area to account for cuts and overlaps. In manufacturing, calculating the surface area of raw materials ensures minimal waste when cutting parts from sheet metal or fabric.</p>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/area-calculator" />
           <PopularCalculators exclude="/area-calculator" />
         </div>

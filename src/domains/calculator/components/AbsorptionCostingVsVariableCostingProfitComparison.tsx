@@ -6,20 +6,22 @@ import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
 import { RotateCcw, ChevronDown, CheckCircle2 } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer, Legend } from "recharts";
+import { LazyView } from "@/components/ui/LazyView";
 
 const DEFAULTS = {
   unitsProduced: "10000",
   unitsSold: "8000",
   sellingPrice: "50",
+  fixedOverhead: "60000",
+
+  showAdvanced: false,
   directMaterials: "10",
   directLabor: "8",
   variableOverhead: "2",
-  fixedOverhead: "60000",
-  
-  showAdvanced: false,
   fixedSellingAdmin: "30000",
   variableSellingAdmin: "3",
-  beginningInventory: "0"
+  beginningInventory: "0",
 };
 
 interface ResultType {
@@ -29,7 +31,9 @@ interface ResultType {
   fixedOverheadDeferred: number;
   endingInventory: number;
   fixedOverheadPerUnit: number;
-  
+  absorptionUnitCost: number;
+  variableUnitCost: number;
+
   absorptionIncomeStmt: {
     revenue: number;
     cogs: number;
@@ -44,6 +48,7 @@ interface ResultType {
     fixedCosts: number;
     netIncome: number;
   };
+  chartData: { name: string; absorption: number; variable: number }[];
 }
 
 function calculate(v: typeof DEFAULTS): ResultType {
@@ -54,7 +59,7 @@ function calculate(v: typeof DEFAULTS): ResultType {
   const dl = parseFloat(v.directLabor) || 0;
   const voh = parseFloat(v.variableOverhead) || 0;
   const foh = parseFloat(v.fixedOverhead) || 0;
-  
+
   const fsga = parseFloat(v.fixedSellingAdmin) || 0;
   const vsga = parseFloat(v.variableSellingAdmin) || 0;
   const begInv = parseFloat(v.beginningInventory) || 0;
@@ -64,24 +69,30 @@ function calculate(v: typeof DEFAULTS): ResultType {
   // Absorption Costing
   const fixedOverheadPerUnit = produced > 0 ? foh / produced : 0;
   const absorptionUnitCost = dm + dl + voh + fixedOverheadPerUnit;
-  
+
   const revenue = sold * price;
-  
-  // Assuming beginning inventory has same unit cost for simplicity
+
   const absorptionCogs = sold * absorptionUnitCost;
   const grossMargin = revenue - absorptionCogs;
-  const totalSga = fsga + (vsga * sold);
+  const totalSga = fsga + vsga * sold;
   const absorptionProfit = grossMargin - totalSga;
 
   // Variable Costing
   const variableUnitCost = dm + dl + voh;
   const variableCogs = sold * variableUnitCost;
-  const totalVariableCosts = variableCogs + (vsga * sold);
+  const totalVariableCosts = variableCogs + vsga * sold;
   const contributionMargin = revenue - totalVariableCosts;
   const variableProfit = contributionMargin - foh - fsga;
 
   const difference = absorptionProfit - variableProfit;
   const fixedOverheadDeferred = (endingInventory - begInv) * fixedOverheadPerUnit;
+
+  const chartData = [
+    { name: "Revenue", absorption: revenue, variable: revenue },
+    { name: "COGS / Var Costs", absorption: absorptionCogs, variable: totalVariableCosts },
+    { name: "Gross / Contrib Margin", absorption: grossMargin, variable: contributionMargin },
+    { name: "Net Income", absorption: absorptionProfit, variable: variableProfit },
+  ];
 
   return {
     absorptionProfit,
@@ -90,28 +101,49 @@ function calculate(v: typeof DEFAULTS): ResultType {
     fixedOverheadDeferred,
     endingInventory,
     fixedOverheadPerUnit,
+    absorptionUnitCost,
+    variableUnitCost,
     absorptionIncomeStmt: {
       revenue,
       cogs: absorptionCogs,
       grossMargin,
       sga: totalSga,
-      netIncome: absorptionProfit
+      netIncome: absorptionProfit,
     },
     variableIncomeStmt: {
       revenue,
       variableCosts: totalVariableCosts,
       contributionMargin,
       fixedCosts: foh + fsga,
-      netIncome: variableProfit
-    }
+      netIncome: variableProfit,
+    },
+    chartData,
   };
 }
 
-const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "number" }: any) => (
+const CompactInput = ({
+  id,
+  label,
+  value,
+  onChange,
+  prefix,
+  suffix,
+  type = "number",
+}: {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (val: string) => void;
+  prefix?: string;
+  suffix?: string;
+  type?: string;
+}) => (
   <div className="flex flex-col">
-    <label htmlFor={id} className="text-base font-medium mb-1.5 text-foreground">{label}</label>
+    <label htmlFor={id} className="text-sm font-medium mb-1 text-foreground">
+      {label}
+    </label>
     <div className="relative w-full flex items-center rounded-md border border-input bg-background h-10 shadow-sm focus-within:ring-2 focus-within:ring-primary/20">
-      {prefix && <span className="pl-3 pr-1 text-sm text-muted-foreground">{prefix}</span>}
+      {prefix && <span className="pl-3 pr-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{prefix}</span>}
       <input
         id={id}
         type={type}
@@ -119,7 +151,7 @@ const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "numb
         onChange={(e) => onChange(e.target.value)}
         className="w-full h-full px-3 py-1 text-base bg-transparent outline-none border-none text-foreground"
       />
-      {suffix && <span className="pr-3 pl-1 text-sm text-muted-foreground">{suffix}</span>}
+      {suffix && <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{suffix}</span>}
     </div>
   </div>
 );
@@ -127,19 +159,25 @@ const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "numb
 export default function AbsorptionCostingVsVariableCostingProfitComparison() {
   const [vals, setVals] = useState(DEFAULTS);
   const [result, setResult] = useState<ResultType | null>(null);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     setResult(calculate(vals));
   }, []);
 
   const handleCalculate = () => setResult(calculate(vals));
-  const reset = () => { setVals(DEFAULTS); setResult(calculate(DEFAULTS)); };
-  const updateVal = (key: keyof typeof DEFAULTS, val: any) => setVals(prev => ({ ...prev, [key]: val }));
+  const reset = () => {
+    setVals(DEFAULTS);
+    setResult(calculate(DEFAULTS));
+  };
+  const updateVal = (key: keyof typeof DEFAULTS, val: string | boolean) =>
+    setVals((prev) => ({ ...prev, [key]: val }));
 
   const faqs = [
     { question: "What is Absorption Costing?", answer: "Absorption costing includes all manufacturing costs (direct materials, direct labor, variable overhead, and fixed overhead) in the cost of a product. It is required by GAAP for external financial reporting." },
     { question: "What is Variable Costing?", answer: "Variable costing includes only variable manufacturing costs in the product cost. Fixed overhead is treated as a period expense and deducted in full on the income statement. It is used for internal decision-making." },
-    { question: "Why do the profits differ?", answer: "Profits differ when units produced do not equal units sold. Under absorption costing, some fixed overhead is deferred in ending inventory, increasing profit. Under variable costing, all fixed overhead is expensed immediately." }
+    { question: "Why do the profits differ?", answer: "Profits differ when units produced do not equal units sold. Under absorption costing, some fixed overhead is deferred in ending inventory, increasing profit. Under variable costing, all fixed overhead is expensed immediately." },
   ];
 
   return (
@@ -147,96 +185,226 @@ export default function AbsorptionCostingVsVariableCostingProfitComparison() {
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Finance", href: "/calculator#finance" }, { label: "Absorption vs Variable Costing" }]} />
       <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Absorption vs Variable Costing Profit Comparison</h1>
-        
-        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card rounded-xl">
-            <div className="grid grid-cols-2 gap-4">
-              <CompactInput id="prod" label="Units Produced" value={vals.unitsProduced} onChange={(v: string) => updateVal('unitsProduced', v)} />
-              <CompactInput id="sold" label="Units Sold" value={vals.unitsSold} onChange={(v: string) => updateVal('unitsSold', v)} />
-              <CompactInput id="price" label="Selling Price / Unit" value={vals.sellingPrice} onChange={(v: string) => updateVal('sellingPrice', v)} prefix="$" />
-              <CompactInput id="dm" label="Direct Materials / Unit" value={vals.directMaterials} onChange={(v: string) => updateVal('directMaterials', v)} prefix="$" />
-              <CompactInput id="dl" label="Direct Labor / Unit" value={vals.directLabor} onChange={(v: string) => updateVal('directLabor', v)} prefix="$" />
-              <CompactInput id="voh" label="Variable OH / Unit" value={vals.variableOverhead} onChange={(v: string) => updateVal('variableOverhead', v)} prefix="$" />
-            </div>
-            <CompactInput id="foh" label="Total Fixed Mfg Overhead" value={vals.fixedOverhead} onChange={(v: string) => updateVal('fixedOverhead', v)} prefix="$" />
 
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
+          {/* Left Column - Inputs */}
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card rounded-xl">
+            <div className="grid grid-cols-2 gap-3">
+              <CompactInput id="prod" label="Units Produced" value={vals.unitsProduced} onChange={(v: string) => updateVal("unitsProduced", v)} />
+              <CompactInput id="sold" label="Units Sold" value={vals.unitsSold} onChange={(v: string) => updateVal("unitsSold", v)} />
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <CompactInput id="price" label="Selling Price / Unit" value={vals.sellingPrice} onChange={(v: string) => updateVal("sellingPrice", v)} prefix="$" />
+              <CompactInput id="foh" label="Fixed Mfg Overhead" value={vals.fixedOverhead} onChange={(v: string) => updateVal("fixedOverhead", v)} prefix="$" />
+            </div>
+
+            {/* Advanced Options */}
             <div>
               <button
                 type="button"
-                onClick={() => updateVal('showAdvanced', !vals.showAdvanced)}
-                className="flex items-center gap-1.5 text-sm font-medium text-primary hover:underline mt-3"
+                onClick={() => updateVal("showAdvanced", !vals.showAdvanced)}
+                className="flex items-center gap-1.5 text-sm font-medium text-primary hover:underline mt-1 focus:outline-none"
               >
-                Professional Mode (SG&A) {vals.showAdvanced ? <ChevronDown className="h-3 w-3 rotate-180" /> : <ChevronDown className="h-3 w-3" />}
+                Advanced Options
+                <ChevronDown className={`h-3 w-3 transition-transform ${vals.showAdvanced ? "rotate-180" : ""}`} />
               </button>
-              
+
               {vals.showAdvanced && (
-                <div className="grid grid-cols-1 gap-4 p-4 rounded-lg bg-secondary/20 border border-border mt-3">
-                  <CompactInput id="fsga" label="Fixed Selling & Admin" value={vals.fixedSellingAdmin} onChange={(v: string) => updateVal('fixedSellingAdmin', v)} prefix="$" />
-                  <CompactInput id="vsga" label="Variable SG&A / Unit" value={vals.variableSellingAdmin} onChange={(v: string) => updateVal('variableSellingAdmin', v)} prefix="$" />
-                  <CompactInput id="begInv" label="Beginning Inventory (Units)" value={vals.beginningInventory} onChange={(v: string) => updateVal('beginningInventory', v)} />
+                <div className="flex flex-col gap-4 p-4 rounded-lg bg-secondary/20 border border-border mt-3">
+                  <div>
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Per-Unit Manufacturing Costs</div>
+                    <div className="grid grid-cols-2 gap-3">
+                      <CompactInput id="dm" label="Direct Materials / Unit" value={vals.directMaterials} onChange={(v: string) => updateVal("directMaterials", v)} prefix="$" />
+                      <CompactInput id="dl" label="Direct Labor / Unit" value={vals.directLabor} onChange={(v: string) => updateVal("directLabor", v)} prefix="$" />
+                      <CompactInput id="voh" label="Variable OH / Unit" value={vals.variableOverhead} onChange={(v: string) => updateVal("variableOverhead", v)} prefix="$" />
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Selling & Admin Expenses</div>
+                    <div className="grid grid-cols-2 gap-3">
+                      <CompactInput id="fsga" label="Fixed SG&A" value={vals.fixedSellingAdmin} onChange={(v: string) => updateVal("fixedSellingAdmin", v)} prefix="$" />
+                      <CompactInput id="vsga" label="Variable SG&A / Unit" value={vals.variableSellingAdmin} onChange={(v: string) => updateVal("variableSellingAdmin", v)} prefix="$" />
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Inventory</div>
+                    <div className="grid grid-cols-2 gap-3">
+                      <CompactInput id="begInv" label="Beginning Inventory (Units)" value={vals.beginningInventory} onChange={(v: string) => updateVal("beginningInventory", v)} />
+                    </div>
+                  </div>
                 </div>
               )}
             </div>
 
-            <div className="flex gap-2.5 mt-2">
-              <button onClick={handleCalculate} className="h-10 w-full flex-1 flex items-center justify-center rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold text-base transition-all active:scale-[0.98] shadow-sm">
+            {/* Action Buttons */}
+            <div className="flex gap-2.5 mt-2.5">
+              <button
+                type="button"
+                onClick={handleCalculate}
+                className="h-10 w-full flex-1 flex items-center justify-center rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold text-base transition-all active:scale-[0.98] shadow-sm"
+              >
                 Calculate
               </button>
-              <button onClick={reset} className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground flex items-center justify-center shrink-0">
+              <button
+                onClick={reset}
+                className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 focus:outline-none"
+                aria-label="Reset"
+              >
                 <RotateCcw className="h-4 w-4" />
               </button>
             </div>
           </div>
 
+          {/* Right Column - Results */}
           <div className="flex flex-col gap-4">
             {result && (
               <>
-                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 flex flex-col sm:flex-row gap-4 justify-between items-center">
-                  <div className="text-center sm:text-left">
-                    <div className="text-xs uppercase tracking-wide text-muted-foreground">Absorption Profit</div>
-                    <div className="text-4xl font-bold text-primary my-1">${result.absorptionProfit.toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2})}</div>
+                {/* Component 1: Primary Result Card */}
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Profit Difference</div>
+                  <div className="text-4xl font-bold text-primary my-1">
+                    ${Math.abs(result.difference).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                   </div>
-                  <div className="h-10 w-px bg-primary/20 hidden sm:block"></div>
-                  <div className="text-center sm:text-left">
-                    <div className="text-xs uppercase tracking-wide text-muted-foreground">Variable Profit</div>
-                    <div className="text-4xl font-bold text-primary my-1">${result.variableProfit.toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2})}</div>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="bg-card border border-border rounded-lg p-4">
-                    <h3 className="text-sm font-bold text-foreground mb-3 border-b border-border pb-2">Absorption Costing (GAAP)</h3>
-                    <div className="space-y-1.5 text-sm">
-                      <div className="flex justify-between"><span className="text-muted-foreground">Revenue</span><span>${result.absorptionIncomeStmt.revenue.toLocaleString()}</span></div>
-                      <div className="flex justify-between"><span className="text-muted-foreground">Less: COGS</span><span>${result.absorptionIncomeStmt.cogs.toLocaleString()}</span></div>
-                      <div className="flex justify-between font-bold border-t border-border/50 pt-1.5"><span className="text-foreground">Gross Margin</span><span>${result.absorptionIncomeStmt.grossMargin.toLocaleString()}</span></div>
-                      <div className="flex justify-between"><span className="text-muted-foreground">Less: SG&A</span><span>${result.absorptionIncomeStmt.sga.toLocaleString()}</span></div>
-                      <div className="flex justify-between font-bold border-t border-border/50 pt-1.5 text-primary"><span className="text-foreground">Net Income</span><span>${result.absorptionIncomeStmt.netIncome.toLocaleString()}</span></div>
-                    </div>
-                  </div>
-                  
-                  <div className="bg-card border border-border rounded-lg p-4">
-                    <h3 className="text-sm font-bold text-foreground mb-3 border-b border-border pb-2">Variable Costing (Internal)</h3>
-                    <div className="space-y-1.5 text-sm">
-                      <div className="flex justify-between"><span className="text-muted-foreground">Revenue</span><span>${result.variableIncomeStmt.revenue.toLocaleString()}</span></div>
-                      <div className="flex justify-between"><span className="text-muted-foreground">Less: Var Costs</span><span>${result.variableIncomeStmt.variableCosts.toLocaleString()}</span></div>
-                      <div className="flex justify-between font-bold border-t border-border/50 pt-1.5"><span className="text-foreground">Contribution Margin</span><span>${result.variableIncomeStmt.contributionMargin.toLocaleString()}</span></div>
-                      <div className="flex justify-between"><span className="text-muted-foreground">Less: Fixed Costs</span><span>${result.variableIncomeStmt.fixedCosts.toLocaleString()}</span></div>
-                      <div className="flex justify-between font-bold border-t border-border/50 pt-1.5 text-primary"><span className="text-foreground">Net Income</span><span>${result.variableIncomeStmt.netIncome.toLocaleString()}</span></div>
-                    </div>
+                  <div className="text-sm text-muted-foreground">
+                    {result.difference > 0
+                      ? "Absorption costing reports higher income (inventory built up)"
+                      : result.difference < 0
+                        ? "Variable costing reports higher income (inventory drawn down)"
+                        : "Profits are identical (production = sales)"}
                   </div>
                 </div>
 
+                {/* Component 2: 3-Stat Bar */}
+                <div className="grid grid-cols-3 gap-3">
+                  <div className="bg-secondary/40 border border-border rounded-lg p-3 text-center">
+                    <div className="text-xs font-bold text-muted-foreground mb-1 uppercase">Absorption Profit</div>
+                    <div className="text-lg font-bold text-emerald-600">
+                      ${result.absorptionProfit.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+                    </div>
+                  </div>
+                  <div className="bg-secondary/40 border border-border rounded-lg p-3 text-center">
+                    <div className="text-xs font-bold text-muted-foreground mb-1 uppercase">Variable Profit</div>
+                    <div className="text-lg font-bold text-blue-600">
+                      ${result.variableProfit.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+                    </div>
+                  </div>
+                  <div className="bg-secondary/40 border border-border rounded-lg p-3 text-center">
+                    <div className="text-xs font-bold text-muted-foreground mb-1 uppercase">Ending Inventory</div>
+                    <div className="text-lg font-bold text-foreground">
+                      {result.endingInventory.toLocaleString()} units
+                    </div>
+                  </div>
+                </div>
+
+                {/* Component 3: Breakdown Table (Income Statements) */}
+                <div className="overflow-x-auto rounded-lg border border-border bg-card">
+                  <table className="w-full text-left border-collapse text-sm">
+                    <thead>
+                      <tr className="bg-secondary/40 border-b border-border text-[12px] font-bold text-muted-foreground uppercase tracking-wider">
+                        <th className="p-2.5 pl-3">Line Item</th>
+                        <th className="p-2.5 text-right w-[130px]">Absorption</th>
+                        <th className="p-2.5 pr-3 text-right w-[130px]">Variable</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-border/50">
+                      <tr>
+                        <td className="text-base py-2.5 px-3 font-medium text-foreground">Revenue</td>
+                        <td className="text-base py-2.5 px-3 text-right text-foreground">${result.absorptionIncomeStmt.revenue.toLocaleString()}</td>
+                        <td className="text-base py-2.5 px-3 text-right text-foreground">${result.variableIncomeStmt.revenue.toLocaleString()}</td>
+                      </tr>
+                      <tr>
+                        <td className="text-base py-2.5 px-3 font-medium text-muted-foreground">Less: COGS / Variable Costs</td>
+                        <td className="text-base py-2.5 px-3 text-right text-muted-foreground">(${result.absorptionIncomeStmt.cogs.toLocaleString()})</td>
+                        <td className="text-base py-2.5 px-3 text-right text-muted-foreground">(${result.variableIncomeStmt.variableCosts.toLocaleString()})</td>
+                      </tr>
+                      <tr className="bg-secondary/20 font-bold border-t border-border/50">
+                        <td className="text-base py-2.5 px-3 text-foreground">Gross / Contribution Margin</td>
+                        <td className="text-base py-2.5 px-3 text-right text-foreground">${result.absorptionIncomeStmt.grossMargin.toLocaleString()}</td>
+                        <td className="text-base py-2.5 px-3 text-right text-foreground">${result.variableIncomeStmt.contributionMargin.toLocaleString()}</td>
+                      </tr>
+                      <tr>
+                        <td className="text-base py-2.5 px-3 font-medium text-muted-foreground">Less: SG&A / Fixed Costs</td>
+                        <td className="text-base py-2.5 px-3 text-right text-muted-foreground">(${result.absorptionIncomeStmt.sga.toLocaleString()})</td>
+                        <td className="text-base py-2.5 px-3 text-right text-muted-foreground">(${result.variableIncomeStmt.fixedCosts.toLocaleString()})</td>
+                      </tr>
+                      <tr className="font-bold border-t-2 border-border">
+                        <td className="text-base py-2.5 px-3 text-foreground">Net Income</td>
+                        <td className="text-base py-2.5 px-3 text-right text-primary">${result.absorptionIncomeStmt.netIncome.toLocaleString()}</td>
+                        <td className="text-base py-2.5 px-3 text-right text-primary">${result.variableIncomeStmt.netIncome.toLocaleString()}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                {/* Component 4: Chart */}
+                {mounted && (
+                  <div className="rounded-xl border border-border bg-card p-4">
+                    <h3 className="text-sm font-bold text-foreground mb-4">Income Statement Comparison</h3>
+                    <LazyView minHeight={250}>
+                      <ResponsiveContainer width="100%" height={250}>
+                        <BarChart data={result.chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
+                          <XAxis dataKey="name" tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} />
+                          <YAxis tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }} tickFormatter={(v) => `$${v}`} />
+                          <RechartsTooltip cursor={{ fill: "transparent" }} contentStyle={{ borderRadius: "8px", border: "1px solid hsl(var(--border))" }} formatter={(v: number) => `$${v.toLocaleString()}`} />
+                          <Legend wrapperStyle={{ fontSize: "12px" }} />
+                          <Bar dataKey="absorption" name="Absorption" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+                          <Bar dataKey="variable" name="Variable" fill="#3b82f6" radius={[4, 4, 0, 0]} />
+                        </BarChart>
+                      </ResponsiveContainer>
+                    </LazyView>
+                  </div>
+                )}
+
+                {/* Reconciliation Box */}
                 <div className="bg-secondary/40 border border-border rounded-lg p-4">
-                    <h3 className="text-sm font-bold text-foreground mb-2 flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500"/> Profit Reconciliation</h3>
-                    <p className="text-sm text-muted-foreground mb-3">
-                        Difference in Net Income: <strong>${Math.abs(result.difference).toLocaleString()}</strong>
-                    </p>
-                    <div className="text-sm space-y-1 bg-background p-3 rounded border border-border">
-                        <div className="flex justify-between"><span>Change in Inventory Units:</span><span>{(result.endingInventory - (parseFloat(vals.beginningInventory)||0)).toLocaleString()}</span></div>
-                        <div className="flex justify-between"><span>Fixed OH / Unit:</span><span>${result.fixedOverheadPerUnit.toLocaleString()}</span></div>
-                        <div className="flex justify-between font-bold border-t border-border/50 pt-1"><span>Fixed OH Deferred (Released):</span><span>${result.fixedOverheadDeferred.toLocaleString()}</span></div>
+                  <h3 className="text-sm font-bold text-foreground mb-2 flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-500" /> Profit Reconciliation
+                  </h3>
+                  <div className="text-sm space-y-1 bg-background p-3 rounded border border-border">
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">Change in Inventory Units:</span>
+                      <span className="font-semibold text-foreground">{(result.endingInventory - (parseFloat(vals.beginningInventory) || 0)).toLocaleString()}</span>
                     </div>
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">Fixed OH / Unit:</span>
+                      <span className="font-semibold text-foreground">${result.fixedOverheadPerUnit.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
+                    </div>
+                    <div className="flex justify-between font-bold border-t border-border/50 pt-1">
+                      <span className="text-foreground">Fixed OH Deferred (Released):</span>
+                      <span className="text-primary">${result.fixedOverheadDeferred.toLocaleString()}</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Component 5: Summary Statistics */}
+                <div className="bg-muted/30 rounded-lg p-5">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="flex flex-col">
+                      <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Units Produced</span>
+                      <span className="text-base font-bold text-foreground">{(parseFloat(vals.unitsProduced) || 0).toLocaleString()}</span>
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Units Sold</span>
+                      <span className="text-base font-bold text-foreground">{(parseFloat(vals.unitsSold) || 0).toLocaleString()}</span>
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Absorption Unit Cost</span>
+                      <span className="text-base font-bold text-foreground">${result.absorptionUnitCost.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Variable Unit Cost</span>
+                      <span className="text-base font-bold text-foreground">${result.variableUnitCost.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Absorption Net Income</span>
+                      <span className="text-base font-bold text-emerald-600">${result.absorptionProfit.toLocaleString(undefined, { minimumFractionDigits: 0 })}</span>
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Variable Net Income</span>
+                      <span className="text-base font-bold text-blue-600">${result.variableProfit.toLocaleString(undefined, { minimumFractionDigits: 0 })}</span>
+                    </div>
+                  </div>
                 </div>
               </>
             )}
@@ -248,49 +416,22 @@ export default function AbsorptionCostingVsVariableCostingProfitComparison() {
           <div>
             <h2 className="text-2xl font-bold mb-3">What Is Absorption Costing vs Variable Costing?</h2>
             <p className="text-muted-foreground leading-relaxed">
-              Absorption costing and variable costing are two distinct methods of accounting for manufacturing costs. Absorption costing, required by Generally Accepted Accounting Principles (GAAP) for external reporting, assigns all manufacturing costs—both fixed and variable—to units produced. Variable costing, often used internally for management decision-making, assigns only variable manufacturing costs to units produced, treating fixed manufacturing overhead as a period expense that is entirely deducted in the period it is incurred. This comparison is critical for managers analyzing profitability and pricing.
+              Absorption costing and variable costing are two distinct methods of accounting for manufacturing costs, and understanding the difference between them is essential for any manager or accountant analyzing profitability. Absorption costing, required by Generally Accepted Accounting Principles (GAAP) for external financial reporting, assigns all manufacturing costs—both fixed and variable—to the units produced. This means each unit carries a portion of fixed overhead as part of its product cost. Variable costing, often used internally for management decision-making and cost-volume-profit analysis, assigns only variable manufacturing costs to units produced. It treats fixed manufacturing overhead as a period expense that is entirely deducted in the period it is incurred, regardless of how many units are sold. This fundamental difference in how fixed overhead is treated creates a critical distinction in reported net income, especially when production volume does not exactly match sales volume. The comparison between the two methods is critical for managers analyzing profitability, setting prices, and making production decisions.
             </p>
           </div>
           <div>
             <h2 className="text-2xl font-bold mb-3">How It Works</h2>
             <p className="text-muted-foreground leading-relaxed">
-              Under absorption costing, fixed manufacturing overhead is divided by the number of units produced to determine a fixed cost per unit. This cost is added to direct materials, direct labor, and variable overhead to find the total product cost. If units remain unsold, a portion of the fixed overhead remains in ending inventory on the balance sheet. Under variable costing, only direct materials, direct labor, and variable overhead are included in the product cost. The entire fixed manufacturing overhead is deducted immediately on the income statement, regardless of inventory levels.
+              Under absorption costing, fixed manufacturing overhead is divided by the number of units produced to determine a fixed cost per unit. This per-unit fixed cost is added to direct materials, direct labor, and variable overhead to find the total absorption product cost. When units remain unsold at the end of the period, a portion of the fixed overhead remains embedded in the ending inventory on the balance sheet, effectively deferring that cost to a future period. Under variable costing, only direct materials, direct labor, and variable overhead are included in the product cost. The entire fixed manufacturing overhead is deducted immediately on the income statement as a period expense, regardless of inventory levels. When production exceeds sales, absorption costing reports higher net income because some fixed overhead is deferred in inventory. When sales exceed production, variable costing reports higher net income because fixed overhead previously deferred is released from inventory. The profit difference between the two methods is always exactly equal to the change in inventory units multiplied by the fixed overhead rate per unit.
             </p>
           </div>
           <div>
             <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p className="text-muted-foreground leading-relaxed">
-              The calculator provides a side-by-side comparison of net income under both methods. The primary result card highlights the profit difference. Below that, full income statements illustrate the structural differences: absorption costing relies on gross margin, while variable costing emphasizes contribution margin. Finally, the reconciliation section mathematically proves why the profits differ, which is directly tied to the change in inventory multiplied by the fixed overhead rate per unit.
+              The calculator provides a side-by-side comparison of net income under both costing methods. The primary result card highlights the profit difference and explains whether inventory built up or was drawn down. Below that, full income statements illustrate the structural differences between the two approaches: absorption costing relies on gross margin, while variable costing emphasizes contribution margin. The breakdown table details every line item so you can trace exactly how each cost is classified. Finally, the reconciliation section mathematically proves why the profits differ, showing the change in inventory units multiplied by the fixed overhead rate per unit to arrive at the fixed overhead deferred or released. This reconciliation is the key to understanding the relationship between the two methods. 
             </p>
-          </div>
-          <div>
-            <h2 className="text-2xl font-bold mb-3">Key Factors</h2>
-            <p className="text-muted-foreground leading-relaxed">
-              The fundamental driver of the profit discrepancy is the relationship between units produced and units sold. If production exceeds sales, inventory increases, and absorption costing defers some fixed overhead costs into inventory, resulting in higher reported profit. If sales exceed production, inventory decreases, and absorption costing releases previously deferred fixed overhead from inventory into the cost of goods sold, resulting in lower reported profit compared to variable costing. If production equals sales, profits are identical.
-            </p>
-          </div>
-          <div>
-            <h2 className="text-2xl font-bold mb-3">Professional Features</h2>
-            <p className="text-muted-foreground leading-relaxed">
-              Our Professional Mode allows for the inclusion of selling, general, and administrative (SG&A) expenses. You can separate SG&A into fixed and variable components. While these are considered period costs under both methods, variable costing deducts variable SG&A to arrive at the contribution margin, whereas absorption costing deducts all SG&A after calculating gross margin. Entering beginning inventory allows for precise reconciliation across multiple operating periods.
-            </p>
-          </div>
-          <div>
-            <h2 className="text-2xl font-bold mb-3">Practical Examples</h2>
-            <p className="text-muted-foreground leading-relaxed">
-              Suppose a company produces ten thousand units but only sells eight thousand. Fixed manufacturing overhead is sixty thousand dollars. Under absorption costing, six dollars of fixed overhead is assigned to each unit. Since two thousand units remain in inventory, twelve thousand dollars of fixed overhead is deferred to the balance sheet. Consequently, the absorption costing net income will be exactly twelve thousand dollars higher than the variable costing net income, where the full sixty thousand dollars is expensed immediately.
-            </p>
-          </div>
-          <div>
-            <h2 className="text-2xl font-bold mb-3">Tips & Best Practices</h2>
-            <p className="text-muted-foreground leading-relaxed">
-              Managers should rely on variable costing for internal decision-making, such as pricing, special orders, and cost-volume-profit analysis, because it clearly separates fixed and variable costs and prevents production volume changes from artificially inflating profit. However, they must understand absorption costing to anticipate external financial reporting outcomes. Be cautious of the incentive under absorption costing to overproduce simply to defer fixed costs and inflate short-term profit.
-            </p>
-          </div>
-          <div>
-            <h2 className="text-2xl font-bold mb-3">Benefits</h2>
-            <p className="text-muted-foreground leading-relaxed">
-              Using an Absorption vs Variable Costing Profit Comparison tool provides total clarity on how inventory fluctuations impact the bottom line. It demystifies the complex reconciliation required by financial accounting standards and helps bridge the gap between external reporting and internal managerial reality. This tool is indispensable for accounting students, corporate financial analysts, and business owners striving to master their cost structures and financial performance metrics.
+            <p className="text-muted-foreground leading-relaxed mt-4">
+              It is important to remember that while variable costing provides unparalleled visibility into the true incremental cost of producing one additional unit, it cannot be legally used for filing corporate taxes or releasing public financial statements. Absorption costing must be utilized for these external obligations because it satisfies the matching principle, ensuring that all manufacturing costs—both direct variable costs and fixed facility overhead—are properly matched against the revenue they helped generate in the correct accounting period. By mastering both costing frameworks, financial managers can successfully navigate external compliance requirements while simultaneously executing internal pricing strategies and operational optimizations.
             </p>
           </div>
         </section>

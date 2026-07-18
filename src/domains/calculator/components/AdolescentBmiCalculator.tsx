@@ -302,7 +302,7 @@ export default function AdolescentBmiCalculator() {
                   <p className="text-xs uppercase tracking-wide text-muted-foreground font-bold mb-1">
                     Adolescent BMI
                   </p>
-                  <h2 className="text-4xl font-black text-primary">
+                  <h2 className="text-2xl font-bold mb-3">
                     {results.bmi}
                   </h2>
                   <div className="mt-1 flex items-center">

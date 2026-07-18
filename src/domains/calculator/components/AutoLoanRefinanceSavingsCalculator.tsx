@@ -21,18 +21,18 @@ interface RefiResult {
   currentMonthly: number;
   currentTotalInterest: number;
   currentTotalCost: number;
-  
+
   newMonthly: number;
   newTotalInterest: number;
   newTotalCost: number;
-  
+
   monthlySavings: number;
   interestSavings: number;
   netSavings: number;
-  
+
   breakEvenMonths: number | null;
   shouldRefinance: boolean;
-  
+
   chartData: { name: string; "Current Loan": number; "New Loan": number }[];
 }
 
@@ -47,10 +47,10 @@ const DEFAULTS = {
 
 const calculateRefinance = (inputs: RefiInputs): RefiResult => {
   const { currentBalance, currentRate, currentMonthsRemaining, newRate, newTermMonths, refiFees } = inputs;
-  
+
   const cRate = currentRate / 100 / 12;
   const nRate = newRate / 100 / 12;
-  
+
   // Current Loan Calculations
   let currentMonthly = 0;
   if (cRate > 0 && currentMonthsRemaining > 0) {
@@ -77,7 +77,7 @@ const calculateRefinance = (inputs: RefiInputs): RefiResult => {
   const monthlySavings = currentMonthly - newMonthly;
   const interestSavings = currentTotalInterest - newTotalInterest;
   const netSavings = currentTotalCost - newTotalCost; // Net savings automatically accounts for the rolled-in fees
-  
+
   // Break-even
   let breakEvenMonths: number | null = null;
   if (monthlySavings > 0 && refiFees > 0) {
@@ -126,7 +126,7 @@ export default function AutoLoanRefinanceSavingsCalculator() {
   const [currentMonthsRemaining, setCurrentMonthsRemaining] = useState(DEFAULTS.currentMonthsRemaining);
   const [newRate, setNewRate] = useState(DEFAULTS.newRate);
   const [newTermMonths, setNewTermMonths] = useState(DEFAULTS.newTermMonths);
-  
+
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [refiFees, setRefiFees] = useState(DEFAULTS.refiFees);
 
@@ -182,7 +182,7 @@ export default function AutoLoanRefinanceSavingsCalculator() {
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Auto Loan Refinance Savings Calculator" }]} />
       <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Auto Loan Refinance Savings Calculator</h1>
-        
+
         <div className="grid grid-cols-1 lg:grid-cols-[420px_1fr] gap-6 items-start max-w-[1180px]">
           {/* Inputs */}
           <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
@@ -232,7 +232,7 @@ export default function AutoLoanRefinanceSavingsCalculator() {
                     {formatCurrency(Math.abs(result.netSavings))}
                   </p>
                   <p className="text-sm text-muted-foreground mt-1">
-                    {result.shouldRefinance 
+                    {result.shouldRefinance
                       ? "This is the total amount you will save over the life of the new loan, including all fees."
                       : "This refinance will cost you more money in the long run. Consider keeping your current loan."}
                   </p>
@@ -270,7 +270,7 @@ export default function AutoLoanRefinanceSavingsCalculator() {
                           <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
                           <XAxis dataKey="name" tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} tickLine={false} axisLine={false} />
                           <YAxis tickFormatter={(val) => `$${(val)}`} tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} tickLine={false} axisLine={false} />
-                          <RechartsTooltip 
+                          <RechartsTooltip
                             formatter={(value: number) => formatCurrency(value)}
                             contentStyle={{ backgroundColor: 'hsl(var(--card))', borderColor: 'hsl(var(--border))', borderRadius: '8px', fontSize: '12px' }}
                           />
@@ -290,18 +290,19 @@ export default function AutoLoanRefinanceSavingsCalculator() {
         {/* SEO CONTENT SECTION */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <section className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">Why Consider Auto Loan Refinancing?</h2>
-            <p>Auto loan refinancing involves taking out a new loan to pay off your existing car loan, typically to lower the interest rate, reduce the monthly payment, or shorten the term. Unlike a mortgage refinance — which can take weeks and cost thousands in closing fees — auto refinancing is fast, inexpensive, and can often be completed entirely online. If you bought your car through a dealership, there is a high probability you were subjected to a dealer markup on your rate. Dealerships routinely add 1% to 3% to the interest rate the bank actually approved you for as their commission. Refinancing directly with a credit union or online lender lets you bypass that markup.</p>
-
-            <h2 className="text-2xl font-bold mb-3">When Does Refinancing Make Sense?</h2>
-            <p>Three primary scenarios make auto loan refinancing a mathematically sound move. First, if your credit score has improved significantly since you bought the car — say, you had subprime credit at purchase and have since built a solid payment history — you may now qualify for a rate tier that cuts your interest costs by thousands. Second, if macroeconomic conditions have caused market interest rates to fall, the general rate environment may now be more favorable than when you took out the original loan. Third, if you are facing a cash-flow emergency, refinancing to a longer term can lower your required monthly payment and prevent a repossession, even if it costs more in total interest over the life of the loan.</p>
-
-            <h2 className="text-2xl font-bold mb-3">The Danger of Extending the Term</h2>
-            <p>Our calculator computes "Net Savings" rather than just monthly payment difference — and that distinction is critical. Many lenders advertise a lower payment by simply extending your loan term, not by reducing your rate. If you have 36 months left on a $20,000 loan at 7%, your payment is roughly $617. A new 72-month loan at the same 7% drops the payment to $341, but you pay approximately $2,000 more in total interest and spend an extra three years in debt. Extending the term also dramatically increases the risk of going underwater, meaning you owe more than the depreciating car is worth.</p>
-
-            <h2 className="text-2xl font-bold mb-3">Understanding the Break-Even Point</h2>
-            <p>Auto refinance fees are low but rarely zero. You may owe state title transfer fees, registration fees, or a lender origination charge. The break-even point tells you exactly how many months of monthly savings are required to recover those upfront costs. If fees total $150 and you save $50 a month, you break even after 3 months. If you plan to sell or trade the car before that point, the refinance is a net loss. Always confirm the break-even period before signing and ensure you intend to keep the car long enough to benefit.</p>
+          <section className="mt-12 space-y-8 text-base text-foreground">
+            <div>
+              <h2 className="text-2xl font-bold mb-3">What Is an Auto Loan Refinance Savings Calculator?</h2>
+              <p className="text-muted-foreground leading-relaxed">An Auto Loan Refinance Savings Calculator compares your existing auto loan against a new refinanced loan to determine whether refinancing will save you money. It calculates your current monthly payment, total interest, and total cost, then compares them against the same figures for a new loan with a different interest rate and term. The calculator also factors in refinance fees such as title transfer and origination charges, and computes a break-even point that tells you how many months of savings are needed to recover those upfront costs. This tool helps you avoid the common trap of accepting a lower monthly payment that actually costs more in total interest over the life of the loan.</p>
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold mb-3">How It Works</h2>
+              <p className="text-muted-foreground leading-relaxed">The calculator uses the standard amortization formula for fixed-rate loans: monthly payment equals principal multiplied by the monthly interest rate times one plus the rate raised to the number of months, divided by one plus the rate raised to the number of months minus one. It applies this formula to both your current loan and the new loan, where the new loan balance includes any refinance fees rolled into the principal. The monthly savings is the difference between your current and new monthly payments. The net savings is the difference in total cost between the two loans over their respective terms. The break-even point is calculated by dividing the total refinance fees by the monthly savings, showing how many months you need to keep the car for the refinance to pay for itself.</p>
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
+              <p className="text-muted-foreground leading-relaxed">Your primary result is the total net savings or cost, displayed prominently with a clear recommendation on whether to refinance. The summary statistics show your current monthly payment, new monthly payment, the monthly difference, and the break-even point in months. The comparison bar chart visualizes the monthly payment and total interest for both loans side by side, making it easy to see where the savings come from. A positive net savings means refinancing is financially beneficial, while a negative result means you would lose money by refinancing. Pay special attention to the break-even point: if you plan to sell or trade the car before reaching that month count, the refinance will be a net loss even if the monthly payment is lower.</p>
+            </div>
           </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/auto-loan-refinance-savings-calculator" />
           <PopularCalculators exclude="/calculator/auto-loan-refinance-savings-calculator" />

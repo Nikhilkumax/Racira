@@ -70,9 +70,13 @@ export default function ApgarScoreCalculator() {
 
   const [result, setResult] = useState<ApgarResult | null>(null);
 
-  useEffect(() => {
+  const calculate = () => {
     setResult(calcApgar(appearance, pulse, grimace, activity, respiration));
-  }, [appearance, pulse, grimace, activity, respiration]);
+  };
+
+  useEffect(() => {
+    calculate();
+  }, []);
 
   const reset = () => {
     setAppearance(2);
@@ -164,8 +168,11 @@ export default function ApgarScoreCalculator() {
             </div>
 
             <div className="flex gap-3 mt-2 border-t border-border pt-4">
-              <button onClick={reset} className="w-full flex items-center justify-center gap-2 rounded-md bg-secondary hover:bg-secondary/80 text-secondary-foreground font-bold h-11 text-sm transition-all shadow-sm">
-                <RotateCcw className="h-4 w-4" /> Reset Score
+              <button onClick={calculate} className="w-full flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-11 text-sm transition-all shadow-sm">
+                Calculate
+              </button>
+              <button onClick={reset} title="Reset" className="w-11 flex-shrink-0 flex items-center justify-center rounded-md bg-secondary hover:bg-secondary/80 text-secondary-foreground font-bold h-11 transition-all shadow-sm">
+                <RotateCcw className="h-4 w-4" />
               </button>
             </div>
           </div>

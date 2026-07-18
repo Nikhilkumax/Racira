@@ -5,14 +5,7 @@ import { inferIcon } from "@/components/shared/icon-map";
 export type Tool = BaseTool;
 export type Category = BaseCategory;
 
-const slugify = (s: string) =>
-  s
-    .toLowerCase()
-    .replace(/&/g, "and")
-    .replace(/\//g, "-")
-    .replace(/[()]/g, "")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
+import { toSlug } from "@/lib/utils/slug";
 
 // Mark active (fully functional) tools
 const ACTIVE_SLUGS = new Set([
@@ -31,7 +24,7 @@ const ACTIVE_SLUGS = new Set([
 ]);
 
 const def = (name: string, description: string): Omit<Tool, "category"> => {
-  const slug = slugify(name);
+  const slug = toSlug(name);
   return {
     slug,
     name,
@@ -43,7 +36,7 @@ const def = (name: string, description: string): Omit<Tool, "category"> => {
 
 const buildCat = (name: string, items: Omit<Tool, "category">[]): Category => ({
   title: name,
-  key: slugify(name),
+  key: toSlug(name),
   tools: items.map(t => ({ ...t, category: name } as Tool))
 });
 
@@ -194,7 +187,7 @@ export const SEARCH_REGISTRY: ToolResult[] = ALL_TOOLS.map((tool) => ({
   name: tool.name,
   description: tool.description,
   slug: tool.slug,
-  href: `/3d/tool/${tool.slug}`,
+  href: `/3d/${tool.slug}`,
   category: tool.category,
   isBuilt: tool.status === "live",
 }));

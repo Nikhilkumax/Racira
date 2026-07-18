@@ -24,7 +24,7 @@ interface SalaryResults {
 
 const calculateRates = (salary: number, hoursPerWeek: number, weeksPerYear: number): SalaryResults => {
   const totalHours = hoursPerWeek * weeksPerYear;
-  
+
   const hourlyRate = totalHours > 0 ? salary / totalHours : 0;
   const dailyRate = hourlyRate * (hoursPerWeek / 5); // Assuming standard 5-day week for "daily" equivalent
   const weeklyRate = hoursPerWeek > 0 ? hourlyRate * hoursPerWeek : 0;
@@ -76,14 +76,14 @@ export default function AnnualSalaryToHourlyRateCalculator() {
   const [salary, setSalary] = useState(DEFAULTS.salary);
   const [hoursPerWeek, setHoursPerWeek] = useState(DEFAULTS.hoursPerWeek);
   const [weeksPerYear, setWeeksPerYear] = useState(DEFAULTS.weeksPerYear);
-  
+
   const [results, setResults] = useState<SalaryResults | null>(null);
   const [mounted, setMounted] = useState(false);
   const printRef = useRef<HTMLDivElement>(null);
 
   const handleCalculate = () => {
     setResults(calculateRates(
-      parseFloat(salary) || 0, 
+      parseFloat(salary) || 0,
       parseFloat(hoursPerWeek) || 0,
       parseFloat(weeksPerYear) || 0
     ));
@@ -94,9 +94,9 @@ export default function AnnualSalaryToHourlyRateCalculator() {
     setResults(calculateRates(75000, 40, 52));
   };
 
-  useEffect(() => { 
+  useEffect(() => {
     setMounted(true);
-    handleCalculate(); 
+    handleCalculate();
   }, []);
 
   const handlePrint = () => {
@@ -115,7 +115,7 @@ export default function AnnualSalaryToHourlyRateCalculator() {
       return (
         <div className="bg-card border border-border p-2 rounded-lg shadow-sm text-xs font-semibold">
           <span className="text-muted-foreground mr-2">{payload[0].payload.name}:</span>
-          <span className="text-foreground">${payload[0].value.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
+          <span className="text-foreground">${payload[0].value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
         </div>
       );
     }
@@ -127,17 +127,17 @@ export default function AnnualSalaryToHourlyRateCalculator() {
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Business", href: "/calculator#business" }, { label: "Annual Salary to Hourly Rate" }]} />
       <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Annual Salary to Hourly Rate Calculator</h1>
-        
+
         <div className="racira-page-container grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start">
-          
+
           <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
             <div className="flex items-center gap-2 mb-1">
               <Clock className="h-5 w-5 text-primary" />
               <h2 className="text-2xl font-bold mb-3">Salary Inputs</h2>
             </div>
-            
+
             <CompactInput id="sal" label="Annual Gross Salary" value={salary} onChange={setSalary} prefix="$" tooltip="Your total yearly salary before taxes." />
-            
+
             <div className="grid grid-cols-2 gap-4 mt-2">
               <CompactInput id="hrs" label="Hours per Week" value={hoursPerWeek} onChange={setHoursPerWeek} suffix="hrs" tooltip="Standard full-time is 40 hours." />
               <CompactInput id="wks" label="Weeks per Year" value={weeksPerYear} onChange={setWeeksPerYear} suffix="wks" tooltip="A full year is 52 weeks. Do not subtract PTO." />
@@ -158,7 +158,7 @@ export default function AnnualSalaryToHourlyRateCalculator() {
           <div className="flex flex-col gap-4">
             {results && (
               <div ref={printRef} className="flex flex-col gap-4">
-                
+
                 <div className={`border-l-4 rounded-lg p-5 relative bg-primary/10 border-primary/30`}>
                   <button onClick={handlePrint} className="absolute top-4 right-4 text-muted-foreground hover:text-primary transition-colors print:hidden" aria-label="Print Results">
                     <Printer className="h-4 w-4" />
@@ -230,22 +230,19 @@ export default function AnnualSalaryToHourlyRateCalculator() {
 
         <div className="racira-page-container mt-8">
           <AdPlaceholder className="mb-10" />
-          <section className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">Understanding the Salary to Hourly Conversion</h2>
-            <p>If you work a standard full-time job in the United States, Human Resources uses a universal number to calculate your hourly rate: <strong>2,080 hours</strong>.</p>
-            <p>This number comes from multiplying exactly 40 hours per week by exactly 52 weeks in a year. If you ever want to quickly convert a salary to an hourly rate in your head, simply take the salary, drop the thousands, and divide by 2.</p>
-            <p><em>Example: A $50,000 salary divided by 2 is roughly $25 per hour. ($50,000 / 2,080 = $24.03 exact).</em></p>
-            
-            <h3>Should I Subtract Vacation Time?</h3>
-            <p>No. When converting an annual salary to an hourly rate, you do not subtract Paid Time Off (PTO), holidays, or sick leave. Because you are <em>paid</em> for those days, they count as working hours in the mathematical formula. You would only subtract weeks if you take an unpaid leave of absence or work a seasonal job.</p>
-
-            <h2 className="text-2xl font-bold mb-3">Why Calculate an Hourly Rate?</h2>
-            <p>Salaried (Exempt) employees often feel like they are working for free when they put in 50 or 60 hours a week, because their paycheck never changes. Calculating your true hourly rate is important for three reasons:</p>
-            <ul>
-              <li><strong>Negotiating Freelance Rates:</strong> If you want to do consulting or freelancing on the side, you need to know your base hourly value. (Note: Most freelancers double or triple their salary-hourly rate to cover self-employment taxes and lack of benefits).</li>
-              <li><strong>Evaluating "Hustle Culture":</strong> If you make $100,000 a year but work 80 hours a week, your hourly rate drops from $48/hr to $24/hr. Sometimes, a lower-paying job with better work-life balance actually pays a higher hourly rate.</li>
-              <li><strong>Comparing Job Offers:</strong> If Company A offers $60,000 for 40 hours a week, and Company B offers $70,000 but explicitly demands 55 hours a week, Company A is technically paying you a higher hourly rate for your time.</li>
-            </ul>
+          <section className="mt-12 space-y-8 text-base text-foreground">
+            <div>
+              <h2 className="text-2xl font-bold mb-3">What Is an Annual Salary to Hourly Rate Calculator?</h2>
+              <p className="text-muted-foreground leading-relaxed">An Annual Salary to Hourly Rate Calculator converts your yearly salary into equivalent hourly, daily, weekly, and monthly pay rates. If you earn a fixed annual salary, this tool reveals what each hour of your time is truly worth. The standard formula divides your annual salary by your total working hours per year, which is typically 2,080 hours for a full-time employee working 40 hours per week across 52 weeks. Understanding your hourly rate helps you compare job offers, negotiate freelance rates, and evaluate whether extra unpaid hours are worth the effort.</p>
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold mb-3">How It Works</h2>
+              <p className="text-muted-foreground leading-relaxed">The calculator takes three inputs: your annual gross salary, hours worked per week, and weeks worked per year. It multiplies hours per week by weeks per year to get total annual working hours, then divides salary by that figure to produce the hourly rate. The daily rate is calculated by multiplying the hourly rate by hours per week divided by 5, assuming a standard five-day workweek. The weekly rate is the hourly rate multiplied by hours per week, and the monthly rate is the annual salary divided by 12. Importantly, you should not subtract paid time off from the weeks per year, because you are still paid for those hours. Only reduce the weeks if you take unpaid leave or work a seasonal position.</p>
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
+              <p className="text-muted-foreground leading-relaxed">Your primary result is the equivalent hourly rate, shown prominently alongside the total working hours used in the calculation. The summary statistics display your daily, weekly, and monthly equivalents for quick reference. The breakdown table lists each conversion step from your stated annual salary down to the final hourly rate, which is highlighted as the key figure. The bar chart visualizes the hourly, daily, and weekly equivalents side by side. Keep in mind that these are gross figures before taxes, insurance, and retirement contributions. Your net take-home hourly rate will be lower, but the gross rate is the standard benchmark for comparing compensation across roles.</p>
+            </div>
           </section>
           <FAQSection faqs={[
             { question: "What if I work 37.5 hours a week?", answer: "Many corporate offices offer a 1-hour unpaid lunch every day, meaning employees are technically scheduled for 37.5 working hours per week. In this case, your total annual hours drop to 1,950, which increases your hourly rate slightly." },

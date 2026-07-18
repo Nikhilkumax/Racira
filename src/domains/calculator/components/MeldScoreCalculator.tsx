@@ -123,7 +123,7 @@ export default function MeldScoreCalculator() {
 
   const [result, setResult] = useState<MeldResult | null>(null);
 
-  useEffect(() => {
+  const calculate = () => {
     const cr = parseFloat(creatinine) || 0;
     const bil = parseFloat(bilirubin) || 0;
     const inrVal = parseFloat(inr) || 0;
@@ -132,7 +132,11 @@ export default function MeldScoreCalculator() {
     if (cr > 0 && bil > 0 && inrVal > 0 && na > 0) {
       setResult(calcMeld(cr, bil, inrVal, na, dialysis));
     }
-  }, [creatinine, bilirubin, inr, sodium, dialysis]);
+  };
+
+  useEffect(() => {
+    calculate();
+  }, []);
 
   const reset = () => {
     setCreatinine("1.8");
@@ -209,8 +213,11 @@ export default function MeldScoreCalculator() {
             </div>
 
             <div className="flex gap-3 mt-2 border-t border-border pt-4">
-              <button onClick={reset} className="w-full flex items-center justify-center gap-2 rounded-md bg-secondary hover:bg-secondary/80 text-secondary-foreground font-bold h-11 text-sm transition-all shadow-sm">
-                <RotateCcw className="h-4 w-4" /> Reset Patient Data
+              <button onClick={calculate} className="w-full flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-11 text-sm transition-all shadow-sm">
+                Calculate
+              </button>
+              <button onClick={reset} title="Reset Patient Data" className="w-11 flex-shrink-0 flex items-center justify-center rounded-md bg-secondary hover:bg-secondary/80 text-secondary-foreground font-bold h-11 transition-all shadow-sm">
+                <RotateCcw className="h-4 w-4" />
               </button>
             </div>
           </div>

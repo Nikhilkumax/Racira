@@ -18,8 +18,8 @@ const CarbonFootprintCalculator = () => {
 
   // Transport
   const [carMiles, setCarMiles] = useState("1000"); // miles/month
-  const [carMpg, setCarMpg] = useState("25"); 
-  
+  const [carMpg, setCarMpg] = useState("25");
+
   // Flights (Annual)
   const [shortFlights, setShortFlights] = useState("2"); // < 300 miles
   const [mediumFlights, setMediumFlights] = useState("1"); // 300-1500 miles
@@ -36,21 +36,21 @@ const CarbonFootprintCalculator = () => {
     const EF_GAS = 5.3; // kg per therm
     const EF_OIL = 10.1; // kg per gallon
     const EF_GASOLINE = 8.8; // kg per gallon
-    
+
     // Flight factors (kg CO2e per passenger-trip)
-    const EF_FLIGHT_SHORT = 150; 
+    const EF_FLIGHT_SHORT = 150;
     const EF_FLIGHT_MEDIUM = 400;
     const EF_FLIGHT_LONG = 1200;
 
     const houseCO2 = (parseFloat(electricity) * EF_ELEC * 12) +
-                     (parseFloat(naturalGas) * EF_GAS * 12) +
-                     (parseFloat(heatingOil) * EF_OIL * 12);
+      (parseFloat(naturalGas) * EF_GAS * 12) +
+      (parseFloat(heatingOil) * EF_OIL * 12);
 
     const transportCO2 = ((parseFloat(carMiles) * 12) / (parseFloat(carMpg) || 1)) * EF_GASOLINE;
 
     const flightCO2 = (parseFloat(shortFlights) * EF_FLIGHT_SHORT) +
-                     (parseFloat(mediumFlights) * EF_FLIGHT_MEDIUM) +
-                     (parseFloat(longFlights) * EF_FLIGHT_LONG);
+      (parseFloat(mediumFlights) * EF_FLIGHT_MEDIUM) +
+      (parseFloat(longFlights) * EF_FLIGHT_LONG);
 
     const totalCO2 = houseCO2 + transportCO2 + flightCO2;
     const totalTons = totalCO2 / 1000; // metric tons
@@ -87,52 +87,52 @@ const CarbonFootprintCalculator = () => {
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
             <div className="space-y-8">
-                {/* Home Energy Section */}
-                <section>
-                  <div className="flex items-center gap-2 mb-4 text-primary">
-                    <Home className="h-5 w-5" />
-                    <h2 className="text-2xl font-bold mb-3">Home Energy (Monthly)</h2>
-                  </div>
-                  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <InputField id="elec" label="Electricity" value={electricity} onChange={setElectricity} suffix="kWh" />
-                    <InputField id="gas" label="Natural Gas" value={naturalGas} onChange={setNaturalGas} suffix="therms" />
-                    <InputField id="oil" label="Heating Oil" value={heatingOil} onChange={setHeatingOil} suffix="gal" />
-                  </div>
-                </section>
+              {/* Home Energy Section */}
+              <section>
+                <div className="flex items-center gap-2 mb-4 text-primary">
+                  <Home className="h-5 w-5" />
+                  <h2 className="text-2xl font-bold mb-3">Home Energy (Monthly)</h2>
+                </div>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  <InputField id="elec" label="Electricity" value={electricity} onChange={setElectricity} suffix="kWh" />
+                  <InputField id="gas" label="Natural Gas" value={naturalGas} onChange={setNaturalGas} suffix="therms" />
+                  <InputField id="oil" label="Heating Oil" value={heatingOil} onChange={setHeatingOil} suffix="gal" />
+                </div>
+              </section>
 
-                {/* Transportation Section */}
-                <section>
-                  <div className="flex items-center gap-2 mb-4 text-primary">
-                    <Car className="h-5 w-5" />
-                    <h2 className="text-2xl font-bold mb-3">Transportation (Monthly)</h2>
-                  </div>
-                  <div className="grid sm:grid-cols-2 gap-6">
-                    <InputField id="miles" label="Distance Driven" value={carMiles} onChange={setCarMiles} suffix="miles" />
-                    <InputField id="mpg" label="Vehicle MPG" value={carMpg} onChange={setCarMpg} suffix="mpg" />
-                  </div>
-                </section>
+              {/* Transportation Section */}
+              <section>
+                <div className="flex items-center gap-2 mb-4 text-primary">
+                  <Car className="h-5 w-5" />
+                  <h2 className="text-2xl font-bold mb-3">Transportation (Monthly)</h2>
+                </div>
+                <div className="grid sm:grid-cols-2 gap-6">
+                  <InputField id="miles" label="Distance Driven" value={carMiles} onChange={setCarMiles} suffix="miles" />
+                  <InputField id="mpg" label="Vehicle MPG" value={carMpg} onChange={setCarMpg} suffix="mpg" />
+                </div>
+              </section>
 
-                {/* Flights Section */}
-                <section>
-                  <div className="flex items-center gap-2 mb-4 text-primary">
-                    <Plane className="h-5 w-5" />
-                    <h2 className="text-2xl font-bold mb-3">Flights (Annual)</h2>
-                  </div>
-                  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <InputField id="short" label="Short Haul (< 3hr)" value={shortFlights} onChange={setShortFlights} />
-                    <InputField id="medium" label="Medium Haul (3-6hr)" value={mediumFlights} onChange={setMediumFlights} />
-                    <InputField id="long" label="Long Haul (> 6hr)" value={longFlights} onChange={setLongFlights} />
-                  </div>
-                </section>
-              </div>
+              {/* Flights Section */}
+              <section>
+                <div className="flex items-center gap-2 mb-4 text-primary">
+                  <Plane className="h-5 w-5" />
+                  <h2 className="text-2xl font-bold mb-3">Flights (Annual)</h2>
+                </div>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  <InputField id="short" label="Short Haul (< 3hr)" value={shortFlights} onChange={setShortFlights} />
+                  <InputField id="medium" label="Medium Haul (3-6hr)" value={mediumFlights} onChange={setMediumFlights} />
+                  <InputField id="long" label="Long Haul (> 6hr)" value={longFlights} onChange={setLongFlights} />
+                </div>
+              </section>
+            </div>
 
-              <div className="flex gap-3 mt-8">
-                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">
-                  <Leaf className="h-5 w-5" /> Calculate Footprint
-                </button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground">
-                  <RotateCcw className="h-5 w-5" />
-                </button>
-              </div>
+            <div className="flex gap-3 mt-8">
+              <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">
+                <Leaf className="h-5 w-5" /> Calculate
+              </button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground">
+                <RotateCcw className="h-5 w-5" />
+              </button>
+            </div>
           </div>
 
           <div className="flex flex-col gap-3">
@@ -175,13 +175,13 @@ const CarbonFootprintCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">The Global Challenge</h2>
-              <p>To avoid the worst effects of climate change, the average global carbon footprint per year needs to drop to under 2 tons by 2050. Currently, the global average is closer to 4 tons per person.</p>
-              <h3>Why Small Changes Matter</h3>
-              <p>While large-scale systemic change is necessary, individual actions aggregate to significant impacts. For example, switching to LED lighting in your entire home can save over 500kg of CO2 per year, which is more than many short-haul flights.</p>
-              <h3>Understanding Emission Factors</h3>
-              <p>Our calculator uses average emission factors. For instance, the CO2 impact of electricity depends heavily on your local grid's energy mix (coal vs. wind/solar). If you use 100% renewable energy, your Home Energy footprint would be significantly lower than shown here.</p>
-            </section>
+            <h2 className="text-2xl font-bold mb-3">The Global Challenge</h2>
+            <p>To avoid the worst effects of climate change, the average global carbon footprint per year needs to drop to under 2 tons by 2050. Currently, the global average is closer to 4 tons per person.</p>
+            <h3>Why Small Changes Matter</h3>
+            <p>While large-scale systemic change is necessary, individual actions aggregate to significant impacts. For example, switching to LED lighting in your entire home can save over 500kg of CO2 per year, which is more than many short-haul flights.</p>
+            <h3>Understanding Emission Factors</h3>
+            <p>Our calculator uses average emission factors. For instance, the CO2 impact of electricity depends heavily on your local grid's energy mix (coal vs. wind/solar). If you use 100% renewable energy, your Home Energy footprint would be significantly lower than shown here.</p>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/carbon-footprint" />
           <PopularCalculators exclude="/calculator/carbon-footprint-calculator" />
         </div>

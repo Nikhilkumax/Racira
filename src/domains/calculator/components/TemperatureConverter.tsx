@@ -39,11 +39,24 @@ export default function TemperatureConverter() {
   const [mounted, setMounted] = useState(false);
   useEffect(() => { setMounted(true); }, []);
 
-  const v = parseFloat(value) || 0;
-  const celsius = toC(v, from);
-  const result = fromC(celsius, to);
-  const fromScale = scales.find(s => s.key === from)!;
-  const toScale = scales.find(s => s.key === to)!;
+  const [calcV, setCalcV] = useState(100);
+  const [calcFrom, setCalcFrom] = useState("C");
+  const [calcTo, setCalcTo] = useState("F");
+
+  const calculate = () => {
+    setCalcV(parseFloat(value) || 0);
+    setCalcFrom(from);
+    setCalcTo(to);
+  };
+
+  useEffect(() => {
+    calculate();
+  }, []);
+
+  const celsius = toC(calcV, calcFrom);
+  const result = fromC(celsius, calcTo);
+  const fromScale = scales.find(s => s.key === calcFrom)!;
+  const toScale = scales.find(s => s.key === calcTo)!;
   const allResults = scales.map(s => ({ name: s.symbol, value: parseFloat(fromC(celsius, s.key).toFixed(2)) }));
 
   const faqs = [
@@ -81,9 +94,14 @@ export default function TemperatureConverter() {
                 </div>
               ))}
             </div>
-            <button type="button" onClick={() => { setValue("100"); setFrom("C"); setTo("F"); }} className="flex items-center justify-center gap-2 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors">
-              <RotateCcw className="h-4 w-4" /> Reset
-            </button>
+            <div className="flex gap-3">
+              <button type="button" onClick={calculate} className="w-full flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 transition-colors shadow-sm">
+                Calculate
+              </button>
+              <button type="button" onClick={() => { setValue("100"); setFrom("C"); setTo("F"); calculate(); }} title="Reset" className="w-10 flex-shrink-0 flex items-center justify-center rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors">
+                <RotateCcw className="h-4 w-4" />
+              </button>
+            </div>
           </div>
 
           <div className="flex flex-col gap-3">

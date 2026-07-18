@@ -66,9 +66,13 @@ export default function GlasgowComaScaleCalculator() {
 
   const [result, setResult] = useState<GcsResult | null>(null);
 
-  useEffect(() => {
+  const calculate = () => {
     setResult(calcGcs(eye, verbal, motor));
-  }, [eye, verbal, motor]);
+  };
+
+  useEffect(() => {
+    calculate();
+  }, []);
 
   const reset = () => {
     setEye(4);
@@ -140,8 +144,11 @@ export default function GlasgowComaScaleCalculator() {
             </div>
 
             <div className="flex gap-3 mt-2 border-t border-border pt-4">
-              <button onClick={reset} className="w-full flex items-center justify-center gap-2 rounded-md bg-secondary hover:bg-secondary/80 text-secondary-foreground font-bold h-11 text-sm transition-all shadow-sm">
-                <RotateCcw className="h-4 w-4" /> Reset Score
+              <button onClick={calculate} className="w-full flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-11 text-sm transition-all shadow-sm">
+                Calculate
+              </button>
+              <button onClick={reset} title="Reset Score" className="w-11 flex-shrink-0 flex items-center justify-center rounded-md bg-secondary hover:bg-secondary/80 text-secondary-foreground font-bold h-11 transition-all shadow-sm">
+                <RotateCcw className="h-4 w-4" />
               </button>
             </div>
           </div>

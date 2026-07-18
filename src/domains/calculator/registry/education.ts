@@ -548,5 +548,13 @@ export const educationCalculators: CalculatorDef[] = [
     slug: "oxbridge-interview-calculator", name: "Oxbridge Interview Probability", description: "Estimate the probability of receiving an Oxbridge interview based on academic profile.", category: "EDUCATION", subcategory: "Academic Planning", tier: "Tier3", priorityScore: 28, status: "live" },
   { slug: "writing-complexity-score-calculator", name: "Writing Complexity Score Calculator", description: "Calculate writing complexity score calculator online with our free tool.", category: "EDUCATION", subcategory: "Language Learning", tier: "Tier3", priorityScore: 23, status: "soon" },
   { slug: "study-replication-feasibility-score-calculator", name: "Study Replication Feasibility Score Calculator", description: "Calculate Study Replication Feasibility Score Calculator online with our free tool.", category: "EDUCATION", subcategory: "Research & Academic Tools", tier: "Tier3", priorityScore: 23, status: "soon" },
-  { slug: "medical-board-score-calculator", name: "Medical Board Score Calculator", description: "Calculate medical board score calculator online with our free tool.", category: "EDUCATION", subcategory: "Standardized Tests", tier: "Tier3", priorityScore: 23, status: "soon" }
+  { slug: "medical-board-score-calculator", name: "Medical Board Score Calculator", description: "Calculate medical board score calculator online with our free tool.", category: "EDUCATION", subcategory: "Standardized Tests", tier: "Tier3", priorityScore: 23, status: "soon" },
+  {
+    slug: 'quarter-to-semester-credit-calculator',
+    name: 'Quarter to Semester Credit Calculator',
+    description: 'Convert quarter credit hours to semester credit hours for transcript evaluation.',
+    tier: 'standard',
+    status: 'live',
+    isBuilt: true,
+  },
 ];

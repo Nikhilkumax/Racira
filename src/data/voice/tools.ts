@@ -1,18 +1,5 @@
 import { ToolResult } from "@/components/CategorySearch";
-import {
-  AudioLines,
-  Mic,
-  Code,
-  Podcast,
-  FastForward,
-  Filter,
-  SpellCheck,
-  Captions,
-  Volume2,
-  Wand2,
-  Scissors,
-  Layers,
-} from "lucide-react";
+import { AudioLines, Captions, Code, FastForward, Filter, Layers, Mic, Podcast, Scissors, SpellCheck, Volume2, Wand2 } from "lucide-react";
 
 export const CATEGORIES = [
   {
@@ -120,7 +107,7 @@ export const SEARCH_REGISTRY: ToolResult[] = CATEGORIES.flatMap((c) =>
     name: t.name,
     description: t.description,
     slug: t.slug,
-    href: `/voice/tools/${t.slug}`,
+    href: `/voice/${t.slug}`,
     category: c.name,
     isBuilt: t.status === "live",
   }))

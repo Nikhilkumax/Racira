@@ -879,7 +879,7 @@ export const healthCalculators: CalculatorDef[] = [
   { slug: "boxing-round-score-calculator", name: "Boxing Round Score Calculator", description: "Calculate boxing round score calculator online with our free tool.", category: "HEALTH", subcategory: "Combat & Individual", tier: "Tier3", priorityScore: 30, status: "soon" },
   { slug: "taekwondo-score-calculator", name: "Taekwondo Score Calculator", description: "Calculate taekwondo score calculator online with our free tool.", category: "HEALTH", subcategory: "Combat & Individual", tier: "Tier3", priorityScore: 30, status: "soon" },
   { slug: "target-shooting-accuracy-calculator", name: "Target Shooting Accuracy Calculator", description: "Calculate target shooting accuracy calculator online with our free tool.", category: "HEALTH", subcategory: "Combat & Individual", tier: "Tier3", priorityScore: 30, status: "soon" },
-  { slug: "judo-points-calculator", name: "Judo Points Calculator", description: "Calculate judo points calculator online with our free tool.", category: "HEALTH", subcategory: "Combat & Individual", tier: "Tier3", priorityScore: 30, status: "soon" },
+  { slug: "judo-points-calculator", name: "Judo Points Calculator", description: "Calculate judo points calculator online with our free tool.", category: "HEALTH", subcategory: "Combat & Individual", tier: "Tier3", priorityScore: 30, status: "live" },
   { slug: "flexibility-score-calculator", name: "Flexibility Score Calculator", description: "Calculate flexibility score calculator online with our free tool.", category: "HEALTH", subcategory: "Combat & Individual", tier: "Tier3", priorityScore: 30, status: "soon" },
   { slug: "punch-force-calculator", name: "Punch Force Calculator", description: "Calculate punch force calculator online with our free tool.", category: "HEALTH", subcategory: "Combat & Individual", tier: "Tier3", priorityScore: 30, status: "soon" },
   { slug: "darts-score-calculator", name: "Darts Score Calculator", description: "Calculate darts score calculator online with our free tool.", category: "HEALTH", subcategory: "Combat & Individual", tier: "Tier3", priorityScore: 30, status: "soon" },
@@ -1466,5 +1466,40 @@ export const healthCalculators: CalculatorDef[] = [
   { slug: "metabolic-equivalent-task-met-medical-calculator", name: "Metabolic Equivalent Task (MET) Medical Calculator", description: "Calculate Metabolic Equivalent Task (MET) Medical Calculator online with our free tool.", category: "HEALTH", subcategory: "Clinical & Medical", tier: "Tier3", priorityScore: 25, status: "soon" },
   { slug: "fever-conversion-f-to-c-medical-calculator", name: "Fever Conversion (°F to °C) Medical Calculator", description: "Calculate Fever Conversion (°F to °C) Medical Calculator online with our free tool.", category: "HEALTH", subcategory: "Clinical & Medical", tier: "Tier3", priorityScore: 25, status: "soon" },
   { slug: "fear-hierarchy-score-calculator", name: "Fear Hierarchy Score Calculator", description: "Calculate Fear Hierarchy Score Calculator online with our free tool.", category: "HEALTH", subcategory: "Sleep & Mental Health", tier: "Tier3", priorityScore: 25, status: "soon" },
-  { slug: "personality-disorder-screening-score-non-diagnostic-calculator", name: "Personality Disorder Screening Score (Non-Diagnostic) Calculator", description: "Calculate Personality Disorder Screening Score (Non-Diagnostic) Calculator online with our free tool.", category: "HEALTH", subcategory: "Sleep & Mental Health", tier: "Tier3", priorityScore: 25, status: "soon" }
+  { slug: "personality-disorder-screening-score-non-diagnostic-calculator", name: "Personality Disorder Screening Score (Non-Diagnostic) Calculator", description: "Calculate Personality Disorder Screening Score (Non-Diagnostic) Calculator online with our free tool.", category: "HEALTH", subcategory: "Sleep & Mental Health", tier: "Tier3", priorityScore: 25, status: "soon" },
+  {
+    slug: 'meatless-diet-impact-calculator',
+    name: 'Meatless Diet Impact Calculator',
+    description: 'Calculate the environmental and health impact of reducing meat consumption.',
+    tier: 'standard',
+    status: 'live',
+    isBuilt: true,
+  },
+
+  {
+    slug: 'pregnancy-weight-target-calculator',
+    name: 'Pregnancy Weight Target Calculator',
+    description: 'Calculate recommended pregnancy weight gain targets based on pre-pregnancy BMI.',
+    tier: 'standard',
+    status: 'live',
+    isBuilt: true,
+  },
+
+  {
+    slug: 'tennis-first-serve-calculator',
+    name: 'Tennis First Serve Calculator',
+    description: 'Analyze first serve percentage, speed and point win rate for tennis players.',
+    tier: 'standard',
+    status: 'live',
+    isBuilt: true,
+  },
+
+  {
+    slug: 'viscerial-fat-calculator',
+    name: 'Visceral Fat Calculator',
+    description: 'Estimate visceral fat level using waist circumference and body measurements.',
+    tier: 'standard',
+    status: 'live',
+    isBuilt: true,
+  },
 ];

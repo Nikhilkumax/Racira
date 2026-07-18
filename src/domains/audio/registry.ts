@@ -1,5 +1,6 @@
 import { inferIcon } from "@/components/shared/icon-map";
 import { Tool } from "@/domains/_types";
+import { toSlug } from "@/lib/utils/slug";
 
 export const categories: { name: string; tools: Tool[] }[] = [
   {
@@ -308,11 +309,14 @@ export const categories: { name: string; tools: Tool[] }[] = [
   },
 ];
 
+// Decorate tools with their parent category name
+categories.forEach(cat => {
+  cat.tools = cat.tools.map(t => ({ ...t, category: cat.name }));
+});
+
+export const allTools = categories.flatMap(c => c.tools);
+export const TOOLS_BY_SLUG = new Map(allTools.map(t => [t.slug, t]));
+
 export function getAudioToolBySlug(slug: string) {
-  for (const cat of categories) {
-    for (const tool of cat.tools) {
-      if (tool.slug === slug) return tool;
-    }
-  }
-  return null;
+  return TOOLS_BY_SLUG.get(slug) || null;
 }

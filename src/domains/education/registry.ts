@@ -1,30 +1,4 @@
-import {
-  BookOpen, Target, FileText, Layers, ListChecks, CalendarDays, Map,
-  Brain, ClipboardList, Goal, ScrollText,
-  Layers3, Timer, NotebookPen, CalendarClock, Repeat, Network,
-  Lightbulb, BookMarked, Users, Hourglass, CheckSquare, FileSearch, GraduationCap,
-  Atom, Boxes, FlaskConical, Microscope, Dna, Sigma, Zap, Activity,
-  Sun, Radio, Mountain,
-  LineChart, Shapes, Grid3x3, MoveRight, Table, BarChart3, Dice5, Ruler,
-  PieChart, Divide, GitBranch, CircleDot,
-  Type, BookA, Tag, AlignLeft, Sparkles, Palette, BookOpenText, PenLine,
-  FilePen, Highlighter, MessagesSquare,
-  Clock4, MapPin, GitCompareArrows, FileSearch2, Workflow, Columns, FileQuestion,
-  UserCircle, Globe, Scale,
-  HelpCircle, ListTodo, ToggleLeft, FormInput, Link2, MessageSquare, Award,
-  Percent, TrendingUp, AlertTriangle, ClipboardCheck, UsersRound, FolderOpen, FileCheck,
-  Shuffle, Armchair, UserCheck, BookCheck, Mail, MessageCircle,
-  Split, Handshake, UserPlus, Megaphone, Eye, Sticker, Sunrise,
-  CalendarRange, Coins, BarChart, MessageSquareText, BookHeart, Gauge, Settings2,
-  ArrowRightLeft,
-  FilePlus, FileStack, Library, ClipboardEdit, BookOpenCheck, UserCog, Banknote,
-  BookText, Presentation, Star,
-  Languages, GitMerge, Volume2, Dumbbell,
-  Flame, Plane,
-  Flag, Briefcase, Medal, HeartHandshake, ClipboardSignature,
-  Film, Code,
-  type LucideIcon, StickyNote, BrainCircuit, Route, Orbit, Table2, ArrowRightToLine, Crosshair, MoveUpRight, Blocks, Calculator, LayoutTemplate, LayoutGrid, WholeWord, Speech,
-} from "lucide-react";
+import { Activity, AlertTriangle, AlignLeft, Armchair, ArrowRightLeft, ArrowRightToLine, Atom, Award, Banknote, BarChart, BarChart3, Blocks, BookA, BookCheck, BookHeart, BookMarked, BookOpen, BookOpenCheck, BookOpenText, BookText, Boxes, Brain, BrainCircuit, Briefcase, Calculator, CalendarClock, CalendarDays, CalendarRange, CheckSquare, CircleDot, ClipboardCheck, ClipboardEdit, ClipboardList, ClipboardSignature, Clock4, Code, Coins, Columns, Crosshair, Dice5, Divide, Dna, Dumbbell, Eye, FileCheck, FilePen, FilePlus, FileQuestion, FileSearch, FileSearch2, FileStack, FileText, Film, Flag, Flame, FlaskConical, FolderOpen, FormInput, Gauge, GitBranch, GitCompareArrows, GitMerge, Globe, Goal, GraduationCap, Grid3x3, Handshake, HeartHandshake, HelpCircle, Highlighter, Hourglass, Languages, Layers, Layers3, LayoutGrid, LayoutTemplate, Library, Lightbulb, LineChart, Link2, ListChecks, ListTodo, Mail, Map, MapPin, Medal, Megaphone, MessageCircle, MessageSquare, MessageSquareText, MessagesSquare, Microscope, Mountain, MoveRight, MoveUpRight, Network, NotebookPen, Orbit, Palette, PenLine, Percent, PieChart, Plane, Presentation, Radio, Repeat, Route, Ruler, Scale, ScrollText, Settings2, Shapes, Shuffle, Sigma, Sparkles, Speech, Split, Star, Sticker, StickyNote, Sun, Sunrise, Table, Table2, Tag, Target, Timer, ToggleLeft, TrendingUp, Type, UserCheck, UserCircle, UserCog, UserPlus, Users, UsersRound, Volume2, WholeWord, Workflow, Zap, type Lucide } from "lucide-react";
 
 const TimerIcon = Timer;
 const TrendingUpIcon = TrendingUp;

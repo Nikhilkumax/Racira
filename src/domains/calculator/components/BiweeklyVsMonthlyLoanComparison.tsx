@@ -18,14 +18,14 @@ interface CompResult {
   monthlyPayment: number;
   monthlyTotalInterest: number;
   monthlyTotalTime: number;
-  
+
   biweeklyPayment: number;
   biweeklyTotalInterest: number;
   biweeklyTotalTime: number;
-  
+
   interestSaved: number;
   timeSavedMonths: number;
-  
+
   chartData: { name: string; Monthly: number; Biweekly: number }[];
 }
 
@@ -37,7 +37,7 @@ const DEFAULTS = {
 
 const calculateComparison = (inputs: CompInputs): CompResult => {
   const { loanAmount, interestRate, loanTermYears } = inputs;
-  
+
   const monthlyRate = interestRate / 100 / 12;
   const totalMonths = loanTermYears * 12;
 
@@ -59,7 +59,7 @@ const calculateComparison = (inputs: CompInputs): CompResult => {
   let biweeklyBal = loanAmount;
   let biweeklyTotalInterest = 0;
   let biweeklyPaymentCount = 0;
-  
+
   // Rate per biweekly period (approximate 26 periods a year)
   // Effective rate per 14 days:
   const dailyRate = interestRate / 100 / 365;
@@ -70,7 +70,7 @@ const calculateComparison = (inputs: CompInputs): CompResult => {
       biweeklyPaymentCount++;
       const interest = biweeklyBal * biRate;
       biweeklyTotalInterest += interest;
-      
+
       let principalPayment = biweeklyPayment - interest;
       if (principalPayment > biweeklyBal) principalPayment = biweeklyBal;
       biweeklyBal -= principalPayment;
@@ -79,7 +79,7 @@ const calculateComparison = (inputs: CompInputs): CompResult => {
 
   // Convert 26 payments/year to months for display comparison
   const biweeklyTotalMonths = (biweeklyPaymentCount / 26) * 12;
-  
+
   const interestSaved = monthlyTotalInterest - biweeklyTotalInterest;
   const timeSavedMonths = totalMonths - biweeklyTotalMonths;
 
@@ -116,7 +116,7 @@ export default function BiweeklyVsMonthlyLoanComparison() {
   const [loanAmount, setLoanAmount] = useState(DEFAULTS.loanAmount);
   const [interestRate, setInterestRate] = useState(DEFAULTS.interestRate);
   const [loanTermYears, setLoanTermYears] = useState(DEFAULTS.loanTermYears);
-  
+
   const [result, setResult] = useState<CompResult | null>(null);
   const [mounted, setMounted] = useState(false);
 
@@ -166,7 +166,7 @@ export default function BiweeklyVsMonthlyLoanComparison() {
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Biweekly vs Monthly Loan Comparison" }]} />
       <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Biweekly vs Monthly Loan Comparison</h1>
-        
+
         <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-6 items-start max-w-[1180px]">
           {/* Inputs */}
           <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
@@ -227,7 +227,7 @@ export default function BiweeklyVsMonthlyLoanComparison() {
                           <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
                           <XAxis dataKey="name" tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} tickLine={false} axisLine={false} />
                           <YAxis tickFormatter={(val) => val > 100 ? `$${(val / 1000).toFixed(0)}k` : val} tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} tickLine={false} axisLine={false} />
-                          <RechartsTooltip 
+                          <RechartsTooltip
                             formatter={(value: number, name: string, props: any) => {
                               if (props.payload.name === "Total Interest Paid") return formatCurrency(value);
                               return `${value} Years`;
@@ -250,18 +250,19 @@ export default function BiweeklyVsMonthlyLoanComparison() {
         {/* SEO CONTENT SECTION */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <section className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">The Power of Biweekly Payments</h2>
-            <p>Most standard loans — including mortgages, auto loans, and personal loans — are built around a monthly amortization schedule: one payment per month, twelve payments per year. A true biweekly payment plan changes that rhythm. Instead of paying once a month, you take your standard monthly payment, split it exactly in half, and submit that half-payment every two weeks. Because there are 52 weeks in a calendar year, a biweekly schedule produces exactly 26 half-payments annually.</p>
-
-            <h2 className="text-2xl font-bold mb-3">Where the Savings Come From</h2>
-            <p>The arithmetic is straightforward. Twenty-six half-payments equal 13 full monthly payments per year — one more than the 12 you would make on a standard monthly schedule. That single extra payment is applied entirely to your principal balance, which immediately reduces the amount of interest accruing the following period. Over the lifespan of a standard 30-year mortgage, this one additional payment per year can shave four to five years off the term and save tens of thousands of dollars in total interest paid.</p>
-
-            <h2 className="text-2xl font-bold mb-3">Why You Should Not Pay for a Biweekly Program</h2>
-            <p>Many mortgage lenders and third-party financial services companies offer to manage a biweekly payment plan for you, advertising the exact savings our calculator projects. They often charge an enrollment fee of up to $400 and a per-transaction fee for every payment processed. Do not pay for this service. You can replicate the identical mathematical result at no cost. The simplest approach is to divide your standard monthly payment by 12 and add that amount as extra principal with each bill. After twelve months you will have made one extra full payment. Alternatively, you can save the equivalent of one full payment over the course of the year and make a single lump-sum principal payment in December.</p>
-
-            <h2 className="text-2xl font-bold mb-3">Is a Biweekly Strategy Right for You?</h2>
-            <p>A biweekly payment plan works especially well for individuals who receive their paychecks every two weeks, since it naturally aligns cash inflows with loan outflows. It enforces savings discipline and builds home equity faster with no extra out-of-pocket cost beyond the one additional annual payment. However, if your mortgage interest rate is historically low — say, under 4% — you may generate a better return by investing that extra payment in a diversified index fund rather than prepaying the loan. Use the comparison above to calculate exactly how much interest you stand to save, then weigh that guaranteed return against your other financial opportunities before deciding.</p>
+          <section className="mt-12 space-y-8 text-base text-foreground">
+            <div>
+              <h2 className="text-2xl font-bold mb-3">What Is a Biweekly vs Monthly Loan Comparison?</h2>
+              <p className="text-muted-foreground leading-relaxed">A Biweekly vs Monthly Loan Comparison Calculator shows you exactly how much money and time you save by switching from a standard monthly payment schedule to a biweekly payment schedule on any amortizing loan. With a monthly plan you make 12 payments per year, but with a true biweekly plan you make 26 half-payments per year, which equals 13 full payments — one extra payment annually. This calculator takes your loan amount, interest rate, and term, then simulates both payment schedules using full amortization math to project the total interest paid and payoff time under each approach, revealing the exact dollar savings and time reduction from the biweekly strategy.</p>
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold mb-3">How It Works</h2>
+              <p className="text-muted-foreground leading-relaxed">The calculator first computes your standard monthly payment using the fixed-rate amortization formula: payment equals principal times the monthly rate times one plus the rate raised to the number of months, divided by one plus the rate raised to the number of months minus one. For the biweekly schedule, it takes half of that monthly payment and applies it every 14 days using a daily interest rate derived from your annual rate divided by 365 and multiplied by 14. It then iterates through each biweekly period, calculating interest on the remaining balance, subtracting the payment, and tracking the balance until it reaches zero. The result is the exact number of biweekly payments required, the total interest paid, and the equivalent time in months, which is compared against the monthly schedule to determine your interest savings and time saved.</p>
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
+              <p className="text-muted-foreground leading-relaxed">Your primary results are the total interest saved and the time shaved off your loan, displayed in two prominent cards. The summary statistics bar shows your standard monthly payment, biweekly payment amount, and total interest under both schedules for direct comparison. The bar chart visualizes total interest paid and payoff time in years for both strategies side by side. The interest saved represents guaranteed savings — unlike investment returns, this is money you will definitely not pay the lender. The time saved tells you how many years earlier you will be debt-free. You can replicate these results for free by adding one-twelfth of your monthly payment as extra principal each month, without paying any third-party biweekly service fees.</p>
+            </div>
           </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/biweekly-vs-monthly-loan-comparison" />
           <PopularCalculators exclude="/calculator/biweekly-vs-monthly-loan-comparison" />

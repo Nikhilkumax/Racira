@@ -42,13 +42,26 @@ export default function LengthConverter() {
   const [mounted, setMounted] = useState(false);
   useEffect(() => { setMounted(true); }, []);
 
-  const v = parseFloat(value) || 0;
-  const fromUnit = units.find(u => u.key === from)!;
-  const toUnit = units.find(u => u.key === to)!;
-  const meters = v * fromUnit.toMeters;
+  const [calcV, setCalcV] = useState(1);
+  const [calcFrom, setCalcFrom] = useState<LengthUnit>("m");
+  const [calcTo, setCalcTo] = useState<LengthUnit>("ft");
+
+  const calculate = () => {
+    setCalcV(parseFloat(value) || 0);
+    setCalcFrom(from);
+    setCalcTo(to);
+  };
+
+  useEffect(() => {
+    calculate();
+  }, []);
+
+  const fromUnit = units.find(u => u.key === calcFrom)!;
+  const toUnit = units.find(u => u.key === calcTo)!;
+  const meters = calcV * fromUnit.toMeters;
   const result = meters / toUnit.toMeters;
   const chartData = units.slice(0, 6).map(u => ({ name: u.short, value: parseFloat((meters / u.toMeters).toFixed(4)) }));
-  const reset = () => { setValue("1"); setFrom("m"); setTo("ft"); };
+  const reset = () => { setValue("1"); setFrom("m"); setTo("ft"); calculate(); };
 
   const faqs = [
     { question: "How do I convert meters to feet?", answer: "Multiply the meter value by 3.28084. For example, 5 meters = 16.4042 feet. Alternatively, divide meters by 0.3048. This converter handles all unit pairs automatically and shows all conversions simultaneously." },
@@ -84,9 +97,14 @@ export default function LengthConverter() {
                 </select>
               </div>
             </div>
-            <button type="button" onClick={reset} className="flex items-center justify-center gap-2 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors">
-              <RotateCcw className="h-4 w-4" /> Reset
-            </button>
+            <div className="flex gap-3">
+              <button type="button" onClick={calculate} className="w-full flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 transition-colors shadow-sm">
+                Calculate
+              </button>
+              <button type="button" onClick={reset} title="Reset" className="w-10 flex-shrink-0 flex items-center justify-center rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors">
+                <RotateCcw className="h-4 w-4" />
+              </button>
+            </div>
           </div>
 
           <div className="flex flex-col gap-3">

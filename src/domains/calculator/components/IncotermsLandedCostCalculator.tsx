@@ -288,6 +288,21 @@ export default function IncotermsLandedCostCalculator() {
             { question: "Does Landed Cost change based on the Incoterm?", answer: "The components you pay directly will change. Under EXW, you pay the freight forwarder directly. Under CIF, the supplier pays the main freight, but they increase the unit price to compensate. Ultimately, the total Landed Cost is usually similar, but the breakdown looks different." },
             { question: "How do I calculate Landed Cost if my container has multiple different products?", answer: "This requires 'Cost Allocation'. You must take the total container freight and duty bill and divide it among the SKUs. You can allocate by Volume (CBM), by Weight (kg), or by Value ($). The most accurate method depends on whether your freight was billed by weight or volume." },
           ]} pageUrl="https://racira.com/calculator/incoterms-landed-cost-calculator" />
+
+      <section className="mt-12 space-y-8 text-base text-foreground">
+        <div>
+          <h2 className="text-2xl font-bold mb-3">What Is a Incoterms Landed Cost Calculator?</h2>
+          <p className="text-muted-foreground leading-relaxed">The Incoterms Landed Cost Calculator is a practical online tool designed to give you fast, reliable answers for everyday decisions. Whether you are planning a budget, comparing options, or verifying a quick estimate, this calculator removes the guesswork and delivers clear, actionable numbers. It is built for anyone who needs a dependable result without wading through spreadsheets or manual formulas. By focusing on the inputs that actually matter, the Incoterms Landed Cost Calculator keeps the experience simple while still producing a trustworthy output you can act on with confidence.</p>
+        </div>
+        <div>
+          <h2 className="text-2xl font-bold mb-3">How It Works</h2>
+          <p className="text-muted-foreground leading-relaxed">Using the Incoterms Landed Cost Calculator is straightforward. Enter the key values in the input fields above, adjust any advanced options if they apply to your situation, and click the Calculate button. The calculator applies the standard industry formula behind the scenes and instantly updates every result component on the right, including the primary result card, the three-stat bar, the breakdown table, the chart, and the summary statistics. All inputs are pre-filled with realistic defaults so you see a complete result the moment the page loads. The tool validates your entries and handles edge cases such as zero, negative, or empty values without crashing, so you always get a clean, readable answer rather than an error or a NaN.</p>
+        </div>
+        <div>
+          <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
+          <p className="text-muted-foreground leading-relaxed">The results panel is organized so the most important number is always at the top, followed by supporting metrics that put that number in context. The breakdown table shows exactly how each input contributes to the total, and the chart visualizes the distribution so you can spot the biggest drivers at a glance. Use the summary statistics block to cross-check the headline figure against the detailed rows, because the two are designed to match exactly. Adjust any input and click Calculate again to compare scenarios side by side, which makes the Incoterms Landed Cost Calculator useful for both quick checks and deeper what-if analysis.</p>
+        </div>
+      </section>
           <PopularCalculators exclude="/calculator/incoterms-landed-cost-calculator" />
         </div>
       </div>

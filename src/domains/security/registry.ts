@@ -1,4 +1,4 @@
-import { Key, Activity, Type, Calculator, Search, CheckSquare, Ruler, Grid3x3, Brain, GitCompare, ShieldCheck, UserCircle, Hourglass, History, KeySquare, Lock, FileDigit, FileSignature, Fingerprint, PenTool, FileText, Mail, BookOpen, Cpu, RotateCw, ListTree, GitCommit, FileCode, Replace, ArrowRightLeft, TrendingUp, Grid, Binary, Columns, Network, Link, Hash, Dices, Layers, FileCode2, Database, Box, Package, LucideHash, LucideSparkles, LucideWandSparkles, Shield, AArrowDown, Sparkles, AArrowUp, ALargeSmall, AlarmCheck, Accessibility, Book, BookA, ActivitySquare, Code2, Barcode, Code, Link2, CodeSquare, AirVent, Airplay, CodeXml, Codepen, Codesandbox, AlarmClock, EyeOff, LucideEyeOff, Ghost, LucideGhost, AlarmClockCheck, FolderCode, AlarmClockMinus, LucideBarcode, AlarmClockOff, BookAudio, AlarmClockPlus, AlarmMinus, AlarmPlus, AlarmSmoke, Album, Globe, LucideCode, LucideCode2, AlertCircle, FileJson, CheckCircle2, BadgeCheck, BookCheck, BookCopy, BookDashed, Globe2, GlobeLock, AlertOctagon, BookKey, BookOpenCheck, BookmarkCheck, LucideShield, LucideShieldAlert, LucideShieldBan, LucideShieldCheck, CalendarCheck, BookDown, BookHeadphones, BookHeart, BookImage, LucideShieldClose, BookLock, BookMarked, LucideShieldEllipsis, ShieldAlert, LucideGlobe, BookMinus, CalendarCheck2, AlertTriangle, Check, AlignCenter, CheckCheck, ScanLine, AlignCenterHorizontal, CheckCircle, BookOpenText, AlignCenterVertical, BookPlus, AlignEndHorizontal, BookTemplate, BookText, AlignEndVertical, AlignHorizontalDistributeCenter, AlignHorizontalDistributeEnd, AlignHorizontalDistributeStart, AlignHorizontalJustifyCenter, AlignHorizontalJustifyEnd, BookType, BookUp, BookUp2, AlignHorizontalJustifyStart, AlignHorizontalSpaceAround, CheckSquare2, BookUser, BookX, Bookmark, LucideShieldHalf, CircleCheck, AlignHorizontalSpaceBetween, AlignJustify, AlignLeft, BookmarkMinus, BookmarkPlus, LucideShieldMinus, BookmarkX, Facebook, WandSparkles, DatabaseZap, LucideBook, LucideShieldOff, AlignRight, LucideBookA, LucideBookAudio, LucideBookCheck, LucideBookCopy, LucideBookDashed, Gauge } from "lucide-react";
+import { AArrowDown, AArrowUp, ALargeSmall, Accessibility, Activity, ActivitySquare, AirVent, Airplay, AlarmCheck, AlarmClock, AlarmClockCheck, AlarmClockMinus, AlarmClockOff, AlarmClockPlus, AlarmMinus, AlarmPlus, AlarmSmoke, Album, AlertCircle, AlertOctagon, AlertTriangle, AlignCenter, AlignCenterHorizontal, AlignCenterVertical, AlignEndHorizontal, AlignEndVertical, AlignHorizontalDistributeCenter, AlignHorizontalDistributeEnd, AlignHorizontalDistributeStart, AlignHorizontalJustifyCenter, AlignHorizontalJustifyEnd, AlignHorizontalJustifyStart, AlignHorizontalSpaceAround, AlignHorizontalSpaceBetween, AlignJustify, AlignLeft, AlignRight, ArrowRightLeft, BadgeCheck, Barcode, Binary, Book, BookA, BookAudio, BookCheck, BookCopy, BookDashed, BookDown, BookHeadphones, BookHeart, BookImage, BookKey, BookLock, BookMarked, BookMinus, BookOpen, BookOpenCheck, BookOpenText, BookPlus, BookTemplate, BookText, BookType, BookUp, BookUp2, BookUser, BookX, Bookmark, BookmarkCheck, BookmarkMinus, BookmarkPlus, BookmarkX, Box, Brain, Calculator, CalendarCheck, CalendarCheck2, Check, CheckCheck, CheckCircle, CheckCircle2, CheckSquare, CheckSquare2, CircleCheck, Code, Code2, CodeSquare, CodeXml, Codepen, Codesandbox, Columns, Cpu, Database, DatabaseZap, Dices, EyeOff, Facebook, FileCode, FileCode2, FileDigit, FileJson, FileSignature, FileText, Fingerprint, FolderCode, Gauge, Ghost, GitCommit, GitCompare, Globe, Globe2, GlobeLock, Grid, Grid3x3, Hash, History, Hourglass, Key, KeySquare, Layers, Link, Link2, ListTree, Lock, Mail, Network, Package, PenTool, Replace, RotateCw, Ruler, ScanLine, Search, Shield, ShieldAlert, ShieldBan, ShieldCheck, ShieldClose, ShieldEllipsis, ShieldHalf, ShieldMinus, ShieldOff, Sparkles, TrendingUp, Type, UserCircle, WandSparkles } from "lucide-react";
 import { ToolResult } from "@/components/CategorySearch";
 
 // Registry of 175 Security & Privacy tools.
@@ -25,8 +25,8 @@ export interface Tool {
   status: "live" | "soon";
 }
 
-const slugify = (s: string) =>
-  s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+import { toSlug } from "@/lib/utils/slug";
+const slugify = toSlug;
 
 type Raw = [name: string, description: string, icon: any, live?: boolean];
 
@@ -82,9 +82,9 @@ const groups: Record<ToolCategory, Raw[]> = {
     ["SHA-384 Hash Generator", "Compute SHA-384 digest", Box, true],
     ["SHA-512 Hash Generator", "Compute SHA-512 digest", Package, true],
     ["SHA-3 Hash Generator", "Compute SHA-3 digest", Hash],
-    ["RIPEMD-160 Hash Generator", "Compute RIPEMD-160 digest", LucideHash],
-    ["BLAKE2 Hash Generator", "Compute BLAKE2 digest", LucideSparkles],
-    ["Keccak-256 Hash Generator", "Compute Keccak-256 digest", LucideWandSparkles],
+    ["RIPEMD-160 Hash Generator", "Compute RIPEMD-160 digest", Hash],
+    ["BLAKE2 Hash Generator", "Compute BLAKE2 digest", Sparkles],
+    ["Keccak-256 Hash Generator", "Compute Keccak-256 digest", WandSparkles],
     ["HMAC Generator", "Compute HMAC with SHA family", Shield, true],
     ["Argon2 Hash Simulator", "Argon2 parameters reference", AArrowDown],
     ["Bcrypt Hash Generator", "Bcrypt reference & simulator", Sparkles],
@@ -116,13 +116,13 @@ const groups: Record<ToolCategory, Raw[]> = {
   ],
   "Steganography": [
     ["Text Steganography Tool", "Hide text using whitespace", EyeOff],
-    ["Image Steganography Tool", "LSB image steganography in browser", LucideEyeOff],
+    ["Image Steganography Tool", "LSB image steganography in browser", EyeOff],
     ["Audio Steganography Reference", "Audio stego concepts reference", Ghost],
-    ["Steganography Detector", "Basic LSB anomaly detector", LucideGhost],
+    ["Steganography Detector", "Basic LSB anomaly detector", Ghost],
     ["Zero-Width Character Inserter", "Hide messages in zero-width chars", AlarmClockCheck, true],
     ["Invisible Text Encoder", "Encode using invisible Unicode", FolderCode],
     ["Homoglyph Text Obfuscator", "Swap with look-alike glyphs", AlarmClockMinus],
-    ["Watermarked Text Encoder", "Embed invisible watermarks", LucideBarcode],
+    ["Watermarked Text Encoder", "Embed invisible watermarks", Barcode],
     ["Digital Fingerprint Inserter", "Unique tag per recipient", AlarmClockOff],
     ["Canary Token Reference Builder", "Build canary token references", BookAudio],
     ["Whitespace Steganography", "Hide with tabs/spaces", AlarmClockPlus],
@@ -133,8 +133,8 @@ const groups: Record<ToolCategory, Raw[]> = {
   ],
   "Network & Web Security": [
     ["SSL Certificate Inspector", "Inspect PEM certificate details", Globe],
-    ["CSR Decoder", "Decode certificate signing requests", LucideCode],
-    ["PEM Certificate Decoder", "Parse PEM-encoded data", LucideCode2],
+    ["CSR Decoder", "Decode certificate signing requests", Code],
+    ["PEM Certificate Decoder", "Parse PEM-encoded data", Code2],
     ["X.509 Certificate Parser", "Parse X.509 fields", AlertCircle],
     ["JWT Decoder", "Decode JWT header & payload", FileJson, true],
     ["JWT Encoder", "Build a signed JWT (HS256)", FileCode2, true],
@@ -151,23 +151,23 @@ const groups: Record<ToolCategory, Raw[]> = {
   "Privacy Tools": [
     ["Personal Data Audit Checklist", "Track your personal data exposure", BookOpenCheck],
     ["Data Minimization Checklist", "Reduce collected data", BookmarkCheck],
-    ["Privacy Risk Assessment", "PIA template", LucideShield],
-    ["GDPR Rights Reference", "GDPR data subject rights", LucideShieldAlert],
-    ["CCPA Rights Reference", "CCPA consumer rights", LucideShieldBan],
-    ["Privacy Policy Analyzer", "Privacy policy review template", LucideShieldCheck],
+    ["Privacy Risk Assessment", "PIA template", Shield],
+    ["GDPR Rights Reference", "GDPR data subject rights", ShieldAlert],
+    ["CCPA Rights Reference", "CCPA consumer rights", ShieldBan],
+    ["Privacy Policy Analyzer", "Privacy policy review template", ShieldCheck],
     ["Cookie Consent Checklist", "Cookie banner requirements", CalendarCheck],
     ["Third-Party Tracker Reference", "Common trackers reference", BookDown],
     ["Metadata Cleaner Reference", "Metadata removal checklist", BookHeadphones],
     ["Browser Fingerprint Reference", "Fingerprinting vectors reference", BookHeart],
     ["DNT Header Reference", "Do Not Track header", BookImage],
-    ["Email Privacy Checker", "Email leak/header reference", LucideShieldClose],
+    ["Email Privacy Checker", "Email leak/header reference", ShieldClose],
     ["Photo EXIF Reference", "EXIF privacy fields", BookLock],
     ["Telemetry Opt-Out Reference", "Common opt-out steps", BookMarked],
-    ["Privacy Settings Wizard", "Walkthrough common services", LucideShieldEllipsis],
+    ["Privacy Settings Wizard", "Walkthrough common services", ShieldEllipsis],
   ],
   "Security Auditing": [
     ["OWASP Top 10 Reference", "Browse OWASP Top 10 risks", ShieldAlert],
-    ["Web Security Checklist", "Build a custom checklist", LucideGlobe],
+    ["Web Security Checklist", "Build a custom checklist", Globe],
     ["Input Validation Reference", "Validation patterns reference", BookMinus],
     ["XSS Prevention Checklist", "Prevent cross-site scripting", CalendarCheck2],
     ["SQL Injection Prevention", "SQLi prevention reference", AlertTriangle],
@@ -205,28 +205,28 @@ const groups: Record<ToolCategory, Raw[]> = {
     ["ISO 27001 Control Reference", "ISO 27001 controls", BookUser],
     ["PCI DSS Requirement Reference", "PCI DSS reference", BookX],
     ["SOC 2 Criteria Reference", "SOC 2 trust criteria", Bookmark],
-    ["HIPAA Privacy Rule Reference", "HIPAA privacy rule", LucideShieldHalf],
+    ["HIPAA Privacy Rule Reference", "HIPAA privacy rule", ShieldHalf],
     ["Incident Response Checklist", "Incident response steps", CircleCheck],
     ["Data Breach Response Template", "Breach notification template", AlignHorizontalSpaceBetween],
     ["Security Policy Template Builder", "Build a security policy", AlignJustify],
     ["Security Awareness Quiz Builder", "Local quiz builder", AlignLeft],
     ["NIST CSF Reference", "NIST CSF functions", BookmarkMinus],
     ["FedRAMP Reference", "FedRAMP overview", BookmarkPlus],
-    ["GDPR Compliance Checklist", "GDPR compliance steps", LucideShieldMinus],
+    ["GDPR Compliance Checklist", "GDPR compliance steps", ShieldMinus],
     ["COPPA Reference", "Children's privacy reference", BookmarkX],
     ["FERPA Reference", "Education records reference", Facebook],
   ],
   "Security Utilities": [
     ["UUID Generator", "Generate UUID v4", WandSparkles, true],
     ["Random Bytes Generator", "Cryptographically random bytes", DatabaseZap, true],
-    ["Time-based OTP Reference", "TOTP/HOTP reference", LucideBook],
-    ["QR Code Privacy Checker", "QR safety checklist", LucideShieldOff],
+    ["Time-based OTP Reference", "TOTP/HOTP reference", Book],
+    ["QR Code Privacy Checker", "QR safety checklist", ShieldOff],
     ["Secure Notes (local)", "Encrypted local-only notes", AlignRight],
-    ["Secure Clipboard Reference", "Clipboard hygiene tips", LucideBookA],
-    ["File Shredder Reference", "Secure deletion guidance", LucideBookAudio],
-    ["VPN Comparison Reference", "VPN comparison template", LucideBookCheck],
-    ["Tor Usage Reference", "Tor basics reference", LucideBookCopy],
-    ["E2E Messaging Reference", "Comparison of E2E messengers", LucideBookDashed],
+    ["Secure Clipboard Reference", "Clipboard hygiene tips", BookA],
+    ["File Shredder Reference", "Secure deletion guidance", BookAudio],
+    ["VPN Comparison Reference", "VPN comparison template", BookCheck],
+    ["Tor Usage Reference", "Tor basics reference", BookCopy],
+    ["E2E Messaging Reference", "Comparison of E2E messengers", BookDashed],
   ],
 };
 

@@ -114,7 +114,7 @@ const WaterFootprintCalculator = () => {
 
               <div className="flex gap-3 mt-8">
                 <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">
-                  <Droplets className="h-5 w-5" /> Calculate Footprint
+                  <Droplets className="h-5 w-5" /> Calculate
                 </button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground">
                   <RotateCcw className="h-5 w-5" />
                 </button>

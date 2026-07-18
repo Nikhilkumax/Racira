@@ -234,9 +234,24 @@ export default function ChiSquareCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <section className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">The Mathematics of Association Testing</h2>
-            <p>The Chi-Square test of independence determines structural correlation between qualitative categorical variables. It compares observed sample distribution matrices to predicted distributions under a theoretical model of perfect independence.</p>
-            <p>Using the cumulative Chi-Square distribution density curves at calculated degrees of freedom, the tail area indicates the probability (P-value) of obtaining these distributions purely by chance variance.</p>
+            <h2 className="text-2xl font-bold mb-3">Understanding the Chi-Square (χ²) Test of Independence</h2>
+            <p>The Chi-Square test of independence is one of the most fundamental statistical methods used to determine whether there is a significant association between two categorical variables in a single population. In statistical terms, categorical data refers to variables that can be grouped into distinct categories without an inherent numerical order, such as gender, blood type, product preference, or geographic region.</p>
+            <p>For example, a market researcher might want to know if there is a relationship between a person's age group (Categorical Variable 1: Under 30, 30-50, Over 50) and their preferred streaming service (Categorical Variable 2: Netflix, Hulu, Disney+). The Chi-Square test mathematically evaluates the survey data to tell the researcher whether age and streaming preference are completely independent (unrelated) or if they are structurally associated.</p>
+
+            <h2 className="text-2xl font-bold mb-3">Observed vs. Expected Frequencies</h2>
+            <p>The core logic of the Chi-Square test revolves around comparing two sets of numbers: the <strong>Observed Frequencies</strong> and the <strong>Expected Frequencies</strong>.</p>
+            <ul>
+              <li><strong>Observed Frequencies (O):</strong> This is the actual raw data you collected. If you surveyed 100 people and found that 40 people under 30 prefer Netflix, 40 is your observed frequency for that specific cross-section (or "cell" in the contingency table).</li>
+              <li><strong>Expected Frequencies (E):</strong> These are the hypothetical numbers you would expect to see if there was absolutely no relationship between the two variables. The expected frequency for any cell is calculated by multiplying its row total by its column total, and then dividing by the grand total of the entire sample.</li>
+            </ul>
+            <p>The test formula calculates the squared difference between the observed and expected counts, divided by the expected counts, across every cell in the table: <em>χ² = Σ [ (O - E)² / E ]</em>. If the observed numbers are very close to the expected numbers, the χ² value will be small, suggesting the variables are independent. If there is a massive difference, the χ² value will be large, indicating a strong association.</p>
+
+            <h2 className="text-2xl font-bold mb-3">Degrees of Freedom and the P-Value</h2>
+            <p>Once the raw Chi-Square statistic is calculated, it must be contextualized using the <strong>Degrees of Freedom (df)</strong>. The degrees of freedom represent the number of values in the final calculation that are free to vary. For a contingency table, it is calculated as: <em>df = (Number of Rows - 1) × (Number of Columns - 1)</em>.</p>
+            <p>Using the χ² statistic and the degrees of freedom, we calculate the <strong>P-value</strong>. The P-value tells us the probability of obtaining our observed data (or data more extreme) if the null hypothesis (that the variables are entirely independent) is true. In most scientific research, an alpha level (α) of 0.05 is used as the threshold. If the P-value is less than 0.05, we reject the null hypothesis and conclude that a statistically significant relationship exists between the variables.</p>
+            
+            <h2 className="text-2xl font-bold mb-3">Limitations and Assumptions</h2>
+            <p>While powerful, the Chi-Square test has strict limitations. It can only be used with categorical data (counts/frequencies), not continuous data (like exact height or income). The test assumes random sampling and mutually exclusive categories. Most importantly, the test becomes unreliable if the sample size is too small; a general statistical rule of thumb requires that at least 80% of the expected frequencies in the matrix must be 5 or greater, and no expected frequency can be exactly zero. If your sample violates this assumption, alternative tests like Fisher's Exact Test must be used instead.</p>
           </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/chi-square-calculator" />
           <PopularCalculators exclude="/calculator/chi-square-calculator" />

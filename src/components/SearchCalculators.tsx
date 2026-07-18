@@ -8,7 +8,8 @@ import { trackSearchImpression, trackComingSoonClick } from "@/lib/analytics";
 
 import { toSlug } from "@/lib/utils/slug";
 
-const formatCategory = (cat: string) => {
+const formatCategory = (cat: string | undefined) => {
+  if (!cat) return 'General';
   if (cat === 'EVERYDAY_LIFE') return 'Everyday Life';
   return cat.charAt(0).toUpperCase() + cat.slice(1).toLowerCase();
 };
@@ -52,10 +53,10 @@ const SearchCalculators = () => {
   
   const results = normalizedQuery.length >= 1 && registry.length > 0
     ? registry
-        .filter(c => 
-          c.name.toLowerCase().includes(normalizedQuery) || 
-          c.description.toLowerCase().includes(normalizedQuery) ||
-          c.category.toLowerCase().includes(normalizedQuery) ||
+        .filter(c =>
+          c.name?.toLowerCase().includes(normalizedQuery) ||
+          c.description?.toLowerCase().includes(normalizedQuery) ||
+          c.category?.toLowerCase().includes(normalizedQuery) ||
           (c.subcategory && c.subcategory.toLowerCase().includes(normalizedQuery))
         )
         .sort((a, b) => {

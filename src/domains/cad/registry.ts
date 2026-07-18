@@ -18,12 +18,9 @@ export type Category = {
   tools: Tool[];
 };
 
-const slug = (s: string) =>
-  s
-    .toLowerCase()
-    .replace(/&/g, "and")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-|-$/g, "");
+import { toSlug } from "@/lib/utils/slug";
+
+const slug = toSlug;
 
 const ACTIVE_SLUGS = new Set(["2d-cad-sketch-tool"]);
 
@@ -185,7 +182,12 @@ export const categories: Category[] = [
 
 
 
+categories.forEach(cat => {
+  cat.tools = cat.tools.map(t => ({ ...t, category: cat.title }));
+});
+
 export const allTools: Tool[] = categories.flatMap((c) => c.tools);
+export const TOOLS_BY_SLUG = new Map(allTools.map(t => [t.slug, t]));
 export const totalCount = allTools.length; // sanity: 118
 
 export const findTool = (s: string) => allTools.find((t) => (t as any).slug === s);
@@ -197,7 +199,7 @@ export const SEARCH_REGISTRY: ToolResult[] = categories.flatMap((cat) =>
     name: tool.name,
     description: tool.description, // FIXED property name
     slug: tool.slug,
-    href: `/cad/tools/${tool.slug}`,
+    href: `/cad/${tool.slug}`,
     category: cat.title,
     isBuilt: tool.status === "live", // FIXED property
   }))

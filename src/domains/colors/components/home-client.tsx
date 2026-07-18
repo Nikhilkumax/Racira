@@ -38,7 +38,7 @@ export function HomeClient() {
                 name: t.name, 
                 description: t.description, 
                 slug: t.slug, 
-                href: `/colors/tools/${t.slug}`, 
+                href: `/colors/${t.slug}`, 
                 category: CATEGORY_META[t.category].label, 
                 isBuilt: t.status === "live" 
               }))} 
@@ -56,7 +56,7 @@ export function HomeClient() {
                   title: meta.label,
                   tools: tools
                 }}
-                basePath="/colors/tools"
+                basePath="/colors"
               />
             );
           })}

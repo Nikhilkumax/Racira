@@ -526,7 +526,7 @@ export const engineeringCalculators: CalculatorDef[] = [
   { slug: "tail-moment-arm-calculator", name: "Tail Moment Arm Calculator", description: "Calculate Tail Moment Arm Calculator online with our free tool.", category: "ENGINEERING", subcategory: "Aerospace Engineering", tier: "Tier3", priorityScore: 28, status: "soon" },
   { slug: "wave-drag-calculator", name: "Wave Drag Calculator", description: "Calculate Wave Drag Calculator online with our free tool.", category: "ENGINEERING", subcategory: "Aerospace Engineering", tier: "Tier3", priorityScore: 28, status: "soon" },
   { slug: "aircraft-range-calculator", name: "Aircraft Range Calculator", description: "Calculate aircraft range calculator online with our free tool.", category: "ENGINEERING", subcategory: "Aerospace Engineering", tier: "Tier3", priorityScore: 28, status: "soon" },
-  { slug: "fuel-burn-rate-calculator", name: "Fuel Burn Rate Calculator", description: "Calculate fuel burn rate calculator online with our free tool.", category: "ENGINEERING", subcategory: "Aerospace Engineering", tier: "Tier3", priorityScore: 28, status: "soon" },
+  { slug: "fuel-burn-rate-calculator", name: "Fuel Burn Rate Calculator", description: "Calculate fuel burn rate calculator online with our free tool.", category: "ENGINEERING", subcategory: "Aerospace Engineering", tier: "Tier3", priorityScore: 28, status: "live" },
   { slug: "propeller-efficiency-calculator", name: "Propeller Efficiency Calculator", description: "Calculate propeller efficiency calculator online with our free tool.", category: "ENGINEERING", subcategory: "Aerospace Engineering", tier: "Tier3", priorityScore: 28, status: "soon" },
   { slug: "rocket-delta-v-calculator", name: "Rocket Delta-V Calculator", description: "Calculate rocket delta-v calculator online with our free tool.", category: "ENGINEERING", subcategory: "Aerospace Engineering", tier: "Tier3", priorityScore: 28, status: "soon" },
   { slug: "orbital-mechanics-calculator", name: "Orbital Mechanics Calculator", description: "Calculate orbital mechanics calculator online with our free tool.", category: "ENGINEERING", subcategory: "Aerospace Engineering", tier: "Tier3", priorityScore: 28, status: "soon" },
@@ -1201,5 +1201,13 @@ export const engineeringCalculators: CalculatorDef[] = [
   { slug: "valve-pressure-drop-calculator", name: "Valve Pressure Drop Calculator", description: "Calculate valve pressure drop calculator online with our free tool.", category: "ENGINEERING", subcategory: "Piping & Flow", tier: "Tier3", priorityScore: 28, status: "soon" },
   { slug: "culvert-capacity-calculator", name: "Culvert Capacity Calculator", description: "Calculate culvert capacity calculator online with our free tool.", category: "ENGINEERING", subcategory: "Piping & Flow", tier: "Tier3", priorityScore: 28, status: "soon" },
   { slug: "sprinkler-head-flow-calculator", name: "Sprinkler Head Flow Calculator", description: "Calculate sprinkler head flow calculator online with our free tool.", category: "ENGINEERING", subcategory: "Piping & Flow", tier: "Tier3", priorityScore: 28, status: "soon" },
-  { slug: "product-complexity-score-calculator", name: "Product Complexity Score Calculator", description: "Calculate Product Complexity Score Calculator online with our free tool.", category: "ENGINEERING", subcategory: "Industrial & Manufacturing", tier: "Tier3", priorityScore: 23, status: "soon" }
+  { slug: "product-complexity-score-calculator", name: "Product Complexity Score Calculator", description: "Calculate Product Complexity Score Calculator online with our free tool.", category: "ENGINEERING", subcategory: "Industrial & Manufacturing", tier: "Tier3", priorityScore: 23, status: "soon" },
+  {
+    slug: 'hydraulic-retention-time-calculator',
+    name: 'Hydraulic Retention Time Calculator',
+    description: 'Calculate the hydraulic retention time for water treatment reactors and tanks.',
+    tier: 'standard',
+    status: 'live',
+    isBuilt: true,
+  },
 ];

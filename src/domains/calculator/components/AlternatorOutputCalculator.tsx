@@ -39,7 +39,7 @@ const calculateAlternator = (inputs: typeof DEFAULTS): AlternatorResults => {
   // Calculate Amps from Watts for 14.4V system (Running Alternator Voltage)
   const audioAmps = isNaN(audioWatts) ? 0 : audioWatts / 14.4;
   const lightsAmps = isNaN(lightBarsWatts) ? 0 : lightBarsWatts / 14.4;
-  
+
   // Total Draw
   const totalDrawAmps = (isNaN(factoryDrawAmps) ? 0 : factoryDrawAmps) + audioAmps + lightsAmps + (isNaN(winchAmps) ? 0 : winchAmps);
 
@@ -55,16 +55,16 @@ const calculateAlternator = (inputs: typeof DEFAULTS): AlternatorResults => {
   // Generate chart data: Engine RPM vs Alternator Output
   const chartData = [];
   const schedule: any[] = [];
-  
+
   for (let rpm = 600; rpm <= 3000; rpm += 200) {
     // Basic logarithmic curve for alternator output
     // At 600 RPM = 45%
     // At 2000 RPM = 100%
     let outputPct = 0.45 + ((rpm - 600) / 1400) * 0.55;
     if (outputPct > 1.0) outputPct = 1.0;
-    
+
     const output = ratingAmps * outputPct;
-    
+
     chartData.push({
       "Engine RPM": rpm,
       "Alternator Output (Amps)": Math.round(output)
@@ -123,13 +123,12 @@ export default function AlternatorOutputCalculator() {
   }, []);
 
   const handleChange = (key: keyof typeof DEFAULTS, val: string) => {
-    const newInputs = { ...inputs, [key]: val };
-    setInputs(newInputs);
-    // Auto calculate on change
-    const r = calculateAlternator(newInputs);
-    if (!r.isError) setResults(r);
+    setInputs((prev) => ({ ...prev, [key]: val }));
   };
 
+  const handleCalculate = () => {
+    setResults(calculateAlternator(inputs));
+  };
   const handleReset = () => {
     setInputs(DEFAULTS);
     setResults(calculateAlternator(DEFAULTS));
@@ -147,11 +146,11 @@ export default function AlternatorOutputCalculator() {
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Automobile", href: "/calculator#automobile" }, { label: "Alternator Output Calculator" }]} />
       <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Alternator Output Calculator</h1>
-        
+
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           {/* LEFT 460px */}
           <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
-            
+
             <p className="text-sm text-muted-foreground mb-2">Determine if your factory alternator can support aftermarket accessories, especially at engine idle.</p>
 
             <div className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground border-b border-border/50 pb-1 mt-2">Power Source</div>
@@ -166,17 +165,29 @@ export default function AlternatorOutputCalculator() {
               <CompactInput id="lights" label="Light Bars/Halogens" value={inputs.lightBarsWatts} onChange={(v: string) => handleChange("lightBarsWatts", v)} suffix="Watts" placeholder="200" />
               <CompactInput id="winch" label="Winch/Compressors" value={inputs.winchAmps} onChange={(v: string) => handleChange("winchAmps", v)} suffix="Amps" placeholder="0" />
             </div>
-            
+
             <div className="text-[10px] text-muted-foreground mt-1">
               * Note: Factory Base Load (ECU, Fuel Pump, Sparks, AC, Factory Lights) typically consumes 30-50 Amps automatically.
             </div>
 
             <div className="flex gap-2.5 mt-4">
-              <button type="button" onClick={handleReset} className="w-full rounded-md border border-border bg-background hover:bg-secondary text-foreground font-semibold h-11 transition-colors flex items-center justify-center gap-2 focus:outline-none shadow-sm">
-                <RotateCcw className="h-4 w-4" /> Reset
+              <button
+                type="button"
+                onClick={handleCalculate}
+                className="h-10 flex-1 flex items-center justify-center rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold text-base transition-all active:scale-[0.98] shadow-sm"
+              >
+                Calculate
+              </button>
+              <button
+                type="button"
+                onClick={handleReset}
+                className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 focus:outline-none shadow-sm"
+                aria-label="Reset"
+              >
+                <RotateCcw className="h-4 w-4" />
               </button>
             </div>
-            
+
           </div>
 
           {/* RIGHT fluid */}
@@ -237,22 +248,22 @@ export default function AlternatorOutputCalculator() {
                       <AreaChart data={results.chartData} margin={{ top: 10, right: 30, left: 10, bottom: 5 }}>
                         <defs>
                           <linearGradient id="colorOut" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.3}/>
-                            <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
+                            <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.3} />
+                            <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0} />
                           </linearGradient>
                         </defs>
                         <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
-                        <XAxis dataKey="Engine RPM" tickFormatter={(val) => `${val}`} tick={{fill: 'hsl(var(--muted-foreground))', fontSize: 12}} type="number" domain={['dataMin', 'dataMax']} axisLine={false} tickLine={false} />
-                        <YAxis tickFormatter={(val) => `${val} A`} tick={{fill: 'hsl(var(--muted-foreground))', fontSize: 12}} domain={[0, Math.max(results.maxOutputAmps, results.totalDrawAmps) * 1.1]} axisLine={false} tickLine={false} />
-                        
+                        <XAxis dataKey="Engine RPM" tickFormatter={(val) => `${val}`} tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }} type="number" domain={['dataMin', 'dataMax']} axisLine={false} tickLine={false} />
+                        <YAxis tickFormatter={(val) => `${val} A`} tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }} domain={[0, Math.max(results.maxOutputAmps, results.totalDrawAmps) * 1.1]} axisLine={false} tickLine={false} />
+
                         <ReferenceLine y={results.totalDrawAmps} stroke="hsl(var(--destructive))" strokeDasharray="3 3" label={{ position: 'insideTopLeft', value: 'TOTAL SYSTEM DEMAND', fill: 'hsl(var(--destructive))', fontSize: 11, fontWeight: 'bold' }} />
-                        
-                        <RechartsTooltip 
+
+                        <RechartsTooltip
                           formatter={(value: number, name: string) => [`${value} Amps`, name]}
                           labelFormatter={(label) => `Engine Speed: ${label} RPM`}
-                          contentStyle={{ borderRadius: '8px', border: '1px solid var(--border)', backgroundColor: 'var(--card)', color: 'var(--foreground)' }} 
+                          contentStyle={{ borderRadius: '8px', border: '1px solid var(--border)', backgroundColor: 'var(--card)', color: 'var(--foreground)' }}
                         />
-                        <Area type="monotone" name="Power Produced" dataKey="Alternator Output (Amps)" stroke="hsl(var(--primary))" fillOpacity={1} fill="url(#colorOut)" strokeWidth={3} activeDot={{r: 6}} />
+                        <Area type="monotone" name="Power Produced" dataKey="Alternator Output (Amps)" stroke="hsl(var(--primary))" fillOpacity={1} fill="url(#colorOut)" strokeWidth={3} activeDot={{ r: 6 }} />
                       </AreaChart>
                     </ResponsiveContainer>
                   </div>
@@ -292,7 +303,7 @@ export default function AlternatorOutputCalculator() {
             )}
           </div>
         </div>
-        
+
         {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
@@ -317,7 +328,7 @@ export default function AlternatorOutputCalculator() {
             <h2 className="text-2xl font-bold mb-3">The Big Three Wiring Upgrade</h2>
             <p>Even if you purchase and install a massive High-Output alternator capable of generating three hundred Amps, your vehicle will still suffer electrical failures if the factory wiring cannot physically transport that amount of power. Factory wiring is extremely thin, designed strictly to handle the factory alternator's output. Pushing three hundred Amps through a thin factory wire will cause the wire to melt, potentially causing an engine fire. To fully utilize a High-Output alternator, installers must execute the "Big Three" wiring upgrade, replacing the primary charging wire, the engine grounding wire, and the chassis grounding wire with massive, zero-gauge oxygen-free copper cables capable of safely transmitting massive electrical loads without extreme resistance.</p>
           </section>
-          
+
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/alternator-output-calculator" />
           <PopularCalculators />
         </div>

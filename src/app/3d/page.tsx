@@ -26,7 +26,7 @@ export default function Index() {
           <CategorySection
             key={cat.key}
             section={cat}
-            basePath="/3d/tool"
+            basePath="/3d"
           />
         ))}
       </div>

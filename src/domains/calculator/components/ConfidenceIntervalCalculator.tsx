@@ -231,8 +231,24 @@ export default function ConfidenceIntervalCalculator() {
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding Confidence Intervals and Margins of Error</h2>
-            <p>Confidence intervals are vital to statistical inference. They provide a range of values likely to contain the true population parameter rather than a single point estimate. The width of the interval is determined by sample standard deviation, sample size, and confidence level choice.</p>
-            <p>Using critical value multipliers derived from normal probability distributions ($z^*$), the margin of error bounds standard error on both sides of the sample statistic, indicating uncertainty boundary thresholds.</p>
+            <p>In statistics, it is rarely possible to survey or measure every single individual in an entire population. Instead, researchers take a smaller sample and use that sample to estimate the true value of the population. However, because a sample is only a fraction of the whole, the sample estimate will almost never perfectly match the true population parameter. This inherent uncertainty is why we use <strong>Confidence Intervals</strong>.</p>
+            <p>A confidence interval provides a range of values—rather than a single point estimate—that is highly likely to contain the true population parameter. For example, instead of stating that exactly 54% of voters support a candidate (a point estimate), a pollster will state that they are 95% confident that between 51% and 57% of voters support the candidate. This 51% to 57% range is the confidence interval.</p>
+
+            <h2 className="text-2xl font-bold mb-3">The Anatomy of a Confidence Interval</h2>
+            <p>Calculating a confidence interval requires three primary components:</p>
+            <ul>
+              <li><strong>The Point Estimate:</strong> This is the exact mathematical center of your interval. If you are analyzing numerical data (like the average income of a city), your point estimate is the <em>Sample Mean</em>. If you are analyzing categorical data (like the percentage of people who prefer coffee over tea), your point estimate is the <em>Sample Proportion</em>.</li>
+              <li><strong>The Standard Error (SE):</strong> This measures the dispersion or variability of your sample data. A larger sample size naturally reduces the standard error because gathering more data points reduces the impact of extreme outliers, pushing your sample closer to the true population reality.</li>
+              <li><strong>The Critical Value (Z-Score):</strong> This value is determined entirely by your chosen Confidence Level. The confidence level represents how certain you want to be. The most common standard in scientific research is the 95% confidence level, which corresponds to a Z-score of approximately 1.96. If you require higher certainty (e.g., 99% confidence), the Z-score increases to 2.576, which widens your final interval to account for the reduced risk of being wrong.</li>
+            </ul>
+
+            <h2 className="text-2xl font-bold mb-3">Calculating the Margin of Error</h2>
+            <p>The <strong>Margin of Error (MoE)</strong> is the "plus or minus" (±) figure attached to your point estimate. It is calculated by multiplying the Standard Error by the Critical Z-Score. Once you have your Margin of Error, you simply subtract it from your point estimate to find the Lower Bound, and add it to your point estimate to find the Upper Bound.</p>
+            <p>It is critical to understand the inverse relationship between sample size, confidence level, and precision. If you want to increase your confidence level from 95% to 99% without collecting more data, your margin of error will increase, making your interval wider and less precise. The only mathematical way to maintain high confidence while simultaneously shrinking your margin of error (increasing precision) is to increase your sample size.</p>
+
+            <h2 className="text-2xl font-bold mb-3">Common Misconceptions</h2>
+            <p>A 95% confidence interval does <strong>not</strong> mean there is a 95% probability that the true population parameter lies within your specific calculated interval. In reality, the true population parameter is a fixed, unchanging number; it is either inside your interval (100% probability) or it isn't (0% probability).</p>
+            <p>The correct interpretation of a 95% confidence level relates to the methodology itself: If you were to repeat your exact sampling and calculation process 100 different times with 100 different random samples, approximately 95 of the 100 resulting confidence intervals would successfully capture the true, unchanging population parameter.</p>
           </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/confidence-interval-calculator" />
           <PopularCalculators exclude="/calculator/confidence-interval-calculator" />

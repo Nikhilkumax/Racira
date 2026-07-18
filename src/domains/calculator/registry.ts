@@ -1,20 +1,4 @@
-import { 
-  LucideIcon, 
-  DollarSign, 
-  Heart, 
-  Calculator, 
-  Atom, 
-  Clock, 
-  HardHat, 
-  Trophy, 
-  Leaf, 
-  Cpu, 
-  GraduationCap, 
-  ArrowLeftRight, 
-  Car,
-  Briefcase,
-  Settings
-} from "lucide-react";
+import { ArrowLeftRight, Atom, Briefcase, Calculator, Car, Clock, Cpu, DollarSign, GraduationCap, HardHat, Heart, Leaf, LucideIcon, Settings, Trophy } from "lucide-react";
 
 export interface CalculatorDef {
   slug: string;

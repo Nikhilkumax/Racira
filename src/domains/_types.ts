@@ -8,6 +8,7 @@ export interface Tool {
   description: string;
   icon: LucideIcon;
   status: ToolStatus;
+  category?: string;
 }
 
 export interface SubcategorySection {
@@ -18,6 +19,8 @@ export interface SubcategorySection {
 
 export interface Category {
   name: string;
+  title?: string;
+  key?: string;
   description?: string;
   tools: Tool[];
 }

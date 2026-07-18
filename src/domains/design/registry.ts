@@ -1,6 +1,4 @@
-import {
-  LayoutGrid, Frame, Smartphone, Move, Ratio, Grid3x3, AlignVerticalSpaceAround, Columns3, LayoutDashboard, Rows3, GitBranch, CreditCard, LayoutPanelTop, Ruler, PenTool, Boxes, AlignCenter, Minus, Palette, Download, Globe, Layers, Shuffle, Maximize2, Eye, FolderTree, SquarePen, Zap, FileImage, Images, Spline, Film, Scissors, Square, Brush, Droplet, Crop, RefreshCw, Sparkles, FileMinus, FileDiff, ShieldCheck, Crown, Award, Grid2x2, Circle, Repeat, Type, Star, Stamp, ImageIcon, MousePointer, FileText, Square as SquareIcon, BadgeCheck, MessageSquare, Navigation, ChevronRight, MessageCircle, AlertTriangle, BarChart3, ToggleLeft, Pill, Skull, User, ListOrdered, Table, Coins, Library, BookOpen, Move3d, RectangleEllipsis, Cloud, Pointer, PaintBucket, Wind, TextCursorInput, Monitor, Globe2, Tablet, AppWindow, Camera, Share2, Store, Megaphone, MousePointerClick, MousePointer2, MapPin, Workflow, MessageSquareQuote, FileCode, Wallet, Mail, Newspaper, FileBadge, Map, PieChart, Tag, Medal, Mailbox, UtensilsCrossed, Sticker, Contrast, Focus, EyeOff, Pipette, Hand, BookOpenCheck, ScanText, Glasses, Move as MoveIcon, Accessibility, Snowflake, Hexagon, Squirrel, CircleDot, Grip, Activity, Waves, Volume2, Shirt, FileText as PaperIcon, Grid, Triangle, Search, AlignHorizontalSpaceAround, Paintbrush, CaseSensitive, CheckCircle, ClipboardList, FileSpreadsheet, TextSelect, GitCompare, ScanLine, Wand2, Box, Eye as EyeI, Aperture, Flower2, Tv, Layers as L2, Rss, BookMarked, Compass, Mountain, Pyramid, Terminal, Gamepad2, BarChart, PieChart as PC, Book, BookmarkPlus, Scroll, Italic, type LucideIcon
-} from "lucide-react";
+import { Accessibility, Activity, AlertTriangle, AlignCenter, AlignHorizontalSpaceAround, AlignVerticalSpaceAround, Aperture, AppWindow, Award, BadgeCheck, BarChart, BarChart3, Book, BookMarked, BookOpen, BookOpenCheck, BookmarkPlus, Box, Boxes, Brush, Camera, CaseSensitive, CheckCircle, ChevronRight, Circle, CircleDot, ClipboardList, Cloud, Coins, Columns3, Compass, Contrast, CreditCard, Crop, Crown, Download, Droplet, Eye, EyeOff, FileBadge, FileCode, FileDiff, FileImage, FileMinus, FileSpreadsheet, FileText, Film, Flower2, Focus, FolderTree, Frame, Gamepad2, GitBranch, GitCompare, Glasses, Globe, Globe2, Grid, Grid2x2, Grid3x3, Grip, Hand, Hexagon, Image, Images, Italic, Layers, LayoutDashboard, LayoutGrid, LayoutPanelTop, Library, ListOrdered, Mail, Mailbox, Map, MapPin, Maximize2, Medal, Megaphone, MessageCircle, MessageSquare, MessageSquareQuote, Minus, Monitor, Mountain, MousePointer, MousePointer2, MousePointerClick, Move, Move3d, Navigation, Newspaper, PaintBucket, Paintbrush, Palette, PenTool, PieChart, Pill, Pipette, Pointer, Pyramid, Ratio, RectangleEllipsis, RefreshCw, Repeat, Rows3, Rss, Ruler, ScanLine, ScanText, Scissors, Scroll, Search, Share2, ShieldCheck, Shirt, Shuffle, Skull, Smartphone, Snowflake, Sparkles, Spline, Square, SquarePen, Squirrel, Stamp, Star, Sticker, Store, Table, Tablet, Tag, Terminal, TextCursorInput, TextSelect, ToggleLeft, Triangle, Tv, Type, User, UtensilsCrossed, Volume2, Wallet, Wand2, Waves, Wind, Workflow, Zap, type LucideIcon } from "lucide-react";
 
 export type Tool = { slug: string; name: string; desc: string; icon: LucideIcon; status: "live" | "soon" };
 export type Category = { name: string; tools: Tool[] };
@@ -69,12 +67,12 @@ export const categories: Category[] = [
     t("Wordmark Designer", "Design wordmark logos", Type),
     t("Emblem Builder", "Compose emblem-style marks", Star),
     t("Seal Generator", "Generate circular seal marks", Stamp),
-    t("Logo Mockup Previewer", "Preview logos on mockups", ImageIcon),
+    t("Logo Mockup Previewer", "Preview logos on mockups", Image),
   ]},
   { name: "UI Components", tools: [
     t("Button Style Builder", "Design custom button styles", MousePointer),
     t("Form Element Stylizer", "Style inputs, selects, fields", FileText),
-    t("Card Component Builder", "Build card UI components", SquareIcon),
+    t("Card Component Builder", "Build card UI components", Square),
     t("Badge & Tag Designer", "Design badges and tags", BadgeCheck),
     t("Modal & Dialog Designer", "Compose modal dialogs", MessageSquare),
     t("Navigation Bar Builder", "Build navigation bars", Navigation),
@@ -140,7 +138,7 @@ export const categories: Category[] = [
     t("Text Readability Grader", "Grade text readability", BookOpenCheck),
     t("Reading Level Estimator", "Estimate reading level", ScanText),
     t("Dyslexia Font Simulator", "Simulate dyslexia-friendly fonts", Glasses),
-    t("Spacing Accessibility Tester", "Test spacing for a11y", MoveIcon),
+    t("Spacing Accessibility Tester", "Test spacing for a11y", Move),
     t("ARIA Role Visualizer", "Visualize ARIA roles", Accessibility),
   ]},
   { name: "Pattern & Texture", tools: [
@@ -153,7 +151,7 @@ export const categories: Category[] = [
     t("Organic Shape Generator", "Generate organic blob shapes", Waves),
     t("Noise Texture Generator", "Generate noise textures", Volume2),
     t("Fabric Texture Simulator", "Simulate fabric textures", Shirt),
-    t("Paper Texture Generator", "Generate paper textures", PaperIcon),
+    t("Paper Texture Generator", "Generate paper textures", Newspaper),
     t("Grid Paper Generator", "Generate grid paper", Grid),
     t("Isometric Grid Builder", "Build isometric grids", Triangle),
   ]},
@@ -172,11 +170,11 @@ export const categories: Category[] = [
   { name: "Specialized & Creative", tools: [
     t("Generative Art Tool", "Create generative art", Wand2),
     t("Parametric Shape Maker", "Generate parametric shapes", Box),
-    t("Optical Illusion Builder", "Build optical illusions", EyeI),
+    t("Optical Illusion Builder", "Build optical illusions", Eye),
     t("Kaleidoscope Designer", "Design kaleidoscopes", Aperture),
     t("Mandala Generator", "Generate mandala art", Flower2),
     t("Glitch Design Tool", "Apply glitch effects", Tv),
-    t("Duotone Poster Maker", "Make duotone posters", L2),
+    t("Duotone Poster Maker", "Make duotone posters", Layers),
     t("Risograph Effect Simulator", "Simulate risograph print", Rss),
     t("Newspaper Column Layout", "Lay out newspaper columns", Newspaper),
     t("Magazine Spread Layout", "Lay out magazine spreads", BookMarked),
@@ -186,7 +184,7 @@ export const categories: Category[] = [
     t("ASCII Art Generator", "Convert images to ASCII", Terminal),
     t("Pixel Art Studio", "Draw pixel art", Gamepad2),
     t("Data Visualization Layout", "Lay out data visualizations", BarChart),
-    t("Infographic Chart Placer", "Place infographic charts", PC),
+    t("Infographic Chart Placer", "Place infographic charts", PieChart),
     t("Zine Layout Builder", "Lay out zines", Book),
   ]},
 ];

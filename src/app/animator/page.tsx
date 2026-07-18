@@ -31,7 +31,7 @@ export default function Index() {
                 title: cat.name,
                 tools: cat.tools
               }}
-              basePath="/animator/tool"
+              basePath="/animator"
             />
           ))}
         </div>

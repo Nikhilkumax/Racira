@@ -238,8 +238,27 @@ export default function PValueCalculator() {
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Mechanics of Statistical Significance</h2>
-            <p>P-values quantify the strength of evidence against the null hypothesis ($H_0$). They measure the likelihood of seeing sample statistics this extreme assuming no difference exists. A smaller p-value implies that the observed effect is highly unlikely to have occurred by chance variation alone.</p>
-            <p>To declare statistical significance, the calculated p-value must fall below the pre-selected threshold value $\alpha$ (typically 0.05). Falling below this threshold supports rejecting the null hypothesis in favor of the alternative hypothesis ($H_1$).</p>
+            <p>In the realm of scientific research, medicine, and data analytics, it is impossible to prove anything with absolute 100% certainty due to the inherent randomness of the universe. Instead, statisticians rely on Hypothesis Testing to determine if a specific observation is a real, repeatable phenomenon, or merely a fluke. The mathematical engine driving this decision-making process is the <strong>P-value</strong>.</p>
+            <p>P-values quantify the exact strength of evidence against the "Null Hypothesis" (H₀). The Null Hypothesis is the baseline assumption that nothing interesting is happening—that there is no difference, no effect, or no relationship between the variables being tested. For example, if you are testing a new blood pressure medication, the Null Hypothesis states that the new drug is no better than a sugar pill.</p>
+
+            <h2 className="text-2xl font-bold mb-3">Interpreting the P-Value</h2>
+            <p>A P-value is a probability score ranging from 0 to 1. Specifically, it measures the likelihood of observing your specific sample data (or something even more extreme) if you assume the Null Hypothesis is completely true. Because it is a probability, you can think of it as a percentage.</p>
+            <ul>
+              <li><strong>A High P-Value (e.g., 0.40):</strong> This means there is a 40% chance of seeing your data just through random noise, even if the medication does absolutely nothing. Because this probability is high, you do not have enough evidence to claim the drug works. You "fail to reject" the Null Hypothesis.</li>
+              <li><strong>A Low P-Value (e.g., 0.01):</strong> This means there is only a 1% chance of seeing your data if the medication was truly useless. Because it is highly improbable that random chance produced these results, you have strong statistical evidence to "reject" the Null Hypothesis and conclude that the drug actually has an effect.</li>
+            </ul>
+
+            <h2 className="text-2xl font-bold mb-3">The Alpha Threshold (α)</h2>
+            <p>To prevent subjective bias in interpreting what is "high" or "low," researchers must set a strict cutoff point before the experiment begins. This cutoff is called the Significance Level, denoted by the Greek letter Alpha (α). In the vast majority of scientific literature, the standard Alpha is set at 0.05. This means researchers are willing to accept a 5% risk of a "False Positive" (concluding an effect exists when it actually doesn't).</p>
+            <p>If your calculated P-value is less than your chosen Alpha (e.g., P &lt; 0.05), your result is declared <strong>Statistically Significant</strong>. In fields requiring extreme precision, like particle physics (e.g., the discovery of the Higgs Boson), the Alpha threshold is set vastly lower, often at 0.0000003 (the "Five Sigma" standard).</p>
+
+            <h2 className="text-2xl font-bold mb-3">Distributions and Test Statistics</h2>
+            <p>Calculating the P-value requires converting your raw data into a standardized Test Statistic, which is then mapped against a known probability distribution curve. The type of distribution depends on your data:</p>
+            <ul>
+              <li><strong>Z-Distribution (Normal):</strong> Used when you have a very large sample size (typically n &gt; 30) and the true population variance is known.</li>
+              <li><strong>T-Distribution (Student's T):</strong> Used for smaller sample sizes. The T-distribution has "fatter tails" than the normal distribution, which mathematically accounts for the increased uncertainty of relying on a small sample. As the sample size increases (represented by Degrees of Freedom), the T-distribution morphs to become identical to the Z-distribution.</li>
+              <li><strong>Chi-Square (χ²) Distribution:</strong> Used almost exclusively for analyzing categorical counts and frequencies in contingency tables to determine if variables are independent.</li>
+            </ul>
           </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/p-value-calculator" />
           <PopularCalculators exclude="/calculator/p-value-calculator" />

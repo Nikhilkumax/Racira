@@ -41,10 +41,10 @@ function calculate(v: typeof DEFAULTS): ResultType {
   const start = new Date(v.startDate + "-01");
   const end = new Date(v.endDate + "-01");
   const years = (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24 * 365.25);
-  
+
   if (years > 0 && initial > 0) {
-      // CAGR
-      annualizedReturn = (Math.pow((ending + cashFlows) / initial, 1 / years) - 1) * 100;
+    // CAGR
+    annualizedReturn = (Math.pow((ending + cashFlows) / initial, 1 / years) - 1) * 100;
   }
 
   const chartData = [
@@ -107,11 +107,11 @@ export default function AbsoluteReturnCalculator() {
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Finance", href: "/calculator#finance" }, { label: "Absolute Return Calculator" }]} />
       <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Absolute Return Calculator</h1>
-        
+
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           {/* Left Column - Inputs */}
           <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card rounded-xl">
-            <div className="grid gap-4">
+            <div className="grid grid-cols-2 gap-3">
               <CompactInput id="initial" label="Initial Value" value={vals.initialValue} onChange={(v: string) => updateVal('initialValue', v)} prefix="$" />
               <CompactInput id="ending" label="Ending Value" value={vals.endingValue} onChange={(v: string) => updateVal('endingValue', v)} prefix="$" />
             </div>
@@ -125,7 +125,7 @@ export default function AbsoluteReturnCalculator() {
               >
                 Advanced Options {vals.showAdvanced ? <ChevronDown className="h-3 w-3 rotate-180" /> : <ChevronDown className="h-3 w-3" />}
               </button>
-              
+
               {vals.showAdvanced && (
                 <div className="flex flex-col gap-4 p-4 rounded-lg bg-secondary/20 border border-border mt-3">
                   <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Cash Flows & Timing</div>
@@ -153,14 +153,14 @@ export default function AbsoluteReturnCalculator() {
                 <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
                   <div className="text-xs uppercase tracking-wide text-muted-foreground">Absolute Return</div>
                   <div className="text-4xl font-bold text-primary my-1">{result.absoluteReturnPct.toFixed(2)}%</div>
-                  <div className="text-sm text-muted-foreground">Total Gain/Loss: ${result.absoluteReturnAmt.toLocaleString(undefined, {minimumFractionDigits: 2})}</div>
+                  <div className="text-sm text-muted-foreground">Total Gain/Loss: ${result.absoluteReturnAmt.toLocaleString(undefined, { minimumFractionDigits: 2 })}</div>
                 </div>
 
                 <div className="grid grid-cols-3 gap-3">
                   <div className="bg-secondary/40 border border-border rounded-lg p-3 text-center">
                     <div className="text-xs font-bold text-muted-foreground mb-1 uppercase">Annualized</div>
                     <div className={`text-lg font-bold ${result.annualizedReturn >= 0 ? 'text-emerald-600' : 'text-rose-600'}`}>
-                        {result.annualizedReturn > 0 ? result.annualizedReturn.toFixed(2) : "N/A"}%
+                      {result.annualizedReturn > 0 ? result.annualizedReturn.toFixed(2) : "N/A"}%
                     </div>
                   </div>
                   <div className="bg-secondary/40 border border-border rounded-lg p-3 text-center">
@@ -184,11 +184,11 @@ export default function AbsoluteReturnCalculator() {
                     <tbody className="divide-y divide-border/50">
                       <tr>
                         <td className="text-base py-2.5 px-3 font-medium">Initial Value</td>
-                        <td className="text-base py-2.5 px-3 text-right">${(parseFloat(vals.initialValue)||0).toLocaleString()}</td>
+                        <td className="text-base py-2.5 px-3 text-right">${(parseFloat(vals.initialValue) || 0).toLocaleString()}</td>
                       </tr>
                       <tr>
                         <td className="text-base py-2.5 px-3 font-medium">Ending Value</td>
-                        <td className="text-base py-2.5 px-3 text-right">${(parseFloat(vals.endingValue)||0).toLocaleString()}</td>
+                        <td className="text-base py-2.5 px-3 text-right">${(parseFloat(vals.endingValue) || 0).toLocaleString()}</td>
                       </tr>
                       <tr>
                         <td className="text-base py-2.5 px-3 font-medium">Cash Flows (Dividends)</td>
@@ -205,21 +205,53 @@ export default function AbsoluteReturnCalculator() {
                 {mounted && (
                   <div className="rounded-xl border border-border bg-card p-4">
                     <h3 className="text-sm font-bold text-foreground mb-4">Value Components</h3>
-                    <ResponsiveContainer width="100%" height={250}>
-                      <BarChart data={result.chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
-                        <XAxis dataKey="name" tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }} />
-                        <YAxis tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }} tickFormatter={(v) => `$${v}`} />
-                        <RechartsTooltip cursor={{fill: 'transparent'}} contentStyle={{ borderRadius: '8px', border: '1px solid hsl(var(--border))' }} />
-                        <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+                    <LazyView minHeight={250}>
+                      <ResponsiveContainer width="100%" height={250}>
+                        <BarChart data={result.chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
+                          <XAxis dataKey="name" tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }} />
+                          <YAxis tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }} tickFormatter={(v) => `$${v}`} />
+                          <RechartsTooltip cursor={{ fill: 'transparent' }} contentStyle={{ borderRadius: '8px', border: '1px solid hsl(var(--border))' }} />
+                          <Bar dataKey="value" radius={[4, 4, 0, 0]}>
                             {result.chartData.map((entry, index) => (
-                                <Cell key={index} fill={entry.value < 0 ? "#ef4444" : "hsl(var(--primary))"} />
+                              <Cell key={index} fill={entry.value < 0 ? "#ef4444" : "hsl(var(--primary))"} />
                             ))}
-                        </Bar>
-                      </BarChart>
-                    </ResponsiveContainer>
+                          </Bar>
+                        </BarChart>
+                      </ResponsiveContainer>
+                    </LazyView>
                   </div>
                 )}
+
+                {/* Component 5: Summary Statistics */}
+                <div className="bg-muted/30 rounded-lg p-5">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="flex flex-col">
+                      <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Initial Value</span>
+                      <span className="text-base font-bold text-foreground">${(parseFloat(vals.initialValue) || 0).toLocaleString()}</span>
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Ending Value</span>
+                      <span className="text-base font-bold text-foreground">${(parseFloat(vals.endingValue) || 0).toLocaleString()}</span>
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Absolute Return</span>
+                      <span className="text-base font-bold text-primary">{result.absoluteReturnPct.toFixed(2)}%</span>
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Total Gain/Loss</span>
+                      <span className="text-base font-bold text-foreground">${result.absoluteReturnAmt.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Annualized Return</span>
+                      <span className="text-base font-bold text-foreground">{result.annualizedReturn > 0 ? result.annualizedReturn.toFixed(2) + "%" : "N/A"}</span>
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Cash Flows</span>
+                      <span className="text-base font-bold text-foreground">${result.totalInflows.toLocaleString()}</span>
+                    </div>
+                  </div>
+                </div>
               </>
             )}
           </div>

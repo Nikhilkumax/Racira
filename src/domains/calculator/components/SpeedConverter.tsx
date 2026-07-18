@@ -30,13 +30,26 @@ export default function SpeedConverter() {
   const [mounted, setMounted] = useState(false);
   useEffect(() => { setMounted(true); }, []);
 
-  const v = parseFloat(value) || 0;
-  const fromUnit = units.find(u => u.key === from)!;
-  const toUnit = units.find(u => u.key === to)!;
-  const mps = v * fromUnit.toMps;
+  const [calcV, setCalcV] = useState(100);
+  const [calcFrom, setCalcFrom] = useState<SpeedUnit>("kmh");
+  const [calcTo, setCalcTo] = useState<SpeedUnit>("mph");
+
+  const calculate = () => {
+    setCalcV(parseFloat(value) || 0);
+    setCalcFrom(from);
+    setCalcTo(to);
+  };
+
+  useEffect(() => {
+    calculate();
+  }, []);
+
+  const fromUnit = units.find(u => u.key === calcFrom)!;
+  const toUnit = units.find(u => u.key === calcTo)!;
+  const mps = calcV * fromUnit.toMps;
   const result = mps / toUnit.toMps;
   const chartData = units.map(u => ({ name: u.short, value: parseFloat((mps / u.toMps).toFixed(4)) }));
-  const reset = () => { setValue("100"); setFrom("kmh"); setTo("mph"); };
+  const reset = () => { setValue("100"); setFrom("kmh"); setTo("mph"); calculate(); };
 
   const faqs = [
     { question: "How do I convert km/h to mph?", answer: "Multiply the km/h value by 0.621371. For example, 100 km/h = 62.14 mph. To convert mph to km/h, multiply by 1.60934. A useful approximation: 60 mph ≈ 97 km/h (the exact value is 96.56 km/h)." },
@@ -73,9 +86,14 @@ export default function SpeedConverter() {
                 </div>
               ))}
             </div>
-            <button type="button" onClick={reset} className="flex items-center justify-center gap-2 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors">
-              <RotateCcw className="h-4 w-4" /> Reset
-            </button>
+            <div className="flex gap-3">
+              <button type="button" onClick={calculate} className="w-full flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 transition-colors shadow-sm">
+                Calculate
+              </button>
+              <button type="button" onClick={reset} title="Reset" className="w-10 flex-shrink-0 flex items-center justify-center rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors">
+                <RotateCcw className="h-4 w-4" />
+              </button>
+            </div>
           </div>
 
           <div className="flex flex-col gap-3">
@@ -92,7 +110,7 @@ export default function SpeedConverter() {
               <div className="overflow-x-auto rounded-lg border border-border">
                 <table className="w-full text-left text-sm">
                   <thead><tr className="bg-secondary/40 border-b border-border text-[12px] font-bold text-muted-foreground uppercase tracking-wider">
-                    <th className="p-2.5 pl-3">Unit</th><th className="p-2.5 pr-3 text-right">Equivalent of {fmt(v)} {fromUnit.short}</th>
+                    <th className="p-2.5 pl-3">Unit</th><th className="p-2.5 pr-3 text-right">Equivalent of {fmt(calcV)} {fromUnit.short}</th>
                   </tr></thead>
                   <tbody className="divide-y divide-border/50">
                     {units.map(u => (

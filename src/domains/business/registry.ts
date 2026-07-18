@@ -15,8 +15,9 @@ export interface ToolCategory {
   tools: Tool[];
 }
 
-const slug = (s: string) =>
-  s.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+import { toSlug } from "@/lib/utils/slug";
+
+const slug = toSlug;
 
 const mk = (name: string, description: string, status: ToolStatus = "soon"): Tool => ({
   slug: slug(name),
@@ -107,6 +108,7 @@ export const categories: ToolCategory[] = [
 ];
 
 export const allTools: Tool[] = categories.flatMap((c) => c.tools);
+export const TOOLS_BY_SLUG = new Map(allTools.map(t => [t.slug, t]));
 
 export function findTool(slugStr: string): { tool: Tool; category: ToolCategory } | null {
   for (const c of categories) {

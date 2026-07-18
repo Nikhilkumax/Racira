@@ -1,103 +1,100 @@
-"use client";
-
-import { useState, Suspense } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { Metadata } from "next";
+import Link from "next/link";
 import { CategorySearch } from "@/components/CategorySearch";
-import { Search, X } from "lucide-react";
+import { SubcategoryCard } from "@/components/shared/SubcategoryCard";
 import {
   getCategories,
-  getGamesByCategory,
-  getTotalGameCount,
-  searchGames,
   SEARCH_REGISTRY,
-  type Game,
 } from "@/data/games/games";
-import { GameCard } from "@/components/games/GameCard";
 
-function HomeContent() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const [q, setQ] = useState(searchParams.get("q") || "");
+export const metadata: Metadata = {
+  title: "All Games — Racira",
+  description: "Play 500+ free browser-based games: casual, logic, puzzles, card games, and arcade classics. No signup required.",
+  alternates: {
+    canonical: "https://racira.com/games",
+  },
+};
 
-  const total = getTotalGameCount();
-
-  const setQuery = (value: string) => {
-    setQ(value);
-    const params = new URLSearchParams(searchParams.toString());
-    if (value) {
-      params.set("q", value);
-    } else {
-      params.delete("q");
-    }
-    router.replace(`/?${params.toString()}`, { scroll: false });
-  };
-
-  const isSearching = q.trim().length > 0;
-  const results: Game[] = isSearching ? searchGames(q) : [];
+export default function GamesPage() {
   const categories = getCategories();
 
   return (
-    <div>
+    <div className="flex flex-col">
       {/* Hero */}
-            <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
+      <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
         <div className="racira-page-container text-center">
           <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
-            10+ Free Games —{" "}
+            500+ Free Games —{" "}
             <span className="hero-gradient-text">Casual, Logic & Puzzles</span>
           </h1>
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
             Relax with browser-based casual games, logic puzzles, and brain teasers. No signup required.
           </p>
-          <CategorySearch categorySlug="games" placeholder="Search 10+ games..." registry={SEARCH_REGISTRY} />
+          <CategorySearch categorySlug="games" placeholder="Search 500+ games..." registry={SEARCH_REGISTRY} />
         </div>
       </section>
 
-      <div className="racira-page-container pb-20 sm:px-6 lg:px-8">
-        {isSearching ? (
-          <section>
-            <p className="mb-6 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
-              {results.length} result{results.length === 1 ? "" : "s"} for “{q}”
-            </p>
-            {results.length === 0 ? (
-              <p className="text-muted-foreground">
-                No games found. Try a different search.
-              </p>
-            ) : (
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                {results.map((game) => (
-                  <GameCard key={game.slug} game={game} />
-                ))}
+      {/* Category Grid */}
+      <div className="racira-page-container pb-4 sm:pb-8">
+        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4 justify-items-center calculator-category-grid">
+          {categories.map(cat => {
+            const Icon = cat.icon;
+            const totalCount = cat.subcategories.reduce((acc, sub) => acc + sub.games.length, 0);
+            return (
+              <Link
+                key={cat.name}
+                href={`#${cat.name}`}
+                className="category-nav-card group calculator-category-card hover:cursor-pointer hover:shadow-md transition-all duration-200"
+              >
+                <div className="tool-card-icon h-14 w-14 mb-5 rounded-2xl flex items-center justify-center">
+                  <Icon className="h-[30.6px] w-[30.6px] text-primary" />
+                </div>
+                <p className="text-[13.6px] font-bold text-foreground leading-tight text-center">{cat.name}</p>
+                <p className="text-[11.9px] text-muted-foreground mt-2">{totalCount} games</p>
+              </Link>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* All Categories with Subcategories */}
+      <div className="racira-page-container pb-16">
+        {categories.map((cat, idx) => {
+          const totalCount = cat.subcategories.reduce((acc, sub) => acc + sub.games.length, 0);
+
+          return (
+            <section
+              key={cat.name}
+              id={cat.name}
+              className={idx > 0 ? "mt-14" : "mt-4"}
+            >
+              <h2 className="text-xl font-bold text-foreground mb-2">
+                {cat.name}
+              </h2>
+              <p className="text-sm text-muted-foreground mb-5">{totalCount} games</p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                {cat.subcategories.map(sub => {
+                  const Icon = sub.icon;
+                  // We need to slugify both the category name and the subcategory name
+                  const catSlug = cat.name.toLowerCase().replace(/['"]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+                  const subSlug = sub.name.toLowerCase().replace(/['"]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+                  return (
+                    <SubcategoryCard
+                      key={sub.name}
+                      title={sub.name}
+                      icon={Icon}
+                      count={sub.games.length}
+                      basePath={`/games/${catSlug}/${subSlug}`}
+                      label="games"
+                    />
+                  );
+                })}
               </div>
-            )}
-          </section>
-        ) : (
-          <div className="space-y-14">
-            {categories.map((category) => {
-              const games = getGamesByCategory(category.name);
-              return (
-                <section key={category.name} id={category.name}>
-                  <h2 className="mb-6 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
-                    {category.name}
-                  </h2>
-                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                    {games.map((game) => (
-                      <GameCard key={game.slug} game={game} />
-                    ))}
-                  </div>
-                </section>
-              );
-            })}
-          </div>
-        )}
+            </section>
+          );
+        })}
       </div>
     </div>
-  );
-}
-
-export default function Index() {
-  return (
-    <Suspense>
-      <HomeContent />
-    </Suspense>
   );
 }

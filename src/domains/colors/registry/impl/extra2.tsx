@@ -72,6 +72,22 @@ export function makeThemedPalette(presets: Record<string, { hues: number[]; l?: 
   };
 }
 
+export const cyberpunk = makeThemedPalette({ Cyberpunk: { hues: [310, 280, 200, 160, 50], l: [0.55, 0.7], c: [0.2, 0.3] } });
+export const vaporwave = makeThemedPalette({ Vaporwave: { hues: [320, 280, 200, 180, 30], l: [0.7, 0.85], c: [0.1, 0.2] } });
+export const anime = makeThemedPalette({ Anime: { hues: [340, 30, 200, 120, 280], l: [0.6, 0.8], c: [0.15, 0.25] } });
+export const scifi = makeThemedPalette({ "Sci-Fi": { hues: [200, 220, 180, 280, 60], l: [0.3, 0.7], c: [0.1, 0.25] } });
+export const fantasy = makeThemedPalette({ Fantasy: { hues: [260, 30, 140, 350, 200], l: [0.4, 0.7], c: [0.15, 0.25] } });
+export const ocean = makeThemedPalette({ Ocean: { hues: [200, 210, 190, 220, 180], l: [0.4, 0.75], c: [0.08, 0.18] } });
+export const sunset = makeThemedPalette({ Sunset: { hues: [10, 30, 350, 50, 320], l: [0.55, 0.78], c: [0.15, 0.22] } });
+export const forest = makeThemedPalette({ Forest: { hues: [120, 140, 160, 60, 40], l: [0.3, 0.6], c: [0.1, 0.2] } });
+export const desert = makeThemedPalette({ Desert: { hues: [40, 30, 20, 10, 50], l: [0.5, 0.8], c: [0.1, 0.2] } });
+export const space = makeThemedPalette({ Space: { hues: [280, 260, 240, 300, 320], l: [0.2, 0.6], c: [0.15, 0.3] } });
+export const pastel = makeThemedPalette({ Pastel: { hues: [0, 60, 120, 180, 240, 300], l: [0.8, 0.9], c: [0.05, 0.1] } });
+export const neon = makeThemedPalette({ Neon: { hues: [320, 180, 60, 120, 280], l: [0.6, 0.7], c: [0.25, 0.35] } });
+export const vintage = makeThemedPalette({ Vintage: { hues: [30, 45, 10, 180, 160], l: [0.4, 0.7], c: [0.05, 0.15] } });
+export const dark = makeThemedPalette({ Dark: { hues: [220, 240, 260, 200, 280], l: [0.15, 0.35], c: [0.05, 0.15] } });
+export const earth = makeThemedPalette({ Earth: { hues: [30, 50, 80, 20, 10], l: [0.4, 0.65], c: [0.08, 0.18] } });
+
 /* ===================== Single-color generator with style ===================== */
 
 export function makeStyledColor(style: "warm" | "cool" | "muted" | "vibrant") {

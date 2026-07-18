@@ -55,7 +55,13 @@ export default function LoanComparisonSideBySide() {
   };
   const removeLoan = (id: number) => { if (loans.length <= 2) return; setLoans(prev => prev.filter(l => l.id !== id)); };
 
-  useEffect(() => { setResults(loans.map(calcLoan)); }, [loans]);
+  const calculate = () => {
+    setResults(loans.map(calcLoan));
+  };
+
+  useEffect(() => {
+    calculate();
+  }, []);
 
   const best = results.length > 0 ? results.reduce((b, r) => r.totalCost < b.totalCost ? r : b, results[0]) : null;
   const chartData = [
@@ -102,6 +108,9 @@ export default function LoanComparisonSideBySide() {
                 <Plus className="h-4 w-4" /> Add Loan Option
               </button>
             )}
+            <button onClick={calculate} className="w-full flex items-center justify-center gap-2 rounded-lg bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-12 text-sm transition-all shadow-sm">
+              Calculate
+            </button>
           </div>
 
           {results.length > 0 && (<>

@@ -253,9 +253,24 @@ export default function PerimeterCalculator() {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <section className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">Geometric Perimeter Calculations</h2>
-            <p>Perimeter measures the cumulative outline of closed 2D planar shapes. Rectangle perimeters sum both length and width dimensions twice, while circles estimate boundary tracks using circumference equations incorporating PI constants.</p>
-            <p>Understanding boundary metrics facilitates material ordering for fences, frames, and borders. Comparing perimeter to internal coverage area helps assess structural volume-to-surface configurations in design operations.</p>
+            <h2 className="text-2xl font-bold mb-3">Understanding Perimeter and Geometric Boundaries</h2>
+            <p>In classical geometry, the perimeter is the total continuous distance that outlines or encompasses a closed, two-dimensional shape. The word itself is derived from the Greek terms <em>peri</em> (meaning "around") and <em>metron</em> (meaning "measure"). Simply put, if you were to walk along the exact edge of a flat object until you returned to your starting point, the distance you traveled would be the object's perimeter.</p>
+            <p>Perimeter is a one-dimensional measurement, which means it is always expressed in standard linear units such as meters (m), feet (ft), inches (in), or centimeters (cm). This distinguishes it from Area, which measures two-dimensional space and is expressed in square units (m², ft²). Calculating the perimeter of various shapes is a foundational mathematical skill with endless applications in construction, agriculture, engineering, and everyday life.</p>
+
+            <h2 className="text-2xl font-bold mb-3">The Mathematics of Basic Polygons</h2>
+            <p>For any straight-sided shape (polygon), the perimeter is calculated by simply adding the lengths of all its exterior sides together. However, because standard shapes have predictable properties, we use specific formulas to calculate them faster:</p>
+            <ul>
+              <li><strong>Rectangles:</strong> A rectangle has two pairs of equal parallel sides. Therefore, instead of adding <em>length + width + length + width</em>, the standard formula is <em>P = 2(Length + Width)</em>. If a rectangular garden is 10 feet long and 5 feet wide, the perimeter is 2(10 + 5) = 30 feet.</li>
+              <li><strong>Squares:</strong> A square is a special type of rectangle where all four sides are exactly equal. The formula is simply <em>P = 4s</em>, where "s" is the length of one side.</li>
+              <li><strong>Triangles:</strong> The perimeter of a triangle is the sum of its three sides (<em>P = a + b + c</em>). An important rule of geometry, known as the Triangle Inequality Theorem, states that the sum of the lengths of any two sides of a triangle must always be strictly greater than the length of the third side. If this is not true, the shape cannot physically connect to form a triangle.</li>
+              <li><strong>Regular Polygons:</strong> For shapes like regular pentagons, hexagons, or octagons (where all sides and interior angles are identical), the perimeter is the length of one side multiplied by the total number of sides (<em>P = n × s</em>).</li>
+            </ul>
+
+            <h2 className="text-2xl font-bold mb-3">Circles and Circumference</h2>
+            <p>When dealing with a perfect circle, the perimeter is given a special name: <strong>Circumference</strong>. Because a circle has no straight sides to measure, its perimeter must be calculated using its radius (the distance from the center to the edge) and the mathematical constant Pi (π, approximately 3.14159). The formula for the circumference of a circle is <em>C = 2πr</em> (or <em>C = πd</em>, where d is the diameter). For example, a circular pool with a 10-foot radius will have a perimeter (circumference) of 2 × 3.14159 × 10, which equals roughly 62.83 feet.</p>
+
+            <h2 className="text-2xl font-bold mb-3">Practical Applications of Perimeter</h2>
+            <p>Understanding boundary metrics is crucial for estimating physical materials. If you are building a fence around a yard, installing baseboards in a room, framing a picture, or laying down border trim, you are working directly with perimeter calculations. Furthermore, comparing a shape's perimeter to its internal area helps assess its structural efficiency. For example, a circle encloses the maximum possible area for any given perimeter, which is why bubbles, pipes, and natural cellular structures tend to form as spheres or cylinders—they offer the highest internal capacity with the lowest possible material requirement for the boundary.</p>
           </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/perimeter-calculator" />
           <PopularCalculators exclude="/calculator/perimeter-calculator" />

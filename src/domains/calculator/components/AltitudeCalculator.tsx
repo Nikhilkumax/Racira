@@ -77,10 +77,11 @@ export default function AltitudeCalculator() {
   }, []);
 
   const handleChange = (key: keyof typeof DEFAULTS, val: string) => {
-    const newInputs = { ...inputs, [key]: val };
-    setInputs(newInputs);
-    const r = calculateAltitude(newInputs);
-    if (!r.isError) setResults(r);
+    setInputs(prev => ({ ...prev, [key]: val }));
+  };
+
+  const handleCalculate = () => {
+    setResults(calculateAltitude(inputs));
   };
 
   const handleReset = () => {
@@ -114,8 +115,20 @@ export default function AltitudeCalculator() {
             </div>
 
             <div className="flex gap-2.5 mt-4">
-              <button type="button" onClick={handleReset} className="w-full rounded-md border border-border bg-background hover:bg-secondary text-foreground font-semibold h-11 transition-colors flex items-center justify-center gap-2 focus:outline-none shadow-sm">
-                <RotateCcw className="h-4 w-4" /> Reset
+              <button
+                type="button"
+                onClick={handleCalculate}
+                className="h-11 w-full flex-1 flex items-center justify-center rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold text-base transition-all active:scale-[0.98] shadow-sm"
+              >
+                Calculate
+              </button>
+              <button
+                type="button"
+                onClick={handleReset}
+                className="w-11 h-11 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 focus:outline-none shadow-sm"
+                aria-label="Reset"
+              >
+                <RotateCcw className="h-4 w-4" />
               </button>
             </div>
           </div>

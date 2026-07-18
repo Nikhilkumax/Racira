@@ -19,7 +19,7 @@ export default function Index() {
             <CategorySection
               key={c.key}
               section={{ title: c.title, tools: c.tools as any }}
-              basePath="/cad/tools"
+              basePath="/cad"
             />
           ))}
         </section>

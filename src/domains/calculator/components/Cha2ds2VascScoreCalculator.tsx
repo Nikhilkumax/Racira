@@ -87,9 +87,13 @@ export default function Cha2ds2VascScoreCalculator() {
 
   const [result, setResult] = useState<ChadsVascResult | null>(null);
 
-  useEffect(() => {
+  const calculate = () => {
     setResult(calcChadsVasc(chf, htn, ageCat, dm, stroke, vasc, female));
-  }, [chf, htn, ageCat, dm, stroke, vasc, female]);
+  };
+
+  useEffect(() => {
+    calculate();
+  }, []);
 
   const reset = () => {
     setChf(false);
@@ -159,8 +163,11 @@ export default function Cha2ds2VascScoreCalculator() {
             </div>
 
             <div className="flex gap-3 mt-4 border-t border-border pt-4">
-              <button onClick={reset} className="w-full flex items-center justify-center gap-2 rounded-md bg-secondary hover:bg-secondary/80 text-secondary-foreground font-bold h-11 text-sm transition-all shadow-sm">
-                <RotateCcw className="h-4 w-4" /> Clear Patient Data
+              <button onClick={calculate} className="w-full flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-11 text-sm transition-all shadow-sm">
+                Calculate
+              </button>
+              <button onClick={reset} title="Clear Patient Data" className="w-11 flex-shrink-0 flex items-center justify-center rounded-md bg-secondary hover:bg-secondary/80 text-secondary-foreground font-bold h-11 transition-all shadow-sm">
+                <RotateCcw className="h-4 w-4" />
               </button>
             </div>
           </div>

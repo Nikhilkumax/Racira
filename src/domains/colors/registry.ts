@@ -1,6 +1,4 @@
-import {
-  Pipette, Palette, Image as ImageIcon, Droplet, Shuffle, Hash, ListChecks, Repeat, Sun, Moon, Sparkles, Eye, EyeOff, Wand2, Layers, SlidersHorizontal, Contrast, Type as TypeIcon, Accessibility, Brush, Grid3x3, FlaskConical, Blend, RotateCcw, Replace, Crosshair, MousePointer2, Target, ScanLine, BarChart3, Circle, Triangle, Square, Hexagon, PaintBucket, Gauge, Code2, Compass, ArrowLeftRight, Lightbulb, Ruler, FileJson, Braces, Boxes, Star, Leaf, Flower2, Flame, Award, Aperture, Tag, Sigma, Heart, Music, Gamepad2, Sunrise, Cpu, Globe, Smile, Calendar, Snowflake, TreePine, Mountain, Rocket, Atom, Waves, Crown, Sword, Skull, Zap, Smartphone, Pencil, Clock, Camera, Bookmark, Layers3, Image, FileImage, FileCode, FileText, History, LayoutGrid, AlignJustify, List, ListOrdered, LayoutTemplate, Wind, Briefcase, CheckSquare, CheckCircle2, BookOpen, Glasses, ScanEye, View, Spline, Stethoscope, Search, Sunset, Brain, CloudRain, SunDim, TrendingUp, TrendingDown, Settings2, ListFilter, Combine, Merge, MousePointerClick, Calculator, ImagePlus, AlignVerticalSpaceBetween, Variable, Download, FileCode2, FileDigit, Box, Package, Book, Apple, SmartphoneNfc, CircleDot, Unlock, Database, Github, Kanban, Code, Map, Puzzle, CircleFadingPlus, PaintRoller, ZoomIn, AlignLeft
-} from "lucide-react";
+import { Accessibility, AlignJustify, AlignLeft, AlignVerticalSpaceBetween, Aperture, Apple, ArrowLeftRight, Atom, Award, BarChart3, Blend, Book, BookOpen, Bookmark, Box, Boxes, Braces, Brain, Briefcase, Brush, Calculator, Calendar, Camera, CheckCircle2, CheckSquare, Circle, CircleDot, CircleFadingPlus, Clock, CloudRain, Code, Code2, Combine, Compass, Contrast, Cpu, Crosshair, Crown, Database, Download, Droplet, Eye, EyeOff, FileCode, FileCode2, FileDigit, FileImage, FileJson, FileText, Flame, FlaskConical, Flower2, Gamepad2, Gauge, Github, Glasses, Globe, Grid3x3, Hash, Heart, Hexagon, History, Image, Image as ImageIcon, ImagePlus, Kanban, Layers, Layers3, LayoutGrid, LayoutTemplate, Leaf, Lightbulb, List, ListChecks, ListFilter, ListOrdered, Map, Merge, Moon, Mountain, MousePointer2, MousePointerClick, Music, Package, PaintBucket, PaintRoller, Palette, Pencil, Pipette, Puzzle, Repeat, Replace, Rocket, RotateCcw, Ruler, ScanEye, ScanLine, Search, Settings2, Shuffle, Sigma, Skull, SlidersHorizontal, Smartphone, SmartphoneNfc, Smile, Snowflake, Sparkles, Spline, Square, Star, Stethoscope, Sun, SunDim, Sunrise, Sunset, Sword, Tag, Target, TreePine, TrendingDown, TrendingUp, Triangle, Type as TypeIcon, Unlock, Variable, View, Wand2, Waves, Wind, Zap, ZoomIn } from "lucide-react";
 import type { ToolDef } from "./registry/types";
 
 import {
@@ -52,74 +50,19 @@ import {
   HexToColorName, RgbToColorName, ColorNameFinder, CssNamedColorFinder,
 } from "./registry/impl/extra2";
 
-// ---- Themed palette presets ----
-const cyberpunk = makeThemedPalette({ Cyberpunk: { hues: [310, 280, 200, 160, 50], l: [0.55, 0.7], c: [0.2, 0.3] } });
-const vaporwave = makeThemedPalette({ Vaporwave: { hues: [320, 280, 200, 180, 30], l: [0.7, 0.85], c: [0.1, 0.2] } });
-const anime = makeThemedPalette({ Anime: { hues: [340, 30, 200, 120, 280], l: [0.6, 0.8], c: [0.15, 0.25] } });
-const scifi = makeThemedPalette({ "Sci-Fi": { hues: [200, 220, 180, 280, 60], l: [0.3, 0.7], c: [0.1, 0.25] } });
-const fantasy = makeThemedPalette({ Fantasy: { hues: [260, 30, 140, 350, 200], l: [0.4, 0.7], c: [0.15, 0.25] } });
-const ocean = makeThemedPalette({ Ocean: { hues: [200, 210, 190, 220, 180], l: [0.4, 0.75], c: [0.08, 0.18] } });
-const sunset = makeThemedPalette({ Sunset: { hues: [10, 30, 350, 50, 320], l: [0.55, 0.78], c: [0.15, 0.22] } });
-const space = makeThemedPalette({ Space: { hues: [260, 280, 220, 300, 240], l: [0.15, 0.55], c: [0.1, 0.2] } });
-const festival = makeThemedPalette({ Festival: { hues: [0, 60, 180, 280, 320], l: [0.55, 0.75], c: [0.18, 0.28] } });
-const wedding = makeThemedPalette({ Wedding: { hues: [350, 30, 60, 0, 20], l: [0.75, 0.92], c: [0.05, 0.12] } });
-const gaming = makeThemedPalette({ Gaming: { hues: [340, 280, 200, 120, 30], l: [0.5, 0.7], c: [0.2, 0.32] } });
-const retro = makeThemedPalette({ Retro: { hues: [30, 0, 200, 60, 140], l: [0.45, 0.65], c: [0.1, 0.18] } });
-const nature = makeThemedPalette({ Nature: { hues: [120, 90, 30, 70, 200], l: [0.4, 0.7], c: [0.08, 0.18] } });
-const business = makeThemedPalette({ Business: { hues: [220, 200, 240, 0, 30], l: [0.35, 0.65], c: [0.04, 0.12] } });
-const dark = makeThemedPalette({ Dark: { hues: [220, 240, 260, 200, 280], l: [0.15, 0.4], c: [0.04, 0.12] } });
-const light = makeThemedPalette({ Light: { hues: [220, 200, 180, 0, 30], l: [0.85, 0.97], c: [0.02, 0.08] } });
-const earth = makeThemedPalette({ Earth: { hues: [30, 50, 80, 20, 10], l: [0.35, 0.65], c: [0.06, 0.14] } });
-const forest = makeThemedPalette({ Forest: { hues: [120, 90, 70, 140, 40], l: [0.3, 0.6], c: [0.08, 0.16] } });
-const beach = makeThemedPalette({ Beach: { hues: [200, 180, 50, 30, 220], l: [0.55, 0.85], c: [0.08, 0.16] } });
-const vintage = makeThemedPalette({ Vintage: { hues: [30, 10, 60, 200, 350], l: [0.4, 0.7], c: [0.08, 0.16] } });
-const wesAnderson = makeThemedPalette({ "Wes Anderson": { hues: [30, 350, 60, 180, 20], l: [0.5, 0.8], c: [0.1, 0.2] } });
-const skinTones = makeThemedPalette({ Skin: { hues: [25, 30, 20, 15, 35], l: [0.35, 0.85], c: [0.04, 0.12] } });
-const hairTones = makeThemedPalette({ Hair: { hues: [30, 15, 0, 45, 60], l: [0.1, 0.85], c: [0.02, 0.12] } });
-const eyeTones = makeThemedPalette({ Eyes: { hues: [200, 120, 30, 260, 0], l: [0.25, 0.55], c: [0.06, 0.16] } });
-
-const Warm = makeStyledColor("warm");
-const Cool = makeStyledColor("cool");
-const Muted = makeStyledColor("muted");
-const Vibrant = makeStyledColor("vibrant");
-
-const Grayscale = makeColorFilter("grayscale");
-const Sepia = makeColorFilter("sepia");
-const Bright = makeColorFilter("brightness");
-const ContrastAdj = makeColorFilter("contrast");
-
-const ValueScale = makeScale("value");
-const ChromaScale = makeScale("chroma");
-const HueScale = makeScale("hue");
-
-const SCSSVars = makeVarGenerator("scss");
-const LESSVars = makeVarGenerator("less");
-const StyledVars = makeVarGenerator("styled");
-const AndroidExport = makeNativeColorExport("android");
-const IOSExport = makeNativeColorExport("ios");
-const FlutterExport = makeNativeColorExport("flutter");
-const FigmaExport = makeNativeColorExport("figma");
-
-const AAChecker = makeContrastChecker(4.5, "WCAG 2.1 AA");
-const AAAChecker = makeContrastChecker(7, "WCAG 2.1 AAA");
-const APCAChecker = makeContrastChecker(4.5, "WCAG 3.0 APCA (approx.)");
-const LargeText = makeContrastChecker(3, "Large text AA");
-const UIComponent = makeContrastChecker(3, "UI component (3:1)");
-const FocusIndicator = makeContrastChecker(3, "Focus indicator (3:1)");
-
-const NicknameGen = makeNameGenerator("Color nickname");
-
-const Comp = makeHarmony("complementary");
-const Anal = makeHarmony("analogous");
-const Tri = makeHarmony("triadic");
-const Tet = makeHarmony("tetradic");
-const Split = makeHarmony("split");
-const Mono = makeHarmony("mono");
-
-const Linear = makeGradient("linear");
-const Radial = makeGradient("radial");
-const Conic = makeGradient("conic");
-const Multi = makeGradient("multi");
+import {
+  cyberpunk, vaporwave, anime, scifi, fantasy, ocean, sunset, space, festival,
+  wedding, gaming, retro, nature, business, dark, light, earth, forest, beach,
+  vintage, wesAnderson, skinTones, hairTones, eyeTones, pastel, neon, desert,
+  Warm, Cool, Muted, Vibrant,
+  Grayscale, Sepia, Bright, ContrastAdj,
+  ValueScale, ChromaScale, HueScale,
+  SCSSVars, LESSVars, StyledVars, AndroidExport, IOSExport, FlutterExport, FigmaExport,
+  AAChecker, AAAChecker, APCAChecker, LargeText, UIComponent, FocusIndicator,
+  NicknameGen,
+  Comp, Anal, Tri, Tet, Split, Mono,
+  Linear, Radial, Conic, Multi
+} from "./registry/impl/presets";
 
 export const TOOLS: ToolDef[] = [
   // ===== Color Pickers (12) =====
@@ -166,7 +109,7 @@ export const TOOLS: ToolDef[] = [
   { slug: "tailwind-palette-generator", name: "Tailwind Palette Generator", description: "Generate Tailwind-style 50→900 palettes", category: "palettes", icon: Wind, component: TailwindPaletteGenerator, status: "live" },
   { slug: "brand-palette-generator", name: "Brand Palette Generator", description: "Generate a brand-ready palette", category: "palettes", icon: Briefcase, component: BrandPaletteGenerator, status: "live" },
   { slug: "accessible-palette-generator", name: "Accessible Palette Generator", description: "Generate WCAG-AA palettes", category: "palettes", icon: Accessibility, component: AccessiblePaletteGenerator, status: "live" },
-  { slug: "color-palette-extractor", name: "Color Palette Extractor", description: "Extract a palette from any image", category: "palettes", icon: Images, component: PaletteFromImage, status: "live" },
+  { slug: "color-palette-extractor", name: "Color Palette Extractor", description: "Extract a palette from any image", category: "palettes", icon: ImageIcon, component: PaletteFromImage, status: "live" },
   { slug: "daily-color-palette-generator", name: "Daily Color Palette Generator", description: "Get a fresh palette every day", category: "palettes", icon: Calendar, component: RandomPaletteGenerator, status: "live" },
   { slug: "wes-anderson-style-palette", name: "Wes Anderson Style Palette", description: "Pastel cinematic Wes Anderson palettes", category: "palettes", icon: Aperture, component: wesAnderson, status: "live" },
 

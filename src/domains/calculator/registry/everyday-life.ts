@@ -91,7 +91,7 @@ export const everydaylifeCalculators: CalculatorDef[] = [
   { slug: "hiking-calorie-burn-calculator", name: "Hiking Calorie Burn Calculator", description: "Calculate Hiking Calorie Burn Calculator online with our free tool.", category: "EVERYDAY_LIFE", subcategory: "Travel & Recreation", tier: "Tier2", priorityScore: 58, status: "soon" },
   { slug: "mountaineering-calorie-calculator", name: "Mountaineering Calorie Calculator", description: "Calculate Mountaineering Calorie Calculator online with our free tool.", category: "EVERYDAY_LIFE", subcategory: "Travel & Recreation", tier: "Tier2", priorityScore: 58, status: "soon" },
   { slug: "walking-distance-to-calories-calculator", name: "Walking Distance to Calories Calculator", description: "Calculate Walking Distance to Calories Calculator online with our free tool.", category: "EVERYDAY_LIFE", subcategory: "Travel & Recreation", tier: "Tier2", priorityScore: 58, status: "soon" },
-  { slug: "digital-nomad-cost-of-living-calculator", name: "Digital Nomad Cost of Living Calculator", description: "Calculate Digital Nomad Cost of Living Calculator online with our free tool.", category: "EVERYDAY_LIFE", subcategory: "Travel & Recreation", tier: "Tier2", priorityScore: 58, status: "soon" },
+  { slug: "digital-nomad-cost-of-living-calculator", name: "Digital Nomad Cost of Living Calculator", description: "Calculate Digital Nomad Cost of Living Calculator online with our free tool.", category: "EVERYDAY_LIFE", subcategory: "Travel & Recreation", tier: "Tier2", priorityScore: 58, status: "live" },
   { slug: "hotel-vs-airbnb-cost-comparison-calculator", name: "Hotel vs Airbnb Cost Comparison Calculator", description: "Calculate Hotel vs Airbnb Cost Comparison Calculator online with our free tool.", category: "EVERYDAY_LIFE", subcategory: "Travel & Recreation", tier: "Tier2", priorityScore: 58, status: "soon" },
   { slug: "total-vacation-cost-calculator", name: "Total Vacation Cost Calculator", description: "Calculate Total Vacation Cost Calculator online with our free tool.", category: "EVERYDAY_LIFE", subcategory: "Travel & Recreation", tier: "Tier2", priorityScore: 58, status: "soon" },
   { slug: "visa-fee-cost-calculator", name: "Visa Fee Cost Calculator", description: "Calculate Visa Fee Cost Calculator online with our free tool.", category: "EVERYDAY_LIFE", subcategory: "Travel & Recreation", tier: "Tier2", priorityScore: 58, status: "soon" },
@@ -176,7 +176,7 @@ export const everydaylifeCalculators: CalculatorDef[] = [
   { slug: "habit-roi-calculator", name: "Habit ROI Calculator", description: "Calculate Habit ROI Calculator online with our free tool.", category: "EVERYDAY_LIFE", subcategory: "Time & Productivity", tier: "Tier2", priorityScore: 58, status: "soon" },
   { slug: "goal-progress-percentage-calculator", name: "Goal Progress Percentage Calculator", description: "Calculate Goal Progress Percentage Calculator online with our free tool.", category: "EVERYDAY_LIFE", subcategory: "Time & Productivity", tier: "Tier2", priorityScore: 58, status: "soon" },
   { slug: "weekly-planning-roi-calculator", name: "Weekly Planning ROI Calculator", description: "Calculate Weekly Planning ROI Calculator online with our free tool.", category: "EVERYDAY_LIFE", subcategory: "Time & Productivity", tier: "Tier2", priorityScore: 58, status: "soon" },
-  { slug: "hourly-rate-from-annual-salary-calculator", name: "Hourly Rate from Annual Salary Calculator", description: "Calculate Hourly Rate from Annual Salary Calculator online with our free tool.", category: "EVERYDAY_LIFE", subcategory: "Time & Productivity", tier: "Tier2", priorityScore: 58, status: "soon" },
+  { slug: "hourly-rate-from-annual-salary-calculator", name: "Hourly Rate from Annual Salary Calculator", description: "Calculate Hourly Rate from Annual Salary Calculator online with our free tool.", category: "EVERYDAY_LIFE", subcategory: "Time & Productivity", tier: "Tier2", priorityScore: 58, status: "live" },
   { slug: "distraction-cost-per-day-calculator", name: "Distraction Cost Per Day Calculator", description: "Calculate Distraction Cost Per Day Calculator online with our free tool.", category: "EVERYDAY_LIFE", subcategory: "Time & Productivity", tier: "Tier2", priorityScore: 58, status: "soon" },
   { slug: "notification-interruption-cost-calculator", name: "Notification Interruption Cost Calculator", description: "Calculate Notification Interruption Cost Calculator online with our free tool.", category: "EVERYDAY_LIFE", subcategory: "Time & Productivity", tier: "Tier2", priorityScore: 58, status: "soon" },
   { slug: "perfectionism-time-cost-calculator", name: "Perfectionism Time Cost Calculator", description: "Calculate Perfectionism Time Cost Calculator online with our free tool.", category: "EVERYDAY_LIFE", subcategory: "Time & Productivity", tier: "Tier2", priorityScore: 58, status: "soon" },
@@ -1158,4 +1158,40 @@ export const everydaylifeCalculators: CalculatorDef[] = [
   { slug: "veterinary-drug-dosage-calculator", name: "Veterinary Drug Dosage Calculator", description: "Calculate veterinary drug dosage calculator online with our free tool.", category: "EVERYDAY_LIFE", subcategory: "Gaming & Hobbies", tier: "Tier3", priorityScore: 30, status: "soon" },
   { slug: "reptile-uv-index-requirement-calculator", name: "Reptile UV Index Requirement Calculator", description: "Calculate reptile uv index requirement calculator online with our free tool.", category: "EVERYDAY_LIFE", subcategory: "Gaming & Hobbies", tier: "Tier3", priorityScore: 30, status: "soon" },
   { slug: "crate-size-calculator", name: "Crate Size Calculator", description: "Calculate crate size calculator online with our free tool.", category: "EVERYDAY_LIFE", subcategory: "Gaming & Hobbies", tier: "Tier3", priorityScore: 30, status: "soon" },
+
+  {
+    slug: 'hp-to-kw-calculator',
+    name: 'HP to kW Calculator',
+    description: 'Convert horsepower to kilowatts and vice versa for engine and motor specifications.',
+    tier: 'standard',
+    status: 'live',
+    isBuilt: true,
+  },
+
+  {
+    slug: 'mpg-calculator',
+    name: 'MPG Calculator',
+    description: 'Calculate miles per gallon fuel economy from distance traveled and fuel used.',
+    tier: 'standard',
+    status: 'live',
+    isBuilt: true,
+  },
+
+  {
+    slug: 'tea-steeping-calculator',
+    name: 'Tea Steeping Calculator',
+    description: 'Get precise steeping time and temperature recommendations for different tea types.',
+    tier: 'standard',
+    status: 'live',
+    isBuilt: true,
+  },
+
+  {
+    slug: 'turkey-roasting-calculator',
+    name: 'Turkey Roasting Calculator',
+    description: 'Calculate turkey roasting time based on weight and oven temperature.',
+    tier: 'standard',
+    status: 'live',
+    isBuilt: true,
+  },
 ];

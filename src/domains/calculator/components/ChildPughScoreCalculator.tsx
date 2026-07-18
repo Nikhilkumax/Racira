@@ -113,6 +113,10 @@ export default function ChildPughScoreCalculator() {
     setResult(calcChildPugh(bilirubin, albumin, inr, ascites, enceph));
   }, [bilirubin, albumin, inr, ascites, enceph]);
 
+  const calc = () => {
+    setResult(calcChildPugh(bilirubin, albumin, inr, ascites, enceph));
+  };
+
   const reset = () => {
     setBilirubin("1");
     setAlbumin("1");
@@ -136,10 +140,10 @@ export default function ChildPughScoreCalculator() {
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Health", href: "/calculator#health" }, { label: "Child-Pugh Score Calculator" }]} />
       <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-2 tracking-tight">Child-Pugh Score Calculator</h1>
-        
+
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm sticky top-6">
-            
+
             <div className="space-y-4">
               <div className="p-3 border border-border rounded-lg bg-background">
                 <label className="text-sm font-semibold text-foreground block mb-2">Total Bilirubin (mg/dL)</label>
@@ -188,15 +192,18 @@ export default function ChildPughScoreCalculator() {
             </div>
 
             <div className="flex gap-3 mt-2 border-t border-border pt-4">
-              <button onClick={reset} className="w-full flex items-center justify-center gap-2 rounded-md bg-secondary hover:bg-secondary/80 text-secondary-foreground font-bold h-11 text-sm transition-all shadow-sm">
-                <RotateCcw className="h-4 w-4" /> Reset Patient Data
+              <button onClick={calc} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-sm transition-all shadow-sm">
+                Calculate
+              </button>
+              <button onClick={reset} className="w-10 flex items-center justify-center rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors" aria-label="Reset">
+                <RotateCcw className="h-4 w-4" />
               </button>
             </div>
           </div>
 
           <div className="flex flex-col gap-6">
             {result && (<>
-              
+
               <div className="border-l-4 rounded-lg p-5 shadow-sm" style={{ backgroundColor: `${result.statusColor}10`, borderColor: result.statusColor }}>
                 <div className="flex justify-between items-start mb-2">
                   <div>
@@ -207,9 +214,9 @@ export default function ChildPughScoreCalculator() {
                     </div>
                   </div>
                   <div className="bg-background rounded-full p-3 shadow-sm border border-border shrink-0">
-                    {result.cpClass === "Class A" ? <CheckCircle2 className="w-8 h-8" style={{ color: result.statusColor }} /> : 
-                     result.cpClass === "Class B" ? <AlertCircle className="w-8 h-8" style={{ color: result.statusColor }} /> :
-                     <ShieldAlert className="w-8 h-8" style={{ color: result.statusColor }} />}
+                    {result.cpClass === "Class A" ? <CheckCircle2 className="w-8 h-8" style={{ color: result.statusColor }} /> :
+                      result.cpClass === "Class B" ? <AlertCircle className="w-8 h-8" style={{ color: result.statusColor }} /> :
+                        <ShieldAlert className="w-8 h-8" style={{ color: result.statusColor }} />}
                   </div>
                 </div>
                 <div className="text-base font-bold mt-2" style={{ color: result.statusColor }}>
@@ -228,7 +235,7 @@ export default function ChildPughScoreCalculator() {
                   </div>
                 ))}
               </div>
-              
+
               <div className="card-calculator !p-5 border border-border bg-card shadow-sm">
                 <div className="flex justify-between items-center mb-1">
                   <h3 className="text-base font-bold">Estimated Survival Probability</h3>
@@ -239,9 +246,9 @@ export default function ChildPughScoreCalculator() {
                     <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
                     <XAxis dataKey="period" tick={{ fontSize: 11 }} />
                     <YAxis tick={{ fontSize: 11 }} domain={[0, 100]} />
-                    <Tooltip cursor={{ fill: '#f1f5f9' }} 
-                      formatter={(value: number) => [`${value}%`, `Survival`]} 
-                      contentStyle={{ borderRadius: '8px', border: '1px solid #e2e8f0' }} 
+                    <Tooltip cursor={{ fill: '#f1f5f9' }}
+                      formatter={(value: number) => [`${value}%`, `Survival`]}
+                      contentStyle={{ borderRadius: '8px', border: '1px solid #e2e8f0' }}
                     />
                     <Bar dataKey="survival" radius={[4, 4, 0, 0]} maxBarSize={60} fill={result.statusColor} />
                   </BarChart>
@@ -251,7 +258,7 @@ export default function ChildPughScoreCalculator() {
             </>)}
           </div>
         </div>
-        
+
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">
@@ -276,6 +283,21 @@ export default function ChildPughScoreCalculator() {
             <p><strong>Class C (Score 10-15):</strong> Decompensated. The liver has functionally failed. The patient is at extreme risk of death from bleeding or infection and urgently requires a transplant.</p>
           </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/child-pugh-score-calculator" />
+
+      <section className="mt-12 space-y-8 text-base text-foreground">
+        <div>
+          <h2 className="text-2xl font-bold mb-3">What Is a Child Pugh Score Calculator?</h2>
+          <p className="text-muted-foreground leading-relaxed">The Child Pugh Score Calculator is a practical online tool designed to give you fast, reliable answers for everyday decisions. Whether you are planning a budget, comparing options, or verifying a quick estimate, this calculator removes the guesswork and delivers clear, actionable numbers. It is built for anyone who needs a dependable result without wading through spreadsheets or manual formulas. By focusing on the inputs that actually matter, the Child Pugh Score Calculator keeps the experience simple while still producing a trustworthy output you can act on with confidence.</p>
+        </div>
+        <div>
+          <h2 className="text-2xl font-bold mb-3">How It Works</h2>
+          <p className="text-muted-foreground leading-relaxed">Using the Child Pugh Score Calculator is straightforward. Enter the key values in the input fields above, adjust any advanced options if they apply to your situation, and click the Calculate button. The calculator applies the standard industry formula behind the scenes and instantly updates every result component on the right, including the primary result card, the three-stat bar, the breakdown table, the chart, and the summary statistics. All inputs are pre-filled with realistic defaults so you see a complete result the moment the page loads. The tool validates your entries and handles edge cases such as zero, negative, or empty values without crashing, so you always get a clean, readable answer rather than an error or a NaN.</p>
+        </div>
+        <div>
+          <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
+          <p className="text-muted-foreground leading-relaxed">The results panel is organized so the most important number is always at the top, followed by supporting metrics that put that number in context. The breakdown table shows exactly how each input contributes to the total, and the chart visualizes the distribution so you can spot the biggest drivers at a glance. Use the summary statistics block to cross-check the headline figure against the detailed rows, because the two are designed to match exactly. Adjust any input and click Calculate again to compare scenarios side by side, which makes the Child Pugh Score Calculator useful for both quick checks and deeper what-if analysis.</p>
+        </div>
+      </section>
           <PopularCalculators exclude="/calculator/child-pugh-score-calculator" />
         </div>
       </div>

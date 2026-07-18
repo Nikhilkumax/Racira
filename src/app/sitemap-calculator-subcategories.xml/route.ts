@@ -13,7 +13,7 @@ export async function GET() {
       const subSlug = toSlug(sub.name);
       xml += `
   <url>
-    <loc>${baseUrl}/calculator/${catSlug}/${subSlug}</loc>
+    <loc>${baseUrl}/calculator/${subSlug}</loc>
     <lastmod>${new Date().toISOString()}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>

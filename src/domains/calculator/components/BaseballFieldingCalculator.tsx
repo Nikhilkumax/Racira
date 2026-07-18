@@ -28,7 +28,7 @@ interface FieldingResults {
 // 2. Pure Calculation Function
 const calculateFielding = (inputs: FieldingInputs): FieldingResults | null => {
   const { putouts, assists, errors } = inputs;
-  
+
   if (putouts < 0 || assists < 0 || errors < 0) return null;
 
   const successfulPlays = putouts + assists;
@@ -132,7 +132,7 @@ export default function BaseballFieldingCalculator() {
   const [putouts, setPutouts] = useState(DEFAULTS.putouts);
   const [assists, setAssists] = useState(DEFAULTS.assists);
   const [errors, setErrors] = useState(DEFAULTS.errors);
-  
+
   const [errorMsg, setErrorMsg] = useState("");
   const [results, setResults] = useState<FieldingResults | null>(null);
   const printRef = useRef<HTMLDivElement>(null);
@@ -148,7 +148,7 @@ export default function BaseballFieldingCalculator() {
     if (isNaN(e) || e < 0) return setErrorMsg("Please enter valid Errors.");
 
     const res = calculateFielding({ putouts: po, assists: a, errors: e });
-    
+
     if (!res) {
       setErrorMsg("Unable to calculate. Ensure total chances > 0.");
     } else {
@@ -197,10 +197,10 @@ export default function BaseballFieldingCalculator() {
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Baseball Fielding Percentage Calculator</h1>
 
         <div className="grid grid-cols-1 xl:grid-cols-[460px_1fr] gap-6 items-start max-w-[1280px] mt-4">
-          
+
           {/* LEFT: Inputs */}
           <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
-            
+
             <div className="bg-primary/5 border-l-4 border-primary rounded-lg p-4 mb-2">
               <div className="flex items-center gap-2 text-primary font-bold mb-1">
                 <Shield className="h-4 w-4" /> Defensive Statistics
@@ -248,9 +248,9 @@ export default function BaseballFieldingCalculator() {
           <div className="flex flex-col gap-4">
             {results && !errorMsg ? (
               <div ref={printRef} className="flex flex-col gap-4 animate-fade-in-up">
-                
+
                 {/* Primary Metric Box */}
-                <div 
+                <div
                   className="text-white rounded-lg p-6 shadow-sm relative overflow-hidden"
                   style={{ backgroundColor: results.colorClass }}
                 >
@@ -319,36 +319,21 @@ export default function BaseballFieldingCalculator() {
         {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <section className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">The Mathematics of Defense</h2>
-            <p>For over a century, the sport of baseball has relied on one fundamental metric to evaluate the defensive prowess of a player: the Fielding Percentage. While offensive statistics focus on generating runs, defensive statistics focus on preventing them. The <strong>Baseball Fielding Percentage Calculator</strong> isolates a player's raw ability to handle the baseball without making mistakes. It is a pure measurement of sure-handedness, calculating exactly how often a player executes a defensive play flawlessly when given the opportunity.</p>
-
-            <h2 className="text-2xl font-bold mb-3">Decoding the Defensive Variables</h2>
-            <p>To understand Fielding Percentage, you must understand the three specific variables that comprise it: Putouts, Assists, and Errors.</p>
-            <p>A <strong>Putout (PO)</strong> is awarded to the specific fielder who physically records the out. If a center fielder catches a fly ball, they get the putout. If the shortstop throws a grounder to the first baseman who steps on the bag, the first baseman gets the putout.</p>
-            <p>An <strong>Assist (A)</strong> is awarded to any fielder who touched the ball and contributed to the out before the putout occurred. In the previous ground-ball example, the shortstop who fielded the ball and threw it across the diamond receives the Assist.</p>
-            <p>An <strong>Error (E)</strong> is a negative mark given when a fielder fails to make a play that a fielder of "ordinary effort" should have made, directly resulting in an opposing player reaching base safely or advancing. The formula simply adds Putouts and Assists (the successes) and divides them by the Total Chances (Putouts + Assists + Errors) to generate the final percentage.</p>
-
-            <h2 className="text-2xl font-bold mb-3">The 'Ordinary Effort' Caveat</h2>
-            <p>The entire concept of an Error rests upon the subjective judgment of the official scorekeeper regarding "ordinary effort." This introduces a fascinating human element into the cold mathematics of the statistic.</p>
-            <p>If a third baseman dives 15 feet to his left, extending his body to the absolute physiological limit, and the ball deflects off the very tip of his glove, it is almost never ruled an Error. It is ruled a Hit. Why? Because the scorekeeper determines that an "ordinary" third baseman would never have reached the ball in the first place. You cannot be penalized with an Error for attempting a superhuman play and failing. Errors are strictly reserved for routine ground balls that are fumbled, or routine throws that are sailed over the first baseman's head.</p>
-
-            <h2 className="text-2xl font-bold mb-3">The Range Paradox: The Flaw in Fielding Percentage</h2>
-            <p>While Fielding Percentage is an excellent measure of sure-handedness, modern sabermetricians despise it because of a massive analytical blind spot known as the Range Paradox. Fielding Percentage brutally punishes athletic range while mathematically rewarding slow, unathletic players.</p>
-            <p>Imagine a very slow shortstop with terrible lateral range. When a hard ground ball is hit into the gap, the slow shortstop just stands still. He doesn't even try to dive. The ball rolls into the outfield for a Hit. Because the shortstop didn't touch the ball, he is not charged with an Error. His Fielding Percentage remains a perfect 1.000. Now imagine an elite, lightning-fast shortstop. He dives for that same ball, miraculously reaches it, but fumbles the transfer from his glove to his hand. He is charged with an Error, and his Fielding Percentage drops. The elite athlete is mathematically punished for having the speed to reach the ball, while the slow player is mathematically rewarded for being terrible.</p>
-
-            <h2 className="text-2xl font-bold mb-3">The Modern Solution: Range Factor and UZR</h2>
-            <p>Because of the Range Paradox, modern Major League Baseball front offices rarely use Fielding Percentage in isolation. They combine it with advanced metrics like Ultimate Zone Rating (UZR) and Defensive Runs Saved (DRS).</p>
-            <p>These advanced metrics use high-speed optical tracking cameras to measure exactly how much ground a fielder covers. They divide the field into mathematical zones and track how often a player successfully intercepts a ball hit into a difficult zone. However, for amateur baseball, high school, and college teams that do not have access to million-dollar optical tracking arrays, traditional Fielding Percentage remains the most accessible and reliable baseline metric for evaluating defensive consistency.</p>
-
-            <h2 className="text-2xl font-bold mb-3">Positional Expectations</h2>
-            <p>You cannot compare the Fielding Percentage of a center fielder to a third baseman. Different positions carry vastly different mathematical expectations.</p>
-            <p>A First Baseman is expected to have an elite Fielding Percentage (routinely over .990) because the vast majority of their defensive chances involve simply catching a cleanly thrown ball while standing on the base. A Shortstop or Third Baseman (the "Hot Corner") is expected to have a significantly lower percentage (around .970) because their defensive chances are exponentially more difficult. They are required to sprint laterally, field violently spinning ground balls on unpredictable dirt surfaces, and throw the ball 120 feet with pinpoint accuracy while running off-balance.</p>
-
-            <h2 className="text-2xl font-bold mb-3">Conclusion: The Foundation of Defense</h2>
-            <p>Despite its flaws regarding athletic range, Fielding Percentage remains the bedrock of defensive analytics. If a player has a terrible Fielding Percentage, no amount of speed or range will save them—if they cannot securely catch the ball when it comes to them, they are a defensive liability. Use the Baseball Fielding Percentage Calculator to establish the baseline sure-handedness of your players, ensuring your team isn't mathematically giving away bases through sloppy execution.</p>
+          <section className="mt-12 space-y-8 text-base text-foreground">
+            <div>
+              <h2 className="text-2xl font-bold mb-3">What Is a Baseball Fielding Percentage Calculator?</h2>
+              <p className="text-muted-foreground leading-relaxed">A Baseball Fielding Percentage Calculator measures a player's defensive reliability by computing how often they successfully handle the baseball without making an error. Fielding percentage, also called fielding average or FPCT, is the most fundamental defensive statistic in baseball and has been used for over a century to evaluate a player's sure-handedness. The calculator takes three inputs — putouts, assists, and errors — and produces a decimal value between .000 and 1.000 that represents the percentage of total defensive chances a player converted successfully. This metric is used at every level of baseball from Little League to the Major Leagues as a baseline measure of defensive competence.</p>
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold mb-3">How It Works</h2>
+              <p className="text-muted-foreground leading-relaxed">The calculator uses the standard baseball fielding percentage formula: FPCT equals putouts plus assists divided by putouts plus assists plus errors. Putouts are awarded to the fielder who physically records the out, such as a first baseman catching a thrown ball. Assists are awarded to fielders who touch the ball and contribute to the out before the putout is made, such as a shortstop fielding a grounder and throwing to first. Errors are charged when a fielder fails to make a play that ordinary effort should have allowed. The sum of putouts and assists represents successful plays, while the sum of all three values represents total chances. Dividing successful plays by total chances yields the fielding percentage, formatted to three decimal places without a leading zero, following baseball convention.</p>
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
+              <p className="text-muted-foreground leading-relaxed">Your primary result is the fielding percentage displayed as a three-digit decimal, accompanied by a classification ranging from Elite to Poor based on modern MLB standards. A percentage of .990 or higher is considered Elite, .980 to .989 is Great, .970 to .979 is Average, .950 to .969 is Below Average, and anything below .950 is Poor. The summary statistics show total chances and successful plays, which are the denominator and numerator of the formula. The donut chart visualizes the proportion of successful plays versus errors, giving you an immediate sense of how reliable the player is. Keep in mind that fielding percentage expectations vary by position: first basemen are expected to exceed .990, while shortstops and third basemen typically sit around .970 due to the difficulty of their defensive chances.</p>
+            </div>
           </section>
-          
+
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/baseball-fielding-percentage-calculator" />
           <PopularCalculators exclude="/calculator/baseball-fielding-percentage-calculator" />
         </div>

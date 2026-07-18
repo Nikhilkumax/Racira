@@ -191,7 +191,7 @@ export const technologyCalculators: CalculatorDef[] = [
   { slug: "software-defect-density-calculator", name: "Software Defect Density Calculator", description: "Calculate Software Defect Density Calculator online with our free tool.", category: "TECHNOLOGY", subcategory: "Programming & Software", tier: "Tier2", priorityScore: 53, status: "soon" },
   { slug: "latency-budget-calculator", name: "Latency Budget Calculator", description: "Calculate latency budget calculator online with our free tool.", category: "TECHNOLOGY", subcategory: "Cloud & DevOps", tier: "Tier3", priorityScore: 43, status: "soon" },
   { slug: "service-level-objective-slo-budget-calculator", name: "Service Level Objective (SLO) Budget Calculator", description: "Calculate Service Level Objective (SLO) Budget Calculator online with our free tool.", category: "TECHNOLOGY", subcategory: "Cloud & DevOps", tier: "Tier3", priorityScore: 43, status: "soon" },
-  { slug: "error-budget-burn-rate-calculator", name: "Error Budget Burn Rate Calculator", description: "Calculate Error Budget Burn Rate Calculator online with our free tool.", category: "TECHNOLOGY", subcategory: "Cloud & DevOps", tier: "Tier3", priorityScore: 43, status: "soon" },
+  { slug: "error-budget-burn-rate-calculator", name: "Error Budget Burn Rate Calculator", description: "Calculate Error Budget Burn Rate Calculator online with our free tool.", category: "TECHNOLOGY", subcategory: "Cloud & DevOps", tier: "Tier3", priorityScore: 43, status: "live" },
   { slug: "threat-intelligence-feed-coverage-score-calculator", name: "Threat Intelligence Feed Coverage Score Calculator", description: "Calculate Threat Intelligence Feed Coverage Score Calculator online with our free tool.", category: "TECHNOLOGY", subcategory: "Cybersecurity", tier: "Tier3", priorityScore: 43, status: "soon" },
   { slug: "normalized-discounted-cumulative-gain-ndcg-calculator", name: "Normalized Discounted Cumulative Gain (nDCG) Calculator", description: "Calculate Normalized Discounted Cumulative Gain (nDCG) Calculator online with our free tool.", category: "TECHNOLOGY", subcategory: "Data Science & AI/ML", tier: "Tier3", priorityScore: 43, status: "soon" },
   { slug: "pay-per-click-profit-calculator", name: "Pay-Per-Click Profit Calculator", description: "Calculate Pay-Per-Click Profit Calculator online with our free tool.", category: "TECHNOLOGY", subcategory: "Web & Digital", tier: "Tier3", priorityScore: 43, status: "soon" },
@@ -221,7 +221,7 @@ export const technologyCalculators: CalculatorDef[] = [
   { slug: "load-balancer-throughput-calculator", name: "Load Balancer Throughput Calculator", description: "Calculate Load Balancer Throughput Calculator online with our free tool.", category: "TECHNOLOGY", subcategory: "Cloud & DevOps", tier: "Tier3", priorityScore: 28, status: "soon" },
   { slug: "rate-of-change-failure-dora-metric-calculator", name: "Rate of Change Failure (DORA Metric) Calculator", description: "Calculate Rate of Change Failure (DORA Metric) Calculator online with our free tool.", category: "TECHNOLOGY", subcategory: "Cloud & DevOps", tier: "Tier3", priorityScore: 28, status: "soon" },
   { slug: "recovery-point-objective-rpo-calculator", name: "Recovery Point Objective (RPO) Calculator", description: "Calculate Recovery Point Objective (RPO) Calculator online with our free tool.", category: "TECHNOLOGY", subcategory: "Cloud & DevOps", tier: "Tier3", priorityScore: 28, status: "soon" },
-  { slug: "reliability-engineering-burn-rate-calculator", name: "Reliability Engineering Burn Rate Calculator", description: "Calculate Reliability Engineering Burn Rate Calculator online with our free tool.", category: "TECHNOLOGY", subcategory: "Cloud & DevOps", tier: "Tier3", priorityScore: 28, status: "soon" },
+  { slug: "reliability-engineering-burn-rate-calculator", name: "Reliability Engineering Burn Rate Calculator", description: "Calculate Reliability Engineering Burn Rate Calculator online with our free tool.", category: "TECHNOLOGY", subcategory: "Cloud & DevOps", tier: "Tier3", priorityScore: 28, status: "live" },
   { slug: "request-rate-limit-calculator", name: "Request Rate Limit Calculator", description: "Calculate Request Rate Limit Calculator online with our free tool.", category: "TECHNOLOGY", subcategory: "Cloud & DevOps", tier: "Tier3", priorityScore: 28, status: "soon" },
   { slug: "service-mesh-overhead-calculator", name: "Service Mesh Overhead Calculator", description: "Calculate Service Mesh Overhead Calculator online with our free tool.", category: "TECHNOLOGY", subcategory: "Cloud & DevOps", tier: "Tier3", priorityScore: 28, status: "soon" },
   { slug: "dora-lead-time-score-calculator", name: "DORA Lead Time Score Calculator", description: "Calculate DORA Lead Time Score Calculator online with our free tool.", category: "TECHNOLOGY", subcategory: "Cloud & DevOps", tier: "Tier3", priorityScore: 28, status: "soon" },
@@ -920,5 +920,67 @@ export const technologyCalculators: CalculatorDef[] = [
   { slug: "polynomial-feature-count-calculator", name: "Polynomial Feature Count Calculator", description: "Calculate Polynomial Feature Count Calculator online with our free tool.", category: "TECHNOLOGY", subcategory: "Data Science & AI/ML", tier: "Tier3", priorityScore: 23, status: "soon" },
   { slug: "feature-correlation-score-calculator", name: "Feature Correlation Score Calculator", description: "Calculate Feature Correlation Score Calculator online with our free tool.", category: "TECHNOLOGY", subcategory: "Data Science & AI/ML", tier: "Tier3", priorityScore: 23, status: "soon" },
   { slug: "feature-selection-information-gain-calculator", name: "Feature Selection Information Gain Calculator", description: "Calculate Feature Selection Information Gain Calculator online with our free tool.", category: "TECHNOLOGY", subcategory: "Data Science & AI/ML", tier: "Tier3", priorityScore: 23, status: "soon" },
-  { slug: "model-complexity-score-calculator", name: "Model Complexity Score Calculator", description: "Calculate Model Complexity Score Calculator online with our free tool.", category: "TECHNOLOGY", subcategory: "Data Science & AI/ML", tier: "Tier3", priorityScore: 23, status: "soon" }
+  { slug: "model-complexity-score-calculator", name: "Model Complexity Score Calculator", description: "Calculate Model Complexity Score Calculator online with our free tool.", category: "TECHNOLOGY", subcategory: "Data Science & AI/ML", tier: "Tier3", priorityScore: 23, status: "soon" },
+  {
+    slug: 'ppi-calculator',
+    name: 'PPI Calculator',
+    description: 'Calculate pixels per inch (PPI) for any screen by entering dimensions and resolution.',
+    tier: 'standard',
+    status: 'live',
+    isBuilt: true,
+  },
+
+  {
+    slug: 'psu-calculator',
+    name: 'PSU Calculator',
+    description: 'Calculate the recommended power supply unit (PSU) wattage for a PC build.',
+    tier: 'standard',
+    status: 'live',
+    isBuilt: true,
+  },
+
+  {
+    slug: 'speed-distance-time-calculator',
+    name: 'Speed Distance Time Calculator',
+    description: 'Calculate speed, distance or time using the classic SDT formula.',
+    tier: 'standard',
+    status: 'live',
+    isBuilt: true,
+  },
+
+  {
+    slug: 'ssl-cost-calculator',
+    name: 'SSL Certificate Cost Calculator',
+    description: 'Estimate annual SSL certificate costs for websites and web applications.',
+    tier: 'standard',
+    status: 'live',
+    isBuilt: true,
+  },
+
+  {
+    slug: 'three-dprint-time-calculator',
+    name: '3D Print Time Calculator',
+    description: 'Estimate 3D printing time based on print volume, speed and layer height.',
+    tier: 'standard',
+    status: 'live',
+    isBuilt: true,
+  },
+
+  {
+    slug: 'three-dprint-charts',
+    name: '3D Print Material Charts',
+    description: 'Reference charts for 3D printing material properties and settings.',
+    tier: 'standard',
+    status: 'live',
+    isBuilt: true,
+  },
+
+  {
+    slug: 'domain-valuation-calculator',
+    name: 'Domain Valuation Calculator',
+    description: 'Estimate domain name market value based on keywords, length and TLD.',
+    tier: 'standard',
+    status: 'live',
+    isBuilt: true,
+  },
 ];
