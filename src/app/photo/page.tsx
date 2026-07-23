@@ -86,7 +86,7 @@ function ToolCard({ tool }: { tool: Tool }) {
 
   return (
     <Link
-      href={`/photo/tool/${tool.slug}`}
+      href={`/photo/${tool.slug}`}
       className="tool-card group relative"
     >
       {!isLive && (

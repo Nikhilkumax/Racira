@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowLeft, Clock } from "lucide-react";
-import type { Tool } from "@/data/video/tools";
+import type { Tool } from "@/domains/video/registry";
 
 export function ComingSoon({ tool }: { tool: Tool }) {
   const Icon = tool.icon as React.ComponentType<{ className?: string }>;
@@ -25,7 +25,7 @@ export function ComingSoon({ tool }: { tool: Tool }) {
 
       <div className="mt-8 flex flex-wrap justify-center gap-3">
         <Link
-          href="/video/tools/mp4-converter"
+          href="/video/mp4-converter"
           className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90 transition-opacity"
         >
           Try MP4 Converter

@@ -34,7 +34,7 @@ export default function Index() {
             </h2>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {section.tools.map((tool) => (
-                <ToolCard key={tool.name} tool={tool} basePath="/maps/tool" />
+                <ToolCard key={tool.name} tool={tool} basePath="/maps" />
               ))}
             </div>
           </section>

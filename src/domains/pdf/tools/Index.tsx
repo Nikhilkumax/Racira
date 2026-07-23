@@ -1,5 +1,6 @@
-import { SearchPdf } from "./SearchPdf";
 import ClientGrid from "@/domains/pdf/components/ClientGrid";
+import { CategorySearch } from "@/components/CategorySearch";
+import { SEARCH_REGISTRY } from "@/domains/pdf/registry/tools";
 
 const Index = () => {
   return (
@@ -14,7 +15,11 @@ const Index = () => {
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
             Professional-grade tools to merge, split, compress, and edit PDF documents securely. No signup required.
           </p>
-          <SearchPdf />
+          <CategorySearch
+            categorySlug="pdf"
+            placeholder="Search 183+ PDF tools..."
+            registry={SEARCH_REGISTRY}
+          />
         </div>
       </section>
 

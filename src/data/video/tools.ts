@@ -240,7 +240,7 @@ export const SEARCH_REGISTRY: ToolResult[] = TOOLS.map((tool) => ({
   name: tool.name,
   description: tool.description,
   slug: tool.slug,
-  href: `/video/tools/${tool.slug}`,
+  href: `/video/${tool.slug}`,
   category: tool.category,
   isBuilt: tool.status === "live",
 }));

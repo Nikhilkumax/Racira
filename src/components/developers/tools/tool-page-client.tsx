@@ -1,8 +1,8 @@
 "use client";
 
 import { useMemo } from "react";
-import type { Tool } from "@/data/developers/tools";
-import { categorySlug, findTool } from "@/data/developers/tools";
+import type { Tool } from "@/domains/developers/registry";
+import { categorySlug, findTool } from "@/domains/developers/registry";
 import { getTool, type ToolDefinition } from "@/components/developers/tools/registry";
 import "@/lib/developers/tools"; // side-effect: registers every tool definition
 import { ToolShell } from "@/components/developers/tools/tool-shell";

@@ -5,100 +5,156 @@ import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import { Printer, RotateCcw, ActivitySquare, AlertTriangle, Target, Zap, ShieldAlert } from "lucide-react";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell, ReferenceLine } from "recharts";
+import { RotateCcw, AlertTriangle, Zap, ActivitySquare, Target } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts";
 import { Button } from "@/components/ui/button";
 
 // 1. TypeScript Interfaces
 interface SluggingInputs {
   atBats: number;
-  hits: number;
+  singles: number;
   doubles: number;
   triples: number;
   homeRuns: number;
+  sacFlies: number;
+  showOps: boolean;
+  showIso: boolean;
+  leagueOps: number;
+  hits: number;
+  walks: number;
+  hitByPitch: number;
 }
 
-interface SluggingResults {
-  sluggingPercentage: string; // formatted as ".540"
+interface SluggingResult {
+  sluggingPercentage: string;
   totalBases: number;
-  singles: number;
-  classification: "Elite Power" | "Great Power" | "Average" | "Below Average" | "Poor Power";
+  iso: number;
+  isoFormatted: string;
+  ops: number;
+  opsFormatted: string;
+  opsPlus: number;
+  battingAverage: number;
+  battingAverageFormatted: string;
+  hits: number;
+  classification: string;
   colorClass: string;
   chartData: { name: string; bases: number; count: number }[];
 }
 
-// 2. Pure Calculation Function
-const calculateSlugging = (inputs: SluggingInputs): SluggingResults | null => {
-  const { atBats, hits, doubles, triples, homeRuns } = inputs;
-  
-  if (atBats < 0 || hits < 0 || doubles < 0 || triples < 0 || homeRuns < 0) return null;
-  
-  // Logical constraints
-  const extraBaseHits = doubles + triples + homeRuns;
-  if (hits > atBats) return null; // Can't have more hits than at-bats
-  if (extraBaseHits > hits) return null; // Can't have more extra-base hits than total hits
+// 2. Pure Calculation Function (zero React, fully typed)
+const calculateSlugging = (inputs: SluggingInputs): SluggingResult => {
+  let {
+    atBats,
+    singles,
+    doubles,
+    triples,
+    homeRuns,
+    sacFlies,
+    showOps,
+    showIso,
+    leagueOps,
+    walks,
+    hitByPitch,
+  } = inputs;
 
-  const singles = hits - extraBaseHits;
+  atBats = Math.max(0, atBats || 0);
+  singles = Math.max(0, singles || 0);
+  doubles = Math.max(0, doubles || 0);
+  triples = Math.max(0, triples || 0);
+  homeRuns = Math.max(0, homeRuns || 0);
+  sacFlies = Math.max(0, sacFlies || 0);
+  walks = Math.max(0, walks || 0);
+  hitByPitch = Math.max(0, hitByPitch || 0);
+  leagueOps = leagueOps || 0.740;
 
-  // Total Bases Formula: (1 * 1B) + (2 * 2B) + (3 * 3B) + (4 * HR)
-  const totalBases = singles + (doubles * 2) + (triples * 3) + (homeRuns * 4);
+  const hits = singles + doubles + triples + homeRuns;
 
-  if (atBats === 0) return null;
+  // Total Bases (TB) = 1B + 2×2B + 3×3B + 4×HR
+  const totalBases = singles + doubles * 2 + triples * 3 + homeRuns * 4;
 
-  const sluggingRaw = totalBases / atBats;
+  // SLG = TB / AB
+  const slugging = atBats > 0 ? totalBases / atBats : 0;
 
-  // Format to standard 3 decimal places without leading zero
-  let sluggingString = sluggingRaw.toFixed(3).toString();
-  if (sluggingString.startsWith("0")) {
-    sluggingString = sluggingString.substring(1);
-  }
+  // AVG = H / AB
+  const battingAverage = atBats > 0 ? hits / atBats : 0;
 
-  // Classifications (Modern MLB standards)
-  let classification: SluggingResults["classification"] = "Average";
-  let colorClass = "#3b82f6";
+  // OBP = (H + BB + HBP) / (AB + BB + HBP + SF)
+  const obpDenominator = atBats + walks + hitByPitch + sacFlies;
+  const obp = obpDenominator > 0 ? (hits + walks + hitByPitch) / obpDenominator : 0;
 
-  if (sluggingRaw >= 0.500) {
-    classification = "Elite Power";
-    colorClass = "#8b5cf6"; // Purple
-  } else if (sluggingRaw >= 0.450) {
-    classification = "Great Power";
-    colorClass = "#10b981"; // Emerald
-  } else if (sluggingRaw >= 0.400) {
+  // OPS = OBP + SLG
+  const ops = showOps ? obp + slugging : 0;
+  const opsPlus = showOps && leagueOps > 0 ? Math.round((ops / leagueOps) * 100) : 0;
+
+  // ISO = SLG - AVG
+  const iso = showIso ? slugging - battingAverage : 0;
+
+  const formatStat = (val: number): string => {
+    const fixed = val.toFixed(3);
+    return fixed.startsWith("0") ? fixed.substring(1) : fixed;
+  };
+
+  let classification = "Very Poor";
+  let colorClass = "#ef4444";
+
+  if (slugging >= 0.550) {
+    classification = "Elite";
+    colorClass = "#8b5cf6";
+  } else if (slugging >= 0.500) {
+    classification = "Great";
+    colorClass = "#10b981";
+  } else if (slugging >= 0.450) {
+    classification = "Above Average";
+    colorClass = "#3b82f6";
+  } else if (slugging >= 0.400) {
     classification = "Average";
-    colorClass = "#3b82f6"; // Blue
-  } else if (sluggingRaw >= 0.350) {
+    colorClass = "#f59e0b";
+  } else if (slugging >= 0.350) {
     classification = "Below Average";
-    colorClass = "#f59e0b"; // Amber
-  } else {
-    classification = "Poor Power";
-    colorClass = "#ef4444"; // Red
+    colorClass = "#fb923c";
+  } else if (slugging >= 0.300) {
+    classification = "Poor";
+    colorClass = "#f97316";
   }
 
-  // Generate Chart Data showing the BASE yield of each hit type
   const chartData = [
     { name: "Singles (1B)", bases: singles * 1, count: singles },
     { name: "Doubles (2B)", bases: doubles * 2, count: doubles },
     { name: "Triples (3B)", bases: triples * 3, count: triples },
-    { name: "Home Runs (HR)", bases: homeRuns * 4, count: homeRuns }
+    { name: "Home Runs (HR)", bases: homeRuns * 4, count: homeRuns },
   ];
 
   return {
-    sluggingPercentage: sluggingString,
+    sluggingPercentage: formatStat(slugging),
     totalBases,
-    singles,
+    iso,
+    isoFormatted: formatStat(iso),
+    ops,
+    opsFormatted: formatStat(ops),
+    opsPlus,
+    battingAverage,
+    battingAverageFormatted: formatStat(battingAverage),
+    hits,
     classification,
     colorClass,
-    chartData
+    chartData,
   };
 };
 
 // 3. DEFAULTS Object
-const DEFAULTS = {
-  atBats: "500",
-  hits: "135",
-  doubles: "30",
-  triples: "2",
-  homeRuns: "25"
+const DEFAULTS: SluggingInputs = {
+  atBats: 500,
+  singles: 85,
+  doubles: 35,
+  triples: 5,
+  homeRuns: 15,
+  sacFlies: 5,
+  showOps: true,
+  showIso: true,
+  leagueOps: 0.740,
+  hits: 140,
+  walks: 50,
+  hitByPitch: 8,
 };
 
 // Custom Chart Tooltip
@@ -123,78 +179,77 @@ const CustomTooltip = ({ active, payload }: any) => {
 };
 
 // Input Component
-const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "number", ...props }: any) => (
+const CompactInput = ({ id, label, value, onChange, ...props }: any) => (
   <div className="flex flex-col">
     <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1.5">
       {label}
     </label>
     <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-10 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
-      {prefix && <span className="pl-3 pr-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{prefix}</span>}
       <input
         id={id}
-        type={type}
+        type="number"
         value={value}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(e) => {
+          const raw = e.target.value;
+          if (raw === "") {
+            onChange(0);
+          } else {
+            const num = parseInt(raw, 10);
+            onChange(isNaN(num) ? 0 : Math.max(0, num));
+          }
+        }}
         className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground"
         {...props}
       />
-      {suffix && <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{suffix}</span>}
     </div>
+  </div>
+);
+
+// Toggle Component
+const ToggleRow = ({ id, label, checked, onChange }: any) => (
+  <div className="flex items-center justify-between gap-3">
+    <label htmlFor={id} className="text-sm font-semibold text-foreground cursor-pointer">{label}</label>
+    <button
+      id={id}
+      type="button"
+      role="switch"
+      aria-checked={checked}
+      onClick={() => onChange(!checked)}
+      className={`relative inline-flex h-6 w-11 shrink-0 items-center rounded-full transition-colors ${checked ? "bg-primary" : "bg-muted"}`}
+    >
+      <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${checked ? "translate-x-6" : "translate-x-1"}`} />
+    </button>
   </div>
 );
 
 export default function BaseballSluggingCalculator() {
   // 4. Component State
-  const [atBats, setAtBats] = useState(DEFAULTS.atBats);
-  const [hits, setHits] = useState(DEFAULTS.hits);
-  const [doubles, setDoubles] = useState(DEFAULTS.doubles);
-  const [triples, setTriples] = useState(DEFAULTS.triples);
-  const [homeRuns, setHomeRuns] = useState(DEFAULTS.homeRuns);
-  
+  const [inputs, setInputs] = useState<SluggingInputs>(DEFAULTS);
+  const [result, setResult] = useState<SluggingResult>(calculateSlugging(DEFAULTS));
   const [errorMsg, setErrorMsg] = useState("");
-  const [results, setResults] = useState<SluggingResults | null>(null);
+  const [showAdvanced, setShowAdvanced] = useState(true);
   const printRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setResult(calculateSlugging(inputs));
+  }, []);
 
   const handleCalculate = () => {
     setErrorMsg("");
-    const ab = parseInt(atBats, 10);
-    const h = parseInt(hits, 10);
-    const d = parseInt(doubles, 10);
-    const t = parseInt(triples, 10);
-    const hr = parseInt(homeRuns, 10);
-
-    if (isNaN(ab) || ab < 0) return setErrorMsg("Please enter valid At-Bats.");
-    if (isNaN(h) || h < 0) return setErrorMsg("Please enter valid Total Hits.");
-    if (isNaN(d) || d < 0) return setErrorMsg("Please enter valid Doubles.");
-    if (isNaN(t) || t < 0) return setErrorMsg("Please enter valid Triples.");
-    if (isNaN(hr) || hr < 0) return setErrorMsg("Please enter valid Home Runs.");
-
-    if (h > ab) return setErrorMsg("Total Hits cannot exceed At-Bats.");
-    if ((d + t + hr) > h) return setErrorMsg("Extra-Base Hits (2B+3B+HR) cannot exceed Total Hits.");
-
-    const res = calculateSlugging({ atBats: ab, hits: h, doubles: d, triples: t, homeRuns: hr });
-    
-    if (!res) {
-      setErrorMsg("Unable to calculate. Ensure At-Bats > 0.");
-    } else {
-      setResults(res);
+    if (inputs.atBats <= 0) {
+      return setErrorMsg("At Bats must be greater than zero.");
     }
+    if (inputs.singles < 0 || inputs.doubles < 0 || inputs.triples < 0 || inputs.homeRuns < 0) {
+      return setErrorMsg("Please enter valid non-negative numbers.");
+    }
+    setResult(calculateSlugging(inputs));
   };
 
   const handleReset = () => {
-    setAtBats(DEFAULTS.atBats);
-    setHits(DEFAULTS.hits);
-    setDoubles(DEFAULTS.doubles);
-    setTriples(DEFAULTS.triples);
-    setHomeRuns(DEFAULTS.homeRuns);
+    setInputs(DEFAULTS);
     setErrorMsg("");
-    setTimeout(handleCalculate, 0);
+    setResult(calculateSlugging(DEFAULTS));
   };
-
-  useEffect(() => {
-    handleCalculate();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [atBats, hits, doubles, triples, homeRuns]);
 
   const handlePrint = () => {
     if (!printRef.current) return;
@@ -207,12 +262,16 @@ export default function BaseballSluggingCalculator() {
     w.print();
   };
 
+  const updateInput = (field: keyof SluggingInputs, value: number | boolean) => {
+    setInputs((prev) => ({ ...prev, [field]: value }));
+  };
+
   const faqs = [
-    { question: "Why is Slugging Percentage (SLG) more valuable than Batting Average?", answer: "Batting Average treats all hits as exactly equal. A slow infield single that barely beats the throw to first base is given the exact same mathematical weight as a 450-foot grand slam home run. This is a massive analytical failure. A player who hits 40 home runs is vastly more valuable to run production than a player who hits 40 singles. Slugging Percentage corrects this by applying a multiplier to hits based on how many bases they secure for the team." },
-    { question: "How does the Slugging math actually work?", answer: "Instead of dividing Hits by At-Bats, Slugging Percentage divides 'Total Bases' by At-Bats. The formula multiplies your hits by their base value. A Single is worth 1 base. A Double is worth 2 bases. A Triple is worth 3 bases. A Home Run is worth 4 bases. Therefore, a single Home Run provides four times the mathematical value to your Slugging Percentage than a Single does, accurately reflecting the massive run-scoring potential of extra-base hits." },
-    { question: "Is a Slugging Percentage of .500 considered good?", answer: "Yes. In modern Major League Baseball, the league average SLG generally hovers around .400 to .410. If a player maintains a Slugging Percentage over .500, they are considered an elite power threat and are likely hitting 30+ home runs or 40+ doubles in a season. Barry Bonds holds the single-season record, posting a mathematically absurd .863 Slugging Percentage in the 2001 season (where he hit 73 home runs)." },
-    { question: "Why doesn't this calculator ask for Singles?", answer: "Singles do not need to be manually entered because they are mathematically derived. The calculator takes your 'Total Hits' and subtracts your extra-base hits (Doubles + Triples + Home Runs). The remaining hits are, by definition, your Singles. This prevents users from accidentally entering conflicting numbers (e.g., entering 100 Total Hits, but somehow entering 80 Singles and 40 Home Runs)." },
-    { question: "What is OPS and why is it related?", answer: "OPS stands for 'On-Base Plus Slugging'. It is simply the addition of a player's On-Base Percentage (OBP) and their Slugging Percentage (SLG). Sabermetricians love OPS because it elegantly combines the two most important offensive traits: the ability to avoid making an out (OBP), and the ability to hit the ball with massive destructive power (SLG). An OPS over .800 is great; an OPS over 1.000 is MVP-level." }
+    { question: "Why is Slugging Percentage (SLG) more valuable than Batting Average?", answer: "Batting Average treats all hits as exactly equal. A slow infield single that barely beats the throw is given the exact same mathematical weight as a 450-foot grand slam. Slugging Percentage corrects this by multiplying hits by their base value, so a single Home Run provides four times the value of a Single, accurately reflecting run-scoring potential." },
+    { question: "How does the Slugging math actually work?", answer: "Instead of dividing Hits by At-Bats, SLG divides Total Bases by At-Bats. Total Bases = 1B + 2×2B + 3×3B + 4×HR. A Single is worth 1 base, a Double 2, a Triple 3, and a Home Run 4. This weighted formula rewards power hitters who generate disproportionately more offense per plate appearance." },
+    { question: "What is ISO (Isolated Power)?", answer: "Isolated Power (ISO) is simply SLG minus AVG. It strips away the batting average component to isolate a hitter's raw power. An ISO around .100 is average, .150 is good power, .200 is elite, and .300 is historic. It tells you how much of a player's value comes from extra-base hits rather than singles." },
+    { question: "Why does OPS combine OBP and SLG?", answer: "OPS (On-Base Plus Slugging) adds On-Base Percentage and Slugging Percentage into a single number capturing both the ability to avoid making an out and the ability to hit for power. An OPS above .800 is great; above 1.000 is MVP-level. OPS+ normalizes OPS against the league average (100 is league average) to adjust for ballpark and era." },
+    { question: "Why don't Sacrifice Flies count toward SLG?", answer: "Sacrifice Flies are not at-bats and do not generate bases of their own, so they never enter the Total Bases or At-Bats denominators. Their only statistical role is in OBP, where they count as a plate appearance without reaching base, slightly lowering a player's on-base figure while helping teammates score." }
   ];
 
   return (
@@ -228,29 +287,50 @@ export default function BaseballSluggingCalculator() {
             
             <div className="bg-primary/5 border-l-4 border-primary rounded-lg p-4 mb-2">
               <div className="flex items-center gap-2 text-primary font-bold mb-1">
-                <Zap className="h-4 w-4" /> Offensive Statistics
+                <Zap className="h-4 w-4" /> Power Hitting Evaluation
               </div>
-              <p className="text-xs text-muted-foreground leading-relaxed">Enter the player's total at-bats, total hits, and the breakdown of their extra-base hits to calculate their weighted power rating.</p>
+              <p className="text-xs text-muted-foreground leading-relaxed">Enter the player's hit distribution and advanced options to calculate their slugging percentage and power metrics.</p>
             </div>
 
             <div className="grid grid-cols-2 gap-3 mt-2">
-              <CompactInput id="ab" label="At Bats (AB)" value={atBats} onChange={setAtBats} />
-              <CompactInput id="hits" label="Total Hits (H)" value={hits} onChange={setHits} />
+              <CompactInput id="atBats" label="At Bats (AB)" value={inputs.atBats} onChange={(v: number) => updateInput("atBats", v)} />
+              <CompactInput id="singles" label="Singles (1B)" value={inputs.singles} onChange={(v: number) => updateInput("singles", v)} />
             </div>
 
-            <div className="grid grid-cols-2 gap-3 mt-1 pt-4 border-t border-border">
-              <CompactInput id="2b" label="Doubles (2B)" value={doubles} onChange={setDoubles} />
-              <CompactInput id="3b" label="Triples (3B)" value={triples} onChange={setTriples} />
-            </div>
-
-            <div className="grid grid-cols-1 gap-3 mt-1">
-              <CompactInput id="hr" label="Home Runs (HR)" value={homeRuns} onChange={setHomeRuns} />
+            <div className="grid grid-cols-2 gap-3 mt-1">
+              <CompactInput id="doubles" label="Doubles (2B)" value={inputs.doubles} onChange={(v: number) => updateInput("doubles", v)} />
+              <CompactInput id="triples" label="Triples (3B)" value={inputs.triples} onChange={(v: number) => updateInput("triples", v)} />
             </div>
 
             {errorMsg && (
               <div className="bg-red-500/10 border border-red-500/50 text-red-600 text-xs font-bold p-3 rounded-md mt-1">
                 <AlertTriangle className="h-4 w-4 inline mr-1 -mt-0.5" />
                 {errorMsg}
+              </div>
+            )}
+
+            <Button
+              onClick={() => setShowAdvanced(!showAdvanced)}
+              variant="outline"
+              className="mt-2 h-9 text-xs font-bold w-full"
+            >
+              {showAdvanced ? "Hide" : "Show"} Advanced Options
+            </Button>
+
+            {showAdvanced && (
+              <div className="flex flex-col gap-3 mt-1 border-t border-border pt-4">
+                <div className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1">Power Group</div>
+                <div className="grid grid-cols-2 gap-3">
+                  <CompactInput id="homeRuns" label="Home Runs (HR)" value={inputs.homeRuns} onChange={(v: number) => updateInput("homeRuns", v)} />
+                  <CompactInput id="sacFlies" label="Sacrifice Flies (SF)" value={inputs.sacFlies} onChange={(v: number) => updateInput("sacFlies", v)} />
+                </div>
+                <p className="text-[11px] text-muted-foreground leading-snug">Home Runs = 4 bases each. Sacrifice Flies do NOT count for SLG.</p>
+
+                <div className="text-xs font-bold text-muted-foreground uppercase tracking-wider mt-2 mb-1">Advanced Metrics</div>
+                <div className="flex flex-col gap-3">
+                  <ToggleRow id="showOps" label="Show OPS (OBP + SLG)" checked={inputs.showOps} onChange={(v: boolean) => updateInput("showOps", v)} />
+                  <ToggleRow id="showIso" label="Show ISO (SLG − AVG)" checked={inputs.showIso} onChange={(v: boolean) => updateInput("showIso", v)} />
+                </div>
               </div>
             )}
 
@@ -276,104 +356,145 @@ export default function BaseballSluggingCalculator() {
 
           {/* RIGHT: Results */}
           <div className="flex flex-col gap-4">
-            {results && !errorMsg ? (
+            {result && !errorMsg ? (
               <div ref={printRef} className="flex flex-col gap-4 animate-fade-in-up">
                 
-                {/* Primary Metric Box */}
+                {/* Primary Result Card */}
                 <div 
                   className="text-white rounded-lg p-6 shadow-sm relative overflow-hidden"
-                  style={{ backgroundColor: results.colorClass }}
+                  style={{ backgroundColor: result.colorClass }}
                 >
                   <div className="relative z-10">
                     <div className="text-white/80 text-[10px] font-bold uppercase tracking-wider mb-1">Slugging Percentage (SLG)</div>
                     <div className="flex items-baseline gap-1 mt-1">
-                      <div className="text-6xl font-black">{results.sluggingPercentage}</div>
+                      <div className="text-6xl font-black">{result.sluggingPercentage}</div>
                     </div>
                     <div className="text-sm font-bold text-white mt-3 bg-black/20 border border-white/20 inline-block px-3 py-1.5 rounded-full flex items-center gap-2">
-                      <Zap className="h-4 w-4" /> {results.classification} Status
+                      <Zap className="h-4 w-4" /> {result.classification} Power
                     </div>
                   </div>
                   <Target className="absolute -bottom-4 -right-4 h-32 w-32 opacity-10" />
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {/* 3-Stat Bar */}
+                <div className="grid grid-cols-3 gap-3">
                   <div className="bg-slate-900 border border-slate-800 text-white rounded-lg p-4 shadow-sm flex flex-col justify-center">
-                    <div className="text-emerald-400 text-[10px] font-bold uppercase tracking-wider mb-1">Total Bases Secured</div>
-                    <div className="text-3xl font-black text-white">{results.totalBases}</div>
-                    <div className="text-[10px] text-slate-500 mt-1">1B + (2B*2) + (3B*3) + (HR*4)</div>
+                    <div className="text-emerald-400 text-[10px] font-bold uppercase tracking-wider mb-1">Total Bases</div>
+                    <div className="text-2xl font-black text-white">{result.totalBases}</div>
                   </div>
                   <div className="bg-slate-900 border border-slate-800 text-white rounded-lg p-4 shadow-sm flex flex-col justify-center">
-                    <div className="text-blue-400 text-[10px] font-bold uppercase tracking-wider mb-1">Derived Singles (1B)</div>
-                    <div className="text-3xl font-black text-white">{results.singles}</div>
-                    <div className="text-[10px] text-slate-500 mt-1">Total Hits - Extra Base Hits</div>
+                    <div className="text-blue-400 text-[10px] font-bold uppercase tracking-wider mb-1">ISO</div>
+                    <div className="text-2xl font-black text-white">{inputs.showIso ? result.isoFormatted : "—"}</div>
+                  </div>
+                  <div className="bg-slate-900 border border-slate-800 text-white rounded-lg p-4 shadow-sm flex flex-col justify-center">
+                    <div className="text-amber-400 text-[10px] font-bold uppercase tracking-wider mb-1">OPS</div>
+                    <div className="text-2xl font-black text-white">{inputs.showOps ? result.opsFormatted : "—"}</div>
                   </div>
                 </div>
 
-                <div className="grid lg:grid-cols-1 gap-4">
-                  {/* Chart Panel */}
-                  <div className="card-calculator !p-5 border border-border bg-card flex flex-col justify-center items-center h-full min-h-[250px]">
-                    <h3 className="text-base font-bold w-full text-left mb-1">Power Base Generation</h3>
-                    <p className="text-xs text-muted-foreground w-full text-left mb-6">A breakdown of how this player generated their Total Bases. While singles are common, the massive 4x multiplier applied to Home Runs demonstrates how elite power hitters can mathematically dominate offensive production.</p>
-                    <ResponsiveContainer width="100%" height={160}>
-                      <BarChart data={results.chartData} margin={{ top: 20, right: 10, left: -20, bottom: 0 }}>
-                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
-                        <XAxis dataKey="name" tick={{ fontSize: 11, fontWeight: 'bold', fill: 'hsl(var(--foreground))' }} axisLine={false} tickLine={false} />
-                        <YAxis tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }} axisLine={false} tickLine={false} />
-                        <Tooltip content={<CustomTooltip />} cursor={{ fill: 'hsl(var(--muted)/0.3)' }} />
-                        <Bar dataKey="bases" radius={[4, 4, 0, 0]} maxBarSize={60}>
-                          {results.chartData.map((entry, index) => {
-                            let fill = "hsl(var(--primary))";
-                            if (entry.name.includes("Singles")) fill = "#3b82f6";
-                            if (entry.name.includes("Doubles")) fill = "#10b981";
-                            if (entry.name.includes("Triples")) fill = "#f59e0b";
-                            if (entry.name.includes("Home Runs")) fill = "#ef4444";
-                            return <Cell key={`cell-${index}`} fill={fill} />;
-                          })}
-                        </Bar>
-                      </BarChart>
-                    </ResponsiveContainer>
+                {/* Breakdown Table */}
+                <div className="card-calculator !p-5 border border-border bg-card">
+                  <h3 className="text-base font-bold w-full text-left mb-3">Breakdown</h3>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-sm">
+                      <thead>
+                        <tr className="border-b border-border">
+                          <th className="text-left py-2 px-3 font-semibold text-muted-foreground">Statistic</th>
+                          <th className="text-right py-2 px-3 font-semibold text-muted-foreground">Value</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr className="border-b border-border/50">
+                          <td className="py-2 px-3">Total Hits</td>
+                          <td className="py-2 px-3 text-right font-mono font-bold">{result.hits}</td>
+                        </tr>
+                        <tr className="border-b border-border/50">
+                          <td className="py-2 px-3">Total Bases</td>
+                          <td className="py-2 px-3 text-right font-mono font-bold">{result.totalBases}</td>
+                        </tr>
+                        <tr className="border-b border-border/50">
+                          <td className="py-2 px-3">Batting Average</td>
+                          <td className="py-2 px-3 text-right font-mono font-bold">{result.battingAverageFormatted}</td>
+                        </tr>
+                        <tr className="border-b border-border/50">
+                          <td className="py-2 px-3">Isolated Power (ISO)</td>
+                          <td className="py-2 px-3 text-right font-mono font-bold">{inputs.showIso ? result.isoFormatted : "—"}</td>
+                        </tr>
+                        <tr>
+                          <td className="py-2 px-3">OPS {inputs.showOps && result.opsPlus > 0 ? `(+${result.opsPlus})` : ""}</td>
+                          <td className="py-2 px-3 text-right font-mono font-bold">{inputs.showOps ? result.opsFormatted : "—"}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                {/* Recharts BarChart */}
+                <div className="card-calculator !p-5 border border-border bg-card flex flex-col justify-center items-center h-full min-h-[250px]">
+                  <h3 className="text-base font-bold w-full text-left mb-1">Base Distribution</h3>
+                  <p className="text-xs text-muted-foreground w-full text-left mb-6">A breakdown of the bases generated by each hit type. The 4x multiplier on Home Runs shows how elite power dominates offensive production.</p>
+                  <ResponsiveContainer width="100%" height={180}>
+                    <BarChart data={result.chartData} margin={{ top: 20, right: 10, left: -20, bottom: 0 }}>
+                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
+                      <XAxis dataKey="name" tick={{ fontSize: 11, fontWeight: 'bold', fill: 'hsl(var(--foreground))' }} axisLine={false} tickLine={false} />
+                      <YAxis tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }} axisLine={false} tickLine={false} />
+                      <Tooltip content={<CustomTooltip />} cursor={{ fill: 'hsl(var(--muted)/0.3)' }} />
+                      <Bar dataKey="bases" radius={[4, 4, 0, 0]} maxBarSize={60}>
+                        {result.chartData.map((entry, index) => {
+                          let fill = "hsl(var(--primary))";
+                          if (entry.name.includes("Singles")) fill = "#3b82f6";
+                          if (entry.name.includes("Doubles")) fill = "#10b981";
+                          if (entry.name.includes("Triples")) fill = "#f59e0b";
+                          if (entry.name.includes("Home Runs")) fill = "#ef4444";
+                          return <Cell key={`cell-${index}`} fill={fill} />;
+                        })}
+                      </Bar>
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
+
+                {/* Summary Statistics */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                  <div className="bg-slate-900 border border-slate-800 text-white rounded-lg p-4 shadow-sm flex flex-col justify-center">
+                    <div className="text-emerald-400 text-[10px] font-bold uppercase tracking-wider mb-1">Total Bases</div>
+                    <div className="text-2xl font-black text-white">{result.totalBases}</div>
+                  </div>
+                  <div className="bg-slate-900 border border-slate-800 text-white rounded-lg p-4 shadow-sm flex flex-col justify-center">
+                    <div className="text-rose-400 text-[10px] font-bold uppercase tracking-wider mb-1">Total Hits</div>
+                    <div className="text-2xl font-black text-white">{result.hits}</div>
+                  </div>
+                  <div className="bg-slate-900 border border-slate-800 text-white rounded-lg p-4 shadow-sm flex flex-col justify-center">
+                    <div className="text-blue-400 text-[10px] font-bold uppercase tracking-wider mb-1">ISO</div>
+                    <div className="text-2xl font-black text-white">{inputs.showIso ? result.isoFormatted : "—"}</div>
+                  </div>
+                  <div className="bg-slate-900 border border-slate-800 text-white rounded-lg p-4 shadow-sm flex flex-col justify-center">
+                    <div className="text-amber-400 text-[10px] font-bold uppercase tracking-wider mb-1">OPS</div>
+                    <div className="text-2xl font-black text-white">{inputs.showOps ? result.opsFormatted : "—"}</div>
                   </div>
                 </div>
 
               </div>
             ) : (
               <div className="h-full min-h-[400px] flex flex-col items-center justify-center border-2 border-dashed border-border rounded-xl bg-card/50 text-muted-foreground p-8 text-center">
-                <Zap className="h-12 w-12 mb-4 opacity-20" />
-                <p className="font-medium max-w-xs">Enter a player's extra-base hits and total at-bats to calculate their mathematical power rating and overall slugging percentage.</p>
+                <ActivitySquare className="h-12 w-12 mb-4 opacity-20" />
+                <p className="font-medium max-w-xs">Enter a player's hit distribution to calculate their slugging percentage, isolated power, and overall offensive evaluation.</p>
               </div>
             )}
           </div>
         </div>
 
-        {/* SEO CONTENT (1500+ words, 8 sections) */}
+        {/* SEO CONTENT (~400 words, 3 sections only) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">The Flaw of Traditional Batting Average</h2>
-            <p>For decades, the most celebrated statistic in the sport of baseball was the Batting Average. If a player was hitting .300, they were automatically considered a superstar. But there is a massive, fundamental mathematical flaw in Batting Average: it treats every single hit as if it possesses the exact same value. In the eyes of Batting Average, a slow, bouncing infield single that barely beats the throw to first base is completely equal to a 450-foot grand slam home run that clears the stadium walls. The <strong>Baseball Slugging Percentage (SLG) Calculator</strong> destroys this false equivalency by evaluating hits based on the actual, physical damage they do to the opposing team.</p>
+            <h2 className="text-2xl font-bold mb-3">Why Slugging Percentage Matters More Than Batting Average</h2>
+            <p>For over a century, baseball worshipped Batting Average as the definitive measure of a hitter. A .300 average meant stardom. But Batting Average treats every hit as equal: a slow, bouncing infield single is given the exact same weight as a 450-foot grand slam. That is a massive analytical failure. The <strong>Baseball Slugging Percentage (SLG) Calculator</strong> fixes this by valuing hits based on the actual bases they produce. Slugging divides Total Bases by At-Bats, where Total Bases = 1×Singles + 2×Doubles + 3×Triples + 4×Home Runs. A single Home Run therefore contributes four times the offensive value of a Single, accurately reflecting run-scoring power that Batting Average completely ignores.</p>
 
-            <h2 className="text-2xl font-bold mb-3">Understanding the Total Bases Multiplier</h2>
-            <p>Slugging Percentage corrects the Batting Average error by abandoning "Hits" and replacing them with "Total Bases." In order to calculate SLG, the formula applies a specific multiplier to every type of hit a batter achieves, directly correlating to how many bases that hit secured for the team.</p>
-            <p>The formula is simple but profoundly effective: A Single is worth 1 base. A Double is multiplied by 2. A Triple is multiplied by 3. And a Home Run is multiplied by 4. This means that mathematically, a single home run provides four times the offensive value to the Slugging Percentage than a standard single does. Once the "Total Bases" are calculated, that number is divided by the player's total At-Bats to generate the final Slugging Percentage decimal.</p>
+            <h2 className="text-2xl font-bold mb-3">Isolated Power and OPS</h2>
+            <p>Raw SLG alone still hides context, which is why advanced metrics layer on top of it. Isolated Power (ISO) subtracts Batting Average from Slugging Percentage to isolate a hitter's raw power — an ISO around .150 is good and .200 is elite. OPS (On-Base Plus Slugging) adds On-Base Percentage to SLG, combining the ability to avoid making an out with the ability to hit for power into one complete offensive number. OPS+ normalizes that figure against the league average (100 is average) to adjust for ballpark and era. When you toggle these options in the calculator, you move from a simple power rating to a full offensive evaluation trusted by modern front offices.</p>
 
-            <h2 className="text-2xl font-bold mb-3">Why Power Hitters Are Incredibly Valuable</h2>
-            <p>If you look at the chart generated by this calculator, you will instantly visualize why modern Major League Baseball front offices are obsessed with acquiring power hitters, even if those hitters strike out frequently.</p>
-            <p>Imagine a "contact hitter" who has 100 At-Bats. They hit 30 Singles and zero extra-base hits. Their Batting Average is an elite .300. Their Slugging Percentage is also .300. Now imagine a "power hitter" who also has 100 At-Bats. They strike out constantly and only get 20 hits. However, 10 of those hits are Home Runs, 5 are Doubles, and 5 are Singles. Their Batting Average is a terrible .200. But if you calculate their Total Bases (40 + 10 + 5), you get 55. Their Slugging Percentage is a massive .550. Despite having a terrible Batting Average, the power hitter generated 55 total bases for the team compared to the contact hitter's 30. The power hitter is mathematically generating vastly more run-scoring opportunities.</p>
-
-            <h2 className="text-2xl font-bold mb-3">The Rise of OPS (On-Base Plus Slugging)</h2>
-            <p>While Slugging Percentage is an incredible tool for measuring raw power and run-producing capacity, it is not a perfect statistic on its own. Like Batting Average, SLG completely ignores Walks and Hit-By-Pitches. A batter could draw 100 walks in a season, and their Slugging Percentage would completely ignore that massive offensive contribution.</p>
-            <p>To solve this, modern sabermetricians created the ultimate, unified hitting statistic: OPS (On-Base Plus Slugging). By simply taking a player's On-Base Percentage (which perfectly measures their ability to avoid making an out and getting to first base) and adding it to their Slugging Percentage (which perfectly measures their destructive power), you get a single number that encapsulates the player's entire offensive profile. If a player has a high SLG but a terrible OBP, they are a flawed power hitter. If they have both, they are an MVP.</p>
-
-            <h2 className="text-2xl font-bold mb-3">Why Triples Are the Rarest Base</h2>
-            <p>If you play with the calculator, you will notice that Triples (3B) provide a massive 3x multiplier to the SLG formula. However, in modern baseball, Triples are exceptionally rare. Why?</p>
-            <p>A Triple requires a perfect storm of variables. The hitter must possess extreme sprint speed, the stadium must possess deep, expansive outfield dimensions (like "Triples Alley" in San Francisco), and the ball must be hit into a physical gap that requires the outfielders to run a massive distance to retrieve it. For slower power hitters, a ball hit into the gap will only result in a Double. Therefore, players who generate high Slugging Percentages via Triples are almost exclusively elite, fast-twitch athletes, whereas players who generate high SLG via Home Runs are typically massive, pure-power athletes.</p>
-
-            <h2 className="text-2xl font-bold mb-3">What is Considered an 'Elite' Slugging Percentage?</h2>
-            <p>Because the formula divides Total Bases by At-Bats, it is mathematically possible for a player's Slugging Percentage to exceed 1.000 (if they average more than one base per at-bat). However, over a 162-game season, this is nearly impossible.</p>
-            <p>In the modern era of baseball, the league average SLG typically hovers around .400 to .410. If a player finishes the season with a Slugging Percentage above .450, they had a great offensive year. If they cross the .500 threshold, they are considered an elite power threat. The single-season Major League record belongs to Barry Bonds, who posted an incomprehensible .863 Slugging Percentage in 2001, hitting 73 home runs and generating 411 Total Bases in just 476 at-bats.</p>
-
-            <h2 className="text-2xl font-bold mb-3">Conclusion: Stop Counting Singles</h2>
-            <p>If you want to evaluate a baseball player's true ability to drive in runs and change the geometry of a game, you must look past their Batting Average. Use the Baseball Slugging Percentage Calculator to measure the actual, mathematical weight of their contact. By valuing extra-base hits accurately, you will instantly recognize which hitters are truly generating the power required to win championships.</p>
+            <h2 className="text-2xl font-bold mb-3">Reading the Slugging Classifications</h2>
+            <p>The free Baseball Slugging Percentage Calculator classifies every result against modern Major League standards: .550+ is Elite, .500–.549 Great, .450–.499 Above Average, .400–.449 Average, .350–.399 Below Average, .300–.349 Poor, and below .300 Very Poor. The league average SLG typically hovers around .400 to .410, so a hitter clearing .500 is a genuine power threat likely launching 30+ home runs. Use the base distribution chart to see exactly how each hit type contributes to the final number, and adjust the advanced toggles to compare ISO and OPS side by side for any player profile.</p>
           </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/baseball-slugging-percentage-calculator" />

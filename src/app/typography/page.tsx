@@ -1,7 +1,7 @@
 import { CategorySearch } from "@/components/CategorySearch";
 import Link from "next/link";
 import Header from "@/components/Header";
-import { categories, SEARCH_REGISTRY } from "@/data/typography/tools";
+import { categories, SEARCH_REGISTRY } from "@/domains/typography/registry";
 import { SiteFooter } from "@/components/typography/site-header";
 import { ArrowRight, Sparkles, Search } from "lucide-react";
 import { Metadata } from "next";
@@ -50,7 +50,7 @@ export default function Index() {
                   return (
                     <Link
                       key={tool.slug}
-                      href={`/typography/tools/${tool.slug}`}
+                      href={`/typography/${tool.slug}`}
                       className="tool-card group hover:-translate-y-[3px] hover:border-primary/40 hover:shadow-[0_8px_24px_hsl(var(--ring)/0.1)] relative"
                     >
                       {!isLive && (

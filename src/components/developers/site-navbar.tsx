@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
 import { Moon, Sun, ChevronDown } from "lucide-react";
-import { tools, categories, categorySlug } from "@/data/developers/tools";
+import { tools, categories, categorySlug } from "@/domains/developers/registry";
 import { useTheme } from "@/hooks/developers/use-theme";
 
 export function SiteNavbar() {
@@ -57,7 +57,7 @@ export function SiteNavbar() {
                           return (
                             <Link
                               key={tool.slug}
-                              href={`/developers/tools/${categorySlug(cat)}/${tool.slug}`}
+                              href={`/developers/${tool.slug}`}
                               onClick={() => setOpen(false)}
                               className="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm text-foreground hover:bg-accent transition-colors"
                             >

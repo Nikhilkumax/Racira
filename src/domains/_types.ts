@@ -19,7 +19,7 @@ export interface SubcategorySection {
 
 export interface Category {
   name: string;
-  title?: string;
+  title: string;
   key?: string;
   description?: string;
   tools: Tool[];

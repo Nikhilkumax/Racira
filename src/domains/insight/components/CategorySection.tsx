@@ -39,7 +39,7 @@ function ToolCard({ tool }: { tool: Tool }) {
   const isLive = tool.status === "live";
   return (
     <Link
-      href={`/insight/tools/${tool.slug}`}
+      href={`/insight/${tool.slug}`}
       className="group relative flex flex-col rounded-xl border border-border bg-card p-5 transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md"
     >
       <span className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary transition-colors group-hover:bg-primary/15">

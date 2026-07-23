@@ -70,7 +70,7 @@ export default function Home() {
                 return (
                   <Link
                     key={t.slug}
-                    href={`/education/tool/${t.slug}`}
+                    href={`/education/${t.slug}`}
                     className="tool-card group"
                   >
                     {t.status !== "live" && (

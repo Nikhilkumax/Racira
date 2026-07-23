@@ -1,3 +1,5 @@
+"use client";
+
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Circle, Diamond, Square, Trash2, Download, MousePointer2, Spline, Eraser } from "lucide-react";
 

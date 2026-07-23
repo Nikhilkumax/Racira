@@ -32,7 +32,7 @@ export function ComingSoon({ name }: { name: string }) {
         </div>
 
         <Link
-          href="/seo/tools/keyword-density-checker"
+          href="/seo/keyword-density-checker"
           className="mt-8 inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
         >
           Meanwhile, try the live Keyword Density Checker

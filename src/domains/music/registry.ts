@@ -1,5 +1,6 @@
 import { AArrowDown, AArrowUp, ALargeSmall, Accessibility, Activity, ActivitySquare, AirVent, Airplay, AlarmCheck, AlarmClock, AlarmClockCheck, AlarmClockMinus, AlarmClockOff, AlarmClockPlus, AlarmMinus, AlarmPlus, AlarmSmoke, Album, AlertCircle, AlertOctagon, AlertTriangle, AlignCenter, AlignCenterHorizontal, AlignCenterVertical, AlignEndHorizontal, AlignEndVertical, AlignHorizontalDistributeCenter, AlignHorizontalDistributeEnd, AlignHorizontalDistributeStart, AlignHorizontalJustifyCenter, AlignHorizontalJustifyEnd, AlignHorizontalJustifyStart, AlignHorizontalSpaceAround, AlignHorizontalSpaceBetween, AlignJustify, AlignLeft, AlignRight, AlignStartHorizontal, AlignStartVertical, AlignVerticalDistributeCenter, AlignVerticalDistributeEnd, AlignVerticalDistributeStart, AlignVerticalJustifyCenter, AlignVerticalJustifyEnd, AlignVerticalJustifyStart, AlignVerticalSpaceAround, AlignVerticalSpaceBetween, Ambulance, Ampersand, Ampersands, AudioLines, AudioWaveform, Award, BarChart3, BookMarked, BookOpen, Boxes, Brain, Building2, Calendar, ChartLine, Circle, CircleDot, Clapperboard, ClipboardCheck, ClipboardList, Clock, Compass, Crown, Disc3, Drum, Eye, FileBadge, FileMusic, FilePenLine, FileQuestion, FileText, Gauge, GitBranch, GraduationCap, Grid3x3, Guitar, Hash, Headphones, Hexagon, History, Key, KeySquare, Layers, Layers3, LayoutGrid, LayoutPanelLeft, Library, ListChecks, Map, MapPin, Megaphone, Mic2, Music2, Music3, Music4, Network, Notebook, Palette, Pencil, PencilRuler, Piano, Play, Podcast, Radio, Repeat, Repeat2, Ruler, Search, Settings2, Shield, Shuffle, Sliders, SlidersHorizontal, Sparkle, Sparkles, Speaker, Star, Tag, Tags, Target, Timer, Type, Wand2, Waves, Workflow, Wrench, Youtube, Zap } from "lucide-react";
 import { ToolResult } from "@/components/CategorySearch";
+import { toSlug } from "@/lib/utils/slug";
 
 export type Tool = {
   name: string;
@@ -15,15 +16,8 @@ export type ToolCategory = {
   tools: Tool[];
 };
 
-const slugify = (s: string) =>
-  s
-    .toLowerCase()
-    .replace(/&/g, "and")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)/g, "");
-
 const mk = (entries: [string, string, any, boolean?][]): Tool[] =>
-  entries.map(([name, description, icon, built = false]) => ({ name, slug: slugify(name), description, icon, status: built ? "live" : "soon" }));
+  entries.map(([name, description, icon, built = false]) => ({ name, slug: toSlug(name), description, icon, status: built ? "live" : "soon" }));
 
 export const categories: ToolCategory[] = [
   {
@@ -258,7 +252,7 @@ export const SEARCH_REGISTRY: ToolResult[] = categories.flatMap((cat) =>
     name: tool.name,
     description: tool.description,
     slug: tool.slug,
-    href: `/music/tool/${tool.slug}`,
+    href: `/music/${tool.slug}`,
     category: cat.name,
     isBuilt: tool.status === "live",
   }))

@@ -71,7 +71,8 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "The Angle Converter Advanced helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    status: "live"
+    status: "live",
+    isBuilt: true
   },
   {
     slug: "area-converter",
@@ -79,7 +80,8 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "The Area Converter helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    status: "live"
+    status: "live",
+    isBuilt: true
   },
   {
     slug: "baking-ingredient-converter",
@@ -95,7 +97,8 @@ export const utilityCalculators: CalculatorDef[] = [
     description: "The Base64 Decoder helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
-    status: "live"
+    status: "live",
+    isBuilt: true
   },
   {
     slug: "base64-encoder",

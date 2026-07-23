@@ -21,9 +21,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   // 1. Check Category
   const categoryKeys = Object.keys(CATEGORY_META) as ToolCategory[];
-  console.log("CATEGORY_META KEYS:", categoryKeys);
   const foundCategoryKey = categoryKeys.find(key => {
-    console.log("Checking key:", key, "Value:", CATEGORY_META[key]);
     return CATEGORY_META[key] && toSlug(CATEGORY_META[key].label) === slug;
   });
   

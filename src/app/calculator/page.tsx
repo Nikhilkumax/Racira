@@ -129,7 +129,7 @@ export default function Home() {
                       title={sub.name}
                       icon={Icon}
                       count={sub.count}
-                      basePath={`/calculator/${catSlug}/${subSlug}`}
+                      basePath={`/calculator/${subSlug}`}
                       label="calculators"
                     />
                   );

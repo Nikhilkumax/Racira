@@ -1,18 +1,12 @@
 import { ToolResult } from "@/components/CategorySearch";
+import { toSlug } from "@/lib/utils/slug";
 
 export type Tool = { name: string; desc: string; slug: string };
 export type Category = { name: string; tools: Tool[] };
 
-const slugify = (s: string) =>
-  s
-    .toLowerCase()
-    .replace(/&/g, "and")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)/g, "");
-
 const c = (name: string, items: [string, string][]): Category => ({
   name,
-  tools: items.map(([name, desc]) => ({ name, desc, slug: slugify(name) })),
+  tools: items.map(([name, desc]) => ({ name, desc, slug: toSlug(name) })),
 });
 
 export const categories: Category[] = [

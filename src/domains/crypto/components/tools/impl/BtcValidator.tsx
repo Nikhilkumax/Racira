@@ -27,7 +27,7 @@ export function BtcValidator() {
         <Input placeholder="1..., 3..., or bc1..." value={v} onChange={(e) => setV(e.target.value)} />
       </Field>
       {r && <Result label="Status" value={r.msg} ok={r.ok} />}
-      <p className="text-xs text-muted-foreground">Pattern-level validation only (no checksum decoding).</p>
+      <p className="text-xs text-muted-foreground">Format check only — does not verify checksum.</p>
     </div>
   );
 }

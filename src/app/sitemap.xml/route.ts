@@ -21,7 +21,7 @@ export async function GET() {
     source.getCategorySlugs().forEach(categorySlug => {
       const pageCount = paginate(source.getEntriesForCategory(categorySlug)).length;
       for (let p = 1; p <= pageCount; p++) {
-        xml += `  <sitemap><loc>${baseUrl}/sitemap-${source.key}-${categorySlug}-${p}.xml</loc></sitemap>\n`;
+        xml += `  <sitemap><loc>${baseUrl}/sitemaps/${source.key}/${categorySlug}/${p}</loc></sitemap>\n`;
       }
     });
   });

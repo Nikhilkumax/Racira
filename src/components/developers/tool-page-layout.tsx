@@ -1,8 +1,8 @@
 ﻿"use client";
 
 import { useState } from "react";
-import type { Tool } from "@/data/developers/tools";
-import { categorySlug, findTool } from "@/data/developers/tools";
+import type { Tool } from "@/domains/developers/registry";
+import { categorySlug, findTool } from "@/domains/developers/registry";
 import { Breadcrumbs } from "@/components/developers/breadcrumbs";
 import { Button } from "@/components/ui/button";
 import { Copy, Eraser, Download, Upload } from "lucide-react";

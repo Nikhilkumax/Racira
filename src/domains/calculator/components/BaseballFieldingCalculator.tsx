@@ -1,343 +1,281 @@
 "use client";
-
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import { Printer, RotateCcw, ActivitySquare, AlertTriangle, Shield, Crosshair, Zap } from "lucide-react";
-import { PieChart, Pie, Cell, Tooltip as RechartsTooltip, ResponsiveContainer, Legend } from "recharts";
-import { Button } from "@/components/ui/button";
+import PopularCalculators from "@/components/PopularCalculators";
+import { RotateCcw, Calculator } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from "recharts";
 
-// 1. TypeScript Interfaces
-interface FieldingInputs {
+const fmt = (n: number, d = 2) => n.toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: d });
+const safe = (v: number) => (isFinite(v) ? v : 0);
+
+type Position = "Shortstop" | "Second Base" | "Third Base" | "First Base" | "Outfield" | "Catcher" | "Pitcher";
+
+interface Inputs {
   putouts: number;
   assists: number;
   errors: number;
+  gamesPlayed: number;
+  position: Position;
+  inningsPlayed: number;
+  doublePlays: number;
 }
 
-interface FieldingResults {
-  fieldingPercentage: string; // formatted as ".985"
+interface Result {
   totalChances: number;
-  successfulPlays: number;
-  classification: "Elite (Gold Glove Level)" | "Great" | "Average" | "Below Average" | "Poor";
-  colorClass: string;
-  chartData: { name: string; value: number }[];
+  fieldingPct: number;
+  rangeFactor: number;
+  errorsPerGame: number;
+  doublePlayIndex: number;
+  rfBenchmark: { excellent: string; good: string };
+  rfRating: string;
+  chart: { label: string; value: number; color: string }[];
 }
 
-// 2. Pure Calculation Function
-const calculateFielding = (inputs: FieldingInputs): FieldingResults | null => {
-  const { putouts, assists, errors } = inputs;
+const POSITION_BENCHMARKS: Record<Position, { excellent: [number, number]; good: [number, number] }> = {
+  Shortstop: { excellent: [4.5, 5.0], good: [4.0, 4.5] },
+  "Second Base": { excellent: [4.8, 5.3], good: [4.3, 4.8] },
+  "Third Base": { excellent: [2.8, 3.2], good: [2.5, 2.8] },
+  "First Base": { excellent: [8.5, 9.5], good: [7.5, 8.5] },
+  Outfield: { excellent: [2.0, 2.5], good: [1.7, 2.0] },
+  Catcher: { excellent: [3.0, 4.0], good: [2.5, 3.0] },
+  Pitcher: { excellent: [1.0, 1.6], good: [0.7, 1.0] },
+};
 
-  if (putouts < 0 || assists < 0 || errors < 0) return null;
+const DEFAULTS: Inputs = {
+  putouts: 250,
+  assists: 120,
+  errors: 8,
+  gamesPlayed: 140,
+  position: "Shortstop",
+  inningsPlayed: 1150,
+  doublePlays: 85,
+};
 
-  const successfulPlays = putouts + assists;
-  const totalChances = successfulPlays + errors;
+const calculate = (i: Inputs): Result => {
+  const po = safe(i.putouts);
+  const a = safe(i.assists);
+  const e = safe(i.errors);
+  const g = safe(i.gamesPlayed);
+  const inn = safe(i.inningsPlayed);
+  const dp = safe(i.doublePlays);
 
-  if (totalChances === 0) return null;
+  const totalChances = po + a + e;
+  const fieldingPct = totalChances > 0 ? (po + a) / totalChances : 0;
+  const rangeFactor = inn > 0 ? (9 * (po + a)) / inn : 0;
+  const errorsPerGame = g > 0 ? e / g : 0;
+  const doublePlayIndex = g > 0 ? dp / g : 0;
 
-  const fpRaw = successfulPlays / totalChances;
-
-  // Format to standard 3 decimal places without leading zero
-  let fpString = fpRaw.toFixed(3).toString();
-  if (fpString.startsWith("0")) {
-    fpString = fpString.substring(1);
-  } else if (fpRaw === 1) {
-    fpString = "1.000"; // Perfect fielding
+  const bench = POSITION_BENCHMARKS[i.position] || POSITION_BENCHMARKS.Shortstop;
+  let rfRating = "Below Average";
+  if (i.position === "Pitcher") {
+    rfRating = "Positional (varies)";
+  } else if (rangeFactor >= bench.excellent[0]) {
+    rfRating = "Excellent";
+  } else if (rangeFactor >= bench.good[0]) {
+    rfRating = "Good";
+  } else if (rangeFactor >= bench.good[1]) {
+    rfRating = "Average";
   }
 
-  // Classifications (Modern MLB standards - highly dependent on position, but generalized here)
-  let classification: FieldingResults["classification"] = "Average";
-  let colorClass = "#3b82f6";
-
-  if (fpRaw >= 0.990) {
-    classification = "Elite (Gold Glove Level)";
-    colorClass = "#8b5cf6"; // Purple
-  } else if (fpRaw >= 0.980) {
-    classification = "Great";
-    colorClass = "#10b981"; // Emerald
-  } else if (fpRaw >= 0.970) {
-    classification = "Average";
-    colorClass = "#3b82f6"; // Blue
-  } else if (fpRaw >= 0.950) {
-    classification = "Below Average";
-    colorClass = "#f59e0b"; // Amber
-  } else {
-    classification = "Poor";
-    colorClass = "#ef4444"; // Red
-  }
-
-  // Generate Chart Data
-  const chartData = [
-    { name: "Successful Plays (PO + A)", value: successfulPlays },
-    { name: "Errors (E)", value: errors }
+  const chart = [
+    { label: "Putouts", value: po, color: "#3b82f6" },
+    { label: "Assists", value: a, color: "#10b981" },
+    { label: "Errors", value: e, color: "#ef4444" },
+    { label: "Double Plays", value: dp, color: "#8b5cf6" },
   ];
 
   return {
-    fieldingPercentage: fpString,
     totalChances,
-    successfulPlays,
-    classification,
-    colorClass,
-    chartData
+    fieldingPct,
+    rangeFactor,
+    errorsPerGame,
+    doublePlayIndex,
+    rfBenchmark: { excellent: `${bench.excellent[0]}–${bench.excellent[1]}`, good: `${bench.good[0]}–${bench.good[1]}` },
+    rfRating,
+    chart,
   };
 };
 
-// 3. DEFAULTS Object
-const DEFAULTS = {
-  putouts: "250",
-  assists: "120",
-  errors: "8"
-};
+const BaseballFieldingCalculator = () => {
+  const [inputs, setInputs] = useState<Inputs>(DEFAULTS);
+  const [result, setResult] = useState<Result>(calculate(DEFAULTS));
 
-// Custom Chart Tooltip
-const CustomTooltip = ({ active, payload }: any) => {
-  if (active && payload && payload.length) {
-    const data = payload[0].payload;
-    return (
-      <div className="bg-card border border-border p-2.5 rounded-lg shadow-md text-xs font-semibold text-foreground min-w-[150px]">
-        <div className="flex justify-between items-center mb-1">
-          <span className="text-muted-foreground mr-3">{data.name}:</span>
-          <span className="font-bold">{data.value}</span>
-        </div>
-      </div>
-    );
-  }
-  return null;
-};
+  useEffect(() => { setResult(calculate(inputs)); }, []);
 
-// Input Component
-const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "number", ...props }: any) => (
-  <div className="flex flex-col">
-    <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1.5">
-      {label}
-    </label>
-    <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-10 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
-      {prefix && <span className="pl-3 pr-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{prefix}</span>}
-      <input
-        id={id}
-        type={type}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground"
-        {...props}
-      />
-      {suffix && <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{suffix}</span>}
-    </div>
-  </div>
-);
+  const handleCalc = () => setResult(calculate(inputs));
 
-export default function BaseballFieldingCalculator() {
-  // 4. Component State
-  const [putouts, setPutouts] = useState(DEFAULTS.putouts);
-  const [assists, setAssists] = useState(DEFAULTS.assists);
-  const [errors, setErrors] = useState(DEFAULTS.errors);
-
-  const [errorMsg, setErrorMsg] = useState("");
-  const [results, setResults] = useState<FieldingResults | null>(null);
-  const printRef = useRef<HTMLDivElement>(null);
-
-  const handleCalculate = () => {
-    setErrorMsg("");
-    const po = parseInt(putouts, 10);
-    const a = parseInt(assists, 10);
-    const e = parseInt(errors, 10);
-
-    if (isNaN(po) || po < 0) return setErrorMsg("Please enter valid Putouts.");
-    if (isNaN(a) || a < 0) return setErrorMsg("Please enter valid Assists.");
-    if (isNaN(e) || e < 0) return setErrorMsg("Please enter valid Errors.");
-
-    const res = calculateFielding({ putouts: po, assists: a, errors: e });
-
-    if (!res) {
-      setErrorMsg("Unable to calculate. Ensure total chances > 0.");
-    } else {
-      setResults(res);
-    }
+  const reset = () => {
+    setInputs(DEFAULTS);
+    setResult(calculate(DEFAULTS));
   };
 
-  const handleReset = () => {
-    setPutouts(DEFAULTS.putouts);
-    setAssists(DEFAULTS.assists);
-    setErrors(DEFAULTS.errors);
-    setErrorMsg("");
-    setTimeout(handleCalculate, 0);
-  };
-
-  useEffect(() => {
-    handleCalculate();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [putouts, assists, errors]);
-
-  const handlePrint = () => {
-    if (!printRef.current) return;
-    const w = window.open("", "_blank");
-    if (!w) return;
-    w.document.write(`<html><head><title>Baseball Fielding Percentage Analysis</title><style>body{font-family:system-ui;padding:2rem}table{width:100%;border-collapse:collapse;font-size:14px}th,td{border:1px solid #ddd;padding:8px;text-align:left}th{background:#f5f5f5}</style></head><body>`);
-    w.document.write(printRef.current.innerHTML);
-    w.document.write("</body></html>");
-    w.document.close();
-    w.print();
-  };
-
-  const COLORS = ["#10b981", "#ef4444"]; // Emerald for Success, Red for Errors
+  const num = (key: keyof Inputs) => (e: React.ChangeEvent<HTMLInputElement>) =>
+    setInputs((p) => ({ ...p, [key]: parseFloat(e.target.value) || 0 }));
 
   const faqs = [
-    { question: "What exactly is a 'Putout' and an 'Assist'?", answer: "In baseball, a Putout (PO) is awarded to the fielder who physically records the out. For example, if a batter hits a ground ball to the shortstop, and the shortstop throws the ball to the first baseman, the first baseman catches it for the out. The first baseman gets the Putout. An Assist (A) is awarded to any fielder who touched the ball prior to the putout and contributed to the play. In the previous example, the shortstop who fielded the grounder and made the throw receives the Assist." },
-    { question: "What qualifies as an 'Error'?", answer: "An Error (E) is charged to a fielder if they fail to make a play that a fielder of 'ordinary effort' should have made, which results in the batter safely reaching base, or a baserunner advancing. The critical factor is 'ordinary effort'. If a third baseman dives 15 feet to their left and the ball barely deflects off their glove, it is not an error; it is ruled a Hit, because an ordinary fielder would never have reached the ball in the first place." },
-    { question: "Why is Fielding Percentage considered a flawed statistic by modern sabermetricians?", answer: "Modern baseball analytics heavily criticize Fielding Percentage because it punishes range and athleticism. If a slow shortstop with terrible range just stands still, they will never reach difficult ground balls. Those balls will pass them as 'Hits', and they will never be charged with an Error. Their Fielding Percentage will look perfect (1.000). A fast, athletic shortstop who dives for everything will reach those difficult balls, but occasionally fumble them and get charged with an Error, lowering their percentage. Thus, traditional Fielding Percentage rewards players who don't try to make difficult plays." },
-    { question: "If it's flawed, why is it still used?", answer: "Despite its massive flaws regarding player range, Fielding Percentage remains the most universally recognized baseline for measuring 'sure-handedness'. If an infielder has a high Fielding Percentage, it guarantees that when the ball is hit directly at them, they do not make catastrophic mistakes. It is still heavily utilized at the high school and collegiate levels where advanced optical tracking cameras are not available to measure true defensive range." },
-    { question: "Do different positions have different Fielding Percentage expectations?", answer: "Yes, absolutely. A first baseman is expected to have an incredibly high Fielding Percentage (usually around .990 to .995) because the vast majority of their chances are simply catching accurately thrown balls. A shortstop or third baseman is expected to have a lower percentage (around .970) because they are constantly fielding wildly spinning ground balls and making off-balance throws across the diamond." }
+    { question: "What is a good fielding percentage?", answer: "Elite defenders typically post a fielding percentage of .980 or higher. A .990+ mark is generally considered Gold Glove caliber at most positions. First basemen and catchers often exceed .995 because their chances are routine, while shortstops and third basemen post slightly lower figures due to the difficulty of their plays." },
+    { question: "Why does range factor matter more than fielding percentage?", answer: "Fielding percentage only measures how often a fielder avoids errors on balls they actually reach. Range factor (9 × (PO+A) / innings) captures how many balls a player gets to. A stationary fielder with an easy assignment can have a high fielding percentage but a poor range factor, which is why scouts weight range heavily." },
+    { question: "How do position benchmarks work?", answer: "Each position has a typical range factor window. A shortstop with an RF of 4.5–5.0 per nine innings is considered excellent, while 4.0–4.5 is good. Catchers and first basemen have very different baselines because their defensive responsibilities generate far more or far fewer putouts and assists per inning." },
+    { question: "What does the Double Play Index show?", answer: "The Double Play Index (double plays ÷ games played) measures a fielder's ability to turn two. Middle infielders (shortstop, second base) dominate this metric; a DPI above 0.6 per game is strong for a starter, reflecting quick hands and good footwork around the bag." },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Sports", href: "/calculator#sports" }, { label: "Baseball Fielding Percentage Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Everyday Life", href: "/calculator#everyday-life" }, { label: "Baseball Fielding Calculator" }]} />
       <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Baseball Fielding Percentage Calculator</h1>
-
-        <div className="grid grid-cols-1 xl:grid-cols-[460px_1fr] gap-6 items-start max-w-[1280px] mt-4">
-
-          {/* LEFT: Inputs */}
-          <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
-
-            <div className="bg-primary/5 border-l-4 border-primary rounded-lg p-4 mb-2">
-              <div className="flex items-center gap-2 text-primary font-bold mb-1">
-                <Shield className="h-4 w-4" /> Defensive Statistics
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Baseball Fielding Calculator</h1>
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1200px]">
+          <div className="card-calculator flex flex-col gap-5 !p-6 border border-border bg-card">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="text-sm font-medium block mb-1">Putouts</label>
+                <input type="number" value={inputs.putouts} onChange={num("putouts")} className="w-full h-10 px-3 text-lg rounded-md border border-input bg-background outline-none focus:ring-2 focus:ring-primary/20" />
               </div>
-              <p className="text-xs text-muted-foreground leading-relaxed">Enter the player's seasonal defensive metrics to calculate their mathematical reliability when engaging the baseball.</p>
-            </div>
-
-            <div className="grid grid-cols-2 gap-3 mt-2">
-              <CompactInput id="po" label="Putouts (PO)" value={putouts} onChange={setPutouts} />
-              <CompactInput id="a" label="Assists (A)" value={assists} onChange={setAssists} />
-            </div>
-
-            <div className="grid grid-cols-1 gap-3 mt-1 pt-4 border-t border-border">
-              <CompactInput id="e" label="Errors (E)" value={errors} onChange={setErrors} />
-            </div>
-
-            {errorMsg && (
-              <div className="bg-red-500/10 border border-red-500/50 text-red-600 text-xs font-bold p-3 rounded-md mt-1">
-                <AlertTriangle className="h-4 w-4 inline mr-1 -mt-0.5" />
-                {errorMsg}
+              <div>
+                <label className="text-sm font-medium block mb-1">Assists</label>
+                <input type="number" value={inputs.assists} onChange={num("assists")} className="w-full h-10 px-3 text-lg rounded-md border border-input bg-background outline-none focus:ring-2 focus:ring-primary/20" />
               </div>
-            )}
+              <div>
+                <label className="text-sm font-medium block mb-1">Errors</label>
+                <input type="number" value={inputs.errors} onChange={num("errors")} className="w-full h-10 px-3 text-lg rounded-md border border-input bg-background outline-none focus:ring-2 focus:ring-primary/20" />
+              </div>
+              <div>
+                <label className="text-sm font-medium block mb-1">Games Played</label>
+                <input type="number" value={inputs.gamesPlayed} onChange={num("gamesPlayed")} className="w-full h-10 px-3 text-lg rounded-md border border-input bg-background outline-none focus:ring-2 focus:ring-primary/20" />
+              </div>
+            </div>
 
-            <div className="flex gap-2 mt-4 pt-4 border-t border-border">
-              <Button
-                onClick={handleCalculate}
-                className="flex-1 h-10 bg-primary text-primary-foreground font-bold"
-              >
-                Calculate
-              </Button>
+            <div className="border-t border-border pt-4">
+              <div className="flex items-center gap-2 mb-3">
+                <span className="text-xs font-semibold uppercase tracking-wider text-primary">Advanced Options</span>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="text-sm font-medium block mb-1">Position</label>
+                  <select value={inputs.position} onChange={(e) => setInputs((p) => ({ ...p, position: e.target.value as Position }))} className="w-full h-10 px-3 text-base rounded-md border border-input bg-background outline-none focus:ring-2 focus:ring-primary/20">
+                    {Object.keys(POSITION_BENCHMARKS).map((pos) => (
+                      <option key={pos} value={pos}>{pos}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="text-sm font-medium block mb-1">Innings Played</label>
+                  <input type="number" value={inputs.inningsPlayed} onChange={num("inningsPlayed")} className="w-full h-10 px-3 text-lg rounded-md border border-input bg-background outline-none focus:ring-2 focus:ring-primary/20" />
+                </div>
+                <div>
+                  <label className="text-sm font-medium block mb-1">Double Plays</label>
+                  <input type="number" value={inputs.doublePlays} onChange={num("doublePlays")} className="w-full h-10 px-3 text-lg rounded-md border border-input bg-background outline-none focus:ring-2 focus:ring-primary/20" />
+                </div>
+                <div>
+                  <label className="text-sm font-medium block mb-1">Total Chances</label>
+                  <input type="number" value={result.totalChances} readOnly className="w-full h-10 px-3 text-lg rounded-md border border-input bg-muted/40 outline-none" />
+                </div>
+              </div>
+            </div>
 
-              <Button
-                onClick={handleReset}
-                variant="outline"
-                size="icon"
-                className="h-10 w-10 shrink-0"
-                aria-label="Reset"
-              >
-                <RotateCcw className="h-4 w-4" />
-              </Button>
+            <div className="flex gap-3">
+              <button onClick={handleCalc} className="flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors">Calculate</button>
+              <button onClick={reset} className="h-10 w-10 border border-border rounded-md flex items-center justify-center hover:bg-secondary transition-colors" aria-label="Reset">
+                <RotateCcw className="w-4 h-4" />
+              </button>
             </div>
           </div>
 
-          {/* RIGHT: Results */}
-          <div className="flex flex-col gap-4">
-            {results && !errorMsg ? (
-              <div ref={printRef} className="flex flex-col gap-4 animate-fade-in-up">
+          <div className="space-y-4">
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative">
+              <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Fielding Percentage</div>
+              <div className="text-4xl font-bold text-primary">{fmt(result.fieldingPct, 3)}</div>
+              <div className="text-sm text-muted-foreground mt-1">{fmt(result.totalChances, 0)} total chances • {fmt(result.rangeFactor, 2)} range factor/9</div>
+            </div>
 
-                {/* Primary Metric Box */}
-                <div
-                  className="text-white rounded-lg p-6 shadow-sm relative overflow-hidden"
-                  style={{ backgroundColor: results.colorClass }}
-                >
-                  <div className="relative z-10">
-                    <div className="text-white/80 text-[10px] font-bold uppercase tracking-wider mb-1">Fielding Percentage (FPCT)</div>
-                    <div className="flex items-baseline gap-1 mt-1">
-                      <div className="text-6xl font-black">{results.fieldingPercentage}</div>
-                    </div>
-                    <div className="text-sm font-bold text-white mt-3 bg-black/20 border border-white/20 inline-block px-3 py-1.5 rounded-full flex items-center gap-2">
-                      <Shield className="h-4 w-4" /> {results.classification}
-                    </div>
-                  </div>
-                  <Shield className="absolute -bottom-4 -right-4 h-32 w-32 opacity-10" />
+            <div className="grid grid-cols-3 gap-3">
+              {[
+                { label: "Range Factor", value: fmt(result.rangeFactor, 2) },
+                { label: "Errors / Game", value: fmt(result.errorsPerGame, 2) },
+                { label: "DP Index", value: fmt(result.doublePlayIndex, 2) },
+              ].map((s) => (
+                <div key={s.label} className="card-calculator !p-3 border border-border bg-card text-center">
+                  <div className="text-xs text-muted-foreground">{s.label}</div>
+                  <div className="text-xl font-bold mt-1">{s.value}</div>
                 </div>
+              ))}
+            </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="bg-slate-900 border border-slate-800 text-white rounded-lg p-4 shadow-sm flex flex-col justify-center">
-                    <div className="text-emerald-400 text-[10px] font-bold uppercase tracking-wider mb-1">Total Chances</div>
-                    <div className="text-3xl font-black text-white">{results.totalChances}</div>
-                    <div className="text-[10px] text-slate-500 mt-1">Denominator: PO + A + E</div>
-                  </div>
-                  <div className="bg-slate-900 border border-slate-800 text-white rounded-lg p-4 shadow-sm flex flex-col justify-center">
-                    <div className="text-blue-400 text-[10px] font-bold uppercase tracking-wider mb-1">Successful Plays</div>
-                    <div className="text-3xl font-black text-white">{results.successfulPlays}</div>
-                    <div className="text-[10px] text-slate-500 mt-1">Numerator: PO + A</div>
-                  </div>
+            <div className="card-calculator !p-4 border border-border bg-card">
+              <h3 className="text-base font-semibold mb-3">Defensive Breakdown</h3>
+              <table className="w-full text-base"><tbody>
+                {[
+                  { label: "Putouts (PO)", value: fmt(inputs.putouts, 0) },
+                  { label: "Assists (A)", value: fmt(inputs.assists, 0) },
+                  { label: "Errors (E)", value: fmt(inputs.errors, 0) },
+                  { label: "Total Chances (PO+A+E)", value: fmt(result.totalChances, 0) },
+                  { label: "Innings Played", value: fmt(inputs.inningsPlayed, 0) },
+                  { label: "Double Plays Turned", value: fmt(inputs.doublePlays, 0) },
+                ].map((r, i) => (
+                  <tr key={i} className="border-b last:border-0">
+                    <td className="py-2 text-muted-foreground">{r.label}</td>
+                    <td className="text-right font-medium">{r.value}</td>
+                  </tr>
+                ))}
+              </tbody></table>
+            </div>
+
+            <div className="card-calculator !p-4 border border-border bg-card">
+              <h3 className="text-base font-semibold mb-3">Defensive Metrics</h3>
+              <ResponsiveContainer width="100%" height={200}>
+                <BarChart data={result.chart} margin={{ top: 5, right: 15, left: 0, bottom: 5 }}>
+                  <XAxis dataKey="label" tick={{ fontSize: 11 }} />
+                  <YAxis tick={{ fontSize: 11 }} />
+                  <Tooltip formatter={(v: any) => [Number(v).toLocaleString(), ""]} />
+                  <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+                    {result.chart.map((entry, index: number) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} />
+                    ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+
+            <div className="bg-muted/30 rounded-lg p-4">
+              <h3 className="text-sm font-semibold mb-2">{inputs.position} — Range Factor Benchmarks (per 9 innings)</h3>
+              <div className="grid grid-cols-3 gap-2 text-xs">
+                <div className="rounded-lg p-2 text-center border border-border">
+                  <div className="font-bold text-green-600">{result.rfBenchmark.excellent}</div>
+                  <div className="text-muted-foreground">Excellent</div>
                 </div>
-
-                <div className="grid lg:grid-cols-1 gap-4">
-                  {/* Chart Panel */}
-                  <div className="card-calculator !p-5 border border-border bg-card flex flex-col justify-center items-center h-full min-h-[300px]">
-                    <h3 className="text-base font-bold w-full text-left mb-1">Defensive Reliability Profile</h3>
-                    <p className="text-xs text-muted-foreground w-full text-left mb-6">A visual breakdown of the player's interactions with the baseball. The green sector represents flawless execution, while the red sector represents given-away bases.</p>
-                    <ResponsiveContainer width="100%" height={220}>
-                      <PieChart>
-                        <Pie
-                          data={results.chartData}
-                          cx="50%"
-                          cy="50%"
-                          innerRadius={60}
-                          outerRadius={90}
-                          paddingAngle={2}
-                          dataKey="value"
-                        >
-                          {results.chartData.map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                          ))}
-                        </Pie>
-                        <RechartsTooltip content={<CustomTooltip />} />
-                        <Legend verticalAlign="bottom" height={36} iconType="circle" wrapperStyle={{ fontSize: '12px', fontWeight: 'bold' }} />
-                      </PieChart>
-                    </ResponsiveContainer>
-                  </div>
+                <div className="rounded-lg p-2 text-center border border-border">
+                  <div className="font-bold text-blue-600">{result.rfBenchmark.good}</div>
+                  <div className="text-muted-foreground">Good</div>
                 </div>
-
+                <div className="rounded-lg p-2 text-center border border-border bg-primary/10">
+                  <div className="font-bold text-primary">{fmt(result.rangeFactor, 2)}</div>
+                  <div className="text-muted-foreground">{result.rfRating}</div>
+                </div>
               </div>
-            ) : (
-              <div className="h-full min-h-[400px] flex flex-col items-center justify-center border-2 border-dashed border-border rounded-xl bg-card/50 text-muted-foreground p-8 text-center">
-                <Shield className="h-12 w-12 mb-4 opacity-20" />
-                <p className="font-medium max-w-xs">Enter a player's putouts, assists, and errors to calculate their true mathematical reliability when fielding the baseball.</p>
-              </div>
-            )}
+            </div>
           </div>
         </div>
 
-        {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <section className="mt-12 space-y-8 text-base text-foreground">
-            <div>
-              <h2 className="text-2xl font-bold mb-3">What Is a Baseball Fielding Percentage Calculator?</h2>
-              <p className="text-muted-foreground leading-relaxed">A Baseball Fielding Percentage Calculator measures a player's defensive reliability by computing how often they successfully handle the baseball without making an error. Fielding percentage, also called fielding average or FPCT, is the most fundamental defensive statistic in baseball and has been used for over a century to evaluate a player's sure-handedness. The calculator takes three inputs — putouts, assists, and errors — and produces a decimal value between .000 and 1.000 that represents the percentage of total defensive chances a player converted successfully. This metric is used at every level of baseball from Little League to the Major Leagues as a baseline measure of defensive competence.</p>
-            </div>
-            <div>
-              <h2 className="text-2xl font-bold mb-3">How It Works</h2>
-              <p className="text-muted-foreground leading-relaxed">The calculator uses the standard baseball fielding percentage formula: FPCT equals putouts plus assists divided by putouts plus assists plus errors. Putouts are awarded to the fielder who physically records the out, such as a first baseman catching a thrown ball. Assists are awarded to fielders who touch the ball and contribute to the out before the putout is made, such as a shortstop fielding a grounder and throwing to first. Errors are charged when a fielder fails to make a play that ordinary effort should have allowed. The sum of putouts and assists represents successful plays, while the sum of all three values represents total chances. Dividing successful plays by total chances yields the fielding percentage, formatted to three decimal places without a leading zero, following baseball convention.</p>
-            </div>
-            <div>
-              <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
-              <p className="text-muted-foreground leading-relaxed">Your primary result is the fielding percentage displayed as a three-digit decimal, accompanied by a classification ranging from Elite to Poor based on modern MLB standards. A percentage of .990 or higher is considered Elite, .980 to .989 is Great, .970 to .979 is Average, .950 to .969 is Below Average, and anything below .950 is Poor. The summary statistics show total chances and successful plays, which are the denominator and numerator of the formula. The donut chart visualizes the proportion of successful plays versus errors, giving you an immediate sense of how reliable the player is. Keep in mind that fielding percentage expectations vary by position: first basemen are expected to exceed .990, while shortstops and third basemen typically sit around .970 due to the difficulty of their defensive chances.</p>
-            </div>
-          </section>
+          <section className="prose-finance text-[15.75px]">
+            <h2 className="text-2xl font-bold mb-3">How Fielding Percentage Defines Defensive Value</h2>
+            <p>Fielding percentage is the most fundamental defensive statistic in baseball, expressing how reliably a player handles the chances that come their way. It is calculated as (putouts + assists) divided by total chances, where total chances equal putouts plus assists plus errors. A shortstop who records 250 putouts, 120 assists, and 8 errors has 378 total chances and a fielding percentage of .979. While the metric is intuitive and easy to compare across decades, it carries a well-known blind spot: it only rewards clean handling of balls already reached. A stationary fielder can post a respectable fielding percentage simply because few difficult balls are hit their direction, which is why modern evaluation pairs it with range-based metrics.</p>
 
-          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/baseball-fielding-percentage-calculator" />
-          <PopularCalculators exclude="/calculator/baseball-fielding-percentage-calculator" />
+            <h2 className="text-2xl font-bold mb-3">Range Factor and Position-Specific Benchmarks</h2>
+            <p>Range factor normalizes defensive activity to a standardized nine-inning game by multiplying putouts plus assists by nine and dividing by innings played. This reveals how much ground a fielder covers. Because defensive responsibilities differ radically by position, each spot on the diamond carries its own benchmark window. Middle infielders—shortstops and second basemen—command the highest range factors, typically 4.0–5.3 per nine innings, reflecting constant action on ground balls and relays. First basemen post the largest figures (7.5–9.5) because nearly every putout funnels through them, while outfielders sit lower (1.7–2.5) given the sparse distribution of fly-ball chances. Catchers occupy a unique band (2.5–4.0) tied to caught stealings and pitcher assists. Comparing a player against their position benchmark rather than the league average is essential for fair defensive evaluation.</p>
+
+            <h2 className="text-2xl font-bold mb-3">Turning Defense Into Gold Glove Criteria</h2>
+            <p>Elite defensive value emerges when fielding percentage, range factor, and playmaking converge. The Double Play Index—double plays divided by games played—isolates a fielder's ability to erase baserunners, a skill that separates good middle infielders from great ones. Scouts and awards committees such as the Rawlings Gold Glove program weigh these complementary metrics together: a .990 fielding percentage loses luster if range factor sits below the position's "good" threshold, while a high range factor with frequent errors signals instability. The most complete defenders combine a .985+ fielding percentage, a range factor in the position's excellent window, and a healthy double-play rate, producing the quiet, game-altering defense that wins pennants before the bat ever comes to the plate.</p>
+          </section>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/baseball-fielding-calculator" />
+          <PopularCalculators exclude="/calculator/baseball-fielding-calculator" />
         </div>
       </div>
     </>
   );
-}
+};
+
+export default BaseballFieldingCalculator;

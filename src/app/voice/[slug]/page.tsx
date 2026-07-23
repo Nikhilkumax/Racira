@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Construction, ArrowLeft, ChevronRight } from "lucide-react";
 import Header from "@/components/Header";
-import { CATEGORIES } from "@/data/voice/tools";
+import { CATEGORIES } from "@/domains/voice/registry";
 import { Metadata } from "next";
 import { toSlug } from "@/lib/utils/slug";
 import { SubcategoryCard } from "@/components/shared/SubcategoryCard";

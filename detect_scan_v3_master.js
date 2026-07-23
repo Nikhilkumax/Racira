@@ -17,7 +17,7 @@ function readText(p) {
     try { return fs.readFileSync(p, 'utf8'); } catch { return null; }
 }
 function readJSON(p) {
-    try { return JSON.parse(fs.readFileSync(p, 'utf8')); } catch { return null; }
+    try { return JSON.parse(fs.readFileSync(p, 'utf8').replace(/^\uFEFF/, '')); } catch { return null; }
 }
 function toPascalCase(slug) {
     return slug
@@ -33,6 +33,15 @@ function titleCaseToPascal(name) {
         .filter(Boolean)
         .map(s => s.charAt(0).toUpperCase() + s.slice(1))
         .join('');
+}
+function pascalToSlug(pascal) {
+    return pascal
+        .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
+        .replace(/([A-Z]+)([A-Z][a-z])/g, '$1-$2')
+        .toLowerCase()
+        .replace(/[^a-z0-9-]/g, '')
+        .replace(/-+/g, '-')
+        .replace(/^-|-$/g, '');
 }
 
 // ---------- Scan A: .tsx files in components ----------
@@ -83,41 +92,43 @@ for (const rf of regFiles) {
 }
 
 // ---------- Scan B2: Calculator_Database_Final.json + per-category db files ----------
+// Database structure: { CATEGORY: { SUBCATEGORY: [ "Calc Name 1", "Calc Name 2", ... ] } }
 const dbSlugs = new Set();
-const dbFinal = readJSON(DB_FILE);
-if (Array.isArray(dbFinal)) {
-    for (const e of dbFinal) if (e && (e.slug || e.id)) dbSlugs.add(e.slug || e.id);
-} else if (dbFinal && typeof dbFinal === 'object') {
-    if (Array.isArray(dbFinal.calculators)) {
-        for (const e of dbFinal.calculators) if (e && (e.slug || e.id)) dbSlugs.add(e.slug || e.id);
-    } else {
-        for (const k of Object.keys(dbFinal)) dbSlugs.add(k);
+const dbNames = new Set();
+function collectDbNames(obj) {
+    if (Array.isArray(obj)) {
+        for (const e of obj) {
+            if (typeof e === 'string') { dbNames.add(e); dbSlugs.add(titleCaseToPascal(e) + 'Calculator'); }
+            else if (e && typeof e === 'object') {
+                if (e.slug) dbSlugs.add(e.slug);
+                if (e.name) dbNames.add(e.name);
+                if (e.id) dbSlugs.add(e.id);
+            }
+        }
+    } else if (obj && typeof obj === 'object') {
+        for (const k of Object.keys(obj)) {
+            if (Array.isArray(obj[k])) {
+                collectDbNames(obj[k]);
+            } else if (obj[k] && typeof obj[k] === 'object') {
+                collectDbNames(obj[k]);
+            }
+        }
     }
 }
+const dbFinal = readJSON(DB_FILE);
+if (dbFinal) collectDbNames(dbFinal);
 if (fs.existsSync(DB_DIR)) {
     for (const f of fs.readdirSync(DB_DIR)) {
         if (!f.endsWith('.json')) continue;
         const j = readJSON(path.join(DB_DIR, f));
-        if (!j) continue;
-        if (Array.isArray(j)) {
-            for (const e of j) if (e && (e.slug || e.id)) dbSlugs.add(e.slug || e.id);
-        } else if (j && Array.isArray(j.calculators)) {
-            for (const e of j.calculators) if (e && (e.slug || e.id)) dbSlugs.add(e.slug || e.id);
-        } else if (j && typeof j === 'object') {
-            for (const k of Object.keys(j)) {
-                if (Array.isArray(j[k])) {
-                    for (const e of j[k]) if (e && (e.slug || e.id)) dbSlugs.add(e.slug || e.id);
-                } else {
-                    dbSlugs.add(k);
-                }
-            }
-        }
+        if (j) collectDbNames(j);
     }
 }
 
 // ---------- Scan C: _approved.json ----------
 const approvedSlugs = new Set();
 const approvedCandidates = [
+    path.join(ROOT, 'src', 'domains', 'calculator', 'components', '_approved.json'),
     path.join(ROOT, 'src', 'calculators', '_approved.json'),
     path.join(ROOT, 'src', 'domains', 'calculator', '_approved.json'),
     path.join(ROOT, '_approved.json'),
@@ -129,20 +140,31 @@ for (const p of approvedCandidates) {
 }
 if (approvedPath) {
     const aj = readJSON(approvedPath);
-    if (Array.isArray(aj)) {
-        for (const e of aj) {
-            if (typeof e === 'string') approvedSlugs.add(e);
-            else if (e && e.slug) approvedSlugs.add(e.slug);
-        }
-    } else if (aj && typeof aj === 'object') {
-        for (const k of Object.keys(aj)) {
-            if (Array.isArray(aj[k])) {
-                for (const e of aj[k]) {
-                    if (typeof e === 'string') approvedSlugs.add(e);
-                    else if (e && e.slug) approvedSlugs.add(e.slug);
-                }
+    const addApproved = (e) => {
+        if (typeof e === 'string') {
+            // _approved.json stores PascalCase component names (e.g. "AutoLeaseCalculator")
+            // Convert to slug form (e.g. "auto-lease-calculator") for matching
+            if (/^[A-Z]/.test(e) && /[a-z]/.test(e) && !e.includes('-')) {
+                approvedSlugs.add(pascalToSlug(e));
             } else {
-                approvedSlugs.add(k);
+                approvedSlugs.add(e);
+            }
+        } else if (e && e.slug) {
+            approvedSlugs.add(e.slug);
+        }
+    };
+    if (Array.isArray(aj)) {
+        for (const e of aj) addApproved(e);
+    } else if (aj && typeof aj === 'object') {
+        // Handle { "approved": [...] } structure
+        if (Array.isArray(aj.approved)) {
+            for (const e of aj.approved) addApproved(e);
+        }
+        // Also check other array properties (skip non-array meta fields)
+        for (const k of Object.keys(aj)) {
+            if (k === 'approved') continue;
+            if (Array.isArray(aj[k])) {
+                for (const e of aj[k]) addApproved(e);
             }
         }
     }
@@ -218,7 +240,7 @@ const total = keep.length + polish.length + rebuild.length + create.length;
 console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
 console.log('RACIRA CALCULATOR — DETECT RESULTS');
 console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-console.log(`Database entries total:          ${fmt(dbSlugs.size)}`);
+console.log(`Database entries total:          ${fmt(dbNames.size)}`);
 console.log(`Files in /src/calculators:        ${fmt(tsxFiles.size)}`);
 console.log(`Registry slugs total:             ${fmt(registrySlugs.size)}`);
 console.log(`Approved (exempt):                 ${fmt(approvedSlugs.size)}`);

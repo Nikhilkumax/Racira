@@ -19,6 +19,7 @@ export function SolValidator() {
         <Input value={v} onChange={(e) => setV(e.target.value)} />
       </Field>
       {r && <Result label="Status" value={r.msg} ok={r.ok} />}
+      <p className="text-xs text-muted-foreground">Format check only — does not verify checksum.</p>
     </div>
   );
 }

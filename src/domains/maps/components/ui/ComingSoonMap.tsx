@@ -18,7 +18,7 @@ const ComingSoonMap = ({ slug }: ComingSoonMapProps) => {
   const description = tool?.description || "This map tool is coming soon.";
   
   useEffect(() => {
-    trackPageView(`/maps/tool/${slug}`, { status: "coming_soon", name });
+    trackPageView(`/maps/${slug}`, { status: "coming_soon", name });
   }, [slug, name]);
 
   const structuredData = {

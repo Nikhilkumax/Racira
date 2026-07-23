@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { Game } from "@/data/games/games";
+import type { Game } from "@/domains/games/registry";
 
 export function GameCard({ game }: { game: Game }) {
   const Icon = game.icon;

@@ -1,0 +1,246 @@
+import { AlarmCheck, AlarmClock, AlarmClockCheck, AlarmClockMinus, AlarmClockOff, AlarmClockPlus, AlarmMinus, AlarmPlus, AlarmSmoke, Album, AlertCircle, AlertOctagon, AlertTriangle, AlignCenter, AlignCenterHorizontal, AlignCenterVertical, ArrowDown10, ArrowDownAZ, ArrowDownAz, ArrowDownCircle, ArrowDownFromLine, ArrowDownLeft, ArrowDownLeftFromCircle, ArrowDownLeftFromSquare, ArrowDownLeftSquare, ArrowDownNarrowWide, ArrowDownRight, ArrowDownRightFromCircle, ArrowDownRightFromSquare, ArrowDownRightSquare, ArrowDownSquare, ArrowDownUp, ArrowRightLeft, BadgeInfo, Barcode, BookImage, BookType, BugPlay, Calculator, CalendarClock, Camera, Captions, CaptionsOff, ChartNoAxesCombined, Check, CircleGauge, CirclePlay, ClipboardType, Clock, Clock1, Clock10, Clock11, CloudSun, CloudSunRain, Code, Code2, CodeSquare, CodeXml, Codepen, Codesandbox, Combine, Contact, Contrast, Crop, Edit, Facebook, File, FileArchive, FileBadge, FileBadge2, FileCode, FileCode2, FileCog, FileDown, FileImage, FileInput, FileMusic, FileOutput, FileSymlink, FileType, FileType2, FileUp, FileVideo, FileVideo2, Filter, Frame, Gauge, Grab, Grid, Grid2X2, Grid2X2Plus, Grid2x2, Grid2x2Check, Hash, Image, ImageDown, ImageMinus, ImageOff, ImagePlay, Info, Inspect, Instagram, IterationCcw, KeyboardMusic, ListMusic, ListVideo, LucideBadgeInfo, LucideBookType, LucideCaptions, LucideCaptionsOff, LucideChartNoAxesCombined, LucideClipboardType, LucideCloudSun, LucideCloudSunRain, LucideCombine, LucideFileMusic, LucideFileType, LucideInfo, LucideMinimize, LucideMinimize2, LucideMonitor, LucideMonitorCheck, LucideMonitorPlay, LucidePackage, LucidePackage2, LucidePackageCheck, LucidePackageMinus, LucidePackageOpen, LucidePackagePlus, LucidePackageSearch, LucidePalette, LucidePlayCircle, LucideRadio, LucideRadioReceiver, LucideRadioTower, LucideRotate3D, LucideRotate3d, LucideRotateCcw, LucideRotateCcwSquare, LucideScissors, LucideScissorsLineDashed, LucideScissorsSquare, LucideScissorsSquareDashedBottom, LucideShrink, LucideStamp, LucideStopCircle, LucideSun, LucideSunDim, LucideYoutube, Map, Merge, Minimize, Minimize2, MonitorDown, MonitorPlay, MonitorUp, Music, Palette, Play, PlayCircle, Ratio, RefreshCcw, RefreshCw, Replace, Settings, Sheet, Shrink, Shuffle, Split, Stamp, Text, Video, View, Webcam } from "lucide-react";
+
+import { ToolResult } from "@/components/CategorySearch";
+
+export type ToolStatus = "live" | "soon";
+
+export interface Tool {
+  slug: string;
+  name: string;
+  description: string;
+  category: string;
+  icon: any;
+  status: ToolStatus;
+}
+
+import { toSlug } from "@/lib/utils/slug";
+const slugify = toSlug;
+
+type RawTool = [name: string, description: string, icon: any];
+
+const CATEGORIES: Record<string, RawTool[]> = {
+  "Video Conversion": [
+    ["MP4 Converter", "Convert any video to MP4 in your browser", FileVideo],
+    ["WebM Converter", "Convert videos to WebM format", FileVideo2],
+    ["MOV Converter", "Convert videos to MOV format", FileUp],
+    ["AVI Converter", "Convert videos to AVI format", FileDown],
+    ["MKV Converter", "Convert videos to MKV format", FileInput],
+    ["FLV Converter", "Convert videos to FLV format", FileOutput],
+    ["WMV Converter", "Convert videos to WMV format", FileBadge],
+    ["M4V Converter", "Convert videos to M4V format", FileBadge2],
+    ["MPEG Converter", "Convert videos to MPEG format", FileCog],
+    ["Video Format Converter", "Universal video format converter", Shuffle],
+    ["H.264 to H.265 Converter", "Re-encode H.264 to HEVC", RefreshCw],
+    ["VP8 to VP9 Converter", "Re-encode VP8 to VP9", RefreshCcw],
+    ["MTS to MP4", "Convert MTS files to MP4", ArrowRightLeft],
+    ["TS to MP4", "Convert TS files to MP4", Replace],
+    ["F4V to MP4", "Convert F4V files to MP4", FileSymlink],
+    ["3GP to MP4", "Convert 3GP files to MP4", ArrowDownUp],
+    ["OGV to MP4", "Convert OGV files to MP4", MonitorUp],
+    ["Video to WebM", "Convert any video to WebM", MonitorDown],
+  ],
+  "Video Trimming & Editing": [
+    ["Video Trimmer", "Trim start and end of a video", LucideScissors],
+    ["Video Cutter", "Cut out sections of a video", LucideScissorsLineDashed],
+    ["Video Splitter", "Split a video into parts", LucideScissorsSquare],
+    ["Video Merger", "Merge multiple videos together", ChartNoAxesCombined],
+    ["Video Joiner", "Join videos end-to-end", Combine],
+    ["Video Cropper", "Crop video frames", LucideScissorsSquareDashedBottom],
+    ["Video Rotator", "Rotate video orientation", AlarmCheck],
+    ["Video Flipper", "Flip videos horizontally or vertically", LucideRotate3D],
+    ["Video Reverser", "Play video in reverse", LucideRotate3d],
+    ["Video Loop Creator", "Loop videos any number of times", LucideRotateCcw],
+    ["Video Speed Changer", "Speed up or slow down a video", CircleGauge],
+    ["Video Frame Extractor", "Extract individual frames", Grid],
+  ],
+  "Video Compression & Optimization": [
+    ["Video Compressor", "Reduce video file size", LucideMinimize],
+    ["Video Size Reducer", "Shrink large video files", LucideMinimize2],
+    ["Video Bitrate Optimizer", "Optimize bitrate for size and quality", BadgeInfo],
+    ["Resolution Reducer", "Downscale video resolution", Minimize],
+    ["Video Quality Optimizer", "Balance quality and file size", AlarmClock],
+    ["Video File Size Calculator", "Estimate video file size", Minimize2],
+    ["Video Bitrate Ladder Calculator", "Plan bitrate ladders for streaming", Info],
+    ["ABR Ladder Generator", "Generate adaptive bitrate ladders", AlarmClockCheck],
+  ],
+  "Video Resolution Tools": [
+    ["Video Resizer", "Resize video to any dimensions", LucideShrink],
+    ["720p Converter", "Convert videos to 720p", ArrowDown10],
+    ["1080p Converter", "Convert videos to 1080p", ArrowDownAZ],
+    ["1440p Converter", "Convert videos to 1440p", ArrowDownAz],
+    ["4K Converter", "Convert videos to 4K", ArrowDownCircle],
+    ["Aspect Ratio Converter", "Change video aspect ratio", ArrowDownFromLine],
+    ["Portrait to Landscape Converter", "Switch portrait videos to landscape", ArrowDownLeft],
+    ["Landscape to Portrait Converter", "Switch landscape videos to portrait", ArrowDownLeftFromCircle],
+  ],
+  "Video to Image": [
+    ["Video to JPG", "Export video frames as JPG images", BookImage],
+    ["Video to PNG", "Export video frames as PNG images", FileImage],
+    ["Frame Extractor", "Extract frames at any timestamp", Grid2X2],
+    ["Thumbnail Generator", "Generate thumbnails from videos", Image],
+    ["Contact Sheet Creator", "Create a contact sheet of frames", Grid2X2Plus],
+    ["Video Thumbnail Grid", "Build a grid of video thumbnails", ImageDown],
+    ["Video Thumbnail Extractor", "Pull thumbnails at exact times", ImageMinus],
+    ["Video Proof Sheet", "Create a video proof sheet", AlarmClockMinus],
+  ],
+  "Image to Video": [
+    ["Image to Video Converter", "Turn images into a video", ArrowDownLeftFromSquare],
+    ["Slideshow Maker", "Create a slideshow video", AlarmClockOff],
+    ["Photo Montage Creator", "Combine photos into a montage", AlarmClockPlus],
+    ["Timelapse Creator", "Create a timelapse from photos", CalendarClock],
+  ],
+  "Audio & Video": [
+    ["Remove Audio from Video", "Strip audio from any video", FileMusic],
+    ["Replace Video Audio", "Replace a video's audio track", KeyboardMusic],
+    ["Add Background Music", "Add background music to a video", ListMusic],
+    ["Mute Video", "Mute audio in a video", LucideFileMusic],
+  ],
+  "Subtitle Tools": [
+    ["Subtitle Generator Template", "Templates to start subtitling", Captions],
+    ["SRT Editor", "Edit SRT subtitle files", CaptionsOff],
+    ["VTT Editor", "Edit VTT subtitle files", LucideCaptions],
+    ["Subtitle Merger", "Merge two subtitle tracks", LucideChartNoAxesCombined],
+    ["Subtitle Embedder", "Embed subtitles into a video", LucideCaptionsOff],
+    ["Subtitle Extractor", "Extract subtitles from a video", BookType],
+    ["Subtitle Timing Adjuster", "Adjust subtitle timings", ClipboardType],
+    ["SRT to VTT Converter", "Convert SRT to VTT", ArrowDownLeftSquare],
+    ["VTT to SRT Converter", "Convert VTT to SRT", ArrowDownNarrowWide],
+    ["SRT to ASS Converter", "Convert SRT to ASS", ArrowDownRight],
+    ["ASS to SRT Converter", "Convert ASS to SRT", ArrowDownRightFromCircle],
+    ["SRT Timestamp Adjuster", "Shift SRT timestamps", FileType],
+    ["Subtitle Delay Fixer", "Fix subtitle delay issues", FileType2],
+    ["Subtitle Frame Rate Converter", "Convert subtitle frame rate", ArrowDownRightFromSquare],
+    ["Dual Subtitle Merger", "Merge dual-language subtitles", LucideCombine],
+    ["Subtitle Font Styler", "Style subtitle fonts", LucideBookType],
+    ["Subtitle Timing Extractor", "Extract cue timings", LucideClipboardType],
+    ["Subtitle Preview Tool", "Preview subtitles over a video", LucideFileType],
+  ],
+  "Video Effects": [
+    ["Brightness Adjuster", "Adjust video brightness", LucidePalette],
+    ["Contrast Adjuster", "Adjust video contrast", Palette],
+    ["Saturation Adjuster", "Adjust video saturation", CloudSun],
+    ["Grayscale Converter", "Convert video to grayscale", ArrowDownRightSquare],
+    ["Blur Effect", "Apply blur to a video", AlarmMinus],
+    ["Sharpen Effect", "Sharpen video frames", AlarmPlus],
+    ["Sepia Effect", "Apply a sepia tone", CloudSunRain],
+    ["Color Filter Tool", "Apply color filters", LucideCloudSun],
+    ["Video Watermark Tool", "Add a watermark to videos", LucideStamp],
+    ["Text Overlay Tool", "Overlay text on video", Stamp],
+    ["Video Color Grading", "Grade video colors", LucideCloudSunRain],
+    ["Video LUT Applier", "Apply LUTs to a video", LucideSun],
+    ["Video Denoise", "Reduce noise in a video", AlarmSmoke],
+    ["Video Stabilizer", "Stabilize shaky footage", Album],
+  ],
+  "GIF Tools": [
+    ["GIF to Video", "Convert GIF to a video file", BugPlay],
+    ["GIF Resizer", "Resize animated GIFs", Shrink],
+    ["GIF Loop Creator", "Create looping GIFs", LucideRotateCcwSquare],
+    ["GIF to MP4", "Convert GIF to MP4", CirclePlay],
+    ["Animated Thumbnail Creator", "Create animated thumbnails", ImageOff],
+  ],
+  "Social Media Video": [
+    ["YouTube Thumbnail Frame Extractor", "Grab a frame for YouTube thumbnails", ImagePlay],
+    ["YouTube Shorts Resizer", "Resize videos for YouTube Shorts", LucidePackage],
+    ["TikTok Video Resizer", "Resize videos for TikTok", LucidePackage2],
+    ["Instagram Reel Resizer", "Resize videos for Instagram Reels", LucidePackageCheck],
+    ["Instagram Story Resizer", "Resize videos for Instagram Stories", LucidePackageMinus],
+    ["Facebook Video Resizer", "Resize videos for Facebook", LucidePackageOpen],
+    ["LinkedIn Video Resizer", "Resize videos for LinkedIn", LucidePackagePlus],
+  ],
+  "Analysis & Metadata": [
+    ["Video Metadata Viewer", "Inspect video metadata", LucideBadgeInfo],
+    ["Video Bitrate Checker", "Check video bitrate", LucideInfo],
+    ["Video Codec Detector", "Detect video codecs", Barcode],
+    ["Video Duration Calculator", "Calculate total video duration", Clock],
+    ["FPS Analyzer", "Analyze frames per second", Gauge],
+    ["Resolution Analyzer", "Analyze video resolution", LucideMonitor],
+    ["Aspect Ratio Checker", "Check aspect ratio", IterationCcw],
+    ["Color Profile Viewer", "View video color profile", LucideSunDim],
+    ["Video Timecode Calculator", "Calculate timecodes", Clock1],
+    ["Video Timecode Converter", "Convert between timecode formats", ArrowDownSquare],
+  ],
+  "Recording": [
+    ["Screen Recorder", "Record your screen", LucideMonitorPlay],
+    ["Webcam Recorder", "Record from your webcam", MonitorPlay],
+    ["Camera Test", "Test your camera", AlertCircle],
+    ["Screen + Webcam Recorder", "Record screen with webcam overlay", FileVideo],
+    ["Video Snapshot Tool", "Capture a snapshot from video", FileVideo2],
+  ],
+  "Video Utilities": [
+    ["Video Filename Cleaner", "Clean up video filenames", File],
+    ["Video Timestamp Generator", "Generate timestamps", Clock10],
+    ["Video Chapter Generator", "Generate chapter markers", Clock11],
+    ["Batch Rename Helper", "Batch rename video files", FileArchive],
+    ["Video Size Estimator", "Estimate video size", LucidePackageSearch],
+    ["Video Hash Generator", "Generate a hash for a video", Code],
+    ["Video Storyboard Generator", "Generate a storyboard", Grid2x2],
+    ["Drop Frame Calculator", "Calculate drop-frame timecodes", Grid2x2Check],
+  ],
+  "Creator Tools": [
+    ["Intro Maker", "Create video intros", LucidePlayCircle],
+    ["Outro Maker", "Create video outros", PlayCircle],
+    ["Lower Third Generator", "Generate lower thirds", AlertOctagon],
+    ["End Screen Creator", "Build YouTube end screens", ListVideo],
+    ["YouTube Chapter Formatter", "Format chapters for YouTube", LucideYoutube],
+    ["Video Title Card Creator", "Create title cards", AlertTriangle],
+    ["Video End Card Generator", "Generate end cards", AlignCenter],
+    ["Video Bumper Creator", "Create video bumpers", LucideStopCircle],
+    ["Video Player Embed Generator", "Generate embed code for video players", AlignCenterHorizontal],
+    ["Video Preview Generator", "Generate video previews", AlignCenterVertical],
+  ],
+  "Streaming & Technical": [
+    ["Streaming Bitrate Calculator", "Calculate streaming bitrate", Code2],
+    ["HLS Manifest Generator", "Generate HLS manifests", LucideRadio],
+    ["DASH Manifest Generator", "Generate DASH manifests", LucideRadioReceiver],
+    ["Video Codec Reference Guide", "Reference guide to codecs", CodeSquare],
+    ["Streaming Resolution Guide", "Streaming resolution reference", LucideMonitorCheck],
+    ["OBS Settings Calculator", "Calculate optimal OBS settings", LucideRadioTower],
+  ],
+  "Developer Video Tools": [
+    ["Base64 Video Encoder", "Encode videos to Base64", CodeXml],
+    ["Base64 Video Decoder", "Decode Base64 to video", Codepen],
+    ["Video Hex Viewer", "View raw video bytes", Codesandbox],
+    ["MP4 Metadata Inspector", "Inspect MP4 metadata", FileCode],
+    ["Codec Information Viewer", "View codec details", FileCode2],
+  ],
+};
+
+const LIVE_SLUGS = new Set<string>([]);
+
+export const TOOLS: Tool[] = Object.entries(CATEGORIES).flatMap(
+  ([category, items]) =>
+    items.map(([name, description, icon]) => {
+      const slug = slugify(name);
+      return {
+        slug,
+        name,
+        description,
+        category,
+        icon,
+        status: LIVE_SLUGS.has(slug) ? "live" : "soon",
+      } satisfies Tool;
+    }),
+);
+
+export const CATEGORY_ORDER = Object.keys(CATEGORIES);
+
+export const TOOLS_BY_CATEGORY: Record<string, Tool[]> = CATEGORY_ORDER.reduce(
+  (acc, cat) => {
+    acc[cat] = TOOLS.filter((t) => t.category === cat);
+    return acc;
+  },
+  {} as Record<string, Tool[]>,
+);
+
+export const TOOL_BY_SLUG: Record<string, Tool> = Object.fromEntries(
+  TOOLS.map((t) => [t.slug, t]),
+);
+
+export const SEARCH_REGISTRY: ToolResult[] = TOOLS.map((tool) => ({
+  name: tool.name,
+  description: tool.description,
+  slug: tool.slug,
+  href: `/video/${tool.slug}`,
+  category: tool.category,
+  isBuilt: tool.status === "live",
+}));

@@ -1,11 +1,11 @@
 import Link from "next/link";
-import type { Tool } from "@/data/video/tools";
+import type { Tool } from "@/domains/video/registry";
 
 export function ToolCard({ tool }: { tool: Tool }) {
   const Icon = tool.icon as React.ComponentType<{ className?: string }>;
   return (
     <Link
-      href={`/video/tools/${tool.slug}`}
+      href={`/video/${tool.slug}`}
       className="tool-card group relative"
     >
       {tool.status !== "live" && (

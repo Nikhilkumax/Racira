@@ -69,7 +69,7 @@ function ToolGrid({ items }: { items: typeof tools }) {
         return (
           <Link
             key={t.slug}
-            href={`/security/tool/${t.slug}`}
+            href={`/security/${t.slug}`}
             className="tool-card group hover:-translate-y-[3px] hover:border-primary/40 hover:shadow-[0_8px_24px_hsl(var(--ring)/0.1)] relative"
           >
             {!isLive && (

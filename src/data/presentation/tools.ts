@@ -283,7 +283,7 @@ export const SEARCH_REGISTRY: ToolResult[] = categories.flatMap((cat) =>
     name: tool.name,
     description: tool.description,
     slug: tool.slug,
-    href: `/presentation/tools/${tool.slug}`,
+    href: `/presentation/${tool.slug}`,
     category: cat.title,
     isBuilt: false,
   }))

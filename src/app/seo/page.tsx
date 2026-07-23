@@ -130,7 +130,7 @@ function ToolCard({ tool }: { tool: Tool }) {
 
   return (
     <Link
-      href={`/seo/tools/${tool.slug}`}
+      href={`/seo/${tool.slug}`}
       className="tool-card group relative"
     >
       {!isLive && (

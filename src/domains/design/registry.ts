@@ -1,10 +1,11 @@
 import { Accessibility, Activity, AlertTriangle, AlignCenter, AlignHorizontalSpaceAround, AlignVerticalSpaceAround, Aperture, AppWindow, Award, BadgeCheck, BarChart, BarChart3, Book, BookMarked, BookOpen, BookOpenCheck, BookmarkPlus, Box, Boxes, Brush, Camera, CaseSensitive, CheckCircle, ChevronRight, Circle, CircleDot, ClipboardList, Cloud, Coins, Columns3, Compass, Contrast, CreditCard, Crop, Crown, Download, Droplet, Eye, EyeOff, FileBadge, FileCode, FileDiff, FileImage, FileMinus, FileSpreadsheet, FileText, Film, Flower2, Focus, FolderTree, Frame, Gamepad2, GitBranch, GitCompare, Glasses, Globe, Globe2, Grid, Grid2x2, Grid3x3, Grip, Hand, Hexagon, Image, Images, Italic, Layers, LayoutDashboard, LayoutGrid, LayoutPanelTop, Library, ListOrdered, Mail, Mailbox, Map, MapPin, Maximize2, Medal, Megaphone, MessageCircle, MessageSquare, MessageSquareQuote, Minus, Monitor, Mountain, MousePointer, MousePointer2, MousePointerClick, Move, Move3d, Navigation, Newspaper, PaintBucket, Paintbrush, Palette, PenTool, PieChart, Pill, Pipette, Pointer, Pyramid, Ratio, RectangleEllipsis, RefreshCw, Repeat, Rows3, Rss, Ruler, ScanLine, ScanText, Scissors, Scroll, Search, Share2, ShieldCheck, Shirt, Shuffle, Skull, Smartphone, Snowflake, Sparkles, Spline, Square, SquarePen, Squirrel, Stamp, Star, Sticker, Store, Table, Tablet, Tag, Terminal, TextCursorInput, TextSelect, ToggleLeft, Triangle, Tv, Type, User, UtensilsCrossed, Volume2, Wallet, Wand2, Waves, Wind, Workflow, Zap, type LucideIcon } from "lucide-react";
+import { toSlug } from "@/lib/utils/slug";
 
 export type Tool = { slug: string; name: string; desc: string; icon: LucideIcon; status: "live" | "soon" };
 export type Category = { name: string; tools: Tool[] };
 
 const t = (name: string, desc: string, icon: LucideIcon, built = false): Tool => ({
-  slug: name.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""),
+  slug: toSlug(name),
   name, desc, icon, status: built ? "live" : "soon",
 });
 

@@ -54,7 +54,7 @@ export default function Index() {
                   return (
                   <Link
                     key={t.slug}
-                    href={`/crypto/tool/${t.slug}`}
+                    href={`/crypto/${t.slug}`}
                     className="tool-card group hover:-translate-y-[3px] hover:border-primary/40 hover:shadow-[0_8px_24px_hsl(var(--ring)/0.1)]"
                   >
                     {t.status !== "live" && (

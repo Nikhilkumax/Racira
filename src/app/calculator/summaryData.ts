@@ -482,6 +482,10 @@ export const CATEGORY_SUMMARY = [
       {
         "name": "Fun & Personal",
         "count": activeCalculators.filter(c => c.category === "EVERYDAY_LIFE" && c.subcategory === "Fun & Personal").length
+      },
+      {
+        "name": "Other Utilities",
+        "count": activeCalculators.filter(c => c.category === "EVERYDAY_LIFE" && c.subcategory === "Other Utilities").length
       }
     ]
   },

@@ -26,8 +26,9 @@ export interface Tool {
 
 export const tools: Tool[] = [
   // ============ ORGANIZE PDF (22) ============
-  { name: 'PDF Merger', slug: 'merge', icon: inferIcon("PDF Merger", "merge"), description: 'Free, private, and secure PDF tool.',  status: "live", category: "pdf", subCategory: 'Organize PDF' },
-  { name: 'PDF Splitter', slug: 'split', icon: inferIcon("PDF Splitter", "split"), description: 'Free, private, and secure PDF tool.',  status: "live", category: "pdf", subCategory: 'Organize PDF' },
+   { name: 'PDF Merger', slug: 'merge', icon: inferIcon("PDF Merger", "merge"), description: 'Free, private, and secure PDF tool.',  status: "live", category: "pdf", subCategory: 'Organize PDF' },
+   { name: 'Merge with TOC', slug: 'merge-with-toc', icon: inferIcon("Merge with TOC", "merge-with-toc"), description: 'Merge PDFs with a table of contents',  status: "soon", category: "pdf", subCategory: 'Organize PDF' },
+   { name: 'PDF Splitter', slug: 'split', icon: inferIcon("PDF Splitter", "split"), description: 'Free, private, and secure PDF tool.',  status: "live", category: "pdf", subCategory: 'Organize PDF' },
   { name: 'PDF Rotate Pages', slug: 'rotate', icon: inferIcon("PDF Rotate Pages", "rotate"), description: 'Free, private, and secure PDF tool.',  status: "live", category: "pdf", subCategory: 'Organize PDF' },
   { name: 'PDF Delete Pages', slug: 'delete-pages', icon: inferIcon("PDF Delete Pages", "delete-pages"), description: 'Free, private, and secure PDF tool.',  status: "live", category: "pdf", subCategory: 'Organize PDF' },
   { name: "Extract Pages", slug: 'extract-pages', icon: inferIcon("Extract Pages", "extract-pages"), description: "Pull selected pages into a new PDF",  status: "live", category: "pdf", subCategory: 'Organize PDF' },
@@ -88,7 +89,7 @@ export const tools: Tool[] = [
   { name: "PDF to Markdown", slug: "pdf-to-markdown", icon: inferIcon("PDF to Markdown", "pdf-to-markdown"), description: "Convert PDF content to Markdown",  status: "live", category: "pdf", subCategory: 'Convert from PDF' },
   { name: 'PDF to ODT', slug: 'pdf-to-odt', icon: inferIcon("PDF to ODT", "pdf-to-odt"), description: 'Convert PDF to OpenDocument Text',  status: "live", category: "pdf", subCategory: 'Convert from PDF' },
   { name: "PDF to SVG", slug: "pdf-to-svg", icon: inferIcon("PDF to SVG", "pdf-to-svg"), description: "Convert PDF pages to SVG vectors",  status: "live", category: "pdf", subCategory: 'Convert from PDF' },
-  { name: 'PDF to Text', slug: 'pdf-to-text', icon: inferIcon("PDF to Text", "pdf-to-text"), description: 'Free, private, and secure PDF tool.',  status: "live", category: "pdf", subCategory: 'Convert from PDF' },{ name: 'PDF to XML', slug: 'pdf-to-xml', icon: inferIcon("PDF to XML", "pdf-to-xml"), description: 'Extract PDF text to XML format',  status: "live", category: "pdf", subCategory: 'Convert from PDF' },
+   { name: 'PDF to Text', slug: 'pdf-to-text', icon: inferIcon("PDF to Text", "pdf-to-text"), description: 'Free, private, and secure PDF tool.',  status: "live", category: "pdf", subCategory: 'Convert from PDF' },{ name: 'PDF to XML', slug: 'pdf-to-xml', icon: inferIcon("PDF to XML", "pdf-to-xml"), description: 'Extract PDF text to XML format',  status: "live", category: "pdf", subCategory: 'Convert from PDF' },
   
 
   // ============ CONVERT TO PDF (11) ============
@@ -102,7 +103,7 @@ export const tools: Tool[] = [
   { name: 'EPUB to PDF', slug: 'epub-to-pdf', icon: inferIcon("EPUB to PDF", "epub-to-pdf"), description: 'Convert EPUB ebook to PDF',  status: "live", category: "pdf", subCategory: 'Convert to PDF' },
   { name: "HTML to PDF", slug: "html-to-pdf", icon: inferIcon("HTML to PDF", "html-to-pdf"), description: "Render HTML markup to a PDF",  status: "live", category: "pdf", subCategory: 'Convert to PDF' },
   { name: "Markdown to PDF", slug: "markdown-to-pdf", icon: inferIcon("Markdown to PDF", "markdown-to-pdf"), description: "Convert Markdown notes to PDF",  status: "live", category: "pdf", subCategory: 'Convert to PDF' },
-  { name: 'PowerPoint to PDF', slug: 'powerpoint-to-pdf', icon: inferIcon("PowerPoint to PDF", "powerpoint-to-pdf"), description: 'Free, private, and secure PDF tool.',  status: "live", category: "pdf", subCategory: 'Convert to PDF' },{ name: 'RTF to PDF', slug: 'rtf-to-pdf', icon: inferIcon("RTF to PDF", "rtf-to-pdf"), description: 'Convert Rich Text to PDF',  status: "live", category: "pdf", subCategory: 'Convert to PDF' },
+  { name: 'PowerPoint to PDF', slug: 'powerpoint-to-pdf', icon: inferIcon("PowerPoint to PDF", "powerpoint-to-pdf"), description: 'Free, private, and secure PDF tool.',  status: "live", category: "pdf", subCategory: 'Convert to PDF' },  { name: 'RTF to PDF', slug: 'rtf-to-pdf', icon: inferIcon("RTF to PDF", "rtf-to-pdf"), description: 'Convert Rich Text to PDF',  status: "live", category: "pdf", subCategory: 'Convert to PDF' },
   { name: "SVG to PDF", slug: "svg-to-pdf", icon: inferIcon("SVG to PDF", "svg-to-pdf"), description: "Convert SVG vectors to a PDF",  status: "live", category: "pdf", subCategory: 'Convert to PDF' },
   { name: "Text to PDF", slug: "text-to-pdf", icon: inferIcon("Text to PDF", "text-to-pdf"), description: "Turn plain text into a PDF",  status: "live", category: "pdf", subCategory: 'Convert to PDF' },
   
@@ -134,8 +135,9 @@ export const tools: Tool[] = [
   { name: 'PDF Image Alt-Text Presence Checker', slug: 'alt-text-presence-checker', icon: inferIcon("PDF Image Alt-Text Presence Checker", "alt-text-presence-checker"), description: 'Free, private, and secure PDF tool.',  status: "live", category: "pdf", subCategory: 'OCR & Text' },{ name: 'Text Density Map', slug: 'text-density-map', icon: inferIcon("Text Density Map", "text-density-map"), description: 'Map text density per page',  status: "live", category: "pdf", subCategory: 'OCR & Text' },
   
 
-  // ============ EDIT PDF (19) ============
-  { name: "Add Images", slug: "add-image", icon: inferIcon("Add Images", "add-image"), description: "Place images onto PDF pages",  status: "live", category: "pdf", subCategory: 'Edit PDF' },
+ // ============ EDIT PDF (19) ============
+ { name: 'Add Text', slug: 'add-text', icon: inferIcon("Add Text", "add-text"), description: 'Insert text anywhere on the PDF',  status: "live", category: "pdf", subCategory: 'Edit PDF' },
+ { name: "Add Images", slug: "add-image", icon: inferIcon("Add Images", "add-image"), description: "Place images onto PDF pages",  status: "live", category: "pdf", subCategory: 'Edit PDF' },
   { name: "Add Shapes", slug: "add-shapes", icon: inferIcon("Add Shapes", "add-shapes"), description: "Draw rectangles, circles and lines",  status: "live", category: "pdf", subCategory: 'Edit PDF' },
   { name: "Draw on PDF", slug: "draw-on-pdf", icon: inferIcon("Draw on PDF", "draw-on-pdf"), description: "Free-draw on top of a PDF",  status: "live", category: "pdf", subCategory: 'Edit PDF' },
   { name: "Highlight Text", slug: "highlight-text", icon: inferIcon("Highlight Text", "highlight-text"), description: "Highlight passages in your PDF",  status: "live", category: "pdf", subCategory: 'Edit PDF' },
@@ -178,13 +180,15 @@ export const tools: Tool[] = [
 
   // ============ INFO & INSPECTION (28) ============
   { name: 'PDF File Information', slug: 'file-info', icon: inferIcon("PDF File Information", "file-info"), description: 'Free, private, and secure PDF tool.',  status: "live", category: "pdf", subCategory: 'Info & Inspection' },
-  { name: 'PDF Metadata Viewer', slug: 'view-metadata', icon: inferIcon("PDF Metadata Viewer", "view-metadata"), description: 'Free, private, and secure PDF tool.',  status: "live", category: "pdf", subCategory: 'Info & Inspection' },
-  { name: 'Extract Tables', slug: 'extract-tables', icon: inferIcon("Extract Tables", "extract-tables"), description: 'Extract tables to CSV',  status: "live", category: "pdf", subCategory: 'Info & Inspection' },
-  { name: 'PDF Link Extractor', slug: 'extract-links', icon: inferIcon("PDF Link Extractor", "extract-links"), description: 'Free, private, and secure PDF tool.',  status: "live", category: "pdf", subCategory: 'Info & Inspection' },
+   { name: 'PDF Metadata Viewer', slug: 'view-metadata', icon: inferIcon("PDF Metadata Viewer", "view-metadata"), description: 'Free, private, and secure PDF tool.',  status: "live", category: "pdf", subCategory: 'Info & Inspection' },
+   { name: 'Extract Tables', slug: 'extract-tables', icon: inferIcon("Extract Tables", "extract-tables"), description: 'Extract tables to CSV',  status: "live", category: "pdf", subCategory: 'Info & Inspection' },
+   { name: 'PDF Certificate Inspector', slug: 'certificate-inspector', icon: inferIcon("PDF Certificate Inspector", "certificate-inspector"), description: 'Inspect digital certificates in a PDF',  status: "soon", category: "pdf", subCategory: 'Info & Inspection' },
+   { name: 'PDF Link Extractor', slug: 'extract-links', icon: inferIcon("PDF Link Extractor", "extract-links"), description: 'Free, private, and secure PDF tool.',  status: "live", category: "pdf", subCategory: 'Info & Inspection' },
   { name: 'Detect Duplicates', slug: 'detect-duplicates', icon: inferIcon("Detect Duplicates", "detect-duplicates"), description: 'Detect duplicate pages',  status: "live", category: "pdf", subCategory: 'Info & Inspection' },
   { name: 'Image Count', slug: 'image-count', icon: inferIcon("Image Count", "image-count"), description: 'Count embedded images',  status: "live", category: "pdf", subCategory: 'Info & Inspection' },
   { name: 'Language Detector', slug: 'language-detector', icon: inferIcon("Language Detector", "language-detector"), description: 'Detect document language',  status: "live", category: "pdf", subCategory: 'Info & Inspection' },
   { name: "PDF Attachment Viewer", slug: "attachment-viewer", icon: inferIcon("PDF Attachment Viewer", "attachment-viewer"), description: "View files attached to a PDF",  status: "live", category: "pdf", subCategory: 'Info & Inspection' },
+  { name: 'PDF Viewer', slug: 'viewer', icon: inferIcon("PDF Viewer", "viewer"), description: 'Free, private, and secure PDF tool.',  status: "soon", category: "pdf", subCategory: 'Info & Inspection' },
   { name: 'PDF Citation/Reference Extractor', slug: 'extract-citations', icon: inferIcon("PDF Citation/Reference Extractor", "extract-citations"), description: 'Free, private, and secure PDF tool.',  status: "live", category: "pdf", subCategory: 'Info & Inspection' },
   { name: 'PDF Color Space Detector', slug: 'color-space-detector', icon: inferIcon("PDF Color Space Detector", "color-space-detector"), description: 'Free, private, and secure PDF tool.',  status: "live", category: "pdf", subCategory: 'Info & Inspection' },
   { name: 'PDF Color-Blindness Simulation Preview', slug: 'colorblind-preview', icon: inferIcon("PDF Color-Blindness Simulation Preview", "colorblind-preview"), description: 'Free, private, and secure PDF tool.',  status: "live", category: "pdf", subCategory: 'Info & Inspection' },{ name: 'PDF Continuous Scroll Viewer', slug: 'continuous-scroll-viewer', icon: inferIcon("PDF Continuous Scroll Viewer", "continuous-scroll-viewer"), description: 'Free, private, and secure PDF tool.',  status: "live", category: "pdf", subCategory: 'Info & Inspection' },
@@ -248,10 +252,11 @@ export const tools: Tool[] = [
 
   // ============ PRINT & LAYOUT (3) ============
   { name: 'PDF Booklet Maker', slug: 'booklet-maker', icon: inferIcon("PDF Booklet Maker", "booklet-maker"), description: 'Free, private, and secure PDF tool.',  status: "live", category: "pdf", subCategory: 'Print & Layout' },
-  { name: 'PDF N-Up Layout Tool', slug: 'n-up-layout', icon: inferIcon("PDF N-Up Layout Tool", "n-up-layout"), description: 'Free, private, and secure PDF tool.',  status: "live", category: "pdf", subCategory: 'Print & Layout' },{ name: "Print Margin Adjuster", slug: "print-margin-adjuster", icon: inferIcon("Print Margin Adjuster", "print-margin-adjuster"), description: "Adjust margins before printing",  status: "live", category: "pdf", subCategory: 'Print & Layout' },
-  
+   { name: 'PDF N-Up Layout Tool', slug: 'n-up-layout', icon: inferIcon("PDF N-Up Layout Tool", "n-up-layout"), description: 'Free, private, and secure PDF tool.',  status: "live", category: "pdf", subCategory: 'Print & Layout' },{ name: "Print Margin Adjuster", slug: "print-margin-adjuster", icon: inferIcon("Print Margin Adjuster", "print-margin-adjuster"), description: "Adjust margins before printing",  status: "live", category: "pdf", subCategory: 'Print & Layout' },
+   { name: 'Imposition Layout', slug: 'imposition-layout', icon: inferIcon("Imposition Layout", "imposition-layout"), description: 'Arrange pages for professional printing',  status: "soon", category: "pdf", subCategory: 'Print & Layout' },
+ 
 
-  // ============ UTILITIES (51) ============
+   // ============ UTILITIES (51) ============
   { name: 'PDF Diff Viewer', slug: 'pdf-diff', icon: inferIcon("PDF Diff Viewer", "pdf-diff"), description: 'Compare two PDFs',  status: "live", category: "pdf", subCategory: 'Utilities',
     inputs: [{ type: 'file', key: 'secondPdf', label: 'Second PDF to compare', accept: 'application/pdf' }] },
   { name: 'Replace Image', slug: 'replace-image', icon: inferIcon("Replace Image", "replace-image"), description: 'Replace an embedded image',  status: "live", category: "pdf", subCategory: 'Utilities',
@@ -328,3 +333,16 @@ export const tools: Tool[] = [
   ];
 
 export const categories = Array.from(new Set(tools.map((t) => (t as any).category)));
+
+// ── Search registry (per-domain SEARCH_REGISTRY pattern) ──────────────
+import type { ToolResult } from "@/components/CategorySearch";
+
+export const SEARCH_REGISTRY: ToolResult[] = tools.map((tool) => ({
+  name: tool.name,
+  description: tool.description,
+  slug: tool.slug,
+  href: `/pdf/${tool.slug}`,
+  category: tool.category,
+  subcategory: tool.subCategory,
+  isBuilt: tool.status === "live",
+}));

@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ChevronRight, Construction, Sparkles } from "lucide-react";
-import { CATEGORY_ORDER, TOOLS, TOOL_BY_SLUG } from "@/data/video/tools";
+import { CATEGORY_ORDER, TOOLS, TOOL_BY_SLUG } from "@/domains/video/registry";
 import { toSlug } from "@/lib/utils/slug";
 import { inferIcon } from "@/components/shared/icon-map";
 import Header from "@/components/Header";

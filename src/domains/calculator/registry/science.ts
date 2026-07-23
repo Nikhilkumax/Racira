@@ -324,7 +324,7 @@ export const scienceCalculators: CalculatorDef[] = [
   {
     slug: "molar-mass-calculator", name: "Molar Mass Calculator", description: "A free molar mass calculator to easily calculate your results.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, status: "live" },
   {
-    slug: "avogadros-number-calculator", name: "Avogadros Number Calculator", description: "A free avogadros number calculator to easily calculate your results.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, status: "live" },
+    slug: "avogadros-number-calculator", name: "Avogadros Number Calculator", description: "A free avogadros number calculator to easily calculate your results.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, status: "live", isBuilt: true },
   {
     slug: "freezing-point-depression-calculator", name: "Freezing Point Depression Calculator", description: "A free freezing point depression calculator to easily calculate your results.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, status: "live" },
   { slug: "specific-gravity-calculator", name: "Specific Gravity Calculator", description: "Calculate specific gravity calculator online with our free tool.", category: "SCIENCE", subcategory: "Chemistry", tier: "Tier3", priorityScore: 28, status: "soon" },
@@ -923,7 +923,7 @@ export const scienceCalculators: CalculatorDef[] = [
   {
     slug: "decibel-calculator", name: "Decibel Calculator", description: "Convert between decibels and power or intensity ratios.", category: "SCIENCE", subcategory: "Earth Science & Geology", tier: "Tier3", priorityScore: 28, status: "live" },
   {
-    slug: "barometric-pressure-calculator", name: "Barometric Pressure Calculator", description: "Calculate atmospheric pressure at different altitudes above sea level.", category: "SCIENCE", subcategory: "Earth Science & Geology", tier: "Tier3", priorityScore: 28, status: "live" },
+    slug: "barometric-pressure-calculator", name: "Barometric Pressure Calculator", description: "Calculate atmospheric pressure at different altitudes above sea level.", category: "SCIENCE", subcategory: "Earth Science & Geology", tier: "Tier3", priorityScore: 28, status: "live", isBuilt: true },
   {
     slug: "btu-calculator", name: "BTU Calculator", description: "Calculate BTU requirements for heating and cooling spaces.", category: "SCIENCE", subcategory: "Earth, Atmosphere & Geography", tier: "Tier3", priorityScore: 28, status: "live" },
   {

@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { Search } from "lucide-react";
-import { CATEGORIES, TOTAL_TOOLS } from "@/data/voice/tools";
+import { CATEGORIES, TOTAL_TOOLS } from "@/domains/voice/registry";
 import { CategorySection } from "@/components/shared/CategorySection";
 
 export function VoiceToolGrid() {
@@ -41,7 +41,7 @@ export function VoiceToolGrid() {
         <CategorySection
           key={cat.name}
           section={{ title: cat.name, tools: cat.tools as any }}
-          basePath="/voice/tools"
+          basePath="/voice"
         />
       ))}
 

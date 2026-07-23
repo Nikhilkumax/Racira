@@ -78,6 +78,7 @@ function ToolView({ tool }: { tool: ReturnType<typeof getTool> }) {
   if (!tool) return null;
   const Icon = (tool as any).icon || Wrench;
   const categorySlug = slugify(tool.category);
+  const Cmp = (tool as any).component;
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Header mode="category" categoryName="Crypto" />
@@ -97,9 +98,9 @@ function ToolView({ tool }: { tool: ReturnType<typeof getTool> }) {
             <h1 className="mt-1 text-3xl font-bold tracking-tight">{tool.name}</h1>
             <p className="mt-2 text-muted-foreground">{tool.desc}</p>
           </div>
-          {tool.status === "live" ? (
+          {tool.status === "live" && Cmp ? (
             <div className="mt-10 rounded-xl border border-border bg-card p-4 sm:p-6 min-h-[400px]">
-              <div className="flex h-full items-center justify-center text-muted-foreground">Tool canvas loaded.</div>
+              {React.createElement(Cmp)}
             </div>
           ) : (
             <div className="mt-10 rounded-2xl border border-dashed border-primary/30 bg-primary/10 p-10 text-center">

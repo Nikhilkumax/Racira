@@ -22,13 +22,13 @@ import * as mod_18 from '@/domains/security/registry';
 import * as mod_19 from '@/domains/seo/registry';
 import * as mod_20 from '@/domains/travel/registry';
 import * as mod_21 from '@/domains/writing/registry';
-import * as mod_22 from '@/data/developers/tools';
-import * as mod_23 from '@/data/games/games';
-import * as mod_24 from '@/data/presentation/tools';
-import * as mod_25 from '@/data/productivity/tools';
-import * as mod_26 from '@/data/typography/tools';
-import * as mod_27 from '@/data/video/tools';
-import * as mod_28 from '@/data/voice/tools';
+import * as mod_22 from '@/domains/developers/registry';
+import * as mod_23 from '@/domains/games/registry';
+import * as mod_24 from '@/domains/presentation/registry';
+import * as mod_25 from '@/domains/productivity/registry';
+import * as mod_26 from '@/domains/typography/registry';
+import * as mod_27 from '@/domains/video/registry';
+import * as mod_28 from '@/domains/voice/registry';
 
 
 export async function GET() {

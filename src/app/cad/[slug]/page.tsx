@@ -143,11 +143,9 @@ function ToolView({ tool, category }: { tool: any, category: typeof categories[0
             <p className="mt-2 text-muted-foreground">{tool.description}</p>
           </div>
 
-          {tool.status === "live" ? (
+          {tool.status === "live" && tool.component ? (
             <div className="mt-10 rounded-xl border border-border bg-card p-4 sm:p-6 min-h-[400px]">
-              <div className="flex h-full items-center justify-center text-muted-foreground">
-                Tool canvas loaded.
-              </div>
+              {React.createElement(tool.component)}
             </div>
           ) : (
             <div className="mt-10 rounded-2xl border border-dashed border-primary/30 bg-primary/10 p-10 text-center">

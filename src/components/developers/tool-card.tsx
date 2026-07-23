@@ -1,6 +1,6 @@
 import Link from "next/link";
-import type { Tool } from "@/data/developers/tools";
-import { categorySlug } from "@/data/developers/tools";
+import type { Tool } from "@/domains/developers/registry";
+import { categorySlug } from "@/domains/developers/registry";
 
 import { StatusBadge } from "@/components/shared/StatusBadge";
 
@@ -8,7 +8,7 @@ export function ToolCard({ tool }: { tool: Tool }) {
   const Icon = tool.icon;
   return (
     <Link
-      href={`/developers/tools/${categorySlug(tool.category)}/${tool.slug}`}
+      href={`/developers/${tool.slug}`}
       className="tool-card group"
     >
       <StatusBadge status={tool.status} />

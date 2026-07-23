@@ -361,7 +361,7 @@ export const tools: Tool[] = Object.entries(groups).flatMap(([category, items]) 
       description,
       icon,
       category,
-      status: built.has(slug) ? "live" : "soon",
+      status: "soon",
     };
   })
 );
@@ -388,7 +388,7 @@ export const SEARCH_REGISTRY: ToolResult[] = tools.map((t) => ({
   name: t.name,
   description: t.description,
   slug: t.slug,
-  href: `/developers/tools/${categorySlug(t.category)}/${t.slug}`,
+  href: `/developers/${t.slug}`,
   category: t.category,
   isBuilt: t.status === "live",
 }));

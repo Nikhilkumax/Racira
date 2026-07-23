@@ -2,19 +2,12 @@ import { ToolResult } from "@/components/CategorySearch";
 
 import { Tool, SubcategorySection } from "@/domains/_types";
 import { inferIcon } from "@/components/shared/icon-map";
-
-const slug = (s: string) =>
-  s
-    .toLowerCase()
-    .replace(/&/g, "and")
-    .replace(/\//g, "-")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-|-$/g, "");
+import { toSlug } from "@/lib/utils/slug";
 
 export const ACTIVE_SLUG = "basic-flowchart-builder";
 
 const mk = (name: string, description: string): Tool => {
-  const generatedSlug = slug(name);
+  const generatedSlug = toSlug(name);
   return {
     name,
     slug: generatedSlug,

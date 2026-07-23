@@ -5,7 +5,7 @@ import { SubcategoryCard } from "@/components/shared/SubcategoryCard";
 import {
   getCategories,
   SEARCH_REGISTRY,
-} from "@/data/games/games";
+} from "@/domains/games/registry";
 
 export const metadata: Metadata = {
   title: "All Games — Racira",
@@ -85,7 +85,7 @@ export default function GamesPage() {
                       title={sub.name}
                       icon={Icon}
                       count={sub.games.length}
-                      basePath={`/games/${catSlug}/${subSlug}`}
+                      basePath={`/games/${subSlug}`}
                       label="games"
                     />
                   );

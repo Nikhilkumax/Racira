@@ -1,5 +1,6 @@
 import { Activity, ActivitySquare, AlertTriangle, AlignHorizontalSpaceAround, AlignVerticalSpaceAround, AlignVerticalSpaceBetween, Aperture, Asterisk, Bandage, BarChart3, Baseline, Blend, BookImage, BookOpen, Box, Brush, CalendarDays, Camera, Circle, CircleDot, ClipboardList, CloudFog, Copy, CopyPlus, Copyright, Crop, Cylinder, DownloadCloud, Eraser, Eye, FileCheck, FileCode2, FileImage, FileSignature, FileText, Film, Filter, Fingerprint, FlaskConical, FlipVertical, Frame, GitCompare, Grid, Grid2x2, Grid3x3, HelpCircle, Hexagon, Infinity, Info, Layers, Layers3, LayoutDashboard, LayoutGrid, Lightbulb, LightbulbOff, ListOrdered, Map, MapPin, MapPinOff, Maximize, Maximize2, MonitorDot, Moon, MoonStar, Mountain, MoveDownRight, MoveHorizontal, Orbit, PaintRoller, Palette, Pencil, Percent, PictureInPicture, Printer, Projector, RectangleHorizontal, RefreshCcw, Ruler, Scale, Scaling, Scan, ScanFace, Scissors, ScissorsSquare, ScrollText, Search, Shell, ShieldCheck, Shuffle, SlidersHorizontal, Sparkle, Sparkles, Spline, SplitSquareHorizontal, SplitSquareVertical, Stamp, Star, StarHalf, Sun, SunDim, Sunrise, Sunset, Tags, Target, TextCursorInput, Thermometer, TrendingUp, UserCheck, Users, VenetianMask, Wand2, Weight, Wind, Zap, ZoomIn } from "lucide-react";
 import { ToolResult } from "@/components/CategorySearch";
+import { toSlug } from "@/lib/utils/slug";
 
 export type ToolCategory = {
   slug: string;
@@ -15,18 +16,11 @@ export type Tool = {
   built?: boolean;
 };
 
-const slugify = (s: string) =>
-  s
-    .toLowerCase()
-    .replace(/&/g, "and")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-|-$/g, "");
-
 const cat = (name: string, description: string, items: Array<[string, string, any, boolean?]>): ToolCategory => ({
-  slug: slugify(name),
+  slug: toSlug(name),
   name,
   description,
-  tools: items.map(([n, d, icon, built]) => ({ slug: slugify(n), name: n, description: d, icon, status: built ? "live" : "soon" })),
+  tools: items.map(([n, d, icon, built]) => ({ slug: toSlug(n), name: n, description: d, icon, status: built ? "live" : "soon" })),
 });
 
 export const CATEGORIES: ToolCategory[] = [

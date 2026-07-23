@@ -1,121 +1,348 @@
 "use client";
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import InputField from "@/domains/calculator/components/ui/InputField";
-import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
+import PopularCalculators from "@/components/PopularCalculators";
 import { RotateCcw } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Cell } from "recharts";
 
-type Shape = "rectangle" | "circle" | "triangle" | "trapezoid" | "ellipse";
+type Shape = "rectangle" | "circle" | "triangle" | "square" | "regularPolygon" | "trapezoid";
+type Unit = "sqft" | "sqm" | "acre" | "hectare";
 
-const AreaCalculator = () => {
-  const [shape, setShape] = useState<Shape>("rectangle");
-  const [a, setA] = useState(""); const [b, setB] = useState(""); const [c, setC] = useState("");
-  const [showResults, setShowResults] = useState(false);
-  const [result, setResult] = useState<{ area: number; perimeter: number; formula: string } | null>(null);
+interface AreaInputs {
+  shape: Shape;
+  length: string;
+  width: string;
+  unit: Unit;
+  radius: string;
+  triangleBase: string;
+  triangleHeight: string;
+  sides: string;
+  apothem: string;
+  precision: string;
+}
 
-  const handleCalculate = () => {
-    setShowResults(true);
-    const x = parseFloat(a) || 0, y = parseFloat(b) || 0, z = parseFloat(c) || 0;
-    let area = 0, perimeter = 0, formula = "";
-    if (shape === "rectangle") { area = x * y; perimeter = 2 * (x + y); formula = "A = l × w"; }
-    else if (shape === "circle") { area = Math.PI * x * x; perimeter = 2 * Math.PI * x; formula = "A = πr²"; }
-    else if (shape === "triangle") { area = 0.5 * x * y; perimeter = x + y + (z || Math.sqrt(x * x + y * y)); formula = "A = ½ × b × h"; }
-    else if (shape === "trapezoid") { area = 0.5 * (x + y) * z; perimeter = x + y + 2 * z; formula = "A = ½(a+b) × h"; }
-    else if (shape === "ellipse") { area = Math.PI * x * y; perimeter = Math.PI * (3 * (x + y) - Math.sqrt((3 * x + y) * (x + 3 * y))); formula = "A = πab"; }
-    setResult({ area, perimeter, formula });
-  };
+interface AreaResult {
+  area: number;
+  formula: string;
+  sqft: number;
+  sqm: number;
+  acre: number;
+  hectare: number;
+  breakdown: { label: string; value: string }[];
+  summaryStats: { label: string; value: string }[];
+  chartData: { unit: string; value: number; fill: string }[];
+}
 
-  const reset = () => {
-    setShowResults(false); setA(""); setB(""); setC(""); setResult(null); };
+const SHAPES: { key: Shape; label: string }[] = [
+  { key: "rectangle", label: "Rectangle" },
+  { key: "circle", label: "Circle" },
+  { key: "triangle", label: "Triangle" },
+  { key: "square", label: "Square" },
+  { key: "regularPolygon", label: "Regular Polygon" },
+  { key: "trapezoid", label: "Trapezoid" },
+];
 
-  const shapes: { key: Shape; label: string }[] = [
-    { key: "rectangle", label: "Rectangle" }, { key: "circle", label: "Circle" },
-    { key: "triangle", label: "Triangle" }, { key: "trapezoid", label: "Trapezoid" }, { key: "ellipse", label: "Ellipse" },
+const UNITS: { key: Unit; label: string }[] = [
+  { key: "sqft", label: "Square Feet" },
+  { key: "sqm", label: "Square Meters" },
+  { key: "acre", label: "Acres" },
+  { key: "hectare", label: "Hectares" },
+];
+
+const SQFT_PER: Record<Unit, number> = {
+  sqft: 1,
+  sqm: 10.7639,
+  acre: 43560,
+  hectare: 107639,
+};
+
+function num(v: string): number {
+  const n = parseFloat(v);
+  return Number.isFinite(n) ? n : 0;
+}
+
+function calcArea(inputs: AreaInputs): AreaResult {
+  const precision = Math.max(0, Math.min(10, Math.floor(num(inputs.precision)) || 2));
+  const length = num(inputs.length);
+  const width = num(inputs.width);
+  const radius = num(inputs.radius);
+  const base = num(inputs.triangleBase);
+  const height = num(inputs.triangleHeight);
+  const sides = Math.max(3, Math.round(num(inputs.sides)) || 3);
+  const apothem = num(inputs.apothem);
+  const inputUnit: Unit = inputs.unit || "sqft";
+
+  let area = 0;
+  let formula = "";
+
+  switch (inputs.shape) {
+    case "rectangle":
+      area = length * width;
+      formula = "Area = Length × Width";
+      break;
+    case "circle":
+      area = Math.PI * radius * radius;
+      formula = "Area = π × radius²";
+      break;
+    case "triangle":
+      area = 0.5 * base * height;
+      formula = "Area = ½ × base × height";
+      break;
+    case "square":
+      area = length * length;
+      formula = "Area = side²";
+      break;
+    case "regularPolygon":
+      area = 0.5 * sides * length * apothem;
+      formula = "Area = ½ × n × side × apothem";
+      break;
+    case "trapezoid":
+      area = 0.5 * (length + width) * height;
+      formula = "Area = ½ × (base₁ + base₂) × height";
+      break;
+    default:
+      area = 0;
+      formula = "Area = shape-specific formula";
+  }
+
+  const areaSqft = area * SQFT_PER[inputUnit];
+
+  const sqft = areaSqft;
+  const sqm = areaSqft / 10.7639;
+  const acre = areaSqft / 43560;
+  const hectare = areaSqft / 107639;
+
+  const r = (n: number) => parseFloat(n.toFixed(precision));
+
+  const breakdown = [
+    { label: "Shape", value: SHAPES.find((s) => s.key === inputs.shape)?.label ?? "" },
+    { label: "Input Unit", value: UNITS.find((u) => u.key === inputUnit)?.label ?? "" },
+    { label: "Primary Area", value: `${r(area)} ${inputUnit}` },
+    { label: "Square Feet", value: `${r(sqft)} sq ft` },
+    { label: "Square Meters", value: `${r(sqm)} m²` },
+    { label: "Acres", value: `${r(acre)} ac` },
+    { label: "Hectares", value: `${r(hectare)} ha` },
   ];
 
+  const summaryStats = [
+    { label: "Formula", value: formula.replace("Area = ", "") },
+    { label: "Primary Unit", value: `${r(area)} ${inputUnit}` },
+    { label: "Square Feet", value: `${r(sqft)}` },
+    { label: "Square Meters", value: `${r(sqm)}` },
+    { label: "Acres", value: `${r(acre)}` },
+    { label: "Hectares", value: `${r(hectare)}` },
+  ];
+
+  const chartData = [
+    { unit: "sq ft", value: r(sqft), fill: "#3b82f6" },
+    { unit: "sq m", value: r(sqm), fill: "#10b981" },
+    { unit: "acre", value: r(acre), fill: "#f59e0b" },
+    { unit: "hectare", value: r(hectare), fill: "#8b5cf6" },
+  ];
+
+  return {
+    area: r(area),
+    formula,
+    sqft: r(sqft),
+    sqm: r(sqm),
+    acre: r(acre),
+    hectare: r(hectare),
+    breakdown,
+    summaryStats,
+    chartData,
+  };
+}
+
+const DEFAULTS: AreaInputs = {
+  shape: "rectangle",
+  length: "50",
+  width: "30",
+  unit: "sqft",
+  radius: "10",
+  triangleBase: "20",
+  triangleHeight: "15",
+  sides: "4",
+  apothem: "5",
+  precision: "2",
+};
+
+export default function AreaCalculator() {
+  const [inputs, setInputs] = useState<AreaInputs>(DEFAULTS);
+  const [result, setResult] = useState<AreaResult>(calcArea(DEFAULTS));
+  const [showAdv, setShowAdv] = useState(false);
+
+  useEffect(() => {
+    setResult(calcArea(inputs));
+  }, []);
+
+  const calculate = () => setResult(calcArea(inputs));
+  const reset = () => {
+    setInputs(DEFAULTS);
+    setResult(calcArea(DEFAULTS));
+  };
+
+  const update = (patch: Partial<AreaInputs>) => setInputs((prev) => ({ ...prev, ...patch }));
+
+  const inp = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
+  const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground";
+
   const faqs = [
-    { question: "What is area?", answer: "Area is the amount of space enclosed within a 2D shape, measured in square units (e.g., m², ft²)." },
-    { question: "How do I calculate the area of an irregular shape?", answer: "Break it into regular shapes, calculate each area, then sum them. Alternatively, use the coordinate geometry method or integration." },
+    { question: "Which formula is used for each shape?", answer: "Rectangle = L × W, Circle = π × r², Triangle = ½ × base × height, Square = side², Regular Polygon = ½ × n × side × apothem, Trapezoid = ½ × (base₁ + base₂) × height." },
+    { question: "How are the different units calculated?", answer: "The primary area is converted using fixed factors: 1 sq ft = 0.092903 sq m, 1 acre = 43,560 sq ft, and 1 hectare = 107,639 sq ft." },
+    { question: "What can I use area calculations for?", answer: "Areas are used for flooring, painting, landscaping, land valuation, and material estimation. Multiply the area by cost or coverage per unit to plan a project." },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Area Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Math", href: "/calculator#math" }, { label: "Area Calculator" }]} />
       <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Area Calculator</h1>
-
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Area Calculator</h1>
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="flex flex-wrap gap-2 mb-6">
-                {shapes.map(s => (
-                  <button key={s.key} onClick={() => { setShape(s.key); reset(); }} className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${shape === s.key ? "bg-accent text-accent-foreground" : "bg-secondary text-muted-foreground"}`}>{s.label}</button>
+          <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="text-sm font-medium mb-1 block">Shape</label>
+                <div className={inp}>
+                  <select value={inputs.shape} onChange={e => update({ shape: e.target.value as Shape })} className={ci}>
+                    {SHAPES.map(s => <option key={s.key} value={s.key}>{s.label}</option>)}
+                  </select>
+                </div>
+              </div>
+              <div>
+                <label className="text-sm font-medium mb-1 block">Unit</label>
+                <div className={inp}>
+                  <select value={inputs.unit} onChange={e => update({ unit: e.target.value as Unit })} className={ci}>
+                    {UNITS.map(u => <option key={u.key} value={u.key}>{u.label}</option>)}
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="text-sm font-medium mb-1 block">Length / Side</label>
+                <div className={inp}><input type="number" value={inputs.length} onChange={e => update({ length: e.target.value })} className={ci} /></div>
+              </div>
+              <div>
+                <label className="text-sm font-medium mb-1 block">Width</label>
+                <div className={inp}><input type="number" value={inputs.width} onChange={e => update({ width: e.target.value })} className={ci} /></div>
+              </div>
+            </div>
+            <button onClick={() => setShowAdv(!showAdv)} className="text-sm text-primary font-medium text-left">
+              Advanced Options {showAdv ? "▲" : "▼"}
+            </button>
+            {showAdv && (
+              <div className="border border-border rounded-lg p-4 space-y-4">
+                <div>
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Shape-Specific</div>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <label className="text-sm font-medium mb-1 block">Radius</label>
+                      <div className={inp}><input type="number" value={inputs.radius} onChange={e => update({ radius: e.target.value })} className={ci} /></div>
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium mb-1 block">Base</label>
+                      <div className={inp}><input type="number" value={inputs.triangleBase} onChange={e => update({ triangleBase: e.target.value })} className={ci} /></div>
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium mb-1 block">Height</label>
+                      <div className={inp}><input type="number" value={inputs.triangleHeight} onChange={e => update({ triangleHeight: e.target.value })} className={ci} /></div>
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium mb-1 block">Sides</label>
+                      <div className={inp}><input type="number" value={inputs.sides} onChange={e => update({ sides: e.target.value })} min={3} className={ci} /></div>
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium mb-1 block">Apothem</label>
+                      <div className={inp}><input type="number" value={inputs.apothem} onChange={e => update({ apothem: e.target.value })} className={ci} /></div>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Unit Conversion</div>
+                  <div>
+                    <label className="text-sm font-medium mb-1 block">Precision (decimal places)</label>
+                    <div className={inp}><input type="number" value={inputs.precision} onChange={e => update({ precision: e.target.value })} min={0} max={10} className={ci} /></div>
+                  </div>
+                </div>
+              </div>
+            )}
+            <div className="flex gap-3 mt-1">
+              <button onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm">Calculate</button>
+              <button onClick={reset} className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center"><RotateCcw className="h-4 w-4" /></button>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-4">
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+              <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Calculated Area</div>
+              <div className="text-4xl font-extrabold tracking-tight text-primary">{result.area} {inputs.unit}</div>
+              <div className="text-sm text-muted-foreground mt-1">{result.formula}</div>
+            </div>
+            <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+              {[["sq ft", `${result.sqft}`], ["sq m", `${result.sqm}`], ["acre", `${result.acre}`]].map(([l, v], i) => (
+                <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                  <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                  <div className="text-base font-bold">{v}</div>
+                </div>
+              ))}
+            </div>
+            <div className="card-calculator !p-5 border border-border bg-card">
+              <h3 className="text-base font-bold mb-4">Breakdown</h3>
+              <table className="w-full text-base"><tbody>
+                {result.breakdown.map((r, i) => (
+                  <tr key={i} className={`border-b border-border/50 last:border-0 ${i === 2 ? "bg-primary/5" : ""}`}>
+                    <td className="py-2.5 px-3 text-muted-foreground">{r.label}</td>
+                    <td className="py-2.5 px-3 text-right font-semibold">{r.value}</td>
+                  </tr>
+                ))}
+              </tbody></table>
+            </div>
+            <div className="card-calculator !p-5 border border-border bg-card">
+              <h3 className="text-base font-bold mb-4">Area in Different Units</h3>
+              <ResponsiveContainer width="100%" height={220}>
+                <BarChart data={result.chartData} margin={{ top: 5, right: 10, left: 10, bottom: 5 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+                  <XAxis dataKey="unit" tick={{ fontSize: 11 }} />
+                  <YAxis tick={{ fontSize: 10 }} />
+                  <Tooltip formatter={(v: number) => [v, "Area"]} />
+                  <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+                    {result.chartData.map((entry, i) => <Cell key={i} fill={entry.fill} />)}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+            <div className="bg-muted/30 rounded-lg p-5">
+              <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
+              <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                {result.summaryStats.map((s, i) => (
+                  <div key={i} className="flex justify-between"><span className="text-muted-foreground">{s.label}:</span><span className="font-semibold">{s.value}</span></div>
                 ))}
               </div>
-
-              <div className="grid sm:grid-cols-2 gap-5 mb-6">
-                {shape === "rectangle" && <><InputField id="a" label="Length" value={a} onChange={setA} /><InputField id="b" label="Width" value={b} onChange={setB} /></>}
-                {shape === "circle" && <InputField id="a" label="Radius" value={a} onChange={setA} />}
-                {shape === "triangle" && <><InputField id="a" label="Base" value={a} onChange={setA} /><InputField id="b" label="Height" value={b} onChange={setB} /></>}
-                {shape === "trapezoid" && <><InputField id="a" label="Side a" value={a} onChange={setA} /><InputField id="b" label="Side b" value={b} onChange={setB} /><InputField id="c" label="Height" value={c} onChange={setC} /></>}
-                {shape === "ellipse" && <><InputField id="a" label="Semi-major axis (a)" value={a} onChange={setA} /><InputField id="b" label="Semi-minor axis (b)" value={b} onChange={setB} /></>}
-              </div>
-
-              <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
-              </div>
-          </div>
-
-          <div className="flex flex-col gap-3">
-            {showResults && result && (
-              <>
-                <h2 className="text-2xl font-bold mb-3">Result</h2>
-                <ResultDisplay items={[
-                  { label: "Area", value: 0, textValue: result.area.toFixed(4) + " sq units" },
-                  { label: "Perimeter", value: 0, textValue: result.perimeter.toFixed(4) + " units" },
-                  { label: "Formula Used", value: 0, textValue: result.formula },
-                ]} />
-              </>
-            )}
+            </div>
           </div>
         </div>
-
         <div className="max-w-[1180px] mt-8">
-          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <section className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">Understanding Geometric Area</h2>
-            <p>In geometry, area represents the amount of two-dimensional space that a flat surface or shape occupies. It is universally measured in square units, such as square meters (m²), square feet (ft²), square inches (in²), or acres. Calculating the area of various shapes is one of the most fundamental concepts in mathematics, with countless practical applications in everyday life, construction, engineering, agriculture, and design.</p>
-            <p>Whether you are calculating how much paint you need for a bedroom wall, determining the square footage of a property you want to buy, figuring out how much fertilizer is required for a circular garden, or calculating the cross-sectional capacity of a pipe, you are using area calculations. Because the physical world is constructed from complex geometries, being able to break down irregular objects into basic mathematical shapes (like rectangles and triangles) allows you to solve almost any spatial problem.</p>
-            
-            <h2 className="text-2xl font-bold mb-3">The Mathematics of Basic Shapes</h2>
-            <p>Every standard geometric shape has a specific formula derived from its unique properties:</p>
-            <ul>
-              <li><strong>Rectangle:</strong> The simplest shape to calculate. The area is simply the product of its length and width (A = l × w). If you have a room that is 10 feet long and 12 feet wide, the area is exactly 120 square feet. A square is just a special rectangle where all sides are equal.</li>
-              <li><strong>Triangle:</strong> A triangle is mathematically exactly half of a rectangle or parallelogram. Therefore, the area is half of its base multiplied by its vertical height (A = ½bh). It is critical to use the vertical height (straight up and down at a 90-degree angle to the base), not the slanted side lengths.</li>
-              <li><strong>Circle:</strong> The area of a circle depends entirely on its radius (the distance from the center to the edge) and the mathematical constant Pi (π, approximately 3.14159). The formula is A = πr². Because the radius is squared, doubling the size of a circle actually quadruples its total area.</li>
-            </ul>
-
-            <h2 className="text-2xl font-bold mb-3">Complex Shapes: Trapezoids and Ellipses</h2>
-            <p>Moving beyond basic geometry, we encounter shapes that require slightly more complex calculations:</p>
-            <ul>
-              <li><strong>Trapezoid:</strong> A trapezoid is a four-sided shape with only one pair of parallel sides (called the bases). Its area is found by taking the average of the two parallel bases and multiplying that average by the height (A = ½(a+b)h). This shape is incredibly common in architectural roofs and land plots.</li>
-              <li><strong>Ellipse:</strong> An ellipse is an elongated circle, often called an oval. Instead of a single radius, it has a semi-major axis (the longest distance from center to edge) and a semi-minor axis (the shortest distance). Its area is calculated by multiplying these two axes together with Pi (A = πab). This formula is essential in physics and astronomy for calculating planetary orbits.</li>
-            </ul>
-            
-            <h2 className="text-2xl font-bold mb-3">Practical Applications of Area</h2>
-            <p>In the real estate and construction industries, "square footage" (which is simply the area of the floor plan) is the primary metric used to determine property value. When laying flooring, installing carpets, or calculating roof shingles, professionals must factor in a "waste percentage" (usually 10%) on top of the calculated area to account for cuts and overlaps. In manufacturing, calculating the surface area of raw materials ensures minimal waste when cutting parts from sheet metal or fabric.</p>
+          <AdPlaceholder className="mb-10" />
+          <section className="mt-12 space-y-8 text-base text-foreground">
+            <div>
+              <h2 className="text-2xl font-bold mb-3">What Is an Area Calculator?</h2>
+              <p className="text-muted-foreground leading-relaxed">An area calculator is a tool that computes the two-dimensional space enclosed by a flat shape, expressed in square units such as square feet, square meters, acres, or hectares. Each geometry has its own formula — a rectangle uses length × width, a circle uses π × radius², a triangle uses ½ × base × height, a square uses side², a regular polygon uses ½ × n × side × apothem, and a trapezoid uses ½ × (base₁ + base₂) × height. Because real spaces are rarely perfectly regular, you can split an irregular room or plot into rectangles and triangles, calculate each area, and add them together. The advanced options let you enter shape-specific dimensions and set the output precision so every conversion is rounded consistently. Unit conversion factors are fixed and verifiable: 1 sq ft = 0.092903 sq m, 1 acre = 43,560 sq ft, and 1 hectare = 107,639 sq ft.</p>
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold mb-3">Using Area for Flooring, Painting & Landscaping</h2>
+              <p className="text-muted-foreground leading-relaxed">Once you know the area, you can plan almost any home or outdoor project. For flooring, multiply the room area by the cost per square foot of tile, wood, or carpet, then add a 10% waste allowance for cuts and mistakes. For painting, divide the wall area by the coverage stated on the can (typically 350–400 sq ft per gallon) to find how many gallons you need. Landscaping works the same way: a circular garden bed's area (πr²) tells you how much mulch, sod, or seed to buy, while a rectangular lawn area guides fertilizer and irrigation planning. When your measurement is in square meters but your supplier quotes per square foot, the built-in unit converter keeps estimates accurate. Estimating by area instead of guesswork prevents overspending and mid-project trips to the store, so always calculate the area before ordering materials.</p>
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
+              <p className="text-muted-foreground leading-relaxed">The primary result card shows your calculated area in the unit you selected, alongside the exact formula used. The three-stat bar gives a fast read on square feet, square meters, and acres, while the breakdown table lists every conversion including hectares. The bar chart visualizes the same area across all four units so you can compare magnitudes at a glance — note that acres and hectares compress very large areas into small, readable numbers. Summary statistics recap the formula and all unit values for quick reference. To avoid errors, the calculator treats empty, zero, or negative inputs as zero rather than producing NaN, so the outputs remain stable even with incomplete fields. Adjust precision in Advanced Options to control decimal places, and use Reset to restore the default rectangle (50 × 30 sq ft) example whenever you start a new estimate.</p>
+            </div>
           </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/area-calculator" />
-          <PopularCalculators exclude="/area-calculator" />
+          <PopularCalculators exclude="/calculator/area-calculator" />
         </div>
       </div>
     </>
   );
-};
-
-export default AreaCalculator;
-
-
+}

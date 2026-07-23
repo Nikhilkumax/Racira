@@ -177,6 +177,18 @@ const ArmyBodyFatCalculator = () => {
                   {result.passesStandard ? `✓ Meets Army Standard (max ${result.armyMax}% for age ${result.ageGroup})` : `✗ Exceeds Army Standard (max ${result.armyMax}% for age ${result.ageGroup})`}
                 </div>
               </div>
+              <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+                {[
+                  { label: "Body Fat %", value: `${fmt(result.bf, 1)}%`, color: result.rating.color },
+                  { label: "Lean Mass", value: `${fmt(result.leanMass, 1)}%`, color: "#10b981" },
+                  { label: "Army Max", value: `${result.armyMax}%`, color: result.passesStandard ? "#10b981" : "#ef4444" },
+                ].map((stat, i) => (
+                  <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                    <div className="text-xs font-bold text-muted-foreground mb-1 uppercase tracking-wider">{stat.label}</div>
+                    <div className="text-lg font-bold" style={{ color: stat.color }}>{stat.value}</div>
+                  </div>
+                ))}
+              </div>
               <div className="card-calculator !p-4 border border-border bg-card">
                 <h3 className="text-base font-semibold mb-3">Detailed Results</h3>
                 <table className="w-full text-base"><tbody>

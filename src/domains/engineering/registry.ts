@@ -1,4 +1,5 @@
 import { ToolResult } from "@/components/CategorySearch";
+import { toSlug } from "@/lib/utils/slug";
 
 export type Category = {
   id: string;
@@ -37,11 +38,8 @@ const t = (
   icon: string,
   built = false,
 ): Tool => ({
-  slug: name
-    .toLowerCase()
-    .replace(/&/g, "and")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)/g, ""),
+  slug: toSlug(name),
+  name,
   name,
   description,
   category,

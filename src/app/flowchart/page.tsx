@@ -29,7 +29,7 @@ export default function FlowchartHomePage() {
 
         <div className="racira-page-container mt-12 space-y-14">
           {filtered.map((cat) => (
-            <CategorySection key={cat.title} section={cat} basePath="/flowchart/tool" />
+            <CategorySection key={cat.title} section={cat} basePath="/flowchart" />
           ))}
         </div>
       </main>

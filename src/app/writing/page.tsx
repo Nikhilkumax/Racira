@@ -78,7 +78,7 @@ export default function Index() {
                 {cat.tools.map((t) => (
                   <Link
                     key={t.slug}
-                    href={`/writing/tools/${t.slug}`}
+                    href={`/writing/${t.slug}`}
                     className="tool-card group"
                   >
                     {t.status !== "live" && (

@@ -361,23 +361,18 @@ const raw: { category: string; tools: [string, string, any, boolean][] }[] = [
   },
 ];
 
-export const slugify = (s: string) =>
-  s
-    .toLowerCase()
-    .replace(/&/g, "and")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
+import { toSlug } from "@/lib/utils/slug";
 
 export const CATEGORIES: Category[] = raw.map((c) => ({
   name: c.category,
-  slug: slugify(c.category),
+  slug: toSlug(c.category),
   tools: c.tools,
 }));
 
 const seen = new Set<string>();
 export const TOOLS: Tool[] = raw.flatMap((c) =>
   c.tools.map(([name, desc, icon, isLive]) => {
-    let slug = slugify(name);
+    let slug = toSlug(name);
     while (seen.has(slug)) slug += "-2";
     seen.add(slug);
     return {
@@ -402,7 +397,7 @@ export const SEARCH_REGISTRY: ToolResult[] = TOOLS.map((tool) => ({
   name: tool.name,
   description: tool.description,
   slug: tool.slug,
-  href: `/seo/tools/${tool.slug}`,
+  href: `/seo/${tool.slug}`,
   category: tool.category,
   isBuilt: tool.status === "live",
 }));

@@ -1,64 +1,130 @@
-export type VoiceGrade = 'A' | 'B' | 'C' | 'D';
-export type VoiceLanguage = 'English (US)' | 'English (UK)' | 'Japanese' | 'Mandarin' | 'Spanish' | 'French' | 'Hindi' | 'Italian' | 'Portuguese';
+export type KokoroLangCode = 'a' | 'b' | 'j' | 'z' | 'e' | 'f' | 'h' | 'i' | 'p';
+export type VoiceGrade = 'A' | 'A-' | 'B' | 'B-' | 'C' | 'C+' | 'C-' | 'D' | 'D-' | 'D+' | 'F+';
 export type VoiceGender = 'Female' | 'Male';
 
 export interface KokoroVoice {
-  id: string; // e.g., 'af_heart'
-  name: string; // e.g., 'Heart'
-  language: VoiceLanguage;
+  id: string;
+  name: string;
+  langCode: KokoroLangCode;
+  language: string;
   gender: VoiceGender;
   grade: VoiceGrade;
   sampleText: string;
 }
 
-// Default sample texts per language (you can customize these per voice if desired)
-const SAMPLES = {
+const LANG_LABELS: Record<KokoroLangCode, string> = {
+  a: 'English (US)',
+  b: 'English (UK)',
+  j: 'Japanese',
+  z: 'Mandarin Chinese',
+  e: 'Spanish',
+  f: 'French',
+  h: 'Hindi',
+  i: 'Italian',
+  p: 'Brazilian Portuguese',
+};
+
+const SAMPLES: Record<string, string> = {
   'English (US)': "Welcome to Racira. This is a sample of my voice.",
   'English (UK)': "Welcome to Racira. This is a sample of my voice.",
   'Japanese': "Raciraへようこそ。これは私の声のサンプルです。",
-  'Mandarin': "欢迎来到 Racira。这是我声音的样本。",
+  'Mandarin Chinese': "欢迎来到 Racira。这是我声音的样本。",
   'Spanish': "Bienvenido a Racira. Esta es una muestra de mi voz.",
   'French': "Bienvenue sur Racira. Ceci est un échantillon de ma voix.",
   'Hindi': "Racira में आपका स्वागत है। यह मेरी आवाज़ का एक नमूना है।",
   'Italian': "Benvenuto in Racira. Questo è un campione della mia voce.",
-  'Portuguese': "Bem-vindo ao Racira. Esta é uma amostra da minha voz."
+  'Brazilian Portuguese': "Bem-vindo ao Racira. Esta é uma amostra da minha voz.",
 };
 
-// Initial subset of Kokoro Grade A/B English voices. 
-// The full 88-voice list can be appended here using the same structure.
+function v(
+  id: string,
+  grade: VoiceGrade,
+  langCode: KokoroLangCode,
+  gender: VoiceGender
+): KokoroVoice {
+  const language = LANG_LABELS[langCode];
+  const rawName = id.split('_')[1] ?? id;
+  return {
+    id,
+    name: rawName.charAt(0).toUpperCase() + rawName.slice(1),
+    langCode,
+    language,
+    gender,
+    grade,
+    sampleText: SAMPLES[language] ?? SAMPLES['English (US)'],
+  };
+}
+
 export const kokoroVoices: KokoroVoice[] = [
-  // American Female (Grade A/B)
-  { id: 'af_heart', name: 'Heart', language: 'English (US)', gender: 'Female', grade: 'A', sampleText: SAMPLES['English (US)'] },
-  { id: 'af_alloy', name: 'Alloy', language: 'English (US)', gender: 'Female', grade: 'A', sampleText: SAMPLES['English (US)'] },
-  { id: 'af_bella', name: 'Bella', language: 'English (US)', gender: 'Female', grade: 'A', sampleText: SAMPLES['English (US)'] },
-  { id: 'af_jessica', name: 'Jessica', language: 'English (US)', gender: 'Female', grade: 'A', sampleText: SAMPLES['English (US)'] },
-  { id: 'af_kore', name: 'Kore', language: 'English (US)', gender: 'Female', grade: 'A', sampleText: SAMPLES['English (US)'] },
-  { id: 'af_nicole', name: 'Nicole', language: 'English (US)', gender: 'Female', grade: 'A', sampleText: SAMPLES['English (US)'] },
-  { id: 'af_nova', name: 'Nova', language: 'English (US)', gender: 'Female', grade: 'A', sampleText: SAMPLES['English (US)'] },
-  { id: 'af_river', name: 'River', language: 'English (US)', gender: 'Female', grade: 'A', sampleText: SAMPLES['English (US)'] },
-  { id: 'af_sarah', name: 'Sarah', language: 'English (US)', gender: 'Female', grade: 'A', sampleText: SAMPLES['English (US)'] },
-  { id: 'af_sky', name: 'Sky', language: 'English (US)', gender: 'Female', grade: 'A', sampleText: SAMPLES['English (US)'] },
-  
-  // American Male (Grade A/B)
-  { id: 'am_adam', name: 'Adam', language: 'English (US)', gender: 'Male', grade: 'A', sampleText: SAMPLES['English (US)'] },
-  { id: 'am_echo', name: 'Echo', language: 'English (US)', gender: 'Male', grade: 'A', sampleText: SAMPLES['English (US)'] },
-  { id: 'am_eric', name: 'Eric', language: 'English (US)', gender: 'Male', grade: 'A', sampleText: SAMPLES['English (US)'] },
-  { id: 'am_fenrir', name: 'Fenrir', language: 'English (US)', gender: 'Male', grade: 'A', sampleText: SAMPLES['English (US)'] },
-  { id: 'am_liam', name: 'Liam', language: 'English (US)', gender: 'Male', grade: 'A', sampleText: SAMPLES['English (US)'] },
-  { id: 'am_michael', name: 'Michael', language: 'English (US)', gender: 'Male', grade: 'A', sampleText: SAMPLES['English (US)'] },
-  { id: 'am_onyx', name: 'Onyx', language: 'English (US)', gender: 'Male', grade: 'A', sampleText: SAMPLES['English (US)'] },
-  { id: 'am_puck', name: 'Puck', language: 'English (US)', gender: 'Male', grade: 'A', sampleText: SAMPLES['English (US)'] },
-  { id: 'am_santa', name: 'Santa', language: 'English (US)', gender: 'Male', grade: 'A', sampleText: SAMPLES['English (US)'] },
+  // American English (lang_code='a')
+  v('af_heart', 'A', 'a', 'Female'),
+  v('af_alloy', 'C', 'a', 'Female'),
+  v('af_aoede', 'C+', 'a', 'Female'),
+  v('af_bella', 'A-', 'a', 'Female'),
+  v('af_jessica', 'D', 'a', 'Female'),
+  v('af_kore', 'C+', 'a', 'Female'),
+  v('af_nicole', 'B-', 'a', 'Female'),
+  v('af_nova', 'C', 'a', 'Female'),
+  v('af_river', 'D', 'a', 'Female'),
+  v('af_sarah', 'C+', 'a', 'Female'),
+  v('af_sky', 'C-', 'a', 'Female'),
+  v('am_adam', 'F+', 'a', 'Male'),
+  v('am_echo', 'D', 'a', 'Male'),
+  v('am_eric', 'D', 'a', 'Male'),
+  v('am_fenrir', 'C+', 'a', 'Male'),
+  v('am_liam', 'D', 'a', 'Male'),
+  v('am_michael', 'C+', 'a', 'Male'),
+  v('am_onyx', 'D', 'a', 'Male'),
+  v('am_puck', 'C+', 'a', 'Male'),
+  v('am_santa', 'D-', 'a', 'Male'),
 
-  // British Female (Grade A/B)
-  { id: 'bf_alice', name: 'Alice', language: 'English (UK)', gender: 'Female', grade: 'A', sampleText: SAMPLES['English (UK)'] },
-  { id: 'bf_emma', name: 'Emma', language: 'English (UK)', gender: 'Female', grade: 'A', sampleText: SAMPLES['English (UK)'] },
-  { id: 'bf_isabella', name: 'Isabella', language: 'English (UK)', gender: 'Female', grade: 'A', sampleText: SAMPLES['English (UK)'] },
-  { id: 'bf_lily', name: 'Lily', language: 'English (UK)', gender: 'Female', grade: 'A', sampleText: SAMPLES['English (UK)'] },
+  // British English (lang_code='b')
+  v('bf_alice', 'D', 'b', 'Female'),
+  v('bf_emma', 'B-', 'b', 'Female'),
+  v('bf_isabella', 'C', 'b', 'Female'),
+  v('bf_lily', 'D', 'b', 'Female'),
+  v('bm_daniel', 'D', 'b', 'Male'),
+  v('bm_fable', 'C', 'b', 'Male'),
+  v('bm_george', 'C', 'b', 'Male'),
+  v('bm_lewis', 'D+', 'b', 'Male'),
 
-  // British Male (Grade A/B)
-  { id: 'bm_daniel', name: 'Daniel', language: 'English (UK)', gender: 'Male', grade: 'A', sampleText: SAMPLES['English (UK)'] },
-  { id: 'bm_fable', name: 'Fable', language: 'English (UK)', gender: 'Male', grade: 'A', sampleText: SAMPLES['English (UK)'] },
-  { id: 'bm_george', name: 'George', language: 'English (UK)', gender: 'Male', grade: 'A', sampleText: SAMPLES['English (UK)'] },
-  { id: 'bm_lewis', name: 'Lewis', language: 'English (UK)', gender: 'Male', grade: 'A', sampleText: SAMPLES['English (UK)'] },
+  // Japanese (lang_code='j')
+  v('jf_alpha', 'C+', 'j', 'Female'),
+  v('jf_gongitsune', 'C', 'j', 'Female'),
+  v('jf_nezumi', 'C-', 'j', 'Female'),
+  v('jf_tebukuro', 'C', 'j', 'Female'),
+  v('jm_kumo', 'C-', 'j', 'Male'),
+
+  // Mandarin Chinese (lang_code='z')
+  v('zf_xiaobei', 'D', 'z', 'Female'),
+  v('zf_xiaoni', 'D', 'z', 'Female'),
+  v('zf_xiaoxiao', 'D', 'z', 'Female'),
+  v('zf_xiaoyi', 'D', 'z', 'Female'),
+  v('zm_yunjian', 'D', 'z', 'Male'),
+  v('zm_yunxi', 'D', 'z', 'Male'),
+  v('zm_yunxia', 'D', 'z', 'Male'),
+  v('zm_yunyang', 'D', 'z', 'Male'),
+
+  // Spanish (lang_code='e')
+  v('ef_dora', 'C', 'e', 'Female'),
+  v('em_alex', 'C', 'e', 'Male'),
+  v('em_santa', 'C', 'e', 'Male'),
+
+  // French (lang_code='f')
+  v('ff_siwis', 'B-', 'f', 'Female'),
+
+  // Hindi (lang_code='h')
+  v('hf_alpha', 'C', 'h', 'Female'),
+  v('hf_beta', 'C', 'h', 'Female'),
+  v('hm_omega', 'C', 'h', 'Male'),
+  v('hm_psi', 'C', 'h', 'Male'),
+
+  // Italian (lang_code='i')
+  v('if_sara', 'C', 'i', 'Female'),
+  v('im_nicola', 'C', 'i', 'Male'),
+
+  // Brazilian Portuguese (lang_code='p')
+  v('pf_dora', 'C', 'p', 'Female'),
+  v('pm_alex', 'C', 'p', 'Male'),
+  v('pm_santa', 'C', 'p', 'Male'),
 ];

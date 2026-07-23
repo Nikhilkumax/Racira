@@ -1,5 +1,5 @@
 import { CategorySearch } from "@/components/CategorySearch";
-import { tools, categories, SEARCH_REGISTRY } from "@/data/developers/tools";
+import { tools, categories, SEARCH_REGISTRY } from "@/domains/developers/registry";
 import { ToolCard } from "@/components/developers/tool-card";
 import { ToolSearch } from "@/components/developers/tool-search";
 import { Metadata } from "next";

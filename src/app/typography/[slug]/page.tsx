@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ChevronRight, Construction, Sparkles } from "lucide-react";
-import { categories, allTools, findTool } from "@/data/typography/tools";
+import { categories, allToolsWithComponents, findTool, findToolWithComponent } from "@/domains/typography/registry";
 import { toSlug } from "@/lib/utils/slug";
 import { inferIcon } from "@/components/shared/icon-map";
 import Header from "@/components/Header";
@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export async function generateStaticParams() {
   const params: { slug: string }[] = [];
   for (const cat of categories) params.push({ slug: toSlug(cat.name) });
-  for (const tool of allTools) params.push({ slug: (tool as any).slug });
+  for (const tool of allToolsWithComponents) params.push({ slug: tool.slug });
   return params;
 }
 
@@ -68,6 +68,7 @@ function CategoryView({ category }: { category: typeof categories[0] }) {
 }
 
 function ToolView({ tool, categoryName }: { tool: any; categoryName: string }) {
+  const Cmp = tool.component;
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Header mode="category" categoryName="Typography" />
@@ -87,13 +88,19 @@ function ToolView({ tool, categoryName }: { tool: any; categoryName: string }) {
             <h1 className="mt-1 text-3xl font-bold tracking-tight">{tool.name}</h1>
             <p className="mt-2 text-muted-foreground">{tool.desc}</p>
           </div>
-          <div className="mt-10 rounded-2xl border border-dashed border-primary/30 bg-primary/10 p-10 text-center">
-            <Construction className="mx-auto mb-4 h-10 w-10 text-primary" />
-            <h2 className="text-xl font-semibold">Coming soon</h2>
-            <Link href="/typography" className="mt-6 inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90">
-              <Sparkles className="h-4 w-4" /> Browse all tools
-            </Link>
-          </div>
+          {tool.status === "live" && Cmp ? (
+            <div className="mt-10 rounded-xl border border-border bg-card p-4 sm:p-6 min-h-[400px]">
+              {React.createElement(Cmp)}
+            </div>
+          ) : (
+            <div className="mt-10 rounded-2xl border border-dashed border-primary/30 bg-primary/10 p-10 text-center">
+              <Construction className="mx-auto mb-4 h-10 w-10 text-primary" />
+              <h2 className="text-xl font-semibold">Coming soon</h2>
+              <Link href="/typography" className="mt-6 inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90">
+                <Sparkles className="h-4 w-4" /> Browse all tools
+              </Link>
+            </div>
+          )}
         </div>
       </main>
     </div>
@@ -102,9 +109,9 @@ function ToolView({ tool, categoryName }: { tool: any; categoryName: string }) {
 
 export default async function PolymorphicPage({ params }: PageProps) {
   const { slug } = await params;
-  const category = categories.find(c => toSlug(c.name) === slug);
+  const category = categories.find((c) => toSlug(c.name) === slug);
   if (category) return <CategoryView category={category} />;
-  const result = findTool(slug);
+  const result = findToolWithComponent(slug);
   if (result) return <ToolView tool={result.tool} categoryName={result.category} />;
   notFound();
 }

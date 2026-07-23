@@ -1261,7 +1261,6 @@ const calculatorComponents: Record<string, () => Promise<any>> = {
   "wheel-offset-calculator": () => import("@/domains/calculator/components/WheelOffsetCalculator"),
   "yoga-calorie-calculator": () => import("@/domains/calculator/components/YogaCalorieCalculator"),
   "zero-apr-promotion-payoff-calculator": () => import("@/domains/calculator/components/ZeroAprPromotionPayoffCalculator"),
-  "discount-calculator": () => import("@/domains/calculator/components/DiscountCalculator"),
   "judo-points-calculator": () => import("@/domains/calculator/components/JudoPointsCalculator"),
   "replenishment-lead-time-calculator": () => import("@/domains/calculator/components/ReplenishmentLeadTimeCalculator"),
   "quarter-to-semester-credit-conversion-calculator": () => import("@/domains/calculator/components/QuarterToSemesterCreditCalculator"),

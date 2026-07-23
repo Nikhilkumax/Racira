@@ -1,189 +1,377 @@
 "use client";
-import { RotateCcw, Cloud, Database, ArrowUpRight } from "lucide-react";
 
 import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import InputField from "@/domains/calculator/components/ui/InputField";
-import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
-const AwsS3CostCalculator = () => {
-  const [storageAmount, setStorageAmount] = useState("100");
-  const [storageUnit, setStorageUnit] = useState("GB");
-  const [storageClass, setStorageClass] = useState("standard");
-  const [putRequests, setPutRequests] = useState("100000"); // 100k
-  const [getRequests, setGetRequests] = useState("500000"); // 500k
-  const [dataTransferOut, setDataTransferOut] = useState("50"); // GB
+import { RotateCcw, ChevronDown, Cloud, HardDrive, ArrowUpRight } from "lucide-react";
+import { PieChart, Pie, Cell, Tooltip as RechartsTooltip, ResponsiveContainer, Legend } from "recharts";
+import { LazyView } from "@/components/ui/LazyView";
 
-  const [results, setResults] = useState<any>(null);
-  const [showResults, setShowResults] = useState(false);
+interface S3Result {
+  monthlyTotal: number;
+  storageCost: number;
+  requestCost: number;
+  dataTransferCost: number;
+  lifecycleTransitionCost: number;
+  totalGB: number;
+  chartData: { name: string; value: number; color: string }[];
+}
 
-  const handleCalculate = () => {
-    setShowResults(true);
-    let storageGB = parseFloat(storageAmount) || 0;
-    if (storageUnit === "TB") storageGB *= 1024;
+const DEFAULTS = {
+  storageAmount: "1000",
+  storageClass: "standard",
+  putRequests: "100000",
+  getRequests: "1000000",
+  dataTransferOut: "50",
+  transitionToIA: "0",
+  transitionToGlacier: "0",
+  showAdvanced: false,
+};
 
-    const dataOutGB = parseFloat(dataTransferOut) || 0;
-    const puts = parseFloat(putRequests) || 0;
-    const gets = parseFloat(getRequests) || 0;
+function safeParse(v: string): number {
+  const n = parseFloat(v);
+  return isNaN(n) || n < 0 ? 0 : n;
+}
 
-    // Pricing factors (Approximated AWS US-East Pricing)
-    const pricing: any = {
-      standard: { storage: 0.023, put: 0.005 / 1000, get: 0.0004 / 1000 },
-      intelligent: { storage: 0.023, put: 0.005 / 1000, get: 0.0004 / 1000 },
-      ia: { storage: 0.0125, put: 0.01 / 1000, get: 0.001 / 1000, retrieval: 0.01 },
-      glacier: { storage: 0.004, put: 0.05 / 1000, get: 0.01 / 1000, retrieval: 0.03 }
-    };
+function calculateAwsS3(inputs: typeof DEFAULTS): S3Result {
+  const storageGB = safeParse(inputs.storageAmount);
+  const puts = safeParse(inputs.putRequests);
+  const gets = safeParse(inputs.getRequests);
+  const dataOutGB = safeParse(inputs.dataTransferOut);
+  const transitionIAGB = safeParse(inputs.transitionToIA);
+  const transitionGlacierGB = safeParse(inputs.transitionToGlacier);
+  const storageClass = inputs.storageClass;
 
-    const currentPricing = pricing[storageClass];
-    
-    const storageCost = storageGB * currentPricing.storage;
-    const requestCost = (puts * currentPricing.put) + (gets * currentPricing.get);
-    
-    // Data transfer out (First 100GB is free in modern AWS, but let's assume standard pricing for safety)
-    // First 1GB free, then 0.09 per GB
-    const transferCost = Math.max(0, dataOutGB - 1) * 0.09;
-    
-    const retrievalCost = (storageClass === 'ia' || storageClass === 'glacier') 
-      ? storageGB * currentPricing.retrieval 
-      : 0;
-
-    const monthlyTotal = storageCost + requestCost + transferCost + retrievalCost;
-
-    setResults({
-      monthlyTotal,
-      storageCost,
-      requestCost,
-      transferCost,
-      retrievalCost,
-      totalGB: storageGB
-    });
+  const storageRates: Record<string, number> = {
+    standard: 0.023,
+    intelligent: 0.023,
+    ia: 0.0125,
+    oneZoneIA: 0.01,
+    glacier: 0.004,
+    deepArchive: 0.00099,
   };
 
-  const reset = () => {
-    setShowResults(false);
-    setResults(null);
+  const storagePricePerGB = storageRates[storageClass] || 0.023;
+  const storageCost = storageGB * storagePricePerGB;
+
+  const putCost = (puts / 1000) * 0.005;
+  const getCost = (gets / 1000) * 0.0004;
+  const requestCost = putCost + getCost;
+
+  const freeTransferGB = 10;
+  const dataTransferCost = dataOutGB > freeTransferGB ? (dataOutGB - freeTransferGB) * 0.09 : 0;
+
+  const lifecycleTransitionCost = (transitionIAGB * 0.01) + (transitionGlacierGB * 0.004);
+
+  const monthlyTotal = storageCost + requestCost + dataTransferCost + lifecycleTransitionCost;
+
+  const chartData: { name: string; value: number; color: string }[] = [
+    { name: "Storage", value: Number(storageCost.toFixed(2)), color: "#3b82f6" },
+    { name: "Requests", value: Number(requestCost.toFixed(2)), color: "#f59e0b" },
+    { name: "Data Transfer", value: Number(dataTransferCost.toFixed(2)), color: "#10b981" },
+  ];
+
+  if (lifecycleTransitionCost > 0) {
+    chartData.push({ name: "Lifecycle Transitions", value: Number(lifecycleTransitionCost.toFixed(2)), color: "#8b5cf6" });
+  }
+
+  return {
+    monthlyTotal: Number(monthlyTotal.toFixed(2)),
+    storageCost: Number(storageCost.toFixed(2)),
+    requestCost: Number(requestCost.toFixed(2)),
+    dataTransferCost: Number(dataTransferCost.toFixed(2)),
+    lifecycleTransitionCost: Number(lifecycleTransitionCost.toFixed(2)),
+    totalGB: storageGB,
+    chartData,
   };
+}
+
+const CompactInput = ({ id, label, value, onChange, suffix }: { id: string; label: string; value: string; onChange: (val: string) => void; suffix?: string }) => (
+  <div className="flex flex-col">
+    <label htmlFor={id} className="text-sm font-medium mb-1.5 text-foreground">{label}</label>
+    <div className="relative w-full flex items-center rounded-md border border-input bg-background h-10 shadow-sm focus-within:ring-2 focus-within:ring-primary/20">
+      <input
+        id={id}
+        type="number"
+        min="0"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="w-full h-full px-3 py-1 text-base bg-transparent outline-none border-none text-foreground"
+      />
+      {suffix && <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{suffix}</span>}
+    </div>
+  </div>
+);
+
+const SelectInput = ({ id, label, value, onChange, options }: { id: string; label: string; value: string; onChange: (val: string) => void; options: { value: string; label: string }[] }) => (
+  <div className="flex flex-col">
+    <label htmlFor={id} className="text-sm font-medium mb-1.5 text-foreground">{label}</label>
+    <select
+      id={id}
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      className="h-10 px-3 text-base rounded-md border border-input bg-background shadow-sm outline-none focus:ring-2 focus:ring-primary/20 text-foreground"
+    >
+      {options.map((o) => (
+        <option key={o.value} value={o.value}>{o.label}</option>
+      ))}
+    </select>
+  </div>
+);
+
+export default function AwsS3CostCalculator() {
+  const [inputs, setInputs] = useState(DEFAULTS);
+  const [result, setResult] = useState<S3Result>(calculateAwsS3(DEFAULTS));
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    setResult(calculateAwsS3(inputs));
+  }, []);
+
+  const handleCalculate = () => setResult(calculateAwsS3(inputs));
+  const handleReset = () => {
+    setInputs(DEFAULTS);
+    setResult(calculateAwsS3(DEFAULTS));
+  };
+  const updateVal = (key: keyof typeof DEFAULTS, val: string | boolean) =>
+    setInputs((prev) => ({ ...prev, [key]: val }));
 
   const faqs = [
-    { question: "What is S3 Intelligent-Tiering?", answer: "S3 Intelligent-Tiering is a storage class designed to optimize costs by automatically moving data to the most cost-effective access tier based on access frequency, without operational overhead." },
-    { question: "Are S3 requests really that expensive?", answer: "Usually no. At $0.005 per 1,000 PUT requests, you need a very high volume to see a significant impact. However, for applications with millions of small files, request costs can sometimes exceed storage costs." },
-    { question: "Why is Data Transfer Out so expensive?", answer: "Cloud providers like AWS use high data transfer fees as a way to keep data within their ecosystem ('data gravity'). While data coming IN is free, data going OUT to the internet is one of the most common hidden costs in cloud bills." }
+    { question: "What is the cheapest S3 storage class?", answer: "S3 Glacier Deep Archive is the cheapest at roughly $0.00099 per GB per month, but it is designed for data that is accessed once or twice a year and can tolerate retrieval times of several hours." },
+    { question: "Is S3 Intelligent-Tiering worth it?", answer: "Intelligent-Tiering is worth it if your access patterns are unpredictable. It automatically moves objects between frequent and infrequent access tiers without retrieval fees, but it does add a small per-object monitoring fee." },
+    { question: "Why is data transfer out so expensive?", answer: "AWS charges for data leaving its network to the internet because outbound bandwidth is a real operational cost. The first 10 GB per month are free, but beyond that the price rises quickly across tiered volume discounts." },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "AWS S3 Cost Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Technology", href: "/calculator#technology" }, { label: "AWS S3 Cost Calculator" }]} />
       <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">AWS S3 Cost Calculator</h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="grid sm:grid-cols-2 gap-8 mb-8">
-                <section>
-                  <div className="flex items-center gap-2 mb-4 text-primary font-bold text-sm uppercase tracking-wider">
-                     <Database className="h-4 w-4" /> Storage
-                  </div>
-                  <div className="grid grid-cols-[2fr_1fr] gap-2 mb-4">
-                    <input type="number" value={storageAmount} onChange={(e) => setStorageAmount(e.target.value)} className="input-calc" />
-                    <select value={storageUnit} onChange={(e) => setStorageUnit(e.target.value)} className="input-calc">
-                       <option value="GB">GB</option>
-                       <option value="TB">TB</option>
-                    </select>
-                  </div>
-                  <label className="block text-sm font-medium text-foreground mb-2">Storage Class</label>
-                  <select value={storageClass} onChange={(e) => setStorageClass(e.target.value)} className="input-calc">
-                    <option value="standard">S3 Standard</option>
-                    <option value="intelligent">Intelligent-Tiering</option>
-                    <option value="ia">Standard-IA (Infrequent Access)</option>
-                    <option value="glacier">S3 Glacier Instant Retrieval</option>
-                  </select>
-                </section>
+          {/* LEFT - Inputs */}
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card rounded-xl">
+            <div className="grid grid-cols-2 gap-3">
+              <CompactInput id="storageAmount" label="Storage Used" value={inputs.storageAmount} onChange={(v: string) => updateVal("storageAmount", v)} suffix="GB" />
+              <SelectInput id="storageClass" label="Storage Class" value={inputs.storageClass} onChange={(v: string) => updateVal("storageClass", v)} options={[
+                { value: "standard", label: "S3 Standard" },
+                { value: "intelligent", label: "Intelligent-Tiering" },
+                { value: "ia", label: "Standard-IA" },
+                { value: "oneZoneIA", label: "One Zone-IA" },
+                { value: "glacier", label: "Glacier IR" },
+                { value: "deepArchive", label: "Glacier Deep Archive" },
+              ]} />
+            </div>
 
-                <section>
-                  <div className="flex items-center gap-2 mb-4 text-primary font-bold text-sm uppercase tracking-wider">
-                     <ArrowUpRight className="h-4 w-4" /> Requests & Transfer
+            {/* Advanced Options */}
+            <div>
+              <button
+                type="button"
+                onClick={() => updateVal("showAdvanced", !inputs.showAdvanced)}
+                className="flex items-center gap-1.5 text-sm font-medium text-primary hover:underline mt-1 focus:outline-none"
+              >
+                Advanced Options
+                <ChevronDown className={`h-3 w-3 transition-transform ${inputs.showAdvanced ? "rotate-180" : ""}`} />
+              </button>
+
+              {inputs.showAdvanced && (
+                <div className="flex flex-col gap-4 p-4 rounded-lg bg-secondary/20 border border-border mt-3">
+                  <div>
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold flex items-center gap-1.5">
+                      <ArrowUpRight className="h-3.5 w-3.5" /> Request Patterns
+                    </div>
+                    <div className="grid grid-cols-2 gap-3">
+                      <CompactInput id="putRequests" label="PUT Requests" value={inputs.putRequests} onChange={(v: string) => updateVal("putRequests", v)} suffix="/mo" />
+                      <CompactInput id="getRequests" label="GET Requests" value={inputs.getRequests} onChange={(v: string) => updateVal("getRequests", v)} suffix="/mo" />
+                    </div>
+                    <div className="mt-3">
+                      <CompactInput id="dataTransferOut" label="Data Transfer Out" value={inputs.dataTransferOut} onChange={(v: string) => updateVal("dataTransferOut", v)} suffix="GB" />
+                    </div>
                   </div>
-                  <div className="space-y-4">
-                    <InputField id="put" label="Monthly PUT/POST Requests" value={putRequests} onChange={setPutRequests} />
-                    <InputField id="get" label="Monthly GET/SELECT Requests" value={getRequests} onChange={setGetRequests} />
-                    <InputField id="out" label="Data Transfer Out (GB)" value={dataTransferOut} onChange={setDataTransferOut} suffix="GB" />
+
+                  <div>
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold flex items-center gap-1.5">
+                      <Cloud className="h-3.5 w-3.5" /> Lifecycle Policies
+                    </div>
+                    <div className="grid grid-cols-2 gap-3">
+                      <CompactInput id="transitionToIA" label="Transition to IA" value={inputs.transitionToIA} onChange={(v: string) => updateVal("transitionToIA", v)} suffix="GB" />
+                      <CompactInput id="transitionToGlacier" label="Transition to Glacier" value={inputs.transitionToGlacier} onChange={(v: string) => updateVal("transitionToGlacier", v)} suffix="GB" />
+                    </div>
                   </div>
-                </section>
-              </div>
-            
-              <div className="mt-8 flex gap-3 items-center pt-4 border-t border-border">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button>
-                <button
-                  onClick={reset}
-                  className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground"
-                  aria-label="Reset"
-                >
-                  <RotateCcw className="h-5 w-5" />
-                </button>
-              </div>
+                </div>
+              )}
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex gap-2.5 mt-2.5">
+              <button
+                type="button"
+                onClick={handleCalculate}
+                className="h-10 w-full flex-1 flex items-center justify-center rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold text-base transition-all active:scale-[0.98] shadow-sm"
+              >
+                Calculate
+              </button>
+              <button
+                onClick={handleReset}
+                className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 focus:outline-none"
+                aria-label="Reset"
+              >
+                <RotateCcw className="h-4 w-4" />
+              </button>
+            </div>
           </div>
 
-          <div className="flex flex-col gap-3">
-            {showResults && results && (
+          {/* RIGHT - Results */}
+          <div className="flex flex-col gap-4">
+            {result.monthlyTotal === 0 && result.chartData.every(d => d.value === 0) ? (
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Monthly Cost</div>
+                <div className="text-4xl font-bold text-primary my-1">$0.00</div>
+                <div className="text-sm text-muted-foreground">Enter values to see your estimated S3 bill</div>
+              </div>
+            ) : (
               <>
-                <h2 className="text-2xl font-bold mb-3">Cost Breakdown</h2>
-                <div className="grid sm:grid-cols-2 gap-6 mb-8">
-                  <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
-                    <p className="text-sm font-bold text-primary uppercase tracking-widest mb-1">Total Estimated Monthly Bill</p>
-                    <p className="text-5xl font-black text-foreground">${results.monthlyTotal.toFixed(2)}</p>
-                    <p className="text-xs text-muted-foreground mt-2">Based on US East (N. Virginia) Pricing</p>
+                {/* Component 1: Primary Result Card */}
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1 flex items-center gap-1.5">
+                    <HardDrive className="h-3.5 w-3.5" /> Monthly Cost
                   </div>
-                  <div className="p-6 rounded-2xl bg-secondary/5 border border-secondary/10 text-center flex flex-col justify-center">
-                    <p className="text-sm font-bold text-muted-foreground uppercase tracking-widest mb-1">Cost per GB</p>
-                    <p className="text-3xl font-black text-foreground">${(results.monthlyTotal / (results.totalGB || 1)).toFixed(3)}</p>
+                  <div className="text-4xl font-bold text-primary my-1">${result.monthlyTotal.toFixed(2)}</div>
+                  <div className="text-sm text-muted-foreground">Based on US East (N. Virginia) Pricing</div>
+                </div>
+
+                {/* Component 2: 3-Stat Bar */}
+                <div className="grid grid-cols-3 gap-3">
+                  <div className="bg-secondary/40 border border-border rounded-lg p-3 text-center">
+                    <div className="text-xs font-bold text-muted-foreground mb-1 uppercase">Storage</div>
+                    <div className="text-lg font-bold text-foreground">${result.storageCost.toFixed(2)}</div>
+                  </div>
+                  <div className="bg-secondary/40 border border-border rounded-lg p-3 text-center">
+                    <div className="text-xs font-bold text-muted-foreground mb-1 uppercase">Requests</div>
+                    <div className="text-lg font-bold text-foreground">${result.requestCost.toFixed(2)}</div>
+                  </div>
+                  <div className="bg-secondary/40 border border-border rounded-lg p-3 text-center">
+                    <div className="text-xs font-bold text-muted-foreground mb-1 uppercase">Transfer</div>
+                    <div className="text-lg font-bold text-foreground">${result.dataTransferCost.toFixed(2)}</div>
                   </div>
                 </div>
 
-                <div className="bg-secondary/10 rounded-2xl p-6 border border-border/50">
-                  <div className="flex items-start gap-4 mb-6">
-                    <div className="p-3 bg-white rounded-xl shadow-sm"><Cloud className="h-6 w-6 text-primary" /></div>
-                    <div>
-                      <h3 className="font-bold mb-1 text-sm uppercase tracking-wider">Line Item Estimates</h3>
+                {/* Component 3: Breakdown Table */}
+                <div className="overflow-x-auto rounded-lg border border-border bg-card">
+                  <table className="w-full text-left border-collapse text-sm">
+                    <thead>
+                      <tr className="bg-secondary/40 border-b border-border text-[12px] font-bold text-muted-foreground uppercase tracking-wider">
+                        <th className="p-2.5 pl-3">Cost Component</th>
+                        <th className="p-2.5 pr-3 text-right">Amount</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-border/50">
+                      <tr>
+                        <td className="text-base py-2.5 px-3 text-muted-foreground">Storage ({inputs.storageAmount} GB)</td>
+                        <td className="text-base py-2.5 px-3 text-right font-medium text-foreground">${result.storageCost.toFixed(2)}</td>
+                      </tr>
+                      <tr>
+                        <td className="text-base py-2.5 px-3 text-muted-foreground">Requests (PUT + GET)</td>
+                        <td className="text-base py-2.5 px-3 text-right font-medium text-foreground">${result.requestCost.toFixed(2)}</td>
+                      </tr>
+                      <tr>
+                        <td className="text-base py-2.5 px-3 text-muted-foreground">Data Transfer Out</td>
+                        <td className="text-base py-2.5 px-3 text-right font-medium text-foreground">${result.dataTransferCost.toFixed(2)}</td>
+                      </tr>
+                      {result.lifecycleTransitionCost > 0 && (
+                        <tr>
+                          <td className="text-base py-2.5 px-3 text-muted-foreground">Lifecycle Transitions</td>
+                          <td className="text-base py-2.5 px-3 text-right font-medium text-foreground">${result.lifecycleTransitionCost.toFixed(2)}</td>
+                        </tr>
+                      )}
+                      <tr className="font-bold border-t-2 border-border">
+                        <td className="text-base py-2.5 px-3 text-foreground">Total Monthly Cost</td>
+                        <td className="text-base py-2.5 px-3 text-right text-primary">${result.monthlyTotal.toFixed(2)}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                {/* Component 4: Recharts PieChart */}
+                {mounted && (
+                  <div className="rounded-xl border border-border bg-card p-4">
+                    <h3 className="text-sm font-bold text-foreground mb-4">Cost Breakdown</h3>
+                    <LazyView minHeight={250}>
+                      <ResponsiveContainer width="100%" height={250}>
+                        <PieChart>
+                          <Pie data={result.chartData} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={55} outerRadius={85} paddingAngle={2}>
+                            {result.chartData.map((entry, index) => (
+                              <Cell key={`cell-${index}`} fill={entry.color} />
+                            ))}
+                          </Pie>
+                          <RechartsTooltip formatter={(value: number) => `$${value.toFixed(2)}`} contentStyle={{ borderRadius: "8px", border: "1px solid hsl(var(--border))" }} />
+                          <Legend verticalAlign="bottom" height={36} iconType="circle" wrapperStyle={{ fontSize: "12px" }} />
+                        </PieChart>
+                      </ResponsiveContainer>
+                    </LazyView>
+                  </div>
+                )}
+
+                {/* Component 5: Summary Statistics */}
+                <div className="bg-muted/30 rounded-lg p-5">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="flex flex-col">
+                      <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Storage Used</span>
+                      <span className="text-base font-bold text-foreground">{inputs.storageAmount} GB</span>
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Storage Class</span>
+                      <span className="text-base font-bold text-foreground">{inputs.storageClass}</span>
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">PUT Requests</span>
+                      <span className="text-base font-bold text-foreground">{inputs.putRequests}</span>
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">GET Requests</span>
+                      <span className="text-base font-bold text-foreground">{inputs.getRequests}</span>
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Data Transfer Out</span>
+                      <span className="text-base font-bold text-foreground">{inputs.dataTransferOut} GB</span>
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Cost per GB</span>
+                      <span className="text-base font-bold text-primary">${result.totalGB > 0 ? (result.monthlyTotal / result.totalGB).toFixed(3) : "0.000"}</span>
                     </div>
                   </div>
-                  <ResultDisplay items={[
-                    { label: "Storage Cost", value: 0, textValue: "$" + results.storageCost.toFixed(2) },
-                    { label: "Request Cost", value: 0, textValue: "$" + results.requestCost.toFixed(2) },
-                    { label: "Data Transfer Cost", value: 0, textValue: "$" + results.transferCost.toFixed(2) },
-                    { label: "Retrieval Fees", value: 0, textValue: results.retrievalCost > 0 ? "$" + results.retrievalCost.toFixed(2) : "None" },
-                  ]} />
                 </div>
               </>
             )}
           </div>
         </div>
 
+        {/* SEO Article section */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">Mastering S3 Storage Costs</h2>
-              <p>Amazon S3 (Simple Storage Service) is the backbone of the internet, but its pricing model can be complex. Understanding the three main dimensions of cost—storage, requests, and transfer—is key to keeping your cloud bill under control.</p>
-              
-              <h3>Which Storage Class?</h3>
-              <ul>
-                <li><strong>S3 Standard:</strong> Best for active data that is accessed frequently. No retrieval fees.</li>
-                <li><strong>S3 Standard-IA:</strong> Best for data that is accessed less frequently (e.g., once a month) but needs immediate access when required. Lower storage cost, but has retrieval fees.</li>
-                <li><strong>S3 Glacier:</strong> Best for long-term archives. Very low storage cost, but retrieval can be expensive and sometimes slow.</li>
-              </ul>
+            <h2 className="text-2xl font-bold mb-3">Mastering AWS S3 Storage Costs</h2>
+            <p>
+              Amazon S3 pricing is built on three pillars: storage volume, request volume, and data transfer. Storage is charged per gigabyte per month and varies significantly by class, from Standard at roughly $0.023 per GB down to Glacier Deep Archive at less than $0.001 per GB. Requests are billed in millions of operations, with PUTs costing about $0.005 per 1,000 and GETs about $0.0004 per 1,000. Data transfer out to the internet is free for the first 10 GB each month, then jumps to roughly $0.09 per GB for the first terabyte.
+            </p>
 
-              <h3>Hidden Costs to Watch For</h3>
-              <p><strong>Minimum Storage Duration:</strong> Classes like IA and Glacier have minimum storage durations (e.g., 30 or 90 days). If you delete an object before this time, you still pay for the full duration.</p>
-              <p><strong>Object Overhead:</strong> Each object in S3 has a small amount of metadata (typically 8KB-32KB) that is billed at the storage class rate. For billions of tiny files, this overhead can be significant.</p>
-            </section>
-          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/aws-s3-cost" />
+            <h2 className="text-2xl font-bold mb-3">Choosing the Right Storage Class</h2>
+            <p>
+              S3 Standard is the default for frequently accessed data and offers immediate availability with no retrieval fees. If your data is accessed less than once a month, Standard-IA or One Zone-IA cuts the storage rate roughly in half, but adds a retrieval fee and minimum storage duration. For archives accessed a few times per year, Glacier Instant Retrieval provides rapid access at a lower storage price. For true cold storage accessed once or twice annually, Glacier Deep Archive is the cheapest option, though retrieval can take hours. Intelligent-Tiering is unique because it automatically shifts objects between tiers based on usage, making it ideal for unpredictable access patterns without manual lifecycle management.
+            </p>
+
+            <h2 className="text-2xl font-bold mb-3">Optimizing Your Monthly Bill</h2>
+            <p>
+              Start by right-sizing your storage class: move older or infrequently accessed data to IA or Glacier tiers using lifecycle policies. Deleting incomplete multipart uploads and expired object versions also removes hidden storage costs. For request-heavy workloads, batching writes and using S3 Transfer Acceleration or CloudFront for reads can reduce both latency and billable operations. Finally, keep an eye on data transfer out. If you serve large amounts of data to end users, pairing S3 with a CDN like CloudFront usually lowers egress costs and improves performance. Use this calculator to model each tier and transition scenario, then implement lifecycle rules that match your actual access patterns.
+            </p>
+          </section>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/aws-s3-cost-calculator" />
           <PopularCalculators exclude="/calculator/aws-s3-cost-calculator" />
         </div>
       </div>
     </>
   );
-};
-
-export default AwsS3CostCalculator;
-
+}

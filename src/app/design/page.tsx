@@ -69,7 +69,7 @@ export default function Index() {
                 return (
                   <Link
                     key={tool.slug}
-                    href={`/design/tool/${tool.slug}`}
+                    href={`/design/${tool.slug}`}
                     className="tool-card group"
                   >
                     {tool.status !== "live" && (

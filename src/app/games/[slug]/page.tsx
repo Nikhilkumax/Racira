@@ -3,9 +3,10 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ChevronRight, Sparkles, Gamepad2, Construction } from "lucide-react";
-import { CATEGORIES, slugify } from "@/data/games/games";
+import { CATEGORIES, slugify } from "@/domains/games/registry";
 
 import Header from "@/components/Header";
+import GameRenderer from "../GameRenderer";
 
 type PageProps = { params: Promise<{ slug: string }> };
 
@@ -167,14 +168,8 @@ function GameView({ game }: { game: typeof allGames[0] }) {
             </p>
           </div>
         </section>
-        <div className="racira-page-container pb-16 text-center flex justify-center">
-          <div className="inline-flex flex-col items-center justify-center p-12 border border-border border-dashed rounded-2xl bg-card max-w-md w-full">
-            <Construction className="h-12 w-12 text-muted-foreground mb-4 opacity-50" />
-            <h2 className="text-xl font-semibold mb-2">Coming Soon</h2>
-            <p className="text-muted-foreground text-sm">
-              We're currently building {game.name}. Check back soon to play!
-            </p>
-          </div>
+        <div className="racira-page-container pb-16 flex justify-center">
+          <GameRenderer slug={game.slug} />
         </div>
       </main>
     </div>

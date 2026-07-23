@@ -6,11 +6,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: "MP3 Converter — Convert Audio to MP3 Online Free",
     description: "Convert any audio to MP3 at up to 320 kbps, instantly and privately in your browser. No signup, no uploads.",
-    url: "/tools/audio-conversion/mp3-converter",
+    url: "/audio/mp3-converter",
     type: "website",
   },
   alternates: {
-    canonical: "/tools/audio-conversion/mp3-converter"
+    canonical: "/audio/mp3-converter"
   }
 };
 
@@ -27,7 +27,7 @@ export default function Mp3ConverterLayout({ children }: { children: React.React
             name: "MP3 Converter",
             applicationCategory: "MultimediaApplication",
             operatingSystem: "Web",
-            url: "/tools/audio-conversion/mp3-converter",
+            url: "/audio/mp3-converter",
             description:
               "Free online MP3 converter that converts audio files to MP3 at 128, 192 or 320 kbps directly in the browser.",
             offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
@@ -48,7 +48,7 @@ export default function Mp3ConverterLayout({ children }: { children: React.React
                 "@type": "ListItem",
                 position: 3,
                 name: "MP3 Converter",
-                item: "/tools/audio-conversion/mp3-converter",
+                item: "/audio/mp3-converter",
               },
             ],
           }),

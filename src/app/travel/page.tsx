@@ -39,7 +39,7 @@ export default function Home() {
                   return (
                     <Link
                       key={tool.slug}
-                      href={`/travel/tool/${tool.slug}`}
+                      href={`/travel/${tool.slug}`}
                       className="tool-card group relative"
                     >
                       {!isLive && (

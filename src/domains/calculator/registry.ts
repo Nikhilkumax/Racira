@@ -11,6 +11,7 @@ export interface CalculatorDef {
   tier?: string;
   priorityScore?: number;
   updatedAt?: string;
+  isBuilt?: boolean;
 }
 
 import { financeCalculators } from "./registry/finance";

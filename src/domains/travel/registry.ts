@@ -1,14 +1,12 @@
 import { AArrowDown, AArrowUp, ALargeSmall, Accessibility, Activity, ActivitySquare, AirVent, Airplay, AlarmCheck, AlarmClock, AlarmClockCheck, AlarmClockMinus, AlarmClockOff, AlarmClockPlus, AlarmMinus, AlarmPlus, AlarmSmoke, Album, AlertCircle, AlertOctagon, AlertTriangle, AlignCenter, AlignCenterHorizontal, AlignCenterVertical, AlignEndHorizontal, AlignEndVertical, AlignHorizontalDistributeCenter, AlignHorizontalDistributeEnd, AlignHorizontalDistributeStart, AlignHorizontalJustifyCenter, AlignHorizontalJustifyEnd, AlignHorizontalJustifyStart, AlignHorizontalSpaceAround, AlignHorizontalSpaceBetween, AlignJustify, BadgeDollarSign, Bed, BedDouble, BedSingle, Bitcoin, Book, BookA, BookAudio, Briefcase, BriefcaseBusiness, BriefcaseConveyorBelt, BriefcaseMedical, CableCar, Calendar, Calendar1, CalendarArrowDown, CalendarArrowUp, CalendarCheck, CalendarCheck2, CalendarClock, CalendarCog, CalendarDays, CalendarFold, CalendarHeart, CalendarMinus, CalendarMinus2, CalendarOff, CalendarPlus, CalendarPlus2, CalendarRange, CalendarSearch, CalendarSync, CalendarX, CalendarX2, Camera, CameraOff, Car, CarFront, CarTaxiFront, Caravan, Carrot, CircleDollarSign, Coins, DollarSign, File, FileArchive, FileAudio, FileAudio2, FileAxis3D, FileAxis3d, FileBadge, FileBadge2, HandCoins, Hotel, Plane, PlaneLanding, PlaneTakeoff, Shield, ShieldAlert, ShieldBan, ShieldCheck, ShieldClose, ShieldEllipsis, TableOfContents, Tent, UserSearch, UserSquare, UserSquare2, Wallet, Wallet2, WalletCards } from "lucide-react";
 import { ToolResult } from "@/components/CategorySearch";
+import { toSlug } from "@/lib/utils/slug";
 
 export type Tool = { name: string; slug: string; desc: string; icon: any; status: "live" | "soon" };
 export type Category = { name: string; tools: Tool[] };
 
-const slugify = (s: string) =>
-  s.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-
 const mk = (entries: [string, string, any, boolean][]): Tool[] =>
-  entries.map(([name, desc, icon, isLive]) => ({ name, desc, slug: slugify(name), icon, status: isLive ? "live" : "soon" }));
+  entries.map(([name, desc, icon, isLive]) => ({ name, desc, slug: toSlug(name), icon, status: isLive ? "live" : "soon" }));
 
 export const categories: Category[] = [
   {

@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { Search, X, CornerDownLeft, ArrowUp, ArrowDown } from "lucide-react";
-import { tools, categories, categorySlug, type Tool } from "@/data/developers/tools";
+import { tools, categories, categorySlug, type Tool } from "@/domains/developers/registry";
 import { fuzzyScore } from "@/lib/developers/fuzzy";
 import { cn } from "@/lib/utils";
 
@@ -76,7 +76,7 @@ export function ToolSearch() {
   const visible = results.slice(0, 8);
 
   const go = (tool: Tool) => {
-    router.push(`/developers/tools/${categorySlug(tool.category)}/${tool.slug}`);
+    router.push(`/developers/${tool.slug}`);
     setQuery("");
     setFocused(false);
     inputRef.current?.blur();

@@ -24,12 +24,13 @@ import { categories as TRAVEL_CATS, allTools as TRAVEL_TOOLS } from "@/domains/t
 import { categories as WRITING_CATS, allTools as WRITING_TOOLS } from "@/domains/writing/registry";
 import { categories as ENGINEERING_CATS, tools as ENGINEERING_TOOLS } from "@/domains/engineering/registry";
 import { tools as PDF_TOOLS } from "@/domains/pdf/registry/tools";
-import { TOOLS as VIDEO_TOOLS, CATEGORY_ORDER as VIDEO_CAT_ORDER } from "@/data/video/tools";
-import { tools as DEV_TOOLS, categories as DEV_CATS, categorySlug as devCategorySlug } from "@/data/developers/tools";
-import { categories as PRESENTATION_CATS, allTools as PRESENTATION_TOOLS } from "@/data/presentation/tools";
-import { CATEGORIES as PRODUCTIVITY_CATS } from "@/data/productivity/tools";
-import { categories as TYPOGRAPHY_CATS, allTools as TYPOGRAPHY_TOOLS } from "@/data/typography/tools";
-import { CATEGORIES as GAMES_CATS, slugify as gameSlugify } from "@/data/games/games";
+import { TOOLS as VIDEO_TOOLS, CATEGORY_ORDER as VIDEO_CAT_ORDER } from "@/domains/video/registry";
+import { tools as DEV_TOOLS, categories as DEV_CATS, categorySlug as devCategorySlug } from "@/domains/developers/registry";
+import { categories as PRESENTATION_CATS, allTools as PRESENTATION_TOOLS } from "@/domains/presentation/registry";
+import { CATEGORIES as PRODUCTIVITY_CATS } from "@/domains/productivity/registry";
+import { categories as TYPOGRAPHY_CATS, allTools as TYPOGRAPHY_TOOLS } from "@/domains/typography/registry";
+import { CATEGORIES as GAMES_CATS, slugify as gameSlugify } from "@/domains/games/registry";
+import { CATEGORIES as VOICE_CATS } from "@/domains/voice/registry";
 import { toSlug } from "@/lib/utils/slug";
 const MAX_URLS_PER_SITEMAP = 45000; // headroom under Google's 50k cap
 
@@ -327,6 +328,16 @@ export const sitemapSources: SitemapSource[] = [
         sub.games.map(name => ({ loc: `${baseUrl}/games/${gameSlugify(name)}`, lastmod: FALLBACK_LASTMOD })),
       );
     },
+  },
+  {
+    key: "voice",
+    getCategorySlugs: () => VOICE_CATS.map((c: any) => toSlug(c.name)),
+    getEntriesForCategory: (categorySlug) =>
+      VOICE_CATS.flatMap((c: any) =>
+        toSlug(c.name) === categorySlug
+          ? c.tools.map((t: any) => ({ loc: `${baseUrl}/voice/${t.slug}`, lastmod: FALLBACK_LASTMOD }))
+          : []
+      ),
   },
 ];
 

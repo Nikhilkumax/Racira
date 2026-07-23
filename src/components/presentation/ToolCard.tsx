@@ -10,7 +10,7 @@ export function ToolCard({ tool }: { tool: Tool }) {
 
   return (
     <Link
-      href={`/presentation/tools/${tool.slug}`}
+      href={`/presentation/${tool.slug}`}
       className="group relative flex flex-col rounded-xl border border-border bg-card p-5 transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md"
     >
       <div className="flex items-start justify-between">

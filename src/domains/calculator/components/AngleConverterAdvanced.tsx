@@ -9,6 +9,12 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGri
 
 type AngleUnit = "degrees" | "radians" | "gradians" | "turns";
 
+interface AngleInputs {
+  value: string;
+  fromUnit: AngleUnit;
+  decimals: string;
+}
+
 interface AngleResult {
   degrees: number;
   radians: number;
@@ -27,7 +33,13 @@ const TO_DEG: Record<AngleUnit, number> = {
   turns: 360,
 };
 
-function calcAngle(value: number, fromUnit: AngleUnit, decimals: number): AngleResult {
+function calcAngle(inputs: AngleInputs): AngleResult {
+  const rawValue = parseFloat(inputs.value);
+  const value = Number.isFinite(rawValue) ? rawValue : 0;
+  const rawDecimals = parseInt(inputs.decimals);
+  const decimals = Number.isFinite(rawDecimals) ? Math.max(0, Math.min(10, rawDecimals)) : 4;
+  const fromUnit: AngleUnit = inputs.fromUnit || "degrees";
+
   const deg = value * TO_DEG[fromUnit];
   const rad = deg * (Math.PI / 180);
   const grad = deg / 0.9;
@@ -65,26 +77,36 @@ function calcAngle(value: number, fromUnit: AngleUnit, decimals: number): AngleR
     { unit: "Turns", value: r(turns), fill: "#8b5cf6" },
   ];
 
-  return { degrees: r(deg), radians: r(rad), gradians: r(grad), turns: r(turns), dms: { degrees: d, minutes: m, seconds: r(s) }, breakdown, summaryStats, chartData };
+  return {
+    degrees: r(deg),
+    radians: r(rad),
+    gradians: r(grad),
+    turns: r(turns),
+    dms: { degrees: d, minutes: m, seconds: r(s) },
+    breakdown,
+    summaryStats,
+    chartData,
+  };
 }
 
-const DEFAULTS = { value: "45", fromUnit: "degrees" as AngleUnit, decimals: "4" };
+const DEFAULTS: AngleInputs = { value: "45", fromUnit: "degrees", decimals: "4" };
 
 export default function AngleConverterAdvanced() {
-  const [value, setValue] = useState(DEFAULTS.value);
-  const [fromUnit, setFromUnit] = useState<AngleUnit>(DEFAULTS.fromUnit);
-  const [decimals, setDecimals] = useState(DEFAULTS.decimals);
+  const [inputs, setInputs] = useState<AngleInputs>(DEFAULTS);
+  const [result, setResult] = useState<AngleResult>(calcAngle(DEFAULTS));
   const [showAdv, setShowAdv] = useState(false);
-  const [result, setResult] = useState<AngleResult | null>(null);
 
-  const calculate = () => {
-    const v = parseFloat(value);
-    const d = Math.max(0, Math.min(10, parseInt(decimals) || 4));
-    if (isNaN(v)) { setResult(null); return; }
-    setResult(calcAngle(v, fromUnit, d));
+  useEffect(() => {
+    setResult(calcAngle(inputs));
+  }, []);
+
+  const calculate = () => setResult(calcAngle(inputs));
+  const reset = () => {
+    setInputs(DEFAULTS);
+    setResult(calcAngle(DEFAULTS));
   };
-  const reset = () => { setValue(DEFAULTS.value); setFromUnit(DEFAULTS.fromUnit); setDecimals(DEFAULTS.decimals); setResult(calcAngle(45, "degrees", 4)); };
-  useEffect(() => { setResult(calcAngle(45, "degrees", 4)); }, []);
+
+  const update = (patch: Partial<AngleInputs>) => setInputs((prev) => ({ ...prev, ...patch }));
 
   const inp = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
   const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground";
@@ -106,12 +128,12 @@ export default function AngleConverterAdvanced() {
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="text-sm font-medium mb-1 block">Value</label>
-                <div className={inp}><input type="number" value={value} onChange={e => setValue(e.target.value)} className={ci} /></div>
+                <div className={inp}><input type="number" value={inputs.value} onChange={e => update({ value: e.target.value })} className={ci} /></div>
               </div>
               <div>
                 <label className="text-sm font-medium mb-1 block">From Unit</label>
                 <div className={inp}>
-                  <select value={fromUnit} onChange={e => setFromUnit(e.target.value as AngleUnit)} className={ci}>
+                  <select value={inputs.fromUnit} onChange={e => update({ fromUnit: e.target.value as AngleUnit })} className={ci}>
                     <option value="degrees">Degrees (°)</option>
                     <option value="radians">Radians (rad)</option>
                     <option value="gradians">Gradians (grad)</option>
@@ -128,7 +150,7 @@ export default function AngleConverterAdvanced() {
                 <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Precision</div>
                 <div>
                   <label className="text-sm font-medium mb-1 block">Decimal Places</label>
-                  <div className={inp}><input type="number" value={decimals} onChange={e => setDecimals(e.target.value)} min={0} max={10} className={ci} /></div>
+                  <div className={inp}><input type="number" value={inputs.decimals} onChange={e => update({ decimals: e.target.value })} min={0} max={10} className={ci} /></div>
                 </div>
               </div>
             )}
@@ -139,54 +161,52 @@ export default function AngleConverterAdvanced() {
           </div>
 
           <div className="flex flex-col gap-4">
-            {result && (<>
-              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
-                <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Converted Angle</div>
-                <div className="text-4xl font-extrabold tracking-tight text-primary">{result.degrees}°</div>
-                <div className="text-sm text-muted-foreground mt-1">{result.radians} rad · {result.gradians} grad · {result.turns} turns</div>
-              </div>
-              <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
-                {[["Radians", `${result.radians}`], ["Gradians", `${result.gradians}`], ["Turns", `${result.turns}`]].map(([l, v], i) => (
-                  <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
-                    <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
-                    <div className="text-base font-bold">{v}</div>
-                  </div>
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+              <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Converted Angle</div>
+              <div className="text-4xl font-extrabold tracking-tight text-primary">{result.degrees}°</div>
+              <div className="text-sm text-muted-foreground mt-1">{result.radians} rad · {result.gradians} grad · {result.turns} turns</div>
+            </div>
+            <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+              {[["Radians", `${result.radians}`], ["Gradians", `${result.gradians}`], ["Turns", `${result.turns}`]].map(([l, v], i) => (
+                <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                  <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                  <div className="text-base font-bold">{v}</div>
+                </div>
+              ))}
+            </div>
+            <div className="card-calculator !p-5 border border-border bg-card">
+              <h3 className="text-base font-bold mb-4">Conversion Breakdown</h3>
+              <table className="w-full text-base"><tbody>
+                {result.breakdown.map((r, i) => (
+                  <tr key={i} className={`border-b border-border/50 last:border-0 ${i === 1 ? "bg-primary/5" : ""}`}>
+                    <td className="py-2.5 px-3 text-muted-foreground">{r.label}</td>
+                    <td className="py-2.5 px-3 text-right font-semibold">{r.value}</td>
+                  </tr>
+                ))}
+              </tbody></table>
+            </div>
+            <div className="card-calculator !p-5 border border-border bg-card">
+              <h3 className="text-base font-bold mb-4">Angle in All Units</h3>
+              <ResponsiveContainer width="100%" height={220}>
+                <BarChart data={result.chartData} margin={{ top: 5, right: 10, left: 10, bottom: 5 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+                  <XAxis dataKey="unit" tick={{ fontSize: 11 }} />
+                  <YAxis tick={{ fontSize: 10 }} />
+                  <Tooltip formatter={(v: number) => [v, "Value"]} />
+                  <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+                    {result.chartData.map((entry, i) => <Cell key={i} fill={entry.fill} />)}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+            <div className="bg-muted/30 rounded-lg p-5">
+              <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
+              <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                {result.summaryStats.map((s, i) => (
+                  <div key={i} className="flex justify-between"><span className="text-muted-foreground">{s.label}:</span><span className="font-semibold">{s.value}</span></div>
                 ))}
               </div>
-              <div className="card-calculator !p-5 border border-border bg-card">
-                <h3 className="text-base font-bold mb-4">Conversion Breakdown</h3>
-                <table className="w-full text-base"><tbody>
-                  {result.breakdown.map((r, i) => (
-                    <tr key={i} className={`border-b border-border/50 last:border-0 ${i === 1 ? "bg-primary/5" : ""}`}>
-                      <td className="py-2.5 px-3 text-muted-foreground">{r.label}</td>
-                      <td className="py-2.5 px-3 text-right font-semibold">{r.value}</td>
-                    </tr>
-                  ))}
-                </tbody></table>
-              </div>
-              <div className="card-calculator !p-5 border border-border bg-card">
-                <h3 className="text-base font-bold mb-4">Angle in All Units</h3>
-                <ResponsiveContainer width="100%" height={220}>
-                  <BarChart data={result.chartData} margin={{ top: 5, right: 10, left: 10, bottom: 5 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
-                    <XAxis dataKey="unit" tick={{ fontSize: 11 }} />
-                    <YAxis tick={{ fontSize: 10 }} />
-                    <Tooltip formatter={(v: number) => [v, "Value"]} />
-                    <Bar dataKey="value" radius={[4, 4, 0, 0]}>
-                      {result.chartData.map((entry, i) => <Cell key={i} fill={entry.fill} />)}
-                    </Bar>
-                  </BarChart>
-                </ResponsiveContainer>
-              </div>
-              <div className="bg-muted/30 rounded-lg p-5">
-                <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
-                <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
-                  {result.summaryStats.map((s, i) => (
-                    <div key={i} className="flex justify-between"><span className="text-muted-foreground">{s.label}:</span><span className="font-semibold">{s.value}</span></div>
-                  ))}
-                </div>
-              </div>
-            </>)}
+            </div>
           </div>
         </div>
         <div className="max-w-[1180px] mt-8">

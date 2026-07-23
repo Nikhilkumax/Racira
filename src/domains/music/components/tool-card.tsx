@@ -6,7 +6,7 @@ export function ToolCard({ tool }: { tool: Tool }) {
   const isLive = tool.status === "live";
   return (
     <Link
-      href={`/music/tool/${tool.slug}`}
+      href={`/music/${tool.slug}`}
       className="tool-card group relative"
     >
       <div className="tool-card-icon">

@@ -5,7 +5,7 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import { useMemo, useState } from "react";
 import { Search, Sparkles } from "lucide-react";
-import { CATEGORIES, TOTAL_TOOLS, SEARCH_REGISTRY } from "@/data/productivity/tools";
+import { CATEGORIES, TOTAL_TOOLS, SEARCH_REGISTRY } from "@/domains/productivity/registry";
 import { CategorySection } from "@/components/shared/CategorySection";
 
 import { SiteFooter } from "@/components/productivity/SiteFooter";
@@ -55,7 +55,7 @@ export default function Index() {
         </div>
 
         {filtered.map((cat, i) => (
-          <CategorySection key={cat.name} section={{ title: cat.name, tools: cat.tools }} basePath="/productivity/tools" />
+          <CategorySection key={cat.name} section={{ title: cat.name, tools: cat.tools }} basePath="/productivity" />
         ))}
 
         {filtered.length === 0 && (

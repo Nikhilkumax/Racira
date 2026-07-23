@@ -1,3 +1,4 @@
+import { DeviceGate } from "@/domains/voice/components/DeviceGate";
 import { TTSHero } from "@/domains/voice/components/tts-sections/TTSHero";
 import { Clock } from "lucide-react";
 
@@ -30,9 +31,11 @@ export default function VoicePage() {
       
       <div className="racira-page-container pb-8">
         {TTS_STUDIO_ENABLED ? (
-          // StudioCard is intentionally not imported while tts-worker.js is absent.
-          // Re-add: import { StudioCard } from "@/domains/voice/components/tts/StudioCard";
-          null
+          <DeviceGate>
+            {/* StudioCard is intentionally not imported while tts-worker.js is absent.
+                Re-add: import { StudioCard } from "@/domains/voice/components/tts/StudioCard"; */}
+            {null}
+          </DeviceGate>
         ) : (
           <div className="overflow-hidden rounded-3xl border border-border-subtle bg-gradient-card shadow-elevated">
             <div className="relative px-8 py-20 text-center">

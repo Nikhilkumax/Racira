@@ -1,5 +1,5 @@
 import { CategorySearch } from "@/components/CategorySearch";
-import { CATEGORY_ORDER, TOOLS, TOOLS_BY_CATEGORY, SEARCH_REGISTRY } from "@/data/video/tools";
+import { CATEGORY_ORDER, TOOLS, TOOLS_BY_CATEGORY, SEARCH_REGISTRY } from "@/domains/video/registry";
 import { ToolCard } from "@/components/video/ToolCard";
 import type { Metadata } from "next";
 

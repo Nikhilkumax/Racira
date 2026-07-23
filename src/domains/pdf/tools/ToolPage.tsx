@@ -332,6 +332,10 @@ const ToolPage = () => {
       case "encryption-strength-checker":
       case "permission-editor":
       case "signature-presence-checker":
+      case "viewer":
+      case "certificate-inspector":
+      case "imposition-layout":
+      case "merge-with-toc":
       case "view-metadata":
       case "font-inspector":
       case "structure-inspector":
@@ -365,7 +369,7 @@ const ToolPage = () => {
   return (
     <main className="pb-16">
       {/* SECTION 1: Breadcrumb — flush below header */}
-      <ToolBreadcrumb category={config.category} toolName={tool.name} />
+      <ToolBreadcrumb category={tool.subCategory || "PDF Tools"} toolName={tool.name} />
 
       {/* SECTION 2–3: Title + Tool UI Card */}
       <div className="racira-page-container">

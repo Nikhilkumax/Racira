@@ -1,9 +1,10 @@
 {
   "dbCount": 11753,
   "tsxCount": 1240,
-  "approvedCount": 71,
+  "approvedCount": 437,
   "keep": [
     "AbsoluteValueCalculator",
+    "AbsorptionCostingVsVariableCostingProfitComparison",
     "AbsorptionVsVariableCostingCalculator",
     "AccelerationCalculator",
     "AccountsReceivableCalculator",
@@ -20,140 +21,458 @@
     "AirFreightCostEstimator",
     "AlcoholCaloriesCalculator",
     "AlcoholUnitCalculator",
+    "AlternatorOutputCalculator",
+    "AltitudeCalculator",
+    "AltmanZScoreCalculator",
+    "AmazonFbaCalculator",
     "AmortizationCalculator",
     "AmortizationScheduleCalculator",
     "AmtCalculator",
+    "AndroidVsGynoidEstimator",
+    "AngelInvestmentReturnCalculator",
+    "AngleConverter",
+    "AnnualRecurringRevenueCalculator",
+    "AnnualSalaryToHourlyRateCalculator",
+    "AnnuityCalculator",
+    "AnnuityPayoutCalculator",
     "AprCalculator",
+    "AprToEarCalculator",
     "ApyCalculator",
+    "ArcLengthCalculator",
+    "ArithmeticProgressionCalculator",
+    "ArmVsFixedRateCalculator",
+    "AssetCoverageRatioCalculator",
+    "AssetTurnoverRatioCalculator",
+    "AthleteBmiCalculator",
     "AutoLoanCalculator",
+    "AutoLoanRefinanceSavingsCalculator",
+    "AverageCalculator",
     "AverageReturnCalculator",
+    "AverageRevenuePerUserCalculator",
+    "BabyGrowthPercentileCalculator",
+    "BackdoorRothIraCalculator",
+    "BaristaFireCalculator",
+    "BasalMetabolicRateBmrKatchMcardleCalculator",
+    "BatteryLifeCalculator",
     "BikeLoanCalculator",
+    "BitcoinMiningCalculator",
     "BiweeklyMortgageCalculator",
+    "BiweeklyVsMonthlyLoanComparison",
+    "BloodDonationCalculator",
+    "BloodGlucoseToCarbRatioEstimator",
+    "BodyAdiposityIndexBaiCalculator",
+    "BodyFatNavyMethodCalculator",
+    "BodyFatPercentageCalculator",
+    "BodyFatSkinfoldCalculator",
+    "BodyMassIndexCalculator",
+    "BondedWarehouseCostCalculator",
     "BondYieldCalculator",
+    "BonusPercentageCalculator",
     "BookPublishingCostCalculator",
+    "BoxingCalorieCalculator",
+    "BrakeHorsepowerCalculator",
+    "BrakingDistanceCalculator",
+    "BreakBulkCargoCostCalculator",
+    "BreakEvenCalculator",
+    "BreakEvenMileageCalculator",
+    "BreastfeedingCalorieCalculator",
+    "BudgetCalculator",
+    "BulkingCalorieCalculator",
+    "BurnRateCalculator",
+    "BusinessLoanCalculator",
     "BusinessLoanPaymentCalculator",
+    "BusinessValuationCalculator",
+    "CaffeineCalculator",
+    "CaffeineHalfLifeCalculator",
+    "CalorieCyclingCalculator",
+    "CalorieDeficitCalculator",
+    "CalorieDeficitForWeightLossCalculator",
+    "CalorieSurplusForWeightGainCalculator",
+    "CalorieToNutrientDensityRatioCalculator",
+    "CalorieToProteinRatioCalculator",
+    "CapRateCalculator",
+    "CarbCyclingCalculator",
+    "CarbohydrateCalculator",
+    "CarbohydrateGramsCalculator",
+    "CarbohydrateLoadingCalculator",
+    "CarbonFootprintPerShipmentCalculator",
+    "CarbToInsulinRatioCalculator",
+    "CardiovascularRiskScoreCalculator",
+    "CardioVsStrengthComparisonCalculator",
+    "CardioVsWeightsCalorieCalculator",
     "CarInsuranceCalculator",
+    "CarLoanCalculator",
+    "CarPerformance060Calculator",
+    "CarrierPerformanceScoreCalculator",
+    "CarrierRateComparisonCalculator",
+    "CarryingCostOfInventoryCalculator",
+    "CashConversionCycleCalculator",
+    "CashRatioCalculator",
     "CatPregnancyDurationCalculator",
+    "Chads2ScoreCalculator",
+    "ChildHeightPredictor",
+    "ChildPughScoreCalculator",
+    "CholesterolRatioCalculator",
+    "ChurnRateCalculator",
+    "CircuitTrainingCalorieCalculator",
+    "CircularMotionCalculator",
+    "ClosingCostCalculator",
+    "ColdChainComplianceCostCalculator",
+    "CollegeSavingsCalculator",
     "CommercialLoanCalculator",
+    "CommercialVehicleLoadCalculator",
+    "ConceptionDateCalculator",
+    "ConcreteCalculator",
+    "ConsignmentInventoryCostCalculator",
     "ConstructionLoanCalculator",
     "ConstructionLoanDrawCalculator",
+    "ContinuousCompoundingCalculator",
+    "CoolingSystemCalculator",
+    "CorrectedQtIntervalCalculator",
+    "CostPerShipmentCalculator",
+    "CovidSymptomCalculator",
+    "CreditCardMinimumPaymentCalculator",
+    "CreditCardPayoffCalculator",
+    "CreditUtilizationCalculator",
+    "CrossFitWodCalorieCalculator",
+    "CryptoProfitCalculator",
+    "CryptoTaxCalculator",
+    "CurrentRatioCalculator",
+    "CustomerAcquisitionCostCalculator",
+    "CustomsClearanceCostEstimator",
+    "CuttingCalorieCalculator",
+    "CyclingCalorieCalculator",
+    "CyclingCaloriesCalculator",
+    "DailyCalorieBurnCalculator",
+    "DailyCalorieBurnPerPoundCalculator",
+    "DancingCalorieCalculator",
+    "DdpVsExwCostComparisonCalculator",
+    "DeadFreightCostCalculator",
+    "DeadSpaceFractionCalculator",
+    "DebtAvalancheCalculator",
+    "DebtConsolidationCalculator",
+    "DebtPayoffCalculator",
+    "DebtSnowballCalculator",
+    "DebtToEquityCalculator",
+    "DeliveryCostPerMileCalculator",
+    "DemurrageCostCalculator",
+    "DepreciationRecaptureCalculator",
+    "DepreciationTaxShieldCalculator",
+    "DifferentialCalculator",
+    "DisabilityInsuranceCalculator",
+    "DiscountedPaybackPeriodCalculator",
+    "DistributionNetworkCostCalculator",
+    "DividendCalculator",
+    "DividendYieldCalculator",
     "DogPregnancyDurationCalculator",
     "DogWalkCalorieBurnCalculator",
+    "DopplerEffectCalculator",
+    "DragCoefficientCalculator",
+    "DrinkingWaterFluorideDoseCalculator",
+    "DriverCostPerMileCalculator",
+    "DynoCalculator",
+    "EarlyRetirementCalculator",
+    "EarningsPerShareCalculator",
+    "EarToAprCalculator",
     "EducationLoanCalculator",
+    "Election83bCalculator",
+    "EllipticalCalorieCalculator",
+    "EmissionsTestCalculator",
+    "EmployerNationalInsuranceContributionCalculator",
+    "EmployerPayrollTaxCalculator",
     "EngineCompressionCalculator",
+    "EquityMultiplierCalculator",
+    "EquivalentAnnualAnnuityCalculator",
+    "EscrowCalculator",
+    "ExpeditedShippingCostPremiumCalculator",
+    "ExportDocumentationCostCalculator",
+    "FatBurningZoneCalculator",
+    "FetalWeightCalculator",
+    "FeverCalculator",
+    "FfmiFatFreeMassIndexCalculator",
     "FhaLoanCalculator",
+    "FiberIntakeCalculator",
+    "FireCalculator",
     "FirstHomeBuyerCalculator",
+    "FixedAssetTurnoverCalculator",
+    "FleetDepreciationCalculator",
+    "FleetFuelCostCalculator",
+    "FleetInsuranceCostCalculator",
+    "FloorsClimbedCalorieCalculator",
+    "FreeCashFlowCalculator",
+    "FreeCashFlowToFirmCalculator",
+    "FreeFallCalculator",
+    "FreightCostToRevenueRatioCalculator",
+    "FuelInjectorCalculator",
+    "GearRatioCalculator",
+    "GestationalAgeCalculator",
+    "GiftTaxCalculator",
+    "GlycemicLoadCalculator",
     "GoldLoanCalculator",
     "GrossIncomeCalculator",
+    "GrossMarginCalculator",
+    "GymSessionCalorieBurnCalculator",
+    "HalfLifeCalculator",
     "HamsterCalorieCalculator",
+    "HarmonicMeanCalculator",
+    "HasBledScoreCalculator",
+    "HealthInsuranceCalculator",
     "HealthyWeightCalculator",
+    "HeartRateRecoveryCalculator",
+    "HelocCalculator",
+    "HemoglobinCalculator",
     "HighYieldSavingsCalculator",
+    "HiitCalorieBurnCalculator",
+    "HiitCalorieCalculator",
+    "HikingCalorieCalculator",
     "HomeEquityLoanCalculator",
     "HomeLoanCalculator",
     "HomeLoanEligibilityCalculator",
     "HorseCalorieCalculator",
+    "HorsepowerCalculator",
+    "HotYogaCalorieCalculator",
     "HourlyWageCalculator",
+    "IdealWeightCalculatorForWomen",
+    "ImportClearanceTimeCostCalculator",
+    "IncomeTaxCalculator",
+    "IncotermsCostImpactCalculator",
+    "IncotermsLandedCostCalculator",
+    "InfantMilkCalculator",
+    "InflationAdjustedReturnCalculator",
+    "InheritanceTaxCalculator",
+    "InsuranceCostPerShipmentCalculator",
+    "InterestCoverageRatioCalculator",
+    "IntermittentFastingCalculator",
+    "InternalGrowthRateCalculator",
+    "InternationalShippingCostEstimator",
+    "InterquartileRangeCalculator",
+    "InventoryDaysCalculator",
+    "InventoryTurnoverCalculator",
+    "InvestmentGrowthCalculator",
+    "InvestmentReturnCalculator",
+    "IraCalculator",
+    "JobClassificationSalaryBandCalculator",
+    "JobOfferNetSalaryCalculator",
+    "JumpRopeCalorieCalculator",
+    "KeplersLawsCalculator",
+    "KurtosisCalculator",
+    "LandLoanPaymentCalculator",
+    "LastMileDeliveryCostCalculator",
     "LoanAgainstPropertyCalculator",
     "LoanOriginationFeeCalculator",
     "LoanPayoffCalculator",
+    "LogisticsCostPerUnitCalculator",
+    "LowCarbDietAdherenceScoreCalculator",
+    "LowCarbThresholdCalculator",
+    "LtvCalculator",
+    "LumpsumCalculator",
+    "MacroCalculator",
+    "MacronutrientCalorieDistributionCalculator",
+    "MaintenanceCalorieCalculator",
+    "MarathonTrainingCalculator",
+    "MarginCalculator",
+    "MarginOfSafetyPercentageCalculator",
+    "MartialArtsCalorieCalculator",
+    "MealFrequencyCalorieSplitCalculator",
+    "MeanArterialPressureCalculator",
+    "MedianCalculator",
+    "MetsBasedCalorieBurnCalculator",
+    "MicrofinanceLoanRepaymentCalculator",
+    "MindfulnessPracticeRoiCalculator",
+    "ModeCalculator",
+    "ModuloCalculator",
+    "MomentumCalculator",
     "MortgageCalculator",
     "MortgagePayoffCalculator",
     "MortgageRecastCalculator",
     "MovingCostEstimator",
+    "MultiModalTransportationCostCalculator",
+    "NetCarbsCalculator",
     "NetIncomeCalculator",
+    "NetProfitMarginCalculator",
+    "NetWorthCalculator",
+    "NormalDistributionCalculator",
+    "NumberSequenceCalculator",
+    "OdometerCorrectionCalculator",
+    "OlympicLiftPercentageCalculator",
+    "Omega3IntakeCalculator",
+    "OperatingCashFlowCalculator",
+    "OperatingMarginCalculator",
+    "OrbitalVelocityCalculator",
+    "OverweightCalculator",
+    "PaintCalculator",
     "ParrotCalorieCalculator",
+    "PaybackPeriodCalculator",
+    "PaybackPeriodCalculatorAdvanced",
+    "PaydayLoanTrueCostCalculator",
     "PaymentCalculator",
+    "PayRaisePercentageCalculator",
+    "PediatricBmiCalculator",
+    "PercentageBasedVolumeCalculator",
+    "PermutationCombinationCalculator",
+    "PersonalLoanCalculator",
+    "PersonalLoanPayoffCalculator",
+    "PilatesCalorieCalculator",
+    "PitiCalculator",
+    "PitiMortgagePaymentCalculator",
+    "Plan529Calculator",
     "PmiCalculator",
+    "PonderalIndexCalculator",
+    "PortDwellTimeCostCalculator",
+    "PortHandlingCostCalculator",
+    "PotassiumIntakeCalculator",
+    "PredictableRevenuePercentageCalculator",
+    "PreferredStockValuationCalculator",
+    "PregnancyBmiCalculator",
+    "PregnancyDueDateCalculator",
+    "PrenatalVitaminCalculator",
+    "PrePregnancyBMICalculator",
+    "PropertyTaxCalculator",
+    "ProteinToCalorieRatioCalculator",
+    "PulseOxCalculator",
+    "QuartileCalculator",
+    "RadiationDoseFractionationCalculator",
+    "RadiatorSizeCalculator",
+    "RangeCalculator",
+    "ReactionTimeCalculator",
+    "ReceivableDaysCalculator",
+    "RefinanceBreakEvenCalculator",
+    "RefinanceCalculator",
     "RentalPropertyDepreciationCalculator",
+    "RentalYieldCalculator",
+    "RepetitionMaxPercentageCalculator",
+    "RequiredMinimumDistributionCalculator",
+    "ResourceLoadingPercentageCalculator",
+    "RestaurantMealCalorieEstimator",
+    "RetirementCalculator",
+    "RetirementSavingsCalculator",
+    "ReturnOnAssetsCalculator",
+    "ReturnOnInvestedCapitalCalculator",
+    "ReturnsProcessingCostCalculator",
+    "ReverseLogisticsCostCalculator",
+    "ReverseMortgageEstimationCalculator",
+    "RmdCalculator",
+    "RockClimbingCalorieCalculator",
+    "RowingCalorieCalculator",
+    "RpeToPercentageCalculator",
+    "RunningPaceCalculator",
     "RvLoanCalculator",
+    "RvLoanPaymentCalculator",
+    "SafeFollowingDistanceCalculator",
+    "SafeWithdrawalRateCalculator",
+    "SalaryBandRangeCalculator",
+    "SalaryBenchmarkPercentileCalculator",
+    "SalaryGradeSpreadCalculator",
+    "SavingsGoalCalculator",
+    "SeasonalPaymentLoanCalculator",
+    "SeaVsAirFreightCostComparisonCalculator",
+    "SedentaryTimeCostCalculator",
+    "ShippingInsuranceCostCalculator",
+    "ShippingWeightCostCalculator",
+    "SimpleInterestLoanCalculator",
+    "SipCalculator",
+    "SkewnessCalculator",
+    "SkuStorageCostCalculator",
+    "SleepDebtCalculator",
+    "SleepInvestmentRoiCalculator",
+    "SocialSecurityCalculator",
+    "SodiumIntakeCalculator",
+    "SpeedometerErrorCalculator",
+    "SportsDrinkCarbConcentrationCalculator",
+    "SportSpecificCalorieCalculator",
+    "StairClimbingCalorieCalculator",
+    "StarterMotorCalculator",
+    "StepCountToCalorieBurnCalculator",
+    "StepsToCaloriesCalculator",
+    "StoppingDistanceCalculator",
+    "StudentLoanCalculator",
+    "SustainableGrowthRateCalculator",
+    "SwimmingCalorieCalculator",
+    "SyntaxScoreComplexityCalculator",
+    "TabataCalorieCalculator",
     "TaxRefundCalculator",
+    "TaxReturnCalculator",
+    "TermLifeVsWholeLifeCalculator",
+    "ThyroidRiskScoreCalculator",
+    "TimeAndMaterialsBudgetCalculator",
+    "TimesInterestEarnedCalculator",
+    "TireDiameterCalculator",
+    "TireLoadIndexCalculator",
+    "TirePressureCalculator",
+    "TireSizeCalculator",
+    "TowingCapacityCalculator",
+    "TradeCreditDaysCalculator",
+    "TradeCreditTermsCalculator",
+    "TradeFinanceCostCalculator",
+    "TrailerTongueWeightCalculator",
+    "TransitTimeCostCalculator",
+    "TransmissionRatioCalculator",
     "TurboBoostCalculator",
+    "TwinPregnancyWeightGainCalculator",
     "UKMortgageCalculator",
+    "UltraProcessedFoodPercentageCalculator",
+    "UnitLoadCostCalculator",
     "UsdaLoanCalculator",
+    "VaccinationScheduleCalculator",
     "VaLoanCalculator",
+    "VariablePayPercentageCalculator",
+    "VdotCalculator",
+    "VehicleWeightCalculator",
+    "VelocityCalculator",
+    "VendorScorecardRatingCalculator",
+    "VicariousTraumaRiskCalculator",
+    "WaccCalculator",
+    "WaistToHeightRatioCalculator",
+    "WalkVsRunCalorieComparisonCalculator",
+    "WaterAerobicsCalorieCalculator",
+    "WeddingBudgetCalculator",
+    "WeightChangePercentageCalculator",
+    "WeightedAverageYieldCalculator",
+    "WeightliftingPercentageCalculator",
+    "WeightliftingSessionCalorieCalculator",
+    "WeightLossPercentageCalculator",
     "WeightWatchersPointsCalculator",
+    "WheelHorsepowerCalculator",
+    "WorkingCapitalTurnoverCalculator",
+    "WorkoutCalorieCalculator",
+    "YogaCalorieCalculator",
     "YoutubeRevenueCalculator"
   ],
-  "polish": [],
+  "polish": [
+    {
+      "name": "ReplenishmentLeadTimeCalculator",
+      "issues": [
+        "Calculate button label not exactly Calculate"
+      ]
+    }
+  ],
   "rebuild": [
     {
       "name": "AbsoluteReturnCalculator",
       "reason": "placeholder formula"
     },
     {
-      "name": "AbsorptionCostingVsVariableCostingProfitComparison",
-      "reason": "placeholder formula; no Recharts chart"
-    },
-    {
-      "name": "AlternatorOutputCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "AltitudeCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "AltmanZScoreCalculator",
-      "reason": "placeholder formula; no Calculate button"
-    },
-    {
-      "name": "AmazonFbaCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "AndroidVsGynoidEstimator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "AngelInvestmentReturnCalculator",
-      "reason": "placeholder formula"
-    },
-    {
-      "name": "AngleConverter",
-      "reason": "placeholder formula; missing result card; no tiered input system"
-    },
-    {
       "name": "AngleConverterAdvanced",
-      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
+      "reason": "placeholder formula"
     },
     {
       "name": "AnnualCarCostCalculator",
       "reason": "placeholder formula"
     },
     {
-      "name": "AnnualRecurringRevenueCalculator",
-      "reason": "placeholder formula"
-    },
-    {
-      "name": "AnnualSalaryToHourlyRateCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "AnnuityCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "AnnuityPayoutCalculator",
-      "reason": "placeholder formula; missing result card; no tiered input system"
-    },
-    {
       "name": "AnorexicBmiCalculator",
-      "reason": "placeholder formula; no Recharts chart; missing result card; no tiered input system"
+      "reason": "placeholder formula; no tiered input system"
     },
     {
       "name": "AnovaCalculator",
-      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
+      "reason": "placeholder formula"
     },
     {
       "name": "AntilogCalculator",
-      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
+      "reason": "placeholder formula"
     },
     {
       "name": "ApgarScoreCalculator",
-      "reason": "placeholder formula; no Calculate button; no tiered input system"
-    },
-    {
-      "name": "AprToEarCalculator",
       "reason": "placeholder formula; no tiered input system"
     },
     {
@@ -162,27 +481,15 @@
     },
     {
       "name": "AquariumVolumeCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "ArcLengthCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "AreaCalculator",
       "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
+      "name": "AreaCalculator",
+      "reason": "placeholder formula; no Recharts chart; missing result card; no tiered input system"
+    },
+    {
       "name": "AreaConverter",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "ArithmeticProgressionCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "ArmVsFixedRateCalculator",
-      "reason": "no Calculate button; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "ArmyBodyFatCalculator",
@@ -191,18 +498,6 @@
     {
       "name": "AspectRatioCalculator",
       "reason": "placeholder formula; no Recharts chart; missing result card; no tiered input system"
-    },
-    {
-      "name": "AssetCoverageRatioCalculator",
-      "reason": "placeholder formula; no Calculate button"
-    },
-    {
-      "name": "AssetTurnoverRatioCalculator",
-      "reason": "placeholder formula; missing result card; no tiered input system"
-    },
-    {
-      "name": "AthleteBmiCalculator",
-      "reason": "placeholder formula; no Calculate button; no tiered input system"
     },
     {
       "name": "AttendanceCalculator",
@@ -217,48 +512,28 @@
       "reason": "isBuilt false in registry"
     },
     {
-      "name": "AutoLoanRefinanceSavingsCalculator",
-      "reason": "placeholder formula"
-    },
-    {
       "name": "AutoLoanVsLeaseComparisonCalculator",
       "reason": "placeholder formula"
     },
     {
-      "name": "AverageCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "AverageRevenuePerUserCalculator",
-      "reason": "placeholder formula"
-    },
-    {
       "name": "AvogadrosNumberCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "AwsS3CostCalculator",
       "reason": "placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
-      "name": "BabyGrowthPercentileCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "BacCalculator",
       "reason": "placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
-      "name": "BackdoorRothIraCalculator",
-      "reason": "placeholder formula"
-    },
-    {
       "name": "BakingConversionCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "BakingIngredientConverter",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "BalanceTransferCalculator",
@@ -274,19 +549,11 @@
     },
     {
       "name": "BarbellPlateCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "BaristaFireCalculator",
-      "reason": "placeholder formula"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "BarometricPressureCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "BasalMetabolicRateBmrKatchMcardleCalculator",
-      "reason": "placeholder formula; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "Base64Decoder",
@@ -298,11 +565,11 @@
     },
     {
       "name": "BaseballBattingAverageCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "BaseballEraCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "BaseballFieldingCalculator",
@@ -318,7 +585,7 @@
     },
     {
       "name": "BaseConversionCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "BasicCalculator",
@@ -326,19 +593,15 @@
     },
     {
       "name": "BasketballPerCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "BasketballShootingPercentageCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "BatteryDegradationCalculator",
       "reason": "placeholder formula"
-    },
-    {
-      "name": "BatteryLifeCalculator",
-      "reason": "placeholder formula; no tiered input system"
     },
     {
       "name": "BetaCalculator",
@@ -350,7 +613,7 @@
     },
     {
       "name": "BilliardsHandicapCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "BillSplitCalculator",
@@ -362,11 +625,11 @@
     },
     {
       "name": "BinaryDecimalCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "BinaryTextConverter",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "BindingEnergyCalculator",
@@ -374,7 +637,7 @@
     },
     {
       "name": "BinomialDistributionCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "BiodiversityIndexCalculator",
@@ -382,19 +645,11 @@
     },
     {
       "name": "BishopScoreCalculator",
-      "reason": "placeholder formula; no Calculate button; no tiered input system"
-    },
-    {
-      "name": "BitcoinMiningCalculator",
-      "reason": "placeholder formula; no Calculate button"
+      "reason": "placeholder formula; no tiered input system"
     },
     {
       "name": "BitwiseOperationsCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "BiweeklyVsMonthlyLoanComparison",
-      "reason": "placeholder formula; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "BlackScholesCalculator",
@@ -406,15 +661,7 @@
     },
     {
       "name": "BlindSizeCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "BloodDonationCalculator",
-      "reason": "placeholder formula; no Calculate button; no tiered input system"
-    },
-    {
-      "name": "BloodGlucoseToCarbRatioEstimator",
-      "reason": "placeholder formula; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "BloodPressureCategoryCalculator",
@@ -453,31 +700,11 @@
       "reason": "placeholder formula"
     },
     {
-      "name": "BodyAdiposityIndexBaiCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "BodyFatCalculator",
       "reason": "placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
-      "name": "BodyFatNavyMethodCalculator",
-      "reason": "placeholder formula; no Calculate button; no tiered input system"
-    },
-    {
-      "name": "BodyFatPercentageCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "BodyFatSkinfoldCalculator",
-      "reason": "placeholder formula; no Calculate button; no tiered input system"
-    },
-    {
       "name": "BodyFrameSizeCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "BodyMassIndexCalculator",
       "reason": "placeholder formula; no tiered input system"
     },
     {
@@ -490,15 +717,11 @@
     },
     {
       "name": "BoilingPointElevationCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "BondDurationCalculator",
       "reason": "placeholder formula; missing result card; no tiered input system"
-    },
-    {
-      "name": "BondedWarehouseCostCalculator",
-      "reason": "placeholder formula; no tiered input system"
     },
     {
       "name": "BondPriceCalculator",
@@ -509,32 +732,16 @@
       "reason": "placeholder formula; missing result card"
     },
     {
-      "name": "BonusPercentageCalculator",
-      "reason": "placeholder formula"
-    },
-    {
       "name": "BounceRateCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "BowlingHandicapCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "BoxingCalorieCalculator",
-      "reason": "placeholder formula; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "BoylesLawCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "BrakeHorsepowerCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "BrakingDistanceCalculator",
-      "reason": "placeholder formula; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "BraSizeCalculator",
@@ -542,23 +749,7 @@
     },
     {
       "name": "BraSizeConverter",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "BreakBulkCargoCostCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "BreakEvenCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "BreakEvenMileageCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "BreastfeedingCalorieCalculator",
-      "reason": "placeholder formula; no Calculate button; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "BrickCalculator",
@@ -573,48 +764,20 @@
       "reason": "placeholder formula; no Recharts chart; no tiered input system"
     },
     {
-      "name": "BudgetCalculator",
-      "reason": "placeholder formula"
-    },
-    {
       "name": "BudgetRuleCalculator",
       "reason": "placeholder formula; missing result card"
     },
     {
       "name": "BufferSolutionCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "BulkingCalorieCalculator",
-      "reason": "placeholder formula; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "BuoyancyCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "BurnRateCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "BusinessLoanCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "BusinessValuationCalculator",
-      "reason": "placeholder formula; missing result card; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "BuyDownCalculator",
       "reason": "no tiered input system"
-    },
-    {
-      "name": "CaffeineCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "CaffeineHalfLifeCalculator",
-      "reason": "placeholder formula; no tiered input system"
     },
     {
       "name": "CagrCalculator",
@@ -622,7 +785,7 @@
     },
     {
       "name": "CakeServingCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "CaloricExpenditureCalculator",
@@ -633,18 +796,6 @@
       "reason": "placeholder formula; missing result card"
     },
     {
-      "name": "CalorieCyclingCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "CalorieDeficitCalculator",
-      "reason": "placeholder formula; missing result card; no tiered input system"
-    },
-    {
-      "name": "CalorieDeficitForWeightLossCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "CaloriesBurnedCalculator",
       "reason": "placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
@@ -653,28 +804,16 @@
       "reason": "placeholder formula; no tiered input system"
     },
     {
-      "name": "CalorieSurplusForWeightGainCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "CalorieToNutrientDensityRatioCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "CalorieToProteinRatioCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "CanadianMortgageCalculator",
       "reason": "placeholder formula"
     },
     {
       "name": "CandleBurnTimeCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "CapacitanceCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "CapitalAssetPricingModelCalculator",
@@ -689,10 +828,6 @@
       "reason": "placeholder formula; missing result card; no tiered input system"
     },
     {
-      "name": "CapRateCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "CarAffordabilityCalculator",
       "reason": "placeholder formula"
     },
@@ -701,36 +836,12 @@
       "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
-      "name": "CarbCyclingCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "CarbohydrateCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "CarbohydrateGramsCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "CarbohydrateLoadingCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "CarbonDatingCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "CarbonFootprintCalculator",
       "reason": "placeholder formula; missing result card; no tiered input system"
-    },
-    {
-      "name": "CarbonFootprintPerShipmentCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "CarbToInsulinRatioCalculator",
-      "reason": "placeholder formula; no tiered input system"
     },
     {
       "name": "CarBuyingBudgetCalculator",
@@ -738,19 +849,7 @@
     },
     {
       "name": "CarDepreciationCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "CardiovascularRiskScoreCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "CardioVsStrengthComparisonCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "CardioVsWeightsCalorieCalculator",
-      "reason": "placeholder formula; no Calculate button; no tiered input system"
+      "reason": "placeholder formula"
     },
     {
       "name": "CarDownPaymentCalculator",
@@ -769,10 +868,6 @@
       "reason": "placeholder formula; no tiered input system"
     },
     {
-      "name": "CarLoanCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "CarOwnershipAnnualCostCalculator",
       "reason": "placeholder formula; missing result card"
     },
@@ -781,24 +876,8 @@
       "reason": "placeholder formula"
     },
     {
-      "name": "CarPerformance060Calculator",
-      "reason": "placeholder formula; no Calculate button; no tiered input system"
-    },
-    {
       "name": "CarRegistrationFeeCalculator",
       "reason": "placeholder formula"
-    },
-    {
-      "name": "CarrierPerformanceScoreCalculator",
-      "reason": "placeholder formula"
-    },
-    {
-      "name": "CarrierRateComparisonCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "CarryingCostOfInventoryCalculator",
-      "reason": "placeholder formula; no tiered input system"
     },
     {
       "name": "CarTrueCostOfOwnershipCalculator",
@@ -813,16 +892,8 @@
       "reason": "placeholder formula; no tiered input system"
     },
     {
-      "name": "CashConversionCycleCalculator",
-      "reason": "placeholder formula; missing result card; no tiered input system"
-    },
-    {
-      "name": "CashRatioCalculator",
-      "reason": "placeholder formula; missing result card; no tiered input system"
-    },
-    {
       "name": "CatAgeCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "CatCalorieCalculator",
@@ -830,7 +901,7 @@
     },
     {
       "name": "CateringQuantityCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "CatPregnancyCalculator",
@@ -842,7 +913,7 @@
     },
     {
       "name": "CeilingFloorCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "CementCalculator",
@@ -854,11 +925,7 @@
     },
     {
       "name": "Cha2ds2VascScoreCalculator",
-      "reason": "placeholder formula; no Calculate button; no tiered input system"
-    },
-    {
-      "name": "Chads2ScoreCalculator",
-      "reason": "placeholder formula; no Calculate button; no tiered input system"
+      "reason": "placeholder formula; no tiered input system"
     },
     {
       "name": "ChargingSpeedCalculator",
@@ -866,55 +933,27 @@
     },
     {
       "name": "CharlesLawCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "ChildHeightPredictor",
-      "reason": "placeholder formula; no Calculate button; no tiered input system"
-    },
-    {
-      "name": "ChildPughScoreCalculator",
-      "reason": "placeholder formula; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "ChiSquareCalculator",
       "reason": "placeholder formula; missing result card; no tiered input system"
     },
     {
-      "name": "CholesterolRatioCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "ChurnRateCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "CircleCalculator",
       "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
-      "name": "CircuitTrainingCalorieCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "CircularMotionCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "ClosingCostCalculator",
-      "reason": "no Calculate button; no tiered input system"
-    },
-    {
       "name": "ClothingSizeConverter",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "ClothingSizeConverterAdvanced",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "CoefficientOfVariationCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "CoffeeBrewingCalculator",
@@ -922,15 +961,7 @@
     },
     {
       "name": "CoffeeStrengthCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "ColdChainComplianceCostCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "CollegeSavingsCalculator",
-      "reason": "placeholder formula; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "CombinationsCalculator",
@@ -938,11 +969,7 @@
     },
     {
       "name": "CombinedGasLawCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "CommercialVehicleLoadCalculator",
-      "reason": "placeholder formula; no Calculate button; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "CommissionCalculator",
@@ -950,11 +977,11 @@
     },
     {
       "name": "CompletingTheSquareCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "ComplexNumbersCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "CompostRatioCalculator",
@@ -970,39 +997,23 @@
     },
     {
       "name": "ConcentrationCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "ConceptionCalculator",
       "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
-      "name": "ConceptionDateCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "ConcreteCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "ConeCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "ConfidenceIntervalCalculator",
       "reason": "placeholder formula; missing result card; no tiered input system"
     },
     {
-      "name": "ConsignmentInventoryCostCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "ConstructionToPermanentLoanCalculator",
       "reason": "placeholder formula"
-    },
-    {
-      "name": "ContinuousCompoundingCalculator",
-      "reason": "placeholder formula; no tiered input system"
     },
     {
       "name": "ContrastRatioCalculator",
@@ -1010,7 +1021,7 @@
     },
     {
       "name": "ConversionCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "ConversionRateCalculator",
@@ -1022,31 +1033,23 @@
     },
     {
       "name": "CookingMeasurementConverter",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "CookingTemperatureConverter",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "CookingTimeCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "CoolingSystemCalculator",
-      "reason": "placeholder formula; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "CoordinateGeometryCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "CorrectedQtIntervalCalculator",
-      "reason": "placeholder formula"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "CorrelationCoefficientCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "CostOfLivingCalculator",
@@ -1057,24 +1060,16 @@
       "reason": "placeholder formula"
     },
     {
-      "name": "CostPerShipmentCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "CoulombsLawCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "CountdownCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "CovarianceCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "CovidSymptomCalculator",
-      "reason": "placeholder formula; no Calculate button; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "CpcCalculator",
@@ -1089,56 +1084,32 @@
       "reason": "placeholder formula; no tiered input system"
     },
     {
-      "name": "CreditCardMinimumPaymentCalculator",
-      "reason": "placeholder formula; missing result card"
-    },
-    {
-      "name": "CreditCardPayoffCalculator",
-      "reason": "placeholder formula; missing result card"
-    },
-    {
       "name": "CreditScoreEstimator",
       "reason": "placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
-      "name": "CreditUtilizationCalculator",
-      "reason": "placeholder formula; missing result card"
-    },
-    {
       "name": "CrochetHookConverter",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "CronExpressionCalculator",
       "reason": "placeholder formula; no Recharts chart; no Calculate button; no tiered input system"
     },
     {
-      "name": "CrossFitWodCalorieCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "CryptoCurrencyConverter",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "CryptoPositionSizeCalculator",
       "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
-      "name": "CryptoProfitCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "CryptoTaxCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "CssSwimmingCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "CsuGpaCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "CtrCalculator",
@@ -1146,7 +1117,7 @@
     },
     {
       "name": "CubeRootCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "CumulativeGPACalculator",
@@ -1158,15 +1129,7 @@
     },
     {
       "name": "CurrentDividerCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "CurrentRatioCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "CustomerAcquisitionCostCalculator",
-      "reason": "placeholder formula; missing result card; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "CustomerLifetimeValueCalculator",
@@ -1174,27 +1137,11 @@
     },
     {
       "name": "CustomerRetentionRateCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "CustomsClearanceCostEstimator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "CuttingCalorieCalculator",
-      "reason": "placeholder formula; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "CyclingCadenceCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "CyclingCalorieCalculator",
-      "reason": "placeholder formula; missing result card; no tiered input system"
-    },
-    {
-      "name": "CyclingCaloriesCalculator",
-      "reason": "placeholder formula; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "CyclingPowerCalculator",
@@ -1202,35 +1149,23 @@
     },
     {
       "name": "CyclingSpeedCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "CyclingWattageCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "CylinderCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "DaCalculator",
       "reason": "placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
-      "name": "DailyCalorieBurnCalculator",
-      "reason": "placeholder formula; no Calculate button; no tiered input system"
-    },
-    {
-      "name": "DailyCalorieBurnPerPoundCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "DancingCalorieCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "DataSizeConverter",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "DataStorageConverter",
@@ -1242,7 +1177,7 @@
     },
     {
       "name": "DataTransferConverter",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "DataTransferRateCalculator",
@@ -1254,7 +1189,7 @@
     },
     {
       "name": "DateDifferenceCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "DayCounter",
@@ -1262,7 +1197,7 @@
     },
     {
       "name": "DaylightSavingCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "DcfCalculator",
@@ -1273,71 +1208,31 @@
       "reason": "isBuilt false in registry"
     },
     {
-      "name": "DdpVsExwCostComparisonCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "DeadFreightCostCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "DeadSpaceFractionCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "DebtAvalancheCalculator",
-      "reason": "placeholder formula; missing result card"
-    },
-    {
-      "name": "DebtConsolidationCalculator",
-      "reason": "placeholder formula; missing result card"
-    },
-    {
-      "name": "DebtPayoffCalculator",
-      "reason": "placeholder formula"
-    },
-    {
       "name": "DebtServiceCoverageCalculator",
       "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "DebtSnowballCalculator",
-      "reason": "placeholder formula; missing result card"
     },
     {
       "name": "DebtToAssetRatioCalculator",
       "reason": "no tiered input system"
     },
     {
-      "name": "DebtToEquityCalculator",
-      "reason": "placeholder formula; missing result card; no tiered input system"
-    },
-    {
       "name": "DecibelCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "DecileCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "DecimalToFractionConverter",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "DecimalToHexConverter",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "DefensiveIntervalRatioCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "DeliveryCostPerMileCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "DemurrageCostCalculator",
       "reason": "placeholder formula; no tiered input system"
     },
     {
@@ -1346,23 +1241,15 @@
     },
     {
       "name": "DensityConverter",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "DepreciationCalculator",
       "reason": "placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
-      "name": "DepreciationRecaptureCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "DepreciationTaxShieldCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "DerivativeCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "DewPointCalculator",
@@ -1374,47 +1261,27 @@
     },
     {
       "name": "DiceRoller",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "DifferentialCalculator",
-      "reason": "placeholder formula; no Calculate button; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "DilutionCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "DirectVariationCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "DisabilityInsuranceCalculator",
-      "reason": "placeholder formula; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "DiscountCalculator",
       "reason": "placeholder formula; no tiered input system"
     },
     {
-      "name": "DiscountedPaybackPeriodCalculator",
-      "reason": "placeholder formula; missing result card; no tiered input system"
-    },
-    {
       "name": "DisplacementCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "DistanceCalculator",
       "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
-    },
-    {
-      "name": "DistributionNetworkCostCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "DividendCalculator",
-      "reason": "placeholder formula; no tiered input system"
     },
     {
       "name": "DividendPayoutRatioCalculator",
@@ -1425,16 +1292,12 @@
       "reason": "placeholder formula; missing result card; no tiered input system"
     },
     {
-      "name": "DividendYieldCalculator",
-      "reason": "placeholder formula; missing result card; no tiered input system"
-    },
-    {
       "name": "DockerImageSizeCalculator",
       "reason": "placeholder formula; no Recharts chart; no tiered input system"
     },
     {
       "name": "DogAgeCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "DogCalorieCalculator",
@@ -1461,12 +1324,8 @@
       "reason": "isBuilt false in registry"
     },
     {
-      "name": "DopplerEffectCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "DotsScoreCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "DownloadTimeCalculator",
@@ -1477,20 +1336,8 @@
       "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
-      "name": "DragCoefficientCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "DrinkingWaterFluorideDoseCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "DriverCostPerMileCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "DrivewaySealerCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "DrugDosageCalculator",
@@ -1510,11 +1357,7 @@
     },
     {
       "name": "DupontAnalysisCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "DynoCalculator",
-      "reason": "placeholder formula; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "EarlyLoanPayoffSavingsCalculator",
@@ -1523,18 +1366,6 @@
     {
       "name": "EarlyMortgagePayoffCalculator",
       "reason": "placeholder formula"
-    },
-    {
-      "name": "EarlyRetirementCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "EarningsPerShareCalculator",
-      "reason": "placeholder formula; missing result card; no tiered input system"
-    },
-    {
-      "name": "EarToAprCalculator",
-      "reason": "placeholder formula; missing result card; no tiered input system"
     },
     {
       "name": "EbitdaCalculator",
@@ -1558,27 +1389,23 @@
     },
     {
       "name": "EfficiencyCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "EigenvalueCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "EightyThreeBElectionTaxCalculator",
       "reason": "isBuilt false in registry"
     },
     {
-      "name": "Election83bCalculator",
-      "reason": "placeholder formula; no Calculate button"
-    },
-    {
       "name": "ElectricFieldCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "ElectricityBillCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "ElectricityCostCalculator",
@@ -1586,43 +1413,27 @@
     },
     {
       "name": "ElectricPowerCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "EllipseCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "EllipticalCalorieCalculator",
-      "reason": "placeholder formula; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "EmailOpenRateCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "EmergencyFundCalculator",
       "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
-      "name": "EmissionsTestCalculator",
-      "reason": "placeholder formula; no Calculate button; no tiered input system"
-    },
-    {
       "name": "EmpiricalFormulaCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "EmployerNationalInsuranceContributionCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "EmployerPayrollTaxCalculator",
-      "reason": "placeholder formula"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "EnergyConverter",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "EnergyEfficientApplianceCalculator",
@@ -1642,27 +1453,15 @@
     },
     {
       "name": "EpochTimeConverter",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "EquilibriumConstantCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "EquityMultiplierCalculator",
-      "reason": "placeholder formula; missing result card; no tiered input system"
-    },
-    {
-      "name": "EquivalentAnnualAnnuityCalculator",
-      "reason": "placeholder formula; missing result card; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "EscapeVelocityCalculator",
       "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "EscrowCalculator",
-      "reason": "placeholder formula; no Calculate button; no tiered input system"
     },
     {
       "name": "EstateTaxCalculator",
@@ -1701,24 +1500,16 @@
       "reason": "placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
-      "name": "ExpeditedShippingCostPremiumCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "ExponentCalculator",
       "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "ExponentialDecayCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "ExponentialGrowthCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "ExportDocumentationCostCalculator",
-      "reason": "placeholder formula; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "FactorCalculator",
@@ -1726,10 +1517,6 @@
     },
     {
       "name": "FactorialCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "FatBurningZoneCalculator",
       "reason": "placeholder formula; no tiered input system"
     },
     {
@@ -1750,27 +1537,11 @@
     },
     {
       "name": "FertilizerCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "FetalWeightCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "FeverCalculator",
-      "reason": "placeholder formula; no Calculate button; no tiered input system"
-    },
-    {
-      "name": "FfmiFatFreeMassIndexCalculator",
-      "reason": "placeholder formula; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "FhaMipCalculator",
       "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "FiberIntakeCalculator",
-      "reason": "placeholder formula; no tiered input system"
     },
     {
       "name": "FibonacciCalculator",
@@ -1785,12 +1556,8 @@
       "reason": "placeholder formula; no Recharts chart; no tiered input system"
     },
     {
-      "name": "FireCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "FirewoodCordCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "FitnessAgeCalculator",
@@ -1805,10 +1572,6 @@
       "reason": "isBuilt false in registry"
     },
     {
-      "name": "FixedAssetTurnoverCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "FixedChargeCoverageRatioCalculator",
       "reason": "no tiered input system"
     },
@@ -1817,44 +1580,28 @@
       "reason": "placeholder formula"
     },
     {
-      "name": "FleetDepreciationCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "FleetFuelCostCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "FleetInsuranceCostCalculator",
-      "reason": "placeholder formula; missing result card; no tiered input system"
-    },
-    {
       "name": "FlightEmissionsCalculator",
       "reason": "placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "FlightTimeCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "FloorAreaCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "FlooringCalculator",
       "reason": "placeholder formula; no Recharts chart; no tiered input system"
     },
     {
-      "name": "FloorsClimbedCalorieCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "FlowRateConverter",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "FluidFlowCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "FontSizeConverter",
@@ -1866,11 +1613,11 @@
     },
     {
       "name": "FoodCostCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "FoodMilesCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "no tiered input system"
     },
     {
       "name": "ForceCalculator",
@@ -1878,7 +1625,7 @@
     },
     {
       "name": "ForceConverter",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "ForexProfitCalculator",
@@ -1906,7 +1653,7 @@
     },
     {
       "name": "FractionalDistillationCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "FractionCalculator",
@@ -1914,22 +1661,10 @@
     },
     {
       "name": "FractionToDecimalConverter",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "FreeCashFlowCalculator",
-      "reason": "placeholder formula; missing result card; no tiered input system"
+      "reason": "placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "FreeCashFlowToEquityCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "FreeCashFlowToFirmCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "FreeFallCalculator",
       "reason": "placeholder formula; no tiered input system"
     },
     {
@@ -1938,19 +1673,15 @@
     },
     {
       "name": "FreezingPointDepressionCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "FreightCostToRevenueRatioCalculator",
-      "reason": "placeholder formula; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "FrequencyConverter",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "FrequencyWavelengthCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "FTestCalculator",
@@ -1966,15 +1697,11 @@
     },
     {
       "name": "FuelEconomyConverter",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "FuelInjectorCalculator",
-      "reason": "placeholder formula; no Calculate button; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "FunctionCompositionCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "FutureValueCalculator",
@@ -1990,7 +1717,7 @@
     },
     {
       "name": "GardenFertilizerCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "GasMileageCalculator",
@@ -2005,24 +1732,16 @@
       "reason": "placeholder formula; missing result card; no tiered input system"
     },
     {
-      "name": "GearRatioCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "GeometricMeanCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "GeometricProgressionCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "GestationalAgeCalculator",
-      "reason": "placeholder formula; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "GestationCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "GfrCalculator",
@@ -2030,11 +1749,7 @@
     },
     {
       "name": "GiftCostPerPersonCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "GiftTaxCalculator",
-      "reason": "placeholder formula; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "GitRepoSizeCalculator",
@@ -2042,23 +1757,19 @@
     },
     {
       "name": "GlasgowComaScaleCalculator",
-      "reason": "placeholder formula; no Calculate button; no tiered input system"
+      "reason": "placeholder formula; no tiered input system"
     },
     {
       "name": "GlycemicIndexCalculator",
       "reason": "placeholder formula; no tiered input system"
     },
     {
-      "name": "GlycemicLoadCalculator",
-      "reason": "placeholder formula; missing result card; no tiered input system"
-    },
-    {
       "name": "GmatScoreCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "GolfHandicapCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "GpaCalculator",
@@ -2070,7 +1781,7 @@
     },
     {
       "name": "GrassSeedCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "GratuityCalculator",
@@ -2082,11 +1793,11 @@
     },
     {
       "name": "GravitationalForceCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "GreeksCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "GREScoreCalculator",
@@ -2094,31 +1805,19 @@
     },
     {
       "name": "GrillingTimeCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "GroceryBudgetCalculator",
       "reason": "placeholder formula; missing result card; no tiered input system"
     },
     {
-      "name": "GrossMarginCalculator",
-      "reason": "placeholder formula; missing result card; no tiered input system"
-    },
-    {
       "name": "GstCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "GutterSizeCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "GymSessionCalorieBurnCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "HalfLifeCalculator",
-      "reason": "placeholder formula; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "HardDriveCapacityCalculator",
@@ -2129,20 +1828,8 @@
       "reason": "placeholder formula; no Recharts chart"
     },
     {
-      "name": "HarmonicMeanCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "HasBledScoreCalculator",
-      "reason": "placeholder formula; no Calculate button; no tiered input system"
-    },
-    {
       "name": "HashCalculator",
       "reason": "placeholder formula; no Recharts chart; missing result card; no Calculate button; no tiered input system"
-    },
-    {
-      "name": "HealthInsuranceCalculator",
-      "reason": "placeholder formula; no tiered input system"
     },
     {
       "name": "HealthyWeightRangeCalculator",
@@ -2153,12 +1840,8 @@
       "reason": "placeholder formula; no tiered input system"
     },
     {
-      "name": "HeartRateRecoveryCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "HeaterSizeCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "HeatIndexCalculator",
@@ -2166,15 +1849,7 @@
     },
     {
       "name": "HeightCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "HelocCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "HemoglobinCalculator",
-      "reason": "placeholder formula; no Calculate button; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "HexCalculator",
@@ -2182,19 +1857,7 @@
     },
     {
       "name": "HexToDecimalConverter",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "HiitCalorieBurnCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "HiitCalorieCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "HikingCalorieCalculator",
-      "reason": "placeholder formula; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "HomeAffordabilityCalculator",
@@ -2202,7 +1865,7 @@
     },
     {
       "name": "HomeCoolingCostCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "HomeEnergyEmissionsCalculator",
@@ -2210,7 +1873,7 @@
     },
     {
       "name": "HomeHeatingCostCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "HomeInsuranceCalculator",
@@ -2221,16 +1884,8 @@
       "reason": "isBuilt false in registry"
     },
     {
-      "name": "HorsepowerCalculator",
-      "reason": "placeholder formula; no Calculate button; no tiered input system"
-    },
-    {
       "name": "HotelCostCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "HotYogaCalorieCalculator",
-      "reason": "placeholder formula; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "HourlyToSalaryCalculator",
@@ -2258,7 +1913,7 @@
     },
     {
       "name": "HumidityCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "HydrationCalculator",
@@ -2270,7 +1925,7 @@
     },
     {
       "name": "IbGradeCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "IbwCalculator",
@@ -2282,67 +1937,35 @@
     },
     {
       "name": "IdealGasLawCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "IdealWeightCalculator",
       "reason": "placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
-      "name": "IdealWeightCalculatorForWomen",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "IlluminanceConverter",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "ImageFileSizeCalculator",
       "reason": "placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
-      "name": "ImportClearanceTimeCostCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "IncomeTaxCalculator",
-      "reason": "placeholder formula; missing result card"
-    },
-    {
       "name": "IncomeTaxCalculatorIndia",
       "reason": "placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
-      "name": "IncotermsCostImpactCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "IncotermsLandedCostCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "InductanceCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "InequalityCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "InfantMilkCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "InflationAdjustedReturnCalculator",
-      "reason": "placeholder formula; missing result card; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "InflationCalculator",
       "reason": "placeholder formula; no Recharts chart; missing result card; no tiered input system"
-    },
-    {
-      "name": "InheritanceTaxCalculator",
-      "reason": "placeholder formula; no tiered input system"
     },
     {
       "name": "InstagramEngagementCalculator",
@@ -2353,16 +1976,8 @@
       "reason": "placeholder formula; no Recharts chart; no Calculate button; no tiered input system"
     },
     {
-      "name": "InsuranceCostPerShipmentCalculator",
-      "reason": "placeholder formula"
-    },
-    {
       "name": "IntegralCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "InterestCoverageRatioCalculator",
-      "reason": "placeholder formula; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "InterestOnlyCalculator",
@@ -2377,52 +1992,16 @@
       "reason": "placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
-      "name": "IntermittentFastingCalculator",
-      "reason": "placeholder formula; missing result card; no tiered input system"
-    },
-    {
-      "name": "InternalGrowthRateCalculator",
-      "reason": "placeholder formula; missing result card; no tiered input system"
-    },
-    {
-      "name": "InternationalShippingCostEstimator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "InterquartileRangeCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "InventoryDaysCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "InventoryTurnoverCalculator",
-      "reason": "placeholder formula; missing result card; no tiered input system"
-    },
-    {
       "name": "InverseVariationCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "InvestmentGrowthCalculator",
-      "reason": "placeholder formula; missing result card; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "InvestmentPropertyCalculator",
       "reason": "placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
-      "name": "InvestmentReturnCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "IpSubnetCalculator",
       "reason": "placeholder formula; no Recharts chart; no tiered input system"
-    },
-    {
-      "name": "IraCalculator",
-      "reason": "placeholder formula; no tiered input system"
     },
     {
       "name": "IrrCalculator",
@@ -2437,24 +2016,12 @@
       "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no Calculate button; no tiered input system"
     },
     {
-      "name": "JobClassificationSalaryBandCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "JobOfferNetSalaryCalculator",
-      "reason": "placeholder formula"
-    },
-    {
       "name": "JudoPointsCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "no tiered input system"
     },
     {
       "name": "JumboLoanPaymentCalculator",
       "reason": "placeholder formula"
-    },
-    {
-      "name": "JumpRopeCalorieCalculator",
-      "reason": "placeholder formula; no tiered input system"
     },
     {
       "name": "K401Calculator",
@@ -2462,11 +2029,7 @@
     },
     {
       "name": "KendallTauCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "KeplersLawsCalculator",
-      "reason": "placeholder formula; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "KineticEnergyCalculator",
@@ -2474,39 +2037,27 @@
     },
     {
       "name": "KnittingNeedleConverter",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "KruskalWallisTestCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "KurtosisCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "LandLoanPaymentCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "LastMileDeliveryCostCalculator",
-      "reason": "placeholder formula; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "LawnMowingTimeCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "LawnSeedingCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "LawOfCosinesCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "LawOfSinesCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "LcmCalculator",
@@ -2518,7 +2069,7 @@
     },
     {
       "name": "LcResonanceCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "LeanBodyMassCalculator",
@@ -2530,11 +2081,11 @@
     },
     {
       "name": "LeanWastePercentageCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "placeholder formula; no tiered input system"
     },
     {
       "name": "LeapYearCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "LeaseVsBuyCalculator",
@@ -2554,7 +2105,7 @@
     },
     {
       "name": "LengthConverter",
-      "reason": "placeholder formula; missing result card; no Calculate button; no tiered input system"
+      "reason": "placeholder formula; missing result card; no tiered input system"
     },
     {
       "name": "LifeInsuranceCalculator",
@@ -2562,15 +2113,15 @@
     },
     {
       "name": "LightingLumensCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "LimitCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "LimitingReagentCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "LinearEquationCalculator",
@@ -2578,7 +2129,7 @@
     },
     {
       "name": "LinearRegressionCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "LoanCalculator",
@@ -2586,7 +2137,7 @@
     },
     {
       "name": "LoanComparisonCalculator",
-      "reason": "placeholder formula; missing result card; no Calculate button; no tiered input system"
+      "reason": "placeholder formula; missing result card; no tiered input system"
     },
     {
       "name": "LoanDefermentInterestCalculator",
@@ -2602,7 +2153,7 @@
     },
     {
       "name": "LogarithmChangeOfBaseCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "LogCalculator",
@@ -2610,11 +2161,7 @@
     },
     {
       "name": "LogisticRegressionCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "LogisticsCostPerUnitCalculator",
-      "reason": "placeholder formula; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "LongDivisionCalculator",
@@ -2625,72 +2172,32 @@
       "reason": "placeholder formula; no Recharts chart; no tiered input system"
     },
     {
-      "name": "LowCarbDietAdherenceScoreCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "LowCarbThresholdCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "LoyaltyPointsCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "LsatScoreCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "LtvCalculator",
-      "reason": "placeholder formula; no Calculate button; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "LuminanceConverter",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "LumpsumCalculator",
-      "reason": "placeholder formula; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "MacAddressGenerator",
       "reason": "placeholder formula; no Recharts chart; no Calculate button; no tiered input system"
     },
     {
-      "name": "MacroCalculator",
-      "reason": "placeholder formula; missing result card; no tiered input system"
-    },
-    {
-      "name": "MacronutrientCalorieDistributionCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "MagneticFieldCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "MaintenanceCalorieCalculator",
-      "reason": "placeholder formula; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "MannWhitneyUTestCalculator",
       "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
-      "name": "MarathonTrainingCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "MarginCalculator",
-      "reason": "placeholder formula; missing result card; no tiered input system"
-    },
-    {
       "name": "MarginOfErrorCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "MarginOfSafetyPercentageCalculator",
-      "reason": "placeholder formula; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "MarkupCalculator",
@@ -2701,16 +2208,12 @@
       "reason": "placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
-      "name": "MartialArtsCalorieCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "MassCalculator",
       "reason": "placeholder formula; no Recharts chart; no Calculate button; no tiered input system"
     },
     {
       "name": "MassDefectCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "MatrixCalculator",
@@ -2718,15 +2221,15 @@
     },
     {
       "name": "MatrixDeterminantCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "MatrixInverseCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "MatrixMultiplicationCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "MaxHeartRateCalculator",
@@ -2738,38 +2241,22 @@
     },
     {
       "name": "McatScoreCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "MealFrequencyCalorieSplitCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "MeanArterialPressureCalculator",
-      "reason": "placeholder formula; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "MeatlessDietImpactCalculator",
       "reason": "isBuilt false in registry"
     },
     {
-      "name": "MedianCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "MeetingTimeZoneCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "MeldScoreCalculator",
-      "reason": "placeholder formula; no Calculate button; no tiered input system"
-    },
-    {
-      "name": "MenstrualCycleLengthCalculator",
       "reason": "placeholder formula; no tiered input system"
     },
     {
-      "name": "MetsBasedCalorieBurnCalculator",
+      "name": "MenstrualCycleLengthCalculator",
       "reason": "placeholder formula; no tiered input system"
     },
     {
@@ -2777,40 +2264,24 @@
       "reason": "placeholder formula; no tiered input system"
     },
     {
-      "name": "MicrofinanceLoanRepaymentCalculator",
-      "reason": "placeholder formula"
-    },
-    {
       "name": "MicrowaveWattageConversionCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "MilesPerGallonCalculator",
       "reason": "placeholder formula"
     },
     {
-      "name": "MindfulnessPracticeRoiCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "MinimumPaymentCalculator",
       "reason": "placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
-      "name": "ModeCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "ModifiedDurationCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "ModuloCalculator",
-      "reason": "placeholder formula; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "MolalityCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "MolarityCalculator",
@@ -2818,15 +2289,11 @@
     },
     {
       "name": "MolarMassCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "MolecularWeightCalculator",
       "reason": "placeholder formula; no Recharts chart; no tiered input system"
-    },
-    {
-      "name": "MomentumCalculator",
-      "reason": "placeholder formula; no tiered input system"
     },
     {
       "name": "MoneyMarketCalculator",
@@ -2846,11 +2313,11 @@
     },
     {
       "name": "MonthsCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "MorseCodeTranslator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "MortgageAffordabilityCalculator",
@@ -2874,22 +2341,14 @@
     },
     {
       "name": "MulchCostCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "MultiModalTransportationCostCalculator",
-      "reason": "placeholder formula; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "MultipleRegressionCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "NavyBodyFatCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "NetCarbsCalculator",
       "reason": "placeholder formula; no tiered input system"
     },
     {
@@ -2897,28 +2356,16 @@
       "reason": "placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
-      "name": "NetProfitMarginCalculator",
-      "reason": "placeholder formula; missing result card; no tiered input system"
-    },
-    {
       "name": "NetPromoterScoreCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "NetWorthCalculator",
-      "reason": "placeholder formula; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "NetWorthTrackerCalc",
       "reason": "isBuilt false in registry"
     },
     {
-      "name": "NormalDistributionCalculator",
-      "reason": "placeholder formula; missing result card; no tiered input system"
-    },
-    {
       "name": "NormalityCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "NpsCalculator",
@@ -2933,19 +2380,11 @@
       "reason": "placeholder formula; missing result card; no tiered input system"
     },
     {
-      "name": "NumberSequenceCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "NumberToWordsConverter",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "NutrientTimingCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "OdometerCorrectionCalculator",
       "reason": "placeholder formula; no tiered input system"
     },
     {
@@ -2957,44 +2396,24 @@
       "reason": "placeholder formula"
     },
     {
-      "name": "OlympicLiftPercentageCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "Omega3Calculator",
       "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "Omega3IntakeCalculator",
-      "reason": "placeholder formula; no tiered input system"
     },
     {
       "name": "OneRepMaxCalculator",
       "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
-      "name": "OperatingCashFlowCalculator",
-      "reason": "placeholder formula; missing result card; no tiered input system"
-    },
-    {
-      "name": "OperatingMarginCalculator",
-      "reason": "placeholder formula; missing result card; no tiered input system"
-    },
-    {
       "name": "OptionsProfitCalculator",
       "reason": "placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
-      "name": "OrbitalVelocityCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "OsmolarityCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "OvenTemperatureConverter",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "OvertimeCalculator",
@@ -3002,11 +2421,7 @@
     },
     {
       "name": "OvertimeHoursCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "OverweightCalculator",
-      "reason": "placeholder formula; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "OverweightPercentageCalculator",
@@ -3018,7 +2433,7 @@
     },
     {
       "name": "OxbridgeInterviewCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "PaceCalculator",
@@ -3034,11 +2449,7 @@
     },
     {
       "name": "PackingWeightCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "PaintCalculator",
-      "reason": "placeholder formula; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "PaperSavingsCalculator",
@@ -3057,28 +2468,8 @@
       "reason": "placeholder formula; no tiered input system"
     },
     {
-      "name": "PaybackPeriodCalculator",
-      "reason": "placeholder formula; missing result card; no tiered input system"
-    },
-    {
-      "name": "PaybackPeriodCalculatorAdvanced",
-      "reason": "placeholder formula"
-    },
-    {
-      "name": "PaydayLoanTrueCostCalculator",
-      "reason": "placeholder formula"
-    },
-    {
-      "name": "PayRaisePercentageCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "PayrollTaxCalculator",
       "reason": "placeholder formula; no Recharts chart; missing result card; no tiered input system"
-    },
-    {
-      "name": "PediatricBmiCalculator",
-      "reason": "placeholder formula; no tiered input system"
     },
     {
       "name": "PensionCalculator",
@@ -3087,10 +2478,6 @@
     {
       "name": "PERatioCalculator",
       "reason": "placeholder formula; no Recharts chart; missing result card; no tiered input system"
-    },
-    {
-      "name": "PercentageBasedVolumeCalculator",
-      "reason": "placeholder formula; no tiered input system"
     },
     {
       "name": "PercentageCalculator",
@@ -3106,11 +2493,11 @@
     },
     {
       "name": "PercentileCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "PercentYieldCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "PerimeterCalculator",
@@ -3121,36 +2508,20 @@
       "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
-      "name": "PermutationCombinationCalculator",
-      "reason": "placeholder formula; missing result card; no tiered input system"
-    },
-    {
       "name": "PermutationsCalculator",
       "reason": "placeholder formula; no tiered input system"
     },
     {
-      "name": "PersonalLoanCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "PersonalLoanPayoffCalculator",
-      "reason": "placeholder formula; missing result card; no tiered input system"
-    },
-    {
       "name": "PetFoodCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "PhCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "PhotonEnergyCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "PilatesCalorieCalculator",
-      "reason": "placeholder formula; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "PingTimeCalculator",
@@ -3161,24 +2532,12 @@
       "reason": "placeholder formula; no tiered input system"
     },
     {
-      "name": "PitiCalculator",
-      "reason": "no Calculate button; no tiered input system"
-    },
-    {
-      "name": "PitiMortgagePaymentCalculator",
-      "reason": "placeholder formula"
-    },
-    {
       "name": "PizzaSizeCalculator",
       "reason": "placeholder formula; missing result card; no tiered input system"
     },
     {
-      "name": "Plan529Calculator",
-      "reason": "placeholder formula"
-    },
-    {
       "name": "PlantSpacingCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "PlasticFootprintCalculator",
@@ -3186,7 +2545,7 @@
     },
     {
       "name": "PlywoodCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "PmiAmortizationTable",
@@ -3210,15 +2569,15 @@
     },
     {
       "name": "PoissonDistributionCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "PolygonAreaCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "PolygonCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "PolynomialCalculator",
@@ -3229,35 +2588,19 @@
       "reason": "placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
-      "name": "PonderalIndexCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "PoolVolumeCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "PopulationGrowthEcologyCalculator",
       "reason": "placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
-      "name": "PortDwellTimeCostCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "PortfolioRebalancingCalculator",
       "reason": "placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
-      "name": "PortHandlingCostCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "PostpartumWeightLossCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "PotassiumIntakeCalculator",
       "reason": "placeholder formula; no tiered input system"
     },
     {
@@ -3266,15 +2609,15 @@
     },
     {
       "name": "PottingSoilCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "PowerConverter",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "PowerFactorCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "PpfCalculator",
@@ -3285,24 +2628,8 @@
       "reason": "isBuilt false in registry"
     },
     {
-      "name": "PredictableRevenuePercentageCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "PreferredStockValuationCalculator",
-      "reason": "placeholder formula; missing result card; no tiered input system"
-    },
-    {
-      "name": "PregnancyBmiCalculator",
-      "reason": "placeholder formula; no Calculate button; no tiered input system"
-    },
-    {
       "name": "PregnancyCalculator",
       "reason": "placeholder formula; no Recharts chart; no tiered input system"
-    },
-    {
-      "name": "PregnancyDueDateCalculator",
-      "reason": "placeholder formula; no tiered input system"
     },
     {
       "name": "PregnancyWeightGainCalculator",
@@ -3313,24 +2640,16 @@
       "reason": "isBuilt false in registry"
     },
     {
-      "name": "PrenatalVitaminCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "PrePregnancyBMICalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "PresentValueCalculator",
       "reason": "placeholder formula; missing result card; no tiered input system"
     },
     {
       "name": "PressureCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "PressureConverter",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "PriceToBookCalculator",
@@ -3366,39 +2685,27 @@
     },
     {
       "name": "ProjectileMotionCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "ProjectorScreenSizeCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "PropertyAppreciationCalculator",
       "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
-      "name": "PropertyTaxCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "ProteinIntakeCalculator",
       "reason": "placeholder formula; no Recharts chart; missing result card; no tiered input system"
-    },
-    {
-      "name": "ProteinToCalorieRatioCalculator",
-      "reason": "placeholder formula; no tiered input system"
     },
     {
       "name": "PsuCalculator",
       "reason": "isBuilt false in registry"
     },
     {
-      "name": "PulseOxCalculator",
-      "reason": "placeholder formula; no Calculate button; no tiered input system"
-    },
-    {
       "name": "PutCallParityCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "PValueCalculator",
@@ -3410,7 +2717,7 @@
     },
     {
       "name": "QbRatingCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "QuadraticFormulaCalculator",
@@ -3425,36 +2732,24 @@
       "reason": "isBuilt false in registry"
     },
     {
-      "name": "QuartileCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "QuickRatioCalculator",
       "reason": "placeholder formula; no tiered input system"
     },
     {
       "name": "RaceTimePredictor",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "RadiationDoseConverter",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "RadiationDoseFractionationCalculator",
-      "reason": "placeholder formula"
-    },
-    {
-      "name": "RadiatorSizeCalculator",
-      "reason": "placeholder formula; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "RadioactiveDecayCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "RadioactivityConverter",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "RaidCalculator",
@@ -3466,7 +2761,7 @@
     },
     {
       "name": "RainwaterCollectionCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "RandomNumberGenerator",
@@ -3477,20 +2772,12 @@
       "reason": "placeholder formula"
     },
     {
-      "name": "RangeCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "RatioCalculator",
       "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "RcTimeConstantCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "ReactionTimeCalculator",
-      "reason": "placeholder formula; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "ReadingSpeedCalculator",
@@ -3498,31 +2785,19 @@
     },
     {
       "name": "ReadingTimeCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "RealEstateCalculatorFull",
       "reason": "isBuilt false in registry"
     },
     {
-      "name": "ReceivableDaysCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "RecipeScaleCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "RefinanceBreakEvenCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "RefinanceCalculator",
-      "reason": "placeholder formula; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "RefrigeratorEnergyCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "RegexTestCalculator",
@@ -3537,10 +2812,6 @@
       "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
-      "name": "RentalYieldCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "RentVsBuyCalculator",
       "reason": "placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
@@ -3549,72 +2820,28 @@
       "reason": "placeholder formula"
     },
     {
-      "name": "RepetitionMaxPercentageCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "ReplenishmentLeadTimeCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "RequiredMinimumDistributionCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "ResistorCalculator",
       "reason": "placeholder formula; no Recharts chart; no Calculate button; no tiered input system"
     },
     {
       "name": "ResistorsInParallelCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "ResistorsInSeriesCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "ResourceLoadingPercentageCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "RestaurantMealCalorieEstimator",
-      "reason": "placeholder formula; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "RetentionRatioCalculator",
       "reason": "placeholder formula; no tiered input system"
     },
     {
-      "name": "RetirementCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "RetirementSavingsCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "ReturnOnAssetsCalculator",
-      "reason": "placeholder formula; missing result card; no tiered input system"
-    },
-    {
       "name": "ReturnOnCapitalEmployedCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "placeholder formula; missing result card; no tiered input system"
     },
     {
       "name": "ReturnOnEquityCalculator",
       "reason": "placeholder formula; missing result card; no tiered input system"
-    },
-    {
-      "name": "ReturnOnInvestedCapitalCalculator",
-      "reason": "placeholder formula; missing result card; no tiered input system"
-    },
-    {
-      "name": "ReturnsProcessingCostCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "ReverseLogisticsCostCalculator",
-      "reason": "placeholder formula; no tiered input system"
     },
     {
       "name": "ReverseMortgageBreakEvenCalculator",
@@ -3625,36 +2852,28 @@
       "reason": "placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
-      "name": "ReverseMortgageEstimationCalculator",
-      "reason": "placeholder formula; no Calculate button"
-    },
-    {
       "name": "RgbToHexConverter",
       "reason": "placeholder formula; no Recharts chart; missing result card; no Calculate button; no tiered input system"
     },
     {
       "name": "RiemannSumCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "RightAngleCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "RingSizeCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "RingSizeConverterAdvanced",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "RlTimeConstantCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "RmdCalculator",
-      "reason": "placeholder formula; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "RoadTaxCalculator",
@@ -3662,15 +2881,11 @@
     },
     {
       "name": "RoadTripCostCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "RoasCalculator",
       "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no Calculate button; no tiered input system"
-    },
-    {
-      "name": "RockClimbingCalorieCalculator",
-      "reason": "placeholder formula; no tiered input system"
     },
     {
       "name": "RoiCalculator",
@@ -3678,7 +2893,7 @@
     },
     {
       "name": "RomanNumeralConverter",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "RoofingCalculator",
@@ -3686,11 +2901,11 @@
     },
     {
       "name": "RoofShingleCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "RoomVolumeCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "RootCalculator",
@@ -3698,7 +2913,7 @@
     },
     {
       "name": "RootMeanSquareCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "RothIraCalculator",
@@ -3707,14 +2922,6 @@
     {
       "name": "RoundingCalculator",
       "reason": "placeholder formula; no Recharts chart; no tiered input system"
-    },
-    {
-      "name": "RowingCalorieCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "RpeToPercentageCalculator",
-      "reason": "placeholder formula; no tiered input system"
     },
     {
       "name": "RuleOf70Calculator",
@@ -3730,55 +2937,27 @@
     },
     {
       "name": "RunningCadenceCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "RunningCalorieCalculator",
       "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
-      "name": "RunningPaceCalculator",
-      "reason": "placeholder formula; missing result card; no tiered input system"
-    },
-    {
       "name": "RunningStrideLengthCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "RvLoanPaymentCalculator",
-      "reason": "placeholder formula"
-    },
-    {
-      "name": "SafeFollowingDistanceCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "SafeWithdrawalRateCalculator",
-      "reason": "placeholder formula; missing result card; no tiered input system"
-    },
-    {
-      "name": "SalaryBandRangeCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "SalaryBenchmarkPercentileCalculator",
-      "reason": "placeholder formula; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "SalaryCalculator",
       "reason": "placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
-      "name": "SalaryGradeSpreadCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "SalesPriceCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "SalesTaxCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "SampleSizeCalculator",
@@ -3791,10 +2970,6 @@
     {
       "name": "SavingsCalculator",
       "reason": "placeholder formula; missing result card; no tiered input system"
-    },
-    {
-      "name": "SavingsGoalCalculator",
-      "reason": "placeholder formula; no tiered input system"
     },
     {
       "name": "Sba7aLoanPaymentCalculator",
@@ -3810,27 +2985,15 @@
     },
     {
       "name": "ScientificNotationConverter",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "ScreenSizeCalculator",
       "reason": "file < 8KB; placeholder formula; no Recharts chart; no tiered input system"
     },
     {
-      "name": "SeasonalPaymentLoanCalculator",
-      "reason": "placeholder formula"
-    },
-    {
-      "name": "SeaVsAirFreightCostComparisonCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "SectorAreaCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "SedentaryTimeCostCalculator",
-      "reason": "placeholder formula; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "SelfEmploymentTaxCalculator",
@@ -3846,27 +3009,19 @@
     },
     {
       "name": "SetOperationsCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "SharpeRatioCalculator",
       "reason": "placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
-      "name": "ShippingInsuranceCostCalculator",
-      "reason": "placeholder formula"
-    },
-    {
-      "name": "ShippingWeightCostCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "ShoeSizeConverter",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "ShoppingBudgetCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "SignificantFiguresCalculator",
@@ -3877,40 +3032,16 @@
       "reason": "placeholder formula; no tiered input system"
     },
     {
-      "name": "SimpleInterestLoanCalculator",
-      "reason": "placeholder formula"
-    },
-    {
       "name": "SimplePendulumCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "SinclairCoefficientCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "SipCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "SkewnessCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "SkuStorageCostCalculator",
-      "reason": "placeholder formula; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "SleepCalculator",
       "reason": "placeholder formula; no Recharts chart; missing result card; no tiered input system"
-    },
-    {
-      "name": "SleepDebtCalculator",
-      "reason": "placeholder formula; missing result card; no tiered input system"
-    },
-    {
-      "name": "SleepInvestmentRoiCalculator",
-      "reason": "placeholder formula; no tiered input system"
     },
     {
       "name": "SlopeCalculator",
@@ -3918,23 +3049,15 @@
     },
     {
       "name": "SnellsLawCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "SnowShovelingCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "SocialSecurityBenefitsCalculator",
       "reason": "placeholder formula; missing result card; no tiered input system"
-    },
-    {
-      "name": "SocialSecurityCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "SodiumIntakeCalculator",
-      "reason": "placeholder formula; no tiered input system"
     },
     {
       "name": "SolarEnergySavingsCalculator",
@@ -3942,47 +3065,35 @@
     },
     {
       "name": "SolarPanelCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "SpeakerPlacementCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "SpearmanRankCorrelationCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "SpecificHeatCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "SpeedConverter",
-      "reason": "placeholder formula; missing result card; no Calculate button; no tiered input system"
+      "reason": "placeholder formula; missing result card; no tiered input system"
     },
     {
       "name": "SpeedDistanceTimeCalculator",
       "reason": "isBuilt false in registry"
     },
     {
-      "name": "SpeedometerErrorCalculator",
-      "reason": "placeholder formula; no Calculate button; no tiered input system"
-    },
-    {
       "name": "SphereCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "SportsDrinkCarbConcentrationCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "SportSpecificCalorieCalculator",
-      "reason": "placeholder formula; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "SpringConstantCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "SquareFootageCalculator",
@@ -4001,12 +3112,8 @@
       "reason": "placeholder formula; no Recharts chart; no tiered input system"
     },
     {
-      "name": "StairClimbingCalorieCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "StakingRewardsCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "placeholder formula"
     },
     {
       "name": "StampDutyCalculator",
@@ -4017,10 +3124,6 @@
       "reason": "placeholder formula; no tiered input system"
     },
     {
-      "name": "StarterMotorCalculator",
-      "reason": "placeholder formula; no Calculate button; no tiered input system"
-    },
-    {
       "name": "StatisticsCalculator",
       "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
@@ -4029,16 +3132,8 @@
       "reason": "placeholder formula; no Recharts chart; no tiered input system"
     },
     {
-      "name": "StepCountToCalorieBurnCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "StepperMotorCalculator",
       "reason": "placeholder formula; no Recharts chart; missing result card; no tiered input system"
-    },
-    {
-      "name": "StepsToCaloriesCalculator",
-      "reason": "placeholder formula; no tiered input system"
     },
     {
       "name": "SteroidEquivalenceCalculator",
@@ -4050,11 +3145,7 @@
     },
     {
       "name": "StoichiometryCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "StoppingDistanceCalculator",
-      "reason": "placeholder formula; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "StorageConverter",
@@ -4062,11 +3153,7 @@
     },
     {
       "name": "StudentBudgetCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "StudentLoanCalculator",
-      "reason": "placeholder formula; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "StudentLoanPayoffCalculator",
@@ -4097,28 +3184,20 @@
       "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
-      "name": "SustainableGrowthRateCalculator",
-      "reason": "placeholder formula; missing result card; no tiered input system"
-    },
-    {
-      "name": "SwimmingCalorieCalculator",
-      "reason": "placeholder formula; missing result card; no tiered input system"
-    },
-    {
       "name": "SwimmingPaceCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "SwimmingSplitCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "SwimmingTimeConversion",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "SwolfCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "SwpCalculator",
@@ -4126,19 +3205,11 @@
     },
     {
       "name": "SymmetricStrengthCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "SyntaxScoreComplexityCalculator",
-      "reason": "placeholder formula; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "SystemOfEquationsCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "TabataCalorieCalculator",
-      "reason": "placeholder formula; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "TakeHomeSalaryCalculator",
@@ -4157,12 +3228,8 @@
       "reason": "placeholder formula; no tiered input system"
     },
     {
-      "name": "TaxReturnCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "TaylorSeriesCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "TdeeCalculator",
@@ -4178,7 +3245,7 @@
     },
     {
       "name": "TemperatureConverter",
-      "reason": "placeholder formula; missing result card; no Calculate button; no tiered input system"
+      "reason": "placeholder formula; missing result card; no tiered input system"
     },
     {
       "name": "TennisFirstServeCalculator",
@@ -4186,7 +3253,7 @@
     },
     {
       "name": "TennisServeSpeedCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "TenYearAveragingDistributionCalculator",
@@ -4197,20 +3264,16 @@
       "reason": "isBuilt false in registry"
     },
     {
-      "name": "TermLifeVsWholeLifeCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "TestGradeCalculator",
       "reason": "placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "TextBinaryConverter",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "ThermalExpansionCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "ThreeDPrintCharts",
@@ -4221,12 +3284,8 @@
       "reason": "isBuilt false in registry"
     },
     {
-      "name": "ThyroidRiskScoreCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "TidalPredictionCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "TiktokEarningsCalculator",
@@ -4237,28 +3296,20 @@
       "reason": "placeholder formula; no Recharts chart; no tiered input system"
     },
     {
-      "name": "TimeAndMaterialsBudgetCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "TimeCalculator",
       "reason": "placeholder formula; no Recharts chart; no tiered input system"
     },
     {
       "name": "TimeConverter",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "TimeDifferenceCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "TimeDurationCalculator",
       "reason": "placeholder formula; no Recharts chart; missing result card; no tiered input system"
-    },
-    {
-      "name": "TimesInterestEarnedCalculator",
-      "reason": "placeholder formula; missing result card; no tiered input system"
     },
     {
       "name": "TimeZoneConverter",
@@ -4273,28 +3324,12 @@
       "reason": "placeholder formula; no tiered input system"
     },
     {
-      "name": "TireDiameterCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "TireLoadIndexCalculator",
-      "reason": "placeholder formula; no Calculate button; no tiered input system"
-    },
-    {
-      "name": "TirePressureCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "TireSizeCalculator",
-      "reason": "placeholder formula; no Calculate button; no tiered input system"
-    },
-    {
       "name": "TitrationCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "TorqueConverter",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "TotalCarCostPerMileCalculator",
@@ -4313,22 +3348,6 @@
       "reason": "placeholder formula"
     },
     {
-      "name": "TowingCapacityCalculator",
-      "reason": "placeholder formula; no Calculate button; no tiered input system"
-    },
-    {
-      "name": "TradeCreditDaysCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "TradeCreditTermsCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "TradeFinanceCostCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "TradeInValueCalculator",
       "reason": "placeholder formula"
     },
@@ -4337,32 +3356,20 @@
       "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
-      "name": "TrailerTongueWeightCalculator",
-      "reason": "placeholder formula; no Calculate button; no tiered input system"
-    },
-    {
       "name": "TransformerCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "TransitTimeCostCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "TransmissionRatioCalculator",
-      "reason": "placeholder formula; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "TravelBudgetCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "TravelInsuranceCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "TreadmillPaceCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "TreasuryBillCalculator",
@@ -4378,15 +3385,15 @@
     },
     {
       "name": "TriathlonTimeCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "TruthTableCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "TssCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "TTestCalculator",
@@ -4394,7 +3401,7 @@
     },
     {
       "name": "TuitionRoiCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "TurkeyRoastingCalculator",
@@ -4402,11 +3409,7 @@
     },
     {
       "name": "TvViewingDistanceCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "TwinPregnancyWeightGainCalculator",
-      "reason": "placeholder formula; no Calculate button; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "TwitchEarningsCalculator",
@@ -4414,23 +3417,15 @@
     },
     {
       "name": "TwoComplementCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "TypingSpeedCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "UcGpaCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "UltraProcessedFoodPercentageCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "UnitLoadCostCalculator",
-      "reason": "placeholder formula; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "UploadTimeCalculator",
@@ -4446,11 +3441,11 @@
     },
     {
       "name": "UrlDecoder",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "UrlEncoder",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "UsedCarValueCalculator",
@@ -4462,23 +3457,15 @@
     },
     {
       "name": "UvIndexCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "VacationBudgetCalculator",
       "reason": "placeholder formula; missing result card; no tiered input system"
     },
     {
-      "name": "VaccinationScheduleCalculator",
-      "reason": "placeholder formula; missing result card; no tiered input system"
-    },
-    {
       "name": "VaporPressureCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "VariablePayPercentageCalculator",
-      "reason": "placeholder formula; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "VarianceCalculator",
@@ -4486,39 +3473,19 @@
     },
     {
       "name": "VatCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "VdotCalculator",
-      "reason": "placeholder formula; missing result card; no tiered input system"
+      "reason": "placeholder formula; no tiered input system"
     },
     {
       "name": "VectorCrossProductCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "VectorOperationsCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "VehicleEmissionsCalculator",
       "reason": "placeholder formula; no Recharts chart; missing result card; no tiered input system"
-    },
-    {
-      "name": "VehicleWeightCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "VelocityCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "VendorScorecardRatingCalculator",
-      "reason": "placeholder formula"
-    },
-    {
-      "name": "VicariousTraumaRiskCalculator",
-      "reason": "placeholder formula; no tiered input system"
     },
     {
       "name": "VideoFileSizeCalculator",
@@ -4526,7 +3493,7 @@
     },
     {
       "name": "VisaFeeCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "ViscerialFatCalculator",
@@ -4534,11 +3501,11 @@
     },
     {
       "name": "ViscosityDynamicConverter",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "ViscosityKinematicConverter",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "VitaminDCalculator",
@@ -4550,7 +3517,7 @@
     },
     {
       "name": "VoltageDividerCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "VoltageDropCalculator",
@@ -4562,7 +3529,7 @@
     },
     {
       "name": "VolumeConverter",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "VpsPricingCalculator",
@@ -4573,14 +3540,6 @@
       "reason": "placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
-      "name": "WaccCalculator",
-      "reason": "placeholder formula; missing result card; no tiered input system"
-    },
-    {
-      "name": "WaistToHeightRatioCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "WaistToHipRatioCalculator",
       "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
@@ -4589,28 +3548,20 @@
       "reason": "placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
-      "name": "WalkVsRunCalorieComparisonCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "WallAreaCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "WallpaperCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "WasteDiversionCalculator",
       "reason": "placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
-      "name": "WaterAerobicsCalorieCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "WaterBillCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "WaterBoilingTimeCalculator",
@@ -4626,23 +3577,15 @@
     },
     {
       "name": "WavelengthCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "WebsiteHostingCostCalculator",
       "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
-      "name": "WeddingBudgetCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
       "name": "WeeksCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "WeightChangePercentageCalculator",
-      "reason": "placeholder formula; no Calculate button; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "WeightConverter",
@@ -4650,35 +3593,15 @@
     },
     {
       "name": "WeightedAverageCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "WeightedAverageYieldCalculator",
-      "reason": "placeholder formula; missing result card; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "WeightedGradeCalculator",
       "reason": "placeholder formula; missing result card; no tiered input system"
     },
     {
-      "name": "WeightliftingPercentageCalculator",
-      "reason": "placeholder formula; no Calculate button; no tiered input system"
-    },
-    {
-      "name": "WeightliftingSessionCalorieCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "WeightLossPercentageCalculator",
-      "reason": "placeholder formula; no Calculate button; no tiered input system"
-    },
-    {
       "name": "WellsScoreForDvtCalculator",
-      "reason": "isBuilt false in registry"
-    },
-    {
-      "name": "WheelHorsepowerCalculator",
-      "reason": "placeholder formula; no Calculate button; no tiered input system"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "WheelOffsetCalculator",
@@ -4686,11 +3609,11 @@
     },
     {
       "name": "WilcoxonSignedRankTestCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "WilksScoreCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "WindChillCalculator",
@@ -4698,11 +3621,11 @@
     },
     {
       "name": "WindowCurtainCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "WindSpeedPowerCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "WindTurbineEnergyCalculator",
@@ -4710,27 +3633,19 @@
     },
     {
       "name": "WorkHoursCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "WorkingCapitalCalculator",
       "reason": "placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
-      "name": "WorkingCapitalTurnoverCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "WorkoutCalorieCalculator",
-      "reason": "placeholder formula; missing result card; no tiered input system"
-    },
-    {
       "name": "WorkPowerCalculator",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "YarnWeightConverter",
-      "reason": "isBuilt false in registry"
+      "reason": "file < 8KB; placeholder formula; no Recharts chart; missing result card; no tiered input system"
     },
     {
       "name": "YieldToCallCalculator",
@@ -4738,10 +3653,6 @@
     },
     {
       "name": "YieldToMaturityCalculator",
-      "reason": "placeholder formula; no tiered input system"
-    },
-    {
-      "name": "YogaCalorieCalculator",
       "reason": "placeholder formula; no tiered input system"
     },
     {
@@ -4757,7 +3668,7 @@
       "reason": "placeholder formula; no tiered input system"
     }
   ],
-  "keepCount": 70,
-  "polishCount": 0,
-  "rebuildCount": 1170
+  "keepCount": 434,
+  "polishCount": 1,
+  "rebuildCount": 805
 }

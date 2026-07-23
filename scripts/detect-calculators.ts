@@ -11,8 +11,8 @@ const approvedData = JSON.parse(fs.readFileSync(APPROVED_PATH, 'utf-8'));
 const approvedSet = new Set(approvedData.approved);
 
 // 2. Read all files in /src/domains/calculator/components/
-const componentFiles = fs.readdirSync(COMPONENT_DIR).filter(f => f.endsWith('.tsx'));
-const componentSet = new Set(componentFiles.map(f => f.replace('.tsx', '')));
+const componentFiles = fs.readdirSync(COMPONENT_DIR).filter((f: string) => f.endsWith('.tsx'));
+const componentSet = new Set(componentFiles.map((f: string) => f.replace('.tsx', '')));
 
 // 3. Read registry files to get slugs and statuses
 const registrySlugs = new Map<string, { status: string, name: string }>();
@@ -45,12 +45,12 @@ function analyzeComponent(file: string, slug: string, status: string) {
   const compPath = path.join(COMPONENT_DIR, file);
   const content = fs.readFileSync(compPath, 'utf-8');
   const size = fs.statSync(compPath).size;
-  
+
   if (status !== 'live') return { bucket: 'REBUILD', reason: 'isBuilt: false in registry' };
   if (size < 8000) return { bucket: 'REBUILD', reason: 'File < 8KB' };
-  
+
   if (!content.includes('Recharts') && !content.includes('recharts')) return { bucket: 'REBUILD', reason: 'No Recharts chart' };
-  
+
   const hasCalculate = content.includes('Calculate') || content.includes('calculate');
   if (!hasCalculate) return { bucket: 'REBUILD', reason: 'No Calculate button' };
 
@@ -61,14 +61,14 @@ function analyzeComponent(file: string, slug: string, status: string) {
   if (seoMatch) {
     seoWords = seoMatch[1].replace(/<[^>]+>/g, ' ').split(/\s+/).filter(w => w.length > 0).length;
   }
-  
+
   if (seoWords > 0 && seoWords < 100) return { bucket: 'REBUILD', reason: 'SEO under 100 words' };
-  
+
   let polishReasons = [];
   if (seoWords > 0 && seoWords < 400) polishReasons.push('SEO under 400 words');
   if (!content.includes('text-2xl font-bold mb-3')) polishReasons.push('H2 className not text-2xl font-bold mb-3');
   if (!content.includes('>Calculate<') && !content.includes('value="Calculate"')) {
-      polishReasons.push('Calculate button label not exactly Calculate');
+    polishReasons.push('Calculate button label not exactly Calculate');
   }
 
   if (polishReasons.length > 0) return { bucket: 'POLISH', reason: polishReasons.join(', ') };
@@ -78,24 +78,24 @@ function analyzeComponent(file: string, slug: string, status: string) {
 
 for (const comp of componentSet) {
   if (comp.includes('_') || comp === 'index') continue;
-  
+
   const slug = comp.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
-  
+
   let regInfo = registrySlugs.get(slug);
   if (!regInfo) {
-     // Some manual overrides might exist, let's try direct matches too
-     const manualMatch = Array.from(registrySlugs.entries()).find(([s]) => s.replace(/-/g, '') === comp.toLowerCase());
-     if (manualMatch) regInfo = manualMatch[1];
-     else regInfo = { status: 'soon', name: comp };
+    // Some manual overrides might exist, let's try direct matches too
+    const manualMatch = Array.from(registrySlugs.entries()).find(([s]) => s.replace(/-/g, '') === comp.toLowerCase());
+    if (manualMatch) regInfo = manualMatch[1];
+    else regInfo = { status: 'soon', name: comp };
   }
-  
+
   if (approvedSet.has(comp) && regInfo.status === 'live') {
-      KEEP.push(comp);
-      continue;
+    KEEP.push(comp);
+    continue;
   }
 
   const analysis = analyzeComponent(comp + '.tsx', slug, regInfo.status);
-  
+
   if (analysis.bucket === 'KEEP') KEEP.push(comp);
   else if (analysis.bucket === 'POLISH') POLISH.push({ name: comp, reason: analysis.reason });
   else REBUILD.push({ name: comp, reason: analysis.reason });
@@ -105,11 +105,11 @@ for (const [slug, info] of registrySlugs.entries()) {
   const compName = slug.split('-').map(p => p.charAt(0).toUpperCase() + p.slice(1)).join('');
   let found = componentSet.has(compName);
   if (!found) {
-     const manualMatch = Array.from(componentSet).find(c => c.toLowerCase() === slug.replace(/-/g, ''));
-     if (manualMatch) found = true;
+    const manualMatch = Array.from(componentSet).find(c => c.toLowerCase() === slug.replace(/-/g, ''));
+    if (manualMatch) found = true;
   }
   if (!found) {
-      CREATE.push(compName);
+    CREATE.push(compName);
   }
 }
 

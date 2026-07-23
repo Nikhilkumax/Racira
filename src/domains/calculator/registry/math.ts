@@ -18,7 +18,7 @@ export const mathCalculators: CalculatorDef[] = [
   { slug: "triangle-calculator", name: "Triangle Calculator", description: "Solve triangles — find sides, angles, area, and perimeter.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, icon: Triangle, status: "live" },
   { slug: "distance-calculator", name: "Distance Calculator", description: "Calculate distance between two points in 2D or 3D space.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, icon: Ruler, status: "live" },
   { slug: "polynomial-calculator", name: "Polynomial Calculator", description: "Add, subtract, multiply polynomials and find roots.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, icon: Sigma, status: "live" },
-  { slug: "area-calculator", name: "Area Calculator", description: "Calculate area of common shapes — circle, triangle, rectangle, and more.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, icon: Triangle, status: "live" },
+  { slug: "area-calculator", name: "Area Calculator", description: "Calculate area of common shapes — circle, triangle, rectangle, and more.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, icon: Triangle, status: "live", isBuilt: true },
   { slug: "pythagorean-theorem-calculator", name: "Pythagorean Theorem Calculator", description: "Find the missing side of a right triangle using a² + b² = c².", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, icon: Triangle, status: "live" },
   { slug: "percent-error-calculator", name: "Percent Error Calculator", description: "Calculate percent error between experimental and theoretical values.", category: "MATH", subcategory: "Algebra", tier: "Tier3", priorityScore: 28, icon: Percent, status: "live" },
   { slug: "perimeter-calculator", name: "Perimeter Calculator", description: "Calculate the perimeter of common 2D shapes including polygons and circles.", category: "MATH", subcategory: "Geometry", tier: "Tier3", priorityScore: 28, icon: Triangle, status: "live" },
@@ -483,7 +483,7 @@ export const mathCalculators: CalculatorDef[] = [
   {
     slug: "quartile-calculator", name: "Quartile Calculator", description: "A free quartile calculator to easily calculate your results.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, status: "live" },
   {
-    slug: "anova-calculator", name: "ANOVA Calculator", description: "A free anova calculator to easily calculate your results.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, status: "live" },
+    slug: "anova-calculator", name: "ANOVA Calculator", description: "A free anova calculator to easily calculate your results.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, status: "live", isBuilt: true },
   {
     slug: "kendall-tau-calculator", name: "Kendall Tau Calculator", description: "A free kendall tau calculator to easily calculate your results.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, status: "live" },
   { slug: "permutation-calculator", name: "Permutation Calculator", description: "Calculate permutation calculator online with our free tool.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, status: "soon" },
@@ -1097,7 +1097,7 @@ export const mathCalculators: CalculatorDef[] = [
   { slug: "sample-standard-deviation-calculator", name: "Sample Standard Deviation Calculator", description: "Calculate Sample Standard Deviation Calculator online with our free tool.", category: "MATH", subcategory: "Statistics & Probability", tier: "Tier3", priorityScore: 28, status: "soon" },
   { slug: "t-score-calculator", name: "T-Score Calculator", description: "Calculate T-Score Calculator online with our free tool.", category: "MATH", subcategory: "Statistics & Probability", tier: "Tier3", priorityScore: 28, status: "soon" },
   {
-    slug: "basic-calculator", name: "Basic Calculator", description: "Simple arithmetic calculator for addition, subtraction, multiplication, division.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, status: "live" },
+    slug: "basic-calculator", name: "Basic Calculator", description: "Simple arithmetic calculator for addition, subtraction, multiplication, division.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, status: "live", isBuilt: true },
   {
     slug: "random-number-generator", name: "Random Number Generator", description: "Generate random numbers within a specified range.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, status: "live" },
   {
@@ -1117,7 +1117,7 @@ export const mathCalculators: CalculatorDef[] = [
   {
     slug: "fibonacci-calculator", name: "Fibonacci Sequence Calculator", description: "Generate Fibonacci sequence terms and find any position in the series.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, status: "live" },
   {
-    slug: "base-conversion-calculator", name: "Base Conversion Calculator", description: "Convert numbers between binary, octal, decimal, and hexadecimal bases.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, status: "live" },
+    slug: "base-conversion-calculator", name: "Base Conversion Calculator", description: "Convert numbers between binary, octal, decimal, and hexadecimal bases.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, status: "live", isBuilt: true },
   {
     slug: "median-calculator", name: "Median Calculator", description: "Find the median value in any data set, odd or even count.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, status: "live" },
   {
@@ -1149,7 +1149,7 @@ export const mathCalculators: CalculatorDef[] = [
   {
     slug: "mode-calculator", name: "Mode Calculator", description: "Find the most frequently occurring value in a data set.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, status: "live" },
   {
-    slug: "antilog-calculator", name: "Antilog Calculator", description: "Calculate the antilogarithm for any base from a given log value.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, status: "live" },
+    slug: "antilog-calculator", name: "Antilog Calculator", description: "Calculate the antilogarithm for any base from a given log value.", category: "MATH", subcategory: "Basic Arithmetic", tier: "Tier3", priorityScore: 28, status: "live", isBuilt: true },
   {
     slug: "bitwise-operations-calculator", name: "Bitwise Operations Calculator", description: "Perform AND, OR, XOR, NOT, and shift operations on binary numbers.", category: "MATH", subcategory: "Number Theory & Discrete Math", tier: "Tier3", priorityScore: 28, status: "live" },
   {

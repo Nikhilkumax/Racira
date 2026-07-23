@@ -6,7 +6,7 @@ export function ToolCard({ tool }: { tool: Tool }) {
   const Icon = (Icons as unknown as Record<string, Icons.LucideIcon>)[tool.icon] ?? Icons.Wrench;
   return (
     <Link
-      href={`/engineering/tool/${tool.slug}`}
+      href={`/engineering/${tool.slug}`}
       className="tool-card group"
     >
       {tool.status !== "live" && (

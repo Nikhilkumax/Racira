@@ -2,8 +2,8 @@ import { CategorySearch } from "@/components/CategorySearch";
 import { Metadata } from "next";
 import Header from "@/components/Header";
 
-import { CategorySection } from "@/components/presentation/CategorySection";
-import { categories, totalToolCount, SEARCH_REGISTRY } from "@/data/presentation/tools";
+import { CategorySection } from "@/domains/presentation/CategorySection";
+import { categories, totalToolCount, SEARCH_REGISTRY } from "@/domains/presentation/registry";
 
 export const metadata: Metadata = {
   title: "Racira Presentation Tools — Free Browser Tools for Slides",

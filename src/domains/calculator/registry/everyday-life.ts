@@ -1,4 +1,4 @@
-import { AlertTriangle, Bone, Calculator, Calendar, Cat, Clock, Coffee, DollarSign, Flame, Percent, Pizza, ShoppingBag, Timer, TrendingDown, TrendingUp, Utensils } from "lucide-react";
+import { AlertTriangle, Bone, Calculator, Calendar, Cat, Clock, Coffee, DollarSign, Flame, Percent, Pizza, ShoppingBag, Timer, TrendingDown, TrendingUp, Utensils, Trophy } from "lucide-react";
 import { CalculatorDef } from "../registry";
 
 export const everydaylifeCalculators: CalculatorDef[] = [
@@ -726,7 +726,7 @@ export const everydaylifeCalculators: CalculatorDef[] = [
   {
     slug: "wallpaper-calculator", name: "Wallpaper Calculator", description: "Calculate how many rolls of wallpaper you need for any room.", category: "EVERYDAY_LIFE", subcategory: "Home & Household", tier: "Tier3", priorityScore: 28, status: "live" },
   {
-    slug: "aquarium-volume-calculator", name: "Aquarium Volume Calculator", description: "Calculate the water volume and weight of rectangular or cylindrical fish tanks.", category: "EVERYDAY_LIFE", subcategory: "Home & Household", tier: "Tier3", priorityScore: 28, status: "live" },
+    slug: "aquarium-volume-calculator", name: "Aquarium Volume Calculator", description: "Calculate the water volume and weight of rectangular or cylindrical fish tanks.", category: "EVERYDAY_LIFE", subcategory: "Home & Household", tier: "Tier3", priorityScore: 28, status: "live", isBuilt: true },
   {
     slug: "lawn-seeding-calculator", name: "Lawn Seeding Calculator", description: "Calculate the amount of grass seed needed to overseed or establish a lawn.", category: "EVERYDAY_LIFE", subcategory: "Home & Household", tier: "Tier3", priorityScore: 28, status: "live" },
   { slug: "rainwater-harvesting-volume-calculator", name: "Rainwater Harvesting Volume Calculator", description: "Calculate rainwater harvesting volume calculator online with our free tool.", category: "EVERYDAY_LIFE", subcategory: "Home & Household", tier: "Tier3", priorityScore: 28, status: "soon" },
@@ -803,7 +803,9 @@ export const everydaylifeCalculators: CalculatorDef[] = [
   {
     slug: "cooking-temperature-converter", name: "Cooking Temperature Converter", description: "Convert oven temperatures between Fahrenheit, Celsius, and Gas Mark.", category: "EVERYDAY_LIFE", subcategory: "Food & Cooking", tier: "Tier3", priorityScore: 28, status: "live" },
   {
-    slug: "baking-conversion-calculator", name: "Baking Conversion Calculator", description: "Convert baking ingredients between cups, grams, ounces, and milliliters.", category: "EVERYDAY_LIFE", subcategory: "Food & Cooking", tier: "Tier3", priorityScore: 28, status: "live" },
+    slug: "baking-conversion-calculator", name: "Baking Conversion Calculator", description: "Convert baking ingredients between cups, grams, ounces, and milliliters.", category: "EVERYDAY_LIFE", subcategory: "Food & Cooking", tier: "Tier3", priorityScore: 28, status: "live", isBuilt: true },
+  {
+    slug: "baking-ingredient-converter", name: "Baking Ingredient Converter", description: "Convert baking ingredient volumes to weights using ingredient-specific density and unit conversion.", category: "EVERYDAY_LIFE", subcategory: "Food & Cooking", tier: "Tier3", priorityScore: 28, status: "live", isBuilt: true },
   {
     slug: "catering-quantity-calculator", name: "Catering Quantity Calculator", description: "Estimate food quantities needed for events based on guest count and meal type.", category: "EVERYDAY_LIFE", subcategory: "Food & Cooking", tier: "Tier3", priorityScore: 28, status: "live" },
   { slug: "biorhythm-calculator", name: "Biorhythm Calculator", description: "Calculate biorhythm calculator online with our free tool.", category: "EVERYDAY_LIFE", subcategory: "Fun & Personal", tier: "Tier3", priorityScore: 28, status: "soon" },
@@ -1158,6 +1160,54 @@ export const everydaylifeCalculators: CalculatorDef[] = [
   { slug: "veterinary-drug-dosage-calculator", name: "Veterinary Drug Dosage Calculator", description: "Calculate veterinary drug dosage calculator online with our free tool.", category: "EVERYDAY_LIFE", subcategory: "Gaming & Hobbies", tier: "Tier3", priorityScore: 30, status: "soon" },
   { slug: "reptile-uv-index-requirement-calculator", name: "Reptile UV Index Requirement Calculator", description: "Calculate reptile uv index requirement calculator online with our free tool.", category: "EVERYDAY_LIFE", subcategory: "Gaming & Hobbies", tier: "Tier3", priorityScore: 30, status: "soon" },
   { slug: "crate-size-calculator", name: "Crate Size Calculator", description: "Calculate crate size calculator online with our free tool.", category: "EVERYDAY_LIFE", subcategory: "Gaming & Hobbies", tier: "Tier3", priorityScore: 30, status: "soon" },
+
+  {
+    slug: 'baseball-fielding-calculator',
+    name: 'Baseball Fielding Calculator',
+    description: 'Evaluate defensive performance with fielding percentage, range factor, and position-based benchmarks.',
+    tier: 'standard',
+    status: 'live',
+    isBuilt: true,
+  },
+
+  {
+    slug: 'baseball-on-base-percentage-calculator',
+    name: 'Baseball On-Base Percentage Calculator',
+    description: 'Calculate baseball on-base percentage calculator online with our free tool.',
+    category: 'EVERYDAY_LIFE',
+    subcategory: 'Ball Sports',
+    tier: 'Tier2',
+    priorityScore: 60,
+    icon: Trophy,
+    status: 'live',
+    isBuilt: true,
+  },
+
+  {
+    slug: 'baseball-slugging-calculator',
+    name: 'Baseball Slugging Percentage Calculator',
+    description: 'Calculate baseball slugging percentage calculator online with our free tool.',
+    category: 'EVERYDAY_LIFE',
+    subcategory: 'Ball Sports',
+    tier: 'Tier2',
+    priorityScore: 60,
+    icon: Trophy,
+    status: 'live',
+    isBuilt: true,
+  },
+
+  {
+    slug: 'basketball-shooting-percentage-calculator',
+    name: 'Basketball Shooting Percentage Calculator',
+    description: 'Calculate basketball shooting percentages including FG%, 3P%, FT%, eFG%, and True Shooting.',
+    category: 'EVERYDAY_LIFE',
+    subcategory: 'Ball Sports',
+    tier: 'Tier2',
+    priorityScore: 60,
+    icon: Trophy,
+    status: 'live',
+    isBuilt: true,
+  },
 
   {
     slug: 'hp-to-kw-calculator',

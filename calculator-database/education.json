@@ -4668,7 +4668,7 @@
           "slug": "ap-score-calculator",
           "name": "AP Score Calculator",
           "description": "Estimate your AP Exam score (1-5) based on multiple-choice and free-response performance.",
-          "isBuilt": false,
+          "isBuilt": true,
           "subcategoryPriority": 7,
           "priorityScore": 28,
           "tier": "Tier3"

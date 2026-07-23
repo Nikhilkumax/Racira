@@ -1,4 +1,20 @@
 import { Activity, AlignLeft, ArrowDownUp, ArrowLeftRight, ArrowRightLeft, Bitcoin, BookOpen, Braces, Calculator, CheckCircle2, Coins, Dna, DollarSign, Eye, FileBadge, FileBox, FileCode, FileImage, FileText, Fingerprint, Flag, FlagTriangleRight, Folders, Fuel, Gauge, Gift, GitCompare, GitFork, Globe, Grid3x3, Hash, Image, Key, KeyRound, KeySquare, Landmark, Lightbulb, LineChart, Link, ListChecks, Lock, Map, Network, PenTool, PieChart, Receipt, Route, Scale, ScanSearch, ScrollText, Search, ShieldCheck, Shrink, Sprout, TrendingUp, Unlock, Users, Wallet, Wand2, Wind, Wrench } from "lucide-react";
+import type { ComponentType } from "react";
+import { AprApy } from "./components/tools/impl/AprApy";
+import { BtcValidator } from "./components/tools/impl/BtcValidator";
+import { Eip55Checksum } from "./components/tools/impl/Eip55Checksum";
+import { EthValidator } from "./components/tools/impl/EthValidator";
+import { EventTopic } from "./components/tools/impl/EventTopic";
+import { FunctionSelector } from "./components/tools/impl/FunctionSelector";
+import { GasFee } from "./components/tools/impl/GasFee";
+import { GweiEth } from "./components/tools/impl/GweiEth";
+import { HexDec } from "./components/tools/impl/HexDec";
+import { Keccak } from "./components/tools/impl/Keccak";
+import { SatBtc } from "./components/tools/impl/SatBtc";
+import { Sha256 } from "./components/tools/impl/Sha256";
+import { SolValidator } from "./components/tools/impl/SolValidator";
+import { TokenDecimal } from "./components/tools/impl/TokenDecimal";
+import { WeiEth } from "./components/tools/impl/WeiEth";
 
 
 export type Tool = {
@@ -8,19 +24,43 @@ export type Tool = {
   category: string;
   status: "live" | "soon";
   icon?: any;
+  component?: ComponentType<any>;
 };
 
 import { toSlug } from "@/lib/utils/slug";
+import type { ToolResult } from "@/components/CategorySearch";
 export const slugify = toSlug;
 
-const mk = (name: string, desc: string, category: string, implemented = false, icon: any): Tool => ({
-  slug: slugify(name),
-  name,
-  desc,
-  category,
-  status: implemented ? "live" : "soon",
-  icon,
-});
+const COMP_MAP: Record<string, ComponentType<any>> = {
+  "ethereum-address-validator": EthValidator,
+  "bitcoin-address-validator": BtcValidator,
+  "solana-address-validator": SolValidator,
+  "address-checksum-tool-eip-55": Eip55Checksum,
+  "gas-fee-calculator": GasFee,
+  "function-signature-generator": FunctionSelector,
+  "event-topic-hash-generator": EventTopic,
+  "keccak-256-hash-tool": Keccak,
+  "sha-256-blockchain-hash-tool": Sha256,
+  "apr-vs-apy-converter-defi": AprApy,
+  "hex-to-decimal-converter-ethereum": HexDec,
+  "wei-to-eth-unit-converter": WeiEth,
+  "gwei-to-eth-converter": GweiEth,
+  "satoshi-to-bitcoin-converter": SatBtc,
+  "token-decimal-normalizer": TokenDecimal,
+};
+
+const mk = (name: string, desc: string, category: string, implemented = false, icon: any): Tool => {
+  const s = slugify(name);
+  return {
+    slug: s,
+    name,
+    desc,
+    category,
+    status: implemented ? "live" : "soon",
+    icon,
+    component: COMP_MAP[s],
+  };
+};
 
 export const TOOLS: Tool[] = [
   // Wallet & Address (15)
@@ -217,7 +257,7 @@ const extraCategories = [
 ];
 
 for (const [category, name] of extraCategories) {
-  TOOLS.push(mk(name, "Coming soon", category));
+  TOOLS.push(mk(name, "Coming soon", category, false, undefined));
 }
 
 export const CATEGORIES = Array.from(new Set(TOOLS.map((t) => (t as any).category)));
@@ -230,7 +270,7 @@ export const SEARCH_REGISTRY: ToolResult[] = TOOLS.map((t) => ({
   name: t.name,
   description: t.desc,
   slug: t.slug,
-  href: `/crypto/tool/${t.slug}`,
+  href: `/crypto/${t.slug}`,
   category: t.category,
   isBuilt: t.status === "live",
 }));
