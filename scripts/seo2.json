@@ -1,0 +1,8682 @@
+[
+  {
+    "f": "PmiAmortizationTable.tsx",
+    "h2Count": 0,
+    "h2Locked": 0,
+    "hasProse": false,
+    "seoWc": 0
+  },
+  {
+    "f": "PmiLtvChart.tsx",
+    "h2Count": 0,
+    "h2Locked": 0,
+    "hasProse": false,
+    "seoWc": 0
+  },
+  {
+    "f": "SeniorBmiCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 0,
+    "hasProse": false,
+    "seoWc": 0
+  },
+  {
+    "f": "ThreeDPrintCharts.tsx",
+    "h2Count": 0,
+    "h2Locked": 0,
+    "hasProse": false,
+    "seoWc": 0
+  },
+  {
+    "f": "VolumeCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 26
+  },
+  {
+    "f": "CircleCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 29
+  },
+  {
+    "f": "FixedChargeCoverageRatioCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": false,
+    "seoWc": 29
+  },
+  {
+    "f": "IdealBmiWeightCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": false,
+    "seoWc": 29
+  },
+  {
+    "f": "MatrixCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 31
+  },
+  {
+    "f": "OverweightPercentageCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": false,
+    "seoWc": 31
+  },
+  {
+    "f": "BuyDownCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": false,
+    "seoWc": 32
+  },
+  {
+    "f": "StatisticsCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 34
+  },
+  {
+    "f": "TriangleCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 34
+  },
+  {
+    "f": "DistanceCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 35
+  },
+  {
+    "f": "LinearEquationCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 37
+  },
+  {
+    "f": "LogCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 39
+  },
+  {
+    "f": "HousingRatioCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": false,
+    "seoWc": 40
+  },
+  {
+    "f": "RatioCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 40
+  },
+  {
+    "f": "SurfaceAreaCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 40
+  },
+  {
+    "f": "PolynomialCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 41
+  },
+  {
+    "f": "DebtToAssetRatioCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": false,
+    "seoWc": 42
+  },
+  {
+    "f": "ExponentCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 42
+  },
+  {
+    "f": "FractionCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 42
+  },
+  {
+    "f": "PercentErrorCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 48
+  },
+  {
+    "f": "PythagoreanTheoremCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 53
+  },
+  {
+    "f": "SlopeCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 53
+  },
+  {
+    "f": "AreaConverter.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "Base64Decoder.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "Base64Encoder.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "BuoyancyCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "CapacitanceCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "ConcentrationCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "ConeCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "ConversionCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "ConvexityCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "CountdownCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "CovarianceCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "CylinderCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "DecibelCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "DecileCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "DensityConverter.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "DerivativeCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "DiceRoller.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "DilutionCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "DisplacementCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "EfficiencyCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "EigenvalueCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "EllipseCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "EnergyConverter.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "FertilizerCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "ForceConverter.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "FrequencyConverter.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "GestationCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "GreeksCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "HeightCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "HumidityCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "IlluminanceConverter.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "InductanceCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "InequalityCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "IntegralCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "LimitCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "LuminanceConverter.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "MolalityCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "MonthsCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "NormalityCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "OsmolarityCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "PercentileCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "PhCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "PlywoodCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "PolygonCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "PowerConverter.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "PressureCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "PressureConverter.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "RadioactivityConverter.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "SphereCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "StoichiometryCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "SwolfCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "TimeConverter.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "TitrationCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "TorqueConverter.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "TransformerCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "TssCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "UrlDecoder.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "UrlEncoder.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "VolumeConverter.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "WallpaperCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "WavelengthCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "WeeksCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 65
+  },
+  {
+    "f": "FourPercentRuleCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": false,
+    "seoWc": 66
+  },
+  {
+    "f": "ApScoreCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "AquariumVolumeCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "AvogadrosNumberCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "BakingConversionCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "BakingIngredientConverter.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "BarbellPlateCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "BarometricPressureCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "BaseballEraCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "BaseConversionCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "BasketballPerCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "BilliardsHandicapCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "BinaryDecimalCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "BinaryTextConverter.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "BinomialDistributionCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "BitwiseOperationsCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "BlindSizeCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "BounceRateCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "BowlingHandicapCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "BoylesLawCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "BraSizeConverter.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "BufferSolutionCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "CakeServingCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "CarbonDatingCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "CatAgeCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "CateringQuantityCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "CeilingFloorCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "CharlesLawCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "ClothingSizeConverter.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "CoffeeStrengthCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "ComplexNumbersCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "CookingMeasurementConverter.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "CookingTemperatureConverter.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "CookingTimeCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "CoordinateGeometryCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "CorrelationCoefficientCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "CoulombsLawCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "CrochetHookConverter.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "CryptoCurrencyConverter.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "CssSwimmingCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "CsuGpaCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "CubeRootCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "CurrentDividerCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "CyclingCadenceCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "CyclingSpeedCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "CyclingWattageCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "DataSizeConverter.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "DataTransferConverter.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "DateDifferenceCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "DaylightSavingCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "DirectVariationCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "DogAgeCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "DotsScoreCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "DrivewaySealerCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "DupontAnalysisCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "ElectricFieldCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "ElectricityBillCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "ElectricPowerCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "EmpiricalFormulaCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "EpochTimeConverter.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "EquilibriumConstantCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "EthereumGasCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "ExponentialDecayCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "ExponentialGrowthCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "FirewoodCordCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "FlightTimeCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "FloorAreaCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "FlowRateConverter.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "FluidFlowCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "FoodCostCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "FractionalDistillationCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "FrequencyWavelengthCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "FTestCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "FuelEconomyConverter.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "FunctionCompositionCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "GardenFertilizerCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "GeometricMeanCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "GeometricProgressionCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "GmatScoreCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "GolfHandicapCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "GrassSeedCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "GravitationalForceCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "GrillingTimeCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "GutterSizeCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "HeaterSizeCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "HotelCostCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "IbGradeCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "InverseVariationCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "KendallTauCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "KnittingNeedleConverter.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "LawnSeedingCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "LcResonanceCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "LeapYearCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "LightingLumensCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "LimitingReagentCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "LinearRegressionCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "LogisticRegressionCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "LoyaltyPointsCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "LsatScoreCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "MagneticFieldCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "MassDefectCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "MatrixDeterminantCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "MatrixInverseCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "MatrixMultiplicationCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "McatScoreCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "ModifiedDurationCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "MolarMassCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "MorseCodeTranslator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "MulchCostCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "MultipleRegressionCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "OvenTemperatureConverter.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "OvertimeHoursCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "OxbridgeInterviewCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "PackingWeightCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "PercentYieldCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "PetFoodCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "PhotonEnergyCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "PlantSpacingCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "PoissonDistributionCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "PolygonAreaCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "PoolVolumeCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "PottingSoilCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "PowerFactorCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "ProjectileMotionCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "QbRatingCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "RaceTimePredictor.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "RadiationDoseConverter.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "RadioactiveDecayCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "RainwaterCollectionCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "ReadingTimeCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "RecipeScaleCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "RefrigeratorEnergyCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "RiemannSumCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "RightAngleCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "RingSizeCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "RomanNumeralConverter.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "RoofShingleCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "RoomVolumeCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "RunningCadenceCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "SalesPriceCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "ScientificNotationConverter.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "SectorAreaCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "SetOperationsCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "ShoeSizeConverter.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "ShoppingBudgetCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "SimplePendulumCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "SinclairCoefficientCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "SnellsLawCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "SnowShovelingCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "SolarPanelCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "SpeakerPlacementCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "SpecificHeatCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "SpringConstantCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "StudentBudgetCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "SwimmingPaceCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "SwimmingSplitCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "SwimmingTimeConversion.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "SymmetricStrengthCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "TaylorSeriesCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "TextBinaryConverter.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "ThermalExpansionCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "TidalPredictionCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "TimeDifferenceCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "TravelBudgetCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "TravelInsuranceCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "TreadmillPaceCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "TriathlonTimeCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "TruthTableCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "TTestCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "TuitionRoiCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "TwoComplementCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "TypingSpeedCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "UcGpaCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "UvIndexCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "VaporPressureCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "VectorOperationsCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "VisaFeeCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "ViscosityDynamicConverter.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "ViscosityKinematicConverter.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "VoltageDividerCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "WallAreaCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "WaterBillCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "WeightedAverageCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "WilksScoreCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "WindowCurtainCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "WorkHoursCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "WorkPowerCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "YarnWeightConverter.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 67
+  },
+  {
+    "f": "BaseballBattingAverageCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 69
+  },
+  {
+    "f": "BasketballShootingPercentageCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 69
+  },
+  {
+    "f": "BoilingPointElevationCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 69
+  },
+  {
+    "f": "CandleBurnTimeCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 69
+  },
+  {
+    "f": "ClothingSizeConverterAdvanced.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 69
+  },
+  {
+    "f": "CoefficientOfVariationCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 69
+  },
+  {
+    "f": "CombinedGasLawCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 69
+  },
+  {
+    "f": "CompletingTheSquareCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 69
+  },
+  {
+    "f": "CryptoPositionSizeCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 69
+  },
+  {
+    "f": "CustomerRetentionRateCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 69
+  },
+  {
+    "f": "DecimalToFractionConverter.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 69
+  },
+  {
+    "f": "DecimalToHexConverter.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 69
+  },
+  {
+    "f": "EmailOpenRateCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 69
+  },
+  {
+    "f": "FreezingPointDepressionCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 69
+  },
+  {
+    "f": "HexToDecimalConverter.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 69
+  },
+  {
+    "f": "HomeCoolingCostCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 69
+  },
+  {
+    "f": "HomeHeatingCostCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 69
+  },
+  {
+    "f": "IdealGasLawCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 69
+  },
+  {
+    "f": "KruskalWallisTestCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 69
+  },
+  {
+    "f": "LawnMowingTimeCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 69
+  },
+  {
+    "f": "LawOfCosinesCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 69
+  },
+  {
+    "f": "LawOfSinesCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 69
+  },
+  {
+    "f": "MarginOfErrorCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 69
+  },
+  {
+    "f": "MeetingTimeZoneCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 69
+  },
+  {
+    "f": "MicrowaveWattageConversionCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 69
+  },
+  {
+    "f": "NetPromoterScoreCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 69
+  },
+  {
+    "f": "NumberToWordsConverter.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 69
+  },
+  {
+    "f": "ProjectorScreenSizeCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 69
+  },
+  {
+    "f": "PutCallParityCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 69
+  },
+  {
+    "f": "RcTimeConstantCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 69
+  },
+  {
+    "f": "ResistorsInParallelCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 69
+  },
+  {
+    "f": "ResistorsInSeriesCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 69
+  },
+  {
+    "f": "RingSizeConverterAdvanced.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 69
+  },
+  {
+    "f": "RlTimeConstantCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 69
+  },
+  {
+    "f": "RoadTripCostCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 69
+  },
+  {
+    "f": "RootMeanSquareCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 69
+  },
+  {
+    "f": "RunningStrideLengthCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 69
+  },
+  {
+    "f": "ServerRackUnitsCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 69
+  },
+  {
+    "f": "SpearmanRankCorrelationCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 69
+  },
+  {
+    "f": "SystemOfEquationsCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 69
+  },
+  {
+    "f": "TennisServeSpeedCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 69
+  },
+  {
+    "f": "TvViewingDistanceCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 69
+  },
+  {
+    "f": "VectorCrossProductCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 69
+  },
+  {
+    "f": "WindSpeedPowerCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 69
+  },
+  {
+    "f": "EightyThreeBElectionTaxCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": false,
+    "seoWc": 70
+  },
+  {
+    "f": "Exchange1031TimelineCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": false,
+    "seoWc": 71
+  },
+  {
+    "f": "GiftCostPerPersonCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 71
+  },
+  {
+    "f": "LogarithmChangeOfBaseCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 71
+  },
+  {
+    "f": "MannWhitneyUTestCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 71
+  },
+  {
+    "f": "TimeDurationCalculator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 71
+  },
+  {
+    "f": "WellsScoreForDvtCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 71
+  },
+  {
+    "f": "WilcoxonSignedRankTestCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 71
+  },
+  {
+    "f": "TenYearAveragingDistributionCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": false,
+    "seoWc": 74
+  },
+  {
+    "f": "AttendanceCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 76
+  },
+  {
+    "f": "ZeroAprPromotionPayoffCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": false,
+    "seoWc": 79
+  },
+  {
+    "f": "Four03bGrowthCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": false,
+    "seoWc": 82
+  },
+  {
+    "f": "PercentageToCgpaConverter.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 82
+  },
+  {
+    "f": "EdpiCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 84
+  },
+  {
+    "f": "BillSplitCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 85
+  },
+  {
+    "f": "ConversionRateCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 85
+  },
+  {
+    "f": "CronExpressionCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 85
+  },
+  {
+    "f": "FontSizeConverter.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 85
+  },
+  {
+    "f": "Five29CollegeSavingsPlanCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": false,
+    "seoWc": 87
+  },
+  {
+    "f": "Four01kGrowthCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": false,
+    "seoWc": 87
+  },
+  {
+    "f": "CpmCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 88
+  },
+  {
+    "f": "DogCalorieCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 88
+  },
+  {
+    "f": "RoasCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 88
+  },
+  {
+    "f": "CtrCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 89
+  },
+  {
+    "f": "PasswordGenerator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 90
+  },
+  {
+    "f": "WebsiteHostingCostCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 90
+  },
+  {
+    "f": "Four57bPlanCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": false,
+    "seoWc": 91
+  },
+  {
+    "f": "UploadTimeCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 91
+  },
+  {
+    "f": "GameDownloadCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 92
+  },
+  {
+    "f": "ScreenSizeCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 92
+  },
+  {
+    "f": "CpcCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 93
+  },
+  {
+    "f": "HouseAffordabilityCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 94
+  },
+  {
+    "f": "DataStorageConverter.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 95
+  },
+  {
+    "f": "CostOfLivingCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 98
+  },
+  {
+    "f": "DownloadTimeCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 99
+  },
+  {
+    "f": "HardDriveCapacityCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 99
+  },
+  {
+    "f": "BmiClassificationCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 100
+  },
+  {
+    "f": "DayCounter.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 100
+  },
+  {
+    "f": "JitterCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 100
+  },
+  {
+    "f": "CurrencyConverter.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 101
+  },
+  {
+    "f": "ForceCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 101
+  },
+  {
+    "f": "UpsBatteryRuntimeCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 102
+  },
+  {
+    "f": "TwitchEarningsCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 103
+  },
+  {
+    "f": "EmergencyFundCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 104
+  },
+  {
+    "f": "PacketLossCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 104
+  },
+  {
+    "f": "HydrationCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 105
+  },
+  {
+    "f": "GradeCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 106
+  },
+  {
+    "f": "BloodPressureCategoryCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 107
+  },
+  {
+    "f": "MouseSensitivityCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 108
+  },
+  {
+    "f": "CustomerLifetimeValueCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 109
+  },
+  {
+    "f": "DensityCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 109
+  },
+  {
+    "f": "EcologicalFootprintCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 109
+  },
+  {
+    "f": "ClosingCostCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": false,
+    "seoWc": 110
+  },
+  {
+    "f": "SubscriptionCostCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 110
+  },
+  {
+    "f": "BodySurfaceAreaCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 111
+  },
+  {
+    "f": "OperatingMarginCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 112
+  },
+  {
+    "f": "DebtServiceCoverageCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 114
+  },
+  {
+    "f": "PeriodCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 114
+  },
+  {
+    "f": "LeanBodyMassCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 115
+  },
+  {
+    "f": "DateCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 117
+  },
+  {
+    "f": "MolarityCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 117
+  },
+  {
+    "f": "WaistToHipRatioCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 117
+  },
+  {
+    "f": "PingTimeCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 118
+  },
+  {
+    "f": "PitiCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": false,
+    "seoWc": 119
+  },
+  {
+    "f": "DownPaymentCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 121
+  },
+  {
+    "f": "HourlyToSalaryCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 121
+  },
+  {
+    "f": "PopulationGrowthEcologyCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 121
+  },
+  {
+    "f": "TakeHomeSalaryCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 121
+  },
+  {
+    "f": "CaloriesBurnedCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 122
+  },
+  {
+    "f": "FatIntakeCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 122
+  },
+  {
+    "f": "HomeAffordabilityCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 122
+  },
+  {
+    "f": "CompostRatioCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 124
+  },
+  {
+    "f": "WaterIntakeCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 124
+  },
+  {
+    "f": "CarbCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 125
+  },
+  {
+    "f": "MonitorDpiCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 125
+  },
+  {
+    "f": "DueDateCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 126
+  },
+  {
+    "f": "OvertimeCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 127
+  },
+  {
+    "f": "CarbonFootprintCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 128
+  },
+  {
+    "f": "ProteinIntakeCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 128
+  },
+  {
+    "f": "RegexTestCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 129
+  },
+  {
+    "f": "StockCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 129
+  },
+  {
+    "f": "FovCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 130
+  },
+  {
+    "f": "HomeEnergyEmissionsCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 130
+  },
+  {
+    "f": "OneRepMaxCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 130
+  },
+  {
+    "f": "PropertyAppreciationCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 130
+  },
+  {
+    "f": "ExpectedReturnCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 131
+  },
+  {
+    "f": "OvulationCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 132
+  },
+  {
+    "f": "ReadingSpeedCalculator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 132
+  },
+  {
+    "f": "IrrCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 133
+  },
+  {
+    "f": "WalkingCalorieCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 133
+  },
+  {
+    "f": "SafeWithdrawalRateCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 134
+  },
+  {
+    "f": "SsdTbwCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 135
+  },
+  {
+    "f": "TeaSteepingCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 135
+  },
+  {
+    "f": "FoodCarbonFootprintCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 136
+  },
+  {
+    "f": "BmiPercentileCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 137
+  },
+  {
+    "f": "ConceptionCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 137
+  },
+  {
+    "f": "TraditionalIraCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 137
+  },
+  {
+    "f": "VehicleEmissionsCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 137
+  },
+  {
+    "f": "LedSavingsCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 138
+  },
+  {
+    "f": "Vo2MaxCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 138
+  },
+  {
+    "f": "FertilityCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 139
+  },
+  {
+    "f": "PaceCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 139
+  },
+  {
+    "f": "PregnancyWeightGainCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 139
+  },
+  {
+    "f": "WasteDiversionCalculator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 139
+  },
+  {
+    "f": "PomodoroCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 140
+  },
+  {
+    "f": "SwpCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 141
+  },
+  {
+    "f": "AspectRatioCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 142
+  },
+  {
+    "f": "SleepCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 142
+  },
+  {
+    "f": "DepreciationCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 143
+  },
+  {
+    "f": "WindTurbineEnergyCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 143
+  },
+  {
+    "f": "PaperSavingsCalculator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 145
+  },
+  {
+    "f": "WeightedGradeCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 145
+  },
+  {
+    "f": "GREScoreCalculator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 146
+  },
+  {
+    "f": "InvestmentPropertyCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 146
+  },
+  {
+    "f": "MortgageAffordabilityCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 146
+  },
+  {
+    "f": "AnnuityPayoutCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 147
+  },
+  {
+    "f": "BacCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 147
+  },
+  {
+    "f": "FinalGradeCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": true,
+    "seoWc": 148
+  },
+  {
+    "f": "MacAddressGenerator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 148
+  },
+  {
+    "f": "LeaseVsBuyCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 149
+  },
+  {
+    "f": "PpiCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 149
+  },
+  {
+    "f": "GfrCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 150
+  },
+  {
+    "f": "MeatlessDietImpactCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 150
+  },
+  {
+    "f": "RunningCalorieCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 150
+  },
+  {
+    "f": "AudioFileSizeCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 151
+  },
+  {
+    "f": "CyclingPowerCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 151
+  },
+  {
+    "f": "TipAndSplitCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 151
+  },
+  {
+    "f": "PaceConverter.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 152
+  },
+  {
+    "f": "RentAffordabilityCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 153
+  },
+  {
+    "f": "StudentLoanPayoffCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 153
+  },
+  {
+    "f": "ArmVsFixedRateCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": false,
+    "seoWc": 154
+  },
+  {
+    "f": "DockerImageSizeCalculator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 154
+  },
+  {
+    "f": "CumulativeGPACalculator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 155
+  },
+  {
+    "f": "EpfCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 155
+  },
+  {
+    "f": "MpgCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 155
+  },
+  {
+    "f": "StepperMotorCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 155
+  },
+  {
+    "f": "EnergyEfficientApplianceCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 157
+  },
+  {
+    "f": "ImageFileSizeCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 157
+  },
+  {
+    "f": "MarkupCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 157
+  },
+  {
+    "f": "SATScoreCalculator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 157
+  },
+  {
+    "f": "HpToKwCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 159
+  },
+  {
+    "f": "NpsCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 160
+  },
+  {
+    "f": "VpsPricingCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 160
+  },
+  {
+    "f": "TargetHeartRateCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 161
+  },
+  {
+    "f": "TreePlantingOffsetCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 161
+  },
+  {
+    "f": "SolarEnergySavingsCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 163
+  },
+  {
+    "f": "SubnetCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 163
+  },
+  {
+    "f": "TdsCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 163
+  },
+  {
+    "f": "LeanMassCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 164
+  },
+  {
+    "f": "RuleOf70Calculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 164
+  },
+  {
+    "f": "VideoFileSizeCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 164
+  },
+  {
+    "f": "RaidCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 166
+  },
+  {
+    "f": "RgbToHexConverter.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 167
+  },
+  {
+    "f": "RentVsBuyCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 168
+  },
+  {
+    "f": "HashCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 169
+  },
+  {
+    "f": "PpfCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 170
+  },
+  {
+    "f": "FlightEmissionsCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 171
+  },
+  {
+    "f": "EscrowCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": false,
+    "seoWc": 172
+  },
+  {
+    "f": "PasswordEntropyCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 173
+  },
+  {
+    "f": "PlasticFootprintCalculator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 173
+  },
+  {
+    "f": "RothIraCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 173
+  },
+  {
+    "f": "GratuityCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 174
+  },
+  {
+    "f": "TestGradeCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 174
+  },
+  {
+    "f": "AwsS3CostCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 175
+  },
+  {
+    "f": "LtvCalculator.tsx",
+    "h2Count": 1,
+    "h2Locked": 1,
+    "hasProse": false,
+    "seoWc": 175
+  },
+  {
+    "f": "WaterFootprintCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 175
+  },
+  {
+    "f": "DataTransferRateCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 176
+  },
+  {
+    "f": "RainBarrelCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 177
+  },
+  {
+    "f": "StudyTimeCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 177
+  },
+  {
+    "f": "BiodiversityIndexCalculator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 180
+  },
+  {
+    "f": "UptimeCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 180
+  },
+  {
+    "f": "PsuCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 182
+  },
+  {
+    "f": "BurnRateCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 189
+  },
+  {
+    "f": "WorkingCapitalCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 190
+  },
+  {
+    "f": "InvestmentReturnCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 195
+  },
+  {
+    "f": "BodyFatCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 200
+  },
+  {
+    "f": "BusinessLoanCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 200
+  },
+  {
+    "f": "StakingRewardsCalculator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 200
+  },
+  {
+    "f": "ContrastRatioCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 201
+  },
+  {
+    "f": "RefinanceBreakEvenCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 201
+  },
+  {
+    "f": "PizzaSizeCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 205
+  },
+  {
+    "f": "GitRepoSizeCalculator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 207
+  },
+  {
+    "f": "IncomeTaxCalculatorIndia.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 207
+  },
+  {
+    "f": "FireCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 209
+  },
+  {
+    "f": "VdotCalculator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 212
+  },
+  {
+    "f": "CapRateCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 215
+  },
+  {
+    "f": "HraCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 215
+  },
+  {
+    "f": "BmrCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 219
+  },
+  {
+    "f": "TdeeCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 219
+  },
+  {
+    "f": "LumpsumCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 220
+  },
+  {
+    "f": "CatPregnancyCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 221
+  },
+  {
+    "f": "SavingsGoalCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 223
+  },
+  {
+    "f": "TimeZoneConverter.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 223
+  },
+  {
+    "f": "NetWorthCalculator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 224
+  },
+  {
+    "f": "ChurnRateCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 226
+  },
+  {
+    "f": "SipCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 226
+  },
+  {
+    "f": "PropertyTaxCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 228
+  },
+  {
+    "f": "EarlyRetirementCalculator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 231
+  },
+  {
+    "f": "WaterBoilingTimeCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 231
+  },
+  {
+    "f": "HelocCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 234
+  },
+  {
+    "f": "RentalYieldCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 234
+  },
+  {
+    "f": "TurkeyRoastingCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 236
+  },
+  {
+    "f": "CollegeSavingsCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 237
+  },
+  {
+    "f": "RetirementCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 237
+  },
+  {
+    "f": "DogSizePredictor.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 240
+  },
+  {
+    "f": "HydraulicRetentionTimeCalculator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 240
+  },
+  {
+    "f": "RmdCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 240
+  },
+  {
+    "f": "ProfessionalTaxCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 241
+  },
+  {
+    "f": "EbitdaCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 242
+  },
+  {
+    "f": "PersonalLoanCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 242
+  },
+  {
+    "f": "WeightedAverageYieldCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 242
+  },
+  {
+    "f": "BreakEvenCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 244
+  },
+  {
+    "f": "CoffeeBrewingCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 246
+  },
+  {
+    "f": "CashRatioCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 247
+  },
+  {
+    "f": "EarToAprCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 247
+  },
+  {
+    "f": "DaCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 251
+  },
+  {
+    "f": "CashConversionCycleCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 252
+  },
+  {
+    "f": "DogChocolateToxicityCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 255
+  },
+  {
+    "f": "ProfitMarginCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 257
+  },
+  {
+    "f": "StampDutyCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 258
+  },
+  {
+    "f": "PreferredStockValuationCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 261
+  },
+  {
+    "f": "ReturnOnAssetsCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 264
+  },
+  {
+    "f": "DrinkingWaterFluorideDoseCalculator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 265
+  },
+  {
+    "f": "IraCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 265
+  },
+  {
+    "f": "DebtToEquityCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 268
+  },
+  {
+    "f": "ReplenishmentLeadTimeCalculator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 268
+  },
+  {
+    "f": "QuarterToSemesterCreditCalculator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 270
+  },
+  {
+    "f": "DogPregnancyCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 272
+  },
+  {
+    "f": "LcmGcdCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 272
+  },
+  {
+    "f": "LeaveEncashmentCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 272
+  },
+  {
+    "f": "EquityMultiplierCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 273
+  },
+  {
+    "f": "EquivalentAnnualAnnuityCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 274
+  },
+  {
+    "f": "RoiCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 276
+  },
+  {
+    "f": "DividendYieldCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 277
+  },
+  {
+    "f": "JudoPointsCalculator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 277
+  },
+  {
+    "f": "SalaryCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 278
+  },
+  {
+    "f": "AnnuityCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 279
+  },
+  {
+    "f": "SkewnessCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 285
+  },
+  {
+    "f": "AngleConverterAdvanced.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 287
+  },
+  {
+    "f": "MacroCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 288
+  },
+  {
+    "f": "KurtosisCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 289
+  },
+  {
+    "f": "LandLoanPaymentCalculator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 291
+  },
+  {
+    "f": "RequiredMinimumDistributionCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 294
+  },
+  {
+    "f": "PaybackPeriodCalculatorAdvanced.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 295
+  },
+  {
+    "f": "QuartileCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 295
+  },
+  {
+    "f": "SalesTaxCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 295
+  },
+  {
+    "f": "IdealWeightCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 296
+  },
+  {
+    "f": "MoneyMarketCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 299
+  },
+  {
+    "f": "HexCalculator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 300
+  },
+  {
+    "f": "PERatioCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 303
+  },
+  {
+    "f": "SukanyaSamriddhiCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 303
+  },
+  {
+    "f": "LoveCalculator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 305
+  },
+  {
+    "f": "FoodMilesCalculator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 309
+  },
+  {
+    "f": "ReturnOnCapitalEmployedCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 309
+  },
+  {
+    "f": "AverageCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 311
+  },
+  {
+    "f": "IpSubnetCalculator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 314
+  },
+  {
+    "f": "LeanWastePercentageCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 316
+  },
+  {
+    "f": "RandomNumberGenerator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 316
+  },
+  {
+    "f": "VoltageDropCalculator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 316
+  },
+  {
+    "f": "BudgetCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 317
+  },
+  {
+    "f": "CaffeineCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 317
+  },
+  {
+    "f": "ConcreteCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 317
+  },
+  {
+    "f": "DividendCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 317
+  },
+  {
+    "f": "DynoCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 317
+  },
+  {
+    "f": "GstCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 317
+  },
+  {
+    "f": "MarginCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 317
+  },
+  {
+    "f": "PaintCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 317
+  },
+  {
+    "f": "RefinanceCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 317
+  },
+  {
+    "f": "WaccCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 317
+  },
+  {
+    "f": "ApgarScoreCalculator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 318
+  },
+  {
+    "f": "MulchCalculator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 318
+  },
+  {
+    "f": "DataTransferCalculator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 319
+  },
+  {
+    "f": "AntilogCalculator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "BaristaFireCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "BatteryLifeCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "BitcoinMiningCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "BloodDonationCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "BonusPercentageCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "BrakeHorsepowerCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "BrakingDistanceCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "BusinessValuationCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "CalorieDeficitCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "CarLoanCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "Chads2ScoreCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "ConceptionDateCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "CoolingSystemCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "CryptoProfitCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "CryptoTaxCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "CyclingCalorieCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "CyclingCaloriesCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "DebtPayoffCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "DemurrageCostCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "DepreciationRecaptureCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "DisabilityInsuranceCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "DragCoefficientCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "EmissionsTestCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "FetalWeightCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "FiberIntakeCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "FleetDepreciationCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "GestationalAgeCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "GiftTaxCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "GlycemicLoadCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "GrossMarginCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "HealthInsuranceCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "HiitCalorieCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "IncomeTaxCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "InfantMilkCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "InheritanceTaxCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "IntermittentFastingCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "InventoryTurnoverCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "InvestmentGrowthCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "LoanComparisonCalculator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "MarathonTrainingCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "NormalDistributionCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "OdometerCorrectionCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "Omega3IntakeCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "PaybackPeriodCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "PermutationCombinationCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "PotassiumIntakeCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "PrenatalVitaminCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "RadiatorSizeCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "ReactionTimeCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "RetirementSavingsCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "RunningPaceCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "SleepDebtCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "SocialSecurityCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "SodiumIntakeCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "StoppingDistanceCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "StudentLoanCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "SwimmingCalorieCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "TaxReturnCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "TireDiameterCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "TirePressureCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "TowingCapacityCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "VehicleWeightCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "WheelHorsepowerCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "WorkoutCalorieCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 322
+  },
+  {
+    "f": "AssetTurnoverRatioCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 324
+  },
+  {
+    "f": "BigNumberCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 324
+  },
+  {
+    "f": "CarInsuranceCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 325
+  },
+  {
+    "f": "CreditUtilizationCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 325
+  },
+  {
+    "f": "DebtAvalancheCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 325
+  },
+  {
+    "f": "DebtConsolidationCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 325
+  },
+  {
+    "f": "DebtSnowballCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 325
+  },
+  {
+    "f": "HalfLifeCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 325
+  },
+  {
+    "f": "KeplersLawsCalculator.tsx",
+    "h2Count": 9,
+    "h2Locked": 9,
+    "hasProse": true,
+    "seoWc": 325
+  },
+  {
+    "f": "NumberSequenceCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 325
+  },
+  {
+    "f": "WeddingBudgetCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 325
+  },
+  {
+    "f": "AprToEarCalculator.tsx",
+    "h2Count": 9,
+    "h2Locked": 9,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "BabyGrowthPercentileCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "BackdoorRothIraCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "BodyFatPercentageCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "BondedWarehouseCostCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "BreakEvenMileageCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "CaffeineHalfLifeCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "CarrierPerformanceScoreCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "CarrierRateComparisonCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "ChildPughScoreCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "CommercialVehicleLoadCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "ConsignmentInventoryCostCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "CorrectedQtIntervalCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "CostPerShipmentCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "CreditCardPayoffCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "CustomerAcquisitionCostCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "CustomsClearanceCostEstimator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "DeadFreightCostCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "DepreciationTaxShieldCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "DistributionNetworkCostCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "EmployerPayrollTaxCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "ExportDocumentationCostCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "FatBurningZoneCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "FleetFuelCostCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "HasBledScoreCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "IncotermsCostImpactCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "IncotermsLandedCostCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "InflationAdjustedReturnCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "InterestCoverageRatioCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "InternalGrowthRateCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "InternationalShippingCostEstimator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "MicrofinanceLoanRepaymentCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "NetProfitMarginCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "OperatingCashFlowCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "PayRaisePercentageCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "PersonalLoanPayoffCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "PitiMortgagePaymentCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "PortHandlingCostCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "PredictableRevenuePercentageCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "RehabLoan203kEstimatorCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "ResourceLoadingPercentageCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "ReturnsProcessingCostCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "ReverseLogisticsCostCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "RvLoanPaymentCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "SafeFollowingDistanceCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "SalaryBandRangeCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "SalaryBenchmarkPercentileCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "SalaryGradeSpreadCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "Sba7aLoanPaymentCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "SeasonalPaymentLoanCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "ShippingInsuranceCostCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "ShippingWeightCostCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "SimpleInterestLoanCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "SkuStorageCostCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "SustainableGrowthRateCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "TireLoadIndexCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "TradeCreditDaysCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "TradeCreditTermsCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "TradeFinanceCostCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "TransitTimeCostCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "UnitLoadCostCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "VariablePayPercentageCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "VendorScorecardRatingCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 327
+  },
+  {
+    "f": "InterestOnlyMortgageCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 328
+  },
+  {
+    "f": "StorageConverter.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 328
+  },
+  {
+    "f": "TaxRefundCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 328
+  },
+  {
+    "f": "Cha2ds2VascScoreCalculator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 329
+  },
+  {
+    "f": "MortgageRecastCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 330
+  },
+  {
+    "f": "TimeCalculator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 330
+  },
+  {
+    "f": "FlooringCalculator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 331
+  },
+  {
+    "f": "BreakBulkCargoCostCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 332
+  },
+  {
+    "f": "CarbonFootprintPerShipmentCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 332
+  },
+  {
+    "f": "CarryingCostOfInventoryCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 332
+  },
+  {
+    "f": "ColdChainComplianceCostCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 332
+  },
+  {
+    "f": "DCFValuationCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 332
+  },
+  {
+    "f": "DeliveryCostPerMileCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 332
+  },
+  {
+    "f": "DriverCostPerMileCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 332
+  },
+  {
+    "f": "EmployerNationalInsuranceContributionCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 332
+  },
+  {
+    "f": "ExpeditedShippingCostPremiumCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 332
+  },
+  {
+    "f": "ImportClearanceTimeCostCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 332
+  },
+  {
+    "f": "InsuranceCostPerShipmentCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 332
+  },
+  {
+    "f": "JobClassificationSalaryBandCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 332
+  },
+  {
+    "f": "JobOfferNetSalaryCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 332
+  },
+  {
+    "f": "LastMileDeliveryCostCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 332
+  },
+  {
+    "f": "LogisticsCostPerUnitCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 332
+  },
+  {
+    "f": "MarginOfSafetyPercentageCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 332
+  },
+  {
+    "f": "MultiModalTransportationCostCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 332
+  },
+  {
+    "f": "PaydayLoanTrueCostCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 332
+  },
+  {
+    "f": "PortDwellTimeCostCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 332
+  },
+  {
+    "f": "ReturnOnInvestedCapitalCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 332
+  },
+  {
+    "f": "TimeAndMaterialsBudgetCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 332
+  },
+  {
+    "f": "BishopScoreCalculator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 334
+  },
+  {
+    "f": "LoanOriginationPointsToAprCalculator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 334
+  },
+  {
+    "f": "ReverseMortgageCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 334
+  },
+  {
+    "f": "RoundingCalculator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 334
+  },
+  {
+    "f": "AverageReturnCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 335
+  },
+  {
+    "f": "CreditCardMinimumPaymentCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 335
+  },
+  {
+    "f": "OrbitalVelocityCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 335
+  },
+  {
+    "f": "PayrollTaxCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 335
+  },
+  {
+    "f": "FirstHomeBuyerCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 336
+  },
+  {
+    "f": "DdpVsExwCostComparisonCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 337
+  },
+  {
+    "f": "FreeCashFlowToFirmCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 337
+  },
+  {
+    "f": "FreightCostToRevenueRatioCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 337
+  },
+  {
+    "f": "PortfolioRebalancingCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 337
+  },
+  {
+    "f": "TermLifeVsWholeLifeCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 337
+  },
+  {
+    "f": "TimesInterestEarnedCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 337
+  },
+  {
+    "f": "AnnualSalaryToHourlyRateCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 338
+  },
+  {
+    "f": "BandwidthCalculator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 340
+  },
+  {
+    "f": "BinaryCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 340
+  },
+  {
+    "f": "EcommerceRevenueCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 340
+  },
+  {
+    "f": "TreasuryBillCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 340
+  },
+  {
+    "f": "EarningsPerShareCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 341
+  },
+  {
+    "f": "AnorexicBmiCalculator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 342
+  },
+  {
+    "f": "ArcLengthCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 342
+  },
+  {
+    "f": "HighYieldSavingsCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 342
+  },
+  {
+    "f": "SeaVsAirFreightCostComparisonCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 342
+  },
+  {
+    "f": "WindChillCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 344
+  },
+  {
+    "f": "ResistorCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 347
+  },
+  {
+    "f": "ArithmeticProgressionCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 348
+  },
+  {
+    "f": "FreeCashFlowCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 348
+  },
+  {
+    "f": "BraSizeCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 349
+  },
+  {
+    "f": "VelocityCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 350
+  },
+  {
+    "f": "AnovaCalculator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 351
+  },
+  {
+    "f": "BasicCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 352
+  },
+  {
+    "f": "WorkingCapitalTurnoverCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 352
+  },
+  {
+    "f": "ScientificNotationCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 353
+  },
+  {
+    "f": "CatCalorieCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 354
+  },
+  {
+    "f": "SquareFootageCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 355
+  },
+  {
+    "f": "BridgeLoanCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 356
+  },
+  {
+    "f": "SteelWeightCalculator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 357
+  },
+  {
+    "f": "InterestRateCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 360
+  },
+  {
+    "f": "AverageRevenuePerUserCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 361
+  },
+  {
+    "f": "MedianCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 362
+  },
+  {
+    "f": "RangeCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 362
+  },
+  {
+    "f": "ModuloCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 363
+  },
+  {
+    "f": "InflationCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 364
+  },
+  {
+    "f": "ModeCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 364
+  },
+  {
+    "f": "BalloonMortgageCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 365
+  },
+  {
+    "f": "PointsBreakEvenCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 365
+  },
+  {
+    "f": "MomentumCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 366
+  },
+  {
+    "f": "InventoryDaysCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 367
+  },
+  {
+    "f": "PrimeFactorizationCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 367
+  },
+  {
+    "f": "HoursCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 368
+  },
+  {
+    "f": "LcmCalculator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 368
+  },
+  {
+    "f": "BtuCalculator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 369
+  },
+  {
+    "f": "MolecularWeightCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 369
+  },
+  {
+    "f": "FactorCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 370
+  },
+  {
+    "f": "InterquartileRangeCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 370
+  },
+  {
+    "f": "FreeFallCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 371
+  },
+  {
+    "f": "HardMoneyLoanCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 371
+  },
+  {
+    "f": "ProbabilityCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 372
+  },
+  {
+    "f": "MassCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 373
+  },
+  {
+    "f": "HarmonicMeanCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 376
+  },
+  {
+    "f": "SelfEmploymentTaxCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 376
+  },
+  {
+    "f": "CircularMotionCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 377
+  },
+  {
+    "f": "OverweightCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 377
+  },
+  {
+    "f": "ContinuousCompoundingCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 379
+  },
+  {
+    "f": "DewPointCalculator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 379
+  },
+  {
+    "f": "TaxBracketCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 379
+  },
+  {
+    "f": "ScientificCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 380
+  },
+  {
+    "f": "BiweeklyVsMonthlyLoanComparison.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 381
+  },
+  {
+    "f": "BaseballFieldingCalculator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 382
+  },
+  {
+    "f": "HeatIndexCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 382
+  },
+  {
+    "f": "LoanOriginationFeeCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 382
+  },
+  {
+    "f": "EngineHorsepowerCalculator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 383
+  },
+  {
+    "f": "AutoLoanRefinanceSavingsCalculator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 385
+  },
+  {
+    "f": "CurrentRatioCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 385
+  },
+  {
+    "f": "CertificateOfDepositCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 388
+  },
+  {
+    "f": "MeanArterialPressureCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 388
+  },
+  {
+    "f": "RootCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 389
+  },
+  {
+    "f": "DiscountedPaybackPeriodCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 390
+  },
+  {
+    "f": "FixedAssetTurnoverCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 390
+  },
+  {
+    "f": "GravelCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 390
+  },
+  {
+    "f": "SampleSizeCalculator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 391
+  },
+  {
+    "f": "CapitalGainsTaxCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 392
+  },
+  {
+    "f": "NetWorthTrackerCalc.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 392
+  },
+  {
+    "f": "ElectricityCostCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 393
+  },
+  {
+    "f": "AnnualRecurringRevenueCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 394
+  },
+  {
+    "f": "BrickCalculator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 395
+  },
+  {
+    "f": "DopplerEffectCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 395
+  },
+  {
+    "f": "SslCostCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 397
+  },
+  {
+    "f": "ReceivableDaysCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 399
+  },
+  {
+    "f": "LongDivisionCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 401
+  },
+  {
+    "f": "MeldScoreCalculator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 401
+  },
+  {
+    "f": "EnterpriseValueCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 402
+  },
+  {
+    "f": "HeartRateRecoveryCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 402
+  },
+  {
+    "f": "RoofingCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 402
+  },
+  {
+    "f": "StairCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 402
+  },
+  {
+    "f": "BlendedRateMortgageCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 403
+  },
+  {
+    "f": "FleetInsuranceCostCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 404
+  },
+  {
+    "f": "SharpeRatioCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 404
+  },
+  {
+    "f": "FeverCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 405
+  },
+  {
+    "f": "FuelCostCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 407
+  },
+  {
+    "f": "SignificantFiguresCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 408
+  },
+  {
+    "f": "TrailerTongueWeightCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 409
+  },
+  {
+    "f": "PensionCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 411
+  },
+  {
+    "f": "TurboBoostCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 411
+  },
+  {
+    "f": "CarInsuranceSavingsFromSafetyFeaturesCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 412
+  },
+  {
+    "f": "TransmissionRatioCalculator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 412
+  },
+  {
+    "f": "BindingEnergyCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 413
+  },
+  {
+    "f": "DifferentialCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 413
+  },
+  {
+    "f": "CostPerMileCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 414
+  },
+  {
+    "f": "BondPriceCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 415
+  },
+  {
+    "f": "GearRatioCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 415
+  },
+  {
+    "f": "EscapeVelocityCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 417
+  },
+  {
+    "f": "GlasgowComaScaleCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 417
+  },
+  {
+    "f": "GroceryBudgetCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 417
+  },
+  {
+    "f": "MortgagePointsCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 417
+  },
+  {
+    "f": "PotentialEnergyCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 418
+  },
+  {
+    "f": "FiveYearOwnershipCostCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 421
+  },
+  {
+    "f": "VaccinationScheduleCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 421
+  },
+  {
+    "f": "ChildHeightPredictor.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 423
+  },
+  {
+    "f": "GcfCalculator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 427
+  },
+  {
+    "f": "PulseOxCalculator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 428
+  },
+  {
+    "f": "AssetCoverageRatioCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 429
+  },
+  {
+    "f": "DcfCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 429
+  },
+  {
+    "f": "DtiCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 429
+  },
+  {
+    "f": "EbitdaMarginCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 429
+  },
+  {
+    "f": "JumboLoanPaymentCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 429
+  },
+  {
+    "f": "CarDownPaymentCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 430
+  },
+  {
+    "f": "DomainValuationCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 430
+  },
+  {
+    "f": "LoanDefermentInterestCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 430
+  },
+  {
+    "f": "BlackScholesCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 431
+  },
+  {
+    "f": "NpvCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 431
+  },
+  {
+    "f": "PayableDaysCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 432
+  },
+  {
+    "f": "BondYieldCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 434
+  },
+  {
+    "f": "FreelanceRateCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 434
+  },
+  {
+    "f": "QuarterlyTaxCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 434
+  },
+  {
+    "f": "ReverseMortgageEstimationCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 434
+  },
+  {
+    "f": "SpeedometerErrorCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 434
+  },
+  {
+    "f": "FatFreeMassCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 436
+  },
+  {
+    "f": "ProfitabilityIndexCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 436
+  },
+  {
+    "f": "RetentionRatioCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 436
+  },
+  {
+    "f": "TenYearOwnershipCostCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 436
+  },
+  {
+    "f": "TireSizeCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 437
+  },
+  {
+    "f": "W4WithholdingCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 437
+  },
+  {
+    "f": "CovidSymptomCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 439
+  },
+  {
+    "f": "HorsepowerCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 439
+  },
+  {
+    "f": "MarriageTaxCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 441
+  },
+  {
+    "f": "HemoglobinCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 442
+  },
+  {
+    "f": "MinimumPaymentCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 442
+  },
+  {
+    "f": "HealthyWeightRangeCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 445
+  },
+  {
+    "f": "MonthlyCarPaymentToAnnualCostCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 446
+  },
+  {
+    "f": "FutureValueCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 448
+  },
+  {
+    "f": "TileCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 448
+  },
+  {
+    "f": "CementCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 450
+  },
+  {
+    "f": "PiotroskiFScoreCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 450
+  },
+  {
+    "f": "BetaCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 451
+  },
+  {
+    "f": "DividendReinvestmentCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 452
+  },
+  {
+    "f": "FixedRateMortgagePaymentCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 453
+  },
+  {
+    "f": "FractionToDecimalConverter.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 454
+  },
+  {
+    "f": "BloodVolumeCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 457
+  },
+  {
+    "f": "PriceToBookCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 459
+  },
+  {
+    "f": "SimpleInterestCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 459
+  },
+  {
+    "f": "VacationBudgetCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 459
+  },
+  {
+    "f": "EstateTaxCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 460
+  },
+  {
+    "f": "EvTaxCreditBenefitCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 460
+  },
+  {
+    "f": "PercentageCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 460
+  },
+  {
+    "f": "ReturnOnEquityCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 460
+  },
+  {
+    "f": "EngineCompressionCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 462
+  },
+  {
+    "f": "GasMileageCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 464
+  },
+  {
+    "f": "WheelOffsetCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 464
+  },
+  {
+    "f": "CreditScoreEstimator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 465
+  },
+  {
+    "f": "PresentValueCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 465
+  },
+  {
+    "f": "ViscerialFatCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 465
+  },
+  {
+    "f": "LifeInsuranceCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 469
+  },
+  {
+    "f": "DollarCostAveragingCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 471
+  },
+  {
+    "f": "NetPayCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 471
+  },
+  {
+    "f": "DividendPayoutRatioCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 472
+  },
+  {
+    "f": "PermutationsCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 473
+  },
+  {
+    "f": "CagrCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 474
+  },
+  {
+    "f": "PriceToSalesCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 474
+  },
+  {
+    "f": "StarterMotorCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 475
+  },
+  {
+    "f": "FhaMipCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 476
+  },
+  {
+    "f": "FreeCashFlowToEquityCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 478
+  },
+  {
+    "f": "SpeedConverter.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 478
+  },
+  {
+    "f": "TiktokEarningsCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 478
+  },
+  {
+    "f": "TemperatureConverter.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 479
+  },
+  {
+    "f": "HomeInsuranceCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 481
+  },
+  {
+    "f": "DupointAnalysisCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 484
+  },
+  {
+    "f": "LengthConverter.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 486
+  },
+  {
+    "f": "CarPerformance060Calculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 487
+  },
+  {
+    "f": "StandardDeviationCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 489
+  },
+  {
+    "f": "ConstructionLoanDrawCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 491
+  },
+  {
+    "f": "FertilityWindowCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 494
+  },
+  {
+    "f": "ZScoreCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 494
+  },
+  {
+    "f": "LoanCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 496
+  },
+  {
+    "f": "FuelInjectorCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 502
+  },
+  {
+    "f": "RuleOf72Calculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 502
+  },
+  {
+    "f": "ArmyBodyFatCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 503
+  },
+  {
+    "f": "MaximumMortgageAffordabilityCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 503
+  },
+  {
+    "f": "EvFederalTaxCreditValueCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 504
+  },
+  {
+    "f": "MaxHeartRateCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 504
+  },
+  {
+    "f": "DefensiveIntervalRatioCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 505
+  },
+  {
+    "f": "PodcastHostingCostCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 505
+  },
+  {
+    "f": "InstagramEngagementCalculator.tsx",
+    "h2Count": 2,
+    "h2Locked": 2,
+    "hasProse": true,
+    "seoWc": 506
+  },
+  {
+    "f": "CombinationsCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 507
+  },
+  {
+    "f": "HomeLoanEligibilityCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 508
+  },
+  {
+    "f": "SavingsCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 509
+  },
+  {
+    "f": "CanadianMortgageCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 511
+  },
+  {
+    "f": "ConstructionToPermanentLoanCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 516
+  },
+  {
+    "f": "GdpCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 517
+  },
+  {
+    "f": "QuadraticFormulaCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 517
+  },
+  {
+    "f": "CholesterolRatioCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 520
+  },
+  {
+    "f": "GapInsuranceValueCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 520
+  },
+  {
+    "f": "BmiCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 521
+  },
+  {
+    "f": "NavyBodyFatCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 522
+  },
+  {
+    "f": "FifteenVsThirtyMortgageCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 526
+  },
+  {
+    "f": "HomeEquityLoanCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 528
+  },
+  {
+    "f": "TipCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 528
+  },
+  {
+    "f": "VatCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 528
+  },
+  {
+    "f": "MovingCostEstimator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 529
+  },
+  {
+    "f": "CompoundInterestCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 530
+  },
+  {
+    "f": "GpaCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 531
+  },
+  {
+    "f": "UsedCarVsNewCarTotalCostComparisonCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 531
+  },
+  {
+    "f": "DiscountCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 533
+  },
+  {
+    "f": "LeaseVsFinanceCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 533
+  },
+  {
+    "f": "CarInsuranceCostCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 535
+  },
+  {
+    "f": "AreaCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 537
+  },
+  {
+    "f": "PValueCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 539
+  },
+  {
+    "f": "OhmsLawCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 540
+  },
+  {
+    "f": "RealEstateCalculatorFull.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 541
+  },
+  {
+    "f": "MenstrualCycleLengthCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 543
+  },
+  {
+    "f": "CarOwnershipAnnualCostCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 544
+  },
+  {
+    "f": "SpeedDistanceTimeCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 546
+  },
+  {
+    "f": "ChargingSpeedCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 548
+  },
+  {
+    "f": "CommissionCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 548
+  },
+  {
+    "f": "BudgetRuleCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 549
+  },
+  {
+    "f": "TaxEquivalentYieldCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 550
+  },
+  {
+    "f": "SocialSecurityBenefitsCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 553
+  },
+  {
+    "f": "ConfidenceIntervalCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 558
+  },
+  {
+    "f": "K401Calculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 558
+  },
+  {
+    "f": "Plan529Calculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 558
+  },
+  {
+    "f": "UsedCarValueCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 558
+  },
+  {
+    "f": "PostpartumWeightLossCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 562
+  },
+  {
+    "f": "ChiSquareCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 564
+  },
+  {
+    "f": "YieldToCallCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 564
+  },
+  {
+    "f": "AbsorptionCostingVsVariableCostingProfitComparison.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 565
+  },
+  {
+    "f": "ReverseMortgageBreakEvenCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 566
+  },
+  {
+    "f": "PerimeterCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 571
+  },
+  {
+    "f": "YieldToMaturityCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 571
+  },
+  {
+    "f": "FuelEconomyCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 574
+  },
+  {
+    "f": "ZeroCouponBondCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 574
+  },
+  {
+    "f": "IbwCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 577
+  },
+  {
+    "f": "PriceToEarningsGrowthPegCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 577
+  },
+  {
+    "f": "CaloricExpenditureCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 578
+  },
+  {
+    "f": "RangeAnxietyCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 579
+  },
+  {
+    "f": "CarBuyingBudgetCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 580
+  },
+  {
+    "f": "KineticEnergyCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 584
+  },
+  {
+    "f": "VarianceCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 586
+  },
+  {
+    "f": "MonthlyCarPaymentCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 592
+  },
+  {
+    "f": "AbsoluteReturnCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 593
+  },
+  {
+    "f": "CdCalculatorFull.tsx",
+    "h2Count": 9,
+    "h2Locked": 9,
+    "hasProse": true,
+    "seoWc": 593
+  },
+  {
+    "f": "BonusCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 599
+  },
+  {
+    "f": "CarDepreciationCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 602
+  },
+  {
+    "f": "BatteryDegradationCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 610
+  },
+  {
+    "f": "RentalPropertyDepreciationCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 615
+  },
+  {
+    "f": "EvVsGasCostCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 617
+  },
+  {
+    "f": "CarPaymentAffordabilityCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 618
+  },
+  {
+    "f": "CashBackVsLowInterestCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 627
+  },
+  {
+    "f": "OilChangeIntervalCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 627
+  },
+  {
+    "f": "FibonacciCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 629
+  },
+  {
+    "f": "MilesPerGallonCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 635
+  },
+  {
+    "f": "AgeCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 637
+  },
+  {
+    "f": "Election83bCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 640
+  },
+  {
+    "f": "EarlyMortgagePayoffCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 642
+  },
+  {
+    "f": "QuickRatioCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 644
+  },
+  {
+    "f": "RoadTaxCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 644
+  },
+  {
+    "f": "TradeInValueCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 648
+  },
+  {
+    "f": "CarRegistrationFeeCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 651
+  },
+  {
+    "f": "HomeLoanEmiIndia.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 652
+  },
+  {
+    "f": "TotalCostOfOwnershipCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 660
+  },
+  {
+    "f": "CarWashCostCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 662
+  },
+  {
+    "f": "DiabetesRiskCalculator.tsx",
+    "h2Count": 3,
+    "h2Locked": 3,
+    "hasProse": true,
+    "seoWc": 663
+  },
+  {
+    "f": "FactorialCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 663
+  },
+  {
+    "f": "TotalCarCostPerMileCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 667
+  },
+  {
+    "f": "EVChargingCostCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 680
+  },
+  {
+    "f": "BiweeklyMortgageCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 685
+  },
+  {
+    "f": "HeartAttackRiskCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 687
+  },
+  {
+    "f": "CarTrueCostOfOwnershipCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 693
+  },
+  {
+    "f": "AngleConverter.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 703
+  },
+  {
+    "f": "DrugDosageCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 705
+  },
+  {
+    "f": "InsulinToCarbRatioCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 712
+  },
+  {
+    "f": "WeightChangePercentageCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 717
+  },
+  {
+    "f": "LoanPayoffCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 723
+  },
+  {
+    "f": "MindfulnessPracticeRoiCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 724
+  },
+  {
+    "f": "AdsenseRevenueCalculator_test.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 726
+  },
+  {
+    "f": "EVRangeCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 740
+  },
+  {
+    "f": "OptionsProfitCalculator.tsx",
+    "h2Count": 10,
+    "h2Locked": 10,
+    "hasProse": true,
+    "seoWc": 750
+  },
+  {
+    "f": "ACTScoreCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 752
+  },
+  {
+    "f": "SteroidEquivalenceCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 752
+  },
+  {
+    "f": "AdjustedBodyWeightCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 762
+  },
+  {
+    "f": "WeightLossPercentageCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 764
+  },
+  {
+    "f": "AnnualCarCostCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 765
+  },
+  {
+    "f": "AngelInvestmentReturnCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 779
+  },
+  {
+    "f": "CarAffordabilityCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 780
+  },
+  {
+    "f": "TennisFirstServeCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 784
+  },
+  {
+    "f": "CardioVsStrengthComparisonCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 786
+  },
+  {
+    "f": "RadiationDoseFractionationCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 786
+  },
+  {
+    "f": "SleepInvestmentRoiCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 794
+  },
+  {
+    "f": "BaseballOBPCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 798
+  },
+  {
+    "f": "FloorsClimbedCalorieCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 799
+  },
+  {
+    "f": "LoanToCostRatioCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 801
+  },
+  {
+    "f": "AndroidVsGynoidEstimator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 809
+  },
+  {
+    "f": "IvfDueDateCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 809
+  },
+  {
+    "f": "BondDurationCalculator.tsx",
+    "h2Count": 9,
+    "h2Locked": 9,
+    "hasProse": true,
+    "seoWc": 812
+  },
+  {
+    "f": "BookPublishingCostCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 819
+  },
+  {
+    "f": "CaloriesBurnedWalking.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 819
+  },
+  {
+    "f": "MetsCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 819
+  },
+  {
+    "f": "NutrientTimingCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 820
+  },
+  {
+    "f": "SedentaryTimeCostCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 820
+  },
+  {
+    "f": "BodyFatSkinfoldCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 821
+  },
+  {
+    "f": "AmtCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 823
+  },
+  {
+    "f": "MetsBasedCalorieBurnCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 825
+  },
+  {
+    "f": "CarFinancingInterestCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 827
+  },
+  {
+    "f": "AdolescentBmiCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 828
+  },
+  {
+    "f": "AlcoholCaloriesCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 828
+  },
+  {
+    "f": "StairClimbingCalorieCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 829
+  },
+  {
+    "f": "AltitudeCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 832
+  },
+  {
+    "f": "AirFreightCostEstimator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 833
+  },
+  {
+    "f": "DailyCalorieBurnPerPoundCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 838
+  },
+  {
+    "f": "AlternatorOutputCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 840
+  },
+  {
+    "f": "DeadSpaceFractionCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 843
+  },
+  {
+    "f": "AltmanZScoreCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 847
+  },
+  {
+    "f": "VicariousTraumaRiskCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 847
+  },
+  {
+    "f": "WaterAerobicsCalorieCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 854
+  },
+  {
+    "f": "StepCountToCalorieBurnCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 856
+  },
+  {
+    "f": "BodyAdiposityIndexBaiCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 861
+  },
+  {
+    "f": "BodyMassIndexCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 861
+  },
+  {
+    "f": "PrePregnancyBMICalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 862
+  },
+  {
+    "f": "PercentageBasedVolumeCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 863
+  },
+  {
+    "f": "PonderalIndexCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 864
+  },
+  {
+    "f": "PregnancyWeightTargetCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 864
+  },
+  {
+    "f": "DailyCalorieBurnCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 866
+  },
+  {
+    "f": "HotYogaCalorieCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 867
+  },
+  {
+    "f": "AdjustableRateMortgageCalculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 870
+  },
+  {
+    "f": "BMIToBodyFatCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 870
+  },
+  {
+    "f": "TotalLoanCostCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 872
+  },
+  {
+    "f": "ApyCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 875
+  },
+  {
+    "f": "CapitalAssetPricingModelCalculator.tsx",
+    "h2Count": 9,
+    "h2Locked": 9,
+    "hasProse": true,
+    "seoWc": 878
+  },
+  {
+    "f": "BaseballSluggingCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 880
+  },
+  {
+    "f": "SportSpecificCalorieCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 881
+  },
+  {
+    "f": "WaistToHeightRatioCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 886
+  },
+  {
+    "f": "AutoLoanVsLeaseComparisonCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 887
+  },
+  {
+    "f": "DancingCalorieCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 890
+  },
+  {
+    "f": "AmortizationScheduleCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 891
+  },
+  {
+    "f": "CapitalGainsYieldCalculator.tsx",
+    "h2Count": 9,
+    "h2Locked": 9,
+    "hasProse": true,
+    "seoWc": 891
+  },
+  {
+    "f": "MortgageCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 892
+  },
+  {
+    "f": "RepetitionMaxPercentageCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 894
+  },
+  {
+    "f": "BreastfeedingCalorieCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 895
+  },
+  {
+    "f": "BodyFatNavyMethodCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 898
+  },
+  {
+    "f": "CreatinineClearanceCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 901
+  },
+  {
+    "f": "FfmiFatFreeMassIndexCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 901
+  },
+  {
+    "f": "HikingCalorieCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 901
+  },
+  {
+    "f": "StepsToCaloriesCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 903
+  },
+  {
+    "f": "CardioVsWeightsCalorieCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 906
+  },
+  {
+    "f": "CompoundAnnualGrowthRateCalculator.tsx",
+    "h2Count": 10,
+    "h2Locked": 10,
+    "hasProse": true,
+    "seoWc": 908
+  },
+  {
+    "f": "PediatricBmiCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 909
+  },
+  {
+    "f": "AmazonFbaCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 912
+  },
+  {
+    "f": "AthleteBmiCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 912
+  },
+  {
+    "f": "SportsDrinkCarbConcentrationCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 914
+  },
+  {
+    "f": "TabataCalorieCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 917
+  },
+  {
+    "f": "BoxingCalorieCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 919
+  },
+  {
+    "f": "CarbohydrateGramsCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 926
+  },
+  {
+    "f": "PilatesCalorieCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 926
+  },
+  {
+    "f": "BusinessLoanPaymentCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 930
+  },
+  {
+    "f": "PregnancyCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 931
+  },
+  {
+    "f": "NetCarbsCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 937
+  },
+  {
+    "f": "WeightliftingSessionCalorieCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 937
+  },
+  {
+    "f": "VitaminDCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 938
+  },
+  {
+    "f": "CrossFitWodCalorieCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 939
+  },
+  {
+    "f": "Omega3Calculator.tsx",
+    "h2Count": 4,
+    "h2Locked": 4,
+    "hasProse": true,
+    "seoWc": 942
+  },
+  {
+    "f": "RpeToPercentageCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 942
+  },
+  {
+    "f": "GymSessionCalorieBurnCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 948
+  },
+  {
+    "f": "BalanceTransferCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 949
+  },
+  {
+    "f": "RockClimbingCalorieCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 950
+  },
+  {
+    "f": "HiitCalorieBurnCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 952
+  },
+  {
+    "f": "RowingCalorieCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 953
+  },
+  {
+    "f": "CarbohydrateCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 955
+  },
+  {
+    "f": "BloodGlucoseToCarbRatioEstimator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 957
+  },
+  {
+    "f": "MartialArtsCalorieCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 957
+  },
+  {
+    "f": "TwinPregnancyWeightGainCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 960
+  },
+  {
+    "f": "BasalMetabolicRateBmrKatchMcardleCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 962
+  },
+  {
+    "f": "OlympicLiftPercentageCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 962
+  },
+  {
+    "f": "NthRootCalculator.tsx",
+    "h2Count": 11,
+    "h2Locked": 11,
+    "hasProse": true,
+    "seoWc": 963
+  },
+  {
+    "f": "JumpRopeCalorieCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 966
+  },
+  {
+    "f": "ThyroidRiskScoreCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 968
+  },
+  {
+    "f": "FitnessAgeCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 969
+  },
+  {
+    "f": "AcSizeCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 973
+  },
+  {
+    "f": "PregnancyDueDateCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 975
+  },
+  {
+    "f": "YogaCalorieCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 980
+  },
+  {
+    "f": "AlcoholUnitCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 984
+  },
+  {
+    "f": "LowCarbThresholdCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 986
+  },
+  {
+    "f": "CircuitTrainingCalorieCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 993
+  },
+  {
+    "f": "WeightliftingPercentageCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 994
+  },
+  {
+    "f": "RuleOf78Calculator.tsx",
+    "h2Count": 10,
+    "h2Locked": 10,
+    "hasProse": true,
+    "seoWc": 995
+  },
+  {
+    "f": "CatPregnancyDurationCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 996
+  },
+  {
+    "f": "SyntaxScoreComplexityCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 998
+  },
+  {
+    "f": "EllipticalCalorieCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 1001
+  },
+  {
+    "f": "PregnancyBmiCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 1007
+  },
+  {
+    "f": "CalorieCyclingCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 1012
+  },
+  {
+    "f": "CalorieDeficitForWeightLossCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 1013
+  },
+  {
+    "f": "CarbohydrateLoadingCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 1016
+  },
+  {
+    "f": "WalkVsRunCalorieComparisonCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 1018
+  },
+  {
+    "f": "CarbToInsulinRatioCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 1024
+  },
+  {
+    "f": "CalorieToNutrientDensityRatioCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 1025
+  },
+  {
+    "f": "EarlyLoanPayoffSavingsCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 1026
+  },
+  {
+    "f": "WeightConverter.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 1028
+  },
+  {
+    "f": "ActiveMetabolicRateCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 1035
+  },
+  {
+    "f": "UltraProcessedFoodPercentageCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 1036
+  },
+  {
+    "f": "MealFrequencyCalorieSplitCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 1040
+  },
+  {
+    "f": "AprCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 1043
+  },
+  {
+    "f": "BmiPrimeCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 1045
+  },
+  {
+    "f": "IdealWeightCalculatorForWomen.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 1045
+  },
+  {
+    "f": "RestaurantMealCalorieEstimator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 1052
+  },
+  {
+    "f": "ProteinToCalorieRatioCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 1056
+  },
+  {
+    "f": "HamsterCalorieCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 1059
+  },
+  {
+    "f": "AccountsReceivableCalculator.tsx",
+    "h2Count": 9,
+    "h2Locked": 9,
+    "hasProse": true,
+    "seoWc": 1067
+  },
+  {
+    "f": "AbsorptionVsVariableCostingCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 1074
+  },
+  {
+    "f": "DogPregnancyDurationCalculator.tsx",
+    "h2Count": 9,
+    "h2Locked": 9,
+    "hasProse": true,
+    "seoWc": 1077
+  },
+  {
+    "f": "CuttingCalorieCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 1080
+  },
+  {
+    "f": "SubprimeLoanCostCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 1080
+  },
+  {
+    "f": "LowCarbDietAdherenceScoreCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 1084
+  },
+  {
+    "f": "CarbCyclingCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 1093
+  },
+  {
+    "f": "MortgagePayoffCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 1093
+  },
+  {
+    "f": "CalorieToProteinRatioCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 1096
+  },
+  {
+    "f": "CardiovascularRiskScoreCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 1098
+  },
+  {
+    "f": "HomeLoanCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 1098
+  },
+  {
+    "f": "CalorieSurplusForWeightGainCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 1103
+  },
+  {
+    "f": "BulkingCalorieCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 1107
+  },
+  {
+    "f": "ParrotCalorieCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 1110
+  },
+  {
+    "f": "HorseCalorieCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 1111
+  },
+  {
+    "f": "MacronutrientCalorieDistributionCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 1117
+  },
+  {
+    "f": "UKMortgageCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 1119
+  },
+  {
+    "f": "DogWalkCalorieBurnCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 1124
+  },
+  {
+    "f": "ActivationEnergyCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 1125
+  },
+  {
+    "f": "WeightWatchersPointsCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 1128
+  },
+  {
+    "f": "MaintenanceCalorieCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 1146
+  },
+  {
+    "f": "BodyFrameSizeCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 1156
+  },
+  {
+    "f": "GlycemicIndexCalculator.tsx",
+    "h2Count": 6,
+    "h2Locked": 6,
+    "hasProse": true,
+    "seoWc": 1156
+  },
+  {
+    "f": "HourlyWageCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 1174
+  },
+  {
+    "f": "CalorieCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 1184
+  },
+  {
+    "f": "BikeLoanCalculator.tsx",
+    "h2Count": 9,
+    "h2Locked": 9,
+    "hasProse": true,
+    "seoWc": 1193
+  },
+  {
+    "f": "AccelerationCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 1195
+  },
+  {
+    "f": "AmortizationCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 1196
+  },
+  {
+    "f": "ThreeDPrintTimeCalculator.tsx",
+    "h2Count": 7,
+    "h2Locked": 7,
+    "hasProse": true,
+    "seoWc": 1207
+  },
+  {
+    "f": "InterestOnlyCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 1210
+  },
+  {
+    "f": "EducationLoanCalculator.tsx",
+    "h2Count": 9,
+    "h2Locked": 9,
+    "hasProse": true,
+    "seoWc": 1220
+  },
+  {
+    "f": "NetIncomeCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 1261
+  },
+  {
+    "f": "HealthyWeightCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 1275
+  },
+  {
+    "f": "PaymentCalculator.tsx",
+    "h2Count": 9,
+    "h2Locked": 9,
+    "hasProse": true,
+    "seoWc": 1277
+  },
+  {
+    "f": "VaLoanCalculator.tsx",
+    "h2Count": 9,
+    "h2Locked": 9,
+    "hasProse": true,
+    "seoWc": 1285
+  },
+  {
+    "f": "UsdaLoanCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 1286
+  },
+  {
+    "f": "LoanAgainstPropertyCalculator.tsx",
+    "h2Count": 9,
+    "h2Locked": 9,
+    "hasProse": true,
+    "seoWc": 1289
+  },
+  {
+    "f": "AutoLoanCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 1295
+  },
+  {
+    "f": "RvLoanCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 1300
+  },
+  {
+    "f": "GrossIncomeCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 1306
+  },
+  {
+    "f": "ForexProfitCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 1315
+  },
+  {
+    "f": "AutoLeaseCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 1325
+  },
+  {
+    "f": "AdsenseRevenueCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 1333
+  },
+  {
+    "f": "CommercialLoanCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 1341
+  },
+  {
+    "f": "ConstructionLoanCalculator.tsx",
+    "h2Count": 9,
+    "h2Locked": 9,
+    "hasProse": true,
+    "seoWc": 1346
+  },
+  {
+    "f": "RepaymentCalculator.tsx",
+    "h2Count": 9,
+    "h2Locked": 9,
+    "hasProse": true,
+    "seoWc": 1351
+  },
+  {
+    "f": "BodyTypeCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 1353
+  },
+  {
+    "f": "AbsoluteValueCalculator.tsx",
+    "h2Count": 5,
+    "h2Locked": 5,
+    "hasProse": true,
+    "seoWc": 1354
+  },
+  {
+    "f": "YoutubeRevenueCalculator.tsx",
+    "h2Count": 9,
+    "h2Locked": 9,
+    "hasProse": true,
+    "seoWc": 1357
+  },
+  {
+    "f": "PmiCalculator.tsx",
+    "h2Count": 9,
+    "h2Locked": 9,
+    "hasProse": true,
+    "seoWc": 1361
+  },
+  {
+    "f": "FhaLoanCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 1364
+  },
+  {
+    "f": "GoldLoanCalculator.tsx",
+    "h2Count": 9,
+    "h2Locked": 9,
+    "hasProse": true,
+    "seoWc": 1425
+  },
+  {
+    "f": "TotalDebtRatioCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 1456
+  },
+  {
+    "f": "BoatLoanCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 1503
+  },
+  {
+    "f": "PmiRemovalDateCalculator.tsx",
+    "h2Count": 8,
+    "h2Locked": 8,
+    "hasProse": true,
+    "seoWc": 1796
+  }
+]

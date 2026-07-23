@@ -553,6 +553,8 @@ export const educationCalculators: CalculatorDef[] = [
     slug: 'quarter-to-semester-credit-calculator',
     name: 'Quarter to Semester Credit Calculator',
     description: 'Convert quarter credit hours to semester credit hours for transcript evaluation.',
+    category: 'EDUCATION',
+    subcategory: 'Academic Planning',
     tier: 'standard',
     status: 'live',
     isBuilt: true,

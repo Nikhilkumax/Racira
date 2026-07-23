@@ -1,0 +1,5550 @@
+{
+  "btnNotCalculate": [
+    {
+      "f": "AbsoluteValueCalculator.tsx",
+      "labels": [
+        "calculate()} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "AccelerationCalculator.tsx",
+      "labels": [
+        "calculate()} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "AcSizeCalculator.tsx",
+      "labels": [
+        "calculate()} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "ActivationEnergyCalculator.tsx",
+      "labels": [
+        "calculate()} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "AngleConverter.tsx",
+      "labels": [
+        "calculate()}\r\n                className=\"h-10 w-full flex-1 flex items-center justify-center rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold text-base transition-all active:scale-[0.98] shadow-sm\"\r\n              >\r\n                Calculate"
+      ]
+    },
+    {
+      "f": "ArcLengthCalculator.tsx",
+      "labels": [
+        "calculate()} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "ArithmeticProgressionCalculator.tsx",
+      "labels": [
+        "calculate()} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "ArmyBodyFatCalculator.tsx",
+      "labels": [
+        "calculate(sex, age, height, neck, waist, hip, unit)} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "AverageCalculator.tsx",
+      "labels": [
+        "calculate()} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "AverageReturnCalculator.tsx",
+      "labels": [
+        "runCalc()}\r\n                className=\"flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm\"\r\n              >Calculate"
+      ]
+    },
+    {
+      "f": "BindingEnergyCalculator.tsx",
+      "labels": [
+        "calculate(element, customZ, customA, customMass)} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "BlackScholesCalculator.tsx",
+      "labels": [
+        "} className=\"flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-11 text-base transition-all active:scale-[0.98] shadow-sm\">Calculate"
+      ]
+    },
+    {
+      "f": "BmiCalculator.tsx",
+      "labels": [
+        "calculate()} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "BondDurationCalculator.tsx",
+      "labels": [
+        "runCalc()} className=\"flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm\">Calculate"
+      ]
+    },
+    {
+      "f": "CapitalAssetPricingModelCalculator.tsx",
+      "labels": [
+        "runCalc()} className=\"flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm\">Calculate"
+      ]
+    },
+    {
+      "f": "CapitalGainsYieldCalculator.tsx",
+      "labels": [
+        "runCalc()} className=\"flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm\">Calculate"
+      ]
+    },
+    {
+      "f": "CashConversionCycleCalculator.tsx",
+      "labels": [
+        "runCalc()} className=\"flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm\">Calculate"
+      ]
+    },
+    {
+      "f": "CashRatioCalculator.tsx",
+      "labels": [
+        "runCalc()} className=\"flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm\">Calculate"
+      ]
+    },
+    {
+      "f": "CircularMotionCalculator.tsx",
+      "labels": [
+        "calculate()} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "CombinationsCalculator.tsx",
+      "labels": [
+        "calculate()} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "CompoundAnnualGrowthRateCalculator.tsx",
+      "labels": [
+        "runCalc()} className=\"flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm\">Calculate"
+      ]
+    },
+    {
+      "f": "CompoundInterestCalculator.tsx",
+      "labels": [
+        "calculate()} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "DeadFreightCostCalculator.tsx",
+      "labels": [
+        "setUnit(u)}\r\n                    className=`}\r\n                  >Calculate",
+        "Calculate"
+      ]
+    },
+    {
+      "f": "DebtToEquityCalculator.tsx",
+      "labels": [
+        "runCalc()} className=\"flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm\">Calculate"
+      ]
+    },
+    {
+      "f": "DiscountCalculator.tsx",
+      "labels": [
+        "calculate()} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "DividendYieldCalculator.tsx",
+      "labels": [
+        "runCalc()} className=\"flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm\">Calculate"
+      ]
+    },
+    {
+      "f": "DopplerEffectCalculator.tsx",
+      "labels": [
+        "calculate(sourceFreq, velocity, waveType, mediumSpeed, approaching)} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "DrinkingWaterFluorideDoseCalculator.tsx",
+      "labels": [
+        "run()}\n                className=\"h-10 flex-1 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "EngineCompressionCalculator.tsx",
+      "labels": [
+        "setResults(calculateCompression(inputs))}\r\n                className=\"flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm\"\r\n              >\r\n                Calculate"
+      ]
+    },
+    {
+      "f": "EngineHorsepowerCalculator.tsx",
+      "labels": [
+        "handleModeChange(\"find_hp\")} className=`}>Calculate",
+        "handleModeChange(\"find_torque\")} className=`}>Calculate",
+        "Calculate"
+      ]
+    },
+    {
+      "f": "EscapeVelocityCalculator.tsx",
+      "labels": [
+        "calculate()}\r\n                className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\"\r\n              >Calculate"
+      ]
+    },
+    {
+      "f": "FactorialCalculator.tsx",
+      "labels": [
+        "calculate()} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "FatFreeMassCalculator.tsx",
+      "labels": [
+        "calculate()} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "FibonacciCalculator.tsx",
+      "labels": [
+        "calculate()} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "FoodMilesCalculator.tsx",
+      "labels": [
+        "run()}\n                className=\"h-10 flex-1 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "FreeCashFlowCalculator.tsx",
+      "labels": [
+        "runCalc()} className=\"flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm\">Calculate"
+      ]
+    },
+    {
+      "f": "FreeCashFlowToEquityCalculator.tsx",
+      "labels": [
+        "runCalc()}\r\n                className=\"flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm\"\r\n              >Calculate"
+      ]
+    },
+    {
+      "f": "FreeCashFlowToFirmCalculator.tsx",
+      "labels": [
+        "runCalc()}\r\n                className=\"flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm\"\r\n              >Calculate"
+      ]
+    },
+    {
+      "f": "FreeFallCalculator.tsx",
+      "labels": [
+        "calculate(solveFor, height, time, velocity, planet)} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "HarmonicMeanCalculator.tsx",
+      "labels": [
+        "calculate()} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "HeartRateRecoveryCalculator.tsx",
+      "labels": [
+        "calculate()} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "HydraulicRetentionTimeCalculator.tsx",
+      "labels": [
+        "run()}\n                className=\"h-10 flex-1 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "IncotermsCostImpactCalculator.tsx",
+      "labels": [
+        "setIncoterm(term as IncotermType)}\r\n                    className=`}\r\n                  >Calculate",
+        "Calculate"
+      ]
+    },
+    {
+      "f": "InflationAdjustedReturnCalculator.tsx",
+      "labels": [
+        "runCalc()}\r\n                className=\"flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm\"\r\n              >Calculate"
+      ]
+    },
+    {
+      "f": "InternalGrowthRateCalculator.tsx",
+      "labels": [
+        "runCalc()}\r\n                className=\"flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm\"\r\n              >Calculate"
+      ]
+    },
+    {
+      "f": "InterquartileRangeCalculator.tsx",
+      "labels": [
+        "calculate()} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "KeplersLawsCalculator.tsx",
+      "labels": [
+        "calculate(semiMajorAxis, centralMass, eccentricity, mode, period)} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "KineticEnergyCalculator.tsx",
+      "labels": [
+        "calculate()} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "KurtosisCalculator.tsx",
+      "labels": [
+        "calculate()} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "LandLoanPaymentCalculator.tsx",
+      "labels": [
+        "run()}\n                className=\"h-10 flex-1 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "LoanCalculator.tsx",
+      "labels": [
+        "calculate()} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "MacroCalculator.tsx",
+      "labels": [
+        ")); setR(calculate()); }} className=\"px-2.5 py-1 rounded-full border border-border text-xs font-semibold hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all\"> (//)",
+        "Calculate"
+      ]
+    },
+    {
+      "f": "MarginCalculator.tsx",
+      "labels": [
+        "runCalc()}\r\n                className=\"flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm\"\r\n              >Calculate"
+      ]
+    },
+    {
+      "f": "MaxHeartRateCalculator.tsx",
+      "labels": [
+        "calculate()} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "MeanArterialPressureCalculator.tsx",
+      "labels": [
+        "calculate()} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "MedianCalculator.tsx",
+      "labels": [
+        "calculate()} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "ModeCalculator.tsx",
+      "labels": [
+        "calculate()} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "ModuloCalculator.tsx",
+      "labels": [
+        "calculate()} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "MomentumCalculator.tsx",
+      "labels": [
+        "calculate()} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "NavyBodyFatCalculator.tsx",
+      "labels": [
+        "calculate(sex, height, neck, waist, hip, unit)} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "NetProfitMarginCalculator.tsx",
+      "labels": [
+        "runCalc()}\r\n                className=\"flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm\"\r\n              >Calculate"
+      ]
+    },
+    {
+      "f": "OhmsLawCalculator.tsx",
+      "labels": [
+        "calculate()} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "OperatingCashFlowCalculator.tsx",
+      "labels": [
+        "runCalc()}\r\n                className=\"flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm\"\r\n              >Calculate"
+      ]
+    },
+    {
+      "f": "OrbitalVelocityCalculator.tsx",
+      "labels": [
+        "calculate()} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "OverweightCalculator.tsx",
+      "labels": [
+        "calculate()} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "PercentageCalculator.tsx",
+      "labels": [
+        "calculate()} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "PermutationsCalculator.tsx",
+      "labels": [
+        "calculate()} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "PmiCalculator.tsx",
+      "labels": [
+        "}\r\n                  onKeyDown=\r\n                  }}\r\n                  className=`}\r\n                >Calculate"
+      ]
+    },
+    {
+      "f": "PmiRemovalDateCalculator.tsx",
+      "labels": [
+        "setResults(calculatePmiRemoval(inputs))} className=\"flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-9 text-base transition-all active:scale-[0.98] shadow-sm\">Calculate"
+      ]
+    },
+    {
+      "f": "PortDwellTimeCostCalculator.tsx",
+      "labels": [
+        "setIsPrePulled(true)}\r\n                  className=`}\r\n                >Calculate",
+        "Calculate"
+      ]
+    },
+    {
+      "f": "PostpartumWeightLossCalculator.tsx",
+      "labels": [
+        "calculate(preWeight, deliveryWeight, currentWeight, weeksPostpartum, unit, breastfeeding)} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "PotentialEnergyCalculator.tsx",
+      "labels": [
+        "calculate()} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "PriceToBookCalculator.tsx",
+      "labels": [
+        "calculate(stockPrice, totalAssets, totalLiabilities, shares, goodwill, showTangible)} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "PriceToEarningsGrowthPegCalculator.tsx",
+      "labels": [
+        "calculate(stockPrice, eps, growthRate, useForward)} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "PriceToSalesCalculator.tsx",
+      "labels": [
+        "calculate(stockPrice, shares, revenue, useQuarterly)} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "QuadraticFormulaCalculator.tsx",
+      "labels": [
+        "calculate()} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "QuartileCalculator.tsx",
+      "labels": [
+        "calculate()} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "QuickRatioCalculator.tsx",
+      "labels": [
+        "calculate()} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "RangeCalculator.tsx",
+      "labels": [
+        "calculate()} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "RetentionRatioCalculator.tsx",
+      "labels": [
+        "calculate()} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "ReturnOnInvestedCapitalCalculator.tsx",
+      "labels": [
+        "runCalc()}\r\n                className=\"flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm\"\r\n              >Calculate"
+      ]
+    },
+    {
+      "f": "ReverseMortgageEstimationCalculator.tsx",
+      "labels": [
+        "Estimate Funds"
+      ]
+    },
+    {
+      "f": "ShippingWeightCostCalculator.tsx",
+      "labels": [
+        "setIsMetric(false)}\r\n                  className=`}\r\n                >Calculate",
+        "setIsMetric(true)}\r\n                  className=`}\r\n                >Calculate",
+        "Calculate"
+      ]
+    },
+    {
+      "f": "SimpleInterestCalculator.tsx",
+      "labels": [
+        "calculate()} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "SkewnessCalculator.tsx",
+      "labels": [
+        "calculate()} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "SpeedDistanceTimeCalculator.tsx",
+      "labels": [
+        "calculate()} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "StandardDeviationCalculator.tsx",
+      "labels": [
+        "calculate()} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "SustainableGrowthRateCalculator.tsx",
+      "labels": [
+        "runCalc()}\r\n                className=\"flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm\"\r\n              >Calculate"
+      ]
+    },
+    {
+      "f": "TaxEquivalentYieldCalculator.tsx",
+      "labels": [
+        "calculate()} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "TipCalculator.tsx",
+      "labels": [
+        "calculate()} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "TurboBoostCalculator.tsx",
+      "labels": [
+        "} className=\"flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm\">Calculate"
+      ]
+    },
+    {
+      "f": "VelocityCalculator.tsx",
+      "labels": [
+        "calculate(solveFor, distance, time, velocity)} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "YieldToCallCalculator.tsx",
+      "labels": [
+        "calculate()} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "YieldToMaturityCalculator.tsx",
+      "labels": [
+        "calculate()} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "ZeroCouponBondCalculator.tsx",
+      "labels": [
+        "calculate()} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    },
+    {
+      "f": "ZScoreCalculator.tsx",
+      "labels": [
+        "calculate()} className=\"flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors\">Calculate"
+      ]
+    }
+  ],
+  "seoWordCounts": [
+    {
+      "f": "AbsoluteReturnCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "AbsoluteValueCalculator.tsx",
+      "wc": 1354
+    },
+    {
+      "f": "AbsorptionCostingVsVariableCostingProfitComparison.tsx",
+      "wc": 0
+    },
+    {
+      "f": "AbsorptionVsVariableCostingCalculator.tsx",
+      "wc": 1074
+    },
+    {
+      "f": "AccelerationCalculator.tsx",
+      "wc": 1195
+    },
+    {
+      "f": "AccountsReceivableCalculator.tsx",
+      "wc": 1067
+    },
+    {
+      "f": "AcSizeCalculator.tsx",
+      "wc": 973
+    },
+    {
+      "f": "ActivationEnergyCalculator.tsx",
+      "wc": 1125
+    },
+    {
+      "f": "ActiveMetabolicRateCalculator.tsx",
+      "wc": 1035
+    },
+    {
+      "f": "ACTScoreCalculator.tsx",
+      "wc": 752
+    },
+    {
+      "f": "AdjustableRateMortgageCalculator.tsx",
+      "wc": 870
+    },
+    {
+      "f": "AdjustedBodyWeightCalculator.tsx",
+      "wc": 762
+    },
+    {
+      "f": "AdolescentBmiCalculator.tsx",
+      "wc": 828
+    },
+    {
+      "f": "AdsenseRevenueCalculator.tsx",
+      "wc": 1333
+    },
+    {
+      "f": "AdsenseRevenueCalculator_test.tsx",
+      "wc": 726
+    },
+    {
+      "f": "AgeCalculator.tsx",
+      "wc": 637
+    },
+    {
+      "f": "AirFreightCostEstimator.tsx",
+      "wc": 833
+    },
+    {
+      "f": "AlcoholCaloriesCalculator.tsx",
+      "wc": 828
+    },
+    {
+      "f": "AlcoholUnitCalculator.tsx",
+      "wc": 984
+    },
+    {
+      "f": "AlternatorOutputCalculator.tsx",
+      "wc": 840
+    },
+    {
+      "f": "AltitudeCalculator.tsx",
+      "wc": 832
+    },
+    {
+      "f": "AltmanZScoreCalculator.tsx",
+      "wc": 847
+    },
+    {
+      "f": "AmazonFbaCalculator.tsx",
+      "wc": 912
+    },
+    {
+      "f": "AmortizationCalculator.tsx",
+      "wc": 1196
+    },
+    {
+      "f": "AmortizationScheduleCalculator.tsx",
+      "wc": 891
+    },
+    {
+      "f": "AmtCalculator.tsx",
+      "wc": 823
+    },
+    {
+      "f": "AndroidVsGynoidEstimator.tsx",
+      "wc": 809
+    },
+    {
+      "f": "AngelInvestmentReturnCalculator.tsx",
+      "wc": 779
+    },
+    {
+      "f": "AngleConverter.tsx",
+      "wc": 703
+    },
+    {
+      "f": "AngleConverterAdvanced.tsx",
+      "wc": 0
+    },
+    {
+      "f": "AnnualCarCostCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "AnnualRecurringRevenueCalculator.tsx",
+      "wc": 394
+    },
+    {
+      "f": "AnnualSalaryToHourlyRateCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "AnnuityCalculator.tsx",
+      "wc": 279
+    },
+    {
+      "f": "AnnuityPayoutCalculator.tsx",
+      "wc": 147
+    },
+    {
+      "f": "AnorexicBmiCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "AnovaCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "AntilogCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "ApgarScoreCalculator.tsx",
+      "wc": 318
+    },
+    {
+      "f": "AprCalculator.tsx",
+      "wc": 1043
+    },
+    {
+      "f": "AprToEarCalculator.tsx",
+      "wc": 637
+    },
+    {
+      "f": "ApScoreCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "ApyCalculator.tsx",
+      "wc": 875
+    },
+    {
+      "f": "AquariumVolumeCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "ArcLengthCalculator.tsx",
+      "wc": 342
+    },
+    {
+      "f": "AreaCalculator.tsx",
+      "wc": 537
+    },
+    {
+      "f": "AreaConverter.tsx",
+      "wc": 65
+    },
+    {
+      "f": "ArithmeticProgressionCalculator.tsx",
+      "wc": 348
+    },
+    {
+      "f": "ArmVsFixedRateCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "ArmyBodyFatCalculator.tsx",
+      "wc": 503
+    },
+    {
+      "f": "AspectRatioCalculator.tsx",
+      "wc": 142
+    },
+    {
+      "f": "AssetCoverageRatioCalculator.tsx",
+      "wc": 429
+    },
+    {
+      "f": "AssetTurnoverRatioCalculator.tsx",
+      "wc": 324
+    },
+    {
+      "f": "AthleteBmiCalculator.tsx",
+      "wc": 912
+    },
+    {
+      "f": "AttendanceCalculator.tsx",
+      "wc": 76
+    },
+    {
+      "f": "AudioFileSizeCalculator.tsx",
+      "wc": 151
+    },
+    {
+      "f": "AutoLeaseCalculator.tsx",
+      "wc": 1325
+    },
+    {
+      "f": "AutoLoanCalculator.tsx",
+      "wc": 1295
+    },
+    {
+      "f": "AutoLoanRefinanceSavingsCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "AutoLoanVsLeaseComparisonCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "AverageCalculator.tsx",
+      "wc": 311
+    },
+    {
+      "f": "AverageReturnCalculator.tsx",
+      "wc": 335
+    },
+    {
+      "f": "AverageRevenuePerUserCalculator.tsx",
+      "wc": 361
+    },
+    {
+      "f": "AvogadrosNumberCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "AwsS3CostCalculator.tsx",
+      "wc": 175
+    },
+    {
+      "f": "BabyGrowthPercentileCalculator.tsx",
+      "wc": 576
+    },
+    {
+      "f": "BacCalculator.tsx",
+      "wc": 147
+    },
+    {
+      "f": "BackdoorRothIraCalculator.tsx",
+      "wc": 711
+    },
+    {
+      "f": "BakingConversionCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "BakingIngredientConverter.tsx",
+      "wc": 67
+    },
+    {
+      "f": "BalanceTransferCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "BalloonMortgageCalculator.tsx",
+      "wc": 365
+    },
+    {
+      "f": "BandwidthCalculator.tsx",
+      "wc": 340
+    },
+    {
+      "f": "BarbellPlateCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "BaristaFireCalculator.tsx",
+      "wc": 665
+    },
+    {
+      "f": "BarometricPressureCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "BasalMetabolicRateBmrKatchMcardleCalculator.tsx",
+      "wc": 962
+    },
+    {
+      "f": "Base64Decoder.tsx",
+      "wc": 65
+    },
+    {
+      "f": "Base64Encoder.tsx",
+      "wc": 65
+    },
+    {
+      "f": "BaseballBattingAverageCalculator.tsx",
+      "wc": 69
+    },
+    {
+      "f": "BaseballEraCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "BaseballFieldingCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "BaseballOBPCalculator.tsx",
+      "wc": 798
+    },
+    {
+      "f": "BaseballSluggingCalculator.tsx",
+      "wc": 880
+    },
+    {
+      "f": "BaseConversionCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "BasicCalculator.tsx",
+      "wc": 352
+    },
+    {
+      "f": "BasketballPerCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "BasketballShootingPercentageCalculator.tsx",
+      "wc": 69
+    },
+    {
+      "f": "BatteryDegradationCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "BatteryLifeCalculator.tsx",
+      "wc": 674
+    },
+    {
+      "f": "BetaCalculator.tsx",
+      "wc": 451
+    },
+    {
+      "f": "BigNumberCalculator.tsx",
+      "wc": 324
+    },
+    {
+      "f": "BikeLoanCalculator.tsx",
+      "wc": 1193
+    },
+    {
+      "f": "BilliardsHandicapCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "BillSplitCalculator.tsx",
+      "wc": 85
+    },
+    {
+      "f": "BinaryCalculator.tsx",
+      "wc": 340
+    },
+    {
+      "f": "BinaryDecimalCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "BinaryTextConverter.tsx",
+      "wc": 67
+    },
+    {
+      "f": "BindingEnergyCalculator.tsx",
+      "wc": 413
+    },
+    {
+      "f": "BinomialDistributionCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "BiodiversityIndexCalculator.tsx",
+      "wc": 180
+    },
+    {
+      "f": "BishopScoreCalculator.tsx",
+      "wc": 334
+    },
+    {
+      "f": "BitcoinMiningCalculator.tsx",
+      "wc": 648
+    },
+    {
+      "f": "BitwiseOperationsCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "BiweeklyMortgageCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "BiweeklyVsMonthlyLoanComparison.tsx",
+      "wc": 0
+    },
+    {
+      "f": "BlackScholesCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "BlendedRateMortgageCalculator.tsx",
+      "wc": 403
+    },
+    {
+      "f": "BlindSizeCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "BloodDonationCalculator.tsx",
+      "wc": 656
+    },
+    {
+      "f": "BloodGlucoseToCarbRatioEstimator.tsx",
+      "wc": 957
+    },
+    {
+      "f": "BloodPressureCategoryCalculator.tsx",
+      "wc": 107
+    },
+    {
+      "f": "BloodVolumeCalculator.tsx",
+      "wc": 457
+    },
+    {
+      "f": "BmiCalculator.tsx",
+      "wc": 521
+    },
+    {
+      "f": "BmiClassificationCalculator.tsx",
+      "wc": 100
+    },
+    {
+      "f": "BmiPercentileCalculator.tsx",
+      "wc": 137
+    },
+    {
+      "f": "BmiPrimeCalculator.tsx",
+      "wc": 1045
+    },
+    {
+      "f": "BMIToBodyFatCalculator.tsx",
+      "wc": 870
+    },
+    {
+      "f": "BmrCalculator.tsx",
+      "wc": 219
+    },
+    {
+      "f": "BoatLoanCalculator.tsx",
+      "wc": 1503
+    },
+    {
+      "f": "BodyAdiposityIndexBaiCalculator.tsx",
+      "wc": 861
+    },
+    {
+      "f": "BodyFatCalculator.tsx",
+      "wc": 200
+    },
+    {
+      "f": "BodyFatNavyMethodCalculator.tsx",
+      "wc": 898
+    },
+    {
+      "f": "BodyFatPercentageCalculator.tsx",
+      "wc": 667
+    },
+    {
+      "f": "BodyFatSkinfoldCalculator.tsx",
+      "wc": 821
+    },
+    {
+      "f": "BodyFrameSizeCalculator.tsx",
+      "wc": 1156
+    },
+    {
+      "f": "BodyMassIndexCalculator.tsx",
+      "wc": 861
+    },
+    {
+      "f": "BodySurfaceAreaCalculator.tsx",
+      "wc": 111
+    },
+    {
+      "f": "BodyTypeCalculator.tsx",
+      "wc": 1353
+    },
+    {
+      "f": "BoilingPointElevationCalculator.tsx",
+      "wc": 69
+    },
+    {
+      "f": "BondDurationCalculator.tsx",
+      "wc": 812
+    },
+    {
+      "f": "BondedWarehouseCostCalculator.tsx",
+      "wc": 606
+    },
+    {
+      "f": "BondPriceCalculator.tsx",
+      "wc": 415
+    },
+    {
+      "f": "BondYieldCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "BonusCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "BonusPercentageCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "BookPublishingCostCalculator.tsx",
+      "wc": 819
+    },
+    {
+      "f": "BounceRateCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "BowlingHandicapCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "BoxingCalorieCalculator.tsx",
+      "wc": 919
+    },
+    {
+      "f": "BoylesLawCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "BrakeHorsepowerCalculator.tsx",
+      "wc": 704
+    },
+    {
+      "f": "BrakingDistanceCalculator.tsx",
+      "wc": 720
+    },
+    {
+      "f": "BraSizeCalculator.tsx",
+      "wc": 349
+    },
+    {
+      "f": "BraSizeConverter.tsx",
+      "wc": 67
+    },
+    {
+      "f": "BreakBulkCargoCostCalculator.tsx",
+      "wc": 632
+    },
+    {
+      "f": "BreakEvenCalculator.tsx",
+      "wc": 244
+    },
+    {
+      "f": "BreakEvenMileageCalculator.tsx",
+      "wc": 688
+    },
+    {
+      "f": "BreastfeedingCalorieCalculator.tsx",
+      "wc": 895
+    },
+    {
+      "f": "BrickCalculator.tsx",
+      "wc": 395
+    },
+    {
+      "f": "BridgeLoanCalculator.tsx",
+      "wc": 356
+    },
+    {
+      "f": "BtuCalculator.tsx",
+      "wc": 369
+    },
+    {
+      "f": "BudgetCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "BudgetRuleCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "BufferSolutionCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "BulkingCalorieCalculator.tsx",
+      "wc": 1107
+    },
+    {
+      "f": "BuoyancyCalculator.tsx",
+      "wc": 65
+    },
+    {
+      "f": "BurnRateCalculator.tsx",
+      "wc": 189
+    },
+    {
+      "f": "BusinessLoanCalculator.tsx",
+      "wc": 200
+    },
+    {
+      "f": "BusinessLoanPaymentCalculator.tsx",
+      "wc": 930
+    },
+    {
+      "f": "BusinessValuationCalculator.tsx",
+      "wc": 525
+    },
+    {
+      "f": "BuyDownCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "CaffeineCalculator.tsx",
+      "wc": 562
+    },
+    {
+      "f": "CaffeineHalfLifeCalculator.tsx",
+      "wc": 559
+    },
+    {
+      "f": "CagrCalculator.tsx",
+      "wc": 474
+    },
+    {
+      "f": "CakeServingCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "CaloricExpenditureCalculator.tsx",
+      "wc": 578
+    },
+    {
+      "f": "CalorieCalculator.tsx",
+      "wc": 1184
+    },
+    {
+      "f": "CalorieCyclingCalculator.tsx",
+      "wc": 1012
+    },
+    {
+      "f": "CalorieDeficitCalculator.tsx",
+      "wc": 453
+    },
+    {
+      "f": "CalorieDeficitForWeightLossCalculator.tsx",
+      "wc": 1013
+    },
+    {
+      "f": "CaloriesBurnedCalculator.tsx",
+      "wc": 122
+    },
+    {
+      "f": "CaloriesBurnedWalking.tsx",
+      "wc": 819
+    },
+    {
+      "f": "CalorieSurplusForWeightGainCalculator.tsx",
+      "wc": 1103
+    },
+    {
+      "f": "CalorieToNutrientDensityRatioCalculator.tsx",
+      "wc": 1025
+    },
+    {
+      "f": "CalorieToProteinRatioCalculator.tsx",
+      "wc": 1096
+    },
+    {
+      "f": "CanadianMortgageCalculator.tsx",
+      "wc": 511
+    },
+    {
+      "f": "CandleBurnTimeCalculator.tsx",
+      "wc": 69
+    },
+    {
+      "f": "CapacitanceCalculator.tsx",
+      "wc": 65
+    },
+    {
+      "f": "CapitalAssetPricingModelCalculator.tsx",
+      "wc": 878
+    },
+    {
+      "f": "CapitalGainsTaxCalculator.tsx",
+      "wc": 392
+    },
+    {
+      "f": "CapitalGainsYieldCalculator.tsx",
+      "wc": 891
+    },
+    {
+      "f": "CapRateCalculator.tsx",
+      "wc": 215
+    },
+    {
+      "f": "CarAffordabilityCalculator.tsx",
+      "wc": 780
+    },
+    {
+      "f": "CarbCalculator.tsx",
+      "wc": 125
+    },
+    {
+      "f": "CarbCyclingCalculator.tsx",
+      "wc": 1093
+    },
+    {
+      "f": "CarbohydrateCalculator.tsx",
+      "wc": 955
+    },
+    {
+      "f": "CarbohydrateGramsCalculator.tsx",
+      "wc": 926
+    },
+    {
+      "f": "CarbohydrateLoadingCalculator.tsx",
+      "wc": 1016
+    },
+    {
+      "f": "CarbonDatingCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "CarbonFootprintCalculator.tsx",
+      "wc": 128
+    },
+    {
+      "f": "CarbonFootprintPerShipmentCalculator.tsx",
+      "wc": 603
+    },
+    {
+      "f": "CarbToInsulinRatioCalculator.tsx",
+      "wc": 1024
+    },
+    {
+      "f": "CarBuyingBudgetCalculator.tsx",
+      "wc": 580
+    },
+    {
+      "f": "CarDepreciationCalculator.tsx",
+      "wc": 602
+    },
+    {
+      "f": "CardiovascularRiskScoreCalculator.tsx",
+      "wc": 1098
+    },
+    {
+      "f": "CardioVsStrengthComparisonCalculator.tsx",
+      "wc": 786
+    },
+    {
+      "f": "CardioVsWeightsCalorieCalculator.tsx",
+      "wc": 906
+    },
+    {
+      "f": "CarDownPaymentCalculator.tsx",
+      "wc": 430
+    },
+    {
+      "f": "CarFinancingInterestCalculator.tsx",
+      "wc": 827
+    },
+    {
+      "f": "CarInsuranceCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "CarInsuranceCostCalculator.tsx",
+      "wc": 535
+    },
+    {
+      "f": "CarInsuranceSavingsFromSafetyFeaturesCalculator.tsx",
+      "wc": 412
+    },
+    {
+      "f": "CarLoanCalculator.tsx",
+      "wc": 570
+    },
+    {
+      "f": "CarOwnershipAnnualCostCalculator.tsx",
+      "wc": 544
+    },
+    {
+      "f": "CarPaymentAffordabilityCalculator.tsx",
+      "wc": 618
+    },
+    {
+      "f": "CarPerformance060Calculator.tsx",
+      "wc": 487
+    },
+    {
+      "f": "CarRegistrationFeeCalculator.tsx",
+      "wc": 651
+    },
+    {
+      "f": "CarrierPerformanceScoreCalculator.tsx",
+      "wc": 659
+    },
+    {
+      "f": "CarrierRateComparisonCalculator.tsx",
+      "wc": 632
+    },
+    {
+      "f": "CarryingCostOfInventoryCalculator.tsx",
+      "wc": 632
+    },
+    {
+      "f": "CarTrueCostOfOwnershipCalculator.tsx",
+      "wc": 693
+    },
+    {
+      "f": "CarWashCostCalculator.tsx",
+      "wc": 662
+    },
+    {
+      "f": "CashBackVsLowInterestCalculator.tsx",
+      "wc": 627
+    },
+    {
+      "f": "CashConversionCycleCalculator.tsx",
+      "wc": 252
+    },
+    {
+      "f": "CashRatioCalculator.tsx",
+      "wc": 247
+    },
+    {
+      "f": "CatAgeCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "CatCalorieCalculator.tsx",
+      "wc": 354
+    },
+    {
+      "f": "CateringQuantityCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "CatPregnancyCalculator.tsx",
+      "wc": 221
+    },
+    {
+      "f": "CatPregnancyDurationCalculator.tsx",
+      "wc": 996
+    },
+    {
+      "f": "CdCalculatorFull.tsx",
+      "wc": 593
+    },
+    {
+      "f": "CeilingFloorCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "CementCalculator.tsx",
+      "wc": 450
+    },
+    {
+      "f": "CertificateOfDepositCalculator.tsx",
+      "wc": 388
+    },
+    {
+      "f": "Cha2ds2VascScoreCalculator.tsx",
+      "wc": 329
+    },
+    {
+      "f": "Chads2ScoreCalculator.tsx",
+      "wc": 674
+    },
+    {
+      "f": "ChargingSpeedCalculator.tsx",
+      "wc": 548
+    },
+    {
+      "f": "CharlesLawCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "ChildHeightPredictor.tsx",
+      "wc": 423
+    },
+    {
+      "f": "ChildPughScoreCalculator.tsx",
+      "wc": 669
+    },
+    {
+      "f": "ChiSquareCalculator.tsx",
+      "wc": 564
+    },
+    {
+      "f": "CholesterolRatioCalculator.tsx",
+      "wc": 520
+    },
+    {
+      "f": "ChurnRateCalculator.tsx",
+      "wc": 226
+    },
+    {
+      "f": "CircleCalculator.tsx",
+      "wc": 29
+    },
+    {
+      "f": "CircuitTrainingCalorieCalculator.tsx",
+      "wc": 993
+    },
+    {
+      "f": "CircularMotionCalculator.tsx",
+      "wc": 377
+    },
+    {
+      "f": "ClosingCostCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "ClothingSizeConverter.tsx",
+      "wc": 67
+    },
+    {
+      "f": "ClothingSizeConverterAdvanced.tsx",
+      "wc": 69
+    },
+    {
+      "f": "CoefficientOfVariationCalculator.tsx",
+      "wc": 69
+    },
+    {
+      "f": "CoffeeBrewingCalculator.tsx",
+      "wc": 246
+    },
+    {
+      "f": "CoffeeStrengthCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "ColdChainComplianceCostCalculator.tsx",
+      "wc": 599
+    },
+    {
+      "f": "CollegeSavingsCalculator.tsx",
+      "wc": 237
+    },
+    {
+      "f": "CombinationsCalculator.tsx",
+      "wc": 507
+    },
+    {
+      "f": "CombinedGasLawCalculator.tsx",
+      "wc": 69
+    },
+    {
+      "f": "CommercialLoanCalculator.tsx",
+      "wc": 1341
+    },
+    {
+      "f": "CommercialVehicleLoadCalculator.tsx",
+      "wc": 675
+    },
+    {
+      "f": "CommissionCalculator.tsx",
+      "wc": 548
+    },
+    {
+      "f": "CompletingTheSquareCalculator.tsx",
+      "wc": 69
+    },
+    {
+      "f": "ComplexNumbersCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "CompostRatioCalculator.tsx",
+      "wc": 124
+    },
+    {
+      "f": "CompoundAnnualGrowthRateCalculator.tsx",
+      "wc": 908
+    },
+    {
+      "f": "CompoundInterestCalculator.tsx",
+      "wc": 530
+    },
+    {
+      "f": "ConcentrationCalculator.tsx",
+      "wc": 65
+    },
+    {
+      "f": "ConceptionCalculator.tsx",
+      "wc": 137
+    },
+    {
+      "f": "ConceptionDateCalculator.tsx",
+      "wc": 681
+    },
+    {
+      "f": "ConcreteCalculator.tsx",
+      "wc": 570
+    },
+    {
+      "f": "ConeCalculator.tsx",
+      "wc": 65
+    },
+    {
+      "f": "ConfidenceIntervalCalculator.tsx",
+      "wc": 558
+    },
+    {
+      "f": "ConsignmentInventoryCostCalculator.tsx",
+      "wc": 646
+    },
+    {
+      "f": "ConstructionLoanCalculator.tsx",
+      "wc": 1346
+    },
+    {
+      "f": "ConstructionLoanDrawCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "ConstructionToPermanentLoanCalculator.tsx",
+      "wc": 516
+    },
+    {
+      "f": "ContinuousCompoundingCalculator.tsx",
+      "wc": 379
+    },
+    {
+      "f": "ContrastRatioCalculator.tsx",
+      "wc": 201
+    },
+    {
+      "f": "ConversionCalculator.tsx",
+      "wc": 65
+    },
+    {
+      "f": "ConversionRateCalculator.tsx",
+      "wc": 85
+    },
+    {
+      "f": "ConvexityCalculator.tsx",
+      "wc": 65
+    },
+    {
+      "f": "CookingMeasurementConverter.tsx",
+      "wc": 67
+    },
+    {
+      "f": "CookingTemperatureConverter.tsx",
+      "wc": 67
+    },
+    {
+      "f": "CookingTimeCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "CoolingSystemCalculator.tsx",
+      "wc": 699
+    },
+    {
+      "f": "CoordinateGeometryCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "CorrectedQtIntervalCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "CorrelationCoefficientCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "CostOfLivingCalculator.tsx",
+      "wc": 98
+    },
+    {
+      "f": "CostPerMileCalculator.tsx",
+      "wc": 414
+    },
+    {
+      "f": "CostPerShipmentCalculator.tsx",
+      "wc": 645
+    },
+    {
+      "f": "CoulombsLawCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "CountdownCalculator.tsx",
+      "wc": 65
+    },
+    {
+      "f": "CovarianceCalculator.tsx",
+      "wc": 65
+    },
+    {
+      "f": "CovidSymptomCalculator.tsx",
+      "wc": 439
+    },
+    {
+      "f": "CpcCalculator.tsx",
+      "wc": 93
+    },
+    {
+      "f": "CpmCalculator.tsx",
+      "wc": 88
+    },
+    {
+      "f": "CreatinineClearanceCalculator.tsx",
+      "wc": 901
+    },
+    {
+      "f": "CreditCardMinimumPaymentCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "CreditCardPayoffCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "CreditScoreEstimator.tsx",
+      "wc": 465
+    },
+    {
+      "f": "CreditUtilizationCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "CrochetHookConverter.tsx",
+      "wc": 67
+    },
+    {
+      "f": "CronExpressionCalculator.tsx",
+      "wc": 85
+    },
+    {
+      "f": "CrossFitWodCalorieCalculator.tsx",
+      "wc": 939
+    },
+    {
+      "f": "CryptoCurrencyConverter.tsx",
+      "wc": 67
+    },
+    {
+      "f": "CryptoPositionSizeCalculator.tsx",
+      "wc": 69
+    },
+    {
+      "f": "CryptoProfitCalculator.tsx",
+      "wc": 613
+    },
+    {
+      "f": "CryptoTaxCalculator.tsx",
+      "wc": 540
+    },
+    {
+      "f": "CssSwimmingCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "CsuGpaCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "CtrCalculator.tsx",
+      "wc": 89
+    },
+    {
+      "f": "CubeRootCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "CumulativeGPACalculator.tsx",
+      "wc": 155
+    },
+    {
+      "f": "CurrencyConverter.tsx",
+      "wc": 101
+    },
+    {
+      "f": "CurrentDividerCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "CurrentRatioCalculator.tsx",
+      "wc": 385
+    },
+    {
+      "f": "CustomerAcquisitionCostCalculator.tsx",
+      "wc": 505
+    },
+    {
+      "f": "CustomerLifetimeValueCalculator.tsx",
+      "wc": 109
+    },
+    {
+      "f": "CustomerRetentionRateCalculator.tsx",
+      "wc": 69
+    },
+    {
+      "f": "CustomsClearanceCostEstimator.tsx",
+      "wc": 585
+    },
+    {
+      "f": "CuttingCalorieCalculator.tsx",
+      "wc": 1080
+    },
+    {
+      "f": "CyclingCadenceCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "CyclingCalorieCalculator.tsx",
+      "wc": 585
+    },
+    {
+      "f": "CyclingCaloriesCalculator.tsx",
+      "wc": 593
+    },
+    {
+      "f": "CyclingPowerCalculator.tsx",
+      "wc": 151
+    },
+    {
+      "f": "CyclingSpeedCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "CyclingWattageCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "CylinderCalculator.tsx",
+      "wc": 65
+    },
+    {
+      "f": "DaCalculator.tsx",
+      "wc": 251
+    },
+    {
+      "f": "DailyCalorieBurnCalculator.tsx",
+      "wc": 866
+    },
+    {
+      "f": "DailyCalorieBurnPerPoundCalculator.tsx",
+      "wc": 838
+    },
+    {
+      "f": "DancingCalorieCalculator.tsx",
+      "wc": 890
+    },
+    {
+      "f": "DataSizeConverter.tsx",
+      "wc": 67
+    },
+    {
+      "f": "DataStorageConverter.tsx",
+      "wc": 95
+    },
+    {
+      "f": "DataTransferCalculator.tsx",
+      "wc": 319
+    },
+    {
+      "f": "DataTransferConverter.tsx",
+      "wc": 67
+    },
+    {
+      "f": "DataTransferRateCalculator.tsx",
+      "wc": 176
+    },
+    {
+      "f": "DateCalculator.tsx",
+      "wc": 117
+    },
+    {
+      "f": "DateDifferenceCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "DayCounter.tsx",
+      "wc": 100
+    },
+    {
+      "f": "DaylightSavingCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "DcfCalculator.tsx",
+      "wc": 429
+    },
+    {
+      "f": "DCFValuationCalculator.tsx",
+      "wc": 668
+    },
+    {
+      "f": "DdpVsExwCostComparisonCalculator.tsx",
+      "wc": 600
+    },
+    {
+      "f": "DeadFreightCostCalculator.tsx",
+      "wc": 647
+    },
+    {
+      "f": "DeadSpaceFractionCalculator.tsx",
+      "wc": 843
+    },
+    {
+      "f": "DebtAvalancheCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "DebtConsolidationCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "DebtPayoffCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "DebtServiceCoverageCalculator.tsx",
+      "wc": 114
+    },
+    {
+      "f": "DebtSnowballCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "DebtToAssetRatioCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "DebtToEquityCalculator.tsx",
+      "wc": 268
+    },
+    {
+      "f": "DecibelCalculator.tsx",
+      "wc": 65
+    },
+    {
+      "f": "DecileCalculator.tsx",
+      "wc": 65
+    },
+    {
+      "f": "DecimalToFractionConverter.tsx",
+      "wc": 69
+    },
+    {
+      "f": "DecimalToHexConverter.tsx",
+      "wc": 69
+    },
+    {
+      "f": "DefensiveIntervalRatioCalculator.tsx",
+      "wc": 505
+    },
+    {
+      "f": "DeliveryCostPerMileCalculator.tsx",
+      "wc": 580
+    },
+    {
+      "f": "DemurrageCostCalculator.tsx",
+      "wc": 611
+    },
+    {
+      "f": "DensityCalculator.tsx",
+      "wc": 109
+    },
+    {
+      "f": "DensityConverter.tsx",
+      "wc": 65
+    },
+    {
+      "f": "DepreciationCalculator.tsx",
+      "wc": 143
+    },
+    {
+      "f": "DepreciationRecaptureCalculator.tsx",
+      "wc": 584
+    },
+    {
+      "f": "DepreciationTaxShieldCalculator.tsx",
+      "wc": 639
+    },
+    {
+      "f": "DerivativeCalculator.tsx",
+      "wc": 65
+    },
+    {
+      "f": "DewPointCalculator.tsx",
+      "wc": 379
+    },
+    {
+      "f": "DiabetesRiskCalculator.tsx",
+      "wc": 663
+    },
+    {
+      "f": "DiceRoller.tsx",
+      "wc": 65
+    },
+    {
+      "f": "DifferentialCalculator.tsx",
+      "wc": 413
+    },
+    {
+      "f": "DilutionCalculator.tsx",
+      "wc": 65
+    },
+    {
+      "f": "DirectVariationCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "DisabilityInsuranceCalculator.tsx",
+      "wc": 582
+    },
+    {
+      "f": "DiscountCalculator.tsx",
+      "wc": 533
+    },
+    {
+      "f": "DiscountedPaybackPeriodCalculator.tsx",
+      "wc": 390
+    },
+    {
+      "f": "DisplacementCalculator.tsx",
+      "wc": 65
+    },
+    {
+      "f": "DistanceCalculator.tsx",
+      "wc": 35
+    },
+    {
+      "f": "DistributionNetworkCostCalculator.tsx",
+      "wc": 525
+    },
+    {
+      "f": "DividendCalculator.tsx",
+      "wc": 542
+    },
+    {
+      "f": "DividendPayoutRatioCalculator.tsx",
+      "wc": 472
+    },
+    {
+      "f": "DividendReinvestmentCalculator.tsx",
+      "wc": 452
+    },
+    {
+      "f": "DividendYieldCalculator.tsx",
+      "wc": 277
+    },
+    {
+      "f": "DockerImageSizeCalculator.tsx",
+      "wc": 154
+    },
+    {
+      "f": "DogAgeCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "DogCalorieCalculator.tsx",
+      "wc": 88
+    },
+    {
+      "f": "DogChocolateToxicityCalculator.tsx",
+      "wc": 255
+    },
+    {
+      "f": "DogPregnancyCalculator.tsx",
+      "wc": 272
+    },
+    {
+      "f": "DogPregnancyDurationCalculator.tsx",
+      "wc": 1077
+    },
+    {
+      "f": "DogSizePredictor.tsx",
+      "wc": 240
+    },
+    {
+      "f": "DogWalkCalorieBurnCalculator.tsx",
+      "wc": 1124
+    },
+    {
+      "f": "DollarCostAveragingCalculator.tsx",
+      "wc": 471
+    },
+    {
+      "f": "DomainValuationCalculator.tsx",
+      "wc": 430
+    },
+    {
+      "f": "DopplerEffectCalculator.tsx",
+      "wc": 395
+    },
+    {
+      "f": "DotsScoreCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "DownloadTimeCalculator.tsx",
+      "wc": 99
+    },
+    {
+      "f": "DownPaymentCalculator.tsx",
+      "wc": 121
+    },
+    {
+      "f": "DragCoefficientCalculator.tsx",
+      "wc": 717
+    },
+    {
+      "f": "DrinkingWaterFluorideDoseCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "DriverCostPerMileCalculator.tsx",
+      "wc": 707
+    },
+    {
+      "f": "DrivewaySealerCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "DrugDosageCalculator.tsx",
+      "wc": 705
+    },
+    {
+      "f": "DtiCalculator.tsx",
+      "wc": 429
+    },
+    {
+      "f": "DueDateCalculator.tsx",
+      "wc": 126
+    },
+    {
+      "f": "DupointAnalysisCalculator.tsx",
+      "wc": 484
+    },
+    {
+      "f": "DupontAnalysisCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "DynoCalculator.tsx",
+      "wc": 710
+    },
+    {
+      "f": "EarlyLoanPayoffSavingsCalculator.tsx",
+      "wc": 1026
+    },
+    {
+      "f": "EarlyMortgagePayoffCalculator.tsx",
+      "wc": 642
+    },
+    {
+      "f": "EarlyRetirementCalculator.tsx",
+      "wc": 231
+    },
+    {
+      "f": "EarningsPerShareCalculator.tsx",
+      "wc": 341
+    },
+    {
+      "f": "EarToAprCalculator.tsx",
+      "wc": 247
+    },
+    {
+      "f": "EbitdaCalculator.tsx",
+      "wc": 242
+    },
+    {
+      "f": "EbitdaMarginCalculator.tsx",
+      "wc": 429
+    },
+    {
+      "f": "EcologicalFootprintCalculator.tsx",
+      "wc": 109
+    },
+    {
+      "f": "EcommerceRevenueCalculator.tsx",
+      "wc": 340
+    },
+    {
+      "f": "EdpiCalculator.tsx",
+      "wc": 84
+    },
+    {
+      "f": "EducationLoanCalculator.tsx",
+      "wc": 1220
+    },
+    {
+      "f": "EfficiencyCalculator.tsx",
+      "wc": 65
+    },
+    {
+      "f": "EigenvalueCalculator.tsx",
+      "wc": 65
+    },
+    {
+      "f": "EightyThreeBElectionTaxCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "Election83bCalculator.tsx",
+      "wc": 640
+    },
+    {
+      "f": "ElectricFieldCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "ElectricityBillCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "ElectricityCostCalculator.tsx",
+      "wc": 393
+    },
+    {
+      "f": "ElectricPowerCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "EllipseCalculator.tsx",
+      "wc": 65
+    },
+    {
+      "f": "EllipticalCalorieCalculator.tsx",
+      "wc": 1001
+    },
+    {
+      "f": "EmailOpenRateCalculator.tsx",
+      "wc": 69
+    },
+    {
+      "f": "EmergencyFundCalculator.tsx",
+      "wc": 104
+    },
+    {
+      "f": "EmissionsTestCalculator.tsx",
+      "wc": 669
+    },
+    {
+      "f": "EmpiricalFormulaCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "EmployerNationalInsuranceContributionCalculator.tsx",
+      "wc": 624
+    },
+    {
+      "f": "EmployerPayrollTaxCalculator.tsx",
+      "wc": 664
+    },
+    {
+      "f": "EnergyConverter.tsx",
+      "wc": 65
+    },
+    {
+      "f": "EnergyEfficientApplianceCalculator.tsx",
+      "wc": 157
+    },
+    {
+      "f": "EngineCompressionCalculator.tsx",
+      "wc": 462
+    },
+    {
+      "f": "EngineHorsepowerCalculator.tsx",
+      "wc": 383
+    },
+    {
+      "f": "EnterpriseValueCalculator.tsx",
+      "wc": 402
+    },
+    {
+      "f": "EpfCalculator.tsx",
+      "wc": 155
+    },
+    {
+      "f": "EpochTimeConverter.tsx",
+      "wc": 67
+    },
+    {
+      "f": "EquilibriumConstantCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "EquityMultiplierCalculator.tsx",
+      "wc": 273
+    },
+    {
+      "f": "EquivalentAnnualAnnuityCalculator.tsx",
+      "wc": 274
+    },
+    {
+      "f": "EscapeVelocityCalculator.tsx",
+      "wc": 417
+    },
+    {
+      "f": "EscrowCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "EstateTaxCalculator.tsx",
+      "wc": 460
+    },
+    {
+      "f": "EthereumGasCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "EVChargingCostCalculator.tsx",
+      "wc": 680
+    },
+    {
+      "f": "EvFederalTaxCreditValueCalculator.tsx",
+      "wc": 504
+    },
+    {
+      "f": "EVRangeCalculator.tsx",
+      "wc": 740
+    },
+    {
+      "f": "EvTaxCreditBenefitCalculator.tsx",
+      "wc": 460
+    },
+    {
+      "f": "EvVsGasCostCalculator.tsx",
+      "wc": 617
+    },
+    {
+      "f": "Exchange1031TimelineCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "ExpectedReturnCalculator.tsx",
+      "wc": 131
+    },
+    {
+      "f": "ExpeditedShippingCostPremiumCalculator.tsx",
+      "wc": 545
+    },
+    {
+      "f": "ExponentCalculator.tsx",
+      "wc": 42
+    },
+    {
+      "f": "ExponentialDecayCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "ExponentialGrowthCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "ExportDocumentationCostCalculator.tsx",
+      "wc": 578
+    },
+    {
+      "f": "FactorCalculator.tsx",
+      "wc": 370
+    },
+    {
+      "f": "FactorialCalculator.tsx",
+      "wc": 663
+    },
+    {
+      "f": "FatBurningZoneCalculator.tsx",
+      "wc": 475
+    },
+    {
+      "f": "FatFreeMassCalculator.tsx",
+      "wc": 436
+    },
+    {
+      "f": "FatIntakeCalculator.tsx",
+      "wc": 122
+    },
+    {
+      "f": "FertilityCalculator.tsx",
+      "wc": 139
+    },
+    {
+      "f": "FertilityWindowCalculator.tsx",
+      "wc": 494
+    },
+    {
+      "f": "FertilizerCalculator.tsx",
+      "wc": 65
+    },
+    {
+      "f": "FetalWeightCalculator.tsx",
+      "wc": 548
+    },
+    {
+      "f": "FeverCalculator.tsx",
+      "wc": 405
+    },
+    {
+      "f": "FfmiFatFreeMassIndexCalculator.tsx",
+      "wc": 901
+    },
+    {
+      "f": "FhaLoanCalculator.tsx",
+      "wc": 1364
+    },
+    {
+      "f": "FhaMipCalculator.tsx",
+      "wc": 476
+    },
+    {
+      "f": "FiberIntakeCalculator.tsx",
+      "wc": 527
+    },
+    {
+      "f": "FibonacciCalculator.tsx",
+      "wc": 629
+    },
+    {
+      "f": "FifteenVsThirtyMortgageCalculator.tsx",
+      "wc": 526
+    },
+    {
+      "f": "FinalGradeCalculator.tsx",
+      "wc": 148
+    },
+    {
+      "f": "FireCalculator.tsx",
+      "wc": 209
+    },
+    {
+      "f": "FirewoodCordCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "FirstHomeBuyerCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "FitnessAgeCalculator.tsx",
+      "wc": 969
+    },
+    {
+      "f": "Five29CollegeSavingsPlanCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "FiveYearOwnershipCostCalculator.tsx",
+      "wc": 421
+    },
+    {
+      "f": "FixedAssetTurnoverCalculator.tsx",
+      "wc": 390
+    },
+    {
+      "f": "FixedChargeCoverageRatioCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "FixedRateMortgagePaymentCalculator.tsx",
+      "wc": 453
+    },
+    {
+      "f": "FleetDepreciationCalculator.tsx",
+      "wc": 630
+    },
+    {
+      "f": "FleetFuelCostCalculator.tsx",
+      "wc": 671
+    },
+    {
+      "f": "FleetInsuranceCostCalculator.tsx",
+      "wc": 404
+    },
+    {
+      "f": "FlightEmissionsCalculator.tsx",
+      "wc": 171
+    },
+    {
+      "f": "FlightTimeCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "FloorAreaCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "FlooringCalculator.tsx",
+      "wc": 331
+    },
+    {
+      "f": "FloorsClimbedCalorieCalculator.tsx",
+      "wc": 799
+    },
+    {
+      "f": "FlowRateConverter.tsx",
+      "wc": 67
+    },
+    {
+      "f": "FluidFlowCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "FontSizeConverter.tsx",
+      "wc": 85
+    },
+    {
+      "f": "FoodCarbonFootprintCalculator.tsx",
+      "wc": 136
+    },
+    {
+      "f": "FoodCostCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "FoodMilesCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "ForceCalculator.tsx",
+      "wc": 101
+    },
+    {
+      "f": "ForceConverter.tsx",
+      "wc": 65
+    },
+    {
+      "f": "ForexProfitCalculator.tsx",
+      "wc": 1315
+    },
+    {
+      "f": "Four01kGrowthCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "Four03bGrowthCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "Four57bPlanCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "FourPercentRuleCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "FovCalculator.tsx",
+      "wc": 130
+    },
+    {
+      "f": "FractionalDistillationCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "FractionCalculator.tsx",
+      "wc": 42
+    },
+    {
+      "f": "FractionToDecimalConverter.tsx",
+      "wc": 454
+    },
+    {
+      "f": "FreeCashFlowCalculator.tsx",
+      "wc": 348
+    },
+    {
+      "f": "FreeCashFlowToEquityCalculator.tsx",
+      "wc": 478
+    },
+    {
+      "f": "FreeCashFlowToFirmCalculator.tsx",
+      "wc": 713
+    },
+    {
+      "f": "FreeFallCalculator.tsx",
+      "wc": 371
+    },
+    {
+      "f": "FreelanceRateCalculator.tsx",
+      "wc": 434
+    },
+    {
+      "f": "FreezingPointDepressionCalculator.tsx",
+      "wc": 69
+    },
+    {
+      "f": "FreightCostToRevenueRatioCalculator.tsx",
+      "wc": 646
+    },
+    {
+      "f": "FrequencyConverter.tsx",
+      "wc": 65
+    },
+    {
+      "f": "FrequencyWavelengthCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "FTestCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "FuelCostCalculator.tsx",
+      "wc": 407
+    },
+    {
+      "f": "FuelEconomyCalculator.tsx",
+      "wc": 574
+    },
+    {
+      "f": "FuelEconomyConverter.tsx",
+      "wc": 67
+    },
+    {
+      "f": "FuelInjectorCalculator.tsx",
+      "wc": 502
+    },
+    {
+      "f": "FunctionCompositionCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "FutureValueCalculator.tsx",
+      "wc": 448
+    },
+    {
+      "f": "GameDownloadCalculator.tsx",
+      "wc": 92
+    },
+    {
+      "f": "GapInsuranceValueCalculator.tsx",
+      "wc": 520
+    },
+    {
+      "f": "GardenFertilizerCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "GasMileageCalculator.tsx",
+      "wc": 464
+    },
+    {
+      "f": "GcfCalculator.tsx",
+      "wc": 427
+    },
+    {
+      "f": "GdpCalculator.tsx",
+      "wc": 517
+    },
+    {
+      "f": "GearRatioCalculator.tsx",
+      "wc": 415
+    },
+    {
+      "f": "GeometricMeanCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "GeometricProgressionCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "GestationalAgeCalculator.tsx",
+      "wc": 536
+    },
+    {
+      "f": "GestationCalculator.tsx",
+      "wc": 65
+    },
+    {
+      "f": "GfrCalculator.tsx",
+      "wc": 150
+    },
+    {
+      "f": "GiftCostPerPersonCalculator.tsx",
+      "wc": 71
+    },
+    {
+      "f": "GiftTaxCalculator.tsx",
+      "wc": 565
+    },
+    {
+      "f": "GitRepoSizeCalculator.tsx",
+      "wc": 207
+    },
+    {
+      "f": "GlasgowComaScaleCalculator.tsx",
+      "wc": 417
+    },
+    {
+      "f": "GlycemicIndexCalculator.tsx",
+      "wc": 1156
+    },
+    {
+      "f": "GlycemicLoadCalculator.tsx",
+      "wc": 556
+    },
+    {
+      "f": "GmatScoreCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "GoldLoanCalculator.tsx",
+      "wc": 1425
+    },
+    {
+      "f": "GolfHandicapCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "GpaCalculator.tsx",
+      "wc": 531
+    },
+    {
+      "f": "GradeCalculator.tsx",
+      "wc": 106
+    },
+    {
+      "f": "GrassSeedCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "GratuityCalculator.tsx",
+      "wc": 174
+    },
+    {
+      "f": "GravelCalculator.tsx",
+      "wc": 390
+    },
+    {
+      "f": "GravitationalForceCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "GreeksCalculator.tsx",
+      "wc": 65
+    },
+    {
+      "f": "GREScoreCalculator.tsx",
+      "wc": 146
+    },
+    {
+      "f": "GrillingTimeCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "GroceryBudgetCalculator.tsx",
+      "wc": 417
+    },
+    {
+      "f": "GrossIncomeCalculator.tsx",
+      "wc": 1306
+    },
+    {
+      "f": "GrossMarginCalculator.tsx",
+      "wc": 631
+    },
+    {
+      "f": "GstCalculator.tsx",
+      "wc": 317
+    },
+    {
+      "f": "GutterSizeCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "GymSessionCalorieBurnCalculator.tsx",
+      "wc": 948
+    },
+    {
+      "f": "HalfLifeCalculator.tsx",
+      "wc": 653
+    },
+    {
+      "f": "HamsterCalorieCalculator.tsx",
+      "wc": 1059
+    },
+    {
+      "f": "HardDriveCapacityCalculator.tsx",
+      "wc": 99
+    },
+    {
+      "f": "HardMoneyLoanCalculator.tsx",
+      "wc": 371
+    },
+    {
+      "f": "HarmonicMeanCalculator.tsx",
+      "wc": 376
+    },
+    {
+      "f": "HasBledScoreCalculator.tsx",
+      "wc": 685
+    },
+    {
+      "f": "HashCalculator.tsx",
+      "wc": 169
+    },
+    {
+      "f": "HealthInsuranceCalculator.tsx",
+      "wc": 555
+    },
+    {
+      "f": "HealthyWeightCalculator.tsx",
+      "wc": 1275
+    },
+    {
+      "f": "HealthyWeightRangeCalculator.tsx",
+      "wc": 445
+    },
+    {
+      "f": "HeartAttackRiskCalculator.tsx",
+      "wc": 687
+    },
+    {
+      "f": "HeartRateRecoveryCalculator.tsx",
+      "wc": 402
+    },
+    {
+      "f": "HeaterSizeCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "HeatIndexCalculator.tsx",
+      "wc": 382
+    },
+    {
+      "f": "HeightCalculator.tsx",
+      "wc": 65
+    },
+    {
+      "f": "HelocCalculator.tsx",
+      "wc": 234
+    },
+    {
+      "f": "HemoglobinCalculator.tsx",
+      "wc": 442
+    },
+    {
+      "f": "HexCalculator.tsx",
+      "wc": 300
+    },
+    {
+      "f": "HexToDecimalConverter.tsx",
+      "wc": 69
+    },
+    {
+      "f": "HighYieldSavingsCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "HiitCalorieBurnCalculator.tsx",
+      "wc": 952
+    },
+    {
+      "f": "HiitCalorieCalculator.tsx",
+      "wc": 601
+    },
+    {
+      "f": "HikingCalorieCalculator.tsx",
+      "wc": 901
+    },
+    {
+      "f": "HomeAffordabilityCalculator.tsx",
+      "wc": 122
+    },
+    {
+      "f": "HomeCoolingCostCalculator.tsx",
+      "wc": 69
+    },
+    {
+      "f": "HomeEnergyEmissionsCalculator.tsx",
+      "wc": 130
+    },
+    {
+      "f": "HomeEquityLoanCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "HomeHeatingCostCalculator.tsx",
+      "wc": 69
+    },
+    {
+      "f": "HomeInsuranceCalculator.tsx",
+      "wc": 481
+    },
+    {
+      "f": "HomeLoanCalculator.tsx",
+      "wc": 1098
+    },
+    {
+      "f": "HomeLoanEligibilityCalculator.tsx",
+      "wc": 508
+    },
+    {
+      "f": "HomeLoanEmiIndia.tsx",
+      "wc": 652
+    },
+    {
+      "f": "HorseCalorieCalculator.tsx",
+      "wc": 1111
+    },
+    {
+      "f": "HorsepowerCalculator.tsx",
+      "wc": 439
+    },
+    {
+      "f": "HotelCostCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "HotYogaCalorieCalculator.tsx",
+      "wc": 867
+    },
+    {
+      "f": "HourlyToSalaryCalculator.tsx",
+      "wc": 121
+    },
+    {
+      "f": "HourlyWageCalculator.tsx",
+      "wc": 1174
+    },
+    {
+      "f": "HoursCalculator.tsx",
+      "wc": 368
+    },
+    {
+      "f": "HouseAffordabilityCalculator.tsx",
+      "wc": 94
+    },
+    {
+      "f": "HousingRatioCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "HpToKwCalculator.tsx",
+      "wc": 159
+    },
+    {
+      "f": "HraCalculator.tsx",
+      "wc": 215
+    },
+    {
+      "f": "HumidityCalculator.tsx",
+      "wc": 65
+    },
+    {
+      "f": "HydrationCalculator.tsx",
+      "wc": 105
+    },
+    {
+      "f": "HydraulicRetentionTimeCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "IbGradeCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "IbwCalculator.tsx",
+      "wc": 577
+    },
+    {
+      "f": "IdealBmiWeightCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "IdealGasLawCalculator.tsx",
+      "wc": 69
+    },
+    {
+      "f": "IdealWeightCalculator.tsx",
+      "wc": 296
+    },
+    {
+      "f": "IdealWeightCalculatorForWomen.tsx",
+      "wc": 1045
+    },
+    {
+      "f": "IlluminanceConverter.tsx",
+      "wc": 65
+    },
+    {
+      "f": "ImageFileSizeCalculator.tsx",
+      "wc": 157
+    },
+    {
+      "f": "ImportClearanceTimeCostCalculator.tsx",
+      "wc": 627
+    },
+    {
+      "f": "IncomeTaxCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "IncomeTaxCalculatorIndia.tsx",
+      "wc": 207
+    },
+    {
+      "f": "IncotermsCostImpactCalculator.tsx",
+      "wc": 641
+    },
+    {
+      "f": "IncotermsLandedCostCalculator.tsx",
+      "wc": 603
+    },
+    {
+      "f": "InductanceCalculator.tsx",
+      "wc": 65
+    },
+    {
+      "f": "InequalityCalculator.tsx",
+      "wc": 65
+    },
+    {
+      "f": "InfantMilkCalculator.tsx",
+      "wc": 673
+    },
+    {
+      "f": "InflationAdjustedReturnCalculator.tsx",
+      "wc": 602
+    },
+    {
+      "f": "InflationCalculator.tsx",
+      "wc": 364
+    },
+    {
+      "f": "InheritanceTaxCalculator.tsx",
+      "wc": 544
+    },
+    {
+      "f": "InstagramEngagementCalculator.tsx",
+      "wc": 506
+    },
+    {
+      "f": "InsulinToCarbRatioCalculator.tsx",
+      "wc": 712
+    },
+    {
+      "f": "InsuranceCostPerShipmentCalculator.tsx",
+      "wc": 661
+    },
+    {
+      "f": "IntegralCalculator.tsx",
+      "wc": 65
+    },
+    {
+      "f": "InterestCoverageRatioCalculator.tsx",
+      "wc": 667
+    },
+    {
+      "f": "InterestOnlyCalculator.tsx",
+      "wc": 1210
+    },
+    {
+      "f": "InterestOnlyMortgageCalculator.tsx",
+      "wc": 328
+    },
+    {
+      "f": "InterestRateCalculator.tsx",
+      "wc": 360
+    },
+    {
+      "f": "IntermittentFastingCalculator.tsx",
+      "wc": 531
+    },
+    {
+      "f": "InternalGrowthRateCalculator.tsx",
+      "wc": 605
+    },
+    {
+      "f": "InternationalShippingCostEstimator.tsx",
+      "wc": 623
+    },
+    {
+      "f": "InterquartileRangeCalculator.tsx",
+      "wc": 370
+    },
+    {
+      "f": "InventoryDaysCalculator.tsx",
+      "wc": 367
+    },
+    {
+      "f": "InventoryTurnoverCalculator.tsx",
+      "wc": 463
+    },
+    {
+      "f": "InverseVariationCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "InvestmentGrowthCalculator.tsx",
+      "wc": 570
+    },
+    {
+      "f": "InvestmentPropertyCalculator.tsx",
+      "wc": 146
+    },
+    {
+      "f": "InvestmentReturnCalculator.tsx",
+      "wc": 195
+    },
+    {
+      "f": "IpSubnetCalculator.tsx",
+      "wc": 314
+    },
+    {
+      "f": "IraCalculator.tsx",
+      "wc": 265
+    },
+    {
+      "f": "IrrCalculator.tsx",
+      "wc": 133
+    },
+    {
+      "f": "IvfDueDateCalculator.tsx",
+      "wc": 809
+    },
+    {
+      "f": "JitterCalculator.tsx",
+      "wc": 100
+    },
+    {
+      "f": "JobClassificationSalaryBandCalculator.tsx",
+      "wc": 637
+    },
+    {
+      "f": "JobOfferNetSalaryCalculator.tsx",
+      "wc": 692
+    },
+    {
+      "f": "JudoPointsCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "JumboLoanPaymentCalculator.tsx",
+      "wc": 429
+    },
+    {
+      "f": "JumpRopeCalorieCalculator.tsx",
+      "wc": 966
+    },
+    {
+      "f": "K401Calculator.tsx",
+      "wc": 558
+    },
+    {
+      "f": "KendallTauCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "KeplersLawsCalculator.tsx",
+      "wc": 438
+    },
+    {
+      "f": "KineticEnergyCalculator.tsx",
+      "wc": 584
+    },
+    {
+      "f": "KnittingNeedleConverter.tsx",
+      "wc": 67
+    },
+    {
+      "f": "KruskalWallisTestCalculator.tsx",
+      "wc": 69
+    },
+    {
+      "f": "KurtosisCalculator.tsx",
+      "wc": 289
+    },
+    {
+      "f": "LandLoanPaymentCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "LastMileDeliveryCostCalculator.tsx",
+      "wc": 620
+    },
+    {
+      "f": "LawnMowingTimeCalculator.tsx",
+      "wc": 69
+    },
+    {
+      "f": "LawnSeedingCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "LawOfCosinesCalculator.tsx",
+      "wc": 69
+    },
+    {
+      "f": "LawOfSinesCalculator.tsx",
+      "wc": 69
+    },
+    {
+      "f": "LcmCalculator.tsx",
+      "wc": 368
+    },
+    {
+      "f": "LcmGcdCalculator.tsx",
+      "wc": 272
+    },
+    {
+      "f": "LcResonanceCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "LeanBodyMassCalculator.tsx",
+      "wc": 115
+    },
+    {
+      "f": "LeanMassCalculator.tsx",
+      "wc": 164
+    },
+    {
+      "f": "LeanWastePercentageCalculator.tsx",
+      "wc": 316
+    },
+    {
+      "f": "LeapYearCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "LeaseVsBuyCalculator.tsx",
+      "wc": 149
+    },
+    {
+      "f": "LeaseVsFinanceCalculator.tsx",
+      "wc": 533
+    },
+    {
+      "f": "LeaveEncashmentCalculator.tsx",
+      "wc": 272
+    },
+    {
+      "f": "LedSavingsCalculator.tsx",
+      "wc": 138
+    },
+    {
+      "f": "LengthConverter.tsx",
+      "wc": 486
+    },
+    {
+      "f": "LifeInsuranceCalculator.tsx",
+      "wc": 469
+    },
+    {
+      "f": "LightingLumensCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "LimitCalculator.tsx",
+      "wc": 65
+    },
+    {
+      "f": "LimitingReagentCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "LinearEquationCalculator.tsx",
+      "wc": 37
+    },
+    {
+      "f": "LinearRegressionCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "LoanAgainstPropertyCalculator.tsx",
+      "wc": 1289
+    },
+    {
+      "f": "LoanCalculator.tsx",
+      "wc": 496
+    },
+    {
+      "f": "LoanComparisonCalculator.tsx",
+      "wc": 322
+    },
+    {
+      "f": "LoanDefermentInterestCalculator.tsx",
+      "wc": 430
+    },
+    {
+      "f": "LoanOriginationFeeCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "LoanOriginationPointsToAprCalculator.tsx",
+      "wc": 334
+    },
+    {
+      "f": "LoanPayoffCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "LoanToCostRatioCalculator.tsx",
+      "wc": 801
+    },
+    {
+      "f": "LogarithmChangeOfBaseCalculator.tsx",
+      "wc": 71
+    },
+    {
+      "f": "LogCalculator.tsx",
+      "wc": 39
+    },
+    {
+      "f": "LogisticRegressionCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "LogisticsCostPerUnitCalculator.tsx",
+      "wc": 572
+    },
+    {
+      "f": "LongDivisionCalculator.tsx",
+      "wc": 401
+    },
+    {
+      "f": "LoveCalculator.tsx",
+      "wc": 305
+    },
+    {
+      "f": "LowCarbDietAdherenceScoreCalculator.tsx",
+      "wc": 1084
+    },
+    {
+      "f": "LowCarbThresholdCalculator.tsx",
+      "wc": 986
+    },
+    {
+      "f": "LoyaltyPointsCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "LsatScoreCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "LtvCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "LuminanceConverter.tsx",
+      "wc": 65
+    },
+    {
+      "f": "LumpsumCalculator.tsx",
+      "wc": 220
+    },
+    {
+      "f": "MacAddressGenerator.tsx",
+      "wc": 148
+    },
+    {
+      "f": "MacroCalculator.tsx",
+      "wc": 288
+    },
+    {
+      "f": "MacronutrientCalorieDistributionCalculator.tsx",
+      "wc": 1117
+    },
+    {
+      "f": "MagneticFieldCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "MaintenanceCalorieCalculator.tsx",
+      "wc": 1146
+    },
+    {
+      "f": "MannWhitneyUTestCalculator.tsx",
+      "wc": 71
+    },
+    {
+      "f": "MarathonTrainingCalculator.tsx",
+      "wc": 563
+    },
+    {
+      "f": "MarginCalculator.tsx",
+      "wc": 475
+    },
+    {
+      "f": "MarginOfErrorCalculator.tsx",
+      "wc": 69
+    },
+    {
+      "f": "MarginOfSafetyPercentageCalculator.tsx",
+      "wc": 665
+    },
+    {
+      "f": "MarkupCalculator.tsx",
+      "wc": 157
+    },
+    {
+      "f": "MarriageTaxCalculator.tsx",
+      "wc": 441
+    },
+    {
+      "f": "MartialArtsCalorieCalculator.tsx",
+      "wc": 957
+    },
+    {
+      "f": "MassCalculator.tsx",
+      "wc": 373
+    },
+    {
+      "f": "MassDefectCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "MatrixCalculator.tsx",
+      "wc": 31
+    },
+    {
+      "f": "MatrixDeterminantCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "MatrixInverseCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "MatrixMultiplicationCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "MaxHeartRateCalculator.tsx",
+      "wc": 504
+    },
+    {
+      "f": "MaximumMortgageAffordabilityCalculator.tsx",
+      "wc": 503
+    },
+    {
+      "f": "McatScoreCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "MealFrequencyCalorieSplitCalculator.tsx",
+      "wc": 1040
+    },
+    {
+      "f": "MeanArterialPressureCalculator.tsx",
+      "wc": 388
+    },
+    {
+      "f": "MeatlessDietImpactCalculator.tsx",
+      "wc": 150
+    },
+    {
+      "f": "MedianCalculator.tsx",
+      "wc": 362
+    },
+    {
+      "f": "MeetingTimeZoneCalculator.tsx",
+      "wc": 69
+    },
+    {
+      "f": "MeldScoreCalculator.tsx",
+      "wc": 401
+    },
+    {
+      "f": "MenstrualCycleLengthCalculator.tsx",
+      "wc": 543
+    },
+    {
+      "f": "MetsBasedCalorieBurnCalculator.tsx",
+      "wc": 825
+    },
+    {
+      "f": "MetsCalculator.tsx",
+      "wc": 819
+    },
+    {
+      "f": "MicrofinanceLoanRepaymentCalculator.tsx",
+      "wc": 704
+    },
+    {
+      "f": "MicrowaveWattageConversionCalculator.tsx",
+      "wc": 69
+    },
+    {
+      "f": "MilesPerGallonCalculator.tsx",
+      "wc": 635
+    },
+    {
+      "f": "MindfulnessPracticeRoiCalculator.tsx",
+      "wc": 724
+    },
+    {
+      "f": "MinimumPaymentCalculator.tsx",
+      "wc": 442
+    },
+    {
+      "f": "ModeCalculator.tsx",
+      "wc": 364
+    },
+    {
+      "f": "ModifiedDurationCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "ModuloCalculator.tsx",
+      "wc": 363
+    },
+    {
+      "f": "MolalityCalculator.tsx",
+      "wc": 65
+    },
+    {
+      "f": "MolarityCalculator.tsx",
+      "wc": 117
+    },
+    {
+      "f": "MolarMassCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "MolecularWeightCalculator.tsx",
+      "wc": 369
+    },
+    {
+      "f": "MomentumCalculator.tsx",
+      "wc": 366
+    },
+    {
+      "f": "MoneyMarketCalculator.tsx",
+      "wc": 299
+    },
+    {
+      "f": "MonitorDpiCalculator.tsx",
+      "wc": 125
+    },
+    {
+      "f": "MonthlyCarPaymentCalculator.tsx",
+      "wc": 592
+    },
+    {
+      "f": "MonthlyCarPaymentToAnnualCostCalculator.tsx",
+      "wc": 446
+    },
+    {
+      "f": "MonthsCalculator.tsx",
+      "wc": 65
+    },
+    {
+      "f": "MorseCodeTranslator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "MortgageAffordabilityCalculator.tsx",
+      "wc": 146
+    },
+    {
+      "f": "MortgageCalculator.tsx",
+      "wc": 892
+    },
+    {
+      "f": "MortgagePayoffCalculator.tsx",
+      "wc": 1093
+    },
+    {
+      "f": "MortgagePointsCalculator.tsx",
+      "wc": 417
+    },
+    {
+      "f": "MortgageRecastCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "MouseSensitivityCalculator.tsx",
+      "wc": 108
+    },
+    {
+      "f": "MovingCostEstimator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "MpgCalculator.tsx",
+      "wc": 155
+    },
+    {
+      "f": "MulchCalculator.tsx",
+      "wc": 318
+    },
+    {
+      "f": "MulchCostCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "MultiModalTransportationCostCalculator.tsx",
+      "wc": 563
+    },
+    {
+      "f": "MultipleRegressionCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "NavyBodyFatCalculator.tsx",
+      "wc": 522
+    },
+    {
+      "f": "NetCarbsCalculator.tsx",
+      "wc": 937
+    },
+    {
+      "f": "NetIncomeCalculator.tsx",
+      "wc": 1261
+    },
+    {
+      "f": "NetPayCalculator.tsx",
+      "wc": 471
+    },
+    {
+      "f": "NetProfitMarginCalculator.tsx",
+      "wc": 443
+    },
+    {
+      "f": "NetPromoterScoreCalculator.tsx",
+      "wc": 69
+    },
+    {
+      "f": "NetWorthCalculator.tsx",
+      "wc": 224
+    },
+    {
+      "f": "NetWorthTrackerCalc.tsx",
+      "wc": 392
+    },
+    {
+      "f": "NormalDistributionCalculator.tsx",
+      "wc": 542
+    },
+    {
+      "f": "NormalityCalculator.tsx",
+      "wc": 65
+    },
+    {
+      "f": "NpsCalculator.tsx",
+      "wc": 160
+    },
+    {
+      "f": "NpvCalculator.tsx",
+      "wc": 431
+    },
+    {
+      "f": "NthRootCalculator.tsx",
+      "wc": 963
+    },
+    {
+      "f": "NumberSequenceCalculator.tsx",
+      "wc": 661
+    },
+    {
+      "f": "NumberToWordsConverter.tsx",
+      "wc": 69
+    },
+    {
+      "f": "NutrientTimingCalculator.tsx",
+      "wc": 820
+    },
+    {
+      "f": "OdometerCorrectionCalculator.tsx",
+      "wc": 680
+    },
+    {
+      "f": "OhmsLawCalculator.tsx",
+      "wc": 540
+    },
+    {
+      "f": "OilChangeIntervalCalculator.tsx",
+      "wc": 627
+    },
+    {
+      "f": "OlympicLiftPercentageCalculator.tsx",
+      "wc": 962
+    },
+    {
+      "f": "Omega3Calculator.tsx",
+      "wc": 942
+    },
+    {
+      "f": "Omega3IntakeCalculator.tsx",
+      "wc": 537
+    },
+    {
+      "f": "OneRepMaxCalculator.tsx",
+      "wc": 130
+    },
+    {
+      "f": "OperatingCashFlowCalculator.tsx",
+      "wc": 442
+    },
+    {
+      "f": "OperatingMarginCalculator.tsx",
+      "wc": 112
+    },
+    {
+      "f": "OptionsProfitCalculator.tsx",
+      "wc": 750
+    },
+    {
+      "f": "OrbitalVelocityCalculator.tsx",
+      "wc": 335
+    },
+    {
+      "f": "OsmolarityCalculator.tsx",
+      "wc": 65
+    },
+    {
+      "f": "OvenTemperatureConverter.tsx",
+      "wc": 67
+    },
+    {
+      "f": "OvertimeCalculator.tsx",
+      "wc": 127
+    },
+    {
+      "f": "OvertimeHoursCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "OverweightCalculator.tsx",
+      "wc": 377
+    },
+    {
+      "f": "OverweightPercentageCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "OvulationCalculator.tsx",
+      "wc": 132
+    },
+    {
+      "f": "OxbridgeInterviewCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "PaceCalculator.tsx",
+      "wc": 139
+    },
+    {
+      "f": "PaceConverter.tsx",
+      "wc": 152
+    },
+    {
+      "f": "PacketLossCalculator.tsx",
+      "wc": 104
+    },
+    {
+      "f": "PackingWeightCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "PaintCalculator.tsx",
+      "wc": 559
+    },
+    {
+      "f": "PaperSavingsCalculator.tsx",
+      "wc": 145
+    },
+    {
+      "f": "ParrotCalorieCalculator.tsx",
+      "wc": 1110
+    },
+    {
+      "f": "PasswordEntropyCalculator.tsx",
+      "wc": 173
+    },
+    {
+      "f": "PasswordGenerator.tsx",
+      "wc": 90
+    },
+    {
+      "f": "PayableDaysCalculator.tsx",
+      "wc": 432
+    },
+    {
+      "f": "PaybackPeriodCalculator.tsx",
+      "wc": 472
+    },
+    {
+      "f": "PaybackPeriodCalculatorAdvanced.tsx",
+      "wc": 295
+    },
+    {
+      "f": "PaydayLoanTrueCostCalculator.tsx",
+      "wc": 704
+    },
+    {
+      "f": "PaymentCalculator.tsx",
+      "wc": 1277
+    },
+    {
+      "f": "PayRaisePercentageCalculator.tsx",
+      "wc": 621
+    },
+    {
+      "f": "PayrollTaxCalculator.tsx",
+      "wc": 335
+    },
+    {
+      "f": "PediatricBmiCalculator.tsx",
+      "wc": 909
+    },
+    {
+      "f": "PensionCalculator.tsx",
+      "wc": 411
+    },
+    {
+      "f": "PERatioCalculator.tsx",
+      "wc": 303
+    },
+    {
+      "f": "PercentageBasedVolumeCalculator.tsx",
+      "wc": 863
+    },
+    {
+      "f": "PercentageCalculator.tsx",
+      "wc": 460
+    },
+    {
+      "f": "PercentageToCgpaConverter.tsx",
+      "wc": 82
+    },
+    {
+      "f": "PercentErrorCalculator.tsx",
+      "wc": 48
+    },
+    {
+      "f": "PercentileCalculator.tsx",
+      "wc": 65
+    },
+    {
+      "f": "PercentYieldCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "PerimeterCalculator.tsx",
+      "wc": 571
+    },
+    {
+      "f": "PeriodCalculator.tsx",
+      "wc": 114
+    },
+    {
+      "f": "PermutationCombinationCalculator.tsx",
+      "wc": 556
+    },
+    {
+      "f": "PermutationsCalculator.tsx",
+      "wc": 473
+    },
+    {
+      "f": "PersonalLoanCalculator.tsx",
+      "wc": 242
+    },
+    {
+      "f": "PersonalLoanPayoffCalculator.tsx",
+      "wc": 563
+    },
+    {
+      "f": "PetFoodCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "PhCalculator.tsx",
+      "wc": 65
+    },
+    {
+      "f": "PhotonEnergyCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "PilatesCalorieCalculator.tsx",
+      "wc": 926
+    },
+    {
+      "f": "PingTimeCalculator.tsx",
+      "wc": 118
+    },
+    {
+      "f": "PiotroskiFScoreCalculator.tsx",
+      "wc": 450
+    },
+    {
+      "f": "PitiCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "PitiMortgagePaymentCalculator.tsx",
+      "wc": 703
+    },
+    {
+      "f": "PizzaSizeCalculator.tsx",
+      "wc": 205
+    },
+    {
+      "f": "Plan529Calculator.tsx",
+      "wc": 558
+    },
+    {
+      "f": "PlantSpacingCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "PlasticFootprintCalculator.tsx",
+      "wc": 173
+    },
+    {
+      "f": "PlywoodCalculator.tsx",
+      "wc": 65
+    },
+    {
+      "f": "PmiAmortizationTable.tsx",
+      "wc": 0
+    },
+    {
+      "f": "PmiCalculator.tsx",
+      "wc": 1361
+    },
+    {
+      "f": "PmiLtvChart.tsx",
+      "wc": 0
+    },
+    {
+      "f": "PmiRemovalDateCalculator.tsx",
+      "wc": 1796
+    },
+    {
+      "f": "PodcastHostingCostCalculator.tsx",
+      "wc": 505
+    },
+    {
+      "f": "PointsBreakEvenCalculator.tsx",
+      "wc": 365
+    },
+    {
+      "f": "PoissonDistributionCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "PolygonAreaCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "PolygonCalculator.tsx",
+      "wc": 65
+    },
+    {
+      "f": "PolynomialCalculator.tsx",
+      "wc": 41
+    },
+    {
+      "f": "PomodoroCalculator.tsx",
+      "wc": 140
+    },
+    {
+      "f": "PonderalIndexCalculator.tsx",
+      "wc": 864
+    },
+    {
+      "f": "PoolVolumeCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "PopulationGrowthEcologyCalculator.tsx",
+      "wc": 121
+    },
+    {
+      "f": "PortDwellTimeCostCalculator.tsx",
+      "wc": 582
+    },
+    {
+      "f": "PortfolioRebalancingCalculator.tsx",
+      "wc": 337
+    },
+    {
+      "f": "PortHandlingCostCalculator.tsx",
+      "wc": 659
+    },
+    {
+      "f": "PostpartumWeightLossCalculator.tsx",
+      "wc": 562
+    },
+    {
+      "f": "PotassiumIntakeCalculator.tsx",
+      "wc": 556
+    },
+    {
+      "f": "PotentialEnergyCalculator.tsx",
+      "wc": 418
+    },
+    {
+      "f": "PottingSoilCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "PowerConverter.tsx",
+      "wc": 65
+    },
+    {
+      "f": "PowerFactorCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "PpfCalculator.tsx",
+      "wc": 170
+    },
+    {
+      "f": "PpiCalculator.tsx",
+      "wc": 149
+    },
+    {
+      "f": "PredictableRevenuePercentageCalculator.tsx",
+      "wc": 627
+    },
+    {
+      "f": "PreferredStockValuationCalculator.tsx",
+      "wc": 261
+    },
+    {
+      "f": "PregnancyBmiCalculator.tsx",
+      "wc": 1007
+    },
+    {
+      "f": "PregnancyCalculator.tsx",
+      "wc": 931
+    },
+    {
+      "f": "PregnancyDueDateCalculator.tsx",
+      "wc": 975
+    },
+    {
+      "f": "PregnancyWeightGainCalculator.tsx",
+      "wc": 139
+    },
+    {
+      "f": "PregnancyWeightTargetCalculator.tsx",
+      "wc": 864
+    },
+    {
+      "f": "PrenatalVitaminCalculator.tsx",
+      "wc": 535
+    },
+    {
+      "f": "PrePregnancyBMICalculator.tsx",
+      "wc": 862
+    },
+    {
+      "f": "PresentValueCalculator.tsx",
+      "wc": 465
+    },
+    {
+      "f": "PressureCalculator.tsx",
+      "wc": 65
+    },
+    {
+      "f": "PressureConverter.tsx",
+      "wc": 65
+    },
+    {
+      "f": "PriceToBookCalculator.tsx",
+      "wc": 459
+    },
+    {
+      "f": "PriceToEarningsGrowthPegCalculator.tsx",
+      "wc": 577
+    },
+    {
+      "f": "PriceToSalesCalculator.tsx",
+      "wc": 474
+    },
+    {
+      "f": "PrimeFactorizationCalculator.tsx",
+      "wc": 367
+    },
+    {
+      "f": "ProbabilityCalculator.tsx",
+      "wc": 372
+    },
+    {
+      "f": "ProfessionalTaxCalculator.tsx",
+      "wc": 241
+    },
+    {
+      "f": "ProfitabilityIndexCalculator.tsx",
+      "wc": 436
+    },
+    {
+      "f": "ProfitMarginCalculator.tsx",
+      "wc": 257
+    },
+    {
+      "f": "ProjectileMotionCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "ProjectorScreenSizeCalculator.tsx",
+      "wc": 69
+    },
+    {
+      "f": "PropertyAppreciationCalculator.tsx",
+      "wc": 130
+    },
+    {
+      "f": "PropertyTaxCalculator.tsx",
+      "wc": 228
+    },
+    {
+      "f": "ProteinIntakeCalculator.tsx",
+      "wc": 128
+    },
+    {
+      "f": "ProteinToCalorieRatioCalculator.tsx",
+      "wc": 1056
+    },
+    {
+      "f": "PsuCalculator.tsx",
+      "wc": 182
+    },
+    {
+      "f": "PulseOxCalculator.tsx",
+      "wc": 428
+    },
+    {
+      "f": "PutCallParityCalculator.tsx",
+      "wc": 69
+    },
+    {
+      "f": "PValueCalculator.tsx",
+      "wc": 539
+    },
+    {
+      "f": "PythagoreanTheoremCalculator.tsx",
+      "wc": 53
+    },
+    {
+      "f": "QbRatingCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "QuadraticFormulaCalculator.tsx",
+      "wc": 517
+    },
+    {
+      "f": "QuarterlyTaxCalculator.tsx",
+      "wc": 434
+    },
+    {
+      "f": "QuarterToSemesterCreditCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "QuartileCalculator.tsx",
+      "wc": 295
+    },
+    {
+      "f": "QuickRatioCalculator.tsx",
+      "wc": 644
+    },
+    {
+      "f": "RaceTimePredictor.tsx",
+      "wc": 67
+    },
+    {
+      "f": "RadiationDoseConverter.tsx",
+      "wc": 67
+    },
+    {
+      "f": "RadiationDoseFractionationCalculator.tsx",
+      "wc": 786
+    },
+    {
+      "f": "RadiatorSizeCalculator.tsx",
+      "wc": 683
+    },
+    {
+      "f": "RadioactiveDecayCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "RadioactivityConverter.tsx",
+      "wc": 65
+    },
+    {
+      "f": "RaidCalculator.tsx",
+      "wc": 166
+    },
+    {
+      "f": "RainBarrelCalculator.tsx",
+      "wc": 177
+    },
+    {
+      "f": "RainwaterCollectionCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "RandomNumberGenerator.tsx",
+      "wc": 316
+    },
+    {
+      "f": "RangeAnxietyCalculator.tsx",
+      "wc": 579
+    },
+    {
+      "f": "RangeCalculator.tsx",
+      "wc": 362
+    },
+    {
+      "f": "RatioCalculator.tsx",
+      "wc": 40
+    },
+    {
+      "f": "RcTimeConstantCalculator.tsx",
+      "wc": 69
+    },
+    {
+      "f": "ReactionTimeCalculator.tsx",
+      "wc": 670
+    },
+    {
+      "f": "ReadingSpeedCalculator.tsx",
+      "wc": 132
+    },
+    {
+      "f": "ReadingTimeCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "RealEstateCalculatorFull.tsx",
+      "wc": 541
+    },
+    {
+      "f": "ReceivableDaysCalculator.tsx",
+      "wc": 399
+    },
+    {
+      "f": "RecipeScaleCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "RefinanceBreakEvenCalculator.tsx",
+      "wc": 201
+    },
+    {
+      "f": "RefinanceCalculator.tsx",
+      "wc": 550
+    },
+    {
+      "f": "RefrigeratorEnergyCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "RegexTestCalculator.tsx",
+      "wc": 129
+    },
+    {
+      "f": "RehabLoan203kEstimatorCalculator.tsx",
+      "wc": 621
+    },
+    {
+      "f": "RentAffordabilityCalculator.tsx",
+      "wc": 153
+    },
+    {
+      "f": "RentalPropertyDepreciationCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "RentalYieldCalculator.tsx",
+      "wc": 234
+    },
+    {
+      "f": "RentVsBuyCalculator.tsx",
+      "wc": 168
+    },
+    {
+      "f": "RepaymentCalculator.tsx",
+      "wc": 1351
+    },
+    {
+      "f": "RepetitionMaxPercentageCalculator.tsx",
+      "wc": 894
+    },
+    {
+      "f": "ReplenishmentLeadTimeCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "RequiredMinimumDistributionCalculator.tsx",
+      "wc": 294
+    },
+    {
+      "f": "ResistorCalculator.tsx",
+      "wc": 347
+    },
+    {
+      "f": "ResistorsInParallelCalculator.tsx",
+      "wc": 69
+    },
+    {
+      "f": "ResistorsInSeriesCalculator.tsx",
+      "wc": 69
+    },
+    {
+      "f": "ResourceLoadingPercentageCalculator.tsx",
+      "wc": 619
+    },
+    {
+      "f": "RestaurantMealCalorieEstimator.tsx",
+      "wc": 1052
+    },
+    {
+      "f": "RetentionRatioCalculator.tsx",
+      "wc": 436
+    },
+    {
+      "f": "RetirementCalculator.tsx",
+      "wc": 237
+    },
+    {
+      "f": "RetirementSavingsCalculator.tsx",
+      "wc": 581
+    },
+    {
+      "f": "ReturnOnAssetsCalculator.tsx",
+      "wc": 264
+    },
+    {
+      "f": "ReturnOnCapitalEmployedCalculator.tsx",
+      "wc": 309
+    },
+    {
+      "f": "ReturnOnEquityCalculator.tsx",
+      "wc": 460
+    },
+    {
+      "f": "ReturnOnInvestedCapitalCalculator.tsx",
+      "wc": 447
+    },
+    {
+      "f": "ReturnsProcessingCostCalculator.tsx",
+      "wc": 656
+    },
+    {
+      "f": "ReverseLogisticsCostCalculator.tsx",
+      "wc": 576
+    },
+    {
+      "f": "ReverseMortgageBreakEvenCalculator.tsx",
+      "wc": 566
+    },
+    {
+      "f": "ReverseMortgageCalculator.tsx",
+      "wc": 334
+    },
+    {
+      "f": "ReverseMortgageEstimationCalculator.tsx",
+      "wc": 434
+    },
+    {
+      "f": "RgbToHexConverter.tsx",
+      "wc": 167
+    },
+    {
+      "f": "RiemannSumCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "RightAngleCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "RingSizeCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "RingSizeConverterAdvanced.tsx",
+      "wc": 69
+    },
+    {
+      "f": "RlTimeConstantCalculator.tsx",
+      "wc": 69
+    },
+    {
+      "f": "RmdCalculator.tsx",
+      "wc": 240
+    },
+    {
+      "f": "RoadTaxCalculator.tsx",
+      "wc": 644
+    },
+    {
+      "f": "RoadTripCostCalculator.tsx",
+      "wc": 69
+    },
+    {
+      "f": "RoasCalculator.tsx",
+      "wc": 88
+    },
+    {
+      "f": "RockClimbingCalorieCalculator.tsx",
+      "wc": 950
+    },
+    {
+      "f": "RoiCalculator.tsx",
+      "wc": 276
+    },
+    {
+      "f": "RomanNumeralConverter.tsx",
+      "wc": 67
+    },
+    {
+      "f": "RoofingCalculator.tsx",
+      "wc": 402
+    },
+    {
+      "f": "RoofShingleCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "RoomVolumeCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "RootCalculator.tsx",
+      "wc": 389
+    },
+    {
+      "f": "RootMeanSquareCalculator.tsx",
+      "wc": 69
+    },
+    {
+      "f": "RothIraCalculator.tsx",
+      "wc": 173
+    },
+    {
+      "f": "RoundingCalculator.tsx",
+      "wc": 334
+    },
+    {
+      "f": "RowingCalorieCalculator.tsx",
+      "wc": 953
+    },
+    {
+      "f": "RpeToPercentageCalculator.tsx",
+      "wc": 942
+    },
+    {
+      "f": "RuleOf70Calculator.tsx",
+      "wc": 164
+    },
+    {
+      "f": "RuleOf72Calculator.tsx",
+      "wc": 502
+    },
+    {
+      "f": "RuleOf78Calculator.tsx",
+      "wc": 995
+    },
+    {
+      "f": "RunningCadenceCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "RunningCalorieCalculator.tsx",
+      "wc": 150
+    },
+    {
+      "f": "RunningPaceCalculator.tsx",
+      "wc": 579
+    },
+    {
+      "f": "RunningStrideLengthCalculator.tsx",
+      "wc": 69
+    },
+    {
+      "f": "RvLoanCalculator.tsx",
+      "wc": 1300
+    },
+    {
+      "f": "RvLoanPaymentCalculator.tsx",
+      "wc": 666
+    },
+    {
+      "f": "SafeFollowingDistanceCalculator.tsx",
+      "wc": 723
+    },
+    {
+      "f": "SafeWithdrawalRateCalculator.tsx",
+      "wc": 134
+    },
+    {
+      "f": "SalaryBandRangeCalculator.tsx",
+      "wc": 603
+    },
+    {
+      "f": "SalaryBenchmarkPercentileCalculator.tsx",
+      "wc": 628
+    },
+    {
+      "f": "SalaryCalculator.tsx",
+      "wc": 278
+    },
+    {
+      "f": "SalaryGradeSpreadCalculator.tsx",
+      "wc": 622
+    },
+    {
+      "f": "SalesPriceCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "SalesTaxCalculator.tsx",
+      "wc": 295
+    },
+    {
+      "f": "SampleSizeCalculator.tsx",
+      "wc": 391
+    },
+    {
+      "f": "SATScoreCalculator.tsx",
+      "wc": 157
+    },
+    {
+      "f": "SavingsCalculator.tsx",
+      "wc": 509
+    },
+    {
+      "f": "SavingsGoalCalculator.tsx",
+      "wc": 223
+    },
+    {
+      "f": "Sba7aLoanPaymentCalculator.tsx",
+      "wc": 647
+    },
+    {
+      "f": "ScientificCalculator.tsx",
+      "wc": 380
+    },
+    {
+      "f": "ScientificNotationCalculator.tsx",
+      "wc": 353
+    },
+    {
+      "f": "ScientificNotationConverter.tsx",
+      "wc": 67
+    },
+    {
+      "f": "ScreenSizeCalculator.tsx",
+      "wc": 92
+    },
+    {
+      "f": "SeasonalPaymentLoanCalculator.tsx",
+      "wc": 650
+    },
+    {
+      "f": "SeaVsAirFreightCostComparisonCalculator.tsx",
+      "wc": 615
+    },
+    {
+      "f": "SectorAreaCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "SedentaryTimeCostCalculator.tsx",
+      "wc": 820
+    },
+    {
+      "f": "SelfEmploymentTaxCalculator.tsx",
+      "wc": 376
+    },
+    {
+      "f": "SeniorBmiCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "ServerRackUnitsCalculator.tsx",
+      "wc": 69
+    },
+    {
+      "f": "SetOperationsCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "SharpeRatioCalculator.tsx",
+      "wc": 404
+    },
+    {
+      "f": "ShippingInsuranceCostCalculator.tsx",
+      "wc": 611
+    },
+    {
+      "f": "ShippingWeightCostCalculator.tsx",
+      "wc": 568
+    },
+    {
+      "f": "ShoeSizeConverter.tsx",
+      "wc": 67
+    },
+    {
+      "f": "ShoppingBudgetCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "SignificantFiguresCalculator.tsx",
+      "wc": 408
+    },
+    {
+      "f": "SimpleInterestCalculator.tsx",
+      "wc": 459
+    },
+    {
+      "f": "SimpleInterestLoanCalculator.tsx",
+      "wc": 621
+    },
+    {
+      "f": "SimplePendulumCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "SinclairCoefficientCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "SipCalculator.tsx",
+      "wc": 226
+    },
+    {
+      "f": "SkewnessCalculator.tsx",
+      "wc": 285
+    },
+    {
+      "f": "SkuStorageCostCalculator.tsx",
+      "wc": 543
+    },
+    {
+      "f": "SleepCalculator.tsx",
+      "wc": 142
+    },
+    {
+      "f": "SleepDebtCalculator.tsx",
+      "wc": 513
+    },
+    {
+      "f": "SleepInvestmentRoiCalculator.tsx",
+      "wc": 794
+    },
+    {
+      "f": "SlopeCalculator.tsx",
+      "wc": 53
+    },
+    {
+      "f": "SnellsLawCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "SnowShovelingCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "SocialSecurityBenefitsCalculator.tsx",
+      "wc": 553
+    },
+    {
+      "f": "SocialSecurityCalculator.tsx",
+      "wc": 578
+    },
+    {
+      "f": "SodiumIntakeCalculator.tsx",
+      "wc": 540
+    },
+    {
+      "f": "SolarEnergySavingsCalculator.tsx",
+      "wc": 163
+    },
+    {
+      "f": "SolarPanelCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "SpeakerPlacementCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "SpearmanRankCorrelationCalculator.tsx",
+      "wc": 69
+    },
+    {
+      "f": "SpecificHeatCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "SpeedConverter.tsx",
+      "wc": 478
+    },
+    {
+      "f": "SpeedDistanceTimeCalculator.tsx",
+      "wc": 546
+    },
+    {
+      "f": "SpeedometerErrorCalculator.tsx",
+      "wc": 434
+    },
+    {
+      "f": "SphereCalculator.tsx",
+      "wc": 65
+    },
+    {
+      "f": "SportsDrinkCarbConcentrationCalculator.tsx",
+      "wc": 914
+    },
+    {
+      "f": "SportSpecificCalorieCalculator.tsx",
+      "wc": 881
+    },
+    {
+      "f": "SpringConstantCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "SquareFootageCalculator.tsx",
+      "wc": 355
+    },
+    {
+      "f": "SsdTbwCalculator.tsx",
+      "wc": 135
+    },
+    {
+      "f": "SslCostCalculator.tsx",
+      "wc": 397
+    },
+    {
+      "f": "StairCalculator.tsx",
+      "wc": 402
+    },
+    {
+      "f": "StairClimbingCalorieCalculator.tsx",
+      "wc": 829
+    },
+    {
+      "f": "StakingRewardsCalculator.tsx",
+      "wc": 200
+    },
+    {
+      "f": "StampDutyCalculator.tsx",
+      "wc": 258
+    },
+    {
+      "f": "StandardDeviationCalculator.tsx",
+      "wc": 489
+    },
+    {
+      "f": "StarterMotorCalculator.tsx",
+      "wc": 475
+    },
+    {
+      "f": "StatisticsCalculator.tsx",
+      "wc": 34
+    },
+    {
+      "f": "SteelWeightCalculator.tsx",
+      "wc": 357
+    },
+    {
+      "f": "StepCountToCalorieBurnCalculator.tsx",
+      "wc": 856
+    },
+    {
+      "f": "StepperMotorCalculator.tsx",
+      "wc": 155
+    },
+    {
+      "f": "StepsToCaloriesCalculator.tsx",
+      "wc": 903
+    },
+    {
+      "f": "SteroidEquivalenceCalculator.tsx",
+      "wc": 752
+    },
+    {
+      "f": "StockCalculator.tsx",
+      "wc": 129
+    },
+    {
+      "f": "StoichiometryCalculator.tsx",
+      "wc": 65
+    },
+    {
+      "f": "StoppingDistanceCalculator.tsx",
+      "wc": 690
+    },
+    {
+      "f": "StorageConverter.tsx",
+      "wc": 328
+    },
+    {
+      "f": "StudentBudgetCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "StudentLoanCalculator.tsx",
+      "wc": 531
+    },
+    {
+      "f": "StudentLoanPayoffCalculator.tsx",
+      "wc": 153
+    },
+    {
+      "f": "StudyTimeCalculator.tsx",
+      "wc": 177
+    },
+    {
+      "f": "SubnetCalculator.tsx",
+      "wc": 163
+    },
+    {
+      "f": "SubprimeLoanCostCalculator.tsx",
+      "wc": 1080
+    },
+    {
+      "f": "SubscriptionCostCalculator.tsx",
+      "wc": 110
+    },
+    {
+      "f": "SukanyaSamriddhiCalculator.tsx",
+      "wc": 303
+    },
+    {
+      "f": "SurfaceAreaCalculator.tsx",
+      "wc": 40
+    },
+    {
+      "f": "SustainableGrowthRateCalculator.tsx",
+      "wc": 428
+    },
+    {
+      "f": "SwimmingCalorieCalculator.tsx",
+      "wc": 550
+    },
+    {
+      "f": "SwimmingPaceCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "SwimmingSplitCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "SwimmingTimeConversion.tsx",
+      "wc": 67
+    },
+    {
+      "f": "SwolfCalculator.tsx",
+      "wc": 65
+    },
+    {
+      "f": "SwpCalculator.tsx",
+      "wc": 141
+    },
+    {
+      "f": "SymmetricStrengthCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "SyntaxScoreComplexityCalculator.tsx",
+      "wc": 998
+    },
+    {
+      "f": "SystemOfEquationsCalculator.tsx",
+      "wc": 69
+    },
+    {
+      "f": "TabataCalorieCalculator.tsx",
+      "wc": 917
+    },
+    {
+      "f": "TakeHomeSalaryCalculator.tsx",
+      "wc": 121
+    },
+    {
+      "f": "TargetHeartRateCalculator.tsx",
+      "wc": 161
+    },
+    {
+      "f": "TaxBracketCalculator.tsx",
+      "wc": 379
+    },
+    {
+      "f": "TaxEquivalentYieldCalculator.tsx",
+      "wc": 550
+    },
+    {
+      "f": "TaxRefundCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "TaxReturnCalculator.tsx",
+      "wc": 530
+    },
+    {
+      "f": "TaylorSeriesCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "TdeeCalculator.tsx",
+      "wc": 219
+    },
+    {
+      "f": "TdsCalculator.tsx",
+      "wc": 163
+    },
+    {
+      "f": "TeaSteepingCalculator.tsx",
+      "wc": 135
+    },
+    {
+      "f": "TemperatureConverter.tsx",
+      "wc": 479
+    },
+    {
+      "f": "TennisFirstServeCalculator.tsx",
+      "wc": 784
+    },
+    {
+      "f": "TennisServeSpeedCalculator.tsx",
+      "wc": 69
+    },
+    {
+      "f": "TenYearAveragingDistributionCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "TenYearOwnershipCostCalculator.tsx",
+      "wc": 436
+    },
+    {
+      "f": "TermLifeVsWholeLifeCalculator.tsx",
+      "wc": 630
+    },
+    {
+      "f": "TestGradeCalculator.tsx",
+      "wc": 174
+    },
+    {
+      "f": "TextBinaryConverter.tsx",
+      "wc": 67
+    },
+    {
+      "f": "ThermalExpansionCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "ThreeDPrintCharts.tsx",
+      "wc": 0
+    },
+    {
+      "f": "ThreeDPrintTimeCalculator.tsx",
+      "wc": 1207
+    },
+    {
+      "f": "ThyroidRiskScoreCalculator.tsx",
+      "wc": 968
+    },
+    {
+      "f": "TidalPredictionCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "TiktokEarningsCalculator.tsx",
+      "wc": 478
+    },
+    {
+      "f": "TileCalculator.tsx",
+      "wc": 448
+    },
+    {
+      "f": "TimeAndMaterialsBudgetCalculator.tsx",
+      "wc": 637
+    },
+    {
+      "f": "TimeCalculator.tsx",
+      "wc": 330
+    },
+    {
+      "f": "TimeConverter.tsx",
+      "wc": 65
+    },
+    {
+      "f": "TimeDifferenceCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "TimeDurationCalculator.tsx",
+      "wc": 71
+    },
+    {
+      "f": "TimesInterestEarnedCalculator.tsx",
+      "wc": 337
+    },
+    {
+      "f": "TimeZoneConverter.tsx",
+      "wc": 223
+    },
+    {
+      "f": "TipAndSplitCalculator.tsx",
+      "wc": 151
+    },
+    {
+      "f": "TipCalculator.tsx",
+      "wc": 528
+    },
+    {
+      "f": "TireDiameterCalculator.tsx",
+      "wc": 669
+    },
+    {
+      "f": "TireLoadIndexCalculator.tsx",
+      "wc": 697
+    },
+    {
+      "f": "TirePressureCalculator.tsx",
+      "wc": 704
+    },
+    {
+      "f": "TireSizeCalculator.tsx",
+      "wc": 437
+    },
+    {
+      "f": "TitrationCalculator.tsx",
+      "wc": 65
+    },
+    {
+      "f": "TorqueConverter.tsx",
+      "wc": 65
+    },
+    {
+      "f": "TotalCarCostPerMileCalculator.tsx",
+      "wc": 667
+    },
+    {
+      "f": "TotalCostOfOwnershipCalculator.tsx",
+      "wc": 660
+    },
+    {
+      "f": "TotalDebtRatioCalculator.tsx",
+      "wc": 1456
+    },
+    {
+      "f": "TotalLoanCostCalculator.tsx",
+      "wc": 872
+    },
+    {
+      "f": "TowingCapacityCalculator.tsx",
+      "wc": 721
+    },
+    {
+      "f": "TradeCreditDaysCalculator.tsx",
+      "wc": 611
+    },
+    {
+      "f": "TradeCreditTermsCalculator.tsx",
+      "wc": 649
+    },
+    {
+      "f": "TradeFinanceCostCalculator.tsx",
+      "wc": 674
+    },
+    {
+      "f": "TradeInValueCalculator.tsx",
+      "wc": 648
+    },
+    {
+      "f": "TraditionalIraCalculator.tsx",
+      "wc": 137
+    },
+    {
+      "f": "TrailerTongueWeightCalculator.tsx",
+      "wc": 409
+    },
+    {
+      "f": "TransformerCalculator.tsx",
+      "wc": 65
+    },
+    {
+      "f": "TransitTimeCostCalculator.tsx",
+      "wc": 590
+    },
+    {
+      "f": "TransmissionRatioCalculator.tsx",
+      "wc": 412
+    },
+    {
+      "f": "TravelBudgetCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "TravelInsuranceCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "TreadmillPaceCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "TreasuryBillCalculator.tsx",
+      "wc": 340
+    },
+    {
+      "f": "TreePlantingOffsetCalculator.tsx",
+      "wc": 161
+    },
+    {
+      "f": "TriangleCalculator.tsx",
+      "wc": 34
+    },
+    {
+      "f": "TriathlonTimeCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "TruthTableCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "TssCalculator.tsx",
+      "wc": 65
+    },
+    {
+      "f": "TTestCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "TuitionRoiCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "TurboBoostCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "TurkeyRoastingCalculator.tsx",
+      "wc": 236
+    },
+    {
+      "f": "TvViewingDistanceCalculator.tsx",
+      "wc": 69
+    },
+    {
+      "f": "TwinPregnancyWeightGainCalculator.tsx",
+      "wc": 960
+    },
+    {
+      "f": "TwitchEarningsCalculator.tsx",
+      "wc": 103
+    },
+    {
+      "f": "TwoComplementCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "TypingSpeedCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "UcGpaCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "UKMortgageCalculator.tsx",
+      "wc": 1119
+    },
+    {
+      "f": "UltraProcessedFoodPercentageCalculator.tsx",
+      "wc": 1036
+    },
+    {
+      "f": "UnitLoadCostCalculator.tsx",
+      "wc": 566
+    },
+    {
+      "f": "UploadTimeCalculator.tsx",
+      "wc": 91
+    },
+    {
+      "f": "UpsBatteryRuntimeCalculator.tsx",
+      "wc": 102
+    },
+    {
+      "f": "UptimeCalculator.tsx",
+      "wc": 180
+    },
+    {
+      "f": "UrlDecoder.tsx",
+      "wc": 65
+    },
+    {
+      "f": "UrlEncoder.tsx",
+      "wc": 65
+    },
+    {
+      "f": "UsdaLoanCalculator.tsx",
+      "wc": 1286
+    },
+    {
+      "f": "UsedCarValueCalculator.tsx",
+      "wc": 558
+    },
+    {
+      "f": "UsedCarVsNewCarTotalCostComparisonCalculator.tsx",
+      "wc": 531
+    },
+    {
+      "f": "UvIndexCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "VacationBudgetCalculator.tsx",
+      "wc": 459
+    },
+    {
+      "f": "VaccinationScheduleCalculator.tsx",
+      "wc": 421
+    },
+    {
+      "f": "VaLoanCalculator.tsx",
+      "wc": 1285
+    },
+    {
+      "f": "VaporPressureCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "VariablePayPercentageCalculator.tsx",
+      "wc": 656
+    },
+    {
+      "f": "VarianceCalculator.tsx",
+      "wc": 586
+    },
+    {
+      "f": "VatCalculator.tsx",
+      "wc": 528
+    },
+    {
+      "f": "VdotCalculator.tsx",
+      "wc": 212
+    },
+    {
+      "f": "VectorCrossProductCalculator.tsx",
+      "wc": 69
+    },
+    {
+      "f": "VectorOperationsCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "VehicleEmissionsCalculator.tsx",
+      "wc": 137
+    },
+    {
+      "f": "VehicleWeightCalculator.tsx",
+      "wc": 669
+    },
+    {
+      "f": "VelocityCalculator.tsx",
+      "wc": 350
+    },
+    {
+      "f": "VendorScorecardRatingCalculator.tsx",
+      "wc": 650
+    },
+    {
+      "f": "VicariousTraumaRiskCalculator.tsx",
+      "wc": 847
+    },
+    {
+      "f": "VideoFileSizeCalculator.tsx",
+      "wc": 164
+    },
+    {
+      "f": "VisaFeeCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "ViscerialFatCalculator.tsx",
+      "wc": 465
+    },
+    {
+      "f": "ViscosityDynamicConverter.tsx",
+      "wc": 67
+    },
+    {
+      "f": "ViscosityKinematicConverter.tsx",
+      "wc": 67
+    },
+    {
+      "f": "VitaminDCalculator.tsx",
+      "wc": 938
+    },
+    {
+      "f": "Vo2MaxCalculator.tsx",
+      "wc": 138
+    },
+    {
+      "f": "VoltageDividerCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "VoltageDropCalculator.tsx",
+      "wc": 316
+    },
+    {
+      "f": "VolumeCalculator.tsx",
+      "wc": 26
+    },
+    {
+      "f": "VolumeConverter.tsx",
+      "wc": 65
+    },
+    {
+      "f": "VpsPricingCalculator.tsx",
+      "wc": 160
+    },
+    {
+      "f": "W4WithholdingCalculator.tsx",
+      "wc": 437
+    },
+    {
+      "f": "WaccCalculator.tsx",
+      "wc": 469
+    },
+    {
+      "f": "WaistToHeightRatioCalculator.tsx",
+      "wc": 886
+    },
+    {
+      "f": "WaistToHipRatioCalculator.tsx",
+      "wc": 117
+    },
+    {
+      "f": "WalkingCalorieCalculator.tsx",
+      "wc": 133
+    },
+    {
+      "f": "WalkVsRunCalorieComparisonCalculator.tsx",
+      "wc": 1018
+    },
+    {
+      "f": "WallAreaCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "WallpaperCalculator.tsx",
+      "wc": 65
+    },
+    {
+      "f": "WasteDiversionCalculator.tsx",
+      "wc": 139
+    },
+    {
+      "f": "WaterAerobicsCalorieCalculator.tsx",
+      "wc": 854
+    },
+    {
+      "f": "WaterBillCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "WaterBoilingTimeCalculator.tsx",
+      "wc": 231
+    },
+    {
+      "f": "WaterFootprintCalculator.tsx",
+      "wc": 175
+    },
+    {
+      "f": "WaterIntakeCalculator.tsx",
+      "wc": 124
+    },
+    {
+      "f": "WavelengthCalculator.tsx",
+      "wc": 65
+    },
+    {
+      "f": "WebsiteHostingCostCalculator.tsx",
+      "wc": 90
+    },
+    {
+      "f": "WeddingBudgetCalculator.tsx",
+      "wc": 675
+    },
+    {
+      "f": "WeeksCalculator.tsx",
+      "wc": 65
+    },
+    {
+      "f": "WeightChangePercentageCalculator.tsx",
+      "wc": 717
+    },
+    {
+      "f": "WeightConverter.tsx",
+      "wc": 1028
+    },
+    {
+      "f": "WeightedAverageCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "WeightedAverageYieldCalculator.tsx",
+      "wc": 242
+    },
+    {
+      "f": "WeightedGradeCalculator.tsx",
+      "wc": 145
+    },
+    {
+      "f": "WeightliftingPercentageCalculator.tsx",
+      "wc": 994
+    },
+    {
+      "f": "WeightliftingSessionCalorieCalculator.tsx",
+      "wc": 937
+    },
+    {
+      "f": "WeightLossPercentageCalculator.tsx",
+      "wc": 764
+    },
+    {
+      "f": "WeightWatchersPointsCalculator.tsx",
+      "wc": 1128
+    },
+    {
+      "f": "WellsScoreForDvtCalculator.tsx",
+      "wc": 71
+    },
+    {
+      "f": "WheelHorsepowerCalculator.tsx",
+      "wc": 668
+    },
+    {
+      "f": "WheelOffsetCalculator.tsx",
+      "wc": 464
+    },
+    {
+      "f": "WilcoxonSignedRankTestCalculator.tsx",
+      "wc": 71
+    },
+    {
+      "f": "WilksScoreCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "WindChillCalculator.tsx",
+      "wc": 344
+    },
+    {
+      "f": "WindowCurtainCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "WindSpeedPowerCalculator.tsx",
+      "wc": 69
+    },
+    {
+      "f": "WindTurbineEnergyCalculator.tsx",
+      "wc": 143
+    },
+    {
+      "f": "WorkHoursCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "WorkingCapitalCalculator.tsx",
+      "wc": 190
+    },
+    {
+      "f": "WorkingCapitalTurnoverCalculator.tsx",
+      "wc": 352
+    },
+    {
+      "f": "WorkoutCalorieCalculator.tsx",
+      "wc": 573
+    },
+    {
+      "f": "WorkPowerCalculator.tsx",
+      "wc": 67
+    },
+    {
+      "f": "YarnWeightConverter.tsx",
+      "wc": 67
+    },
+    {
+      "f": "YieldToCallCalculator.tsx",
+      "wc": 564
+    },
+    {
+      "f": "YieldToMaturityCalculator.tsx",
+      "wc": 571
+    },
+    {
+      "f": "YogaCalorieCalculator.tsx",
+      "wc": 980
+    },
+    {
+      "f": "YoutubeRevenueCalculator.tsx",
+      "wc": 1357
+    },
+    {
+      "f": "ZeroAprPromotionPayoffCalculator.tsx",
+      "wc": 0
+    },
+    {
+      "f": "ZeroCouponBondCalculator.tsx",
+      "wc": 574
+    },
+    {
+      "f": "ZScoreCalculator.tsx",
+      "wc": 494
+    }
+  ]
+}

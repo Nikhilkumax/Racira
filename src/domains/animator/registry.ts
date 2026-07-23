@@ -24,6 +24,7 @@ const def = (name: string, description: string): Omit<Tool, "category"> => {
 
 const buildCat = (name: string, items: Omit<Tool, "category">[]): Category => ({
   name,
+  title: name,
   tools: items.map(t => ({ ...t, category: name } as Tool))
 });
 

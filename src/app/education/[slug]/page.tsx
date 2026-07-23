@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const category = categories.find(c => toSlug(c.name) === slug);
   if (category) return { title: `${category.name} — Racira Education`, description: `Free browser-based ${category.name} tools.`, alternates: { canonical: `/education/${slug}` } };
   const result = findTool(slug);
-  if (result) return { title: `${result.tool.name} — Racira Education`, description: result.tool.description, alternates: { canonical: `/education/${slug}` } };
+  if (result) return { title: `${result.tool.name} — Racira Education`, description: result.tool.desc, alternates: { canonical: `/education/${slug}` } };
   return { title: "Not Found — Racira" };
 }
 

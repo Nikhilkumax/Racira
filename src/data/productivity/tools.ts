@@ -1,9 +1,11 @@
 import { ALargeSmall, Activity, AlarmClockCheck, AlarmClockMinus, AlarmClockOff, BadgeCheck, BookCheck, BookOpen, BookOpenCheck, BookOpenText, BookmarkCheck, Calendar, CalendarFold, CalendarHeart, CalendarMinus, CalendarMinus2, CalendarOff, Check, CheckCheck, CheckCircle, CheckSquare, CheckSquare2, ClipboardPen, ClipboardPenLine, Codepen, DatabaseZap, DoorOpen, File, FilePen, FilePenLine, Focus, GraduationCap, Hourglass, Layout, LayoutDashboard, LayoutGrid, LayoutList, LayoutPanelLeft, LayoutPanelTop, LayoutTemplate, Lightbulb, ListOrdered, Map, PlugZap, PlugZap2, Repeat, Repeat1, Repeat2, Route, RouteOff, Router, Send, Settings2, UserSearch, Zap, ZapOff } from "lucide-react";
+import { ToolResult } from "@/components/CategorySearch";
 import { Tool, Category } from "@/domains/_types";
 
 export const CATEGORIES: Category[] = [
   {
     name: "Focus & Time Management",
+    title: "Focus & Time Management",
     description: "Plan deep work, time blocks, and energy.",
     tools: [
       { slug: "deep-work-session-planner", name: "Deep Work Session Planner", description: "Manage time and focus.", icon: DatabaseZap, status: "live" },
@@ -30,6 +32,7 @@ export const CATEGORIES: Category[] = [
   },
   {
     name: "Task & Project Productivity",
+    title: "Task & Project Productivity",
     description: "Break work down, plan, and ship.",
     tools: [
       { slug: "task-breakdown-generator", name: "Task Breakdown Generator", description: "Organize and track tasks.", icon: BadgeCheck, status: "soon" },
@@ -50,6 +53,7 @@ export const CATEGORIES: Category[] = [
   },
   {
     name: "Writing & Knowledge Work",
+    title: "Writing & Knowledge Work",
     description: "Structure writing, research, and notes.",
     tools: [
       { slug: "blog-post-length-planner", name: "Blog Post Length Planner", description: "Structure your knowledge.", icon: LayoutPanelTop, status: "soon" },
@@ -67,6 +71,7 @@ export const CATEGORIES: Category[] = [
   },
   {
     name: "Goal Setting & Habits",
+    title: "Goal Setting & Habits",
     description: "Design goals, habits, and growth.",
     tools: [
       { slug: "annual-goal-decomposer", name: "Annual Goal Decomposer", description: "Build habits and goals.", icon: CalendarMinus, status: "soon" },
@@ -79,6 +84,7 @@ export const CATEGORIES: Category[] = [
   },
   {
     name: "Learning & Skill Development",
+    title: "Learning & Skill Development",
     description: "Practice, learn, track progress.",
     tools: [
       { slug: "deliberate-practice-session-planner", name: "Deliberate Practice Session Planner", description: "Accelerate your learning.", icon: Zap, status: "soon" },
@@ -88,6 +94,7 @@ export const CATEGORIES: Category[] = [
   },
   {
     name: "Team Productivity",
+    title: "Team Productivity",
     description: "Coordinate people and meetings.",
     tools: [
       { slug: "meeting-action-tracker", name: "Meeting Action Tracker", description: "Collaborate with your team.", icon: CheckCheck, status: "soon" },
@@ -97,6 +104,7 @@ export const CATEGORIES: Category[] = [
   },
   {
     name: "Personal Organization",
+    title: "Personal Organization",
     description: "Plan your week, month, and life.",
     tools: [
       { slug: "weekly-planner-builder", name: "Weekly Planner Builder", description: "Organize your personal life.", icon: CalendarMinus2, status: "soon" },
@@ -110,6 +118,7 @@ export const CATEGORIES: Category[] = [
   },
   {
     name: "Creator Productivity",
+    title: "Creator Productivity",
     description: "Plan content, videos, and publishing.",
     tools: [
       { slug: "youtube-production-planner", name: "YouTube Production Planner", description: "Plan your content workflow.", icon: ClipboardPen, status: "soon" },

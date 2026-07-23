@@ -1206,6 +1206,8 @@ export const engineeringCalculators: CalculatorDef[] = [
     slug: 'hydraulic-retention-time-calculator',
     name: 'Hydraulic Retention Time Calculator',
     description: 'Calculate the hydraulic retention time for water treatment reactors and tanks.',
+    category: 'ENGINEERING',
+    subcategory: 'Piping & Flow',
     tier: 'standard',
     status: 'live',
     isBuilt: true,

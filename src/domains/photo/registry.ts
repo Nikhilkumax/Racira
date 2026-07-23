@@ -13,7 +13,8 @@ export type Tool = {
   slug: string;
   name: string;
   description: string;
-  built?: boolean;
+  icon: any;
+  status: "live" | "soon";
 };
 
 const cat = (name: string, description: string, items: Array<[string, string, any, boolean?]>): ToolCategory => ({

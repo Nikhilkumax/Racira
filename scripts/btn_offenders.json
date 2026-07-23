@@ -1,0 +1,11 @@
+{
+  "handleModeChange(\"find_hp\")} className=`}>Calculate": [
+    "EngineHorsepowerCalculator.tsx"
+  ],
+  "handleModeChange(\"find_torque\")} className=`}>Calculate": [
+    "EngineHorsepowerCalculator.tsx"
+  ],
+  "Estimate Funds": [
+    "ReverseMortgageEstimationCalculator.tsx"
+  ]
+}
