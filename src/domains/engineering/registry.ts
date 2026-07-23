@@ -40,7 +40,6 @@ const t = (
 ): Tool => ({
   slug: toSlug(name),
   name,
-  name,
   description,
   category,
   icon,
@@ -225,6 +224,6 @@ export const SEARCH_REGISTRY: ToolResult[] = tools.map((tool) => {
     slug: tool.slug,
     href: `/engineering/tool/${tool.slug}`,
     category: categoryName,
-    isBuilt: tool.built ?? false,
+    isBuilt: tool.status === "live",
   };
 });

@@ -9,10 +9,10 @@ const domains = [
   "video", "voice", "writing"
 ];
 
-function checkStatus(url) {
+function checkStatus(url: string): Promise<number | string> {
   return new Promise((resolve) => {
     http.get(url, (res) => {
-      resolve(res.statusCode);
+      resolve(res.statusCode ?? "ERR");
       res.resume();
     }).on("error", (e) => {
       resolve("ERR");
@@ -34,7 +34,7 @@ async function run() {
     }
     
     // Find category
-    let cats = [];
+    let cats: string[] = [];
     if (source.getCategorySlugs) {
       cats = await source.getCategorySlugs();
     } else if (source.key === "calculator") {
@@ -42,7 +42,7 @@ async function run() {
     }
     
     let catSlug = cats[0] || "test-cat";
-    let subSlug = null;
+    let subSlug: string | null = null;
     let toolSlug = "test-tool";
     
     if (domain === "games") {
@@ -56,12 +56,12 @@ async function run() {
     }
     
     // Find tool
-    let entries = [];
+    let entries: any[] = [];
     if (source.getEntriesForCategory) {
       entries = await source.getEntriesForCategory(catSlug);
     }
     if (entries && entries.length > 0) {
-      toolSlug = entries[0].loc.split("/").pop();
+      toolSlug = entries[0].loc.split("/").pop() || toolSlug;
     }
     
     const urls = [
@@ -72,7 +72,7 @@ async function run() {
       `http://localhost:3002/${domain}/tools/${toolSlug}` // legacy
     ];
     
-    let results = [];
+    let results: (number | string)[] = [];
     for (const url of urls) {
       if (url === null) {
         results.push("n/a");

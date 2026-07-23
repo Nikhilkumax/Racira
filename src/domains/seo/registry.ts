@@ -11,7 +11,7 @@ export type Tool = {
 export type Category = {
   name: string;
   slug: string;
-  tools: string[];
+  tools: [string, string, any, boolean][];
 };
 
 const raw: { category: string; tools: [string, string, any, boolean][] }[] = [

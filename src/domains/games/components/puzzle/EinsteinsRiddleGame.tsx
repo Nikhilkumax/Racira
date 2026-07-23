@@ -10,7 +10,7 @@ const ITEMS = {
     pet: ["Dog", "Bird", "Cat", "Horse", "Fish"],
 };
 
-const CATEGORIES = Object.keys(ITEMS);
+const CATEGORIES = Object.keys(ITEMS) as (keyof typeof ITEMS)[];
 
 export default function EinsteinsRiddleGame() {
     const [grid, setGrid] = useState<Record<string, number[]>>(() => {

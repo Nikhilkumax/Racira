@@ -67,7 +67,7 @@ export const sitemapSources: SitemapSource[] = [
     getCategorySlugs: () => THREED_CATEGORIES.map(c => toSlug(c.title)),
     getEntriesForCategory: (categorySlug) =>
       THREED_TOOLS
-        .filter(t => toSlug(t.category) === categorySlug)
+        .filter(t => toSlug(t.category || "") === categorySlug)
         .map(t => ({
           loc: `${baseUrl}/3d/${t.slug}`,
           lastmod: FALLBACK_LASTMOD,
@@ -78,7 +78,7 @@ export const sitemapSources: SitemapSource[] = [
     getCategorySlugs: () => ANIMATOR_CATEGORIES.map(c => toSlug(c.name)),
     getEntriesForCategory: (categorySlug) =>
       ANIMATOR_TOOLS
-        .filter(t => toSlug(t.category) === categorySlug)
+        .filter(t => toSlug(t.category || "") === categorySlug)
         .map(t => ({
           loc: `${baseUrl}/animator/${t.slug}`,
           lastmod: FALLBACK_LASTMOD,
@@ -148,7 +148,7 @@ export const sitemapSources: SitemapSource[] = [
     getCategorySlugs: () => DESIGN_CATS.map((c: any) => toSlug(c.name)),
     getEntriesForCategory: (categorySlug) =>
       DESIGN_TOOLS
-        .filter((t: any) => toSlug(t.category) === categorySlug)
+        .filter((t: any) => toSlug(t.category || "") === categorySlug)
         .map((t: any) => ({ loc: `${baseUrl}/design/${t.slug}`, lastmod: FALLBACK_LASTMOD })),
   },
   {
@@ -237,7 +237,7 @@ export const sitemapSources: SitemapSource[] = [
     getCategorySlugs: () => ARRAY_FROM_CATS(SEO_CATS).map((c: any) => c.slug),
     getEntriesForCategory: (categorySlug) =>
       Array.from(SEO_TOOL_MAP.values())
-        .filter((t: any) => toSlug(t.category) === categorySlug)
+        .filter((t: any) => toSlug(t.category || "") === categorySlug)
         .map((t: any) => ({ loc: `${baseUrl}/seo/${t.slug}`, lastmod: FALLBACK_LASTMOD })),
   },
   {
@@ -280,7 +280,7 @@ export const sitemapSources: SitemapSource[] = [
     getCategorySlugs: () => VIDEO_CAT_ORDER.map(c => toSlug(c)),
     getEntriesForCategory: (categorySlug) =>
       VIDEO_TOOLS
-        .filter(t => toSlug(t.category) === categorySlug)
+        .filter(t => toSlug(t.category || "") === categorySlug)
         .map(t => ({ loc: `${baseUrl}/video/${t.slug}`, lastmod: FALLBACK_LASTMOD })),
   },
   {
