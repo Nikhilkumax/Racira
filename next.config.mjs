@@ -4,7 +4,7 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   trailingSlash: false,
-  transpilePackages: ['onnxruntime-web'],
+  transpilePackages: ['onnxruntime-web', 'kokoro-js', '@huggingface/transformers'],
   images: {
     remotePatterns: [
       {
@@ -50,6 +50,12 @@ const nextConfig = {
       include: /node_modules/,
       type: 'javascript/auto',
     })
+    config.resolve.fallback = {
+      ...(config.resolve.fallback || {}),
+      fs: false,
+      path: false,
+      "fs/promises": false,
+    }
     return config
   },
 };
