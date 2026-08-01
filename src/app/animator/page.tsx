@@ -3,12 +3,10 @@
 import { CategorySearch } from "@/components/CategorySearch";
 import { categories, SEARCH_REGISTRY } from "@/domains/animator/registry";
 import { CategorySection } from "@/components/shared/CategorySection";
-import Header from "@/components/Header";
 
 export default function Index() {
   return (
     <div className="min-h-screen bg-background">
-      <Header mode="category" categoryName="Animator" />
       <main>
         <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
           <div className="racira-page-container text-center">

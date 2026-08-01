@@ -12,25 +12,57 @@ export async function getKokoroEngine(
   if (loadingPromise) return loadingPromise;
 
   loadingPromise = (async () => {
-    const { KokoroTTS } = await import("kokoro-js");
+    console.log("[kokoro] getKokoroEngine: starting dynamic import of kokoro-js");
+
+    let KokoroTTS: any;
+    try {
+      const mod = await import("kokoro-js");
+      KokoroTTS = mod.KokoroTTS;
+      console.log("[kokoro] KokoroTTS loaded, from_pretrained:", typeof KokoroTTS?.from_pretrained);
+    } catch (importErr: any) {
+      console.error("[kokoro] Dynamic import failed:", importErr?.message, importErr?.stack);
+      throw importErr;
+    }
 
     try {
+      console.log("[kokoro] Attempting model load: device=webgpu, dtype=fp16");
       const tts = await KokoroTTS.from_pretrained(MODEL_ID, {
-        dtype: "q8",
+        dtype: "fp16",
         device: "webgpu",
-        progress_callback: onProgress as any,
+        progress_callback: (info: any) => {
+          console.log("[kokoro] progress:", JSON.stringify(info));
+          onProgress?.(info);
+        },
       });
       ttsInstance = tts;
       return tts;
-    } catch (webgpuError) {
-      console.warn("WebGPU unavailable, falling back to wasm", webgpuError);
-      const tts = await KokoroTTS.from_pretrained(MODEL_ID, {
-        dtype: "q8",
-        device: "wasm",
-        progress_callback: onProgress as any,
+    } catch (webgpuError: any) {
+      console.warn("[kokoro] WebGPU failed, falling back to wasm:", webgpuError?.message);
+      console.error("[kokoro] WebGPU error details:", {
+        message: webgpuError?.message,
+        stack: webgpuError?.stack,
+        name: webgpuError?.name,
       });
-      ttsInstance = tts;
-      return tts;
+      try {
+        console.log("[kokoro] Attempting model load: device=wasm, dtype=fp16");
+        const tts = await KokoroTTS.from_pretrained(MODEL_ID, {
+          dtype: "fp16",
+          device: "wasm",
+          progress_callback: (info: any) => {
+            console.log("[kokoro] progress:", JSON.stringify(info));
+            onProgress?.(info);
+          },
+        });
+        ttsInstance = tts;
+        return tts;
+      } catch (wasmError: any) {
+        console.error("[kokoro] WASM fallback also failed:", {
+          message: wasmError?.message,
+          stack: wasmError?.stack,
+          name: wasmError?.name,
+        });
+        throw wasmError;
+      }
     }
   })();
 

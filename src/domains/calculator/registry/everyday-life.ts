@@ -2,6 +2,17 @@ import { AlertTriangle, Bone, Calculator, Calendar, Cat, Clock, Coffee, DollarSi
 import { CalculatorDef } from "../registry";
 
 export const everydaylifeCalculators: CalculatorDef[] = [
+  {
+    slug: "security-system-installation-cost-calculator",
+    name: "Security System Installation Cost Calculator",
+    description: "Calculate the total cost of installing a security system including equipment, labor, permits, wiring, programming, and monitoring",
+    category: "EVERYDAY_LIFE",
+    subcategory: "Home & Household",
+    tier: "Tier2",
+    priorityScore: 60,
+    icon: Calculator,
+    status: "live",
+  },
   { slug: "dog-calorie-calculator", name: "Dog Calorie Calculator", description: "Calculate daily caloric needs for your dog based on weight and activity.", category: "EVERYDAY_LIFE", subcategory: "Gaming & Hobbies", tier: "Tier2", priorityScore: 58, icon: Bone, status: "live" },
   { slug: "cat-calorie-calculator", name: "Cat Calorie Calculator", description: "Determine the exact daily caloric intake your cat needs to stay healthy.", category: "EVERYDAY_LIFE", subcategory: "Gaming & Hobbies", tier: "Tier2", priorityScore: 58, icon: Cat, status: "live" },
   { slug: "cat-pregnancy-calculator", name: "Cat Pregnancy Calculator", description: "Calculate your cat", category: "EVERYDAY_LIFE", subcategory: "Gaming & Hobbies", tier: "Tier2", priorityScore: 58, icon: Cat, status: "live" },

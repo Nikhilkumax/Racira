@@ -104,6 +104,9 @@ export function KokoroGenerator() {
     setLoadMessage("");
     setLoadError(null);
 
+    console.log("[kokoro] handleGenerate called, voice:", voice, "text length:", text.length);
+    console.log("[kokoro] calling getKokoroEngine...");
+
     try {
       const tts = await getKokoroEngine((info: unknown) => {
         const e = info as ModelProgress;
@@ -140,14 +143,13 @@ export function KokoroGenerator() {
       audioEl.playbackRate = 1;
 
       await audioEl.play().catch(() => {});
+      setStatus("idle");
     } catch (err: any) {
       const msg = err?.message || String(err);
       setLoadError(
         `Speech generation isn't available in this browser. ${msg}`,
       );
       setStatus("error");
-    } finally {
-      setStatus("idle");
     }
   };
 
@@ -164,15 +166,6 @@ export function KokoroGenerator() {
     if (!audioRef.current) return;
     const duration = audioRef.current.duration || 0;
     audioRef.current.currentTime = (Number(e.target.value) / 100) * duration;
-  };
-
-  const handleDownload = () => {
-    if (!objectUrlRef.current) return;
-    const a = document.createElement("a");
-    a.href = objectUrlRef.current;
-    const ext = format === "wav" ? "wav" : "mp3";
-    a.download = `racira-tts-output.${ext}`;
-    a.click();
   };
 
   const handleClear = () => {
@@ -255,7 +248,7 @@ export function KokoroGenerator() {
                   onValueChange={setVoice}
                   disabled={status === "loading-model"}
                 >
-                  <SelectTrigger className="w-full h-11 rounded-xl">
+                  <SelectTrigger className="w-full h-11 rounded-xl" data-testid="voice-select">
                     <SelectValue placeholder="Select a voice" />
                   </SelectTrigger>
                   <SelectContent>
@@ -306,7 +299,7 @@ export function KokoroGenerator() {
                   onValueChange={(v) => setFormat(v as "wav" | "mp3")}
                   disabled={status === "loading-model" || status === "generating"}
                 >
-                  <SelectTrigger className="w-full h-11 rounded-xl">
+                  <SelectTrigger className="w-full h-11 rounded-xl" data-testid="format-select">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -359,6 +352,12 @@ export function KokoroGenerator() {
           {/* Audio player */}
           {audioBlob && (
             <div className="border-t border-border-subtle bg-surface-muted/40 px-5 py-4">
+              <audio
+                data-testid="tts-audio"
+                src={objectUrlRef.current ?? ""}
+                preload="metadata"
+                style={{ display: "none" }}
+              />
               <div className="flex items-center gap-3">
                 <Button
                   type="button"
@@ -400,15 +399,15 @@ export function KokoroGenerator() {
                     : "00:00"}
                 </span>
 
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={handleDownload}
-                  className="h-9 gap-2 rounded-full border-border-subtle bg-surface px-3 text-sm font-semibold"
+                <a
+                  href={objectUrlRef.current ?? ""}
+                  download={`racira-tts-output.${format === "wav" ? "wav" : "mp3"}`}
+                  data-testid="tts-download"
+                  className="inline-flex h-9 items-center gap-2 rounded-full border border-border-subtle bg-surface px-3 text-sm font-semibold"
                 >
                   <Download className="h-3.5 w-3.5" />
                   Download
-                </Button>
+                </a>
               </div>
             </div>
           )}

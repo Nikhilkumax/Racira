@@ -175,7 +175,7 @@ export const utilityCalculators: CalculatorDef[] = [
   {
     slug: "data-size-converter",
     name: "Data Size Converter",
-    description: "The Data Size Converter helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
+    description: "The Data Size Calculator helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
     status: "live"
@@ -351,7 +351,7 @@ export const utilityCalculators: CalculatorDef[] = [
   {
     slug: "radiation-dose-converter",
     name: "Radiation Dose Converter",
-    description: "The Radiation Dose Converter helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
+    description: "The Radiation Dose Converter helps you quickly compute accurate results for your needs. Simply enter your values and calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
     status: "live"
@@ -359,7 +359,7 @@ export const utilityCalculators: CalculatorDef[] = [
   {
     slug: "radioactivity-converter",
     name: "Radioactivity Converter",
-    description: "The Radioactivity Converter helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
+    description: "The Radioactivity Converter helps you quickly compute accurate results for your needs. Simply enter your values and calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
     status: "live"
@@ -367,7 +367,7 @@ export const utilityCalculators: CalculatorDef[] = [
   {
     slug: "ring-size-converter-advanced",
     name: "Ring Size Converter Advanced",
-    description: "The Ring Size Converter Advanced helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
+    description: "The Ring Size Converter Advanced helps you quickly compute accurate results for your needs. Simply enter your values and calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
     status: "live"
@@ -375,7 +375,7 @@ export const utilityCalculators: CalculatorDef[] = [
   {
     slug: "scientific-notation-converter",
     name: "Scientific Notation Converter",
-    description: "The Scientific Notation Converter helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
+    description: "The Scientific Notation Converter helps you quickly compute accurate results for your needs. Simply enter your values and calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
     status: "live"
@@ -383,7 +383,7 @@ export const utilityCalculators: CalculatorDef[] = [
   {
     slug: "snells-law-calculator",
     name: "Snells Law Calculator",
-    description: "The Snells Law Calculator helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
+    description: "The Snells Law Calculator helps you quickly compute accurate results for your needs. Simply enter your values and calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
     status: "live"
@@ -391,7 +391,7 @@ export const utilityCalculators: CalculatorDef[] = [
   {
     slug: "text-binary-converter",
     name: "Text Binary Converter",
-    description: "The Text Binary Converter helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
+    description: "The Text Binary Converter helps you quickly compute accurate results for your needs. Simply enter your values and calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
     status: "live"
@@ -399,7 +399,7 @@ export const utilityCalculators: CalculatorDef[] = [
   {
     slug: "time-converter",
     name: "Time Converter",
-    description: "The Time Converter helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
+    description: "The Time Converter helps you quickly compute accurate results for your needs. Simply enter your values and calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
     status: "live"
@@ -407,7 +407,7 @@ export const utilityCalculators: CalculatorDef[] = [
   {
     slug: "torque-converter",
     name: "Torque Converter",
-    description: "The Torque Converter helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
+    description: "The Torque Converter helps you quickly compute accurate results for your needs. Simply enter your values and calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
     status: "live"
@@ -415,7 +415,7 @@ export const utilityCalculators: CalculatorDef[] = [
   {
     slug: "two-complement-calculator",
     name: "Two Complement Calculator",
-    description: "The Two Complement Calculator helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
+    description: "The Two Complement Calculator helps you quickly compute accurate results for your needs. Simply enter your values and calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
     status: "live"
@@ -423,7 +423,7 @@ export const utilityCalculators: CalculatorDef[] = [
   {
     slug: "url-decoder",
     name: "Url Decoder",
-    description: "The Url Decoder helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
+    description: "The Url Decoder helps you quickly compute accurate results for your needs. Simply enter your values and calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
     status: "live"
@@ -431,7 +431,7 @@ export const utilityCalculators: CalculatorDef[] = [
   {
     slug: "url-encoder",
     name: "Url Encoder",
-    description: "The Url Encoder helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
+    description: "The Url Encoder helps you quickly compute accurate results for your needs. Simply enter your values and calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
     status: "live"
@@ -439,7 +439,7 @@ export const utilityCalculators: CalculatorDef[] = [
   {
     slug: "viscosity-dynamic-converter",
     name: "Viscosity Dynamic Converter",
-    description: "The Viscosity Dynamic Converter helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
+    description: "The Viscosity Dynamic Converter helps you quickly compute accurate results for your needs. Simply enter your values and calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
     status: "live"
@@ -447,7 +447,7 @@ export const utilityCalculators: CalculatorDef[] = [
   {
     slug: "viscosity-kinematic-converter",
     name: "Viscosity Kinematic Converter",
-    description: "The Viscosity Kinematic Converter helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
+    description: "The Viscosity Kinematic Converter helps you quickly compute accurate results for your needs. Simply enter your values and calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
     status: "live"
@@ -455,7 +455,7 @@ export const utilityCalculators: CalculatorDef[] = [
   {
     slug: "volume-converter",
     name: "Volume Converter",
-    description: "The Volume Converter helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
+    description: "The Volume Converter helps you quickly compute accurate results for your needs. Simply enter your values and calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
     status: "live"
@@ -463,9 +463,27 @@ export const utilityCalculators: CalculatorDef[] = [
   {
     slug: "yarn-weight-converter",
     name: "Yarn Weight Converter",
-    description: "The Yarn Weight Converter helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
+    description: "The Yarn Weight Converter helps you quickly compute accurate results for your needs. Simply enter your values and calculate.",
     category: "EVERYDAY_LIFE",
     subcategory: "Conversions & Utilities",
     status: "live"
+  },
+  {
+    slug: "liquidated-damages-calculator",
+    name: "Liquidated Damages Calculator",
+    description: "Calculate liquidated damages for contract breaches with interest, escalation, and caps.",
+    category: "CALCULATOR",
+    subcategory: "Financial",
+    status: "live",
+    isBuilt: true
+  },
+  {
+    slug: "engine-rpm-to-mph-calculator",
+    name: "Engine RPM to MPH Calculator",
+    description: "Calculate vehicle speed from engine RPM, gear ratio, final drive, and tire diameter. Includes advanced options for overdrive and drivetrain loss.",
+    category: "EVERYDAY_LIFE",
+    subcategory: "Conversions & Utilities",
+    status: "live",
+    isBuilt: true
   }
 ];

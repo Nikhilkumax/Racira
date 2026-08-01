@@ -5,7 +5,6 @@ import { CategorySection } from "@/components/shared/CategorySection";
 import { TOOLS } from "@/domains/colors/registry";
 import { CATEGORY_META } from "@/domains/colors/registry/types";
 import type { ToolCategory } from "@/domains/colors/registry/types";
-import Header from "@/components/Header";
 
 export function HomeClient() {
   const order: ToolCategory[] = [
@@ -20,7 +19,6 @@ export function HomeClient() {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header mode="category" categoryName="Colors" />
       <main>
         <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
           <div className="racira-page-container text-center">
