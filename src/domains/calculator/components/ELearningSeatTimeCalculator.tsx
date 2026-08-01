@@ -14,6 +14,7 @@ const ELearningSeatTimeCalculator = () => {
   const [effectiveMinutes, setEffectiveMinutes] = useState(0);
   const [avgSessionMinutes, setAvgSessionMinutes] = useState(0);
   const [totalSessions, setTotalSessions] = useState(0);
+   const [showAdvanced, setShowAdvanced] = useState(false);
 
   const calculate = () => {
     const totalBreakMinutes = sessions * breakMinutes;

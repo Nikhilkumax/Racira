@@ -1,0 +1,799 @@
+1031 Exchange Timeline Calculator — no Recharts
+50/30/20 Budget Calculator — no Primary Result Card pattern
+Annual Car Cost Calculator — no Primary Result Card pattern
+Army Body Fat Calculator — no Primary Result Card pattern
+Auto Loan vs Lease Comparison Calculator — no Primary Result Card pattern
+Average Return Calculator — stub placeholder (contains "Value B")
+Balance Transfer Calculator — no Primary Result Card pattern
+Base64 Encoder — stub placeholder (contains "Value A")
+Baseball Batting Average Calculator — no Primary Result Card pattern
+Baseball ERA Calculator — no Primary Result Card pattern
+Basketball PER Calculator — no Primary Result Card pattern
+Battery Degradation Calculator — no Primary Result Card pattern
+Big Number Calculator — no Recharts
+Bill Split Calculator — file < 8KB (5607 bytes)
+Billiards Handicap Calculator — stub placeholder (contains "Value A")
+Binary Calculator — no Recharts
+Binary Text Converter — stub placeholder (contains "Value A")
+Binary to Decimal Calculator — stub placeholder (contains "Value A")
+Binomial Distribution Calculator — stub placeholder (contains "Value A")
+Biodiversity Index Calculator — no Recharts
+Bishop Score Calculator — no Primary Result Card pattern
+Bitwise Operations Calculator — stub placeholder (contains "Value A")
+Blind Size Calculator — stub placeholder (contains "Value A")
+Block Time Calculator — status: "soon"
+Blood Pressure Category Calculator — file < 8KB (6783 bytes)
+Blood Volume Calculator — no Primary Result Card pattern
+BMI Classification Calculator — file < 8KB (6700 bytes)
+BMI Percentile Calculator — no Recharts
+BMI Prime Calculator — no Primary Result Card pattern
+BMI to Body Fat Conversion Calculator — no Primary Result Card pattern
+BMR Calculator — no Recharts
+Body Fat Calculator — no Recharts
+Body Fat Percentage Calculator — no Primary Result Card pattern
+Body Frame Size Calculator — no Primary Result Card pattern
+Body Surface Area Calculator — file < 8KB (7281 bytes)
+Body Type Calculator — no Primary Result Card pattern
+Boiling Point Elevation Calculator — stub placeholder (contains "Value A")
+Bond Convexity Calculator — stub placeholder (contains "Value A")
+Bond Price Calculator — no Recharts
+Bonus Calculator — no Primary Result Card pattern
+Bounce Rate Calculator — stub placeholder (contains "Value A")
+Bowling Handicap Calculator — stub placeholder (contains "Value A")
+Boyles Law Calculator — stub placeholder (contains "Value A")
+Bra Size Calculator — no Recharts
+Bra Size Converter — stub placeholder (contains "Value A")
+Brick Calculator — no Recharts
+Bridge Loan Calculator — no Recharts
+BTU Calculator — no Recharts
+Buffer Solution Calculator — stub placeholder (contains "Value A")
+Buoyancy Calculator — stub placeholder (contains "Value A")
+CAGR Calculator — no Recharts
+Cake Serving Calculator — stub placeholder (contains "Value A")
+Calories Burned Calculator — no Recharts
+Calories Burned Walking Calculator — no Primary Result Card pattern
+Canadian Mortgage Calculator — no Recharts
+Candle Burn Time Calculator — stub placeholder (contains "Value A")
+Capacitance Calculator — stub placeholder (contains "Value A")
+Capital Gains Tax Calculator — no Recharts
+Capital Gains Yield Calculator — no Primary Result Card pattern
+CAPM Calculator — no Primary Result Card pattern
+Car Buying Budget Calculator — no Primary Result Card pattern
+Car Depreciation Calculator — stub placeholder (contains "Value A")
+Car Financing Interest Calculator — no Primary Result Card pattern
+Car Insurance Cost Calculator — no Primary Result Card pattern
+Car Insurance Savings from Safety Features Calculator — no Primary Result Card pattern
+Car Ownership Annual Cost Calculator — no Primary Result Card pattern
+Car True Cost of Ownership Calculator — no Primary Result Card pattern
+Carb Calculator — file < 8KB (7178 bytes)
+Carbon Dating Calculator — stub placeholder (contains "Value A")
+Carbon Footprint Calculator — no Recharts
+Cat Age Calculator — stub placeholder (contains "Value A")
+Cat Calorie Calculator — no Recharts
+Cat Pregnancy Calculator — no Recharts
+Catering Quantity Calculator — stub placeholder (contains "Value A")
+Ceiling & Floor Calculator — stub placeholder (contains "Value A")
+Cement Calculator — no Recharts
+Certificate of Deposit Calculator — no Recharts
+CHA2DS2-VASc Score Calculator — no Primary Result Card pattern
+Change of Base Calculator — stub placeholder (contains "Value A")
+Charles Law Calculator — stub placeholder (contains "Value A")
+Chi-Square Test Calculator — no Primary Result Card pattern
+Circle Calculator — file < 8KB (5277 bytes)
+Clothing Size Converter — stub placeholder (contains "Value A")
+Clothing Size Converter Advanced — stub placeholder (contains "Value A")
+Coefficient of Variation Calculator — stub placeholder (contains "Value A")
+Coffee Brewing Calculator — no Recharts
+Coffee Strength Calculator — stub placeholder (contains "Value A")
+Color Contrast Calculator — no Recharts
+Combined Gas Law Calculator — stub placeholder (contains "Value A")
+Commission Calculator — no Recharts
+Completing the Square Calculator — stub placeholder (contains "Value A")
+Complex Numbers Calculator — stub placeholder (contains "Value A")
+Compost C:N Ratio Calculator — no Recharts
+Compound Annual Growth Rate Calculator — no Primary Result Card pattern
+Concentration Calculator — stub placeholder (contains "Value A")
+Conception Calculator — file < 8KB (6379 bytes)
+Cone Calculator — stub placeholder (contains "Value A")
+Confidence Interval Calculator — no Primary Result Card pattern
+Conversion Calculator — stub placeholder (contains "Value A")
+Conversion Rate Calculator — file < 8KB (6312 bytes)
+Cooking Measurement Converter — stub placeholder (contains "Value A")
+Cooking Temperature Converter — stub placeholder (contains "Value A")
+Cooking Time Calculator — stub placeholder (contains "Value A")
+Coordinate Geometry Calculator — stub placeholder (contains "Value A")
+Correlation Coefficient Calculator — stub placeholder (contains "Value A")
+Cost of Living Calculator — file < 8KB (6837 bytes)
+Cost Per Mile Calculator — no Primary Result Card pattern
+Coulombs Law Calculator — stub placeholder (contains "Value A")
+Countdown Calculator — stub placeholder (contains "Value A")
+Covariance Calculator — stub placeholder (contains "Value A")
+CPC Calculator — file < 8KB (5118 bytes)
+CPM Calculator — file < 8KB (5326 bytes)
+Creatinine Clearance Calculator — no Primary Result Card pattern
+Credit Score Estimator — no Recharts
+Critical Swim Speed (CSS) Calculator — stub placeholder (contains "Value A")
+Crochet Hook Converter — stub placeholder (contains "Value A")
+Cron Expression Calculator — no Recharts
+CrossFit WOD Calorie Calculator — no Primary Result Card pattern
+Crypto Currency Converter — stub placeholder (contains "Value A")
+Crypto Position Size Calculator — stub placeholder (contains "Value A")
+CSU GPA Calculator — stub placeholder (contains "Value A")
+CTR Calculator — file < 8KB (6176 bytes)
+Cube Root Calculator — stub placeholder (contains "Value A")
+Cumulative GPA Calculator — no Recharts
+Currency Converter — file < 8KB (6707 bytes)
+Current Divider Calculator — stub placeholder (contains "Value A")
+Custodial Account Growth Calculator — status: "soon"
+Customer Retention Rate Calculator — stub placeholder (contains "Value A")
+Cycling Cadence Calculator — stub placeholder (contains "Value A")
+Cycling Power Calculator — no Recharts
+Cycling Speed Calculator — stub placeholder (contains "Value A")
+Cycling Wattage Calculator — stub placeholder (contains "Value A")
+Cylinder Calculator — stub placeholder (contains "Value A")
+DA Calculator — no Recharts
+Daily Hydration Calculator — file < 8KB (7423 bytes)
+Data Size Converter — stub placeholder (contains "Value A")
+Data Storage Converter — no Recharts
+Data Transfer Calculator — no Recharts
+Data Transfer Converter — stub placeholder (contains "Value A")
+Data Transfer Rate Calculator — no Recharts
+Date Calculator — file < 8KB (8055 bytes)
+Date Difference Calculator — stub placeholder (contains "Value A")
+Day Counter — file < 8KB (7887 bytes)
+Daylight Saving Time Calculator — stub placeholder (contains "Value A")
+DCF Calculator — no Recharts
+Decibel Calculator — stub placeholder (contains "Value A")
+Decile Calculator — stub placeholder (contains "Value A")
+Decimal To Fraction Converter — stub placeholder (contains "Value A")
+Decimal To Hex Converter — stub placeholder (contains "Value A")
+Density Calculator — no Recharts
+Density Converter — stub placeholder (contains "Value A")
+Depreciation Calculator — no Recharts
+Derivative Calculator — stub placeholder (contains "Value A")
+Dew Point Calculator — no Recharts
+Diabetes Risk Calculator — no Primary Result Card pattern
+Dice Roller — stub placeholder (contains "Value A")
+Dielectric Constant Calculator — status: "soon"
+Dilution Calculator — stub placeholder (contains "Value A")
+Direct Variation Calculator — stub placeholder (contains "Value A")
+Displacement Calculator — stub placeholder (contains "Value A")
+Distance Calculator — file < 8KB (6297 bytes)
+Dividend Payout Ratio Calculator — no Primary Result Card pattern
+Dividend Reinvestment Calculator — no Recharts
+Docker Image Size Calculator — no Recharts
+Dog Age Calculator — stub placeholder (contains "Value A")
+Dog Calorie Calculator — file < 8KB (7705 bytes)
+Dog Chocolate Toxicity Calculator — no Recharts
+Dog Pregnancy Calculator — no Recharts
+Dog Size Predictor — no Recharts
+Dollar Cost Averaging Calculator — no Recharts
+DOTS Score Calculator — stub placeholder (contains "Value A")
+Down Payment Calculator — file < 8KB (7040 bytes)
+Download Time Calculator — no Recharts
+Driveway Sealer Calculator — stub placeholder (contains "Value A")
+Drug Dosage Calculator — no Primary Result Card pattern
+DTI Calculator — no Recharts
+Due Date Calculator — no Recharts
+DuPont Analysis Calculator — stub placeholder (contains "Value A")
+DuPont Analysis Calculator — no Primary Result Card pattern
+Early Loan Payoff Savings Calculator — no Primary Result Card pattern
+Early Mortgage Payoff Calculator — no Primary Result Card pattern
+EBITDA Calculator — no Recharts
+EBITDA Margin Calculator — no Primary Result Card pattern
+Ecological Footprint Calculator — no Recharts
+Ecommerce Revenue Calculator — no Recharts
+eDPI Calculator — file < 8KB (5560 bytes)
+Eigenvalue Calculator — stub placeholder (contains "Value A")
+eLearning Seat Time Calculator — status: "soon"
+Electric Field Calculator — stub placeholder (contains "Value A")
+Electric Power Calculator — stub placeholder (contains "Value A")
+Electricity Bill Calculator — stub placeholder (contains "Value A")
+Electricity Cost Calculator — no Recharts
+Ellipse Calculator — stub placeholder (contains "Value A")
+Email Open Rate Calculator — stub placeholder (contains "Value A")
+Emergency Fund Calculator — file < 8KB (8147 bytes)
+Empirical Formula Calculator — stub placeholder (contains "Value A")
+Energy Converter — stub placeholder (contains "Value A")
+Energy Efficiency Calculator — stub placeholder (contains "Value A")
+Energy Efficiency ROI Calculator — no Recharts
+Engine Horsepower Calculator — no Recharts
+Engine RPM to MPH Calculator — status: "soon"
+Enterprise Value Calculator — no Primary Result Card pattern
+EPF Calculator — no Recharts
+Epoch Time Converter — stub placeholder (contains "Value A")
+Epoch Training Time Calculator — status: "soon"
+Equilibrium Constant Calculator — stub placeholder (contains "Value A")
+Estate Tax Calculator — no Recharts
+Ethereum Gas Fee Calculator — stub placeholder (contains "Value A")
+EV Federal Tax Credit Value Calculator — no Recharts
+EV Range Calculator — status: "soon"
+EV Tax Credit Benefit Calculator — no Primary Result Card pattern
+EV vs Gas Cost Calculator — no Primary Result Card pattern
+Expected Return Calculator — no Recharts
+Exponent Calculator — file < 8KB (6310 bytes)
+Exponential Decay Calculator — stub placeholder (contains "Value A")
+Exponential Growth Calculator — stub placeholder (contains "Value A")
+Exposure Value Calculator — status: "soon"
+F-Test Calculator — stub placeholder (contains "Value A")
+Factor Calculator — no Recharts
+Fat Intake Calculator — file < 8KB (6994 bytes)
+Federal Work-Study Earnings Calculator — status: "soon"
+Fertility Calculator — no Recharts
+Fertility Window Calculator — no Primary Result Card pattern
+Fertilizer Calculator — stub placeholder (contains "Value A")
+Final Grade Calculator — no Recharts
+Firewood Cord Calculator — stub placeholder (contains "Value A")
+Fitness Age Calculator — no Primary Result Card pattern
+Flight Emissions Calculator — no Recharts
+Flight Time Calculator — stub placeholder (contains "Value A")
+Floor Area Calculator — stub placeholder (contains "Value A")
+Flooring Calculator — no Recharts
+Flow Rate Converter — stub placeholder (contains "Value A")
+Fluid Flow Rate Calculator — stub placeholder (contains "Value A")
+Font Size Converter — no Recharts
+Food Carbon Footprint Calculator — no Recharts
+Food Cost Calculator — stub placeholder (contains "Value A")
+Force Calculator — no Recharts
+Force Converter — stub placeholder (contains "Value A")
+Forex Profit Calculator — no Primary Result Card pattern
+FOV Calculator — file < 8KB (8073 bytes)
+Fraction Calculator — file < 8KB (6066 bytes)
+Fraction To Decimal Converter — no Recharts
+Fractional Distillation Calculator — stub placeholder (contains "Value A")
+Free Cash Flow to Equity Calculator — no Primary Result Card pattern
+Freelance Rate Calculator — no Recharts
+Freezing Point Depression Calculator — stub placeholder (contains "Value A")
+Frequency & Wavelength Calculator — stub placeholder (contains "Value A")
+Frequency Converter — stub placeholder (contains "Value A")
+Fuel Cost Calculator — no Recharts
+Fuel Economy Converter — stub placeholder (contains "Value A")
+Function Composition Calculator — stub placeholder (contains "Value A")
+Future Value Calculator — no Primary Result Card pattern
+Game Download Calculator — file < 8KB (7769 bytes)
+Gap Insurance Value Calculator — no Primary Result Card pattern
+Garden Fertilizer Calculator — stub placeholder (contains "Value A")
+Gas Mileage Calculator — no Recharts
+GCF Calculator — no Recharts
+GDP Calculator — no Primary Result Card pattern
+Geometric Mean Calculator — stub placeholder (contains "Value A")
+Geometric Progression Calculator — stub placeholder (contains "Value A")
+Gestation Calculator — stub placeholder (contains "Value A")
+GFR Calculator — no Recharts
+Gift Cost Per Person Calculator — stub placeholder (contains "Value A")
+Git Repository Size Calculator — no Recharts
+Glasgow Coma Scale Calculator — no Primary Result Card pattern
+Glycemic Index Calculator — no Primary Result Card pattern
+GMAT Score Percentile Calculator — stub placeholder (contains "Value A")
+Golf Handicap Calculator — stub placeholder (contains "Value A")
+GPA Calculator — no Recharts
+Grade Calculator — file < 8KB (8006 bytes)
+Grass Seed Calculator — stub placeholder (contains "Value A")
+Gratuity Calculator — file < 8KB (7954 bytes)
+Gravel Calculator — no Recharts
+Gravitational Force Calculator — stub placeholder (contains "Value A")
+GRE Score Percentile Calculator — no Recharts
+Grilling Time Calculator — stub placeholder (contains "Value A")
+Grocery Budget Calculator — no Primary Result Card pattern
+Groundwater Contamination Plume Calculator — status: "soon"
+GST Calculator — stub placeholder (contains "Value A")
+Gutter Size Calculator — stub placeholder (contains "Value A")
+Hard Drive Capacity Calculator — file < 8KB (7271 bytes)
+Hard Money Loan Calculator — no Recharts
+Hash Calculator — no Recharts
+Headcount to Revenue Ratio Calculator — status: "soon"
+Healthy Weight Range Calculator — no Primary Result Card pattern
+Heart Attack Risk Calculator — no Primary Result Card pattern
+Heat Index Calculator — no Recharts
+Heater Size Calculator — stub placeholder (contains "Value A")
+Height Calculator — stub placeholder (contains "Value A")
+Hex Calculator — no Recharts
+Hex To Decimal Converter — stub placeholder (contains "Value A")
+Highway Design Speed Calculator — status: "soon"
+Highway Design Speed Calculator — no Primary Result Card pattern
+Home Affordability Calculator — no Recharts
+Home Cooling Cost Calculator — stub placeholder (contains "Value A")
+Home Energy Emissions Calculator — no Recharts
+Home Heating Cost Calculator — stub placeholder (contains "Value A")
+Home Insurance Calculator — no Primary Result Card pattern
+Hotel Cost Calculator — stub placeholder (contains "Value A")
+Hourly to Salary Calculator — no Recharts
+Hours Calculator — no Recharts
+House Affordability Calculator — file < 8KB (7868 bytes)
+HRA Calculator — no Recharts
+IB Diploma Grade Calculator — stub placeholder (contains "Value A")
+Ideal BMI Weight Calculator — no Recharts
+Ideal Body Weight Calculator — no Primary Result Card pattern
+Ideal Gas Law Calculator — stub placeholder (contains "Value A")
+Ideal Weight Calculator — no Recharts
+Illuminance Converter — stub placeholder (contains "Value A")
+Image File Size Calculator — no Recharts
+Income Tax Calculator (India) — no Recharts
+Inductance Calculator — stub placeholder (contains "Value A")
+Inequality Calculator — stub placeholder (contains "Value A")
+Inflation Calculator — no Recharts
+Instagram Engagement Calculator — no Recharts
+Insulin-to-Carb Ratio Calculator — no Recharts
+Integral Calculator — stub placeholder (contains "Value A")
+Interest Only Calculator — no Primary Result Card pattern
+Interest Rate Calculator — no Recharts
+Interest-Only Mortgage Calculator — no Recharts
+Intermittent Fasting Calculator — no Primary Result Card pattern
+Internal Growth Rate Calculator — no Primary Result Card pattern
+Inventory Turnover Calculator — no Primary Result Card pattern
+Inverse Variation Calculator — stub placeholder (contains "Value A")
+Invert Elevation Calculator — status: "soon"
+Investment Growth Calculator — no Primary Result Card pattern
+Investment Property Calculator — no Recharts
+IP Subnet Calculator — no Recharts
+IP Subnet Calculator — no Recharts
+IRR Calculator — file < 8KB (7190 bytes)
+IVF Due Date Calculator — no Primary Result Card pattern
+Javelin Throw Distance Calculator — status: "soon"
+Jitter Calculator — file < 8KB (7030 bytes)
+Job Classification Salary Band Calculator — no Primary Result Card pattern
+Job Offer Net Salary Calculator — no Primary Result Card pattern
+Jump Rope Calorie Calculator — no Primary Result Card pattern
+Kendall Tau Calculator — stub placeholder (contains "Value A")
+Knitting Needle Converter — stub placeholder (contains "Value A")
+Kruskal-Wallis Test Calculator — stub placeholder (contains "Value A")
+Kurtosis Calculator — no Primary Result Card pattern
+Law of Cosines Calculator — stub placeholder (contains "Value A")
+Law of Sines Calculator — stub placeholder (contains "Value A")
+Lawn Mowing Time Calculator — stub placeholder (contains "Value A")
+Lawn Seeding Calculator — stub placeholder (contains "Value A")
+LC Resonance Calculator — stub placeholder (contains "Value A")
+LCM and GCD Calculator — no Recharts
+LCM Calculator — no Recharts
+Lean Body Mass Calculator — file < 8KB (6807 bytes)
+Lean Mass Calculator — file < 8KB (7083 bytes)
+Lean Waste Percentage Calculator — stub placeholder (contains "Value A")
+Leap Year Calculator — stub placeholder (contains "Value A")
+Lease vs Buy Calculator — no Recharts
+Leave Encashment Calculator — no Recharts
+LED Lighting Savings Calculator — no Recharts
+Length Converter — no Primary Result Card pattern
+Life Insurance Calculator — no Primary Result Card pattern
+Lighting Lumens Calculator — stub placeholder (contains "Value A")
+Limit Calculator — stub placeholder (contains "Value A")
+Limiting Reagent Calculator — stub placeholder (contains "Value A")
+Linear Equation Calculator — no Recharts
+Linear Regression Calculator — stub placeholder (contains "Value A")
+Liquidated Damages Calculator — status: "soon"
+Loan Comparison Calculator — no Primary Result Card pattern
+Loan Origination Points to APR Calculator — no Recharts
+Log Calculator — file < 8KB (5431 bytes)
+Logistic Regression Calculator — stub placeholder (contains "Value A")
+Long Division Calculator — no Recharts
+Losertown Calorie Calculator — no Primary Result Card pattern
+Love Calculator — no Recharts
+Low-Carb Diet Adherence Score Calculator — no Primary Result Card pattern
+Low-Carb Threshold Calculator — no Primary Result Card pattern
+Loyalty Points Calculator — stub placeholder (contains "Value A")
+LSAT Score Predictor — stub placeholder (contains "Value A")
+LTV Calculator — no Calculate button
+Luminance Converter — stub placeholder (contains "Value A")
+MAC Address Generator — no Recharts
+Macaulay Duration Calculator — no Primary Result Card pattern
+Macro Calculator — no Primary Result Card pattern
+Macronutrient Calorie Distribution Calculator — no Primary Result Card pattern
+Magnetic Field Calculator — stub placeholder (contains "Value A")
+Mann-Whitney U Test Calculator — stub placeholder (contains "Value A")
+Margin Calculator — no Primary Result Card pattern
+Margin of Error Calculator — stub placeholder (contains "Value A")
+Margin of Safety Percentage Calculator — no Primary Result Card pattern
+Market Neutral Return Calculator — status: "soon"
+Markup Calculator — no Recharts
+Marriage Tax Calculator — no Recharts
+Martial Arts Calorie Calculator — no Primary Result Card pattern
+Mass Calculator — no Recharts
+Mass Defect Calculator — stub placeholder (contains "Value A")
+Matrix Calculator — file < 8KB (7895 bytes)
+Matrix Determinant Calculator — stub placeholder (contains "Value A")
+Matrix Inverse Calculator — stub placeholder (contains "Value A")
+Matrix Multiplication Calculator — stub placeholder (contains "Value A")
+MCAT Score Converter — stub placeholder (contains "Value A")
+Meal Frequency Calorie Split Calculator — no Primary Result Card pattern
+Meeting Time Zone Calculator — stub placeholder (contains "Value A")
+MELD Score Calculator — no Primary Result Card pattern
+Menstrual Cycle Length Calculator — no Primary Result Card pattern
+METs-Based Calorie Burn Calculator — no Primary Result Card pattern
+Microwave Wattage Conversion Calculator — stub placeholder (contains "Value A")
+Midpoint Calculator — status: "soon"
+Mindfulness Practice ROI Calculator — no Primary Result Card pattern
+Minimum Payment Calculator — no Recharts
+Modified Duration Calculator — stub placeholder (contains "Value A")
+Molality Calculator — stub placeholder (contains "Value A")
+Molar Mass Calculator — stub placeholder (contains "Value A")
+Molarity Calculator — no Recharts
+Molecular Weight Calculator — no Recharts
+Money Market Calculator — no Recharts
+Monitor DPI Calculator — file < 8KB (6898 bytes)
+Monthly Car Payment to Annual Cost Calculator — no Primary Result Card pattern
+Months Between Dates Calculator — stub placeholder (contains "Value A")
+Morse Code Translator — stub placeholder (contains "Value A")
+Mortgage Affordability Calculator — no Recharts
+Mortgage Points Break-Even Calculator — no Recharts
+Mouse Sensitivity Calculator — file < 8KB (7244 bytes)
+Mulch Calculator — no Recharts
+Mulch Cost Calculator — stub placeholder (contains "Value A")
+Multiple Regression Calculator — stub placeholder (contains "Value A")
+Net Carbs Calculator — no Primary Result Card pattern
+Net Pay Calculator — no Recharts
+Net Profit Margin Calculator — no Primary Result Card pattern
+Net Promoter Score Calculator — stub placeholder (contains "Value A")
+Normal Distribution Calculator — no Primary Result Card pattern
+Normality Calculator — stub placeholder (contains "Value A")
+NPS Calculator — no Recharts
+Nth Root Calculator — no Primary Result Card pattern
+Number to Words Converter — stub placeholder (contains "Value A")
+Nutrient Timing Calculator — no Primary Result Card pattern
+Oil Change Interval Calculator — no Primary Result Card pattern
+Olympic Lift Percentage Calculator — no Primary Result Card pattern
+Omega-3 Intake Calculator — no Primary Result Card pattern
+Omega-3 Intake Calculator — no Primary Result Card pattern
+One Rep Max Calculator — file < 8KB (7512 bytes)
+Operating Cash Flow Calculator — no Primary Result Card pattern
+Operating Margin Calculator — no Primary Result Card pattern
+Options Greeks Calculator — stub placeholder (contains "Value A")
+Options Profit Calculator — no Recharts
+Osmolarity Calculator — stub placeholder (contains "Value A")
+Oven Temperature Converter — stub placeholder (contains "Value A")
+Overhead Absorption Calculator — status: "soon"
+Overtime Calculator — file < 8KB (7554 bytes)
+Overtime Hours Calculator — stub placeholder (contains "Value A")
+Overweight Calculator — no Primary Result Card pattern
+Overweight Percentage Calculator — no Recharts
+Ovulation Calculator — file < 8KB (8144 bytes)
+Oxbridge Interview Probability — stub placeholder (contains "Value A")
+P Value Calculator — no Primary Result Card pattern
+P/E Ratio Calculator — no Recharts
+Pace Calculator — file < 8KB (8078 bytes)
+Pace Converter — file < 8KB (7885 bytes)
+Packet Loss Calculator — file < 8KB (6397 bytes)
+Packing Weight Calculator — stub placeholder (contains "Value A")
+Paper Savings Calculator — file < 8KB (8116 bytes)
+Password Entropy Calculator — no Recharts
+Password Generator — no Recharts
+Pay Raise Percentage Calculator — no Primary Result Card pattern
+Payback Period Calculator — no Primary Result Card pattern
+Payback Period Calculator (Advanced) — no Primary Result Card pattern
+Payday Loan True Cost Calculator — no Primary Result Card pattern
+Payroll Tax Calculator — no Recharts
+Pediatric BMI Calculator — no Primary Result Card pattern
+Pension Calculator — no Recharts
+Percent Error Calculator — file < 8KB (4914 bytes)
+Percent Yield Calculator — stub placeholder (contains "Value A")
+Percentage to CGPA Converter — file < 8KB (5782 bytes)
+Percentage-Based Volume Calculator — no Primary Result Card pattern
+Percentile Calculator — stub placeholder (contains "Value A")
+Perimeter Calculator — no Primary Result Card pattern
+Period Calculator — file < 8KB (7320 bytes)
+Permutation & Combination Calculator — no Primary Result Card pattern
+Personal Loan Payoff Calculator — no Primary Result Card pattern
+Pet Food Calculator — stub placeholder (contains "Value A")
+pH Calculator — stub placeholder (contains "Value A")
+Photon Energy Calculator — stub placeholder (contains "Value A")
+Pilates Calorie Calculator — no Primary Result Card pattern
+Ping Time Calculator — no Primary Result Card pattern
+PITI Calculator — no Calculate button
+Pizza Size Calculator — no Recharts
+Plant Spacing Calculator — stub placeholder (contains "Value A")
+Plastic Footprint Calculator — no Recharts
+Plywood Sheets Calculator — stub placeholder (contains "Value A")
+PMI Removal Date Calculator — no Primary Result Card pattern
+Podcast Hosting Cost Calculator — no Recharts
+Poisson Distribution Calculator — stub placeholder (contains "Value A")
+Polygon Area Calculator — stub placeholder (contains "Value A")
+Polynomial Calculator — file < 8KB (7652 bytes)
+Pomodoro Cycle Calculator — no Recharts
+Ponderal Index Calculator — no Primary Result Card pattern
+Pool Volume Calculator — stub placeholder (contains "Value A")
+Population Growth Rate Calculator — no Recharts
+Port Dwell Time Cost Calculator — no Primary Result Card pattern
+Portfolio Rebalancing Calculator — no Recharts
+Postpartum Weight Loss Calculator — no Recharts
+Potting Soil Calculator — stub placeholder (contains "Value A")
+Power Converter — stub placeholder (contains "Value A")
+Power Factor Calculator — stub placeholder (contains "Value A")
+PPF Calculator — no Recharts
+Pre-Pregnancy BMI & Target Gain Calculator — no Primary Result Card pattern
+Pre-Pregnancy BMI Calculator — no Primary Result Card pattern
+Predictable Revenue Percentage Calculator — no Primary Result Card pattern
+Preferred Stock Valuation Calculator — no Primary Result Card pattern
+Pregnancy BMI Calculator — no Primary Result Card pattern
+Pregnancy Calculator — no Recharts
+Pregnancy Weight Gain Calculator — no Recharts
+Present Value Calculator — no Primary Result Card pattern
+Pressure Calculator — stub placeholder (contains "Value A")
+Pressure Converter — stub placeholder (contains "Value A")
+Prime Factorization Calculator — no Recharts
+Probability Calculator — no Recharts
+Professional Tax Calculator — no Recharts
+Profit Margin Calculator — no Recharts
+Projectile Motion Calculator — stub placeholder (contains "Value A")
+Projector Screen Size Calculator — stub placeholder (contains "Value A")
+Property Appreciation Calculator — file < 8KB (7214 bytes)
+Protein Intake Calculator — no Recharts
+Protein-to-Calorie Ratio Calculator — no Primary Result Card pattern
+Pulse Oximetry Calculator — no Calculate button
+Put-Call Parity Calculator — stub placeholder (contains "Value A")
+Pythagorean Theorem Calculator — file < 8KB (6195 bytes)
+Quarterback Rating Calculator — stub placeholder (contains "Value A")
+Quarterly Estimated Tax Calculator — no Recharts
+Race Time Predictor — stub placeholder (contains "Value A")
+Radiation Dose Converter — stub placeholder (contains "Value A")
+Radioactive Decay Calculator — stub placeholder (contains "Value A")
+Radioactivity Converter — stub placeholder (contains "Value A")
+RAID Capacity Calculator — no Recharts
+Rain Barrel Sizing Calculator — no Recharts
+Rainwater Collection Calculator — stub placeholder (contains "Value A")
+Random Number Generator — no Recharts
+Range Anxiety Calculator — no Primary Result Card pattern
+Ratio Calculator — file < 8KB (7255 bytes)
+RC Time Constant Calculator — stub placeholder (contains "Value A")
+Reaction Time Calculator — no Primary Result Card pattern
+Reading Speed Calculator — no Recharts
+Reading Time Calculator — stub placeholder (contains "Value A")
+Recipe Scale Calculator — stub placeholder (contains "Value A")
+Refinance Calculator — no Primary Result Card pattern
+Refrigerator Energy Calculator — stub placeholder (contains "Value A")
+Regex Match Calculator — no Recharts
+Regular Polygon Calculator — stub placeholder (contains "Value A")
+Relative Humidity Calculator — stub placeholder (contains "Value A")
+Rent Affordability Calculator — file < 8KB (7040 bytes)
+Rent vs Buy Calculator — no Recharts
+Repayment Calculator — no Primary Result Card pattern
+Resistor Calculator — no Recharts
+Resistors in Parallel Calculator — stub placeholder (contains "Value A")
+Resistors in Series Calculator — stub placeholder (contains "Value A")
+Resource Loading Percentage Calculator — no Primary Result Card pattern
+Restaurant Meal Calorie Estimator — no Primary Result Card pattern
+Retained Earnings Calculator — status: "soon"
+Retirement Calculator — no Primary Result Card pattern
+Return on Assets (ROA) Calculator — no Primary Result Card pattern
+Return on Capital Employed Calculator — stub placeholder (contains "Value A")
+Return on Equity (ROE) Calculator — no Primary Result Card pattern
+Return on Invested Capital Calculator — no Primary Result Card pattern
+Returns Processing Cost Calculator — no Primary Result Card pattern
+Reverse Logistics Cost Calculator — no Primary Result Card pattern
+Reverse Mortgage Calculator — no Recharts
+RGB to HEX Converter — no Recharts
+Riemann Sum Calculator — stub placeholder (contains "Value A")
+Right Angle Triangle Calculator — stub placeholder (contains "Value A")
+Ring Size Calculator — stub placeholder (contains "Value A")
+Ring Size Converter Advanced — stub placeholder (contains "Value A")
+RL Time Constant Calculator — stub placeholder (contains "Value A")
+Road Trip Cost Calculator — stub placeholder (contains "Value A")
+ROAS Calculator — file < 8KB (5703 bytes)
+Rock Climbing Calorie Calculator — no Primary Result Card pattern
+ROI Calculator — no Recharts
+Roman Numeral Converter — stub placeholder (contains "Value A")
+Roof Shingle Calculator — stub placeholder (contains "Value A")
+Roofing Calculator — no Recharts
+Room Volume Calculator — stub placeholder (contains "Value A")
+Root Calculator — no Recharts
+Root Mean Square Calculator — stub placeholder (contains "Value A")
+Roth IRA Calculator — no Recharts
+Rounding Calculator — no Recharts
+Rowing Calorie Calculator — no Primary Result Card pattern
+Rule of 70 Calculator — stub placeholder (contains "Value A")
+Rule of 72 Calculator — no Primary Result Card pattern
+Rule of 78 Calculator — no Primary Result Card pattern
+Running Cadence Calculator — stub placeholder (contains "Value A")
+Running Calorie Calculator — file < 8KB (7939 bytes)
+Running Pace Calculator — no Primary Result Card pattern
+Running Stride Length Calculator — stub placeholder (contains "Value A")
+Safe Withdrawal Rate Calculator — no Primary Result Card pattern
+Salary Benchmark Percentile Calculator — no Primary Result Card pattern
+Salary Calculator — no Recharts
+Salary Grade Spread Calculator — no Primary Result Card pattern
+Sale Price Calculator — stub placeholder (contains "Value A")
+Sales Tax Calculator — stub placeholder (contains "Value A")
+Sample Size Calculator — no Recharts
+SAT Score Calculator — no Recharts
+Savings Calculator — no Recharts
+School Day Minutes Calculator — status: "soon"
+Scientific Calculator — no Recharts
+Scientific Notation Calculator — no Recharts
+Scientific Notation Converter — stub placeholder (contains "Value A")
+Screen Size Calculator — file < 8KB (6595 bytes)
+Sector Area Calculator — stub placeholder (contains "Value A")
+Security System Installation Cost Calculator — status: "soon"
+Sedentary Time Cost Calculator — no Primary Result Card pattern
+Self-Employment Tax Calculator — no Recharts
+Senior BMI Calculator — no Recharts
+Server Rack Units Calculator — no Recharts
+Server Uptime Calculator — no Recharts
+Set Operations Calculator — stub placeholder (contains "Value A")
+Sharpe Ratio Calculator — no Recharts
+Shipping Insurance Cost Calculator — no Primary Result Card pattern
+Shoe Size Converter — stub placeholder (contains "Value A")
+Shooting Percentage Calculator — no Primary Result Card pattern
+Shopping Budget Calculator — stub placeholder (contains "Value A")
+Significant Figures Calculator — no Recharts
+Simple Pendulum Calculator — stub placeholder (contains "Value A")
+Sinclair Coefficient Calculator — stub placeholder (contains "Value A")
+SIRD Epidemic Model Calculator — status: "soon"
+Skewness Calculator — no Primary Result Card pattern
+Sleep Calculator — no Recharts
+Sleep Debt Calculator — no Primary Result Card pattern
+Sleep Investment ROI Calculator — no Primary Result Card pattern
+Slope Calculator — file < 8KB (5788 bytes)
+Snells Law Calculator — stub placeholder (contains "Value A")
+Snow Shoveling Calculator — stub placeholder (contains "Value A")
+Soccer Goals per Game Calculator — status: "soon"
+Social Security Benefits Calculator — no Primary Result Card pattern
+Solar Energy Savings Calculator — no Recharts
+Solar Panel Calculator — stub placeholder (contains "Value A")
+Speaker Placement Calculator — stub placeholder (contains "Value A")
+Spearman Rank Correlation Calculator — stub placeholder (contains "Value A")
+Specific Heat Calculator — stub placeholder (contains "Value A")
+Speed Converter — no Primary Result Card pattern
+Speedometer Error Calculator — no Calculate button
+Sphere Calculator — stub placeholder (contains "Value A")
+Sport-Specific Calorie Calculator — no Primary Result Card pattern
+Sports Drink Carb Concentration Calculator — no Primary Result Card pattern
+Spring Constant Calculator — stub placeholder (contains "Value A")
+Square Footage Calculator — no Recharts
+SSD TBW Calculator — file < 8KB (7110 bytes)
+Stair Calculator — no Recharts
+Stair Climbing Calorie Calculator — no Primary Result Card pattern
+Staking Rewards Calculator — stub placeholder (contains "Value A")
+Stamp Duty Calculator — no Recharts
+Starter Motor Calculator — no Calculate button
+Statistics Calculator — file < 8KB (5921 bytes)
+Steel Weight Calculator — no Recharts
+Step Count to Calorie Burn Calculator — no Primary Result Card pattern
+Stepper Motor Calculator — no Recharts
+Steps-to-Calories Calculator — no Primary Result Card pattern
+Steroid Equivalence Calculator — no Recharts
+Stock Beta Calculator — no Primary Result Card pattern
+Stock Return Calculator — file < 8KB (7250 bytes)
+Stoichiometry Calculator — stub placeholder (contains "Value A")
+Stopping Distance Calculator — no Primary Result Card pattern
+Storage Converter — no Recharts
+Student Budget Calculator — stub placeholder (contains "Value A")
+Student Loan Payoff Calculator — no Recharts
+Study Time Calculator — no Recharts
+Subprime Loan Cost Calculator — no Primary Result Card pattern
+Subscription Cost Calculator — no Recharts
+Sukanya Samriddhi Calculator — no Recharts
+Supply and Demand Equilibrium Price Calculator — status: "soon"
+Surface Area Calculator — file < 8KB (6325 bytes)
+Sustainable Growth Rate Calculator — no Primary Result Card pattern
+Swimming Calorie Calculator — no Primary Result Card pattern
+Swimming Pace Calculator — stub placeholder (contains "Value A")
+Swimming Split Calculator — stub placeholder (contains "Value A")
+Swimming Time Conversion — stub placeholder (contains "Value A")
+SWOLF Score Calculator — stub placeholder (contains "Value A")
+SWP Calculator — no Recharts
+Symmetric Strength Calculator — stub placeholder (contains "Value A")
+System of Equations Calculator — stub placeholder (contains "Value A")
+T-Test Calculator — stub placeholder (contains "Value A")
+Tabata Calorie Calculator — no Primary Result Card pattern
+Take-Home Salary Calculator — no Recharts
+Target Heart Rate Calculator — no Recharts
+Tax Bracket Calculator — no Recharts
+Taylor Series Calculator — stub placeholder (contains "Value A")
+TDEE Calculator — no Recharts
+TDS Calculator — no Recharts
+Teacher Preparation Time Calculator — status: "soon"
+Temperature Converter — no Primary Result Card pattern
+Tennis Serve Speed Calculator — stub placeholder (contains "Value A")
+Test Grade Calculator — no Recharts
+Text Binary Converter — stub placeholder (contains "Value A")
+Thermal Expansion Calculator — stub placeholder (contains "Value A")
+Tidal Force Calculator — stub placeholder (contains "Value A")
+TikTok Earnings Calculator — no Recharts
+Tile Calculator — no Recharts
+Time Calculator — no Recharts
+Time Converter — stub placeholder (contains "Value A")
+Time Difference Calculator — stub placeholder (contains "Value A")
+Time Duration Calculator — no Recharts
+Time Zone Converter — no Recharts
+Times Interest Earned Calculator — no Primary Result Card pattern
+Tip and Split Calculator — file < 8KB (6528 bytes)
+Tire Size Calculator — no Calculate button
+Titration Calculator — stub placeholder (contains "Value A")
+Torque Converter — stub placeholder (contains "Value A")
+Total Debt Ratio Calculator — no Primary Result Card pattern
+Total Factor Productivity Calculator — status: "soon"
+Total Loan Cost Calculator — no Primary Result Card pattern
+Trade Credit Days Calculator — no Primary Result Card pattern
+Trade Credit Terms Calculator — no Primary Result Card pattern
+Traditional IRA Calculator — file < 8KB (7933 bytes)
+Trailer Tongue Weight Calculator — no Calculate button
+Training Stress Score (TSS) Calculator — stub placeholder (contains "Value A")
+Transformer Calculator — stub placeholder (contains "Value A")
+Transit Time Cost Calculator — no Primary Result Card pattern
+Travel Budget Calculator — stub placeholder (contains "Value A")
+Travel Insurance Estimator — stub placeholder (contains "Value A")
+Treadmill Pace Converter — stub placeholder (contains "Value A")
+Treasury Bill Calculator — no Recharts
+Tree Planting Offset Calculator — no Recharts
+Triangle Calculator — file < 8KB (5416 bytes)
+Triathlon Time Predictor — stub placeholder (contains "Value A")
+Truth Table Calculator — stub placeholder (contains "Value A")
+Tuition ROI Calculator — stub placeholder (contains "Value A")
+TV Viewing Distance Calculator — stub placeholder (contains "Value A")
+Twin Pregnancy Weight Gain Calculator — no Primary Result Card pattern
+Twitch Earnings Calculator — file < 8KB (7186 bytes)
+Two Complement Calculator — stub placeholder (contains "Value A")
+Typing Speed (WPM) Calculator — stub placeholder (contains "Value A")
+UC GPA Calculator — stub placeholder (contains "Value A")
+Ultra-Processed Food Percentage Calculator — no Primary Result Card pattern
+Unknown Title — file < 8KB (6460 bytes)
+Unknown Title — file < 8KB (5506 bytes)
+Unrealized Gain/Loss Calculator — status: "soon"
+Upload Time Calculator — file < 8KB (8047 bytes)
+UPS Battery Runtime Calculator — file < 8KB (7450 bytes)
+Url Decoder — stub placeholder (contains "Value A")
+Url Encoder — stub placeholder (contains "Value A")
+Used Car vs New Car Total Cost Comparison Calculator — no Primary Result Card pattern
+UV Index Calculator — stub placeholder (contains "Value A")
+Vacation Budget Calculator — no Primary Result Card pattern
+Vaccination Schedule Calculator — no Primary Result Card pattern
+Vanity License Plate Cost Calculator — status: "soon"
+Vapor Pressure Calculator — stub placeholder (contains "Value A")
+Variable Pay Percentage Calculator — no Primary Result Card pattern
+Variance Calculator — no Primary Result Card pattern
+VAT Calculator — stub placeholder (contains "Value A")
+VDOT Running Calculator — no Primary Result Card pattern
+Vector Cross Product Calculator — stub placeholder (contains "Value A")
+Vector Operations Calculator — stub placeholder (contains "Value A")
+Vehicle Emissions Calculator — no Recharts
+Vehicle Reliability Score Calculator — status: "soon"
+Vendor Scorecard Rating Calculator — no Primary Result Card pattern
+Vicarious Trauma Risk Calculator — no Primary Result Card pattern
+Video File Size Calculator — no Recharts
+Visa Fee Calculator — stub placeholder (contains "Value A")
+Viscosity Dynamic Converter — stub placeholder (contains "Value A")
+Viscosity Kinematic Converter — stub placeholder (contains "Value A")
+Vitamin D Dosage Calculator — no Primary Result Card pattern
+VO2 Max Calculator — no Recharts
+Voltage Divider Calculator — stub placeholder (contains "Value A")
+Voltage Drop Calculator — no Recharts
+Volume Calculator — file < 8KB (5968 bytes)
+Volume Converter — stub placeholder (contains "Value A")
+VPS Pricing Calculator — no Recharts
+W-4 Withholding Calculator — no Recharts
+WACC Calculator — no Primary Result Card pattern
+Waist-to-Height Ratio Calculator — no Primary Result Card pattern
+Waist-to-Hip Ratio Calculator — file < 8KB (7500 bytes)
+Walk vs Run Calorie Comparison Calculator — no Primary Result Card pattern
+Walking Calorie Calculator — no Recharts
+Wall Area Calculator — stub placeholder (contains "Value A")
+Wallpaper Calculator — stub placeholder (contains "Value A")
+Waste Diversion Rate Calculator — no Recharts
+Water Aerobics Calorie Calculator — no Primary Result Card pattern
+Water Bill Calculator — stub placeholder (contains "Value A")
+Water Boiling Time Calculator — no Recharts
+Water Footprint Calculator — no Recharts
+Water Intake Calculator — file < 8KB (7670 bytes)
+Wavelength Calculator — stub placeholder (contains "Value A")
+Website Hosting Cost Calculator — file < 8KB (7259 bytes)
+Wedding Budget Calculator — no Primary Result Card pattern
+Weeks Between Dates Calculator — stub placeholder (contains "Value A")
+Weight Change Percentage Calculator — no Primary Result Card pattern
+Weight Converter — no Recharts
+Weight Loss Percentage Calculator — no Primary Result Card pattern
+Weighted Average Calculator — stub placeholder (contains "Value A")
+Weighted Average Yield Calculator — no Primary Result Card pattern
+Weighted Grade Calculator — no Recharts
+Weightlifting Percentage Calculator — no Primary Result Card pattern
+Weightlifting Session Calorie Calculator — no Primary Result Card pattern
+Wells Score for DVT Calculator — stub placeholder (contains "Value A")
+Wheel Offset Calculator — no Recharts
+Wilcoxon Signed-Rank Test Calculator — stub placeholder (contains "Value A")
+Wilks Score Calculator — stub placeholder (contains "Value A")
+Wind Chill Calculator — no Recharts
+Wind Speed & Power Calculator — stub placeholder (contains "Value A")
+Wind Turbine Energy Calculator — no Recharts
+Window Curtain Calculator — stub placeholder (contains "Value A")
+Work & Power Calculator — stub placeholder (contains "Value A")
+Work Hours Calculator — stub placeholder (contains "Value A")
+Working Capital Calculator — no Recharts
+Workout Calorie Calculator — no Primary Result Card pattern
+Yarn Weight Converter — stub placeholder (contains "Value A")
+Yoga Calorie Calculator — no Primary Result Card pattern

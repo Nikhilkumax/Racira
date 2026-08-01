@@ -31,15 +31,9 @@ export default function Mp3ConverterPage() {
   const [dragging, setDragging] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const resetOutput = useCallback(() => {
-    setDownloadUrl((prev) => {
-      if (prev) URL.revokeObjectURL(prev);
-      return null;
-    });
-    setProgress(0);
-  }, []);
 
-  const handleFile = useCallback(
+
+  const handleFile = useCallback(async (selected: File | null) => {
     (selected: File | null) => {
       if (!selected) return;
       resetOutput();
