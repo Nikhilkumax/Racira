@@ -98,21 +98,17 @@ function calculate(input: BacInputs): BacResult {
   };
 }
 
-const CI = ({
-  id,
-  label,
-  value,
-  onChange,
-  suffix,
-  step,
-}: {
+interface CIProps {
   id: string;
   label: string;
   value: number;
   onChange: (v: string) => void;
   suffix?: string;
   step?: string;
-}) => (
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+}
+
+const CI = ({ id, label, value, onChange, suffix, step, onKeyDown }: CIProps) => (
   <div className="flex flex-col">
     <label htmlFor={id} className="text-sm font-semibold text-foreground mb-1.5">{label}</label>
     <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-10 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
@@ -122,6 +118,7 @@ const CI = ({
         value={value}
         step={step}
         onChange={(e) => onChange(e.target.value)}
+        onKeyDown={onKeyDown}
         className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground"
       />
       {suffix && <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{suffix}</span>}
@@ -183,18 +180,19 @@ const BacCalculator = () => {
                   id="sex"
                   value={inputs.sex}
                   onChange={(e) => setInputs((prev) => ({ ...prev, sex: e.target.value as "male" | "female" }))}
+                  onKeyDown={e => { if (e.key === 'Enter') handleCalculate(); }}
                   className="h-10 w-full px-3 text-base rounded-md border border-input bg-background shadow-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all text-foreground"
                 >
                   <option value="male">Male</option>
                   <option value="female">Female</option>
                 </select>
               </div>
-              <CI id="weight" label="Weight" value={inputs.weight} onChange={setField("weight")} suffix="lbs" />
+              <CI id="weight" label="Weight" value={inputs.weight} onChange={setField("weight")} suffix="lbs" onKeyDown={e => { if (e.key === 'Enter') handleCalculate(); }} />
             </div>
 
             <div className="grid grid-cols-2 gap-4">
-              <CI id="drinks" label="Drinks" value={inputs.drinks} onChange={setField("drinks")} />
-              <CI id="hours" label="Hours Since First Drink" value={inputs.hours} onChange={setField("hours")} suffix="hrs" step="0.5" />
+              <CI id="drinks" label="Drinks" value={inputs.drinks} onChange={setField("drinks")} onKeyDown={e => { if (e.key === 'Enter') handleCalculate(); }} />
+              <CI id="hours" label="Hours Since First Drink" value={inputs.hours} onChange={setField("hours")} suffix="hrs" step="0.5" onKeyDown={e => { if (e.key === 'Enter') handleCalculate(); }} />
             </div>
 
             <div>
@@ -210,9 +208,9 @@ const BacCalculator = () => {
                 <div className="p-4 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up">
                   <div className="text-[11px] font-bold uppercase text-muted-foreground tracking-wider mb-2">Drink Details</div>
                   <div className="grid grid-cols-2 gap-4">
-                    <CI id="abv" label="Alcohol by Volume" value={inputs.abv} onChange={setField("abv")} suffix="%" step="0.1" />
-                    <CI id="drinkVolume" label="Drink Volume" value={inputs.drinkVolume} onChange={setField("drinkVolume")} suffix="oz" step="0.5" />
-                    <CI id="metabolismRate" label="Metabolism Rate" value={inputs.metabolismRate} onChange={setField("metabolismRate")} step="0.001" />
+                    <CI id="abv" label="Alcohol by Volume" value={inputs.abv} onChange={setField("abv")} suffix="%" step="0.1" onKeyDown={e => { if (e.key === 'Enter') handleCalculate(); }} />
+                    <CI id="drinkVolume" label="Drink Volume" value={inputs.drinkVolume} onChange={setField("drinkVolume")} suffix="oz" step="0.5" onKeyDown={e => { if (e.key === 'Enter') handleCalculate(); }} />
+                    <CI id="metabolismRate" label="Metabolism Rate" value={inputs.metabolismRate} onChange={setField("metabolismRate")} step="0.001" onKeyDown={e => { if (e.key === 'Enter') handleCalculate(); }} />
                   </div>
                   <p className="text-xs text-muted-foreground mt-2">
                     ABV and drink volume determine pure alcohol per drink. Metabolism rate is the BAC reduction per hour (average ~0.015).

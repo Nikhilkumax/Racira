@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
@@ -93,19 +93,16 @@ function calculate(input: AquariumInputs): AquariumResult {
 // UI helpers
 // ---------------------------------------------------------------------------
 
-const CI = ({
-  id,
-  label,
-  value,
-  onChange,
-  suffix,
-}: {
+interface CIProps {
   id: string;
   label: string;
   value: string;
   onChange: (v: string) => void;
   suffix?: string;
-}) => (
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+}
+
+const CI = ({ id, label, value, onChange, suffix, onKeyDown }: CIProps) => (
   <div className="flex flex-col">
     <label htmlFor={id} className="text-sm font-semibold text-foreground mb-1.5">{label}</label>
     <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-10 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
@@ -114,6 +111,7 @@ const CI = ({
         type="number"
         value={value}
         onChange={(e) => onChange(e.target.value)}
+        onKeyDown={onKeyDown}
         className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground"
       />
       {suffix && <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{suffix}</span>}
@@ -172,11 +170,11 @@ export default function AquariumVolumeCalculator() {
           {/* LEFT: inputs + second tier + Calculate + Reset */}
           <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
             <div className="grid grid-cols-2 gap-4">
-              <CI id="length" label="Length" value={String(inputs.length)} onChange={setField("length")} suffix="in" />
-              <CI id="width" label="Width" value={String(inputs.width)} onChange={setField("width")} suffix="in" />
+              <CI id="length" label="Length" value={String(inputs.length)} onChange={setField("length")} suffix="in" onKeyDown={e => { if (e.key === 'Enter') handleCalculate(); }} />
+              <CI id="width" label="Width" value={String(inputs.width)} onChange={setField("width")} suffix="in" onKeyDown={e => { if (e.key === 'Enter') handleCalculate(); }} />
             </div>
             <div className="grid grid-cols-2 gap-4">
-              <CI id="height" label="Height" value={String(inputs.height)} onChange={setField("height")} suffix="in" />
+              <CI id="height" label="Height" value={String(inputs.height)} onChange={setField("height")} suffix="in" onKeyDown={e => { if (e.key === 'Enter') handleCalculate(); }} />
               <div className="flex flex-col">
                 <label className="text-sm font-semibold text-foreground mb-1.5">Unit</label>
                 <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-10 shadow-sm">
@@ -199,14 +197,14 @@ export default function AquariumVolumeCalculator() {
                   <div>
                     <div className="text-[11px] font-bold uppercase text-muted-foreground tracking-wider mb-2">Displacement</div>
                     <div className="grid grid-cols-2 gap-4">
-                      <CI id="gravel" label="Gravel Depth" value={String(inputs.gravelDepth)} onChange={setField("gravelDepth")} suffix="in" />
-                      <CI id="decor" label="Decor Volume" value={String(inputs.decorVolume)} onChange={setField("decorVolume")} suffix="in³" />
+                      <CI id="gravel" label="Gravel Depth" value={String(inputs.gravelDepth)} onChange={setField("gravelDepth")} suffix="in" onKeyDown={e => { if (e.key === 'Enter') handleCalculate(); }} />
+                      <CI id="decor" label="Decor Volume" value={String(inputs.decorVolume)} onChange={setField("decorVolume")} suffix="in³" onKeyDown={e => { if (e.key === 'Enter') handleCalculate(); }} />
                     </div>
                   </div>
                   <div>
                     <div className="text-[11px] font-bold uppercase text-muted-foreground tracking-wider mb-2">Glass Thickness</div>
                     <div className="grid grid-cols-1 gap-4">
-                      <CI id="glass" label="Glass Thickness" value={String(inputs.glassThickness)} onChange={setField("glassThickness")} suffix="in" />
+                      <CI id="glass" label="Glass Thickness" value={String(inputs.glassThickness)} onChange={setField("glassThickness")} suffix="in" onKeyDown={e => { if (e.key === 'Enter') handleCalculate(); }} />
                     </div>
                   </div>
                 </div>

@@ -118,7 +118,7 @@ const DielectricConstantCalculator: React.FC = () => {
   );
 };
 
-const ResultItem: React.FC<{ label: string; value: number; unit: string }> = ({
+const ResultItem: React.FC<{ label: string; value: number; unit?: string }> = ({
   label,
   value,
   unit,

@@ -260,6 +260,22 @@
                        "InheritanceTaxCalculator",
                        "InsuranceCostPerShipmentCalculator",
                        "InterestCoverageRatioCalculator",
-                       "EngineRpmToMphCalculator"
-                   ]
+                       "EngineRpmToMphCalculator",
+                       "AngleConverterAdvanced",
+                       "AnorexicBmiCalculator",
+                       "AnovaCalculator",
+                       "ApgarScoreCalculator",
+                       "ApScoreCalculator",
+                       "AquariumVolumeCalculator",
+                       "AreaCalculator",
+                       "AreaConverter",
+                       "AntilogCalculator",
+                       "AspectRatioCalculator",
+                       "AttendanceCalculator",
+                       "AudioFileSizeCalculator",
+                       "AutoLeaseCalculator",
+                       "AvogadrosNumberCalculator",
+                       "AwsS3CostCalculator",
+                       "BacCalculator"
+                    ]
 }

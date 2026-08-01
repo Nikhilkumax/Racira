@@ -149,14 +149,14 @@ export default function ApScoreCalculator() {
                     <span>MC Questions Correct</span>
                     <span className="text-primary bg-primary/10 px-2 py-0.5 rounded text-xs">{inputs.mcCorrect} / {inputs.mcTotal}</span>
                   </label>
-                  <input type="number" value={inputs.mcCorrect} onChange={e => updateInput("mcCorrect", Number(e.target.value))} className="input-calc" min="0" max={inputs.mcTotal} />
+                  <input type="number" value={inputs.mcCorrect} onChange={e => updateInput("mcCorrect", Number(e.target.value))} onKeyDown={e => { if (e.key === 'Enter') handleCalculate(); }} className="input-calc" min="0" max={inputs.mcTotal} />
                 </div>
                 <div>
                   <label className="text-sm font-bold mb-1.5 flex justify-between">
                     <span>MC Total Questions</span>
                     <span className="text-primary bg-primary/10 px-2 py-0.5 rounded text-xs">{inputs.mcTotal} q</span>
                   </label>
-                  <input type="number" value={inputs.mcTotal} onChange={e => updateInput("mcTotal", Number(e.target.value))} className="input-calc" min="1" />
+                  <input type="number" value={inputs.mcTotal} onChange={e => updateInput("mcTotal", Number(e.target.value))} onKeyDown={e => { if (e.key === 'Enter') handleCalculate(); }} className="input-calc" min="1" />
                 </div>
               </div>
 
@@ -166,14 +166,14 @@ export default function ApScoreCalculator() {
                     <span>FR Score Earned</span>
                     <span className="text-primary bg-primary/10 px-2 py-0.5 rounded text-xs">{inputs.frScore} / {inputs.frTotal}</span>
                   </label>
-                  <input type="number" value={inputs.frScore} onChange={e => updateInput("frScore", Number(e.target.value))} className="input-calc" min="0" max={inputs.frTotal} step="0.5" />
+                  <input type="number" value={inputs.frScore} onChange={e => updateInput("frScore", Number(e.target.value))} onKeyDown={e => { if (e.key === 'Enter') handleCalculate(); }} className="input-calc" min="0" max={inputs.frTotal} step="0.5" />
                 </div>
                 <div>
                   <label className="text-sm font-bold mb-1.5 flex justify-between">
                     <span>FR Total Points</span>
                     <span className="text-primary bg-primary/10 px-2 py-0.5 rounded text-xs">{inputs.frTotal} pts</span>
                   </label>
-                  <input type="number" value={inputs.frTotal} onChange={e => updateInput("frTotal", Number(e.target.value))} className="input-calc" min="1" />
+                  <input type="number" value={inputs.frTotal} onChange={e => updateInput("frTotal", Number(e.target.value))} onKeyDown={e => { if (e.key === 'Enter') handleCalculate(); }} className="input-calc" min="1" />
                 </div>
               </div>
             </div>
@@ -190,7 +190,7 @@ export default function ApScoreCalculator() {
                         <span>MC Weight %</span>
                         <span className="text-primary bg-primary/10 px-2 py-0.5 rounded text-xs">{inputs.mcWeight}%</span>
                       </label>
-                      <input type="number" value={inputs.mcWeight} onChange={e => updateInput("mcWeight", Number(e.target.value))} className="input-calc" min="0" max="100" />
+                      <input type="number" value={inputs.mcWeight} onChange={e => updateInput("mcWeight", Number(e.target.value))} onKeyDown={e => { if (e.key === 'Enter') handleCalculate(); }} className="input-calc" min="0" max="100" />
                       <p className="text-xs text-muted-foreground mt-1">Typical MC weight is 55-65%.</p>
                     </div>
                     <div>
@@ -198,7 +198,7 @@ export default function ApScoreCalculator() {
                         <span>FR Weight %</span>
                         <span className="text-primary bg-primary/10 px-2 py-0.5 rounded text-xs">{inputs.frWeight}%</span>
                       </label>
-                      <input type="number" value={inputs.frWeight} onChange={e => updateInput("frWeight", Number(e.target.value))} className="input-calc" min="0" max="100" />
+                      <input type="number" value={inputs.frWeight} onChange={e => updateInput("frWeight", Number(e.target.value))} onKeyDown={e => { if (e.key === 'Enter') handleCalculate(); }} className="input-calc" min="0" max="100" />
                       <p className="text-xs text-muted-foreground mt-1">Typical FR weight is 35-45%.</p>
                     </div>
                   </div>
@@ -207,7 +207,7 @@ export default function ApScoreCalculator() {
                       <span>Passing Threshold</span>
                       <span className="text-primary bg-primary/10 px-2 py-0.5 rounded text-xs">{inputs.passingThreshold} / 5</span>
                     </label>
-                    <input type="number" value={inputs.passingThreshold} onChange={e => updateInput("passingThreshold", Number(e.target.value))} className="input-calc" min="1" max="5" step="0.5" />
+                     <input type="number" value={inputs.passingThreshold} onChange={e => updateInput("passingThreshold", Number(e.target.value))} onKeyDown={e => { if (e.key === 'Enter') handleCalculate(); }} className="input-calc" min="1" max="5" step="0.5" />
                     <p className="text-xs text-muted-foreground mt-1">Most colleges accept AP 3+. Some require 4+.</p>
                   </div>
                 </div>

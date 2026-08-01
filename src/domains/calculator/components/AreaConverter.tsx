@@ -168,13 +168,13 @@ export default function AreaConverter() {
               <div>
                 <label className="text-base font-medium block mb-1.5">Value</label>
                 <div className={inp}>
-                  <input type="number" value={inputs.value} onChange={(e) => update({ value: e.target.value })} className={ci} placeholder="1000" />
+                   <input type="number" value={inputs.value} onChange={(e) => update({ value: e.target.value })} onKeyDown={e => { if (e.key === 'Enter') calculate(); }} className={ci} placeholder="1000" />
                 </div>
               </div>
               <div>
                 <label className="text-base font-medium block mb-1.5">From Unit</label>
                 <div className={inp}>
-                  <select value={inputs.fromUnit} onChange={(e) => update({ fromUnit: e.target.value as AreaUnit })} className={ci}>
+                  <select value={inputs.fromUnit} onChange={(e) => update({ fromUnit: e.target.value as AreaUnit })} onKeyDown={e => { if (e.key === 'Enter') calculate(); }} className={ci}>
                     {(Object.keys(TO_SQM) as AreaUnit[]).map((u) => (
                       <option key={u} value={u}>{UNIT_META[u].label} ({UNIT_META[u].symbol})</option>
                     ))}
@@ -193,7 +193,7 @@ export default function AreaConverter() {
                   <div>
                     <label className="text-sm font-medium block mb-1.5">Decimal Places</label>
                     <div className={inp}>
-                      <input type="number" value={inputs.decimals} onChange={(e) => update({ decimals: e.target.value })} min={0} max={10} className={ci} />
+                       <input type="number" value={inputs.decimals} onChange={(e) => update({ decimals: e.target.value })} min={0} max={10} onKeyDown={e => { if (e.key === 'Enter') calculate(); }} className={ci} />
                     </div>
                   </div>
                 </div>

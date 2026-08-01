@@ -186,27 +186,27 @@ export default function AnorexicBmiCalculator() {
                 <div className="grid grid-cols-2 gap-3">
                   <div>
                     <label className="text-sm font-medium mb-1 block">Height (ft)</label>
-                    <div className={inp}><input type="number" value={heightFt} onChange={e => setHeightFt(e.target.value)} className={ci} /></div>
+                     <div className={inp}><input type="number" value={heightFt} onChange={e => setHeightFt(e.target.value)} onKeyDown={e => { if (e.key === 'Enter') calculate(); }} className={ci} /></div>
                   </div>
                   <div>
                     <label className="text-sm font-medium mb-1 block">Height (in)</label>
-                    <div className={inp}><input type="number" value={heightIn} onChange={e => setHeightIn(e.target.value)} className={ci} /></div>
+                     <div className={inp}><input type="number" value={heightIn} onChange={e => setHeightIn(e.target.value)} onKeyDown={e => { if (e.key === 'Enter') calculate(); }} className={ci} /></div>
                   </div>
                 </div>
                 <div>
                   <label className="text-sm font-medium mb-1 block">Current Weight (lbs)</label>
-                  <div className={inp}><input type="number" value={weightLbs} onChange={e => setWeightLbs(e.target.value)} className={ci} /></div>
+                   <div className={inp}><input type="number" value={weightLbs} onChange={e => setWeightLbs(e.target.value)} onKeyDown={e => { if (e.key === 'Enter') calculate(); }} className={ci} /></div>
                 </div>
               </>
             ) : (
               <>
                 <div>
                   <label className="text-sm font-medium mb-1 block">Height (cm)</label>
-                  <div className={inp}><input type="number" value={heightCm} onChange={e => setHeightCm(e.target.value)} className={ci} /></div>
+                   <div className={inp}><input type="number" value={heightCm} onChange={e => setHeightCm(e.target.value)} onKeyDown={e => { if (e.key === 'Enter') calculate(); }} className={ci} /></div>
                 </div>
                 <div>
                   <label className="text-sm font-medium mb-1 block">Current Weight (kg)</label>
-                  <div className={inp}><input type="number" value={weightKg} onChange={e => setWeightKg(e.target.value)} className={ci} /></div>
+                   <div className={inp}><input type="number" value={weightKg} onChange={e => setWeightKg(e.target.value)} onKeyDown={e => { if (e.key === 'Enter') calculate(); }} className={ci} /></div>
                 </div>
               </>
             )}

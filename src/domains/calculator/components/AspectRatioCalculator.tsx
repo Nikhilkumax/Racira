@@ -183,11 +183,11 @@ export default function AspectRatioCalculator() {
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="text-sm font-medium mb-1 block">Width</label>
-                <div className={inp}><input type="number" value={inputs.width} onChange={e => update({ width: e.target.value })} min={0} className={ci} /></div>
+                 <div className={inp}><input type="number" value={inputs.width} onChange={e => update({ width: e.target.value })} min={0} onKeyDown={e => { if (e.key === 'Enter') calculate(); }} className={ci} /></div>
               </div>
               <div>
                 <label className="text-sm font-medium mb-1 block">Height</label>
-                <div className={inp}><input type="number" value={inputs.height} onChange={e => update({ height: e.target.value })} min={0} className={ci} /></div>
+                 <div className={inp}><input type="number" value={inputs.height} onChange={e => update({ height: e.target.value })} min={0} onKeyDown={e => { if (e.key === 'Enter') calculate(); }} className={ci} /></div>
               </div>
             </div>
             <div className="border border-border rounded-lg p-4 space-y-3">
@@ -206,7 +206,7 @@ export default function AspectRatioCalculator() {
               </label>
               <div className="pt-1">
                 <label className="text-sm font-medium mb-1 block">Precision (decimal places)</label>
-                <div className={inp}><input type="number" value={inputs.precision} onChange={e => update({ precision: e.target.value })} min={0} max={10} className={ci} /></div>
+                 <div className={inp}><input type="number" value={inputs.precision} onChange={e => update({ precision: e.target.value })} min={0} max={10} onKeyDown={e => { if (e.key === 'Enter') calculate(); }} className={ci} /></div>
               </div>
             </div>
             <div className="flex gap-3 mt-1">

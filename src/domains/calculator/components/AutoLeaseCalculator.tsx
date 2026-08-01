@@ -120,12 +120,12 @@ export default function AutoLeaseCalculator() {
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Auto Lease Calculator</h1>
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
-            <div><label className="text-sm font-medium mb-1.5 block">Vehicle MSRP / Negotiated Price</label><div className={inp}><span className="pl-3 text-muted-foreground">$</span><input type="number" value={price} onChange={e => setPrice(e.target.value)} className={ci} /></div></div>
+            <div><label className="text-sm font-medium mb-1.5 block">Vehicle MSRP / Negotiated Price</label><div className={inp}><span className="pl-3 text-muted-foreground">$</span><input type="number" value={price} onChange={e => setPrice(e.target.value)} onKeyDown={e => { if (e.key === 'Enter') calculate(); }} className={ci} /></div></div>
             <div className="grid grid-cols-2 gap-4">
-              <div><label className="text-sm font-medium mb-1.5 block">Down Payment</label><div className={inp}><span className="pl-3 text-muted-foreground">$</span><input type="number" value={downPayment} onChange={e => setDownPayment(e.target.value)} className={ci} /></div></div>
-              <div><label className="text-sm font-medium mb-1.5 block">Trade-In Value</label><div className={inp}><span className="pl-3 text-muted-foreground">$</span><input type="number" value={tradeIn} onChange={e => setTradeIn(e.target.value)} className={ci} /></div></div>
+              <div><label className="text-sm font-medium mb-1.5 block">Down Payment</label><div className={inp}><span className="pl-3 text-muted-foreground">$</span><input type="number" value={downPayment} onChange={e => setDownPayment(e.target.value)} onKeyDown={e => { if (e.key === 'Enter') calculate(); }} className={ci} /></div></div>
+              <div><label className="text-sm font-medium mb-1.5 block">Trade-In Value</label><div className={inp}><span className="pl-3 text-muted-foreground">$</span><input type="number" value={tradeIn} onChange={e => setTradeIn(e.target.value)} onKeyDown={e => { if (e.key === 'Enter') calculate(); }} className={ci} /></div></div>
             </div>
-            <div><label className="text-sm font-medium mb-1.5 block">Lease Term (Months)</label><div className={inp}><input type="number" value={termMonths} onChange={e => setTermMonths(e.target.value)} className={ci} /></div></div>
+            <div><label className="text-sm font-medium mb-1.5 block">Lease Term (Months)</label><div className={inp}><input type="number" value={termMonths} onChange={e => setTermMonths(e.target.value)} onKeyDown={e => { if (e.key === 'Enter') calculate(); }} className={ci} /></div></div>
 
             <button onClick={() => setShowAdvanced(!showAdvanced)} className="text-sm font-medium text-primary flex items-center gap-1 mt-2 hover:underline">
               Advanced Lease Details {showAdvanced ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
@@ -133,10 +133,10 @@ export default function AutoLeaseCalculator() {
             
             {showAdvanced && (
               <div className="grid grid-cols-2 gap-4 p-4 bg-muted/30 rounded-lg border border-border mt-1">
-                <div><label className="text-sm font-medium mb-1.5 block">Money Factor (ex. .0025)</label><div className={inp}><input type="number" value={moneyFactor} onChange={e => setMoneyFactor(e.target.value)} step={0.0001} className={ci} /></div></div>
-                <div><label className="text-sm font-medium mb-1.5 block">Residual Value (%)</label><div className={inp}><input type="number" value={residualPct} onChange={e => setResidualPct(e.target.value)} step={1} className={ci} /><span className="pr-3 text-muted-foreground">%</span></div></div>
-                <div><label className="text-sm font-medium mb-1.5 block">Sales Tax Rate (%)</label><div className={inp}><input type="number" value={salesTaxPct} onChange={e => setSalesTaxPct(e.target.value)} step={0.1} className={ci} /><span className="pr-3 text-muted-foreground">%</span></div></div>
-                <div><label className="text-sm font-medium mb-1.5 block">Acquisition Fees</label><div className={inp}><span className="pl-3 text-muted-foreground">$</span><input type="number" value={fees} onChange={e => setFees(e.target.value)} className={ci} /></div></div>
+                <div><label className="text-sm font-medium mb-1.5 block">Money Factor (ex. .0025)</label><div className={inp}><input type="number" value={moneyFactor} onChange={e => setMoneyFactor(e.target.value)} step={0.0001} onKeyDown={e => { if (e.key === 'Enter') calculate(); }} className={ci} /></div></div>
+                <div><label className="text-sm font-medium mb-1.5 block">Residual Value (%)</label><div className={inp}><input type="number" value={residualPct} onChange={e => setResidualPct(e.target.value)} step={1} onKeyDown={e => { if (e.key === 'Enter') calculate(); }} className={ci} /><span className="pr-3 text-muted-foreground">%</span></div></div>
+                <div><label className="text-sm font-medium mb-1.5 block">Sales Tax Rate (%)</label><div className={inp}><input type="number" value={salesTaxPct} onChange={e => setSalesTaxPct(e.target.value)} step={0.1} onKeyDown={e => { if (e.key === 'Enter') calculate(); }} className={ci} /><span className="pr-3 text-muted-foreground">%</span></div></div>
+                <div><label className="text-sm font-medium mb-1.5 block">Acquisition Fees</label><div className={inp}><span className="pl-3 text-muted-foreground">$</span><input type="number" value={fees} onChange={e => setFees(e.target.value)} onKeyDown={e => { if (e.key === 'Enter') calculate(); }} className={ci} /></div></div>
               </div>
             )}
             

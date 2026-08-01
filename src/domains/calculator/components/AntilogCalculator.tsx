@@ -126,11 +126,11 @@ export default function AntilogCalculator() {
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="text-sm font-medium mb-1 block">Log Value (x)</label>
-                <div className={inp}><input type="number" step="any" value={logValue} onChange={e => setLogValue(e.target.value)} className={ci} placeholder="e.g., 2" /></div>
+                 <div className={inp}><input type="number" step="any" value={logValue} onChange={e => setLogValue(e.target.value)} onKeyDown={e => { if (e.key === 'Enter') calculate(); }} className={ci} placeholder="e.g., 2" /></div>
               </div>
               <div>
                 <label className="text-sm font-medium mb-1 block">Base (b)</label>
-                <div className={inp}><input type="number" step="any" value={base} onChange={e => setBase(e.target.value)} className={ci} placeholder="e.g., 10" /></div>
+                 <div className={inp}><input type="number" step="any" value={base} onChange={e => setBase(e.target.value)} onKeyDown={e => { if (e.key === 'Enter') calculate(); }} className={ci} placeholder="e.g., 10" /></div>
               </div>
             </div>
             <button onClick={() => setShowAdvanced(!showAdvanced)} className="text-sm text-primary font-medium flex items-center gap-1 self-start">
@@ -141,7 +141,7 @@ export default function AntilogCalculator() {
                 <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Precision</div>
                 <div>
                   <label className="text-sm font-medium mb-1 block">Decimal Places</label>
-                  <div className={inp}><input type="number" min="0" max="15" value={decimalPlaces} onChange={e => setDecimalPlaces(e.target.value)} className={ci} /></div>
+                   <div className={inp}><input type="number" min="0" max="15" value={decimalPlaces} onChange={e => setDecimalPlaces(e.target.value)} onKeyDown={e => { if (e.key === 'Enter') calculate(); }} className={ci} /></div>
                 </div>
               </div>
             )}

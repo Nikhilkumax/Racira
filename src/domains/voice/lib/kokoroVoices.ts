@@ -44,20 +44,3 @@ export const KOKORO_LANGUAGES = [
   { code: "en-us", label: "American English" },
   { code: "en-gb", label: "British English" },
 ];
-
-export function getVoicesByLanguage(lang: string): KokoroVoice[] {
-  return KOKORO_VOICES.filter((v) => v.language === lang);
-}
-
-export function getVoicesGroupedByLanguage(): {
-  label: string;
-  voices: KokoroVoice[];
-}[] {
-  const groups: Record<string, KokoroVoice[]> = {};
-  for (const voice of KOKORO_VOICES) {
-    const label = voice.languageLabel;
-    if (!groups[label]) groups[label] = [];
-    groups[label].push(voice);
-  }
-  return Object.entries(groups).map(([label, voices]) => ({ label, voices }));
-}

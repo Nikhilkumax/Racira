@@ -128,12 +128,12 @@ export default function AngleConverterAdvanced() {
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="text-sm font-medium mb-1 block">Value</label>
-                <div className={inp}><input type="number" value={inputs.value} onChange={e => update({ value: e.target.value })} className={ci} /></div>
+                 <div className={inp}><input type="number" value={inputs.value} onChange={e => update({ value: e.target.value })} onKeyDown={e => { if (e.key === 'Enter') calculate(); }} className={ci} /></div>
               </div>
               <div>
                 <label className="text-sm font-medium mb-1 block">From Unit</label>
                 <div className={inp}>
-                  <select value={inputs.fromUnit} onChange={e => update({ fromUnit: e.target.value as AngleUnit })} className={ci}>
+                   <select value={inputs.fromUnit} onChange={e => update({ fromUnit: e.target.value as AngleUnit })} onKeyDown={e => { if (e.key === 'Enter') calculate(); }} className={ci}>
                     <option value="degrees">Degrees (°)</option>
                     <option value="radians">Radians (rad)</option>
                     <option value="gradians">Gradians (grad)</option>
@@ -150,7 +150,7 @@ export default function AngleConverterAdvanced() {
                 <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Precision</div>
                 <div>
                   <label className="text-sm font-medium mb-1 block">Decimal Places</label>
-                  <div className={inp}><input type="number" value={inputs.decimals} onChange={e => update({ decimals: e.target.value })} min={0} max={10} className={ci} /></div>
+                   <div className={inp}><input type="number" value={inputs.decimals} onChange={e => update({ decimals: e.target.value })} min={0} max={10} onKeyDown={e => { if (e.key === 'Enter') calculate(); }} className={ci} /></div>
                 </div>
               </div>
             )}

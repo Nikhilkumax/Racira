@@ -8,7 +8,7 @@ const DEFAULTS = {
   breakMinutes: 10,
 };
 
-function calculateTotalTime(blocks, timePerBlockMinutes, breakMinutes) {
+function calculateTotalTime(blocks: number, timePerBlockMinutes: number, breakMinutes: number) {
   const totalBlockTime = blocks * timePerBlockMinutes;
   const totalBreakTime = breakMinutes;
   return totalBlockTime + totalBreakTime;

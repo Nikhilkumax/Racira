@@ -95,7 +95,7 @@ const fmtSize = (mb: number): string => {
   return mb.toFixed(2) + " MB";
 };
 
-const CompactInput = ({ id, label, value, onChange, suffix }: any) => (
+const CompactInput = ({ id, label, value, onChange, suffix, onKeyDown }: any) => (
   <div className="flex flex-col">
     <label htmlFor={id} className="text-base font-medium mb-1.5 text-foreground">{label}</label>
     <div className="relative w-full flex items-center rounded-md border border-input bg-background h-10 shadow-sm focus-within:ring-2 focus-within:ring-primary/20">
@@ -105,6 +105,7 @@ const CompactInput = ({ id, label, value, onChange, suffix }: any) => (
         min="0"
         value={value}
         onChange={(e) => onChange(e.target.value)}
+        onKeyDown={onKeyDown}
         className="w-full h-full px-3 py-1 text-base bg-transparent outline-none border-none text-foreground"
       />
       {suffix && <span className="pr-3 pl-1 text-sm text-muted-foreground">{suffix}</span>}
@@ -112,13 +113,14 @@ const CompactInput = ({ id, label, value, onChange, suffix }: any) => (
   </div>
 );
 
-const SelectInput = ({ id, label, value, onChange, options }: any) => (
+const SelectInput = ({ id, label, value, onChange, options, onKeyDown }: any) => (
   <div className="flex flex-col">
     <label htmlFor={id} className="text-base font-medium mb-1.5 text-foreground">{label}</label>
     <select
       id={id}
       value={value}
       onChange={(e) => onChange(e.target.value)}
+      onKeyDown={onKeyDown}
       className="h-10 px-3 text-base rounded-md border border-input bg-background shadow-sm outline-none focus:ring-2 focus:ring-primary/20 text-foreground"
     >
       {options.map((o: any) => (
@@ -158,8 +160,8 @@ export default function AudioFileSizeCalculator() {
           {/* Left Column - Inputs */}
           <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card rounded-xl">
             <div className="grid grid-cols-2 gap-3">
-              <CompactInput id="duration" label="Duration" value={vals.duration} onChange={(v: string) => updateVal('duration', v)} suffix="min" />
-              <CompactInput id="bitrate" label="Bitrate" value={vals.bitrate} onChange={(v: string) => updateVal('bitrate', v)} suffix="kbps" />
+              <CompactInput id="duration" label="Duration" value={vals.duration} onChange={(v: string) => updateVal('duration', v)} suffix="min" onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => { if (e.key === 'Enter') handleCalculate(); }} />
+              <CompactInput id="bitrate" label="Bitrate" value={vals.bitrate} onChange={(v: string) => updateVal('bitrate', v)} suffix="kbps" onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => { if (e.key === 'Enter') handleCalculate(); }} />
             </div>
 
             {/* Advanced Tier */}
@@ -182,6 +184,7 @@ export default function AudioFileSizeCalculator() {
                     label="Channels"
                     value={vals.channels}
                     onChange={(v: string) => updateVal('channels', v)}
+                    onKeyDown={(e: React.KeyboardEvent<HTMLSelectElement>) => { if (e.key === 'Enter') handleCalculate(); }}
                     options={[
                       { value: "1", label: "1 — Mono" },
                       { value: "2", label: "2 — Stereo" },
@@ -189,13 +192,14 @@ export default function AudioFileSizeCalculator() {
                       { value: "7.1", label: "7.1 — Surround" },
                     ]}
                   />
-                  <CompactInput id="sampleRate" label="Sample Rate" value={vals.sampleRate} onChange={(v: string) => updateVal('sampleRate', v)} suffix="kHz" />
-                  <CompactInput id="bitDepth" label="Bit Depth" value={vals.bitDepth} onChange={(v: string) => updateVal('bitDepth', v)} suffix="bit" />
+                  <CompactInput id="sampleRate" label="Sample Rate" value={vals.sampleRate} onChange={(v: string) => updateVal('sampleRate', v)} suffix="kHz" onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => { if (e.key === 'Enter') handleCalculate(); }} />
+                  <CompactInput id="bitDepth" label="Bit Depth" value={vals.bitDepth} onChange={(v: string) => updateVal('bitDepth', v)} suffix="bit" onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => { if (e.key === 'Enter') handleCalculate(); }} />
                   <SelectInput
                     id="compression"
                     label="Compression"
                     value={vals.compression}
                     onChange={(v: string) => updateVal('compression', v)}
+                    onKeyDown={(e: React.KeyboardEvent<HTMLSelectElement>) => { if (e.key === 'Enter') handleCalculate(); }}
                     options={[
                       { value: "none", label: "None (WAV)" },
                       { value: "lossless", label: "Lossless (FLAC)" },

@@ -351,6 +351,7 @@ export default function AnovaCalculator() {
                 <textarea
                   value={inputs.groupA}
                   onChange={(e) => setValue("groupA", e.target.value)}
+                  onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); handleCalculate(); } }}
                   className={ta}
                   placeholder="12,15,18,11,14"
                 />
@@ -362,6 +363,7 @@ export default function AnovaCalculator() {
                 <textarea
                   value={inputs.groupB}
                   onChange={(e) => setValue("groupB", e.target.value)}
+                  onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); handleCalculate(); } }}
                   className={ta}
                   placeholder="22,25,19,24,20"
                 />
@@ -397,6 +399,7 @@ export default function AnovaCalculator() {
                       onChange={(e) =>
                         setValue("alpha", e.target.value === "" ? NaN : parseFloat(e.target.value))
                       }
+                      onKeyDown={e => { if (e.key === 'Enter') handleCalculate(); }}
                       className={ci}
                     />
                   </div>
@@ -411,6 +414,7 @@ export default function AnovaCalculator() {
                   <textarea
                     value={inputs.groupC}
                     onChange={(e) => setValue("groupC", e.target.value)}
+                    onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); handleCalculate(); } }}
                     className={ta}
                     placeholder="30,28,35,32,29"
                   />

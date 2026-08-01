@@ -88,7 +88,7 @@ function calculateAwsS3(inputs: typeof DEFAULTS): S3Result {
   };
 }
 
-const CompactInput = ({ id, label, value, onChange, suffix }: { id: string; label: string; value: string; onChange: (val: string) => void; suffix?: string }) => (
+const CompactInput = ({ id, label, value, onChange, suffix, onKeyDown }: { id: string; label: string; value: string; onChange: (val: string) => void; suffix?: string; onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void }) => (
   <div className="flex flex-col">
     <label htmlFor={id} className="text-sm font-medium mb-1.5 text-foreground">{label}</label>
     <div className="relative w-full flex items-center rounded-md border border-input bg-background h-10 shadow-sm focus-within:ring-2 focus-within:ring-primary/20">
@@ -98,6 +98,7 @@ const CompactInput = ({ id, label, value, onChange, suffix }: { id: string; labe
         min="0"
         value={value}
         onChange={(e) => onChange(e.target.value)}
+        onKeyDown={onKeyDown}
         className="w-full h-full px-3 py-1 text-base bg-transparent outline-none border-none text-foreground"
       />
       {suffix && <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{suffix}</span>}
@@ -105,13 +106,14 @@ const CompactInput = ({ id, label, value, onChange, suffix }: { id: string; labe
   </div>
 );
 
-const SelectInput = ({ id, label, value, onChange, options }: { id: string; label: string; value: string; onChange: (val: string) => void; options: { value: string; label: string }[] }) => (
+const SelectInput = ({ id, label, value, onChange, options, onKeyDown }: { id: string; label: string; value: string; onChange: (val: string) => void; options: { value: string; label: string }[]; onKeyDown?: (e: React.KeyboardEvent<HTMLSelectElement>) => void }) => (
   <div className="flex flex-col">
     <label htmlFor={id} className="text-sm font-medium mb-1.5 text-foreground">{label}</label>
     <select
       id={id}
       value={value}
       onChange={(e) => onChange(e.target.value)}
+      onKeyDown={onKeyDown}
       className="h-10 px-3 text-base rounded-md border border-input bg-background shadow-sm outline-none focus:ring-2 focus:ring-primary/20 text-foreground"
     >
       {options.map((o) => (
@@ -155,8 +157,8 @@ export default function AwsS3CostCalculator() {
           {/* LEFT - Inputs */}
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card rounded-xl">
             <div className="grid grid-cols-2 gap-3">
-              <CompactInput id="storageAmount" label="Storage Used" value={inputs.storageAmount} onChange={(v: string) => updateVal("storageAmount", v)} suffix="GB" />
-              <SelectInput id="storageClass" label="Storage Class" value={inputs.storageClass} onChange={(v: string) => updateVal("storageClass", v)} options={[
+              <CompactInput id="storageAmount" label="Storage Used" value={inputs.storageAmount} onChange={(v: string) => updateVal("storageAmount", v)} suffix="GB" onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => { if (e.key === 'Enter') handleCalculate(); }} />
+              <SelectInput id="storageClass" label="Storage Class" value={inputs.storageClass} onChange={(v: string) => updateVal("storageClass", v)} onKeyDown={(e: React.KeyboardEvent<HTMLSelectElement>) => { if (e.key === 'Enter') handleCalculate(); }} options={[
                 { value: "standard", label: "S3 Standard" },
                 { value: "intelligent", label: "Intelligent-Tiering" },
                 { value: "ia", label: "Standard-IA" },
@@ -184,11 +186,11 @@ export default function AwsS3CostCalculator() {
                       <ArrowUpRight className="h-3.5 w-3.5" /> Request Patterns
                     </div>
                     <div className="grid grid-cols-2 gap-3">
-                      <CompactInput id="putRequests" label="PUT Requests" value={inputs.putRequests} onChange={(v: string) => updateVal("putRequests", v)} suffix="/mo" />
-                      <CompactInput id="getRequests" label="GET Requests" value={inputs.getRequests} onChange={(v: string) => updateVal("getRequests", v)} suffix="/mo" />
+                      <CompactInput id="putRequests" label="PUT Requests" value={inputs.putRequests} onChange={(v: string) => updateVal("putRequests", v)} suffix="/mo" onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => { if (e.key === 'Enter') handleCalculate(); }} />
+                      <CompactInput id="getRequests" label="GET Requests" value={inputs.getRequests} onChange={(v: string) => updateVal("getRequests", v)} suffix="/mo" onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => { if (e.key === 'Enter') handleCalculate(); }} />
                     </div>
                     <div className="mt-3">
-                      <CompactInput id="dataTransferOut" label="Data Transfer Out" value={inputs.dataTransferOut} onChange={(v: string) => updateVal("dataTransferOut", v)} suffix="GB" />
+                      <CompactInput id="dataTransferOut" label="Data Transfer Out" value={inputs.dataTransferOut} onChange={(v: string) => updateVal("dataTransferOut", v)} suffix="GB" onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => { if (e.key === 'Enter') handleCalculate(); }} />
                     </div>
                   </div>
 
@@ -197,8 +199,8 @@ export default function AwsS3CostCalculator() {
                       <Cloud className="h-3.5 w-3.5" /> Lifecycle Policies
                     </div>
                     <div className="grid grid-cols-2 gap-3">
-                      <CompactInput id="transitionToIA" label="Transition to IA" value={inputs.transitionToIA} onChange={(v: string) => updateVal("transitionToIA", v)} suffix="GB" />
-                      <CompactInput id="transitionToGlacier" label="Transition to Glacier" value={inputs.transitionToGlacier} onChange={(v: string) => updateVal("transitionToGlacier", v)} suffix="GB" />
+                      <CompactInput id="transitionToIA" label="Transition to IA" value={inputs.transitionToIA} onChange={(v: string) => updateVal("transitionToIA", v)} suffix="GB" onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => { if (e.key === 'Enter') handleCalculate(); }} />
+                      <CompactInput id="transitionToGlacier" label="Transition to Glacier" value={inputs.transitionToGlacier} onChange={(v: string) => updateVal("transitionToGlacier", v)} suffix="GB" onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => { if (e.key === 'Enter') handleCalculate(); }} />
                     </div>
                   </div>
                 </div>

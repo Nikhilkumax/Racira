@@ -151,7 +151,7 @@ export default function ApgarScoreCalculator() {
                     <span>Appearance (Skin Color)</span>
                     <span className="text-primary bg-primary/10 px-2 py-0.5 rounded text-xs">{inputs.appearance} pts</span>
                   </label>
-                  <select value={inputs.appearance} onChange={e => updateInput("appearance", Number(e.target.value))} className={selCls}>
+                  <select value={inputs.appearance} onChange={e => updateInput("appearance", Number(e.target.value))} onKeyDown={e => { if (e.key === 'Enter') handleCalculate(); }} className={selCls}>
                     <option value={0}>0 - Blue or pale all over</option>
                     <option value={1}>1 - Body pink, extremities blue</option>
                     <option value={2}>2 - Completely pink</option>
@@ -163,7 +163,7 @@ export default function ApgarScoreCalculator() {
                     <span>Pulse (Heart Rate)</span>
                     <span className="text-primary bg-primary/10 px-2 py-0.5 rounded text-xs">{inputs.pulse} pts</span>
                   </label>
-                  <select value={inputs.pulse} onChange={e => updateInput("pulse", Number(e.target.value))} className={selCls}>
+                  <select value={inputs.pulse} onChange={e => updateInput("pulse", Number(e.target.value))} onKeyDown={e => { if (e.key === 'Enter') handleCalculate(); }} className={selCls}>
                     <option value={0}>0 - Absent (No pulse)</option>
                     <option value={1}>1 - Slow (Less than 100 bpm)</option>
                     <option value={2}>2 - Normal (Greater than 100 bpm)</option>
@@ -177,7 +177,7 @@ export default function ApgarScoreCalculator() {
                     <span>Grimace (Reflex Irritability)</span>
                     <span className="text-primary bg-primary/10 px-2 py-0.5 rounded text-xs">{inputs.grimace} pts</span>
                   </label>
-                  <select value={inputs.grimace} onChange={e => updateInput("grimace", Number(e.target.value))} className={selCls}>
+                  <select value={inputs.grimace} onChange={e => updateInput("grimace", Number(e.target.value))} onKeyDown={e => { if (e.key === 'Enter') handleCalculate(); }} className={selCls}>
                     <option value={0}>0 - No response to stimulation</option>
                     <option value={1}>1 - Grimace / Weak cry when stimulated</option>
                     <option value={2}>2 - Vigorous cry, sneeze, or cough</option>
@@ -189,7 +189,7 @@ export default function ApgarScoreCalculator() {
                     <span>Activity (Muscle Tone)</span>
                     <span className="text-primary bg-primary/10 px-2 py-0.5 rounded text-xs">{inputs.activity} pts</span>
                   </label>
-                  <select value={inputs.activity} onChange={e => updateInput("activity", Number(e.target.value))} className={selCls}>
+                  <select value={inputs.activity} onChange={e => updateInput("activity", Number(e.target.value))} onKeyDown={e => { if (e.key === 'Enter') handleCalculate(); }} className={selCls}>
                     <option value={0}>0 - Limp / Flaccid</option>
                     <option value={1}>1 - Some flexion of arms and legs</option>
                     <option value={2}>2 - Active motion / Well flexed</option>
@@ -202,7 +202,7 @@ export default function ApgarScoreCalculator() {
                   <span>Respiration (Breathing Effort)</span>
                   <span className="text-primary bg-primary/10 px-2 py-0.5 rounded text-xs">{inputs.respiration} pts</span>
                 </label>
-                <select value={inputs.respiration} onChange={e => updateInput("respiration", Number(e.target.value))} className={selCls}>
+                  <select value={inputs.respiration} onChange={e => updateInput("respiration", Number(e.target.value))} onKeyDown={e => { if (e.key === 'Enter') handleCalculate(); }} className={selCls}>
                   <option value={0}>0 - Absent (Not breathing)</option>
                   <option value={1}>1 - Slow, irregular, or gasping</option>
                   <option value={2}>2 - Good, strong, lusty cry</option>
@@ -221,14 +221,14 @@ export default function ApgarScoreCalculator() {
                       <span>Gestational Age (weeks)</span>
                       <span className="text-primary bg-primary/10 px-2 py-0.5 rounded text-xs">{inputs.gestationalAge} wks</span>
                     </label>
-                    <input type="number" value={inputs.gestationalAge} onChange={e => updateInput("gestationalAge", Number(e.target.value))} className={selCls} />
+                    <input type="number" value={inputs.gestationalAge} onChange={e => updateInput("gestationalAge", Number(e.target.value))} onKeyDown={e => { if (e.key === 'Enter') handleCalculate(); }} className={selCls} />
                     <p className="text-xs text-muted-foreground mt-1">Used to interpret score for preterm infants. Typical term is 37–42 weeks.</p>
                   </div>
                   <div>
                     <label className="text-sm font-bold mb-1.5 flex justify-between">
                       <span>Baby&apos;s Name</span>
                     </label>
-                    <input type="text" value={inputs.babyName} onChange={e => updateInput("babyName", e.target.value)} placeholder="Optional" className={selCls} />
+                    <input type="text" value={inputs.babyName} onChange={e => updateInput("babyName", e.target.value)} onKeyDown={e => { if (e.key === 'Enter') handleCalculate(); }} placeholder="Optional" className={selCls} />
                     <p className="text-xs text-muted-foreground mt-1">Not used in calculation. Displayed for personalization.</p>
                   </div>
                 </div>

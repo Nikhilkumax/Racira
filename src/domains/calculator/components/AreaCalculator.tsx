@@ -205,7 +205,7 @@ export default function AreaCalculator() {
               <div>
                 <label className="text-sm font-medium mb-1 block">Shape</label>
                 <div className={inp}>
-                  <select value={inputs.shape} onChange={e => update({ shape: e.target.value as Shape })} className={ci}>
+                  <select value={inputs.shape} onChange={e => update({ shape: e.target.value as Shape })} onKeyDown={e => { if (e.key === 'Enter') calculate(); }} className={ci}>
                     {SHAPES.map(s => <option key={s.key} value={s.key}>{s.label}</option>)}
                   </select>
                 </div>
@@ -213,7 +213,7 @@ export default function AreaCalculator() {
               <div>
                 <label className="text-sm font-medium mb-1 block">Unit</label>
                 <div className={inp}>
-                  <select value={inputs.unit} onChange={e => update({ unit: e.target.value as Unit })} className={ci}>
+                  <select value={inputs.unit} onChange={e => update({ unit: e.target.value as Unit })} onKeyDown={e => { if (e.key === 'Enter') calculate(); }} className={ci}>
                     {UNITS.map(u => <option key={u.key} value={u.key}>{u.label}</option>)}
                   </select>
                 </div>
@@ -222,11 +222,11 @@ export default function AreaCalculator() {
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="text-sm font-medium mb-1 block">Length / Side</label>
-                <div className={inp}><input type="number" value={inputs.length} onChange={e => update({ length: e.target.value })} className={ci} /></div>
+                <div className={inp}><input type="number" value={inputs.length} onChange={e => update({ length: e.target.value })} onKeyDown={e => { if (e.key === 'Enter') calculate(); }} className={ci} /></div>
               </div>
               <div>
                 <label className="text-sm font-medium mb-1 block">Width</label>
-                <div className={inp}><input type="number" value={inputs.width} onChange={e => update({ width: e.target.value })} className={ci} /></div>
+                <div className={inp}><input type="number" value={inputs.width} onChange={e => update({ width: e.target.value })} onKeyDown={e => { if (e.key === 'Enter') calculate(); }} className={ci} /></div>
               </div>
             </div>
             <button onClick={() => setShowAdv(!showAdv)} className="text-sm text-primary font-medium text-left">
@@ -239,23 +239,23 @@ export default function AreaCalculator() {
                   <div className="grid grid-cols-2 gap-3">
                     <div>
                       <label className="text-sm font-medium mb-1 block">Radius</label>
-                      <div className={inp}><input type="number" value={inputs.radius} onChange={e => update({ radius: e.target.value })} className={ci} /></div>
+                      <div className={inp}><input type="number" value={inputs.radius} onChange={e => update({ radius: e.target.value })} onKeyDown={e => { if (e.key === 'Enter') calculate(); }} className={ci} /></div>
                     </div>
                     <div>
                       <label className="text-sm font-medium mb-1 block">Base</label>
-                      <div className={inp}><input type="number" value={inputs.triangleBase} onChange={e => update({ triangleBase: e.target.value })} className={ci} /></div>
+                      <div className={inp}><input type="number" value={inputs.triangleBase} onChange={e => update({ triangleBase: e.target.value })} onKeyDown={e => { if (e.key === 'Enter') calculate(); }} className={ci} /></div>
                     </div>
                     <div>
                       <label className="text-sm font-medium mb-1 block">Height</label>
-                      <div className={inp}><input type="number" value={inputs.triangleHeight} onChange={e => update({ triangleHeight: e.target.value })} className={ci} /></div>
+                      <div className={inp}><input type="number" value={inputs.triangleHeight} onChange={e => update({ triangleHeight: e.target.value })} onKeyDown={e => { if (e.key === 'Enter') calculate(); }} className={ci} /></div>
                     </div>
                     <div>
                       <label className="text-sm font-medium mb-1 block">Sides</label>
-                      <div className={inp}><input type="number" value={inputs.sides} onChange={e => update({ sides: e.target.value })} min={3} className={ci} /></div>
+                      <div className={inp}><input type="number" value={inputs.sides} onChange={e => update({ sides: e.target.value })} min={3} onKeyDown={e => { if (e.key === 'Enter') calculate(); }} className={ci} /></div>
                     </div>
                     <div>
                       <label className="text-sm font-medium mb-1 block">Apothem</label>
-                      <div className={inp}><input type="number" value={inputs.apothem} onChange={e => update({ apothem: e.target.value })} className={ci} /></div>
+                      <div className={inp}><input type="number" value={inputs.apothem} onChange={e => update({ apothem: e.target.value })} onKeyDown={e => { if (e.key === 'Enter') calculate(); }} className={ci} /></div>
                     </div>
                   </div>
                 </div>
@@ -263,7 +263,7 @@ export default function AreaCalculator() {
                   <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Unit Conversion</div>
                   <div>
                     <label className="text-sm font-medium mb-1 block">Precision (decimal places)</label>
-                    <div className={inp}><input type="number" value={inputs.precision} onChange={e => update({ precision: e.target.value })} min={0} max={10} className={ci} /></div>
+                    <div className={inp}><input type="number" value={inputs.precision} onChange={e => update({ precision: e.target.value })} min={0} max={10} onKeyDown={e => { if (e.key === 'Enter') calculate(); }} className={ci} /></div>
                   </div>
                 </div>
               </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import PopularCalculators from "@/components/PopularCalculators";
@@ -66,19 +66,16 @@ function calculate(input: AttendanceInputs): AttendanceResult {
   };
 }
 
-const CI = ({
-  id,
-  label,
-  value,
-  onChange,
-  suffix,
-}: {
+interface CIProps {
   id: string;
   label: string;
   value: number;
   onChange: (v: string) => void;
   suffix?: string;
-}) => (
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+}
+
+const CI = ({ id, label, value, onChange, suffix, onKeyDown }: CIProps) => (
   <div className="flex flex-col">
     <label htmlFor={id} className="text-sm font-semibold text-foreground mb-1.5">{label}</label>
     <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-10 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
@@ -87,6 +84,7 @@ const CI = ({
         type="number"
         value={value}
         onChange={(e) => onChange(e.target.value)}
+        onKeyDown={onKeyDown}
         className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground"
       />
       {suffix && <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{suffix}</span>}
@@ -140,8 +138,8 @@ const AttendanceCalculator = () => {
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
             <div className="grid grid-cols-2 gap-4">
-              <CI id="totalDays" label="Total Days" value={inputs.totalDays} onChange={setField("totalDays")} />
-              <CI id="daysPresent" label="Days Present" value={inputs.daysPresent} onChange={setField("daysPresent")} />
+              <CI id="totalDays" label="Total Days" value={inputs.totalDays} onChange={setField("totalDays")} onKeyDown={e => { if (e.key === 'Enter') handleCalculate(); }} />
+              <CI id="daysPresent" label="Days Present" value={inputs.daysPresent} onChange={setField("daysPresent")} onKeyDown={e => { if (e.key === 'Enter') handleCalculate(); }} />
             </div>
 
             <div>
@@ -157,9 +155,9 @@ const AttendanceCalculator = () => {
                 <div className="p-4 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up">
                   <div className="text-[11px] font-bold uppercase text-muted-foreground tracking-wider mb-2">Absence Details</div>
                   <div className="grid grid-cols-2 gap-4">
-                    <CI id="daysAbsent" label="Days Absent" value={inputs.daysAbsent} onChange={setField("daysAbsent")} />
-                    <CI id="daysLate" label="Days Late" value={inputs.daysLate} onChange={setField("daysLate")} />
-                    <CI id="lateThreshold" label="Late Minutes Threshold" value={inputs.lateMinutesThreshold} onChange={setField("lateMinutesThreshold")} suffix="min" />
+                    <CI id="daysAbsent" label="Days Absent" value={inputs.daysAbsent} onChange={setField("daysAbsent")} onKeyDown={e => { if (e.key === 'Enter') handleCalculate(); }} />
+                    <CI id="daysLate" label="Days Late" value={inputs.daysLate} onChange={setField("daysLate")} onKeyDown={e => { if (e.key === 'Enter') handleCalculate(); }} />
+                    <CI id="lateThreshold" label="Late Minutes Threshold" value={inputs.lateMinutesThreshold} onChange={setField("lateMinutesThreshold")} suffix="min" onKeyDown={e => { if (e.key === 'Enter') handleCalculate(); }} />
                   </div>
                   <p className="text-xs text-muted-foreground mt-2">
                     Days Absent auto-calculates as Total − Present but can be overridden. Late days count as partial absences.

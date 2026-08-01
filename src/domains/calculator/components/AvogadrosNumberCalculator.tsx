@@ -207,10 +207,11 @@ const AvogadrosNumberCalculator = () => {
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="text-base font-medium block mb-1.5">Moles</label>
-                <input
+                 <input
                   type="number"
                   value={inputs.moles}
                   onChange={(e) => setField("moles", e.target.value)}
+                  onKeyDown={e => { if (e.key === 'Enter') handleCalculate(); }}
                   className="h-10 w-full px-3 text-lg rounded-md border border-input bg-background focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all"
                   placeholder="e.g. 2"
                   step="any"
@@ -221,6 +222,7 @@ const AvogadrosNumberCalculator = () => {
                 <select
                   value={inputs.unit}
                   onChange={(e) => setField("unit", e.target.value as UnitMode)}
+                  onKeyDown={e => { if (e.key === 'Enter') handleCalculate(); }}
                   className="h-10 w-full px-2 rounded-md border border-input bg-background focus:ring-2 focus:ring-primary/20 outline-none text-sm"
                 >
                   {UNITS.map((u) => (
@@ -245,10 +247,11 @@ const AvogadrosNumberCalculator = () => {
                     Molar Mass (for mass conversions)
                   </label>
                   <div className="flex gap-2">
-                    <input
+                     <input
                       type="number"
                       value={inputs.molarMass}
                       onChange={(e) => setField("molarMass", e.target.value)}
+                      onKeyDown={e => { if (e.key === 'Enter') handleCalculate(); }}
                       className="h-10 flex-1 px-3 rounded-md border border-input bg-background focus:ring-2 focus:ring-primary/20 outline-none text-lg"
                       placeholder="e.g. 18.015"
                       step="any"
@@ -271,6 +274,7 @@ const AvogadrosNumberCalculator = () => {
                           type="number"
                           value={inputs.temperature}
                           onChange={(e) => setField("temperature", e.target.value)}
+                          onKeyDown={e => { if (e.key === 'Enter') handleCalculate(); }}
                           className="h-10 flex-1 px-3 rounded-md border border-input bg-background focus:ring-2 focus:ring-primary/20 outline-none text-lg"
                           placeholder="0"
                           step="any"
@@ -289,6 +293,7 @@ const AvogadrosNumberCalculator = () => {
                           type="number"
                           value={inputs.pressure}
                           onChange={(e) => setField("pressure", e.target.value)}
+                          onKeyDown={e => { if (e.key === 'Enter') handleCalculate(); }}
                           className="h-10 flex-1 px-3 rounded-md border border-input bg-background focus:ring-2 focus:ring-primary/20 outline-none text-lg"
                           placeholder="1"
                           step="any"

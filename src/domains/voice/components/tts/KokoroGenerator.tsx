@@ -5,9 +5,7 @@ import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
-  SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
@@ -17,7 +15,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Play, Pause, Download, Trash2, Loader2 } from "lucide-react";
 import {
   KOKORO_VOICES,
-  getVoicesGroupedByLanguage,
+  KOKORO_LANGUAGES,
   type KokoroVoice,
 } from "@/domains/voice/lib/kokoroVoices";
 import { getKokoroEngine } from "@/domains/voice/lib/kokoroEngine";
@@ -68,6 +66,7 @@ async function toOutputBlob(
 
 export function KokoroGenerator() {
   const [voice, setVoice] = useState<string | null>(null);
+  const [language, setLanguage] = useState<string>(KOKORO_LANGUAGES[0].code);
   const [speed, setSpeed] = useState(1);
   const [format, setFormat] = useState<"wav" | "mp3">("wav");
   const [text, setText] = useState("");
@@ -92,7 +91,14 @@ export function KokoroGenerator() {
     };
   }, []);
 
-  const voiceGroups = getVoicesGroupedByLanguage();
+  useEffect(() => {
+    const filtered = KOKORO_VOICES.filter((v) => v.language === language);
+    if (filtered.length > 0 && !filtered.some((v) => v.id === voice)) {
+      setVoice(filtered[0].id);
+    }
+  }, [language, voice]);
+
+  const filteredVoices = KOKORO_VOICES.filter((v) => v.language === language);
   const wordCount = text.trim().split(/\s+/).filter(Boolean).length;
 
   const handleGenerate = async () => {
@@ -238,24 +244,44 @@ export function KokoroGenerator() {
                 Voice options
               </h3>
 
-              {/* Voice (grouped by language) */}
+              {/* Voice (split Language + Voice) */}
               <div className="space-y-2">
-                <Label className="text-[13px] font-semibold text-muted-foreground">
-                  Voice
-                </Label>
-                <Select
-                  value={voice ?? ""}
-                  onValueChange={setVoice}
-                  disabled={status === "loading-model"}
-                >
-                  <SelectTrigger className="w-full h-11 rounded-xl" data-testid="voice-select">
-                    <SelectValue placeholder="Select a voice" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {voiceGroups.map((group) => (
-                      <SelectGroup key={group.label}>
-                        <SelectLabel>{group.label}</SelectLabel>
-                        {group.voices.map((v: KokoroVoice) => (
+                <div className="flex gap-3">
+                  <div className="flex-1 space-y-1.5">
+                    <Label className="text-[13px] font-semibold text-muted-foreground">
+                      Language
+                    </Label>
+                    <Select
+                      value={language}
+                      onValueChange={setLanguage}
+                      disabled={status === "loading-model"}
+                    >
+                      <SelectTrigger className="w-full h-11 rounded-xl" data-testid="language-select">
+                        <SelectValue placeholder="Select language" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {KOKORO_LANGUAGES.map((lang) => (
+                          <SelectItem key={lang.code} value={lang.code}>
+                            {lang.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="flex-1 space-y-1.5">
+                    <Label className="text-[13px] font-semibold text-muted-foreground">
+                      Voice
+                    </Label>
+                    <Select
+                      value={voice ?? ""}
+                      onValueChange={setVoice}
+                      disabled={status === "loading-model"}
+                    >
+                      <SelectTrigger className="w-full h-11 rounded-xl" data-testid="voice-select">
+                        <SelectValue placeholder="Select a voice" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {filteredVoices.map((v: KokoroVoice) => (
                           <SelectItem key={v.id} value={v.id}>
                             <div className="flex items-center justify-between w-full">
                               <span>
@@ -264,10 +290,10 @@ export function KokoroGenerator() {
                             </div>
                           </SelectItem>
                         ))}
-                      </SelectGroup>
-                    ))}
-                  </SelectContent>
-                </Select>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
               </div>
 
               {/* Speed */}
