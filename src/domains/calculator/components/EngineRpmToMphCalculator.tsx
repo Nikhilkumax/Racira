@@ -274,7 +274,7 @@ const EngineRpmToMphCalculator: React.FC = () => {
           {/* Primary Result Card */}
           <div className="border p-4 rounded-md">
             <h3 className="font-semibold mb-2">Vehicle Speed</h3>
-            <p className="text-4xl font-bold">{result.speed.toFixed(2)} {result.speedUnit === 'mph' ? 'mph' : 'km/h'}</p>
+            <p className="text-4xl font-bold">{result.speed.toFixed(2)} {result.inputs.speedUnit === 'mph' ? 'mph' : 'km/h'}</p>
           </div>
 
           {/* 3-Stat Bar */}
@@ -355,9 +355,9 @@ const EngineRpmToMphCalculator: React.FC = () => {
             <h3 className="font-semibold mb-2">Summary Statistics</h3>
             <div className="grid grid-cols-2 gap-4">
               <div className="text-sm">
-                <p>Minimum Speed: {result.summary.minSpeed.toFixed(2)} {result.speedUnit === 'mph' ? 'mph' : 'km/h'}</p>
-                <p>Maximum Speed: {result.summary.maxSpeed.toFixed(2)} {result.speedUnit === 'mph' ? 'mph' : 'km/h'}</p>
-                <p>Average Speed: {result.summary.avgSpeed.toFixed(2)} {result.speedUnit === 'mph' ? 'mph' : 'km/h'}</p>
+                <p>Minimum Speed: {result.summary.minSpeed.toFixed(2)} {result.inputs.speedUnit === 'mph' ? 'mph' : 'km/h'}</p>
+                <p>Maximum Speed: {result.summary.maxSpeed.toFixed(2)} {result.inputs.speedUnit === 'mph' ? 'mph' : 'km/h'}</p>
+                <p>Average Speed: {result.summary.avgSpeed.toFixed(2)} {result.inputs.speedUnit === 'mph' ? 'mph' : 'km/h'}</p>
               </div>
             </div>
           </div>
