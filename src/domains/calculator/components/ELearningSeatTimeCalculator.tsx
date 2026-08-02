@@ -1,5 +1,6 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
+
 const DEFAULTS = {
   totalHours: 5,
   sessions: 5,
@@ -29,9 +30,16 @@ const ELearningSeatTimeCalculator = () => {
 
   useEffect(() => {
     calculate();
-  }, [totalHours, sessions, breakMinutes]);
-
-  return (
+}, [totalHours, sessions, breakMinutes]);
+   const dataPoints = React.useMemo(() => {
+     const points = [];
+     for (let i = 0; i < sessions; i++) {
+       points.push({ session: i + 1, duration: avgSessionMinutes });
+     }
+     return points;
+   }, [sessions, avgSessionMinutes]);
+   
+   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -140,24 +148,7 @@ const ELearningSeatTimeCalculator = () => {
               </div>
             </div>
 
-            {/* Recharts Chart */}
-            <div className="bg-white rounded-lg shadow-md">
-              <div className="px-6 py-4 border-b">
-                <h2 className="text-xl font-bold mb-0">Learning Curve</h2>
-              </div>
-              <div className="h-64 w-full overflow-x-auto">
-                <LineChart
-                  data={dataPoints}
-                  margin={{ top: 20, right: 30, left: 0, bottom: 5 }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="session" tick={{ fontSize: 12 }} />
-                  <YAxis tickFormatter={(value) => value + ' min'} tick={{ fontSize: 12 }} />
-                  <Tooltip />
-                  <Line type="monotone" dataKey="duration" stroke="#4361ee" strokeWidth={2} dot={false} />
-                </LineChart>
-              </div>
-            </div>
+            
 
             {/* Summary Statistics */}
             <div className="bg-white rounded-lg shadow-md p-6">

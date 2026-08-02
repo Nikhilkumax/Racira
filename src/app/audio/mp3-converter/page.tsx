@@ -33,16 +33,21 @@ export default function Mp3ConverterPage() {
 
 
 
-  const handleFile = useCallback(async (selected: File | null) => {
-    (selected: File | null) => {
-      if (!selected) return;
-      resetOutput();
-      setErrorMsg("");
-      setFile(selected);
-      setStatus("ready");
-    },
-    [resetOutput],
-  );
+const resetOutput = useCallback(() => {
+     setDownloadUrl((prev) => {
+       if (prev) URL.revokeObjectURL(prev);
+       return null;
+     });
+     setProgress(0);
+   }, []);
+
+   const handleFile = useCallback((selected: File | null) => {
+     if (!selected) return;
+     resetOutput();
+     setErrorMsg("");
+     setFile(selected);
+     setStatus("ready");
+   }, [resetOutput]);
 
   const convert = useCallback(async () => {
     if (!file) return;
