@@ -207,9 +207,9 @@ export default function CarSharingVsRentalCostCalculator() {
                 <Car className="w-3.5 h-3.5" /> Car Sharing
               </h3>
               <div className="grid grid-cols-1 gap-3">
-                <CompactInput id="carShareHourly" label="Hourly Rate" value={vals.carShareHourly} onChange={(v) => updateVal("carShareHourly", v)} prefix="$" suffix="/hr" tooltip="Cost per hour of driving" />
-                <CompactInput id="carShareMonthly" label="Monthly Membership" value={vals.carShareMonthly} onChange={(v) => updateVal("carShareMonthly", v)} prefix="$" suffix="/mo" tooltip="Monthly fee for the service" />
-                <CompactInput id="carShareAnnual" label="Annual Fee" value={vals.carShareAnnual} onChange={(v) => updateVal("carShareAnnual", v)} prefix="$" suffix="/yr" tooltip="Annual membership or platform fee" />
+                <CompactInput id="carShareHourly" label="Hourly Rate" value={vals.carShareHourly} onChange={(v: string) => updateVal("carShareHourly", v)} prefix="$" suffix="/hr" tooltip="Cost per hour of driving" />
+                <CompactInput id="carShareMonthly" label="Monthly Membership" value={vals.carShareMonthly} onChange={(v: string) => updateVal("carShareMonthly", v)} prefix="$" suffix="/mo" tooltip="Monthly fee for the service" />
+                <CompactInput id="carShareAnnual" label="Annual Fee" value={vals.carShareAnnual} onChange={(v: string) => updateVal("carShareAnnual", v)} prefix="$" suffix="/yr" tooltip="Annual membership or platform fee" />
               </div>
             </div>
 
@@ -218,13 +218,13 @@ export default function CarSharingVsRentalCostCalculator() {
                 <Calendar className="w-3.5 h-3.5" /> Rental Car
               </h3>
               <div className="grid grid-cols-1 gap-3">
-                <CompactInput id="rentalDaily" label="Daily Rate" value={vals.rentalDaily} onChange={(v) => updateVal("rentalDaily", v)} prefix="$" suffix="/day" tooltip="Cost per day to rent" />
-                <CompactInput id="rentalDaysPerYear" label="Days Per Year" value={vals.rentalDaysPerYear} onChange={(v) => updateVal("rentalDaysPerYear", v)} tooltip="How many days per year you rent" />
-                <CompactInput id="rentalAnnualFee" label="Annual Fee" value={vals.rentalAnnualFee} onChange={(v) => updateVal("rentalAnnualFee", v)} prefix="$" suffix="/yr" tooltip="Annual membership or fees" />
+                <CompactInput id="rentalDaily" label="Daily Rate" value={vals.rentalDaily} onChange={(v: string) => updateVal("rentalDaily", v)} prefix="$" suffix="/day" tooltip="Cost per day to rent" />
+                <CompactInput id="rentalDaysPerYear" label="Days Per Year" value={vals.rentalDaysPerYear} onChange={(v: string) => updateVal("rentalDaysPerYear", v)} tooltip="How many days per year you rent" />
+                <CompactInput id="rentalAnnualFee" label="Annual Fee" value={vals.rentalAnnualFee} onChange={(v: string) => updateVal("rentalAnnualFee", v)} prefix="$" suffix="/yr" tooltip="Annual membership or fees" />
               </div>
             </div>
 
-            <CompactInput id="usageYears" label="Comparison Period" value={vals.usageYears} onChange={(v) => updateVal("usageYears", v)} suffix="years" tooltip="Number of years to compare total costs" />
+            <CompactInput id="usageYears" label="Comparison Period" value={vals.usageYears} onChange={(v: string) => updateVal("usageYears", v)} suffix="years" tooltip="Number of years to compare total costs" />
 
             <div className="flex gap-3 pt-2">
               <button onClick={handleCalculate} className="flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold flex items-center justify-center transition-colors">
@@ -290,7 +290,7 @@ export default function CarSharingVsRentalCostCalculator() {
                     <CartesianGrid strokeDasharray="3 3" vertical={false} />
                     <XAxis dataKey="name" tick={{ fontSize: 12 }} />
                     <YAxis tick={{ fontSize: 11 }} />
-                    <Tooltip content={<CustomTooltip />} />
+                    <RechartsTooltip content={<CustomTooltip />} />
                     <Bar dataKey="value" radius={[6, 6, 0, 0]}>
                       {result.chartData.map((_, i) => (
                         <Cell key={i} fill={COLORS[i % COLORS.length]} />
