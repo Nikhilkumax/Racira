@@ -5,7 +5,7 @@ import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
-import { RotateCcw, Waveform, Signal, ChartBar } from "lucide-react";
+import { RotateCcw, Activity, Radio, BarChart2 } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer, Cell, LineChart, Line } from "recharts";
 
 interface FFTResult {
@@ -207,7 +207,7 @@ export default function FourierTransformCalculator() {
           <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card">
             <div>
               <h3 className="text-xs uppercase tracking-wider text-primary font-bold mb-2 flex items-center gap-1">
-                <Signal className="w-3.5 h-3.5" /> Signal Parameters
+                <Radio className="w-3.5 h-3.5" /> Signal Parameters
               </h3>
               <div className="grid grid-cols-1 gap-3">
                 <div>
@@ -241,7 +241,7 @@ export default function FourierTransformCalculator() {
 
             <div>
               <h3 className="text-xs uppercase tracking-wider text-primary font-bold mb-2 flex items-center gap-1">
-                <ChartBar className="w-3.5 h-3.5" /> Sampling
+                <BarChart2 className="w-3.5 h-3.5" /> Sampling
               </h3>
               <div className="grid grid-cols-1 gap-3">
                 <div>
@@ -269,7 +269,7 @@ export default function FourierTransformCalculator() {
             <div className="flex flex-col gap-4">
               <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
                 <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1 flex items-center gap-1">
-                  <Waveform className="h-3 w-3" /> Dominant Frequency
+                  <Activity className="h-3 w-3" /> Dominant Frequency
                 </div>
                 <div className="text-4xl font-bold text-primary mb-1">{result.dominantFreq.toFixed(2)} Hz</div>
                 <p className="text-sm text-muted-foreground">
