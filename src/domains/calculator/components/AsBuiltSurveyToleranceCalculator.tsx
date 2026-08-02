@@ -64,23 +64,23 @@ const calculate = (v: typeof DEFAULTS): SurveyResult => {
   ];
 
   const breakdown = [
-    { label: "Measured Distance", value: `${measuredDist.toFixed(2)} ${vals.distanceUnit}` },
-    { label: "Expected Distance", value: `${expectedDist.toFixed(2)} ${vals.distanceUnit}` },
-    { label: "Linear Error", value: `${linearError.toFixed(4)} ${vals.distanceUnit}` },
-    { label: "Measured Angle", value: `${measuredAngle.toFixed(2)} ${vals.angleUnit}` },
-    { label: "Expected Angle", value: `${expectedAngle.toFixed(2)} ${vals.angleUnit}` },
-    { label: "Angular Error", value: `${angularError.toFixed(2)} ${vals.angleUnit}` },
+    { label: "Measured Distance", value: `${measuredDist.toFixed(2)} ${v.distanceUnit}` },
+    { label: "Expected Distance", value: `${expectedDist.toFixed(2)} ${v.distanceUnit}` },
+    { label: "Linear Error", value: `${linearError.toFixed(4)} ${v.distanceUnit}` },
+    { label: "Measured Angle", value: `${measuredAngle.toFixed(2)} ${v.angleUnit}` },
+    { label: "Expected Angle", value: `${expectedAngle.toFixed(2)} ${v.angleUnit}` },
+    { label: "Angular Error", value: `${angularError.toFixed(2)} ${v.angleUnit}` },
     { label: "Standard", value: standard.name },
-    { label: "Linear Tolerance", value: `±${linearTolerance.toFixed(4)} ${vals.distanceUnit}` },
-    { label: "Angular Tolerance", value: `±${angularTolerance.toFixed(1)} ${vals.angleUnit}` },
-    { label: "Closure Error", value: `${closureError.toFixed(4)} ${vals.distanceUnit}` },
+    { label: "Linear Tolerance", value: `±${linearTolerance.toFixed(4)} ${v.distanceUnit}` },
+    { label: "Angular Tolerance", value: `±${angularTolerance.toFixed(1)} ${v.angleUnit}` },
+    { label: "Closure Error", value: `${closureError.toFixed(4)} ${v.distanceUnit}` },
     { label: "Closure Ratio", value: `1:${closureRatio > 0 ? (1 / closureRatio).toFixed(0) : "∞"}` },
     { label: "Relative Error", value: `${relativeError.toFixed(4)}%` },
   ];
 
   const summaryStats = [
-    { label: "Linear Error", value: `${linearError.toFixed(4)} ${vals.distanceUnit}` },
-    { label: "Angular Error", value: `${angularError.toFixed(2)} ${vals.angleUnit}` },
+    { label: "Linear Error", value: `${linearError.toFixed(4)} ${v.distanceUnit}` },
+    { label: "Angular Error", value: `${angularError.toFixed(2)} ${v.angleUnit}` },
     { label: "Within Tolerance", value: isWithinTolerance ? "Yes ✓" : "No ✗" },
     { label: "Closure Ratio", value: closureRatio > 0 ? `1:${(1 / closureRatio).toFixed(0)}` : "N/A" },
     { label: "Relative Error", value: `${relativeError.toFixed(4)}%` },
