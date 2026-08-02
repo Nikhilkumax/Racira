@@ -1,21 +1,5 @@
 "use client";
-/*
-SEO: The Soccer Goals Per Game Calculator is a powerful React component designed for sports analysts, coaches, and enthusiasts who need to evaluate scoring efficiency across seasons. Built with TypeScript, MUI, and Recharts, this calculator provides an intuitive left‑column interface for entering total goals and games played, while advanced options allow customization of trend data and calculation parameters. The right‑column delivers instant results—displaying goals per game, total goals, games played, average goals per game, and a dynamic trend chart that visualizes scoring progression over time. Leveraging a pure calculate function and React state management, the component ensures reactivity and performance, updating results automatically as inputs change. The integrated Recharts line chart offers a clear visual trend, helping users identify patterns, improvements, or decline in scoring. Optimized for SEO, the component includes descriptive headings, semantic markup, and keyword‑rich content that enhances discoverability for queries like “soccer goals per game,” “goals per game calculator,” and “sports analytics tool.” This component is ready for integration into any Next.js application, offering a clean, responsive layout that adheres to modern UI/UX standards. Experience precise analytics, real‑time calculations, and engaging visualizations with the Soccer Goals Per Game Calculator, the definitive tool for measuring scoring efficiency in soccer matches.
-*/
 import React, { useState, useEffect } from 'react';
-import {
-  Box,
-  Button,
-  FormControl,
-  FormLabel,
-  Input,
-  InputGroup,
-  InputGroupField,
-  Grid,
-  Heading,
-  Paper,
-  Typography,
-} from '@mui/material';
 import {
   LineChart,
   Line,
@@ -31,11 +15,23 @@ const DEFAULTS = {
   gamesPlayed: 10,
 };
 
+interface TrendPoint {
+  day: number;
+  goals: number;
+}
+
+interface Results {
+  goalsPerGame: number;
+  totalGoals: number;
+  gamesPlayed: number;
+  averageGoalsPerGame: number;
+  trendData: TrendPoint[];
+}
+
 const SoccerGoalsPerGameCalculator = () => {
   const [totalGoals, setTotalGoals] = useState(DEFAULTS.totalGoals);
   const [gamesPlayed, setGamesPlayed] = useState(DEFAULTS.gamesPlayed);
-  const [advancedOptions, setAdvancedOptions] = useState({});
-  const [results, setResults] = useState({
+  const [results, setResults] = useState<Results>({
     goalsPerGame: 0,
     totalGoals: DEFAULTS.totalGoals,
     gamesPlayed: DEFAULTS.gamesPlayed,
@@ -44,17 +40,16 @@ const SoccerGoalsPerGameCalculator = () => {
   });
 
   const calculate = () => {
-    const goalsPerGame = totalGoals / gamesPlayed;
-    const averageGoalsPerGame = goalsPerGame;
-    const trendData = Array.from({ length: gamesPlayed }, (_, i) => ({
+    const goalsPerGame = gamesPlayed > 0 ? totalGoals / gamesPlayed : 0;
+    const trendData: TrendPoint[] = Array.from({ length: gamesPlayed }, (_, i) => ({
       day: i + 1,
-      goals: totalGoals * (i + 1) / gamesPlayed,
+      goals: parseFloat((totalGoals * (i + 1) / gamesPlayed).toFixed(2)),
     }));
     setResults({
       goalsPerGame,
       totalGoals,
       gamesPlayed,
-      averageGoalsPerGame,
+      averageGoalsPerGame: goalsPerGame,
       trendData,
     });
   };
@@ -66,88 +61,75 @@ const SoccerGoalsPerGameCalculator = () => {
   }, [totalGoals, gamesPlayed]);
 
   return (
-    <Paper sx={{ p: 2 }}>
-      <Heading size="2" gutterBottom>
-        Soccer Goals Per Game Calculator
-      </Heading>
-      <Grid container spacing={2}>
-        <Grid item xs={12} md={6}>
-          <FormControl fullWidth>
-            <FormLabel>Total Goals</FormLabel>
-            <Input
+    <div className="max-w-4xl mx-auto p-6">
+      <h1 className="text-2xl font-bold mb-6">Soccer Goals Per Game Calculator</h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Inputs */}
+        <div className="space-y-4 border rounded-lg p-4">
+          <div>
+            <label className="block text-sm font-medium mb-1">Total Goals</label>
+            <input
               type="number"
               value={totalGoals}
-              onChange={(e) => setTotalGoals(Number(e.target.value))}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTotalGoals(Number(e.target.value))}
               min={0}
+              className="w-full border rounded px-3 py-2"
             />
-          </FormControl>
-          <FormControl fullWidth>
-            <FormLabel>Games Played</FormLabel>
-            <Input
+          </div>
+          <div>
+            <label className="block text-sm font-medium mb-1">Games Played</label>
+            <input
               type="number"
               value={gamesPlayed}
-              onChange={(e) => setGamesPlayed(Number(e.target.value))}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setGamesPlayed(Number(e.target.value))}
               min={1}
+              className="w-full border rounded px-3 py-2"
             />
-          </FormControl>
-          <FormControl fullWidth>
-            <FormLabel>Advanced Options</FormLabel>
-            <Input
-              type="text"
-              placeholder="Optional advanced settings (e.g., custom trend data)"
-              value={JSON.stringify(advancedOptions)}
-              onChange={(e) => setAdvancedOptions(JSON.parse(e.target.value))}
-            />
-          </FormControl>
-          <Button variant="contained" color="primary" onClick={calculate}>
+          </div>
+          <button
+            onClick={calculate}
+            className="w-full bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+          >
             Calculate
-          </Button>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <Box display="flex" flexDirection="column" gap={2}>
-            <Typography variant="h6">Results</Typography>
-            <Box>
-              <Typography variant="body1" fontWeight="bold">
-                Goals Per Game
-              </Typography>
-              <Typography>{results.goalsPerGame.toFixed(2)}</Typography>
-            </Box>
-            <Box>
-              <Typography variant="body1" fontWeight="bold">
-                Total Goals
-              </Typography>
-              <Typography>{results.totalGoals}</Typography>
-            </Box>
-            <Box>
-              <Typography variant="body1" fontWeight="bold">
-                Games Played
-              </Typography>
-              <Typography>{results.gamesPlayed}</Typography>
-            </Box>
-            <Box>
-              <Typography variant="body1" fontWeight="bold">
-                Average Goals Per Game
-              </Typography>
-              <Typography>{results.averageGoalsPerGame.toFixed(2)}</Typography>
-            </Box>
-            <Box>
-              <Typography variant="body1" fontWeight="bold">
-                Goals Per Game Trend
-              </Typography>
-              <ResponsiveContainer width="100%" height={300}>
-                <LineChart data={results.trendData}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="day" />
-                  <YAxis />
-                  <Tooltip />
-                  <Line type="monotone" dataKey="goals" stroke="#8884d8" />
-                </LineChart>
-              </ResponsiveContainer>
-            </Box>
-          </Box>
-        </Grid>
-      </Grid>
-    </Paper>
+          </button>
+        </div>
+
+        {/* Results */}
+        <div className="space-y-3 border rounded-lg p-4">
+          <h2 className="text-lg font-semibold">Results</h2>
+          <div>
+            <p className="font-bold">Goals Per Game</p>
+            <p>{results.goalsPerGame.toFixed(2)}</p>
+          </div>
+          <div>
+            <p className="font-bold">Total Goals</p>
+            <p>{results.totalGoals}</p>
+          </div>
+          <div>
+            <p className="font-bold">Games Played</p>
+            <p>{results.gamesPlayed}</p>
+          </div>
+          <div>
+            <p className="font-bold">Average Goals Per Game</p>
+            <p>{results.averageGoalsPerGame.toFixed(2)}</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Chart */}
+      <div className="mt-6 border rounded-lg p-4">
+        <h2 className="text-lg font-semibold mb-3">Goals Per Game Trend</h2>
+        <ResponsiveContainer width="100%" height={300}>
+          <LineChart data={results.trendData}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="day" />
+            <YAxis />
+            <Tooltip />
+            <Line type="monotone" dataKey="goals" stroke="#8884d8" />
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
+    </div>
   );
 };
 

@@ -21,10 +21,10 @@ const PingTimeCalculator = () => {
   const [chartData, setChartData] = useState<any[]>([]);
 
   const calculate = () => {
-    const count = parseFloat(pingCount);
-    const avg = parseFloat(avgPing);
-    const min = parseFloat(minPing);
-    const max = parseFloat(maxPing);
+    const count = pingCount;
+    const avg = avgPing;
+    const min = minPing;
+    const max = maxPing;
     const total = count * avg;
     const effectiveRate = count / (total / 3600 / 24 / 3600); // pings per hour
     setTotalTime(total);

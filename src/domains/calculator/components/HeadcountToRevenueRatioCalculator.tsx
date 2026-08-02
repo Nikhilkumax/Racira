@@ -158,11 +158,11 @@ export default function HeadcountToRevenueRatioCalculator() {
                               sector: "Your Company",
                               value: res.revenuePerEmployee,
                             }, ...res.benchmarks].map((item, index) => (
-                  <div key={index} className="flex-1 flex flex-col items-center">
-                    <div className={`h-[calc(100%-20px)] w-[20px] bg-${index === 0 ? "primary" : "secondary"}/20`} style={{ height: `${(item.value / Math.max(...res.benchmarks.map(b => b.revenuePerEmployee))) * 100}%` }}></div>
-                    <span className="text-xs text-muted-foreground mt-2">{item.sector}</span>
-                    <span className="text-xs text-primary mt-1">${item.sector === "Your Company" ? `$${fmt(item.value, 0)}` : `$${fmt(item.value, 0)}`}</span>
-                  </div>
+                   <div key={index} className="flex-1 flex flex-col items-center">
+                     <div className={`h-[calc(100%-20px)] w-[20px] bg-${index === 0 ? "primary" : "secondary"}/20`} style={{ height: `${((item as any).value ?? (item as any).revenuePerEmployee) / Math.max(...res.benchmarks.map(b => b.revenuePerEmployee)) * 100}%` }}></div>
+                     <span className="text-xs text-muted-foreground mt-2">{item.sector}</span>
+                     <span className="text-xs text-primary mt-1">${fmt((item as any).value ?? (item as any).revenuePerEmployee, 0)}</span>
+                   </div>
                             ))}
                           </div>
                         </div>

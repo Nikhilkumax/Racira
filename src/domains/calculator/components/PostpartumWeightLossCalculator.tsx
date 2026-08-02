@@ -1,5 +1,15 @@
 "use client";
 import React, { useState, useEffect } from 'react';
+import {
+  LineChart,
+  Line,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+} from 'recharts';
+
 const DEFAULTS = {
   currentWeight: 180,
   goalWeight: 150,
@@ -7,25 +17,31 @@ const DEFAULTS = {
   recommendedLossPerWeek: 1.5,
 };
 
+interface WeightResults {
+  weeklyLoss: number;
+  totalLoss: number;
+  weeksRemaining: number;
+  chartData: { week: number; weight: number }[];
+}
+
 const PostpartumWeightLossCalculator = () => {
   const [currentWeight, setCurrentWeight] = useState(DEFAULTS.currentWeight);
   const [goalWeight, setGoalWeight] = useState(DEFAULTS.goalWeight);
   const [weeksPostpartum, setWeeksPostpartum] = useState(DEFAULTS.weeksPostpartum);
-  const [recommendedLoss, setRecommendedLoss] = useState(DEFAULTS.recommendedLoss);
-  const [weeklyLoss, setWeeklyLoss] = useState(0);
-  const [totalLoss, setTotalLoss] = useState(0);
-  const [weeksRemaining, setWeeksRemaining] = useState(0);
+  const [recommendedLoss, setRecommendedLoss] = useState(DEFAULTS.recommendedLossPerWeek);
+  const [showAdvanced, setShowAdvanced] = useState(false);
+  const [results, setResults] = useState<WeightResults>({ weeklyLoss: 0, totalLoss: 0, weeksRemaining: 0, chartData: [] });
 
   const calculate = () => {
-    const targetLoss = DEFAULTS.currentWeight - DEFAULTS.goalWeight;
-    const weeksNeeded = Math.ceil(targetLoss / DEFAULTS.recommendedLoss);
-    const weeksRemaining = Math.max(0, weeksPostpartum - weeksNeeded);
-    const weeklyLoss = DEFAULTS.recommendedLoss;
-    const totalLoss = targetLoss;
-
-    setWeeklyLoss(weeklyLoss);
-    setTotalLoss(totalLoss);
-    setWeeksRemaining(weeksRemaining);
+    const targetLoss = currentWeight - goalWeight;
+    const rate = recommendedLoss > 0 ? recommendedLoss : DEFAULTS.recommendedLossPerWeek;
+    const weeksNeeded = Math.ceil(targetLoss / rate);
+    const remaining = Math.max(0, weeksNeeded - weeksPostpartum);
+    const chartData = Array.from({ length: Math.min(weeksNeeded, 52) }, (_, i) => ({
+      week: i + 1,
+      weight: parseFloat(Math.max(goalWeight, currentWeight - rate * (i + 1)).toFixed(1)),
+    }));
+    setResults({ weeklyLoss: rate, totalLoss: targetLoss, weeksRemaining: remaining, chartData });
   };
 
   useEffect(() => {
@@ -91,7 +107,7 @@ const PostpartumWeightLossCalculator = () => {
               <div className="mt-4 p-4 bg-gray-50 rounded-md">
                 <h2 className="text-lg font-semibold mb-3">Advanced Options</h2>
                 <p className="text-sm text-gray-600">
-                  Advanced options let you customize the postpartum weight loss plan, including adjusting the recommended rate, setting a custom goal weight, and tracking progress over time. This flexibility supports personalized postpartum care.
+                  Advanced options let you customize the postpartum weight loss plan, including adjusting the recommended rate, setting a custom goal weight, and tracking progress over time.
                 </p>
               </div>
             )}
@@ -105,13 +121,11 @@ const PostpartumWeightLossCalculator = () => {
 
           {/* Right Column - Results */}
           <div className="space-y-6">
-            {/* Primary Result Card */}
             <div className="bg-white rounded-lg shadow-md p-6">
               <h2 className="text-xl font-bold mb-4">Weight Loss Summary</h2>
-              <p className="text-4xl font-bold text-indigo-600">${currentWeight.toLocaleString()}</p>
+              <p className="text-4xl font-bold text-indigo-600">{currentWeight.toLocaleString()} lbs</p>
             </div>
 
-            {/* 3-Stat Bar */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="bg-white rounded-lg shadow-md p-4 text-center">
                 <h3 className="font-medium text-gray-600 mb-2">Current Weight</h3>
@@ -119,15 +133,14 @@ const PostpartumWeightLossCalculator = () => {
               </div>
               <div className="bg-white rounded-lg shadow-md p-4 text-center">
                 <h3 className="font-medium text-gray-600 mb-2">Goal Weight</h3>
-                <p className="text-2xl font-bold">${goalWeight.toLocaleString()}</p>
+                <p className="text-2xl font-bold">{goalWeight.toLocaleString()}</p>
               </div>
               <div className="bg-white rounded-lg shadow-md p-4 text-center">
                 <h3 className="font-medium text-gray-600 mb-2">Weekly Loss</h3>
-                <p className="text-2xl font-bold">${weeklyLoss.toFixed(1)} lbs</p>
+                <p className="text-2xl font-bold">{results.weeklyLoss.toFixed(1)} lbs</p>
               </div>
             </div>
 
-            {/* Breakdown Table */}
             <div className="bg-white rounded-lg shadow-md">
               <div className="px-6 py-4 border-b">
                 <h2 className="text-xl font-bold mb-0">Weight Loss Timeline</h2>
@@ -143,56 +156,50 @@ const PostpartumWeightLossCalculator = () => {
                   <tbody className="divide-y divide-gray-200">
                     <tr>
                       <td className="px-6 py-4 text-sm text-gray-900">Current Weight</td>
-                      <td className="px-6 py-4 text-sm text-gray-900">${currentWeight.toLocaleString()}</td>
+                      <td className="px-6 py-4 text-sm text-gray-900">{currentWeight.toLocaleString()} lbs</td>
                     </tr>
                     <tr>
                       <td className="px-6 py-4 text-sm text-gray-900">Goal Weight</td>
-                      <td className="px-6 py-4 text-sm text-gray-900">${goalWeight.toLocaleString()}</td>
+                      <td className="px-6 py-4 text-sm text-gray-900">{goalWeight.toLocaleString()} lbs</td>
                     </tr>
                     <tr>
                       <td className="px-6 py-4 text-sm text-gray-900">Recommended Loss</td>
-                      <td className="px-6 py-4 text-sm text-gray-900">${weeklyLoss.toFixed(1)} lbs/week</td>
+                      <td className="px-6 py-4 text-sm text-gray-900">{results.weeklyLoss.toFixed(1)} lbs/week</td>
                     </tr>
                     <tr>
-                      <td className="px-6 py-4 text-sm text-gray-900">Total Loss</td>
-                      <td className="px-6 py-4 text-sm text-gray-900">${totalLoss.toLocaleString()}</td>
+                      <td className="px-6 py-4 text-sm text-gray-900">Total Loss Needed</td>
+                      <td className="px-6 py-4 text-sm text-gray-900">{results.totalLoss.toLocaleString()} lbs</td>
                     </tr>
                     <tr>
                       <td className="px-6 py-4 text-sm text-gray-900">Weeks Remaining</td>
-                      <td className="px-6 py-4 text-sm text-gray-900">{weeksRemaining}</td>
+                      <td className="px-6 py-4 text-sm text-gray-900">{results.weeksRemaining}</td>
                     </tr>
                   </tbody>
                 </table>
               </div>
             </div>
 
-            {/* Recharts Chart */}
             <div className="bg-white rounded-lg shadow-md">
               <div className="px-6 py-4 border-b">
                 <h2 className="text-xl font-bold mb-0">Weight Loss Trend</h2>
               </div>
-              <div className="h-64 w-full overflow-x-auto">
-                <LineChart
-                  data={chartData}
-                  margin={{ top: 20, right: 30, left: 0, bottom: 5 }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="week" />
-                  <YAxis />
-                  <Tooltip />
-                  <Line type="monotone" dataKey="loss" stroke="#10b981" strokeWidth={2} />
-                </LineChart>
+              <div className="h-64 w-full p-4">
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart data={results.chartData} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="week" label={{ value: 'Week', position: 'insideBottom', offset: -2 }} />
+                    <YAxis label={{ value: 'Weight (lbs)', angle: -90, position: 'insideLeft' }} />
+                    <Tooltip />
+                    <Line type="monotone" dataKey="weight" stroke="#10b981" strokeWidth={2} dot={false} />
+                  </LineChart>
+                </ResponsiveContainer>
               </div>
             </div>
 
-            {/* Additional Info */}
             <div className="bg-white rounded-lg shadow-md p-6 mt-6">
               <h2 className="text-xl font-bold mb-4">Guidance for Postpartum Weight Loss</h2>
               <p className="text-gray-700 mb-2">
-                Healthy postpartum weight loss typically ranges from 0.5 to 1.5 pounds per week. Rapid weight loss can be unsafe and may lead to nutrient deficiencies. This calculator helps you set realistic expectations based on your current weight, goal weight, and the recommended safe rate of loss. By tracking weekly progress and staying consistent with nutrition and exercise, you can achieve sustainable results while protecting your health.
-              </p>
-              <p className="text-gray-700">
-                Remember that individual results vary based on genetics, hormone levels, and lifestyle factors. Always consult a healthcare provider before starting any weight loss program, especially after childbirth. Consistent, gradual weight loss supports hormonal balance, breastfeeding success, and overall well‑being.
+                Healthy postpartum weight loss typically ranges from 0.5 to 1.5 pounds per week. Rapid weight loss can be unsafe. Always consult a healthcare provider before starting any weight loss program, especially after childbirth.
               </p>
             </div>
           </div>

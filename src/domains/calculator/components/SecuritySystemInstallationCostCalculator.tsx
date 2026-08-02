@@ -448,7 +448,7 @@ const SecuritySystemInstallationCostCalculator: React.FC = () => {
               {formatCurrency(results.totalCost)}
             </p>
             <p className="text-sm text-gray-500">
-              Includes equipment, labor, permits, wiring, programming, and {results.contractLength
+              Includes equipment, labor, permits, wiring, programming, and {inputs.contractLength
               } months of monitoring
             </p>
           </div>
@@ -545,7 +545,7 @@ const SecuritySystemInstallationCostCalculator: React.FC = () => {
                   </tr>
                   <tr>
                     <td className="px-4 py-3 text-sm font-medium text-gray-900">
-                      Monitoring ({results.contractLength} months)
+                      Monitoring ({inputs.contractLength} months)
                     </td>
                     <td className="px-4 py-3 text-sm font-medium text-gray-900">
                       {formatCurrency(results.monitoringCost)}
@@ -582,8 +582,7 @@ const SecuritySystemInstallationCostCalculator: React.FC = () => {
                   ))}
                 </Pie>
                 <Tooltip
-                  formatter={(value) => `$${value}`}
-                  formatter={(value) => `$${value}`}
+                  formatter={(value: number) => `$${value}`}
                 />
                 <Legend verticalAlign="bottom" height={36} />
               </PieChart>

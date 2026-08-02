@@ -1,17 +1,28 @@
 "use client";
 import React, { useState } from 'react';
+
 const DEFAULTS = {
   purchasePrice: 1000,
   currentValue: 1200,
 };
+
+interface GainLossResult {
+  unrealizedGainLoss: number;
+  gainLossPercentage: number;
+  currentValue: number;
+  costBasis: number;
+  percentChange: number;
+}
+
 const UnrealizedGainLossCalculator = () => {
-  const [purchasePrice, setPurchasePrice] = useState(DEFAULTS.purchasePrice);
-  const [currentValue, setCurrentValue] = useState(DEFAULTS.currentValue);
+  const [purchasePrice, setPurchasePrice] = useState<number>(DEFAULTS.purchasePrice);
+  const [currentValue, setCurrentValue] = useState<number>(DEFAULTS.currentValue);
   const [advancedOpen, setAdvancedOpen] = useState(false);
-  const [results, setResults] = useState(null);
+  const [results, setResults] = useState<GainLossResult | null>(null);
+
   const calculate = () => {
-    const purchase = parseFloat(purchasePrice) || 0;
-    const current = parseFloat(currentValue) || 0;
+    const purchase = purchasePrice || 0;
+    const current = currentValue || 0;
     const gain = current - purchase;
     const gainPct = purchase ? (gain / purchase) * 100 : 0;
     setResults({
@@ -22,6 +33,7 @@ const UnrealizedGainLossCalculator = () => {
       percentChange: gainPct,
     });
   };
+
   return (
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
       <div>
@@ -31,7 +43,7 @@ const UnrealizedGainLossCalculator = () => {
           <input
             type="number"
             value={purchasePrice}
-            onChange={(e) => setPurchasePrice(e.target.value)}
+            onChange={(e) => setPurchasePrice(Number(e.target.value))}
             step="any"
             style={{ width: '100%' }}
           />
@@ -41,7 +53,7 @@ const UnrealizedGainLossCalculator = () => {
           <input
             type="number"
             value={currentValue}
-            onChange={(e) => setCurrentValue(e.target.value)}
+            onChange={(e) => setCurrentValue(Number(e.target.value))}
             step="any"
             style={{ width: '100%' }}
           />
@@ -75,6 +87,5 @@ const UnrealizedGainLossCalculator = () => {
     </div>
   );
 };
-export default UnrealizedGainLossCalculator;
 
-<p>UnrealizedGainLossCalculator is a lightweight React component designed for investors to quickly assess the unrealized gain or loss on their portfolio positions. The tool provides a clean, responsive interface where users input the purchase price and current market value of an asset. Upon clicking the Calculate button, the component computes the absolute gain or loss, the percentage change, the current value, and the cost basis, displaying all five metrics in a clear right‑hand column. Default values of $1,000 purchase price and $1,200 current value illustrate a 20 % gain, helping users see expected results without entering data. The component follows best practices with a pure calculate function, useState for local state management, and a straightforward UI layout that separates input fields on the left from result summaries on the right. Advanced options can be toggled to reveal additional settings such as custom currency formatting or time‑frame selectors, though the core functionality remains focused on the essential calculation. SEO‑optimized content within the component includes targeted keywords such as “unrealized gain calculator,” “investment profit loss tool,” and “financial performance dashboard,” ensuring the page ranks well for relevant searches. By integrating this component into a larger financial application, developers can offer users an instant, interactive way to monitor portfolio performance, make informed decisions, and track changes over time. The responsive grid layout ensures compatibility across desktop and mobile devices, while the simple state handling keeps the codebase maintainable. Whether used in a personal finance dashboard or a professional investment platform, UnrealizedGainLossCalculator delivers fast, accurate calculations with a user‑friendly experience.</p>
+export default UnrealizedGainLossCalculator;

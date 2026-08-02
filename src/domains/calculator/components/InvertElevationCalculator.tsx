@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, LabelList } from 'recharts';
 
 // PURE CALCULATION FUNCTION (ZERO REACT, FULLY TYPED)
 type Inputs = {
@@ -543,12 +543,10 @@ const InvertElevationCalculator: React.FC = () => {
                     barSize={40}
                     radius={[4, 4, 0, 0]}
                   >
-                    <barLabel
+                    <LabelList
                       position="insideTop"
-                      angle={-90}
                       fill="#ffffff"
-                      offset={4}
-                      formatter={(value) => `${value} ft`}
+                      formatter={(value: number) => `${value} ft`}
                     />
                   </Bar>
                   <Bar
@@ -557,12 +555,10 @@ const InvertElevationCalculator: React.FC = () => {
                     barSize={40}
                     radius={[0, 0, 4, 4]}
                   >
-                    <barLabel
+                    <LabelList
                       position="insideBottom"
-                      angle={90}
                       fill="#ffffff"
-                      offset={4}
-                      formatter={(value) => `${value} ft`}
+                      formatter={(value: number) => `${value} ft`}
                     />
                   </Bar>
                 </BarChart>

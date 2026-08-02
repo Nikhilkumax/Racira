@@ -5,7 +5,7 @@ import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
-import { RotateCcw, Flask, Beaker, Gauge, Sparkles } from "lucide-react";
+import { RotateCcw, Beaker, Gauge, Sparkles } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer, Cell } from "recharts";
 
 interface FugacityResult {
@@ -86,7 +86,7 @@ const calculate = (v: typeof DEFAULTS): FugacityResult => {
   ];
 
   return {
-    pressure, temperature, criticalPressure, criticalTemperature, acentricFactor: omega,
+    pressure: P, temperature: T, criticalPressure: Pc, criticalTemperature: Tc, acentricFactor: omega,
     reducedPressure, reducedTemperature, fugacityCoefficient, fugacity, idealGasFugacity,
     chartData, breakdown, summaryStats,
   };
@@ -153,7 +153,7 @@ export default function FugacityCalculator() {
           <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card">
             <div>
               <h3 className="text-xs uppercase tracking-wider text-primary font-bold mb-2 flex items-center gap-1">
-                <Flask className="w-3.5 h-3.5" /> Gas Properties
+                <Beaker className="w-3.5 h-3.5" /> Gas Properties
               </h3>
               <div className="grid grid-cols-1 gap-3">
                 <div>

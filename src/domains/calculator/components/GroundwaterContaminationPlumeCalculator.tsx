@@ -26,7 +26,7 @@ const GroundwaterContaminationPlumeCalculator = () => {
   const [hydraulicGradient, setHydraulicGradient] = useState(DEFAULTS.hydraulicGradient);
   const [porosity, setPorosity] = useState(DEFAULTS.porosity);
   const [dispersivity, setDispersivity] = useState(DEFAULTS.dispersivity);
-  const [decayRate, setDecayRate] = useState(DECAY_RATE);
+  const [decayRate, setDecayRate] = useState(DEFAULTS.decayRate);
   const [distance, setDistance] = useState(DEFAULTS.distance);
   const [time, setTime] = useState(DEFAULTS.time);
   const [result, setResult] = useState<{

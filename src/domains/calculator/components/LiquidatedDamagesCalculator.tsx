@@ -408,7 +408,7 @@ const LiquidatedDamagesCalculator: React.FC = () => {
                   margin={{ top: 20, right: 30, left: 0, bottom: 5 }}
                 >
                   <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="day" tick={{ count: 5 }} />
+                  <XAxis dataKey="day" />
                   <YAxis tickFormatter={(value) => `$${value}`} />
                   <Tooltip />
                   <Line type="monotone" dataKey="cumulative" stroke="#8884d8" activeDot={{ r: 8 }} />

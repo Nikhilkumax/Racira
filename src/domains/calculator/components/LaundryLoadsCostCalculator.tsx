@@ -5,7 +5,7 @@ import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
-import { RotateCcw, Laundry, DollarSign, Calendar, Droplets } from "lucide-react";
+import { RotateCcw, Shirt, DollarSign, Calendar, Droplets } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer, Cell } from "recharts";
 
 interface LaundryResult {
@@ -162,7 +162,7 @@ export default function LaundryLoadsCostCalculator() {
           <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card">
             <div>
               <h3 className="text-xs uppercase tracking-wider text-primary font-bold mb-2 flex items-center gap-1">
-                <Laundry className="w-3.5 h-3.5" /> Usage
+                <Shirt className="w-3.5 h-3.5" /> Usage
               </h3>
               <div className="grid grid-cols-1 gap-3">
                 <div>

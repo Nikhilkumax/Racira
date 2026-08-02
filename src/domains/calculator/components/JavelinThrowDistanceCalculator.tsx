@@ -251,7 +251,7 @@ const JavelinThrowDistanceCalculator: React.FC = () => {
               <YAxis dataKey="y" label={{ value: 'Height (m)', angle: -90, position: 'insideLeft' }} />
               <Tooltip />
               <Legend />
-              <Line type="monotone" dataKey="x" dataKey="y" stroke="#8884d8" strokeWidth={2} />
+              <Line type="monotone" dataKey="y" stroke="#8884d8" strokeWidth={2} />
             </LineChart>
           ) : (
             <p className="text-center text-gray-500">Click Calculate to see trajectory</p>
