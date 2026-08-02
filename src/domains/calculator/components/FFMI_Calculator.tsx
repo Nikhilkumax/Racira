@@ -1,5 +1,15 @@
 "use client";
 import React, { useState, useEffect } from 'react';
+import {
+  LineChart,
+  Line,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+} from 'recharts';
+
 const DEFAULTS = {
   weight: 70,
   bodyFat: 15,
@@ -7,43 +17,40 @@ const DEFAULTS = {
 };
 
 const FFMI_Calculator = () => {
-  const [weight, setWeight] = useState(DEFAULTS.weight);
-  const [bodyFat, setBodyFat] = useState(DEFAULTS.bodyFat);
-  const [heightCm, setHeightCm] = useState(DEFAULTS.heightCm);
+  const [weight, setWeight] = useState<number>(DEFAULTS.weight);
+  const [bodyFat, setBodyFat] = useState<number>(DEFAULTS.bodyFat);
+  const [heightCm, setHeightCm] = useState<number>(DEFAULTS.heightCm);
   const [leanMass, setLeanMass] = useState(0);
   const [ffmi, setFFmi] = useState(0);
   const [bmi, setBmi] = useState(0);
-  const [bodyFatPct, setBodyFatPct] = useState(0);
-  const [heightM, setHeightM] = useState(0);
-  const [dataPoints, setDataPoints] = useState<any[]>([]);
+  const [bodyFatPctDisplay, setBodyFatPctDisplay] = useState(0);
+  const [heightMDisplay, setHeightMDisplay] = useState(0);
+  const [dataPoints, setDataPoints] = useState<{ x: number; y: number }[]>([]);
+  const [showAdvanced, setShowAdvanced] = useState(false);
 
   const calculate = () => {
-    const weightKg = parseFloat(weight);
-    const bodyFatPct = parseFloat(bodyFat);
-    const heightCm = parseFloat(heightCm);
-    const heightM = heightCm / 100;
-    const leanMass = weightKg * (1 - bodyFatPct / 100);
-    const bmi = weightKg / (heightM * heightM);
-    const ffmi = leanMass / (heightM * heightM);
-    const bodyFatPctCalc = bodyFatPct;
-    const heightMCalc = heightCm / 100;
+    const weightKg = weight;
+    const bfPct = bodyFat;
+    const hCm = heightCm;
+    const hM = hCm / 100;
+    const lm = weightKg * (1 - bfPct / 100);
+    const bmiVal = weightKg / (hM * hM);
+    const ffmiVal = lm / (hM * hM);
 
-    setLeanMass(leanMass);
-    setFFmi(ffmi);
-    setBmi(bmi);
-    setBodyFatPct(bodyFatPctCalc);
-    setHeightM(heightMCalc);
+    setLeanMass(lm);
+    setFFmi(ffmiVal);
+    setBmi(bmiVal);
+    setBodyFatPctDisplay(bfPct);
+    setHeightMDisplay(hM);
 
-    // generate data for chart (weight vs ffmi)
-    const points = [];
-    for (let i = 1; i <= 100; i++) {
-      const w = i * 0.5; // incremental weight
-      const bf = (i * 0.5) % 100; // dummy body fat
-      const lm = w * (1 - bf / 100);
-      const f = lm / (heightM * heightM);
-      dataPoints.push({ x: w, y: f });
+    // Generate chart data (weight vs ffmi at constant body fat and height)
+    const points: { x: number; y: number }[] = [];
+    for (let w = 40; w <= 140; w += 5) {
+      const lmPoint = w * (1 - bfPct / 100);
+      const f = lmPoint / (hM * hM);
+      points.push({ x: w, y: parseFloat(f.toFixed(2)) });
     }
-    setDataPoints(dataPoints);
+    setDataPoints(points);
   };
 
   useEffect(() => {
@@ -99,7 +106,9 @@ const FFMI_Calculator = () => {
               <div className="mt-4 p-4 bg-gray-50 rounded-md">
                 <h2 className="text-lg font-semibold mb-3">Advanced Options</h2>
                 <p className="text-sm text-gray-600">
-                  This calculator helps assess body composition beyond BMI, providing a muscle mass index that accounts for height. It is widely used in sports science and fitness assessment.
+                  This calculator helps assess body composition beyond BMI, providing a muscle mass
+                  index that accounts for height. It is widely used in sports science and fitness
+                  assessment.
                 </p>
               </div>
             )}
@@ -163,11 +172,11 @@ const FFMI_Calculator = () => {
                     </tr>
                     <tr>
                       <td className="px-6 py-4 text-sm text-gray-900">Body Fat %</td>
-                      <td className="px-6 py-4 text-sm text-gray-900">{bodyFatPct.toFixed(1)}</td>
+                      <td className="px-6 py-4 text-sm text-gray-900">{bodyFatPctDisplay.toFixed(1)}</td>
                     </tr>
                     <tr>
                       <td className="px-6 py-4 text-sm text-gray-900">Height</td>
-                      <td className="px-6 py-4 text-sm text-gray-900">{heightCm} cm ({heightM.toFixed(2)} m)</td>
+                      <td className="px-6 py-4 text-sm text-gray-900">{heightCm} cm ({heightMDisplay.toFixed(2)} m)</td>
                     </tr>
                   </tbody>
                 </table>
@@ -179,17 +188,16 @@ const FFMI_Calculator = () => {
               <div className="px-6 py-4 border-b">
                 <h2 className="text-xl font-bold mb-0">FFMI Trend</h2>
               </div>
-              <div className="h-64 w-full">
-                <LineChart
-                  data={dataPoints}
-                  margin={{ top: 20, right: 30, left: 0, bottom: 5 }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="x" />
-                  <YAxis />
-                  <Tooltip />
-                  <Line type="monotone" dataKey="y" stroke="#10b981" strokeWidth={2} />
-                </LineChart>
+              <div className="h-64 w-full p-4">
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart data={dataPoints} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="x" label={{ value: 'Weight (kg)', position: 'insideBottom', offset: -2 }} />
+                    <YAxis label={{ value: 'FFMI', angle: -90, position: 'insideLeft' }} />
+                    <Tooltip />
+                    <Line type="monotone" dataKey="y" stroke="#10b981" strokeWidth={2} dot={false} />
+                  </LineChart>
+                </ResponsiveContainer>
               </div>
             </div>
 
@@ -197,7 +205,11 @@ const FFMI_Calculator = () => {
             <div className="bg-white rounded-lg shadow-md p-6 mt-6">
               <h2 className="text-xl font-bold mb-4">Overview</h2>
               <p className="text-gray-700 mb-2">
-                The Fat-Free Mass Index (FFMI) is a metric used to assess muscularity relative to height, independent of body fat. It is calculated by dividing lean body mass (in kilograms) by the square of height (in meters). Higher FFMI values indicate greater muscle mass relative to height, which is valuable for athletes, bodybuilders, and fitness professionals. This calculator provides a quick way to estimate FFMI without manual computations, enabling users to track changes in body composition over time. The tool follows the gold standard by using a pure calculation function, default values, and a clear two‑column layout. The UI is responsive, mobile‑friendly, and includes a chart that visualizes how FFMI varies with weight and height, offering a clear picture of body composition changes.
+                The Fat-Free Mass Index (FFMI) is a metric used to assess muscularity relative to
+                height, independent of body fat. It is calculated by dividing lean body mass (in
+                kilograms) by the square of height (in meters). Higher FFMI values indicate greater
+                muscle mass relative to height, which is valuable for athletes, bodybuilders, and
+                fitness professionals.
               </p>
             </div>
           </div>
