@@ -913,6 +913,7 @@ const calculatorComponents: Record<string, () => Promise<any>> = {
   "snells-law-calculator": () => import("@/domains/calculator/components/SnellsLawCalculator"),
   "snow-shoveling-calculator": () => import("@/domains/calculator/components/SnowShovelingCalculator"),
   "sodium-intake-calculator": () => import("@/domains/calculator/components/SodiumIntakeCalculator"),
+  "soil-cement-stabilization-calculator": () => import("@/domains/calculator/components/SoilCementStabilizationCalculator"),
   "solar-panel-calculator": () => import("@/domains/calculator/components/SolarPanelCalculator"),
   "speaker-placement-calculator": () => import("@/domains/calculator/components/SpeakerPlacementCalculator"),
   "spearman-rank-correlation-calculator": () => import("@/domains/calculator/components/SpearmanRankCorrelationCalculator"),

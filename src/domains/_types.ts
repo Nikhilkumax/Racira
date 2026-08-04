@@ -2,6 +2,15 @@ import { LucideIcon } from "lucide-react";
 
 export type ToolStatus = "live" | "soon";
 
+export interface ToolFaqItem {
+  q: string;
+  a: string;
+}
+
+export interface ToolHowToStep {
+  text: string;
+}
+
 export interface Tool {
   slug: string;
   name: string;
@@ -9,6 +18,8 @@ export interface Tool {
   icon: LucideIcon;
   status: ToolStatus;
   category?: string;
+  faq?: ToolFaqItem[];
+  howTo?: ToolHowToStep[];
 }
 
 export interface SubcategorySection {

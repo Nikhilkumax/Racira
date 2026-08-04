@@ -175,7 +175,7 @@ export const categories: Category[] = [
       "High-fidelity voice synthesis and text-to-speech powered by modern AI, directly in your browser.",
     icon: Mic,
     status: "active",
-    highlights: ["100+ Voices", "50+ Languages", "Unlimited", "Private"],
+    highlights: ["28 Voices", "US & UK English", "Unlimited", "Private"],
   },
   {
     slug: "audio",

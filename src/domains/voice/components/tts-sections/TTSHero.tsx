@@ -7,7 +7,7 @@ export function TTSHero() {
       <div className="container mx-auto pb-12 pt-16 text-center sm:pb-16 sm:pt-24">
         <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-border-subtle bg-surface px-3 py-1 text-[12.5px] font-medium text-muted-foreground shadow-soft">
           <Sparkles className="h-3.5 w-3.5 text-brand" />
-          ● 100+ voices · 15+ languages · Unlimited generation
+          ● 28 voices · US & UK English · Unlimited generation
         </div>
 
         <h1 className="mx-auto mt-6 max-w-3xl text-balance font-display text-[40px] font-bold leading-[1.05] tracking-tight sm:text-[56px]">

@@ -73,7 +73,10 @@ export function KokoroGenerator() {
   const [status, setStatus] = useState<
     "idle" | "loading-model" | "generating" | "error"
   >("idle");
-  const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
+  const [audioUrl, setAudioUrl] = useState<string | null>(null);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   const [loadProgress, setLoadProgress] = useState(0);
   const [loadMessage, setLoadMessage] = useState("");
@@ -90,6 +93,15 @@ export function KokoroGenerator() {
       }
     };
   }, []);
+
+  // Autoplay each newly generated clip. Runs after the <audio> element is
+  // mounted with the new src, so the ref is guaranteed to be attached.
+  // A rejected play() (e.g. browser autoplay policy) is non-fatal — the user
+  // can still press play, so we swallow it rather than surfacing an error.
+  useEffect(() => {
+    if (!audioUrl) return;
+    audioRef.current?.play().catch(() => {});
+  }, [audioUrl]);
 
   useEffect(() => {
     const filtered = KOKORO_VOICES.filter((v) => v.language === language);
@@ -137,18 +149,13 @@ export function KokoroGenerator() {
 
       const url = URL.createObjectURL(blob);
       objectUrlRef.current = url;
-      setAudioBlob(blob);
 
-      if (audioRef.current) {
-        audioRef.current.pause();
-        audioRef.current.src = "";
-      }
+      // Reset playback state for the new clip; the <audio> element picks up
+      // the new src and reports its own duration via onLoadedMetadata.
+      setCurrentTime(0);
+      setDuration(0);
+      setAudioUrl(url);
 
-      const audioEl = new Audio(url);
-      audioRef.current = audioEl;
-      audioEl.playbackRate = 1;
-
-      await audioEl.play().catch(() => {});
       setStatus("idle");
     } catch (err: any) {
       const msg = err?.message || String(err);
@@ -169,9 +176,11 @@ export function KokoroGenerator() {
   };
 
   const handleSeek = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!audioRef.current) return;
-    const duration = audioRef.current.duration || 0;
-    audioRef.current.currentTime = (Number(e.target.value) / 100) * duration;
+    const el = audioRef.current;
+    if (!el || !isFinite(el.duration) || el.duration <= 0) return;
+    const next = (Number(e.target.value) / 100) * el.duration;
+    el.currentTime = next;
+    setCurrentTime(next);
   };
 
   const handleClear = () => {
@@ -180,7 +189,10 @@ export function KokoroGenerator() {
       audioRef.current.pause();
       audioRef.current.currentTime = 0;
     }
-    setAudioBlob(null);
+    setAudioUrl(null);
+    setCurrentTime(0);
+    setDuration(0);
+    setIsPlaying(false);
     if (objectUrlRef.current) {
       URL.revokeObjectURL(objectUrlRef.current);
       objectUrlRef.current = null;
@@ -376,23 +388,39 @@ export function KokoroGenerator() {
           </div>
 
           {/* Audio player */}
-          {audioBlob && (
+          {audioUrl && (
             <div className="border-t border-border-subtle bg-surface-muted/40 px-5 py-4">
               <audio
+                ref={audioRef}
                 data-testid="tts-audio"
-                src={objectUrlRef.current ?? ""}
+                src={audioUrl}
                 preload="metadata"
                 style={{ display: "none" }}
+                onLoadedMetadata={(e) => {
+                  const d = e.currentTarget.duration;
+                  setDuration(isFinite(d) ? d : 0);
+                }}
+                onDurationChange={(e) => {
+                  const d = e.currentTarget.duration;
+                  setDuration(isFinite(d) ? d : 0);
+                }}
+                onTimeUpdate={(e) => setCurrentTime(e.currentTarget.currentTime)}
+                onPlay={() => setIsPlaying(true)}
+                onPause={() => setIsPlaying(false)}
+                onEnded={() => {
+                  setIsPlaying(false);
+                  setCurrentTime(0);
+                }}
               />
               <div className="flex items-center gap-3">
                 <Button
                   type="button"
                   size="icon"
-                  aria-label={audioRef.current?.paused ? "Play" : "Pause"}
+                  aria-label={isPlaying ? "Pause" : "Play"}
                   onClick={handlePlayPause}
                   className="h-11 w-11 flex-shrink-0 rounded-full bg-brand text-brand-foreground shadow-brand hover:bg-brand/90"
                 >
-                  {audioRef.current && !audioRef.current.paused ? (
+                  {isPlaying ? (
                     <Pause className="h-5 w-5" />
                   ) : (
                     <Play className="h-5 w-5 translate-x-[1px]" />
@@ -400,7 +428,7 @@ export function KokoroGenerator() {
                 </Button>
 
                 <span className="w-10 shrink-0 text-right font-mono text-sm tabular-nums text-muted-foreground">
-                  {audioRef.current ? fmt(audioRef.current.currentTime) : "00:00"}
+                  {fmt(currentTime)}
                 </span>
 
                 <input
@@ -408,11 +436,7 @@ export function KokoroGenerator() {
                   min={0}
                   max={100}
                   step={0.1}
-                  value={
-                    audioRef.current && audioRef.current.duration > 0
-                      ? (audioRef.current.currentTime / audioRef.current.duration) * 100
-                      : 0
-                  }
+                  value={duration > 0 ? (currentTime / duration) * 100 : 0}
                   onChange={handleSeek}
                   aria-label="Seek"
                   className="flex-1 h-1 cursor-pointer"
@@ -420,13 +444,11 @@ export function KokoroGenerator() {
                 />
 
                 <span className="w-10 shrink-0 font-mono text-sm tabular-nums text-muted-foreground">
-                  {audioRef.current && isFinite(audioRef.current.duration)
-                    ? fmt(audioRef.current.duration)
-                    : "00:00"}
+                  {fmt(duration)}
                 </span>
 
                 <a
-                  href={objectUrlRef.current ?? ""}
+                  href={audioUrl}
                   download={`racira-tts-output.${format === "wav" ? "wav" : "mp3"}`}
                   data-testid="tts-download"
                   className="inline-flex h-9 items-center gap-2 rounded-full border border-border-subtle bg-surface px-3 text-sm font-semibold"

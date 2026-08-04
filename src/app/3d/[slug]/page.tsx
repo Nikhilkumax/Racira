@@ -9,6 +9,7 @@ import { CATEGORIES, TOOLS_BY_SLUG } from "@/domains/3d/registry";
 import { toSlug } from "@/lib/utils/slug";
 import { SubcategoryCard } from "@/components/shared/SubcategoryCard";
 import { inferIcon } from "@/components/shared/icon-map";
+import ToolPageHeader from "@/components/tools/shared/ToolPageHeader";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -114,30 +115,16 @@ function ToolView({ tool, category }: { tool: any, category: typeof CATEGORIES[0
 
   return (
     <SiteShell>
-      <div className="racira-page-container pt-8">
-        <nav aria-label="breadcrumb" className="hidden md:flex items-center flex-wrap text-sm text-muted-foreground mb-6">
-          <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
-          <ChevronRight className="h-4 w-4 mx-1 opacity-50 shrink-0" />
-          <Link href="/3d" className="hover:text-foreground transition-colors">3D & Print</Link>
-          <ChevronRight className="h-4 w-4 mx-1 opacity-50 shrink-0" />
-          <Link href={`/3d/${categorySlug}`} className="hover:text-foreground transition-colors">
-            {category.title}
-          </Link>
-          <ChevronRight className="h-4 w-4 mx-1 opacity-50 shrink-0" />
-          <span className="text-foreground font-medium">{tool.name}</span>
-        </nav>
-
-        <nav aria-label="breadcrumb" className="md:hidden flex items-center mb-6">
-          <Link href={`/3d/${categorySlug}`} className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground hover:text-foreground transition-colors">
-            <span aria-hidden="true">←</span>{category.title}
-          </Link>
-        </nav>
-
-        <div className="mt-4 mb-6">
-          <p className="text-xs uppercase tracking-wider text-primary font-medium">{category.title}</p>
-          <h1 className="mt-1 text-3xl font-bold tracking-tight">{tool.name}</h1>
-          <p className="mt-2 text-muted-foreground">{tool.description}</p>
-        </div>
+      <ToolPageHeader
+        breadcrumbItems={[
+          { label: "Home", href: "/" },
+          { label: "3D & Print", href: "/3d" },
+          { label: category.title, href: `/3d/${categorySlug}` },
+          { label: tool.name, href: null },
+        ]}
+        title={tool.name}
+      />
+      <div className="racira-page-container">
 
         {tool.status === "live" ? (
           <div className="rounded-xl border border-border bg-card p-4 sm:p-6">

@@ -9,8 +9,7 @@ import { getToolSeo } from "@/domains/pdf/registry/tool-seo";
 import { useToolWorkflow } from "@/lib/pdf/ToolWorkflowContext";
 import { usePdfEditor } from "@/domains/pdf/hooks/usePdfEditor";
 
-import ToolBreadcrumb from "@/domains/pdf/components/tool/ToolBreadcrumb";
-import ToolHeading from "@/domains/pdf/components/tool/ToolHeading";
+import ToolPageHeader from "@/components/tools/shared/ToolPageHeader";
 import ToolWorkArea from "@/domains/pdf/components/tool/ToolWorkArea";
 import RelatedTools from "@/domains/pdf/components/tool/RelatedTools";
 import SeoContent from "@/domains/pdf/components/tool/SeoContent";
@@ -368,19 +367,19 @@ const ToolPage = () => {
   // ── Page render ─────────────────────────────────────────────
   return (
     <main className="pb-16">
-      {/* SECTION 1: Breadcrumb — flush below header */}
-      <ToolBreadcrumb category={tool.subCategory || "PDF Tools"} toolName={tool.name} />
+      {/* SECTION 1–2: Breadcrumb + title */}
+      <ToolPageHeader
+        breadcrumbItems={[
+          { label: "Home", href: "/" },
+          { label: "PDF Tools", href: "/pdf" },
+          { label: tool.subCategory || "PDF Tools", href: "/pdf" },
+          { label: tool.name, href: null },
+        ]}
+        title={tool.name}
+      />
 
-      {/* SECTION 2–3: Title + Tool UI Card */}
+      {/* SECTION 3: Tool UI Card */}
       <div className="racira-page-container">
-        <div className="mt-2 mb-8">
-          <ToolHeading
-            name={tool.name}
-            description={tool.description}
-            icon={tool.icon}
-          />
-        </div>
-
         <ToolWorkArea tool={tool} config={config}>
           {renderOptions()}
         </ToolWorkArea>

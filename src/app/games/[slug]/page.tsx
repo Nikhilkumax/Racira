@@ -7,6 +7,7 @@ import { CATEGORIES, slugify } from "@/domains/games/registry";
 
 import Header from "@/components/Header";
 import GameRenderer from "../GameRenderer";
+import ToolPageHeader from "@/components/tools/shared/ToolPageHeader";
 
 type PageProps = { params: Promise<{ slug: string }> };
 
@@ -144,30 +145,16 @@ function GameView({ game }: { game: typeof allGames[0] }) {
     <div className="min-h-screen bg-background flex flex-col">
       <Header mode="category" categoryName="Games" />
       <main className="flex-1">
-        <div className="racira-page-container pt-8 pb-0">
-          <nav aria-label="breadcrumb" className="flex items-center flex-wrap gap-y-2 text-sm text-muted-foreground mb-6">
-            <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
-            <ChevronRight className="h-4 w-4 mx-1 opacity-50 shrink-0" />
-            <Link href="/games" className="hover:text-foreground transition-colors">Games</Link>
-            <ChevronRight className="h-4 w-4 mx-1 opacity-50 shrink-0" />
-            <Link href={`/games/${game.categorySlug}`} className="hover:text-foreground transition-colors">{game.categoryName}</Link>
-            <ChevronRight className="h-4 w-4 mx-1 opacity-50 shrink-0" />
-            <Link href={`/games/${game.subcategorySlug}`} className="hover:text-foreground transition-colors">{game.subcategoryName}</Link>
-            <ChevronRight className="h-4 w-4 mx-1 opacity-50 shrink-0" />
-            <span className="text-foreground font-medium">{game.name}</span>
-          </nav>
-        </div>
-        <section className="pt-8 pb-8 sm:pt-12 sm:pb-10">
-          <div className="racira-page-container text-center">
-            <div className="inline-flex items-center justify-center h-16 w-16 rounded-2xl bg-primary/10 mb-6">
-              <Gamepad2 className="h-8 w-8 text-primary" />
-            </div>
-            <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">{game.name}</h1>
-            <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
-              Play {game.name} free in your browser.
-            </p>
-          </div>
-        </section>
+        <ToolPageHeader
+          breadcrumbItems={[
+            { label: "Home", href: "/" },
+            { label: "Games", href: "/games" },
+            { label: game.categoryName, href: `/games/${game.categorySlug}` },
+            { label: game.subcategoryName, href: `/games/${game.subcategorySlug}` },
+            { label: game.name, href: null },
+          ]}
+          title={game.name}
+        />
         <div className="racira-page-container pb-16 flex justify-center">
           <GameRenderer slug={game.slug} />
         </div>

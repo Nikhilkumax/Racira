@@ -3,7 +3,7 @@ import { Check, X } from "lucide-react";
 const PROS = [
   "Truly unlimited generation, every day",
   "No subscriptions, no token meters",
-  "Premium branded voices in 40+ languages",
+  "Premium branded voices in US and UK English",
   "Smart tone presets and custom tone parsing",
   "Browser-native — instant, private, offline-capable",
   "Polished SaaS experience on every device",
@@ -18,8 +18,8 @@ const CONS = [
 ];
 
 const STATS = [
-  { value: "15", label: "Premium voices" },
-  { value: "40+", label: "Languages" },
+  { value: "28", label: "Premium voices" },
+  { value: "2", label: "Languages" },
   { value: "0", label: "API cost" },
   { value: "∞", label: "Generations" },
 ];

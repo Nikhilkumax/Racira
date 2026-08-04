@@ -3,8 +3,8 @@ import { Infinity as InfIcon, Globe2, Mic2, Sparkles, Zap, Wallet, Smartphone, M
 const FEATURES = [
   { icon: InfIcon, title: "Unlimited free usage", text: "Generate as much speech as you want — no quotas or paywalls." },
   { icon: MonitorSmartphone, title: "Browser-based engine", text: "Powered by your browser's native speech API. Nothing to install." },
-  { icon: Globe2, title: "Multilingual support", text: "Speak naturally in English, Hindi, Arabic, Japanese, Spanish and 40+ more." },
-  { icon: Mic2, title: "Premium voice options", text: "15 distinctive branded voices, each with its own character and tone." },
+  { icon: Globe2, title: "US and UK English", text: "Native American and British English accents." },
+  { icon: Mic2, title: "Premium voice options", text: "28 distinctive branded voices, each with its own character and tone." },
   { icon: Sparkles, title: "Smart tone controls", text: "Pick a preset or describe a custom tone in plain language." },
   { icon: Wallet, title: "Zero API costs", text: "No keys, no billing, no surprises. Privately rendered on your device." },
   { icon: Smartphone, title: "Mobile friendly", text: "A polished experience on phones, tablets, and desktops alike." },

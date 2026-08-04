@@ -7,6 +7,7 @@ import { categories, allTools, getToolBySlug } from "@/domains/presentation/regi
 import { toSlug } from "@/lib/utils/slug";
 import { inferIcon } from "@/components/shared/icon-map";
 import Header from "@/components/Header";
+import ToolPageHeader from "@/components/tools/shared/ToolPageHeader";
 
 type PageProps = { params: Promise<{ slug: string }> };
 
@@ -72,22 +73,17 @@ function ToolView({ tool, categoryTitle }: { tool: any; categoryTitle: string })
     <div className="min-h-screen bg-background flex flex-col">
       <Header mode="category" categoryName="Presentation" />
       <main className="flex-1">
-        <div className="racira-page-container pt-8 pb-16">
-          <nav aria-label="breadcrumb" className="hidden md:flex items-center text-sm text-muted-foreground mb-6">
-            <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
-            <ChevronRight className="h-4 w-4 mx-1 opacity-50 shrink-0" />
-            <Link href="/presentation" className="hover:text-foreground transition-colors">Presentation</Link>
-            <ChevronRight className="h-4 w-4 mx-1 opacity-50 shrink-0" />
-            <Link href={`/presentation/${toSlug(categoryTitle)}`} className="hover:text-foreground transition-colors">{categoryTitle}</Link>
-            <ChevronRight className="h-4 w-4 mx-1 opacity-50 shrink-0" />
-            <span className="text-foreground font-medium">{tool.name}</span>
-          </nav>
-          <div className="mt-4 mb-6">
-            <p className="text-xs uppercase tracking-wider text-primary font-medium">{categoryTitle}</p>
-            <h1 className="mt-1 text-3xl font-bold tracking-tight">{tool.name}</h1>
-            <p className="mt-2 text-muted-foreground">{tool.description}</p>
-          </div>
-          <div className="mt-10 rounded-2xl border border-dashed border-primary/30 bg-primary/10 p-10 text-center">
+        <ToolPageHeader
+          breadcrumbItems={[
+            { label: "Home", href: "/" },
+            { label: "Presentation", href: "/presentation" },
+            { label: categoryTitle, href: `/presentation/${toSlug(categoryTitle)}` },
+            { label: tool.name, href: null },
+          ]}
+          title={tool.name}
+        />
+        <div className="racira-page-container pb-16">
+          <div className="rounded-2xl border border-dashed border-primary/30 bg-primary/10 p-10 text-center">
             <Construction className="mx-auto mb-4 h-10 w-10 text-primary" />
             <h2 className="text-xl font-semibold">Coming soon</h2>
             <Link href="/presentation" className="mt-6 inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90">

@@ -6,15 +6,321 @@ export const categories: { name: string; tools: Tool[] }[] = [
   {
     name: "Audio Conversion",
     tools: [
-      { name: "MP3 Converter", slug: "mp3-converter", description: "Convert audio to MP3 format with adjustable bitrate", icon: inferIcon("MP3 Converter", "mp3-converter"), status: "soon" },
-      { name: "WAV Converter", slug: "wav-converter", description: "Convert audio to lossless WAV format", icon: inferIcon("WAV Converter", "wav-converter"), status: "soon" },
-      { name: "OGG Converter", slug: "ogg-converter", description: "Convert audio to OGG Vorbis format", icon: inferIcon("OGG Converter", "ogg-converter"), status: "soon" },
-      { name: "AAC Converter", slug: "aac-converter", description: "Convert audio to AAC format for Apple devices", icon: inferIcon("AAC Converter", "aac-converter"), status: "soon" },
-      { name: "FLAC Converter", slug: "flac-converter", description: "Convert audio to FLAC lossless format", icon: inferIcon("FLAC Converter", "flac-converter"), status: "soon" },
-      { name: "M4A Converter", slug: "m4a-converter", description: "Convert audio to M4A format", icon: inferIcon("M4A Converter", "m4a-converter"), status: "soon" },
-      { name: "WMA Converter", slug: "wma-converter", description: "Convert audio to WMA format", icon: inferIcon("WMA Converter", "wma-converter"), status: "soon" },
-      { name: "AIFF Converter", slug: "aiff-converter", description: "Convert audio to AIFF format", icon: inferIcon("AIFF Converter", "aiff-converter"), status: "soon" },
-      { name: "OPUS Converter", slug: "opus-converter", description: "Convert audio to OPUS format", icon: inferIcon("OPUS Converter", "opus-converter"), status: "soon" },
+      {
+        name: "MP3 Converter",
+        slug: "mp3-converter",
+        description: "Convert audio to MP3 format with adjustable bitrate",
+        icon: inferIcon("MP3 Converter", "mp3-converter"),
+        status: "live",
+        howTo: [
+          { text: "Drag and drop your audio file or click to browse." },
+          { text: "Choose your preferred quality — 128, 192 or 320 kbps." },
+          { text: "Click “Convert to MP3” and wait a moment." },
+          { text: "Download your new MP3 file." },
+        ],
+        faq: [
+          {
+            q: "Is this MP3 converter free?",
+            a: "Yes — it's completely free with no signup, no limits and no watermarks.",
+          },
+          {
+            q: "Are my files uploaded anywhere?",
+            a: "No. All conversion happens locally in your browser using the Web Audio API, so your audio never leaves your device.",
+          },
+          {
+            q: "Which formats can I convert from?",
+            a: "Any audio your browser can decode, including WAV, OGG, FLAC, M4A, AAC and more.",
+          },
+          {
+            q: "What bitrate should I choose?",
+            a: "192 kbps is a great balance of size and quality. Choose 320 kbps for the best quality, or 128 kbps for the smallest files.",
+          },
+          {
+            q: "Does this use CBR or VBR encoding?",
+            a: "CBR (constant bitrate) by default, so file sizes are predictable and every player seeks accurately. You can switch to VBR under the quality control, which varies the bitrate by passage and usually gives a smaller file at the same quality.",
+          },
+        ],
+      },
+      {
+        name: "WAV Converter",
+        slug: "wav-converter",
+        description: "Convert audio to lossless WAV format",
+        icon: inferIcon("WAV Converter", "wav-converter"),
+        status: "live",
+        howTo: [
+          { text: "Drag and drop your audio file or click to browse." },
+          { text: "Pick a bit depth — 16-bit for CD quality, 24-bit for studio work." },
+          { text: "Click “Convert to WAV” and wait a moment." },
+          { text: "Download your uncompressed WAV file." },
+        ],
+        faq: [
+          {
+            q: "Is WAV better quality than MP3?",
+            a: "WAV is uncompressed and lossless, so it keeps every sample the source gave it. But converting an existing MP3 to WAV cannot restore detail the MP3 encoder already threw away — you get a much larger file at the same audible quality. Convert to WAV when your source is lossless to begin with.",
+          },
+          {
+            q: "Why are WAV files so much larger?",
+            a: "WAV stores raw samples with no compression at all. Stereo audio at 44.1 kHz runs roughly 10 MB per minute at 16-bit and 16 MB per minute at 24-bit — about seven to ten times the size of the same audio as a 192 kbps MP3.",
+          },
+          {
+            q: "Should I choose 16-bit or 24-bit?",
+            a: "16-bit is the CD standard and the right default for listening, sharing and archiving finished audio. Choose 24-bit when the file is headed into a DAW for more editing — the extra headroom keeps rounding noise out of the signal across repeated processing.",
+          },
+          {
+            q: "When should I use WAV instead of MP3?",
+            a: "Use WAV for editing, mixing, mastering and anything you plan to re-encode later, because it suffers no generation loss when saved again. Use MP3 when file size or streaming bandwidth matters more than keeping an exact copy.",
+          },
+          {
+            q: "Are my files uploaded anywhere?",
+            a: "No. Decoding and WAV encoding both run locally in your browser through the Web Audio API, so your audio never leaves your device.",
+          },
+        ],
+      },
+      {
+        name: "OGG Converter",
+        slug: "ogg-converter",
+        description: "Convert audio to OGG Vorbis format",
+        icon: inferIcon("OGG Converter", "ogg-converter"),
+        status: "live",
+        howTo: [
+          { text: "Drag and drop your audio file or click to browse." },
+          { text: "Pick a quality level — Medium (q=5) suits most listening." },
+          { text: "Click “Convert to OGG” and wait for the encoder to finish." },
+          { text: "Download your OGG Vorbis file." },
+        ],
+        faq: [
+          {
+            q: "Why does OGG use quality levels instead of a bitrate?",
+            a: "Vorbis is a variable-bitrate codec by design. You pick a quality target from 0 to 10 and the encoder spends bits where the audio needs them, so a quiet passage costs less than a dense one. That is why the main control is a quality scale, with fixed bitrate tucked away as an advanced option.",
+          },
+          {
+            q: "Is OGG better than MP3 at the same bitrate?",
+            a: "Generally yes — Vorbis was designed a decade after MP3 and holds detail better around 96–128 kbps. The trade-off is reach: almost everything plays MP3, while OGG is mostly limited to browsers, Android, and desktop players.",
+          },
+          {
+            q: "Is OGG patent-free?",
+            a: "Yes. Vorbis is an open, royalty-free format from the Xiph.Org Foundation, which is why it became common in open-source software and game engines where licensing an MP3 or AAC encoder would be a problem.",
+          },
+          {
+            q: "Will OGG files play on an iPhone?",
+            a: "Not in the built-in Music app. Safari and iOS have limited Vorbis support, so choose M4A or MP3 if the file needs to work across Apple devices without a third-party player.",
+          },
+          {
+            q: "Are my files uploaded anywhere?",
+            a: "No. Decoding and encoding both run locally in your browser, so your audio never leaves your device.",
+          },
+        ],
+      },
+      {
+        name: "AAC Converter",
+        slug: "aac-converter",
+        description: "Convert audio to AAC format for Apple devices",
+        icon: inferIcon("AAC Converter", "aac-converter"),
+        status: "live",
+        howTo: [
+          { text: "Drag and drop your audio file or click to browse." },
+          { text: "Choose a bitrate — 128 kbps is transparent for most material." },
+          { text: "Click “Convert to AAC” and wait a moment." },
+          { text: "Download your raw AAC stream." },
+        ],
+        faq: [
+          {
+            q: "What is the difference between AAC and M4A here?",
+            a: "The audio is identical — both use the AAC codec. This tool writes a raw AAC stream with an .aac extension, while the M4A converter wraps the same audio in an MP4 container. Choose M4A if you want reliable tags, chapters and album art; choose raw AAC for streaming pipelines that expect it.",
+          },
+          {
+            q: "Why do the bitrates start at 96 instead of 64?",
+            a: "AAC is more efficient than MP3, so its useful range sits higher and narrower. 128 kbps AAC is roughly comparable to 192 kbps MP3, which is why this ladder runs 96 to 256 rather than reusing MP3's 64 to 320.",
+          },
+          {
+            q: "Why is there no VBR option for AAC?",
+            a: "The encoder's variable-bitrate mode behaves inconsistently across builds, producing unpredictable results on some inputs. Rather than ship a control that quietly misbehaves, AAC output stays on constant and average bitrate only.",
+          },
+          {
+            q: "Is AAC better than MP3?",
+            a: "At the same bitrate, usually yes — especially below 160 kbps. AAC is the default for YouTube, Apple Music and most streaming services. MP3 still wins on universal compatibility with older hardware.",
+          },
+          {
+            q: "Is this AAC converter free?",
+            a: "Yes — free, no signup, no file limits, no watermarks, and everything runs in your browser.",
+          },
+        ],
+      },
+      {
+        name: "FLAC Converter",
+        slug: "flac-converter",
+        description: "Convert audio to FLAC lossless format",
+        icon: inferIcon("FLAC Converter", "flac-converter"),
+        status: "live",
+        howTo: [
+          { text: "Drag and drop your audio file or click to browse." },
+          { text: "Set a compression level from 0 to 12 — 5 is the usual default." },
+          { text: "Click “Convert to FLAC” and wait for encoding to finish." },
+          { text: "Download your lossless FLAC file." },
+        ],
+        faq: [
+          {
+            q: "Does a higher compression level mean lower quality?",
+            a: "No. FLAC is lossless at every level, so level 0 and level 12 decode to bit-identical audio. The level only trades encoding time against file size — higher levels work harder to make the file smaller and take longer to do it.",
+          },
+          {
+            q: "How much smaller is FLAC than WAV?",
+            a: "Typically 40 to 60 percent smaller depending on the material — dense, loud mixes compress less than sparse acoustic recordings. You get the exact same samples back, which is the whole point of using it over a lossy format.",
+          },
+          {
+            q: "Should I convert my MP3 collection to FLAC?",
+            a: "No. FLAC preserves whatever it is given, so a FLAC made from an MP3 is a large file that faithfully reproduces the MP3's existing losses. Convert to FLAC from CD rips, WAV or other lossless sources.",
+          },
+          {
+            q: "What plays FLAC files?",
+            a: "Most modern players and platforms, including recent iOS and Android, VLC, foobar2000 and Plex. Some older car head units and dedicated MP3 players still do not, so check the target device before converting an entire library.",
+          },
+          {
+            q: "Are my files uploaded anywhere?",
+            a: "No. Conversion happens entirely in your browser, so your audio never leaves your device.",
+          },
+        ],
+      },
+      {
+        name: "M4A Converter",
+        slug: "m4a-converter",
+        description: "Convert audio to M4A format",
+        icon: inferIcon("M4A Converter", "m4a-converter"),
+        status: "live",
+        howTo: [
+          { text: "Drag and drop your audio file or click to browse." },
+          { text: "Choose a bitrate — 128 or 192 kbps covers most needs." },
+          { text: "Click “Convert to M4A” and wait a moment." },
+          { text: "Download your M4A file, ready for Apple devices." },
+        ],
+        faq: [
+          {
+            q: "Is M4A the same thing as MP4?",
+            a: "Almost. M4A is an MP4 container that holds only audio — the extension exists so players and file managers know not to expect video. Internally the structure is the same, which is why M4A handles tags, chapters and cover art so well.",
+          },
+          {
+            q: "Will M4A work outside the Apple ecosystem?",
+            a: "Yes. Despite the Apple association, M4A plays on Android, Windows, and every major browser, because the AAC codec inside it is near-universal on anything made in the last fifteen years.",
+          },
+          {
+            q: "Does converting to M4A keep my album art?",
+            a: "Set metadata to Preserve in Advanced settings and this tool attempts to carry tags and embedded artwork across. M4A is one of the better targets for this, since the MP4 container has proper fields for both.",
+          },
+          {
+            q: "M4A or MP3 for an audiobook or podcast?",
+            a: "M4A, if your player supports it. The container handles chapter markers and long-form metadata that MP3 cannot represent cleanly, and AAC sounds better than MP3 at the low bitrates spoken-word audio uses.",
+          },
+          {
+            q: "Is this M4A converter free?",
+            a: "Yes — free, no signup, no file limits, no watermarks, and everything runs locally in your browser.",
+          },
+        ],
+      },
+      {
+        name: "WMA Converter",
+        slug: "wma-converter",
+        description: "Convert audio to WMA format",
+        icon: inferIcon("WMA Converter", "wma-converter"),
+        status: "live",
+        howTo: [
+          { text: "Drag and drop your audio file or click to browse." },
+          { text: "Choose a bitrate — 128 kbps is the practical middle setting." },
+          { text: "Click “Convert to WMA” and wait a moment." },
+          { text: "Download your WMA file." },
+        ],
+        faq: [
+          {
+            q: "Should I use WMA?",
+            a: "WMA uses an older, basic encoder. For better quality and wider compatibility, we recommend MP3 or M4A instead — choose WMA only if you specifically need compatibility with legacy Windows software.",
+          },
+          {
+            q: "Why is the bitrate capped at 192 kbps?",
+            a: "The wmav2 encoder stops giving useful returns above that point — pushing higher mostly grows the file without a matching improvement in what you hear. The ladder stops where the codec does.",
+          },
+          {
+            q: "Why is there no VBR option for WMA?",
+            a: "wmav2 has no meaningful variable-bitrate mode in this encoder, so offering the toggle would imply a capability that does not exist. WMA output is constant bitrate only.",
+          },
+          {
+            q: "What still needs WMA files?",
+            a: "Mostly older Windows software, legacy Windows Media Player playlists, some corporate or archival systems, and a handful of pre-2010 portable devices. If none of that applies to you, another format will serve you better.",
+          },
+          {
+            q: "Are my files uploaded anywhere?",
+            a: "No. Conversion runs entirely in your browser, so your audio never leaves your device.",
+          },
+        ],
+      },
+      {
+        name: "AIFF Converter",
+        slug: "aiff-converter",
+        description: "Convert audio to AIFF format",
+        icon: inferIcon("AIFF Converter", "aiff-converter"),
+        status: "live",
+        howTo: [
+          { text: "Drag and drop your audio file or click to browse." },
+          { text: "Pick a bit depth — 16-bit for delivery, 24-bit for production." },
+          { text: "Click “Convert to AIFF” and wait a moment." },
+          { text: "Download your uncompressed AIFF file." },
+        ],
+        faq: [
+          {
+            q: "What is the difference between AIFF and WAV?",
+            a: "Both store the same uncompressed PCM audio at the same size — the difference is byte order and heritage. AIFF is Apple's format and stores samples big-endian; WAV is Microsoft's and stores them little-endian. Quality is identical, so pick whichever your software prefers.",
+          },
+          {
+            q: "Why would I choose AIFF over WAV?",
+            a: "Mainly for Apple-centric production work. Logic Pro, GarageBand and older Pro Tools sessions handle AIFF natively, and AIFF's metadata support is cleaner than plain WAV's, which never had a proper tagging standard.",
+          },
+          {
+            q: "How large will my AIFF file be?",
+            a: "The same as an equivalent WAV — roughly 10 MB per minute of 16-bit stereo at 44.1 kHz, or about 16 MB per minute at 24-bit. There is no compression, so duration and bit depth alone determine size.",
+          },
+          {
+            q: "Does converting MP3 to AIFF improve quality?",
+            a: "No. AIFF stores exactly what it receives, so an AIFF made from a lossy source is a much larger file containing the same audio. Convert from lossless sources when the goal is quality.",
+          },
+          {
+            q: "Is this AIFF converter free?",
+            a: "Yes — free, no signup and no limits, running entirely in your browser.",
+          },
+        ],
+      },
+      {
+        name: "OPUS Converter",
+        slug: "opus-converter",
+        description: "Convert audio to OPUS format",
+        icon: inferIcon("OPUS Converter", "opus-converter"),
+        status: "live",
+        howTo: [
+          { text: "Drag and drop your audio file or click to browse." },
+          { text: "Choose a bitrate — 96 kbps already sounds excellent with Opus." },
+          { text: "Click “Convert to OPUS” and wait a moment." },
+          { text: "Download your Opus file." },
+        ],
+        faq: [
+          {
+            q: "Why are Opus bitrates so much lower than MP3's?",
+            a: "Opus is the most efficient codec here. It holds up at bitrates where MP3 falls apart — 96 kbps Opus is comfortably better than 128 kbps MP3, so the ladder tops out at 192 rather than 320. Higher numbers would mostly waste space.",
+          },
+          {
+            q: "What is Opus actually used for?",
+            a: "Almost all modern real-time voice and video: WhatsApp voice notes, Discord, Zoom, WebRTC calls and YouTube's newer streams. It was standardised as RFC 6716 specifically to handle both speech and music well at low latency.",
+          },
+          {
+            q: "Why is variable bitrate the default?",
+            a: "Opus was designed around VBR and its constant-bitrate mode exists mainly for fixed-bandwidth links. Leaving VBR on lets the encoder allocate bits by demand, which is where its efficiency advantage comes from.",
+          },
+          {
+            q: "Where will Opus files not play?",
+            a: "Older hardware, most car stereos, and older portable players. Support in browsers, Android and desktop software is excellent, but Opus is a poor choice for anything that needs to work on legacy devices — use MP3 there.",
+          },
+          {
+            q: "Are my files uploaded anywhere?",
+            a: "No. Everything runs locally in your browser, so your audio never leaves your device.",
+          },
+        ],
+      },
       { name: "Audio Format Converter", slug: "audio-format-converter", description: "Universal audio format converter with batch support", icon: inferIcon("Audio Format Converter", "audio-format-converter"), status: "soon" },
     ],
   },
@@ -316,6 +622,7 @@ categories.forEach(cat => {
 
 export const allTools = categories.flatMap(c => c.tools);
 export const TOOLS_BY_SLUG = new Map(allTools.map(t => [t.slug, t]));
+export const TOTAL_TOOL_COUNT = categories.reduce((sum, cat) => sum + cat.tools.length, 0);
 
 export function getAudioToolBySlug(slug: string) {
   return TOOLS_BY_SLUG.get(slug) || null;

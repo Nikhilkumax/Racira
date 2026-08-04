@@ -3,15 +3,21 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "predev": "node scripts/copy-ffmpeg-core.cjs",
     "dev": "next dev -p 3002",
+    "prebuild": "node scripts/copy-ffmpeg-core.cjs",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "postinstall": "node scripts/patch-lamejs.cjs"
+    "copy:ffmpeg": "node scripts/copy-ffmpeg-core.cjs",
+    "postinstall": "node scripts/patch-lamejs.cjs && node scripts/copy-ffmpeg-core.cjs"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
     "@dnd-kit/sortable": "^10.0.0",
+    "@ffmpeg/core-mt": "^0.12.10",
+    "@ffmpeg/ffmpeg": "^0.12.15",
+    "@ffmpeg/util": "^0.12.2",
     "@noble/hashes": "^2.2.0",
     "@radix-ui/react-accordion": "^1.2.1",
     "@radix-ui/react-alert-dialog": "^1.1.2",

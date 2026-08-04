@@ -44,3 +44,7 @@ Thumbs.db
 test_video.mov
 dev_err.txt
 dev_out.txt
+
+# ffmpeg.wasm core, copied out of node_modules by scripts/copy-ffmpeg-core.cjs
+# on postinstall and before dev/build. ~31 MB of build output, not source.
+/public/ffmpeg/

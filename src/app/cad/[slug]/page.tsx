@@ -8,6 +8,7 @@ import { toSlug } from "@/lib/utils/slug";
 import { SubcategoryCard } from "@/components/shared/SubcategoryCard";
 import { inferIcon } from "@/components/shared/icon-map";
 import Header from "@/components/Header";
+import ToolPageHeader from "@/components/tools/shared/ToolPageHeader";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -118,37 +119,23 @@ function ToolView({ tool, category }: { tool: any, category: typeof categories[0
     <div className="min-h-screen bg-background flex flex-col">
       <Header mode="category" categoryName="CAD" />
       <main className="flex-1">
-        <div className="racira-page-container pt-8 pb-16">
-          <nav aria-label="breadcrumb" className="hidden md:flex items-center flex-wrap text-sm text-muted-foreground mb-6">
-            <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
-            <ChevronRight className="h-4 w-4 mx-1 opacity-50 shrink-0" />
-            <Link href="/cad" className="hover:text-foreground transition-colors">CAD</Link>
-            <ChevronRight className="h-4 w-4 mx-1 opacity-50 shrink-0" />
-            <Link href={`/cad/${categorySlug}`} className="hover:text-foreground transition-colors">
-              {category.title}
-            </Link>
-            <ChevronRight className="h-4 w-4 mx-1 opacity-50 shrink-0" />
-            <span className="text-foreground font-medium">{tool.name}</span>
-          </nav>
-
-          <nav aria-label="breadcrumb" className="md:hidden flex items-center mb-6">
-            <Link href={`/cad/${categorySlug}`} className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground hover:text-foreground transition-colors">
-              <span aria-hidden="true">←</span>{category.title}
-            </Link>
-          </nav>
-
-          <div className="mt-4 mb-6">
-            <p className="text-xs uppercase tracking-wider text-primary font-medium">{category.title}</p>
-            <h1 className="mt-1 text-3xl font-bold tracking-tight">{tool.name}</h1>
-            <p className="mt-2 text-muted-foreground">{tool.description}</p>
-          </div>
+        <ToolPageHeader
+          breadcrumbItems={[
+            { label: "Home", href: "/" },
+            { label: "CAD", href: "/cad" },
+            { label: category.title, href: `/cad/${categorySlug}` },
+            { label: tool.name, href: null },
+          ]}
+          title={tool.name}
+        />
+        <div className="racira-page-container pb-16">
 
           {tool.status === "live" && tool.component ? (
-            <div className="mt-10 rounded-xl border border-border bg-card p-4 sm:p-6 min-h-[400px]">
+            <div className="rounded-xl border border-border bg-card p-4 sm:p-6 min-h-[400px]">
               {React.createElement(tool.component)}
             </div>
           ) : (
-            <div className="mt-10 rounded-2xl border border-dashed border-primary/30 bg-primary/10 p-10 text-center">
+            <div className="rounded-2xl border border-dashed border-primary/30 bg-primary/10 p-10 text-center">
               <div className="mx-auto mb-4 inline-flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-primary">
                 <Hammer className="h-6 w-6" />
               </div>

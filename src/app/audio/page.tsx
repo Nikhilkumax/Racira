@@ -1,19 +1,19 @@
 import Header from "@/components/Header";
 import AudioClientGrid from "@/domains/audio/components/ClientGrid";
-import { categories } from "@/domains/audio/registry";
+import { categories, TOTAL_TOOL_COUNT } from "@/domains/audio/registry";
 import { SearchAudio } from "./SearchAudio";
 
 export const metadata = {
   title: "Racira Audio — Free Online Audio & Podcast Tools",
-  description: "235+ free tools to convert, edit, analyze and master audio. Designed for podcasters and audio engineers. Runs entirely in your browser.",
+  description: `${TOTAL_TOOL_COUNT}+ free tools to convert, edit, analyze and master audio. Designed for podcasters and audio engineers. Runs entirely in your browser.`,
   openGraph: {
     title: "Racira Audio — Free Audio Tools",
-    description: "235+ free tools to convert, edit, analyze and master audio. No signup required.",
+    description: `${TOTAL_TOOL_COUNT}+ free tools to convert, edit, analyze and master audio. No signup required.`,
   },
 };
 
 export default function AudioPage() {
-  const totalCount = categories.reduce((sum, cat) => sum + cat.tools.length, 0);
+  const totalCount = TOTAL_TOOL_COUNT;
 
   return (
     <div className="min-h-screen bg-background flex flex-col">

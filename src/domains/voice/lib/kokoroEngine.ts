@@ -37,34 +37,24 @@ export async function getKokoroEngine(
       ttsInstance = tts;
       return tts;
     } catch (webgpuError: any) {
-      console.warn("[kokoro] WebGPU failed, falling back to wasm:", webgpuError?.message);
-      console.error("[kokoro] WebGPU error details:", {
+      // WebGPU is the only supported backend — there is deliberately no
+      // second attempt on another device. Callers are gated by DeviceGate,
+      // so reaching here means WebGPU passed the capability check but the
+      // model still failed to load.
+      console.error("[kokoro] WebGPU model load failed:", {
         message: webgpuError?.message,
         stack: webgpuError?.stack,
         name: webgpuError?.name,
       });
-      try {
-        console.log("[kokoro] Attempting model load: device=wasm, dtype=fp16");
-        const tts = await KokoroTTS.from_pretrained(MODEL_ID, {
-          dtype: "fp16",
-          device: "wasm",
-          progress_callback: (info: any) => {
-            console.log("[kokoro] progress:", JSON.stringify(info));
-            onProgress?.(info);
-          },
-        });
-        ttsInstance = tts;
-        return tts;
-      } catch (wasmError: any) {
-        console.error("[kokoro] WASM fallback also failed:", {
-          message: wasmError?.message,
-          stack: wasmError?.stack,
-          name: wasmError?.name,
-        });
-        throw wasmError;
-      }
+      throw webgpuError;
     }
   })();
+
+  // A rejected load must not be cached, or every later attempt replays the
+  // same rejection and the user can never retry.
+  loadingPromise.catch(() => {
+    loadingPromise = null;
+  });
 
   return loadingPromise;
 }
