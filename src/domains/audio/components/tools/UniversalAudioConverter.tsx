@@ -681,7 +681,7 @@ export default function UniversalAudioConverter({
           : MP3_BITRATES;
 
   return (
-    <div className="mt-10 rounded-2xl border border-border bg-card p-6 shadow-[var(--shadow-card)]">
+    <div className="rounded-2xl border border-border bg-card p-6 shadow-[var(--shadow-card)]">
       {/* Drop zone */}
       <div
         onDragOver={(e) => {

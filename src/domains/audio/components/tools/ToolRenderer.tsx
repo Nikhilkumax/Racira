@@ -7,7 +7,7 @@ import { FORMAT_ORDER, FORMATS } from "@/domains/audio/lib/audioFormats";
 
 function ToolSkeleton() {
   return (
-    <div className="mt-10 h-[420px] animate-pulse rounded-2xl border border-border bg-card" />
+    <div className="h-[420px] animate-pulse rounded-2xl border border-border bg-card" />
   );
 }
 

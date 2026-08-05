@@ -96,7 +96,12 @@ export function NamedColors() {
 }
 
 export function RandomColor() {
-  const [colors, setColors] = useState<string[]>(() => Array.from({ length: 10 }, randomHex));
+  const [colors, setColors] = useState<string[]>([]);
+
+  useEffect(() => {
+    setColors(Array.from({ length: 10 }, randomHex));
+  }, []);
+
   return (
     <div>
       <Button onClick={() => setColors(Array.from({ length: 10 }, randomHex))}>Generate again</Button>
@@ -351,16 +356,23 @@ export function ImageRecolor() {
 
 export function ColorPicker() {
   const [c, setC] = useState("#3B82F6");
-  const [recent, setRecent] = useState<string[]>(() => {
-    if (typeof window === "undefined") return [];
-    try { return JSON.parse(localStorage.getItem("racira-recent") || "[]"); } catch { return []; }
-  });
+  const [recent, setRecent] = useState<string[]>([]);
+  const [mounted, setMounted] = useState(false);
+
   useEffect(() => {
-    const next = [c, ...recent.filter((x) => x !== c)].slice(0, 12);
-    setRecent(next);
-    localStorage.setItem("racira-recent", JSON.stringify(next));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [c]);
+    try { setRecent(JSON.parse(localStorage.getItem("racira-recent") || "[]")); } catch { /* ignore */ }
+    setMounted(true);
+  }, []);
+
+  // Gated on `mounted` so this never overwrites stored history before the load above lands.
+  useEffect(() => {
+    if (!mounted) return;
+    setRecent((prev) => {
+      const next = [c, ...prev.filter((x) => x !== c)].slice(0, 12);
+      localStorage.setItem("racira-recent", JSON.stringify(next));
+      return next;
+    });
+  }, [c, mounted]);
   return (
     <div className="grid gap-6 md:grid-cols-2">
       <Section>

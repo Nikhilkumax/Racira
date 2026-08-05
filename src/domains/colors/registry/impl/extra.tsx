@@ -162,7 +162,16 @@ export function EyedropperTool() {
 /* ===================== Palettes ===================== */
 
 function RandomPalette({ generator, label }: { generator: () => string[]; label: string }) {
-  const [colors, setColors] = useState<string[]>(() => generator());
+  const [colors, setColors] = useState<string[]>([]);
+  // Callers pass an inline arrow, so `generator` is a new identity each render; a ref keeps
+  // the mount effect from re-firing without needing a dependency-array suppression.
+  const generatorRef = useRef(generator);
+  generatorRef.current = generator;
+
+  useEffect(() => {
+    setColors(generatorRef.current());
+  }, []);
+
   return (
     <div className="grid gap-6">
       <Button onClick={() => setColors(generator())}>{label}</Button>

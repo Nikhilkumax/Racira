@@ -445,7 +445,7 @@ export const mathCalculators: CalculatorDef[] = [
   { slug: "triangle-type-classifier", name: "Triangle Type Classifier", description: "Calculate Triangle Type Classifier online with our free tool.", category: "MATH", subcategory: "Geometry", tier: "Tier3", priorityScore: 28, status: "soon" },
   { slug: "cox-proportional-hazard-ratio-calculator", name: "Cox Proportional Hazard Ratio Calculator", description: "Calculate cox proportional hazard ratio calculator online with our free tool.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, status: "soon" },
   { slug: "odds-ratio-calculator", name: "Odds Ratio Calculator", description: "Calculate odds ratio calculator online with our free tool.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, status: "soon" },
-  { slug: "standardized-mortality-ratio-calculator", name: "Standardized Mortality Ratio Calculator", description: "Calculate standardized mortality ratio calculator online with our free tool.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, status: "soon" },
+  { slug: "standardized-mortality-ratio-calculator", name: "Standardized Mortality Ratio Calculator", description: "Divide observed deaths by indirectly standardized expected deaths, with Poisson confidence limits.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, status: "live" },
   {
     slug: "t-test-calculator", name: "T-Test Calculator", description: "Perform one-sample, two-sample, and paired t-tests with p-values.", category: "MATH", subcategory: "Statistics", tier: "Tier3", priorityScore: 28, status: "live" },
   {

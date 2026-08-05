@@ -124,9 +124,9 @@ export const orphanedCalculators: CalculatorDef[] = [
   {
     slug: "charging-speed-calculator",
     name: "EV Charging Speed Calculator",
-    description: "Notice how DC fast charging (if selected) tapers aggressively as the battery fills.",
-    category: "EVERYDAY_LIFE",
-    subcategory: "Other Utilities",
+    description: "Estimate EV charging time from battery size, charger power, and state of charge, with a realistic charge curve.",
+    category: "TRANSPORTATION",
+    subcategory: "EV & Alternative Fuel",
     status: "live"
   },
   {

@@ -272,10 +272,14 @@
                        "AntilogCalculator",
                        "AspectRatioCalculator",
                        "AttendanceCalculator",
-                       "AudioFileSizeCalculator",
-                       "AutoLeaseCalculator",
-                       "AvogadrosNumberCalculator",
-                       "AwsS3CostCalculator",
-                       "BacCalculator"
-                    ]
+                        "AudioFileSizeCalculator",
+                        "AutoLeaseCalculator",
+                        "AvogadrosNumberCalculator",
+                        "AwsS3CostCalculator",
+                        "BacCalculator",
+                        "AccelerationEstimatorCalculator",
+                        "ZeroSixtyCalculator",
+                        "ZeroAprPromoCalculator",
+                        "OneThreeFiveCalculator"
+                     ]
 }
