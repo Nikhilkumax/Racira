@@ -2,13 +2,13 @@ import { Infinity as InfIcon, Globe2, Mic2, Sparkles, Zap, Wallet, Smartphone, M
 
 const FEATURES = [
   { icon: InfIcon, title: "Unlimited free usage", text: "Generate as much speech as you want — no quotas or paywalls." },
-  { icon: MonitorSmartphone, title: "Browser-based engine", text: "Powered by your browser's native speech API. Nothing to install." },
+  { icon: MonitorSmartphone, title: "Runs on your device", text: "Speech is generated locally in your browser. Nothing to install." },
   { icon: Globe2, title: "US and UK English", text: "Native American and British English accents." },
-  { icon: Mic2, title: "Premium voice options", text: "28 distinctive branded voices, each with its own character and tone." },
-  { icon: Sparkles, title: "Smart tone controls", text: "Pick a preset or describe a custom tone in plain language." },
+  { icon: Mic2, title: "28 voices to pick from", text: "Twenty American and eight British, each with its own character and tone." },
+  { icon: Sparkles, title: "Speed control", text: "Tune delivery from a measured read to a brisk one." },
   { icon: Wallet, title: "Zero API costs", text: "No keys, no billing, no surprises. Privately rendered on your device." },
-  { icon: Smartphone, title: "Mobile friendly", text: "A polished experience on phones, tablets, and desktops alike." },
-  { icon: Zap, title: "Fast performance", text: "Instant playback with no waiting on remote servers." },
+  { icon: Smartphone, title: "Responsive interface", text: "A polished layout on every screen, with a clear notice if your browser can't run generation." },
+  { icon: Zap, title: "No per-clip round trip", text: "After a one-time model download, every clip is generated locally." },
 ];
 
 export function TTSFeatures() {
@@ -20,7 +20,7 @@ export function TTSFeatures() {
           Everything you need to create great voiceovers
         </h2>
         <p className="mt-3 text-[15.5px] leading-relaxed text-muted-foreground">
-          Racira TTS combines a polished interface with a powerful browser-native
+          Racira TTS combines a polished interface with a fast on-device
           engine, so you can focus on the script — not the setup.
         </p>
       </div>

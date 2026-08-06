@@ -3,16 +3,16 @@ import { Check, X } from "lucide-react";
 const PROS = [
   "Truly unlimited generation, every day",
   "No subscriptions, no token meters",
-  "Premium branded voices in US and UK English",
-  "Smart tone presets and custom tone parsing",
-  "Browser-native — instant, private, offline-capable",
+  "28 voices across US and UK English",
+  "Speed control on every generation",
+  "Runs on your device — private, with no per-clip server call",
   "Polished SaaS experience on every device",
 ];
 const CONS = [
   "Subscription paywalls and free-tier traps",
   "Strict character or token limits",
   "Slow remote API requests on every play",
-  "Generic voices and limited language support",
+  "Watermarked or downgraded free-tier output",
   "Account walls and email collection",
   "Cluttered, ad-heavy interfaces",
 ];

@@ -10,7 +10,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Free Text to Speech Online | Natural AI Voices — Racira TTS",
   description: "Convert text to speech instantly with Racira TTS. 28 natural AI voices in US and UK English, with unlimited generation. No signup required, private and browser-based.",
-  keywords: ["text to speech", "free tts", "ai voice generator", "online tts", "speech synthesis", "hindi tts", "multilingual tts"],
+  keywords: ["text to speech", "free tts", "ai voice generator", "online tts", "speech synthesis", "english tts", "browser tts"],
   openGraph: {
     title: "Free Text to Speech Online | Natural AI Voices — Racira TTS",
     description: "Convert text to speech instantly with Racira TTS. 28 natural AI voices in US and UK English, with unlimited generation.",

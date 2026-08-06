@@ -56,6 +56,13 @@ const nextConfig = {
       path: false,
       "fs/promises": false,
     }
+    config.module.parser = {
+      ...config.module.parser,
+      javascript: {
+        ...config.module.parser?.javascript,
+        url: false,
+      },
+    };
     return config
   },
 };

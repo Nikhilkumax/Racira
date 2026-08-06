@@ -160,7 +160,7 @@ export function KokoroGenerator() {
     } catch (err: any) {
       const msg = err?.message || String(err);
       setLoadError(
-        `Speech generation isn't available in this browser. ${msg}`,
+        `Speech generation failed. ${msg}`,
       );
       setStatus("error");
     }

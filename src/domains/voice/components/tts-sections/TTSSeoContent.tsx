@@ -15,35 +15,37 @@ export function TTSSeoContent() {
             for creators, students, educators and teams who need fast, reliable
             voice generation without the friction of API keys, monthly
             subscriptions or strict character limits. Type your script, choose a
-            premium voice, and listen instantly.
+            voice, and listen.
           </p>
 
           <h3 className="font-display text-[20px] font-semibold tracking-tight">An unlimited AI voice generator that respects your time</h3>
           <p>
-            Most online TTS tools cap your usage, gate languages behind paid
-            tiers, or force you through onboarding flows just to hear a sample.
+            Most online TTS tools cap your usage, meter every character, or
+            force you through onboarding flows just to hear a sample.
             Racira TTS takes a different approach: the entire engine runs in
             your browser, which means there are no servers to throttle, no
             tokens to count, and no spreadsheets to budget.
           </p>
 
-          <h3 className="font-display text-[20px] font-semibold tracking-tight">Browser-based voice generation, end to end</h3>
+          <h3 className="font-display text-[20px] font-semibold tracking-tight">On-device voice generation, end to end</h3>
           <p>
-            Under the hood, Racira TTS uses the <em>Web Speech API</em>, the
-            same speech synthesis layer that powers system voices on modern
-            operating systems. We map our branded voices — Novaire, Atlas,
-            Dante, Orion, Rex, Nova, Aria, Luna and Stella — to the best
-            available voices on your device, and
-            tune their pitch and rate so they feel consistent across browsers.
+            Racira TTS generates speech on your own machine rather than on a
+            rented server. The voice model downloads once the first time you
+            press generate, then stays cached in your browser — so every clip
+            after that is produced locally, with your script never leaving the
+            device it was typed on.
           </p>
 
-          <h3 className="font-display text-[20px] font-semibold tracking-tight">A multilingual TTS tool that adapts to your script</h3>
+          <h3 className="font-display text-[20px] font-semibold tracking-tight">28 voices across US and UK English</h3>
           <p>
-            Whether you are writing in English, Hindi, Arabic, Japanese,
-            Spanish, French, German, Bengali, Tamil, Telugu or Marathi, Racira
-            TTS automatically detects the language of your text and recommends a
-            matching voice. Switching between scripts and languages is as
-            simple as typing.
+            The library covers twenty American English voices — including
+            Heart, Bella, Nova, Sarah, Jessica, Michael, Adam, Puck and
+            Fenrir — alongside eight British English voices such as Emma,
+            Alice, Lily, Isabella, George, Lewis and Daniel. Each has its own
+            character, and a speed control lets you tune the delivery from a
+            measured read to a brisk one. Support for more languages is in
+            progress; today the tool is English-only, and we would rather say
+            so than have you find out after pasting a script.
           </p>
 
           <h3 className="font-display text-[20px] font-semibold tracking-tight">Voice generation for YouTube, podcasts and accessibility</h3>

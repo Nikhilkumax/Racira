@@ -162,14 +162,14 @@ const {{ component_name }} = () => {{
             primary: `$${total.toLocaleString(undefined, {maximumFractionDigits: 2})}`,
             subtitle: f"After {y} years at {(r * 100):.1f}% compounded {n == 12 and 'monthly' or n == 4 and 'quarterly' or n == 1 and 'annually' or '×/yr'}",
             rows: [
-                {{ "label": "Initial Principal", "value": `$${inputs.principal.toLocaleString()}" }},
-                {{ "label": "Monthly Contribution", "value": `$${inputs.contribution.toLocaleString()}" }},
+                {{ "label": "Initial Principal", "value": `$${{inputs.principal.toLocaleString()}" }},
+                {{ "label": "Monthly Contribution", "value": `$${{inputs.contribution.toLocaleString()}" }},
                 {{ "label": "Annual Interest Rate", "value": `${(r * 100).toFixed(1)}%` }},
                 {{ "label": "Compound Frequency", "value": `${n}× per year` }},
                 {{ "label": "Time Period", "value": `${y} years` }},
                 {{ "label": "Total Contributions", "value": `$${totalContrib.toLocaleString(undefined, {maximumFractionDigits: 2})}` }},
                 {{ "label": "Total Interest Earned", "value": `$${totalInterest.toLocaleString(undefined, {maximumFractionDigits: 2})}` }},
-                {{ "label": "Final Balance", "value": "Final Balance", "border": true, "bold": true }},
+                {{ "label": "Final Balance", "value": "Final Balance", "border": true, "bold": true }}
             ]};
         setResult(results);
     };"""
