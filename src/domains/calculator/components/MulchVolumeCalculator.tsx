@@ -115,7 +115,7 @@ export default function MulchVolumeCalculator() {
     setInputs((prev) => ({ ...prev, [field]: value }));
   };
 
-  const breadcrumbItems: BreadcrumbItem[] = [
+  const breadcrumbItems = [
     { label: "Home", href: "/" },
     { label: "Calculators", href: "/calculator" },
     { label: "Mulch Volume Calculator" },
