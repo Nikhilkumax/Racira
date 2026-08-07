@@ -7,6 +7,11 @@ import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
 import { RotateCcw, Leaf } from "lucide-react";
 import { PieChart as RPie, Pie, Cell, Tooltip as RTooltip, ResponsiveContainer } from "recharts";
+import { Card } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
 
 interface MulchInputs {
   length: number;
@@ -189,7 +194,7 @@ export default function MulchVolumeCalculator() {
                   id="length"
                   type="number"
                   value={inputs.length}
-                  onChange={(e) => handleInputChange("length", parseFloat(e.target.value) || 0)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange("length", parseFloat(e.target.value) || 0)}
                   className="h-10 text-base"
                 />
               </div>
@@ -202,7 +207,7 @@ export default function MulchVolumeCalculator() {
                   id="width"
                   type="number"
                   value={inputs.width}
-                  onChange={(e) => handleInputChange("width", parseFloat(e.target.value) || 0)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange("width", parseFloat(e.target.value) || 0)}
                   className="h-10 text-base"
                 />
               </div>
@@ -215,7 +220,7 @@ export default function MulchVolumeCalculator() {
                   id="depth"
                   type="number"
                   value={inputs.depth}
-                  onChange={(e) => handleInputChange("depth", parseFloat(e.target.value) || 0)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange("depth", parseFloat(e.target.value) || 0)}
                   className="h-10 text-base"
                   step="0.5"
                 />
@@ -227,7 +232,7 @@ export default function MulchVolumeCalculator() {
                 </Label>
                 <Select
                   value={inputs.mulchType}
-                  onValueChange={(value) => handleInputChange("mulchType", value)}
+                  onValueChange={(value: string) => handleInputChange("mulchType", value)}
                 >
                   <SelectTrigger id="mulchType" className="h-10 text-base">
                     <SelectValue />
@@ -250,7 +255,7 @@ export default function MulchVolumeCalculator() {
                   id="wasteFactor"
                   type="number"
                   value={inputs.wasteFactor}
-                  onChange={(e) => handleInputChange("wasteFactor", parseFloat(e.target.value) || 0)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange("wasteFactor", parseFloat(e.target.value) || 0)}
                   className="h-10 text-base"
                   step="1"
                 />
