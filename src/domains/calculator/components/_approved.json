@@ -280,6 +280,13 @@
                         "AccelerationEstimatorCalculator",
                         "ZeroSixtyCalculator",
                         "ZeroAprPromoCalculator",
-                        "OneThreeFiveCalculator"
+                        "OneThreeFiveCalculator",
+                        "ImpactCraterDiameterEstimator",
+                        "BrakeFadeTemperatureCalculator",
+                        "ElectricDipoleMomentCalculator",
+                        "AugmentedRenalClearanceCalculator",
+                        "PcieBandwidthCalculator",
+                        "ElasticModulusOfConcreteCalculator",
+                        "PartTimeVsFullTimeStudentCostCalculator"
                      ]
 }

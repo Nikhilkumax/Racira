@@ -1064,7 +1064,9 @@ const calculatorComponents: Record<string, () => Promise<any>> = {
   "bonded-warehouse-cost-calculator": () => import("@/domains/calculator/components/BondedWarehouseCostCalculator"),
   "bonus-percentage-calculator": () => import("@/domains/calculator/components/BonusPercentageCalculator"),
   "boxing-calorie-calculator": () => import("@/domains/calculator/components/BoxingCalorieCalculator"),
+  "brake-fade-temperature-calculator": () => import("@/domains/calculator/components/BrakeFadeTemperatureCalculator"),
   "brake-horsepower-calculator": () => import("@/domains/calculator/components/BrakeHorsepowerCalculator"),
+  "part-time-vs-full-time-student-cost-calculator": () => import("@/domains/calculator/components/PartTimeVsFullTimeStudentCostCalculator"),
   "braking-distance-calculator": () => import("@/domains/calculator/components/BrakingDistanceCalculator"),
   "break-bulk-cargo-cost-calculator": () => import("@/domains/calculator/components/BreakBulkCargoCostCalculator"),
   "break-even-mileage-calculator": () => import("@/domains/calculator/components/BreakEvenMileageCalculator"),
@@ -1288,6 +1290,14 @@ const calculatorComponents: Record<string, () => Promise<any>> = {
   "drinking-water-fluoride-dose-calculator": () => import("@/domains/calculator/components/DrinkingWaterFluorideDoseCalculator"),
   "food-miles-calculator": () => import("@/domains/calculator/components/FoodMilesCalculator"),
   "land-loan-payment-calculator": () => import("@/domains/calculator/components/LandLoanPaymentCalculator"),
+  "electric-dipole-moment-calculator": () => import("@/domains/calculator/components/ElectricDipoleMomentCalculator"),
+  "augmented-renal-clearance-calculator": () => import("@/domains/calculator/components/AugmentedRenalClearanceCalculator"),
+  "pcie-bandwidth-calculator": () => import("@/domains/calculator/components/PcieBandwidthCalculator"),
+  "impact-crater-diameter-estimator": () => import("@/domains/calculator/components/ImpactCraterDiameterEstimator"),
+  "elastic-modulus-of-concrete-calculator": () => import("@/domains/calculator/components/ElasticModulusOfConcreteCalculator"),
+  "valve-flow-coefficient-cv-calculator": () => import("@/domains/calculator/components/ValveFlowCoefficientCvCalculator"),
+  "gravel-volume-calculator": () => import("@/domains/calculator/components/GravelVolumeCalculator"),
+  "brick-count-calculator": () => import("@/domains/calculator/components/BrickCountCalculator"),
 
 };
 
