@@ -1,13 +1,13 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
-import { RotateCcw, Calculator } from "lucide-react";
+import { RotateCcw, Printer } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip as RTooltip, ResponsiveContainer, Cell } from "recharts";
 
-interface AMRResult { amr: number; bmr: number; activityMultiplier: number; proteinNeeds: number; carbNeeds: number; fatNeeds: number; }
+interface AMRResult { amr: number; bmr: number; tdee: number; activityMultiplier: number; goalDelta: number; proteinNeeds: number; carbNeeds: number; fatNeeds: number; }
 const DEFAULTS = { weight: "75", height: "175", age: "30", sex: "male", activityLevel: "moderate", goal: "maintain" };
 
 const ACTIVITY = {
@@ -18,20 +18,29 @@ const ACTIVITY = {
   extreme: { label: "Extremely Active (twice/day)", mult: 1.9 },
 };
 
+// Clinical floors: never prescribe below these regardless of the goal deficit.
+const MIN_KCAL = { male: 1500, female: 1200 };
+
 function calculate(d: typeof DEFAULTS): AMRResult {
-  const w = parseFloat(d.weight) || 0, h = parseFloat(d.height) || 0, a = parseFloat(d.age) || 0;
-  const bmr = d.sex === "male"
+  const w = Math.max(0, parseFloat(d.weight) || 0);
+  const h = Math.max(0, parseFloat(d.height) || 0);
+  const a = Math.max(0, parseFloat(d.age) || 0);
+  const bmr = Math.max(0, d.sex === "male"
     ? 10 * w + 6.25 * h - 5 * a + 5
-    : 10 * w + 6.25 * h - 5 * a - 161;
+    : 10 * w + 6.25 * h - 5 * a - 161);
   const mult = ACTIVITY[d.activityLevel as keyof typeof ACTIVITY]?.mult || 1.55;
-  let amr = bmr * mult;
-  if (d.goal === "lose") amr -= 500;
-  if (d.goal === "gain") amr += 300;
+  const tdee = bmr * mult;
+  const goalDelta = d.goal === "lose" ? -500 : d.goal === "gain" ? 300 : 0;
+  // A deficit must never push the target under the clinical floor, and an
+  // empty form must not produce a negative calorie prescription.
+  const floor = d.sex === "male" ? MIN_KCAL.male : MIN_KCAL.female;
+  const amr = tdee <= 0 ? 0 : Math.max(floor, tdee + goalDelta);
+
   const proteinNeeds = w * 1.8;
   const fatNeeds = (amr * 0.25) / 9;
   const carbCals = amr - proteinNeeds * 4 - fatNeeds * 9;
-  const carbNeeds = carbCals / 4;
-  return { amr, bmr, activityMultiplier: mult, proteinNeeds, carbNeeds, fatNeeds };
+  const carbNeeds = Math.max(0, carbCals / 4);
+  return { amr, bmr, tdee, activityMultiplier: mult, goalDelta, proteinNeeds, carbNeeds, fatNeeds };
 }
 
 export default function ActiveMetabolicRateCalculator() {
@@ -41,11 +50,39 @@ export default function ActiveMetabolicRateCalculator() {
   const calc = () => setR(calculate(f));
   const reset = () => { setF(DEFAULTS); setR(calculate(DEFAULTS)); };
 
+  useEffect(() => {
+    setR(calculate(DEFAULTS));
+  }, []);
+
+  const invalid =
+    (parseFloat(f.weight) || 0) <= 0 ||
+    (parseFloat(f.height) || 0) <= 0 ||
+    (parseFloat(f.age) || 0) <= 0;
+
+  const atFloor = r.tdee > 0 && r.amr > r.tdee + r.goalDelta;
+
   const macroData = [
     { name: "Protein", cals: Math.round(r.proteinNeeds * 4), fill: "hsl(var(--primary))" },
     { name: "Carbs", cals: Math.round(r.carbNeeds * 4), fill: "#10b981" },
     { name: "Fat", cals: Math.round(r.fatNeeds * 9), fill: "#f59e0b" },
   ];
+  const macroTotal = macroData.reduce((s, m) => s + m.cals, 0);
+
+  // Largest-remainder allocation so the displayed shares total exactly 100%.
+  const macroPct = (() => {
+    if (macroTotal <= 0) return macroData.map(() => 0);
+    const exact = macroData.map((m) => (m.cals / macroTotal) * 100);
+    const floors = exact.map((v) => Math.floor(v));
+    let remainder = 100 - floors.reduce((s, v) => s + v, 0);
+    const order = exact
+      .map((v, i) => ({ i, frac: v - Math.floor(v) }))
+      .sort((a, b) => b.frac - a.frac);
+    const out = [...floors];
+    for (let k = 0; k < order.length && remainder > 0; k++, remainder--) {
+      out[order[k].i] += 1;
+    }
+    return out;
+  })();
 
   const faqs = [
     { question: "What is Active Metabolic Rate (AMR)?", answer: "AMR is your total daily calorie expenditure including your Basal Metabolic Rate (BMR) plus calories burned through physical activity. It is also called Total Daily Energy Expenditure (TDEE). AMR tells you exactly how many calories you need per day to maintain your current weight given your activity level." },
@@ -64,48 +101,59 @@ export default function ActiveMetabolicRateCalculator() {
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           <div className="card-calculator flex flex-col gap-3 !p-4 border border-border bg-card shadow-sm">
             <div className="grid grid-cols-2 gap-3">
-              <div className="flex flex-col"><label className="text-sm font-semibold mb-1">Weight (kg)</label>
-                <input type="number" value={f.weight} onChange={e => set("weight")(e.target.value)} className="h-9 px-3 rounded-md border border-input bg-background text-base outline-none focus:ring-2 focus:ring-primary/20 text-foreground" /></div>
-              <div className="flex flex-col"><label className="text-sm font-semibold mb-1">Height (cm)</label>
-                <input type="number" value={f.height} onChange={e => set("height")(e.target.value)} className="h-9 px-3 rounded-md border border-input bg-background text-base outline-none focus:ring-2 focus:ring-primary/20 text-foreground" /></div>
-              <div className="flex flex-col"><label className="text-sm font-semibold mb-1">Age (years)</label>
-                <input type="number" value={f.age} onChange={e => set("age")(e.target.value)} className="h-9 px-3 rounded-md border border-input bg-background text-base outline-none focus:ring-2 focus:ring-primary/20 text-foreground" /></div>
-              <div className="flex flex-col"><label className="text-sm font-semibold mb-1">Biological Sex</label>
-                <select value={f.sex} onChange={e => set("sex")(e.target.value)} className="h-9 px-3 rounded-md border border-input bg-background text-sm text-foreground outline-none focus:ring-2 focus:ring-primary/20">
+              <div className="flex flex-col"><label htmlFor="amr-weight" className="text-sm font-medium mb-1">Weight (kg)</label>
+                <input id="amr-weight" type="number" min={0} value={f.weight} onChange={e => set("weight")(e.target.value)} className="h-10 px-3 rounded-md border border-input bg-background text-base outline-none focus:ring-2 focus:ring-primary/20 text-foreground" /></div>
+              <div className="flex flex-col"><label htmlFor="amr-height" className="text-sm font-medium mb-1">Height (cm)</label>
+                <input id="amr-height" type="number" min={0} value={f.height} onChange={e => set("height")(e.target.value)} className="h-10 px-3 rounded-md border border-input bg-background text-base outline-none focus:ring-2 focus:ring-primary/20 text-foreground" /></div>
+              <div className="flex flex-col"><label htmlFor="amr-age" className="text-sm font-medium mb-1">Age (years)</label>
+                <input id="amr-age" type="number" min={0} value={f.age} onChange={e => set("age")(e.target.value)} className="h-10 px-3 rounded-md border border-input bg-background text-base outline-none focus:ring-2 focus:ring-primary/20 text-foreground" /></div>
+              <div className="flex flex-col"><label htmlFor="amr-sex" className="text-sm font-medium mb-1">Biological Sex</label>
+                <select id="amr-sex" value={f.sex} onChange={e => set("sex")(e.target.value)} className="h-10 px-3 rounded-md border border-input bg-background text-sm text-foreground outline-none focus:ring-2 focus:ring-primary/20">
                   <option value="male">Male</option><option value="female">Female</option>
                 </select></div>
             </div>
-            <div className="flex flex-col"><label className="text-sm font-semibold mb-1">Activity Level</label>
-              <select value={f.activityLevel} onChange={e => set("activityLevel")(e.target.value)} className="h-9 px-3 rounded-md border border-input bg-background text-sm text-foreground outline-none focus:ring-2 focus:ring-primary/20">
+            <div className="flex flex-col"><label htmlFor="amr-activity" className="text-sm font-medium mb-1">Activity Level</label>
+              <select id="amr-activity" value={f.activityLevel} onChange={e => set("activityLevel")(e.target.value)} className="h-10 px-3 rounded-md border border-input bg-background text-sm text-foreground outline-none focus:ring-2 focus:ring-primary/20">
                 {Object.entries(ACTIVITY).map(([k, v]) => <option key={k} value={k}>{v.label}</option>)}
               </select></div>
-            <div className="flex flex-col"><label className="text-sm font-semibold mb-1">Goal</label>
-              <select value={f.goal} onChange={e => set("goal")(e.target.value)} className="h-9 px-3 rounded-md border border-input bg-background text-sm text-foreground outline-none focus:ring-2 focus:ring-primary/20">
+            <div className="flex flex-col"><label htmlFor="amr-goal" className="text-sm font-medium mb-1">Goal</label>
+              <select id="amr-goal" value={f.goal} onChange={e => set("goal")(e.target.value)} className="h-10 px-3 rounded-md border border-input bg-background text-sm text-foreground outline-none focus:ring-2 focus:ring-primary/20">
                 <option value="lose">Lose Weight (−500 kcal)</option>
                 <option value="maintain">Maintain Weight</option>
                 <option value="gain">Gain Muscle (+300 kcal)</option>
               </select></div>
+            {invalid && (
+              <p className="text-sm text-red-600">Weight, height, and age must each be greater than zero.</p>
+            )}
             <div className="flex gap-2 mt-1">
-              <button onClick={calc} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-9 transition-all">Calculate</button>
-              <button onClick={reset} className="px-3 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-9 flex items-center justify-center"><RotateCcw className="h-4 w-4" /></button>
+              <button type="button" onClick={calc} disabled={invalid} className="h-10 w-full flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold transition-all disabled:opacity-50">Calculate</button>
+              <button type="button" onClick={reset} aria-label="Reset to defaults" className="h-10 w-10 shrink-0 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground flex items-center justify-center"><RotateCcw className="h-4 w-4" /></button>
             </div>
           </div>
           <div className="flex flex-col gap-3">
-            <div className="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-xl p-5 text-center relative">
-              <div className="text-xs font-bold text-primary uppercase tracking-wide mb-1">Daily Calorie Target (AMR)</div>
-              <div className="text-5xl font-extrabold text-foreground">{Math.round(r.amr).toLocaleString()}</div>
-              <div className="text-sm text-muted-foreground mt-1">kcal/day · BMR: {Math.round(r.bmr)} kcal · Multiplier: {r.activityMultiplier}×</div>
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative">
+              <div className="flex justify-end absolute top-3 right-3">
+                <button type="button" onClick={() => window.print()} className="flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline focus:outline-none">
+                  <Printer className="h-3.5 w-3.5" /> Print
+                </button>
+              </div>
+              <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Daily Calorie Target (AMR)</div>
+              <div className="text-4xl font-bold text-primary my-1">{Math.round(r.amr).toLocaleString()}</div>
+              <div className="text-sm text-muted-foreground">
+                kcal/day · BMR: {Math.round(r.bmr)} kcal · Multiplier: {r.activityMultiplier}×
+                {atFloor && <span className="block text-orange-600 font-medium mt-1">Held at the clinical minimum for your biological sex.</span>}
+              </div>
             </div>
             <div className="card-calculator !p-0 border border-border bg-card shadow-sm overflow-hidden">
               <div className="grid grid-cols-3 divide-x divide-border">
-                <div className="p-3 text-center"><div className="text-xs text-muted-foreground mb-1">Protein</div><div className="font-bold text-lg">{Math.round(r.proteinNeeds)}g</div></div>
-                <div className="p-3 text-center"><div className="text-xs text-muted-foreground mb-1">Carbs</div><div className="font-bold text-lg">{Math.round(r.carbNeeds)}g</div></div>
-                <div className="p-3 text-center"><div className="text-xs text-muted-foreground mb-1">Fat</div><div className="font-bold text-lg">{Math.round(r.fatNeeds)}g</div></div>
+                <div className="p-3 text-center"><div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Protein</div><div className="font-bold text-lg text-emerald-600">{Math.round(r.proteinNeeds)}g</div></div>
+                <div className="p-3 text-center"><div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Carbs</div><div className="font-bold text-lg text-amber-600">{Math.round(r.carbNeeds)}g</div></div>
+                <div className="p-3 text-center"><div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Fat</div><div className="font-bold text-lg text-red-600">{Math.round(r.fatNeeds)}g</div></div>
               </div>
             </div>
             <div className="card-calculator !p-4 border border-border bg-card shadow-sm">
               <h3 className="font-semibold text-sm mb-3">Macro Calorie Breakdown</h3>
-              <div className="h-[180px]">
+              <div className="h-[250px]">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={macroData} barSize={50}>
                     <XAxis dataKey="name" tick={{ fontSize: 11 }} />
@@ -117,24 +165,59 @@ export default function ActiveMetabolicRateCalculator() {
                   </BarChart>
                 </ResponsiveContainer>
               </div>
+              <div className="flex flex-wrap justify-center gap-x-4 gap-y-2 mt-2">
+                {macroData.map((m, i) => (
+                  <div key={m.name} className="flex items-center gap-1.5 text-xs text-muted-foreground font-medium">
+                    <span className="w-3 h-3 rounded-sm" style={{ backgroundColor: m.fill }} />
+                    {m.name} — {macroPct[i]}%
+                  </div>
+                ))}
+              </div>
             </div>
             <div className="card-calculator !p-0 border border-border bg-card shadow-sm overflow-hidden">
               <div className="bg-secondary/50 px-4 py-2.5 border-b border-border/50"><h3 className="font-bold text-sm">Full Breakdown</h3></div>
               {[
                 { label: "BMR (Mifflin-St Jeor)", val: `${Math.round(r.bmr)} kcal` },
                 { label: "Activity Multiplier", val: `${r.activityMultiplier}×` },
-                { label: "TDEE (maintenance)", val: `${Math.round(r.bmr * r.activityMultiplier)} kcal`, bold: true },
-                { label: "Goal Adjustment", val: f.goal === "lose" ? "−500 kcal" : f.goal === "gain" ? "+300 kcal" : "None" },
+                { label: "TDEE (maintenance)", val: `${Math.round(r.tdee)} kcal`, bold: true },
+                { label: "Goal Adjustment", val: r.goalDelta === 0 ? "None" : `${r.goalDelta > 0 ? "+" : "−"}${Math.abs(r.goalDelta)} kcal` },
+                { label: "Clinical Minimum Applied", val: atFloor ? `Yes — floor ${f.sex === "male" ? MIN_KCAL.male : MIN_KCAL.female} kcal` : "No" },
                 { label: "Daily Calorie Target", val: `${Math.round(r.amr)} kcal`, bold: true, highlight: true },
                 { label: "Protein Target", val: `${Math.round(r.proteinNeeds)}g (${Math.round(r.proteinNeeds * 4)} kcal)` },
                 { label: "Carb Target", val: `${Math.round(r.carbNeeds)}g (${Math.round(r.carbNeeds * 4)} kcal)` },
                 { label: "Fat Target", val: `${Math.round(r.fatNeeds)}g (${Math.round(r.fatNeeds * 9)} kcal)` },
               ].map((row, i) => (
-                <div key={i} className={`grid grid-cols-2 px-4 py-2.5 border-b border-border/30 last:border-0 ${row.highlight ? "bg-primary/5" : "hover:bg-secondary/20"}`}>
-                  <span className="text-muted-foreground text-sm">{row.label}</span>
-                  <span className={`text-right text-sm ${row.bold ? "font-bold text-foreground" : ""}`}>{row.val}</span>
+                <div key={i} className={`grid grid-cols-2 px-4 py-2.5 border-b border-border/30 last:border-0 ${row.highlight ? "bg-primary/10 border-t-2 border-t-border" : "hover:bg-secondary/20"}`}>
+                  <span className="text-muted-foreground text-base">{row.label}</span>
+                  <span className={`text-right text-base ${row.bold ? "font-bold text-foreground" : ""}`}>{row.val}</span>
                 </div>
               ))}
+            </div>
+
+            <div className="bg-muted/30 rounded-lg p-5">
+              <p className="text-xs uppercase tracking-wide text-muted-foreground mb-3">Summary Statistics</p>
+              <dl className="grid grid-cols-2 gap-y-2 text-sm">
+                <dt className="text-muted-foreground">Basal Metabolic Rate</dt>
+                <dd className="text-right font-medium">{Math.round(r.bmr)} kcal</dd>
+                <dt className="text-muted-foreground">Activity Multiplier</dt>
+                <dd className="text-right font-medium">{r.activityMultiplier}×</dd>
+                <dt className="text-muted-foreground">TDEE (maintenance)</dt>
+                <dd className="text-right font-medium">{Math.round(r.tdee)} kcal</dd>
+                <dt className="text-muted-foreground">Goal Adjustment</dt>
+                <dd className="text-right font-medium">{r.goalDelta === 0 ? "None" : `${r.goalDelta > 0 ? "+" : "−"}${Math.abs(r.goalDelta)} kcal`}</dd>
+                <dt className="text-muted-foreground">Daily Calorie Target</dt>
+                <dd className="text-right font-medium">{Math.round(r.amr)} kcal</dd>
+                <dt className="text-muted-foreground">Protein Target</dt>
+                <dd className="text-right font-medium">{Math.round(r.proteinNeeds)}g</dd>
+                <dt className="text-muted-foreground">Carb Target</dt>
+                <dd className="text-right font-medium">{Math.round(r.carbNeeds)}g</dd>
+                <dt className="text-muted-foreground">Fat Target</dt>
+                <dd className="text-right font-medium">{Math.round(r.fatNeeds)}g</dd>
+                <dt className="text-muted-foreground">Weekly Weight Change</dt>
+                <dd className="text-right font-medium">{r.tdee <= 0 ? "—" : `${(((r.amr - r.tdee) * 7) / 7700).toFixed(2)} kg`}</dd>
+                <dt className="text-muted-foreground">Clinical Minimum Applied</dt>
+                <dd className="text-right font-medium">{atFloor ? "Yes" : "No"}</dd>
+              </dl>
             </div>
           </div>
         </div>

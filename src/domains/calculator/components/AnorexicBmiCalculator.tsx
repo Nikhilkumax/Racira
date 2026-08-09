@@ -5,7 +5,7 @@ import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
-import { RotateCcw, AlertTriangle, ChevronDown } from "lucide-react";
+import { RotateCcw, AlertTriangle, ChevronDown, Printer } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Cell, ReferenceLine } from "recharts";
 
 type UnitSystem = "imperial" | "metric";
@@ -379,9 +379,14 @@ export default function AnorexicBmiCalculator() {
             {result && (
               <>
                 {/* 1. PRIMARY RESULT CARD */}
-                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center">
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center relative">
+                  <div className="flex justify-end absolute top-3 right-3">
+                    <button type="button" onClick={() => window.print()} className="flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline focus:outline-none">
+                      <Printer className="h-3.5 w-3.5" /> Print
+                    </button>
+                  </div>
                   <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1 font-bold">Current BMI</div>
-                  <div className="text-4xl font-extrabold text-primary mb-1 tracking-tight">{fmt(result.bmi, 1)}</div>
+                  <div className="text-4xl font-bold text-primary mb-1 tracking-tight">{fmt(result.bmi, 1)}</div>
                   <div className="text-sm text-muted-foreground font-medium">
                     <span className={`font-bold ${severityColor}`}>{result.category}</span> severity · restoration target BMI {fmt(parseFloat(targetBmi) || 18.5, 1)}
                   </div>

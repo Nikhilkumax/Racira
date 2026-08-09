@@ -5,7 +5,7 @@ import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import { RotateCcw, ChevronDown, Building2, Percent, LineChart } from "lucide-react";
+import { RotateCcw, ChevronDown, Printer, Building2, Percent, LineChart } from "lucide-react";
 import { PieChart as RPie, Pie, Cell, Tooltip as RTooltip, ResponsiveContainer } from "recharts";
 
 interface ProFormaInputs {
@@ -489,7 +489,12 @@ export default function ProFormaRealEstateAnalysisCalculator() {
 
           {/* RIGHT */}
           <div className="flex flex-col gap-4">
-            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative">
+              <div className="flex justify-end absolute top-3 right-3">
+                <button type="button" onClick={() => window.print()} className="flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline focus:outline-none">
+                  <Printer className="h-3.5 w-3.5" /> Print
+                </button>
+              </div>
               <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Net Operating Income</div>
               <div className="text-4xl font-bold text-primary my-1">{whole(result.netOperatingIncome)}</div>
               <div className="text-sm text-muted-foreground">

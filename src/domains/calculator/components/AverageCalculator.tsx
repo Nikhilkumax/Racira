@@ -4,13 +4,27 @@ import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
-import { RotateCcw, Calculator } from "lucide-react";
+import { RotateCcw, Printer } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+
+interface AverageResult {
+  mean: number;
+  median: number;
+  mode: number[];
+  min: number;
+  max: number;
+  sum: number;
+  count: number;
+  range: number;
+  values: number[];
+  variance: number;
+  stddev: number;
+}
 
 const AverageCalculator = () => {
   const DEFAULT_NUMS = "10, 20, 30, 40, 50";
   const [nums, setNums] = useState(DEFAULT_NUMS);
-  const [result, setResult] = useState<{mean:number;median:number;mode:number[];min:number;max:number;sum:number;count:number;range:number;values:number[]} | null>(null);
+  const [result, setResult] = useState<AverageResult | null>(null);
 
   const calculate = (input = nums) => {
     const values = input.split(/[,\s]+/).map(Number).filter(n => !isNaN(n) && input.trim() !== '');
@@ -23,7 +37,9 @@ const AverageCalculator = () => {
     values.forEach(v => freq[v] = (freq[v]||0)+1);
     const maxFreq = Math.max(...Object.values(freq));
     const mode = Object.keys(freq).filter(k=>freq[+k]===maxFreq).map(Number);
-    setResult({ mean, median, mode, min: sorted[0], max: sorted[sorted.length-1], sum, count: values.length, range: sorted[sorted.length-1]-sorted[0], values });
+    const variance = values.reduce((s,v)=>s+(v-mean)**2,0) / values.length;
+    const stddev = Math.sqrt(variance);
+    setResult({ mean, median, mode, min: sorted[0], max: sorted[sorted.length-1], sum, count: values.length, range: sorted[sorted.length-1]-sorted[0], values, variance, stddev });
   };
 
   useEffect(() => { calculate(); }, []);
@@ -45,7 +61,7 @@ const AverageCalculator = () => {
       <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Average Calculator</h1>
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1200px]">
-          <div className="card-calculator flex flex-col gap-5 !p-6 border border-border bg-card">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card !overflow-visible">
             <div>
               <label className="text-base font-medium block mb-1.5">Numbers (comma or space separated)</label>
               <textarea value={nums} onChange={e=>setNums(e.target.value)} className="w-full px-3 py-2 text-lg rounded-md border border-input bg-background focus:ring-2 focus:ring-primary/20 outline-none resize-none transition-all" rows={3} placeholder="10, 20, 30, 40, 50" />
@@ -57,10 +73,34 @@ const AverageCalculator = () => {
           </div>
           <div className="space-y-4">
             {result && (<>
-              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-4">
-                <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Arithmetic Mean</div>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative">
+                <div className="flex justify-end absolute top-3 right-3">
+                  <button type="button" onClick={() => window.print()} className="flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline focus:outline-none">
+                    <Printer className="h-3.5 w-3.5" /> Print
+                  </button>
+                </div>
+                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Arithmetic Mean</div>
                 <div className="text-4xl font-bold text-primary">{result.mean.toLocaleString(undefined,{maximumFractionDigits:4})}</div>
                 <div className="text-sm text-muted-foreground mt-1">Average of {result.count} numbers | Sum: {result.sum}</div>
+              </div>
+
+              <div className="card-calculator !p-4 border border-border bg-card">
+                <div className="grid grid-cols-3 divide-x divide-border text-center">
+                  <div className="px-2">
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Median</div>
+                    <div className="text-lg font-bold text-foreground">{result.median.toLocaleString(undefined,{maximumFractionDigits:2})}</div>
+                  </div>
+                  <div className="px-2">
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Std. Dev</div>
+                    <div className="text-lg font-bold text-foreground">{result.stddev.toLocaleString(undefined,{maximumFractionDigits:2})}</div>
+                  </div>
+                  <div className="px-2">
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Mean vs Median</div>
+                    <div className={`text-lg font-bold ${Math.abs(result.mean-result.median) < result.stddev*0.25 ? "text-green-600" : Math.abs(result.mean-result.median) < result.stddev*0.75 ? "text-orange-500" : "text-red-600"}`}>
+                      {Math.abs(result.mean-result.median) < result.stddev*0.25 ? "Symmetric" : Math.abs(result.mean-result.median) < result.stddev*0.75 ? "Moderate" : "Skewed"}
+                    </div>
+                  </div>
+                </div>
               </div>
               <div className="card-calculator !p-4 border border-border bg-card">
                 <h3 className="text-base font-semibold mb-3">Statistical Breakdown</h3>
@@ -81,14 +121,50 @@ const AverageCalculator = () => {
                   <BarChart data={chartData}><CartesianGrid strokeDasharray="3 3"/><XAxis dataKey="name" tick={{fontSize:11}}/><YAxis tick={{fontSize:11}}/><Tooltip/><Bar dataKey="value" fill="hsl(var(--primary))" radius={[4,4,0,0]}/></BarChart>
                 </ResponsiveContainer>
               </div>
-              <div className="bg-muted/30 rounded-lg p-6">
-                <h3 className="text-base font-semibold mb-4">Summary</h3>
-                <div className="space-y-3">
-                  <div className="flex justify-between text-base"><span className="text-muted-foreground">Numbers entered:</span><span className="font-medium">{result.count}</span></div>
-                  <div className="flex justify-between text-base"><span className="text-muted-foreground">Sum:</span><span className="font-medium">{result.sum.toLocaleString()}</span></div>
-                  <div className="flex justify-between text-base"><span className="text-muted-foreground">Spread (Range):</span><span className="font-medium">{result.range}</span></div>
-                  <div className="flex justify-between text-base border-t pt-3"><span className="font-semibold text-muted-foreground">Mean:</span><span className="font-bold text-primary">{result.mean.toFixed(4)}</span></div>
-                </div>
+              <div className="bg-muted/30 rounded-lg p-5">
+                <h3 className="text-base font-semibold mb-3">Summary Statistics</h3>
+                <dl className="grid grid-cols-2 gap-x-6 gap-y-2 text-sm">
+                  <div className="flex justify-between border-b border-border/50 pb-1">
+                    <dt className="text-muted-foreground">Count</dt>
+                    <dd className="font-medium">{result.count}</dd>
+                  </div>
+                  <div className="flex justify-between border-b border-border/50 pb-1">
+                    <dt className="text-muted-foreground">Sum</dt>
+                    <dd className="font-medium">{result.sum.toLocaleString()}</dd>
+                  </div>
+                  <div className="flex justify-between border-b border-border/50 pb-1">
+                    <dt className="text-muted-foreground">Mean (Average)</dt>
+                    <dd className="font-medium">{result.mean.toFixed(4)}</dd>
+                  </div>
+                  <div className="flex justify-between border-b border-border/50 pb-1">
+                    <dt className="text-muted-foreground">Median</dt>
+                    <dd className="font-medium">{result.median.toLocaleString()}</dd>
+                  </div>
+                  <div className="flex justify-between border-b border-border/50 pb-1">
+                    <dt className="text-muted-foreground">Mode</dt>
+                    <dd className="font-medium">{result.mode.join(", ")}</dd>
+                  </div>
+                  <div className="flex justify-between border-b border-border/50 pb-1">
+                    <dt className="text-muted-foreground">Minimum / Maximum</dt>
+                    <dd className="font-medium">{result.min.toLocaleString()} / {result.max.toLocaleString()}</dd>
+                  </div>
+                  <div className="flex justify-between border-b border-border/50 pb-1">
+                    <dt className="text-muted-foreground">Range</dt>
+                    <dd className="font-medium">{result.range.toLocaleString()}</dd>
+                  </div>
+                  <div className="flex justify-between border-b border-border/50 pb-1">
+                    <dt className="text-muted-foreground">Std. Deviation</dt>
+                    <dd className="font-medium">{result.stddev.toFixed(4)}</dd>
+                  </div>
+                  <div className="flex justify-between border-b border-border/50 pb-1">
+                    <dt className="text-muted-foreground">Variance</dt>
+                    <dd className="font-medium">{result.variance.toFixed(4)}</dd>
+                  </div>
+                  <div className="flex justify-between border-b border-border/50 pb-1">
+                    <dt className="text-muted-foreground">Mean − Median</dt>
+                    <dd className="font-medium">{(result.mean - result.median).toFixed(4)}</dd>
+                  </div>
+                </dl>
               </div>
             </>)}
           </div>

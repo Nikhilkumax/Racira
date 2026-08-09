@@ -3,6 +3,7 @@ import { RotateCcw, Printer, ChevronDown } from "lucide-react";
 import { useState, useEffect } from "react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, ReferenceLine } from "recharts";
 import Breadcrumb from "@/components/Breadcrumb";
+import AdPlaceholder from "@/components/AdPlaceholder";
 import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
 
@@ -162,11 +163,19 @@ const ACTScoreCalculator = () => {
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "ACT Score Calculator" }]} />
-      <h1 className="text-4xl font-bold tracking-tight mb-3">ACT Score Calculator</h1>
+      <Breadcrumb
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Calculators", href: "/calculator" },
+          { label: "Education", href: "/calculator/education" },
+          { label: "ACT Score Calculator" },
+        ]}
+      />
+      <div className="racira-page-container py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">ACT Score Calculator</h1>
 
-      <div className="grid gap-4 lg:grid-cols-2">
-        <div className="rounded-lg border border-input bg-background p-4">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card rounded-xl">
           <div className="grid grid-cols-2 gap-3">
             <div>
               <label htmlFor="act-english" className="block text-sm font-medium mb-1">English Raw (0-75)</label>
@@ -341,11 +350,13 @@ const ACTScoreCalculator = () => {
               </dd>
             </dl>
           </div>
+          </div>
         </div>
-      </div>
 
-      <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/act-score-calculator" />
-      <PopularCalculators exclude="/calculator/act-score-calculator" />
+        <AdPlaceholder className="mb-10" />
+        <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/act-score-calculator" />
+        <PopularCalculators exclude="/calculator/act-score-calculator" />
+      </div>
     </>
   );
 };

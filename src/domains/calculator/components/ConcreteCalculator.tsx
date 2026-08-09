@@ -4,7 +4,7 @@ import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
-import { RotateCcw, Calculator } from "lucide-react";
+import { RotateCcw, Calculator, Printer } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
 
 interface ConcreteResult {
@@ -160,9 +160,14 @@ export default function ConcreteCalculator() {
 
           <div className="flex flex-col gap-4">
             {result && (<>
-              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
-                <div className="text-sm font-bold text-primary uppercase tracking-wider mb-1">Concrete Required</div>
-                <div className="text-4xl font-extrabold text-foreground tracking-tight">{result.cubicYards.toFixed(2)} yd³</div>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative">
+                <div className="flex justify-end absolute top-3 right-3">
+                  <button type="button" onClick={() => window.print()} className="flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline focus:outline-none">
+                    <Printer className="h-3.5 w-3.5" /> Print
+                  </button>
+                </div>
+                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Concrete Required</div>
+                <div className="text-4xl font-bold text-primary">{result.cubicYards.toFixed(2)} yd³</div>
                 <div className="text-base text-muted-foreground mt-1">{result.bags80lb} bags (80-lb) · {result.bags60lb} bags (60-lb) · Est. ${result.cost.toFixed(0)}</div>
               </div>
               <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">

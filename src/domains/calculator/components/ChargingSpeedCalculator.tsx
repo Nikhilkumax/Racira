@@ -5,7 +5,7 @@ import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import { ChevronDown, RotateCcw } from "lucide-react";
+import { ChevronDown, RotateCcw, Printer } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer, ReferenceLine } from "recharts";
 import InputField from "@/domains/calculator/components/ui/InputField";
 
@@ -375,9 +375,14 @@ export default function ChargingSpeedCalculator() {
           {/* RIGHT: RESULTS */}
           <div className="flex flex-col gap-4">
             {/* 1. PRIMARY RESULT CARD */}
-            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center">
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center relative">
+              <div className="flex justify-end absolute top-3 right-3">
+                <button type="button" onClick={() => window.print()} className="flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline focus:outline-none">
+                  <Printer className="h-3.5 w-3.5" /> Print
+                </button>
+              </div>
               <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1 font-bold">Estimated Charge Time</div>
-              <div className="text-4xl font-extrabold text-primary mb-1 tracking-tight">{results.timeFormatted}</div>
+              <div className="text-4xl font-bold text-primary mb-1 tracking-tight">{results.timeFormatted}</div>
               <div className="text-sm text-muted-foreground font-medium">
                 {fmtInt(calcInputs.startPercent)}% → {fmtInt(calcInputs.endPercent)}% at {fmt(results.effectivePeakKw, 1)} kW peak
                 {chargerLimited ? " (charger-limited)" : " (vehicle-limited)"}

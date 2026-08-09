@@ -48,3 +48,11 @@ dev_out.txt
 # ffmpeg.wasm core, copied out of node_modules by scripts/copy-ffmpeg-core.cjs
 # on postinstall and before dev/build. ~31 MB of build output, not source.
 /public/ffmpeg/
+
+# espeak-ng wasm, copied out of node_modules by scripts/copy-espeak-core.cjs on
+# postinstall and before dev/build. ~18 MB of build output, not source — same
+# reasoning as /public/ffmpeg/ above.
+/public/espeak/
+
+# Scratch output from the espeak-ng bundling investigation.
+.espeak-bundle-scratch/

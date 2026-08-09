@@ -268,14 +268,13 @@ export default function ZeroAprPromotionPayoffCalculator() {
           <div className="flex flex-col gap-4">
             {results && (
               <div ref={printRef} className="flex flex-col gap-4">
-                <div className="flex justify-end hidden-print">
-                  <button onClick={handlePrint} className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline focus:outline-none">
-                    <Printer className="h-4 w-4" /> Print Results
-                  </button>
-                </div>
-
                 {/* 1. Primary Result Card */}
-                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative">
+                  <div className="flex justify-end absolute top-3 right-3 hidden-print">
+                    <button type="button" onClick={handlePrint} className="flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline focus:outline-none">
+                      <Printer className="h-3.5 w-3.5" /> Print
+                    </button>
+                  </div>
                   <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Total Interest Paid</div>
                   <div className="text-4xl font-bold text-primary mb-2">
                     ${results.totalInterest.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}

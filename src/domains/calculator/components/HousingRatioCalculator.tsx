@@ -7,15 +7,42 @@ import FAQSection from "@/components/FAQSection";
 import { ChevronDown, Printer, RotateCcw, Calculator } from "lucide-react";
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from "recharts";
 
+interface ChartSlice {
+  name: string;
+  value: number;
+  color: string;
+}
+
+interface BreakdownRow {
+  label: string;
+  value: number;
+  isBold?: boolean;
+  isGreen?: boolean;
+}
+
+interface HousingRatioInputs {
+  incomeType: string;
+  annualIncome: string;
+  monthlyIncome: string;
+  monthlyPI: string;
+  monthlyTax: string;
+  monthlyInsurance: string;
+  monthlyHoa: string;
+  monthlyPmi: string;
+}
+
 interface RatioResults {
+  income: number;
   housingExpenses: number;
   housingRatio: number;
   maxRecommendedExpense: number;
   excessExpense: number;
+  remainingIncome: number;
+  backEndCapacity: number;
   status: string;
   statusColor: string;
-  chartData: any[];
-  breakdownRows: any[];
+  chartData: ChartSlice[];
+  breakdownRows: BreakdownRow[];
 }
 
 const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "number", ...props }: any) => (
@@ -29,7 +56,7 @@ const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "numb
   </div>
 );
 
-const calculateHousingRatio = (inputs: any): RatioResults => {
+const calculateHousingRatio = (inputs: HousingRatioInputs): RatioResults => {
   let income = 0;
   if (inputs.incomeType === "annual") {
     income = (parseFloat(inputs.annualIncome) || 0) / 12;
@@ -76,10 +103,13 @@ const calculateHousingRatio = (inputs: any): RatioResults => {
   ];
 
   return {
+    income,
     housingExpenses,
     housingRatio,
     maxRecommendedExpense,
     excessExpense,
+    remainingIncome,
+    backEndCapacity: Math.max(0, income * 0.36 - housingExpenses),
     status,
     statusColor,
     chartData,
@@ -182,16 +212,15 @@ export default function HousingRatioCalculator() {
           <div className="flex flex-col gap-3">
             {results && (
               <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card" ref={printRef}>
-                <div className="flex justify-end">
-                  <button onClick={() => window.print()} className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline focus:outline-none">
-                    <Printer className="h-3.5 w-3.5" /> Print
-                  </button>
-                </div>
-                
-                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center">
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center relative">
+                  <div className="flex justify-end absolute top-3 right-3">
+                    <button type="button" onClick={() => window.print()} className="flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline focus:outline-none">
+                      <Printer className="h-3.5 w-3.5" /> Print
+                    </button>
+                  </div>
                   <div className="text-xs uppercase tracking-wide text-muted-foreground">Housing Ratio (Front-End Ratio)</div>
                   <div className="text-4xl font-bold text-primary">{results.housingRatio.toFixed(2)}%</div>
-                  <div className={`text-sm font-bold mt-1 \${results.statusColor}`}>{results.status}</div>
+                  <div className={`text-sm font-bold mt-1 ${results.statusColor}`}>{results.status}</div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-2 border-y border-border py-3 my-2">
@@ -218,7 +247,7 @@ export default function HousingRatioCalculator() {
                         dataKey="value"
                       >
                         {results.chartData.map((entry, index) => (
-                          <Cell key={`cell-\${index}`} fill={entry.color} />
+                          <Cell key={`cell-${index}`} fill={entry.color} />
                         ))}
                       </Pie>
                       <Tooltip content={<CustomTooltip />} cursor={{fill: 'transparent'}} />
@@ -239,15 +268,59 @@ export default function HousingRatioCalculator() {
                       </thead>
                       <tbody>
                         {results.breakdownRows.map((row, idx) => (
-                          <tr key={idx} className={`border-b border-border/50 hover:bg-muted/50 transition-colors \${row.isBold ? 'font-bold bg-muted/20 text-primary' : ''}`}>
+                          <tr key={idx} className={`border-b border-border/50 hover:bg-muted/50 transition-colors ${row.isBold ? 'font-bold bg-muted/20 text-primary' : ''}`}>
                             <td className="text-left py-2.5">{row.label}</td>
-                            <td className={`py-2.5 \${row.value < 0 && !row.isGreen ? 'text-destructive' : ''} \${row.isGreen ? 'text-green-600 font-bold' : ''}`}>
+                            <td className={`py-2.5 ${row.value < 0 && !row.isGreen ? 'text-destructive' : ''} ${row.isGreen ? 'text-green-600 font-bold' : ''}`}>
                               {row.value < 0 ? "-" : ""}${Math.abs(row.value).toLocaleString(undefined, { maximumFractionDigits: 2 })}
                             </td>
                           </tr>
                         ))}
                       </tbody>
                     </table>
+                  </div>
+                </div>
+
+                <div className="bg-muted/30 rounded-lg p-5 mt-4">
+                  <h3 className="text-base font-semibold mb-3">Summary Statistics</h3>
+                  <div className="grid grid-cols-2 gap-y-3 gap-x-6 text-sm">
+                    <div className="flex justify-between border-b border-border/50 pb-1">
+                      <span className="text-muted-foreground">Gross Monthly Income</span>
+                      <span className="font-medium">${results.income.toLocaleString(undefined, { maximumFractionDigits: 2 })}</span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/50 pb-1">
+                      <span className="text-muted-foreground">Total Housing Expense</span>
+                      <span className="font-medium text-destructive">${results.housingExpenses.toLocaleString(undefined, { maximumFractionDigits: 2 })}</span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/50 pb-1">
+                      <span className="text-muted-foreground">Max Recommended (28%)</span>
+                      <span className="font-medium text-green-600">${results.maxRecommendedExpense.toLocaleString(undefined, { maximumFractionDigits: 2 })}</span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/50 pb-1">
+                      <span className="text-muted-foreground">Amount Over/Under Target</span>
+                      <span className={`font-medium ${results.excessExpense > 0 ? "text-destructive" : "text-green-600"}`}>
+                        {results.excessExpense > 0 ? "+" : ""}${results.excessExpense.toLocaleString(undefined, { maximumFractionDigits: 2 })}
+                      </span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/50 pb-1">
+                      <span className="text-muted-foreground">Remaining After Housing</span>
+                      <span className="font-medium">${results.remainingIncome.toLocaleString(undefined, { maximumFractionDigits: 2 })}</span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/50 pb-1">
+                      <span className="text-muted-foreground">Back-End Room (36%)</span>
+                      <span className="font-medium">${results.backEndCapacity.toLocaleString(undefined, { maximumFractionDigits: 2 })}</span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/50 pb-1">
+                      <span className="text-muted-foreground">Lender Assessment</span>
+                      <span className={`font-medium ${results.statusColor}`}>{results.status}</span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/50 pb-1">
+                      <span className="text-muted-foreground">Income Basis</span>
+                      <span className="font-medium capitalize">{inputs.incomeType}</span>
+                    </div>
+                  </div>
+                  <div className="flex justify-between border-t-2 border-border pt-3 mt-1 font-bold text-primary">
+                    <span>Housing Ratio (Front-End)</span>
+                    <span>{results.housingRatio.toFixed(2)}%</span>
                   </div>
                 </div>
               </div>

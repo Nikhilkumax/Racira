@@ -197,8 +197,8 @@ export default function MortgageRecastCalculator() {
                     <BarChart data={results.chartData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
                       <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
                       <XAxis dataKey="name" axisLine={false} tickLine={false} />
-                      <YAxis tickFormatter={(val) => `$\${val}`} axisLine={false} tickLine={false} />
-                      <Tooltip formatter={(val: number) => `$\${val.toFixed(2)}`} cursor={{fill: 'transparent'}} />
+                      <YAxis tickFormatter={(val) => `$${val}`} axisLine={false} tickLine={false} />
+                      <Tooltip formatter={(val: number) => `$${val.toFixed(2)}`} cursor={{fill: 'transparent'}} />
                       <Bar dataKey="Monthly Payment" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} maxBarSize={60} />
                     </BarChart>
                   </ResponsiveContainer>

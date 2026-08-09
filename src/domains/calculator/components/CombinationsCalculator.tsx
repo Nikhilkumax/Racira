@@ -4,7 +4,7 @@ import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
-import { RotateCcw, Calculator } from "lucide-react";
+import { RotateCcw, Calculator, Printer } from "lucide-react";
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from "recharts";
 
 const CombinationsCalculator = () => {
@@ -93,8 +93,13 @@ const CombinationsCalculator = () => {
 
           <div className="space-y-4">
             {result && (<>
-              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-4">
-                <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Combinations C(n, r)</div>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative">
+                <div className="flex justify-end absolute top-3 right-3">
+                  <button type="button" onClick={() => window.print()} className="flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline focus:outline-none">
+                    <Printer className="h-3.5 w-3.5" /> Print
+                  </button>
+                </div>
+                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Combinations C(n, r)</div>
                 <div className="text-4xl font-bold text-primary">{result.primary}</div>
                 <div className="text-sm text-muted-foreground mt-1">{result.subtitle}</div>
               </div>

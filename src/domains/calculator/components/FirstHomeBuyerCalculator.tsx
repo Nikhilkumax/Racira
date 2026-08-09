@@ -198,7 +198,7 @@ export default function FirstHomeBuyerCalculator() {
                         dataKey="value"
                       >
                         {results.chartData.map((entry, index) => (
-                          <Cell key={`cell-\${index}`} fill={entry.color} />
+                          <Cell key={`cell-${index}`} fill={entry.color} />
                         ))}
                       </Pie>
                       <Tooltip content={<CustomTooltip />} cursor={{fill: 'transparent'}} />
@@ -219,9 +219,9 @@ export default function FirstHomeBuyerCalculator() {
                       </thead>
                       <tbody>
                         {results.breakdownRows.map((row, idx) => (
-                          <tr key={idx} className={`border-b border-border/50 hover:bg-muted/50 transition-colors \${row.isBold ? 'font-bold bg-muted/20' : ''}`}>
+                          <tr key={idx} className={`border-b border-border/50 hover:bg-muted/50 transition-colors ${row.isBold ? 'font-bold bg-muted/20' : ''}`}>
                             <td className="text-left py-2.5">{row.label}</td>
-                            <td className={`py-2.5 \${row.isGreen ? 'text-green-600' : ''}`}>
+                            <td className={`py-2.5 ${row.isGreen ? 'text-green-600' : ''}`}>
                               {row.value < 0 ? "-" : ""}${Math.abs(row.value).toLocaleString(undefined, { maximumFractionDigits: 2 })}
                             </td>
                           </tr>

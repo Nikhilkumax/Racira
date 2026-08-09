@@ -17,6 +17,10 @@ interface CanadianResults {
   cmhcPremium: number;
   loanAmount: number;
   totalLoanWithPremium: number;
+  downPaymentPercent: number;
+  effectiveMonthlyRate: number;
+  effectiveAnnualRate: number;
+  interestToPrincipal: number;
   monthlyRows: AmortRow[];
   yearlyRows: AmortRow[];
 }
@@ -131,6 +135,10 @@ const CanadianMortgageCalculator = () => {
       cmhcPremium,
       loanAmount: baseLoan,
       totalLoanWithPremium: totalLoan,
+      downPaymentPercent: price > 0 ? (down / price) * 100 : 0,
+      effectiveMonthlyRate: r * 100,
+      effectiveAnnualRate: (Math.pow(1 + r, 12) - 1) * 100,
+      interestToPrincipal: totalLoan > 0 ? (totalInterest / totalLoan) * 100 : 0,
       monthlyRows,
       yearlyRows,
     });
@@ -218,11 +226,13 @@ const CanadianMortgageCalculator = () => {
             {showResults && results && (
               <div className="flex flex-col gap-4">
                 <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative">
-                  <button onClick={() => window.print()} className="absolute top-4 right-4 text-muted-foreground hover:text-primary transition-colors print:hidden" aria-label="Print Results">
-                    <Printer className="h-4 w-4" />
-                  </button>
-                  <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Monthly Payment</div>
-                  <div className="text-4xl font-extrabold text-foreground tracking-tight">${results.monthlyPayment.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+                  <div className="flex justify-end absolute top-3 right-3">
+                    <button type="button" onClick={() => window.print()} className="flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline focus:outline-none print:hidden">
+                      <Printer className="h-3.5 w-3.5" /> Print
+                    </button>
+                  </div>
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Monthly Payment</div>
+                  <div className="text-4xl font-bold text-primary">${results.monthlyPayment.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
                 </div>
 
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -249,7 +259,7 @@ const CanadianMortgageCalculator = () => {
                   <ResultDisplay items={[
                     { label: "Total Loan with CMHC", value: results.totalLoanWithPremium, highlight: true },
                     { label: "Amortization Period", value: 0, textValue: amortization + " Years" },
-                    { label: "Effective Monthly Rate", value: 0, textValue: ( (Math.pow(1+results.monthlyPayment/results.totalLoanWithPremium, 1)-1)*100 ).toFixed(4) + "%" },
+                    { label: "Effective Monthly Rate", value: 0, textValue: results.effectiveMonthlyRate.toFixed(4) + "%" },
                   ]} />
                 </div>
 
@@ -262,6 +272,50 @@ const CanadianMortgageCalculator = () => {
                     </div>
                   </div>
                   <AmortizationTable rows={viewMode === "yearly" ? results.yearlyRows : results.monthlyRows} yearly={viewMode === "yearly"} currency="$" />
+                </div>
+
+                <div className="bg-muted/30 rounded-lg p-5">
+                  <h3 className="text-base font-semibold mb-3">Summary Statistics</h3>
+                  <div className="grid grid-cols-2 gap-y-3 gap-x-6 text-sm">
+                    <div className="flex justify-between border-b border-border/50 pb-1">
+                      <span className="text-muted-foreground">Home Price</span>
+                      <span className="font-medium">${(parseFloat(homePrice) || 0).toLocaleString()}</span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/50 pb-1">
+                      <span className="text-muted-foreground">Down Payment</span>
+                      <span className="font-medium">${(parseFloat(downPayment) || 0).toLocaleString()} ({results.downPaymentPercent.toFixed(1)}%)</span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/50 pb-1">
+                      <span className="text-muted-foreground">Base Loan Amount</span>
+                      <span className="font-medium">${Math.round(results.loanAmount).toLocaleString()}</span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/50 pb-1">
+                      <span className="text-muted-foreground">CMHC Premium</span>
+                      <span className={`font-medium ${results.cmhcPremium > 0 ? "text-destructive" : "text-green-600"}`}>
+                        {results.cmhcPremium > 0 ? `$${Math.round(results.cmhcPremium).toLocaleString()}` : "Not Required"}
+                      </span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/50 pb-1">
+                      <span className="text-muted-foreground">Total Loan with CMHC</span>
+                      <span className="font-medium">${Math.round(results.totalLoanWithPremium).toLocaleString()}</span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/50 pb-1">
+                      <span className="text-muted-foreground">Compounding Basis</span>
+                      <span className="font-medium">{compounding === "semiAnnual" ? "Semi-Annual" : "Monthly"}</span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/50 pb-1">
+                      <span className="text-muted-foreground">Effective Annual Rate</span>
+                      <span className="font-medium">{results.effectiveAnnualRate.toFixed(3)}%</span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/50 pb-1">
+                      <span className="text-muted-foreground">Interest per $1 Borrowed</span>
+                      <span className="font-medium">${(results.interestToPrincipal / 100).toFixed(2)}</span>
+                    </div>
+                  </div>
+                  <div className="flex justify-between border-t-2 border-border pt-3 mt-1 font-bold text-primary">
+                    <span>Total Cost Over {amortization} Years</span>
+                    <span>${Math.round(results.totalCost).toLocaleString()}</span>
+                  </div>
                 </div>
               </div>
             )}

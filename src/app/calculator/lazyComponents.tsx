@@ -1298,6 +1298,10 @@ const calculatorComponents: Record<string, () => Promise<any>> = {
   "valve-flow-coefficient-cv-calculator": () => import("@/domains/calculator/components/ValveFlowCoefficientCvCalculator"),
   "gravel-volume-calculator": () => import("@/domains/calculator/components/GravelVolumeCalculator"),
   "brick-count-calculator": () => import("@/domains/calculator/components/BrickCountCalculator"),
+  "mulch-volume-calculator": () => import("@/domains/calculator/components/MulchVolumeCalculator"),
+  "glomerular-filtration-rate-egfr-mdrd-calculator": () => import("@/domains/calculator/components/GlomerularFiltrationRateEgfrMdrdCalculator"),
+  "sea-level-rise-from-ice-melt-calculator": () => import("@/domains/calculator/components/SeaLevelRiseFromIceMeltCalculator"),
+  "topographic-relief-map-calculator": () => import("@/domains/calculator/components/TopographicReliefMapCalculator"),
 
 };
 

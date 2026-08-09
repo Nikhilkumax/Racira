@@ -4,7 +4,26 @@ import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
-import { RotateCcw, Calculator } from "lucide-react";
+import { RotateCcw, Printer } from "lucide-react";
+
+interface RangeResult {
+  nums: number[];
+  sorted: number[];
+  n: number;
+  min: number;
+  max: number;
+  range: number;
+  mean: number;
+  median: number;
+  stddev: number;
+  variance: number;
+  q1: number;
+  q3: number;
+  iqr: number;
+  midrange: number;
+  coefficientOfVariation: number;
+  chartData: { rank: number; value: number }[];
+}
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceLine } from "recharts";
 
 const fmt = (n: number, d = 4) => n.toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: d });
@@ -12,7 +31,7 @@ const fmt = (n: number, d = 4) => n.toLocaleString("en-US", { minimumFractionDig
 const RangeCalculator = () => {
   const DEFAULTS = { values: "14, 18, 11, 13, 6, 8, 2, 19, 4" };
   const [values, setValues] = useState(DEFAULTS.values);
-  const [result, setResult] = useState<any>(null);
+  const [result, setResult] = useState<RangeResult | null>(null);
 
   const calculate = (v = values) => {
     const nums = v.split(/[\s,;]+/).map(Number).filter((n) => !isNaN(n));
@@ -55,7 +74,7 @@ const RangeCalculator = () => {
       <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Range Calculator</h1>
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1200px]">
-          <div className="card-calculator flex flex-col gap-5 !p-6 border border-border bg-card">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
             <div>
               <label className="text-base font-medium block mb-1.5">Data Set</label>
               <textarea
@@ -77,13 +96,38 @@ const RangeCalculator = () => {
 
           <div className="space-y-4">
             {result && (<>
-              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-4">
-                <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Range</div>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative">
+                <div className="flex justify-end absolute top-3 right-3">
+                  <button type="button" onClick={() => window.print()} className="flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline focus:outline-none">
+                    <Printer className="h-3.5 w-3.5" /> Print
+                  </button>
+                </div>
+                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Range</div>
                 <div className="text-4xl font-bold text-primary">{fmt(result.range)}</div>
                 <div className="text-sm text-muted-foreground mt-1">
                   Max ({fmt(result.max)}) − Min ({fmt(result.min)}) = {fmt(result.range)} • {result.n} values
                 </div>
               </div>
+
+              <div className="card-calculator !p-4 border border-border bg-card">
+                <div className="grid grid-cols-3 divide-x divide-border text-center">
+                  <div className="px-2">
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">IQR</div>
+                    <div className="text-lg font-bold text-foreground">{fmt(result.iqr, 2)}</div>
+                  </div>
+                  <div className="px-2">
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Std. Dev</div>
+                    <div className="text-lg font-bold text-foreground">{fmt(result.stddev, 2)}</div>
+                  </div>
+                  <div className="px-2">
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Spread</div>
+                    <div className={`text-lg font-bold ${result.coefficientOfVariation < 15 ? "text-green-600" : result.coefficientOfVariation < 30 ? "text-orange-500" : "text-red-600"}`}>
+                      {result.coefficientOfVariation < 15 ? "Low" : result.coefficientOfVariation < 30 ? "Moderate" : "High"}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <div className="card-calculator !p-4 border border-border bg-card">
                 <h3 className="text-base font-semibold mb-3">Dispersion Measures</h3>
                 <table className="w-full text-base"><tbody>
@@ -114,11 +158,67 @@ const RangeCalculator = () => {
                   <BarChart data={result.chartData} margin={{ top: 5, right: 15, left: 0, bottom: 5 }}>
                     <XAxis dataKey="rank" tick={{ fontSize: 10 }} />
                     <YAxis tick={{ fontSize: 11 }} />
-                    <Tooltip formatter={(v: any) => Number(v).toLocaleString()} labelFormatter={(l) => `Rank ${l}`} />
+                    <Tooltip formatter={(v: number | string) => Number(v).toLocaleString()} labelFormatter={(l) => `Rank ${l}`} />
                     <ReferenceLine y={result.mean} stroke="#f59e0b" strokeDasharray="4 4" label={{ value: "Mean", fontSize: 9, fill: "#f59e0b" }} />
-                    <Bar dataKey="value" fill="#3b82f6" radius={[4, 4, 0, 0]} />
+                    <Bar dataKey="value" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
+              </div>
+
+              <div className="bg-muted/30 rounded-lg p-5">
+                <h3 className="text-base font-semibold mb-3">Summary Statistics</h3>
+                <dl className="grid grid-cols-2 gap-x-6 gap-y-2 text-sm">
+                  <div className="flex justify-between border-b border-border/50 pb-1">
+                    <dt className="text-muted-foreground">Count (n)</dt>
+                    <dd className="font-medium">{result.n}</dd>
+                  </div>
+                  <div className="flex justify-between border-b border-border/50 pb-1">
+                    <dt className="text-muted-foreground">Range</dt>
+                    <dd className="font-medium">{fmt(result.range)}</dd>
+                  </div>
+                  <div className="flex justify-between border-b border-border/50 pb-1">
+                    <dt className="text-muted-foreground">Minimum / Maximum</dt>
+                    <dd className="font-medium">{fmt(result.min)} / {fmt(result.max)}</dd>
+                  </div>
+                  <div className="flex justify-between border-b border-border/50 pb-1">
+                    <dt className="text-muted-foreground">Midrange</dt>
+                    <dd className="font-medium">{fmt(result.midrange)}</dd>
+                  </div>
+                  <div className="flex justify-between border-b border-border/50 pb-1">
+                    <dt className="text-muted-foreground">Q1 / Q3</dt>
+                    <dd className="font-medium">{fmt(result.q1)} / {fmt(result.q3)}</dd>
+                  </div>
+                  <div className="flex justify-between border-b border-border/50 pb-1">
+                    <dt className="text-muted-foreground">Interquartile Range</dt>
+                    <dd className="font-medium">{fmt(result.iqr)}</dd>
+                  </div>
+                  <div className="flex justify-between border-b border-border/50 pb-1">
+                    <dt className="text-muted-foreground">Mean</dt>
+                    <dd className="font-medium">{fmt(result.mean)}</dd>
+                  </div>
+                  <div className="flex justify-between border-b border-border/50 pb-1">
+                    <dt className="text-muted-foreground">Median (Q2)</dt>
+                    <dd className="font-medium">{fmt(result.median)}</dd>
+                  </div>
+                  <div className="flex justify-between border-b border-border/50 pb-1">
+                    <dt className="text-muted-foreground">Std. Deviation</dt>
+                    <dd className="font-medium">{fmt(result.stddev)}</dd>
+                  </div>
+                  <div className="flex justify-between border-b border-border/50 pb-1">
+                    <dt className="text-muted-foreground">Coeff. of Variation</dt>
+                    <dd className="font-medium">{fmt(result.coefficientOfVariation, 1)}%</dd>
+                  </div>
+                  <div className="flex justify-between border-b border-border/50 pb-1">
+                    <dt className="text-muted-foreground">Variance</dt>
+                    <dd className="font-medium">{fmt(result.variance)}</dd>
+                  </div>
+                  <div className="flex justify-between border-b border-border/50 pb-1">
+                    <dt className="text-muted-foreground">Dispersion</dt>
+                    <dd className="font-medium">
+                      {result.coefficientOfVariation < 15 ? "Low" : result.coefficientOfVariation < 30 ? "Moderate" : "High"}
+                    </dd>
+                  </div>
+                </dl>
               </div>
             </>)}
           </div>

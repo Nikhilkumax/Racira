@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import { RotateCcw, Calculator, Target, Clock, TrendingUp } from "lucide-react";
+import { RotateCcw, Calculator, Printer, Target, Clock, TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from "recharts";
 import { calculateOneThreeFive, DEFAULTS, type OneThreeFiveInputs, type OneThreeFiveResults } from "./OneThreeFiveLogic";
@@ -287,9 +287,14 @@ const OneThreeFiveCalculator = () => {
           {/* RIGHT: RESULTS PANEL */}
           <div className="flex flex-col gap-3 lg:sticky lg:top-6 lg:self-start">
             {/* PRIMARY RESULT CARD */}
-            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center relative overflow-hidden">
-              <div className="text-[13px] font-bold text-primary mb-1 uppercase tracking-wider">Daily Task Plan</div>
-              <div className="text-4xl font-extrabold text-foreground mb-1 tracking-tight">
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center relative">
+              <div className="flex justify-end absolute top-3 right-3">
+                <button type="button" onClick={() => window.print()} className="flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline focus:outline-none">
+                  <Printer className="h-3.5 w-3.5" /> Print
+                </button>
+              </div>
+              <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Daily Task Plan</div>
+              <div className="text-4xl font-bold text-primary mb-1">
                 {results.totalTasks} Tasks
               </div>
               <div className="text-sm text-muted-foreground font-medium">

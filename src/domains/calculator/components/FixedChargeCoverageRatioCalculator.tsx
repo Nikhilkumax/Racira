@@ -7,13 +7,36 @@ import FAQSection from "@/components/FAQSection";
 import { Printer, RotateCcw, Calculator } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, Cell } from "recharts";
 
+interface ChartBar {
+  name: string;
+  amount: number;
+  color: string;
+}
+
+interface BreakdownRow {
+  label: string;
+  value: number;
+  isBold?: boolean;
+}
+
+interface FccrInputs {
+  ebit: string;
+  leasePayments: string;
+  interestExpense: string;
+  principalRepayments: string;
+}
+
 interface FccrResults {
   fccr: number;
   availableIncome: number;
   totalFixedCharges: number;
+  cushion: number;
+  cushionPercent: number;
+  interestOnlyCoverage: number;
   status: string;
   statusColor: string;
-  chartData: any[];
+  chartData: ChartBar[];
+  breakdownRows: BreakdownRow[];
 }
 
 const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "number", ...props }: any) => (
@@ -27,7 +50,7 @@ const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "numb
   </div>
 );
 
-const calculateFccr = (inputs: any): FccrResults => {
+const calculateFccr = (inputs: FccrInputs): FccrResults => {
   const ebit = parseFloat(inputs.ebit) || 0;
   const leasePayments = parseFloat(inputs.leasePayments) || 0;
   const interestExpense = parseFloat(inputs.interestExpense) || 0;
@@ -53,13 +76,28 @@ const calculateFccr = (inputs: any): FccrResults => {
     { name: "Total Fixed Charges", amount: totalFixedCharges, color: "#ef4444" }
   ];
 
+  const breakdownRows: BreakdownRow[] = [
+    { label: "EBIT (Operating Income)", value: ebit },
+    { label: "Add Back: Lease Payments", value: leasePayments },
+    { label: "Income Available for Charges", value: availableIncome, isBold: true },
+    { label: "Less: Interest Expense", value: -interestExpense },
+    { label: "Less: Lease Payments", value: -leasePayments },
+    { label: "Less: Principal Repayments", value: -principalRepayments },
+    { label: "Total Fixed Charges", value: -totalFixedCharges },
+    { label: "Cushion Remaining", value: availableIncome - totalFixedCharges, isBold: true }
+  ];
+
   return {
     fccr,
     availableIncome,
     totalFixedCharges,
+    cushion: availableIncome - totalFixedCharges,
+    cushionPercent: availableIncome > 0 ? ((availableIncome - totalFixedCharges) / availableIncome) * 100 : 0,
+    interestOnlyCoverage: interestExpense > 0 ? ebit / interestExpense : 0,
     status,
     statusColor,
-    chartData
+    chartData,
+    breakdownRows
   };
 };
 
@@ -136,16 +174,15 @@ export default function FixedChargeCoverageRatioCalculator() {
           <div className="flex flex-col gap-3">
             {results && (
               <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card" ref={printRef}>
-                <div className="flex justify-end">
-                  <button onClick={() => window.print()} className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline focus:outline-none">
-                    <Printer className="h-3.5 w-3.5" /> Print
-                  </button>
-                </div>
-                
-                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center">
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center relative">
+                  <div className="flex justify-end absolute top-3 right-3">
+                    <button type="button" onClick={() => window.print()} className="flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline focus:outline-none">
+                      <Printer className="h-3.5 w-3.5" /> Print
+                    </button>
+                  </div>
                   <div className="text-xs uppercase tracking-wide text-muted-foreground">Fixed Charge Coverage Ratio</div>
                   <div className="text-4xl font-bold text-primary">{results.fccr.toFixed(2)}x</div>
-                  <div className={`text-sm font-bold mt-1 \${results.statusColor}`}>{results.status}</div>
+                  <div className={`text-sm font-bold mt-1 ${results.statusColor}`}>{results.status}</div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-2 border-y border-border py-3 my-2">
@@ -163,18 +200,87 @@ export default function FixedChargeCoverageRatioCalculator() {
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart data={results.chartData} layout="vertical" margin={{ top: 5, right: 30, left: 10, bottom: 5 }}>
                       <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="hsl(var(--border))" />
-                      <XAxis type="number" tickFormatter={(val) => `$\${val >= 1000 ? (val/1000).toFixed(0)+'k' : val}`} axisLine={false} tickLine={false} />
+                      <XAxis type="number" tickFormatter={(val) => `$${val >= 1000 ? (val/1000).toFixed(0)+'k' : val}`} axisLine={false} tickLine={false} />
                       <YAxis dataKey="name" type="category" hide />
                       <Tooltip content={<CustomTooltip />} cursor={{fill: 'transparent'}} />
                       <Bar dataKey="amount" radius={[0, 4, 4, 0]} maxBarSize={60}>
                         {results.chartData.map((entry, index) => (
-                          <Cell key={`cell-\${index}`} fill={entry.color} />
+                          <Cell key={`cell-${index}`} fill={entry.color} />
                         ))}
                       </Bar>
                     </BarChart>
                   </ResponsiveContainer>
                 </div>
-                
+
+                <div className="mt-4">
+                  <div className="text-sm font-bold mb-2">Fixed Charge Breakdown</div>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-sm text-right">
+                      <thead>
+                        <tr className="border-b border-border text-muted-foreground uppercase text-[11px] tracking-wider">
+                          <th className="text-left py-2 font-semibold">Line Item</th>
+                          <th className="py-2 font-semibold">Amount</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {results.breakdownRows.map((row, idx) => (
+                          <tr key={idx} className={`border-b border-border/50 hover:bg-muted/50 transition-colors ${row.isBold ? "font-bold bg-muted/20 text-primary" : ""}`}>
+                            <td className="text-left py-2.5 px-3">{row.label}</td>
+                            <td className={`py-2.5 px-3 ${row.value < 0 ? "text-destructive" : ""}`}>
+                              {row.value < 0 ? "-" : ""}${Math.abs(row.value).toLocaleString(undefined, { maximumFractionDigits: 2 })}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <div className="bg-muted/30 rounded-lg p-5 mt-4">
+                  <h3 className="text-base font-semibold mb-3">Summary Statistics</h3>
+                  <div className="grid grid-cols-2 gap-y-3 gap-x-6 text-sm">
+                    <div className="flex justify-between border-b border-border/50 pb-1">
+                      <span className="text-muted-foreground">EBIT</span>
+                      <span className="font-medium">${(parseFloat(inputs.ebit) || 0).toLocaleString(undefined, { maximumFractionDigits: 2 })}</span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/50 pb-1">
+                      <span className="text-muted-foreground">Income Available</span>
+                      <span className="font-medium">${results.availableIncome.toLocaleString(undefined, { maximumFractionDigits: 2 })}</span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/50 pb-1">
+                      <span className="text-muted-foreground">Total Fixed Charges</span>
+                      <span className="font-medium text-destructive">${results.totalFixedCharges.toLocaleString(undefined, { maximumFractionDigits: 2 })}</span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/50 pb-1">
+                      <span className="text-muted-foreground">Cushion Remaining</span>
+                      <span className={`font-medium ${results.cushion >= 0 ? "text-green-600" : "text-destructive"}`}>
+                        ${results.cushion.toLocaleString(undefined, { maximumFractionDigits: 2 })}
+                      </span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/50 pb-1">
+                      <span className="text-muted-foreground">Cushion as % of Income</span>
+                      <span className="font-medium">{results.cushionPercent.toFixed(2)}%</span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/50 pb-1">
+                      <span className="text-muted-foreground">Interest-Only Coverage</span>
+                      <span className="font-medium">{results.interestOnlyCoverage > 0 ? `${results.interestOnlyCoverage.toFixed(2)}x` : "—"}</span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/50 pb-1">
+                      <span className="text-muted-foreground">Lender Threshold (1.25x)</span>
+                      <span className={`font-medium ${results.fccr >= 1.25 ? "text-green-600" : "text-destructive"}`}>
+                        {results.fccr >= 1.25 ? "Met" : "Not Met"}
+                      </span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/50 pb-1">
+                      <span className="text-muted-foreground">Solvency Assessment</span>
+                      <span className={`font-medium ${results.statusColor}`}>{results.status}</span>
+                    </div>
+                  </div>
+                  <div className="flex justify-between border-t-2 border-border pt-3 mt-1 font-bold text-primary">
+                    <span>Fixed Charge Coverage Ratio</span>
+                    <span>{results.fccr.toFixed(2)}x</span>
+                  </div>
+                </div>
               </div>
             )}
           </div>

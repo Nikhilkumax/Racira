@@ -7,12 +7,41 @@ import FAQSection from "@/components/FAQSection";
 import { Printer, RotateCcw, Calculator } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
 
+interface ChartPoint {
+  name: string;
+  "Your Payment": number;
+  "Subsidy Paid": number;
+}
+
+interface BreakdownRow {
+  year: number | string;
+  rate: number;
+  payment: number;
+  monthlySaving: number;
+  yearlySaving: number;
+}
+
+interface BuyDownInputs {
+  loanAmount: string;
+  baseRate: string;
+  loanTerm: string;
+  buyDownType: string;
+  customRed1: string;
+  customRed2: string;
+}
+
 interface BuyDownResults {
   basePayment: number;
   upfrontCost: number;
   totalSavings: number;
-  chartData: any[];
-  breakdownRows: any[];
+  loanAmount: number;
+  baseRate: number;
+  costAsPercent: number;
+  subsidizedYears: number;
+  firstYearPayment: number;
+  firstYearRate: number;
+  chartData: ChartPoint[];
+  breakdownRows: BreakdownRow[];
 }
 
 const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "number", ...props }: any) => (
@@ -32,14 +61,18 @@ const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "numb
   </div>
 );
 
-const calculateBuyDown = (inputs: any): BuyDownResults => {
+const calculateBuyDown = (inputs: BuyDownInputs): BuyDownResults => {
   const loanAmount = parseFloat(inputs.loanAmount) || 0;
   const baseRate = parseFloat(inputs.baseRate) || 0;
   const term = parseFloat(inputs.loanTerm) || 30;
   const type = inputs.buyDownType;
 
   if (loanAmount <= 0 || baseRate <= 0 || term <= 0) {
-    return { basePayment: 0, upfrontCost: 0, totalSavings: 0, chartData: [], breakdownRows: [] };
+    return {
+      basePayment: 0, upfrontCost: 0, totalSavings: 0, loanAmount: 0, baseRate: 0,
+      costAsPercent: 0, subsidizedYears: 0, firstYearPayment: 0, firstYearRate: 0,
+      chartData: [], breakdownRows: []
+    };
   }
 
   const getPmt = (ratePct: number) => {
@@ -81,7 +114,7 @@ const calculateBuyDown = (inputs: any): BuyDownResults => {
     });
     
     chartData.push({
-      name: `Year \${year}`,
+      name: `Year ${year}`,
       "Your Payment": parseFloat(reducedPayment.toFixed(2)),
       "Subsidy Paid": parseFloat(monthlySaving.toFixed(2))
     });
@@ -89,7 +122,7 @@ const calculateBuyDown = (inputs: any): BuyDownResults => {
 
   // Base years
   breakdownRows.push({
-    year: `\${rateReductions.length + 1}-\${term}`,
+    year: `${rateReductions.length + 1}-${term}`,
     rate: baseRate,
     payment: basePayment,
     monthlySaving: 0,
@@ -97,7 +130,7 @@ const calculateBuyDown = (inputs: any): BuyDownResults => {
   });
 
   chartData.push({
-    name: `Years \${rateReductions.length + 1}+`,
+    name: `Years ${rateReductions.length + 1}+`,
     "Your Payment": parseFloat(basePayment.toFixed(2)),
     "Subsidy Paid": 0
   });
@@ -106,6 +139,12 @@ const calculateBuyDown = (inputs: any): BuyDownResults => {
     basePayment,
     upfrontCost,
     totalSavings,
+    loanAmount,
+    baseRate,
+    costAsPercent: loanAmount > 0 ? (upfrontCost / loanAmount) * 100 : 0,
+    subsidizedYears: rateReductions.length,
+    firstYearPayment: breakdownRows[0]?.payment ?? basePayment,
+    firstYearRate: breakdownRows[0]?.rate ?? baseRate,
     chartData,
     breakdownRows
   };
@@ -115,7 +154,12 @@ const DEFAULTS = {
   loanAmount: "350000",
   baseRate: "7.0",
   loanTerm: "30",
-  buyDownType: "2-1"
+  buyDownType: "2-1",
+  // Only read by the custom fallback in calculateBuyDown. No "Custom" option is
+  // exposed in the Buy Down Type select yet, so that branch is unreachable today;
+  // these keep the state shape matching BuyDownInputs.
+  customRed1: "0",
+  customRed2: "0"
 };
 
 export default function BuyDownCalculator() {
@@ -173,13 +217,12 @@ export default function BuyDownCalculator() {
           <div className="flex flex-col gap-3">
             {results && (
               <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card" ref={printRef}>
-                <div className="flex justify-end">
-                  <button onClick={() => window.print()} className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline focus:outline-none">
-                    <Printer className="h-3.5 w-3.5" /> Print
-                  </button>
-                </div>
-                
-                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative">
+                  <div className="flex justify-end absolute top-3 right-3">
+                    <button type="button" onClick={() => window.print()} className="flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline focus:outline-none">
+                      <Printer className="h-3.5 w-3.5" /> Print
+                    </button>
+                  </div>
                   <div className="text-xs uppercase tracking-wide text-muted-foreground">Upfront Cost of Buy Down</div>
                   <div className="text-4xl font-bold text-primary">${results.upfrontCost.toLocaleString("en-US", { maximumFractionDigits: 2 })}</div>
                   <div className="text-sm text-muted-foreground mt-1">Total savings during reduced period: ${results.totalSavings.toLocaleString("en-US", { maximumFractionDigits: 2 })}</div>
@@ -201,8 +244,8 @@ export default function BuyDownCalculator() {
                     <BarChart data={results.chartData} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
                       <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
                       <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 12 }} />
-                      <YAxis tickFormatter={(val) => `$\${val}`} axisLine={false} tickLine={false} tick={{ fontSize: 12 }} />
-                      <Tooltip formatter={(val: number) => `$\${val.toFixed(2)}`} cursor={{fill: 'transparent'}} />
+                      <YAxis tickFormatter={(val) => `$${val}`} axisLine={false} tickLine={false} tick={{ fontSize: 12 }} />
+                      <Tooltip formatter={(val: number) => `$${val.toFixed(2)}`} cursor={{fill: 'transparent'}} />
                       <Legend />
                       <Bar dataKey="Your Payment" stackId="a" fill="hsl(var(--primary))" maxBarSize={60} />
                       <Bar dataKey="Subsidy Paid" stackId="a" fill="hsl(var(--muted-foreground))" opacity={0.3} maxBarSize={60} />
@@ -229,12 +272,54 @@ export default function BuyDownCalculator() {
                             <td className="py-2.5">{row.rate.toFixed(3)}%</td>
                             <td className="py-2.5 font-bold">${row.payment.toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
                             <td className="py-2.5 text-green-600">
-                              {row.monthlySaving > 0 ? `+\$\${row.monthlySaving.toLocaleString(undefined, { maximumFractionDigits: 2 })}` : "$0.00"}
+                              {row.monthlySaving > 0 ? `+\$${row.monthlySaving.toLocaleString(undefined, { maximumFractionDigits: 2 })}` : "$0.00"}
                             </td>
                           </tr>
                         ))}
                       </tbody>
                     </table>
+                  </div>
+                </div>
+
+                <div className="bg-muted/30 rounded-lg p-5 mt-4">
+                  <h3 className="text-base font-semibold mb-3">Summary Statistics</h3>
+                  <div className="grid grid-cols-2 gap-y-3 gap-x-6 text-sm">
+                    <div className="flex justify-between border-b border-border/50 pb-1">
+                      <span className="text-muted-foreground">Loan Amount</span>
+                      <span className="font-medium">${results.loanAmount.toLocaleString(undefined, { maximumFractionDigits: 0 })}</span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/50 pb-1">
+                      <span className="text-muted-foreground">Base Interest Rate</span>
+                      <span className="font-medium">{results.baseRate.toFixed(3)}%</span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/50 pb-1">
+                      <span className="text-muted-foreground">Buy-Down Structure</span>
+                      <span className="font-medium">{inputs.buyDownType}</span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/50 pb-1">
+                      <span className="text-muted-foreground">Subsidized Years</span>
+                      <span className="font-medium">{results.subsidizedYears}</span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/50 pb-1">
+                      <span className="text-muted-foreground">Base Monthly Payment</span>
+                      <span className="font-medium">${results.basePayment.toLocaleString(undefined, { maximumFractionDigits: 2 })}</span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/50 pb-1">
+                      <span className="text-muted-foreground">Year 1 Payment</span>
+                      <span className="font-medium text-green-600">${results.firstYearPayment.toLocaleString(undefined, { maximumFractionDigits: 2 })}</span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/50 pb-1">
+                      <span className="text-muted-foreground">Year 1 Effective Rate</span>
+                      <span className="font-medium">{results.firstYearRate.toFixed(3)}%</span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/50 pb-1">
+                      <span className="text-muted-foreground">Cost as % of Loan</span>
+                      <span className="font-medium">{results.costAsPercent.toFixed(3)}%</span>
+                    </div>
+                  </div>
+                  <div className="flex justify-between border-t-2 border-border pt-3 mt-1 font-bold text-primary">
+                    <span>Total Upfront Buy-Down Cost</span>
+                    <span>${results.upfrontCost.toLocaleString(undefined, { maximumFractionDigits: 2 })}</span>
                   </div>
                 </div>
               </div>

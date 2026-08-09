@@ -7,7 +7,7 @@ import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer, Cell } from "recharts";
 import { LazyView } from "@/components/ui/LazyView";
-import { FileText, Hash, ScanText, AlertCircle, CheckCircle2, Info } from "lucide-react";
+import { FileText, Hash, ScanText, AlertCircle, CheckCircle2, Info, Printer } from "lucide-react";
 
 const DEFAULTS = {
   encodedInput: "SGVsbG8gV29ybGQh",
@@ -386,7 +386,12 @@ export default function Base64Decoder() {
           {/* RIGHT - Results */}
           <div className="flex flex-col gap-4">
             {/* Component 1: Primary Result Card */}
-            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative">
+              <div className="flex justify-end absolute top-3 right-3">
+                <button type="button" onClick={() => window.print()} className="flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline focus:outline-none">
+                  <Printer className="h-3.5 w-3.5" /> Print
+                </button>
+              </div>
               <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1 flex items-center gap-1.5">
                 <FileText className="h-3.5 w-3.5" /> Decoded Output
               </div>

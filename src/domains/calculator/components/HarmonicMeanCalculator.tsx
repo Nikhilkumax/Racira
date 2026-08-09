@@ -4,15 +4,27 @@ import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
-import { RotateCcw, Calculator } from "lucide-react";
+import { RotateCcw, Printer } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceLine } from "recharts";
 
 const fmt = (n: number, d = 4) => n.toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: d });
 
+interface HarmonicMeanResult {
+  nums: number[];
+  n: number;
+  harmonicMean: number;
+  arithmeticMean: number;
+  geometricMean: number;
+  median: number;
+  reciprocals: { value: number; reciprocal: number }[];
+  sumReciprocals: number;
+  chartData: { name: string; value: number }[];
+}
+
 const HarmonicMeanCalculator = () => {
   const DEFAULTS = { values: "1, 2, 4, 8, 16" };
   const [values, setValues] = useState(DEFAULTS.values);
-  const [result, setResult] = useState<any>(null);
+  const [result, setResult] = useState<HarmonicMeanResult | null>(null);
 
   const calculate = (v = values) => {
     const nums = v.split(/[\s,;]+/).map(Number).filter((n) => !isNaN(n) && n !== 0);
@@ -56,7 +68,7 @@ const HarmonicMeanCalculator = () => {
       <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Harmonic Mean Calculator</h1>
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1200px]">
-          <div className="card-calculator flex flex-col gap-5 !p-6 border border-border bg-card">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
             <div>
               <label className="text-base font-medium block mb-1.5">Data Set</label>
               <textarea value={values} onChange={(e) => setValues(e.target.value)} className="w-full px-3 py-2 text-lg rounded-md border border-input bg-background focus:ring-2 focus:ring-primary/20 outline-none transition-all resize-none" rows={4} placeholder="Enter positive numbers separated by commas, spaces, or newlines" />
@@ -72,13 +84,38 @@ const HarmonicMeanCalculator = () => {
 
           <div className="space-y-4">
             {result && (<>
-              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-4">
-                <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Harmonic Mean</div>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative">
+                <div className="flex justify-end absolute top-3 right-3">
+                  <button type="button" onClick={() => window.print()} className="flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline focus:outline-none">
+                    <Printer className="h-3.5 w-3.5" /> Print
+                  </button>
+                </div>
+                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Harmonic Mean</div>
                 <div className="text-4xl font-bold text-primary">{fmt(result.harmonicMean)}</div>
                 <div className="text-sm text-muted-foreground mt-1">
                   HM = {result.n} / {fmt(result.sumReciprocals, 6)} = {fmt(result.harmonicMean)} • {result.n} values
                 </div>
               </div>
+
+              <div className="card-calculator !p-4 border border-border bg-card">
+                <div className="grid grid-cols-3 divide-x divide-border text-center">
+                  <div className="px-2">
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Geometric</div>
+                    <div className="text-lg font-bold text-foreground">{fmt(result.geometricMean, 2)}</div>
+                  </div>
+                  <div className="px-2">
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Arithmetic</div>
+                    <div className="text-lg font-bold text-foreground">{fmt(result.arithmeticMean, 2)}</div>
+                  </div>
+                  <div className="px-2">
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">AM ÷ HM</div>
+                    <div className={`text-lg font-bold ${result.arithmeticMean / result.harmonicMean < 1.2 ? "text-green-600" : result.arithmeticMean / result.harmonicMean < 2 ? "text-orange-500" : "text-red-600"}`}>
+                      {fmt(result.arithmeticMean / result.harmonicMean, 2)}×
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <div className="card-calculator !p-4 border border-border bg-card">
                 <h3 className="text-base font-semibold mb-3">Mean Comparison</h3>
                 <table className="w-full text-base"><tbody>
@@ -102,7 +139,7 @@ const HarmonicMeanCalculator = () => {
                 <h3 className="text-base font-semibold mb-3">Reciprocals Table</h3>
                 <table className="w-full text-sm"><tbody>
                   <tr className="border-b font-semibold"><td className="py-1.5 text-muted-foreground">Value (x)</td><td className="text-right text-muted-foreground">Reciprocal (1/x)</td></tr>
-                  {result.reciprocals.map((r: any, i: number) => (
+                  {result.reciprocals.map((r, i) => (
                     <tr key={i} className="border-b last:border-0">
                       <td className="py-1.5">{fmt(r.value)}</td>
                       <td className="text-right font-mono">{r.reciprocal}</td>
@@ -120,10 +157,60 @@ const HarmonicMeanCalculator = () => {
                   <BarChart data={result.chartData} margin={{ top: 5, right: 15, left: 0, bottom: 5 }}>
                     <XAxis dataKey="name" tick={{ fontSize: 10 }} />
                     <YAxis tick={{ fontSize: 11 }} domain={["auto", "auto"]} />
-                    <Tooltip formatter={(v: any) => Number(v).toLocaleString(undefined, { maximumFractionDigits: 4 })} />
-                    <Bar dataKey="value" fill="#3b82f6" radius={[4, 4, 0, 0]} />
+                    <Tooltip formatter={(v: number | string) => Number(v).toLocaleString(undefined, { maximumFractionDigits: 4 })} />
+                    <Bar dataKey="value" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
+              </div>
+
+              <div className="bg-muted/30 rounded-lg p-5">
+                <h3 className="text-base font-semibold mb-3">Summary Statistics</h3>
+                <dl className="grid grid-cols-2 gap-x-6 gap-y-2 text-sm">
+                  <div className="flex justify-between border-b border-border/50 pb-1">
+                    <dt className="text-muted-foreground">Count (n)</dt>
+                    <dd className="font-medium">{result.n}</dd>
+                  </div>
+                  <div className="flex justify-between border-b border-border/50 pb-1">
+                    <dt className="text-muted-foreground">Harmonic Mean</dt>
+                    <dd className="font-medium">{fmt(result.harmonicMean)}</dd>
+                  </div>
+                  <div className="flex justify-between border-b border-border/50 pb-1">
+                    <dt className="text-muted-foreground">Geometric Mean</dt>
+                    <dd className="font-medium">{fmt(result.geometricMean)}</dd>
+                  </div>
+                  <div className="flex justify-between border-b border-border/50 pb-1">
+                    <dt className="text-muted-foreground">Arithmetic Mean</dt>
+                    <dd className="font-medium">{fmt(result.arithmeticMean)}</dd>
+                  </div>
+                  <div className="flex justify-between border-b border-border/50 pb-1">
+                    <dt className="text-muted-foreground">Median</dt>
+                    <dd className="font-medium">{fmt(result.median)}</dd>
+                  </div>
+                  <div className="flex justify-between border-b border-border/50 pb-1">
+                    <dt className="text-muted-foreground">Sum of Reciprocals</dt>
+                    <dd className="font-medium">{fmt(result.sumReciprocals, 6)}</dd>
+                  </div>
+                  <div className="flex justify-between border-b border-border/50 pb-1">
+                    <dt className="text-muted-foreground">AM − HM Gap</dt>
+                    <dd className="font-medium">{fmt(result.arithmeticMean - result.harmonicMean)}</dd>
+                  </div>
+                  <div className="flex justify-between border-b border-border/50 pb-1">
+                    <dt className="text-muted-foreground">AM ÷ HM Ratio</dt>
+                    <dd className="font-medium">{fmt(result.arithmeticMean / result.harmonicMean, 3)}×</dd>
+                  </div>
+                  <div className="flex justify-between border-b border-border/50 pb-1">
+                    <dt className="text-muted-foreground">AM ≥ GM ≥ HM</dt>
+                    <dd className="font-medium">
+                      {result.harmonicMean <= result.geometricMean && result.geometricMean <= result.arithmeticMean ? "Holds ✓" : "Check values"}
+                    </dd>
+                  </div>
+                  <div className="flex justify-between border-b border-border/50 pb-1">
+                    <dt className="text-muted-foreground">Value Spread</dt>
+                    <dd className="font-medium">
+                      {result.arithmeticMean / result.harmonicMean < 1.2 ? "Tight" : result.arithmeticMean / result.harmonicMean < 2 ? "Moderate" : "Wide"}
+                    </dd>
+                  </div>
+                </dl>
               </div>
             </>)}
           </div>

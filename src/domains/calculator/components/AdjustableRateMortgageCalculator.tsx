@@ -29,7 +29,18 @@ const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "numb
   </div>
 );
 
-const calculateArm = (inputs: any): ArmResults => {
+interface ArmInputs {
+  homePrice: string;
+  downPayment: string;
+  loanTerm: string;
+  initialRate: string;
+  fixedPeriod: string;
+  adjustmentFrequency: string;
+  expectedAdjustment: string;
+  rateCap: string;
+}
+
+const calculateArm = (inputs: ArmInputs): ArmResults => {
   const hp = parseFloat(inputs.homePrice) || 0;
   const dp = parseFloat(inputs.downPayment) || 0;
   const loanAmount = hp - dp;
@@ -174,13 +185,12 @@ export default function AdjustableRateMortgageCalculator() {
           <div className="flex flex-col gap-3">
             {results && (
               <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card" ref={printRef}>
-                <div className="flex justify-end">
-                  <button onClick={() => window.print()} className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline focus:outline-none">
-                    <Printer className="h-3.5 w-3.5" /> Print
-                  </button>
-                </div>
-                
                 <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative">
+                  <div className="flex justify-end absolute top-3 right-3">
+                    <button type="button" onClick={() => window.print()} className="flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline focus:outline-none">
+                      <Printer className="h-3.5 w-3.5" /> Print
+                    </button>
+                  </div>
                   <div className="text-xs uppercase tracking-wide text-muted-foreground font-bold mb-1">Initial Monthly Payment</div>
                   <div className="text-4xl font-bold text-primary">${results.initialPayment.toLocaleString("en-US", { maximumFractionDigits: 2 })}</div>
                   <div className="text-sm text-muted-foreground mt-1">Maximum Payment: ${results.maxPayment.toLocaleString("en-US", { maximumFractionDigits: 2 })}</div>
@@ -206,8 +216,8 @@ export default function AdjustableRateMortgageCalculator() {
                     <LineChart data={results.chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                       <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
                       <XAxis dataKey="year" axisLine={false} tickLine={false} tick={{ fontSize: 12 }} />
-                      <YAxis tickFormatter={(val) => `$\${val}`} axisLine={false} tickLine={false} tick={{ fontSize: 12 }} />
-                      <Tooltip formatter={(val: number) => `$\${val.toFixed(2)}`} labelFormatter={(label) => `Year \${label}`} />
+                      <YAxis tickFormatter={(val) => `$${val}`} axisLine={false} tickLine={false} tick={{ fontSize: 12 }} />
+                      <Tooltip formatter={(val: number) => `$${val.toFixed(2)}`} labelFormatter={(label) => `Year ${label}`} />
                       <Line type="monotone" dataKey="payment" name="Monthly Payment" stroke="hsl(var(--primary))" strokeWidth={3} dot={false} />
                     </LineChart>
                   </ResponsiveContainer>

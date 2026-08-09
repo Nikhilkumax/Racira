@@ -316,12 +316,14 @@ export default function AnnualCarCostCalculator() {
           {/* ---------------- RIGHT: results ---------------- */}
           <div className="flex flex-col gap-4">
             {/* 1. Primary result card */}
-            <div className="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-xl p-5 relative">
-              <button onClick={handlePrint} className="absolute top-4 right-4 text-muted-foreground hover:text-primary transition-colors print:hidden" aria-label="Print results">
-                <Printer className="h-4 w-4" />
-              </button>
-              <div className="text-[13px] font-bold text-primary mb-1 uppercase tracking-wider">Annual Cost of Ownership</div>
-              <div className="text-4xl font-extrabold text-foreground mb-1 tracking-tight">{usd(result.annualCost)}</div>
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative">
+              <div className="flex justify-end absolute top-3 right-3">
+                <button type="button" onClick={handlePrint} className="flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline focus:outline-none print:hidden">
+                  <Printer className="h-3.5 w-3.5" /> Print
+                </button>
+              </div>
+              <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Annual Cost of Ownership</div>
+              <div className="text-4xl font-bold text-primary mb-1">{usd(result.annualCost)}</div>
               <div className="text-sm text-muted-foreground font-medium">
                 {usd(result.monthlyCost)}/mo · ${result.costPerMile.toFixed(2)}/mile
               </div>

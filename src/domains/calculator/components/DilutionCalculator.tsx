@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { ChevronDown, RotateCcw } from "lucide-react";
+import { ChevronDown, RotateCcw, Printer } from "lucide-react";
 import { PieChart as RPie, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
@@ -287,9 +287,14 @@ const DilutionCalculator = () => {
           {/* RIGHT: RESULTS */}
           <div className="flex flex-col gap-4">
             {/* 1. PRIMARY RESULT CARD */}
-            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center">
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center relative">
+              <div className="flex justify-end absolute top-3 right-3">
+                <button type="button" onClick={() => window.print()} className="flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline focus:outline-none">
+                  <Printer className="h-3.5 w-3.5" /> Print
+                </button>
+              </div>
               <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1 font-bold">Your Ownership After Round</div>
-              <div className="text-4xl font-extrabold text-primary mb-1 tracking-tight">{fmt(results.yourPostOwnership)}%</div>
+              <div className="text-4xl font-bold text-primary mb-1 tracking-tight">{fmt(results.yourPostOwnership)}%</div>
               <div className="text-sm text-muted-foreground font-medium">
                 Down from {fmt(ownNum)}% — a loss of {fmt(results.yourDilution)} percentage points
               </div>

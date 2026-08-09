@@ -55,6 +55,14 @@ const nextConfig = {
       fs: false,
       path: false,
       "fs/promises": false,
+      // espeak-ng is a multi-environment Emscripten build. Its Node branch does
+      // `await import('module')` to build a require() shim
+      // (node_modules/espeak-ng/dist/espeak-ng.js:100). That branch is dead in the
+      // browser, but webpack still resolves the specifier statically and fails —
+      // Next 14's client fallback list has no `module` entry
+      // (next/dist/build/webpack-config.js:1321-1347). Stubbing it to false lets
+      // the unreachable branch compile away.
+      module: false,
     }
     config.module.parser = {
       ...config.module.parser,

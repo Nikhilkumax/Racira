@@ -7,15 +7,43 @@ import FAQSection from "@/components/FAQSection";
 import { ChevronDown, Printer, RotateCcw, Calculator } from "lucide-react";
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from "recharts";
 
+interface ChartSlice {
+  name: string;
+  value: number;
+  color: string;
+}
+
+interface BreakdownRow {
+  label: string;
+  value: number;
+  isBold?: boolean;
+}
+
+interface DtaInputs {
+  useAdvanced: boolean;
+  totalDebts: string;
+  totalAssets: string;
+  mortgageDebt: string;
+  autoLoanDebt: string;
+  creditCardDebt: string;
+  otherDebt: string;
+  realEstate: string;
+  cash: string;
+  investments: string;
+  otherAssets: string;
+}
+
 interface DtaResults {
   totalDebts: number;
   totalAssets: number;
   ratio: number;
   equity: number;
+  equityRatio: number;
+  leverageMultiple: number;
   status: string;
   statusColor: string;
-  chartData: any[];
-  breakdownRows: any[];
+  chartData: ChartSlice[];
+  breakdownRows: BreakdownRow[];
 }
 
 const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "number", ...props }: any) => (
@@ -29,7 +57,7 @@ const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "numb
   </div>
 );
 
-const calculateDta = (inputs: any): DtaResults => {
+const calculateDta = (inputs: DtaInputs): DtaResults => {
   let totalDebts = 0;
   let totalAssets = 0;
 
@@ -70,6 +98,8 @@ const calculateDta = (inputs: any): DtaResults => {
     totalAssets,
     ratio,
     equity,
+    equityRatio: totalAssets > 0 ? (equity / totalAssets) * 100 : 0,
+    leverageMultiple: equity > 0 ? totalDebts / equity : 0,
     status,
     statusColor,
     chartData,
@@ -180,16 +210,15 @@ export default function DebtToAssetRatioCalculator() {
           <div className="flex flex-col gap-3">
             {results && (
               <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card" ref={printRef}>
-                <div className="flex justify-end">
-                  <button onClick={() => window.print()} className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline focus:outline-none">
-                    <Printer className="h-3.5 w-3.5" /> Print
-                  </button>
-                </div>
-                
-                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center">
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center relative">
+                  <div className="flex justify-end absolute top-3 right-3">
+                    <button type="button" onClick={() => window.print()} className="flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline focus:outline-none">
+                      <Printer className="h-3.5 w-3.5" /> Print
+                    </button>
+                  </div>
                   <div className="text-xs uppercase tracking-wide text-muted-foreground">Debt-to-Asset Ratio</div>
                   <div className="text-4xl font-bold text-primary">{results.ratio.toFixed(2)}%</div>
-                  <div className={`text-sm font-bold mt-1 \${results.statusColor}`}>{results.status}</div>
+                  <div className={`text-sm font-bold mt-1 ${results.statusColor}`}>{results.status}</div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-2 border-y border-border py-3 my-2">
@@ -217,7 +246,7 @@ export default function DebtToAssetRatioCalculator() {
                           dataKey="value"
                         >
                           {results.chartData.map((entry, index) => (
-                            <Cell key={`cell-\${index}`} fill={entry.color} />
+                            <Cell key={`cell-${index}`} fill={entry.color} />
                           ))}
                         </Pie>
                         <Tooltip content={<CustomTooltip />} cursor={{fill: 'transparent'}} />
@@ -239,15 +268,59 @@ export default function DebtToAssetRatioCalculator() {
                       </thead>
                       <tbody>
                         {results.breakdownRows.map((row, idx) => (
-                          <tr key={idx} className={`border-b border-border/50 hover:bg-muted/50 transition-colors \${row.isBold ? 'font-bold bg-muted/20 text-primary' : ''}`}>
+                          <tr key={idx} className={`border-b border-border/50 hover:bg-muted/50 transition-colors ${row.isBold ? 'font-bold bg-muted/20 text-primary' : ''}`}>
                             <td className="text-left py-2.5">{row.label}</td>
-                            <td className={`py-2.5 \${row.value < 0 ? 'text-destructive' : ''}`}>
+                            <td className={`py-2.5 ${row.value < 0 ? 'text-destructive' : ''}`}>
                               {row.value < 0 ? "-" : ""}${Math.abs(row.value).toLocaleString(undefined, { maximumFractionDigits: 2 })}
                             </td>
                           </tr>
                         ))}
                       </tbody>
                     </table>
+                  </div>
+                </div>
+
+                <div className="bg-muted/30 rounded-lg p-5 mt-4">
+                  <h3 className="text-base font-semibold mb-3">Summary Statistics</h3>
+                  <div className="grid grid-cols-2 gap-y-3 gap-x-6 text-sm">
+                    <div className="flex justify-between border-b border-border/50 pb-1">
+                      <span className="text-muted-foreground">Total Assets</span>
+                      <span className="font-medium text-green-600">${results.totalAssets.toLocaleString(undefined, { maximumFractionDigits: 2 })}</span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/50 pb-1">
+                      <span className="text-muted-foreground">Total Debts</span>
+                      <span className="font-medium text-destructive">${results.totalDebts.toLocaleString(undefined, { maximumFractionDigits: 2 })}</span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/50 pb-1">
+                      <span className="text-muted-foreground">Net Worth (Equity)</span>
+                      <span className="font-medium">${results.equity.toLocaleString(undefined, { maximumFractionDigits: 2 })}</span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/50 pb-1">
+                      <span className="text-muted-foreground">Equity Share of Assets</span>
+                      <span className="font-medium">{results.equityRatio.toFixed(2)}%</span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/50 pb-1">
+                      <span className="text-muted-foreground">Debt per $1 of Equity</span>
+                      <span className="font-medium">{results.leverageMultiple > 0 ? `$${results.leverageMultiple.toFixed(2)}` : "—"}</span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/50 pb-1">
+                      <span className="text-muted-foreground">Risk Assessment</span>
+                      <span className={`font-medium ${results.statusColor}`}>{results.status}</span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/50 pb-1">
+                      <span className="text-muted-foreground">Input Mode</span>
+                      <span className="font-medium">{inputs.useAdvanced ? "Itemized" : "Totals"}</span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/50 pb-1">
+                      <span className="text-muted-foreground">Solvency</span>
+                      <span className={`font-medium ${results.equity > 0 ? "text-green-600" : "text-destructive"}`}>
+                        {results.equity > 0 ? "Solvent" : "Insolvent"}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="flex justify-between border-t-2 border-border pt-3 mt-1 font-bold text-primary">
+                    <span>Debt-to-Asset Ratio</span>
+                    <span>{results.ratio.toFixed(2)}%</span>
                   </div>
                 </div>
               </div>

@@ -4,15 +4,35 @@ import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
-import { RotateCcw, Calculator } from "lucide-react";
+import { RotateCcw, Printer } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 
 const fmt = (n: number, d = 4) => n.toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: d });
 
+interface MedianResult {
+  nums: number[];
+  sorted: number[];
+  n: number;
+  median: number;
+  mean: number;
+  mode: number[];
+  range: number;
+  variance: number;
+  stddev: number;
+  isEven: boolean;
+  chartData: { rank: number; value: number }[];
+  min: number;
+  max: number;
+  skewRatio: number;
+  q1: number;
+  q3: number;
+  iqr: number;
+}
+
 const MedianCalculator = () => {
   const DEFAULTS = { values: "4, 8, 15, 16, 23, 42" };
   const [values, setValues] = useState(DEFAULTS.values);
-  const [result, setResult] = useState<any>(null);
+  const [result, setResult] = useState<MedianResult | null>(null);
 
   const calculate = (v = values) => {
     const nums = v.split(/[\s,;]+/).map(Number).filter((n) => !isNaN(n));
@@ -33,7 +53,20 @@ const MedianCalculator = () => {
     const variance = nums.reduce((s, x) => s + (x - mean) ** 2, 0) / n;
     const stddev = Math.sqrt(variance);
     const chartData = sorted.map((x, i) => ({ rank: i + 1, value: x }));
-    setResult({ nums, sorted, n, median, mean, mode, range, variance, stddev, isEven, chartData, min: sorted[0], max: sorted[n - 1] });
+    const quantile = (p: number) => {
+      const pos = (n - 1) * p;
+      const lo = Math.floor(pos);
+      const hi = Math.ceil(pos);
+      return lo === hi ? sorted[lo] : sorted[lo] + (pos - lo) * (sorted[hi] - sorted[lo]);
+    };
+    const q1 = quantile(0.25);
+    const q3 = quantile(0.75);
+    setResult({
+      nums, sorted, n, median, mean, mode, range, variance, stddev, isEven, chartData,
+      min: sorted[0], max: sorted[n - 1],
+      skewRatio: stddev > 0 ? (3 * (mean - median)) / stddev : 0,
+      q1, q3, iqr: q3 - q1,
+    });
   };
 
   useEffect(() => { calculate(); }, []);
@@ -54,13 +87,13 @@ const MedianCalculator = () => {
       <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Median Calculator</h1>
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1200px]">
-          <div className="card-calculator flex flex-col gap-5 !p-6 border border-border bg-card">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
             <div>
-              <label className="text-base font-medium block mb-1.5">Data Set</label>
+              <label className="text-sm font-medium block mb-1">Data Set</label>
               <textarea
                 value={values}
                 onChange={(e) => setValues(e.target.value)}
-                className="w-full px-3 py-2 text-lg rounded-md border border-input bg-background focus:ring-2 focus:ring-primary/20 outline-none transition-all resize-none"
+                className="w-full px-3 py-2 text-base rounded-md border border-input bg-background focus:ring-2 focus:ring-primary/20 outline-none transition-all resize-none"
                 rows={4}
                 placeholder="Enter numbers separated by commas, spaces, or newlines"
               />
@@ -76,11 +109,35 @@ const MedianCalculator = () => {
 
           <div className="space-y-4">
             {result && (<>
-              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-4">
-                <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Median</div>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative">
+                <div className="flex justify-end absolute top-3 right-3">
+                  <button type="button" onClick={() => window.print()} className="flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline focus:outline-none">
+                    <Printer className="h-3.5 w-3.5" /> Print
+                  </button>
+                </div>
+                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Median</div>
                 <div className="text-4xl font-bold text-primary">{fmt(result.median)}</div>
                 <div className="text-sm text-muted-foreground mt-1">
                   {result.n} values • {result.isEven ? `average of ${fmt(result.sorted[result.n/2-1])} and ${fmt(result.sorted[result.n/2])}` : `middle value at position ${Math.floor(result.n/2)+1}`}
+                </div>
+              </div>
+
+              <div className="card-calculator !p-4 border border-border bg-card">
+                <div className="grid grid-cols-3 divide-x divide-border text-center">
+                  <div className="px-2">
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Mean</div>
+                    <div className="text-lg font-bold text-foreground">{fmt(result.mean, 2)}</div>
+                  </div>
+                  <div className="px-2">
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Std. Dev</div>
+                    <div className="text-lg font-bold text-foreground">{fmt(result.stddev, 2)}</div>
+                  </div>
+                  <div className="px-2">
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Skew</div>
+                    <div className={`text-lg font-bold ${Math.abs(result.skewRatio) < 0.5 ? "text-green-600" : Math.abs(result.skewRatio) < 1 ? "text-orange-500" : "text-red-600"}`}>
+                      {Math.abs(result.skewRatio) < 0.5 ? "Symmetric" : Math.abs(result.skewRatio) < 1 ? "Moderate" : "Strong"}
+                    </div>
+                  </div>
                 </div>
               </div>
               <div className="card-calculator !p-4 border border-border bg-card">
@@ -111,10 +168,58 @@ const MedianCalculator = () => {
                   <BarChart data={result.chartData} margin={{ top: 5, right: 15, left: 0, bottom: 5 }}>
                     <XAxis dataKey="rank" tick={{ fontSize: 10 }} label={{ value: "Rank", position: "insideBottom", offset: -2, fontSize: 10 }} />
                     <YAxis tick={{ fontSize: 11 }} />
-                    <Tooltip formatter={(v: any) => Number(v).toLocaleString()} labelFormatter={(l) => `Rank ${l}`} />
-                    <Bar dataKey="value" fill="#3b82f6" radius={[4, 4, 0, 0]} />
+                    <Tooltip formatter={(v: number | string) => Number(v).toLocaleString()} labelFormatter={(l) => `Rank ${l}`} />
+                    <Bar dataKey="value" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
+              </div>
+
+              <div className="bg-muted/30 rounded-lg p-5">
+                <h3 className="text-base font-semibold mb-3">Summary Statistics</h3>
+                <dl className="grid grid-cols-2 gap-x-6 gap-y-2 text-sm">
+                  <div className="flex justify-between border-b border-border/50 pb-1">
+                    <dt className="text-muted-foreground">Count (n)</dt>
+                    <dd className="font-medium">{result.n}</dd>
+                  </div>
+                  <div className="flex justify-between border-b border-border/50 pb-1">
+                    <dt className="text-muted-foreground">Median</dt>
+                    <dd className="font-medium">{fmt(result.median)}</dd>
+                  </div>
+                  <div className="flex justify-between border-b border-border/50 pb-1">
+                    <dt className="text-muted-foreground">Mean</dt>
+                    <dd className="font-medium">{fmt(result.mean)}</dd>
+                  </div>
+                  <div className="flex justify-between border-b border-border/50 pb-1">
+                    <dt className="text-muted-foreground">Mean − Median</dt>
+                    <dd className="font-medium">{fmt(result.mean - result.median)}</dd>
+                  </div>
+                  <div className="flex justify-between border-b border-border/50 pb-1">
+                    <dt className="text-muted-foreground">Range</dt>
+                    <dd className="font-medium">{fmt(result.range)}</dd>
+                  </div>
+                  <div className="flex justify-between border-b border-border/50 pb-1">
+                    <dt className="text-muted-foreground">Interquartile Range</dt>
+                    <dd className="font-medium">{fmt(result.iqr)}</dd>
+                  </div>
+                  <div className="flex justify-between border-b border-border/50 pb-1">
+                    <dt className="text-muted-foreground">Q1 / Q3</dt>
+                    <dd className="font-medium">{fmt(result.q1, 2)} / {fmt(result.q3, 2)}</dd>
+                  </div>
+                  <div className="flex justify-between border-b border-border/50 pb-1">
+                    <dt className="text-muted-foreground">Std. Deviation</dt>
+                    <dd className="font-medium">{fmt(result.stddev)}</dd>
+                  </div>
+                  <div className="flex justify-between border-b border-border/50 pb-1">
+                    <dt className="text-muted-foreground">Distribution Shape</dt>
+                    <dd className="font-medium">
+                      {Math.abs(result.skewRatio) < 0.5 ? "Symmetric" : result.skewRatio > 0 ? "Right-skewed" : "Left-skewed"}
+                    </dd>
+                  </div>
+                  <div className="flex justify-between border-b border-border/50 pb-1">
+                    <dt className="text-muted-foreground">Pearson Skew</dt>
+                    <dd className="font-medium">{fmt(result.skewRatio, 3)}</dd>
+                  </div>
+                </dl>
               </div>
             </>)}
           </div>
