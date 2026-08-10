@@ -543,7 +543,7 @@ export default function SeaLevelRiseFromIceMeltCalculator() {
           </section>
 
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/sea-level-rise-from-ice-melt-calculator" />
-          <PopularCalculators exclude="sea-level-rise-from-ice-melt-calculator" />
+          <PopularCalculators exclude="/calculator/sea-level-rise-from-ice-melt-calculator" />
         </div>
       </div>
     </>

@@ -1,0 +1,141 @@
+=== espeak-ng 5-language probe ===
+
+--- STEP 0: discovering real voice codes ---
+lang/ families: aav, art, azc, bat, bnt, ccs, cel, cus, dra, esx, eu, gmq, gmw, grk, inc, ine, ira, iro, itc, jpx, ko, map, miz, myn, poz, qu, roa, sai, sem, sit, tai, trk, urj, zle, zls, zlw
+
+Portuguese voice codes present:
+  roa/pt
+  roa/pt-BR
+
+Candidate codes — present in lang/ tree?
+  es  es       YES (roa/es)
+  es  es-419   YES (roa/es-419)
+  fr  fr       YES (roa/fr)
+  fr  fr-FR    no
+  fr  fr-BE    YES (roa/fr-BE)
+  it  it       YES (roa/it)
+  pt  pt-BR    YES (roa/pt-BR)
+  pt  pt       YES (roa/pt)
+  hi  hi       YES (inc/hi)
+
+======================================================================
+Spanish  (es)
+input: Hola, ¿cómo estás?
+======================================================================
+
+  en-us baseline : "ˈo‍ʊlæ\nˌe‍ɪsˈɜːkəmflˌɛks\nsˈiː ˌe‍ɪtˈɪldə θɹˈiː mˈo‍ʊ ˌiːˌɛstˈiː ˌe‍ɪtˈɪldə\nˈɛs"
+
+  -v es
+    output : "ˈola\nˌaθiɾkumflˈexo\nθˈe ˌatˈilðe tɾˈes mˈo ˈest ˌatˈilðe\nˈɛse"
+    length : 61   time: 117ms
+    verdict: OK
+
+  -v es-419
+    output : "ˈola\nˌasiɾkumflˈexo\nsˈe ˌatˈilðe tɾˈes mˈo ˈest ˌatˈilðe\nˈɛse"
+    length : 61   time: 110ms
+    verdict: OK
+
+======================================================================
+French  (fr)
+input: Bonjour, comment allez-vous?
+======================================================================
+
+  en-us baseline : "bɔːnʒˈʊ‍ɹ\nkˈɑːmɛnt ɐlˈɛzvˈuːz"
+
+  -v fr
+    output : "bɔ̃ʒˈuʁ\nkɔmˌɑ̃ alˈevˈu"
+    length : 22   time: 107ms
+    verdict: OK
+
+  -v fr-FR — SKIPPED (not in lang/ tree)
+
+  -v fr-BE
+    output : "bɔ̃ʒˈuʁ\nkɔmˌɑ̃ alˈevˈu"
+    length : 22   time: 109ms
+    verdict: OK
+
+======================================================================
+Italian  (it)
+input: Ciao, come stai?
+======================================================================
+
+  en-us baseline : "t‍ʃˈa‍ʊ\nkˈʌm stˈa‍ɪ"
+
+  -v it
+    output : "t‍ʃˈao\nkˌome stˈaj"
+    length : 18   time: 110ms
+    verdict: OK
+
+======================================================================
+Portuguese-BR  (pt)
+input: Olá, como você está?
+======================================================================
+
+  en-us baseline : "ˈɑːl ˌe‍ɪtˈɪldə\nkəmˈo‍ʊ vˈɑːk ˌe‍ɪtˈɪldə ˈe‍ɪ ˌiːˌɛstˈiː ˌe‍ɪtˈɪldə"
+
+  -v pt-BR
+    output : "ˈɔl ˌat‍ʃˈi‍ʊ\nkˌomʊ vˈok ˌat‍ʃˈi‍ʊ ˌoɾəd‍ʒinˈa‍ʊfeminˈĩnw ˈest‍ʃ ˌat‍ʃˈi‍ʊ"
+    length : 75   time: 103ms
+    verdict: OK
+
+  -v pt
+    output : "ˈɔl ˌɐtˈil\nkˈomʊ vˈok ˌɐtˈil ˌɔɾədinˈalfeminˈĩnw ˈeʃt ˌɐtˈil"
+    length : 61   time: 98ms
+    verdict: OK
+
+======================================================================
+Hindi  (hi)
+input: नमस्ते, आप कैसे हैं?
+======================================================================
+
+  en-us baseline : "æ kˈɜːɹənsidˈʌbə‍l æ kˈɜːɹənsiɹˈɛd‍ʒɪstɚd æ kˈɜːɹənsi æ jˈɛn æ kˈɜːɹənsikˈɜːɹənsi æ jˈɛn\næ kˈɜːɹənsi æ kˈɜːɹənsi sˈa‍ɪn ˈe‍ɪ æ kˈɜːɹənsi æ jˈɛn æ kˈɜːɹənsi æ jˈɛn æ kˈɜːɹənsi æ jˈɛn æ kˈɜːɹənsi"
+
+  -v hi
+    output : "ʰ‍χˈeəˌʊʰ‍χeˌəɛʰ‍χˌeəcˌeaː ʰ‍χˈeəʰ‍χeˌaː\nʰ‍χˈe ʰ‍χˈeəɾˌɪ ʰ‍χˈe ʰ‍χˈeaː ʰ‍χˈeəcˌeaː ʰ‍χˈeəcʰˌeaː ʰ‍χˈe"
+    length : 101   time: 102ms
+    verdict: OK
+
+
+======================================================================
+SUMMARY — working code per language
+======================================================================
+
+Spanish (es)
+  code    : es
+  input   : Hola, ¿cómo estás?
+  output  : "ˈola\nˌaθiɾkumflˈexo\nθˈe ˌatˈilðe tɾˈes mˈo ˈest ˌatˈilðe\nˈɛse"
+  en-us   : "ˈo‍ʊlæ\nˌe‍ɪsˈɜːkəmflˌɛks\nsˈiː ˌe‍ɪtˈɪldə θɹˈiː mˈo‍ʊ ˌiːˌɛstˈiː ˌe‍ɪtˈɪldə\nˈɛs"
+  verdict : OK
+
+French (fr)
+  code    : fr
+  input   : Bonjour, comment allez-vous?
+  output  : "bɔ̃ʒˈuʁ\nkɔmˌɑ̃ alˈevˈu"
+  en-us   : "bɔːnʒˈʊ‍ɹ\nkˈɑːmɛnt ɐlˈɛzvˈuːz"
+  verdict : OK
+
+Italian (it)
+  code    : it
+  input   : Ciao, come stai?
+  output  : "t‍ʃˈao\nkˌome stˈaj"
+  en-us   : "t‍ʃˈa‍ʊ\nkˈʌm stˈa‍ɪ"
+  verdict : OK
+
+Portuguese-BR (pt)
+  code    : pt-BR
+  input   : Olá, como você está?
+  output  : "ˈɔl ˌat‍ʃˈi‍ʊ\nkˌomʊ vˈok ˌat‍ʃˈi‍ʊ ˌoɾəd‍ʒinˈa‍ʊfeminˈĩnw ˈest‍ʃ ˌat‍ʃˈi‍ʊ"
+  en-us   : "ˈɑːl ˌe‍ɪtˈɪldə\nkəmˈo‍ʊ vˈɑːk ˌe‍ɪtˈɪldə ˈe‍ɪ ˌiːˌɛstˈiː ˌe‍ɪtˈɪldə"
+  verdict : OK
+
+Hindi (hi)
+  code    : hi
+  input   : नमस्ते, आप कैसे हैं?
+  output  : "ʰ‍χˈeəˌʊʰ‍χeˌəɛʰ‍χˌeəcˌeaː ʰ‍χˈeəʰ‍χeˌaː\nʰ‍χˈe ʰ‍χˈeəɾˌɪ ʰ‍χˈe ʰ‍χˈeaː ʰ‍χˈeəcˌeaː ʰ‍χˈeəcʰˌeaː ʰ‍χˈe"
+  en-us   : "æ kˈɜːɹənsidˈʌbə‍l æ kˈɜːɹənsiɹˈɛd‍ʒɪstɚd æ kˈɜːɹənsi æ jˈɛn æ kˈɜːɹənsikˈɜːɹənsi æ jˈɛn\næ kˈɜːɹənsi æ kˈɜːɹənsi sˈa‍ɪn ˈe‍ɪ æ kˈɜːɹənsi æ jˈɛn æ kˈɜːɹənsi æ jˈɛn æ kˈɜːɹənsi æ jˈɛn æ kˈɜːɹənsi"
+  verdict : OK
+
+======================================================================
+RESULT: 5/5 languages phonemizing correctly
+Per-call instantiation: 102-117ms (fresh WASM instance each call)
+======================================================================

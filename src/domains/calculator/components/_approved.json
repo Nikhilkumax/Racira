@@ -369,6 +369,20 @@
                         "ZeroSixtyCalculator",
                         "AccelerationEstimatorCalculator",
                         "OneThreeFiveCalculator",
-                        "ZeroAprPromoCalculator"
+                        "ZeroAprPromoCalculator",
+                        "GlomerularFiltrationRateEgfrMdrdCalculator",
+                        "SeaLevelRiseFromIceMeltCalculator",
+                        "TopographicReliefMapCalculator",
+                        "BgpPathSelectionScoreCalculator",
+                        "AreaUnderTheCurveAucPharmacokineticsCalculator",
+                        "TotalCarCostPerMileCalculator",
+                        "ShippingInsuranceCostCalculator",
+                        "XssVulnerabilityRiskScoreCalculator",
+                        "StorageConverter",
+                        "WindFarmWakeEffectCalculator",
+                        "DielectricConstantCalculator",
+                        "IfrAlternateFuelCalculator",
+                        "DownloadTimeCalculator",
+                        "RecipeCostCalculator"
                      ]
 }

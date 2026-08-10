@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import type { InputHTMLAttributes } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import PopularCalculators from "@/components/PopularCalculators";
@@ -18,6 +19,11 @@ interface ShippingResults {
   chartData: { carrier: string; cost: number }[];
   summaryStats: { label: string; value: string }[];
   breakdown: { label: string; amount: string; isTotal?: boolean; colorClass?: string }[];
+}
+
+interface TooltipProps {
+  active?: boolean;
+  payload?: { value: number; payload: { carrier: string; cost: number } }[];
 }
 
 const calculateShippingInsurance = (value: number, carrier: string, destination: string, type: string): ShippingResults => {
@@ -86,7 +92,17 @@ const DEFAULTS = {
   type: "standard"
 };
 
-const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "number", ...props }: any) => (
+interface CompactInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "onChange" | "value" | "id" | "type" | "prefix"> {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (val: string) => void;
+  prefix?: string;
+  suffix?: string;
+  type?: string;
+}
+
+const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "number", ...props }: CompactInputProps) => (
   <div className="flex flex-col">
     <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1.5">{label}</label>
     <div className="relative w-full flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20">
@@ -104,7 +120,9 @@ export default function ShippingInsuranceCostCalculator() {
   const [type, setType] = useState(DEFAULTS.type);
   const [showAdvanced, setShowAdvanced] = useState(false);
   
-  const [results, setResults] = useState<ShippingResults | null>(null);
+  const [results, setResults] = useState<ShippingResults>(
+    calculateShippingInsurance(parseFloat(DEFAULTS.value), DEFAULTS.carrier, DEFAULTS.destination, DEFAULTS.type)
+  );
   const [mounted, setMounted] = useState(false);
   const printRef = useRef<HTMLDivElement>(null);
 
@@ -133,7 +151,7 @@ export default function ShippingInsuranceCostCalculator() {
     w.print();
   };
 
-  const CustomTooltip = ({ active, payload }: any) => {
+  const CustomTooltip = ({ active, payload }: TooltipProps) => {
     if (active && payload && payload.length) {
       return (
         <div className="bg-card border border-border p-2 rounded-lg shadow-sm text-xs font-semibold">
@@ -206,14 +224,14 @@ export default function ShippingInsuranceCostCalculator() {
             {results && (
               <div ref={printRef} className="flex flex-col gap-4">
                 
-                <div className={`border-l-4 rounded-lg p-5 relative bg-emerald-500/10 border-emerald-500/30`}>
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative">
                   <button onClick={handlePrint} className="absolute top-4 right-4 text-muted-foreground hover:text-primary transition-colors print:hidden" aria-label="Print Results">
                     <Printer className="h-4 w-4" />
                   </button>
                   <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1 font-bold">
                     Estimated Insurance Premium
                   </div>
-                  <div className={`text-4xl font-bold tracking-tighter mb-2 text-emerald-600`}>
+                  <div className="text-4xl font-bold tracking-tighter mb-2 text-primary">
                     ${results.estimatedCost.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                   </div>
                   <div className="text-sm text-muted-foreground font-medium">

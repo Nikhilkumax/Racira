@@ -88,7 +88,24 @@ const DEFAULTS = {
   registrationFee: "200"
 };
 
-const CompactInput = ({ id, label, value, onChange, prefix, suffix, tooltip, type = "number", options }: any) => (
+interface SelectOption {
+  value: string;
+  label: string;
+}
+
+interface CompactInputProps {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (val: string) => void;
+  prefix?: string;
+  suffix?: string;
+  tooltip?: string;
+  type?: string;
+  options?: SelectOption[];
+}
+
+const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "number", options }: CompactInputProps) => (
   <div className="flex flex-col">
     <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1">
       {label}
@@ -97,7 +114,7 @@ const CompactInput = ({ id, label, value, onChange, prefix, suffix, tooltip, typ
       {prefix && <span className="pl-3 pr-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{prefix}</span>}
       {options ? (
         <select id={id} value={value} onChange={(e) => onChange(e.target.value)} className="w-full h-full px-3 py-1 text-base bg-transparent outline-none border-none text-foreground font-medium">
-          {options.map((opt: any) => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
+          {options.map((opt) => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
         </select>
       ) : (
         <input id={id} type={type} value={value} onChange={(e) => onChange(e.target.value)} className="w-full h-full px-3 py-1 text-base bg-transparent outline-none border-none text-foreground" />

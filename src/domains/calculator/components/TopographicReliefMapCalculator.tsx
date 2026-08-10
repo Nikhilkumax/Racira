@@ -584,7 +584,7 @@ export default function TopographicReliefMapCalculator() {
           </section>
 
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/topographic-relief-map-calculator" />
-          <PopularCalculators exclude="topographic-relief-map-calculator" />
+          <PopularCalculators exclude="/calculator/topographic-relief-map-calculator" />
         </div>
       </div>
     </>

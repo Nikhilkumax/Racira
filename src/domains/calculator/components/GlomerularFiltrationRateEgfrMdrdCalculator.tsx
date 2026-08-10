@@ -559,7 +559,7 @@ export default function GlomerularFiltrationRateEgfrMdrdCalculator() {
           </section>
 
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/glomerular-filtration-rate-egfr-mdrd-calculator" />
-          <PopularCalculators exclude="glomerular-filtration-rate-egfr-mdrd-calculator" />
+          <PopularCalculators exclude="/calculator/glomerular-filtration-rate-egfr-mdrd-calculator" />
         </div>
       </div>
     </>

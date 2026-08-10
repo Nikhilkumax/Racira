@@ -574,7 +574,7 @@ export default function MulchVolumeCalculator() {
           </section>
 
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/mulch-volume-calculator" />
-          <PopularCalculators exclude="mulch-volume-calculator" />
+          <PopularCalculators exclude="/calculator/mulch-volume-calculator" />
         </div>
       </div>
     </>

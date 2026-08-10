@@ -3,15 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "predev": "node scripts/copy-ffmpeg-core.cjs && node scripts/copy-espeak-core.cjs",
+    "predev": "node scripts/copy-ffmpeg-core.cjs && node scripts/copy-espeak-core.cjs && node scripts/copy-ort-wasm.cjs",
     "dev": "next dev -p 3002",
-    "prebuild": "node scripts/copy-ffmpeg-core.cjs && node scripts/copy-espeak-core.cjs",
+    "prebuild": "node scripts/copy-ffmpeg-core.cjs && node scripts/copy-espeak-core.cjs && node scripts/copy-ort-wasm.cjs",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "copy:ffmpeg": "node scripts/copy-ffmpeg-core.cjs",
     "copy:espeak": "node scripts/copy-espeak-core.cjs",
-    "postinstall": "node scripts/patch-lamejs.cjs && node scripts/copy-ffmpeg-core.cjs && node scripts/copy-espeak-core.cjs"
+    "copy:ort": "node scripts/copy-ort-wasm.cjs",
+    "postinstall": "node scripts/patch-lamejs.cjs && node scripts/copy-ffmpeg-core.cjs && node scripts/copy-espeak-core.cjs && node scripts/copy-ort-wasm.cjs"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",

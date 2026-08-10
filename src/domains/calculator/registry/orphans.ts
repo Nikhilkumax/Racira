@@ -452,7 +452,7 @@ export const orphanedCalculators: CalculatorDef[] = [
     {
     slug: "total-car-cost-per-mile-calculator",
     name: "Total Car Cost Per Mile Calculator",
-    description: "Total Car Cost Per Mile Calculator — calculate and convert instantly",
+    description: "Work out the true cost of driving per mile including depreciation, insurance, fuel, maintenance, tyres and financing, not just what you spend at the pump.",
     category: "EVERYDAY_LIFE",
     subcategory: "Other Utilities",
     status: "live"

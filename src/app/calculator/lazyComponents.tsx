@@ -1302,6 +1302,13 @@ const calculatorComponents: Record<string, () => Promise<any>> = {
   "glomerular-filtration-rate-egfr-mdrd-calculator": () => import("@/domains/calculator/components/GlomerularFiltrationRateEgfrMdrdCalculator"),
   "sea-level-rise-from-ice-melt-calculator": () => import("@/domains/calculator/components/SeaLevelRiseFromIceMeltCalculator"),
   "topographic-relief-map-calculator": () => import("@/domains/calculator/components/TopographicReliefMapCalculator"),
+  "dielectric-constant-calculator": () => import("@/domains/calculator/components/DielectricConstantCalculator"),
+  "bgp-path-selection-score-calculator": () => import("@/domains/calculator/components/BgpPathSelectionScoreCalculator"),
+  "xss-vulnerability-risk-score-calculator": () => import("@/domains/calculator/components/XssVulnerabilityRiskScoreCalculator"),
+  "area-under-the-curve-auc-pharmacokinetics-calculator": () => import("@/domains/calculator/components/AreaUnderTheCurveAucPharmacokineticsCalculator"),
+  "wind-farm-wake-effect-calculator": () => import("@/domains/calculator/components/WindFarmWakeEffectCalculator"),
+  "ifr-alternate-fuel-calculator": () => import("@/domains/calculator/components/IfrAlternateFuelCalculator"),
+  "recipe-cost-calculator": () => import("@/domains/calculator/components/RecipeCostCalculator"),
 
 };
 
