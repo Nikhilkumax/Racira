@@ -1309,6 +1309,8 @@ const calculatorComponents: Record<string, () => Promise<any>> = {
   "wind-farm-wake-effect-calculator": () => import("@/domains/calculator/components/WindFarmWakeEffectCalculator"),
   "ifr-alternate-fuel-calculator": () => import("@/domains/calculator/components/IfrAlternateFuelCalculator"),
   "recipe-cost-calculator": () => import("@/domains/calculator/components/RecipeCostCalculator"),
+  "4-rule-calculator": () => import("@/domains/calculator/components/FourPercentRuleCalculator"),
+  "javelin-throw-distance-calculator": () => import("@/domains/calculator/components/JavelinThrowDistanceCalculator"),
 
 };
 

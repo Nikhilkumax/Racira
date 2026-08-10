@@ -9,12 +9,23 @@ import { Timer, RotateCcw } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer, ReferenceLine } from "recharts";
 
 // 1. TypeScript interfaces
+interface ChartPoint {
+  Horsepower: number;
+  "0-60 Time": number;
+}
+
+interface ScheduleRow {
+  hp: number;
+  time060: number;
+  time14: number;
+}
+
 interface PerformanceResults {
   zeroToSixty: number;
   quarterMileTime: number;
   powerToWeight: number; // lbs per HP
-  chartData: any[];
-  schedule: any[];
+  chartData: ChartPoint[];
+  schedule: ScheduleRow[];
   isError: boolean;
   errorMsg?: string;
 }
@@ -90,18 +101,33 @@ const DEFAULTS = {
   drivetrain: "rwd"
 };
 
-const CompactInput = ({ id, label, value, onChange, placeholder, suffix, options }: any) => (
+interface SelectOption {
+  value: string;
+  label: string;
+}
+
+interface CompactInputProps {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (val: string) => void;
+  placeholder?: string;
+  suffix?: string;
+  options?: SelectOption[];
+}
+
+const CompactInput = ({ id, label, value, onChange, placeholder, suffix, options }: CompactInputProps) => (
   <div className="flex flex-col">
     <label htmlFor={id} className="text-[11px] font-semibold text-muted-foreground mb-1 uppercase tracking-wider">
       {label}
     </label>
-    <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-9 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
+    <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-10 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
       {options ? (
-        <select id={id} value={value} onChange={(e) => onChange(e.target.value)} className="w-full h-full px-3 py-1 text-sm bg-transparent outline-none border-none text-foreground font-medium">
-          {options.map((opt: any) => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
+        <select id={id} value={value} onChange={(e) => onChange(e.target.value)} className="w-full h-full px-3 py-1 text-base bg-transparent outline-none border-none text-foreground font-medium">
+          {options.map((opt) => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
         </select>
       ) : (
-        <input id={id} type="number" placeholder={placeholder} value={value} onChange={(e) => onChange(e.target.value)} className="w-full h-full px-3 py-1 text-sm bg-transparent outline-none border-none text-foreground font-medium" />
+        <input id={id} type="number" placeholder={placeholder} value={value} onChange={(e) => onChange(e.target.value)} className="w-full h-full px-3 py-1 text-base bg-transparent outline-none border-none text-foreground font-medium" />
       )}
       {suffix && <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0 font-semibold">{suffix}</span>}
     </div>
@@ -131,11 +157,20 @@ export default function CarPerformanceCalculator() {
     setResults(calculatePerformance(DEFAULTS));
   };
 
+  const handleCalculate = () => {
+    setResults(calculatePerformance(inputs));
+  };
+
   const faqs = [
     { question: "How accurate is a 0-60 MPH calculator?", answer: "This calculator provides a highly accurate mathematical estimation based on power-to-weight ratios and drivetrain traction physics. However, real-world 0-60 times are heavily influenced by variables that cannot be calculated, such as the exact stickiness of the tires, the driver's reaction time, the shift speed of the transmission, and the condition of the road surface." },
     { question: "Why is Power-to-Weight Ratio so important?", answer: "Horsepower alone tells you very little about a car's performance. A 300 HP engine sounds fast, but if it is installed in a massive 6,000-pound SUV, the vehicle will be incredibly slow. That same 300 HP engine installed in a lightweight 2,000-pound sports car will produce blistering acceleration. The Power-to-Weight ratio is the true equalizer that allows you to compare the acceleration of completely different vehicles." },
     { question: "Why do All-Wheel Drive (AWD) cars accelerate faster?", answer: "Acceleration from a dead stop (0-60 MPH) is entirely limited by traction. If you have 1,000 horsepower but only two tires driving the car, the tires will simply spin into smoke rather than pushing the car forward. AWD cars distribute the engine's power equally across all four tires. This drastically increases the tire contact patch with the road, allowing the car to launch violently without spinning the wheels." },
-    { question: "What is the 1/4 Mile Time?", answer: "The 1/4 mile drag strip is the international standard for measuring automotive performance. While a 0-60 time measures low-speed traction and launch capability, the 1/4 mile time (which often ends at speeds over 110 MPH) measures the true sustained power output and aerodynamic efficiency of the vehicle." }
+    { question: "What is the 1/4 Mile Time?", answer: "The 1/4 mile drag strip is the international standard for measuring automotive performance. While a 0-60 time measures low-speed traction and launch capability, the 1/4 mile time (which often ends at speeds over 110 MPH) measures the true sustained power output and aerodynamic efficiency of the vehicle." },
+    { question: "Which formula does the 1/4 mile estimate use?", answer: "The quarter mile elapsed time comes from Hale's formula, ET = 5.825 x (Weight / Horsepower) raised to the one-third power. It is one of the oldest and most widely trusted drag racing approximations, dating back to magazine testing in the 1960s. It works because elapsed time scales with the cube root of the weight-to-power ratio rather than linearly, which is why doubling horsepower does not halve your time." },
+    { question: "Should I enter crank horsepower or wheel horsepower?", answer: "Enter crank horsepower, which is the figure quoted on the manufacturer's spec sheet. The drivetrain multiplier already accounts for the typical driveline losses between the engine and the pavement, roughly 10 to 15 percent for a manual transmission and 15 to 20 percent for an automatic. If you only have a dyno reading measured at the wheels, add about 15 percent before entering it." },
+    { question: "Why does my car feel slower than the calculated time?", answer: "Published 0-60 times are set by professional drivers on prepared surfaces using launch control, aggressive brake torquing, and sometimes a one-foot rollout that shaves two to three tenths off the number. A normal driver on a cold public road with all-season tires will routinely be a full second slower. Elevation also matters: a naturally aspirated engine loses roughly three percent of its power for every 1,000 feet of altitude." },
+    { question: "Does this work for electric vehicles?", answer: "Partially. The power-to-weight relationship still applies, but EVs deliver peak torque from zero RPM and do not shift gears, so they typically beat the estimate at low speeds. The calculator will tend to be pessimistic for an EV's 0-60 time while remaining reasonable for the quarter mile, where the EV's power taper and extra battery weight start to work against it." },
+    { question: "How much weight equals one horsepower?", answer: "As a rough rule of thumb in the ranges most street cars occupy, removing 100 pounds is worth roughly 10 horsepower for acceleration purposes. This is why motorsport teams spend enormous sums on lightweight components. Weight reduction also improves braking and cornering, whereas added horsepower only helps in a straight line." }
   ];
 
   return (
@@ -163,9 +198,12 @@ export default function CarPerformanceCalculator() {
               ]} />
             </div>
 
-            <div className="flex gap-2.5 mt-4">
-              <button type="button" onClick={handleReset} className="w-full rounded-md border border-border bg-background hover:bg-secondary text-foreground font-semibold h-11 transition-colors flex items-center justify-center gap-2 focus:outline-none shadow-sm">
-                <RotateCcw className="h-4 w-4" /> Reset
+            <div className="flex gap-2 mt-4">
+              <button type="button" onClick={handleCalculate} className="h-10 w-full rounded-md bg-primary text-primary-foreground font-semibold hover:opacity-90 transition">
+                Calculate
+              </button>
+              <button type="button" onClick={handleReset} aria-label="Reset" title="Reset" className="h-10 w-10 shrink-0 rounded-md border border-input bg-background text-foreground hover:bg-muted/50 transition flex items-center justify-center">
+                <RotateCcw className="h-4 w-4" />
               </button>
             </div>
             
@@ -268,6 +306,24 @@ export default function CarPerformanceCalculator() {
                   </div>
                 </div>
 
+                {/* 5. Summary Statistics */}
+                <div className="bg-muted/30 rounded-lg p-5 mt-2">
+                  <div className="text-sm font-bold text-foreground mb-3">Summary Statistics</div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-6 text-sm">
+                    {results.schedule.map((row) => (
+                      <div key={row.hp} className="flex justify-between gap-3">
+                        <span className="text-muted-foreground">{row.hp} HP</span>
+                        <span className="text-foreground font-medium">{row.time060} s / {row.time14} s</span>
+                      </div>
+                    ))}
+                    <div className="flex justify-between gap-3 sm:col-span-2 border-t border-border pt-2 mt-1">
+                      <span className="font-bold text-foreground">Your vehicle ({inputs.horsepower} HP)</span>
+                      <span className="font-bold text-foreground">{results.zeroToSixty} s / {results.quarterMileTime} s</span>
+                    </div>
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-3">Each row shows the estimated 0-60 time followed by the quarter mile elapsed time at {inputs.weight} lbs.</p>
+                </div>
+
               </>
             )}
           </div>
@@ -296,8 +352,8 @@ export default function CarPerformanceCalculator() {
             <p>Why? Because as cars get incredibly fast, they hit the limit of physical tire traction. A 1,000 HP car spinning its tires in 1st, 2nd, and 3rd gear will accelerate no faster than a 600 HP car that actually grips the road. Furthermore, at high speeds (like the end of a 1/4 mile), the car must overcome exponential aerodynamic drag, requiring massive amounts of horsepower just to punch through the air.</p>
           </section>
           
-          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/car-performance-0-60-calculator" />
-          <PopularCalculators />
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/car-performance060-calculator" />
+          <PopularCalculators exclude="/calculator/car-performance060-calculator" />
         </div>
       </div>
     </>

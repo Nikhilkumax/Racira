@@ -9,12 +9,26 @@ import { Clock, RotateCcw } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer, ReferenceLine, Legend } from "recharts";
 
 // 1. TypeScript interfaces
+interface ChartPoint {
+  Speed: number;
+  "Alert Driver (1.5s)": number;
+  "Distracted Driver (3.0s)": number;
+  "Your Reaction Time": number;
+}
+
+interface ScheduleRow {
+  speed: number;
+  alert: number;
+  distracted: number;
+  user: number;
+}
+
 interface ReactionResults {
   distanceFt: number;
   distanceM: number;
   timeToImpactSec: number;
-  chartData: any[];
-  schedule: any[];
+  chartData: ChartPoint[];
+  schedule: ScheduleRow[];
   isError: boolean;
   errorMsg?: string;
 }
@@ -80,13 +94,23 @@ const DEFAULTS = {
   reactionTime: "1.5"
 };
 
-const CompactInput = ({ id, label, value, onChange, placeholder, suffix, step }: any) => (
+interface CompactInputProps {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (val: string) => void;
+  placeholder?: string;
+  suffix?: string;
+  step?: string;
+}
+
+const CompactInput = ({ id, label, value, onChange, placeholder, suffix, step }: CompactInputProps) => (
   <div className="flex flex-col">
     <label htmlFor={id} className="text-[11px] font-semibold text-muted-foreground mb-1 uppercase tracking-wider">
       {label}
     </label>
-    <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-9 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
-      <input id={id} type="number" step={step || "any"} placeholder={placeholder} value={value} onChange={(e) => onChange(e.target.value)} className="w-full h-full px-3 py-1 text-sm bg-transparent outline-none border-none text-foreground font-medium" />
+    <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-10 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
+      <input id={id} type="number" step={step || "any"} placeholder={placeholder} value={value} onChange={(e) => onChange(e.target.value)} className="w-full h-full px-3 py-1 text-base bg-transparent outline-none border-none text-foreground font-medium" />
       {suffix && <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0 font-semibold">{suffix}</span>}
     </div>
   </div>
@@ -119,11 +143,19 @@ export default function ReactionTimeCalculator() {
     setResults(calculateReaction(DEFAULTS));
   };
 
+  const handleCalculate = () => {
+    setResults(calculateReaction(inputs));
+  };
+
   const faqs = [
     { question: "What is Perception-Reaction Time?", answer: "Perception-Reaction Time (PRT) is the total amount of time it takes for a driver to see a hazard, process the danger in their brain, decide to stop, and physically move their foot to the brake pedal. Traffic engineers use 1.5 seconds as the standard PRT for an alert driver, though complex situations can push this to 2.5 seconds." },
     { question: "Why is texting and driving so dangerous?", answer: "If you take your eyes off the road to look at a text message for just 3 seconds while driving 60 MPH, your vehicle will travel over 260 feet completely blind. That is nearly the length of a football field. If a car stops in front of you during those 3 seconds, a crash is physically unavoidable." },
     { question: "How does alcohol affect reaction time?", answer: "Alcohol is a central nervous system depressant. It physically slows down the rate at which your brain can process visual information and send commands to your muscles. An intoxicated driver's reaction time can easily double or triple, meaning they will travel hundreds of extra feet before even attempting to apply the brakes." },
-    { question: "Is Reaction Distance the same as Stopping Distance?", answer: "No. Reaction Distance is the distance your car travels BEFORE you press the brakes. Once your foot presses the brake pedal, you enter the Braking Distance phase. Total Stopping Distance is the sum of both the Reaction Distance and the Braking Distance combined." }
+    { question: "Is Reaction Distance the same as Stopping Distance?", answer: "No. Reaction Distance is the distance your car travels BEFORE you press the brakes. Once your foot presses the brake pedal, you enter the Braking Distance phase. Total Stopping Distance is the sum of both the Reaction Distance and the Braking Distance combined." },
+    { question: "Which figure does the AASHTO design standard use?", answer: "The American Association of State Highway and Transportation Officials specifies 2.5 seconds of perception-reaction time when designing sight distance for roads. That is deliberately conservative and covers roughly 90 percent of drivers under unexpected conditions, not the median driver. The 1.5 second figure represents an alert driver who is actively anticipating a hazard, which is why the design standard is nearly a full second longer." },
+    { question: "Does age affect reaction time?", answer: "Yes, though less than people assume, and experience partly compensates. Simple reaction time gradually lengthens from roughly the mid-twenties onward, with most studies showing an increase on the order of 20 percent between age 25 and age 65. The larger age effect appears in complex situations that require choosing between responses rather than simply reacting, where processing time increases more sharply." },
+    { question: "How do I convert MPH to feet per second?", answer: "Multiply miles per hour by 1.46667. A mile is 5,280 feet and an hour is 3,600 seconds, so the conversion factor is 5280 divided by 3600, which equals 1.46667. At 60 MPH you cover 88 feet every second, a figure worth memorising because it makes the cost of any hesitation immediately obvious." },
+    { question: "Can reaction time be improved with training?", answer: "Modestly, and mostly through anticipation rather than raw neural speed. Advanced driving courses teach visual scanning techniques, hazard prediction and correct seating position, all of which reduce the perception component of the total time. The purely physiological portion, the time for a signal to travel from brain to muscle, is largely fixed. The far larger gains come from eliminating distraction, which can easily double the total." }
   ];
 
   return (
@@ -151,9 +183,12 @@ export default function ReactionTimeCalculator() {
               <button type="button" onClick={() => handlePreset("4.0")} className="text-xs py-2 px-3 border border-border rounded-md hover:bg-secondary transition-colors text-left font-medium">Texting (4.0s)</button>
             </div>
 
-            <div className="flex gap-2.5 mt-4">
-              <button type="button" onClick={handleReset} className="w-full rounded-md border border-border bg-background hover:bg-secondary text-foreground font-semibold h-11 transition-colors flex items-center justify-center gap-2 focus:outline-none shadow-sm">
-                <RotateCcw className="h-4 w-4" /> Reset
+            <div className="flex gap-2 mt-4">
+              <button type="button" onClick={handleCalculate} className="h-10 w-full rounded-md bg-primary text-primary-foreground font-semibold hover:opacity-90 transition">
+                Calculate
+              </button>
+              <button type="button" onClick={handleReset} aria-label="Reset" title="Reset" className="h-10 w-10 shrink-0 rounded-md border border-input bg-background text-foreground hover:bg-muted/50 transition flex items-center justify-center">
+                <RotateCcw className="h-4 w-4" />
               </button>
             </div>
             
@@ -259,6 +294,24 @@ export default function ReactionTimeCalculator() {
                   </div>
                 </div>
 
+                {/* 5. Summary Statistics */}
+                <div className="bg-muted/30 rounded-lg p-5 mt-2">
+                  <div className="text-sm font-bold text-foreground mb-3">Summary Statistics</div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-6 text-sm">
+                    {results.schedule.map((row) => (
+                      <div key={row.speed} className="flex justify-between gap-3">
+                        <span className="text-muted-foreground">{row.speed} MPH</span>
+                        <span className="text-foreground font-medium">{row.user} ft at your {inputs.reactionTime}s</span>
+                      </div>
+                    ))}
+                    <div className="flex justify-between gap-3 sm:col-span-2 border-t border-border pt-2 mt-1">
+                      <span className="font-bold text-foreground">At {inputs.speed} MPH</span>
+                      <span className="font-bold text-foreground">{results.distanceFt} ft / {results.distanceM} m</span>
+                    </div>
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-3">Distance travelled before the brakes are applied at all. Braking distance is additional.</p>
+                </div>
+
               </>
             )}
           </div>
@@ -288,19 +341,19 @@ export default function ReactionTimeCalculator() {
 
       <section className="mt-12 space-y-8 text-base text-foreground">
         <div>
-          <h2 className="text-2xl font-bold mb-3">What Is a Reaction Time Calculator?</h2>
-          <p className="text-muted-foreground leading-relaxed">The Reaction Time Calculator is a practical online tool designed to give you fast, reliable answers for everyday decisions. Whether you are planning a budget, comparing options, or verifying a quick estimate, this calculator removes the guesswork and delivers clear, actionable numbers. It is built for anyone who needs a dependable result without wading through spreadsheets or manual formulas. By focusing on the inputs that actually matter, the Reaction Time Calculator keeps the experience simple while still producing a trustworthy output you can act on with confidence.</p>
+          <h2 className="text-2xl font-bold mb-3">Reaction Distance Versus Total Stopping Distance</h2>
+          <p className="text-muted-foreground leading-relaxed">This calculator reports reaction distance, which is only the first of two components in a full stop. Reaction distance is the ground covered between the moment a hazard appears and the moment the brake pads make contact. Braking distance, the second component, is the ground covered while the vehicle actually decelerates. Total stopping distance is the sum of the two, and it grows much faster than most drivers expect because the two components scale differently. Reaction distance scales linearly with speed: double the speed and you double the blind distance. Braking distance scales with the square of speed, because kinetic energy is proportional to velocity squared, so doubling your speed quadruples the distance needed to shed that energy. At 30 MPH an alert driver needs roughly 66 feet of reaction distance plus about 45 feet of braking on dry asphalt. At 60 MPH those figures become 132 feet and roughly 180 feet. The speed doubled but the total stopping distance nearly tripled.</p>
         </div>
         <div>
-          <h2 className="text-2xl font-bold mb-3">How It Works</h2>
-          <p className="text-muted-foreground leading-relaxed">Using the Reaction Time Calculator is straightforward. Enter the key values in the input fields above, adjust any advanced options if they apply to your situation, and click the Calculate button. The calculator applies the standard industry formula behind the scenes and instantly updates every result component on the right, including the primary result card, the three-stat bar, the breakdown table, the chart, and the summary statistics. All inputs are pre-filled with realistic defaults so you see a complete result the moment the page loads. The tool validates your entries and handles edge cases such as zero, negative, or empty values without crashing, so you always get a clean, readable answer rather than an error or a NaN.</p>
+          <h2 className="text-2xl font-bold mb-3">What Actually Slows a Driver Down</h2>
+          <p className="text-muted-foreground leading-relaxed">Perception-reaction time is not a fixed personal constant; it varies enormously with circumstance. Expectation is the single largest factor. A driver who is actively anticipating a hazard, such as approaching a busy intersection on a green light, can respond in well under a second. The same driver encountering something genuinely unexpected, such as a vehicle emerging from a concealed driveway, may take two and a half seconds or more because the brain must first resolve what it is seeing before it can decide what to do. Complexity compounds this. Choosing between braking and steering takes measurably longer than simply braking. Fatigue, alcohol, medication and age all lengthen the physiological portion of the response, while phone use, in-car screens and conversation lengthen the perceptual portion by removing attention from the road entirely. The presets in this calculator span that realistic range, from a trained racing driver at one second to a texting driver at four.</p>
         </div>
         <div>
-          <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
-          <p className="text-muted-foreground leading-relaxed">The results panel is organized so the most important number is always at the top, followed by supporting metrics that put that number in context. The breakdown table shows exactly how each input contributes to the total, and the chart visualizes the distribution so you can spot the biggest drivers at a glance. Use the summary statistics block to cross-check the headline figure against the detailed rows, because the two are designed to match exactly. Adjust any input and click Calculate again to compare scenarios side by side, which makes the Reaction Time Calculator useful for both quick checks and deeper what-if analysis.</p>
+          <h2 className="text-2xl font-bold mb-3">Using This to Choose a Following Distance</h2>
+          <p className="text-muted-foreground leading-relaxed">The practical application of reaction distance is the following gap you keep. The widely taught three-second rule works because it is speed-independent: pick a fixed roadside object, and if you reach it less than three seconds after the vehicle ahead, you are too close. Three seconds covers a realistic perception-reaction time with margin left over, and because it is measured in time rather than car lengths it scales automatically as speed increases. Conditions demand more. Wet roads, night driving, heavy loads and poor visibility all justify extending to four or five seconds. Large vehicles need considerably more because their braking distance is far longer. Run your own honest reaction time through the calculator at your usual cruising speed, compare the resulting blind distance to the gap you actually keep, and the arithmetic tends to be more persuasive than any safety campaign.</p>
         </div>
       </section>
-          <PopularCalculators />
+          <PopularCalculators exclude="/calculator/reaction-time-calculator" />
         </div>
       </div>
     </>

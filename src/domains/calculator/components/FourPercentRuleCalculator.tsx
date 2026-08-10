@@ -123,14 +123,26 @@ const calculateRule = (
   };
 };
 
-const CustomTooltip = ({ active, payload, label }: any) => {
+interface TooltipEntry {
+  name?: string;
+  value?: number;
+  color?: string;
+}
+
+interface CustomTooltipProps {
+  active?: boolean;
+  payload?: TooltipEntry[];
+  label?: string | number;
+}
+
+const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
   if (active && payload && payload.length) {
     return (
       <div className="bg-card border border-border p-3 rounded-lg shadow-md text-sm text-foreground">
         <p className="font-bold mb-1">Year {label}</p>
-        {payload.map((entry: any, index: number) => (
+        {payload.map((entry, index) => (
           <p key={index} style={{ color: entry.color }} className="font-semibold">
-            {entry.name}: ${entry.value.toLocaleString("en-US", { maximumFractionDigits: 0 })}
+            {entry.name}: ${(entry.value ?? 0).toLocaleString("en-US", { maximumFractionDigits: 0 })}
           </p>
         ))}
       </div>
@@ -146,7 +158,9 @@ export default function FourPercentRuleCalculator() {
   const [inflation, setInflation] = useState("2.5");
   const [years, setYears] = useState("30");
   
-  const [results, setResults] = useState<RuleResults | null>(null);
+  const [results, setResults] = useState<RuleResults>(
+    calculateRule(1000000, 4.0, 6.0, 2.5, 30)
+  );
   const printRef = useRef<HTMLDivElement>(null);
 
   const handleCalculate = () => {
@@ -382,6 +396,54 @@ export default function FourPercentRuleCalculator() {
                   </div>
                 </div>
 
+                {/* 5. Summary Statistics */}
+                <div className="bg-muted/30 rounded-lg p-5">
+                  <div className="text-sm font-bold text-foreground mb-3">Summary Statistics</div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-6 text-sm">
+                    <div className="flex justify-between gap-3">
+                      <span className="text-muted-foreground">Starting portfolio</span>
+                      <span className="text-foreground font-medium">${(parseFloat(savings) || 0).toLocaleString("en-US", { maximumFractionDigits: 0 })}</span>
+                    </div>
+                    <div className="flex justify-between gap-3">
+                      <span className="text-muted-foreground">Initial withdrawal rate</span>
+                      <span className="text-foreground font-medium">{withdrawalRate}%</span>
+                    </div>
+                    <div className="flex justify-between gap-3">
+                      <span className="text-muted-foreground">First-year withdrawal</span>
+                      <span className="text-foreground font-medium">${results.initialAnnualWithdrawal.toLocaleString("en-US", { maximumFractionDigits: 0 })}</span>
+                    </div>
+                    <div className="flex justify-between gap-3">
+                      <span className="text-muted-foreground">First-year monthly income</span>
+                      <span className="text-foreground font-medium">${results.initialMonthlyWithdrawal.toLocaleString("en-US", { maximumFractionDigits: 0 })}</span>
+                    </div>
+                    <div className="flex justify-between gap-3">
+                      <span className="text-muted-foreground">Assumed annual return</span>
+                      <span className="text-foreground font-medium">{roi}%</span>
+                    </div>
+                    <div className="flex justify-between gap-3">
+                      <span className="text-muted-foreground">Assumed inflation</span>
+                      <span className="text-foreground font-medium">{inflation}%</span>
+                    </div>
+                    <div className="flex justify-between gap-3">
+                      <span className="text-muted-foreground">Years modelled</span>
+                      <span className="text-foreground font-medium">{years}</span>
+                    </div>
+                    <div className="flex justify-between gap-3">
+                      <span className="text-muted-foreground">Total withdrawn</span>
+                      <span className="text-foreground font-medium">${results.totalWithdrawn.toLocaleString("en-US", { maximumFractionDigits: 0 })}</span>
+                    </div>
+                    <div className="flex justify-between gap-3 sm:col-span-2 border-t border-border pt-2 mt-1">
+                      <span className="font-bold text-foreground">Ending balance after {years} years</span>
+                      <span className={`font-bold ${results.isSuccess ? "text-green-600" : "text-red-500"}`}>
+                        ${results.endingBalance.toLocaleString("en-US", { maximumFractionDigits: 0 })}
+                      </span>
+                    </div>
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-3">
+                    Figures are nominal. The withdrawal grows with inflation each year while the portfolio compounds at the assumed return.
+                  </p>
+                </div>
+
               </div>
             )}
           </div>
@@ -453,11 +515,13 @@ export default function FourPercentRuleCalculator() {
           { question: "Should I adjust my withdrawal if the market crashes?", answer: "While the strict 4% rule says no, practical reality says yes. Being willing to reduce your spending by 5-10% during a severe bear market dramatically increases the likelihood that your portfolio will survive." },
           { question: "What asset allocation is required for the 4% rule?", answer: "The original Trinity Study was based on a portfolio holding 50% to 75% large-cap U.S. stocks, with the remainder in intermediate-term bonds. A portfolio that is 100% bonds or cash will almost certainly fail the 4% rule due to inflation." },
           { question: "Is the 4% rule guaranteed?", answer: "No. It is based on historical data. While the U.S. stock market has always recovered historically, past performance is no guarantee of future results. It is a highly reliable rule of thumb, not an absolute guarantee." },
-          { question: "Do I have to use exactly 4%?", answer: "Not at all. You can use 3%, 4.5%, or 5% depending on your risk tolerance, age, and flexibility. Our calculator allows you to test any initial withdrawal rate you choose." }
-        ]} />
+          { question: "Do I have to use exactly 4%?", answer: "Not at all. You can use 3%, 4.5%, or 5% depending on your risk tolerance, age, and flexibility. Our calculator allows you to test any initial withdrawal rate you choose." },
+          { question: "What is sequence-of-returns risk?", answer: "It is the danger that your portfolio experiences its worst returns in the first years of retirement, while the portfolio is at its largest. A market crash in year one or two, followed by inflation-adjusted withdrawals that keep growing, can permanently cripple a portfolio that would have survived the identical average return arranged in a different order. This is the single most important reason the 4% rule deserves respect: the average return of a retirement portfolio matters far less than the order in which the returns arrive." },
+          { question: "How much should I have saved before retiring?", answer: "The rule works backwards from your annual spending. If you need $40,000 a year from your investments, you need $1,000,000 saved to withdraw 4% of it. Multiply your desired first-year income by 25 to get the target portfolio, since 25 is the reciprocal of 4%. If you want to be more conservative at a 3.5% rate, the multiplier becomes roughly 28.6. The calculator lets you flip the question around: enter your savings and it shows what income a given rate supports." }
+        ]} pageUrl="https://racira.com/calculator/4-rule-calculator" />
 
         <div className="mt-12">
-          <PopularCalculators />
+          <PopularCalculators exclude="/calculator/4-rule-calculator" />
         </div>
       </div>
     </>
