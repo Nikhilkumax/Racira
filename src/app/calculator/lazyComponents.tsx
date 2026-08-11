@@ -1311,6 +1311,10 @@ const calculatorComponents: Record<string, () => Promise<any>> = {
   "recipe-cost-calculator": () => import("@/domains/calculator/components/RecipeCostCalculator"),
   "4-rule-calculator": () => import("@/domains/calculator/components/FourPercentRuleCalculator"),
   "javelin-throw-distance-calculator": () => import("@/domains/calculator/components/JavelinThrowDistanceCalculator"),
+  "tractive-effort-calculator": () => import("@/domains/calculator/components/TractiveEffortCalculator"),
+  "price-per-use-calculator": () => import("@/domains/calculator/components/PricePerUseCalculator"),
+  "clausius-clapeyron-calculator": () => import("@/domains/calculator/components/ClausiusClapeyronCalculator"),
+  "clausius-clapeyron-phase-transition-calculator": () => import("@/domains/calculator/components/ClausiusClapeyronCalculator"),
 
 };
 

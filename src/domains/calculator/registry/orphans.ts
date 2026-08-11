@@ -116,7 +116,7 @@ export const orphanedCalculators: CalculatorDef[] = [
   {
     slug: "car-wash-cost-calculator",
     name: "Car Wash Cost Calculator",
-    description: "Car Wash Cost Calculator — calculate and convert instantly",
+    description: "Compare pay-per-wash, subscription and at-home washing on the same frequency, with the subscription break-even and the time cost.",
     category: "EVERYDAY_LIFE",
     subcategory: "Other Utilities",
     status: "live"

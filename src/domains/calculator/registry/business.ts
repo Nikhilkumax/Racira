@@ -108,7 +108,7 @@ export const businessCalculators: CalculatorDef[] = [
   {
     slug: "cold-chain-compliance-cost-calculator", name: "Cold Chain Compliance Cost Calculator", description: "Calculate Cold Chain Compliance Cost Calculator online with our free tool.", category: "BUSINESS", subcategory: "Logistics & Trade", tier: "Tier2", priorityScore: 60, status: "live" },
   {
-    slug: "consignment-inventory-cost-calculator", name: "Consignment Inventory Cost Calculator", description: "Calculate Consignment Inventory Cost Calculator online with our free tool.", category: "BUSINESS", subcategory: "Logistics & Trade", tier: "Tier2", priorityScore: 60, status: "live" },
+    slug: "consignment-inventory-cost-calculator", name: "Consignment Inventory Cost Calculator", description: "Quantify the supplier's holding cost, shrinkage and freight risk on consignment terms, and the margin uplift needed to break even.", category: "BUSINESS", subcategory: "Logistics & Trade", tier: "Tier2", priorityScore: 60, status: "live" },
   {
     slug: "cost-per-shipment-calculator", name: "Cost Per Shipment Calculator", description: "Calculate Cost Per Shipment Calculator online with our free tool.", category: "BUSINESS", subcategory: "Logistics & Trade", tier: "Tier2", priorityScore: 60, status: "live" },
   {

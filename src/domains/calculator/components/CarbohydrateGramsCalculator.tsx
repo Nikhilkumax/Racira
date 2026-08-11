@@ -5,7 +5,7 @@ import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import { Printer, RotateCcw, ActivitySquare, AlertTriangle, PieChart as PieChartIcon } from "lucide-react";
+import { Printer, RotateCcw, AlertTriangle, PieChart as PieChartIcon } from "lucide-react";
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from "recharts";
 
 // 1. TypeScript Interfaces
@@ -15,31 +15,62 @@ interface CarbInputs {
   fatPercent: number;
 }
 
+interface ChartSlice {
+  id: string;
+  name: string;
+  value: number;
+  color: string;
+}
+
+interface TableRow {
+  rowId: string;
+  label: string;
+  value: string;
+  key?: boolean;
+  total?: boolean;
+}
+
 interface CarbResults {
   carbPercent: number;
   carbCalories: number;
   carbGrams: number;
-  
+
   proteinCalories: number;
   proteinGrams: number;
-  
+
   fatCalories: number;
   fatGrams: number;
 
-  chartData: { name: string; value: number; color: string }[];
+  carbsPerMeal: number;
+  fiberTarget: number;
+  addedSugarLimit: number;
+  netStarchGrams: number;
+  meetsBrainMinimum: boolean;
+  band: "Low-carb" | "Moderate" | "High-carb";
+
+  chartData: ChartSlice[];
   error?: string;
 }
+
+// Institute of Medicine RDA: 130 g/day of carbohydrate covers the brain's glucose demand
+const BRAIN_GLUCOSE_RDA = 130;
+// Dietary Guidelines for Americans: 14 g fibre per 1,000 kcal
+const FIBRE_PER_1000_KCAL = 14;
+// WHO / DGA ceiling on added sugar: 10% of total energy
+const ADDED_SUGAR_CEILING_PCT = 10;
 
 // 2. Pure Calculation Function
 const calculateCarbGrams = (inputs: CarbInputs): CarbResults => {
   const { calories, proteinPercent, fatPercent } = inputs;
-  
+
   const carbPercent = 100 - proteinPercent - fatPercent;
-  
+
   if (carbPercent < 0) {
     return {
       carbPercent: 0, carbCalories: 0, carbGrams: 0,
       proteinCalories: 0, proteinGrams: 0, fatCalories: 0, fatGrams: 0,
+      carbsPerMeal: 0, fiberTarget: 0, addedSugarLimit: 0, netStarchGrams: 0,
+      meetsBrainMinimum: false, band: "Low-carb",
       chartData: [],
       error: "Protein and Fat percentages exceed 100%."
     };
@@ -54,10 +85,17 @@ const calculateCarbGrams = (inputs: CarbInputs): CarbResults => {
   const fatGrams = fatCalories / 9;
   const carbGrams = carbCalories / 4;
 
-  const chartData = [
-    { name: "Carbohydrates", value: Math.round(carbCalories), color: "#3b82f6" }, // Blue
-    { name: "Protein", value: Math.round(proteinCalories), color: "#ef4444" },   // Red
-    { name: "Fat", value: Math.round(fatCalories), color: "#f59e0b" }            // Amber
+  const fiberTarget = (calories / 1000) * FIBRE_PER_1000_KCAL;
+  const addedSugarLimit = (calories * (ADDED_SUGAR_CEILING_PCT / 100)) / 4;
+  const netStarchGrams = Math.max(0, carbGrams - fiberTarget);
+
+  const band: CarbResults["band"] =
+    carbPercent < 30 ? "Low-carb" : carbPercent > 55 ? "High-carb" : "Moderate";
+
+  const chartData: ChartSlice[] = [
+    { id: "carb", name: "Carbohydrates", value: Math.round(carbCalories), color: "hsl(217 91% 60%)" },
+    { id: "protein", name: "Protein", value: Math.round(proteinCalories), color: "hsl(0 84% 60%)" },
+    { id: "fat", name: "Fat", value: Math.round(fatCalories), color: "hsl(25 95% 53%)" }
   ];
 
   return {
@@ -68,6 +106,12 @@ const calculateCarbGrams = (inputs: CarbInputs): CarbResults => {
     proteinGrams: Math.round(proteinGrams),
     fatCalories: Math.round(fatCalories),
     fatGrams: Math.round(fatGrams),
+    carbsPerMeal: Math.round(carbGrams / 3),
+    fiberTarget: Math.round(fiberTarget),
+    addedSugarLimit: Math.round(addedSugarLimit),
+    netStarchGrams: Math.round(netStarchGrams),
+    meetsBrainMinimum: carbGrams >= BRAIN_GLUCOSE_RDA,
+    band,
     chartData
   };
 };
@@ -79,8 +123,24 @@ const DEFAULTS = {
   fatPercent: "25"
 };
 
+const DEFAULT_RESULTS = calculateCarbGrams({
+  calories: parseFloat(DEFAULTS.calories),
+  proteinPercent: parseFloat(DEFAULTS.proteinPercent),
+  fatPercent: parseFloat(DEFAULTS.fatPercent)
+});
+
+interface TooltipEntry {
+  value: number;
+  payload: ChartSlice;
+}
+
+interface CustomTooltipProps {
+  active?: boolean;
+  payload?: TooltipEntry[];
+}
+
 // Custom Chart Tooltip
-const CustomTooltip = ({ active, payload }: any) => {
+const CustomTooltip = ({ active, payload }: CustomTooltipProps) => {
   if (active && payload && payload.length) {
     return (
       <div className="bg-card border border-border p-2.5 rounded-lg shadow-md text-xs font-semibold text-foreground">
@@ -92,10 +152,23 @@ const CustomTooltip = ({ active, payload }: any) => {
   return null;
 };
 
+interface CompactInputProps {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  prefix?: string;
+  suffix?: string;
+  type?: string;
+  min?: number;
+  max?: number;
+  step?: number;
+}
+
 // Input Component
-const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "number", ...props }: any) => (
+const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "number", ...props }: CompactInputProps) => (
   <div className="flex flex-col">
-    <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1.5">
+    <label htmlFor={id} className="flex items-center text-sm font-medium text-foreground mb-1">
       {label}
     </label>
     <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-10 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
@@ -120,7 +193,8 @@ export default function CarbohydrateGramsCalculator() {
   const [fatPercent, setFatPercent] = useState(DEFAULTS.fatPercent);
   const [errorMsg, setErrorMsg] = useState("");
   
-  const [results, setResults] = useState<CarbResults | null>(null);
+  const [results, setResults] = useState<CarbResults | null>(DEFAULT_RESULTS);
+  const [mounted, setMounted] = useState(false);
   const printRef = useRef<HTMLDivElement>(null);
 
   const handleCalculate = () => {
@@ -163,6 +237,7 @@ export default function CarbohydrateGramsCalculator() {
   };
 
   useEffect(() => {
+    setMounted(true);
     handleCalculate();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [calories, proteinPercent, fatPercent]);
@@ -178,12 +253,32 @@ export default function CarbohydrateGramsCalculator() {
     w.print();
   };
 
+  const tableRows: TableRow[] = results && !results.error
+    ? [
+        { rowId: "calories", label: "Total daily calories", value: `${parseFloat(calories || "0").toLocaleString()} kcal` },
+        { rowId: "protein-pct", label: `Protein allocation (${proteinPercent}%)`, value: `${results.proteinCalories.toLocaleString()} kcal` },
+        { rowId: "protein-g", label: "Protein grams (÷ 4 kcal/g)", value: `${results.proteinGrams} g` },
+        { rowId: "fat-pct", label: `Fat allocation (${fatPercent}%)`, value: `${results.fatCalories.toLocaleString()} kcal` },
+        { rowId: "fat-g", label: "Fat grams (÷ 9 kcal/g)", value: `${results.fatGrams} g` },
+        { rowId: "carb-pct", label: `Carbohydrate remainder (${results.carbPercent}%)`, value: `${results.carbCalories.toLocaleString()} kcal` },
+        { rowId: "carb-g", label: "Carbohydrate grams (÷ 4 kcal/g)", value: `${results.carbGrams} g`, key: true },
+        { rowId: "per-meal", label: "Carbs per meal (3 meals)", value: `${results.carbsPerMeal} g` },
+        { rowId: "fiber", label: "Fibre target (14 g / 1,000 kcal)", value: `${results.fiberTarget} g` },
+        { rowId: "starch", label: "Non-fibre carbohydrate", value: `${results.netStarchGrams} g` },
+        { rowId: "sugar", label: "Added-sugar ceiling (10% of kcal)", value: `${results.addedSugarLimit} g` },
+        { rowId: "total", label: "Macros check (P + F + C calories)", value: `${(results.proteinCalories + results.fatCalories + results.carbCalories).toLocaleString()} kcal`, total: true },
+      ]
+    : [];
+
   const faqs = [
     { question: "How are carbohydrates calculated from remaining calories?", answer: "Carbohydrates are considered the 'flexible macro.' Once you establish your Daily Calorie Target, and subtract your fixed goals for Protein and Fat, the remaining calories are entirely allocated to carbohydrates. Since every 1 gram of carbohydrate yields 4 calories, you simply divide the remaining calories by 4 to get your exact gram target." },
     { question: "How many calories are in each macronutrient?", answer: "Protein yields 4 calories per gram. Carbohydrates also yield 4 calories per gram. Dietary fats are far more energy-dense, yielding 9 calories per gram." },
     { question: "Why do athletes need so many carbohydrates?", answer: "Carbohydrates are the body's preferred and most efficient source of high-intensity energy. When you eat carbohydrates, they are converted into glycogen and stored in your muscles and liver. During intense exercise (like heavy weightlifting or sprinting), your body rapidly depletes these glycogen stores. Eating adequate carbs ensures those stores are replenished so you can perform optimally the next day." },
     { question: "Will eating carbohydrates make me gain fat?", answer: "No. Carbohydrates themselves do not cause fat gain. Fat gain is driven exclusively by a sustained caloric surplus (eating more total calories—from any macronutrient—than your body burns in a day). As long as you remain in a caloric deficit or maintenance, you will not gain body fat, regardless of your carbohydrate intake." },
-    { question: "What is a normal carbohydrate percentage?", answer: "For the average active adult, a balanced diet consists of 40% to 50% carbohydrates. Endurance athletes (runners, cyclists) often push this to 55% or 60% to maximize glycogen availability. Conversely, those following a ketogenic diet heavily restrict carbohydrates to roughly 5% of their total daily intake." }
+    { question: "What is a normal carbohydrate percentage?", answer: "For the average active adult, a balanced diet consists of 40% to 50% carbohydrates. Endurance athletes (runners, cyclists) often push this to 55% or 60% to maximize glycogen availability. Conversely, those following a ketogenic diet heavily restrict carbohydrates to roughly 5% of their total daily intake." },
+    { question: "Is there a minimum carbohydrate intake I should not go below?", answer: "The Institute of Medicine sets the RDA for carbohydrate at 130 grams per day, which is the amount needed to supply the brain and central nervous system with glucose without relying on ketones or on protein being converted to glucose. This calculator flags your target when it falls below 130 grams. Very-low-carbohydrate and ketogenic diets deliberately go below that figure and can be done safely, but they are a specific therapeutic choice rather than a general recommendation." },
+    { question: "How much of my carbohydrate target should come from fibre?", answer: "The Dietary Guidelines for Americans recommend roughly 14 grams of fibre per 1,000 calories consumed, so a 2,000-calorie diet works out to about 28 grams. This calculator subtracts your fibre target from your total carbohydrate grams to show how much is left for starches and sugars. Fibre counts toward the carbohydrate total on a nutrition label but is largely not absorbed as energy, which is why some people track net carbohydrate instead." },
+    { question: "Should I spread my carbohydrates evenly across the day?", answer: "Total daily intake matters far more than timing for body composition, so an even split across three meals is a reasonable default and is what the per-meal figure here assumes. Timing does matter for performance: eating a larger share of your carbohydrates in the one to three hours before hard training and in the window shortly after tops up muscle glycogen when it is most useful. If you train fasted in the morning, shift those grams to later in the day instead." }
   ];
 
   return (
@@ -192,7 +287,7 @@ export default function CarbohydrateGramsCalculator() {
       <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Carbohydrate Grams Calculator</h1>
 
-        <div className="grid grid-cols-1 xl:grid-cols-[460px_1fr] gap-6 items-start max-w-[1280px]">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           
           {/* LEFT: Inputs */}
           <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
@@ -231,84 +326,113 @@ export default function CarbohydrateGramsCalculator() {
           <div className="flex flex-col gap-4">
             {results && !errorMsg ? (
               <div ref={printRef} className="flex flex-col gap-4 animate-fade-in-up">
-                
+
                 {/* 1. Primary Result Card */}
-                <div className="bg-blue-500 text-white rounded-lg p-6 relative overflow-hidden shadow-sm">
-                  <button onClick={handlePrint} className="absolute top-4 right-4 text-blue-200 hover:text-white transition-colors print:hidden z-10" aria-label="Print Results">
-                    <Printer className="h-4 w-4" />
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative">
+                  <button onClick={handlePrint} className="absolute top-4 right-4 print:hidden" aria-label="Print Results">
+                    <Printer className="h-4 w-4 text-muted-foreground hover:text-foreground transition-colors" />
                   </button>
-                  <div className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                    <div>
-                      <div className="text-blue-100 text-sm font-bold uppercase tracking-wider mb-1">
-                        Daily Carbohydrate Target
-                      </div>
-                      <div className="flex items-baseline gap-2">
-                        <div className="text-6xl font-extrabold tracking-tight">{results.carbGrams}</div>
-                        <div className="text-xl font-bold text-blue-200">grams</div>
-                      </div>
-                      <div className="text-sm font-medium text-blue-100 mt-2 bg-blue-600/50 inline-block px-3 py-1 rounded-full">
-                        {results.carbPercent}% of Total Diet ({results.carbCalories} kcal)
-                      </div>
-                    </div>
+                  <div className="text-sm font-bold uppercase tracking-wider text-primary mb-1">
+                    Daily Carbohydrate Target
                   </div>
-                  <PieChartIcon className="absolute -bottom-6 -right-6 h-40 w-40 opacity-10" />
+                  <div className="flex items-baseline gap-2">
+                    <div className="text-4xl font-bold text-primary tracking-tight">{results.carbGrams}</div>
+                    <div className="text-lg font-semibold text-muted-foreground">grams / day</div>
+                  </div>
+                  <div className="text-sm font-medium text-muted-foreground mt-2">
+                    {results.carbPercent}% of total diet &middot; {results.carbCalories.toLocaleString()} kcal &middot;{" "}
+                    <span className={results.meetsBrainMinimum ? "text-emerald-600 dark:text-emerald-400 font-semibold" : "text-orange-500 font-semibold"}>
+                      {results.meetsBrainMinimum ? "meets" : "below"} the 130 g RDA
+                    </span>
+                  </div>
+                </div>
+
+                {/* 2. Three-stat bar */}
+                <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card shadow-sm">
+                  <div className="p-4 text-center">
+                    <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">Protein</div>
+                    <div className="text-2xl font-bold" style={{ color: "hsl(0 84% 60%)" }}>{results.proteinGrams} g</div>
+                    <div className="text-xs text-muted-foreground mt-0.5">{results.proteinCalories.toLocaleString()} kcal</div>
+                  </div>
+                  <div className="p-4 text-center border-l border-border">
+                    <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">Fat</div>
+                    <div className="text-2xl font-bold" style={{ color: "hsl(25 95% 53%)" }}>{results.fatGrams} g</div>
+                    <div className="text-xs text-muted-foreground mt-0.5">{results.fatCalories.toLocaleString()} kcal</div>
+                  </div>
+                  <div className="p-4 text-center border-l border-border">
+                    <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">Carbs</div>
+                    <div className="text-2xl font-bold" style={{ color: "hsl(142 71% 45%)" }}>{results.carbGrams} g</div>
+                    <div className="text-xs text-muted-foreground mt-0.5">{results.carbCalories.toLocaleString()} kcal</div>
+                  </div>
                 </div>
 
                 <div className="grid lg:grid-cols-2 gap-4">
-                  {/* 2. Full Macro Breakdown */}
-                  <div className="bg-card border border-border rounded-lg p-5 h-full">
-                    <h3 className="text-base font-bold mb-4">Complete Macro Profile</h3>
-                    <div className="flex flex-col gap-3">
-                      <div className="bg-blue-500/10 border border-blue-500/20 p-3 rounded-lg flex justify-between items-center">
-                        <div>
-                          <div className="text-sm font-bold text-blue-600 dark:text-blue-400">Carbohydrates</div>
-                          <div className="text-xs text-muted-foreground">{results.carbPercent}% • {results.carbCalories} kcal</div>
-                        </div>
-                        <div className="text-lg font-black">{results.carbGrams}g</div>
-                      </div>
-                      
-                      <div className="bg-red-500/10 border border-red-500/20 p-3 rounded-lg flex justify-between items-center">
-                        <div>
-                          <div className="text-sm font-bold text-red-600 dark:text-red-400">Protein</div>
-                          <div className="text-xs text-muted-foreground">{proteinPercent}% • {results.proteinCalories} kcal</div>
-                        </div>
-                        <div className="text-lg font-black">{results.proteinGrams}g</div>
-                      </div>
-
-                      <div className="bg-amber-500/10 border border-amber-500/20 p-3 rounded-lg flex justify-between items-center">
-                        <div>
-                          <div className="text-sm font-bold text-amber-600 dark:text-amber-400">Dietary Fat</div>
-                          <div className="text-xs text-muted-foreground">{fatPercent}% • {results.fatCalories} kcal</div>
-                        </div>
-                        <div className="text-lg font-black">{results.fatGrams}g</div>
-                      </div>
-                    </div>
+                  {/* 3. Breakdown Table */}
+                  <div className="card-calculator !p-5 border border-border bg-card h-full">
+                    <h3 className="text-base font-bold text-foreground mb-3">Macronutrient Breakdown</h3>
+                    <table className="w-full text-base border-collapse">
+                      <tbody>
+                        {tableRows.map((r) => (
+                          <tr
+                            key={r.rowId}
+                            className={`border-b border-border/60 last:border-0 ${r.key ? "bg-primary/10" : ""} ${r.total ? "border-t-2 border-t-border font-bold" : ""}`}
+                          >
+                            <td className={`py-2.5 px-3 ${r.key ? "font-semibold text-foreground" : "text-muted-foreground"}`}>{r.label}</td>
+                            <td className={`py-2.5 px-3 text-right tabular-nums ${r.key ? "font-bold text-primary" : "text-foreground"}`}>{r.value}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
                   </div>
 
-                  {/* 3. Donut Chart */}
+                  {/* 4. Donut Chart */}
                   <div className="card-calculator !p-5 border border-border bg-card flex flex-col justify-center items-center h-full min-h-[260px]">
                     <h3 className="text-base font-bold mb-2 w-full text-left">Caloric Distribution</h3>
-                    <ResponsiveContainer width="100%" height={200}>
-                      <PieChart>
-                        <Pie
-                          data={results.chartData}
-                          cx="50%"
-                          cy="50%"
-                          innerRadius={60}
-                          outerRadius={80}
-                          paddingAngle={3}
-                          dataKey="value"
-                          stroke="none"
-                        >
-                          {results.chartData.map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={entry.color} />
-                          ))}
-                        </Pie>
-                        <Tooltip content={<CustomTooltip />} />
-                        <Legend wrapperStyle={{ fontSize: '12px', fontWeight: 'bold' }} />
-                      </PieChart>
-                    </ResponsiveContainer>
+                    <div className="w-full" style={{ height: 200 }}>
+                      {mounted ? (
+                        <ResponsiveContainer width="100%" height="100%">
+                          <PieChart>
+                            <Pie
+                              data={results.chartData}
+                              cx="50%"
+                              cy="50%"
+                              innerRadius={60}
+                              outerRadius={80}
+                              paddingAngle={3}
+                              dataKey="value"
+                              stroke="none"
+                            >
+                              {results.chartData.map((entry) => (
+                                <Cell key={entry.id} fill={entry.color} />
+                              ))}
+                            </Pie>
+                            <Tooltip content={<CustomTooltip />} />
+                            <Legend wrapperStyle={{ fontSize: 12, fontWeight: "bold" }} />
+                          </PieChart>
+                        </ResponsiveContainer>
+                      ) : null}
+                    </div>
                   </div>
+                </div>
+
+                {/* 5. Summary Statistics */}
+                <div className="bg-muted/30 rounded-lg p-5">
+                  <h3 className="text-base font-bold text-foreground mb-3">Summary Statistics</h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2">
+                    {tableRows.map((r) => (
+                      <div key={r.rowId} className="flex justify-between gap-3 text-sm border-b border-border/40 py-1.5 last:border-0">
+                        <span className="text-muted-foreground">{r.label}</span>
+                        <span className={`tabular-nums ${r.key ? "font-bold text-primary" : "font-medium text-foreground"}`}>{r.value}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-3">
+                    This plan sits in the <strong>{results.band}</strong> range ({results.carbPercent}% of calories from carbohydrate).{" "}
+                    {results.meetsBrainMinimum
+                      ? `Your ${results.carbGrams} g target clears the 130 g Institute of Medicine RDA, so the brain's glucose supply is covered without needing to make glucose from protein.`
+                      : `At ${results.carbGrams} g you are below the 130 g Institute of Medicine RDA. That is fine on a deliberate low-carbohydrate diet, but most active people perform better at or above the RDA.`}{" "}
+                    Aim for at least {results.fiberTarget} g of fibre and keep added sugar under {results.addedSugarLimit} g.
+                  </p>
                 </div>
 
               </div>

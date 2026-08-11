@@ -4,7 +4,18 @@ import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
-import { RotateCcw, Calculator } from "lucide-react";
+import { RotateCcw } from "lucide-react";
+import {
+  BarChart as RBar,
+  Bar,
+  Cell,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip as RTooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 
 interface Step {
   action: string;
@@ -15,12 +26,31 @@ interface Step {
   isBringingDown?: boolean;
 }
 
+interface Contribution {
+  id: string;
+  label: string;
+  value: number;
+}
+
+interface TableRow {
+  rowId: string;
+  label: string;
+  value: string;
+  key?: boolean;
+  total?: boolean;
+}
+
 interface DivisionResult {
   dividend: number;
   divisor: number;
   quotient: number;
   remainder: number;
   decimalResult: number;
+  quotientDigitCount: number;
+  divisionSteps: number;
+  dividesEvenly: boolean;
+  productCheck: number;
+  contributions: Contribution[];
   steps: Step[];
 }
 
@@ -32,9 +62,10 @@ const performLongDivision = (dividendStr: string, divisorStr: string): DivisionR
 
   const steps: Step[] = [];
   const divStr = dividend.toString();
-  
+
   let currentPartStr = "";
   let quotientStr = "";
+  let divisionSteps = 0;
 
   for (let i = 0; i < divStr.length; i++) {
     currentPartStr += divStr[i];
@@ -44,6 +75,7 @@ const performLongDivision = (dividendStr: string, divisorStr: string): DivisionR
       const qDigit = Math.floor(currentPart / divisor);
       const subtrahend = qDigit * divisor;
       const rem = currentPart - subtrahend;
+      divisionSteps++;
 
       steps.push({
         action: `Divide ${currentPart} by ${divisor} = ${qDigit} with remainder ${rem}`,
@@ -55,11 +87,11 @@ const performLongDivision = (dividendStr: string, divisorStr: string): DivisionR
 
       quotientStr += qDigit.toString();
       currentPartStr = rem.toString();
-      
+
       // If there are more digits, we'll "bring down" the next one in the next iteration
       if (i < divStr.length - 1) {
         steps.push({
-          action: `Bring down ${divStr[i+1]} to make ${currentPartStr === "0" ? "" : currentPartStr}${divStr[i+1]}`,
+          action: `Bring down ${divStr[i + 1]} to make ${rem === 0 ? "" : rem}${divStr[i + 1]}`,
           currentDividendPart: rem.toString(),
           quotientDigit: "",
           isBringingDown: true
@@ -70,6 +102,7 @@ const performLongDivision = (dividendStr: string, divisorStr: string): DivisionR
       // If we've started building the quotient, we must add a 0
       if (quotientStr.length > 0) {
         quotientStr += "0";
+        divisionSteps++;
         steps.push({
           action: `${currentPart} is less than ${divisor}, add 0 to quotient`,
           currentDividendPart: currentPart.toString(),
@@ -77,10 +110,10 @@ const performLongDivision = (dividendStr: string, divisorStr: string): DivisionR
           subtrahend: 0,
           remainder: currentPart
         });
-        
+
         if (i < divStr.length - 1) {
           steps.push({
-            action: `Bring down ${divStr[i+1]} to make ${currentPartStr === "0" ? "" : currentPartStr}${divStr[i+1]}`,
+            action: `Bring down ${divStr[i + 1]} to make ${currentPart === 0 ? "" : currentPart}${divStr[i + 1]}`,
             currentDividendPart: currentPart.toString(),
             quotientDigit: "",
             isBringingDown: true
@@ -90,7 +123,7 @@ const performLongDivision = (dividendStr: string, divisorStr: string): DivisionR
         // Just bringing down the next digit at the very beginning
         if (i < divStr.length - 1) {
           steps.push({
-            action: `${currentPart} is less than ${divisor}. Look at next digit: ${currentPartStr}${divStr[i+1]}`,
+            action: `${currentPart} is less than ${divisor}. Look at next digit: ${currentPart}${divStr[i + 1]}`,
             currentDividendPart: currentPart.toString(),
             quotientDigit: "",
             isBringingDown: true
@@ -103,42 +136,102 @@ const performLongDivision = (dividendStr: string, divisorStr: string): DivisionR
   const finalQuotient = quotientStr === "" ? 0 : parseInt(quotientStr, 10);
   const finalRemainder = parseInt(currentPartStr === "" ? "0" : currentPartStr, 10);
 
+  // Place-value decomposition: each quotient digit accounts for a slice of the dividend
+  const contributions: Contribution[] = [];
+  const qDigits = finalQuotient.toString();
+  for (let i = 0; i < qDigits.length; i++) {
+    const digit = parseInt(qDigits[i], 10);
+    const place = Math.pow(10, qDigits.length - 1 - i);
+    const value = digit * place * divisor;
+    contributions.push({
+      id: `q-${i}`,
+      label: place === 1 ? `${digit} × ${divisor}` : `${digit} × ${place} × ${divisor}`,
+      value,
+    });
+  }
+  if (finalRemainder > 0) {
+    contributions.push({ id: "rem", label: `Remainder ${finalRemainder}`, value: finalRemainder });
+  }
+
   return {
     dividend,
     divisor,
     quotient: finalQuotient,
     remainder: finalRemainder,
     decimalResult: dividend / divisor,
+    quotientDigitCount: finalQuotient.toString().length,
+    divisionSteps,
+    dividesEvenly: finalRemainder === 0,
+    productCheck: finalQuotient * divisor,
+    contributions,
     steps
   };
 };
 
-const LongDivisionCalculator = () => {
-  const [dividend, setDividend] = useState("4852");
-  const [divisor, setDivisor] = useState("12");
+const DEFAULT_DIVIDEND = "4852";
+const DEFAULT_DIVISOR = "12";
 
-  const [result, setResult] = useState<DivisionResult | null>(null);
+const LongDivisionCalculator = () => {
+  const [dividend, setDividend] = useState(DEFAULT_DIVIDEND);
+  const [divisor, setDivisor] = useState(DEFAULT_DIVISOR);
+  const [mounted, setMounted] = useState(false);
+
+  const [result, setResult] = useState<DivisionResult | null>(
+    performLongDivision(DEFAULT_DIVIDEND, DEFAULT_DIVISOR)
+  );
 
   const calculate = () => {
     setResult(performLongDivision(dividend, divisor));
   };
 
-  useEffect(() => { calculate(); }, []);
+  useEffect(() => {
+    setMounted(true);
+    calculate();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const reset = () => {
-    setDividend("4852"); setDivisor("12");
-    setResult(performLongDivision("4852", "12"));
+    setDividend(DEFAULT_DIVIDEND);
+    setDivisor(DEFAULT_DIVISOR);
+    setResult(performLongDivision(DEFAULT_DIVIDEND, DEFAULT_DIVISOR));
   };
 
   const wrap = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
   const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground";
+
+  const tableRows: TableRow[] = result
+    ? [
+        { rowId: "dividend", label: "Dividend (number being divided)", value: result.dividend.toLocaleString() },
+        { rowId: "divisor", label: "Divisor (number you divide by)", value: result.divisor.toLocaleString() },
+        { rowId: "quotient", label: "Quotient (whole-number answer)", value: result.quotient.toLocaleString(), key: true },
+        { rowId: "remainder", label: "Remainder (left over)", value: result.remainder.toLocaleString() },
+        { rowId: "digits", label: "Digits in the quotient", value: `${result.quotientDigitCount}` },
+        { rowId: "steps", label: "Division steps performed", value: `${result.divisionSteps}` },
+        { rowId: "product", label: `Check: ${result.quotient.toLocaleString()} × ${result.divisor}`, value: result.productCheck.toLocaleString() },
+        { rowId: "even", label: "Divides evenly?", value: result.dividesEvenly ? "Yes" : "No" },
+        { rowId: "decimal", label: "Decimal equivalent", value: result.decimalResult.toPrecision(8).replace(/\.?0+$/, "") },
+        { rowId: "verify", label: `Verification: ${result.productCheck.toLocaleString()} + ${result.remainder}`, value: (result.productCheck + result.remainder).toLocaleString(), total: true },
+      ]
+    : [];
+
+  const chartData = result
+    ? result.contributions.map((c) => ({
+        id: c.id,
+        name: c.label,
+        value: c.value,
+        isRemainder: c.id === "rem",
+      }))
+    : [];
 
   const faqs = [
     { question: "What is long division?", answer: "Long division is a standard mathematical algorithm used to divide large numbers by breaking the problem down into a series of easier, smaller steps. It involves repeated cycles of dividing, multiplying, subtracting, and bringing down the next digit." },
     { question: "What do dividend, divisor, quotient, and remainder mean?", answer: "The Dividend is the number being divided. The Divisor is the number you are dividing by. The Quotient is the whole number answer. The Remainder is what is left over after dividing as far as possible using whole numbers." },
     { question: "Does this calculator support decimals?", answer: "This specific tool is designed to show the traditional step-by-step long division process for whole numbers, which results in a quotient and a remainder. However, we do display the exact decimal equivalent at the top of the results panel for reference." },
     { question: "How do I read the step-by-step breakdown?", answer: "The breakdown follows the classic 'DMSB' algorithm taught in schools: Divide (find how many times the divisor goes into the current part), Multiply (multiply that number by the divisor), Subtract (find the difference), and Bring down (drop the next digit of the dividend)." },
-    { question: "What happens if I divide by zero?", answer: "Division by zero is undefined in mathematics. The calculator will not process a divisor of zero." },
+    { question: "What happens if I divide by zero?", answer: "Division by zero is undefined in mathematics. The calculator will not process a divisor of zero — the results panel stays empty until you enter a divisor of 1 or more." },
+    { question: "How can I check that the answer is right?", answer: "Multiply the quotient by the divisor and add the remainder. If the total equals the original dividend, the division is correct. The breakdown table performs exactly this check on the last two rows, so you can see the arithmetic rather than trust it." },
+    { question: "Why does a zero sometimes appear in the middle of my quotient?", answer: "When the working number is smaller than the divisor, the divisor goes into it zero times. That zero must still be written in the quotient to keep every later digit in its correct place value. Skipping it is the single most common long-division mistake — 5040 ÷ 12 is 420, not 42." },
+    { question: "Does the order of the dividend and divisor matter?", answer: "Yes. Division is not commutative: 48 ÷ 12 = 4 but 12 ÷ 48 = 0.25. The dividend always goes inside the division bracket and the divisor outside it. If your quotient comes out as 0 with the whole dividend as the remainder, you have almost certainly entered the two numbers the wrong way round." },
   ];
 
   return (
@@ -184,22 +277,74 @@ const LongDivisionCalculator = () => {
             {result && (<>
               <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
                 <div className="text-sm font-bold text-primary mb-1 uppercase tracking-wider">Final Result</div>
-                <div className="text-3xl md:text-4xl font-extrabold text-foreground mb-2 tracking-tight">
-                  {result.quotient} <span className="text-xl text-muted-foreground ml-1">R {result.remainder}</span>
+                <div className="text-4xl font-bold text-primary mb-2 tracking-tight">
+                  {result.quotient.toLocaleString()} <span className="text-xl text-muted-foreground ml-1">R {result.remainder}</span>
                 </div>
                 <div className="text-base font-medium mt-1 text-muted-foreground">
                   Decimal equivalent: <span className="text-foreground">{result.decimalResult.toPrecision(8).replace(/\.?0+$/, '')}</span>
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-0 border border-border rounded-lg overflow-hidden bg-card shadow-sm">
+              <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card shadow-sm">
                 <div className="p-4 text-center">
                   <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">Quotient</div>
-                  <div className="text-2xl font-bold text-foreground">{result.quotient}</div>
+                  <div className="text-2xl font-bold" style={{ color: "hsl(142 71% 45%)" }}>{result.quotient.toLocaleString()}</div>
                 </div>
                 <div className="p-4 text-center border-l border-border">
                   <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">Remainder</div>
-                  <div className="text-2xl font-bold text-foreground">{result.remainder}</div>
+                  <div className="text-2xl font-bold" style={{ color: result.remainder === 0 ? "hsl(142 71% 45%)" : "hsl(25 95% 53%)" }}>{result.remainder.toLocaleString()}</div>
+                </div>
+                <div className="p-4 text-center border-l border-border">
+                  <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">Steps</div>
+                  <div className="text-2xl font-bold" style={{ color: "hsl(217 91% 60%)" }}>{result.divisionSteps}</div>
+                </div>
+              </div>
+
+              <div className="card-calculator !p-5 border border-border bg-card shadow-sm">
+                <h3 className="text-base font-bold text-foreground mb-3">Division Breakdown</h3>
+                <table className="w-full text-base border-collapse">
+                  <tbody>
+                    {tableRows.map((r) => (
+                      <tr
+                        key={r.rowId}
+                        className={`border-b border-border/60 last:border-0 ${r.key ? "bg-primary/10" : ""} ${r.total ? "border-t-2 border-t-border font-bold" : ""}`}
+                      >
+                        <td className={`py-2.5 px-3 ${r.key ? "font-semibold text-foreground" : "text-muted-foreground"}`}>{r.label}</td>
+                        <td className={`py-2.5 px-3 text-right tabular-nums ${r.key ? "font-bold text-primary" : "text-foreground"}`}>{r.value}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                <p className="text-xs text-muted-foreground mt-3">
+                  The final row restates the division identity: quotient × divisor + remainder must equal the dividend ({result.dividend.toLocaleString()}).
+                </p>
+              </div>
+
+              <div className="card-calculator !p-5 border border-border bg-card shadow-sm">
+                <h3 className="text-base font-bold text-foreground mb-1">Where Each Quotient Digit Goes</h3>
+                <p className="text-xs text-muted-foreground mb-3">
+                  Every digit of the quotient claims a slice of the dividend equal to digit × place value × divisor. The slices plus the remainder add back to {result.dividend.toLocaleString()}.
+                </p>
+                <div style={{ height: 250 }}>
+                  {mounted ? (
+                    <ResponsiveContainer width="100%" height="100%">
+                      <RBar data={chartData} margin={{ top: 8, right: 12, left: 4, bottom: 4 }}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="hsl(215 16% 65% / 0.25)" vertical={false} />
+                        <XAxis dataKey="name" tick={{ fontSize: 11 }} stroke="hsl(215 16% 65%)" />
+                        <YAxis tick={{ fontSize: 11 }} stroke="hsl(215 16% 65%)" width={60} />
+                        <RTooltip
+                          formatter={(v: number) => [v.toLocaleString(), "Portion of dividend"]}
+                          contentStyle={{ fontSize: 12, borderRadius: 8 }}
+                        />
+                        <Legend wrapperStyle={{ fontSize: 12 }} />
+                        <Bar dataKey="value" name="Portion of dividend" radius={[4, 4, 0, 0]}>
+                          {chartData.map((d) => (
+                            <Cell key={d.id} fill={d.isRemainder ? "hsl(25 95% 53%)" : "hsl(217 91% 60%)"} />
+                          ))}
+                        </Bar>
+                      </RBar>
+                    </ResponsiveContainer>
+                  ) : null}
                 </div>
               </div>
 
@@ -247,7 +392,32 @@ const LongDivisionCalculator = () => {
 
               </div>
 
+              <div className="bg-muted/30 rounded-lg p-5">
+                <h3 className="text-base font-bold text-foreground mb-3">Summary Statistics</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2">
+                  {tableRows.map((r) => (
+                    <div key={r.rowId} className="flex justify-between gap-3 text-sm border-b border-border/40 py-1.5 last:border-0">
+                      <span className="text-muted-foreground">{r.label}</span>
+                      <span className={`tabular-nums ${r.key ? "font-bold text-primary" : "font-medium text-foreground"}`}>{r.value}</span>
+                    </div>
+                  ))}
+                </div>
+                <p className="text-xs text-muted-foreground mt-3">
+                  {result.dividesEvenly
+                    ? `${result.divisor} divides ${result.dividend.toLocaleString()} exactly — there is nothing left over, so ${result.divisor} is a factor of ${result.dividend.toLocaleString()}.`
+                    : `${result.divisor} does not divide ${result.dividend.toLocaleString()} exactly. The leftover ${result.remainder} is smaller than the divisor, which is how you know the quotient cannot be pushed any higher.`}
+                </p>
+              </div>
             </>)}
+
+            {!result && (
+              <div className="bg-orange-500/10 border-l-4 rounded-lg p-5" style={{ borderColor: "hsl(25 95% 53%)" }}>
+                <div className="text-sm font-bold mb-1 uppercase tracking-wider" style={{ color: "hsl(25 95% 53%)" }}>Cannot Divide</div>
+                <p className="text-base text-foreground">
+                  Enter a whole-number dividend of 0 or more and a divisor of 1 or more. Division by zero is undefined, and negative values are outside the scope of the classic long-division algorithm shown here.
+                </p>
+              </div>
+            )}
           </div>
         </div>
         

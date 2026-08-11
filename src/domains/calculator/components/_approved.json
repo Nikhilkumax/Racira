@@ -383,6 +383,23 @@
                         "DielectricConstantCalculator",
                         "IfrAlternateFuelCalculator",
                         "DownloadTimeCalculator",
-                        "RecipeCostCalculator"
+                        "RecipeCostCalculator",
+                        "CarPerformance060Calculator",
+                        "ReactionTimeCalculator",
+                        "EngineRpmToMphCalculator",
+                        "FourPercentRuleCalculator",
+                        "PingTimeCalculator",
+                        "LongDivisionCalculator",
+                        "CarbohydrateGramsCalculator",
+                        "JavelinThrowDistanceCalculator",
+                        "PostpartumWeightLossCalculator",
+                        "TractiveEffortCalculator",
+                        "OvertimeHoursCalculator",
+                        "RadiationDoseFractionationCalculator",
+                        "PricePerUseCalculator",
+                        "ClausiusClapeyronCalculator",
+                        "ChargingSpeedCalculator",
+                        "CarWashCostCalculator",
+                        "ConsignmentInventoryCostCalculator"
                      ]
 }
