@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Tool } from "@/domains/_types";
+import { isLiveTool } from "@/lib/tools/liveToolFilters";
 import { StatusBadge } from "./StatusBadge";
 import { useState, useRef, useEffect, useLayoutEffect } from "react";
 
@@ -13,6 +14,9 @@ interface ToolCardProps {
 }
 
 export function ToolCard({ tool, basePath }: ToolCardProps) {
+  // Non-live / stub tools are hidden from every grid that renders ToolCard.
+  if (!isLiveTool(tool)) return null;
+
   const Icon = tool.icon;
   const titleRef = useRef<HTMLHeadingElement>(null);
   const [showDescription, setShowDescription] = useState(true);

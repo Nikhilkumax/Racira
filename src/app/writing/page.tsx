@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 import { Search, PenLine } from "lucide-react";
 import { categories, totalToolCount } from "@/domains/writing/registry";
+import { isLiveTool } from "@/lib/tools/liveToolFilters";
 
 export default function Index() {
   const [query, setQuery] = useState("");
@@ -31,7 +32,7 @@ export default function Index() {
       <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
         <div className="racira-page-container text-center">
           <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
-            148 Free Writing Tools —{" "}
+            Free Writing Tools —{" "}
             <span className="hero-gradient-text">Grammar, Count & Format</span>
           </h1>
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
@@ -71,11 +72,11 @@ export default function Index() {
                   {cat.name}
                 </h2>
                 <span className="text-xs text-muted-foreground">
-                  {cat.tools.length} tools
+                  {cat.tools.filter((t) => isLiveTool(t, "writing")).length} tools
                 </span>
               </div>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                {cat.tools.map((t) => (
+                {cat.tools.filter((t) => isLiveTool(t, "writing")).map((t) => (
                   <Link
                     key={t.slug}
                     href={`/writing/${t.slug}`}

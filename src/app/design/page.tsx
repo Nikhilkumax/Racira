@@ -1,6 +1,8 @@
 import Header from "@/components/Header";
 import Link from "next/link";
-import { categories, totalCount } from "@/domains/design/registry";
+import { categories } from "@/domains/design/registry";
+import { isLiveTool } from "@/lib/tools/liveToolFilters";
+import { LegalLinks } from "@/components/LegalLinks";
 import { Search } from "lucide-react";
 
 export const metadata = {
@@ -20,7 +22,7 @@ export default function Index() {
               <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
         <div className="racira-page-container text-center">
           <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
-            154 Free Design Tools —{" "}
+            Free Design Tools —{" "}
             <span className="hero-gradient-text">Assets, Layouts & Mockups</span>
           </h1>
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
@@ -31,7 +33,7 @@ export default function Index() {
               <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4.5 w-4.5 text-muted-foreground pointer-events-none" />
               <input
                 type="text"
-                placeholder="Search 154 design tools..."
+                placeholder="Search design tools..."
                 className="w-full h-11 pl-10 pr-16 rounded-lg border border-border bg-card text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/40 transition-shadow"
                 aria-label="Search Design Tools"
               />
@@ -61,10 +63,10 @@ export default function Index() {
               <h2 className="text-xs font-bold tracking-[0.18em] uppercase text-muted-foreground">
                 {cat.name}
               </h2>
-              <span className="text-xs text-muted-foreground">{cat.tools.length} tools</span>
+              <span className="text-xs text-muted-foreground">{cat.tools.filter((t) => isLiveTool(t, "design")).length} tools</span>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {cat.tools.map((tool) => {
+              {cat.tools.filter((t) => isLiveTool(t, "design")).map((tool) => {
                 const Icon = tool.icon;
                 return (
                   <Link
@@ -103,7 +105,8 @@ function slugify(s: string) {
 function Footer() {
   return (
     <footer className="border-t border-border py-8 text-center text-sm text-muted-foreground">
-      Racira Design — {totalCount} free design tools.
+      <p>Racira Design — free, private, in-browser design tools.</p>
+      <LegalLinks className="mt-4" />
     </footer>
   );
 }

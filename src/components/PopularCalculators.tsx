@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { calculatorRegistry, getCategoryIcon } from "@/domains/calculator/registry";
+import { isLiveTool } from "@/lib/tools/liveToolFilters";
 
 const PopularCalculators = ({ exclude }: { exclude?: string }) => {
   const items = calculatorRegistry
     .filter(c => `/calculator/${c.slug}` !== exclude)
-    .sort((a, b) => (b.status === "live" ? 1 : 0) - (a.status === "live" ? 1 : 0))
+    .filter((c) => isLiveTool(c, "calculator"))
     .slice(0, 8);
 
   return (

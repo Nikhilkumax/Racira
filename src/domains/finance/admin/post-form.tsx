@@ -61,7 +61,7 @@ export function PostForm({ initial }: { initial?: PostWithRelations }) {
       createPost(payload);
       toast.success("Post created");
     }
-    router.push("/admin/posts");
+    router.push("/finance/admin/posts");
   }
 
   function remove() {
@@ -69,7 +69,7 @@ export function PostForm({ initial }: { initial?: PostWithRelations }) {
     if (!confirm("Delete this post? This cannot be undone.")) return;
     deletePost(initial.id);
     toast.success("Post deleted");
-    router.push("/admin/posts");
+    router.push("/finance/admin/posts");
   }
 
   return (
@@ -118,7 +118,7 @@ export function PostForm({ initial }: { initial?: PostWithRelations }) {
               <Button onClick={() => save("published")}>{status === "published" ? "Update" : "Publish"}</Button>
               <Button variant="outline" onClick={() => save("draft")}>Save draft</Button>
               {initial && <Button variant="ghost" className="text-destructive hover:text-destructive" onClick={remove}>Delete</Button>}
-              <Link href="/admin/posts" className="mt-1 text-center text-xs text-muted-foreground hover:text-foreground">Cancel</Link>
+              <Link href="/finance/admin/posts" className="mt-1 text-center text-xs text-muted-foreground hover:text-foreground">Cancel</Link>
             </div>
           </div>
         </div>

@@ -9,7 +9,7 @@ function fmt(d: string) {
 export function PostCard({ post, variant = "default" }: { post: PostWithRelations; variant?: "default" | "compact" }) {
   return (
     <article className="group flex flex-col">
-      <Link href={`/blog/${post.slug}`} className="overflow-hidden rounded-xl border border-border/60 bg-card">
+      <Link href={`/finance/blog/${post.slug}`} className="overflow-hidden rounded-xl border border-border/60 bg-card">
         <div className="aspect-[16/10] overflow-hidden">
           <img
             src={post.cover_url}
@@ -21,7 +21,7 @@ export function PostCard({ post, variant = "default" }: { post: PostWithRelation
       </Link>
       <div className="mt-4 flex items-center gap-2 text-xs">
         <Link
-          href={`/category/${post.category.slug}`}
+          href={`/finance/category/${post.category.slug}`}
           className="font-semibold uppercase tracking-wider text-primary"
         >
           {post.category.name}
@@ -29,7 +29,7 @@ export function PostCard({ post, variant = "default" }: { post: PostWithRelation
         <span className="text-muted-foreground">·</span>
         <span className="text-muted-foreground">{fmt(post.published_at)}</span>
       </div>
-      <Link href={`/blog/${post.slug}`}>
+      <Link href={`/finance/blog/${post.slug}`}>
         <h3
           className={
             "mt-2 font-display font-semibold leading-tight transition-colors group-hover:text-primary " +
@@ -44,7 +44,7 @@ export function PostCard({ post, variant = "default" }: { post: PostWithRelation
       )}
       <div className="mt-4 flex items-center gap-3 text-xs text-muted-foreground">
         <img src={post.author.avatar_url} alt="" className="h-6 w-6 rounded-full" />
-        <Link href={`/authors/${post.author.slug}`} className="font-medium text-foreground hover:text-primary">
+        <Link href={`/finance/authors/${post.author.slug}`} className="font-medium text-foreground hover:text-primary">
           {post.author.name}
         </Link>
         <span className="inline-flex items-center gap-1">

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Providers } from "./providers";
 import { TOTAL_TOOL_COUNT } from "@/domains/audio/registry";
+import { LegalLinks } from "@/components/LegalLinks";
 
 export const metadata: Metadata = {
   title: "Racira Audio — All Audio Tools You Need, Fast, Simple & Free",
@@ -29,6 +30,9 @@ export default function RootLayout({
         <Providers>
           {children}
         </Providers>
+        <footer className="border-t border-border/60 py-8">
+          <LegalLinks />
+        </footer>
       </>
     
   );

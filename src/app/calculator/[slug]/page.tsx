@@ -22,6 +22,7 @@ import {
 import { calculatorRegistry } from "@/domains/calculator/registry";
 import { CATEGORY_SUMMARY } from "../summaryData";
 import { toSlug } from "@/lib/utils/slug";
+import { onlyLive } from "@/lib/tools/liveToolFilters";
 import CalculatorSkeleton from "@/domains/calculator/components/ui/CalculatorSkeleton";
 import ComingSoonCalculator from "@/domains/calculator/components/ui/ComingSoonCalculator";
 import { lazyComponents } from "@/app/calculator/lazyComponents";
@@ -204,11 +205,11 @@ function SubcategoryView({ parentCategory, subcategory, slug }: { parentCategory
   const formattedCategoryName = formatCategory(categoryName);
   const categorySlug = toSlug(formattedCategoryName);
 
-  const tools = calculatorRegistry.filter(t => {
+  const tools = onlyLive(calculatorRegistry.filter(t => {
     const tCatSlug = toSlug((t as any).category || "");
     const tSubSlug = toSlug(t.subcategory || "General");
     return tCatSlug === categorySlug && tSubSlug === slug;
-  });
+  }));
 
   return (
     <div className="flex flex-col">

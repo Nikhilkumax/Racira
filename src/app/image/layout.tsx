@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { LegalLinks } from "@/components/LegalLinks";
 
 export const metadata: Metadata = {
   title: "Racira Image — Free Image Tools",
@@ -12,7 +13,12 @@ export default function RootLayout({
 }>) {
   return (
     
-      <>{children}</>
+      <>
+        {children}
+        <footer className="border-t border-border/60 py-8">
+          <LegalLinks />
+        </footer>
+      </>
     
   );
 }

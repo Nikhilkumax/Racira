@@ -6,6 +6,7 @@ import Header from "@/components/Header";
 import Link from "next/link";
 import { Search, ArrowRight, Aperture, Sparkles } from "lucide-react";
 import { CATEGORIES, ALL_TOOLS, SEARCH_REGISTRY, type Tool } from "@/domains/photo/registry";
+import { isLiveTool } from "@/lib/tools/liveToolFilters";
 
 
 export default function Home() {
@@ -25,7 +26,7 @@ export default function Home() {
                 <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
           <div className="racira-page-container text-center">
             <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
-              122 Free Photo Tools —{" "}
+              Free Photo Tools —{" "}
               <span className="hero-gradient-text">Filters, Retouch & Adjust</span>
             </h1>
             <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
@@ -48,10 +49,10 @@ export default function Home() {
                     </h2>
                     <p className="mt-1 text-sm text-muted-foreground/80">{c.description}</p>
                   </div>
-                  <span className="text-xs text-muted-foreground">{c.tools.length} tools</span>
+                  <span className="text-xs text-muted-foreground">{c.tools.filter((t) => isLiveTool(t, "photo")).length} tools</span>
                 </div>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                  {c.tools.map((t) => (
+                  {c.tools.filter((t) => isLiveTool(t, "photo")).map((t) => (
                     <ToolCard key={t.slug} tool={t} />
                   ))}
                 </div>

@@ -19,10 +19,15 @@ import { inferIcon } from "@/components/shared/icon-map";
 import { SubcategoryCard } from "@/components/shared/SubcategoryCard";
 import { CATEGORY_SUMMARY } from "./summaryData";
 import { toSlug } from "@/lib/utils/slug";
+import { onlyLive } from "@/lib/tools/liveToolFilters";
+import { calculatorRegistry } from "@/domains/calculator/registry";
+
+// Live/discoverable count only — stub-tagged "live" entries are excluded.
+const LIVE_CALC_COUNT = onlyLive(calculatorRegistry).length;
 
 export const metadata: Metadata = {
   title: "All Calculators — Racira",
-  description: "Browse 11,000+ free online calculators: finance, business, math, science, construction, and more. Professional-grade tools, no signup required.",
+  description: `Browse ${LIVE_CALC_COUNT.toLocaleString()} free online calculators: finance, business, math, science, construction, and more. Professional-grade tools, no signup required.`,
   alternates: {
     canonical: "https://racira.com/calculator",
   },
@@ -65,7 +70,7 @@ export default function Home() {
       <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
         <div className="racira-page-container text-center">
           <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
-            11,000+ Free Calculators —{" "}
+            {LIVE_CALC_COUNT.toLocaleString()} Free Calculators —{" "}
             <span className="hero-gradient-text">Fast, Accurate & Free</span>
           </h1>
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
@@ -146,7 +151,7 @@ export default function Home() {
         <p>
           Managing personal finances, tracking health metrics, solving math problems, or planning construction projects — 
           having the right tools at your fingertips makes all the difference.
-          Racira Calculator provides a comprehensive suite of 11,000+ free online calculators designed to help you make
+          Racira Calculator provides a comprehensive suite of {LIVE_CALC_COUNT.toLocaleString()} free online calculators designed to help you make
           informed decisions in every area of life.
         </p>
         <p>

@@ -6,7 +6,7 @@ export function SiteFooter() {
           © {new Date().getFullYear()} Racira Productivity Tools. Made for focused makers.
         </p>
         <p>
-          69 tools. One mission: <span className="text-foreground font-medium">protect your attention</span>.
+          Free, in-browser tools. One mission: <span className="text-foreground font-medium">protect your attention</span>.
         </p>
       </div>
     </footer>

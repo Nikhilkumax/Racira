@@ -3,6 +3,7 @@
 import Header from "@/components/Header";
 import Link from "next/link";
 import { useMemo, useState } from "react";
+import { isLiveTool } from "@/lib/tools/liveToolFilters";
 import {
   Search,
   Key,
@@ -48,7 +49,7 @@ export default function Home() {
               <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
         <div className="racira-page-container text-center">
           <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
-            246 Free SEO Tools —{" "}
+            Free SEO Tools —{" "}
             <span className="hero-gradient-text">Meta, Tags & Analysis</span>
           </h1>
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
@@ -117,7 +118,7 @@ export default function Home() {
 function ToolGrid({ tools }: { tools: Tool[] }) {
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-      {tools.map((t) => (
+      {tools.filter((t) => isLiveTool(t, "seo")).map((t) => (
         <ToolCard key={t.slug} tool={t} />
       ))}
     </div>

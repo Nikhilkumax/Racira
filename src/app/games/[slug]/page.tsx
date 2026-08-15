@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ChevronRight, Sparkles, Gamepad2, Construction } from "lucide-react";
 import { CATEGORIES, slugify } from "@/domains/games/registry";
+import { GAME_LIVE_SLUGS } from "@/lib/tools/gameLiveSlugs";
 
 import Header from "@/components/Header";
 import GameRenderer from "../GameRenderer";
@@ -121,8 +122,10 @@ function SubcategoryView({ sub, categoryName, categorySlug }: { sub: typeof allS
         </section>
         <div className="racira-page-container pb-16">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {sub.games.map((gameName, idx) => {
-              const gameSlug = slugify(gameName);
+            {sub.games
+              .map((gameName) => ({ name: gameName, slug: slugify(gameName) }))
+              .filter((g) => GAME_LIVE_SLUGS.includes(g.slug))
+              .map(({ name: gameName, slug: gameSlug }, idx) => {
               return (
                 <Link key={gameSlug + idx} href={`/games/${gameSlug}`} className="tool-card group hover:-translate-y-[3px]">
                   <div className="mb-4 grid h-10 w-10 place-items-center rounded-xl bg-primary/10 text-primary">

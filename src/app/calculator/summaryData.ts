@@ -1,6 +1,9 @@
 import { calculatorRegistry } from "@/domains/calculator/registry";
+import { onlyLive } from "@/lib/tools/liveToolFilters";
 
-const activeCalculators = calculatorRegistry;
+// Only genuinely-built calculators are counted — stub-tagged "live" entries
+// (Value A/B template, no wired component) are excluded from display counts.
+const activeCalculators = onlyLive(calculatorRegistry);
 
 export const CATEGORY_SUMMARY = [
   {

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { LegalLinks } from "@/components/LegalLinks";
 export const metadata: Metadata = {
   title: "Racira Typography — Free Typography Tools",
   description: "98+ free typography tools: font previewer, pairing, type scales, glyphs, CSS and more. Fast, simple, free.",
@@ -21,7 +22,12 @@ export default function RootLayout({
   return (
     
       
-      <>{children}</>
+      <>
+        {children}
+        <footer className="border-t border-border/60 py-8">
+          <LegalLinks />
+        </footer>
+      </>
     
   );
 }

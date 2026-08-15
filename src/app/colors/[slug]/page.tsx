@@ -6,6 +6,7 @@ import { ArrowLeft, Sparkles, ChevronRight, Hammer } from "lucide-react";
 import { TOOLS_BY_SLUG, toolsByCategory } from "@/domains/colors/registry";
 import { CATEGORY_META, ToolCategory } from "@/domains/colors/registry/types";
 import { toSlug } from "@/lib/utils/slug";
+import { isLiveTool } from "@/lib/tools/liveToolFilters";
 import { SubcategoryCard } from "@/components/shared/SubcategoryCard";
 import Header from "@/components/Header";
 import ToolPageHeader from "@/components/tools/shared/ToolPageHeader";
@@ -102,7 +103,7 @@ function CategoryView({ categoryKey }: { categoryKey: ToolCategory }) {
 
         <div className="racira-page-container pb-16 w-full">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {toolsList.map((tool: any) => {
+            {toolsList.filter((t) => isLiveTool(t, "colors")).map((tool: any) => {
               const Icon = tool.icon;
               return (
                 <SubcategoryCard

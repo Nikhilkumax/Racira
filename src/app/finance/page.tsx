@@ -41,12 +41,12 @@ export default function Index() {
             Racira publishes long-form, evidence-driven writing on investing, the economy, and personal finance — for readers who'd rather understand than react.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Link href="/blog">
+            <Link href="/finance/blog">
               <Button size="lg" className="font-medium">
                 Read the latest <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </Link>
-            <Link href="/about">
+            <Link href="/finance/about">
               <Button size="lg" variant="outline" className="font-medium">Our standards</Button>
             </Link>
           </div>
@@ -58,10 +58,10 @@ export default function Index() {
         <section className="racira-page-container py-16 sm:px-6 lg:px-8">
           <div className="mb-8 flex items-end justify-between">
             <h2 className="font-display text-2xl font-semibold tracking-tight md:text-3xl">Featured</h2>
-            <Link href="/blog" className="text-sm font-medium text-primary hover:underline">All articles →</Link>
+            <Link href="/finance/blog" className="text-sm font-medium text-primary hover:underline">All articles →</Link>
           </div>
           <Link
-            href={`/blog/${featured.slug}`}
+            href={`/finance/blog/${featured.slug}`}
             className="group grid gap-8 overflow-hidden rounded-2xl border border-border/60 bg-card md:grid-cols-2"
           >
             <div className="aspect-[4/3] overflow-hidden md:aspect-auto">
@@ -92,7 +92,7 @@ export default function Index() {
           {cats.map((c) => (
             <Link
               key={c.id}
-              href={`/category/${c.slug}`}
+              href={`/finance/category/${c.slug}`}
               className="rounded-full border border-border/60 bg-card px-4 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:border-primary hover:text-primary"
             >
               {c.name}

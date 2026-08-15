@@ -1,19 +1,23 @@
 import Header from "@/components/Header";
 import AudioClientGrid from "@/domains/audio/components/ClientGrid";
-import { categories, TOTAL_TOOL_COUNT } from "@/domains/audio/registry";
+import { categories } from "@/domains/audio/registry";
+import { onlyLive } from "@/lib/tools/liveToolFilters";
 import { SearchAudio } from "./SearchAudio";
+
+// Live/discoverable count only — "soon" registry entries are excluded.
+const LIVE_AUDIO_COUNT = onlyLive(categories.flatMap(c => c.tools)).length;
 
 export const metadata = {
   title: "Racira Audio — Free Online Audio & Podcast Tools",
-  description: `${TOTAL_TOOL_COUNT}+ free tools to convert, edit, analyze and master audio. Designed for podcasters and audio engineers. Runs entirely in your browser.`,
+  description: `${LIVE_AUDIO_COUNT} free tools to convert, edit, analyze and master audio. Designed for podcasters and audio engineers. Runs entirely in your browser.`,
   openGraph: {
     title: "Racira Audio — Free Audio Tools",
-    description: `${TOTAL_TOOL_COUNT}+ free tools to convert, edit, analyze and master audio. No signup required.`,
+    description: `${LIVE_AUDIO_COUNT} free tools to convert, edit, analyze and master audio. No signup required.`,
   },
 };
 
 export default function AudioPage() {
-  const totalCount = TOTAL_TOOL_COUNT;
+  const totalCount = LIVE_AUDIO_COUNT;
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
@@ -23,7 +27,7 @@ export default function AudioPage() {
         <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
           <div className="racira-page-container text-center">
             <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
-              {totalCount}+ Free Audio Tools —{" "}
+              {totalCount} Free Audio Tools —{" "}
               <span className="hero-gradient-text">Convert, Edit & Master</span>
             </h1>
             <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">

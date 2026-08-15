@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { ChevronRight, Construction, Sparkles } from "lucide-react";
 import { categories, tools, categorySlug, categoryFromSlug } from "@/domains/developers/registry";
 import { toSlug } from "@/lib/utils/slug";
+import { isLiveTool } from "@/lib/tools/liveToolFilters";
 import { inferIcon } from "@/components/shared/icon-map";
 import Header from "@/components/Header";
 import ToolPageHeader from "@/components/tools/shared/ToolPageHeader";
@@ -54,7 +55,7 @@ function CategoryView({ catName }: { catName: string }) {
         </section>
         <div className="racira-page-container pb-16">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {catTools.map((tool: any) => {
+            {catTools.filter((t) => isLiveTool(t, "developers")).map((tool: any) => {
               const Icon = tool.icon || inferIcon(tool.name, tool.slug);
               return (
                 <Link key={tool.slug} href={`/developers/${tool.slug}`} className="tool-card group hover:-translate-y-[3px]">

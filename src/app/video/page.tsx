@@ -1,5 +1,6 @@
 import { CategorySearch } from "@/components/CategorySearch";
 import { CATEGORY_ORDER, TOOLS, TOOLS_BY_CATEGORY, SEARCH_REGISTRY } from "@/domains/video/registry";
+import { isLiveTool } from "@/lib/tools/liveToolFilters";
 import { ToolCard } from "@/components/video/ToolCard";
 import type { Metadata } from "next";
 
@@ -23,7 +24,7 @@ export default function Home() {
             <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
         <div className="racira-page-container text-center">
           <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
-            150 Free Video Tools —{" "}
+            Free Video Tools —{" "}
             <span className="hero-gradient-text">Trim, Crop & Convert</span>
           </h1>
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
@@ -40,7 +41,7 @@ export default function Home() {
               {cat}
             </h2>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {TOOLS_BY_CATEGORY[cat].map((tool) => (
+              {TOOLS_BY_CATEGORY[cat].filter((t) => isLiveTool(t, "video")).map((tool) => (
                 <ToolCard key={tool.slug} tool={tool} />
               ))}
             </div>

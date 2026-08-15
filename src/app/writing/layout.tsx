@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Providers } from "@/domains/writing/components/Providers";
+import { LegalLinks } from "@/components/LegalLinks";
 
 export const metadata: Metadata = {
   title: "Racira Writing — 150+ Free Writing Tools",
@@ -27,6 +28,9 @@ export default function RootLayout({
         <Providers>
           {children}
         </Providers>
+        <footer className="border-t border-border/60 py-8">
+          <LegalLinks />
+        </footer>
       </>
     
   );

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Providers } from "./providers";
+import { LegalLinks } from "@/components/LegalLinks";
 
 export const metadata: Metadata = {
   title: "Racira Photography — 112 free photography tools",
@@ -18,6 +19,9 @@ export default function RootLayout({
         <Providers>
           {children}
         </Providers>
+        <footer className="border-t border-border/60 py-8">
+          <LegalLinks />
+        </footer>
       </>
     
   );

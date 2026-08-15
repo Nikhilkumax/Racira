@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Providers } from "@/domains/animator/components/providers";
 import Header from "@/components/Header";
+import { LegalLinks } from "@/components/LegalLinks";
 import { type ReactNode } from "react";
 
 export const metadata: Metadata = {
@@ -25,7 +26,8 @@ export default function RootLayout({
           <Header mode="category" categoryName="Animation" />
           {children}
           <footer className="border-t border-border/60 py-8 text-center text-xs text-muted-foreground">
-            Built with <span className="text-gradient-pink font-semibold">Racira Animation</span> · 106 tools · no signup
+            <p>Built with <span className="text-gradient-pink font-semibold">Racira Animation</span> · no signup</p>
+            <LegalLinks className="mt-4" />
           </footer>
         </Providers>
       </>

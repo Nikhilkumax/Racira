@@ -1,6 +1,30 @@
 import type { ToolDefinition, ToolResult } from "@/components/developers/tools/registry";
 import { OptionsBar, OptRow, OptNumber, OptSelect } from "@/components/developers/tools/options-controls";
 import { bufToHex, b64Decode, b64Encode, byteLength } from "./helpers";
+import {
+  PASSPHRASE_WORDS,
+  generatePassphrase,
+  generateMemorablePassword,
+  generatePin,
+  passwordEntropy,
+  analyzePasswordPattern,
+  isCommonPassword,
+  estimateCrackTime,
+  caesarShift,
+  vigenere,
+  xorCipher,
+  railFence,
+  zeroWidthEncode,
+  validateJwt,
+  verifyHmacJwt,
+  aesEncrypt,
+  aesDecrypt,
+  generateRsaKeypair,
+  generateEcKeypair,
+  sriHash,
+  validateCsp,
+  detectApiKeyFormat,
+} from "./security-algorithms";
 
 async function digest(algorithm: string, input: string): Promise<string> {
   const data = new TextEncoder().encode(input);
@@ -560,12 +584,332 @@ const oauthUrlGenerator: ToolDefinition = {
   },
 };
 
+// ── Ported from the security domain (net-new tools + renamed name collisions) ──
+
+const passphraseGenerator: ToolDefinition = {
+  slug: "passphrase-generator",
+  mode: "generator",
+  hideInput: true,
+  live: false,
+  options: ({ options, setOptions }) => (
+    <OptionsBar>
+      <OptNumber label="Words" value={Number(options.count ?? 5)} min={3} max={10} onChange={(v) => setOptions({ ...options, count: v })} />
+      <OptRow label="Separator">
+        <input defaultValue={String(options.sep ?? "-")} onChange={(e) => setOptions({ ...options, sep: e.target.value })} className="h-8 w-16 rounded-md border border-input bg-background px-2 text-sm" />
+      </OptRow>
+    </OptionsBar>
+  ),
+  defaultOptions: { count: 5, sep: "-" },
+  transform: ({ options }) => {
+    const count = Math.max(3, Math.min(10, Number(options.count ?? 5)));
+    const sep = String(options.sep ?? "-").slice(0, 3);
+    return { output: generatePassphrase(count, sep), info: `${count} words from a ${PASSPHRASE_WORDS.length}-word list` };
+  },
+};
+
+const passwordEntropyCalculator: ToolDefinition = {
+  slug: "password-entropy-calculator",
+  mode: "text",
+  transform: ({ input }) => {
+    const { length, pool, entropy } = passwordEntropy(input);
+    return { output: `Length: ${length}\nCharacter pool: ${pool}\nEstimated entropy: ${entropy.toFixed(1)} bits` };
+  },
+};
+
+const passwordPatternAnalyzer: ToolDefinition = {
+  slug: "password-pattern-analyzer",
+  mode: "text",
+  transform: ({ input }) => {
+    if (!input) return { output: "" };
+    const issues = analyzePasswordPattern(input);
+    return { output: issues.length ? issues.map((i) => `• ${i}`).join("\n") : "No common patterns detected." };
+  },
+};
+
+const commonPasswordChecker: ToolDefinition = {
+  slug: "common-password-checker",
+  mode: "text",
+  transform: ({ input }) => {
+    if (!input) return { output: "" };
+    return { output: isCommonPassword(input) ? "⚠ Found in common password list" : "✓ Not in built-in common list" };
+  },
+};
+
+const passwordLengthEstimator: ToolDefinition = {
+  slug: "password-length-estimator",
+  mode: "generator",
+  hideInput: true,
+  live: false,
+  options: ({ options, setOptions }) => (
+    <OptionsBar>
+      <OptNumber label="Length" value={Number(options.len ?? 12)} min={4} max={32} onChange={(v) => setOptions({ ...options, len: v })} />
+      <OptNumber label="Pool" value={Number(options.pool ?? 94)} min={10} max={128} onChange={(v) => setOptions({ ...options, pool: v })} />
+    </OptionsBar>
+  ),
+  defaultOptions: { len: 12, pool: 94 },
+  transform: ({ options }) => {
+    const len = Math.max(4, Math.min(32, Number(options.len ?? 12)));
+    const pool = Math.max(10, Math.min(128, Number(options.pool ?? 94)));
+    return { output: `Estimated crack time @ 10B guesses/sec: ${estimateCrackTime(len, pool)}`, info: `${pool}^${len} combinations` };
+  },
+};
+
+const pinGenerator: ToolDefinition = {
+  slug: "pin-generator",
+  mode: "generator",
+  hideInput: true,
+  live: false,
+  options: ({ options, setOptions }) => (
+    <OptionsBar>
+      <OptNumber label="Length" value={Number(options.len ?? 6)} min={3} max={12} onChange={(v) => setOptions({ ...options, len: v })} />
+    </OptionsBar>
+  ),
+  defaultOptions: { len: 6 },
+  transform: ({ options }) => {
+    const len = Math.max(3, Math.min(12, Number(options.len ?? 6)));
+    return { output: generatePin(len), info: `${len}-digit PIN` };
+  },
+};
+
+const memorablePasswordGenerator: ToolDefinition = {
+  slug: "memorable-password-generator",
+  mode: "generator",
+  hideInput: true,
+  live: false,
+  transform: () => ({ output: generateMemorablePassword() }),
+};
+
+const passwordComparisonTool: ToolDefinition = {
+  slug: "password-comparison-tool",
+  mode: "dual",
+  transform: ({ input, secondInput }) => {
+    if (!input || !secondInput) return { output: "" };
+    return { output: input === secondInput ? "✓ Identical" : "✗ Different" };
+  },
+};
+
+const aesTool: ToolDefinition = {
+  slug: "aes-encryption-decryption-tool",
+  mode: "text",
+  live: false,
+  options: ({ options, setOptions }) => (
+    <OptionsBar>
+      <OptSelect value={String(options.mode ?? "encrypt")} onChange={(v) => setOptions({ ...options, mode: v })} options={[{ value: "encrypt", label: "Encrypt" }, { value: "decrypt", label: "Decrypt" }]} />
+      <OptRow label="Password">
+        <input defaultValue={String(options.password ?? "")} onChange={(e) => setOptions({ ...options, password: e.target.value })} className="h-8 w-40 rounded-md border border-input bg-background px-2 text-sm" />
+      </OptRow>
+    </OptionsBar>
+  ),
+  defaultOptions: { mode: "encrypt", password: "" },
+  transform: async ({ input, options }) => {
+    const mode = String(options.mode ?? "encrypt");
+    const password = String(options.password ?? "");
+    if (!password) throw new Error("Enter a password in options");
+    if (mode === "decrypt") return { output: await aesDecrypt(input, password) };
+    return {
+      output: await aesEncrypt(input, password),
+      info: "AES-GCM 256 · PBKDF2-SHA256 · 150k iterations · salt(16) | iv(12) | ciphertext, Base64",
+    };
+  },
+};
+
+const rsaKeyGenerator: ToolDefinition = {
+  slug: "rsa-key-generator",
+  mode: "generator",
+  hideInput: true,
+  live: false,
+  transform: async () => {
+    const { publicPem, privatePem } = await generateRsaKeypair();
+    return { output: `${publicPem}\n\n${privatePem}`, info: "RSA-OAEP 2048-bit · SHA-256" };
+  },
+};
+
+const ecKeyGenerator: ToolDefinition = {
+  slug: "elliptic-curve-key-generator",
+  mode: "generator",
+  hideInput: true,
+  live: false,
+  transform: async () => {
+    const { publicPem, privatePem } = await generateEcKeypair();
+    return { output: `${publicPem}\n\n${privatePem}`, info: "ECDSA P-256" };
+  },
+};
+
+const caesarCipherTool: ToolDefinition = {
+  slug: "caesar-cipher-tool",
+  mode: "text",
+  options: ({ options, setOptions }) => (
+    <OptionsBar>
+      <OptNumber label="Shift" value={Number(options.shift ?? 3)} min={-25} max={25} onChange={(v) => setOptions({ ...options, shift: v })} />
+    </OptionsBar>
+  ),
+  defaultOptions: { shift: 3 },
+  transform: ({ input, options }) => {
+    const shift = Math.max(-25, Math.min(25, Number(options.shift ?? 3)));
+    return { output: caesarShift(input, shift) };
+  },
+};
+
+const vigenereCipherTool: ToolDefinition = {
+  slug: "vigenre-cipher-tool",
+  mode: "text",
+  options: ({ options, setOptions }) => (
+    <OptionsBar>
+      <OptRow label="Key">
+        <input defaultValue={String(options.key ?? "KEY")} onChange={(e) => setOptions({ ...options, key: e.target.value })} className="h-8 w-40 rounded-md border border-input bg-background px-2 text-sm" />
+      </OptRow>
+      <OptSelect value={String(options.mode ?? "enc")} onChange={(v) => setOptions({ ...options, mode: v })} options={[{ value: "enc", label: "Encrypt" }, { value: "dec", label: "Decrypt" }]} />
+    </OptionsBar>
+  ),
+  defaultOptions: { key: "KEY", mode: "enc" },
+  transform: ({ input, options }) => {
+    const key = String(options.key ?? "KEY");
+    const mode = String(options.mode ?? "enc") === "dec" ? "dec" : "enc";
+    return { output: vigenere(input, key, mode) };
+  },
+};
+
+const xorCipherTool: ToolDefinition = {
+  slug: "xor-cipher-tool",
+  mode: "text",
+  options: ({ options, setOptions }) => (
+    <OptionsBar>
+      <OptRow label="Key">
+        <input defaultValue={String(options.key ?? "key")} onChange={(e) => setOptions({ ...options, key: e.target.value })} className="h-8 w-40 rounded-md border border-input bg-background px-2 text-sm" />
+      </OptRow>
+    </OptionsBar>
+  ),
+  defaultOptions: { key: "key" },
+  transform: ({ input, options }) => {
+    const key = String(options.key ?? "key");
+    return { output: xorCipher(input, key), info: "Output is Base64-encoded ciphertext" };
+  },
+};
+
+const railFenceCipherTool: ToolDefinition = {
+  slug: "rail-fence-cipher-tool",
+  mode: "text",
+  options: ({ options, setOptions }) => (
+    <OptionsBar>
+      <OptNumber label="Rails" value={Number(options.rails ?? 3)} min={2} max={10} onChange={(v) => setOptions({ ...options, rails: v })} />
+      <OptSelect value={String(options.mode ?? "enc")} onChange={(v) => setOptions({ ...options, mode: v })} options={[{ value: "enc", label: "Encrypt" }, { value: "dec", label: "Decrypt" }]} />
+    </OptionsBar>
+  ),
+  defaultOptions: { rails: 3, mode: "enc" },
+  transform: ({ input, options }) => {
+    const rails = Math.max(2, Math.min(10, Number(options.rails ?? 3)));
+    const mode = String(options.mode ?? "enc") === "dec" ? "dec" : "enc";
+    return { output: railFence(input, rails, mode) };
+  },
+};
+
+const zeroWidthInserter: ToolDefinition = {
+  slug: "zero-width-character-inserter",
+  mode: "text",
+  options: ({ options, setOptions }) => (
+    <OptionsBar>
+      <OptRow label="Secret">
+        <input defaultValue={String(options.secret ?? "hi")} onChange={(e) => setOptions({ ...options, secret: e.target.value })} className="h-8 w-40 rounded-md border border-input bg-background px-2 text-sm" />
+      </OptRow>
+    </OptionsBar>
+  ),
+  defaultOptions: { secret: "hi" },
+  transform: ({ input, options }) => {
+    const secret = String(options.secret ?? "hi");
+    return { output: zeroWidthEncode(input, secret), info: "Invisible zero-width chars are appended after the cover text" };
+  },
+};
+
+const jwtValidator: ToolDefinition = {
+  slug: "jwt-validator",
+  mode: "text",
+  transform: ({ input }) => {
+    if (!input) return { output: "" };
+    const issues = validateJwt(input);
+    return { output: issues.length ? issues.map((i) => `• ${i}`).join("\n") : "✓ Structure valid, no temporal issues." };
+  },
+};
+
+const hashComparisonTool: ToolDefinition = {
+  slug: "hash-comparison-tool",
+  mode: "dual",
+  transform: ({ input, secondInput }) => {
+    if (!input || !secondInput) return { output: "" };
+    const eq = input.trim().toLowerCase() === secondInput.trim().toLowerCase();
+    return { output: eq ? "✓ Match" : "✗ Different" };
+  },
+};
+
+const cspValidator: ToolDefinition = {
+  slug: "csp-validator",
+  mode: "text",
+  transform: ({ input }) => {
+    if (!input) return { output: "" };
+    const issues = validateCsp(input);
+    return { output: issues.length ? issues.map((i) => `• ${i}`).join("\n") : "✓ No common issues detected." };
+  },
+};
+
+const sriGenerator: ToolDefinition = {
+  slug: "subresource-integrity-generator",
+  mode: "text",
+  live: false,
+  options: ({ options, setOptions }) => (
+    <OptionsBar>
+      <OptSelect value={String(options.algo ?? "SHA-384")} onChange={(v) => setOptions({ ...options, algo: v })} options={[{ value: "SHA-256", label: "SHA-256" }, { value: "SHA-384", label: "SHA-384" }, { value: "SHA-512", label: "SHA-512" }]} />
+    </OptionsBar>
+  ),
+  defaultOptions: { algo: "SHA-384" },
+  transform: async ({ input, options }) => {
+    const url = input.trim();
+    if (!url) throw new Error("Enter an asset URL");
+    const algo = String(options.algo ?? "SHA-384") as "SHA-256" | "SHA-384" | "SHA-512";
+    const sri = await sriHash(url, algo);
+    return { output: sri, info: `Use: <script integrity="${sri}" crossorigin="anonymous" ...>` };
+  },
+};
+
+const apiKeyFormatDetector: ToolDefinition = {
+  slug: "api-key-format-detector",
+  mode: "text",
+  transform: ({ input }) => {
+    if (!input) return { output: "" };
+    const matches = detectApiKeyFormat(input);
+    return { output: matches.length ? matches.map((m) => `✓ Matches: ${m}`).join("\n") : "No known format matched." };
+  },
+};
+
+const jwtHs256Verifier: ToolDefinition = {
+  slug: "jwt-hs256-verifier",
+  mode: "text",
+  live: false,
+  options: ({ options, setOptions }) => (
+    <OptionsBar>
+      <OptRow label="Secret">
+        <input defaultValue={String(options.secret ?? "")} onChange={(e) => setOptions({ ...options, secret: e.target.value })} className="h-8 w-40 rounded-md border border-input bg-background px-2 text-sm" />
+      </OptRow>
+    </OptionsBar>
+  ),
+  defaultOptions: { secret: "" },
+  transform: async ({ input, options }) => {
+    const secret = String(options.secret ?? "");
+    if (!secret) throw new Error("Enter the HS256 secret in options");
+    const ok = await verifyHmacJwt(input, secret);
+    return { output: ok ? "✓ Signature valid (HS256)" : "✗ Signature does NOT match" };
+  },
+};
+
 export const securityTools: ToolDefinition[] = [
   hashGenerator, bcryptGenerator, uuidGenerator, passwordStrengthChecker, jwtDecoder,
   jwtGenerator, jwtExpiryChecker, jwtVisualizer, jwtRs256Verifier, tokenStrengthAnalyzer,
   randomPasswordGenerator, randomApiKeyGenerator, sha512, sha256, sha1, md5Generator,
   hmacGenerator, crc32Tool, htpasswdGenerator, basicAuthGenerator, pkceGenerator,
   oauthUrlGenerator, sessionTokenDecoder, fileHashChecker, apiKeyFormatter,
+  passphraseGenerator, passwordEntropyCalculator, passwordPatternAnalyzer, commonPasswordChecker,
+  passwordLengthEstimator, pinGenerator, memorablePasswordGenerator, passwordComparisonTool,
+  aesTool, rsaKeyGenerator, ecKeyGenerator, caesarCipherTool, vigenereCipherTool, xorCipherTool,
+  railFenceCipherTool, zeroWidthInserter, jwtValidator, hashComparisonTool, cspValidator,
+  sriGenerator, apiKeyFormatDetector, jwtHs256Verifier,
 ];
 
 // QR / barcode handled in visual.ts (canvas-based).

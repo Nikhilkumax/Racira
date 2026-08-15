@@ -430,7 +430,7 @@ const MortgageCalculator = () => {
     if (!printRef.current) return;
     const w = window.open("", "_blank");
     if (!w) return;
-    w.document.write(`<html><head><title>Mortgage Amortization – RaciraCalculator</title>
+    w.document.write(`<html><head><title>Mortgage Amortization – Racira</title>
       <style>body{font-family:system-ui;padding:2rem}table{width:100%;border-collapse:collapse;font-size:13px}
       th,td{border:1px solid #ddd;padding:6px 10px;text-align:right}th{background:#f5f5f5;text-align:left}
       h2{margin-bottom:1rem}</style></head><body>`);

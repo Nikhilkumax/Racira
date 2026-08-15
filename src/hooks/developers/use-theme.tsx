@@ -4,7 +4,7 @@ import { useEffect, useState, useCallback } from "react";
 
 type Theme = "dark" | "light";
 
-const STORAGE_KEY = "devforge-theme";
+const STORAGE_KEY = "racira-developers-theme";
 
 function applyTheme(theme: Theme) {
   if (typeof document === "undefined") return;

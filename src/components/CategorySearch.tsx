@@ -4,7 +4,19 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { Search, ChevronRight } from "lucide-react";
 import { trackSearchImpression, trackComingSoonClick } from "@/lib/analytics";
+import { CALCULATOR_STUB_SLUGS } from "@/lib/tools/calculatorStubSlugs";
+import { isComponentGatedDomain } from "@/lib/tools/liveToolFilters";
 import { toSlug } from "@/lib/utils/slug";
+
+// Never surface stub tools in search: hide "soon" entries, known calculator stubs,
+// and whole domains whose tool pages render "coming soon" regardless of status.
+const stubSlugs = new Set<string>(CALCULATOR_STUB_SLUGS);
+function isSearchable(r: ToolResult, categorySlug: string): boolean {
+  if (isComponentGatedDomain(categorySlug)) return false;
+  if (r.isBuilt === false) return false;
+  if (stubSlugs.has(r.slug)) return false;
+  return true;
+}
 
 export interface ToolResult {
   name: string;
@@ -48,9 +60,10 @@ export const CategorySearch = ({ categorySlug, placeholder, registry }: Category
   }, []);
 
   const normalizedQuery = query.toLowerCase().trim();
+  const liveRegistry = registry.filter((r) => isSearchable(r, categorySlug));
   
-  const results = normalizedQuery.length >= 1 && registry.length > 0
-    ? registry
+  const results = normalizedQuery.length >= 1 && liveRegistry.length > 0
+    ? liveRegistry
         .filter(c => 
           c.name.toLowerCase().includes(normalizedQuery) || 
           (c.description && c.description.toLowerCase().includes(normalizedQuery)) ||
@@ -92,7 +105,7 @@ export const CategorySearch = ({ categorySlug, placeholder, registry }: Category
       }, 500);
       return () => clearTimeout(timer);
     }
-  }, [query, open, results.length, normalizedQuery.length]);
+  }, [query, open, results.length, normalizedQuery.length, liveRegistry.length]);
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {

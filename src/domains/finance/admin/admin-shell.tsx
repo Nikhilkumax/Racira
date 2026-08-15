@@ -7,11 +7,11 @@ import { Toaster } from "sonner";
 import type { ReactNode } from "react";
 
 const nav = [
-  { to: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true },
-  { to: "/admin/posts", label: "Posts", icon: FileText, exact: false },
-  { to: "/admin/categories", label: "Categories", icon: FolderTree, exact: false },
-  { to: "/admin/tags", label: "Tags", icon: Tag, exact: false },
-  { to: "/admin/media", label: "Media", icon: Image, exact: false },
+  { to: "/finance/admin", label: "Dashboard", icon: LayoutDashboard, exact: true },
+  { to: "/finance/admin/posts", label: "Posts", icon: FileText, exact: false },
+  { to: "/finance/admin/categories", label: "Categories", icon: FolderTree, exact: false },
+  { to: "/finance/admin/tags", label: "Tags", icon: Tag, exact: false },
+  { to: "/finance/admin/media", label: "Media", icon: Image, exact: false },
 ] as const;
 
 export function AdminShell({ children }: { children: ReactNode }) {

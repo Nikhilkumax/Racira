@@ -7,6 +7,7 @@ import { ArrowLeft, Sparkles, ChevronRight } from "lucide-react";
 import { ToolRenderer } from "@/domains/3d/components/tools/ToolRenderer";
 import { CATEGORIES, TOOLS_BY_SLUG } from "@/domains/3d/registry";
 import { toSlug } from "@/lib/utils/slug";
+import { isLiveTool } from "@/lib/tools/liveToolFilters";
 import { SubcategoryCard } from "@/components/shared/SubcategoryCard";
 import { inferIcon } from "@/components/shared/icon-map";
 import ToolPageHeader from "@/components/tools/shared/ToolPageHeader";
@@ -91,7 +92,7 @@ function CategoryView({ category }: { category: typeof CATEGORIES[0] }) {
 
       <div className="racira-page-container pb-16 w-full">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {category.tools.map((tool: any) => {
+          {category.tools.filter((t) => isLiveTool(t, "3d")).map((tool: any) => {
             const Icon = tool.icon || inferIcon(tool.name, tool.slug);
             return (
               <SubcategoryCard

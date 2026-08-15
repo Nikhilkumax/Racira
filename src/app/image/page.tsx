@@ -19,7 +19,6 @@ function slugify(s: string) {
 }
 
 export default function ImagePage() {
-  const totalCount = categories.reduce((sum, cat) => sum + cat.tools.length, 0);
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
@@ -29,7 +28,7 @@ export default function ImagePage() {
         <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
           <div className="racira-page-container text-center">
             <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
-              {totalCount}+ Free Image Tools —{" "}
+              Free Image Tools —{" "}
               <span className="hero-gradient-text">Convert & Edit Fast</span>
             </h1>
             <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
@@ -57,7 +56,7 @@ export default function ImagePage() {
       </main>
 
       <footer className="border-t border-border py-8 text-center text-sm text-muted-foreground">
-        Racira Image — {totalCount} free image tools. Runs entirely in your browser.
+        Racira Image — free, in-browser image tools. Runs entirely in your browser.
       </footer>
     </div>
   );

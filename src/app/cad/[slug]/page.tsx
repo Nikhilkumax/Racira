@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, Sparkles, ChevronRight, Hammer } from "lucide-react";
 import { categories, TOOLS_BY_SLUG, totalCount } from "@/domains/cad/registry";
 import { toSlug } from "@/lib/utils/slug";
+import { isLiveTool } from "@/lib/tools/liveToolFilters";
 import { SubcategoryCard } from "@/components/shared/SubcategoryCard";
 import { inferIcon } from "@/components/shared/icon-map";
 import Header from "@/components/Header";
@@ -91,7 +92,7 @@ function CategoryView({ category }: { category: typeof categories[0] }) {
 
         <div className="racira-page-container pb-16 w-full">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {category.tools.map((tool: any) => {
+            {category.tools.filter((t) => isLiveTool(t, "cad")).map((tool: any) => {
               const Icon = tool.icon || inferIcon(tool.name, tool.slug);
               return (
                 <SubcategoryCard

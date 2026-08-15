@@ -13,23 +13,11 @@ import {
   Pen,
   Search,
   Code,
-  Briefcase,
   LineChart,
   CheckSquare,
   Gamepad2,
-  GraduationCap,
   Box,
   Compass,
-  Dumbbell,
-  Music,
-  Database,
-  Wrench,
-  Plane,
-  Bitcoin,
-  Shield,
-  Network,
-  Presentation,
-  MapPin,
   type LucideIcon,
 } from "lucide-react";
 
@@ -48,23 +36,11 @@ export type CategorySlug =
   | "writing"
   | "seo"
   | "developers"
-  | "business"
   | "finance"
   | "productivity"
   | "games"
-  | "education"
   | "3d"
-  | "cad"
-  | "fitness"
-  | "music"
-  | "insight"
-  | "engineering"
-  | "travel"
-  | "crypto"
-  | "security"
-  | "flowchart"
-  | "presentation"
-  | "maps";
+  | "cad";
 
 export interface Category {
   slug: CategorySlug;
@@ -218,16 +194,6 @@ export const categories: Category[] = [
     highlights: ["Format", "Validate", "Convert", "Debug"],
   },
   {
-    slug: "business",
-    title: "Business Tools",
-    tagline: "OPERATIONS, SIMPLIFIED.",
-    description:
-      "Manage invoices, proposals, reports, and business workflows without leaving your browser.",
-    icon: Briefcase,
-    status: "active",
-    highlights: ["Invoices", "Reports", "Proposals", "Templates"],
-  },
-  {
     slug: "finance",
     title: "Finance Tools",
     tagline: "MONEY, CALCULATED.",
@@ -258,16 +224,6 @@ export const categories: Category[] = [
     highlights: ["Puzzle", "Arcade", "Strategy", "Word"],
   },
   {
-    slug: "education",
-    title: "Education Tools",
-    tagline: "KNOWLEDGE, BUILT.",
-    description:
-      "Learn, practice, and master subjects with interactive educational tools and calculators.",
-    icon: GraduationCap,
-    status: "active",
-    highlights: ["Math", "Science", "Language", "Quiz"],
-  },
-  {
     slug: "3d",
     title: "3D Tools",
     tagline: "DIMENSIONS, EXPLORED.",
@@ -286,106 +242,6 @@ export const categories: Category[] = [
     icon: Compass,
     status: "active",
     highlights: ["Draft", "Blueprint", "Measure", "Export"],
-  },
-  {
-    slug: "fitness",
-    title: "Fitness Tools",
-    tagline: "HEALTH, TRACKED.",
-    description:
-      "Calculate calories, macros, BMI, and fitness metrics with tools built for real results.",
-    icon: Dumbbell,
-    status: "active",
-    highlights: ["Calories", "BMI", "Macros", "Workout"],
-  },
-  {
-    slug: "music",
-    title: "Music Tools",
-    tagline: "MUSIC, MADE.",
-    description:
-      "Create beats, compose melodies, and work with audio theory entirely in your browser.",
-    icon: Music,
-    status: "active",
-    highlights: ["Beats", "Compose", "Theory", "BPM"],
-  },
-  {
-    slug: "insight",
-    title: "Data Tools",
-    tagline: "DATA, VISUALIZED.",
-    description:
-      "Build charts, clean datasets, and explore data visually with browser-based data tools.",
-    icon: Database,
-    status: "active",
-    highlights: ["Charts", "CSV", "Visualize", "Analyze"],
-  },
-  {
-    slug: "engineering",
-    title: "Engineering Tools",
-    tagline: "PROBLEMS, SOLVED.",
-    description:
-      "Solve complex engineering calculations across mechanical, civil, and electrical domains.",
-    icon: Wrench,
-    status: "active",
-    highlights: ["Mechanical", "Civil", "Electrical", "Units"],
-  },
-  {
-    slug: "travel",
-    title: "Travel Tools",
-    tagline: "JOURNEYS, PLANNED.",
-    description:
-      "Plan trips, convert currencies, calculate distances, and explore destinations effortlessly.",
-    icon: Plane,
-    status: "active",
-    highlights: ["Currency", "Distance", "Time Zones", "Packing"],
-  },
-  {
-    slug: "crypto",
-    title: "Crypto Tools",
-    tagline: "BLOCKCHAIN, DECODED.",
-    description:
-      "Calculate crypto returns, convert tokens, and analyze blockchain data in real time.",
-    icon: Bitcoin,
-    status: "active",
-    highlights: ["Convert", "Returns", "Gas", "Wallet"],
-  },
-  {
-    slug: "security",
-    title: "Security Tools",
-    tagline: "PRIVACY, PROTECTED.",
-    description:
-      "Encrypt files, generate passwords, and test security with a full browser-based privacy toolkit.",
-    icon: Shield,
-    status: "active",
-    highlights: ["Encrypt", "Passwords", "Hashing", "Privacy"],
-  },
-  {
-    slug: "flowchart",
-    title: "Diagram Tools",
-    tagline: "FLOWS, MAPPED.",
-    description:
-      "Build flowcharts, wireframes, org charts, and diagrams with intuitive browser-based tools.",
-    icon: Network,
-    status: "active",
-    highlights: ["Flowchart", "Wireframe", "Org Chart", "Export"],
-  },
-  {
-    slug: "presentation",
-    title: "Presentation Tools",
-    tagline: "SLIDES, CRAFTED.",
-    description:
-      "Design, build, and export professional presentations without any software installation.",
-    icon: Presentation,
-    status: "active",
-    highlights: ["Slides", "Templates", "Export", "Animate"],
-  },
-  {
-    slug: "maps",
-    title: "Maps",
-    tagline: "PLACES, EXPLORED.",
-    description:
-      "Explore maps, calculate distances, and work with geographic data directly in your browser.",
-    icon: MapPin,
-    status: "active",
-    highlights: ["Maps", "Distance", "GIS", "Coordinates"],
   },
 ];
 

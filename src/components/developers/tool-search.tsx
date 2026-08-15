@@ -4,6 +4,7 @@ import { useState, useRef, useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { Search, X, CornerDownLeft, ArrowUp, ArrowDown } from "lucide-react";
 import { tools, categories, categorySlug, type Tool } from "@/domains/developers/registry";
+import { isLiveTool } from "@/lib/tools/liveToolFilters";
 import { fuzzyScore } from "@/lib/developers/fuzzy";
 import { cn } from "@/lib/utils";
 
@@ -44,9 +45,9 @@ export function ToolSearch() {
   }, []);
 
   const results = useMemo<Scored[]>(() => {
-    const pool = activeCategory
+    const pool = (activeCategory
       ? tools.filter((t) => t.category === activeCategory)
-      : tools;
+      : tools).filter((t) => isLiveTool(t, "developers"));
 
     if (!query.trim()) {
       return pool.map((tool) => ({ tool, score: 0 }));

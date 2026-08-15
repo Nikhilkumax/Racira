@@ -5,6 +5,7 @@ import { SubcategoryCard } from "@/components/shared/SubcategoryCard";
 import {
   getCategories,
   SEARCH_REGISTRY,
+  slugify,
 } from "@/domains/games/registry";
 
 export const metadata: Metadata = {
@@ -24,7 +25,7 @@ export default function GamesPage() {
       <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
         <div className="racira-page-container text-center">
           <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
-            500+ Free Games —{" "}
+            47 Free Games —{" "}
             <span className="hero-gradient-text">Casual, Logic & Puzzles</span>
           </h1>
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
@@ -76,9 +77,8 @@ export default function GamesPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {cat.subcategories.map(sub => {
                   const Icon = sub.icon;
-                  // We need to slugify both the category name and the subcategory name
-                  const catSlug = cat.name.toLowerCase().replace(/['"]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
-                  const subSlug = sub.name.toLowerCase().replace(/['"]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+                  // Must match the slug scheme used by /games/[slug] (toSlug: "&" -> "and", etc.)
+                  const subSlug = slugify(sub.name);
                   return (
                     <SubcategoryCard
                       key={sub.name}

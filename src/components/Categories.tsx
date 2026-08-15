@@ -155,7 +155,7 @@ export default function Categories() {
         Hidden cards — height clipping container reveals them on expand.
         Same grid config for visual continuity.
         [grid-auto-rows:auto] prevents phantom height on the incomplete
-        last row (31 cards → 3 in last row of 4-col grid).
+        last row (19 cards → 3 in last row of 4-col grid).
       */}
       <div
         ref={expandRef}
@@ -186,7 +186,7 @@ export default function Categories() {
             </>
           ) : (
             <>
-              View All 31 Categories <ChevronDown className="ml-2 h-4 w-4" />
+              View All 19 Categories <ChevronDown className="ml-2 h-4 w-4" />
             </>
           )}
         </Button>

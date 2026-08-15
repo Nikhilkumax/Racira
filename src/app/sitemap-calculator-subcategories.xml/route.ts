@@ -9,7 +9,7 @@ export async function GET() {
 
   CATEGORY_SUMMARY.forEach(c => {
     const catSlug = toSlug(c.category);
-    c.subcategories.forEach(sub => {
+    c.subcategories.filter(sub => sub.count > 0).forEach(sub => {
       const subSlug = toSlug(sub.name);
       xml += `
   <url>

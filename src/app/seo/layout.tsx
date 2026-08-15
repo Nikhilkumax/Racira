@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Providers } from "@/domains/seo/components/providers";
+import { LegalLinks } from "@/components/LegalLinks";
 
 export const metadata: Metadata = {
   title: "Racira SEO — All SEO Tools You Need, Fast, Simple & Free",
@@ -21,6 +22,9 @@ export default function RootLayout({
         <Providers>
           {children}
         </Providers>
+        <footer className="border-t border-border/60 py-8">
+          <LegalLinks />
+        </footer>
       </>
     
   );

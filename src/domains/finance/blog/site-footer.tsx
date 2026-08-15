@@ -1,4 +1,5 @@
 ﻿import Link from "next/link";
+import { LegalLinks } from "@/components/LegalLinks";
 import { site } from "@/domains/finance/lib/site";
 import { listCategories } from "@/domains/finance/data/taxonomy";
 
@@ -21,7 +22,7 @@ export function SiteFooter() {
           <ul className="space-y-2 text-sm text-muted-foreground">
             {cats.map((c) => (
               <li key={c.id}>
-                <Link href={`/category/${c.slug}`} className="hover:text-foreground">
+                <Link href={`/finance/category/${c.slug}`} className="hover:text-foreground">
                   {c.name}
                 </Link>
               </li>
@@ -33,13 +34,14 @@ export function SiteFooter() {
           <ul className="space-y-2 text-sm text-muted-foreground">
             <li><Link href="/about" className="hover:text-foreground">About</Link></li>
             <li><Link href="/contact" className="hover:text-foreground">Contact</Link></li>
-            <li><Link href="/admin" className="hover:text-foreground">Admin</Link></li>
+            <li><Link href="/finance/admin" className="hover:text-foreground">Admin</Link></li>
           </ul>
         </div>
       </div>
       <div className="border-t border-border/60">
-        <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-2 px-4 py-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:px-6 lg:px-8">
+        <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-3 px-4 py-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:px-6 lg:px-8">
           <p>© {new Date().getFullYear()} {site.name}. All rights reserved.</p>
+          <LegalLinks />
           <p>Editorial independence. No paid placements.</p>
         </div>
       </div>

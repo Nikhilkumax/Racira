@@ -5,8 +5,14 @@ import Link from "next/link";
 import { Search, Calculator } from "lucide-react";
 import type { CalculatorDef } from "@/domains/calculator/registry";
 import { trackSearchImpression, trackComingSoonClick } from "@/lib/analytics";
-
+import { CALCULATOR_STUB_SLUGS } from "@/lib/tools/calculatorStubSlugs";
 import { toSlug } from "@/lib/utils/slug";
+
+// Only genuinely-built calculators are searchable — no "soon" entries, no stub-tagged-live.
+const stubSlugs = new Set<string>(CALCULATOR_STUB_SLUGS);
+function isSearchable(c: CalculatorDef): boolean {
+  return c.status === "live" && !stubSlugs.has(c.slug);
+}
 
 const formatCategory = (cat: string | undefined) => {
   if (!cat) return 'General';
@@ -53,6 +59,7 @@ const SearchCalculators = () => {
   
   const results = normalizedQuery.length >= 1 && registry.length > 0
     ? registry
+        .filter(isSearchable)
         .filter(c =>
           c.name?.toLowerCase().includes(normalizedQuery) ||
           c.description?.toLowerCase().includes(normalizedQuery) ||
@@ -60,12 +67,6 @@ const SearchCalculators = () => {
           (c.subcategory && c.subcategory.toLowerCase().includes(normalizedQuery))
         )
         .sort((a, b) => {
-          // Priority 0: Built vs Unbuilt
-          const aBuilt = a.status === "live";
-          const bBuilt = b.status === "live";
-          if (aBuilt && !bBuilt) return -1;
-          if (!aBuilt && bBuilt) return 1;
-
           const aName = a.name.toLowerCase();
           const bName = b.name.toLowerCase();
           
@@ -129,7 +130,7 @@ const SearchCalculators = () => {
             setOpen(true);
             handleLoadRegistry();
           }}
-          placeholder="Search 11,000+ calculators..."
+          placeholder="Search 1,000+ calculators..."
           className="w-full h-11 pl-10 pr-16 rounded-lg border border-border bg-card text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/40 transition-shadow"
           aria-label="Search calculators"
         />

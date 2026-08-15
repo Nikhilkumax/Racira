@@ -5,9 +5,11 @@ import { notFound } from "next/navigation";
 import { ChevronRight, Construction, Sparkles } from "lucide-react";
 import { categories, allTools, findTool } from "@/domains/design/registry";
 import { toSlug } from "@/lib/utils/slug";
+import { isLiveTool } from "@/lib/tools/liveToolFilters";
 import { inferIcon } from "@/components/shared/icon-map";
 import Header from "@/components/Header";
 import ToolPageHeader from "@/components/tools/shared/ToolPageHeader";
+import { LegalLinks } from "@/components/LegalLinks";
 
 type PageProps = { params: Promise<{ slug: string }> };
 
@@ -49,7 +51,7 @@ function CategoryView({ category }: { category: typeof categories[0] }) {
         </section>
         <div className="racira-page-container pb-16">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {category.tools.map((tool: any) => {
+            {category.tools.filter((t) => isLiveTool(t, "design")).map((tool: any) => {
               const Icon = tool.icon || inferIcon(tool.name, tool.slug);
               return (
                 <Link key={tool.slug} href={`/design/${tool.slug}`} className="tool-card group hover:-translate-y-[3px]">
@@ -64,6 +66,9 @@ function CategoryView({ category }: { category: typeof categories[0] }) {
           </div>
         </div>
       </main>
+      <footer className="border-t border-border/60 py-8">
+        <LegalLinks />
+      </footer>
     </div>
   );
 }
@@ -100,6 +105,9 @@ function ToolView({ tool, categoryName }: { tool: any; categoryName: string }) {
           )}
         </div>
       </main>
+      <footer className="border-t border-border/60 py-8">
+        <LegalLinks />
+      </footer>
     </div>
   );
 }

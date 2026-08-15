@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Header from "@/components/Header";
+import { LegalLinks } from "@/components/LegalLinks";
 import { type ReactNode } from "react";
 
 export function SiteShell({ children }: { children: ReactNode }) {
@@ -12,6 +13,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
       <footer className="border-t border-border py-8 mt-16">
         <div className="racira-page-container text-center text-xs text-muted-foreground">
           © {new Date().getFullYear()} Racira 3D &amp; Print — Free browser tools for 3D and print workflows.
+          <LegalLinks className="mt-4" />
         </div>
       </footer>
     </div>

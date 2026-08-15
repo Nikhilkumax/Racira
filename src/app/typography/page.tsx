@@ -2,6 +2,7 @@ import { CategorySearch } from "@/components/CategorySearch";
 import Link from "next/link";
 import Header from "@/components/Header";
 import { categories, SEARCH_REGISTRY } from "@/domains/typography/registry";
+import { isLiveTool } from "@/lib/tools/liveToolFilters";
 import { SiteFooter } from "@/components/typography/site-header";
 import { ArrowRight, Sparkles, Search } from "lucide-react";
 import { Metadata } from "next";
@@ -24,7 +25,7 @@ export default function Index() {
                 <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
           <div className="racira-page-container text-center">
             <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
-              108 Free Typography Tools —{" "}
+              Free Typography Tools —{" "}
               <span className="hero-gradient-text">Fonts, Scales & Pairings</span>
             </h1>
             <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
@@ -41,10 +42,10 @@ export default function Index() {
                 <h2 className="text-xs font-semibold tracking-[0.18em] text-muted-foreground uppercase">
                   {cat.name}
                 </h2>
-                <span className="text-xs text-muted-foreground">{cat.tools.length} tools</span>
+                <span className="text-xs text-muted-foreground">{cat.tools.filter((t) => isLiveTool(t, "typography")).length} tools</span>
               </div>
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                {cat.tools.map((tool) => {
+                {cat.tools.filter((t) => isLiveTool(t, "typography")).map((tool) => {
                   const Icon = (tool as any).icon as React.ComponentType<{ className?: string }>;
                   const isLive = (tool as any).status === "live";
                   return (

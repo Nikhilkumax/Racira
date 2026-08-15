@@ -29,7 +29,7 @@ export default function Index() {
             <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
         <div className="racira-page-container text-center">
           <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
-            74 Free Productivity Tools —{" "}
+            Free Productivity Tools —{" "}
             <span className="hero-gradient-text">Timers, Planners & Trackers</span>
           </h1>
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
